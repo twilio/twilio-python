@@ -37,21 +37,17 @@ class InviteList(ListResource):
 
     def create(self, identity, role_sid=values.unset):
         """
-        Create a new InviteInstance
+        Create the InviteInstance
 
         :param unicode identity: The `identity` value that identifies the new resource's User
         :param unicode role_sid: The Role assigned to the new member
 
-        :returns: Newly created InviteInstance
+        :returns: The created InviteInstance
         :rtype: twilio.rest.chat.v1.service.channel.invite.InviteInstance
         """
         data = values.of({'Identity': identity, 'RoleSid': role_sid, })
 
-        payload = self._version.create(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data, )
 
         return InviteInstance(
             self._version,
@@ -117,18 +113,14 @@ class InviteList(ListResource):
         :returns: Page of InviteInstance
         :rtype: twilio.rest.chat.v1.service.channel.invite.InvitePage
         """
-        params = values.of({
+        data = values.of({
             'Identity': serialize.map(identity, lambda e: e),
             'PageToken': page_token,
             'Page': page_number,
             'PageSize': page_size,
         })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return InvitePage(self._version, response, self._solution)
 
@@ -260,18 +252,12 @@ class InviteContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a InviteInstance
+        Fetch the InviteInstance
 
-        :returns: Fetched InviteInstance
+        :returns: The fetched InviteInstance
         :rtype: twilio.rest.chat.v1.service.channel.invite.InviteInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return InviteInstance(
             self._version,
@@ -288,7 +274,7 @@ class InviteContext(InstanceContext):
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete('delete', self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri, )
 
     def __repr__(self):
         """
@@ -435,9 +421,9 @@ class InviteInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a InviteInstance
+        Fetch the InviteInstance
 
-        :returns: Fetched InviteInstance
+        :returns: The fetched InviteInstance
         :rtype: twilio.rest.chat.v1.service.channel.invite.InviteInstance
         """
         return self._proxy.fetch()

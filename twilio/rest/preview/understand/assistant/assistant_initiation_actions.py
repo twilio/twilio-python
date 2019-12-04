@@ -137,18 +137,12 @@ class AssistantInitiationActionsContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a AssistantInitiationActionsInstance
+        Fetch the AssistantInitiationActionsInstance
 
-        :returns: Fetched AssistantInitiationActionsInstance
+        :returns: The fetched AssistantInitiationActionsInstance
         :rtype: twilio.rest.preview.understand.assistant.assistant_initiation_actions.AssistantInitiationActionsInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return AssistantInitiationActionsInstance(
             self._version,
@@ -162,16 +156,12 @@ class AssistantInitiationActionsContext(InstanceContext):
 
         :param dict initiation_actions: The initiation_actions
 
-        :returns: Updated AssistantInitiationActionsInstance
+        :returns: The updated AssistantInitiationActionsInstance
         :rtype: twilio.rest.preview.understand.assistant.assistant_initiation_actions.AssistantInitiationActionsInstance
         """
         data = values.of({'InitiationActions': serialize.object(initiation_actions), })
 
-        payload = self._version.update(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.update(method='POST', uri=self._uri, data=data, )
 
         return AssistantInitiationActionsInstance(
             self._version,
@@ -266,9 +256,9 @@ class AssistantInitiationActionsInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a AssistantInitiationActionsInstance
+        Fetch the AssistantInitiationActionsInstance
 
-        :returns: Fetched AssistantInitiationActionsInstance
+        :returns: The fetched AssistantInitiationActionsInstance
         :rtype: twilio.rest.preview.understand.assistant.assistant_initiation_actions.AssistantInitiationActionsInstance
         """
         return self._proxy.fetch()
@@ -279,7 +269,7 @@ class AssistantInitiationActionsInstance(InstanceResource):
 
         :param dict initiation_actions: The initiation_actions
 
-        :returns: Updated AssistantInitiationActionsInstance
+        :returns: The updated AssistantInitiationActionsInstance
         :rtype: twilio.rest.preview.understand.assistant.assistant_initiation_actions.AssistantInitiationActionsInstance
         """
         return self._proxy.update(initiation_actions=initiation_actions, )

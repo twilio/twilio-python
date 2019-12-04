@@ -88,13 +88,9 @@ class SyncListPermissionList(ListResource):
         :returns: Page of SyncListPermissionInstance
         :rtype: twilio.rest.sync.v1.service.sync_list.sync_list_permission.SyncListPermissionPage
         """
-        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
+        data = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return SyncListPermissionPage(self._version, response, self._solution)
 
@@ -228,18 +224,12 @@ class SyncListPermissionContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a SyncListPermissionInstance
+        Fetch the SyncListPermissionInstance
 
-        :returns: Fetched SyncListPermissionInstance
+        :returns: The fetched SyncListPermissionInstance
         :rtype: twilio.rest.sync.v1.service.sync_list.sync_list_permission.SyncListPermissionInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return SyncListPermissionInstance(
             self._version,
@@ -256,7 +246,7 @@ class SyncListPermissionContext(InstanceContext):
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete('delete', self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri, )
 
     def update(self, read, write, manage):
         """
@@ -266,16 +256,12 @@ class SyncListPermissionContext(InstanceContext):
         :param bool write: Write access
         :param bool manage: Manage access
 
-        :returns: Updated SyncListPermissionInstance
+        :returns: The updated SyncListPermissionInstance
         :rtype: twilio.rest.sync.v1.service.sync_list.sync_list_permission.SyncListPermissionInstance
         """
         data = values.of({'Read': read, 'Write': write, 'Manage': manage, })
 
-        payload = self._version.update(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.update(method='POST', uri=self._uri, data=data, )
 
         return SyncListPermissionInstance(
             self._version,
@@ -413,9 +399,9 @@ class SyncListPermissionInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a SyncListPermissionInstance
+        Fetch the SyncListPermissionInstance
 
-        :returns: Fetched SyncListPermissionInstance
+        :returns: The fetched SyncListPermissionInstance
         :rtype: twilio.rest.sync.v1.service.sync_list.sync_list_permission.SyncListPermissionInstance
         """
         return self._proxy.fetch()
@@ -437,7 +423,7 @@ class SyncListPermissionInstance(InstanceResource):
         :param bool write: Write access
         :param bool manage: Manage access
 
-        :returns: Updated SyncListPermissionInstance
+        :returns: The updated SyncListPermissionInstance
         :rtype: twilio.rest.sync.v1.service.sync_list.sync_list_permission.SyncListPermissionInstance
         """
         return self._proxy.update(read, write, manage, )

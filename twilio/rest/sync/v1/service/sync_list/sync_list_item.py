@@ -39,14 +39,14 @@ class SyncListItemList(ListResource):
     def create(self, data, ttl=values.unset, item_ttl=values.unset,
                collection_ttl=values.unset):
         """
-        Create a new SyncListItemInstance
+        Create the SyncListItemInstance
 
         :param dict data: A JSON string that represents an arbitrary, schema-less object that the List Item stores
         :param unicode ttl: An alias for item_ttl
         :param unicode item_ttl: How long, in seconds, before the List Item expires
         :param unicode collection_ttl: How long, in seconds, before the List Item's parent Sync List expires
 
-        :returns: Newly created SyncListItemInstance
+        :returns: The created SyncListItemInstance
         :rtype: twilio.rest.sync.v1.service.sync_list.sync_list_item.SyncListItemInstance
         """
         data = values.of({
@@ -56,11 +56,7 @@ class SyncListItemList(ListResource):
             'CollectionTtl': collection_ttl,
         })
 
-        payload = self._version.create(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data, )
 
         return SyncListItemInstance(
             self._version,
@@ -135,7 +131,7 @@ class SyncListItemList(ListResource):
         :returns: Page of SyncListItemInstance
         :rtype: twilio.rest.sync.v1.service.sync_list.sync_list_item.SyncListItemPage
         """
-        params = values.of({
+        data = values.of({
             'Order': order,
             'From': from_,
             'Bounds': bounds,
@@ -144,11 +140,7 @@ class SyncListItemList(ListResource):
             'PageSize': page_size,
         })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return SyncListItemPage(self._version, response, self._solution)
 
@@ -282,18 +274,12 @@ class SyncListItemContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a SyncListItemInstance
+        Fetch the SyncListItemInstance
 
-        :returns: Fetched SyncListItemInstance
+        :returns: The fetched SyncListItemInstance
         :rtype: twilio.rest.sync.v1.service.sync_list.sync_list_item.SyncListItemInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return SyncListItemInstance(
             self._version,
@@ -310,7 +296,7 @@ class SyncListItemContext(InstanceContext):
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete('delete', self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri, )
 
     def update(self, data=values.unset, ttl=values.unset, item_ttl=values.unset,
                collection_ttl=values.unset):
@@ -322,7 +308,7 @@ class SyncListItemContext(InstanceContext):
         :param unicode item_ttl: How long, in seconds, before the List Item expires
         :param unicode collection_ttl: How long, in seconds, before the List Item's parent Sync List expires
 
-        :returns: Updated SyncListItemInstance
+        :returns: The updated SyncListItemInstance
         :rtype: twilio.rest.sync.v1.service.sync_list.sync_list_item.SyncListItemInstance
         """
         data = values.of({
@@ -332,11 +318,7 @@ class SyncListItemContext(InstanceContext):
             'CollectionTtl': collection_ttl,
         })
 
-        payload = self._version.update(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.update(method='POST', uri=self._uri, data=data, )
 
         return SyncListItemInstance(
             self._version,
@@ -509,9 +491,9 @@ class SyncListItemInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a SyncListItemInstance
+        Fetch the SyncListItemInstance
 
-        :returns: Fetched SyncListItemInstance
+        :returns: The fetched SyncListItemInstance
         :rtype: twilio.rest.sync.v1.service.sync_list.sync_list_item.SyncListItemInstance
         """
         return self._proxy.fetch()
@@ -535,7 +517,7 @@ class SyncListItemInstance(InstanceResource):
         :param unicode item_ttl: How long, in seconds, before the List Item expires
         :param unicode collection_ttl: How long, in seconds, before the List Item's parent Sync List expires
 
-        :returns: Updated SyncListItemInstance
+        :returns: The updated SyncListItemInstance
         :rtype: twilio.rest.sync.v1.service.sync_list.sync_list_item.SyncListItemInstance
         """
         return self._proxy.update(data=data, ttl=ttl, item_ttl=item_ttl, collection_ttl=collection_ttl, )

@@ -104,7 +104,7 @@ class UsageRecordList(ListResource):
         :returns: Page of UsageRecordInstance
         :rtype: twilio.rest.wireless.v1.sim.usage_record.UsageRecordPage
         """
-        params = values.of({
+        data = values.of({
             'End': serialize.iso8601_datetime(end),
             'Start': serialize.iso8601_datetime(start),
             'Granularity': granularity,
@@ -113,11 +113,7 @@ class UsageRecordList(ListResource):
             'PageSize': page_size,
         })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return UsageRecordPage(self._version, response, self._solution)
 

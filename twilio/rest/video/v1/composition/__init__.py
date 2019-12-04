@@ -120,7 +120,7 @@ class CompositionList(ListResource):
         :returns: Page of CompositionInstance
         :rtype: twilio.rest.video.v1.composition.CompositionPage
         """
-        params = values.of({
+        data = values.of({
             'Status': status,
             'DateCreatedAfter': serialize.iso8601_datetime(date_created_after),
             'DateCreatedBefore': serialize.iso8601_datetime(date_created_before),
@@ -130,11 +130,7 @@ class CompositionList(ListResource):
             'PageSize': page_size,
         })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return CompositionPage(self._version, response, self._solution)
 
@@ -161,7 +157,7 @@ class CompositionList(ListResource):
                status_callback=values.unset, status_callback_method=values.unset,
                trim=values.unset):
         """
-        Create a new CompositionInstance
+        Create the CompositionInstance
 
         :param unicode room_sid: The SID of the Group Room with the media tracks to be used as composition sources
         :param dict video_layout: An object that describes the video layout of the composition
@@ -173,7 +169,7 @@ class CompositionList(ListResource):
         :param unicode status_callback_method: The HTTP method we should use to call status_callback
         :param bool trim: Whether to clip the intervals where there is no active media in the composition
 
-        :returns: Newly created CompositionInstance
+        :returns: The created CompositionInstance
         :rtype: twilio.rest.video.v1.composition.CompositionInstance
         """
         data = values.of({
@@ -188,11 +184,7 @@ class CompositionList(ListResource):
             'Trim': trim,
         })
 
-        payload = self._version.create(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data, )
 
         return CompositionInstance(self._version, payload, )
 
@@ -292,18 +284,12 @@ class CompositionContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a CompositionInstance
+        Fetch the CompositionInstance
 
-        :returns: Fetched CompositionInstance
+        :returns: The fetched CompositionInstance
         :rtype: twilio.rest.video.v1.composition.CompositionInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return CompositionInstance(self._version, payload, sid=self._solution['sid'], )
 
@@ -314,7 +300,7 @@ class CompositionContext(InstanceContext):
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete('delete', self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri, )
 
     def __repr__(self):
         """
@@ -537,9 +523,9 @@ class CompositionInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a CompositionInstance
+        Fetch the CompositionInstance
 
-        :returns: Fetched CompositionInstance
+        :returns: The fetched CompositionInstance
         :rtype: twilio.rest.video.v1.composition.CompositionInstance
         """
         return self._proxy.fetch()

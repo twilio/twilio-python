@@ -90,13 +90,9 @@ class FieldList(ListResource):
         :returns: Page of FieldInstance
         :rtype: twilio.rest.preview.understand.assistant.task.field.FieldPage
         """
-        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
+        data = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return FieldPage(self._version, response, self._solution)
 
@@ -119,21 +115,17 @@ class FieldList(ListResource):
 
     def create(self, field_type, unique_name):
         """
-        Create a new FieldInstance
+        Create the FieldInstance
 
         :param unicode field_type: The unique name or sid of the FieldType. It can be any Built-in Field Type or the unique_name or sid of a custom Field Type.
         :param unicode unique_name: A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
 
-        :returns: Newly created FieldInstance
+        :returns: The created FieldInstance
         :rtype: twilio.rest.preview.understand.assistant.task.field.FieldInstance
         """
         data = values.of({'FieldType': field_type, 'UniqueName': unique_name, })
 
-        payload = self._version.create(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data, )
 
         return FieldInstance(
             self._version,
@@ -257,18 +249,12 @@ class FieldContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a FieldInstance
+        Fetch the FieldInstance
 
-        :returns: Fetched FieldInstance
+        :returns: The fetched FieldInstance
         :rtype: twilio.rest.preview.understand.assistant.task.field.FieldInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return FieldInstance(
             self._version,
@@ -285,7 +271,7 @@ class FieldContext(InstanceContext):
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete('delete', self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri, )
 
     def __repr__(self):
         """
@@ -425,9 +411,9 @@ class FieldInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a FieldInstance
+        Fetch the FieldInstance
 
-        :returns: Fetched FieldInstance
+        :returns: The fetched FieldInstance
         :rtype: twilio.rest.preview.understand.assistant.task.field.FieldInstance
         """
         return self._proxy.fetch()

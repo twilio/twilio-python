@@ -120,7 +120,7 @@ class NotificationList(ListResource):
         :returns: Page of NotificationInstance
         :rtype: twilio.rest.api.v2010.account.call.notification.NotificationPage
         """
-        params = values.of({
+        data = values.of({
             'Log': log,
             'MessageDate<': serialize.iso8601_date(message_date_before),
             'MessageDate': serialize.iso8601_date(message_date),
@@ -130,11 +130,7 @@ class NotificationList(ListResource):
             'PageSize': page_size,
         })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return NotificationPage(self._version, response, self._solution)
 
@@ -266,18 +262,12 @@ class NotificationContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a NotificationInstance
+        Fetch the NotificationInstance
 
-        :returns: Fetched NotificationInstance
+        :returns: The fetched NotificationInstance
         :rtype: twilio.rest.api.v2010.account.call.notification.NotificationInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return NotificationInstance(
             self._version,
@@ -294,7 +284,7 @@ class NotificationContext(InstanceContext):
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete('delete', self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri, )
 
     def __repr__(self):
         """
@@ -504,9 +494,9 @@ class NotificationInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a NotificationInstance
+        Fetch the NotificationInstance
 
-        :returns: Fetched NotificationInstance
+        :returns: The fetched NotificationInstance
         :rtype: twilio.rest.api.v2010.account.call.notification.NotificationInstance
         """
         return self._proxy.fetch()

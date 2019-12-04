@@ -126,21 +126,17 @@ class UsageContext(InstanceContext):
 
     def fetch(self, end=values.unset, start=values.unset):
         """
-        Fetch a UsageInstance
+        Fetch the UsageInstance
 
         :param unicode end: The end
         :param unicode start: The start
 
-        :returns: Fetched UsageInstance
+        :returns: The fetched UsageInstance
         :rtype: twilio.rest.preview.wireless.sim.usage.UsageInstance
         """
-        params = values.of({'End': end, 'Start': start, })
+        data = values.of({'End': end, 'Start': start, })
 
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, params=data, )
 
         return UsageInstance(self._version, payload, sim_sid=self._solution['sim_sid'], )
 
@@ -273,12 +269,12 @@ class UsageInstance(InstanceResource):
 
     def fetch(self, end=values.unset, start=values.unset):
         """
-        Fetch a UsageInstance
+        Fetch the UsageInstance
 
         :param unicode end: The end
         :param unicode start: The start
 
-        :returns: Fetched UsageInstance
+        :returns: The fetched UsageInstance
         :rtype: twilio.rest.preview.wireless.sim.usage.UsageInstance
         """
         return self._proxy.fetch(end=end, start=start, )

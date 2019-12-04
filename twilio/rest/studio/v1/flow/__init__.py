@@ -88,13 +88,9 @@ class FlowList(ListResource):
         :returns: Page of FlowInstance
         :rtype: twilio.rest.studio.v1.flow.FlowPage
         """
-        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
+        data = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return FlowPage(self._version, response, self._solution)
 
@@ -211,18 +207,12 @@ class FlowContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a FlowInstance
+        Fetch the FlowInstance
 
-        :returns: Fetched FlowInstance
+        :returns: The fetched FlowInstance
         :rtype: twilio.rest.studio.v1.flow.FlowInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return FlowInstance(self._version, payload, sid=self._solution['sid'], )
 
@@ -233,7 +223,7 @@ class FlowContext(InstanceContext):
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete('delete', self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri, )
 
     @property
     def engagements(self):
@@ -390,9 +380,9 @@ class FlowInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a FlowInstance
+        Fetch the FlowInstance
 
-        :returns: Fetched FlowInstance
+        :returns: The fetched FlowInstance
         :rtype: twilio.rest.studio.v1.flow.FlowInstance
         """
         return self._proxy.fetch()

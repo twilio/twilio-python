@@ -90,13 +90,9 @@ class ServiceList(ListResource):
         :returns: Page of ServiceInstance
         :rtype: twilio.rest.proxy.v1.service.ServicePage
         """
-        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
+        data = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return ServicePage(self._version, response, self._solution)
 
@@ -124,7 +120,7 @@ class ServiceList(ListResource):
                out_of_session_callback_url=values.unset,
                chat_instance_sid=values.unset):
         """
-        Create a new ServiceInstance
+        Create the ServiceInstance
 
         :param unicode unique_name: An application-defined string that uniquely identifies the resource
         :param unicode default_ttl: Default TTL for a Session, in seconds
@@ -135,7 +131,7 @@ class ServiceList(ListResource):
         :param unicode out_of_session_callback_url: The URL we call when an inbound call or SMS action occurs on a closed or non-existent Session
         :param unicode chat_instance_sid: The SID of the Chat Service Instance
 
-        :returns: Newly created ServiceInstance
+        :returns: The created ServiceInstance
         :rtype: twilio.rest.proxy.v1.service.ServiceInstance
         """
         data = values.of({
@@ -149,11 +145,7 @@ class ServiceList(ListResource):
             'ChatInstanceSid': chat_instance_sid,
         })
 
-        payload = self._version.create(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data, )
 
         return ServiceInstance(self._version, payload, )
 
@@ -256,18 +248,12 @@ class ServiceContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a ServiceInstance
+        Fetch the ServiceInstance
 
-        :returns: Fetched ServiceInstance
+        :returns: The fetched ServiceInstance
         :rtype: twilio.rest.proxy.v1.service.ServiceInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return ServiceInstance(self._version, payload, sid=self._solution['sid'], )
 
@@ -278,7 +264,7 @@ class ServiceContext(InstanceContext):
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete('delete', self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri, )
 
     def update(self, unique_name=values.unset, default_ttl=values.unset,
                callback_url=values.unset, geo_match_level=values.unset,
@@ -298,7 +284,7 @@ class ServiceContext(InstanceContext):
         :param unicode out_of_session_callback_url: The URL we call when an inbound call or SMS action occurs on a closed or non-existent Session
         :param unicode chat_instance_sid: The SID of the Chat Service Instance
 
-        :returns: Updated ServiceInstance
+        :returns: The updated ServiceInstance
         :rtype: twilio.rest.proxy.v1.service.ServiceInstance
         """
         data = values.of({
@@ -312,11 +298,7 @@ class ServiceContext(InstanceContext):
             'ChatInstanceSid': chat_instance_sid,
         })
 
-        payload = self._version.update(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.update(method='POST', uri=self._uri, data=data, )
 
         return ServiceInstance(self._version, payload, sid=self._solution['sid'], )
 
@@ -539,9 +521,9 @@ class ServiceInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a ServiceInstance
+        Fetch the ServiceInstance
 
-        :returns: Fetched ServiceInstance
+        :returns: The fetched ServiceInstance
         :rtype: twilio.rest.proxy.v1.service.ServiceInstance
         """
         return self._proxy.fetch()
@@ -573,7 +555,7 @@ class ServiceInstance(InstanceResource):
         :param unicode out_of_session_callback_url: The URL we call when an inbound call or SMS action occurs on a closed or non-existent Session
         :param unicode chat_instance_sid: The SID of the Chat Service Instance
 
-        :returns: Updated ServiceInstance
+        :returns: The updated ServiceInstance
         :rtype: twilio.rest.proxy.v1.service.ServiceInstance
         """
         return self._proxy.update(

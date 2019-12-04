@@ -123,18 +123,12 @@ class CpsContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a CpsInstance
+        Fetch the CpsInstance
 
-        :returns: Fetched CpsInstance
+        :returns: The fetched CpsInstance
         :rtype: twilio.rest.preview.trusted_comms.cps.CpsInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return CpsInstance(self._version, payload, )
 
@@ -213,9 +207,9 @@ class CpsInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a CpsInstance
+        Fetch the CpsInstance
 
-        :returns: Fetched CpsInstance
+        :returns: The fetched CpsInstance
         :rtype: twilio.rest.preview.trusted_comms.cps.CpsInstance
         """
         return self._proxy.fetch()

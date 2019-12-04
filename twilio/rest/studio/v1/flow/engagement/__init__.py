@@ -90,13 +90,9 @@ class EngagementList(ListResource):
         :returns: Page of EngagementInstance
         :rtype: twilio.rest.studio.v1.flow.engagement.EngagementPage
         """
-        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
+        data = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return EngagementPage(self._version, response, self._solution)
 
@@ -119,22 +115,18 @@ class EngagementList(ListResource):
 
     def create(self, to, from_, parameters=values.unset):
         """
-        Create a new EngagementInstance
+        Create the EngagementInstance
 
         :param unicode to: The Contact phone number to start a Studio Flow Engagement
         :param unicode from_: The Twilio phone number to send messages or initiate calls from during the Flow Engagement
         :param dict parameters: A JSON string we will add to your flow's context and that you can access as variables inside your flow
 
-        :returns: Newly created EngagementInstance
+        :returns: The created EngagementInstance
         :rtype: twilio.rest.studio.v1.flow.engagement.EngagementInstance
         """
         data = values.of({'To': to, 'From': from_, 'Parameters': serialize.object(parameters), })
 
-        payload = self._version.create(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data, )
 
         return EngagementInstance(self._version, payload, flow_sid=self._solution['flow_sid'], )
 
@@ -236,18 +228,12 @@ class EngagementContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a EngagementInstance
+        Fetch the EngagementInstance
 
-        :returns: Fetched EngagementInstance
+        :returns: The fetched EngagementInstance
         :rtype: twilio.rest.studio.v1.flow.engagement.EngagementInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return EngagementInstance(
             self._version,
@@ -263,7 +249,7 @@ class EngagementContext(InstanceContext):
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete('delete', self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri, )
 
     @property
     def steps(self):
@@ -450,9 +436,9 @@ class EngagementInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a EngagementInstance
+        Fetch the EngagementInstance
 
-        :returns: Fetched EngagementInstance
+        :returns: The fetched EngagementInstance
         :rtype: twilio.rest.studio.v1.flow.engagement.EngagementInstance
         """
         return self._proxy.fetch()

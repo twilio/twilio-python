@@ -39,7 +39,7 @@ class BindingList(ListResource):
                notification_protocol_version=values.unset,
                credential_sid=values.unset, endpoint=values.unset):
         """
-        Create a new BindingInstance
+        Create the BindingInstance
 
         :param unicode identity: The `identity` value that identifies the new resource's User
         :param BindingInstance.BindingType binding_type: The type of the Binding
@@ -49,7 +49,7 @@ class BindingList(ListResource):
         :param unicode credential_sid: The SID of the Credential resource to be used to send notifications to this Binding
         :param unicode endpoint: Deprecated
 
-        :returns: Newly created BindingInstance
+        :returns: The created BindingInstance
         :rtype: twilio.rest.notify.v1.service.binding.BindingInstance
         """
         data = values.of({
@@ -62,11 +62,7 @@ class BindingList(ListResource):
             'Endpoint': endpoint,
         })
 
-        payload = self._version.create(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data, )
 
         return BindingInstance(self._version, payload, service_sid=self._solution['service_sid'], )
 
@@ -152,7 +148,7 @@ class BindingList(ListResource):
         :returns: Page of BindingInstance
         :rtype: twilio.rest.notify.v1.service.binding.BindingPage
         """
-        params = values.of({
+        data = values.of({
             'StartDate': serialize.iso8601_date(start_date),
             'EndDate': serialize.iso8601_date(end_date),
             'Identity': serialize.map(identity, lambda e: e),
@@ -162,11 +158,7 @@ class BindingList(ListResource):
             'PageSize': page_size,
         })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return BindingPage(self._version, response, self._solution)
 
@@ -283,18 +275,12 @@ class BindingContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a BindingInstance
+        Fetch the BindingInstance
 
-        :returns: Fetched BindingInstance
+        :returns: The fetched BindingInstance
         :rtype: twilio.rest.notify.v1.service.binding.BindingInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return BindingInstance(
             self._version,
@@ -310,7 +296,7 @@ class BindingContext(InstanceContext):
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete('delete', self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri, )
 
     def __repr__(self):
         """
@@ -497,9 +483,9 @@ class BindingInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a BindingInstance
+        Fetch the BindingInstance
 
-        :returns: Fetched BindingInstance
+        :returns: The fetched BindingInstance
         :rtype: twilio.rest.notify.v1.service.binding.BindingInstance
         """
         return self._proxy.fetch()

@@ -51,7 +51,7 @@ class PhoneCallList(ListResource):
                status_callback_method=values.unset, timeout=values.unset,
                trim=values.unset, url=values.unset):
         """
-        Create a new PhoneCallInstance
+        Create the PhoneCallInstance
 
         :param unicode from_: Twilio number from which to originate the call
         :param unicode to: The terminating Phone Number
@@ -81,7 +81,7 @@ class PhoneCallList(ListResource):
         :param unicode trim: Refers to the Voice API Initiate Call parameter
         :param unicode url: Refers to the Voice API Initiate Call parameter
 
-        :returns: Newly created PhoneCallInstance
+        :returns: The created PhoneCallInstance
         :rtype: twilio.rest.preview.trusted_comms.phone_call.PhoneCallInstance
         """
         data = values.of({
@@ -114,11 +114,7 @@ class PhoneCallList(ListResource):
             'Url': url,
         })
 
-        payload = self._version.create(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data, )
 
         return PhoneCallInstance(self._version, payload, )
 

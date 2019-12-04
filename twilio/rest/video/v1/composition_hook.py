@@ -120,7 +120,7 @@ class CompositionHookList(ListResource):
         :returns: Page of CompositionHookInstance
         :rtype: twilio.rest.video.v1.composition_hook.CompositionHookPage
         """
-        params = values.of({
+        data = values.of({
             'Enabled': enabled,
             'DateCreatedAfter': serialize.iso8601_datetime(date_created_after),
             'DateCreatedBefore': serialize.iso8601_datetime(date_created_before),
@@ -130,11 +130,7 @@ class CompositionHookList(ListResource):
             'PageSize': page_size,
         })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return CompositionHookPage(self._version, response, self._solution)
 
@@ -161,7 +157,7 @@ class CompositionHookList(ListResource):
                status_callback=values.unset, status_callback_method=values.unset,
                trim=values.unset):
         """
-        Create a new CompositionHookInstance
+        Create the CompositionHookInstance
 
         :param unicode friendly_name: A unique string to describe the resource
         :param bool enabled: Whether the composition hook is active
@@ -174,7 +170,7 @@ class CompositionHookList(ListResource):
         :param unicode status_callback_method: The HTTP method we should use to call status_callback
         :param bool trim: Whether to clip the intervals where there is no active media in the Compositions triggered by the composition hook
 
-        :returns: Newly created CompositionHookInstance
+        :returns: The created CompositionHookInstance
         :rtype: twilio.rest.video.v1.composition_hook.CompositionHookInstance
         """
         data = values.of({
@@ -190,11 +186,7 @@ class CompositionHookList(ListResource):
             'Trim': trim,
         })
 
-        payload = self._version.create(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data, )
 
         return CompositionHookInstance(self._version, payload, )
 
@@ -294,18 +286,12 @@ class CompositionHookContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a CompositionHookInstance
+        Fetch the CompositionHookInstance
 
-        :returns: Fetched CompositionHookInstance
+        :returns: The fetched CompositionHookInstance
         :rtype: twilio.rest.video.v1.composition_hook.CompositionHookInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return CompositionHookInstance(self._version, payload, sid=self._solution['sid'], )
 
@@ -316,7 +302,7 @@ class CompositionHookContext(InstanceContext):
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete('delete', self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri, )
 
     def update(self, friendly_name, enabled=values.unset, video_layout=values.unset,
                audio_sources=values.unset, audio_sources_excluded=values.unset,
@@ -336,7 +322,7 @@ class CompositionHookContext(InstanceContext):
         :param unicode status_callback: The URL we should call to send status information to your application
         :param unicode status_callback_method: The HTTP method we should use to call status_callback
 
-        :returns: Updated CompositionHookInstance
+        :returns: The updated CompositionHookInstance
         :rtype: twilio.rest.video.v1.composition_hook.CompositionHookInstance
         """
         data = values.of({
@@ -352,11 +338,7 @@ class CompositionHookContext(InstanceContext):
             'StatusCallbackMethod': status_callback_method,
         })
 
-        payload = self._version.update(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.update(method='POST', uri=self._uri, data=data, )
 
         return CompositionHookInstance(self._version, payload, sid=self._solution['sid'], )
 
@@ -547,9 +529,9 @@ class CompositionHookInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a CompositionHookInstance
+        Fetch the CompositionHookInstance
 
-        :returns: Fetched CompositionHookInstance
+        :returns: The fetched CompositionHookInstance
         :rtype: twilio.rest.video.v1.composition_hook.CompositionHookInstance
         """
         return self._proxy.fetch()
@@ -581,7 +563,7 @@ class CompositionHookInstance(InstanceResource):
         :param unicode status_callback: The URL we should call to send status information to your application
         :param unicode status_callback_method: The HTTP method we should use to call status_callback
 
-        :returns: Updated CompositionHookInstance
+        :returns: The updated CompositionHookInstance
         :rtype: twilio.rest.video.v1.composition_hook.CompositionHookInstance
         """
         return self._proxy.update(

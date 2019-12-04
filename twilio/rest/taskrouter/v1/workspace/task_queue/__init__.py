@@ -120,7 +120,7 @@ class TaskQueueList(ListResource):
         :returns: Page of TaskQueueInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueuePage
         """
-        params = values.of({
+        data = values.of({
             'FriendlyName': friendly_name,
             'EvaluateWorkerAttributes': evaluate_worker_attributes,
             'WorkerSid': worker_sid,
@@ -129,11 +129,7 @@ class TaskQueueList(ListResource):
             'PageSize': page_size,
         })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return TaskQueuePage(self._version, response, self._solution)
 
@@ -159,7 +155,7 @@ class TaskQueueList(ListResource):
                reservation_activity_sid=values.unset,
                assignment_activity_sid=values.unset):
         """
-        Create a new TaskQueueInstance
+        Create the TaskQueueInstance
 
         :param unicode friendly_name: A string to describe the resource
         :param unicode target_workers: A string describing the Worker selection criteria for any Tasks that enter the TaskQueue
@@ -168,7 +164,7 @@ class TaskQueueList(ListResource):
         :param unicode reservation_activity_sid: The SID of the Activity to assign Workers when a task is reserved for them
         :param unicode assignment_activity_sid: The SID of the Activity to assign Workers once a task is assigned to them
 
-        :returns: Newly created TaskQueueInstance
+        :returns: The created TaskQueueInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueueInstance
         """
         data = values.of({
@@ -180,11 +176,7 @@ class TaskQueueList(ListResource):
             'AssignmentActivitySid': assignment_activity_sid,
         })
 
-        payload = self._version.create(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data, )
 
         return TaskQueueInstance(self._version, payload, workspace_sid=self._solution['workspace_sid'], )
 
@@ -302,18 +294,12 @@ class TaskQueueContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a TaskQueueInstance
+        Fetch the TaskQueueInstance
 
-        :returns: Fetched TaskQueueInstance
+        :returns: The fetched TaskQueueInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueueInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return TaskQueueInstance(
             self._version,
@@ -336,7 +322,7 @@ class TaskQueueContext(InstanceContext):
         :param unicode max_reserved_workers: The maximum number of Workers to create reservations for the assignment of a task while in the queue
         :param TaskQueueInstance.TaskOrder task_order: How Tasks will be assigned to Workers
 
-        :returns: Updated TaskQueueInstance
+        :returns: The updated TaskQueueInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueueInstance
         """
         data = values.of({
@@ -348,11 +334,7 @@ class TaskQueueContext(InstanceContext):
             'TaskOrder': task_order,
         })
 
-        payload = self._version.update(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.update(method='POST', uri=self._uri, data=data, )
 
         return TaskQueueInstance(
             self._version,
@@ -368,7 +350,7 @@ class TaskQueueContext(InstanceContext):
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete('delete', self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri, )
 
     @property
     def statistics(self):
@@ -607,9 +589,9 @@ class TaskQueueInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a TaskQueueInstance
+        Fetch the TaskQueueInstance
 
-        :returns: Fetched TaskQueueInstance
+        :returns: The fetched TaskQueueInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueueInstance
         """
         return self._proxy.fetch()
@@ -628,7 +610,7 @@ class TaskQueueInstance(InstanceResource):
         :param unicode max_reserved_workers: The maximum number of Workers to create reservations for the assignment of a task while in the queue
         :param TaskQueueInstance.TaskOrder task_order: How Tasks will be assigned to Workers
 
-        :returns: Updated TaskQueueInstance
+        :returns: The updated TaskQueueInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueueInstance
         """
         return self._proxy.update(

@@ -131,7 +131,7 @@ class EventList(ListResource):
         :returns: Page of EventInstance
         :rtype: twilio.rest.monitor.v1.event.EventPage
         """
-        params = values.of({
+        data = values.of({
             'ActorSid': actor_sid,
             'EventType': event_type,
             'ResourceSid': resource_sid,
@@ -143,11 +143,7 @@ class EventList(ListResource):
             'PageSize': page_size,
         })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return EventPage(self._version, response, self._solution)
 
@@ -260,18 +256,12 @@ class EventContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a EventInstance
+        Fetch the EventInstance
 
-        :returns: Fetched EventInstance
+        :returns: The fetched EventInstance
         :rtype: twilio.rest.monitor.v1.event.EventInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return EventInstance(self._version, payload, sid=self._solution['sid'], )
 
@@ -447,9 +437,9 @@ class EventInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a EventInstance
+        Fetch the EventInstance
 
-        :returns: Fetched EventInstance
+        :returns: The fetched EventInstance
         :rtype: twilio.rest.monitor.v1.event.EventInstance
         """
         return self._proxy.fetch()

@@ -150,18 +150,12 @@ class ExportContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a ExportInstance
+        Fetch the ExportInstance
 
-        :returns: Fetched ExportInstance
+        :returns: The fetched ExportInstance
         :rtype: twilio.rest.preview.bulk_exports.export.ExportInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return ExportInstance(self._version, payload, resource_type=self._solution['resource_type'], )
 
@@ -267,9 +261,9 @@ class ExportInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a ExportInstance
+        Fetch the ExportInstance
 
-        :returns: Fetched ExportInstance
+        :returns: The fetched ExportInstance
         :rtype: twilio.rest.preview.bulk_exports.export.ExportInstance
         """
         return self._proxy.fetch()

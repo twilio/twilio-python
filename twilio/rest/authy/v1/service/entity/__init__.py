@@ -38,20 +38,16 @@ class EntityList(ListResource):
 
     def create(self, identity):
         """
-        Create a new EntityInstance
+        Create the EntityInstance
 
         :param unicode identity: Unique identity of the Entity
 
-        :returns: Newly created EntityInstance
+        :returns: The created EntityInstance
         :rtype: twilio.rest.authy.v1.service.entity.EntityInstance
         """
         data = values.of({'Identity': identity, })
 
-        payload = self._version.create(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data, )
 
         return EntityInstance(self._version, payload, service_sid=self._solution['service_sid'], )
 
@@ -109,13 +105,9 @@ class EntityList(ListResource):
         :returns: Page of EntityInstance
         :rtype: twilio.rest.authy.v1.service.entity.EntityPage
         """
-        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
+        data = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return EntityPage(self._version, response, self._solution)
 
@@ -242,22 +234,16 @@ class EntityContext(InstanceContext):
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete('delete', self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri, )
 
     def fetch(self):
         """
-        Fetch a EntityInstance
+        Fetch the EntityInstance
 
-        :returns: Fetched EntityInstance
+        :returns: The fetched EntityInstance
         :rtype: twilio.rest.authy.v1.service.entity.EntityInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return EntityInstance(
             self._version,
@@ -415,9 +401,9 @@ class EntityInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a EntityInstance
+        Fetch the EntityInstance
 
-        :returns: Fetched EntityInstance
+        :returns: The fetched EntityInstance
         :rtype: twilio.rest.authy.v1.service.entity.EntityInstance
         """
         return self._proxy.fetch()

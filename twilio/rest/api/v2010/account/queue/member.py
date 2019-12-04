@@ -88,13 +88,9 @@ class MemberList(ListResource):
         :returns: Page of MemberInstance
         :rtype: twilio.rest.api.v2010.account.queue.member.MemberPage
         """
-        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
+        data = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return MemberPage(self._version, response, self._solution)
 
@@ -226,18 +222,12 @@ class MemberContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a MemberInstance
+        Fetch the MemberInstance
 
-        :returns: Fetched MemberInstance
+        :returns: The fetched MemberInstance
         :rtype: twilio.rest.api.v2010.account.queue.member.MemberInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return MemberInstance(
             self._version,
@@ -254,16 +244,12 @@ class MemberContext(InstanceContext):
         :param unicode url: The absolute URL of the Queue resource
         :param unicode method: How to pass the update request data
 
-        :returns: Updated MemberInstance
+        :returns: The updated MemberInstance
         :rtype: twilio.rest.api.v2010.account.queue.member.MemberInstance
         """
         data = values.of({'Url': url, 'Method': method, })
 
-        payload = self._version.update(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.update(method='POST', uri=self._uri, data=data, )
 
         return MemberInstance(
             self._version,
@@ -382,9 +368,9 @@ class MemberInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a MemberInstance
+        Fetch the MemberInstance
 
-        :returns: Fetched MemberInstance
+        :returns: The fetched MemberInstance
         :rtype: twilio.rest.api.v2010.account.queue.member.MemberInstance
         """
         return self._proxy.fetch()
@@ -396,7 +382,7 @@ class MemberInstance(InstanceResource):
         :param unicode url: The absolute URL of the Queue resource
         :param unicode method: How to pass the update request data
 
-        :returns: Updated MemberInstance
+        :returns: The updated MemberInstance
         :rtype: twilio.rest.api.v2010.account.queue.member.MemberInstance
         """
         return self._proxy.update(url, method=method, )

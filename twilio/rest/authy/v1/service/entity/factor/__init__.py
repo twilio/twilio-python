@@ -39,22 +39,18 @@ class FactorList(ListResource):
 
     def create(self, binding, friendly_name, factor_type):
         """
-        Create a new FactorInstance
+        Create the FactorInstance
 
         :param unicode binding: A unique binding for this Factor
         :param unicode friendly_name: The friendly name of this Factor
         :param FactorInstance.FactorTypes factor_type: The Type of this Factor
 
-        :returns: Newly created FactorInstance
+        :returns: The created FactorInstance
         :rtype: twilio.rest.authy.v1.service.entity.factor.FactorInstance
         """
         data = values.of({'Binding': binding, 'FriendlyName': friendly_name, 'FactorType': factor_type, })
 
-        payload = self._version.create(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data, )
 
         return FactorInstance(
             self._version,
@@ -117,13 +113,9 @@ class FactorList(ListResource):
         :returns: Page of FactorInstance
         :rtype: twilio.rest.authy.v1.service.entity.factor.FactorPage
         """
-        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
+        data = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return FactorPage(self._version, response, self._solution)
 
@@ -267,22 +259,16 @@ class FactorContext(InstanceContext):
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete('delete', self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri, )
 
     def fetch(self):
         """
-        Fetch a FactorInstance
+        Fetch the FactorInstance
 
-        :returns: Fetched FactorInstance
+        :returns: The fetched FactorInstance
         :rtype: twilio.rest.authy.v1.service.entity.factor.FactorInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return FactorInstance(
             self._version,
@@ -298,16 +284,12 @@ class FactorContext(InstanceContext):
 
         :param unicode auth_payload: Optional payload to verify the Factor for the first time
 
-        :returns: Updated FactorInstance
+        :returns: The updated FactorInstance
         :rtype: twilio.rest.authy.v1.service.entity.factor.FactorInstance
         """
         data = values.of({'AuthPayload': auth_payload, })
 
-        payload = self._version.update(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.update(method='POST', uri=self._uri, data=data, )
 
         return FactorInstance(
             self._version,
@@ -534,9 +516,9 @@ class FactorInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a FactorInstance
+        Fetch the FactorInstance
 
-        :returns: Fetched FactorInstance
+        :returns: The fetched FactorInstance
         :rtype: twilio.rest.authy.v1.service.entity.factor.FactorInstance
         """
         return self._proxy.fetch()
@@ -547,7 +529,7 @@ class FactorInstance(InstanceResource):
 
         :param unicode auth_payload: Optional payload to verify the Factor for the first time
 
-        :returns: Updated FactorInstance
+        :returns: The updated FactorInstance
         :rtype: twilio.rest.authy.v1.service.entity.factor.FactorInstance
         """
         return self._proxy.update(auth_payload=auth_payload, )

@@ -37,21 +37,17 @@ class RateLimitList(ListResource):
 
     def create(self, unique_name, description=values.unset):
         """
-        Create a new RateLimitInstance
+        Create the RateLimitInstance
 
         :param unicode unique_name: A unique, developer assigned name of this Rate Limit.
         :param unicode description: Description of this Rate Limit
 
-        :returns: Newly created RateLimitInstance
+        :returns: The created RateLimitInstance
         :rtype: twilio.rest.verify.v2.service.rate_limit.RateLimitInstance
         """
         data = values.of({'UniqueName': unique_name, 'Description': description, })
 
-        payload = self._version.create(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data, )
 
         return RateLimitInstance(self._version, payload, service_sid=self._solution['service_sid'], )
 
@@ -109,13 +105,9 @@ class RateLimitList(ListResource):
         :returns: Page of RateLimitInstance
         :rtype: twilio.rest.verify.v2.service.rate_limit.RateLimitPage
         """
-        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
+        data = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return RateLimitPage(self._version, response, self._solution)
 
@@ -239,16 +231,12 @@ class RateLimitContext(InstanceContext):
 
         :param unicode description: Description of this Rate Limit
 
-        :returns: Updated RateLimitInstance
+        :returns: The updated RateLimitInstance
         :rtype: twilio.rest.verify.v2.service.rate_limit.RateLimitInstance
         """
         data = values.of({'Description': description, })
 
-        payload = self._version.update(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.update(method='POST', uri=self._uri, data=data, )
 
         return RateLimitInstance(
             self._version,
@@ -259,18 +247,12 @@ class RateLimitContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a RateLimitInstance
+        Fetch the RateLimitInstance
 
-        :returns: Fetched RateLimitInstance
+        :returns: The fetched RateLimitInstance
         :rtype: twilio.rest.verify.v2.service.rate_limit.RateLimitInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return RateLimitInstance(
             self._version,
@@ -286,7 +268,7 @@ class RateLimitContext(InstanceContext):
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete('delete', self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri, )
 
     @property
     def buckets(self):
@@ -440,16 +422,16 @@ class RateLimitInstance(InstanceResource):
 
         :param unicode description: Description of this Rate Limit
 
-        :returns: Updated RateLimitInstance
+        :returns: The updated RateLimitInstance
         :rtype: twilio.rest.verify.v2.service.rate_limit.RateLimitInstance
         """
         return self._proxy.update(description=description, )
 
     def fetch(self):
         """
-        Fetch a RateLimitInstance
+        Fetch the RateLimitInstance
 
-        :returns: Fetched RateLimitInstance
+        :returns: The fetched RateLimitInstance
         :rtype: twilio.rest.verify.v2.service.rate_limit.RateLimitInstance
         """
         return self._proxy.fetch()

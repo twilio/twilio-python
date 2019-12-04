@@ -58,20 +58,16 @@ class AccountList(ListResource):
 
     def create(self, friendly_name=values.unset):
         """
-        Create a new AccountInstance
+        Create the AccountInstance
 
         :param unicode friendly_name: A human readable description of the account
 
-        :returns: Newly created AccountInstance
+        :returns: The created AccountInstance
         :rtype: twilio.rest.api.v2010.account.AccountInstance
         """
         data = values.of({'FriendlyName': friendly_name, })
 
-        payload = self._version.create(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data, )
 
         return AccountInstance(self._version, payload, )
 
@@ -143,7 +139,7 @@ class AccountList(ListResource):
         :returns: Page of AccountInstance
         :rtype: twilio.rest.api.v2010.account.AccountPage
         """
-        params = values.of({
+        data = values.of({
             'FriendlyName': friendly_name,
             'Status': status,
             'PageToken': page_token,
@@ -151,11 +147,7 @@ class AccountList(ListResource):
             'PageSize': page_size,
         })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return AccountPage(self._version, response, self._solution)
 
@@ -294,18 +286,12 @@ class AccountContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a AccountInstance
+        Fetch the AccountInstance
 
-        :returns: Fetched AccountInstance
+        :returns: The fetched AccountInstance
         :rtype: twilio.rest.api.v2010.account.AccountInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return AccountInstance(self._version, payload, sid=self._solution['sid'], )
 
@@ -316,16 +302,12 @@ class AccountContext(InstanceContext):
         :param unicode friendly_name: FriendlyName to update
         :param AccountInstance.Status status: Status to update the Account with
 
-        :returns: Updated AccountInstance
+        :returns: The updated AccountInstance
         :rtype: twilio.rest.api.v2010.account.AccountInstance
         """
         data = values.of({'FriendlyName': friendly_name, 'Status': status, })
 
-        payload = self._version.update(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.update(method='POST', uri=self._uri, data=data, )
 
         return AccountInstance(self._version, payload, sid=self._solution['sid'], )
 
@@ -771,9 +753,9 @@ class AccountInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a AccountInstance
+        Fetch the AccountInstance
 
-        :returns: Fetched AccountInstance
+        :returns: The fetched AccountInstance
         :rtype: twilio.rest.api.v2010.account.AccountInstance
         """
         return self._proxy.fetch()
@@ -785,7 +767,7 @@ class AccountInstance(InstanceResource):
         :param unicode friendly_name: FriendlyName to update
         :param AccountInstance.Status status: Status to update the Account with
 
-        :returns: Updated AccountInstance
+        :returns: The updated AccountInstance
         :rtype: twilio.rest.api.v2010.account.AccountInstance
         """
         return self._proxy.update(friendly_name=friendly_name, status=status, )

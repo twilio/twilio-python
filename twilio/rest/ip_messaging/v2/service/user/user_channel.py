@@ -88,13 +88,9 @@ class UserChannelList(ListResource):
         :returns: Page of UserChannelInstance
         :rtype: twilio.rest.chat.v2.service.user.user_channel.UserChannelPage
         """
-        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
+        data = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return UserChannelPage(self._version, response, self._solution)
 
@@ -226,18 +222,12 @@ class UserChannelContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a UserChannelInstance
+        Fetch the UserChannelInstance
 
-        :returns: Fetched UserChannelInstance
+        :returns: The fetched UserChannelInstance
         :rtype: twilio.rest.chat.v2.service.user.user_channel.UserChannelInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return UserChannelInstance(
             self._version,
@@ -253,16 +243,12 @@ class UserChannelContext(InstanceContext):
 
         :param UserChannelInstance.NotificationLevel notification_level: The push notification level to assign to the User Channel
 
-        :returns: Updated UserChannelInstance
+        :returns: The updated UserChannelInstance
         :rtype: twilio.rest.chat.v2.service.user.user_channel.UserChannelInstance
         """
         data = values.of({'NotificationLevel': notification_level, })
 
-        payload = self._version.update(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.update(method='POST', uri=self._uri, data=data, )
 
         return UserChannelInstance(
             self._version,
@@ -435,9 +421,9 @@ class UserChannelInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a UserChannelInstance
+        Fetch the UserChannelInstance
 
-        :returns: Fetched UserChannelInstance
+        :returns: The fetched UserChannelInstance
         :rtype: twilio.rest.chat.v2.service.user.user_channel.UserChannelInstance
         """
         return self._proxy.fetch()
@@ -448,7 +434,7 @@ class UserChannelInstance(InstanceResource):
 
         :param UserChannelInstance.NotificationLevel notification_level: The push notification level to assign to the User Channel
 
-        :returns: Updated UserChannelInstance
+        :returns: The updated UserChannelInstance
         :rtype: twilio.rest.chat.v2.service.user.user_channel.UserChannelInstance
         """
         return self._proxy.update(notification_level, )

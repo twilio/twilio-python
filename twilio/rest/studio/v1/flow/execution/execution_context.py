@@ -136,18 +136,12 @@ class ExecutionContextContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a ExecutionContextInstance
+        Fetch the ExecutionContextInstance
 
-        :returns: Fetched ExecutionContextInstance
+        :returns: The fetched ExecutionContextInstance
         :rtype: twilio.rest.studio.v1.flow.execution.execution_context.ExecutionContextInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return ExecutionContextInstance(
             self._version,
@@ -251,9 +245,9 @@ class ExecutionContextInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a ExecutionContextInstance
+        Fetch the ExecutionContextInstance
 
-        :returns: Fetched ExecutionContextInstance
+        :returns: The fetched ExecutionContextInstance
         :rtype: twilio.rest.studio.v1.flow.execution.execution_context.ExecutionContextInstance
         """
         return self._proxy.fetch()

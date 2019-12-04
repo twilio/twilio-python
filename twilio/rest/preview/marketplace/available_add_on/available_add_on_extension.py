@@ -88,13 +88,9 @@ class AvailableAddOnExtensionList(ListResource):
         :returns: Page of AvailableAddOnExtensionInstance
         :rtype: twilio.rest.preview.marketplace.available_add_on.available_add_on_extension.AvailableAddOnExtensionPage
         """
-        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
+        data = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return AvailableAddOnExtensionPage(self._version, response, self._solution)
 
@@ -225,18 +221,12 @@ class AvailableAddOnExtensionContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a AvailableAddOnExtensionInstance
+        Fetch the AvailableAddOnExtensionInstance
 
-        :returns: Fetched AvailableAddOnExtensionInstance
+        :returns: The fetched AvailableAddOnExtensionInstance
         :rtype: twilio.rest.preview.marketplace.available_add_on.available_add_on_extension.AvailableAddOnExtensionInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return AvailableAddOnExtensionInstance(
             self._version,
@@ -354,9 +344,9 @@ class AvailableAddOnExtensionInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a AvailableAddOnExtensionInstance
+        Fetch the AvailableAddOnExtensionInstance
 
-        :returns: Fetched AvailableAddOnExtensionInstance
+        :returns: The fetched AvailableAddOnExtensionInstance
         :rtype: twilio.rest.preview.marketplace.available_add_on.available_add_on_extension.AvailableAddOnExtensionInstance
         """
         return self._proxy.fetch()

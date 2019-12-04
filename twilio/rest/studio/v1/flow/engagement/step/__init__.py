@@ -89,13 +89,9 @@ class StepList(ListResource):
         :returns: Page of StepInstance
         :rtype: twilio.rest.studio.v1.flow.engagement.step.StepPage
         """
-        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
+        data = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return StepPage(self._version, response, self._solution)
 
@@ -230,18 +226,12 @@ class StepContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a StepInstance
+        Fetch the StepInstance
 
-        :returns: Fetched StepInstance
+        :returns: The fetched StepInstance
         :rtype: twilio.rest.studio.v1.flow.engagement.step.StepInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return StepInstance(
             self._version,
@@ -431,9 +421,9 @@ class StepInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a StepInstance
+        Fetch the StepInstance
 
-        :returns: Fetched StepInstance
+        :returns: The fetched StepInstance
         :rtype: twilio.rest.studio.v1.flow.engagement.step.StepInstance
         """
         return self._proxy.fetch()

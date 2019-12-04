@@ -112,7 +112,7 @@ class RecordingList(ListResource):
         :returns: Page of RecordingInstance
         :rtype: twilio.rest.api.v2010.account.conference.recording.RecordingPage
         """
-        params = values.of({
+        data = values.of({
             'DateCreated<': serialize.iso8601_date(date_created_before),
             'DateCreated': serialize.iso8601_date(date_created),
             'DateCreated>': serialize.iso8601_date(date_created_after),
@@ -121,11 +121,7 @@ class RecordingList(ListResource):
             'PageSize': page_size,
         })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return RecordingPage(self._version, response, self._solution)
 
@@ -262,16 +258,12 @@ class RecordingContext(InstanceContext):
         :param RecordingInstance.Status status: The new status of the recording
         :param unicode pause_behavior: Whether to record during a pause
 
-        :returns: Updated RecordingInstance
+        :returns: The updated RecordingInstance
         :rtype: twilio.rest.api.v2010.account.conference.recording.RecordingInstance
         """
         data = values.of({'Status': status, 'PauseBehavior': pause_behavior, })
 
-        payload = self._version.update(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.update(method='POST', uri=self._uri, data=data, )
 
         return RecordingInstance(
             self._version,
@@ -283,18 +275,12 @@ class RecordingContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a RecordingInstance
+        Fetch the RecordingInstance
 
-        :returns: Fetched RecordingInstance
+        :returns: The fetched RecordingInstance
         :rtype: twilio.rest.api.v2010.account.conference.recording.RecordingInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return RecordingInstance(
             self._version,
@@ -311,7 +297,7 @@ class RecordingContext(InstanceContext):
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete('delete', self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri, )
 
     def __repr__(self):
         """
@@ -543,16 +529,16 @@ class RecordingInstance(InstanceResource):
         :param RecordingInstance.Status status: The new status of the recording
         :param unicode pause_behavior: Whether to record during a pause
 
-        :returns: Updated RecordingInstance
+        :returns: The updated RecordingInstance
         :rtype: twilio.rest.api.v2010.account.conference.recording.RecordingInstance
         """
         return self._proxy.update(status, pause_behavior=pause_behavior, )
 
     def fetch(self):
         """
-        Fetch a RecordingInstance
+        Fetch the RecordingInstance
 
-        :returns: Fetched RecordingInstance
+        :returns: The fetched RecordingInstance
         :rtype: twilio.rest.api.v2010.account.conference.recording.RecordingInstance
         """
         return self._proxy.fetch()

@@ -87,13 +87,9 @@ class TaskChannelList(ListResource):
         :returns: Page of TaskChannelInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.task_channel.TaskChannelPage
         """
-        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
+        data = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return TaskChannelPage(self._version, response, self._solution)
 
@@ -117,13 +113,13 @@ class TaskChannelList(ListResource):
     def create(self, friendly_name, unique_name,
                channel_optimized_routing=values.unset):
         """
-        Create a new TaskChannelInstance
+        Create the TaskChannelInstance
 
         :param unicode friendly_name: A string to describe the TaskChannel resource
         :param unicode unique_name: An application-defined string that uniquely identifies the TaskChannel
         :param bool channel_optimized_routing: Whether the TaskChannel should prioritize Workers that have been idle
 
-        :returns: Newly created TaskChannelInstance
+        :returns: The created TaskChannelInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.task_channel.TaskChannelInstance
         """
         data = values.of({
@@ -132,11 +128,7 @@ class TaskChannelList(ListResource):
             'ChannelOptimizedRouting': channel_optimized_routing,
         })
 
-        payload = self._version.create(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data, )
 
         return TaskChannelInstance(self._version, payload, workspace_sid=self._solution['workspace_sid'], )
 
@@ -234,18 +226,12 @@ class TaskChannelContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a TaskChannelInstance
+        Fetch the TaskChannelInstance
 
-        :returns: Fetched TaskChannelInstance
+        :returns: The fetched TaskChannelInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.task_channel.TaskChannelInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return TaskChannelInstance(
             self._version,
@@ -262,7 +248,7 @@ class TaskChannelContext(InstanceContext):
         :param unicode friendly_name: A string to describe the TaskChannel resource
         :param bool channel_optimized_routing: Whether the TaskChannel should prioritize Workers that have been idle
 
-        :returns: Updated TaskChannelInstance
+        :returns: The updated TaskChannelInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.task_channel.TaskChannelInstance
         """
         data = values.of({
@@ -270,11 +256,7 @@ class TaskChannelContext(InstanceContext):
             'ChannelOptimizedRouting': channel_optimized_routing,
         })
 
-        payload = self._version.update(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.update(method='POST', uri=self._uri, data=data, )
 
         return TaskChannelInstance(
             self._version,
@@ -290,7 +272,7 @@ class TaskChannelContext(InstanceContext):
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete('delete', self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri, )
 
     def __repr__(self):
         """
@@ -432,9 +414,9 @@ class TaskChannelInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a TaskChannelInstance
+        Fetch the TaskChannelInstance
 
-        :returns: Fetched TaskChannelInstance
+        :returns: The fetched TaskChannelInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.task_channel.TaskChannelInstance
         """
         return self._proxy.fetch()
@@ -447,7 +429,7 @@ class TaskChannelInstance(InstanceResource):
         :param unicode friendly_name: A string to describe the TaskChannel resource
         :param bool channel_optimized_routing: Whether the TaskChannel should prioritize Workers that have been idle
 
-        :returns: Updated TaskChannelInstance
+        :returns: The updated TaskChannelInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.task_channel.TaskChannelInstance
         """
         return self._proxy.update(

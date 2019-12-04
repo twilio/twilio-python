@@ -36,20 +36,16 @@ class StreamMessageList(ListResource):
 
     def create(self, data):
         """
-        Create a new StreamMessageInstance
+        Create the StreamMessageInstance
 
         :param dict data: A JSON string that represents an arbitrary, schema-less object that makes up the Stream Message body
 
-        :returns: Newly created StreamMessageInstance
+        :returns: The created StreamMessageInstance
         :rtype: twilio.rest.sync.v1.service.sync_stream.stream_message.StreamMessageInstance
         """
         data = values.of({'Data': serialize.object(data), })
 
-        payload = self._version.create(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data, )
 
         return StreamMessageInstance(
             self._version,

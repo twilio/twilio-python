@@ -41,7 +41,7 @@ class NotificationList(ListResource):
                segment=values.unset, alexa=values.unset, to_binding=values.unset,
                identity=values.unset, tag=values.unset):
         """
-        Create a new NotificationInstance
+        Create the NotificationInstance
 
         :param unicode body: The notification body text
         :param NotificationInstance.Priority priority: The priority of the notification
@@ -61,7 +61,7 @@ class NotificationList(ListResource):
         :param unicode identity: The `identity` value that identifies the new resource's User
         :param unicode tag: A tag that selects the Bindings to notify
 
-        :returns: Newly created NotificationInstance
+        :returns: The created NotificationInstance
         :rtype: twilio.rest.notify.v1.service.notification.NotificationInstance
         """
         data = values.of({
@@ -84,11 +84,7 @@ class NotificationList(ListResource):
             'ToBinding': serialize.map(to_binding, lambda e: e),
         })
 
-        payload = self._version.create(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data, )
 
         return NotificationInstance(self._version, payload, service_sid=self._solution['service_sid'], )
 

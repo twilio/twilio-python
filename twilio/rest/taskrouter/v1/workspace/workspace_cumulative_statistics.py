@@ -134,7 +134,7 @@ class WorkspaceCumulativeStatisticsContext(InstanceContext):
               start_date=values.unset, task_channel=values.unset,
               split_by_wait_time=values.unset):
         """
-        Fetch a WorkspaceCumulativeStatisticsInstance
+        Fetch the WorkspaceCumulativeStatisticsInstance
 
         :param datetime end_date: Only include usage that occurred on or before this date
         :param unicode minutes: Only calculate statistics since this many minutes in the past
@@ -142,10 +142,10 @@ class WorkspaceCumulativeStatisticsContext(InstanceContext):
         :param unicode task_channel: Only calculate cumulative statistics on this TaskChannel
         :param unicode split_by_wait_time: A comma separated list of values that describes the thresholds to calculate statistics on
 
-        :returns: Fetched WorkspaceCumulativeStatisticsInstance
+        :returns: The fetched WorkspaceCumulativeStatisticsInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.workspace_cumulative_statistics.WorkspaceCumulativeStatisticsInstance
         """
-        params = values.of({
+        data = values.of({
             'EndDate': serialize.iso8601_datetime(end_date),
             'Minutes': minutes,
             'StartDate': serialize.iso8601_datetime(start_date),
@@ -153,11 +153,7 @@ class WorkspaceCumulativeStatisticsContext(InstanceContext):
             'SplitByWaitTime': split_by_wait_time,
         })
 
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, params=data, )
 
         return WorkspaceCumulativeStatisticsInstance(
             self._version,
@@ -405,7 +401,7 @@ class WorkspaceCumulativeStatisticsInstance(InstanceResource):
               start_date=values.unset, task_channel=values.unset,
               split_by_wait_time=values.unset):
         """
-        Fetch a WorkspaceCumulativeStatisticsInstance
+        Fetch the WorkspaceCumulativeStatisticsInstance
 
         :param datetime end_date: Only include usage that occurred on or before this date
         :param unicode minutes: Only calculate statistics since this many minutes in the past
@@ -413,7 +409,7 @@ class WorkspaceCumulativeStatisticsInstance(InstanceResource):
         :param unicode task_channel: Only calculate cumulative statistics on this TaskChannel
         :param unicode split_by_wait_time: A comma separated list of values that describes the thresholds to calculate statistics on
 
-        :returns: Fetched WorkspaceCumulativeStatisticsInstance
+        :returns: The fetched WorkspaceCumulativeStatisticsInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.workspace_cumulative_statistics.WorkspaceCumulativeStatisticsInstance
         """
         return self._proxy.fetch(

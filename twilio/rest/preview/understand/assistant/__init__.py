@@ -97,13 +97,9 @@ class AssistantList(ListResource):
         :returns: Page of AssistantInstance
         :rtype: twilio.rest.preview.understand.assistant.AssistantPage
         """
-        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
+        data = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return AssistantPage(self._version, response, self._solution)
 
@@ -129,7 +125,7 @@ class AssistantList(ListResource):
                callback_events=values.unset, fallback_actions=values.unset,
                initiation_actions=values.unset, style_sheet=values.unset):
         """
-        Create a new AssistantInstance
+        Create the AssistantInstance
 
         :param unicode friendly_name: A text description for the Assistant. It is non-unique and can up to 255 characters long.
         :param bool log_queries: A boolean that specifies whether queries should be logged for 30 days further training. If false, no queries will be stored, if true, queries will be stored for 30 days and deleted thereafter. Defaults to true if no value is provided.
@@ -140,7 +136,7 @@ class AssistantList(ListResource):
         :param dict initiation_actions: The JSON actions to be executed on inbound phone calls when the Assistant has to say something first.
         :param dict style_sheet: The JSON object that holds the style sheet for the assistant
 
-        :returns: Newly created AssistantInstance
+        :returns: The created AssistantInstance
         :rtype: twilio.rest.preview.understand.assistant.AssistantInstance
         """
         data = values.of({
@@ -154,11 +150,7 @@ class AssistantList(ListResource):
             'StyleSheet': serialize.object(style_sheet),
         })
 
-        payload = self._version.create(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data, )
 
         return AssistantInstance(self._version, payload, )
 
@@ -268,18 +260,12 @@ class AssistantContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a AssistantInstance
+        Fetch the AssistantInstance
 
-        :returns: Fetched AssistantInstance
+        :returns: The fetched AssistantInstance
         :rtype: twilio.rest.preview.understand.assistant.AssistantInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return AssistantInstance(self._version, payload, sid=self._solution['sid'], )
 
@@ -299,7 +285,7 @@ class AssistantContext(InstanceContext):
         :param dict initiation_actions: The JSON actions to be executed on inbound phone calls when the Assistant has to say something first.
         :param dict style_sheet: The JSON object that holds the style sheet for the assistant
 
-        :returns: Updated AssistantInstance
+        :returns: The updated AssistantInstance
         :rtype: twilio.rest.preview.understand.assistant.AssistantInstance
         """
         data = values.of({
@@ -313,11 +299,7 @@ class AssistantContext(InstanceContext):
             'StyleSheet': serialize.object(style_sheet),
         })
 
-        payload = self._version.update(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.update(method='POST', uri=self._uri, data=data, )
 
         return AssistantInstance(self._version, payload, sid=self._solution['sid'], )
 
@@ -328,7 +310,7 @@ class AssistantContext(InstanceContext):
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete('delete', self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri, )
 
     @property
     def field_types(self):
@@ -588,9 +570,9 @@ class AssistantInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a AssistantInstance
+        Fetch the AssistantInstance
 
-        :returns: Fetched AssistantInstance
+        :returns: The fetched AssistantInstance
         :rtype: twilio.rest.preview.understand.assistant.AssistantInstance
         """
         return self._proxy.fetch()
@@ -611,7 +593,7 @@ class AssistantInstance(InstanceResource):
         :param dict initiation_actions: The JSON actions to be executed on inbound phone calls when the Assistant has to say something first.
         :param dict style_sheet: The JSON object that holds the style sheet for the assistant
 
-        :returns: Updated AssistantInstance
+        :returns: The updated AssistantInstance
         :rtype: twilio.rest.preview.understand.assistant.AssistantInstance
         """
         return self._proxy.update(

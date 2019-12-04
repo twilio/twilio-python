@@ -90,13 +90,9 @@ class WebhookList(ListResource):
         :returns: Page of WebhookInstance
         :rtype: twilio.rest.messaging.v1.session.webhook.WebhookPage
         """
-        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
+        data = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return WebhookPage(self._version, response, self._solution)
 
@@ -127,7 +123,7 @@ class WebhookList(ListResource):
                configuration_buffer_messages=values.unset,
                configuration_buffer_window=values.unset):
         """
-        Create a new WebhookInstance
+        Create the WebhookInstance
 
         :param WebhookInstance.Target target: The target of the webhook
         :param unicode configuration_url: The absolute URL the webhook request should be sent to
@@ -140,7 +136,7 @@ class WebhookList(ListResource):
         :param bool configuration_buffer_messages: Whether buffering should be applied to messages
         :param unicode configuration_buffer_window: The period to buffer messages
 
-        :returns: Newly created WebhookInstance
+        :returns: The created WebhookInstance
         :rtype: twilio.rest.messaging.v1.session.webhook.WebhookInstance
         """
         data = values.of({
@@ -156,11 +152,7 @@ class WebhookList(ListResource):
             'Configuration.BufferWindow': configuration_buffer_window,
         })
 
-        payload = self._version.create(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data, )
 
         return WebhookInstance(self._version, payload, session_sid=self._solution['session_sid'], )
 
@@ -262,18 +254,12 @@ class WebhookContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a WebhookInstance
+        Fetch the WebhookInstance
 
-        :returns: Fetched WebhookInstance
+        :returns: The fetched WebhookInstance
         :rtype: twilio.rest.messaging.v1.session.webhook.WebhookInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return WebhookInstance(
             self._version,
@@ -302,7 +288,7 @@ class WebhookContext(InstanceContext):
         :param bool configuration_buffer_messages: Whether buffering should be applied to messages
         :param unicode configuration_buffer_window: The period to buffer messages
 
-        :returns: Updated WebhookInstance
+        :returns: The updated WebhookInstance
         :rtype: twilio.rest.messaging.v1.session.webhook.WebhookInstance
         """
         data = values.of({
@@ -316,11 +302,7 @@ class WebhookContext(InstanceContext):
             'Configuration.BufferWindow': configuration_buffer_window,
         })
 
-        payload = self._version.update(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.update(method='POST', uri=self._uri, data=data, )
 
         return WebhookInstance(
             self._version,
@@ -336,7 +318,7 @@ class WebhookContext(InstanceContext):
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete('delete', self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri, )
 
     def __repr__(self):
         """
@@ -471,9 +453,9 @@ class WebhookInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a WebhookInstance
+        Fetch the WebhookInstance
 
-        :returns: Fetched WebhookInstance
+        :returns: The fetched WebhookInstance
         :rtype: twilio.rest.messaging.v1.session.webhook.WebhookInstance
         """
         return self._proxy.fetch()
@@ -498,7 +480,7 @@ class WebhookInstance(InstanceResource):
         :param bool configuration_buffer_messages: Whether buffering should be applied to messages
         :param unicode configuration_buffer_window: The period to buffer messages
 
-        :returns: Updated WebhookInstance
+        :returns: The updated WebhookInstance
         :rtype: twilio.rest.messaging.v1.session.webhook.WebhookInstance
         """
         return self._proxy.update(

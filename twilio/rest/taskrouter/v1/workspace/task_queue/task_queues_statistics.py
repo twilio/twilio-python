@@ -130,7 +130,7 @@ class TaskQueuesStatisticsList(ListResource):
         :returns: Page of TaskQueuesStatisticsInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.task_queues_statistics.TaskQueuesStatisticsPage
         """
-        params = values.of({
+        data = values.of({
             'EndDate': serialize.iso8601_datetime(end_date),
             'FriendlyName': friendly_name,
             'Minutes': minutes,
@@ -142,11 +142,7 @@ class TaskQueuesStatisticsList(ListResource):
             'PageSize': page_size,
         })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return TaskQueuesStatisticsPage(self._version, response, self._solution)
 

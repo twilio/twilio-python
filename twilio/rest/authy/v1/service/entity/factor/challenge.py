@@ -41,13 +41,13 @@ class ChallengeList(ListResource):
     def create(self, expiration_date=values.unset, details=values.unset,
                hidden_details=values.unset):
         """
-        Create a new ChallengeInstance
+        Create the ChallengeInstance
 
         :param datetime expiration_date: The future date in which this Challenge will expire
         :param unicode details: Public details provided to contextualize the Challenge
         :param unicode hidden_details: Hidden details provided to contextualize the Challenge
 
-        :returns: Newly created ChallengeInstance
+        :returns: The created ChallengeInstance
         :rtype: twilio.rest.authy.v1.service.entity.factor.challenge.ChallengeInstance
         """
         data = values.of({
@@ -56,11 +56,7 @@ class ChallengeList(ListResource):
             'HiddenDetails': hidden_details,
         })
 
-        payload = self._version.create(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data, )
 
         return ChallengeInstance(
             self._version,
@@ -200,22 +196,16 @@ class ChallengeContext(InstanceContext):
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete('delete', self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri, )
 
     def fetch(self):
         """
-        Fetch a ChallengeInstance
+        Fetch the ChallengeInstance
 
-        :returns: Fetched ChallengeInstance
+        :returns: The fetched ChallengeInstance
         :rtype: twilio.rest.authy.v1.service.entity.factor.challenge.ChallengeInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return ChallengeInstance(
             self._version,
@@ -232,16 +222,12 @@ class ChallengeContext(InstanceContext):
 
         :param unicode auth_payload: Optional payload to verify the Challenge
 
-        :returns: Updated ChallengeInstance
+        :returns: The updated ChallengeInstance
         :rtype: twilio.rest.authy.v1.service.entity.factor.challenge.ChallengeInstance
         """
         data = values.of({'AuthPayload': auth_payload, })
 
-        payload = self._version.update(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.update(method='POST', uri=self._uri, data=data, )
 
         return ChallengeInstance(
             self._version,
@@ -498,9 +484,9 @@ class ChallengeInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a ChallengeInstance
+        Fetch the ChallengeInstance
 
-        :returns: Fetched ChallengeInstance
+        :returns: The fetched ChallengeInstance
         :rtype: twilio.rest.authy.v1.service.entity.factor.challenge.ChallengeInstance
         """
         return self._proxy.fetch()
@@ -511,7 +497,7 @@ class ChallengeInstance(InstanceResource):
 
         :param unicode auth_payload: Optional payload to verify the Challenge
 
-        :returns: Updated ChallengeInstance
+        :returns: The updated ChallengeInstance
         :rtype: twilio.rest.authy.v1.service.entity.factor.challenge.ChallengeInstance
         """
         return self._proxy.update(auth_payload=auth_payload, )

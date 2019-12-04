@@ -41,7 +41,7 @@ class ConversationList(ListResource):
                date_updated=values.unset, messaging_service_sid=values.unset,
                attributes=values.unset):
         """
-        Create a new ConversationInstance
+        Create the ConversationInstance
 
         :param unicode friendly_name: The human-readable name of this conversation.
         :param datetime date_created: The date that this resource was created.
@@ -49,7 +49,7 @@ class ConversationList(ListResource):
         :param unicode messaging_service_sid: The unique id of the SMS Service this conversation belongs to.
         :param unicode attributes: An optional string metadata field you can use to store any data you wish.
 
-        :returns: Newly created ConversationInstance
+        :returns: The created ConversationInstance
         :rtype: twilio.rest.conversations.v1.conversation.ConversationInstance
         """
         data = values.of({
@@ -60,11 +60,7 @@ class ConversationList(ListResource):
             'Attributes': attributes,
         })
 
-        payload = self._version.create(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data, )
 
         return ConversationInstance(self._version, payload, )
 
@@ -122,13 +118,9 @@ class ConversationList(ListResource):
         :returns: Page of ConversationInstance
         :rtype: twilio.rest.conversations.v1.conversation.ConversationPage
         """
-        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
+        data = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return ConversationPage(self._version, response, self._solution)
 
@@ -256,7 +248,7 @@ class ConversationContext(InstanceContext):
         :param datetime date_updated: The date that this resource was last updated.
         :param unicode attributes: An optional string metadata field you can use to store any data you wish.
 
-        :returns: Updated ConversationInstance
+        :returns: The updated ConversationInstance
         :rtype: twilio.rest.conversations.v1.conversation.ConversationInstance
         """
         data = values.of({
@@ -266,11 +258,7 @@ class ConversationContext(InstanceContext):
             'Attributes': attributes,
         })
 
-        payload = self._version.update(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.update(method='POST', uri=self._uri, data=data, )
 
         return ConversationInstance(self._version, payload, sid=self._solution['sid'], )
 
@@ -281,22 +269,16 @@ class ConversationContext(InstanceContext):
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete('delete', self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri, )
 
     def fetch(self):
         """
-        Fetch a ConversationInstance
+        Fetch the ConversationInstance
 
-        :returns: Fetched ConversationInstance
+        :returns: The fetched ConversationInstance
         :rtype: twilio.rest.conversations.v1.conversation.ConversationInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return ConversationInstance(self._version, payload, sid=self._solution['sid'], )
 
@@ -485,7 +467,7 @@ class ConversationInstance(InstanceResource):
         :param datetime date_updated: The date that this resource was last updated.
         :param unicode attributes: An optional string metadata field you can use to store any data you wish.
 
-        :returns: Updated ConversationInstance
+        :returns: The updated ConversationInstance
         :rtype: twilio.rest.conversations.v1.conversation.ConversationInstance
         """
         return self._proxy.update(
@@ -506,9 +488,9 @@ class ConversationInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a ConversationInstance
+        Fetch the ConversationInstance
 
-        :returns: Fetched ConversationInstance
+        :returns: The fetched ConversationInstance
         :rtype: twilio.rest.conversations.v1.conversation.ConversationInstance
         """
         return self._proxy.fetch()

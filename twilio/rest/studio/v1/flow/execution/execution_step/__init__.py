@@ -89,13 +89,9 @@ class ExecutionStepList(ListResource):
         :returns: Page of ExecutionStepInstance
         :rtype: twilio.rest.studio.v1.flow.execution.execution_step.ExecutionStepPage
         """
-        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
+        data = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return ExecutionStepPage(self._version, response, self._solution)
 
@@ -230,18 +226,12 @@ class ExecutionStepContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a ExecutionStepInstance
+        Fetch the ExecutionStepInstance
 
-        :returns: Fetched ExecutionStepInstance
+        :returns: The fetched ExecutionStepInstance
         :rtype: twilio.rest.studio.v1.flow.execution.execution_step.ExecutionStepInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return ExecutionStepInstance(
             self._version,
@@ -431,9 +421,9 @@ class ExecutionStepInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a ExecutionStepInstance
+        Fetch the ExecutionStepInstance
 
-        :returns: Fetched ExecutionStepInstance
+        :returns: The fetched ExecutionStepInstance
         :rtype: twilio.rest.studio.v1.flow.execution.execution_step.ExecutionStepInstance
         """
         return self._proxy.fetch()

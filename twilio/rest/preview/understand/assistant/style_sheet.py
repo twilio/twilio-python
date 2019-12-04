@@ -127,18 +127,12 @@ class StyleSheetContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a StyleSheetInstance
+        Fetch the StyleSheetInstance
 
-        :returns: Fetched StyleSheetInstance
+        :returns: The fetched StyleSheetInstance
         :rtype: twilio.rest.preview.understand.assistant.style_sheet.StyleSheetInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return StyleSheetInstance(self._version, payload, assistant_sid=self._solution['assistant_sid'], )
 
@@ -148,16 +142,12 @@ class StyleSheetContext(InstanceContext):
 
         :param dict style_sheet: The JSON Style sheet string
 
-        :returns: Updated StyleSheetInstance
+        :returns: The updated StyleSheetInstance
         :rtype: twilio.rest.preview.understand.assistant.style_sheet.StyleSheetInstance
         """
         data = values.of({'StyleSheet': serialize.object(style_sheet), })
 
-        payload = self._version.update(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.update(method='POST', uri=self._uri, data=data, )
 
         return StyleSheetInstance(self._version, payload, assistant_sid=self._solution['assistant_sid'], )
 
@@ -245,9 +235,9 @@ class StyleSheetInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a StyleSheetInstance
+        Fetch the StyleSheetInstance
 
-        :returns: Fetched StyleSheetInstance
+        :returns: The fetched StyleSheetInstance
         :rtype: twilio.rest.preview.understand.assistant.style_sheet.StyleSheetInstance
         """
         return self._proxy.fetch()
@@ -258,7 +248,7 @@ class StyleSheetInstance(InstanceResource):
 
         :param dict style_sheet: The JSON Style sheet string
 
-        :returns: Updated StyleSheetInstance
+        :returns: The updated StyleSheetInstance
         :rtype: twilio.rest.preview.understand.assistant.style_sheet.StyleSheetInstance
         """
         return self._proxy.update(style_sheet=style_sheet, )

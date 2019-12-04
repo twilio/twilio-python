@@ -112,7 +112,7 @@ class MediaList(ListResource):
         :returns: Page of MediaInstance
         :rtype: twilio.rest.api.v2010.account.message.media.MediaPage
         """
-        params = values.of({
+        data = values.of({
             'DateCreated<': serialize.iso8601_datetime(date_created_before),
             'DateCreated': serialize.iso8601_datetime(date_created),
             'DateCreated>': serialize.iso8601_datetime(date_created_after),
@@ -121,11 +121,7 @@ class MediaList(ListResource):
             'PageSize': page_size,
         })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return MediaPage(self._version, response, self._solution)
 
@@ -262,22 +258,16 @@ class MediaContext(InstanceContext):
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete('delete', self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri, )
 
     def fetch(self):
         """
-        Fetch a MediaInstance
+        Fetch the MediaInstance
 
-        :returns: Fetched MediaInstance
+        :returns: The fetched MediaInstance
         :rtype: twilio.rest.api.v2010.account.message.media.MediaInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return MediaInstance(
             self._version,
@@ -414,9 +404,9 @@ class MediaInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a MediaInstance
+        Fetch the MediaInstance
 
-        :returns: Fetched MediaInstance
+        :returns: The fetched MediaInstance
         :rtype: twilio.rest.api.v2010.account.message.media.MediaInstance
         """
         return self._proxy.fetch()

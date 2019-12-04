@@ -112,7 +112,7 @@ class QueryList(ListResource):
         :returns: Page of QueryInstance
         :rtype: twilio.rest.autopilot.v1.assistant.query.QueryPage
         """
-        params = values.of({
+        data = values.of({
             'Language': language,
             'ModelBuild': model_build,
             'Status': status,
@@ -121,11 +121,7 @@ class QueryList(ListResource):
             'PageSize': page_size,
         })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return QueryPage(self._version, response, self._solution)
 
@@ -148,23 +144,19 @@ class QueryList(ListResource):
 
     def create(self, language, query, tasks=values.unset, model_build=values.unset):
         """
-        Create a new QueryInstance
+        Create the QueryInstance
 
         :param unicode language: The ISO language-country string that specifies the language used for the new query
         :param unicode query: The end-user's natural language input
         :param unicode tasks: The list of tasks to limit the new query to
         :param unicode model_build: The SID or unique name of the Model Build to be queried
 
-        :returns: Newly created QueryInstance
+        :returns: The created QueryInstance
         :rtype: twilio.rest.autopilot.v1.assistant.query.QueryInstance
         """
         data = values.of({'Language': language, 'Query': query, 'Tasks': tasks, 'ModelBuild': model_build, })
 
-        payload = self._version.create(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data, )
 
         return QueryInstance(self._version, payload, assistant_sid=self._solution['assistant_sid'], )
 
@@ -266,18 +258,12 @@ class QueryContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a QueryInstance
+        Fetch the QueryInstance
 
-        :returns: Fetched QueryInstance
+        :returns: The fetched QueryInstance
         :rtype: twilio.rest.autopilot.v1.assistant.query.QueryInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return QueryInstance(
             self._version,
@@ -293,16 +279,12 @@ class QueryContext(InstanceContext):
         :param unicode sample_sid: The SID of an optional reference to the Sample created from the query
         :param unicode status: The new status of the resource
 
-        :returns: Updated QueryInstance
+        :returns: The updated QueryInstance
         :rtype: twilio.rest.autopilot.v1.assistant.query.QueryInstance
         """
         data = values.of({'SampleSid': sample_sid, 'Status': status, })
 
-        payload = self._version.update(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.update(method='POST', uri=self._uri, data=data, )
 
         return QueryInstance(
             self._version,
@@ -318,7 +300,7 @@ class QueryContext(InstanceContext):
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete('delete', self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri, )
 
     def __repr__(self):
         """
@@ -489,9 +471,9 @@ class QueryInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a QueryInstance
+        Fetch the QueryInstance
 
-        :returns: Fetched QueryInstance
+        :returns: The fetched QueryInstance
         :rtype: twilio.rest.autopilot.v1.assistant.query.QueryInstance
         """
         return self._proxy.fetch()
@@ -503,7 +485,7 @@ class QueryInstance(InstanceResource):
         :param unicode sample_sid: The SID of an optional reference to the Sample created from the query
         :param unicode status: The new status of the resource
 
-        :returns: Updated QueryInstance
+        :returns: The updated QueryInstance
         :rtype: twilio.rest.autopilot.v1.assistant.query.QueryInstance
         """
         return self._proxy.update(sample_sid=sample_sid, status=status, )

@@ -88,13 +88,9 @@ class AvailableAddOnList(ListResource):
         :returns: Page of AvailableAddOnInstance
         :rtype: twilio.rest.preview.marketplace.available_add_on.AvailableAddOnPage
         """
-        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
+        data = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return AvailableAddOnPage(self._version, response, self._solution)
 
@@ -214,18 +210,12 @@ class AvailableAddOnContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a AvailableAddOnInstance
+        Fetch the AvailableAddOnInstance
 
-        :returns: Fetched AvailableAddOnInstance
+        :returns: The fetched AvailableAddOnInstance
         :rtype: twilio.rest.preview.marketplace.available_add_on.AvailableAddOnInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return AvailableAddOnInstance(self._version, payload, sid=self._solution['sid'], )
 
@@ -355,9 +345,9 @@ class AvailableAddOnInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a AvailableAddOnInstance
+        Fetch the AvailableAddOnInstance
 
-        :returns: Fetched AvailableAddOnInstance
+        :returns: The fetched AvailableAddOnInstance
         :rtype: twilio.rest.preview.marketplace.available_add_on.AvailableAddOnInstance
         """
         return self._proxy.fetch()

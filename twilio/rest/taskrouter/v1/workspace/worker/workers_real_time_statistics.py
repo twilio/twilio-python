@@ -131,20 +131,16 @@ class WorkersRealTimeStatisticsContext(InstanceContext):
 
     def fetch(self, task_channel=values.unset):
         """
-        Fetch a WorkersRealTimeStatisticsInstance
+        Fetch the WorkersRealTimeStatisticsInstance
 
         :param unicode task_channel: Only calculate real-time statistics on this TaskChannel
 
-        :returns: Fetched WorkersRealTimeStatisticsInstance
+        :returns: The fetched WorkersRealTimeStatisticsInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.worker.workers_real_time_statistics.WorkersRealTimeStatisticsInstance
         """
-        params = values.of({'TaskChannel': task_channel, })
+        data = values.of({'TaskChannel': task_channel, })
 
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, params=data, )
 
         return WorkersRealTimeStatisticsInstance(
             self._version,
@@ -246,11 +242,11 @@ class WorkersRealTimeStatisticsInstance(InstanceResource):
 
     def fetch(self, task_channel=values.unset):
         """
-        Fetch a WorkersRealTimeStatisticsInstance
+        Fetch the WorkersRealTimeStatisticsInstance
 
         :param unicode task_channel: Only calculate real-time statistics on this TaskChannel
 
-        :returns: Fetched WorkersRealTimeStatisticsInstance
+        :returns: The fetched WorkersRealTimeStatisticsInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.worker.workers_real_time_statistics.WorkersRealTimeStatisticsInstance
         """
         return self._proxy.fetch(task_channel=task_channel, )

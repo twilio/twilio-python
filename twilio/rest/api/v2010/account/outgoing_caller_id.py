@@ -105,7 +105,7 @@ class OutgoingCallerIdList(ListResource):
         :returns: Page of OutgoingCallerIdInstance
         :rtype: twilio.rest.api.v2010.account.outgoing_caller_id.OutgoingCallerIdPage
         """
-        params = values.of({
+        data = values.of({
             'PhoneNumber': phone_number,
             'FriendlyName': friendly_name,
             'PageToken': page_token,
@@ -113,11 +113,7 @@ class OutgoingCallerIdList(ListResource):
             'PageSize': page_size,
         })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return OutgoingCallerIdPage(self._version, response, self._solution)
 
@@ -232,18 +228,12 @@ class OutgoingCallerIdContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a OutgoingCallerIdInstance
+        Fetch the OutgoingCallerIdInstance
 
-        :returns: Fetched OutgoingCallerIdInstance
+        :returns: The fetched OutgoingCallerIdInstance
         :rtype: twilio.rest.api.v2010.account.outgoing_caller_id.OutgoingCallerIdInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return OutgoingCallerIdInstance(
             self._version,
@@ -258,16 +248,12 @@ class OutgoingCallerIdContext(InstanceContext):
 
         :param unicode friendly_name: A string to describe the resource
 
-        :returns: Updated OutgoingCallerIdInstance
+        :returns: The updated OutgoingCallerIdInstance
         :rtype: twilio.rest.api.v2010.account.outgoing_caller_id.OutgoingCallerIdInstance
         """
         data = values.of({'FriendlyName': friendly_name, })
 
-        payload = self._version.update(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.update(method='POST', uri=self._uri, data=data, )
 
         return OutgoingCallerIdInstance(
             self._version,
@@ -283,7 +269,7 @@ class OutgoingCallerIdContext(InstanceContext):
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete('delete', self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri, )
 
     def __repr__(self):
         """
@@ -398,9 +384,9 @@ class OutgoingCallerIdInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a OutgoingCallerIdInstance
+        Fetch the OutgoingCallerIdInstance
 
-        :returns: Fetched OutgoingCallerIdInstance
+        :returns: The fetched OutgoingCallerIdInstance
         :rtype: twilio.rest.api.v2010.account.outgoing_caller_id.OutgoingCallerIdInstance
         """
         return self._proxy.fetch()
@@ -411,7 +397,7 @@ class OutgoingCallerIdInstance(InstanceResource):
 
         :param unicode friendly_name: A string to describe the resource
 
-        :returns: Updated OutgoingCallerIdInstance
+        :returns: The updated OutgoingCallerIdInstance
         :rtype: twilio.rest.api.v2010.account.outgoing_caller_id.OutgoingCallerIdInstance
         """
         return self._proxy.update(friendly_name=friendly_name, )

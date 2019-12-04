@@ -122,20 +122,16 @@ class NumberContext(InstanceContext):
 
     def fetch(self, origination_number=values.unset):
         """
-        Fetch a NumberInstance
+        Fetch the NumberInstance
 
         :param unicode origination_number: The origination number for which to fetch pricing information
 
-        :returns: Fetched NumberInstance
+        :returns: The fetched NumberInstance
         :rtype: twilio.rest.pricing.v2.voice.number.NumberInstance
         """
-        params = values.of({'OriginationNumber': origination_number, })
+        data = values.of({'OriginationNumber': origination_number, })
 
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, params=data, )
 
         return NumberInstance(
             self._version,
@@ -266,11 +262,11 @@ class NumberInstance(InstanceResource):
 
     def fetch(self, origination_number=values.unset):
         """
-        Fetch a NumberInstance
+        Fetch the NumberInstance
 
         :param unicode origination_number: The origination number for which to fetch pricing information
 
-        :returns: Fetched NumberInstance
+        :returns: The fetched NumberInstance
         :rtype: twilio.rest.pricing.v2.voice.number.NumberInstance
         """
         return self._proxy.fetch(origination_number=origination_number, )

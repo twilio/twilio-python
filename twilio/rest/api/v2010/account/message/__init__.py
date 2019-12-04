@@ -43,7 +43,7 @@ class MessageList(ListResource):
                from_=values.unset, messaging_service_sid=values.unset,
                body=values.unset, media_url=values.unset):
         """
-        Create a new MessageInstance
+        Create the MessageInstance
 
         :param unicode to: The destination phone number
         :param unicode status_callback: The URL we should call to send status information to your application
@@ -59,7 +59,7 @@ class MessageList(ListResource):
         :param unicode body: The text of the message you want to send. Can be up to 1,600 characters in length.
         :param unicode media_url: The URL of the media to send with the message
 
-        :returns: Newly created MessageInstance
+        :returns: The created MessageInstance
         :rtype: twilio.rest.api.v2010.account.message.MessageInstance
         """
         data = values.of({
@@ -78,11 +78,7 @@ class MessageList(ListResource):
             'PersistentAction': serialize.map(persistent_action, lambda e: e),
         })
 
-        payload = self._version.create(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data, )
 
         return MessageInstance(self._version, payload, account_sid=self._solution['account_sid'], )
 
@@ -176,7 +172,7 @@ class MessageList(ListResource):
         :returns: Page of MessageInstance
         :rtype: twilio.rest.api.v2010.account.message.MessagePage
         """
-        params = values.of({
+        data = values.of({
             'To': to,
             'From': from_,
             'DateSent<': serialize.iso8601_datetime(date_sent_before),
@@ -187,11 +183,7 @@ class MessageList(ListResource):
             'PageSize': page_size,
         })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return MessagePage(self._version, response, self._solution)
 
@@ -315,22 +307,16 @@ class MessageContext(InstanceContext):
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete('delete', self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri, )
 
     def fetch(self):
         """
-        Fetch a MessageInstance
+        Fetch the MessageInstance
 
-        :returns: Fetched MessageInstance
+        :returns: The fetched MessageInstance
         :rtype: twilio.rest.api.v2010.account.message.MessageInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return MessageInstance(
             self._version,
@@ -345,16 +331,12 @@ class MessageContext(InstanceContext):
 
         :param unicode body: The text of the message you want to send
 
-        :returns: Updated MessageInstance
+        :returns: The updated MessageInstance
         :rtype: twilio.rest.api.v2010.account.message.MessageInstance
         """
         data = values.of({'Body': body, })
 
-        payload = self._version.update(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.update(method='POST', uri=self._uri, data=data, )
 
         return MessageInstance(
             self._version,
@@ -664,9 +646,9 @@ class MessageInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a MessageInstance
+        Fetch the MessageInstance
 
-        :returns: Fetched MessageInstance
+        :returns: The fetched MessageInstance
         :rtype: twilio.rest.api.v2010.account.message.MessageInstance
         """
         return self._proxy.fetch()
@@ -677,7 +659,7 @@ class MessageInstance(InstanceResource):
 
         :param unicode body: The text of the message you want to send
 
-        :returns: Updated MessageInstance
+        :returns: The updated MessageInstance
         :rtype: twilio.rest.api.v2010.account.message.MessageInstance
         """
         return self._proxy.update(body, )

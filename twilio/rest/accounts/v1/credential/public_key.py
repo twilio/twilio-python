@@ -86,13 +86,9 @@ class PublicKeyList(ListResource):
         :returns: Page of PublicKeyInstance
         :rtype: twilio.rest.accounts.v1.credential.public_key.PublicKeyPage
         """
-        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
+        data = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return PublicKeyPage(self._version, response, self._solution)
 
@@ -116,13 +112,13 @@ class PublicKeyList(ListResource):
     def create(self, public_key, friendly_name=values.unset,
                account_sid=values.unset):
         """
-        Create a new PublicKeyInstance
+        Create the PublicKeyInstance
 
         :param unicode public_key: A URL encoded representation of the public key
         :param unicode friendly_name: A string to describe the resource
         :param unicode account_sid: The Subaccount this Credential should be associated with.
 
-        :returns: Newly created PublicKeyInstance
+        :returns: The created PublicKeyInstance
         :rtype: twilio.rest.accounts.v1.credential.public_key.PublicKeyInstance
         """
         data = values.of({
@@ -131,11 +127,7 @@ class PublicKeyList(ListResource):
             'AccountSid': account_sid,
         })
 
-        payload = self._version.create(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data, )
 
         return PublicKeyInstance(self._version, payload, )
 
@@ -231,18 +223,12 @@ class PublicKeyContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a PublicKeyInstance
+        Fetch the PublicKeyInstance
 
-        :returns: Fetched PublicKeyInstance
+        :returns: The fetched PublicKeyInstance
         :rtype: twilio.rest.accounts.v1.credential.public_key.PublicKeyInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return PublicKeyInstance(self._version, payload, sid=self._solution['sid'], )
 
@@ -252,16 +238,12 @@ class PublicKeyContext(InstanceContext):
 
         :param unicode friendly_name: A string to describe the resource
 
-        :returns: Updated PublicKeyInstance
+        :returns: The updated PublicKeyInstance
         :rtype: twilio.rest.accounts.v1.credential.public_key.PublicKeyInstance
         """
         data = values.of({'FriendlyName': friendly_name, })
 
-        payload = self._version.update(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.update(method='POST', uri=self._uri, data=data, )
 
         return PublicKeyInstance(self._version, payload, sid=self._solution['sid'], )
 
@@ -272,7 +254,7 @@ class PublicKeyContext(InstanceContext):
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete('delete', self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri, )
 
     def __repr__(self):
         """
@@ -374,9 +356,9 @@ class PublicKeyInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a PublicKeyInstance
+        Fetch the PublicKeyInstance
 
-        :returns: Fetched PublicKeyInstance
+        :returns: The fetched PublicKeyInstance
         :rtype: twilio.rest.accounts.v1.credential.public_key.PublicKeyInstance
         """
         return self._proxy.fetch()
@@ -387,7 +369,7 @@ class PublicKeyInstance(InstanceResource):
 
         :param unicode friendly_name: A string to describe the resource
 
-        :returns: Updated PublicKeyInstance
+        :returns: The updated PublicKeyInstance
         :rtype: twilio.rest.accounts.v1.credential.public_key.PublicKeyInstance
         """
         return self._proxy.update(friendly_name=friendly_name, )

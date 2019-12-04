@@ -88,13 +88,9 @@ class WorkerChannelList(ListResource):
         :returns: Page of WorkerChannelInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.worker.worker_channel.WorkerChannelPage
         """
-        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
+        data = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return WorkerChannelPage(self._version, response, self._solution)
 
@@ -226,18 +222,12 @@ class WorkerChannelContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a WorkerChannelInstance
+        Fetch the WorkerChannelInstance
 
-        :returns: Fetched WorkerChannelInstance
+        :returns: The fetched WorkerChannelInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.worker.worker_channel.WorkerChannelInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return WorkerChannelInstance(
             self._version,
@@ -254,16 +244,12 @@ class WorkerChannelContext(InstanceContext):
         :param unicode capacity: The total number of Tasks that the Worker should handle for the TaskChannel type
         :param bool available: Whether the WorkerChannel is available
 
-        :returns: Updated WorkerChannelInstance
+        :returns: The updated WorkerChannelInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.worker.worker_channel.WorkerChannelInstance
         """
         data = values.of({'Capacity': capacity, 'Available': available, })
 
-        payload = self._version.update(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.update(method='POST', uri=self._uri, data=data, )
 
         return WorkerChannelInstance(
             self._version,
@@ -445,9 +431,9 @@ class WorkerChannelInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a WorkerChannelInstance
+        Fetch the WorkerChannelInstance
 
-        :returns: Fetched WorkerChannelInstance
+        :returns: The fetched WorkerChannelInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.worker.worker_channel.WorkerChannelInstance
         """
         return self._proxy.fetch()
@@ -459,7 +445,7 @@ class WorkerChannelInstance(InstanceResource):
         :param unicode capacity: The total number of Tasks that the Worker should handle for the TaskChannel type
         :param bool available: Whether the WorkerChannel is available
 
-        :returns: Updated WorkerChannelInstance
+        :returns: The updated WorkerChannelInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.worker.worker_channel.WorkerChannelInstance
         """
         return self._proxy.update(capacity=capacity, available=available, )

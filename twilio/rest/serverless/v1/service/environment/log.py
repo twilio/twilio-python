@@ -93,18 +93,14 @@ class LogList(ListResource):
         :returns: Page of LogInstance
         :rtype: twilio.rest.serverless.v1.service.environment.log.LogPage
         """
-        params = values.of({
+        data = values.of({
             'FunctionSid': function_sid,
             'PageToken': page_token,
             'Page': page_number,
             'PageSize': page_size,
         })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return LogPage(self._version, response, self._solution)
 
@@ -240,18 +236,12 @@ class LogContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a LogInstance
+        Fetch the LogInstance
 
-        :returns: Fetched LogInstance
+        :returns: The fetched LogInstance
         :rtype: twilio.rest.serverless.v1.service.environment.log.LogInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return LogInstance(
             self._version,
@@ -422,9 +412,9 @@ class LogInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a LogInstance
+        Fetch the LogInstance
 
-        :returns: Fetched LogInstance
+        :returns: The fetched LogInstance
         :rtype: twilio.rest.serverless.v1.service.environment.log.LogInstance
         """
         return self._proxy.fetch()

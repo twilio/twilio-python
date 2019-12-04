@@ -39,7 +39,7 @@ class MessageList(ListResource):
                date_created=values.unset, date_updated=values.unset,
                attributes=values.unset, media_sid=values.unset):
         """
-        Create a new MessageInstance
+        Create the MessageInstance
 
         :param unicode author: The channel specific identifier of the message's author.
         :param unicode body: The content of the message.
@@ -48,7 +48,7 @@ class MessageList(ListResource):
         :param unicode attributes: A string metadata field you can use to store any data you wish.
         :param unicode media_sid: The Media Sid to be attached to the new Message.
 
-        :returns: Newly created MessageInstance
+        :returns: The created MessageInstance
         :rtype: twilio.rest.conversations.v1.conversation.message.MessageInstance
         """
         data = values.of({
@@ -60,11 +60,7 @@ class MessageList(ListResource):
             'MediaSid': media_sid,
         })
 
-        payload = self._version.create(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data, )
 
         return MessageInstance(self._version, payload, conversation_sid=self._solution['conversation_sid'], )
 
@@ -122,13 +118,9 @@ class MessageList(ListResource):
         :returns: Page of MessageInstance
         :rtype: twilio.rest.conversations.v1.conversation.message.MessagePage
         """
-        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
+        data = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return MessagePage(self._version, response, self._solution)
 
@@ -255,7 +247,7 @@ class MessageContext(InstanceContext):
         :param datetime date_updated: The date that this resource was last updated.
         :param unicode attributes: A string metadata field you can use to store any data you wish.
 
-        :returns: Updated MessageInstance
+        :returns: The updated MessageInstance
         :rtype: twilio.rest.conversations.v1.conversation.message.MessageInstance
         """
         data = values.of({
@@ -266,11 +258,7 @@ class MessageContext(InstanceContext):
             'Attributes': attributes,
         })
 
-        payload = self._version.update(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.update(method='POST', uri=self._uri, data=data, )
 
         return MessageInstance(
             self._version,
@@ -286,22 +274,16 @@ class MessageContext(InstanceContext):
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete('delete', self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri, )
 
     def fetch(self):
         """
-        Fetch a MessageInstance
+        Fetch the MessageInstance
 
-        :returns: Fetched MessageInstance
+        :returns: The fetched MessageInstance
         :rtype: twilio.rest.conversations.v1.conversation.message.MessageInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return MessageInstance(
             self._version,
@@ -474,7 +456,7 @@ class MessageInstance(InstanceResource):
         :param datetime date_updated: The date that this resource was last updated.
         :param unicode attributes: A string metadata field you can use to store any data you wish.
 
-        :returns: Updated MessageInstance
+        :returns: The updated MessageInstance
         :rtype: twilio.rest.conversations.v1.conversation.message.MessageInstance
         """
         return self._proxy.update(
@@ -496,9 +478,9 @@ class MessageInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a MessageInstance
+        Fetch the MessageInstance
 
-        :returns: Fetched MessageInstance
+        :returns: The fetched MessageInstance
         :rtype: twilio.rest.conversations.v1.conversation.message.MessageInstance
         """
         return self._proxy.fetch()

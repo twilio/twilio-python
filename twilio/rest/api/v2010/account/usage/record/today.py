@@ -118,7 +118,7 @@ class TodayList(ListResource):
         :returns: Page of TodayInstance
         :rtype: twilio.rest.api.v2010.account.usage.record.today.TodayPage
         """
-        params = values.of({
+        data = values.of({
             'Category': category,
             'StartDate': serialize.iso8601_date(start_date),
             'EndDate': serialize.iso8601_date(end_date),
@@ -128,11 +128,7 @@ class TodayList(ListResource):
             'PageSize': page_size,
         })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return TodayPage(self._version, response, self._solution)
 

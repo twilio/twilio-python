@@ -123,18 +123,12 @@ class CompositionSettingsContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a CompositionSettingsInstance
+        Fetch the CompositionSettingsInstance
 
-        :returns: Fetched CompositionSettingsInstance
+        :returns: The fetched CompositionSettingsInstance
         :rtype: twilio.rest.video.v1.composition_settings.CompositionSettingsInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return CompositionSettingsInstance(self._version, payload, )
 
@@ -142,7 +136,7 @@ class CompositionSettingsContext(InstanceContext):
                encryption_key_sid=values.unset, aws_s3_url=values.unset,
                aws_storage_enabled=values.unset, encryption_enabled=values.unset):
         """
-        Create a new CompositionSettingsInstance
+        Create the CompositionSettingsInstance
 
         :param unicode friendly_name: A descriptive string that you create to describe the resource
         :param unicode aws_credentials_sid: The SID of the stored Credential resource
@@ -151,7 +145,7 @@ class CompositionSettingsContext(InstanceContext):
         :param bool aws_storage_enabled: Whether all compositions should be written to the aws_s3_url
         :param bool encryption_enabled: Whether all compositions should be stored in an encrypted form
 
-        :returns: Newly created CompositionSettingsInstance
+        :returns: The created CompositionSettingsInstance
         :rtype: twilio.rest.video.v1.composition_settings.CompositionSettingsInstance
         """
         data = values.of({
@@ -163,11 +157,7 @@ class CompositionSettingsContext(InstanceContext):
             'EncryptionEnabled': encryption_enabled,
         })
 
-        payload = self._version.create(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data, )
 
         return CompositionSettingsInstance(self._version, payload, )
 
@@ -291,9 +281,9 @@ class CompositionSettingsInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a CompositionSettingsInstance
+        Fetch the CompositionSettingsInstance
 
-        :returns: Fetched CompositionSettingsInstance
+        :returns: The fetched CompositionSettingsInstance
         :rtype: twilio.rest.video.v1.composition_settings.CompositionSettingsInstance
         """
         return self._proxy.fetch()
@@ -302,7 +292,7 @@ class CompositionSettingsInstance(InstanceResource):
                encryption_key_sid=values.unset, aws_s3_url=values.unset,
                aws_storage_enabled=values.unset, encryption_enabled=values.unset):
         """
-        Create a new CompositionSettingsInstance
+        Create the CompositionSettingsInstance
 
         :param unicode friendly_name: A descriptive string that you create to describe the resource
         :param unicode aws_credentials_sid: The SID of the stored Credential resource
@@ -311,7 +301,7 @@ class CompositionSettingsInstance(InstanceResource):
         :param bool aws_storage_enabled: Whether all compositions should be written to the aws_s3_url
         :param bool encryption_enabled: Whether all compositions should be stored in an encrypted form
 
-        :returns: Newly created CompositionSettingsInstance
+        :returns: The created CompositionSettingsInstance
         :rtype: twilio.rest.video.v1.composition_settings.CompositionSettingsInstance
         """
         return self._proxy.create(

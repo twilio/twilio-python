@@ -39,22 +39,18 @@ class SyncListList(ListResource):
     def create(self, unique_name=values.unset, ttl=values.unset,
                collection_ttl=values.unset):
         """
-        Create a new SyncListInstance
+        Create the SyncListInstance
 
         :param unicode unique_name: An application-defined string that uniquely identifies the resource
         :param unicode ttl: Alias for collection_ttl
         :param unicode collection_ttl: How long, in seconds, before the Sync List expires and is deleted
 
-        :returns: Newly created SyncListInstance
+        :returns: The created SyncListInstance
         :rtype: twilio.rest.sync.v1.service.sync_list.SyncListInstance
         """
         data = values.of({'UniqueName': unique_name, 'Ttl': ttl, 'CollectionTtl': collection_ttl, })
 
-        payload = self._version.create(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data, )
 
         return SyncListInstance(self._version, payload, service_sid=self._solution['service_sid'], )
 
@@ -112,13 +108,9 @@ class SyncListList(ListResource):
         :returns: Page of SyncListInstance
         :rtype: twilio.rest.sync.v1.service.sync_list.SyncListPage
         """
-        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
+        data = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return SyncListPage(self._version, response, self._solution)
 
@@ -239,18 +231,12 @@ class SyncListContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a SyncListInstance
+        Fetch the SyncListInstance
 
-        :returns: Fetched SyncListInstance
+        :returns: The fetched SyncListInstance
         :rtype: twilio.rest.sync.v1.service.sync_list.SyncListInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return SyncListInstance(
             self._version,
@@ -266,7 +252,7 @@ class SyncListContext(InstanceContext):
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete('delete', self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri, )
 
     def update(self, ttl=values.unset, collection_ttl=values.unset):
         """
@@ -275,16 +261,12 @@ class SyncListContext(InstanceContext):
         :param unicode ttl: An alias for collection_ttl
         :param unicode collection_ttl: How long, in seconds, before the Sync List expires and is deleted
 
-        :returns: Updated SyncListInstance
+        :returns: The updated SyncListInstance
         :rtype: twilio.rest.sync.v1.service.sync_list.SyncListInstance
         """
         data = values.of({'Ttl': ttl, 'CollectionTtl': collection_ttl, })
 
-        payload = self._version.update(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.update(method='POST', uri=self._uri, data=data, )
 
         return SyncListInstance(
             self._version,
@@ -475,9 +457,9 @@ class SyncListInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a SyncListInstance
+        Fetch the SyncListInstance
 
-        :returns: Fetched SyncListInstance
+        :returns: The fetched SyncListInstance
         :rtype: twilio.rest.sync.v1.service.sync_list.SyncListInstance
         """
         return self._proxy.fetch()
@@ -498,7 +480,7 @@ class SyncListInstance(InstanceResource):
         :param unicode ttl: An alias for collection_ttl
         :param unicode collection_ttl: How long, in seconds, before the Sync List expires and is deleted
 
-        :returns: Updated SyncListInstance
+        :returns: The updated SyncListInstance
         :rtype: twilio.rest.sync.v1.service.sync_list.SyncListInstance
         """
         return self._proxy.update(ttl=ttl, collection_ttl=collection_ttl, )

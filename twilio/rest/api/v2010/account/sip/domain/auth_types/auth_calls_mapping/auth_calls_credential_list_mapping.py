@@ -36,20 +36,16 @@ class AuthCallsCredentialListMappingList(ListResource):
 
     def create(self, credential_list_sid):
         """
-        Create a new AuthCallsCredentialListMappingInstance
+        Create the AuthCallsCredentialListMappingInstance
 
         :param unicode credential_list_sid: The SID of the CredentialList resource to map to the SIP domain
 
-        :returns: Newly created AuthCallsCredentialListMappingInstance
+        :returns: The created AuthCallsCredentialListMappingInstance
         :rtype: twilio.rest.api.v2010.account.sip.domain.auth_types.auth_calls_mapping.auth_calls_credential_list_mapping.AuthCallsCredentialListMappingInstance
         """
         data = values.of({'CredentialListSid': credential_list_sid, })
 
-        payload = self._version.create(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data, )
 
         return AuthCallsCredentialListMappingInstance(
             self._version,
@@ -112,13 +108,9 @@ class AuthCallsCredentialListMappingList(ListResource):
         :returns: Page of AuthCallsCredentialListMappingInstance
         :rtype: twilio.rest.api.v2010.account.sip.domain.auth_types.auth_calls_mapping.auth_calls_credential_list_mapping.AuthCallsCredentialListMappingPage
         """
-        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
+        data = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return AuthCallsCredentialListMappingPage(self._version, response, self._solution)
 
@@ -250,18 +242,12 @@ class AuthCallsCredentialListMappingContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a AuthCallsCredentialListMappingInstance
+        Fetch the AuthCallsCredentialListMappingInstance
 
-        :returns: Fetched AuthCallsCredentialListMappingInstance
+        :returns: The fetched AuthCallsCredentialListMappingInstance
         :rtype: twilio.rest.api.v2010.account.sip.domain.auth_types.auth_calls_mapping.auth_calls_credential_list_mapping.AuthCallsCredentialListMappingInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return AuthCallsCredentialListMappingInstance(
             self._version,
@@ -278,7 +264,7 @@ class AuthCallsCredentialListMappingContext(InstanceContext):
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete('delete', self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri, )
 
     def __repr__(self):
         """
@@ -380,9 +366,9 @@ class AuthCallsCredentialListMappingInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a AuthCallsCredentialListMappingInstance
+        Fetch the AuthCallsCredentialListMappingInstance
 
-        :returns: Fetched AuthCallsCredentialListMappingInstance
+        :returns: The fetched AuthCallsCredentialListMappingInstance
         :rtype: twilio.rest.api.v2010.account.sip.domain.auth_types.auth_calls_mapping.auth_calls_credential_list_mapping.AuthCallsCredentialListMappingInstance
         """
         return self._proxy.fetch()

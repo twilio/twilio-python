@@ -90,13 +90,9 @@ class DomainList(ListResource):
         :returns: Page of DomainInstance
         :rtype: twilio.rest.api.v2010.account.sip.domain.DomainPage
         """
-        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
+        data = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return DomainPage(self._version, response, self._solution)
 
@@ -124,7 +120,7 @@ class DomainList(ListResource):
                voice_status_callback_method=values.unset,
                sip_registration=values.unset):
         """
-        Create a new DomainInstance
+        Create the DomainInstance
 
         :param unicode domain_name: The unique address on Twilio to route SIP traffic
         :param unicode friendly_name: A string to describe the resource
@@ -136,7 +132,7 @@ class DomainList(ListResource):
         :param unicode voice_status_callback_method: The HTTP method we should use to call `voice_status_callback_url`
         :param bool sip_registration: Whether SIP registration is allowed
 
-        :returns: Newly created DomainInstance
+        :returns: The created DomainInstance
         :rtype: twilio.rest.api.v2010.account.sip.domain.DomainInstance
         """
         data = values.of({
@@ -151,11 +147,7 @@ class DomainList(ListResource):
             'SipRegistration': sip_registration,
         })
 
-        payload = self._version.create(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data, )
 
         return DomainInstance(self._version, payload, account_sid=self._solution['account_sid'], )
 
@@ -258,18 +250,12 @@ class DomainContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a DomainInstance
+        Fetch the DomainInstance
 
-        :returns: Fetched DomainInstance
+        :returns: The fetched DomainInstance
         :rtype: twilio.rest.api.v2010.account.sip.domain.DomainInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return DomainInstance(
             self._version,
@@ -296,7 +282,7 @@ class DomainContext(InstanceContext):
         :param bool sip_registration: Whether SIP registration is allowed
         :param unicode domain_name: The unique address on Twilio to route SIP traffic
 
-        :returns: Updated DomainInstance
+        :returns: The updated DomainInstance
         :rtype: twilio.rest.api.v2010.account.sip.domain.DomainInstance
         """
         data = values.of({
@@ -311,11 +297,7 @@ class DomainContext(InstanceContext):
             'DomainName': domain_name,
         })
 
-        payload = self._version.update(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.update(method='POST', uri=self._uri, data=data, )
 
         return DomainInstance(
             self._version,
@@ -331,7 +313,7 @@ class DomainContext(InstanceContext):
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete('delete', self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri, )
 
     @property
     def ip_access_control_list_mappings(self):
@@ -584,9 +566,9 @@ class DomainInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a DomainInstance
+        Fetch the DomainInstance
 
-        :returns: Fetched DomainInstance
+        :returns: The fetched DomainInstance
         :rtype: twilio.rest.api.v2010.account.sip.domain.DomainInstance
         """
         return self._proxy.fetch()
@@ -609,7 +591,7 @@ class DomainInstance(InstanceResource):
         :param bool sip_registration: Whether SIP registration is allowed
         :param unicode domain_name: The unique address on Twilio to route SIP traffic
 
-        :returns: Updated DomainInstance
+        :returns: The updated DomainInstance
         :rtype: twilio.rest.api.v2010.account.sip.domain.DomainInstance
         """
         return self._proxy.update(

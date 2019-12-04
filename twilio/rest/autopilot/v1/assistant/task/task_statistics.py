@@ -143,18 +143,12 @@ class TaskStatisticsContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a TaskStatisticsInstance
+        Fetch the TaskStatisticsInstance
 
-        :returns: Fetched TaskStatisticsInstance
+        :returns: The fetched TaskStatisticsInstance
         :rtype: twilio.rest.autopilot.v1.assistant.task.task_statistics.TaskStatisticsInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return TaskStatisticsInstance(
             self._version,
@@ -269,9 +263,9 @@ class TaskStatisticsInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a TaskStatisticsInstance
+        Fetch the TaskStatisticsInstance
 
-        :returns: Fetched TaskStatisticsInstance
+        :returns: The fetched TaskStatisticsInstance
         :rtype: twilio.rest.autopilot.v1.assistant.task.task_statistics.TaskStatisticsInstance
         """
         return self._proxy.fetch()

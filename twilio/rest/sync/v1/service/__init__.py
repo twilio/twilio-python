@@ -43,7 +43,7 @@ class ServiceList(ListResource):
                reachability_debouncing_window=values.unset,
                webhooks_from_rest_enabled=values.unset):
         """
-        Create a new ServiceInstance
+        Create the ServiceInstance
 
         :param unicode friendly_name: A string that you assign to describe the resource
         :param unicode webhook_url: The URL we should call when Sync objects are manipulated
@@ -53,7 +53,7 @@ class ServiceList(ListResource):
         :param unicode reachability_debouncing_window: The reachability event delay in milliseconds
         :param bool webhooks_from_rest_enabled: Whether the Service instance should call webhook_url when the REST API is used to update Sync objects
 
-        :returns: Newly created ServiceInstance
+        :returns: The created ServiceInstance
         :rtype: twilio.rest.sync.v1.service.ServiceInstance
         """
         data = values.of({
@@ -66,11 +66,7 @@ class ServiceList(ListResource):
             'WebhooksFromRestEnabled': webhooks_from_rest_enabled,
         })
 
-        payload = self._version.create(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data, )
 
         return ServiceInstance(self._version, payload, )
 
@@ -128,13 +124,9 @@ class ServiceList(ListResource):
         :returns: Page of ServiceInstance
         :rtype: twilio.rest.sync.v1.service.ServicePage
         """
-        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
+        data = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return ServicePage(self._version, response, self._solution)
 
@@ -255,18 +247,12 @@ class ServiceContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a ServiceInstance
+        Fetch the ServiceInstance
 
-        :returns: Fetched ServiceInstance
+        :returns: The fetched ServiceInstance
         :rtype: twilio.rest.sync.v1.service.ServiceInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return ServiceInstance(self._version, payload, sid=self._solution['sid'], )
 
@@ -277,7 +263,7 @@ class ServiceContext(InstanceContext):
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete('delete', self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri, )
 
     def update(self, webhook_url=values.unset, friendly_name=values.unset,
                reachability_webhooks_enabled=values.unset, acl_enabled=values.unset,
@@ -295,7 +281,7 @@ class ServiceContext(InstanceContext):
         :param unicode reachability_debouncing_window: The reachability event delay in milliseconds
         :param bool webhooks_from_rest_enabled: Whether the Service instance should call webhook_url when the REST API is used to update Sync objects
 
-        :returns: Updated ServiceInstance
+        :returns: The updated ServiceInstance
         :rtype: twilio.rest.sync.v1.service.ServiceInstance
         """
         data = values.of({
@@ -308,11 +294,7 @@ class ServiceContext(InstanceContext):
             'WebhooksFromRestEnabled': webhooks_from_rest_enabled,
         })
 
-        payload = self._version.update(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.update(method='POST', uri=self._uri, data=data, )
 
         return ServiceInstance(self._version, payload, sid=self._solution['sid'], )
 
@@ -537,9 +519,9 @@ class ServiceInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a ServiceInstance
+        Fetch the ServiceInstance
 
-        :returns: Fetched ServiceInstance
+        :returns: The fetched ServiceInstance
         :rtype: twilio.rest.sync.v1.service.ServiceInstance
         """
         return self._proxy.fetch()
@@ -569,7 +551,7 @@ class ServiceInstance(InstanceResource):
         :param unicode reachability_debouncing_window: The reachability event delay in milliseconds
         :param bool webhooks_from_rest_enabled: Whether the Service instance should call webhook_url when the REST API is used to update Sync objects
 
-        :returns: Updated ServiceInstance
+        :returns: The updated ServiceInstance
         :rtype: twilio.rest.sync.v1.service.ServiceInstance
         """
         return self._proxy.update(

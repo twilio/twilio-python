@@ -136,18 +136,12 @@ class CallContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a CallInstance
+        Fetch the CallInstance
 
-        :returns: Fetched CallInstance
+        :returns: The fetched CallInstance
         :rtype: twilio.rest.insights.v1.call.CallInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return CallInstance(self._version, payload, sid=self._solution['sid'], )
 
@@ -262,9 +256,9 @@ class CallInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a CallInstance
+        Fetch the CallInstance
 
-        :returns: Fetched CallInstance
+        :returns: The fetched CallInstance
         :rtype: twilio.rest.insights.v1.call.CallInstance
         """
         return self._proxy.fetch()

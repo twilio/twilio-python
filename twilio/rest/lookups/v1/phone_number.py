@@ -124,28 +124,24 @@ class PhoneNumberContext(InstanceContext):
     def fetch(self, country_code=values.unset, type=values.unset,
               add_ons=values.unset, add_ons_data=values.unset):
         """
-        Fetch a PhoneNumberInstance
+        Fetch the PhoneNumberInstance
 
         :param unicode country_code: The ISO country code of the phone number
         :param unicode type: The type of information to return
         :param unicode add_ons: The unique_name of an Add-on you would like to invoke
         :param dict add_ons_data: Data specific to the add-on you would like to invoke
 
-        :returns: Fetched PhoneNumberInstance
+        :returns: The fetched PhoneNumberInstance
         :rtype: twilio.rest.lookups.v1.phone_number.PhoneNumberInstance
         """
-        params = values.of({
+        data = values.of({
             'CountryCode': country_code,
             'Type': serialize.map(type, lambda e: e),
             'AddOns': serialize.map(add_ons, lambda e: e),
         })
+        data.update(serialize.prefixed_collapsible_map(add_ons_data, 'AddOns'))
 
-        params.update(serialize.prefixed_collapsible_map(add_ons_data, 'AddOns'))
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, params=data, )
 
         return PhoneNumberInstance(self._version, payload, phone_number=self._solution['phone_number'], )
 
@@ -264,14 +260,14 @@ class PhoneNumberInstance(InstanceResource):
     def fetch(self, country_code=values.unset, type=values.unset,
               add_ons=values.unset, add_ons_data=values.unset):
         """
-        Fetch a PhoneNumberInstance
+        Fetch the PhoneNumberInstance
 
         :param unicode country_code: The ISO country code of the phone number
         :param unicode type: The type of information to return
         :param unicode add_ons: The unique_name of an Add-on you would like to invoke
         :param dict add_ons_data: Data specific to the add-on you would like to invoke
 
-        :returns: Fetched PhoneNumberInstance
+        :returns: The fetched PhoneNumberInstance
         :rtype: twilio.rest.lookups.v1.phone_number.PhoneNumberInstance
         """
         return self._proxy.fetch(

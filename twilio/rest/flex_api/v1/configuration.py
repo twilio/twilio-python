@@ -118,37 +118,27 @@ class ConfigurationContext(InstanceContext):
 
     def fetch(self, ui_version=values.unset):
         """
-        Fetch a ConfigurationInstance
+        Fetch the ConfigurationInstance
 
         :param unicode ui_version: The Pinned UI version of the Configuration resource to fetch
 
-        :returns: Fetched ConfigurationInstance
+        :returns: The fetched ConfigurationInstance
         :rtype: twilio.rest.flex_api.v1.configuration.ConfigurationInstance
         """
-        params = values.of({'UiVersion': ui_version, })
+        data = values.of({'UiVersion': ui_version, })
 
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, params=data, )
 
         return ConfigurationInstance(self._version, payload, )
 
     def create(self):
         """
-        Create a new ConfigurationInstance
+        Create the ConfigurationInstance
 
-        :returns: Newly created ConfigurationInstance
+        :returns: The created ConfigurationInstance
         :rtype: twilio.rest.flex_api.v1.configuration.ConfigurationInstance
         """
-        data = values.of({})
-
-        payload = self._version.create(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.create(method='POST', uri=self._uri, )
 
         return ConfigurationInstance(self._version, payload, )
 
@@ -156,16 +146,10 @@ class ConfigurationContext(InstanceContext):
         """
         Update the ConfigurationInstance
 
-        :returns: Updated ConfigurationInstance
+        :returns: The updated ConfigurationInstance
         :rtype: twilio.rest.flex_api.v1.configuration.ConfigurationInstance
         """
-        data = values.of({})
-
-        payload = self._version.update(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.update(method='POST', uri=self._uri, )
 
         return ConfigurationInstance(self._version, payload, )
 
@@ -526,20 +510,20 @@ class ConfigurationInstance(InstanceResource):
 
     def fetch(self, ui_version=values.unset):
         """
-        Fetch a ConfigurationInstance
+        Fetch the ConfigurationInstance
 
         :param unicode ui_version: The Pinned UI version of the Configuration resource to fetch
 
-        :returns: Fetched ConfigurationInstance
+        :returns: The fetched ConfigurationInstance
         :rtype: twilio.rest.flex_api.v1.configuration.ConfigurationInstance
         """
         return self._proxy.fetch(ui_version=ui_version, )
 
     def create(self):
         """
-        Create a new ConfigurationInstance
+        Create the ConfigurationInstance
 
-        :returns: Newly created ConfigurationInstance
+        :returns: The created ConfigurationInstance
         :rtype: twilio.rest.flex_api.v1.configuration.ConfigurationInstance
         """
         return self._proxy.create()
@@ -548,7 +532,7 @@ class ConfigurationInstance(InstanceResource):
         """
         Update the ConfigurationInstance
 
-        :returns: Updated ConfigurationInstance
+        :returns: The updated ConfigurationInstance
         :rtype: twilio.rest.flex_api.v1.configuration.ConfigurationInstance
         """
         return self._proxy.update()

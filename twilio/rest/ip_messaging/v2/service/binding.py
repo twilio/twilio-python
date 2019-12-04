@@ -102,7 +102,7 @@ class BindingList(ListResource):
         :returns: Page of BindingInstance
         :rtype: twilio.rest.chat.v2.service.binding.BindingPage
         """
-        params = values.of({
+        data = values.of({
             'BindingType': serialize.map(binding_type, lambda e: e),
             'Identity': serialize.map(identity, lambda e: e),
             'PageToken': page_token,
@@ -110,11 +110,7 @@ class BindingList(ListResource):
             'PageSize': page_size,
         })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return BindingPage(self._version, response, self._solution)
 
@@ -229,18 +225,12 @@ class BindingContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a BindingInstance
+        Fetch the BindingInstance
 
-        :returns: Fetched BindingInstance
+        :returns: The fetched BindingInstance
         :rtype: twilio.rest.chat.v2.service.binding.BindingInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return BindingInstance(
             self._version,
@@ -256,7 +246,7 @@ class BindingContext(InstanceContext):
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete('delete', self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri, )
 
     def __repr__(self):
         """
@@ -421,9 +411,9 @@ class BindingInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a BindingInstance
+        Fetch the BindingInstance
 
-        :returns: Fetched BindingInstance
+        :returns: The fetched BindingInstance
         :rtype: twilio.rest.chat.v2.service.binding.BindingInstance
         """
         return self._proxy.fetch()

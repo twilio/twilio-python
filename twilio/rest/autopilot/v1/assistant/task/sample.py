@@ -93,18 +93,14 @@ class SampleList(ListResource):
         :returns: Page of SampleInstance
         :rtype: twilio.rest.autopilot.v1.assistant.task.sample.SamplePage
         """
-        params = values.of({
+        data = values.of({
             'Language': language,
             'PageToken': page_token,
             'Page': page_number,
             'PageSize': page_size,
         })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return SamplePage(self._version, response, self._solution)
 
@@ -127,22 +123,18 @@ class SampleList(ListResource):
 
     def create(self, language, tagged_text, source_channel=values.unset):
         """
-        Create a new SampleInstance
+        Create the SampleInstance
 
         :param unicode language: The ISO language-country string that specifies the language used for the new sample
         :param unicode tagged_text: The text example of how end users might express the task
         :param unicode source_channel: The communication channel from which the new sample was captured
 
-        :returns: Newly created SampleInstance
+        :returns: The created SampleInstance
         :rtype: twilio.rest.autopilot.v1.assistant.task.sample.SampleInstance
         """
         data = values.of({'Language': language, 'TaggedText': tagged_text, 'SourceChannel': source_channel, })
 
-        payload = self._version.create(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data, )
 
         return SampleInstance(
             self._version,
@@ -266,18 +258,12 @@ class SampleContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a SampleInstance
+        Fetch the SampleInstance
 
-        :returns: Fetched SampleInstance
+        :returns: The fetched SampleInstance
         :rtype: twilio.rest.autopilot.v1.assistant.task.sample.SampleInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return SampleInstance(
             self._version,
@@ -296,16 +282,12 @@ class SampleContext(InstanceContext):
         :param unicode tagged_text: The text example of how end users might express the task
         :param unicode source_channel: The communication channel from which the sample was captured
 
-        :returns: Updated SampleInstance
+        :returns: The updated SampleInstance
         :rtype: twilio.rest.autopilot.v1.assistant.task.sample.SampleInstance
         """
         data = values.of({'Language': language, 'TaggedText': tagged_text, 'SourceChannel': source_channel, })
 
-        payload = self._version.update(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.update(method='POST', uri=self._uri, data=data, )
 
         return SampleInstance(
             self._version,
@@ -322,7 +304,7 @@ class SampleContext(InstanceContext):
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete('delete', self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri, )
 
     def __repr__(self):
         """
@@ -471,9 +453,9 @@ class SampleInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a SampleInstance
+        Fetch the SampleInstance
 
-        :returns: Fetched SampleInstance
+        :returns: The fetched SampleInstance
         :rtype: twilio.rest.autopilot.v1.assistant.task.sample.SampleInstance
         """
         return self._proxy.fetch()
@@ -487,7 +469,7 @@ class SampleInstance(InstanceResource):
         :param unicode tagged_text: The text example of how end users might express the task
         :param unicode source_channel: The communication channel from which the sample was captured
 
-        :returns: Updated SampleInstance
+        :returns: The updated SampleInstance
         :rtype: twilio.rest.autopilot.v1.assistant.task.sample.SampleInstance
         """
         return self._proxy.update(language=language, tagged_text=tagged_text, source_channel=source_channel, )

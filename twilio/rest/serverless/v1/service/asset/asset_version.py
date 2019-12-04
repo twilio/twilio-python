@@ -90,13 +90,9 @@ class AssetVersionList(ListResource):
         :returns: Page of AssetVersionInstance
         :rtype: twilio.rest.serverless.v1.service.asset.asset_version.AssetVersionPage
         """
-        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
+        data = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return AssetVersionPage(self._version, response, self._solution)
 
@@ -232,18 +228,12 @@ class AssetVersionContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a AssetVersionInstance
+        Fetch the AssetVersionInstance
 
-        :returns: Fetched AssetVersionInstance
+        :returns: The fetched AssetVersionInstance
         :rtype: twilio.rest.serverless.v1.service.asset.asset_version.AssetVersionInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return AssetVersionInstance(
             self._version,
@@ -387,9 +377,9 @@ class AssetVersionInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a AssetVersionInstance
+        Fetch the AssetVersionInstance
 
-        :returns: Fetched AssetVersionInstance
+        :returns: The fetched AssetVersionInstance
         :rtype: twilio.rest.serverless.v1.service.asset.asset_version.AssetVersionInstance
         """
         return self._proxy.fetch()

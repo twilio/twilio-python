@@ -127,18 +127,12 @@ class DefaultsContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a DefaultsInstance
+        Fetch the DefaultsInstance
 
-        :returns: Fetched DefaultsInstance
+        :returns: The fetched DefaultsInstance
         :rtype: twilio.rest.autopilot.v1.assistant.defaults.DefaultsInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return DefaultsInstance(self._version, payload, assistant_sid=self._solution['assistant_sid'], )
 
@@ -148,16 +142,12 @@ class DefaultsContext(InstanceContext):
 
         :param dict defaults: A JSON string that describes the default task links.
 
-        :returns: Updated DefaultsInstance
+        :returns: The updated DefaultsInstance
         :rtype: twilio.rest.autopilot.v1.assistant.defaults.DefaultsInstance
         """
         data = values.of({'Defaults': serialize.object(defaults), })
 
-        payload = self._version.update(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.update(method='POST', uri=self._uri, data=data, )
 
         return DefaultsInstance(self._version, payload, assistant_sid=self._solution['assistant_sid'], )
 
@@ -245,9 +235,9 @@ class DefaultsInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a DefaultsInstance
+        Fetch the DefaultsInstance
 
-        :returns: Fetched DefaultsInstance
+        :returns: The fetched DefaultsInstance
         :rtype: twilio.rest.autopilot.v1.assistant.defaults.DefaultsInstance
         """
         return self._proxy.fetch()
@@ -258,7 +248,7 @@ class DefaultsInstance(InstanceResource):
 
         :param dict defaults: A JSON string that describes the default task links.
 
-        :returns: Updated DefaultsInstance
+        :returns: The updated DefaultsInstance
         :rtype: twilio.rest.autopilot.v1.assistant.defaults.DefaultsInstance
         """
         return self._proxy.update(defaults=defaults, )

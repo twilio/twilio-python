@@ -138,28 +138,24 @@ class WorkerStatisticsContext(InstanceContext):
     def fetch(self, minutes=values.unset, start_date=values.unset,
               end_date=values.unset, task_channel=values.unset):
         """
-        Fetch a WorkerStatisticsInstance
+        Fetch the WorkerStatisticsInstance
 
         :param unicode minutes: Only calculate statistics since this many minutes in the past
         :param datetime start_date: Only calculate statistics from on or after this date
         :param datetime end_date: Only include usage that occurred on or before this date
         :param unicode task_channel: Only calculate statistics on this TaskChannel
 
-        :returns: Fetched WorkerStatisticsInstance
+        :returns: The fetched WorkerStatisticsInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.worker.worker_statistics.WorkerStatisticsInstance
         """
-        params = values.of({
+        data = values.of({
             'Minutes': minutes,
             'StartDate': serialize.iso8601_datetime(start_date),
             'EndDate': serialize.iso8601_datetime(end_date),
             'TaskChannel': task_channel,
         })
 
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, params=data, )
 
         return WorkerStatisticsInstance(
             self._version,
@@ -264,14 +260,14 @@ class WorkerStatisticsInstance(InstanceResource):
     def fetch(self, minutes=values.unset, start_date=values.unset,
               end_date=values.unset, task_channel=values.unset):
         """
-        Fetch a WorkerStatisticsInstance
+        Fetch the WorkerStatisticsInstance
 
         :param unicode minutes: Only calculate statistics since this many minutes in the past
         :param datetime start_date: Only calculate statistics from on or after this date
         :param datetime end_date: Only include usage that occurred on or before this date
         :param unicode task_channel: Only calculate statistics on this TaskChannel
 
-        :returns: Fetched WorkerStatisticsInstance
+        :returns: The fetched WorkerStatisticsInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.worker.worker_statistics.WorkerStatisticsInstance
         """
         return self._proxy.fetch(

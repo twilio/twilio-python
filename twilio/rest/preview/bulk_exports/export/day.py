@@ -88,13 +88,9 @@ class DayList(ListResource):
         :returns: Page of DayInstance
         :rtype: twilio.rest.preview.bulk_exports.export.day.DayPage
         """
-        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
+        data = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return DayPage(self._version, response, self._solution)
 

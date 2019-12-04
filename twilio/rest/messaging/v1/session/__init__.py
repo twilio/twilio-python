@@ -42,7 +42,7 @@ class SessionList(ListResource):
                attributes=values.unset, date_created=values.unset,
                date_updated=values.unset, created_by=values.unset):
         """
-        Create a new SessionInstance
+        Create the SessionInstance
 
         :param unicode messaging_service_sid: The SID of the SMS Service the session belongs to
         :param unicode friendly_name: A string to describe the resource
@@ -51,7 +51,7 @@ class SessionList(ListResource):
         :param datetime date_updated: The ISO 8601 date and time in GMT when the resource was updated
         :param unicode created_by: The Identity of the session's creator
 
-        :returns: Newly created SessionInstance
+        :returns: The created SessionInstance
         :rtype: twilio.rest.messaging.v1.session.SessionInstance
         """
         data = values.of({
@@ -63,11 +63,7 @@ class SessionList(ListResource):
             'CreatedBy': created_by,
         })
 
-        payload = self._version.create(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data, )
 
         return SessionInstance(self._version, payload, )
 
@@ -125,13 +121,9 @@ class SessionList(ListResource):
         :returns: Page of SessionInstance
         :rtype: twilio.rest.messaging.v1.session.SessionPage
         """
-        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
+        data = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return SessionPage(self._version, response, self._solution)
 
@@ -253,18 +245,12 @@ class SessionContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a SessionInstance
+        Fetch the SessionInstance
 
-        :returns: Fetched SessionInstance
+        :returns: The fetched SessionInstance
         :rtype: twilio.rest.messaging.v1.session.SessionInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return SessionInstance(self._version, payload, sid=self._solution['sid'], )
 
@@ -275,7 +261,7 @@ class SessionContext(InstanceContext):
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete('delete', self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri, )
 
     def update(self, friendly_name=values.unset, attributes=values.unset,
                date_created=values.unset, date_updated=values.unset,
@@ -289,7 +275,7 @@ class SessionContext(InstanceContext):
         :param datetime date_updated: The ISO 8601 date and time in GMT when the resource was updated
         :param unicode created_by: The Identity of the session's creator
 
-        :returns: Updated SessionInstance
+        :returns: The updated SessionInstance
         :rtype: twilio.rest.messaging.v1.session.SessionInstance
         """
         data = values.of({
@@ -300,11 +286,7 @@ class SessionContext(InstanceContext):
             'CreatedBy': created_by,
         })
 
-        payload = self._version.update(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.update(method='POST', uri=self._uri, data=data, )
 
         return SessionInstance(self._version, payload, sid=self._solution['sid'], )
 
@@ -491,9 +473,9 @@ class SessionInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a SessionInstance
+        Fetch the SessionInstance
 
-        :returns: Fetched SessionInstance
+        :returns: The fetched SessionInstance
         :rtype: twilio.rest.messaging.v1.session.SessionInstance
         """
         return self._proxy.fetch()
@@ -519,7 +501,7 @@ class SessionInstance(InstanceResource):
         :param datetime date_updated: The ISO 8601 date and time in GMT when the resource was updated
         :param unicode created_by: The Identity of the session's creator
 
-        :returns: Updated SessionInstance
+        :returns: The updated SessionInstance
         :rtype: twilio.rest.messaging.v1.session.SessionInstance
         """
         return self._proxy.update(

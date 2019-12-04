@@ -108,7 +108,7 @@ class ExecutionList(ListResource):
         :returns: Page of ExecutionInstance
         :rtype: twilio.rest.studio.v1.flow.execution.ExecutionPage
         """
-        params = values.of({
+        data = values.of({
             'DateCreatedFrom': serialize.iso8601_datetime(date_created_from),
             'DateCreatedTo': serialize.iso8601_datetime(date_created_to),
             'PageToken': page_token,
@@ -116,11 +116,7 @@ class ExecutionList(ListResource):
             'PageSize': page_size,
         })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return ExecutionPage(self._version, response, self._solution)
 
@@ -143,22 +139,18 @@ class ExecutionList(ListResource):
 
     def create(self, to, from_, parameters=values.unset):
         """
-        Create a new ExecutionInstance
+        Create the ExecutionInstance
 
         :param unicode to: The Contact phone number to start a Studio Flow Execution
         :param unicode from_: The Twilio phone number to send messages or initiate calls from during the Flow Execution
         :param dict parameters: JSON data that will be added to the Flow's context
 
-        :returns: Newly created ExecutionInstance
+        :returns: The created ExecutionInstance
         :rtype: twilio.rest.studio.v1.flow.execution.ExecutionInstance
         """
         data = values.of({'To': to, 'From': from_, 'Parameters': serialize.object(parameters), })
 
-        payload = self._version.create(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data, )
 
         return ExecutionInstance(self._version, payload, flow_sid=self._solution['flow_sid'], )
 
@@ -260,18 +252,12 @@ class ExecutionContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a ExecutionInstance
+        Fetch the ExecutionInstance
 
-        :returns: Fetched ExecutionInstance
+        :returns: The fetched ExecutionInstance
         :rtype: twilio.rest.studio.v1.flow.execution.ExecutionInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return ExecutionInstance(
             self._version,
@@ -287,7 +273,7 @@ class ExecutionContext(InstanceContext):
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete('delete', self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri, )
 
     @property
     def steps(self):
@@ -474,9 +460,9 @@ class ExecutionInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a ExecutionInstance
+        Fetch the ExecutionInstance
 
-        :returns: Fetched ExecutionInstance
+        :returns: The fetched ExecutionInstance
         :rtype: twilio.rest.studio.v1.flow.execution.ExecutionInstance
         """
         return self._proxy.fetch()

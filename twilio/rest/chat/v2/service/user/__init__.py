@@ -38,14 +38,14 @@ class UserList(ListResource):
     def create(self, identity, role_sid=values.unset, attributes=values.unset,
                friendly_name=values.unset):
         """
-        Create a new UserInstance
+        Create the UserInstance
 
         :param unicode identity: The `identity` value that identifies the new resource's User
         :param unicode role_sid: The SID of the Role assigned to this user
         :param unicode attributes: A valid JSON string that contains application-specific data
         :param unicode friendly_name: A string to describe the new resource
 
-        :returns: Newly created UserInstance
+        :returns: The created UserInstance
         :rtype: twilio.rest.chat.v2.service.user.UserInstance
         """
         data = values.of({
@@ -55,11 +55,7 @@ class UserList(ListResource):
             'FriendlyName': friendly_name,
         })
 
-        payload = self._version.create(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data, )
 
         return UserInstance(self._version, payload, service_sid=self._solution['service_sid'], )
 
@@ -117,13 +113,9 @@ class UserList(ListResource):
         :returns: Page of UserInstance
         :rtype: twilio.rest.chat.v2.service.user.UserPage
         """
-        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
+        data = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return UserPage(self._version, response, self._solution)
 
@@ -242,18 +234,12 @@ class UserContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a UserInstance
+        Fetch the UserInstance
 
-        :returns: Fetched UserInstance
+        :returns: The fetched UserInstance
         :rtype: twilio.rest.chat.v2.service.user.UserInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return UserInstance(
             self._version,
@@ -269,7 +255,7 @@ class UserContext(InstanceContext):
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete('delete', self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri, )
 
     def update(self, role_sid=values.unset, attributes=values.unset,
                friendly_name=values.unset):
@@ -280,16 +266,12 @@ class UserContext(InstanceContext):
         :param unicode attributes: A valid JSON string that contains application-specific data
         :param unicode friendly_name: A string to describe the resource
 
-        :returns: Updated UserInstance
+        :returns: The updated UserInstance
         :rtype: twilio.rest.chat.v2.service.user.UserInstance
         """
         data = values.of({'RoleSid': role_sid, 'Attributes': attributes, 'FriendlyName': friendly_name, })
 
-        payload = self._version.update(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.update(method='POST', uri=self._uri, data=data, )
 
         return UserInstance(
             self._version,
@@ -510,9 +492,9 @@ class UserInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a UserInstance
+        Fetch the UserInstance
 
-        :returns: Fetched UserInstance
+        :returns: The fetched UserInstance
         :rtype: twilio.rest.chat.v2.service.user.UserInstance
         """
         return self._proxy.fetch()
@@ -535,7 +517,7 @@ class UserInstance(InstanceResource):
         :param unicode attributes: A valid JSON string that contains application-specific data
         :param unicode friendly_name: A string to describe the resource
 
-        :returns: Updated UserInstance
+        :returns: The updated UserInstance
         :rtype: twilio.rest.chat.v2.service.user.UserInstance
         """
         return self._proxy.update(role_sid=role_sid, attributes=attributes, friendly_name=friendly_name, )

@@ -35,20 +35,16 @@ class TerminatingSipDomainList(ListResource):
 
     def create(self, sip_domain_sid):
         """
-        Create a new TerminatingSipDomainInstance
+        Create the TerminatingSipDomainInstance
 
         :param unicode sip_domain_sid: The SID of the SIP Domain to associate with the trunk
 
-        :returns: Newly created TerminatingSipDomainInstance
+        :returns: The created TerminatingSipDomainInstance
         :rtype: twilio.rest.trunking.v1.trunk.terminating_sip_domain.TerminatingSipDomainInstance
         """
         data = values.of({'SipDomainSid': sip_domain_sid, })
 
-        payload = self._version.create(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data, )
 
         return TerminatingSipDomainInstance(self._version, payload, trunk_sid=self._solution['trunk_sid'], )
 
@@ -106,13 +102,9 @@ class TerminatingSipDomainList(ListResource):
         :returns: Page of TerminatingSipDomainInstance
         :rtype: twilio.rest.trunking.v1.trunk.terminating_sip_domain.TerminatingSipDomainPage
         """
-        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
+        data = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return TerminatingSipDomainPage(self._version, response, self._solution)
 
@@ -227,18 +219,12 @@ class TerminatingSipDomainContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a TerminatingSipDomainInstance
+        Fetch the TerminatingSipDomainInstance
 
-        :returns: Fetched TerminatingSipDomainInstance
+        :returns: The fetched TerminatingSipDomainInstance
         :rtype: twilio.rest.trunking.v1.trunk.terminating_sip_domain.TerminatingSipDomainInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return TerminatingSipDomainInstance(
             self._version,
@@ -254,7 +240,7 @@ class TerminatingSipDomainContext(InstanceContext):
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete('delete', self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri, )
 
     def __repr__(self):
         """
@@ -468,9 +454,9 @@ class TerminatingSipDomainInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a TerminatingSipDomainInstance
+        Fetch the TerminatingSipDomainInstance
 
-        :returns: Fetched TerminatingSipDomainInstance
+        :returns: The fetched TerminatingSipDomainInstance
         :rtype: twilio.rest.trunking.v1.trunk.terminating_sip_domain.TerminatingSipDomainInstance
         """
         return self._proxy.fetch()

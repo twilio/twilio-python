@@ -93,18 +93,14 @@ class WorkflowList(ListResource):
         :returns: Page of WorkflowInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowPage
         """
-        params = values.of({
+        data = values.of({
             'FriendlyName': friendly_name,
             'PageToken': page_token,
             'Page': page_number,
             'PageSize': page_size,
         })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return WorkflowPage(self._version, response, self._solution)
 
@@ -130,7 +126,7 @@ class WorkflowList(ListResource):
                fallback_assignment_callback_url=values.unset,
                task_reservation_timeout=values.unset):
         """
-        Create a new WorkflowInstance
+        Create the WorkflowInstance
 
         :param unicode friendly_name:  descriptive string that you create to describe the Workflow resource
         :param unicode configuration: A JSON string that contains the rules to apply to the Workflow
@@ -138,7 +134,7 @@ class WorkflowList(ListResource):
         :param unicode fallback_assignment_callback_url: The URL that we should call when a call to the `assignment_callback_url` fails
         :param unicode task_reservation_timeout: How long TaskRouter will wait for a confirmation response from your application after it assigns a Task to a Worker
 
-        :returns: Newly created WorkflowInstance
+        :returns: The created WorkflowInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowInstance
         """
         data = values.of({
@@ -149,11 +145,7 @@ class WorkflowList(ListResource):
             'TaskReservationTimeout': task_reservation_timeout,
         })
 
-        payload = self._version.create(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data, )
 
         return WorkflowInstance(self._version, payload, workspace_sid=self._solution['workspace_sid'], )
 
@@ -256,18 +248,12 @@ class WorkflowContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a WorkflowInstance
+        Fetch the WorkflowInstance
 
-        :returns: Fetched WorkflowInstance
+        :returns: The fetched WorkflowInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return WorkflowInstance(
             self._version,
@@ -289,7 +275,7 @@ class WorkflowContext(InstanceContext):
         :param unicode configuration: A JSON string that contains the rules to apply to the Workflow
         :param unicode task_reservation_timeout: How long TaskRouter will wait for a confirmation response from your application after it assigns a Task to a Worker
 
-        :returns: Updated WorkflowInstance
+        :returns: The updated WorkflowInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowInstance
         """
         data = values.of({
@@ -300,11 +286,7 @@ class WorkflowContext(InstanceContext):
             'TaskReservationTimeout': task_reservation_timeout,
         })
 
-        payload = self._version.update(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.update(method='POST', uri=self._uri, data=data, )
 
         return WorkflowInstance(
             self._version,
@@ -320,7 +302,7 @@ class WorkflowContext(InstanceContext):
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete('delete', self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri, )
 
     @property
     def statistics(self):
@@ -537,9 +519,9 @@ class WorkflowInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a WorkflowInstance
+        Fetch the WorkflowInstance
 
-        :returns: Fetched WorkflowInstance
+        :returns: The fetched WorkflowInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowInstance
         """
         return self._proxy.fetch()
@@ -557,7 +539,7 @@ class WorkflowInstance(InstanceResource):
         :param unicode configuration: A JSON string that contains the rules to apply to the Workflow
         :param unicode task_reservation_timeout: How long TaskRouter will wait for a confirmation response from your application after it assigns a Task to a Worker
 
-        :returns: Updated WorkflowInstance
+        :returns: The updated WorkflowInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowInstance
         """
         return self._proxy.update(

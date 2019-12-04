@@ -92,18 +92,14 @@ class ReservationList(ListResource):
         :returns: Page of ReservationInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.worker.reservation.ReservationPage
         """
-        params = values.of({
+        data = values.of({
             'ReservationStatus': reservation_status,
             'PageToken': page_token,
             'Page': page_number,
             'PageSize': page_size,
         })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return ReservationPage(self._version, response, self._solution)
 
@@ -235,18 +231,12 @@ class ReservationContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a ReservationInstance
+        Fetch the ReservationInstance
 
-        :returns: Fetched ReservationInstance
+        :returns: The fetched ReservationInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.worker.reservation.ReservationInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return ReservationInstance(
             self._version,
@@ -344,7 +334,7 @@ class ReservationContext(InstanceContext):
         :param bool end_conference_on_customer_exit: Whether to end the conference when the customer leaves
         :param bool beep_on_customer_entrance: Whether to play a notification beep when the customer joins
 
-        :returns: Updated ReservationInstance
+        :returns: The updated ReservationInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.worker.reservation.ReservationInstance
         """
         data = values.of({
@@ -401,11 +391,7 @@ class ReservationContext(InstanceContext):
             'BeepOnCustomerEntrance': beep_on_customer_entrance,
         })
 
-        payload = self._version.update(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.update(method='POST', uri=self._uri, data=data, )
 
         return ReservationInstance(
             self._version,
@@ -594,9 +580,9 @@ class ReservationInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a ReservationInstance
+        Fetch the ReservationInstance
 
-        :returns: Fetched ReservationInstance
+        :returns: The fetched ReservationInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.worker.reservation.ReservationInstance
         """
         return self._proxy.fetch()
@@ -689,7 +675,7 @@ class ReservationInstance(InstanceResource):
         :param bool end_conference_on_customer_exit: Whether to end the conference when the customer leaves
         :param bool beep_on_customer_entrance: Whether to play a notification beep when the customer joins
 
-        :returns: Updated ReservationInstance
+        :returns: The updated ReservationInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.worker.reservation.ReservationInstance
         """
         return self._proxy.update(

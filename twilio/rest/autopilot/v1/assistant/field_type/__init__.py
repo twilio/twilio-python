@@ -90,13 +90,9 @@ class FieldTypeList(ListResource):
         :returns: Page of FieldTypeInstance
         :rtype: twilio.rest.autopilot.v1.assistant.field_type.FieldTypePage
         """
-        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
+        data = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return FieldTypePage(self._version, response, self._solution)
 
@@ -119,21 +115,17 @@ class FieldTypeList(ListResource):
 
     def create(self, unique_name, friendly_name=values.unset):
         """
-        Create a new FieldTypeInstance
+        Create the FieldTypeInstance
 
         :param unicode unique_name: An application-defined string that uniquely identifies the new resource
         :param unicode friendly_name: A string to describe the new resource
 
-        :returns: Newly created FieldTypeInstance
+        :returns: The created FieldTypeInstance
         :rtype: twilio.rest.autopilot.v1.assistant.field_type.FieldTypeInstance
         """
         data = values.of({'UniqueName': unique_name, 'FriendlyName': friendly_name, })
 
-        payload = self._version.create(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data, )
 
         return FieldTypeInstance(self._version, payload, assistant_sid=self._solution['assistant_sid'], )
 
@@ -238,18 +230,12 @@ class FieldTypeContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a FieldTypeInstance
+        Fetch the FieldTypeInstance
 
-        :returns: Fetched FieldTypeInstance
+        :returns: The fetched FieldTypeInstance
         :rtype: twilio.rest.autopilot.v1.assistant.field_type.FieldTypeInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return FieldTypeInstance(
             self._version,
@@ -265,16 +251,12 @@ class FieldTypeContext(InstanceContext):
         :param unicode friendly_name: A string to describe the resource
         :param unicode unique_name: An application-defined string that uniquely identifies the resource
 
-        :returns: Updated FieldTypeInstance
+        :returns: The updated FieldTypeInstance
         :rtype: twilio.rest.autopilot.v1.assistant.field_type.FieldTypeInstance
         """
         data = values.of({'FriendlyName': friendly_name, 'UniqueName': unique_name, })
 
-        payload = self._version.update(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.update(method='POST', uri=self._uri, data=data, )
 
         return FieldTypeInstance(
             self._version,
@@ -290,7 +272,7 @@ class FieldTypeContext(InstanceContext):
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete('delete', self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri, )
 
     @property
     def field_values(self):
@@ -441,9 +423,9 @@ class FieldTypeInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a FieldTypeInstance
+        Fetch the FieldTypeInstance
 
-        :returns: Fetched FieldTypeInstance
+        :returns: The fetched FieldTypeInstance
         :rtype: twilio.rest.autopilot.v1.assistant.field_type.FieldTypeInstance
         """
         return self._proxy.fetch()
@@ -455,7 +437,7 @@ class FieldTypeInstance(InstanceResource):
         :param unicode friendly_name: A string to describe the resource
         :param unicode unique_name: An application-defined string that uniquely identifies the resource
 
-        :returns: Updated FieldTypeInstance
+        :returns: The updated FieldTypeInstance
         :rtype: twilio.rest.autopilot.v1.assistant.field_type.FieldTypeInstance
         """
         return self._proxy.update(friendly_name=friendly_name, unique_name=unique_name, )

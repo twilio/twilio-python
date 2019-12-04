@@ -36,22 +36,18 @@ class MessageList(ListResource):
 
     def create(self, body, from_=values.unset, attributes=values.unset):
         """
-        Create a new MessageInstance
+        Create the MessageInstance
 
         :param unicode body: The message to send to the channel
         :param unicode from_: The identity of the new message's author
         :param unicode attributes: A valid JSON string that contains application-specific data
 
-        :returns: Newly created MessageInstance
+        :returns: The created MessageInstance
         :rtype: twilio.rest.chat.v1.service.channel.message.MessageInstance
         """
         data = values.of({'Body': body, 'From': from_, 'Attributes': attributes, })
 
-        payload = self._version.create(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data, )
 
         return MessageInstance(
             self._version,
@@ -117,18 +113,14 @@ class MessageList(ListResource):
         :returns: Page of MessageInstance
         :rtype: twilio.rest.chat.v1.service.channel.message.MessagePage
         """
-        params = values.of({
+        data = values.of({
             'Order': order,
             'PageToken': page_token,
             'Page': page_number,
             'PageSize': page_size,
         })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return MessagePage(self._version, response, self._solution)
 
@@ -260,18 +252,12 @@ class MessageContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a MessageInstance
+        Fetch the MessageInstance
 
-        :returns: Fetched MessageInstance
+        :returns: The fetched MessageInstance
         :rtype: twilio.rest.chat.v1.service.channel.message.MessageInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return MessageInstance(
             self._version,
@@ -288,7 +274,7 @@ class MessageContext(InstanceContext):
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete('delete', self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri, )
 
     def update(self, body=values.unset, attributes=values.unset):
         """
@@ -297,16 +283,12 @@ class MessageContext(InstanceContext):
         :param unicode body: The message to send to the channel
         :param unicode attributes: A valid JSON string that contains application-specific data
 
-        :returns: Updated MessageInstance
+        :returns: The updated MessageInstance
         :rtype: twilio.rest.chat.v1.service.channel.message.MessageInstance
         """
         data = values.of({'Body': body, 'Attributes': attributes, })
 
-        payload = self._version.update(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.update(method='POST', uri=self._uri, data=data, )
 
         return MessageInstance(
             self._version,
@@ -492,9 +474,9 @@ class MessageInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a MessageInstance
+        Fetch the MessageInstance
 
-        :returns: Fetched MessageInstance
+        :returns: The fetched MessageInstance
         :rtype: twilio.rest.chat.v1.service.channel.message.MessageInstance
         """
         return self._proxy.fetch()
@@ -515,7 +497,7 @@ class MessageInstance(InstanceResource):
         :param unicode body: The message to send to the channel
         :param unicode attributes: A valid JSON string that contains application-specific data
 
-        :returns: Updated MessageInstance
+        :returns: The updated MessageInstance
         :rtype: twilio.rest.chat.v1.service.channel.message.MessageInstance
         """
         return self._proxy.update(body=body, attributes=attributes, )

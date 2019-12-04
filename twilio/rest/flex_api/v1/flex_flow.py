@@ -89,18 +89,14 @@ class FlexFlowList(ListResource):
         :returns: Page of FlexFlowInstance
         :rtype: twilio.rest.flex_api.v1.flex_flow.FlexFlowPage
         """
-        params = values.of({
+        data = values.of({
             'FriendlyName': friendly_name,
             'PageToken': page_token,
             'Page': page_number,
             'PageSize': page_size,
         })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return FlexFlowPage(self._version, response, self._solution)
 
@@ -132,7 +128,7 @@ class FlexFlowList(ListResource):
                long_lived=values.unset, janitor_enabled=values.unset,
                integration_retry_count=values.unset):
         """
-        Create a new FlexFlowInstance
+        Create the FlexFlowInstance
 
         :param unicode friendly_name: A string to describe the resource
         :param unicode chat_service_sid: The SID of the chat service
@@ -152,7 +148,7 @@ class FlexFlowList(ListResource):
         :param bool janitor_enabled: Boolean flag for enabling or disabling the Janitor
         :param unicode integration_retry_count: The number of times to retry the webhook if the first attempt fails
 
-        :returns: Newly created FlexFlowInstance
+        :returns: The created FlexFlowInstance
         :rtype: twilio.rest.flex_api.v1.flex_flow.FlexFlowInstance
         """
         data = values.of({
@@ -175,11 +171,7 @@ class FlexFlowList(ListResource):
             'Integration.RetryCount': integration_retry_count,
         })
 
-        payload = self._version.create(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data, )
 
         return FlexFlowInstance(self._version, payload, )
 
@@ -275,18 +267,12 @@ class FlexFlowContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a FlexFlowInstance
+        Fetch the FlexFlowInstance
 
-        :returns: Fetched FlexFlowInstance
+        :returns: The fetched FlexFlowInstance
         :rtype: twilio.rest.flex_api.v1.flex_flow.FlexFlowInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return FlexFlowInstance(self._version, payload, sid=self._solution['sid'], )
 
@@ -322,7 +308,7 @@ class FlexFlowContext(InstanceContext):
         :param bool janitor_enabled: Boolean flag for enabling or disabling the Janitor
         :param unicode integration_retry_count: The number of times to retry the webhook if the first attempt fails
 
-        :returns: Updated FlexFlowInstance
+        :returns: The updated FlexFlowInstance
         :rtype: twilio.rest.flex_api.v1.flex_flow.FlexFlowInstance
         """
         data = values.of({
@@ -345,11 +331,7 @@ class FlexFlowContext(InstanceContext):
             'Integration.RetryCount': integration_retry_count,
         })
 
-        payload = self._version.update(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.update(method='POST', uri=self._uri, data=data, )
 
         return FlexFlowInstance(self._version, payload, sid=self._solution['sid'], )
 
@@ -360,7 +342,7 @@ class FlexFlowContext(InstanceContext):
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete('delete', self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri, )
 
     def __repr__(self):
         """
@@ -547,9 +529,9 @@ class FlexFlowInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a FlexFlowInstance
+        Fetch the FlexFlowInstance
 
-        :returns: Fetched FlexFlowInstance
+        :returns: The fetched FlexFlowInstance
         :rtype: twilio.rest.flex_api.v1.flex_flow.FlexFlowInstance
         """
         return self._proxy.fetch()
@@ -586,7 +568,7 @@ class FlexFlowInstance(InstanceResource):
         :param bool janitor_enabled: Boolean flag for enabling or disabling the Janitor
         :param unicode integration_retry_count: The number of times to retry the webhook if the first attempt fails
 
-        :returns: Updated FlexFlowInstance
+        :returns: The updated FlexFlowInstance
         :rtype: twilio.rest.flex_api.v1.flex_flow.FlexFlowInstance
         """
         return self._proxy.update(

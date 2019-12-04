@@ -38,21 +38,17 @@ class ServiceList(ListResource):
 
     def create(self, name, code_length=values.unset):
         """
-        Create a new ServiceInstance
+        Create the ServiceInstance
 
         :param unicode name: Friendly name of the service
         :param unicode code_length: Length of verification code. Valid values are 4-10
 
-        :returns: Newly created ServiceInstance
+        :returns: The created ServiceInstance
         :rtype: twilio.rest.preview.acc_security.service.ServiceInstance
         """
         data = values.of({'Name': name, 'CodeLength': code_length, })
 
-        payload = self._version.create(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data, )
 
         return ServiceInstance(self._version, payload, )
 
@@ -110,13 +106,9 @@ class ServiceList(ListResource):
         :returns: Page of ServiceInstance
         :rtype: twilio.rest.preview.acc_security.service.ServicePage
         """
-        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
+        data = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return ServicePage(self._version, response, self._solution)
 
@@ -237,18 +229,12 @@ class ServiceContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a ServiceInstance
+        Fetch the ServiceInstance
 
-        :returns: Fetched ServiceInstance
+        :returns: The fetched ServiceInstance
         :rtype: twilio.rest.preview.acc_security.service.ServiceInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return ServiceInstance(self._version, payload, sid=self._solution['sid'], )
 
@@ -259,16 +245,12 @@ class ServiceContext(InstanceContext):
         :param unicode name: Friendly name of the service
         :param unicode code_length: Length of verification code. Valid values are 4-10
 
-        :returns: Updated ServiceInstance
+        :returns: The updated ServiceInstance
         :rtype: twilio.rest.preview.acc_security.service.ServiceInstance
         """
         data = values.of({'Name': name, 'CodeLength': code_length, })
 
-        payload = self._version.update(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.update(method='POST', uri=self._uri, data=data, )
 
         return ServiceInstance(self._version, payload, sid=self._solution['sid'], )
 
@@ -416,9 +398,9 @@ class ServiceInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a ServiceInstance
+        Fetch the ServiceInstance
 
-        :returns: Fetched ServiceInstance
+        :returns: The fetched ServiceInstance
         :rtype: twilio.rest.preview.acc_security.service.ServiceInstance
         """
         return self._proxy.fetch()
@@ -430,7 +412,7 @@ class ServiceInstance(InstanceResource):
         :param unicode name: Friendly name of the service
         :param unicode code_length: Length of verification code. Valid values are 4-10
 
-        :returns: Updated ServiceInstance
+        :returns: The updated ServiceInstance
         :rtype: twilio.rest.preview.acc_security.service.ServiceInstance
         """
         return self._proxy.update(name=name, code_length=code_length, )

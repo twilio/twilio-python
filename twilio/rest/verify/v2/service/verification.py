@@ -40,7 +40,7 @@ class VerificationList(ListResource):
                custom_code=values.unset, amount=values.unset, payee=values.unset,
                rate_limits=values.unset, channel_configuration=values.unset):
         """
-        Create a new VerificationInstance
+        Create the VerificationInstance
 
         :param unicode to: The phone number or email to verify
         :param unicode channel: The verification method to use
@@ -53,7 +53,7 @@ class VerificationList(ListResource):
         :param dict rate_limits: The custom key-value pairs of Programmable Rate Limits.
         :param dict channel_configuration: Channel specific configuration in json format.
 
-        :returns: Newly created VerificationInstance
+        :returns: The created VerificationInstance
         :rtype: twilio.rest.verify.v2.service.verification.VerificationInstance
         """
         data = values.of({
@@ -69,11 +69,7 @@ class VerificationList(ListResource):
             'ChannelConfiguration': serialize.object(channel_configuration),
         })
 
-        payload = self._version.create(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data, )
 
         return VerificationInstance(self._version, payload, service_sid=self._solution['service_sid'], )
 
@@ -177,16 +173,12 @@ class VerificationContext(InstanceContext):
 
         :param VerificationInstance.Status status: The new status of the resource
 
-        :returns: Updated VerificationInstance
+        :returns: The updated VerificationInstance
         :rtype: twilio.rest.verify.v2.service.verification.VerificationInstance
         """
         data = values.of({'Status': status, })
 
-        payload = self._version.update(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.update(method='POST', uri=self._uri, data=data, )
 
         return VerificationInstance(
             self._version,
@@ -197,18 +189,12 @@ class VerificationContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a VerificationInstance
+        Fetch the VerificationInstance
 
-        :returns: Fetched VerificationInstance
+        :returns: The fetched VerificationInstance
         :rtype: twilio.rest.verify.v2.service.verification.VerificationInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return VerificationInstance(
             self._version,
@@ -398,16 +384,16 @@ class VerificationInstance(InstanceResource):
 
         :param VerificationInstance.Status status: The new status of the resource
 
-        :returns: Updated VerificationInstance
+        :returns: The updated VerificationInstance
         :rtype: twilio.rest.verify.v2.service.verification.VerificationInstance
         """
         return self._proxy.update(status, )
 
     def fetch(self):
         """
-        Fetch a VerificationInstance
+        Fetch the VerificationInstance
 
-        :returns: Fetched VerificationInstance
+        :returns: The fetched VerificationInstance
         :rtype: twilio.rest.verify.v2.service.verification.VerificationInstance
         """
         return self._proxy.fetch()

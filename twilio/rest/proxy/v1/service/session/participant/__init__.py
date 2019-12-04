@@ -90,13 +90,9 @@ class ParticipantList(ListResource):
         :returns: Page of ParticipantInstance
         :rtype: twilio.rest.proxy.v1.service.session.participant.ParticipantPage
         """
-        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
+        data = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return ParticipantPage(self._version, response, self._solution)
 
@@ -120,14 +116,14 @@ class ParticipantList(ListResource):
     def create(self, identifier, friendly_name=values.unset,
                proxy_identifier=values.unset, proxy_identifier_sid=values.unset):
         """
-        Create a new ParticipantInstance
+        Create the ParticipantInstance
 
         :param unicode identifier: The phone number of the Participant
         :param unicode friendly_name: The string that you assigned to describe the participant
         :param unicode proxy_identifier: The proxy phone number to use for the Participant
         :param unicode proxy_identifier_sid: The Proxy Identifier Sid
 
-        :returns: Newly created ParticipantInstance
+        :returns: The created ParticipantInstance
         :rtype: twilio.rest.proxy.v1.service.session.participant.ParticipantInstance
         """
         data = values.of({
@@ -137,11 +133,7 @@ class ParticipantList(ListResource):
             'ProxyIdentifierSid': proxy_identifier_sid,
         })
 
-        payload = self._version.create(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data, )
 
         return ParticipantInstance(
             self._version,
@@ -266,18 +258,12 @@ class ParticipantContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a ParticipantInstance
+        Fetch the ParticipantInstance
 
-        :returns: Fetched ParticipantInstance
+        :returns: The fetched ParticipantInstance
         :rtype: twilio.rest.proxy.v1.service.session.participant.ParticipantInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return ParticipantInstance(
             self._version,
@@ -294,7 +280,7 @@ class ParticipantContext(InstanceContext):
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete('delete', self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri, )
 
     @property
     def message_interactions(self):
@@ -486,9 +472,9 @@ class ParticipantInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a ParticipantInstance
+        Fetch the ParticipantInstance
 
-        :returns: Fetched ParticipantInstance
+        :returns: The fetched ParticipantInstance
         :rtype: twilio.rest.proxy.v1.service.session.participant.ParticipantInstance
         """
         return self._proxy.fetch()

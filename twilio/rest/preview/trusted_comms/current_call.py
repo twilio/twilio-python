@@ -124,18 +124,12 @@ class CurrentCallContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a CurrentCallInstance
+        Fetch the CurrentCallInstance
 
-        :returns: Fetched CurrentCallInstance
+        :returns: The fetched CurrentCallInstance
         :rtype: twilio.rest.preview.trusted_comms.current_call.CurrentCallInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return CurrentCallInstance(self._version, payload, )
 
@@ -313,9 +307,9 @@ class CurrentCallInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a CurrentCallInstance
+        Fetch the CurrentCallInstance
 
-        :returns: Fetched CurrentCallInstance
+        :returns: The fetched CurrentCallInstance
         :rtype: twilio.rest.preview.trusted_comms.current_call.CurrentCallInstance
         """
         return self._proxy.fetch()

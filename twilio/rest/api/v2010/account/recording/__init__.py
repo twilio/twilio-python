@@ -126,7 +126,7 @@ class RecordingList(ListResource):
         :returns: Page of RecordingInstance
         :rtype: twilio.rest.api.v2010.account.recording.RecordingPage
         """
-        params = values.of({
+        data = values.of({
             'DateCreated<': serialize.iso8601_datetime(date_created_before),
             'DateCreated': serialize.iso8601_datetime(date_created),
             'DateCreated>': serialize.iso8601_datetime(date_created_after),
@@ -137,11 +137,7 @@ class RecordingList(ListResource):
             'PageSize': page_size,
         })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return RecordingPage(self._version, response, self._solution)
 
@@ -260,18 +256,12 @@ class RecordingContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a RecordingInstance
+        Fetch the RecordingInstance
 
-        :returns: Fetched RecordingInstance
+        :returns: The fetched RecordingInstance
         :rtype: twilio.rest.api.v2010.account.recording.RecordingInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return RecordingInstance(
             self._version,
@@ -287,7 +277,7 @@ class RecordingContext(InstanceContext):
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete('delete', self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri, )
 
     @property
     def transcriptions(self):
@@ -550,9 +540,9 @@ class RecordingInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a RecordingInstance
+        Fetch the RecordingInstance
 
-        :returns: Fetched RecordingInstance
+        :returns: The fetched RecordingInstance
         :rtype: twilio.rest.api.v2010.account.recording.RecordingInstance
         """
         return self._proxy.fetch()

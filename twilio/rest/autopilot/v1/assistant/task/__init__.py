@@ -94,13 +94,9 @@ class TaskList(ListResource):
         :returns: Page of TaskInstance
         :rtype: twilio.rest.autopilot.v1.assistant.task.TaskPage
         """
-        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
+        data = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return TaskPage(self._version, response, self._solution)
 
@@ -124,14 +120,14 @@ class TaskList(ListResource):
     def create(self, unique_name, friendly_name=values.unset, actions=values.unset,
                actions_url=values.unset):
         """
-        Create a new TaskInstance
+        Create the TaskInstance
 
         :param unicode unique_name: An application-defined string that uniquely identifies the resource
         :param unicode friendly_name:  descriptive string that you create to describe the new resource
         :param dict actions: The JSON string that specifies the actions that instruct the Assistant on how to perform the task
         :param unicode actions_url: The URL from which the Assistant can fetch actions
 
-        :returns: Newly created TaskInstance
+        :returns: The created TaskInstance
         :rtype: twilio.rest.autopilot.v1.assistant.task.TaskInstance
         """
         data = values.of({
@@ -141,11 +137,7 @@ class TaskList(ListResource):
             'ActionsUrl': actions_url,
         })
 
-        payload = self._version.create(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data, )
 
         return TaskInstance(self._version, payload, assistant_sid=self._solution['assistant_sid'], )
 
@@ -253,18 +245,12 @@ class TaskContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a TaskInstance
+        Fetch the TaskInstance
 
-        :returns: Fetched TaskInstance
+        :returns: The fetched TaskInstance
         :rtype: twilio.rest.autopilot.v1.assistant.task.TaskInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return TaskInstance(
             self._version,
@@ -283,7 +269,7 @@ class TaskContext(InstanceContext):
         :param dict actions: The JSON string that specifies the actions that instruct the Assistant on how to perform the task
         :param unicode actions_url: The URL from which the Assistant can fetch actions
 
-        :returns: Updated TaskInstance
+        :returns: The updated TaskInstance
         :rtype: twilio.rest.autopilot.v1.assistant.task.TaskInstance
         """
         data = values.of({
@@ -293,11 +279,7 @@ class TaskContext(InstanceContext):
             'ActionsUrl': actions_url,
         })
 
-        payload = self._version.update(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.update(method='POST', uri=self._uri, data=data, )
 
         return TaskInstance(
             self._version,
@@ -313,7 +295,7 @@ class TaskContext(InstanceContext):
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete('delete', self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri, )
 
     @property
     def fields(self):
@@ -521,9 +503,9 @@ class TaskInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a TaskInstance
+        Fetch the TaskInstance
 
-        :returns: Fetched TaskInstance
+        :returns: The fetched TaskInstance
         :rtype: twilio.rest.autopilot.v1.assistant.task.TaskInstance
         """
         return self._proxy.fetch()
@@ -538,7 +520,7 @@ class TaskInstance(InstanceResource):
         :param dict actions: The JSON string that specifies the actions that instruct the Assistant on how to perform the task
         :param unicode actions_url: The URL from which the Assistant can fetch actions
 
-        :returns: Updated TaskInstance
+        :returns: The updated TaskInstance
         :rtype: twilio.rest.autopilot.v1.assistant.task.TaskInstance
         """
         return self._proxy.update(

@@ -122,18 +122,12 @@ class NumberContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a NumberInstance
+        Fetch the NumberInstance
 
-        :returns: Fetched NumberInstance
+        :returns: The fetched NumberInstance
         :rtype: twilio.rest.pricing.v1.voice.number.NumberInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return NumberInstance(self._version, payload, number=self._solution['number'], )
 
@@ -246,9 +240,9 @@ class NumberInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a NumberInstance
+        Fetch the NumberInstance
 
-        :returns: Fetched NumberInstance
+        :returns: The fetched NumberInstance
         :rtype: twilio.rest.pricing.v1.voice.number.NumberInstance
         """
         return self._proxy.fetch()

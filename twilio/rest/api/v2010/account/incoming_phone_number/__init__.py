@@ -127,7 +127,7 @@ class IncomingPhoneNumberList(ListResource):
         :returns: Page of IncomingPhoneNumberInstance
         :rtype: twilio.rest.api.v2010.account.incoming_phone_number.IncomingPhoneNumberPage
         """
-        params = values.of({
+        data = values.of({
             'Beta': beta,
             'FriendlyName': friendly_name,
             'PhoneNumber': phone_number,
@@ -137,11 +137,7 @@ class IncomingPhoneNumberList(ListResource):
             'PageSize': page_size,
         })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return IncomingPhoneNumberPage(self._version, response, self._solution)
 
@@ -176,7 +172,7 @@ class IncomingPhoneNumberList(ListResource):
                address_sid=values.unset, voice_receive_mode=values.unset,
                phone_number=values.unset, area_code=values.unset):
         """
-        Create a new IncomingPhoneNumberInstance
+        Create the IncomingPhoneNumberInstance
 
         :param unicode api_version: The API version to use for incoming calls made to the new phone number
         :param unicode friendly_name: A string to describe the new phone number
@@ -202,7 +198,7 @@ class IncomingPhoneNumberList(ListResource):
         :param unicode phone_number: The phone number to purchase in E.164 format
         :param unicode area_code: The desired area code for the new phone number
 
-        :returns: Newly created IncomingPhoneNumberInstance
+        :returns: The created IncomingPhoneNumberInstance
         :rtype: twilio.rest.api.v2010.account.incoming_phone_number.IncomingPhoneNumberInstance
         """
         data = values.of({
@@ -231,11 +227,7 @@ class IncomingPhoneNumberList(ListResource):
             'VoiceReceiveMode': voice_receive_mode,
         })
 
-        payload = self._version.create(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data, )
 
         return IncomingPhoneNumberInstance(
             self._version,
@@ -416,7 +408,7 @@ class IncomingPhoneNumberContext(InstanceContext):
         :param unicode identity_sid: Unique string that identifies the identity associated with number
         :param unicode address_sid: The SID of the Address resource associated with the phone number
 
-        :returns: Updated IncomingPhoneNumberInstance
+        :returns: The updated IncomingPhoneNumberInstance
         :rtype: twilio.rest.api.v2010.account.incoming_phone_number.IncomingPhoneNumberInstance
         """
         data = values.of({
@@ -444,11 +436,7 @@ class IncomingPhoneNumberContext(InstanceContext):
             'AddressSid': address_sid,
         })
 
-        payload = self._version.update(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.update(method='POST', uri=self._uri, data=data, )
 
         return IncomingPhoneNumberInstance(
             self._version,
@@ -459,18 +447,12 @@ class IncomingPhoneNumberContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a IncomingPhoneNumberInstance
+        Fetch the IncomingPhoneNumberInstance
 
-        :returns: Fetched IncomingPhoneNumberInstance
+        :returns: The fetched IncomingPhoneNumberInstance
         :rtype: twilio.rest.api.v2010.account.incoming_phone_number.IncomingPhoneNumberInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return IncomingPhoneNumberInstance(
             self._version,
@@ -486,7 +468,7 @@ class IncomingPhoneNumberContext(InstanceContext):
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete('delete', self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri, )
 
     @property
     def assigned_add_ons(self):
@@ -874,7 +856,7 @@ class IncomingPhoneNumberInstance(InstanceResource):
         :param unicode identity_sid: Unique string that identifies the identity associated with number
         :param unicode address_sid: The SID of the Address resource associated with the phone number
 
-        :returns: Updated IncomingPhoneNumberInstance
+        :returns: The updated IncomingPhoneNumberInstance
         :rtype: twilio.rest.api.v2010.account.incoming_phone_number.IncomingPhoneNumberInstance
         """
         return self._proxy.update(
@@ -904,9 +886,9 @@ class IncomingPhoneNumberInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a IncomingPhoneNumberInstance
+        Fetch the IncomingPhoneNumberInstance
 
-        :returns: Fetched IncomingPhoneNumberInstance
+        :returns: The fetched IncomingPhoneNumberInstance
         :rtype: twilio.rest.api.v2010.account.incoming_phone_number.IncomingPhoneNumberInstance
         """
         return self._proxy.fetch()

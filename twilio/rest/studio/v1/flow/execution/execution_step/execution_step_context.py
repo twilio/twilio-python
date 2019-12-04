@@ -142,18 +142,12 @@ class ExecutionStepContextContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a ExecutionStepContextInstance
+        Fetch the ExecutionStepContextInstance
 
-        :returns: Fetched ExecutionStepContextInstance
+        :returns: The fetched ExecutionStepContextInstance
         :rtype: twilio.rest.studio.v1.flow.execution.execution_step.execution_step_context.ExecutionStepContextInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return ExecutionStepContextInstance(
             self._version,
@@ -268,9 +262,9 @@ class ExecutionStepContextInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a ExecutionStepContextInstance
+        Fetch the ExecutionStepContextInstance
 
-        :returns: Fetched ExecutionStepContextInstance
+        :returns: The fetched ExecutionStepContextInstance
         :rtype: twilio.rest.studio.v1.flow.execution.execution_step.execution_step_context.ExecutionStepContextInstance
         """
         return self._proxy.fetch()

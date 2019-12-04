@@ -42,7 +42,7 @@ class ServiceList(ListResource):
                dtmf_input_required=values.unset, tts_name=values.unset,
                psd2_enabled=values.unset):
         """
-        Create a new ServiceInstance
+        Create the ServiceInstance
 
         :param unicode friendly_name: A string to describe the verification service
         :param unicode code_length: The length of the verification code to generate
@@ -52,7 +52,7 @@ class ServiceList(ListResource):
         :param unicode tts_name: The name of an alternative text-to-speech service to use in phone calls
         :param bool psd2_enabled: Whether to pass PSD2 transaction parameters when starting a verification
 
-        :returns: Newly created ServiceInstance
+        :returns: The created ServiceInstance
         :rtype: twilio.rest.verify.v2.service.ServiceInstance
         """
         data = values.of({
@@ -65,11 +65,7 @@ class ServiceList(ListResource):
             'Psd2Enabled': psd2_enabled,
         })
 
-        payload = self._version.create(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data, )
 
         return ServiceInstance(self._version, payload, )
 
@@ -127,13 +123,9 @@ class ServiceList(ListResource):
         :returns: Page of ServiceInstance
         :rtype: twilio.rest.verify.v2.service.ServicePage
         """
-        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
+        data = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return ServicePage(self._version, response, self._solution)
 
@@ -254,18 +246,12 @@ class ServiceContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a ServiceInstance
+        Fetch the ServiceInstance
 
-        :returns: Fetched ServiceInstance
+        :returns: The fetched ServiceInstance
         :rtype: twilio.rest.verify.v2.service.ServiceInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return ServiceInstance(self._version, payload, sid=self._solution['sid'], )
 
@@ -276,7 +262,7 @@ class ServiceContext(InstanceContext):
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete('delete', self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri, )
 
     def update(self, friendly_name=values.unset, code_length=values.unset,
                lookup_enabled=values.unset, skip_sms_to_landlines=values.unset,
@@ -293,7 +279,7 @@ class ServiceContext(InstanceContext):
         :param unicode tts_name: The name of an alternative text-to-speech service to use in phone calls
         :param bool psd2_enabled: Whether to pass PSD2 transaction parameters when starting a verification
 
-        :returns: Updated ServiceInstance
+        :returns: The updated ServiceInstance
         :rtype: twilio.rest.verify.v2.service.ServiceInstance
         """
         data = values.of({
@@ -306,11 +292,7 @@ class ServiceContext(InstanceContext):
             'Psd2Enabled': psd2_enabled,
         })
 
-        payload = self._version.update(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.update(method='POST', uri=self._uri, data=data, )
 
         return ServiceInstance(self._version, payload, sid=self._solution['sid'], )
 
@@ -529,9 +511,9 @@ class ServiceInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a ServiceInstance
+        Fetch the ServiceInstance
 
-        :returns: Fetched ServiceInstance
+        :returns: The fetched ServiceInstance
         :rtype: twilio.rest.verify.v2.service.ServiceInstance
         """
         return self._proxy.fetch()
@@ -560,7 +542,7 @@ class ServiceInstance(InstanceResource):
         :param unicode tts_name: The name of an alternative text-to-speech service to use in phone calls
         :param bool psd2_enabled: Whether to pass PSD2 transaction parameters when starting a verification
 
-        :returns: Updated ServiceInstance
+        :returns: The updated ServiceInstance
         :rtype: twilio.rest.verify.v2.service.ServiceInstance
         """
         return self._proxy.update(

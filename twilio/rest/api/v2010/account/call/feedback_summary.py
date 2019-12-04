@@ -37,7 +37,7 @@ class FeedbackSummaryList(ListResource):
     def create(self, start_date, end_date, include_subaccounts=values.unset,
                status_callback=values.unset, status_callback_method=values.unset):
         """
-        Create a new FeedbackSummaryInstance
+        Create the FeedbackSummaryInstance
 
         :param date start_date: Only include feedback given on or after this date
         :param date end_date: Only include feedback given on or before this date
@@ -45,7 +45,7 @@ class FeedbackSummaryList(ListResource):
         :param unicode status_callback: The URL that we will request when the feedback summary is complete
         :param unicode status_callback_method: The HTTP method we use to make requests to the StatusCallback URL
 
-        :returns: Newly created FeedbackSummaryInstance
+        :returns: The created FeedbackSummaryInstance
         :rtype: twilio.rest.api.v2010.account.call.feedback_summary.FeedbackSummaryInstance
         """
         data = values.of({
@@ -56,11 +56,7 @@ class FeedbackSummaryList(ListResource):
             'StatusCallbackMethod': status_callback_method,
         })
 
-        payload = self._version.create(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data, )
 
         return FeedbackSummaryInstance(self._version, payload, account_sid=self._solution['account_sid'], )
 
@@ -158,18 +154,12 @@ class FeedbackSummaryContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a FeedbackSummaryInstance
+        Fetch the FeedbackSummaryInstance
 
-        :returns: Fetched FeedbackSummaryInstance
+        :returns: The fetched FeedbackSummaryInstance
         :rtype: twilio.rest.api.v2010.account.call.feedback_summary.FeedbackSummaryInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return FeedbackSummaryInstance(
             self._version,
@@ -185,7 +175,7 @@ class FeedbackSummaryContext(InstanceContext):
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete('delete', self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri, )
 
     def __repr__(self):
         """
@@ -369,9 +359,9 @@ class FeedbackSummaryInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a FeedbackSummaryInstance
+        Fetch the FeedbackSummaryInstance
 
-        :returns: Fetched FeedbackSummaryInstance
+        :returns: The fetched FeedbackSummaryInstance
         :rtype: twilio.rest.api.v2010.account.call.feedback_summary.FeedbackSummaryInstance
         """
         return self._proxy.fetch()

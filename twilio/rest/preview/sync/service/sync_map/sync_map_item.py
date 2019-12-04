@@ -39,21 +39,17 @@ class SyncMapItemList(ListResource):
 
     def create(self, key, data):
         """
-        Create a new SyncMapItemInstance
+        Create the SyncMapItemInstance
 
         :param unicode key: The key
         :param dict data: The data
 
-        :returns: Newly created SyncMapItemInstance
+        :returns: The created SyncMapItemInstance
         :rtype: twilio.rest.preview.sync.service.sync_map.sync_map_item.SyncMapItemInstance
         """
         data = values.of({'Key': key, 'Data': serialize.object(data), })
 
-        payload = self._version.create(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data, )
 
         return SyncMapItemInstance(
             self._version,
@@ -128,7 +124,7 @@ class SyncMapItemList(ListResource):
         :returns: Page of SyncMapItemInstance
         :rtype: twilio.rest.preview.sync.service.sync_map.sync_map_item.SyncMapItemPage
         """
-        params = values.of({
+        data = values.of({
             'Order': order,
             'From': from_,
             'Bounds': bounds,
@@ -137,11 +133,7 @@ class SyncMapItemList(ListResource):
             'PageSize': page_size,
         })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return SyncMapItemPage(self._version, response, self._solution)
 
@@ -277,18 +269,12 @@ class SyncMapItemContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a SyncMapItemInstance
+        Fetch the SyncMapItemInstance
 
-        :returns: Fetched SyncMapItemInstance
+        :returns: The fetched SyncMapItemInstance
         :rtype: twilio.rest.preview.sync.service.sync_map.sync_map_item.SyncMapItemInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return SyncMapItemInstance(
             self._version,
@@ -305,7 +291,7 @@ class SyncMapItemContext(InstanceContext):
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete('delete', self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri, )
 
     def update(self, data):
         """
@@ -313,16 +299,12 @@ class SyncMapItemContext(InstanceContext):
 
         :param dict data: The data
 
-        :returns: Updated SyncMapItemInstance
+        :returns: The updated SyncMapItemInstance
         :rtype: twilio.rest.preview.sync.service.sync_map.sync_map_item.SyncMapItemInstance
         """
         data = values.of({'Data': serialize.object(data), })
 
-        payload = self._version.update(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.update(method='POST', uri=self._uri, data=data, )
 
         return SyncMapItemInstance(
             self._version,
@@ -487,9 +469,9 @@ class SyncMapItemInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a SyncMapItemInstance
+        Fetch the SyncMapItemInstance
 
-        :returns: Fetched SyncMapItemInstance
+        :returns: The fetched SyncMapItemInstance
         :rtype: twilio.rest.preview.sync.service.sync_map.sync_map_item.SyncMapItemInstance
         """
         return self._proxy.fetch()
@@ -509,7 +491,7 @@ class SyncMapItemInstance(InstanceResource):
 
         :param dict data: The data
 
-        :returns: Updated SyncMapItemInstance
+        :returns: The updated SyncMapItemInstance
         :rtype: twilio.rest.preview.sync.service.sync_map.sync_map_item.SyncMapItemInstance
         """
         return self._proxy.update(data, )

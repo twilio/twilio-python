@@ -43,21 +43,17 @@ class MessageInteractionList(ListResource):
 
     def create(self, body=values.unset, media_url=values.unset):
         """
-        Create a new MessageInteractionInstance
+        Create the MessageInteractionInstance
 
         :param unicode body: Message body
         :param unicode media_url: Reserved
 
-        :returns: Newly created MessageInteractionInstance
+        :returns: The created MessageInteractionInstance
         :rtype: twilio.rest.proxy.v1.service.session.participant.message_interaction.MessageInteractionInstance
         """
         data = values.of({'Body': body, 'MediaUrl': serialize.map(media_url, lambda e: e), })
 
-        payload = self._version.create(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data, )
 
         return MessageInteractionInstance(
             self._version,
@@ -121,13 +117,9 @@ class MessageInteractionList(ListResource):
         :returns: Page of MessageInteractionInstance
         :rtype: twilio.rest.proxy.v1.service.session.participant.message_interaction.MessageInteractionPage
         """
-        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
+        data = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return MessageInteractionPage(self._version, response, self._solution)
 
@@ -271,18 +263,12 @@ class MessageInteractionContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a MessageInteractionInstance
+        Fetch the MessageInteractionInstance
 
-        :returns: Fetched MessageInteractionInstance
+        :returns: The fetched MessageInteractionInstance
         :rtype: twilio.rest.proxy.v1.service.session.participant.message_interaction.MessageInteractionInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return MessageInteractionInstance(
             self._version,
@@ -560,9 +546,9 @@ class MessageInteractionInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a MessageInteractionInstance
+        Fetch the MessageInteractionInstance
 
-        :returns: Fetched MessageInteractionInstance
+        :returns: The fetched MessageInteractionInstance
         :rtype: twilio.rest.proxy.v1.service.session.participant.message_interaction.MessageInteractionInstance
         """
         return self._proxy.fetch()

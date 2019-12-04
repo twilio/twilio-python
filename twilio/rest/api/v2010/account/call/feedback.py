@@ -138,21 +138,17 @@ class FeedbackContext(InstanceContext):
 
     def create(self, quality_score, issue=values.unset):
         """
-        Create a new FeedbackInstance
+        Create the FeedbackInstance
 
         :param unicode quality_score: The call quality expressed as an integer from 1 to 5
         :param FeedbackInstance.Issues issue: Issues experienced during the call
 
-        :returns: Newly created FeedbackInstance
+        :returns: The created FeedbackInstance
         :rtype: twilio.rest.api.v2010.account.call.feedback.FeedbackInstance
         """
         data = values.of({'QualityScore': quality_score, 'Issue': serialize.map(issue, lambda e: e), })
 
-        payload = self._version.create(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data, )
 
         return FeedbackInstance(
             self._version,
@@ -163,18 +159,12 @@ class FeedbackContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a FeedbackInstance
+        Fetch the FeedbackInstance
 
-        :returns: Fetched FeedbackInstance
+        :returns: The fetched FeedbackInstance
         :rtype: twilio.rest.api.v2010.account.call.feedback.FeedbackInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return FeedbackInstance(
             self._version,
@@ -190,16 +180,12 @@ class FeedbackContext(InstanceContext):
         :param unicode quality_score: The call quality expressed as an integer from 1 to 5
         :param FeedbackInstance.Issues issue: Issues experienced during the call
 
-        :returns: Updated FeedbackInstance
+        :returns: The updated FeedbackInstance
         :rtype: twilio.rest.api.v2010.account.call.feedback.FeedbackInstance
         """
         data = values.of({'QualityScore': quality_score, 'Issue': serialize.map(issue, lambda e: e), })
 
-        payload = self._version.update(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.update(method='POST', uri=self._uri, data=data, )
 
         return FeedbackInstance(
             self._version,
@@ -322,21 +308,21 @@ class FeedbackInstance(InstanceResource):
 
     def create(self, quality_score, issue=values.unset):
         """
-        Create a new FeedbackInstance
+        Create the FeedbackInstance
 
         :param unicode quality_score: The call quality expressed as an integer from 1 to 5
         :param FeedbackInstance.Issues issue: Issues experienced during the call
 
-        :returns: Newly created FeedbackInstance
+        :returns: The created FeedbackInstance
         :rtype: twilio.rest.api.v2010.account.call.feedback.FeedbackInstance
         """
         return self._proxy.create(quality_score, issue=issue, )
 
     def fetch(self):
         """
-        Fetch a FeedbackInstance
+        Fetch the FeedbackInstance
 
-        :returns: Fetched FeedbackInstance
+        :returns: The fetched FeedbackInstance
         :rtype: twilio.rest.api.v2010.account.call.feedback.FeedbackInstance
         """
         return self._proxy.fetch()
@@ -348,7 +334,7 @@ class FeedbackInstance(InstanceResource):
         :param unicode quality_score: The call quality expressed as an integer from 1 to 5
         :param FeedbackInstance.Issues issue: Issues experienced during the call
 
-        :returns: Updated FeedbackInstance
+        :returns: The updated FeedbackInstance
         :rtype: twilio.rest.api.v2010.account.call.feedback.FeedbackInstance
         """
         return self._proxy.update(quality_score, issue=issue, )

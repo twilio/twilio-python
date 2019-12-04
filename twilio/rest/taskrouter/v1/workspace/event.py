@@ -163,7 +163,7 @@ class EventList(ListResource):
         :returns: Page of EventInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.event.EventPage
         """
-        params = values.of({
+        data = values.of({
             'EndDate': serialize.iso8601_datetime(end_date),
             'EventType': event_type,
             'Minutes': minutes,
@@ -180,11 +180,7 @@ class EventList(ListResource):
             'PageSize': page_size,
         })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return EventPage(self._version, response, self._solution)
 
@@ -299,18 +295,12 @@ class EventContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a EventInstance
+        Fetch the EventInstance
 
-        :returns: Fetched EventInstance
+        :returns: The fetched EventInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.event.EventInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return EventInstance(
             self._version,
@@ -522,9 +512,9 @@ class EventInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a EventInstance
+        Fetch the EventInstance
 
-        :returns: Fetched EventInstance
+        :returns: The fetched EventInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.event.EventInstance
         """
         return self._proxy.fetch()

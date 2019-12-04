@@ -39,7 +39,7 @@ class DeviceList(ListResource):
                identity=values.unset, deployment_sid=values.unset,
                enabled=values.unset):
         """
-        Create a new DeviceInstance
+        Create the DeviceInstance
 
         :param unicode unique_name: A unique, addressable name of this Device.
         :param unicode friendly_name: A human readable description for this Device.
@@ -47,7 +47,7 @@ class DeviceList(ListResource):
         :param unicode deployment_sid: The unique SID of the Deployment group.
         :param bool enabled: The enabled
 
-        :returns: Newly created DeviceInstance
+        :returns: The created DeviceInstance
         :rtype: twilio.rest.preview.deployed_devices.fleet.device.DeviceInstance
         """
         data = values.of({
@@ -58,11 +58,7 @@ class DeviceList(ListResource):
             'Enabled': enabled,
         })
 
-        payload = self._version.create(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data, )
 
         return DeviceInstance(self._version, payload, fleet_sid=self._solution['fleet_sid'], )
 
@@ -123,18 +119,14 @@ class DeviceList(ListResource):
         :returns: Page of DeviceInstance
         :rtype: twilio.rest.preview.deployed_devices.fleet.device.DevicePage
         """
-        params = values.of({
+        data = values.of({
             'DeploymentSid': deployment_sid,
             'PageToken': page_token,
             'Page': page_number,
             'PageSize': page_size,
         })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return DevicePage(self._version, response, self._solution)
 
@@ -253,18 +245,12 @@ class DeviceContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a DeviceInstance
+        Fetch the DeviceInstance
 
-        :returns: Fetched DeviceInstance
+        :returns: The fetched DeviceInstance
         :rtype: twilio.rest.preview.deployed_devices.fleet.device.DeviceInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return DeviceInstance(
             self._version,
@@ -280,7 +266,7 @@ class DeviceContext(InstanceContext):
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete('delete', self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri, )
 
     def update(self, friendly_name=values.unset, identity=values.unset,
                deployment_sid=values.unset, enabled=values.unset):
@@ -292,7 +278,7 @@ class DeviceContext(InstanceContext):
         :param unicode deployment_sid: The unique SID of the Deployment group.
         :param bool enabled: The enabled
 
-        :returns: Updated DeviceInstance
+        :returns: The updated DeviceInstance
         :rtype: twilio.rest.preview.deployed_devices.fleet.device.DeviceInstance
         """
         data = values.of({
@@ -302,11 +288,7 @@ class DeviceContext(InstanceContext):
             'Enabled': enabled,
         })
 
-        payload = self._version.update(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.update(method='POST', uri=self._uri, data=data, )
 
         return DeviceInstance(
             self._version,
@@ -475,9 +457,9 @@ class DeviceInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a DeviceInstance
+        Fetch the DeviceInstance
 
-        :returns: Fetched DeviceInstance
+        :returns: The fetched DeviceInstance
         :rtype: twilio.rest.preview.deployed_devices.fleet.device.DeviceInstance
         """
         return self._proxy.fetch()
@@ -501,7 +483,7 @@ class DeviceInstance(InstanceResource):
         :param unicode deployment_sid: The unique SID of the Deployment group.
         :param bool enabled: The enabled
 
-        :returns: Updated DeviceInstance
+        :returns: The updated DeviceInstance
         :rtype: twilio.rest.preview.deployed_devices.fleet.device.DeviceInstance
         """
         return self._proxy.update(

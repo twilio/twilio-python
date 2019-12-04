@@ -125,18 +125,12 @@ class WebhookContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a WebhookInstance
+        Fetch the WebhookInstance
 
-        :returns: Fetched WebhookInstance
+        :returns: The fetched WebhookInstance
         :rtype: twilio.rest.messaging.v1.webhook.WebhookInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return WebhookInstance(self._version, payload, )
 
@@ -155,7 +149,7 @@ class WebhookContext(InstanceContext):
         :param unicode post_webhook_retry_count: The number of times to try the post-event webhook request if the first attempt fails
         :param WebhookInstance.Target target: The routing target of the webhook
 
-        :returns: Updated WebhookInstance
+        :returns: The updated WebhookInstance
         :rtype: twilio.rest.messaging.v1.webhook.WebhookInstance
         """
         data = values.of({
@@ -168,11 +162,7 @@ class WebhookContext(InstanceContext):
             'Target': target,
         })
 
-        payload = self._version.update(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.update(method='POST', uri=self._uri, data=data, )
 
         return WebhookInstance(self._version, payload, )
 
@@ -318,9 +308,9 @@ class WebhookInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a WebhookInstance
+        Fetch the WebhookInstance
 
-        :returns: Fetched WebhookInstance
+        :returns: The fetched WebhookInstance
         :rtype: twilio.rest.messaging.v1.webhook.WebhookInstance
         """
         return self._proxy.fetch()
@@ -340,7 +330,7 @@ class WebhookInstance(InstanceResource):
         :param unicode post_webhook_retry_count: The number of times to try the post-event webhook request if the first attempt fails
         :param WebhookInstance.Target target: The routing target of the webhook
 
-        :returns: Updated WebhookInstance
+        :returns: The updated WebhookInstance
         :rtype: twilio.rest.messaging.v1.webhook.WebhookInstance
         """
         return self._proxy.update(

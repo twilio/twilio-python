@@ -40,7 +40,7 @@ class MessageList(ListResource):
                date_created=values.unset, date_updated=values.unset,
                body=values.unset):
         """
-        Create a new MessageInstance
+        Create the MessageInstance
 
         :param unicode author: The identity of the message's author
         :param unicode attributes: A JSON string that stores application-specific data
@@ -48,7 +48,7 @@ class MessageList(ListResource):
         :param datetime date_updated: The ISO 8601 date and time in GMT when the resource was updated
         :param unicode body: The message body
 
-        :returns: Newly created MessageInstance
+        :returns: The created MessageInstance
         :rtype: twilio.rest.messaging.v1.session.message.MessageInstance
         """
         data = values.of({
@@ -59,11 +59,7 @@ class MessageList(ListResource):
             'Body': body,
         })
 
-        payload = self._version.create(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data, )
 
         return MessageInstance(self._version, payload, session_sid=self._solution['session_sid'], )
 
@@ -121,13 +117,9 @@ class MessageList(ListResource):
         :returns: Page of MessageInstance
         :rtype: twilio.rest.messaging.v1.session.message.MessagePage
         """
-        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
+        data = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return MessagePage(self._version, response, self._solution)
 
@@ -246,18 +238,12 @@ class MessageContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a MessageInstance
+        Fetch the MessageInstance
 
-        :returns: Fetched MessageInstance
+        :returns: The fetched MessageInstance
         :rtype: twilio.rest.messaging.v1.session.message.MessageInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return MessageInstance(
             self._version,
@@ -278,7 +264,7 @@ class MessageContext(InstanceContext):
         :param datetime date_updated: The ISO 8601 date and time in GMT when the resource was updated
         :param unicode body: The message body
 
-        :returns: Updated MessageInstance
+        :returns: The updated MessageInstance
         :rtype: twilio.rest.messaging.v1.session.message.MessageInstance
         """
         data = values.of({
@@ -289,11 +275,7 @@ class MessageContext(InstanceContext):
             'Body': body,
         })
 
-        payload = self._version.update(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.update(method='POST', uri=self._uri, data=data, )
 
         return MessageInstance(
             self._version,
@@ -309,7 +291,7 @@ class MessageContext(InstanceContext):
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete('delete', self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri, )
 
     def __repr__(self):
         """
@@ -471,9 +453,9 @@ class MessageInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a MessageInstance
+        Fetch the MessageInstance
 
-        :returns: Fetched MessageInstance
+        :returns: The fetched MessageInstance
         :rtype: twilio.rest.messaging.v1.session.message.MessageInstance
         """
         return self._proxy.fetch()
@@ -490,7 +472,7 @@ class MessageInstance(InstanceResource):
         :param datetime date_updated: The ISO 8601 date and time in GMT when the resource was updated
         :param unicode body: The message body
 
-        :returns: Updated MessageInstance
+        :returns: The updated MessageInstance
         :rtype: twilio.rest.messaging.v1.session.message.MessageInstance
         """
         return self._proxy.update(

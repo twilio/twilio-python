@@ -33,18 +33,12 @@ class BalanceList(ListResource):
 
     def fetch(self):
         """
-        Fetch a BalanceInstance
+        Fetch the BalanceInstance
 
-        :returns: Fetched BalanceInstance
+        :returns: The fetched BalanceInstance
         :rtype: twilio.rest.api.v2010.account.balance.BalanceInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return BalanceInstance(self._version, payload, account_sid=self._solution['account_sid'], )
 

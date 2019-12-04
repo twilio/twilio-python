@@ -40,7 +40,7 @@ class MemberList(ListResource):
                last_consumption_timestamp=values.unset, date_created=values.unset,
                date_updated=values.unset, attributes=values.unset):
         """
-        Create a new MemberInstance
+        Create the MemberInstance
 
         :param unicode identity: The `identity` value that identifies the new resource's User
         :param unicode role_sid: The SID of the Role to assign to the member
@@ -50,7 +50,7 @@ class MemberList(ListResource):
         :param datetime date_updated: The ISO 8601 date and time in GMT when the resource was updated
         :param unicode attributes: A valid JSON string that contains application-specific data
 
-        :returns: Newly created MemberInstance
+        :returns: The created MemberInstance
         :rtype: twilio.rest.chat.v2.service.channel.member.MemberInstance
         """
         data = values.of({
@@ -63,11 +63,7 @@ class MemberList(ListResource):
             'Attributes': attributes,
         })
 
-        payload = self._version.create(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data, )
 
         return MemberInstance(
             self._version,
@@ -133,18 +129,14 @@ class MemberList(ListResource):
         :returns: Page of MemberInstance
         :rtype: twilio.rest.chat.v2.service.channel.member.MemberPage
         """
-        params = values.of({
+        data = values.of({
             'Identity': serialize.map(identity, lambda e: e),
             'PageToken': page_token,
             'Page': page_number,
             'PageSize': page_size,
         })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return MemberPage(self._version, response, self._solution)
 
@@ -276,18 +268,12 @@ class MemberContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a MemberInstance
+        Fetch the MemberInstance
 
-        :returns: Fetched MemberInstance
+        :returns: The fetched MemberInstance
         :rtype: twilio.rest.chat.v2.service.channel.member.MemberInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return MemberInstance(
             self._version,
@@ -304,7 +290,7 @@ class MemberContext(InstanceContext):
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete('delete', self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri, )
 
     def update(self, role_sid=values.unset,
                last_consumed_message_index=values.unset,
@@ -320,7 +306,7 @@ class MemberContext(InstanceContext):
         :param datetime date_updated: The ISO 8601 date and time in GMT when the resource was updated
         :param unicode attributes: A valid JSON string that contains application-specific data
 
-        :returns: Updated MemberInstance
+        :returns: The updated MemberInstance
         :rtype: twilio.rest.chat.v2.service.channel.member.MemberInstance
         """
         data = values.of({
@@ -332,11 +318,7 @@ class MemberContext(InstanceContext):
             'Attributes': attributes,
         })
 
-        payload = self._version.update(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.update(method='POST', uri=self._uri, data=data, )
 
         return MemberInstance(
             self._version,
@@ -513,9 +495,9 @@ class MemberInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a MemberInstance
+        Fetch the MemberInstance
 
-        :returns: Fetched MemberInstance
+        :returns: The fetched MemberInstance
         :rtype: twilio.rest.chat.v2.service.channel.member.MemberInstance
         """
         return self._proxy.fetch()
@@ -543,7 +525,7 @@ class MemberInstance(InstanceResource):
         :param datetime date_updated: The ISO 8601 date and time in GMT when the resource was updated
         :param unicode attributes: A valid JSON string that contains application-specific data
 
-        :returns: Updated MemberInstance
+        :returns: The updated MemberInstance
         :rtype: twilio.rest.chat.v2.service.channel.member.MemberInstance
         """
         return self._proxy.update(

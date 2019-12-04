@@ -35,23 +35,19 @@ class BrandedCallList(ListResource):
 
     def create(self, from_, to, reason, call_sid=values.unset):
         """
-        Create a new BrandedCallInstance
+        Create the BrandedCallInstance
 
         :param unicode from_: Twilio number from which to brand the call
         :param unicode to: The terminating Phone Number
         :param unicode reason: The business reason for this phone call
         :param unicode call_sid: The Call sid this Branded Call should link to
 
-        :returns: Newly created BrandedCallInstance
+        :returns: The created BrandedCallInstance
         :rtype: twilio.rest.preview.trusted_comms.branded_call.BrandedCallInstance
         """
         data = values.of({'From': from_, 'To': to, 'Reason': reason, 'CallSid': call_sid, })
 
-        payload = self._version.create(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data, )
 
         return BrandedCallInstance(self._version, payload, )
 

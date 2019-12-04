@@ -34,20 +34,16 @@ class TokenList(ListResource):
 
     def create(self, ttl=values.unset):
         """
-        Create a new TokenInstance
+        Create the TokenInstance
 
         :param unicode ttl: The duration in seconds the credentials are valid
 
-        :returns: Newly created TokenInstance
+        :returns: The created TokenInstance
         :rtype: twilio.rest.api.v2010.account.token.TokenInstance
         """
         data = values.of({'Ttl': ttl, })
 
-        payload = self._version.create(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data, )
 
         return TokenInstance(self._version, payload, account_sid=self._solution['account_sid'], )
 

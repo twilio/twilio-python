@@ -35,20 +35,16 @@ class BulkCountryUpdateList(ListResource):
 
     def create(self, update_request):
         """
-        Create a new BulkCountryUpdateInstance
+        Create the BulkCountryUpdateInstance
 
         :param unicode update_request: URL encoded JSON array of update objects
 
-        :returns: Newly created BulkCountryUpdateInstance
+        :returns: The created BulkCountryUpdateInstance
         :rtype: twilio.rest.voice.v1.dialing_permissions.bulk_country_update.BulkCountryUpdateInstance
         """
         data = values.of({'UpdateRequest': update_request, })
 
-        payload = self._version.create(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data, )
 
         return BulkCountryUpdateInstance(self._version, payload, )
 

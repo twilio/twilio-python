@@ -36,20 +36,16 @@ class PhoneNumberList(ListResource):
 
     def create(self, phone_number_sid):
         """
-        Create a new PhoneNumberInstance
+        Create the PhoneNumberInstance
 
         :param unicode phone_number_sid: The SID of the Phone Number being added to the Service
 
-        :returns: Newly created PhoneNumberInstance
+        :returns: The created PhoneNumberInstance
         :rtype: twilio.rest.messaging.v1.service.phone_number.PhoneNumberInstance
         """
         data = values.of({'PhoneNumberSid': phone_number_sid, })
 
-        payload = self._version.create(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data, )
 
         return PhoneNumberInstance(self._version, payload, service_sid=self._solution['service_sid'], )
 
@@ -107,13 +103,9 @@ class PhoneNumberList(ListResource):
         :returns: Page of PhoneNumberInstance
         :rtype: twilio.rest.messaging.v1.service.phone_number.PhoneNumberPage
         """
-        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
+        data = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return PhoneNumberPage(self._version, response, self._solution)
 
@@ -235,22 +227,16 @@ class PhoneNumberContext(InstanceContext):
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete('delete', self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri, )
 
     def fetch(self):
         """
-        Fetch a PhoneNumberInstance
+        Fetch the PhoneNumberInstance
 
-        :returns: Fetched PhoneNumberInstance
+        :returns: The fetched PhoneNumberInstance
         :rtype: twilio.rest.messaging.v1.service.phone_number.PhoneNumberInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return PhoneNumberInstance(
             self._version,
@@ -400,9 +386,9 @@ class PhoneNumberInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a PhoneNumberInstance
+        Fetch the PhoneNumberInstance
 
-        :returns: Fetched PhoneNumberInstance
+        :returns: The fetched PhoneNumberInstance
         :rtype: twilio.rest.messaging.v1.service.phone_number.PhoneNumberInstance
         """
         return self._proxy.fetch()

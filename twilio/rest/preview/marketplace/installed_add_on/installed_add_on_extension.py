@@ -88,13 +88,9 @@ class InstalledAddOnExtensionList(ListResource):
         :returns: Page of InstalledAddOnExtensionInstance
         :rtype: twilio.rest.preview.marketplace.installed_add_on.installed_add_on_extension.InstalledAddOnExtensionPage
         """
-        params = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
+        data = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return InstalledAddOnExtensionPage(self._version, response, self._solution)
 
@@ -225,18 +221,12 @@ class InstalledAddOnExtensionContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a InstalledAddOnExtensionInstance
+        Fetch the InstalledAddOnExtensionInstance
 
-        :returns: Fetched InstalledAddOnExtensionInstance
+        :returns: The fetched InstalledAddOnExtensionInstance
         :rtype: twilio.rest.preview.marketplace.installed_add_on.installed_add_on_extension.InstalledAddOnExtensionInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return InstalledAddOnExtensionInstance(
             self._version,
@@ -251,16 +241,12 @@ class InstalledAddOnExtensionContext(InstanceContext):
 
         :param bool enabled: Whether the Extension should be invoked
 
-        :returns: Updated InstalledAddOnExtensionInstance
+        :returns: The updated InstalledAddOnExtensionInstance
         :rtype: twilio.rest.preview.marketplace.installed_add_on.installed_add_on_extension.InstalledAddOnExtensionInstance
         """
         data = values.of({'Enabled': enabled, })
 
-        payload = self._version.update(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.update(method='POST', uri=self._uri, data=data, )
 
         return InstalledAddOnExtensionInstance(
             self._version,
@@ -387,9 +373,9 @@ class InstalledAddOnExtensionInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a InstalledAddOnExtensionInstance
+        Fetch the InstalledAddOnExtensionInstance
 
-        :returns: Fetched InstalledAddOnExtensionInstance
+        :returns: The fetched InstalledAddOnExtensionInstance
         :rtype: twilio.rest.preview.marketplace.installed_add_on.installed_add_on_extension.InstalledAddOnExtensionInstance
         """
         return self._proxy.fetch()
@@ -400,7 +386,7 @@ class InstalledAddOnExtensionInstance(InstanceResource):
 
         :param bool enabled: Whether the Extension should be invoked
 
-        :returns: Updated InstalledAddOnExtensionInstance
+        :returns: The updated InstalledAddOnExtensionInstance
         :rtype: twilio.rest.preview.marketplace.installed_add_on.installed_add_on_extension.InstalledAddOnExtensionInstance
         """
         return self._proxy.update(enabled, )

@@ -120,7 +120,7 @@ class FaxList(ListResource):
         :returns: Page of FaxInstance
         :rtype: twilio.rest.fax.v1.fax.FaxPage
         """
-        params = values.of({
+        data = values.of({
             'From': from_,
             'To': to,
             'DateCreatedOnOrBefore': serialize.iso8601_datetime(date_created_on_or_before),
@@ -130,11 +130,7 @@ class FaxList(ListResource):
             'PageSize': page_size,
         })
 
-        response = self._version.page(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return FaxPage(self._version, response, self._solution)
 
@@ -160,7 +156,7 @@ class FaxList(ListResource):
                sip_auth_username=values.unset, sip_auth_password=values.unset,
                store_media=values.unset, ttl=values.unset):
         """
-        Create a new FaxInstance
+        Create the FaxInstance
 
         :param unicode to: The phone number to receive the fax
         :param unicode media_url: The URL of the PDF that contains the fax
@@ -172,7 +168,7 @@ class FaxList(ListResource):
         :param bool store_media: Whether to store a copy of the sent media
         :param unicode ttl: How long in minutes to try to send the fax
 
-        :returns: Newly created FaxInstance
+        :returns: The created FaxInstance
         :rtype: twilio.rest.fax.v1.fax.FaxInstance
         """
         data = values.of({
@@ -187,11 +183,7 @@ class FaxList(ListResource):
             'Ttl': ttl,
         })
 
-        payload = self._version.create(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data, )
 
         return FaxInstance(self._version, payload, )
 
@@ -292,18 +284,12 @@ class FaxContext(InstanceContext):
 
     def fetch(self):
         """
-        Fetch a FaxInstance
+        Fetch the FaxInstance
 
-        :returns: Fetched FaxInstance
+        :returns: The fetched FaxInstance
         :rtype: twilio.rest.fax.v1.fax.FaxInstance
         """
-        params = values.of({})
-
-        payload = self._version.fetch(
-            'GET',
-            self._uri,
-            params=params,
-        )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return FaxInstance(self._version, payload, sid=self._solution['sid'], )
 
@@ -313,16 +299,12 @@ class FaxContext(InstanceContext):
 
         :param FaxInstance.UpdateStatus status: The new status of the resource
 
-        :returns: Updated FaxInstance
+        :returns: The updated FaxInstance
         :rtype: twilio.rest.fax.v1.fax.FaxInstance
         """
         data = values.of({'Status': status, })
 
-        payload = self._version.update(
-            'POST',
-            self._uri,
-            data=data,
-        )
+        payload = self._version.update(method='POST', uri=self._uri, data=data, )
 
         return FaxInstance(self._version, payload, sid=self._solution['sid'], )
 
@@ -333,7 +315,7 @@ class FaxContext(InstanceContext):
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete('delete', self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri, )
 
     @property
     def media(self):
@@ -580,9 +562,9 @@ class FaxInstance(InstanceResource):
 
     def fetch(self):
         """
-        Fetch a FaxInstance
+        Fetch the FaxInstance
 
-        :returns: Fetched FaxInstance
+        :returns: The fetched FaxInstance
         :rtype: twilio.rest.fax.v1.fax.FaxInstance
         """
         return self._proxy.fetch()
@@ -593,7 +575,7 @@ class FaxInstance(InstanceResource):
 
         :param FaxInstance.UpdateStatus status: The new status of the resource
 
-        :returns: Updated FaxInstance
+        :returns: The updated FaxInstance
         :rtype: twilio.rest.fax.v1.fax.FaxInstance
         """
         return self._proxy.update(status=status, )
