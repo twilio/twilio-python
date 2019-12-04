@@ -1,6 +1,8 @@
 from twilio.base.exceptions import TwilioRestException
 from twilio.http import HttpClient
 from twilio.http.request import Request
+import platform
+from twilio import __version__
 
 
 class Hologram(object):
@@ -24,9 +26,26 @@ class Holodeck(HttpClient):
     def requests(self):
         return self._requests
 
+    def add_standard_headers(self, request):
+        standard_headers = {
+            'User-Agent': 'twilio-python/{} (Python {})'.format(
+                __version__,
+                platform.python_version()),
+            'X-Twilio-Client': 'python-{}'.format(__version__),
+            'Accept': 'application/json',
+            'Accept-Charset': 'utf-8'
+        }
+
+        if request.method == 'POST' and 'Content-Type' not in standard_headers:
+            standard_headers['Content-Type'] = 'application/x-www-form-urlencoded'
+
+        standard_headers.update(request.headers)
+        request.headers = standard_headers
+        return request
+
     def assert_has_request(self, request):
         for req in self.requests:
-            if req == request:
+            if req == request or req == self.add_standard_headers(request):
                 return
 
         message = '\nHolodeck never received a request matching: \n + {}\n'.format(request)
