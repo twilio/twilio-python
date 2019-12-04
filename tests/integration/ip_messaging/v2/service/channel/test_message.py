@@ -100,11 +100,13 @@ class MessageTestCase(IntegrationTestCase):
         with self.assertRaises(TwilioException):
             self.client.ip_messaging.v2.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                        .channels(sid="CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                       .messages.create()
+                                       .messages.create(x_twilio_webhook_enabled="true")
 
+        headers = {'X-Twilio-Webhook-Enabled': "true", }
         self.holodeck.assert_has_request(Request(
             'post',
             'https://chat.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Channels/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Messages',
+            headers=headers,
         ))
 
     def test_create_response(self):
@@ -316,11 +318,13 @@ class MessageTestCase(IntegrationTestCase):
         with self.assertRaises(TwilioException):
             self.client.ip_messaging.v2.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                        .channels(sid="CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                       .messages(sid="IMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+                                       .messages(sid="IMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete(x_twilio_webhook_enabled="true")
 
+        headers = {'X-Twilio-Webhook-Enabled': "true", }
         self.holodeck.assert_has_request(Request(
             'delete',
             'https://chat.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Channels/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Messages/IMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+            headers=headers,
         ))
 
     def test_delete_response(self):
@@ -341,11 +345,13 @@ class MessageTestCase(IntegrationTestCase):
         with self.assertRaises(TwilioException):
             self.client.ip_messaging.v2.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                        .channels(sid="CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                       .messages(sid="IMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
+                                       .messages(sid="IMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update(x_twilio_webhook_enabled="true")
 
+        headers = {'X-Twilio-Webhook-Enabled': "true", }
         self.holodeck.assert_has_request(Request(
             'post',
             'https://chat.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Channels/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Messages/IMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+            headers=headers,
         ))
 
     def test_update_response(self):

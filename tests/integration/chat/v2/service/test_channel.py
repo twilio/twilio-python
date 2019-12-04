@@ -65,11 +65,13 @@ class ChannelTestCase(IntegrationTestCase):
 
         with self.assertRaises(TwilioException):
             self.client.chat.v2.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                               .channels(sid="CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+                               .channels(sid="CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete(x_twilio_webhook_enabled="true")
 
+        headers = {'X-Twilio-Webhook-Enabled': "true", }
         self.holodeck.assert_has_request(Request(
             'delete',
             'https://chat.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Channels/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+            headers=headers,
         ))
 
     def test_delete_response(self):
@@ -88,11 +90,13 @@ class ChannelTestCase(IntegrationTestCase):
 
         with self.assertRaises(TwilioException):
             self.client.chat.v2.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                               .channels.create()
+                               .channels.create(x_twilio_webhook_enabled="true")
 
+        headers = {'X-Twilio-Webhook-Enabled': "true", }
         self.holodeck.assert_has_request(Request(
             'post',
             'https://chat.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Channels',
+            headers=headers,
         ))
 
     def test_create_response(self):
@@ -217,11 +221,13 @@ class ChannelTestCase(IntegrationTestCase):
 
         with self.assertRaises(TwilioException):
             self.client.chat.v2.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                               .channels(sid="CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
+                               .channels(sid="CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update(x_twilio_webhook_enabled="true")
 
+        headers = {'X-Twilio-Webhook-Enabled': "true", }
         self.holodeck.assert_has_request(Request(
             'post',
             'https://chat.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Channels/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+            headers=headers,
         ))
 
     def test_update_response(self):

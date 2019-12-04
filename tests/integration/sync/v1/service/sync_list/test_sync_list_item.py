@@ -60,11 +60,13 @@ class SyncListItemTestCase(IntegrationTestCase):
         with self.assertRaises(TwilioException):
             self.client.sync.v1.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                .sync_lists(sid="ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                               .sync_list_items(index=1).delete()
+                               .sync_list_items(index=1).delete(if_match="if_match")
 
+        headers = {'If-Match': "if_match", }
         self.holodeck.assert_has_request(Request(
             'delete',
             'https://sync.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Lists/ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Items/1',
+            headers=headers,
         ))
 
     def test_delete_response(self):
@@ -204,11 +206,13 @@ class SyncListItemTestCase(IntegrationTestCase):
         with self.assertRaises(TwilioException):
             self.client.sync.v1.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                .sync_lists(sid="ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                               .sync_list_items(index=1).update()
+                               .sync_list_items(index=1).update(if_match="if_match")
 
+        headers = {'If-Match': "if_match", }
         self.holodeck.assert_has_request(Request(
             'post',
             'https://sync.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Lists/ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Items/1',
+            headers=headers,
         ))
 
     def test_update_response(self):

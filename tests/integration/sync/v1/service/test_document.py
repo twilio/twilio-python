@@ -59,11 +59,13 @@ class DocumentTestCase(IntegrationTestCase):
 
         with self.assertRaises(TwilioException):
             self.client.sync.v1.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                               .documents(sid="ETXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+                               .documents(sid="ETXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete(if_match="if_match")
 
+        headers = {'If-Match': "if_match", }
         self.holodeck.assert_has_request(Request(
             'delete',
             'https://sync.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Documents/ETXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+            headers=headers,
         ))
 
     def test_delete_response(self):
@@ -199,11 +201,13 @@ class DocumentTestCase(IntegrationTestCase):
 
         with self.assertRaises(TwilioException):
             self.client.sync.v1.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                               .documents(sid="ETXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
+                               .documents(sid="ETXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update(if_match="if_match")
 
+        headers = {'If-Match': "if_match", }
         self.holodeck.assert_has_request(Request(
             'post',
             'https://sync.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Documents/ETXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+            headers=headers,
         ))
 
     def test_update_response(self):

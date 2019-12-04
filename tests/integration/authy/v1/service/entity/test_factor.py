@@ -20,10 +20,16 @@ class FactorTestCase(IntegrationTestCase):
         with self.assertRaises(TwilioException):
             self.client.authy.v1.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                 .entities(identity="identity") \
-                                .factors.create(binding="binding", friendly_name="friendly_name", factor_type="app-push")
+                                .factors.create(binding="binding", friendly_name="friendly_name", factor_type="app-push", twilio_authy_sandbox_mode="twilio_authy_sandbox_mode")
 
         values = {'Binding': "binding", 'FriendlyName': "friendly_name", 'FactorType': "app-push", }
 
+        headers = {'Twilio-Authy-Sandbox-Mode': "twilio_authy_sandbox_mode", }
+        self.holodeck.assert_has_request(Request(
+            'post',
+            'https://authy.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Entities/identity/Factors',
+            headers=headers,
+        ))
         self.holodeck.assert_has_request(Request(
             'post',
             'https://authy.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Entities/identity/Factors',
@@ -66,11 +72,13 @@ class FactorTestCase(IntegrationTestCase):
         with self.assertRaises(TwilioException):
             self.client.authy.v1.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                 .entities(identity="identity") \
-                                .factors(sid="YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+                                .factors(sid="YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete(twilio_authy_sandbox_mode="twilio_authy_sandbox_mode")
 
+        headers = {'Twilio-Authy-Sandbox-Mode': "twilio_authy_sandbox_mode", }
         self.holodeck.assert_has_request(Request(
             'delete',
             'https://authy.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Entities/identity/Factors/YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+            headers=headers,
         ))
 
     def test_delete_response(self):
@@ -91,11 +99,13 @@ class FactorTestCase(IntegrationTestCase):
         with self.assertRaises(TwilioException):
             self.client.authy.v1.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                 .entities(identity="identity") \
-                                .factors(sid="YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+                                .factors(sid="YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(twilio_authy_sandbox_mode="twilio_authy_sandbox_mode")
 
+        headers = {'Twilio-Authy-Sandbox-Mode': "twilio_authy_sandbox_mode", }
         self.holodeck.assert_has_request(Request(
             'get',
             'https://authy.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Entities/identity/Factors/YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+            headers=headers,
         ))
 
     def test_fetch_response(self):
@@ -134,11 +144,13 @@ class FactorTestCase(IntegrationTestCase):
         with self.assertRaises(TwilioException):
             self.client.authy.v1.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                 .entities(identity="identity") \
-                                .factors.list()
+                                .factors.list(twilio_authy_sandbox_mode="twilio_authy_sandbox_mode")
 
+        headers = {'Twilio-Authy-Sandbox-Mode': "twilio_authy_sandbox_mode", }
         self.holodeck.assert_has_request(Request(
             'get',
             'https://authy.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Entities/identity/Factors',
+            headers=headers,
         ))
 
     def test_read_empty_response(self):
@@ -215,11 +227,13 @@ class FactorTestCase(IntegrationTestCase):
         with self.assertRaises(TwilioException):
             self.client.authy.v1.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                 .entities(identity="identity") \
-                                .factors(sid="YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
+                                .factors(sid="YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update(twilio_authy_sandbox_mode="twilio_authy_sandbox_mode")
 
+        headers = {'Twilio-Authy-Sandbox-Mode': "twilio_authy_sandbox_mode", }
         self.holodeck.assert_has_request(Request(
             'post',
             'https://authy.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Entities/identity/Factors/YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+            headers=headers,
         ))
 
     def test_verify_response(self):

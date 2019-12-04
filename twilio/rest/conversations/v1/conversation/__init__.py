@@ -39,7 +39,7 @@ class ConversationList(ListResource):
 
     def create(self, friendly_name=values.unset, date_created=values.unset,
                date_updated=values.unset, messaging_service_sid=values.unset,
-               attributes=values.unset):
+               attributes=values.unset, x_twilio_webhook_enabled=values.unset):
         """
         Create the ConversationInstance
 
@@ -48,6 +48,7 @@ class ConversationList(ListResource):
         :param datetime date_updated: The date that this resource was last updated.
         :param unicode messaging_service_sid: The unique id of the SMS Service this conversation belongs to.
         :param unicode attributes: An optional string metadata field you can use to store any data you wish.
+        :param ConversationInstance.WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
 
         :returns: The created ConversationInstance
         :rtype: twilio.rest.conversations.v1.conversation.ConversationInstance
@@ -59,8 +60,9 @@ class ConversationList(ListResource):
             'MessagingServiceSid': messaging_service_sid,
             'Attributes': attributes,
         })
+        headers = values.of({'X-Twilio-Webhook-Enabled': x_twilio_webhook_enabled, })
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data, )
+        payload = self._version.create(method='POST', uri=self._uri, data=data, headers=headers, )
 
         return ConversationInstance(self._version, payload, )
 
@@ -239,7 +241,8 @@ class ConversationContext(InstanceContext):
         self._webhooks = None
 
     def update(self, friendly_name=values.unset, date_created=values.unset,
-               date_updated=values.unset, attributes=values.unset):
+               date_updated=values.unset, attributes=values.unset,
+               x_twilio_webhook_enabled=values.unset):
         """
         Update the ConversationInstance
 
@@ -247,6 +250,7 @@ class ConversationContext(InstanceContext):
         :param datetime date_created: The date that this resource was created.
         :param datetime date_updated: The date that this resource was last updated.
         :param unicode attributes: An optional string metadata field you can use to store any data you wish.
+        :param ConversationInstance.WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
 
         :returns: The updated ConversationInstance
         :rtype: twilio.rest.conversations.v1.conversation.ConversationInstance
@@ -257,19 +261,24 @@ class ConversationContext(InstanceContext):
             'DateUpdated': serialize.iso8601_datetime(date_updated),
             'Attributes': attributes,
         })
+        headers = values.of({'X-Twilio-Webhook-Enabled': x_twilio_webhook_enabled, })
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data, )
+        payload = self._version.update(method='POST', uri=self._uri, data=data, headers=headers, )
 
         return ConversationInstance(self._version, payload, sid=self._solution['sid'], )
 
-    def delete(self):
+    def delete(self, x_twilio_webhook_enabled=values.unset):
         """
         Deletes the ConversationInstance
+
+        :param ConversationInstance.WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri, )
+        headers = values.of({'X-Twilio-Webhook-Enabled': x_twilio_webhook_enabled, })
+
+        return self._version.delete(method='DELETE', uri=self._uri, headers=headers, )
 
     def fetch(self):
         """
@@ -458,7 +467,8 @@ class ConversationInstance(InstanceResource):
         return self._properties['links']
 
     def update(self, friendly_name=values.unset, date_created=values.unset,
-               date_updated=values.unset, attributes=values.unset):
+               date_updated=values.unset, attributes=values.unset,
+               x_twilio_webhook_enabled=values.unset):
         """
         Update the ConversationInstance
 
@@ -466,6 +476,7 @@ class ConversationInstance(InstanceResource):
         :param datetime date_created: The date that this resource was created.
         :param datetime date_updated: The date that this resource was last updated.
         :param unicode attributes: An optional string metadata field you can use to store any data you wish.
+        :param ConversationInstance.WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
 
         :returns: The updated ConversationInstance
         :rtype: twilio.rest.conversations.v1.conversation.ConversationInstance
@@ -475,16 +486,19 @@ class ConversationInstance(InstanceResource):
             date_created=date_created,
             date_updated=date_updated,
             attributes=attributes,
+            x_twilio_webhook_enabled=x_twilio_webhook_enabled,
         )
 
-    def delete(self):
+    def delete(self, x_twilio_webhook_enabled=values.unset):
         """
         Deletes the ConversationInstance
+
+        :param ConversationInstance.WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._proxy.delete()
+        return self._proxy.delete(x_twilio_webhook_enabled=x_twilio_webhook_enabled, )
 
     def fetch(self):
         """

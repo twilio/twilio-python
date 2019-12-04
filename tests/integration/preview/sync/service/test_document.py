@@ -59,11 +59,13 @@ class DocumentTestCase(IntegrationTestCase):
 
         with self.assertRaises(TwilioException):
             self.client.preview.sync.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                    .documents(sid="ETXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+                                    .documents(sid="ETXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete(if_match="if_match")
 
+        headers = {'If-Match': "if_match", }
         self.holodeck.assert_has_request(Request(
             'delete',
             'https://preview.twilio.com/Sync/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Documents/ETXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+            headers=headers,
         ))
 
     def test_delete_response(self):
@@ -197,10 +199,16 @@ class DocumentTestCase(IntegrationTestCase):
 
         with self.assertRaises(TwilioException):
             self.client.preview.sync.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                    .documents(sid="ETXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update(data={})
+                                    .documents(sid="ETXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update(data={}, if_match="if_match")
 
         values = {'Data': serialize.object({}), }
 
+        headers = {'If-Match': "if_match", }
+        self.holodeck.assert_has_request(Request(
+            'post',
+            'https://preview.twilio.com/Sync/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Documents/ETXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+            headers=headers,
+        ))
         self.holodeck.assert_has_request(Request(
             'post',
             'https://preview.twilio.com/Sync/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Documents/ETXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',

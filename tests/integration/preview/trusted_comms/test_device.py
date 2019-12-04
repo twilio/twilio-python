@@ -18,10 +18,16 @@ class DeviceTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.preview.trusted_comms.devices.create(phone_number="phone_number", push_token="push_token")
+            self.client.preview.trusted_comms.devices.create(phone_number="phone_number", push_token="push_token", twilio_sandbox_mode="twilio_sandbox_mode")
 
         values = {'PhoneNumber': "phone_number", 'PushToken': "push_token", }
 
+        headers = {'Twilio-Sandbox-Mode': "twilio_sandbox_mode", }
+        self.holodeck.assert_has_request(Request(
+            'post',
+            'https://preview.twilio.com/TrustedComms/Devices',
+            headers=headers,
+        ))
         self.holodeck.assert_has_request(Request(
             'post',
             'https://preview.twilio.com/TrustedComms/Devices',

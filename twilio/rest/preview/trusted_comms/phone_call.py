@@ -49,7 +49,8 @@ class PhoneCallList(ListResource):
                sip_auth_username=values.unset, status_callback=values.unset,
                status_callback_event=values.unset,
                status_callback_method=values.unset, timeout=values.unset,
-               trim=values.unset, url=values.unset):
+               trim=values.unset, url=values.unset,
+               twilio_sandbox_mode=values.unset):
         """
         Create the PhoneCallInstance
 
@@ -80,6 +81,7 @@ class PhoneCallList(ListResource):
         :param unicode timeout: Refers to the Voice API Initiate Call parameter
         :param unicode trim: Refers to the Voice API Initiate Call parameter
         :param unicode url: Refers to the Voice API Initiate Call parameter
+        :param unicode twilio_sandbox_mode: Optional header to mock all voice dependencies
 
         :returns: The created PhoneCallInstance
         :rtype: twilio.rest.preview.trusted_comms.phone_call.PhoneCallInstance
@@ -113,8 +115,9 @@ class PhoneCallList(ListResource):
             'Trim': trim,
             'Url': url,
         })
+        headers = values.of({'Twilio-Sandbox-Mode': twilio_sandbox_mode, })
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data, )
+        payload = self._version.create(method='POST', uri=self._uri, data=data, headers=headers, )
 
         return PhoneCallInstance(self._version, payload, )
 

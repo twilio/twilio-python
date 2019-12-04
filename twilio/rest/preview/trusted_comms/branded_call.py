@@ -33,7 +33,8 @@ class BrandedCallList(ListResource):
         self._solution = {}
         self._uri = '/Business/BrandedCalls'.format(**self._solution)
 
-    def create(self, from_, to, reason, call_sid=values.unset):
+    def create(self, from_, to, reason, call_sid=values.unset,
+               twilio_sandbox_mode=values.unset):
         """
         Create the BrandedCallInstance
 
@@ -41,13 +42,15 @@ class BrandedCallList(ListResource):
         :param unicode to: The terminating Phone Number
         :param unicode reason: The business reason for this phone call
         :param unicode call_sid: The Call sid this Branded Call should link to
+        :param unicode twilio_sandbox_mode: Optional header to mock all voice dependencies
 
         :returns: The created BrandedCallInstance
         :rtype: twilio.rest.preview.trusted_comms.branded_call.BrandedCallInstance
         """
         data = values.of({'From': from_, 'To': to, 'Reason': reason, 'CallSid': call_sid, })
+        headers = values.of({'Twilio-Sandbox-Mode': twilio_sandbox_mode, })
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data, )
+        payload = self._version.create(method='POST', uri=self._uri, data=data, headers=headers, )
 
         return BrandedCallInstance(self._version, payload, )
 

@@ -18,11 +18,13 @@ class ConversationTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.conversations.v1.conversations.create()
+            self.client.conversations.v1.conversations.create(x_twilio_webhook_enabled="true")
 
+        headers = {'X-Twilio-Webhook-Enabled': "true", }
         self.holodeck.assert_has_request(Request(
             'post',
             'https://conversations.twilio.com/v1/Conversations',
+            headers=headers,
         ))
 
     def test_create_response(self):
@@ -56,11 +58,13 @@ class ConversationTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.conversations.v1.conversations(sid="CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
+            self.client.conversations.v1.conversations(sid="CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update(x_twilio_webhook_enabled="true")
 
+        headers = {'X-Twilio-Webhook-Enabled': "true", }
         self.holodeck.assert_has_request(Request(
             'post',
             'https://conversations.twilio.com/v1/Conversations/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+            headers=headers,
         ))
 
     def test_update_response(self):
@@ -94,11 +98,13 @@ class ConversationTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.conversations.v1.conversations(sid="CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+            self.client.conversations.v1.conversations(sid="CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete(x_twilio_webhook_enabled="true")
 
+        headers = {'X-Twilio-Webhook-Enabled': "true", }
         self.holodeck.assert_has_request(Request(
             'delete',
             'https://conversations.twilio.com/v1/Conversations/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+            headers=headers,
         ))
 
     def test_delete_response(self):
