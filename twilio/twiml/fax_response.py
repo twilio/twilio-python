@@ -20,17 +20,28 @@ class FaxResponse(TwiML):
         super(FaxResponse, self).__init__(**kwargs)
         self.name = 'Response'
 
-    def receive(self, action=None, method=None, **kwargs):
+    def receive(self, action=None, method=None, media_type=None, page_size=None,
+                store_media=None, **kwargs):
         """
         Create a <Receive> element
 
         :param action: Receive action URL
         :param method: Receive action URL method
+        :param media_type: The media type used to store media in the fax media store
+        :param page_size: What size to interpret received pages as
+        :param store_media: Whether or not to store received media in the fax media store
         :param kwargs: additional attributes
 
         :returns: <Receive> element
         """
-        return self.nest(Receive(action=action, method=method, **kwargs))
+        return self.nest(Receive(
+            action=action,
+            method=method,
+            media_type=media_type,
+            page_size=page_size,
+            store_media=store_media,
+            **kwargs
+        ))
 
 
 class Receive(TwiML):

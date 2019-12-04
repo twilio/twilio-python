@@ -3,6 +3,30 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2019-12-04] Version 6.34.0
+---------------------------
+**Library**
+- [PR #501](https://github.com/twilio/twilio-python/pull/501): BREAKING CHANGE feat: add custom HTTP header support. Thanks to [@eshanholtz](https://github.com/eshanholtz)! **(breaking change)**
+- [PR #502](https://github.com/twilio/twilio-python/pull/502): fix: regenerate python lib with yoyodyne refactor. Thanks to [@eshanholtz](https://github.com/eshanholtz)!
+- [PR #499](https://github.com/twilio/twilio-python/pull/499): docs: add supported language versions to README. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+
+**Api**
+- Add optional `twiml` parameter for call create
+
+**Chat**
+- Added `delete` method in UserChannel resource
+
+**Conversations**
+- Allow Messaging Service update
+
+**Taskrouter**
+- Support ReEvaluateTasks parameter on Workflow update
+
+**Twiml**
+- Remove unsupported `mixed_track` value from `<Stream>` **(breaking change)**
+- Add missing fax `<Receive>` optional attributes
+
+
 [2019-11-13] Version 6.33.1
 ---------------------------
 **Library**

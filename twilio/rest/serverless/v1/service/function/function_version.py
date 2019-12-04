@@ -24,7 +24,7 @@ class FunctionVersionList(ListResource):
         Initialize the FunctionVersionList
 
         :param Version version: Version that contains the resource
-        :param service_sid: The SID of the Service that the FunctionVersion resource is associated with
+        :param service_sid: The SID of the Service that the Function Version resource is associated with
         :param function_sid: The SID of the function that is the parent of the function version
 
         :returns: twilio.rest.serverless.v1.service.function.function_version.FunctionVersionList
@@ -117,7 +117,7 @@ class FunctionVersionList(ListResource):
         """
         Constructs a FunctionVersionContext
 
-        :param sid: The SID that identifies the FunctionVersion resource to fetch
+        :param sid: The SID that identifies the Function Version resource to fetch
 
         :returns: twilio.rest.serverless.v1.service.function.function_version.FunctionVersionContext
         :rtype: twilio.rest.serverless.v1.service.function.function_version.FunctionVersionContext
@@ -133,7 +133,7 @@ class FunctionVersionList(ListResource):
         """
         Constructs a FunctionVersionContext
 
-        :param sid: The SID that identifies the FunctionVersion resource to fetch
+        :param sid: The SID that identifies the Function Version resource to fetch
 
         :returns: twilio.rest.serverless.v1.service.function.function_version.FunctionVersionContext
         :rtype: twilio.rest.serverless.v1.service.function.function_version.FunctionVersionContext
@@ -166,7 +166,7 @@ class FunctionVersionPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param service_sid: The SID of the Service that the FunctionVersion resource is associated with
+        :param service_sid: The SID of the Service that the Function Version resource is associated with
         :param function_sid: The SID of the function that is the parent of the function version
 
         :returns: twilio.rest.serverless.v1.service.function.function_version.FunctionVersionPage
@@ -213,9 +213,9 @@ class FunctionVersionContext(InstanceContext):
         Initialize the FunctionVersionContext
 
         :param Version version: Version that contains the resource
-        :param service_sid: The SID of the Service to fetch the FunctionVersion resource from
-        :param function_sid: The SID of the function that is the parent of the FunctionVersion resource to fetch
-        :param sid: The SID that identifies the FunctionVersion resource to fetch
+        :param service_sid: The SID of the Service to fetch the Function Version resource from
+        :param function_sid: The SID of the function that is the parent of the Function Version resource to fetch
+        :param sid: The SID that identifies the Function Version resource to fetch
 
         :returns: twilio.rest.serverless.v1.service.function.function_version.FunctionVersionContext
         :rtype: twilio.rest.serverless.v1.service.function.function_version.FunctionVersionContext
@@ -314,7 +314,7 @@ class FunctionVersionInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: The unique string that identifies the FunctionVersion resource
+        :returns: The unique string that identifies the Function Version resource
         :rtype: unicode
         """
         return self._properties['sid']
@@ -322,7 +322,7 @@ class FunctionVersionInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The SID of the Account that created the FunctionVersion resource
+        :returns: The SID of the Account that created the Function Version resource
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -330,7 +330,7 @@ class FunctionVersionInstance(InstanceResource):
     @property
     def service_sid(self):
         """
-        :returns: The SID of the Service that the FunctionVersion resource is associated with
+        :returns: The SID of the Service that the Function Version resource is associated with
         :rtype: unicode
         """
         return self._properties['service_sid']
@@ -362,7 +362,7 @@ class FunctionVersionInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The ISO 8601 date and time in GMT when the FunctionVersion resource was created
+        :returns: The ISO 8601 date and time in GMT when the Function Version resource was created
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -370,7 +370,7 @@ class FunctionVersionInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: The absolute URL of the FunctionVersion resource
+        :returns: The absolute URL of the Function Version resource
         :rtype: unicode
         """
         return self._properties['url']

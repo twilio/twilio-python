@@ -75,7 +75,7 @@ class ConversationTestCase(IntegrationTestCase):
                 "sid": "CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "chat_service_sid": "ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                "messaging_service_sid": "MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "messaging_service_sid": "MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaab",
                 "friendly_name": "friendly_name",
                 "attributes": "{ \\"topic\\": \\"feedback\\" }",
                 "date_created": "2015-12-16T22:18:37Z",

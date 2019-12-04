@@ -136,6 +136,31 @@ class UserChannelTestCase(IntegrationTestCase):
 
         self.assertIsNotNone(actual)
 
+    def test_delete_request(self):
+        self.holodeck.mock(Response(500, ''))
+
+        with self.assertRaises(TwilioException):
+            self.client.chat.v2.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                               .users(sid="USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                               .user_channels(channel_sid="CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+
+        self.holodeck.assert_has_request(Request(
+            'delete',
+            'https://chat.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Users/USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Channels/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        ))
+
+    def test_delete_response(self):
+        self.holodeck.mock(Response(
+            204,
+            None,
+        ))
+
+        actual = self.client.chat.v2.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                    .users(sid="USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                    .user_channels(channel_sid="CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+
+        self.assertTrue(actual)
+
     def test_update_request(self):
         self.holodeck.mock(Response(500, ''))
 

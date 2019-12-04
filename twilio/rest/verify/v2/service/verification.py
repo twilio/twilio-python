@@ -309,7 +309,7 @@ class VerificationInstance(InstanceResource):
     @property
     def channel(self):
         """
-        :returns: The verification method to use
+        :returns: The verification method used.
         :rtype: VerificationInstance.Channel
         """
         return self._properties['channel']

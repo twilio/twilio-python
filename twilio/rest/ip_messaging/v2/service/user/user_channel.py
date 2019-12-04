@@ -237,6 +237,15 @@ class UserChannelContext(InstanceContext):
             channel_sid=self._solution['channel_sid'],
         )
 
+    def delete(self):
+        """
+        Deletes the UserChannelInstance
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(method='DELETE', uri=self._uri, )
+
     def update(self, notification_level):
         """
         Update the UserChannelInstance
@@ -427,6 +436,15 @@ class UserChannelInstance(InstanceResource):
         :rtype: twilio.rest.chat.v2.service.user.user_channel.UserChannelInstance
         """
         return self._proxy.fetch()
+
+    def delete(self):
+        """
+        Deletes the UserChannelInstance
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._proxy.delete()
 
     def update(self, notification_level):
         """

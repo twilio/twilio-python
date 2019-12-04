@@ -265,7 +265,8 @@ class WorkflowContext(InstanceContext):
     def update(self, friendly_name=values.unset,
                assignment_callback_url=values.unset,
                fallback_assignment_callback_url=values.unset,
-               configuration=values.unset, task_reservation_timeout=values.unset):
+               configuration=values.unset, task_reservation_timeout=values.unset,
+               re_evaluate_tasks=values.unset):
         """
         Update the WorkflowInstance
 
@@ -274,6 +275,7 @@ class WorkflowContext(InstanceContext):
         :param unicode fallback_assignment_callback_url: The URL that we should call when a call to the `assignment_callback_url` fails
         :param unicode configuration: A JSON string that contains the rules to apply to the Workflow
         :param unicode task_reservation_timeout: How long TaskRouter will wait for a confirmation response from your application after it assigns a Task to a Worker
+        :param unicode re_evaluate_tasks: Whether or not to re-evaluate Tasks
 
         :returns: The updated WorkflowInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowInstance
@@ -284,6 +286,7 @@ class WorkflowContext(InstanceContext):
             'FallbackAssignmentCallbackUrl': fallback_assignment_callback_url,
             'Configuration': configuration,
             'TaskReservationTimeout': task_reservation_timeout,
+            'ReEvaluateTasks': re_evaluate_tasks,
         })
 
         payload = self._version.update(method='POST', uri=self._uri, data=data, )
@@ -529,7 +532,8 @@ class WorkflowInstance(InstanceResource):
     def update(self, friendly_name=values.unset,
                assignment_callback_url=values.unset,
                fallback_assignment_callback_url=values.unset,
-               configuration=values.unset, task_reservation_timeout=values.unset):
+               configuration=values.unset, task_reservation_timeout=values.unset,
+               re_evaluate_tasks=values.unset):
         """
         Update the WorkflowInstance
 
@@ -538,6 +542,7 @@ class WorkflowInstance(InstanceResource):
         :param unicode fallback_assignment_callback_url: The URL that we should call when a call to the `assignment_callback_url` fails
         :param unicode configuration: A JSON string that contains the rules to apply to the Workflow
         :param unicode task_reservation_timeout: How long TaskRouter will wait for a confirmation response from your application after it assigns a Task to a Worker
+        :param unicode re_evaluate_tasks: Whether or not to re-evaluate Tasks
 
         :returns: The updated WorkflowInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowInstance
@@ -548,6 +553,7 @@ class WorkflowInstance(InstanceResource):
             fallback_assignment_callback_url=fallback_assignment_callback_url,
             configuration=configuration,
             task_reservation_timeout=task_reservation_timeout,
+            re_evaluate_tasks=re_evaluate_tasks,
         )
 
     def delete(self):

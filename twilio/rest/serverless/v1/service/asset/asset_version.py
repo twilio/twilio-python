@@ -24,7 +24,7 @@ class AssetVersionList(ListResource):
         Initialize the AssetVersionList
 
         :param Version version: Version that contains the resource
-        :param service_sid: The SID of the Service that the AssetVersion resource is associated with
+        :param service_sid: The SID of the Service that the Asset Version resource is associated with
         :param asset_sid: The SID of the Asset resource that is the parent of the asset version
 
         :returns: twilio.rest.serverless.v1.service.asset.asset_version.AssetVersionList
@@ -117,7 +117,7 @@ class AssetVersionList(ListResource):
         """
         Constructs a AssetVersionContext
 
-        :param sid: The SID that identifies the AssetVersion resource to fetch
+        :param sid: The SID that identifies the Asset Version resource to fetch
 
         :returns: twilio.rest.serverless.v1.service.asset.asset_version.AssetVersionContext
         :rtype: twilio.rest.serverless.v1.service.asset.asset_version.AssetVersionContext
@@ -133,7 +133,7 @@ class AssetVersionList(ListResource):
         """
         Constructs a AssetVersionContext
 
-        :param sid: The SID that identifies the AssetVersion resource to fetch
+        :param sid: The SID that identifies the Asset Version resource to fetch
 
         :returns: twilio.rest.serverless.v1.service.asset.asset_version.AssetVersionContext
         :rtype: twilio.rest.serverless.v1.service.asset.asset_version.AssetVersionContext
@@ -166,7 +166,7 @@ class AssetVersionPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param service_sid: The SID of the Service that the AssetVersion resource is associated with
+        :param service_sid: The SID of the Service that the Asset Version resource is associated with
         :param asset_sid: The SID of the Asset resource that is the parent of the asset version
 
         :returns: twilio.rest.serverless.v1.service.asset.asset_version.AssetVersionPage
@@ -213,9 +213,9 @@ class AssetVersionContext(InstanceContext):
         Initialize the AssetVersionContext
 
         :param Version version: Version that contains the resource
-        :param service_sid: The SID of the Service to fetch the AssetVersion resource from
-        :param asset_sid: The SID of the Asset resource that is the parent of the AssetVersion resource to fetch
-        :param sid: The SID that identifies the AssetVersion resource to fetch
+        :param service_sid: The SID of the Service to fetch the Asset Version resource from
+        :param asset_sid: The SID of the Asset resource that is the parent of the Asset Version resource to fetch
+        :param sid: The SID that identifies the Asset Version resource to fetch
 
         :returns: twilio.rest.serverless.v1.service.asset.asset_version.AssetVersionContext
         :rtype: twilio.rest.serverless.v1.service.asset.asset_version.AssetVersionContext
@@ -314,7 +314,7 @@ class AssetVersionInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: The unique string that identifies the AssetVersion resource
+        :returns: The unique string that identifies the Asset Version resource
         :rtype: unicode
         """
         return self._properties['sid']
@@ -322,7 +322,7 @@ class AssetVersionInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The SID of the Account that created the AssetVersion resource
+        :returns: The SID of the Account that created the Asset Version resource
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -330,7 +330,7 @@ class AssetVersionInstance(InstanceResource):
     @property
     def service_sid(self):
         """
-        :returns: The SID of the Service that the AssetVersion resource is associated with
+        :returns: The SID of the Service that the Asset Version resource is associated with
         :rtype: unicode
         """
         return self._properties['service_sid']
@@ -362,7 +362,7 @@ class AssetVersionInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The ISO 8601 date and time in GMT when the AssetVersion resource was created
+        :returns: The ISO 8601 date and time in GMT when the Asset Version resource was created
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -370,7 +370,7 @@ class AssetVersionInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: The absolute URL of the AssetVersion resource
+        :returns: The absolute URL of the Asset Version resource
         :rtype: unicode
         """
         return self._properties['url']

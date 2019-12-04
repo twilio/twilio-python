@@ -39,7 +39,8 @@ class NotificationList(ListResource):
                data=values.unset, apn=values.unset, gcm=values.unset,
                sms=values.unset, facebook_messenger=values.unset, fcm=values.unset,
                segment=values.unset, alexa=values.unset, to_binding=values.unset,
-               identity=values.unset, tag=values.unset):
+               delivery_callback_url=values.unset, identity=values.unset,
+               tag=values.unset):
         """
         Create the NotificationInstance
 
@@ -58,6 +59,7 @@ class NotificationList(ListResource):
         :param unicode segment: A Segment to notify
         :param dict alexa: Deprecated
         :param unicode to_binding: The destination address specified as a JSON string
+        :param unicode delivery_callback_url: URL to send webhooks
         :param unicode identity: The `identity` value that identifies the new resource's User
         :param unicode tag: A tag that selects the Bindings to notify
 
@@ -82,6 +84,7 @@ class NotificationList(ListResource):
             'Segment': serialize.map(segment, lambda e: e),
             'Alexa': serialize.object(alexa),
             'ToBinding': serialize.map(to_binding, lambda e: e),
+            'DeliveryCallbackUrl': delivery_callback_url,
         })
 
         payload = self._version.create(method='POST', uri=self._uri, data=data, )

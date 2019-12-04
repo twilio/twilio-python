@@ -291,7 +291,9 @@ class ServiceContext(InstanceContext):
                fcm_credential_sid=values.unset,
                default_fcm_notification_protocol_version=values.unset,
                log_enabled=values.unset, alexa_skill_id=values.unset,
-               default_alexa_notification_protocol_version=values.unset):
+               default_alexa_notification_protocol_version=values.unset,
+               delivery_callback_url=values.unset,
+               delivery_callback_enabled=values.unset):
         """
         Update the ServiceInstance
 
@@ -307,6 +309,8 @@ class ServiceContext(InstanceContext):
         :param bool log_enabled: Whether to log notifications
         :param unicode alexa_skill_id: Deprecated
         :param unicode default_alexa_notification_protocol_version: Deprecated
+        :param unicode delivery_callback_url: Webhook URL
+        :param bool delivery_callback_enabled: Enable delivery callbacks
 
         :returns: The updated ServiceInstance
         :rtype: twilio.rest.notify.v1.service.ServiceInstance
@@ -324,6 +328,8 @@ class ServiceContext(InstanceContext):
             'LogEnabled': log_enabled,
             'AlexaSkillId': alexa_skill_id,
             'DefaultAlexaNotificationProtocolVersion': default_alexa_notification_protocol_version,
+            'DeliveryCallbackUrl': delivery_callback_url,
+            'DeliveryCallbackEnabled': delivery_callback_enabled,
         })
 
         payload = self._version.update(method='POST', uri=self._uri, data=data, )
@@ -587,7 +593,9 @@ class ServiceInstance(InstanceResource):
                fcm_credential_sid=values.unset,
                default_fcm_notification_protocol_version=values.unset,
                log_enabled=values.unset, alexa_skill_id=values.unset,
-               default_alexa_notification_protocol_version=values.unset):
+               default_alexa_notification_protocol_version=values.unset,
+               delivery_callback_url=values.unset,
+               delivery_callback_enabled=values.unset):
         """
         Update the ServiceInstance
 
@@ -603,6 +611,8 @@ class ServiceInstance(InstanceResource):
         :param bool log_enabled: Whether to log notifications
         :param unicode alexa_skill_id: Deprecated
         :param unicode default_alexa_notification_protocol_version: Deprecated
+        :param unicode delivery_callback_url: Webhook URL
+        :param bool delivery_callback_enabled: Enable delivery callbacks
 
         :returns: The updated ServiceInstance
         :rtype: twilio.rest.notify.v1.service.ServiceInstance
@@ -620,6 +630,8 @@ class ServiceInstance(InstanceResource):
             log_enabled=log_enabled,
             alexa_skill_id=alexa_skill_id,
             default_alexa_notification_protocol_version=default_alexa_notification_protocol_version,
+            delivery_callback_url=delivery_callback_url,
+            delivery_callback_enabled=delivery_callback_enabled,
         )
 
     @property
