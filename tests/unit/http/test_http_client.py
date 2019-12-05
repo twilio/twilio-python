@@ -134,6 +134,15 @@ class TestHttpClientRequest(unittest.TestCase):
             self.assertIsNotNone(self.client.last_request)
             self.assertIsNone(self.client.last_response)
 
+    def test_request_behind_proxy(self):
+        proxies = {
+            'http': 'http://proxy.twilio.com',
+            'https': 'https://proxy.twilio.com',
+        }
+        self.client = TwilioHttpClient(proxy=proxies)
+        self.client.request('doesnt matter', 'doesnt matter')
+        self.assertEqual(proxies, self.session_mock.proxies)
+
 
 class TestHttpClientSession(unittest.TestCase):
 
