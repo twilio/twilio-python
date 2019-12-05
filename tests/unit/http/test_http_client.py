@@ -141,7 +141,7 @@ class TestHttpClientRequest(unittest.TestCase):
         }
         self.client = TwilioHttpClient(proxy=proxies)
         self.client.request('doesnt matter', 'doesnt matter')
-        self.assertEqual(self.client.proxy, self.session_mock.proxies)
+        self.assertEqual(proxies, self.session_mock.proxies)
 
 
 class TestHttpClientSession(unittest.TestCase):
