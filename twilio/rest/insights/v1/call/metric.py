@@ -211,8 +211,6 @@ class MetricInstance(InstanceResource):
             'account_sid': payload.get('account_sid'),
             'edge': payload.get('edge'),
             'direction': payload.get('direction'),
-            'gateway': payload.get('gateway'),
-            'client': payload.get('client'),
             'carrier_edge': payload.get('carrier_edge'),
             'sip_edge': payload.get('sip_edge'),
             'sdk_edge': payload.get('sdk_edge'),
@@ -262,22 +260,6 @@ class MetricInstance(InstanceResource):
         :rtype: MetricInstance.StreamDirection
         """
         return self._properties['direction']
-
-    @property
-    def gateway(self):
-        """
-        :returns: The gateway
-        :rtype: dict
-        """
-        return self._properties['gateway']
-
-    @property
-    def client(self):
-        """
-        :returns: The client
-        :rtype: dict
-        """
-        return self._properties['client']
 
     @property
     def carrier_edge(self):

@@ -67,7 +67,10 @@ class LocalTestCase(IntegrationTestCase):
                         "voice_fallback_method": "POST",
                         "voice_fallback_url": null,
                         "voice_method": "POST",
-                        "voice_url": null
+                        "voice_url": null,
+                        "emergency_status": "Active",
+                        "emergency_address_sid": "ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                        "bundle_sid": "BUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
                     }
                 ],
                 "last_page_uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IncomingPhoneNumbers/Local.json?PageSize=1&Page=2",
@@ -168,7 +171,10 @@ class LocalTestCase(IntegrationTestCase):
                 "voice_fallback_method": "POST",
                 "voice_fallback_url": null,
                 "voice_method": "POST",
-                "voice_url": null
+                "voice_url": null,
+                "emergency_status": "Active",
+                "emergency_address_sid": "ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "bundle_sid": "BUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
             '''
         ))

@@ -412,11 +412,9 @@ class MessageInstance(InstanceResource):
 
     class ContentRetention(object):
         RETAIN = "retain"
-        DISCARD = "discard"
 
     class AddressRetention(object):
         RETAIN = "retain"
-        DISCARD = "discard"
 
     class TrafficType(object):
         FREE = "free"

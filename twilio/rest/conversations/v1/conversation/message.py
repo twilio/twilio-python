@@ -339,6 +339,7 @@ class MessageInstance(InstanceResource):
             'body': payload.get('body'),
             'media': payload.get('media'),
             'attributes': payload.get('attributes'),
+            'participant_sid': payload.get('participant_sid'),
             'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
             'date_updated': deserialize.iso8601_datetime(payload.get('date_updated')),
             'url': payload.get('url'),
@@ -428,6 +429,14 @@ class MessageInstance(InstanceResource):
         :rtype: unicode
         """
         return self._properties['attributes']
+
+    @property
+    def participant_sid(self):
+        """
+        :returns: The unique id of messages's author participant.
+        :rtype: unicode
+        """
+        return self._properties['participant_sid']
 
     @property
     def date_created(self):

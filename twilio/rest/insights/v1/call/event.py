@@ -207,8 +207,6 @@ class EventInstance(InstanceResource):
             'group': payload.get('group'),
             'level': payload.get('level'),
             'name': payload.get('name'),
-            'client': payload.get('client'),
-            'gateway': payload.get('gateway'),
             'carrier_edge': payload.get('carrier_edge'),
             'sip_edge': payload.get('sip_edge'),
             'sdk_edge': payload.get('sdk_edge'),
@@ -274,22 +272,6 @@ class EventInstance(InstanceResource):
         :rtype: unicode
         """
         return self._properties['name']
-
-    @property
-    def client(self):
-        """
-        :returns: The client
-        :rtype: dict
-        """
-        return self._properties['client']
-
-    @property
-    def gateway(self):
-        """
-        :returns: The gateway
-        :rtype: dict
-        """
-        return self._properties['gateway']
 
     @property
     def carrier_edge(self):

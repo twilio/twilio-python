@@ -157,7 +157,10 @@ class MobileList(ListResource):
                voice_caller_id_lookup=values.unset,
                voice_fallback_method=values.unset, voice_fallback_url=values.unset,
                voice_method=values.unset, voice_url=values.unset,
-               identity_sid=values.unset, address_sid=values.unset):
+               identity_sid=values.unset, address_sid=values.unset,
+               emergency_status=values.unset, emergency_address_sid=values.unset,
+               trunk_sid=values.unset, voice_receive_mode=values.unset,
+               bundle_sid=values.unset):
         """
         Create the MobileInstance
 
@@ -179,6 +182,11 @@ class MobileList(ListResource):
         :param unicode voice_url: The URL we should call when the phone number receives a call
         :param unicode identity_sid: The SID of the Identity resource to associate with the new phone number
         :param unicode address_sid: The SID of the Address resource associated with the phone number
+        :param MobileInstance.EmergencyStatus emergency_status: Status determining whether the new phone number is enabled for emergency calling
+        :param unicode emergency_address_sid: The emergency address configuration to use for emergency calling
+        :param unicode trunk_sid: SID of the trunk to handle calls to the new phone number
+        :param MobileInstance.VoiceReceiveMode voice_receive_mode: Incoming call type: fax or voice
+        :param unicode bundle_sid: The SID of the Bundle resource associated with number
 
         :returns: The created MobileInstance
         :rtype: twilio.rest.api.v2010.account.incoming_phone_number.mobile.MobileInstance
@@ -202,6 +210,11 @@ class MobileList(ListResource):
             'VoiceUrl': voice_url,
             'IdentitySid': identity_sid,
             'AddressSid': address_sid,
+            'EmergencyStatus': emergency_status,
+            'EmergencyAddressSid': emergency_address_sid,
+            'TrunkSid': trunk_sid,
+            'VoiceReceiveMode': voice_receive_mode,
+            'BundleSid': bundle_sid,
         })
 
         payload = self._version.create(method='POST', uri=self._uri, data=data, )
@@ -267,6 +280,14 @@ class MobileInstance(InstanceResource):
         LOCAL = "local"
         FOREIGN = "foreign"
 
+    class EmergencyStatus(object):
+        ACTIVE = "Active"
+        INACTIVE = "Inactive"
+
+    class VoiceReceiveMode(object):
+        VOICE = "voice"
+        FAX = "fax"
+
     def __init__(self, version, payload, account_sid):
         """
         Initialize the MobileInstance
@@ -306,6 +327,9 @@ class MobileInstance(InstanceResource):
             'voice_fallback_url': payload.get('voice_fallback_url'),
             'voice_method': payload.get('voice_method'),
             'voice_url': payload.get('voice_url'),
+            'emergency_status': payload.get('emergency_status'),
+            'emergency_address_sid': payload.get('emergency_address_sid'),
+            'bundle_sid': payload.get('bundle_sid'),
         }
 
         # Context
@@ -535,6 +559,30 @@ class MobileInstance(InstanceResource):
         :rtype: unicode
         """
         return self._properties['voice_url']
+
+    @property
+    def emergency_status(self):
+        """
+        :returns: Whether the phone number is enabled for emergency calling
+        :rtype: MobileInstance.EmergencyStatus
+        """
+        return self._properties['emergency_status']
+
+    @property
+    def emergency_address_sid(self):
+        """
+        :returns: The emergency address configuration to use for emergency calling
+        :rtype: unicode
+        """
+        return self._properties['emergency_address_sid']
+
+    @property
+    def bundle_sid(self):
+        """
+        :returns: The SID of the Bundle resource associated with number
+        :rtype: unicode
+        """
+        return self._properties['bundle_sid']
 
     def __repr__(self):
         """

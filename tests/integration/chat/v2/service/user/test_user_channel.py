@@ -167,17 +167,14 @@ class UserChannelTestCase(IntegrationTestCase):
         with self.assertRaises(TwilioException):
             self.client.chat.v2.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                .users(sid="USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                               .user_channels(channel_sid="CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update(notification_level="default")
-
-        values = {'NotificationLevel': "default", }
+                               .user_channels(channel_sid="CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
 
         self.holodeck.assert_has_request(Request(
             'post',
             'https://chat.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Users/USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Channels/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-            data=values,
         ))
 
-    def test_update_response(self):
+    def test_update_notification_level_response(self):
         self.holodeck.mock(Response(
             200,
             '''
@@ -202,6 +199,35 @@ class UserChannelTestCase(IntegrationTestCase):
 
         actual = self.client.chat.v2.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                     .users(sid="USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                    .user_channels(channel_sid="CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update(notification_level="default")
+                                    .user_channels(channel_sid="CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
+
+        self.assertIsNotNone(actual)
+
+    def test_update_last_consumed_message_index_response(self):
+        self.holodeck.mock(Response(
+            200,
+            '''
+            {
+                "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "service_sid": "ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "channel_sid": "CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "user_sid": "USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "member_sid": "MBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "status": "joined",
+                "last_consumed_message_index": 10,
+                "unread_messages_count": 5,
+                "notification_level": "muted",
+                "url": "https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users/USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "links": {
+                    "channel": "https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                    "member": "https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Members/MBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+                }
+            }
+            '''
+        ))
+
+        actual = self.client.chat.v2.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                    .users(sid="USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                    .user_channels(channel_sid="CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
 
         self.assertIsNotNone(actual)

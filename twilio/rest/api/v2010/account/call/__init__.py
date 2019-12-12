@@ -56,8 +56,8 @@ class CallList(ListResource):
                caller_id=values.unset,
                machine_detection_speech_threshold=values.unset,
                machine_detection_speech_end_threshold=values.unset,
-               machine_detection_silence_timeout=values.unset, twiml=values.unset,
-               url=values.unset, application_sid=values.unset):
+               machine_detection_silence_timeout=values.unset, url=values.unset,
+               twiml=values.unset, application_sid=values.unset):
         """
         Create the CallInstance
 
@@ -85,8 +85,8 @@ class CallList(ListResource):
         :param unicode machine_detection_speech_threshold: Number of milliseconds for measuring stick for the length of the speech activity
         :param unicode machine_detection_speech_end_threshold: Number of milliseconds of silence after speech activity
         :param unicode machine_detection_silence_timeout: Number of milliseconds of initial silence
-        :param unicode twiml: TwiML instructions for the call
         :param unicode url: The absolute URL that returns TwiML for this call
+        :param unicode twiml: TwiML instructions for the call
         :param unicode application_sid: The SID of the Application resource that will handle the call
 
         :returns: The created CallInstance
@@ -96,6 +96,7 @@ class CallList(ListResource):
             'To': to,
             'From': from_,
             'Url': url,
+            'Twiml': twiml,
             'ApplicationSid': application_sid,
             'Method': method,
             'FallbackUrl': fallback_url,
@@ -119,7 +120,6 @@ class CallList(ListResource):
             'MachineDetectionSpeechThreshold': machine_detection_speech_threshold,
             'MachineDetectionSpeechEndThreshold': machine_detection_speech_end_threshold,
             'MachineDetectionSilenceTimeout': machine_detection_silence_timeout,
-            'Twiml': twiml,
         })
 
         payload = self._version.create(method='POST', uri=self._uri, data=data, )

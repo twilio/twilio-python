@@ -64,7 +64,8 @@ class IncomingPhoneNumberTestCase(IntegrationTestCase):
                 "voice_fallback_method": "POST",
                 "voice_fallback_url": null,
                 "voice_method": "POST",
-                "voice_url": null
+                "voice_url": null,
+                "bundle_sid": "BUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
             '''
         ))
@@ -124,7 +125,8 @@ class IncomingPhoneNumberTestCase(IntegrationTestCase):
                 "voice_fallback_method": "POST",
                 "voice_fallback_url": null,
                 "voice_method": "POST",
-                "voice_url": null
+                "voice_url": null,
+                "bundle_sid": "BUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
             '''
         ))
@@ -211,7 +213,8 @@ class IncomingPhoneNumberTestCase(IntegrationTestCase):
                         "voice_fallback_method": "POST",
                         "voice_fallback_url": null,
                         "voice_method": "POST",
-                        "voice_url": null
+                        "voice_url": null,
+                        "bundle_sid": "BUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
                     }
                 ],
                 "last_page_uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IncomingPhoneNumbers.json?PageSize=1&Page=2",
@@ -308,7 +311,8 @@ class IncomingPhoneNumberTestCase(IntegrationTestCase):
                 "voice_fallback_method": "POST",
                 "voice_fallback_url": null,
                 "voice_method": "POST",
-                "voice_url": null
+                "voice_url": null,
+                "bundle_sid": "BUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
             '''
         ))

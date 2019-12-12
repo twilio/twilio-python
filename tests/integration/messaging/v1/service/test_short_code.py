@@ -41,7 +41,9 @@ class ShortCodeTestCase(IntegrationTestCase):
                 "date_updated": "2015-07-30T20:12:33Z",
                 "short_code": "12345",
                 "country_code": "US",
-                "capabilities": [],
+                "capabilities": [
+                    "SMS"
+                ],
                 "url": "https://messaging.twilio.com/v1/Services/MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/ShortCodes/SCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
             '''
@@ -110,7 +112,9 @@ class ShortCodeTestCase(IntegrationTestCase):
                         "date_updated": "2015-07-30T20:12:33Z",
                         "short_code": "12345",
                         "country_code": "US",
-                        "capabilities": [],
+                        "capabilities": [
+                            "SMS"
+                        ],
                         "url": "https://messaging.twilio.com/v1/Services/MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/ShortCodes/SCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
                     }
                 ]
@@ -147,7 +151,9 @@ class ShortCodeTestCase(IntegrationTestCase):
                 "date_updated": "2015-07-30T20:12:33Z",
                 "short_code": "12345",
                 "country_code": "US",
-                "capabilities": [],
+                "capabilities": [
+                    "SMS"
+                ],
                 "url": "https://messaging.twilio.com/v1/Services/MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/ShortCodes/SCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
             '''

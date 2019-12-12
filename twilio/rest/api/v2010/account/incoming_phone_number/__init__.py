@@ -170,7 +170,8 @@ class IncomingPhoneNumberList(ListResource):
                emergency_status=values.unset, emergency_address_sid=values.unset,
                trunk_sid=values.unset, identity_sid=values.unset,
                address_sid=values.unset, voice_receive_mode=values.unset,
-               phone_number=values.unset, area_code=values.unset):
+               bundle_sid=values.unset, phone_number=values.unset,
+               area_code=values.unset):
         """
         Create the IncomingPhoneNumberInstance
 
@@ -195,6 +196,7 @@ class IncomingPhoneNumberList(ListResource):
         :param unicode identity_sid: The SID of the Identity resource to associate with the new phone number
         :param unicode address_sid: The SID of the Address resource associated with the phone number
         :param IncomingPhoneNumberInstance.VoiceReceiveMode voice_receive_mode: Incoming call type: fax or voice
+        :param unicode bundle_sid: The SID of the Bundle resource associated with number
         :param unicode phone_number: The phone number to purchase in E.164 format
         :param unicode area_code: The desired area code for the new phone number
 
@@ -225,6 +227,7 @@ class IncomingPhoneNumberList(ListResource):
             'IdentitySid': identity_sid,
             'AddressSid': address_sid,
             'VoiceReceiveMode': voice_receive_mode,
+            'BundleSid': bundle_sid,
         })
 
         payload = self._version.create(method='POST', uri=self._uri, data=data, )
@@ -381,7 +384,8 @@ class IncomingPhoneNumberContext(InstanceContext):
                voice_method=values.unset, voice_url=values.unset,
                emergency_status=values.unset, emergency_address_sid=values.unset,
                trunk_sid=values.unset, voice_receive_mode=values.unset,
-               identity_sid=values.unset, address_sid=values.unset):
+               identity_sid=values.unset, address_sid=values.unset,
+               bundle_sid=values.unset):
         """
         Update the IncomingPhoneNumberInstance
 
@@ -407,6 +411,7 @@ class IncomingPhoneNumberContext(InstanceContext):
         :param IncomingPhoneNumberInstance.VoiceReceiveMode voice_receive_mode: Incoming call type: fax or voice
         :param unicode identity_sid: Unique string that identifies the identity associated with number
         :param unicode address_sid: The SID of the Address resource associated with the phone number
+        :param unicode bundle_sid: The SID of the Bundle resource associated with number
 
         :returns: The updated IncomingPhoneNumberInstance
         :rtype: twilio.rest.api.v2010.account.incoming_phone_number.IncomingPhoneNumberInstance
@@ -434,6 +439,7 @@ class IncomingPhoneNumberContext(InstanceContext):
             'VoiceReceiveMode': voice_receive_mode,
             'IdentitySid': identity_sid,
             'AddressSid': address_sid,
+            'BundleSid': bundle_sid,
         })
 
         payload = self._version.update(method='POST', uri=self._uri, data=data, )
@@ -555,6 +561,7 @@ class IncomingPhoneNumberInstance(InstanceResource):
             'voice_url': payload.get('voice_url'),
             'emergency_status': payload.get('emergency_status'),
             'emergency_address_sid': payload.get('emergency_address_sid'),
+            'bundle_sid': payload.get('bundle_sid'),
         }
 
         # Context
@@ -818,6 +825,14 @@ class IncomingPhoneNumberInstance(InstanceResource):
         """
         return self._properties['emergency_address_sid']
 
+    @property
+    def bundle_sid(self):
+        """
+        :returns: The SID of the Bundle resource associated with number
+        :rtype: unicode
+        """
+        return self._properties['bundle_sid']
+
     def update(self, account_sid=values.unset, api_version=values.unset,
                friendly_name=values.unset, sms_application_sid=values.unset,
                sms_fallback_method=values.unset, sms_fallback_url=values.unset,
@@ -829,7 +844,8 @@ class IncomingPhoneNumberInstance(InstanceResource):
                voice_method=values.unset, voice_url=values.unset,
                emergency_status=values.unset, emergency_address_sid=values.unset,
                trunk_sid=values.unset, voice_receive_mode=values.unset,
-               identity_sid=values.unset, address_sid=values.unset):
+               identity_sid=values.unset, address_sid=values.unset,
+               bundle_sid=values.unset):
         """
         Update the IncomingPhoneNumberInstance
 
@@ -855,6 +871,7 @@ class IncomingPhoneNumberInstance(InstanceResource):
         :param IncomingPhoneNumberInstance.VoiceReceiveMode voice_receive_mode: Incoming call type: fax or voice
         :param unicode identity_sid: Unique string that identifies the identity associated with number
         :param unicode address_sid: The SID of the Address resource associated with the phone number
+        :param unicode bundle_sid: The SID of the Bundle resource associated with number
 
         :returns: The updated IncomingPhoneNumberInstance
         :rtype: twilio.rest.api.v2010.account.incoming_phone_number.IncomingPhoneNumberInstance
@@ -882,6 +899,7 @@ class IncomingPhoneNumberInstance(InstanceResource):
             voice_receive_mode=voice_receive_mode,
             identity_sid=identity_sid,
             address_sid=address_sid,
+            bundle_sid=bundle_sid,
         )
 
     def fetch(self):
