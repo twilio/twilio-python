@@ -14,8 +14,7 @@ from twilio.base.page import Page
 
 
 class VerificationCheckList(ListResource):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
+    """  """
 
     def __init__(self, version, service_sid):
         """
@@ -39,7 +38,7 @@ class VerificationCheckList(ListResource):
         Create the VerificationCheckInstance
 
         :param unicode code: The verification string
-        :param unicode to: The phone number to verify
+        :param unicode to: The phone number or email to verify
         :param unicode verification_sid: A SID that uniquely identifies the Verification Check
         :param unicode amount: The amount of the associated PSD2 compliant transaction.
         :param unicode payee: The payee of the associated PSD2 compliant transaction
@@ -70,8 +69,7 @@ class VerificationCheckList(ListResource):
 
 
 class VerificationCheckPage(Page):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
+    """  """
 
     def __init__(self, version, response, solution):
         """
@@ -111,8 +109,7 @@ class VerificationCheckPage(Page):
 
 
 class VerificationCheckInstance(InstanceResource):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
+    """  """
 
     class Channel(object):
         SMS = "sms"
@@ -174,7 +171,7 @@ class VerificationCheckInstance(InstanceResource):
     @property
     def to(self):
         """
-        :returns: The phone number being verified
+        :returns: The phone number or email being verified
         :rtype: unicode
         """
         return self._properties['to']

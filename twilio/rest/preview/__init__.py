@@ -224,6 +224,13 @@ class Preview(Domain):
         return self.trusted_comms.branded_calls
 
     @property
+    def businesses(self):
+        """
+        :rtype: twilio.rest.preview.trusted_comms.business.BusinessList
+        """
+        return self.trusted_comms.businesses
+
+    @property
     def cps(self):
         """
         :rtype: twilio.rest.preview.trusted_comms.cps.CpsList

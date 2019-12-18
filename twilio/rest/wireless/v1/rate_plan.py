@@ -293,6 +293,10 @@ class RatePlanContext(InstanceContext):
 class RatePlanInstance(InstanceResource):
     """  """
 
+    class DataLimitStrategy(object):
+        BLOCK = "block"
+        THROTTLE = "throttle"
+
     def __init__(self, version, payload, sid=None):
         """
         Initialize the RatePlanInstance

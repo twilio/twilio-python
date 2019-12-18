@@ -15,8 +15,7 @@ from twilio.base.page import Page
 
 
 class MessagingConfigurationList(ListResource):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
+    """  """
 
     def __init__(self, version, service_sid):
         """
@@ -172,8 +171,7 @@ class MessagingConfigurationList(ListResource):
 
 
 class MessagingConfigurationPage(Page):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
+    """  """
 
     def __init__(self, version, response, solution):
         """
@@ -217,8 +215,7 @@ class MessagingConfigurationPage(Page):
 
 
 class MessagingConfigurationContext(InstanceContext):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
+    """  """
 
     def __init__(self, version, service_sid, country):
         """
@@ -294,8 +291,7 @@ class MessagingConfigurationContext(InstanceContext):
 
 
 class MessagingConfigurationInstance(InstanceResource):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
+    """  """
 
     def __init__(self, version, payload, service_sid, country=None):
         """

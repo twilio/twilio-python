@@ -16,8 +16,7 @@ from twilio.rest.verify.v2.service.rate_limit.bucket import BucketList
 
 
 class RateLimitList(ListResource):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
+    """  """
 
     def __init__(self, version, service_sid):
         """
@@ -161,8 +160,7 @@ class RateLimitList(ListResource):
 
 
 class RateLimitPage(Page):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
+    """  """
 
     def __init__(self, version, response, solution):
         """
@@ -202,8 +200,7 @@ class RateLimitPage(Page):
 
 
 class RateLimitContext(InstanceContext):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
+    """  """
 
     def __init__(self, version, service_sid, sid):
         """
@@ -298,8 +295,7 @@ class RateLimitContext(InstanceContext):
 
 
 class RateLimitInstance(InstanceResource):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
+    """  """
 
     def __init__(self, version, payload, service_sid, sid=None):
         """

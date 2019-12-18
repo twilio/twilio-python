@@ -15,8 +15,7 @@ from twilio.base.page import Page
 
 
 class BucketList(ListResource):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
+    """  """
 
     def __init__(self, version, service_sid, rate_limit_sid):
         """
@@ -176,8 +175,7 @@ class BucketList(ListResource):
 
 
 class BucketPage(Page):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
+    """  """
 
     def __init__(self, version, response, solution):
         """
@@ -223,8 +221,7 @@ class BucketPage(Page):
 
 
 class BucketContext(InstanceContext):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
+    """  """
 
     def __init__(self, version, service_sid, rate_limit_sid, sid):
         """
@@ -304,8 +301,7 @@ class BucketContext(InstanceContext):
 
 
 class BucketInstance(InstanceResource):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
+    """  """
 
     def __init__(self, version, payload, service_sid, rate_limit_sid, sid=None):
         """
