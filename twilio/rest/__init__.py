@@ -66,6 +66,7 @@ class Client(object):
         self._messaging = None
         self._monitor = None
         self._notify = None
+        self._numbers = None
         self._preview = None
         self._pricing = None
         self._proxy = None
@@ -311,6 +312,19 @@ class Client(object):
             from twilio.rest.notify import Notify
             self._notify = Notify(self)
         return self._notify
+
+    @property
+    def numbers(self):
+        """
+        Access the Numbers Twilio Domain
+
+        :returns: Numbers Twilio Domain
+        :rtype: twilio.rest.numbers.Numbers
+        """
+        if self._numbers is None:
+            from twilio.rest.numbers import Numbers
+            self._numbers = Numbers(self)
+        return self._numbers
 
     @property
     def preview(self):
