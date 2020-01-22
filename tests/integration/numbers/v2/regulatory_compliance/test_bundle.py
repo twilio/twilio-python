@@ -137,7 +137,7 @@ class BundleTestCase(IntegrationTestCase):
 
         with self.assertRaises(TwilioException):
             self.client.numbers.v2.regulatory_compliance \
-                                  .bundles(sid="BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+                                  .bundles("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.holodeck.assert_has_request(Request(
             'get',
@@ -167,7 +167,7 @@ class BundleTestCase(IntegrationTestCase):
         ))
 
         actual = self.client.numbers.v2.regulatory_compliance \
-                                       .bundles(sid="BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+                                       .bundles("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.assertIsNotNone(actual)
 
@@ -176,7 +176,7 @@ class BundleTestCase(IntegrationTestCase):
 
         with self.assertRaises(TwilioException):
             self.client.numbers.v2.regulatory_compliance \
-                                  .bundles(sid="BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
+                                  .bundles("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
 
         self.holodeck.assert_has_request(Request(
             'post',
@@ -206,6 +206,6 @@ class BundleTestCase(IntegrationTestCase):
         ))
 
         actual = self.client.numbers.v2.regulatory_compliance \
-                                       .bundles(sid="BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
+                                       .bundles("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
 
         self.assertIsNotNone(actual)

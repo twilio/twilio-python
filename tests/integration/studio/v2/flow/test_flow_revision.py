@@ -18,7 +18,7 @@ class FlowRevisionTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.studio.v2.flows(sid="FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+            self.client.studio.v2.flows("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                  .revisions.list()
 
         self.holodeck.assert_has_request(Request(
@@ -60,7 +60,7 @@ class FlowRevisionTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.studio.v2.flows(sid="FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+        actual = self.client.studio.v2.flows("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                       .revisions.list()
 
         self.assertIsNotNone(actual)
@@ -69,8 +69,8 @@ class FlowRevisionTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.studio.v2.flows(sid="FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .revisions(revision="revision").fetch()
+            self.client.studio.v2.flows("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                 .revisions("revision").fetch()
 
         self.holodeck.assert_has_request(Request(
             'get',
@@ -100,7 +100,7 @@ class FlowRevisionTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.studio.v2.flows(sid="FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .revisions(revision="revision").fetch()
+        actual = self.client.studio.v2.flows("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                      .revisions("revision").fetch()
 
         self.assertIsNotNone(actual)

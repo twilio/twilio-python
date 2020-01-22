@@ -18,7 +18,7 @@ class CommandTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.wireless.v1.commands(sid="DCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+            self.client.wireless.v1.commands("DCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.holodeck.assert_has_request(Request(
             'get',
@@ -46,7 +46,7 @@ class CommandTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.wireless.v1.commands(sid="DCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+        actual = self.client.wireless.v1.commands("DCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.assertIsNotNone(actual)
 
@@ -71,7 +71,7 @@ class CommandTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.wireless.v1.commands(sid="DCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+        actual = self.client.wireless.v1.commands("DCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.assertIsNotNone(actual)
 
@@ -253,7 +253,7 @@ class CommandTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.wireless.v1.commands(sid="DCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+            self.client.wireless.v1.commands("DCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
 
         self.holodeck.assert_has_request(Request(
             'delete',
@@ -266,6 +266,6 @@ class CommandTestCase(IntegrationTestCase):
             None,
         ))
 
-        actual = self.client.wireless.v1.commands(sid="DCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+        actual = self.client.wireless.v1.commands("DCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
 
         self.assertTrue(actual)

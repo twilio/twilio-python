@@ -18,8 +18,8 @@ class ReservationTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.taskrouter.v1.workspaces(sid="WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                     .tasks(sid="WTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+            self.client.taskrouter.v1.workspaces("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                     .tasks("WTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                      .reservations.list()
 
         self.holodeck.assert_has_request(Request(
@@ -64,8 +64,8 @@ class ReservationTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.taskrouter.v1.workspaces(sid="WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                          .tasks(sid="WTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+        actual = self.client.taskrouter.v1.workspaces("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                          .tasks("WTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                           .reservations.list()
 
         self.assertIsNotNone(actual)
@@ -89,8 +89,8 @@ class ReservationTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.taskrouter.v1.workspaces(sid="WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                          .tasks(sid="WTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+        actual = self.client.taskrouter.v1.workspaces("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                          .tasks("WTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                           .reservations.list()
 
         self.assertIsNotNone(actual)
@@ -99,9 +99,9 @@ class ReservationTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.taskrouter.v1.workspaces(sid="WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                     .tasks(sid="WTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                     .reservations(sid="WRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+            self.client.taskrouter.v1.workspaces("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                     .tasks("WTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                     .reservations("WRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.holodeck.assert_has_request(Request(
             'get',
@@ -132,9 +132,9 @@ class ReservationTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.taskrouter.v1.workspaces(sid="WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                          .tasks(sid="WTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                          .reservations(sid="WRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+        actual = self.client.taskrouter.v1.workspaces("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                          .tasks("WTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                          .reservations("WRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.assertIsNotNone(actual)
 
@@ -142,9 +142,9 @@ class ReservationTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.taskrouter.v1.workspaces(sid="WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                     .tasks(sid="WTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                     .reservations(sid="WRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
+            self.client.taskrouter.v1.workspaces("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                     .tasks("WTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                     .reservations("WRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
 
         self.holodeck.assert_has_request(Request(
             'post',
@@ -175,9 +175,9 @@ class ReservationTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.taskrouter.v1.workspaces(sid="WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                          .tasks(sid="WTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                          .reservations(sid="WRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
+        actual = self.client.taskrouter.v1.workspaces("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                          .tasks("WTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                          .reservations("WRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
 
         self.assertIsNotNone(actual)
 
@@ -205,8 +205,8 @@ class ReservationTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.taskrouter.v1.workspaces(sid="WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                          .tasks(sid="WTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                          .reservations(sid="WRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
+        actual = self.client.taskrouter.v1.workspaces("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                          .tasks("WTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                          .reservations("WRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
 
         self.assertIsNotNone(actual)

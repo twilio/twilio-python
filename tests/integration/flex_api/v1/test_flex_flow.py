@@ -95,7 +95,7 @@ class FlexFlowTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.flex_api.v1.flex_flow(sid="FOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+            self.client.flex_api.v1.flex_flow("FOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.holodeck.assert_has_request(Request(
             'get',
@@ -128,7 +128,7 @@ class FlexFlowTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.flex_api.v1.flex_flow(sid="FOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+        actual = self.client.flex_api.v1.flex_flow("FOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.assertIsNotNone(actual)
 
@@ -184,7 +184,7 @@ class FlexFlowTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.flex_api.v1.flex_flow(sid="FOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
+            self.client.flex_api.v1.flex_flow("FOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
 
         self.holodeck.assert_has_request(Request(
             'post',
@@ -217,7 +217,7 @@ class FlexFlowTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.flex_api.v1.flex_flow(sid="FOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
+        actual = self.client.flex_api.v1.flex_flow("FOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
 
         self.assertIsNotNone(actual)
 
@@ -225,7 +225,7 @@ class FlexFlowTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.flex_api.v1.flex_flow(sid="FOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+            self.client.flex_api.v1.flex_flow("FOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
 
         self.holodeck.assert_has_request(Request(
             'delete',
@@ -238,6 +238,6 @@ class FlexFlowTestCase(IntegrationTestCase):
             None,
         ))
 
-        actual = self.client.flex_api.v1.flex_flow(sid="FOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+        actual = self.client.flex_api.v1.flex_flow("FOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
 
         self.assertTrue(actual)

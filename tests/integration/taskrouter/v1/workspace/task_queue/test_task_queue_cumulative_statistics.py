@@ -18,8 +18,8 @@ class TaskQueueCumulativeStatisticsTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.taskrouter.v1.workspaces(sid="WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                     .task_queues(sid="WQXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+            self.client.taskrouter.v1.workspaces("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                     .task_queues("WQXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                      .cumulative_statistics().fetch()
 
         self.holodeck.assert_has_request(Request(
@@ -88,8 +88,8 @@ class TaskQueueCumulativeStatisticsTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.taskrouter.v1.workspaces(sid="WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                          .task_queues(sid="WQXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+        actual = self.client.taskrouter.v1.workspaces("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                          .task_queues("WQXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                           .cumulative_statistics().fetch()
 
         self.assertIsNotNone(actual)

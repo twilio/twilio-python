@@ -18,7 +18,7 @@ class ExportAssistantTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.autopilot.v1.assistants(sid="UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+            self.client.autopilot.v1.assistants("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                     .export_assistant().fetch()
 
         self.holodeck.assert_has_request(Request(
@@ -42,7 +42,7 @@ class ExportAssistantTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.autopilot.v1.assistants(sid="UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+        actual = self.client.autopilot.v1.assistants("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                          .export_assistant().fetch()
 
         self.assertIsNotNone(actual)

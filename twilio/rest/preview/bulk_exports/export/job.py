@@ -179,6 +179,9 @@ class JobInstance(InstanceResource):
             'start_day': payload.get('start_day'),
             'end_day': payload.get('end_day'),
             'job_sid': payload.get('job_sid'),
+            'webhook_url': payload.get('webhook_url'),
+            'webhook_method': payload.get('webhook_method'),
+            'email': payload.get('email'),
             'url': payload.get('url'),
         }
 
@@ -246,6 +249,30 @@ class JobInstance(InstanceResource):
         :rtype: unicode
         """
         return self._properties['job_sid']
+
+    @property
+    def webhook_url(self):
+        """
+        :returns: The optional webhook url called on completion
+        :rtype: unicode
+        """
+        return self._properties['webhook_url']
+
+    @property
+    def webhook_method(self):
+        """
+        :returns: This is the method used to call the webhook
+        :rtype: unicode
+        """
+        return self._properties['webhook_method']
+
+    @property
+    def email(self):
+        """
+        :returns: The optional email to send the completion notification to
+        :rtype: unicode
+        """
+        return self._properties['email']
 
     @property
     def url(self):

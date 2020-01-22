@@ -18,7 +18,7 @@ class StyleSheetTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.preview.understand.assistants(sid="UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+            self.client.preview.understand.assistants("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                           .style_sheet().fetch()
 
         self.holodeck.assert_has_request(Request(
@@ -39,7 +39,7 @@ class StyleSheetTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.preview.understand.assistants(sid="UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+        actual = self.client.preview.understand.assistants("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                                .style_sheet().fetch()
 
         self.assertIsNotNone(actual)
@@ -48,7 +48,7 @@ class StyleSheetTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.preview.understand.assistants(sid="UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+            self.client.preview.understand.assistants("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                           .style_sheet().update()
 
         self.holodeck.assert_has_request(Request(
@@ -69,7 +69,7 @@ class StyleSheetTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.preview.understand.assistants(sid="UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+        actual = self.client.preview.understand.assistants("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                                .style_sheet().update()
 
         self.assertIsNotNone(actual)

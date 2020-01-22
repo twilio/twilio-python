@@ -93,7 +93,7 @@ class SupportingDocumentTypeTestCase(IntegrationTestCase):
 
         with self.assertRaises(TwilioException):
             self.client.numbers.v2.regulatory_compliance \
-                                  .supporting_document_types(sid="OYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+                                  .supporting_document_types("OYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.holodeck.assert_has_request(Request(
             'get',
@@ -121,6 +121,6 @@ class SupportingDocumentTypeTestCase(IntegrationTestCase):
         ))
 
         actual = self.client.numbers.v2.regulatory_compliance \
-                                       .supporting_document_types(sid="OYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+                                       .supporting_document_types("OYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.assertIsNotNone(actual)

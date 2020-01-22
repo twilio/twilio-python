@@ -43,6 +43,7 @@ class ServiceTestCase(IntegrationTestCase):
                 "dtmf_input_required": false,
                 "tts_name": "name",
                 "mailer_sid": "MDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "do_not_share_warning_enabled": false,
                 "date_created": "2015-07-30T20:00:00Z",
                 "date_updated": "2015-07-30T20:00:00Z",
                 "url": "https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -64,7 +65,7 @@ class ServiceTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.verify.v2.services(sid="VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+            self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.holodeck.assert_has_request(Request(
             'get',
@@ -86,6 +87,7 @@ class ServiceTestCase(IntegrationTestCase):
                 "dtmf_input_required": false,
                 "tts_name": "name",
                 "mailer_sid": "MDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "do_not_share_warning_enabled": false,
                 "date_created": "2015-07-30T20:00:00Z",
                 "date_updated": "2015-07-30T20:00:00Z",
                 "url": "https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -99,7 +101,7 @@ class ServiceTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.verify.v2.services(sid="VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+        actual = self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.assertIsNotNone(actual)
 
@@ -107,7 +109,7 @@ class ServiceTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.verify.v2.services(sid="VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+            self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
 
         self.holodeck.assert_has_request(Request(
             'delete',
@@ -120,7 +122,7 @@ class ServiceTestCase(IntegrationTestCase):
             None,
         ))
 
-        actual = self.client.verify.v2.services(sid="VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+        actual = self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
 
         self.assertTrue(actual)
 
@@ -161,6 +163,7 @@ class ServiceTestCase(IntegrationTestCase):
                         "dtmf_input_required": false,
                         "tts_name": "name",
                         "mailer_sid": "MDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                        "do_not_share_warning_enabled": false,
                         "date_created": "2015-07-30T20:00:00Z",
                         "date_updated": "2015-07-30T20:00:00Z",
                         "url": "https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -184,7 +187,7 @@ class ServiceTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.verify.v2.services(sid="VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
+            self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
 
         self.holodeck.assert_has_request(Request(
             'post',
@@ -206,6 +209,7 @@ class ServiceTestCase(IntegrationTestCase):
                 "dtmf_input_required": false,
                 "tts_name": "name",
                 "mailer_sid": "MDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "do_not_share_warning_enabled": false,
                 "date_created": "2015-07-30T20:00:00Z",
                 "date_updated": "2015-07-30T20:00:00Z",
                 "url": "https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -219,6 +223,6 @@ class ServiceTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.verify.v2.services(sid="VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
+        actual = self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
 
         self.assertIsNotNone(actual)

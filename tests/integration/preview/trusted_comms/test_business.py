@@ -18,7 +18,7 @@ class BusinessTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.preview.trusted_comms.businesses(sid="BXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+            self.client.preview.trusted_comms.businesses("BXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.holodeck.assert_has_request(Request(
             'get',
@@ -40,6 +40,6 @@ class BusinessTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.preview.trusted_comms.businesses(sid="BXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+        actual = self.client.preview.trusted_comms.businesses("BXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.assertIsNotNone(actual)

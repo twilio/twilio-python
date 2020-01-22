@@ -18,8 +18,8 @@ class EngagementContextTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.studio.v1.flows(sid="FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .engagements(sid="FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+            self.client.studio.v1.flows("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                 .engagements("FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                  .engagement_context().fetch()
 
         self.holodeck.assert_has_request(Request(
@@ -43,8 +43,8 @@ class EngagementContextTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.studio.v1.flows(sid="FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .engagements(sid="FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+        actual = self.client.studio.v1.flows("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                      .engagements("FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                       .engagement_context().fetch()
 
         self.assertIsNotNone(actual)

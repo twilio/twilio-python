@@ -18,8 +18,8 @@ class RecordingTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.api.v2010.accounts(sid="ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .calls(sid="CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+            self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                 .calls("CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                  .recordings.create()
 
         self.holodeck.assert_has_request(Request(
@@ -53,8 +53,8 @@ class RecordingTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.api.v2010.accounts(sid="ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .calls(sid="CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+        actual = self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                      .calls("CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                       .recordings.create()
 
         self.assertIsNotNone(actual)
@@ -63,9 +63,9 @@ class RecordingTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.api.v2010.accounts(sid="ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .calls(sid="CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .recordings(sid="REXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update(status="in-progress")
+            self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                 .calls("CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                 .recordings("REXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update(status="in-progress")
 
         values = {'Status': "in-progress", }
 
@@ -101,9 +101,9 @@ class RecordingTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.api.v2010.accounts(sid="ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .calls(sid="CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .recordings(sid="REXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update(status="in-progress")
+        actual = self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                      .calls("CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                      .recordings("REXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update(status="in-progress")
 
         self.assertIsNotNone(actual)
 
@@ -111,9 +111,9 @@ class RecordingTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.api.v2010.accounts(sid="ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .calls(sid="CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .recordings(sid="REXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+            self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                 .calls("CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                 .recordings("REXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.holodeck.assert_has_request(Request(
             'get',
@@ -150,9 +150,9 @@ class RecordingTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.api.v2010.accounts(sid="ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .calls(sid="CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .recordings(sid="REXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+        actual = self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                      .calls("CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                      .recordings("REXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.assertIsNotNone(actual)
 
@@ -160,9 +160,9 @@ class RecordingTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.api.v2010.accounts(sid="ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .calls(sid="CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .recordings(sid="REXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+            self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                 .calls("CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                 .recordings("REXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
 
         self.holodeck.assert_has_request(Request(
             'delete',
@@ -175,9 +175,9 @@ class RecordingTestCase(IntegrationTestCase):
             None,
         ))
 
-        actual = self.client.api.v2010.accounts(sid="ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .calls(sid="CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .recordings(sid="REXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+        actual = self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                      .calls("CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                      .recordings("REXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
 
         self.assertTrue(actual)
 
@@ -185,8 +185,8 @@ class RecordingTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.api.v2010.accounts(sid="ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .calls(sid="CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+            self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                 .calls("CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                  .recordings.list()
 
         self.holodeck.assert_has_request(Request(
@@ -236,8 +236,8 @@ class RecordingTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.api.v2010.accounts(sid="ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .calls(sid="CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+        actual = self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                      .calls("CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                       .recordings.list()
 
         self.assertIsNotNone(actual)
@@ -260,8 +260,8 @@ class RecordingTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.api.v2010.accounts(sid="ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .calls(sid="CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+        actual = self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                      .calls("CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                       .recordings.list()
 
         self.assertIsNotNone(actual)

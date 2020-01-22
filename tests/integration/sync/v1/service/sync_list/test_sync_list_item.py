@@ -19,9 +19,9 @@ class SyncListItemTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.sync.v1.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                               .sync_lists(sid="ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                               .sync_list_items(index=1).fetch()
+            self.client.sync.v1.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                               .sync_lists("ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                               .sync_list_items(1).fetch()
 
         self.holodeck.assert_has_request(Request(
             'get',
@@ -48,9 +48,9 @@ class SyncListItemTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.sync.v1.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                    .sync_lists(sid="ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                    .sync_list_items(index=1).fetch()
+        actual = self.client.sync.v1.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                    .sync_lists("ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                    .sync_list_items(1).fetch()
 
         self.assertIsNotNone(actual)
 
@@ -58,9 +58,9 @@ class SyncListItemTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.sync.v1.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                               .sync_lists(sid="ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                               .sync_list_items(index=1).delete(if_match="if_match")
+            self.client.sync.v1.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                               .sync_lists("ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                               .sync_list_items(1).delete(if_match="if_match")
 
         headers = {'If-Match': "if_match", }
         self.holodeck.assert_has_request(Request(
@@ -75,9 +75,9 @@ class SyncListItemTestCase(IntegrationTestCase):
             None,
         ))
 
-        actual = self.client.sync.v1.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                    .sync_lists(sid="ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                    .sync_list_items(index=1).delete()
+        actual = self.client.sync.v1.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                    .sync_lists("ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                    .sync_list_items(1).delete()
 
         self.assertTrue(actual)
 
@@ -85,8 +85,8 @@ class SyncListItemTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.sync.v1.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                               .sync_lists(sid="ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+            self.client.sync.v1.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                               .sync_lists("ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                .sync_list_items.create(data={})
 
         values = {'Data': serialize.object({}), }
@@ -117,8 +117,8 @@ class SyncListItemTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.sync.v1.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                    .sync_lists(sid="ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+        actual = self.client.sync.v1.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                    .sync_lists("ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                     .sync_list_items.create(data={})
 
         self.assertIsNotNone(actual)
@@ -127,8 +127,8 @@ class SyncListItemTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.sync.v1.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                               .sync_lists(sid="ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+            self.client.sync.v1.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                               .sync_lists("ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                .sync_list_items.list()
 
         self.holodeck.assert_has_request(Request(
@@ -155,8 +155,8 @@ class SyncListItemTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.sync.v1.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                    .sync_lists(sid="ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+        actual = self.client.sync.v1.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                    .sync_lists("ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                     .sync_list_items.list()
 
         self.assertIsNotNone(actual)
@@ -194,8 +194,8 @@ class SyncListItemTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.sync.v1.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                    .sync_lists(sid="ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+        actual = self.client.sync.v1.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                    .sync_lists("ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                     .sync_list_items.list()
 
         self.assertIsNotNone(actual)
@@ -204,9 +204,9 @@ class SyncListItemTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.sync.v1.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                               .sync_lists(sid="ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                               .sync_list_items(index=1).update(if_match="if_match")
+            self.client.sync.v1.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                               .sync_lists("ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                               .sync_list_items(1).update(if_match="if_match")
 
         headers = {'If-Match': "if_match", }
         self.holodeck.assert_has_request(Request(
@@ -235,8 +235,8 @@ class SyncListItemTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.sync.v1.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                    .sync_lists(sid="ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                    .sync_list_items(index=1).update()
+        actual = self.client.sync.v1.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                    .sync_lists("ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                    .sync_list_items(1).update()
 
         self.assertIsNotNone(actual)

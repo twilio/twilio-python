@@ -18,8 +18,8 @@ class FeedbackTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.api.v2010.accounts(sid="ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .messages(sid="MMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+            self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                 .messages("MMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                  .feedback.create()
 
         self.holodeck.assert_has_request(Request(
@@ -42,8 +42,8 @@ class FeedbackTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.api.v2010.accounts(sid="ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .messages(sid="MMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+        actual = self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                      .messages("MMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                       .feedback.create()
 
         self.assertIsNotNone(actual)

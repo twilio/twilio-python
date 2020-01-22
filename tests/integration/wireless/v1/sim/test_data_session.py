@@ -18,7 +18,7 @@ class DataSessionTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.wireless.v1.sims(sid="DEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+            self.client.wireless.v1.sims("DEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                    .data_sessions.list()
 
         self.holodeck.assert_has_request(Request(
@@ -82,7 +82,7 @@ class DataSessionTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.wireless.v1.sims(sid="DEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+        actual = self.client.wireless.v1.sims("DEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                         .data_sessions.list()
 
         self.assertIsNotNone(actual)

@@ -18,8 +18,8 @@ class WebhookTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.autopilot.v1.assistants(sid="UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                    .webhooks(sid="UMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+            self.client.autopilot.v1.assistants("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                    .webhooks("UMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.holodeck.assert_has_request(Request(
             'get',
@@ -45,8 +45,8 @@ class WebhookTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.autopilot.v1.assistants(sid="UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                         .webhooks(sid="UMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+        actual = self.client.autopilot.v1.assistants("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                         .webhooks("UMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.assertIsNotNone(actual)
 
@@ -54,7 +54,7 @@ class WebhookTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.autopilot.v1.assistants(sid="UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+            self.client.autopilot.v1.assistants("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                     .webhooks.list()
 
         self.holodeck.assert_has_request(Request(
@@ -81,7 +81,7 @@ class WebhookTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.autopilot.v1.assistants(sid="UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+        actual = self.client.autopilot.v1.assistants("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                          .webhooks.list()
 
         self.assertIsNotNone(actual)
@@ -118,7 +118,7 @@ class WebhookTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.autopilot.v1.assistants(sid="UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+        actual = self.client.autopilot.v1.assistants("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                          .webhooks.list()
 
         self.assertIsNotNone(actual)
@@ -127,7 +127,7 @@ class WebhookTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.autopilot.v1.assistants(sid="UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+            self.client.autopilot.v1.assistants("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                     .webhooks.create(unique_name="unique_name", events="events", webhook_url="https://example.com")
 
         values = {'UniqueName': "unique_name", 'Events': "events", 'WebhookUrl': "https://example.com", }
@@ -157,7 +157,7 @@ class WebhookTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.autopilot.v1.assistants(sid="UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+        actual = self.client.autopilot.v1.assistants("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                          .webhooks.create(unique_name="unique_name", events="events", webhook_url="https://example.com")
 
         self.assertIsNotNone(actual)
@@ -166,8 +166,8 @@ class WebhookTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.autopilot.v1.assistants(sid="UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                    .webhooks(sid="UMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
+            self.client.autopilot.v1.assistants("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                    .webhooks("UMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
 
         self.holodeck.assert_has_request(Request(
             'post',
@@ -193,8 +193,8 @@ class WebhookTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.autopilot.v1.assistants(sid="UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                         .webhooks(sid="UMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
+        actual = self.client.autopilot.v1.assistants("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                         .webhooks("UMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
 
         self.assertIsNotNone(actual)
 
@@ -202,8 +202,8 @@ class WebhookTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.autopilot.v1.assistants(sid="UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                    .webhooks(sid="UMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+            self.client.autopilot.v1.assistants("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                    .webhooks("UMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
 
         self.holodeck.assert_has_request(Request(
             'delete',
@@ -216,7 +216,7 @@ class WebhookTestCase(IntegrationTestCase):
             None,
         ))
 
-        actual = self.client.autopilot.v1.assistants(sid="UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                         .webhooks(sid="UMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+        actual = self.client.autopilot.v1.assistants("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                         .webhooks("UMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
 
         self.assertTrue(actual)

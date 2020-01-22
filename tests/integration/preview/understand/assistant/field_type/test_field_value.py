@@ -18,9 +18,9 @@ class FieldValueTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.preview.understand.assistants(sid="UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                          .field_types(sid="UBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                          .field_values(sid="UCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+            self.client.preview.understand.assistants("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                          .field_types("UBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                          .field_values("UCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.holodeck.assert_has_request(Request(
             'get',
@@ -46,9 +46,9 @@ class FieldValueTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.preview.understand.assistants(sid="UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                               .field_types(sid="UBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                               .field_values(sid="UCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+        actual = self.client.preview.understand.assistants("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                               .field_types("UBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                               .field_values("UCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.assertIsNotNone(actual)
 
@@ -56,8 +56,8 @@ class FieldValueTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.preview.understand.assistants(sid="UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                          .field_types(sid="UBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+            self.client.preview.understand.assistants("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                          .field_types("UBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                           .field_values.list()
 
         self.holodeck.assert_has_request(Request(
@@ -84,8 +84,8 @@ class FieldValueTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.preview.understand.assistants(sid="UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                               .field_types(sid="UBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+        actual = self.client.preview.understand.assistants("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                               .field_types("UBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                                .field_values.list()
 
         self.assertIsNotNone(actual)
@@ -122,8 +122,8 @@ class FieldValueTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.preview.understand.assistants(sid="UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                               .field_types(sid="UBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+        actual = self.client.preview.understand.assistants("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                               .field_types("UBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                                .field_values.list()
 
         self.assertIsNotNone(actual)
@@ -132,8 +132,8 @@ class FieldValueTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.preview.understand.assistants(sid="UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                          .field_types(sid="UBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+            self.client.preview.understand.assistants("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                          .field_types("UBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                           .field_values.create(language="language", value="value")
 
         values = {'Language': "language", 'Value': "value", }
@@ -163,8 +163,8 @@ class FieldValueTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.preview.understand.assistants(sid="UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                               .field_types(sid="UBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+        actual = self.client.preview.understand.assistants("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                               .field_types("UBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                                .field_values.create(language="language", value="value")
 
         self.assertIsNotNone(actual)
@@ -173,9 +173,9 @@ class FieldValueTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.preview.understand.assistants(sid="UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                          .field_types(sid="UBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                          .field_values(sid="UCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+            self.client.preview.understand.assistants("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                          .field_types("UBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                          .field_values("UCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
 
         self.holodeck.assert_has_request(Request(
             'delete',
@@ -188,8 +188,8 @@ class FieldValueTestCase(IntegrationTestCase):
             None,
         ))
 
-        actual = self.client.preview.understand.assistants(sid="UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                               .field_types(sid="UBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                               .field_values(sid="UCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+        actual = self.client.preview.understand.assistants("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                               .field_types("UBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                               .field_values("UCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
 
         self.assertTrue(actual)

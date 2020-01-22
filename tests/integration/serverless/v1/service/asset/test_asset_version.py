@@ -18,8 +18,8 @@ class AssetVersionTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.serverless.v1.services(sid="ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                     .assets(sid="ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+            self.client.serverless.v1.services("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                     .assets("ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                      .asset_versions.list()
 
         self.holodeck.assert_has_request(Request(
@@ -46,8 +46,8 @@ class AssetVersionTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.serverless.v1.services(sid="ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                          .assets(sid="ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+        actual = self.client.serverless.v1.services("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                          .assets("ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                           .asset_versions.list()
 
         self.assertIsNotNone(actual)
@@ -56,9 +56,9 @@ class AssetVersionTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.serverless.v1.services(sid="ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                     .assets(sid="ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                     .asset_versions(sid="ZNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+            self.client.serverless.v1.services("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                     .assets("ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                     .asset_versions("ZNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.holodeck.assert_has_request(Request(
             'get',
@@ -82,8 +82,8 @@ class AssetVersionTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.serverless.v1.services(sid="ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                          .assets(sid="ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                          .asset_versions(sid="ZNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+        actual = self.client.serverless.v1.services("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                          .assets("ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                          .asset_versions("ZNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.assertIsNotNone(actual)

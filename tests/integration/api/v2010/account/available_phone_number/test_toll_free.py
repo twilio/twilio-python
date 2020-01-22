@@ -18,8 +18,8 @@ class TollFreeTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.api.v2010.accounts(sid="ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .available_phone_numbers(country_code="US") \
+            self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                 .available_phone_numbers("US") \
                                  .toll_free.list()
 
         self.holodeck.assert_has_request(Request(
@@ -67,8 +67,8 @@ class TollFreeTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.api.v2010.accounts(sid="ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .available_phone_numbers(country_code="US") \
+        actual = self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                      .available_phone_numbers("US") \
                                       .toll_free.list()
 
         self.assertIsNotNone(actual)
@@ -93,8 +93,8 @@ class TollFreeTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.api.v2010.accounts(sid="ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .available_phone_numbers(country_code="US") \
+        actual = self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                      .available_phone_numbers("US") \
                                       .toll_free.list()
 
         self.assertIsNotNone(actual)

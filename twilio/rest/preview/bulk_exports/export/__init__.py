@@ -54,7 +54,7 @@ class ExportList(ListResource):
         """
         Constructs a ExportContext
 
-        :param resource_type: The resource_type
+        :param resource_type: The type of communication – Messages, Calls
 
         :returns: twilio.rest.preview.bulk_exports.export.ExportContext
         :rtype: twilio.rest.preview.bulk_exports.export.ExportContext
@@ -65,7 +65,7 @@ class ExportList(ListResource):
         """
         Constructs a ExportContext
 
-        :param resource_type: The resource_type
+        :param resource_type: The type of communication – Messages, Calls
 
         :returns: twilio.rest.preview.bulk_exports.export.ExportContext
         :rtype: twilio.rest.preview.bulk_exports.export.ExportContext
@@ -133,7 +133,7 @@ class ExportContext(InstanceContext):
         Initialize the ExportContext
 
         :param Version version: Version that contains the resource
-        :param resource_type: The resource_type
+        :param resource_type: The type of communication – Messages, Calls
 
         :returns: twilio.rest.preview.bulk_exports.export.ExportContext
         :rtype: twilio.rest.preview.bulk_exports.export.ExportContext
@@ -238,7 +238,7 @@ class ExportInstance(InstanceResource):
     @property
     def resource_type(self):
         """
-        :returns: The resource_type
+        :returns: The type of communication – Messages, Calls
         :rtype: unicode
         """
         return self._properties['resource_type']
@@ -246,7 +246,7 @@ class ExportInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: The url
+        :returns: The URL of this resource.
         :rtype: unicode
         """
         return self._properties['url']
@@ -254,7 +254,7 @@ class ExportInstance(InstanceResource):
     @property
     def links(self):
         """
-        :returns: The links
+        :returns: Nested resource URLs.
         :rtype: unicode
         """
         return self._properties['links']

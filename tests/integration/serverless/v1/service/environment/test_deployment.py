@@ -18,8 +18,8 @@ class DeploymentTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.serverless.v1.services(sid="ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                     .environments(sid="ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+            self.client.serverless.v1.services("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                     .environments("ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                      .deployments.list()
 
         self.holodeck.assert_has_request(Request(
@@ -46,8 +46,8 @@ class DeploymentTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.serverless.v1.services(sid="ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                          .environments(sid="ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+        actual = self.client.serverless.v1.services("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                          .environments("ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                           .deployments.list()
 
         self.assertIsNotNone(actual)
@@ -56,9 +56,9 @@ class DeploymentTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.serverless.v1.services(sid="ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                     .environments(sid="ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                     .deployments(sid="ZDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+            self.client.serverless.v1.services("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                     .environments("ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                     .deployments("ZDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.holodeck.assert_has_request(Request(
             'get',
@@ -82,9 +82,9 @@ class DeploymentTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.serverless.v1.services(sid="ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                          .environments(sid="ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                          .deployments(sid="ZDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+        actual = self.client.serverless.v1.services("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                          .environments("ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                          .deployments("ZDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.assertIsNotNone(actual)
 
@@ -92,8 +92,8 @@ class DeploymentTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.serverless.v1.services(sid="ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                     .environments(sid="ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+            self.client.serverless.v1.services("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                     .environments("ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                      .deployments.create(build_sid="ZBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
 
         values = {'BuildSid': "ZBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", }
@@ -121,8 +121,8 @@ class DeploymentTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.serverless.v1.services(sid="ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                          .environments(sid="ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+        actual = self.client.serverless.v1.services("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                          .environments("ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                           .deployments.create(build_sid="ZBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
 
         self.assertIsNotNone(actual)

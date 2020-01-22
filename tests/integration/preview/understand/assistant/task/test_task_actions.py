@@ -18,8 +18,8 @@ class TaskActionsTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.preview.understand.assistants(sid="UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                          .tasks(sid="UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+            self.client.preview.understand.assistants("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                          .tasks("UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                           .task_actions().fetch()
 
         self.holodeck.assert_has_request(Request(
@@ -41,8 +41,8 @@ class TaskActionsTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.preview.understand.assistants(sid="UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                               .tasks(sid="UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+        actual = self.client.preview.understand.assistants("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                               .tasks("UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                                .task_actions().fetch()
 
         self.assertIsNotNone(actual)
@@ -51,8 +51,8 @@ class TaskActionsTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.preview.understand.assistants(sid="UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                          .tasks(sid="UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+            self.client.preview.understand.assistants("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                          .tasks("UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                           .task_actions().update()
 
         self.holodeck.assert_has_request(Request(
@@ -74,8 +74,8 @@ class TaskActionsTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.preview.understand.assistants(sid="UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                               .tasks(sid="UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+        actual = self.client.preview.understand.assistants("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                               .tasks("UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                                .task_actions().update()
 
         self.assertIsNotNone(actual)

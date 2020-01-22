@@ -23,7 +23,7 @@ class DayList(ListResource):
         Initialize the DayList
 
         :param Version version: Version that contains the resource
-        :param resource_type: The resource_type
+        :param resource_type: The type of communication – Messages, Calls
 
         :returns: twilio.rest.preview.bulk_exports.export.day.DayList
         :rtype: twilio.rest.preview.bulk_exports.export.day.DayList
@@ -132,7 +132,7 @@ class DayPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param resource_type: The resource_type
+        :param resource_type: The type of communication – Messages, Calls
 
         :returns: twilio.rest.preview.bulk_exports.export.day.DayPage
         :rtype: twilio.rest.preview.bulk_exports.export.day.DayPage
@@ -200,7 +200,7 @@ class DayInstance(InstanceResource):
     @property
     def day(self):
         """
-        :returns: The day
+        :returns: The date of the data in the file
         :rtype: unicode
         """
         return self._properties['day']
@@ -208,7 +208,7 @@ class DayInstance(InstanceResource):
     @property
     def size(self):
         """
-        :returns: The size
+        :returns: Size of the file in bytes
         :rtype: unicode
         """
         return self._properties['size']
@@ -216,7 +216,7 @@ class DayInstance(InstanceResource):
     @property
     def resource_type(self):
         """
-        :returns: The resource_type
+        :returns: The type of communication – Messages, Calls
         :rtype: unicode
         """
         return self._properties['resource_type']

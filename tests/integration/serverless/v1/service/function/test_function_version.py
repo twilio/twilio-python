@@ -18,8 +18,8 @@ class FunctionVersionTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.serverless.v1.services(sid="ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                     .functions(sid="ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+            self.client.serverless.v1.services("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                     .functions("ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                      .function_versions.list()
 
         self.holodeck.assert_has_request(Request(
@@ -46,8 +46,8 @@ class FunctionVersionTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.serverless.v1.services(sid="ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                          .functions(sid="ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+        actual = self.client.serverless.v1.services("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                          .functions("ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                           .function_versions.list()
 
         self.assertIsNotNone(actual)
@@ -56,9 +56,9 @@ class FunctionVersionTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.serverless.v1.services(sid="ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                     .functions(sid="ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                     .function_versions(sid="ZNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+            self.client.serverless.v1.services("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                     .functions("ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                     .function_versions("ZNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.holodeck.assert_has_request(Request(
             'get',
@@ -82,8 +82,8 @@ class FunctionVersionTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.serverless.v1.services(sid="ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                          .functions(sid="ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                          .function_versions(sid="ZNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+        actual = self.client.serverless.v1.services("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                          .functions("ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                          .function_versions("ZNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.assertIsNotNone(actual)

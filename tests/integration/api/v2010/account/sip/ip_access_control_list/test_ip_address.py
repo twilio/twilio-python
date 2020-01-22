@@ -18,9 +18,9 @@ class IpAddressTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.api.v2010.accounts(sid="ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+            self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                  .sip \
-                                 .ip_access_control_lists(sid="ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                 .ip_access_control_lists("ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                  .ip_addresses.list()
 
         self.holodeck.assert_has_request(Request(
@@ -58,9 +58,9 @@ class IpAddressTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.api.v2010.accounts(sid="ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+        actual = self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                       .sip \
-                                      .ip_access_control_lists(sid="ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                      .ip_access_control_lists("ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                       .ip_addresses.list()
 
         self.assertIsNotNone(actual)
@@ -83,9 +83,9 @@ class IpAddressTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.api.v2010.accounts(sid="ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+        actual = self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                       .sip \
-                                      .ip_access_control_lists(sid="ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                      .ip_access_control_lists("ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                       .ip_addresses.list()
 
         self.assertIsNotNone(actual)
@@ -94,9 +94,9 @@ class IpAddressTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.api.v2010.accounts(sid="ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+            self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                  .sip \
-                                 .ip_access_control_lists(sid="ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                 .ip_access_control_lists("ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                  .ip_addresses.create(friendly_name="friendly_name", ip_address="ip_address")
 
         values = {'FriendlyName': "friendly_name", 'IpAddress': "ip_address", }
@@ -125,9 +125,9 @@ class IpAddressTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.api.v2010.accounts(sid="ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+        actual = self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                       .sip \
-                                      .ip_access_control_lists(sid="ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                      .ip_access_control_lists("ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                       .ip_addresses.create(friendly_name="friendly_name", ip_address="ip_address")
 
         self.assertIsNotNone(actual)
@@ -136,10 +136,10 @@ class IpAddressTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.api.v2010.accounts(sid="ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+            self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                  .sip \
-                                 .ip_access_control_lists(sid="ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .ip_addresses(sid="IPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+                                 .ip_access_control_lists("ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                 .ip_addresses("IPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.holodeck.assert_has_request(Request(
             'get',
@@ -164,10 +164,10 @@ class IpAddressTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.api.v2010.accounts(sid="ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+        actual = self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                       .sip \
-                                      .ip_access_control_lists(sid="ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .ip_addresses(sid="IPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+                                      .ip_access_control_lists("ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                      .ip_addresses("IPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.assertIsNotNone(actual)
 
@@ -175,10 +175,10 @@ class IpAddressTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.api.v2010.accounts(sid="ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+            self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                  .sip \
-                                 .ip_access_control_lists(sid="ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .ip_addresses(sid="IPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
+                                 .ip_access_control_lists("ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                 .ip_addresses("IPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
 
         self.holodeck.assert_has_request(Request(
             'post',
@@ -203,10 +203,10 @@ class IpAddressTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.api.v2010.accounts(sid="ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+        actual = self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                       .sip \
-                                      .ip_access_control_lists(sid="ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .ip_addresses(sid="IPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
+                                      .ip_access_control_lists("ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                      .ip_addresses("IPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
 
         self.assertIsNotNone(actual)
 
@@ -214,10 +214,10 @@ class IpAddressTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.api.v2010.accounts(sid="ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+            self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                  .sip \
-                                 .ip_access_control_lists(sid="ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .ip_addresses(sid="IPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+                                 .ip_access_control_lists("ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                 .ip_addresses("IPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
 
         self.holodeck.assert_has_request(Request(
             'delete',
@@ -230,9 +230,9 @@ class IpAddressTestCase(IntegrationTestCase):
             None,
         ))
 
-        actual = self.client.api.v2010.accounts(sid="ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+        actual = self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                       .sip \
-                                      .ip_access_control_lists(sid="ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .ip_addresses(sid="IPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+                                      .ip_access_control_lists("ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                      .ip_addresses("IPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
 
         self.assertTrue(actual)

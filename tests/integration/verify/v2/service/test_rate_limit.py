@@ -18,7 +18,7 @@ class RateLimitTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.verify.v2.services(sid="VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+            self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                  .rate_limits.create(unique_name="unique_name")
 
         values = {'UniqueName': "unique_name", }
@@ -49,7 +49,7 @@ class RateLimitTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.verify.v2.services(sid="VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+        actual = self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                       .rate_limits.create(unique_name="unique_name")
 
         self.assertIsNotNone(actual)
@@ -58,8 +58,8 @@ class RateLimitTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.verify.v2.services(sid="VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .rate_limits(sid="RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
+            self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                 .rate_limits("RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
 
         self.holodeck.assert_has_request(Request(
             'post',
@@ -86,8 +86,8 @@ class RateLimitTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.verify.v2.services(sid="VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .rate_limits(sid="RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
+        actual = self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                      .rate_limits("RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
 
         self.assertIsNotNone(actual)
 
@@ -95,8 +95,8 @@ class RateLimitTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.verify.v2.services(sid="VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .rate_limits(sid="RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+            self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                 .rate_limits("RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.holodeck.assert_has_request(Request(
             'get',
@@ -123,8 +123,8 @@ class RateLimitTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.verify.v2.services(sid="VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .rate_limits(sid="RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+        actual = self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                      .rate_limits("RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.assertIsNotNone(actual)
 
@@ -132,7 +132,7 @@ class RateLimitTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.verify.v2.services(sid="VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+            self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                  .rate_limits.list()
 
         self.holodeck.assert_has_request(Request(
@@ -173,7 +173,7 @@ class RateLimitTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.verify.v2.services(sid="VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+        actual = self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                       .rate_limits.list()
 
         self.assertIsNotNone(actual)
@@ -182,8 +182,8 @@ class RateLimitTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.verify.v2.services(sid="VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .rate_limits(sid="RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+            self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                 .rate_limits("RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
 
         self.holodeck.assert_has_request(Request(
             'delete',
@@ -196,7 +196,7 @@ class RateLimitTestCase(IntegrationTestCase):
             None,
         ))
 
-        actual = self.client.verify.v2.services(sid="VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .rate_limits(sid="RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+        actual = self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                      .rate_limits("RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
 
         self.assertTrue(actual)

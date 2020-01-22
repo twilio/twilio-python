@@ -84,7 +84,7 @@ class WebChannelTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.flex_api.v1.web_channel(sid="CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+            self.client.flex_api.v1.web_channel("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.holodeck.assert_has_request(Request(
             'get',
@@ -106,7 +106,7 @@ class WebChannelTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.flex_api.v1.web_channel(sid="CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+        actual = self.client.flex_api.v1.web_channel("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.assertIsNotNone(actual)
 
@@ -152,7 +152,7 @@ class WebChannelTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.flex_api.v1.web_channel(sid="CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
+            self.client.flex_api.v1.web_channel("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
 
         self.holodeck.assert_has_request(Request(
             'post',
@@ -174,7 +174,7 @@ class WebChannelTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.flex_api.v1.web_channel(sid="CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
+        actual = self.client.flex_api.v1.web_channel("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
 
         self.assertIsNotNone(actual)
 
@@ -182,7 +182,7 @@ class WebChannelTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.flex_api.v1.web_channel(sid="CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+            self.client.flex_api.v1.web_channel("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
 
         self.holodeck.assert_has_request(Request(
             'delete',
@@ -195,6 +195,6 @@ class WebChannelTestCase(IntegrationTestCase):
             None,
         ))
 
-        actual = self.client.flex_api.v1.web_channel(sid="CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+        actual = self.client.flex_api.v1.web_channel("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
 
         self.assertTrue(actual)

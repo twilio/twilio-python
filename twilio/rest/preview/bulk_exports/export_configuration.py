@@ -36,7 +36,7 @@ class ExportConfigurationList(ListResource):
         """
         Constructs a ExportConfigurationContext
 
-        :param resource_type: The resource_type
+        :param resource_type: The type of communication – Messages, Calls
 
         :returns: twilio.rest.preview.bulk_exports.export_configuration.ExportConfigurationContext
         :rtype: twilio.rest.preview.bulk_exports.export_configuration.ExportConfigurationContext
@@ -47,7 +47,7 @@ class ExportConfigurationList(ListResource):
         """
         Constructs a ExportConfigurationContext
 
-        :param resource_type: The resource_type
+        :param resource_type: The type of communication – Messages, Calls
 
         :returns: twilio.rest.preview.bulk_exports.export_configuration.ExportConfigurationContext
         :rtype: twilio.rest.preview.bulk_exports.export_configuration.ExportConfigurationContext
@@ -115,7 +115,7 @@ class ExportConfigurationContext(InstanceContext):
         Initialize the ExportConfigurationContext
 
         :param Version version: Version that contains the resource
-        :param resource_type: The resource_type
+        :param resource_type: The type of communication – Messages, Calls
 
         :returns: twilio.rest.preview.bulk_exports.export_configuration.ExportConfigurationContext
         :rtype: twilio.rest.preview.bulk_exports.export_configuration.ExportConfigurationContext
@@ -146,9 +146,9 @@ class ExportConfigurationContext(InstanceContext):
         """
         Update the ExportConfigurationInstance
 
-        :param bool enabled: The enabled
-        :param unicode webhook_url: The webhook_url
-        :param unicode webhook_method: The webhook_method
+        :param bool enabled: Whether files are automatically generated
+        :param unicode webhook_url: URL targeted at export
+        :param unicode webhook_method: Whether to GET or POST to the webhook url
 
         :returns: The updated ExportConfigurationInstance
         :rtype: twilio.rest.preview.bulk_exports.export_configuration.ExportConfigurationInstance
@@ -220,7 +220,7 @@ class ExportConfigurationInstance(InstanceResource):
     @property
     def enabled(self):
         """
-        :returns: The enabled
+        :returns: Whether files are automatically generated
         :rtype: bool
         """
         return self._properties['enabled']
@@ -228,7 +228,7 @@ class ExportConfigurationInstance(InstanceResource):
     @property
     def webhook_url(self):
         """
-        :returns: The webhook_url
+        :returns: URL targeted at export
         :rtype: unicode
         """
         return self._properties['webhook_url']
@@ -236,7 +236,7 @@ class ExportConfigurationInstance(InstanceResource):
     @property
     def webhook_method(self):
         """
-        :returns: The webhook_method
+        :returns: Whether to GET or POST to the webhook url
         :rtype: unicode
         """
         return self._properties['webhook_method']
@@ -244,7 +244,7 @@ class ExportConfigurationInstance(InstanceResource):
     @property
     def resource_type(self):
         """
-        :returns: The resource_type
+        :returns: The type of communication – Messages, Calls
         :rtype: unicode
         """
         return self._properties['resource_type']
@@ -252,7 +252,7 @@ class ExportConfigurationInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: The url
+        :returns: The URL of this resource.
         :rtype: unicode
         """
         return self._properties['url']
@@ -271,9 +271,9 @@ class ExportConfigurationInstance(InstanceResource):
         """
         Update the ExportConfigurationInstance
 
-        :param bool enabled: The enabled
-        :param unicode webhook_url: The webhook_url
-        :param unicode webhook_method: The webhook_method
+        :param bool enabled: Whether files are automatically generated
+        :param unicode webhook_url: URL targeted at export
+        :param unicode webhook_method: Whether to GET or POST to the webhook url
 
         :returns: The updated ExportConfigurationInstance
         :rtype: twilio.rest.preview.bulk_exports.export_configuration.ExportConfigurationInstance

@@ -18,8 +18,8 @@ class ChannelTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.ip_messaging.v2.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                       .channels(sid="CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+            self.client.ip_messaging.v2.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                       .channels("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.holodeck.assert_has_request(Request(
             'get',
@@ -55,8 +55,8 @@ class ChannelTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.ip_messaging.v2.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                            .channels(sid="CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+        actual = self.client.ip_messaging.v2.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                            .channels("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.assertIsNotNone(actual)
 
@@ -64,8 +64,8 @@ class ChannelTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.ip_messaging.v2.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                       .channels(sid="CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete(x_twilio_webhook_enabled="true")
+            self.client.ip_messaging.v2.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                       .channels("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete(x_twilio_webhook_enabled="true")
 
         headers = {'X-Twilio-Webhook-Enabled': "true", }
         self.holodeck.assert_has_request(Request(
@@ -80,8 +80,8 @@ class ChannelTestCase(IntegrationTestCase):
             None,
         ))
 
-        actual = self.client.ip_messaging.v2.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                            .channels(sid="CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+        actual = self.client.ip_messaging.v2.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                            .channels("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
 
         self.assertTrue(actual)
 
@@ -89,7 +89,7 @@ class ChannelTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.ip_messaging.v2.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+            self.client.ip_messaging.v2.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                        .channels.create(x_twilio_webhook_enabled="true")
 
         headers = {'X-Twilio-Webhook-Enabled': "true", }
@@ -128,7 +128,7 @@ class ChannelTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.ip_messaging.v2.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+        actual = self.client.ip_messaging.v2.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                             .channels.create()
 
         self.assertIsNotNone(actual)
@@ -137,7 +137,7 @@ class ChannelTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.ip_messaging.v2.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+            self.client.ip_messaging.v2.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                        .channels.list()
 
         self.holodeck.assert_has_request(Request(
@@ -187,7 +187,7 @@ class ChannelTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.ip_messaging.v2.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+        actual = self.client.ip_messaging.v2.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                             .channels.list()
 
         self.assertIsNotNone(actual)
@@ -211,7 +211,7 @@ class ChannelTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.ip_messaging.v2.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+        actual = self.client.ip_messaging.v2.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                             .channels.list()
 
         self.assertIsNotNone(actual)
@@ -220,8 +220,8 @@ class ChannelTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.ip_messaging.v2.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                       .channels(sid="CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update(x_twilio_webhook_enabled="true")
+            self.client.ip_messaging.v2.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                       .channels("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update(x_twilio_webhook_enabled="true")
 
         headers = {'X-Twilio-Webhook-Enabled': "true", }
         self.holodeck.assert_has_request(Request(
@@ -259,7 +259,7 @@ class ChannelTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.ip_messaging.v2.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                            .channels(sid="CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
+        actual = self.client.ip_messaging.v2.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                            .channels("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
 
         self.assertIsNotNone(actual)

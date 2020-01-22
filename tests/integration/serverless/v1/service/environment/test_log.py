@@ -18,8 +18,8 @@ class LogTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.serverless.v1.services(sid="ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                     .environments(sid="ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+            self.client.serverless.v1.services("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                     .environments("ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                      .logs.list()
 
         self.holodeck.assert_has_request(Request(
@@ -46,8 +46,8 @@ class LogTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.serverless.v1.services(sid="ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                          .environments(sid="ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+        actual = self.client.serverless.v1.services("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                          .environments("ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                           .logs.list()
 
         self.assertIsNotNone(actual)
@@ -56,9 +56,9 @@ class LogTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.serverless.v1.services(sid="ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                     .environments(sid="ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                     .logs(sid="NOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+            self.client.serverless.v1.services("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                     .environments("ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                     .logs("NOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.holodeck.assert_has_request(Request(
             'get',
@@ -85,8 +85,8 @@ class LogTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.serverless.v1.services(sid="ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                          .environments(sid="ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                          .logs(sid="NOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+        actual = self.client.serverless.v1.services("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                          .environments("ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                          .logs("NOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.assertIsNotNone(actual)

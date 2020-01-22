@@ -137,7 +137,7 @@ class SupportingDocumentTestCase(IntegrationTestCase):
 
         with self.assertRaises(TwilioException):
             self.client.numbers.v2.regulatory_compliance \
-                                  .supporting_documents(sid="RDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+                                  .supporting_documents("RDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.holodeck.assert_has_request(Request(
             'get',
@@ -167,7 +167,7 @@ class SupportingDocumentTestCase(IntegrationTestCase):
         ))
 
         actual = self.client.numbers.v2.regulatory_compliance \
-                                       .supporting_documents(sid="RDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+                                       .supporting_documents("RDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.assertIsNotNone(actual)
 
@@ -176,7 +176,7 @@ class SupportingDocumentTestCase(IntegrationTestCase):
 
         with self.assertRaises(TwilioException):
             self.client.numbers.v2.regulatory_compliance \
-                                  .supporting_documents(sid="RDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
+                                  .supporting_documents("RDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
 
         self.holodeck.assert_has_request(Request(
             'post',
@@ -206,6 +206,6 @@ class SupportingDocumentTestCase(IntegrationTestCase):
         ))
 
         actual = self.client.numbers.v2.regulatory_compliance \
-                                       .supporting_documents(sid="RDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
+                                       .supporting_documents("RDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
 
         self.assertIsNotNone(actual)

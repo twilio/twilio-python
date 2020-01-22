@@ -18,9 +18,9 @@ class StepContextTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.studio.v1.flows(sid="FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .engagements(sid="FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .steps(sid="FTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+            self.client.studio.v1.flows("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                 .engagements("FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                 .steps("FTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                  .step_context().fetch()
 
         self.holodeck.assert_has_request(Request(
@@ -45,9 +45,9 @@ class StepContextTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.studio.v1.flows(sid="FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .engagements(sid="FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .steps(sid="FTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+        actual = self.client.studio.v1.flows("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                      .engagements("FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                      .steps("FTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                       .step_context().fetch()
 
         self.assertIsNotNone(actual)

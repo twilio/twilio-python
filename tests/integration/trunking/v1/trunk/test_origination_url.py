@@ -18,8 +18,8 @@ class OriginationUrlTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.trunking.v1.trunks(sid="TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                   .origination_urls(sid="OUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+            self.client.trunking.v1.trunks("TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                   .origination_urls("OUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.holodeck.assert_has_request(Request(
             'get',
@@ -46,8 +46,8 @@ class OriginationUrlTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.trunking.v1.trunks(sid="TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                        .origination_urls(sid="OUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+        actual = self.client.trunking.v1.trunks("TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                        .origination_urls("OUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.assertIsNotNone(actual)
 
@@ -55,8 +55,8 @@ class OriginationUrlTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.trunking.v1.trunks(sid="TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                   .origination_urls(sid="OUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+            self.client.trunking.v1.trunks("TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                   .origination_urls("OUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
 
         self.holodeck.assert_has_request(Request(
             'delete',
@@ -69,8 +69,8 @@ class OriginationUrlTestCase(IntegrationTestCase):
             None,
         ))
 
-        actual = self.client.trunking.v1.trunks(sid="TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                        .origination_urls(sid="OUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+        actual = self.client.trunking.v1.trunks("TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                        .origination_urls("OUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
 
         self.assertTrue(actual)
 
@@ -78,7 +78,7 @@ class OriginationUrlTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.trunking.v1.trunks(sid="TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+            self.client.trunking.v1.trunks("TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                    .origination_urls.create(weight=1, priority=1, enabled=True, friendly_name="friendly_name", sip_url="https://example.com")
 
         values = {
@@ -115,7 +115,7 @@ class OriginationUrlTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.trunking.v1.trunks(sid="TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+        actual = self.client.trunking.v1.trunks("TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                         .origination_urls.create(weight=1, priority=1, enabled=True, friendly_name="friendly_name", sip_url="https://example.com")
 
         self.assertIsNotNone(actual)
@@ -124,7 +124,7 @@ class OriginationUrlTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.trunking.v1.trunks(sid="TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+            self.client.trunking.v1.trunks("TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                    .origination_urls.list()
 
         self.holodeck.assert_has_request(Request(
@@ -165,7 +165,7 @@ class OriginationUrlTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.trunking.v1.trunks(sid="TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+        actual = self.client.trunking.v1.trunks("TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                         .origination_urls.list()
 
         self.assertIsNotNone(actual)
@@ -189,7 +189,7 @@ class OriginationUrlTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.trunking.v1.trunks(sid="TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+        actual = self.client.trunking.v1.trunks("TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                         .origination_urls.list()
 
         self.assertIsNotNone(actual)
@@ -198,8 +198,8 @@ class OriginationUrlTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.trunking.v1.trunks(sid="TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                   .origination_urls(sid="OUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
+            self.client.trunking.v1.trunks("TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                   .origination_urls("OUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
 
         self.holodeck.assert_has_request(Request(
             'post',
@@ -226,7 +226,7 @@ class OriginationUrlTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.trunking.v1.trunks(sid="TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                        .origination_urls(sid="OUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
+        actual = self.client.trunking.v1.trunks("TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                        .origination_urls("OUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
 
         self.assertIsNotNone(actual)

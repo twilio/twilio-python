@@ -101,7 +101,7 @@ class RatePlanTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.wireless.v1.rate_plans(sid="WPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+            self.client.wireless.v1.rate_plans("WPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.holodeck.assert_has_request(Request(
             'get',
@@ -140,7 +140,7 @@ class RatePlanTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.wireless.v1.rate_plans(sid="WPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+        actual = self.client.wireless.v1.rate_plans("WPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.assertIsNotNone(actual)
 
@@ -195,7 +195,7 @@ class RatePlanTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.wireless.v1.rate_plans(sid="WPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
+            self.client.wireless.v1.rate_plans("WPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
 
         self.holodeck.assert_has_request(Request(
             'post',
@@ -234,7 +234,7 @@ class RatePlanTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.wireless.v1.rate_plans(sid="WPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
+        actual = self.client.wireless.v1.rate_plans("WPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
 
         self.assertIsNotNone(actual)
 
@@ -242,7 +242,7 @@ class RatePlanTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.wireless.v1.rate_plans(sid="WPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+            self.client.wireless.v1.rate_plans("WPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
 
         self.holodeck.assert_has_request(Request(
             'delete',
@@ -255,6 +255,6 @@ class RatePlanTestCase(IntegrationTestCase):
             None,
         ))
 
-        actual = self.client.wireless.v1.rate_plans(sid="WPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+        actual = self.client.wireless.v1.rate_plans("WPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
 
         self.assertTrue(actual)

@@ -18,7 +18,7 @@ class CompositionTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.video.v1.compositions(sid="CJXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+            self.client.video.v1.compositions("CJXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.holodeck.assert_has_request(Request(
             'get',
@@ -94,7 +94,7 @@ class CompositionTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.video.v1.compositions(sid="CJXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+        actual = self.client.video.v1.compositions("CJXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.assertIsNotNone(actual)
 
@@ -241,7 +241,7 @@ class CompositionTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.video.v1.compositions(sid="CJXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+            self.client.video.v1.compositions("CJXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
 
         self.holodeck.assert_has_request(Request(
             'delete',
@@ -254,7 +254,7 @@ class CompositionTestCase(IntegrationTestCase):
             None,
         ))
 
-        actual = self.client.video.v1.compositions(sid="CJXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+        actual = self.client.video.v1.compositions("CJXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
 
         self.assertTrue(actual)
 

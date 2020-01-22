@@ -18,7 +18,7 @@ class UsageRecordTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.wireless.v1.sims(sid="DEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+            self.client.wireless.v1.sims("DEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                    .usage_records.list()
 
         self.holodeck.assert_has_request(Request(
@@ -108,7 +108,7 @@ class UsageRecordTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.wireless.v1.sims(sid="DEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+        actual = self.client.wireless.v1.sims("DEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                         .usage_records.list()
 
         self.assertIsNotNone(actual)

@@ -18,7 +18,7 @@ class MessagingConfigurationTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.verify.v2.services(sid="VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+            self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                  .messaging_configurations.create(country="country", messaging_service_sid="MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
 
         values = {'Country': "country", 'MessagingServiceSid': "MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", }
@@ -45,7 +45,7 @@ class MessagingConfigurationTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.verify.v2.services(sid="VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+        actual = self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                       .messaging_configurations.create(country="country", messaging_service_sid="MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
 
         self.assertIsNotNone(actual)
@@ -54,8 +54,8 @@ class MessagingConfigurationTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.verify.v2.services(sid="VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .messaging_configurations(country="country").update(messaging_service_sid="MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                 .messaging_configurations("country").update(messaging_service_sid="MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
 
         values = {'MessagingServiceSid': "MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", }
 
@@ -81,8 +81,8 @@ class MessagingConfigurationTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.verify.v2.services(sid="VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .messaging_configurations(country="country").update(messaging_service_sid="MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+        actual = self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                      .messaging_configurations("country").update(messaging_service_sid="MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
 
         self.assertIsNotNone(actual)
 
@@ -90,8 +90,8 @@ class MessagingConfigurationTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.verify.v2.services(sid="VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .messaging_configurations(country="country").fetch()
+            self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                 .messaging_configurations("country").fetch()
 
         self.holodeck.assert_has_request(Request(
             'get',
@@ -114,8 +114,8 @@ class MessagingConfigurationTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.verify.v2.services(sid="VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .messaging_configurations(country="country").fetch()
+        actual = self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                      .messaging_configurations("country").fetch()
 
         self.assertIsNotNone(actual)
 
@@ -123,7 +123,7 @@ class MessagingConfigurationTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.verify.v2.services(sid="VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+            self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                  .messaging_configurations.list()
 
         self.holodeck.assert_has_request(Request(
@@ -150,7 +150,7 @@ class MessagingConfigurationTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.verify.v2.services(sid="VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+        actual = self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                       .messaging_configurations.list()
 
         self.assertIsNotNone(actual)
@@ -184,7 +184,7 @@ class MessagingConfigurationTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.verify.v2.services(sid="VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+        actual = self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                       .messaging_configurations.list()
 
         self.assertIsNotNone(actual)
@@ -193,8 +193,8 @@ class MessagingConfigurationTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.verify.v2.services(sid="VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .messaging_configurations(country="country").delete()
+            self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                 .messaging_configurations("country").delete()
 
         self.holodeck.assert_has_request(Request(
             'delete',
@@ -207,7 +207,7 @@ class MessagingConfigurationTestCase(IntegrationTestCase):
             None,
         ))
 
-        actual = self.client.verify.v2.services(sid="VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .messaging_configurations(country="country").delete()
+        actual = self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                      .messaging_configurations("country").delete()
 
         self.assertTrue(actual)

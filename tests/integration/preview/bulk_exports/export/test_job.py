@@ -19,7 +19,7 @@ class JobTestCase(IntegrationTestCase):
 
         with self.assertRaises(TwilioException):
             self.client.preview.bulk_exports.exports \
-                                            .jobs(job_sid="JSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+                                            .jobs("JSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.holodeck.assert_has_request(Request(
             'get',
@@ -37,13 +37,16 @@ class JobTestCase(IntegrationTestCase):
                 "friendly_name": "friendly_name",
                 "end_day": "end_day",
                 "details": {},
+                "webhook_url": "webhook_url",
+                "webhook_method": "webhook_method",
+                "email": "email",
                 "resource_type": "resource_type"
             }
             '''
         ))
 
         actual = self.client.preview.bulk_exports.exports \
-                                                 .jobs(job_sid="JSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+                                                 .jobs("JSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.assertIsNotNone(actual)
 
@@ -52,7 +55,7 @@ class JobTestCase(IntegrationTestCase):
 
         with self.assertRaises(TwilioException):
             self.client.preview.bulk_exports.exports \
-                                            .jobs(job_sid="JSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+                                            .jobs("JSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
 
         self.holodeck.assert_has_request(Request(
             'delete',
@@ -66,6 +69,6 @@ class JobTestCase(IntegrationTestCase):
         ))
 
         actual = self.client.preview.bulk_exports.exports \
-                                                 .jobs(job_sid="JSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+                                                 .jobs("JSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
 
         self.assertTrue(actual)

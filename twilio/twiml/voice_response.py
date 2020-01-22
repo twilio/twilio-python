@@ -505,17 +505,18 @@ class Stop(TwiML):
         """
         return self.nest(Stream(name=name, connector_name=connector_name, url=url, track=track, **kwargs))
 
-    def siprec(self, name=None, connector_name=None, **kwargs):
+    def siprec(self, name=None, connector_name=None, track=None, **kwargs):
         """
         Create a <Siprec> element
 
         :param name: Friendly name given to SIPREC
         :param connector_name: Unique name for Connector
+        :param track: Track to be streamed to remote service
         :param kwargs: additional attributes
 
         :returns: <Siprec> element
         """
-        return self.nest(Siprec(name=name, connector_name=connector_name, **kwargs))
+        return self.nest(Siprec(name=name, connector_name=connector_name, track=track, **kwargs))
 
 
 class Siprec(TwiML):
@@ -588,17 +589,18 @@ class Start(TwiML):
         """
         return self.nest(Stream(name=name, connector_name=connector_name, url=url, track=track, **kwargs))
 
-    def siprec(self, name=None, connector_name=None, **kwargs):
+    def siprec(self, name=None, connector_name=None, track=None, **kwargs):
         """
         Create a <Siprec> element
 
         :param name: Friendly name given to SIPREC
         :param connector_name: Unique name for Connector
+        :param track: Track to be streamed to remote service
         :param kwargs: additional attributes
 
         :returns: <Siprec> element
         """
-        return self.nest(Siprec(name=name, connector_name=connector_name, **kwargs))
+        return self.nest(Siprec(name=name, connector_name=connector_name, track=track, **kwargs))
 
 
 class Prompt(TwiML):
@@ -1299,7 +1301,7 @@ class Dial(TwiML):
 
     def number(self, phone_number, send_digits=None, url=None, method=None,
                status_callback_event=None, status_callback=None,
-               status_callback_method=None, **kwargs):
+               status_callback_method=None, byoc=None, **kwargs):
         """
         Create a <Number> element
 
@@ -1310,6 +1312,7 @@ class Dial(TwiML):
         :param status_callback_event: Events to call status callback
         :param status_callback: Status callback URL
         :param status_callback_method: Status callback URL method
+        :param byoc: BYOC trunk SID (Beta)
         :param kwargs: additional attributes
 
         :returns: <Number> element
@@ -1322,6 +1325,7 @@ class Dial(TwiML):
             status_callback_event=status_callback_event,
             status_callback=status_callback,
             status_callback_method=status_callback_method,
+            byoc=byoc,
             **kwargs
         ))
 

@@ -18,8 +18,8 @@ class MachineToMachineTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.api.v2010.accounts(sid="ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .available_phone_numbers(country_code="US") \
+            self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                 .available_phone_numbers("US") \
                                  .machine_to_machine.list()
 
         self.holodeck.assert_has_request(Request(
@@ -68,8 +68,8 @@ class MachineToMachineTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.api.v2010.accounts(sid="ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .available_phone_numbers(country_code="US") \
+        actual = self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                      .available_phone_numbers("US") \
                                       .machine_to_machine.list()
 
         self.assertIsNotNone(actual)
@@ -94,8 +94,8 @@ class MachineToMachineTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.api.v2010.accounts(sid="ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .available_phone_numbers(country_code="US") \
+        actual = self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                      .available_phone_numbers("US") \
                                       .machine_to_machine.list()
 
         self.assertIsNotNone(actual)

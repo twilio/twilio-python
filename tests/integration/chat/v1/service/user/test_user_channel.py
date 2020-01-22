@@ -18,8 +18,8 @@ class UserChannelTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.chat.v1.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                               .users(sid="USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+            self.client.chat.v1.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                               .users("USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                .user_channels.list()
 
         self.holodeck.assert_has_request(Request(
@@ -60,8 +60,8 @@ class UserChannelTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.chat.v1.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                    .users(sid="USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+        actual = self.client.chat.v1.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                    .users("USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                     .user_channels.list()
 
         self.assertIsNotNone(actual)
@@ -85,8 +85,8 @@ class UserChannelTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.chat.v1.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                    .users(sid="USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+        actual = self.client.chat.v1.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                    .users("USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                     .user_channels.list()
 
         self.assertIsNotNone(actual)

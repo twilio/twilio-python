@@ -18,7 +18,7 @@ class ExportCustomJobTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.preview.bulk_exports.exports(resource_type="resource_type") \
+            self.client.preview.bulk_exports.exports("resource_type") \
                                             .export_custom_jobs.list()
 
         self.holodeck.assert_has_request(Request(
@@ -45,7 +45,7 @@ class ExportCustomJobTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.preview.bulk_exports.exports(resource_type="resource_type") \
+        actual = self.client.preview.bulk_exports.exports("resource_type") \
                                                  .export_custom_jobs.list()
 
         self.assertIsNotNone(actual)
@@ -81,7 +81,7 @@ class ExportCustomJobTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.preview.bulk_exports.exports(resource_type="resource_type") \
+        actual = self.client.preview.bulk_exports.exports("resource_type") \
                                                  .export_custom_jobs.list()
 
         self.assertIsNotNone(actual)
@@ -90,7 +90,7 @@ class ExportCustomJobTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.preview.bulk_exports.exports(resource_type="resource_type") \
+            self.client.preview.bulk_exports.exports("resource_type") \
                                             .export_custom_jobs.create()
 
         self.holodeck.assert_has_request(Request(
@@ -116,7 +116,7 @@ class ExportCustomJobTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.preview.bulk_exports.exports(resource_type="resource_type") \
+        actual = self.client.preview.bulk_exports.exports("resource_type") \
                                                  .export_custom_jobs.create()
 
         self.assertIsNotNone(actual)

@@ -18,7 +18,7 @@ class SuccessRateTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.preview.trusted_comms.businesses(sid="BXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+            self.client.preview.trusted_comms.businesses("BXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                              .insights \
                                              .success_rate().fetch()
 
@@ -50,7 +50,7 @@ class SuccessRateTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.preview.trusted_comms.businesses(sid="BXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+        actual = self.client.preview.trusted_comms.businesses("BXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                                   .insights \
                                                   .success_rate().fetch()
 

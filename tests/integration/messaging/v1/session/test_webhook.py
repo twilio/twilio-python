@@ -18,7 +18,7 @@ class WebhookTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.messaging.v1.sessions(sid="CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+            self.client.messaging.v1.sessions("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                     .webhooks.list()
 
         self.holodeck.assert_has_request(Request(
@@ -99,7 +99,7 @@ class WebhookTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.messaging.v1.sessions(sid="CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+        actual = self.client.messaging.v1.sessions("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                          .webhooks.list()
 
         self.assertIsNotNone(actual)
@@ -123,7 +123,7 @@ class WebhookTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.messaging.v1.sessions(sid="CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+        actual = self.client.messaging.v1.sessions("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                          .webhooks.list()
 
         self.assertIsNotNone(actual)
@@ -132,8 +132,8 @@ class WebhookTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.messaging.v1.sessions(sid="CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                    .webhooks(sid="WHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+            self.client.messaging.v1.sessions("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                    .webhooks("WHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.holodeck.assert_has_request(Request(
             'get',
@@ -160,8 +160,8 @@ class WebhookTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.messaging.v1.sessions(sid="CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                         .webhooks(sid="WHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+        actual = self.client.messaging.v1.sessions("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                         .webhooks("WHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.assertIsNotNone(actual)
 
@@ -169,7 +169,7 @@ class WebhookTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.messaging.v1.sessions(sid="CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+            self.client.messaging.v1.sessions("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                     .webhooks.create(target="webhook")
 
         values = {'Target': "webhook", }
@@ -207,7 +207,7 @@ class WebhookTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.messaging.v1.sessions(sid="CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+        actual = self.client.messaging.v1.sessions("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                          .webhooks.create(target="webhook")
 
         self.assertIsNotNone(actual)
@@ -216,8 +216,8 @@ class WebhookTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.messaging.v1.sessions(sid="CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                    .webhooks(sid="WHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
+            self.client.messaging.v1.sessions("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                    .webhooks("WHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
 
         self.holodeck.assert_has_request(Request(
             'post',
@@ -251,8 +251,8 @@ class WebhookTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.messaging.v1.sessions(sid="CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                         .webhooks(sid="WHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
+        actual = self.client.messaging.v1.sessions("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                         .webhooks("WHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
 
         self.assertIsNotNone(actual)
 
@@ -260,8 +260,8 @@ class WebhookTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.messaging.v1.sessions(sid="CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                    .webhooks(sid="WHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+            self.client.messaging.v1.sessions("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                    .webhooks("WHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
 
         self.holodeck.assert_has_request(Request(
             'delete',
@@ -274,7 +274,7 @@ class WebhookTestCase(IntegrationTestCase):
             None,
         ))
 
-        actual = self.client.messaging.v1.sessions(sid="CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                         .webhooks(sid="WHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+        actual = self.client.messaging.v1.sessions("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                         .webhooks("WHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
 
         self.assertTrue(actual)

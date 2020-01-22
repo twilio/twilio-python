@@ -18,7 +18,7 @@ class CompositionHookTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.video.v1.composition_hooks(sid="HKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+            self.client.video.v1.composition_hooks("HKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.holodeck.assert_has_request(Request(
             'get',
@@ -86,7 +86,7 @@ class CompositionHookTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.video.v1.composition_hooks(sid="HKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+        actual = self.client.video.v1.composition_hooks("HKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.assertIsNotNone(actual)
 
@@ -204,7 +204,7 @@ class CompositionHookTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.video.v1.composition_hooks(sid="HKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+            self.client.video.v1.composition_hooks("HKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
 
         self.holodeck.assert_has_request(Request(
             'delete',
@@ -217,7 +217,7 @@ class CompositionHookTestCase(IntegrationTestCase):
             None,
         ))
 
-        actual = self.client.video.v1.composition_hooks(sid="HKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+        actual = self.client.video.v1.composition_hooks("HKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
 
         self.assertTrue(actual)
 
@@ -293,7 +293,7 @@ class CompositionHookTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.video.v1.composition_hooks(sid="HKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update(friendly_name="friendly_name")
+            self.client.video.v1.composition_hooks("HKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update(friendly_name="friendly_name")
 
         values = {'FriendlyName': "friendly_name", }
 
@@ -353,7 +353,7 @@ class CompositionHookTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.video.v1.composition_hooks(sid="HKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update(friendly_name="friendly_name")
+        actual = self.client.video.v1.composition_hooks("HKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update(friendly_name="friendly_name")
 
         self.assertIsNotNone(actual)
 
@@ -386,6 +386,6 @@ class CompositionHookTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.video.v1.composition_hooks(sid="HKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update(friendly_name="friendly_name")
+        actual = self.client.video.v1.composition_hooks("HKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update(friendly_name="friendly_name")
 
         self.assertIsNotNone(actual)

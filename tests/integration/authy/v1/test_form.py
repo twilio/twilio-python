@@ -18,7 +18,7 @@ class FormTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.authy.v1.forms(form_type="form-app-push").fetch()
+            self.client.authy.v1.forms("form-app-push").fetch()
 
         self.holodeck.assert_has_request(Request(
             'get',
@@ -42,6 +42,6 @@ class FormTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.authy.v1.forms(form_type="form-app-push").fetch()
+        actual = self.client.authy.v1.forms("form-app-push").fetch()
 
         self.assertIsNotNone(actual)

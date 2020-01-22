@@ -18,8 +18,8 @@ class UserBindingTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.chat.v2.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                               .users(sid="USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+            self.client.chat.v2.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                               .users("USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                .user_bindings.list()
 
         self.holodeck.assert_has_request(Request(
@@ -66,8 +66,8 @@ class UserBindingTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.chat.v2.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                    .users(sid="USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+        actual = self.client.chat.v2.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                    .users("USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                     .user_bindings.list()
 
         self.assertIsNotNone(actual)
@@ -91,8 +91,8 @@ class UserBindingTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.chat.v2.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                    .users(sid="USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+        actual = self.client.chat.v2.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                    .users("USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                     .user_bindings.list()
 
         self.assertIsNotNone(actual)
@@ -101,9 +101,9 @@ class UserBindingTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.chat.v2.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                               .users(sid="USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                               .user_bindings(sid="BSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+            self.client.chat.v2.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                               .users("USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                               .user_bindings("BSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.holodeck.assert_has_request(Request(
             'get',
@@ -136,9 +136,9 @@ class UserBindingTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.chat.v2.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                    .users(sid="USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                    .user_bindings(sid="BSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+        actual = self.client.chat.v2.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                    .users("USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                    .user_bindings("BSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.assertIsNotNone(actual)
 
@@ -146,9 +146,9 @@ class UserBindingTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.chat.v2.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                               .users(sid="USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                               .user_bindings(sid="BSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+            self.client.chat.v2.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                               .users("USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                               .user_bindings("BSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
 
         self.holodeck.assert_has_request(Request(
             'delete',
@@ -161,8 +161,8 @@ class UserBindingTestCase(IntegrationTestCase):
             None,
         ))
 
-        actual = self.client.chat.v2.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                    .users(sid="USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                    .user_bindings(sid="BSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+        actual = self.client.chat.v2.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                    .users("USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                    .user_bindings("BSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
 
         self.assertTrue(actual)

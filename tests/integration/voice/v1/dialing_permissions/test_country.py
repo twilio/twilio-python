@@ -19,7 +19,7 @@ class CountryTestCase(IntegrationTestCase):
 
         with self.assertRaises(TwilioException):
             self.client.voice.v1.dialing_permissions \
-                                .countries(iso_code="US").fetch()
+                                .countries("US").fetch()
 
         self.holodeck.assert_has_request(Request(
             'get',
@@ -49,7 +49,7 @@ class CountryTestCase(IntegrationTestCase):
         ))
 
         actual = self.client.voice.v1.dialing_permissions \
-                                     .countries(iso_code="US").fetch()
+                                     .countries("US").fetch()
 
         self.assertIsNotNone(actual)
 

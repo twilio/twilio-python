@@ -18,7 +18,7 @@ class VerificationCheckTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.verify.v2.services(sid="VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+            self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                  .verification_checks.create(code="code")
 
         values = {'Code': "code", }
@@ -49,7 +49,32 @@ class VerificationCheckTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.verify.v2.services(sid="VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+        actual = self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                      .verification_checks.create(code="code")
+
+        self.assertIsNotNone(actual)
+
+    def test_email_verification_checks_response(self):
+        self.holodeck.mock(Response(
+            201,
+            '''
+            {
+                "sid": "VEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "service_sid": "VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "to": "recipient@foo.com",
+                "channel": "email",
+                "status": "approved",
+                "valid": true,
+                "amount": null,
+                "payee": null,
+                "date_created": "2020-01-30T20:00:00Z",
+                "date_updated": "2020-01-30T20:00:00Z"
+            }
+            '''
+        ))
+
+        actual = self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                       .verification_checks.create(code="code")
 
         self.assertIsNotNone(actual)

@@ -18,7 +18,7 @@ class EntityTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.authy.v1.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+            self.client.authy.v1.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                 .entities.create(identity="identity", twilio_authy_sandbox_mode="twilio_authy_sandbox_mode")
 
         values = {'Identity': "identity", }
@@ -54,7 +54,7 @@ class EntityTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.authy.v1.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+        actual = self.client.authy.v1.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                      .entities.create(identity="identity")
 
         self.assertIsNotNone(actual)
@@ -63,8 +63,8 @@ class EntityTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.authy.v1.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                .entities(identity="identity").delete(twilio_authy_sandbox_mode="twilio_authy_sandbox_mode")
+            self.client.authy.v1.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                .entities("identity").delete(twilio_authy_sandbox_mode="twilio_authy_sandbox_mode")
 
         headers = {'Twilio-Authy-Sandbox-Mode': "twilio_authy_sandbox_mode", }
         self.holodeck.assert_has_request(Request(
@@ -79,8 +79,8 @@ class EntityTestCase(IntegrationTestCase):
             None,
         ))
 
-        actual = self.client.authy.v1.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                     .entities(identity="identity").delete()
+        actual = self.client.authy.v1.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                     .entities("identity").delete()
 
         self.assertTrue(actual)
 
@@ -88,8 +88,8 @@ class EntityTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.authy.v1.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                .entities(identity="identity").fetch(twilio_authy_sandbox_mode="twilio_authy_sandbox_mode")
+            self.client.authy.v1.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                .entities("identity").fetch(twilio_authy_sandbox_mode="twilio_authy_sandbox_mode")
 
         headers = {'Twilio-Authy-Sandbox-Mode': "twilio_authy_sandbox_mode", }
         self.holodeck.assert_has_request(Request(
@@ -117,8 +117,8 @@ class EntityTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.authy.v1.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                     .entities(identity="identity").fetch()
+        actual = self.client.authy.v1.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                     .entities("identity").fetch()
 
         self.assertIsNotNone(actual)
 
@@ -126,7 +126,7 @@ class EntityTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.authy.v1.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+            self.client.authy.v1.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                 .entities.list(twilio_authy_sandbox_mode="twilio_authy_sandbox_mode")
 
         headers = {'Twilio-Authy-Sandbox-Mode': "twilio_authy_sandbox_mode", }
@@ -155,7 +155,7 @@ class EntityTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.authy.v1.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+        actual = self.client.authy.v1.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                      .entities.list()
 
         self.assertIsNotNone(actual)
@@ -192,7 +192,7 @@ class EntityTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.authy.v1.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+        actual = self.client.authy.v1.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                      .entities.list()
 
         self.assertIsNotNone(actual)

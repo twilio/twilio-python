@@ -18,9 +18,9 @@ class MessageInteractionTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.proxy.v1.services(sid="KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                .sessions(sid="KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                .participants(sid="KPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+            self.client.proxy.v1.services("KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                .sessions("KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                .participants("KPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                 .message_interactions.create()
 
         self.holodeck.assert_has_request(Request(
@@ -57,9 +57,9 @@ class MessageInteractionTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.proxy.v1.services(sid="KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                     .sessions(sid="KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                     .participants(sid="KPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+        actual = self.client.proxy.v1.services("KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                     .sessions("KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                     .participants("KPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                      .message_interactions.create()
 
         self.assertIsNotNone(actual)
@@ -68,10 +68,10 @@ class MessageInteractionTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.proxy.v1.services(sid="KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                .sessions(sid="KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                .participants(sid="KPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                .message_interactions(sid="KIXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+            self.client.proxy.v1.services("KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                .sessions("KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                .participants("KPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                .message_interactions("KIXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.holodeck.assert_has_request(Request(
             'get',
@@ -107,10 +107,10 @@ class MessageInteractionTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.proxy.v1.services(sid="KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                     .sessions(sid="KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                     .participants(sid="KPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                     .message_interactions(sid="KIXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+        actual = self.client.proxy.v1.services("KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                     .sessions("KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                     .participants("KPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                     .message_interactions("KIXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.assertIsNotNone(actual)
 
@@ -118,9 +118,9 @@ class MessageInteractionTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.proxy.v1.services(sid="KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                .sessions(sid="KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                .participants(sid="KPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+            self.client.proxy.v1.services("KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                .sessions("KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                .participants("KPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                 .message_interactions.list()
 
         self.holodeck.assert_has_request(Request(
@@ -147,9 +147,9 @@ class MessageInteractionTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.proxy.v1.services(sid="KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                     .sessions(sid="KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                     .participants(sid="KPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+        actual = self.client.proxy.v1.services("KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                     .sessions("KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                     .participants("KPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                      .message_interactions.list()
 
         self.assertIsNotNone(actual)

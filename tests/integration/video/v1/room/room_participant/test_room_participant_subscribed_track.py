@@ -18,9 +18,9 @@ class SubscribedTrackTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.video.v1.rooms(sid="RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                .participants(sid="PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                .subscribed_tracks(sid="MTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+            self.client.video.v1.rooms("RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                .participants("PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                .subscribed_tracks("MTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.holodeck.assert_has_request(Request(
             'get',
@@ -46,9 +46,9 @@ class SubscribedTrackTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.video.v1.rooms(sid="RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                     .participants(sid="PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                     .subscribed_tracks(sid="MTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+        actual = self.client.video.v1.rooms("RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                     .participants("PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                     .subscribed_tracks("MTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.assertIsNotNone(actual)
 
@@ -56,8 +56,8 @@ class SubscribedTrackTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.video.v1.rooms(sid="RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                .participants(sid="PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+            self.client.video.v1.rooms("RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                .participants("PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                 .subscribed_tracks.list()
 
         self.holodeck.assert_has_request(Request(
@@ -84,8 +84,8 @@ class SubscribedTrackTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.video.v1.rooms(sid="RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                     .participants(sid="PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+        actual = self.client.video.v1.rooms("RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                     .participants("PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                      .subscribed_tracks.list()
 
         self.assertIsNotNone(actual)

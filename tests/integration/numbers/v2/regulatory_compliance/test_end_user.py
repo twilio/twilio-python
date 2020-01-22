@@ -131,7 +131,7 @@ class EndUserTestCase(IntegrationTestCase):
 
         with self.assertRaises(TwilioException):
             self.client.numbers.v2.regulatory_compliance \
-                                  .end_users(sid="ITXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+                                  .end_users("ITXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.holodeck.assert_has_request(Request(
             'get',
@@ -158,7 +158,7 @@ class EndUserTestCase(IntegrationTestCase):
         ))
 
         actual = self.client.numbers.v2.regulatory_compliance \
-                                       .end_users(sid="ITXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+                                       .end_users("ITXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.assertIsNotNone(actual)
 
@@ -167,7 +167,7 @@ class EndUserTestCase(IntegrationTestCase):
 
         with self.assertRaises(TwilioException):
             self.client.numbers.v2.regulatory_compliance \
-                                  .end_users(sid="ITXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
+                                  .end_users("ITXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
 
         self.holodeck.assert_has_request(Request(
             'post',
@@ -194,6 +194,6 @@ class EndUserTestCase(IntegrationTestCase):
         ))
 
         actual = self.client.numbers.v2.regulatory_compliance \
-                                       .end_users(sid="ITXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
+                                       .end_users("ITXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
 
         self.assertIsNotNone(actual)

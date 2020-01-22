@@ -37,7 +37,8 @@ class VerificationList(ListResource):
     def create(self, to, channel, custom_message=values.unset,
                send_digits=values.unset, locale=values.unset,
                custom_code=values.unset, amount=values.unset, payee=values.unset,
-               rate_limits=values.unset, channel_configuration=values.unset):
+               rate_limits=values.unset, channel_configuration=values.unset,
+               app_hash=values.unset):
         """
         Create the VerificationInstance
 
@@ -51,6 +52,7 @@ class VerificationList(ListResource):
         :param unicode payee: The payee of the associated PSD2 compliant transaction
         :param dict rate_limits: The custom key-value pairs of Programmable Rate Limits.
         :param dict channel_configuration: Channel specific configuration in json format.
+        :param unicode app_hash: App Hash to be included at the end of an SMS.
 
         :returns: The created VerificationInstance
         :rtype: twilio.rest.verify.v2.service.verification.VerificationInstance
@@ -66,6 +68,7 @@ class VerificationList(ListResource):
             'Payee': payee,
             'RateLimits': serialize.object(rate_limits),
             'ChannelConfiguration': serialize.object(channel_configuration),
+            'AppHash': app_hash,
         })
 
         payload = self._version.create(method='POST', uri=self._uri, data=data, )

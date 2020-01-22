@@ -18,9 +18,9 @@ class ChallengeTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.authy.v1.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                .entities(identity="identity") \
-                                .factors(sid="YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+            self.client.authy.v1.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                .entities("identity") \
+                                .factors("YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                 .challenges.create(twilio_authy_sandbox_mode="twilio_authy_sandbox_mode")
 
         headers = {'Twilio-Authy-Sandbox-Mode': "twilio_authy_sandbox_mode", }
@@ -56,9 +56,9 @@ class ChallengeTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.authy.v1.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                     .entities(identity="identity") \
-                                     .factors(sid="YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+        actual = self.client.authy.v1.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                     .entities("identity") \
+                                     .factors("YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                      .challenges.create()
 
         self.assertIsNotNone(actual)
@@ -67,10 +67,10 @@ class ChallengeTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.authy.v1.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                .entities(identity="identity") \
-                                .factors(sid="YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                .challenges(sid="sid").delete(twilio_authy_sandbox_mode="twilio_authy_sandbox_mode")
+            self.client.authy.v1.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                .entities("identity") \
+                                .factors("YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                .challenges("sid").delete(twilio_authy_sandbox_mode="twilio_authy_sandbox_mode")
 
         headers = {'Twilio-Authy-Sandbox-Mode': "twilio_authy_sandbox_mode", }
         self.holodeck.assert_has_request(Request(
@@ -85,10 +85,10 @@ class ChallengeTestCase(IntegrationTestCase):
             None,
         ))
 
-        actual = self.client.authy.v1.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                     .entities(identity="identity") \
-                                     .factors(sid="YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                     .challenges(sid="sid").delete()
+        actual = self.client.authy.v1.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                     .entities("identity") \
+                                     .factors("YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                     .challenges("sid").delete()
 
         self.assertTrue(actual)
 
@@ -96,10 +96,10 @@ class ChallengeTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.authy.v1.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                .entities(identity="identity") \
-                                .factors(sid="YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                .challenges(sid="sid").fetch(twilio_authy_sandbox_mode="twilio_authy_sandbox_mode")
+            self.client.authy.v1.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                .entities("identity") \
+                                .factors("YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                .challenges("sid").fetch(twilio_authy_sandbox_mode="twilio_authy_sandbox_mode")
 
         headers = {'Twilio-Authy-Sandbox-Mode': "twilio_authy_sandbox_mode", }
         self.holodeck.assert_has_request(Request(
@@ -134,10 +134,10 @@ class ChallengeTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.authy.v1.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                     .entities(identity="identity") \
-                                     .factors(sid="YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                     .challenges(sid="sid").fetch()
+        actual = self.client.authy.v1.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                     .entities("identity") \
+                                     .factors("YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                     .challenges("sid").fetch()
 
         self.assertIsNotNone(actual)
 
@@ -167,10 +167,10 @@ class ChallengeTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.authy.v1.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                     .entities(identity="identity") \
-                                     .factors(sid="YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                     .challenges(sid="sid").fetch()
+        actual = self.client.authy.v1.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                     .entities("identity") \
+                                     .factors("YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                     .challenges("sid").fetch()
 
         self.assertIsNotNone(actual)
 
@@ -178,10 +178,10 @@ class ChallengeTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.authy.v1.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                .entities(identity="identity") \
-                                .factors(sid="YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                .challenges(sid="sid").update(twilio_authy_sandbox_mode="twilio_authy_sandbox_mode")
+            self.client.authy.v1.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                .entities("identity") \
+                                .factors("YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                .challenges("sid").update(twilio_authy_sandbox_mode="twilio_authy_sandbox_mode")
 
         headers = {'Twilio-Authy-Sandbox-Mode': "twilio_authy_sandbox_mode", }
         self.holodeck.assert_has_request(Request(
@@ -216,10 +216,10 @@ class ChallengeTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.authy.v1.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                     .entities(identity="identity") \
-                                     .factors(sid="YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                     .challenges(sid="sid").update()
+        actual = self.client.authy.v1.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                     .entities("identity") \
+                                     .factors("YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                     .challenges("sid").update()
 
         self.assertIsNotNone(actual)
 
@@ -249,9 +249,9 @@ class ChallengeTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.authy.v1.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                     .entities(identity="identity") \
-                                     .factors(sid="YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                     .challenges(sid="sid").update()
+        actual = self.client.authy.v1.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                     .entities("identity") \
+                                     .factors("YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                     .challenges("sid").update()
 
         self.assertIsNotNone(actual)

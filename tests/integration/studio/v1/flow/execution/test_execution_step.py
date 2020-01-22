@@ -18,8 +18,8 @@ class ExecutionStepTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.studio.v1.flows(sid="FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .executions(sid="FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+            self.client.studio.v1.flows("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                 .executions("FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                  .steps.list()
 
         self.holodeck.assert_has_request(Request(
@@ -46,8 +46,8 @@ class ExecutionStepTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.studio.v1.flows(sid="FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .executions(sid="FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+        actual = self.client.studio.v1.flows("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                      .executions("FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                       .steps.list()
 
         self.assertIsNotNone(actual)
@@ -56,9 +56,9 @@ class ExecutionStepTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.studio.v1.flows(sid="FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .executions(sid="FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .steps(sid="FTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+            self.client.studio.v1.flows("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                 .executions("FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                 .steps("FTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.holodeck.assert_has_request(Request(
             'get',
@@ -88,8 +88,8 @@ class ExecutionStepTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.studio.v1.flows(sid="FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .executions(sid="FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .steps(sid="FTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+        actual = self.client.studio.v1.flows("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                      .executions("FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                      .steps("FTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.assertIsNotNone(actual)

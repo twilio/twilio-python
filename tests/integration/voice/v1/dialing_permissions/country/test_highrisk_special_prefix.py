@@ -19,7 +19,7 @@ class HighriskSpecialPrefixTestCase(IntegrationTestCase):
 
         with self.assertRaises(TwilioException):
             self.client.voice.v1.dialing_permissions \
-                                .countries(iso_code="US") \
+                                .countries("US") \
                                 .highrisk_special_prefixes.list()
 
         self.holodeck.assert_has_request(Request(
@@ -54,7 +54,7 @@ class HighriskSpecialPrefixTestCase(IntegrationTestCase):
         ))
 
         actual = self.client.voice.v1.dialing_permissions \
-                                     .countries(iso_code="US") \
+                                     .countries("US") \
                                      .highrisk_special_prefixes.list()
 
         self.assertIsNotNone(actual)

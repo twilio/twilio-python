@@ -16,6 +16,7 @@ from twilio.base.page import Page
 from twilio.rest.api.v2010.account.call.feedback import FeedbackList
 from twilio.rest.api.v2010.account.call.feedback_summary import FeedbackSummaryList
 from twilio.rest.api.v2010.account.call.notification import NotificationList
+from twilio.rest.api.v2010.account.call.payment import PaymentList
 from twilio.rest.api.v2010.account.call.recording import RecordingList
 
 
@@ -56,8 +57,8 @@ class CallList(ListResource):
                caller_id=values.unset,
                machine_detection_speech_threshold=values.unset,
                machine_detection_speech_end_threshold=values.unset,
-               machine_detection_silence_timeout=values.unset, url=values.unset,
-               twiml=values.unset, application_sid=values.unset):
+               machine_detection_silence_timeout=values.unset, byoc=values.unset,
+               url=values.unset, twiml=values.unset, application_sid=values.unset):
         """
         Create the CallInstance
 
@@ -85,6 +86,7 @@ class CallList(ListResource):
         :param unicode machine_detection_speech_threshold: Number of milliseconds for measuring stick for the length of the speech activity
         :param unicode machine_detection_speech_end_threshold: Number of milliseconds of silence after speech activity
         :param unicode machine_detection_silence_timeout: Number of milliseconds of initial silence
+        :param unicode byoc: BYOC trunk SID (Beta)
         :param unicode url: The absolute URL that returns TwiML for this call
         :param unicode twiml: TwiML instructions for the call
         :param unicode application_sid: The SID of the Application resource that will handle the call
@@ -120,6 +122,7 @@ class CallList(ListResource):
             'MachineDetectionSpeechThreshold': machine_detection_speech_threshold,
             'MachineDetectionSpeechEndThreshold': machine_detection_speech_end_threshold,
             'MachineDetectionSilenceTimeout': machine_detection_silence_timeout,
+            'Byoc': byoc,
         })
 
         payload = self._version.create(method='POST', uri=self._uri, data=data, )
@@ -398,6 +401,7 @@ class CallContext(InstanceContext):
         self._recordings = None
         self._notifications = None
         self._feedback = None
+        self._payments = None
 
     def delete(self):
         """
@@ -510,6 +514,22 @@ class CallContext(InstanceContext):
                 call_sid=self._solution['sid'],
             )
         return self._feedback
+
+    @property
+    def payments(self):
+        """
+        Access the payments
+
+        :returns: twilio.rest.api.v2010.account.call.payment.PaymentList
+        :rtype: twilio.rest.api.v2010.account.call.payment.PaymentList
+        """
+        if self._payments is None:
+            self._payments = PaymentList(
+                self._version,
+                account_sid=self._solution['account_sid'],
+                call_sid=self._solution['sid'],
+            )
+        return self._payments
 
     def __repr__(self):
         """
@@ -881,6 +901,16 @@ class CallInstance(InstanceResource):
         :rtype: twilio.rest.api.v2010.account.call.feedback.FeedbackList
         """
         return self._proxy.feedback
+
+    @property
+    def payments(self):
+        """
+        Access the payments
+
+        :returns: twilio.rest.api.v2010.account.call.payment.PaymentList
+        :rtype: twilio.rest.api.v2010.account.call.payment.PaymentList
+        """
+        return self._proxy.payments
 
     def __repr__(self):
         """

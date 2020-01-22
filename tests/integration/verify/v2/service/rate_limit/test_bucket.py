@@ -18,8 +18,8 @@ class BucketTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.verify.v2.services(sid="VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .rate_limits(sid="RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+            self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                 .rate_limits("RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                  .buckets.create(max=1, interval=1)
 
         values = {'Max': 1, 'Interval': 1, }
@@ -48,8 +48,8 @@ class BucketTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.verify.v2.services(sid="VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .rate_limits(sid="RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+        actual = self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                      .rate_limits("RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                       .buckets.create(max=1, interval=1)
 
         self.assertIsNotNone(actual)
@@ -58,9 +58,9 @@ class BucketTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.verify.v2.services(sid="VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .rate_limits(sid="RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .buckets(sid="BLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
+            self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                 .rate_limits("RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                 .buckets("BLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
 
         self.holodeck.assert_has_request(Request(
             'post',
@@ -85,9 +85,9 @@ class BucketTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.verify.v2.services(sid="VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .rate_limits(sid="RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .buckets(sid="BLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
+        actual = self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                      .rate_limits("RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                      .buckets("BLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
 
         self.assertIsNotNone(actual)
 
@@ -95,9 +95,9 @@ class BucketTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.verify.v2.services(sid="VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .rate_limits(sid="RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .buckets(sid="BLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+            self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                 .rate_limits("RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                 .buckets("BLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.holodeck.assert_has_request(Request(
             'get',
@@ -122,9 +122,9 @@ class BucketTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.verify.v2.services(sid="VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .rate_limits(sid="RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .buckets(sid="BLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+        actual = self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                      .rate_limits("RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                      .buckets("BLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.assertIsNotNone(actual)
 
@@ -132,8 +132,8 @@ class BucketTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.verify.v2.services(sid="VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .rate_limits(sid="RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+            self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                 .rate_limits("RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                  .buckets.list()
 
         self.holodeck.assert_has_request(Request(
@@ -160,8 +160,8 @@ class BucketTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.verify.v2.services(sid="VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .rate_limits(sid="RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+        actual = self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                      .rate_limits("RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                       .buckets.list()
 
         self.assertIsNotNone(actual)
@@ -197,8 +197,8 @@ class BucketTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.verify.v2.services(sid="VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .rate_limits(sid="RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+        actual = self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                      .rate_limits("RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                       .buckets.list()
 
         self.assertIsNotNone(actual)
@@ -207,9 +207,9 @@ class BucketTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.verify.v2.services(sid="VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .rate_limits(sid="RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .buckets(sid="BLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+            self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                 .rate_limits("RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                 .buckets("BLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
 
         self.holodeck.assert_has_request(Request(
             'delete',
@@ -222,8 +222,8 @@ class BucketTestCase(IntegrationTestCase):
             None,
         ))
 
-        actual = self.client.verify.v2.services(sid="VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .rate_limits(sid="RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .buckets(sid="BLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+        actual = self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                      .rate_limits("RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                      .buckets("BLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
 
         self.assertTrue(actual)

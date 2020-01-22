@@ -18,10 +18,10 @@ class IpAccessControlListMappingTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.api.v2010.accounts(sid="ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+            self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                  .sip \
-                                 .domains(sid="SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .ip_access_control_list_mappings(sid="ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+                                 .domains("SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                 .ip_access_control_list_mappings("ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.holodeck.assert_has_request(Request(
             'get',
@@ -46,10 +46,10 @@ class IpAccessControlListMappingTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.api.v2010.accounts(sid="ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+        actual = self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                       .sip \
-                                      .domains(sid="SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .ip_access_control_list_mappings(sid="ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+                                      .domains("SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                      .ip_access_control_list_mappings("ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.assertIsNotNone(actual)
 
@@ -57,9 +57,9 @@ class IpAccessControlListMappingTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.api.v2010.accounts(sid="ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+            self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                  .sip \
-                                 .domains(sid="SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                 .domains("SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                  .ip_access_control_list_mappings.create(ip_access_control_list_sid="ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
 
         values = {'IpAccessControlListSid': "ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", }
@@ -88,9 +88,9 @@ class IpAccessControlListMappingTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.api.v2010.accounts(sid="ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+        actual = self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                       .sip \
-                                      .domains(sid="SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                      .domains("SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                       .ip_access_control_list_mappings.create(ip_access_control_list_sid="ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
 
         self.assertIsNotNone(actual)
@@ -99,9 +99,9 @@ class IpAccessControlListMappingTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.api.v2010.accounts(sid="ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+            self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                  .sip \
-                                 .domains(sid="SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                 .domains("SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                  .ip_access_control_list_mappings.list()
 
         self.holodeck.assert_has_request(Request(
@@ -142,9 +142,9 @@ class IpAccessControlListMappingTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.api.v2010.accounts(sid="ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+        actual = self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                       .sip \
-                                      .domains(sid="SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                      .domains("SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                       .ip_access_control_list_mappings.list()
 
         self.assertIsNotNone(actual)
@@ -170,9 +170,9 @@ class IpAccessControlListMappingTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.api.v2010.accounts(sid="ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+        actual = self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                       .sip \
-                                      .domains(sid="SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                      .domains("SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                       .ip_access_control_list_mappings.list()
 
         self.assertIsNotNone(actual)
@@ -181,10 +181,10 @@ class IpAccessControlListMappingTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.api.v2010.accounts(sid="ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+            self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                  .sip \
-                                 .domains(sid="SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .ip_access_control_list_mappings(sid="ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+                                 .domains("SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                 .ip_access_control_list_mappings("ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
 
         self.holodeck.assert_has_request(Request(
             'delete',
@@ -197,9 +197,9 @@ class IpAccessControlListMappingTestCase(IntegrationTestCase):
             None,
         ))
 
-        actual = self.client.api.v2010.accounts(sid="ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+        actual = self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                       .sip \
-                                      .domains(sid="SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .ip_access_control_list_mappings(sid="ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+                                      .domains("SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                      .ip_access_control_list_mappings("ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
 
         self.assertTrue(actual)

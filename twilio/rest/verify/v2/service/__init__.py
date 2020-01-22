@@ -39,7 +39,8 @@ class ServiceList(ListResource):
     def create(self, friendly_name, code_length=values.unset,
                lookup_enabled=values.unset, skip_sms_to_landlines=values.unset,
                dtmf_input_required=values.unset, tts_name=values.unset,
-               psd2_enabled=values.unset):
+               psd2_enabled=values.unset,
+               do_not_share_warning_enabled=values.unset):
         """
         Create the ServiceInstance
 
@@ -50,6 +51,7 @@ class ServiceList(ListResource):
         :param bool dtmf_input_required: Whether to ask the user to press a number before delivering the verify code in a phone call
         :param unicode tts_name: The name of an alternative text-to-speech service to use in phone calls
         :param bool psd2_enabled: Whether to pass PSD2 transaction parameters when starting a verification
+        :param bool do_not_share_warning_enabled: Whether to add a privacy warning at the end of an SMS.
 
         :returns: The created ServiceInstance
         :rtype: twilio.rest.verify.v2.service.ServiceInstance
@@ -62,6 +64,7 @@ class ServiceList(ListResource):
             'DtmfInputRequired': dtmf_input_required,
             'TtsName': tts_name,
             'Psd2Enabled': psd2_enabled,
+            'DoNotShareWarningEnabled': do_not_share_warning_enabled,
         })
 
         payload = self._version.create(method='POST', uri=self._uri, data=data, )
@@ -264,7 +267,8 @@ class ServiceContext(InstanceContext):
     def update(self, friendly_name=values.unset, code_length=values.unset,
                lookup_enabled=values.unset, skip_sms_to_landlines=values.unset,
                dtmf_input_required=values.unset, tts_name=values.unset,
-               psd2_enabled=values.unset):
+               psd2_enabled=values.unset,
+               do_not_share_warning_enabled=values.unset):
         """
         Update the ServiceInstance
 
@@ -275,6 +279,7 @@ class ServiceContext(InstanceContext):
         :param bool dtmf_input_required: Whether to ask the user to press a number before delivering the verify code in a phone call
         :param unicode tts_name: The name of an alternative text-to-speech service to use in phone calls
         :param bool psd2_enabled: Whether to pass PSD2 transaction parameters when starting a verification
+        :param bool do_not_share_warning_enabled: Whether to add a privacy warning at the end of an SMS.
 
         :returns: The updated ServiceInstance
         :rtype: twilio.rest.verify.v2.service.ServiceInstance
@@ -287,6 +292,7 @@ class ServiceContext(InstanceContext):
             'DtmfInputRequired': dtmf_input_required,
             'TtsName': tts_name,
             'Psd2Enabled': psd2_enabled,
+            'DoNotShareWarningEnabled': do_not_share_warning_enabled,
         })
 
         payload = self._version.update(method='POST', uri=self._uri, data=data, )
@@ -378,6 +384,7 @@ class ServiceInstance(InstanceResource):
             'skip_sms_to_landlines': payload.get('skip_sms_to_landlines'),
             'dtmf_input_required': payload.get('dtmf_input_required'),
             'tts_name': payload.get('tts_name'),
+            'do_not_share_warning_enabled': payload.get('do_not_share_warning_enabled'),
             'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
             'date_updated': deserialize.iso8601_datetime(payload.get('date_updated')),
             'url': payload.get('url'),
@@ -474,6 +481,14 @@ class ServiceInstance(InstanceResource):
         return self._properties['tts_name']
 
     @property
+    def do_not_share_warning_enabled(self):
+        """
+        :returns: Whether to add a privacy warning at the end of an SMS.
+        :rtype: bool
+        """
+        return self._properties['do_not_share_warning_enabled']
+
+    @property
     def date_created(self):
         """
         :returns: The RFC 2822 date and time in GMT when the resource was created
@@ -526,7 +541,8 @@ class ServiceInstance(InstanceResource):
     def update(self, friendly_name=values.unset, code_length=values.unset,
                lookup_enabled=values.unset, skip_sms_to_landlines=values.unset,
                dtmf_input_required=values.unset, tts_name=values.unset,
-               psd2_enabled=values.unset):
+               psd2_enabled=values.unset,
+               do_not_share_warning_enabled=values.unset):
         """
         Update the ServiceInstance
 
@@ -537,6 +553,7 @@ class ServiceInstance(InstanceResource):
         :param bool dtmf_input_required: Whether to ask the user to press a number before delivering the verify code in a phone call
         :param unicode tts_name: The name of an alternative text-to-speech service to use in phone calls
         :param bool psd2_enabled: Whether to pass PSD2 transaction parameters when starting a verification
+        :param bool do_not_share_warning_enabled: Whether to add a privacy warning at the end of an SMS.
 
         :returns: The updated ServiceInstance
         :rtype: twilio.rest.verify.v2.service.ServiceInstance
@@ -549,6 +566,7 @@ class ServiceInstance(InstanceResource):
             dtmf_input_required=dtmf_input_required,
             tts_name=tts_name,
             psd2_enabled=psd2_enabled,
+            do_not_share_warning_enabled=do_not_share_warning_enabled,
         )
 
     @property

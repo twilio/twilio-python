@@ -18,7 +18,7 @@ class FaxTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.fax.v1.faxes(sid="FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+            self.client.fax.v1.faxes("FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.holodeck.assert_has_request(Request(
             'get',
@@ -54,7 +54,7 @@ class FaxTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.fax.v1.faxes(sid="FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+        actual = self.client.fax.v1.faxes("FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.assertIsNotNone(actual)
 
@@ -189,7 +189,7 @@ class FaxTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.fax.v1.faxes(sid="FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
+            self.client.fax.v1.faxes("FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
 
         self.holodeck.assert_has_request(Request(
             'post',
@@ -225,7 +225,7 @@ class FaxTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.fax.v1.faxes(sid="FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
+        actual = self.client.fax.v1.faxes("FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
 
         self.assertIsNotNone(actual)
 
@@ -233,7 +233,7 @@ class FaxTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.fax.v1.faxes(sid="FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+            self.client.fax.v1.faxes("FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
 
         self.holodeck.assert_has_request(Request(
             'delete',
@@ -246,6 +246,6 @@ class FaxTestCase(IntegrationTestCase):
             None,
         ))
 
-        actual = self.client.fax.v1.faxes(sid="FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+        actual = self.client.fax.v1.faxes("FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
 
         self.assertTrue(actual)

@@ -18,9 +18,9 @@ class InviteTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.ip_messaging.v1.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                       .channels(sid="CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                       .invites(sid="INXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+            self.client.ip_messaging.v1.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                       .channels("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                       .invites("INXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.holodeck.assert_has_request(Request(
             'get',
@@ -46,9 +46,9 @@ class InviteTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.ip_messaging.v1.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                            .channels(sid="CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                            .invites(sid="INXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+        actual = self.client.ip_messaging.v1.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                            .channels("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                            .invites("INXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.assertIsNotNone(actual)
 
@@ -56,8 +56,8 @@ class InviteTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.ip_messaging.v1.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                       .channels(sid="CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+            self.client.ip_messaging.v1.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                       .channels("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                        .invites.create(identity="identity")
 
         values = {'Identity': "identity", }
@@ -87,8 +87,8 @@ class InviteTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.ip_messaging.v1.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                            .channels(sid="CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+        actual = self.client.ip_messaging.v1.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                            .channels("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                             .invites.create(identity="identity")
 
         self.assertIsNotNone(actual)
@@ -97,8 +97,8 @@ class InviteTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.ip_messaging.v1.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                       .channels(sid="CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+            self.client.ip_messaging.v1.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                       .channels("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                        .invites.list()
 
         self.holodeck.assert_has_request(Request(
@@ -125,8 +125,8 @@ class InviteTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.ip_messaging.v1.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                            .channels(sid="CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+        actual = self.client.ip_messaging.v1.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                            .channels("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                             .invites.list()
 
         self.assertIsNotNone(actual)
@@ -163,8 +163,8 @@ class InviteTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.ip_messaging.v1.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                            .channels(sid="CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+        actual = self.client.ip_messaging.v1.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                            .channels("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                             .invites.list()
 
         self.assertIsNotNone(actual)
@@ -173,9 +173,9 @@ class InviteTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.ip_messaging.v1.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                       .channels(sid="CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                       .invites(sid="INXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+            self.client.ip_messaging.v1.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                       .channels("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                       .invites("INXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
 
         self.holodeck.assert_has_request(Request(
             'delete',
@@ -188,8 +188,8 @@ class InviteTestCase(IntegrationTestCase):
             None,
         ))
 
-        actual = self.client.ip_messaging.v1.services(sid="ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                            .channels(sid="CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                            .invites(sid="INXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+        actual = self.client.ip_messaging.v1.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                            .channels("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                            .invites("INXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
 
         self.assertTrue(actual)

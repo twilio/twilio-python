@@ -19,7 +19,7 @@ class NumberTestCase(IntegrationTestCase):
 
         with self.assertRaises(TwilioException):
             self.client.pricing.v1.voice \
-                                  .numbers(number="+15017122661").fetch()
+                                  .numbers("+15017122661").fetch()
 
         self.holodeck.assert_has_request(Request(
             'get',
@@ -50,6 +50,6 @@ class NumberTestCase(IntegrationTestCase):
         ))
 
         actual = self.client.pricing.v1.voice \
-                                       .numbers(number="+15017122661").fetch()
+                                       .numbers("+15017122661").fetch()
 
         self.assertIsNotNone(actual)

@@ -18,9 +18,9 @@ class CredentialListMappingTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.api.v2010.accounts(sid="ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+            self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                  .sip \
-                                 .domains(sid="SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                 .domains("SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                  .credential_list_mappings.create(credential_list_sid="CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
 
         values = {'CredentialListSid': "CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", }
@@ -49,9 +49,9 @@ class CredentialListMappingTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.api.v2010.accounts(sid="ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+        actual = self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                       .sip \
-                                      .domains(sid="SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                      .domains("SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                       .credential_list_mappings.create(credential_list_sid="CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
 
         self.assertIsNotNone(actual)
@@ -60,9 +60,9 @@ class CredentialListMappingTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.api.v2010.accounts(sid="ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+            self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                  .sip \
-                                 .domains(sid="SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                 .domains("SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                  .credential_list_mappings.list()
 
         self.holodeck.assert_has_request(Request(
@@ -98,9 +98,9 @@ class CredentialListMappingTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.api.v2010.accounts(sid="ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+        actual = self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                       .sip \
-                                      .domains(sid="SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                      .domains("SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                       .credential_list_mappings.list()
 
         self.assertIsNotNone(actual)
@@ -121,9 +121,9 @@ class CredentialListMappingTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.api.v2010.accounts(sid="ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+        actual = self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                       .sip \
-                                      .domains(sid="SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                      .domains("SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                       .credential_list_mappings.list()
 
         self.assertIsNotNone(actual)
@@ -132,10 +132,10 @@ class CredentialListMappingTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.api.v2010.accounts(sid="ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+            self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                  .sip \
-                                 .domains(sid="SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .credential_list_mappings(sid="CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+                                 .domains("SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                 .credential_list_mappings("CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.holodeck.assert_has_request(Request(
             'get',
@@ -160,10 +160,10 @@ class CredentialListMappingTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.api.v2010.accounts(sid="ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+        actual = self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                       .sip \
-                                      .domains(sid="SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .credential_list_mappings(sid="CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+                                      .domains("SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                      .credential_list_mappings("CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.assertIsNotNone(actual)
 
@@ -171,10 +171,10 @@ class CredentialListMappingTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.api.v2010.accounts(sid="ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+            self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                  .sip \
-                                 .domains(sid="SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .credential_list_mappings(sid="CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+                                 .domains("SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                 .credential_list_mappings("CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
 
         self.holodeck.assert_has_request(Request(
             'delete',
@@ -187,9 +187,9 @@ class CredentialListMappingTestCase(IntegrationTestCase):
             None,
         ))
 
-        actual = self.client.api.v2010.accounts(sid="ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+        actual = self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                       .sip \
-                                      .domains(sid="SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .credential_list_mappings(sid="CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+                                      .domains("SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                      .credential_list_mappings("CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
 
         self.assertTrue(actual)

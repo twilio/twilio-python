@@ -19,7 +19,7 @@ class ItemAssignmentTestCase(IntegrationTestCase):
 
         with self.assertRaises(TwilioException):
             self.client.numbers.v2.regulatory_compliance \
-                                  .bundles(sid="BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                  .bundles("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                   .item_assignments.create(object_sid="ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
 
         values = {'ObjectSid': "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", }
@@ -46,7 +46,7 @@ class ItemAssignmentTestCase(IntegrationTestCase):
         ))
 
         actual = self.client.numbers.v2.regulatory_compliance \
-                                       .bundles(sid="BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                       .bundles("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                        .item_assignments.create(object_sid="ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
 
         self.assertIsNotNone(actual)
@@ -56,7 +56,7 @@ class ItemAssignmentTestCase(IntegrationTestCase):
 
         with self.assertRaises(TwilioException):
             self.client.numbers.v2.regulatory_compliance \
-                                  .bundles(sid="BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                  .bundles("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                   .item_assignments.list()
 
         self.holodeck.assert_has_request(Request(
@@ -84,7 +84,7 @@ class ItemAssignmentTestCase(IntegrationTestCase):
         ))
 
         actual = self.client.numbers.v2.regulatory_compliance \
-                                       .bundles(sid="BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                       .bundles("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                        .item_assignments.list()
 
         self.assertIsNotNone(actual)
@@ -118,7 +118,7 @@ class ItemAssignmentTestCase(IntegrationTestCase):
         ))
 
         actual = self.client.numbers.v2.regulatory_compliance \
-                                       .bundles(sid="BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                       .bundles("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                        .item_assignments.list()
 
         self.assertIsNotNone(actual)
@@ -128,8 +128,8 @@ class ItemAssignmentTestCase(IntegrationTestCase):
 
         with self.assertRaises(TwilioException):
             self.client.numbers.v2.regulatory_compliance \
-                                  .bundles(sid="BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                  .item_assignments(sid="BVXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+                                  .bundles("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                  .item_assignments("BVXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.holodeck.assert_has_request(Request(
             'get',
@@ -152,8 +152,8 @@ class ItemAssignmentTestCase(IntegrationTestCase):
         ))
 
         actual = self.client.numbers.v2.regulatory_compliance \
-                                       .bundles(sid="BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                       .item_assignments(sid="BVXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+                                       .bundles("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                       .item_assignments("BVXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.assertIsNotNone(actual)
 
@@ -162,8 +162,8 @@ class ItemAssignmentTestCase(IntegrationTestCase):
 
         with self.assertRaises(TwilioException):
             self.client.numbers.v2.regulatory_compliance \
-                                  .bundles(sid="BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                  .item_assignments(sid="BVXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+                                  .bundles("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                  .item_assignments("BVXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
 
         self.holodeck.assert_has_request(Request(
             'delete',
@@ -177,7 +177,7 @@ class ItemAssignmentTestCase(IntegrationTestCase):
         ))
 
         actual = self.client.numbers.v2.regulatory_compliance \
-                                       .bundles(sid="BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                       .item_assignments(sid="BVXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+                                       .bundles("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                       .item_assignments("BVXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
 
         self.assertTrue(actual)

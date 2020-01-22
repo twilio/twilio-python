@@ -277,15 +277,6 @@ class NotificationContext(InstanceContext):
             sid=self._solution['sid'],
         )
 
-    def delete(self):
-        """
-        Deletes the NotificationInstance
-
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(method='DELETE', uri=self._uri, )
-
     def __repr__(self):
         """
         Provide a friendly representation
@@ -500,15 +491,6 @@ class NotificationInstance(InstanceResource):
         :rtype: twilio.rest.api.v2010.account.call.notification.NotificationInstance
         """
         return self._proxy.fetch()
-
-    def delete(self):
-        """
-        Deletes the NotificationInstance
-
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._proxy.delete()
 
     def __repr__(self):
         """

@@ -18,7 +18,7 @@ class CallSummaryTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.insights.v1.calls(sid="CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+            self.client.insights.v1.calls("CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                    .summary().fetch()
 
         self.holodeck.assert_has_request(Request(
@@ -56,7 +56,7 @@ class CallSummaryTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.insights.v1.calls(sid="CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+        actual = self.client.insights.v1.calls("CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                         .summary().fetch()
 
         self.assertIsNotNone(actual)

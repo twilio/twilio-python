@@ -18,9 +18,9 @@ class PublishedTrackTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.video.v1.rooms(sid="RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                .participants(sid="PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                .published_tracks(sid="MTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+            self.client.video.v1.rooms("RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                .participants("PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                .published_tracks("MTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.holodeck.assert_has_request(Request(
             'get',
@@ -45,9 +45,9 @@ class PublishedTrackTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.video.v1.rooms(sid="RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                     .participants(sid="PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                     .published_tracks(sid="MTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+        actual = self.client.video.v1.rooms("RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                     .participants("PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                     .published_tracks("MTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.assertIsNotNone(actual)
 
@@ -55,8 +55,8 @@ class PublishedTrackTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.video.v1.rooms(sid="RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                .participants(sid="PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+            self.client.video.v1.rooms("RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                .participants("PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                 .published_tracks.list()
 
         self.holodeck.assert_has_request(Request(
@@ -83,8 +83,8 @@ class PublishedTrackTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.video.v1.rooms(sid="RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                     .participants(sid="PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+        actual = self.client.video.v1.rooms("RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                     .participants("PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                      .published_tracks.list()
 
         self.assertIsNotNone(actual)

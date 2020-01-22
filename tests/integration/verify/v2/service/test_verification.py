@@ -18,7 +18,7 @@ class VerificationTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.verify.v2.services(sid="VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+            self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                  .verifications.create(to="to", channel="channel")
 
         values = {'To': "to", 'Channel': "channel", }
@@ -59,7 +59,7 @@ class VerificationTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.verify.v2.services(sid="VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+        actual = self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                       .verifications.create(to="to", channel="channel")
 
         self.assertIsNotNone(actual)
@@ -94,7 +94,7 @@ class VerificationTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.verify.v2.services(sid="VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+        actual = self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                       .verifications.create(to="to", channel="channel")
 
         self.assertIsNotNone(actual)
@@ -129,7 +129,7 @@ class VerificationTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.verify.v2.services(sid="VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+        actual = self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                       .verifications.create(to="to", channel="channel")
 
         self.assertIsNotNone(actual)
@@ -138,8 +138,8 @@ class VerificationTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.verify.v2.services(sid="VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .verifications(sid="sid").update(status="canceled")
+            self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                 .verifications("sid").update(status="canceled")
 
         values = {'Status': "canceled", }
 
@@ -179,8 +179,8 @@ class VerificationTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.verify.v2.services(sid="VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .verifications(sid="sid").update(status="canceled")
+        actual = self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                      .verifications("sid").update(status="canceled")
 
         self.assertIsNotNone(actual)
 
@@ -214,8 +214,8 @@ class VerificationTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.verify.v2.services(sid="VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .verifications(sid="sid").update(status="canceled")
+        actual = self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                      .verifications("sid").update(status="canceled")
 
         self.assertIsNotNone(actual)
 
@@ -223,8 +223,8 @@ class VerificationTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.verify.v2.services(sid="VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .verifications(sid="sid").fetch()
+            self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                 .verifications("sid").fetch()
 
         self.holodeck.assert_has_request(Request(
             'get',
@@ -261,7 +261,7 @@ class VerificationTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.verify.v2.services(sid="VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .verifications(sid="sid").fetch()
+        actual = self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                      .verifications("sid").fetch()
 
         self.assertIsNotNone(actual)

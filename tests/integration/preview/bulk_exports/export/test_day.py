@@ -18,7 +18,7 @@ class DayTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.preview.bulk_exports.exports(resource_type="resource_type") \
+            self.client.preview.bulk_exports.exports("resource_type") \
                                             .days.list()
 
         self.holodeck.assert_has_request(Request(
@@ -51,7 +51,7 @@ class DayTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.preview.bulk_exports.exports(resource_type="resource_type") \
+        actual = self.client.preview.bulk_exports.exports("resource_type") \
                                                  .days.list()
 
         self.assertIsNotNone(actual)

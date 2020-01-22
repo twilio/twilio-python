@@ -18,8 +18,8 @@ class SubscribeRulesTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.video.v1.rooms(sid="RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                .participants(sid="PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+            self.client.video.v1.rooms("RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                .participants("PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                 .subscribe_rules.fetch()
 
         self.holodeck.assert_has_request(Request(
@@ -50,8 +50,8 @@ class SubscribeRulesTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.video.v1.rooms(sid="RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                     .participants(sid="PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+        actual = self.client.video.v1.rooms("RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                     .participants("PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                      .subscribe_rules.fetch()
 
         self.assertIsNotNone(actual)
@@ -60,8 +60,8 @@ class SubscribeRulesTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.video.v1.rooms(sid="RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                .participants(sid="PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+            self.client.video.v1.rooms("RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                .participants("PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                 .subscribe_rules.update()
 
         self.holodeck.assert_has_request(Request(
@@ -92,8 +92,8 @@ class SubscribeRulesTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.video.v1.rooms(sid="RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                     .participants(sid="PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+        actual = self.client.video.v1.rooms("RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                     .participants("PAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                      .subscribe_rules.update()
 
         self.assertIsNotNone(actual)

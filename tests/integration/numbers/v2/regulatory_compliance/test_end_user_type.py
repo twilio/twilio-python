@@ -98,7 +98,7 @@ class EndUserTypeTestCase(IntegrationTestCase):
 
         with self.assertRaises(TwilioException):
             self.client.numbers.v2.regulatory_compliance \
-                                  .end_user_types(sid="OYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+                                  .end_user_types("OYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.holodeck.assert_has_request(Request(
             'get',
@@ -131,6 +131,6 @@ class EndUserTypeTestCase(IntegrationTestCase):
         ))
 
         actual = self.client.numbers.v2.regulatory_compliance \
-                                       .end_user_types(sid="OYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+                                       .end_user_types("OYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.assertIsNotNone(actual)

@@ -18,9 +18,9 @@ class SampleTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.autopilot.v1.assistants(sid="UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                    .tasks(sid="UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                    .samples(sid="UFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+            self.client.autopilot.v1.assistants("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                    .tasks("UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                    .samples("UFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.holodeck.assert_has_request(Request(
             'get',
@@ -46,9 +46,9 @@ class SampleTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.autopilot.v1.assistants(sid="UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                         .tasks(sid="UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                         .samples(sid="UFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+        actual = self.client.autopilot.v1.assistants("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                         .tasks("UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                         .samples("UFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.assertIsNotNone(actual)
 
@@ -56,8 +56,8 @@ class SampleTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.autopilot.v1.assistants(sid="UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                    .tasks(sid="UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+            self.client.autopilot.v1.assistants("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                    .tasks("UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                     .samples.list()
 
         self.holodeck.assert_has_request(Request(
@@ -84,8 +84,8 @@ class SampleTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.autopilot.v1.assistants(sid="UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                         .tasks(sid="UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+        actual = self.client.autopilot.v1.assistants("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                         .tasks("UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                          .samples.list()
 
         self.assertIsNotNone(actual)
@@ -122,8 +122,8 @@ class SampleTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.autopilot.v1.assistants(sid="UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                         .tasks(sid="UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+        actual = self.client.autopilot.v1.assistants("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                         .tasks("UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                          .samples.list()
 
         self.assertIsNotNone(actual)
@@ -132,8 +132,8 @@ class SampleTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.autopilot.v1.assistants(sid="UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                    .tasks(sid="UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+            self.client.autopilot.v1.assistants("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                    .tasks("UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                     .samples.create(language="language", tagged_text="tagged_text")
 
         values = {'Language': "language", 'TaggedText': "tagged_text", }
@@ -163,8 +163,8 @@ class SampleTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.autopilot.v1.assistants(sid="UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                         .tasks(sid="UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+        actual = self.client.autopilot.v1.assistants("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                         .tasks("UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                          .samples.create(language="language", tagged_text="tagged_text")
 
         self.assertIsNotNone(actual)
@@ -173,9 +173,9 @@ class SampleTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.autopilot.v1.assistants(sid="UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                    .tasks(sid="UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                    .samples(sid="UFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
+            self.client.autopilot.v1.assistants("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                    .tasks("UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                    .samples("UFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
 
         self.holodeck.assert_has_request(Request(
             'post',
@@ -201,9 +201,9 @@ class SampleTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.autopilot.v1.assistants(sid="UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                         .tasks(sid="UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                         .samples(sid="UFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
+        actual = self.client.autopilot.v1.assistants("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                         .tasks("UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                         .samples("UFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
 
         self.assertIsNotNone(actual)
 
@@ -211,9 +211,9 @@ class SampleTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.autopilot.v1.assistants(sid="UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                    .tasks(sid="UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                    .samples(sid="UFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+            self.client.autopilot.v1.assistants("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                    .tasks("UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                    .samples("UFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
 
         self.holodeck.assert_has_request(Request(
             'delete',
@@ -226,8 +226,8 @@ class SampleTestCase(IntegrationTestCase):
             None,
         ))
 
-        actual = self.client.autopilot.v1.assistants(sid="UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                         .tasks(sid="UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                         .samples(sid="UFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+        actual = self.client.autopilot.v1.assistants("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                         .tasks("UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                         .samples("UFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
 
         self.assertTrue(actual)

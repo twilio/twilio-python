@@ -18,7 +18,7 @@ class EventTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.insights.v1.calls(sid="CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+            self.client.insights.v1.calls("CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                    .events.list()
 
         self.holodeck.assert_has_request(Request(
@@ -90,7 +90,7 @@ class EventTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.insights.v1.calls(sid="CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+        actual = self.client.insights.v1.calls("CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                         .events.list()
 
         self.assertIsNotNone(actual)
@@ -159,7 +159,7 @@ class EventTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.insights.v1.calls(sid="CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+        actual = self.client.insights.v1.calls("CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                         .events.list()
 
         self.assertIsNotNone(actual)

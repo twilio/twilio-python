@@ -18,7 +18,7 @@ class PhoneNumberTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.lookups.v1.phone_numbers(phone_number="+15017122661").fetch()
+            self.client.lookups.v1.phone_numbers("+15017122661").fetch()
 
         self.holodeck.assert_has_request(Request(
             'get',
@@ -42,7 +42,7 @@ class PhoneNumberTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.lookups.v1.phone_numbers(phone_number="+15017122661").fetch()
+        actual = self.client.lookups.v1.phone_numbers("+15017122661").fetch()
 
         self.assertIsNotNone(actual)
 
@@ -69,7 +69,7 @@ class PhoneNumberTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.lookups.v1.phone_numbers(phone_number="+15017122661").fetch()
+        actual = self.client.lookups.v1.phone_numbers("+15017122661").fetch()
 
         self.assertIsNotNone(actual)
 
@@ -96,7 +96,7 @@ class PhoneNumberTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.lookups.v1.phone_numbers(phone_number="+15017122661").fetch()
+        actual = self.client.lookups.v1.phone_numbers("+15017122661").fetch()
 
         self.assertIsNotNone(actual)
 
@@ -121,7 +121,7 @@ class PhoneNumberTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.lookups.v1.phone_numbers(phone_number="+15017122661").fetch()
+        actual = self.client.lookups.v1.phone_numbers("+15017122661").fetch()
 
         self.assertIsNotNone(actual)
 
@@ -157,7 +157,7 @@ class PhoneNumberTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.lookups.v1.phone_numbers(phone_number="+15017122661").fetch()
+        actual = self.client.lookups.v1.phone_numbers("+15017122661").fetch()
 
         self.assertIsNotNone(actual)
 
@@ -231,7 +231,7 @@ class PhoneNumberTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.lookups.v1.phone_numbers(phone_number="+15017122661").fetch()
+        actual = self.client.lookups.v1.phone_numbers("+15017122661").fetch()
 
         self.assertIsNotNone(actual)
 
@@ -275,7 +275,7 @@ class PhoneNumberTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.lookups.v1.phone_numbers(phone_number="+15017122661").fetch()
+        actual = self.client.lookups.v1.phone_numbers("+15017122661").fetch()
 
         self.assertIsNotNone(actual)
 
@@ -324,6 +324,6 @@ class PhoneNumberTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.lookups.v1.phone_numbers(phone_number="+15017122661").fetch()
+        actual = self.client.lookups.v1.phone_numbers("+15017122661").fetch()
 
         self.assertIsNotNone(actual)

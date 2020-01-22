@@ -123,7 +123,7 @@ class PublicKeyTestCase(IntegrationTestCase):
 
         with self.assertRaises(TwilioException):
             self.client.accounts.v1.credentials \
-                                   .public_key(sid="CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+                                   .public_key("CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.holodeck.assert_has_request(Request(
             'get',
@@ -146,7 +146,7 @@ class PublicKeyTestCase(IntegrationTestCase):
         ))
 
         actual = self.client.accounts.v1.credentials \
-                                        .public_key(sid="CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+                                        .public_key("CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.assertIsNotNone(actual)
 
@@ -155,7 +155,7 @@ class PublicKeyTestCase(IntegrationTestCase):
 
         with self.assertRaises(TwilioException):
             self.client.accounts.v1.credentials \
-                                   .public_key(sid="CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
+                                   .public_key("CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
 
         self.holodeck.assert_has_request(Request(
             'post',
@@ -178,7 +178,7 @@ class PublicKeyTestCase(IntegrationTestCase):
         ))
 
         actual = self.client.accounts.v1.credentials \
-                                        .public_key(sid="CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
+                                        .public_key("CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
 
         self.assertIsNotNone(actual)
 
@@ -187,7 +187,7 @@ class PublicKeyTestCase(IntegrationTestCase):
 
         with self.assertRaises(TwilioException):
             self.client.accounts.v1.credentials \
-                                   .public_key(sid="CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+                                   .public_key("CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
 
         self.holodeck.assert_has_request(Request(
             'delete',
@@ -201,6 +201,6 @@ class PublicKeyTestCase(IntegrationTestCase):
         ))
 
         actual = self.client.accounts.v1.credentials \
-                                        .public_key(sid="CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+                                        .public_key("CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
 
         self.assertTrue(actual)

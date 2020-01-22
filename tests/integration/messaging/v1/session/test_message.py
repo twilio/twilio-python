@@ -18,8 +18,8 @@ class MessageTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.messaging.v1.sessions(sid="CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                    .messages(sid="IMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+            self.client.messaging.v1.sessions("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                    .messages("IMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.holodeck.assert_has_request(Request(
             'get',
@@ -47,8 +47,8 @@ class MessageTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.messaging.v1.sessions(sid="CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                         .messages(sid="IMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+        actual = self.client.messaging.v1.sessions("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                         .messages("IMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.assertIsNotNone(actual)
 
@@ -56,7 +56,7 @@ class MessageTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.messaging.v1.sessions(sid="CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+            self.client.messaging.v1.sessions("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                     .messages.create()
 
         self.holodeck.assert_has_request(Request(
@@ -85,7 +85,7 @@ class MessageTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.messaging.v1.sessions(sid="CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+        actual = self.client.messaging.v1.sessions("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                          .messages.create()
 
         self.assertIsNotNone(actual)
@@ -94,8 +94,8 @@ class MessageTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.messaging.v1.sessions(sid="CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                    .messages(sid="IMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
+            self.client.messaging.v1.sessions("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                    .messages("IMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
 
         self.holodeck.assert_has_request(Request(
             'post',
@@ -123,8 +123,8 @@ class MessageTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.messaging.v1.sessions(sid="CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                         .messages(sid="IMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
+        actual = self.client.messaging.v1.sessions("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                         .messages("IMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
 
         self.assertIsNotNone(actual)
 
@@ -132,7 +132,7 @@ class MessageTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.messaging.v1.sessions(sid="CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+            self.client.messaging.v1.sessions("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                     .messages.list()
 
         self.holodeck.assert_has_request(Request(
@@ -188,7 +188,7 @@ class MessageTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.messaging.v1.sessions(sid="CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+        actual = self.client.messaging.v1.sessions("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                          .messages.list()
 
         self.assertIsNotNone(actual)
@@ -197,8 +197,8 @@ class MessageTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.messaging.v1.sessions(sid="CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                    .messages(sid="IMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+            self.client.messaging.v1.sessions("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                    .messages("IMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
 
         self.holodeck.assert_has_request(Request(
             'delete',
@@ -211,7 +211,7 @@ class MessageTestCase(IntegrationTestCase):
             None,
         ))
 
-        actual = self.client.messaging.v1.sessions(sid="CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                         .messages(sid="IMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+        actual = self.client.messaging.v1.sessions("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                         .messages("IMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
 
         self.assertTrue(actual)
