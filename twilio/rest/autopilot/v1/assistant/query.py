@@ -342,6 +342,7 @@ class QueryInstance(InstanceResource):
             'status': payload.get('status'),
             'url': payload.get('url'),
             'source_channel': payload.get('source_channel'),
+            'dialogue_sid': payload.get('dialogue_sid'),
         }
 
         # Context
@@ -468,6 +469,14 @@ class QueryInstance(InstanceResource):
         :rtype: unicode
         """
         return self._properties['source_channel']
+
+    @property
+    def dialogue_sid(self):
+        """
+        :returns: The SID of the [Dialogue](https://www.twilio.com/docs/autopilot/api/dialogue).
+        :rtype: unicode
+        """
+        return self._properties['dialogue_sid']
 
     def fetch(self):
         """

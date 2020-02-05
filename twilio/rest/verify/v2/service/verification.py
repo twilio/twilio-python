@@ -247,6 +247,7 @@ class VerificationInstance(InstanceResource):
             'lookup': payload.get('lookup'),
             'amount': payload.get('amount'),
             'payee': payload.get('payee'),
+            'send_code_attempts': payload.get('send_code_attempts'),
             'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
             'date_updated': deserialize.iso8601_datetime(payload.get('date_updated')),
             'url': payload.get('url'),
@@ -352,6 +353,14 @@ class VerificationInstance(InstanceResource):
         :rtype: unicode
         """
         return self._properties['payee']
+
+    @property
+    def send_code_attempts(self):
+        """
+        :returns: An array of verification attempt objects.
+        :rtype: dict
+        """
+        return self._properties['send_code_attempts']
 
     @property
     def date_created(self):

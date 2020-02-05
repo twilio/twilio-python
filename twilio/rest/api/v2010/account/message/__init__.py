@@ -39,6 +39,7 @@ class MessageList(ListResource):
     def create(self, to, status_callback=values.unset, application_sid=values.unset,
                max_price=values.unset, provide_feedback=values.unset,
                validity_period=values.unset, force_delivery=values.unset,
+               content_retention=values.unset, address_retention=values.unset,
                smart_encoded=values.unset, persistent_action=values.unset,
                from_=values.unset, messaging_service_sid=values.unset,
                body=values.unset, media_url=values.unset):
@@ -52,6 +53,8 @@ class MessageList(ListResource):
         :param bool provide_feedback: Whether to confirm delivery of the message
         :param unicode validity_period: The number of seconds that the message can remain in our outgoing queue.
         :param bool force_delivery: Reserved
+        :param MessageInstance.ContentRetention content_retention: Determines if the message content can be stored or redacted based on privacy settings
+        :param MessageInstance.AddressRetention address_retention: Determines if the address can be stored or obfuscated based on privacy settings
         :param bool smart_encoded: Whether to detect Unicode characters that have a similar GSM-7 character and replace them
         :param unicode persistent_action: Rich actions for Channels Messages.
         :param unicode from_: The phone number that initiated the message
@@ -74,6 +77,8 @@ class MessageList(ListResource):
             'ProvideFeedback': provide_feedback,
             'ValidityPeriod': validity_period,
             'ForceDelivery': force_delivery,
+            'ContentRetention': content_retention,
+            'AddressRetention': address_retention,
             'SmartEncoded': smart_encoded,
             'PersistentAction': serialize.map(persistent_action, lambda e: e),
         })
@@ -403,6 +408,7 @@ class MessageInstance(InstanceResource):
         ACCEPTED = "accepted"
         SCHEDULED = "scheduled"
         READ = "read"
+        PARTIALLY_DELIVERED = "partially_delivered"
 
     class Direction(object):
         INBOUND = "inbound"

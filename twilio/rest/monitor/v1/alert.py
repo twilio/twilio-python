@@ -42,8 +42,8 @@ class AlertList(ListResource):
         The results are returned as a generator, so this operation is memory efficient.
 
         :param unicode log_level: Only show alerts for this log-level
-        :param date start_date: Only include alerts that occurred on or after this date
-        :param date end_date: Only include alerts that occurred on or before this date
+        :param date start_date: Only include alerts that occurred on or after this date and time
+        :param date end_date: Only include alerts that occurred on or before this date and time
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -73,8 +73,8 @@ class AlertList(ListResource):
         memory before returning.
 
         :param unicode log_level: Only show alerts for this log-level
-        :param date start_date: Only include alerts that occurred on or after this date
-        :param date end_date: Only include alerts that occurred on or before this date
+        :param date start_date: Only include alerts that occurred on or after this date and time
+        :param date end_date: Only include alerts that occurred on or before this date and time
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -101,8 +101,8 @@ class AlertList(ListResource):
         Request is executed immediately
 
         :param unicode log_level: Only show alerts for this log-level
-        :param date start_date: Only include alerts that occurred on or after this date
-        :param date end_date: Only include alerts that occurred on or before this date
+        :param date start_date: Only include alerts that occurred on or after this date and time
+        :param date end_date: Only include alerts that occurred on or before this date and time
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50

@@ -3,6 +3,28 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2020-02-05] Version 6.35.4
+---------------------------
+**Api**
+- Making content retention and address retention public
+- Update `status` enum for Messages to include 'partially_delivered'
+
+**Authy**
+- Added support for push factors
+
+**Autopilot**
+- Add one new property in Query i.e dialogue_sid
+
+**Verify**
+- Add `SendCodeAttempts` to create verification response.
+
+**Video**
+- Clarification in composition creation documentation: one source is mandatory, either `audio_sources` or `video_layout`, but on of them has to be provided
+
+**Twiml**
+- Add Polly Neural voices.
+
+
 [2020-01-22] Version 6.35.3
 ---------------------------
 **Library - Docs**

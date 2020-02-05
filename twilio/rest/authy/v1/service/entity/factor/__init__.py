@@ -42,7 +42,7 @@ class FactorList(ListResource):
         """
         Create the FactorInstance
 
-        :param unicode binding: A unique binding for this Factor
+        :param unicode binding: A unique binding for this Factor as a json string
         :param unicode friendly_name: The friendly name of this Factor
         :param FactorInstance.FactorTypes factor_type: The Type of this Factor
         :param unicode twilio_authy_sandbox_mode: The Twilio-Authy-Sandbox-Mode HTTP request header
@@ -364,6 +364,7 @@ class FactorInstance(InstanceResource):
         APP_PUSH = "app-push"
         SMS = "sms"
         TOTP = "totp"
+        PUSH = "push"
 
     class FactorStrengths(object):
         UNKNOWN = "unknown"
