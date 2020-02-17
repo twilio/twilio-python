@@ -1,4 +1,5 @@
 from requests import Request, Session, hooks
+from requests.adapters import HTTPAdapter
 
 from twilio.http import HttpClient
 from twilio.http.response import Response
@@ -13,7 +14,7 @@ class TwilioHttpClient(HttpClient):
     """
     General purpose HTTP Client for interacting with the Twilio API
     """
-    def __init__(self, pool_connections=True, request_hooks=None, timeout=None, logger=_logger, proxy=None):
+    def __init__(self, pool_connections=True, request_hooks=None, timeout=None, logger=_logger, proxy=None, max_retries=3):
         """
         Constructor for the TwilioHttpClient
 
@@ -23,8 +24,11 @@ class TwilioHttpClient(HttpClient):
                             Timeout should never be zero (0) or less.
         :param logger
         :param dict proxy: Http proxy for the requests session
+        :param int max_retries: Maximum number of retries each request should attempt
         """
         self.session = Session() if pool_connections else None
+        if self.session:
+            self.session.mount('https://', HTTPAdapter(max_retries=max_retries))
         self.last_request = None
         self.last_response = None
         self.logger = logger
