@@ -201,6 +201,7 @@ class ConfigurationInstance(InstanceResource):
             'chat_service_instance_sid': payload.get('chat_service_instance_sid'),
             'ui_language': payload.get('ui_language'),
             'ui_attributes': payload.get('ui_attributes'),
+            'ui_dependencies': payload.get('ui_dependencies'),
             'ui_version': payload.get('ui_version'),
             'service_version': payload.get('service_version'),
             'call_recording_enabled': payload.get('call_recording_enabled'),
@@ -379,6 +380,14 @@ class ConfigurationInstance(InstanceResource):
         :rtype: dict
         """
         return self._properties['ui_attributes']
+
+    @property
+    def ui_dependencies(self):
+        """
+        :returns: The object that defines the NPM packages and versions to be used in Hosted Flex
+        :rtype: dict
+        """
+        return self._properties['ui_dependencies']
 
     @property
     def ui_version(self):

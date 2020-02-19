@@ -282,6 +282,7 @@ class ChallengeInstance(InstanceResource):
         APP_PUSH = "app-push"
         SMS = "sms"
         TOTP = "totp"
+        PUSH = "push"
 
     class FactorStrengths(object):
         UNKNOWN = "unknown"

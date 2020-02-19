@@ -422,6 +422,7 @@ class TaskInstance(InstanceResource):
             'addons': payload.get('addons'),
             'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
             'date_updated': deserialize.iso8601_datetime(payload.get('date_updated')),
+            'task_queue_entered_date': deserialize.iso8601_datetime(payload.get('task_queue_entered_date')),
             'priority': deserialize.integer(payload.get('priority')),
             'reason': payload.get('reason'),
             'sid': payload.get('sid'),
@@ -469,7 +470,7 @@ class TaskInstance(InstanceResource):
     @property
     def age(self):
         """
-        :returns: The number of seconds since the task was created
+        :returns: The number of seconds since the Task was created
         :rtype: unicode
         """
         return self._properties['age']
@@ -515,6 +516,14 @@ class TaskInstance(InstanceResource):
         return self._properties['date_updated']
 
     @property
+    def task_queue_entered_date(self):
+        """
+        :returns: The ISO 8601 date and time in GMT when the Task entered the TaskQueue.
+        :rtype: datetime
+        """
+        return self._properties['task_queue_entered_date']
+
+    @property
     def priority(self):
         """
         :returns: Retrieve the list of all Tasks in the Workspace with the specified priority
@@ -525,7 +534,7 @@ class TaskInstance(InstanceResource):
     @property
     def reason(self):
         """
-        :returns: The reason the task was canceled or completed
+        :returns: The reason the Task was canceled or completed
         :rtype: unicode
         """
         return self._properties['reason']
@@ -573,7 +582,7 @@ class TaskInstance(InstanceResource):
     @property
     def timeout(self):
         """
-        :returns: The amount of time in seconds that the task is allowed to live
+        :returns: The amount of time in seconds that the Task is allowed to live
         :rtype: unicode
         """
         return self._properties['timeout']

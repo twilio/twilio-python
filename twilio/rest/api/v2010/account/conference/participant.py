@@ -56,7 +56,8 @@ class ParticipantList(ListResource):
                conference_recording_status_callback_method=values.unset,
                recording_status_callback_event=values.unset,
                conference_recording_status_callback_event=values.unset,
-               coaching=values.unset, call_sid_to_coach=values.unset):
+               coaching=values.unset, call_sid_to_coach=values.unset,
+               byoc=values.unset):
         """
         Create the ParticipantInstance
 
@@ -92,6 +93,7 @@ class ParticipantList(ListResource):
         :param unicode conference_recording_status_callback_event: The conference recording state changes that should generate a call to `conference_recording_status_callback`
         :param bool coaching: Indicates if the participant changed to coach
         :param unicode call_sid_to_coach: The SID of the participant who is being `coached`
+        :param unicode byoc: BYOC trunk SID (Beta)
 
         :returns: The created ParticipantInstance
         :rtype: twilio.rest.api.v2010.account.conference.participant.ParticipantInstance
@@ -129,6 +131,7 @@ class ParticipantList(ListResource):
             'ConferenceRecordingStatusCallbackEvent': serialize.map(conference_recording_status_callback_event, lambda e: e),
             'Coaching': coaching,
             'CallSidToCoach': call_sid_to_coach,
+            'Byoc': byoc,
         })
 
         payload = self._version.create(method='POST', uri=self._uri, data=data, )

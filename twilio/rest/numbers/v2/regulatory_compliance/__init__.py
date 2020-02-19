@@ -12,6 +12,7 @@ from twilio.base.page import Page
 from twilio.rest.numbers.v2.regulatory_compliance.bundle import BundleList
 from twilio.rest.numbers.v2.regulatory_compliance.end_user import EndUserList
 from twilio.rest.numbers.v2.regulatory_compliance.end_user_type import EndUserTypeList
+from twilio.rest.numbers.v2.regulatory_compliance.regulation import RegulationList
 from twilio.rest.numbers.v2.regulatory_compliance.supporting_document import SupportingDocumentList
 from twilio.rest.numbers.v2.regulatory_compliance.supporting_document_type import SupportingDocumentTypeList
 
@@ -76,6 +77,18 @@ class RegulatoryComplianceList(ListResource):
         if self._end_user_types is None:
             self._end_user_types = EndUserTypeList(self._version, )
         return self._end_user_types
+
+    @property
+    def regulations(self):
+        """
+        Access the regulations
+
+        :returns: twilio.rest.numbers.v2.regulatory_compliance.regulation.RegulationList
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.regulation.RegulationList
+        """
+        if self._regulations is None:
+            self._regulations = RegulationList(self._version, )
+        return self._regulations
 
     @property
     def supporting_documents(self):

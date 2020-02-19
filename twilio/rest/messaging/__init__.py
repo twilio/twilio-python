@@ -43,20 +43,6 @@ class Messaging(Domain):
         """
         return self.v1.services
 
-    @property
-    def sessions(self):
-        """
-        :rtype: twilio.rest.messaging.v1.session.SessionList
-        """
-        return self.v1.sessions
-
-    @property
-    def webhooks(self):
-        """
-        :rtype: twilio.rest.messaging.v1.webhook.WebhookList
-        """
-        return self.v1.webhooks
-
     def __repr__(self):
         """
         Provide a friendly representation

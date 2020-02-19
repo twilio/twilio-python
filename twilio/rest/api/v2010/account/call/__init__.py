@@ -57,7 +57,9 @@ class CallList(ListResource):
                caller_id=values.unset,
                machine_detection_speech_threshold=values.unset,
                machine_detection_speech_end_threshold=values.unset,
-               machine_detection_silence_timeout=values.unset, byoc=values.unset,
+               machine_detection_silence_timeout=values.unset,
+               async_amd=values.unset, async_amd_status_callback=values.unset,
+               async_amd_status_callback_method=values.unset, byoc=values.unset,
                url=values.unset, twiml=values.unset, application_sid=values.unset):
         """
         Create the CallInstance
@@ -86,6 +88,9 @@ class CallList(ListResource):
         :param unicode machine_detection_speech_threshold: Number of milliseconds for measuring stick for the length of the speech activity
         :param unicode machine_detection_speech_end_threshold: Number of milliseconds of silence after speech activity
         :param unicode machine_detection_silence_timeout: Number of milliseconds of initial silence
+        :param unicode async_amd: Enable asynchronous AMD
+        :param unicode async_amd_status_callback: The URL we should call to send amd status information to your application
+        :param unicode async_amd_status_callback_method: HTTP Method to use with async_amd_status_callback
         :param unicode byoc: BYOC trunk SID (Beta)
         :param unicode url: The absolute URL that returns TwiML for this call
         :param unicode twiml: TwiML instructions for the call
@@ -122,6 +127,9 @@ class CallList(ListResource):
             'MachineDetectionSpeechThreshold': machine_detection_speech_threshold,
             'MachineDetectionSpeechEndThreshold': machine_detection_speech_end_threshold,
             'MachineDetectionSilenceTimeout': machine_detection_silence_timeout,
+            'AsyncAmd': async_amd,
+            'AsyncAmdStatusCallback': async_amd_status_callback,
+            'AsyncAmdStatusCallbackMethod': async_amd_status_callback_method,
             'Byoc': byoc,
         })
 
@@ -600,7 +608,9 @@ class CallInstance(InstanceResource):
             'subresource_uris': payload.get('subresource_uris'),
             'to': payload.get('to'),
             'to_formatted': payload.get('to_formatted'),
+            'trunk_sid': payload.get('trunk_sid'),
             'uri': payload.get('uri'),
+            'queue_time': payload.get('queue_time'),
         }
 
         # Context
@@ -817,12 +827,28 @@ class CallInstance(InstanceResource):
         return self._properties['to_formatted']
 
     @property
+    def trunk_sid(self):
+        """
+        :returns: The (optional) unique identifier of the trunk resource that was used for this call.
+        :rtype: unicode
+        """
+        return self._properties['trunk_sid']
+
+    @property
     def uri(self):
         """
         :returns: The URI of this resource, relative to `https://api.twilio.com`
         :rtype: unicode
         """
         return self._properties['uri']
+
+    @property
+    def queue_time(self):
+        """
+        :returns: The wait time in milliseconds before the call is placed.
+        :rtype: unicode
+        """
+        return self._properties['queue_time']
 
     def delete(self):
         """

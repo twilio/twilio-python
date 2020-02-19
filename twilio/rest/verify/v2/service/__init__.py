@@ -51,7 +51,7 @@ class ServiceList(ListResource):
         :param bool dtmf_input_required: Whether to ask the user to press a number before delivering the verify code in a phone call
         :param unicode tts_name: The name of an alternative text-to-speech service to use in phone calls
         :param bool psd2_enabled: Whether to pass PSD2 transaction parameters when starting a verification
-        :param bool do_not_share_warning_enabled: Whether to add a privacy warning at the end of an SMS.
+        :param bool do_not_share_warning_enabled: Whether to add a security warning at the end of an SMS.
 
         :returns: The created ServiceInstance
         :rtype: twilio.rest.verify.v2.service.ServiceInstance
@@ -483,7 +483,7 @@ class ServiceInstance(InstanceResource):
     @property
     def do_not_share_warning_enabled(self):
         """
-        :returns: Whether to add a privacy warning at the end of an SMS.
+        :returns: Whether to add a security warning at the end of an SMS.
         :rtype: bool
         """
         return self._properties['do_not_share_warning_enabled']

@@ -184,6 +184,8 @@ class TaskQueueRealTimeStatisticsInstance(InstanceResource):
             'activity_statistics': payload.get('activity_statistics'),
             'longest_task_waiting_age': deserialize.integer(payload.get('longest_task_waiting_age')),
             'longest_task_waiting_sid': payload.get('longest_task_waiting_sid'),
+            'longest_relative_task_age_in_queue': deserialize.integer(payload.get('longest_relative_task_age_in_queue')),
+            'longest_relative_task_sid_in_queue': payload.get('longest_relative_task_sid_in_queue'),
             'task_queue_sid': payload.get('task_queue_sid'),
             'tasks_by_priority': payload.get('tasks_by_priority'),
             'tasks_by_status': payload.get('tasks_by_status'),
@@ -246,6 +248,22 @@ class TaskQueueRealTimeStatisticsInstance(InstanceResource):
         :rtype: unicode
         """
         return self._properties['longest_task_waiting_sid']
+
+    @property
+    def longest_relative_task_age_in_queue(self):
+        """
+        :returns: The relative age in the TaskQueue for the longest waiting Task.
+        :rtype: unicode
+        """
+        return self._properties['longest_relative_task_age_in_queue']
+
+    @property
+    def longest_relative_task_sid_in_queue(self):
+        """
+        :returns: The SID of the Task waiting in the TaskQueue the longest.
+        :rtype: unicode
+        """
+        return self._properties['longest_relative_task_sid_in_queue']
 
     @property
     def task_queue_sid(self):

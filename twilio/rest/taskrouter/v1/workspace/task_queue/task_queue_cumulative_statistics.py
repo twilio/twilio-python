@@ -207,6 +207,7 @@ class TaskQueueCumulativeStatisticsInstance(InstanceResource):
             'task_queue_sid': payload.get('task_queue_sid'),
             'wait_duration_until_accepted': payload.get('wait_duration_until_accepted'),
             'wait_duration_until_canceled': payload.get('wait_duration_until_canceled'),
+            'wait_duration_in_queue_until_accepted': payload.get('wait_duration_in_queue_until_accepted'),
             'tasks_canceled': deserialize.integer(payload.get('tasks_canceled')),
             'tasks_completed': deserialize.integer(payload.get('tasks_completed')),
             'tasks_deleted': deserialize.integer(payload.get('tasks_deleted')),
@@ -348,6 +349,14 @@ class TaskQueueCumulativeStatisticsInstance(InstanceResource):
         :rtype: dict
         """
         return self._properties['wait_duration_until_canceled']
+
+    @property
+    def wait_duration_in_queue_until_accepted(self):
+        """
+        :returns: The relative wait duration statistics for Tasks accepted while in the TaskQueue
+        :rtype: dict
+        """
+        return self._properties['wait_duration_in_queue_until_accepted']
 
     @property
     def tasks_canceled(self):

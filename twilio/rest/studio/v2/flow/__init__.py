@@ -13,7 +13,9 @@ from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.page import Page
+from twilio.rest.studio.v2.flow.execution import ExecutionList
 from twilio.rest.studio.v2.flow.flow_revision import FlowRevisionList
+from twilio.rest.studio.v2.flow.test_user import FlowTestUserList
 
 
 class FlowList(ListResource):
@@ -230,6 +232,8 @@ class FlowContext(InstanceContext):
 
         # Dependents
         self._revisions = None
+        self._test_users = None
+        self._executions = None
 
     def update(self, status, friendly_name=values.unset, definition=values.unset,
                commit_message=values.unset):
@@ -287,6 +291,30 @@ class FlowContext(InstanceContext):
             self._revisions = FlowRevisionList(self._version, sid=self._solution['sid'], )
         return self._revisions
 
+    @property
+    def test_users(self):
+        """
+        Access the test_users
+
+        :returns: twilio.rest.studio.v2.flow.test_user.FlowTestUserList
+        :rtype: twilio.rest.studio.v2.flow.test_user.FlowTestUserList
+        """
+        if self._test_users is None:
+            self._test_users = FlowTestUserList(self._version, sid=self._solution['sid'], )
+        return self._test_users
+
+    @property
+    def executions(self):
+        """
+        Access the executions
+
+        :returns: twilio.rest.studio.v2.flow.execution.ExecutionList
+        :rtype: twilio.rest.studio.v2.flow.execution.ExecutionList
+        """
+        if self._executions is None:
+            self._executions = ExecutionList(self._version, flow_sid=self._solution['sid'], )
+        return self._executions
+
     def __repr__(self):
         """
         Provide a friendly representation
@@ -328,6 +356,7 @@ class FlowInstance(InstanceResource):
             'errors': payload.get('errors'),
             'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
             'date_updated': deserialize.iso8601_datetime(payload.get('date_updated')),
+            'webhook_url': payload.get('webhook_url'),
             'url': payload.get('url'),
             'links': payload.get('links'),
         }
@@ -438,6 +467,14 @@ class FlowInstance(InstanceResource):
         return self._properties['date_updated']
 
     @property
+    def webhook_url(self):
+        """
+        :returns: The webhook_url
+        :rtype: unicode
+        """
+        return self._properties['webhook_url']
+
+    @property
     def url(self):
         """
         :returns: The absolute URL of the resource
@@ -500,6 +537,26 @@ class FlowInstance(InstanceResource):
         :rtype: twilio.rest.studio.v2.flow.flow_revision.FlowRevisionList
         """
         return self._proxy.revisions
+
+    @property
+    def test_users(self):
+        """
+        Access the test_users
+
+        :returns: twilio.rest.studio.v2.flow.test_user.FlowTestUserList
+        :rtype: twilio.rest.studio.v2.flow.test_user.FlowTestUserList
+        """
+        return self._proxy.test_users
+
+    @property
+    def executions(self):
+        """
+        Access the executions
+
+        :returns: twilio.rest.studio.v2.flow.execution.ExecutionList
+        :rtype: twilio.rest.studio.v2.flow.execution.ExecutionList
+        """
+        return self._proxy.executions
 
     def __repr__(self):
         """

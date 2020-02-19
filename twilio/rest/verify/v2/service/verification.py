@@ -52,7 +52,7 @@ class VerificationList(ListResource):
         :param unicode payee: The payee of the associated PSD2 compliant transaction
         :param dict rate_limits: The custom key-value pairs of Programmable Rate Limits.
         :param dict channel_configuration: Channel specific configuration in json format.
-        :param unicode app_hash: App Hash to be included at the end of an SMS.
+        :param unicode app_hash: Your App Hash to be appended at the end of an SMS.
 
         :returns: The created VerificationInstance
         :rtype: twilio.rest.verify.v2.service.verification.VerificationInstance

@@ -64,7 +64,9 @@ class CallTestCase(IntegrationTestCase):
                 },
                 "to": "+14158675309",
                 "to_formatted": "(415) 867-5309",
-                "uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json"
+                "trunk_sid": null,
+                "uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json",
+                "queue_time": "1000"
             }
             '''
         ))
@@ -109,7 +111,9 @@ class CallTestCase(IntegrationTestCase):
                 },
                 "to": "+14158675309",
                 "to_formatted": "(415) 867-5309",
-                "uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json"
+                "trunk_sid": null,
+                "uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json",
+                "queue_time": "1000"
             }
             '''
         ))
@@ -189,7 +193,9 @@ class CallTestCase(IntegrationTestCase):
                 },
                 "to": "+13051913581",
                 "to_formatted": "(305) 191-3581",
-                "uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json"
+                "trunk_sid": "TRdeadbeefdeadbeefdeadbeefdeadbeef",
+                "uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json",
+                "queue_time": "1000"
             }
             '''
         ))
@@ -248,7 +254,9 @@ class CallTestCase(IntegrationTestCase):
                         },
                         "to": "+13051913581",
                         "to_formatted": "(305) 191-3581",
-                        "uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json"
+                        "trunk_sid": "TRdeadbeefdeadbeefdeadbeefdeadbeef",
+                        "uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json",
+                        "queue_time": "1000"
                     },
                     {
                         "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -281,7 +289,9 @@ class CallTestCase(IntegrationTestCase):
                         },
                         "to": "+13051913580",
                         "to_formatted": "(305) 191-3580",
-                        "uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa0.json"
+                        "trunk_sid": "TRdeadbeefdeadbeefdeadbeefdeadbeef",
+                        "uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa0.json",
+                        "queue_time": "1000"
                     }
                 ],
                 "end": 1,
@@ -338,7 +348,9 @@ class CallTestCase(IntegrationTestCase):
                         },
                         "to": "+13051913581",
                         "to_formatted": "(305) 191-3581",
-                        "uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json"
+                        "trunk_sid": "TRdeadbeefdeadbeefdeadbeefdeadbeef",
+                        "uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json",
+                        "queue_time": "1000"
                     },
                     {
                         "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -371,7 +383,9 @@ class CallTestCase(IntegrationTestCase):
                         },
                         "to": "+13051913580",
                         "to_formatted": "(305) 191-3580",
-                        "uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa0.json"
+                        "trunk_sid": "TRdeadbeefdeadbeefdeadbeefdeadbeef",
+                        "uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa0.json",
+                        "queue_time": "1000"
                     }
                 ],
                 "end": 3,
@@ -507,7 +521,9 @@ class CallTestCase(IntegrationTestCase):
                 },
                 "to": "+14158675309",
                 "to_formatted": "(415) 867-5309",
-                "uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json"
+                "trunk_sid": null,
+                "uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json",
+                "queue_time": "1000"
             }
             '''
         ))
@@ -552,7 +568,9 @@ class CallTestCase(IntegrationTestCase):
                 },
                 "to": "+14158675309",
                 "to_formatted": "(415) 867-5309",
-                "uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json"
+                "trunk_sid": null,
+                "uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json",
+                "queue_time": "1000"
             }
             '''
         ))
@@ -597,7 +615,9 @@ class CallTestCase(IntegrationTestCase):
                 },
                 "to": "+14158675309",
                 "to_formatted": "(415) 867-5309",
-                "uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json"
+                "trunk_sid": null,
+                "uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json",
+                "queue_time": "1000"
             }
             '''
         ))
