@@ -23,6 +23,7 @@ deploy:
       tags: true
       python: "3.6"
   - provider: pypi
+    skip_cleanup: true
     user: "__token__"
     password: 
       secure: $PYPI_TOKEN
