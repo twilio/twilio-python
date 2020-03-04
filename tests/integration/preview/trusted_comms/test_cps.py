@@ -18,12 +18,9 @@ class CpsTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.preview.trusted_comms.cps().fetch(twilio_sandbox_mode="twilio_sandbox_mode", x_xcnam_sensitive_phone_number="x_xcnam_sensitive_phone_number")
+            self.client.preview.trusted_comms.cps().fetch(x_xcnam_sensitive_phone_number="x_xcnam_sensitive_phone_number")
 
-        headers = {
-            'Twilio-Sandbox-Mode': "twilio_sandbox_mode",
-            'X-Xcnam-Sensitive-Phone-Number': "x_xcnam_sensitive_phone_number",
-        }
+        headers = {'X-Xcnam-Sensitive-Phone-Number': "x_xcnam_sensitive_phone_number", }
         self.holodeck.assert_has_request(Request(
             'get',
             'https://preview.twilio.com/TrustedComms/CPS',

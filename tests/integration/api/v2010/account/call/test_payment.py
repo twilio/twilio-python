@@ -69,7 +69,7 @@ class PaymentTestCase(IntegrationTestCase):
 
     def test_collect_credit_card_number_response(self):
         self.holodeck.mock(Response(
-            202,
+            200,
             '''
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -90,7 +90,7 @@ class PaymentTestCase(IntegrationTestCase):
 
     def test_collect_credit_card_expiry_date_response(self):
         self.holodeck.mock(Response(
-            202,
+            200,
             '''
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -111,7 +111,7 @@ class PaymentTestCase(IntegrationTestCase):
 
     def test_complete_payment_response(self):
         self.holodeck.mock(Response(
-            202,
+            200,
             '''
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",

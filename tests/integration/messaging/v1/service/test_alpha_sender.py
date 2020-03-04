@@ -40,7 +40,9 @@ class AlphaSenderTestCase(IntegrationTestCase):
                 "date_created": "2015-07-30T20:12:31Z",
                 "date_updated": "2015-07-30T20:12:33Z",
                 "alpha_sender": "Twilio",
-                "capabilities": [],
+                "capabilities": [
+                    "SMS"
+                ],
                 "url": "https://messaging.twilio.com/v1/Services/MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AlphaSenders/AIaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
             '''
@@ -85,7 +87,9 @@ class AlphaSenderTestCase(IntegrationTestCase):
                         "date_created": "2015-07-30T20:12:31Z",
                         "date_updated": "2015-07-30T20:12:33Z",
                         "alpha_sender": "Twilio",
-                        "capabilities": [],
+                        "capabilities": [
+                            "SMS"
+                        ],
                         "url": "https://messaging.twilio.com/v1/Services/MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AlphaSenders/AIaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
                     }
                 ]
@@ -121,7 +125,9 @@ class AlphaSenderTestCase(IntegrationTestCase):
                 "date_created": "2015-07-30T20:12:31Z",
                 "date_updated": "2015-07-30T20:12:33Z",
                 "alpha_sender": "Twilio",
-                "capabilities": [],
+                "capabilities": [
+                    "SMS"
+                ],
                 "url": "https://messaging.twilio.com/v1/Services/MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AlphaSenders/AIaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
             '''

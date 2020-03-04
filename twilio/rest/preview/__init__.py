@@ -233,13 +233,6 @@ class Preview(Domain):
         return self.trusted_comms.current_calls
 
     @property
-    def devices(self):
-        """
-        :rtype: twilio.rest.preview.trusted_comms.device.DeviceList
-        """
-        return self.trusted_comms.devices
-
-    @property
     def phone_calls(self):
         """
         :rtype: twilio.rest.preview.trusted_comms.phone_call.PhoneCallList

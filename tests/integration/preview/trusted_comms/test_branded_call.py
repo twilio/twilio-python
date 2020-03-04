@@ -18,16 +18,10 @@ class BrandedCallTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.preview.trusted_comms.branded_calls.create(from_="from", to="to", reason="reason", twilio_sandbox_mode="twilio_sandbox_mode")
+            self.client.preview.trusted_comms.branded_calls.create(from_="from", to="to", reason="reason")
 
         values = {'From': "from", 'To': "to", 'Reason': "reason", }
 
-        headers = {'Twilio-Sandbox-Mode': "twilio_sandbox_mode", }
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://preview.twilio.com/TrustedComms/Business/BrandedCalls',
-            headers=headers,
-        ))
         self.holodeck.assert_has_request(Request(
             'post',
             'https://preview.twilio.com/TrustedComms/Business/BrandedCalls',

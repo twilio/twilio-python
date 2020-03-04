@@ -354,7 +354,7 @@ class AlphaSenderInstance(InstanceResource):
     def capabilities(self):
         """
         :returns: An array of values that describe whether the number can receive calls or messages
-        :rtype: dict
+        :rtype: unicode
         """
         return self._properties['capabilities']
 

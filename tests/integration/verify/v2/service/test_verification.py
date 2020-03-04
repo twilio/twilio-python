@@ -54,11 +54,13 @@ class VerificationTestCase(IntegrationTestCase):
                 },
                 "amount": null,
                 "payee": null,
-                "send_code_attempts": {
-                    "time": "2015-07-30T20:00:00Z",
-                    "channel": "SMS",
-                    "channel_id": null
-                },
+                "send_code_attempts": [
+                    {
+                        "time": "2015-07-30T20:00:00Z",
+                        "channel": "SMS",
+                        "channel_id": null
+                    }
+                ],
                 "url": "https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Verifications/VEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
             '''
@@ -94,11 +96,13 @@ class VerificationTestCase(IntegrationTestCase):
                 },
                 "amount": null,
                 "payee": null,
-                "send_code_attempts": {
-                    "time": "2015-07-30T20:00:00Z",
-                    "channel": "EMAIL",
-                    "channel_id": null
-                },
+                "send_code_attempts": [
+                    {
+                        "time": "2015-07-30T20:00:00Z",
+                        "channel": "EMAIL",
+                        "channel_id": null
+                    }
+                ],
                 "url": "https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Verifications/VEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
             '''
@@ -134,11 +138,13 @@ class VerificationTestCase(IntegrationTestCase):
                 },
                 "amount": null,
                 "payee": null,
-                "send_code_attempts": {
-                    "time": "2015-07-30T20:00:00Z",
-                    "channel": "SMS",
-                    "channel_id": null
-                },
+                "send_code_attempts": [
+                    {
+                        "time": "2015-07-30T20:00:00Z",
+                        "channel": "SMS",
+                        "channel_id": null
+                    }
+                ],
                 "url": "https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Verifications/VEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
             '''
@@ -189,11 +195,13 @@ class VerificationTestCase(IntegrationTestCase):
                 },
                 "amount": null,
                 "payee": null,
-                "send_code_attempts": {
-                    "time": "2015-07-30T20:00:00Z",
-                    "channel": "SMS",
-                    "channel_id": null
-                },
+                "send_code_attempts": [
+                    {
+                        "time": "2015-07-30T20:00:00Z",
+                        "channel": "SMS",
+                        "channel_id": null
+                    }
+                ],
                 "url": "https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Verifications/VEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
             '''
@@ -229,11 +237,13 @@ class VerificationTestCase(IntegrationTestCase):
                 },
                 "amount": null,
                 "payee": null,
-                "send_code_attempts": {
-                    "time": "2015-07-30T20:00:00Z",
-                    "channel": "SMS",
-                    "channel_id": null
-                },
+                "send_code_attempts": [
+                    {
+                        "time": "2015-07-30T20:00:00Z",
+                        "channel": "SMS",
+                        "channel_id": null
+                    }
+                ],
                 "url": "https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Verifications/VEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
             '''
@@ -281,11 +291,13 @@ class VerificationTestCase(IntegrationTestCase):
                 },
                 "amount": null,
                 "payee": null,
-                "send_code_attempts": {
-                    "time": "2015-07-30T20:00:00Z",
-                    "channel": "SMS",
-                    "channel_id": null
-                },
+                "send_code_attempts": [
+                    {
+                        "time": "2015-07-30T20:00:00Z",
+                        "channel": "SMS",
+                        "channel_id": null
+                    }
+                ],
                 "url": "https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Verifications/VEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
             '''

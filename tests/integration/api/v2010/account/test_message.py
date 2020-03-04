@@ -414,7 +414,7 @@ class MessageTestCase(IntegrationTestCase):
 
     def test_update_response(self):
         self.holodeck.mock(Response(
-            202,
+            200,
             '''
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",

@@ -115,13 +115,15 @@ class ServiceList(ListResource):
 
         return ServicePage(self._version, response, self._solution)
 
-    def create(self, unique_name, friendly_name, include_credentials=values.unset):
+    def create(self, unique_name, friendly_name, include_credentials=values.unset,
+               ui_editable=values.unset):
         """
         Create the ServiceInstance
 
         :param unicode unique_name: An application-defined string that uniquely identifies the Service resource
         :param unicode friendly_name: A string to describe the Service resource
         :param bool include_credentials: Whether to inject Account credentials into a function invocation context
+        :param bool ui_editable: Whether the Service's properties and subresources can be edited via the UI
 
         :returns: The created ServiceInstance
         :rtype: twilio.rest.serverless.v1.service.ServiceInstance
@@ -130,6 +132,7 @@ class ServiceList(ListResource):
             'UniqueName': unique_name,
             'FriendlyName': friendly_name,
             'IncludeCredentials': include_credentials,
+            'UiEditable': ui_editable,
         })
 
         payload = self._version.create(method='POST', uri=self._uri, data=data, )
@@ -256,17 +259,23 @@ class ServiceContext(InstanceContext):
         """
         return self._version.delete(method='DELETE', uri=self._uri, )
 
-    def update(self, include_credentials=values.unset, friendly_name=values.unset):
+    def update(self, include_credentials=values.unset, friendly_name=values.unset,
+               ui_editable=values.unset):
         """
         Update the ServiceInstance
 
         :param bool include_credentials: Whether to inject Account credentials into a function invocation context
         :param unicode friendly_name: A string to describe the Service resource
+        :param bool ui_editable: Whether the Service's properties and subresources can be edited via the UI
 
         :returns: The updated ServiceInstance
         :rtype: twilio.rest.serverless.v1.service.ServiceInstance
         """
-        data = values.of({'IncludeCredentials': include_credentials, 'FriendlyName': friendly_name, })
+        data = values.of({
+            'IncludeCredentials': include_credentials,
+            'FriendlyName': friendly_name,
+            'UiEditable': ui_editable,
+        })
 
         payload = self._version.update(method='POST', uri=self._uri, data=data, )
 
@@ -352,6 +361,7 @@ class ServiceInstance(InstanceResource):
             'friendly_name': payload.get('friendly_name'),
             'unique_name': payload.get('unique_name'),
             'include_credentials': payload.get('include_credentials'),
+            'ui_editable': payload.get('ui_editable'),
             'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
             'date_updated': deserialize.iso8601_datetime(payload.get('date_updated')),
             'url': payload.get('url'),
@@ -416,6 +426,14 @@ class ServiceInstance(InstanceResource):
         return self._properties['include_credentials']
 
     @property
+    def ui_editable(self):
+        """
+        :returns: Whether the Service's properties and subresources can be edited via the UI
+        :rtype: bool
+        """
+        return self._properties['ui_editable']
+
+    @property
     def date_created(self):
         """
         :returns: The ISO 8601 date and time in GMT when the Service resource was created
@@ -465,17 +483,23 @@ class ServiceInstance(InstanceResource):
         """
         return self._proxy.delete()
 
-    def update(self, include_credentials=values.unset, friendly_name=values.unset):
+    def update(self, include_credentials=values.unset, friendly_name=values.unset,
+               ui_editable=values.unset):
         """
         Update the ServiceInstance
 
         :param bool include_credentials: Whether to inject Account credentials into a function invocation context
         :param unicode friendly_name: A string to describe the Service resource
+        :param bool ui_editable: Whether the Service's properties and subresources can be edited via the UI
 
         :returns: The updated ServiceInstance
         :rtype: twilio.rest.serverless.v1.service.ServiceInstance
         """
-        return self._proxy.update(include_credentials=include_credentials, friendly_name=friendly_name, )
+        return self._proxy.update(
+            include_credentials=include_credentials,
+            friendly_name=friendly_name,
+            ui_editable=ui_editable,
+        )
 
     @property
     def environments(self):

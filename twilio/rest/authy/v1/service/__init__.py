@@ -35,17 +35,19 @@ class ServiceList(ListResource):
         self._solution = {}
         self._uri = '/Services'.format(**self._solution)
 
-    def create(self, friendly_name, twilio_authy_sandbox_mode=values.unset):
+    def create(self, friendly_name, push=values.unset,
+               twilio_authy_sandbox_mode=values.unset):
         """
         Create the ServiceInstance
 
         :param unicode friendly_name: A human readable description of this resource.
+        :param unicode push: Optional service level push factors configuration
         :param unicode twilio_authy_sandbox_mode: The Twilio-Authy-Sandbox-Mode HTTP request header
 
         :returns: The created ServiceInstance
         :rtype: twilio.rest.authy.v1.service.ServiceInstance
         """
-        data = values.of({'FriendlyName': friendly_name, })
+        data = values.of({'FriendlyName': friendly_name, 'Push': push, })
         headers = values.of({'Twilio-Authy-Sandbox-Mode': twilio_authy_sandbox_mode, })
 
         payload = self._version.create(method='POST', uri=self._uri, data=data, headers=headers, )
@@ -328,6 +330,7 @@ class ServiceInstance(InstanceResource):
             'date_updated': deserialize.iso8601_datetime(payload.get('date_updated')),
             'url': payload.get('url'),
             'links': payload.get('links'),
+            'configuration': payload.get('configuration'),
         }
 
         # Context
@@ -402,6 +405,14 @@ class ServiceInstance(InstanceResource):
         :rtype: unicode
         """
         return self._properties['links']
+
+    @property
+    def configuration(self):
+        """
+        :returns: The service level configuration of all the factor types.
+        :rtype: dict
+        """
+        return self._properties['configuration']
 
     def delete(self, twilio_authy_sandbox_mode=values.unset):
         """

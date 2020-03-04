@@ -11,7 +11,6 @@ from twilio.rest.preview.trusted_comms.branded_call import BrandedCallList
 from twilio.rest.preview.trusted_comms.business import BusinessList
 from twilio.rest.preview.trusted_comms.cps import CpsList
 from twilio.rest.preview.trusted_comms.current_call import CurrentCallList
-from twilio.rest.preview.trusted_comms.device import DeviceList
 from twilio.rest.preview.trusted_comms.phone_call import PhoneCallList
 
 
@@ -30,7 +29,6 @@ class TrustedComms(Version):
         self._businesses = None
         self._cps = None
         self._current_calls = None
-        self._devices = None
         self._phone_calls = None
 
     @property
@@ -68,15 +66,6 @@ class TrustedComms(Version):
         if self._current_calls is None:
             self._current_calls = CurrentCallList(self)
         return self._current_calls
-
-    @property
-    def devices(self):
-        """
-        :rtype: twilio.rest.preview.trusted_comms.device.DeviceList
-        """
-        if self._devices is None:
-            self._devices = DeviceList(self)
-        return self._devices
 
     @property
     def phone_calls(self):

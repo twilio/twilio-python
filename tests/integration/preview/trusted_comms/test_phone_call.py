@@ -18,16 +18,10 @@ class PhoneCallTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.preview.trusted_comms.phone_calls.create(from_="from", to="to", twilio_sandbox_mode="twilio_sandbox_mode")
+            self.client.preview.trusted_comms.phone_calls.create(from_="from", to="to")
 
         values = {'From': "from", 'To': "to", }
 
-        headers = {'Twilio-Sandbox-Mode': "twilio_sandbox_mode", }
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://preview.twilio.com/TrustedComms/Business/PhoneCalls',
-            headers=headers,
-        ))
         self.holodeck.assert_has_request(Request(
             'post',
             'https://preview.twilio.com/TrustedComms/Business/PhoneCalls',

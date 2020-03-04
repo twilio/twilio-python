@@ -79,6 +79,7 @@ class Client(object):
         self._video = None
         self._voice = None
         self._wireless = None
+        self._supersim = None
 
     def request(self, method, uri, params=None, data=None, headers=None, auth=None,
                 timeout=None, allow_redirects=False):
@@ -481,6 +482,19 @@ class Client(object):
             from twilio.rest.wireless import Wireless
             self._wireless = Wireless(self)
         return self._wireless
+
+    @property
+    def supersim(self):
+        """
+        Access the Supersim Twilio Domain
+
+        :returns: Supersim Twilio Domain
+        :rtype: twilio.rest.supersim.Supersim
+        """
+        if self._supersim is None:
+            from twilio.rest.supersim import Supersim
+            self._supersim = Supersim(self)
+        return self._supersim
 
     @property
     def addresses(self):

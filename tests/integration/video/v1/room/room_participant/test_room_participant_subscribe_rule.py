@@ -71,7 +71,7 @@ class SubscribeRulesTestCase(IntegrationTestCase):
 
     def test_update_filters_response(self):
         self.holodeck.mock(Response(
-            202,
+            200,
             '''
             {
                 "participant_sid": "PAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",

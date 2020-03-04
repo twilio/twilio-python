@@ -56,7 +56,7 @@ class SettingsTestCase(IntegrationTestCase):
 
     def test_update_response(self):
         self.holodeck.mock(Response(
-            202,
+            200,
             '''
             {
                 "dialing_permissions_inheritance": true,

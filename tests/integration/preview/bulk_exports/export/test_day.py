@@ -14,6 +14,33 @@ from twilio.http.response import Response
 
 class DayTestCase(IntegrationTestCase):
 
+    def test_fetch_request(self):
+        self.holodeck.mock(Response(500, ''))
+
+        with self.assertRaises(TwilioException):
+            self.client.preview.bulk_exports.exports("resource_type") \
+                                            .days("day").fetch()
+
+        self.holodeck.assert_has_request(Request(
+            'get',
+            'https://preview.twilio.com/BulkExports/Exports/resource_type/Days/day',
+        ))
+
+    def test_fetch_response(self):
+        self.holodeck.mock(Response(
+            200,
+            '''
+            {
+                "redirect_to": "https://com.twilio.dev-us1.exports.s3.amazonaws.com/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            }
+            '''
+        ))
+
+        actual = self.client.preview.bulk_exports.exports("resource_type") \
+                                                 .days("day").fetch()
+
+        self.assertIsNotNone(actual)
+
     def test_list_request(self):
         self.holodeck.mock(Response(500, ''))
 
@@ -26,26 +53,52 @@ class DayTestCase(IntegrationTestCase):
             'https://preview.twilio.com/BulkExports/Exports/resource_type/Days',
         ))
 
-    def test_read_response(self):
+    def test_read_empty_response(self):
+        self.holodeck.mock(Response(
+            200,
+            '''
+            {
+                "days": [],
+                "meta": {
+                    "page": 0,
+                    "page_size": 50,
+                    "first_page_url": "https://preview.twilio.com/BulkExports/Exports/Calls/Days?PageSize=50&Page=0",
+                    "previous_page_url": null,
+                    "url": "https://preview.twilio.com/BulkExports/Exports/Calls/Days?PageSize=50&Page=0",
+                    "next_page_url": null,
+                    "key": "days"
+                }
+            }
+            '''
+        ))
+
+        actual = self.client.preview.bulk_exports.exports("resource_type") \
+                                                 .days.list()
+
+        self.assertIsNotNone(actual)
+
+    def test_read_full_response(self):
         self.holodeck.mock(Response(
             200,
             '''
             {
                 "days": [
                     {
-                        "day": "2017-05-01",
-                        "size": 1234,
-                        "resource_type": "Calls"
+                        "day": "2017-04-01",
+                        "size": 100,
+                        "resource_type": "Calls",
+                        "create_date": "2017-04-02",
+                        "friendly_name": "friendly_name"
                     }
                 ],
                 "meta": {
-                    "key": "days",
-                    "page_size": 50,
-                    "url": "https://preview.twilio.com/BulkExports/Exports/Calls/Days?PageSize=50&Page=0",
                     "page": 0,
+                    "page_size": 50,
                     "first_page_url": "https://preview.twilio.com/BulkExports/Exports/Calls/Days?PageSize=50&Page=0",
                     "previous_page_url": null,
-                    "next_page_url": null
+                    "url": "https://preview.twilio.com/BulkExports/Exports/Calls/Days?PageSize=50&Page=0",
+                    "next_page_url": null,
+                    "key": "days"
                 }
             }
             '''

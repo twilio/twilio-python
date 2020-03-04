@@ -284,14 +284,6 @@ class ChallengeInstance(InstanceResource):
         TOTP = "totp"
         PUSH = "push"
 
-    class FactorStrengths(object):
-        UNKNOWN = "unknown"
-        VERY_LOW = "very_low"
-        LOW = "low"
-        MEDIUM = "medium"
-        HIGH = "high"
-        VERY_HIGH = "very_high"
-
     def __init__(self, version, payload, service_sid, identity, factor_sid,
                  sid=None):
         """
@@ -319,7 +311,6 @@ class ChallengeInstance(InstanceResource):
             'details': payload.get('details'),
             'hidden_details': payload.get('hidden_details'),
             'factor_type': payload.get('factor_type'),
-            'factor_strength': payload.get('factor_strength'),
             'url': payload.get('url'),
         }
 
@@ -470,14 +461,6 @@ class ChallengeInstance(InstanceResource):
         :rtype: ChallengeInstance.FactorTypes
         """
         return self._properties['factor_type']
-
-    @property
-    def factor_strength(self):
-        """
-        :returns: The Factor Strength of this Challenge
-        :rtype: ChallengeInstance.FactorStrengths
-        """
-        return self._properties['factor_strength']
 
     @property
     def url(self):
