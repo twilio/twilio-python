@@ -33,7 +33,7 @@ class WorkflowTestCase(IntegrationTestCase):
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "assignment_callback_url": "http://example.com",
-                "configuration": "task-routing:\\n  - filter: \\n      - 1 == 1\\n    target:\\n      - queue: WQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\\n        set-priority: 0\\n",
+                "configuration": "task-routing:\\\\n  - filter: \\\\n      - 1 == 1\\\\n    target:\\\\n      - queue: WQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\\\\n        set-priority: 0\\\\n",
                 "date_created": "2014-05-14T10:50:02Z",
                 "date_updated": "2014-05-14T23:26:06Z",
                 "document_content_type": "application/json",
@@ -76,7 +76,7 @@ class WorkflowTestCase(IntegrationTestCase):
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "assignment_callback_url": "http://example.com",
-                "configuration": "task-routing:\\n  - filter: \\n      - 1 == 1\\n    target:\\n      - queue: WQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\\n        set-priority: 0\\n",
+                "configuration": "task-routing:\\\\n  - filter: \\\\n      - 1 == 1\\\\n    target:\\\\n      - queue: WQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\\\\n        set-priority: 0\\\\n",
                 "date_created": "2014-05-14T10:50:02Z",
                 "date_updated": "2014-05-14T23:26:06Z",
                 "document_content_type": "application/json",
@@ -153,7 +153,7 @@ class WorkflowTestCase(IntegrationTestCase):
                     {
                         "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                         "assignment_callback_url": "http://example.com",
-                        "configuration": "task-routing:\\n  - filter: \\n      - 1 == 1\\n    target:\\n      - queue: WQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\\n        set-priority: 0\\n",
+                        "configuration": "task-routing:\\\\n  - filter: \\\\n      - 1 == 1\\\\n    target:\\\\n      - queue: WQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\\\\n        set-priority: 0\\\\n",
                         "date_created": "2014-05-14T10:50:02Z",
                         "date_updated": "2014-05-15T16:47:51Z",
                         "document_content_type": "application/json",
@@ -225,7 +225,7 @@ class WorkflowTestCase(IntegrationTestCase):
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "assignment_callback_url": "http://example.com",
-                "configuration": "task-routing:\\n  - filter: \\n      - 1 == 1\\n    target:\\n      - queue: WQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\\n        set-priority: 0\\n",
+                "configuration": "task-routing:\\\\n  - filter: \\\\n      - 1 == 1\\\\n    target:\\\\n      - queue: WQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\\\\n        set-priority: 0\\\\n",
                 "date_created": "2014-05-14T10:50:02Z",
                 "date_updated": "2014-05-14T23:26:06Z",
                 "document_content_type": "application/json",

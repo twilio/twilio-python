@@ -15,43 +15,43 @@ from twilio.base.list_resource import ListResource
 from twilio.base.page import Page
 
 
-class SuccessRateList(ListResource):
+class ImpressionsRateList(ListResource):
     """ PLEASE NOTE that this class contains preview products that are subject
     to change. Use them with caution. If you currently do not have developer
     preview access, please contact help@twilio.com. """
 
     def __init__(self, version, business_sid):
         """
-        Initialize the SuccessRateList
+        Initialize the ImpressionsRateList
 
         :param Version version: Version that contains the resource
         :param business_sid: A string that uniquely identifies this Business.
 
-        :returns: twilio.rest.preview.trusted_comms.business.insights.success_rate.SuccessRateList
-        :rtype: twilio.rest.preview.trusted_comms.business.insights.success_rate.SuccessRateList
+        :returns: twilio.rest.preview.trusted_comms.business.insights.impressions_rate.ImpressionsRateList
+        :rtype: twilio.rest.preview.trusted_comms.business.insights.impressions_rate.ImpressionsRateList
         """
-        super(SuccessRateList, self).__init__(version)
+        super(ImpressionsRateList, self).__init__(version)
 
         # Path Solution
         self._solution = {'business_sid': business_sid, }
 
     def get(self):
         """
-        Constructs a SuccessRateContext
+        Constructs a ImpressionsRateContext
 
-        :returns: twilio.rest.preview.trusted_comms.business.insights.success_rate.SuccessRateContext
-        :rtype: twilio.rest.preview.trusted_comms.business.insights.success_rate.SuccessRateContext
+        :returns: twilio.rest.preview.trusted_comms.business.insights.impressions_rate.ImpressionsRateContext
+        :rtype: twilio.rest.preview.trusted_comms.business.insights.impressions_rate.ImpressionsRateContext
         """
-        return SuccessRateContext(self._version, business_sid=self._solution['business_sid'], )
+        return ImpressionsRateContext(self._version, business_sid=self._solution['business_sid'], )
 
     def __call__(self):
         """
-        Constructs a SuccessRateContext
+        Constructs a ImpressionsRateContext
 
-        :returns: twilio.rest.preview.trusted_comms.business.insights.success_rate.SuccessRateContext
-        :rtype: twilio.rest.preview.trusted_comms.business.insights.success_rate.SuccessRateContext
+        :returns: twilio.rest.preview.trusted_comms.business.insights.impressions_rate.ImpressionsRateContext
+        :rtype: twilio.rest.preview.trusted_comms.business.insights.impressions_rate.ImpressionsRateContext
         """
-        return SuccessRateContext(self._version, business_sid=self._solution['business_sid'], )
+        return ImpressionsRateContext(self._version, business_sid=self._solution['business_sid'], )
 
     def __repr__(self):
         """
@@ -60,40 +60,40 @@ class SuccessRateList(ListResource):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Preview.TrustedComms.SuccessRateList>'
+        return '<Twilio.Preview.TrustedComms.ImpressionsRateList>'
 
 
-class SuccessRatePage(Page):
+class ImpressionsRatePage(Page):
     """ PLEASE NOTE that this class contains preview products that are subject
     to change. Use them with caution. If you currently do not have developer
     preview access, please contact help@twilio.com. """
 
     def __init__(self, version, response, solution):
         """
-        Initialize the SuccessRatePage
+        Initialize the ImpressionsRatePage
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
         :param business_sid: A string that uniquely identifies this Business.
 
-        :returns: twilio.rest.preview.trusted_comms.business.insights.success_rate.SuccessRatePage
-        :rtype: twilio.rest.preview.trusted_comms.business.insights.success_rate.SuccessRatePage
+        :returns: twilio.rest.preview.trusted_comms.business.insights.impressions_rate.ImpressionsRatePage
+        :rtype: twilio.rest.preview.trusted_comms.business.insights.impressions_rate.ImpressionsRatePage
         """
-        super(SuccessRatePage, self).__init__(version, response)
+        super(ImpressionsRatePage, self).__init__(version, response)
 
         # Path Solution
         self._solution = solution
 
     def get_instance(self, payload):
         """
-        Build an instance of SuccessRateInstance
+        Build an instance of ImpressionsRateInstance
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.preview.trusted_comms.business.insights.success_rate.SuccessRateInstance
-        :rtype: twilio.rest.preview.trusted_comms.business.insights.success_rate.SuccessRateInstance
+        :returns: twilio.rest.preview.trusted_comms.business.insights.impressions_rate.ImpressionsRateInstance
+        :rtype: twilio.rest.preview.trusted_comms.business.insights.impressions_rate.ImpressionsRateInstance
         """
-        return SuccessRateInstance(self._version, payload, business_sid=self._solution['business_sid'], )
+        return ImpressionsRateInstance(self._version, payload, business_sid=self._solution['business_sid'], )
 
     def __repr__(self):
         """
@@ -102,46 +102,46 @@ class SuccessRatePage(Page):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Preview.TrustedComms.SuccessRatePage>'
+        return '<Twilio.Preview.TrustedComms.ImpressionsRatePage>'
 
 
-class SuccessRateContext(InstanceContext):
+class ImpressionsRateContext(InstanceContext):
     """ PLEASE NOTE that this class contains preview products that are subject
     to change. Use them with caution. If you currently do not have developer
     preview access, please contact help@twilio.com. """
 
     def __init__(self, version, business_sid):
         """
-        Initialize the SuccessRateContext
+        Initialize the ImpressionsRateContext
 
         :param Version version: Version that contains the resource
         :param business_sid: Business Sid.
 
-        :returns: twilio.rest.preview.trusted_comms.business.insights.success_rate.SuccessRateContext
-        :rtype: twilio.rest.preview.trusted_comms.business.insights.success_rate.SuccessRateContext
+        :returns: twilio.rest.preview.trusted_comms.business.insights.impressions_rate.ImpressionsRateContext
+        :rtype: twilio.rest.preview.trusted_comms.business.insights.impressions_rate.ImpressionsRateContext
         """
-        super(SuccessRateContext, self).__init__(version)
+        super(ImpressionsRateContext, self).__init__(version)
 
         # Path Solution
         self._solution = {'business_sid': business_sid, }
-        self._uri = '/Businesses/{business_sid}/Insights/SuccessRate'.format(**self._solution)
+        self._uri = '/Businesses/{business_sid}/Insights/ImpressionsRate'.format(**self._solution)
 
     def fetch(self, brand_sid=values.unset, branded_channel_sid=values.unset,
               phone_number_sid=values.unset, country=values.unset,
               start=values.unset, end=values.unset, interval=values.unset):
         """
-        Fetch the SuccessRateInstance
+        Fetch the ImpressionsRateInstance
 
         :param unicode brand_sid: Brand Sid.
         :param unicode branded_channel_sid: Branded Channel Sid.
         :param unicode phone_number_sid: Phone Number Sid.
         :param unicode country: Country 2-letter ISO 3166 code.
-        :param datetime start: The start date that for this Success Rate.
-        :param datetime end: The end date that for this Success Rate.
-        :param SuccessRateInstance.Intervals interval: The Interval of this Success Rate.
+        :param datetime start: The start date that for this Impressions Rate.
+        :param datetime end: The end date that for this Impressions Rate.
+        :param ImpressionsRateInstance.Intervals interval: The Interval of this Impressions Rate.
 
-        :returns: The fetched SuccessRateInstance
-        :rtype: twilio.rest.preview.trusted_comms.business.insights.success_rate.SuccessRateInstance
+        :returns: The fetched ImpressionsRateInstance
+        :rtype: twilio.rest.preview.trusted_comms.business.insights.impressions_rate.ImpressionsRateInstance
         """
         data = values.of({
             'BrandSid': brand_sid,
@@ -155,7 +155,7 @@ class SuccessRateContext(InstanceContext):
 
         payload = self._version.fetch(method='GET', uri=self._uri, params=data, )
 
-        return SuccessRateInstance(self._version, payload, business_sid=self._solution['business_sid'], )
+        return ImpressionsRateInstance(self._version, payload, business_sid=self._solution['business_sid'], )
 
     def __repr__(self):
         """
@@ -165,10 +165,10 @@ class SuccessRateContext(InstanceContext):
         :rtype: str
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Preview.TrustedComms.SuccessRateContext {}>'.format(context)
+        return '<Twilio.Preview.TrustedComms.ImpressionsRateContext {}>'.format(context)
 
 
-class SuccessRateInstance(InstanceResource):
+class ImpressionsRateInstance(InstanceResource):
     """ PLEASE NOTE that this class contains preview products that are subject
     to change. Use them with caution. If you currently do not have developer
     preview access, please contact help@twilio.com. """
@@ -182,12 +182,12 @@ class SuccessRateInstance(InstanceResource):
 
     def __init__(self, version, payload, business_sid):
         """
-        Initialize the SuccessRateInstance
+        Initialize the ImpressionsRateInstance
 
-        :returns: twilio.rest.preview.trusted_comms.business.insights.success_rate.SuccessRateInstance
-        :rtype: twilio.rest.preview.trusted_comms.business.insights.success_rate.SuccessRateInstance
+        :returns: twilio.rest.preview.trusted_comms.business.insights.impressions_rate.ImpressionsRateInstance
+        :rtype: twilio.rest.preview.trusted_comms.business.insights.impressions_rate.ImpressionsRateInstance
         """
-        super(SuccessRateInstance, self).__init__(version)
+        super(ImpressionsRateInstance, self).__init__(version)
 
         # Marshaled Properties
         self._properties = {
@@ -210,11 +210,11 @@ class SuccessRateInstance(InstanceResource):
         Generate an instance context for the instance, the context is capable of
         performing various actions.  All instance actions are proxied to the context
 
-        :returns: SuccessRateContext for this SuccessRateInstance
-        :rtype: twilio.rest.preview.trusted_comms.business.insights.success_rate.SuccessRateContext
+        :returns: ImpressionsRateContext for this ImpressionsRateInstance
+        :rtype: twilio.rest.preview.trusted_comms.business.insights.impressions_rate.ImpressionsRateContext
         """
         if self._context is None:
-            self._context = SuccessRateContext(self._version, business_sid=self._solution['business_sid'], )
+            self._context = ImpressionsRateContext(self._version, business_sid=self._solution['business_sid'], )
         return self._context
 
     @property
@@ -236,7 +236,7 @@ class SuccessRateInstance(InstanceResource):
     @property
     def end(self):
         """
-        :returns: The end date that for this Success Rate.
+        :returns: The end date that for this Impressions Rate.
         :rtype: datetime
         """
         return self._properties['end']
@@ -244,15 +244,15 @@ class SuccessRateInstance(InstanceResource):
     @property
     def interval(self):
         """
-        :returns: The Interval of this Success Rate.
-        :rtype: SuccessRateInstance.Intervals
+        :returns: The Interval of this Impressions Rate.
+        :rtype: ImpressionsRateInstance.Intervals
         """
         return self._properties['interval']
 
     @property
     def reports(self):
         """
-        :returns: Values of Success Rate per interval.
+        :returns: Values of Impressions Rate per interval.
         :rtype: dict
         """
         return self._properties['reports']
@@ -260,7 +260,7 @@ class SuccessRateInstance(InstanceResource):
     @property
     def start(self):
         """
-        :returns: The start date that for this Success Rate.
+        :returns: The start date that for this Impressions Rate.
         :rtype: datetime
         """
         return self._properties['start']
@@ -277,18 +277,18 @@ class SuccessRateInstance(InstanceResource):
               phone_number_sid=values.unset, country=values.unset,
               start=values.unset, end=values.unset, interval=values.unset):
         """
-        Fetch the SuccessRateInstance
+        Fetch the ImpressionsRateInstance
 
         :param unicode brand_sid: Brand Sid.
         :param unicode branded_channel_sid: Branded Channel Sid.
         :param unicode phone_number_sid: Phone Number Sid.
         :param unicode country: Country 2-letter ISO 3166 code.
-        :param datetime start: The start date that for this Success Rate.
-        :param datetime end: The end date that for this Success Rate.
-        :param SuccessRateInstance.Intervals interval: The Interval of this Success Rate.
+        :param datetime start: The start date that for this Impressions Rate.
+        :param datetime end: The end date that for this Impressions Rate.
+        :param ImpressionsRateInstance.Intervals interval: The Interval of this Impressions Rate.
 
-        :returns: The fetched SuccessRateInstance
-        :rtype: twilio.rest.preview.trusted_comms.business.insights.success_rate.SuccessRateInstance
+        :returns: The fetched ImpressionsRateInstance
+        :rtype: twilio.rest.preview.trusted_comms.business.insights.impressions_rate.ImpressionsRateInstance
         """
         return self._proxy.fetch(
             brand_sid=brand_sid,
@@ -308,4 +308,4 @@ class SuccessRateInstance(InstanceResource):
         :rtype: str
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Preview.TrustedComms.SuccessRateInstance {}>'.format(context)
+        return '<Twilio.Preview.TrustedComms.ImpressionsRateInstance {}>'.format(context)

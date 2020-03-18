@@ -36,7 +36,7 @@ class MessageTestCase(IntegrationTestCase):
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "api_version": "2010-04-01",
-                "body": "Hello! \ud83d\udc4d",
+                "body": "Hello! \\ud83d\\udc4d",
                 "date_created": "Thu, 30 Jul 2015 20:12:31 +0000",
                 "date_sent": "Thu, 30 Jul 2015 20:12:33 +0000",
                 "date_updated": "Thu, 30 Jul 2015 20:12:33 +0000",
@@ -72,7 +72,7 @@ class MessageTestCase(IntegrationTestCase):
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "api_version": "2010-04-01",
-                "body": "Hello! \ud83d\udc4d",
+                "body": "Hello! \\ud83d\\udc4d",
                 "date_created": "Thu, 30 Jul 2015 20:12:31 +0000",
                 "date_sent": "Thu, 30 Jul 2015 20:12:33 +0000",
                 "date_updated": "Thu, 30 Jul 2015 20:12:33 +0000",
@@ -419,7 +419,7 @@ class MessageTestCase(IntegrationTestCase):
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "api_version": "2010-04-01",
-                "body": "Hello, this is trash Benson cut and pasted and probably does not do anything useful! \ud83d\udc4d",
+                "body": "Hello, this is trash Benson cut and pasted and probably does not do anything useful! \\ud83d\\udc4d",
                 "date_created": "Thu, 30 Jul 2015 20:12:31 +0000",
                 "date_sent": "Thu, 30 Jul 2015 20:12:33 +0000",
                 "date_updated": "Thu, 30 Jul 2015 20:12:33 +0000",

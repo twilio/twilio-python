@@ -12,7 +12,7 @@ from twilio.base.exceptions import TwilioException
 from twilio.http.response import Response
 
 
-class SuccessRateTestCase(IntegrationTestCase):
+class ImpressionsRateTestCase(IntegrationTestCase):
 
     def test_fetch_request(self):
         self.holodeck.mock(Response(500, ''))
@@ -20,11 +20,11 @@ class SuccessRateTestCase(IntegrationTestCase):
         with self.assertRaises(TwilioException):
             self.client.preview.trusted_comms.businesses("BXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                              .insights \
-                                             .success_rate().fetch()
+                                             .impressions_rate().fetch()
 
         self.holodeck.assert_has_request(Request(
             'get',
-            'https://preview.twilio.com/TrustedComms/Businesses/BXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Insights/SuccessRate',
+            'https://preview.twilio.com/TrustedComms/Businesses/BXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Insights/ImpressionsRate',
         ))
 
     def test_fetch_response(self):
@@ -38,20 +38,19 @@ class SuccessRateTestCase(IntegrationTestCase):
                 "end": "2015-07-30T21:00:00Z",
                 "interval": "minute",
                 "reports": {
-                    "success_rate": {
+                    "impressions_rate": {
                         "timestamp": "2015-07-30T20:00:00",
                         "calls": 1200,
-                        "branded": 800,
-                        "value": 66.67
+                        "impressions": 800
                     }
                 },
-                "url": "https://preview.twilio.com/TrustedComms/Businesses/BXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Insights/SuccessRate"
+                "url": "https://preview.twilio.com/TrustedComms/Businesses/BXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Insights/ImpressionsRate"
             }
             '''
         ))
 
         actual = self.client.preview.trusted_comms.businesses("BXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                                   .insights \
-                                                  .success_rate().fetch()
+                                                  .impressions_rate().fetch()
 
         self.assertIsNotNone(actual)

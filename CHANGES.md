@@ -3,6 +3,20 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2020-03-18] Version 6.37.0
+---------------------------
+**Api**
+- Add optional `emergency_calling_enabled` parameter to SIP Domain
+- Add optional property `call_reason` in the call create request
+
+**Authy**
+- Added `friendly_name` and `config` as optional params to Factor update
+- Added `config` param to Factor creation **(breaking change)**
+
+**Preview**
+- Renamed `SuccessRate` endpoint to `ImpressionsRate` for Branded Calls (fka. Verified by Twilio) **(breaking change)**
+
+
 [2020-03-04] Version 6.36.0
 ---------------------------
 **Library - Feature**

@@ -118,7 +118,8 @@ class DomainList(ListResource):
                voice_fallback_url=values.unset, voice_fallback_method=values.unset,
                voice_status_callback_url=values.unset,
                voice_status_callback_method=values.unset,
-               sip_registration=values.unset):
+               sip_registration=values.unset,
+               emergency_calling_enabled=values.unset):
         """
         Create the DomainInstance
 
@@ -131,6 +132,7 @@ class DomainList(ListResource):
         :param unicode voice_status_callback_url: The URL that we should call to pass status updates
         :param unicode voice_status_callback_method: The HTTP method we should use to call `voice_status_callback_url`
         :param bool sip_registration: Whether SIP registration is allowed
+        :param bool emergency_calling_enabled: Whether emergency calling is enabled for the domain.
 
         :returns: The created DomainInstance
         :rtype: twilio.rest.api.v2010.account.sip.domain.DomainInstance
@@ -145,6 +147,7 @@ class DomainList(ListResource):
             'VoiceStatusCallbackUrl': voice_status_callback_url,
             'VoiceStatusCallbackMethod': voice_status_callback_method,
             'SipRegistration': sip_registration,
+            'EmergencyCallingEnabled': emergency_calling_enabled,
         })
 
         payload = self._version.create(method='POST', uri=self._uri, data=data, )
@@ -268,7 +271,8 @@ class DomainContext(InstanceContext):
                voice_fallback_url=values.unset, voice_method=values.unset,
                voice_status_callback_method=values.unset,
                voice_status_callback_url=values.unset, voice_url=values.unset,
-               sip_registration=values.unset, domain_name=values.unset):
+               sip_registration=values.unset, domain_name=values.unset,
+               emergency_calling_enabled=values.unset):
         """
         Update the DomainInstance
 
@@ -281,6 +285,7 @@ class DomainContext(InstanceContext):
         :param unicode voice_url: The URL we should call when receiving a call
         :param bool sip_registration: Whether SIP registration is allowed
         :param unicode domain_name: The unique address on Twilio to route SIP traffic
+        :param bool emergency_calling_enabled: Whether emergency calling is enabled for the domain.
 
         :returns: The updated DomainInstance
         :rtype: twilio.rest.api.v2010.account.sip.domain.DomainInstance
@@ -295,6 +300,7 @@ class DomainContext(InstanceContext):
             'VoiceUrl': voice_url,
             'SipRegistration': sip_registration,
             'DomainName': domain_name,
+            'EmergencyCallingEnabled': emergency_calling_enabled,
         })
 
         payload = self._version.update(method='POST', uri=self._uri, data=data, )
@@ -405,6 +411,7 @@ class DomainInstance(InstanceResource):
             'voice_url': payload.get('voice_url'),
             'subresource_uris': payload.get('subresource_uris'),
             'sip_registration': payload.get('sip_registration'),
+            'emergency_calling_enabled': payload.get('emergency_calling_enabled'),
         }
 
         # Context
@@ -564,6 +571,14 @@ class DomainInstance(InstanceResource):
         """
         return self._properties['sip_registration']
 
+    @property
+    def emergency_calling_enabled(self):
+        """
+        :returns: Whether emergency calling is enabled for the domain.
+        :rtype: bool
+        """
+        return self._properties['emergency_calling_enabled']
+
     def fetch(self):
         """
         Fetch the DomainInstance
@@ -577,7 +592,8 @@ class DomainInstance(InstanceResource):
                voice_fallback_url=values.unset, voice_method=values.unset,
                voice_status_callback_method=values.unset,
                voice_status_callback_url=values.unset, voice_url=values.unset,
-               sip_registration=values.unset, domain_name=values.unset):
+               sip_registration=values.unset, domain_name=values.unset,
+               emergency_calling_enabled=values.unset):
         """
         Update the DomainInstance
 
@@ -590,6 +606,7 @@ class DomainInstance(InstanceResource):
         :param unicode voice_url: The URL we should call when receiving a call
         :param bool sip_registration: Whether SIP registration is allowed
         :param unicode domain_name: The unique address on Twilio to route SIP traffic
+        :param bool emergency_calling_enabled: Whether emergency calling is enabled for the domain.
 
         :returns: The updated DomainInstance
         :rtype: twilio.rest.api.v2010.account.sip.domain.DomainInstance
@@ -604,6 +621,7 @@ class DomainInstance(InstanceResource):
             voice_url=voice_url,
             sip_registration=sip_registration,
             domain_name=domain_name,
+            emergency_calling_enabled=emergency_calling_enabled,
         )
 
     def delete(self):

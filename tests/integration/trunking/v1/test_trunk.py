@@ -44,7 +44,6 @@ class TrunkTestCase(IntegrationTestCase):
                 },
                 "auth_type": "",
                 "auth_type_set": [],
-                "origination_from_domain_sid": "SDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "date_created": "2015-01-02T11:23:45Z",
                 "date_updated": "2015-01-02T11:23:45Z",
                 "url": "https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -52,8 +51,7 @@ class TrunkTestCase(IntegrationTestCase):
                     "origination_urls": "https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OriginationUrls",
                     "credential_lists": "https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/CredentialLists",
                     "ip_access_control_lists": "https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IpAccessControlLists",
-                    "phone_numbers": "https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/PhoneNumbers",
-                    "terminating_sip_domains": "https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/TerminatingSipDomains"
+                    "phone_numbers": "https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/PhoneNumbers"
                 }
             }
             '''
@@ -114,7 +112,6 @@ class TrunkTestCase(IntegrationTestCase):
                 },
                 "auth_type": "",
                 "auth_type_set": [],
-                "origination_from_domain_sid": "SDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "date_created": "2015-01-02T11:23:45Z",
                 "date_updated": "2015-01-02T11:23:45Z",
                 "url": "https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -122,8 +119,7 @@ class TrunkTestCase(IntegrationTestCase):
                     "origination_urls": "https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OriginationUrls",
                     "credential_lists": "https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/CredentialLists",
                     "ip_access_control_lists": "https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IpAccessControlLists",
-                    "phone_numbers": "https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/PhoneNumbers",
-                    "terminating_sip_domains": "https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/TerminatingSipDomains"
+                    "phone_numbers": "https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/PhoneNumbers"
                 }
             }
             '''
@@ -174,7 +170,6 @@ class TrunkTestCase(IntegrationTestCase):
                         },
                         "auth_type": "",
                         "auth_type_set": [],
-                        "origination_from_domain_sid": "SDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                         "date_created": "2015-01-02T11:23:45Z",
                         "date_updated": "2015-01-02T11:23:45Z",
                         "url": "https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -182,8 +177,7 @@ class TrunkTestCase(IntegrationTestCase):
                             "origination_urls": "https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OriginationUrls",
                             "credential_lists": "https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/CredentialLists",
                             "ip_access_control_lists": "https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IpAccessControlLists",
-                            "phone_numbers": "https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/PhoneNumbers",
-                            "terminating_sip_domains": "https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/TerminatingSipDomains"
+                            "phone_numbers": "https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/PhoneNumbers"
                         }
                     }
                 ]
@@ -248,7 +242,6 @@ class TrunkTestCase(IntegrationTestCase):
                 },
                 "auth_type": "",
                 "auth_type_set": [],
-                "origination_from_domain_sid": null,
                 "date_created": "2015-01-02T11:23:45Z",
                 "date_updated": "2015-01-02T11:23:45Z",
                 "url": "https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -256,84 +249,7 @@ class TrunkTestCase(IntegrationTestCase):
                     "origination_urls": "https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OriginationUrls",
                     "credential_lists": "https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/CredentialLists",
                     "ip_access_control_lists": "https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IpAccessControlLists",
-                    "phone_numbers": "https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/PhoneNumbers",
-                    "terminating_sip_domains": "https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/TerminatingSipDomains"
-                }
-            }
-            '''
-        ))
-
-        actual = self.client.trunking.v1.trunks("TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
-
-        self.assertIsNotNone(actual)
-
-    def test_update_set_from_domain_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
-            {
-                "sid": "TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                "domain_name": "test.pstn.twilio.com",
-                "disaster_recovery_method": "GET",
-                "disaster_recovery_url": "http://updated-recovery.com",
-                "friendly_name": "updated_name",
-                "secure": true,
-                "cnam_lookup_enabled": true,
-                "recording": {
-                    "mode": "do-not-record",
-                    "trim": "do-not-trim"
-                },
-                "auth_type": "",
-                "auth_type_set": [],
-                "origination_from_domain_sid": "SDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                "date_created": "2015-01-02T11:23:45Z",
-                "date_updated": "2015-01-02T11:23:45Z",
-                "url": "https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                "links": {
-                    "origination_urls": "https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OriginationUrls",
-                    "credential_lists": "https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/CredentialLists",
-                    "ip_access_control_lists": "https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IpAccessControlLists",
-                    "phone_numbers": "https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/PhoneNumbers",
-                    "terminating_sip_domains": "https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/TerminatingSipDomains"
-                }
-            }
-            '''
-        ))
-
-        actual = self.client.trunking.v1.trunks("TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
-
-        self.assertIsNotNone(actual)
-
-    def test_update_clear_from_domain_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
-            {
-                "sid": "TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                "domain_name": "test.pstn.twilio.com",
-                "disaster_recovery_method": "GET",
-                "disaster_recovery_url": "http://updated-recovery.com",
-                "friendly_name": "updated_name",
-                "secure": true,
-                "cnam_lookup_enabled": true,
-                "recording": {
-                    "mode": "do-not-record",
-                    "trim": "do-not-trim"
-                },
-                "auth_type": "",
-                "auth_type_set": [],
-                "origination_from_domain_sid": null,
-                "date_created": "2015-01-02T11:23:45Z",
-                "date_updated": "2015-01-02T11:23:45Z",
-                "url": "https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                "links": {
-                    "origination_urls": "https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OriginationUrls",
-                    "credential_lists": "https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/CredentialLists",
-                    "ip_access_control_lists": "https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IpAccessControlLists",
-                    "phone_numbers": "https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/PhoneNumbers",
-                    "terminating_sip_domains": "https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/TerminatingSipDomains"
+                    "phone_numbers": "https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/PhoneNumbers"
                 }
             }
             '''

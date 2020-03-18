@@ -37,21 +37,31 @@ class FactorList(ListResource):
         self._solution = {'service_sid': service_sid, 'identity': identity, }
         self._uri = '/Services/{service_sid}/Entities/{identity}/Factors'.format(**self._solution)
 
-    def create(self, binding, friendly_name, factor_type,
-               twilio_authy_sandbox_mode=values.unset):
+    def create(self, binding, friendly_name, factor_type, config,
+               twilio_authy_sandbox_mode=values.unset, authorization=values.unset):
         """
         Create the FactorInstance
 
         :param unicode binding: A unique binding for this Factor as a json string
         :param unicode friendly_name: The friendly name of this Factor
         :param FactorInstance.FactorTypes factor_type: The Type of this Factor
+        :param unicode config: The config for this Factor as a json string
         :param unicode twilio_authy_sandbox_mode: The Twilio-Authy-Sandbox-Mode HTTP request header
+        :param unicode authorization: The Authorization HTTP request header
 
         :returns: The created FactorInstance
         :rtype: twilio.rest.authy.v1.service.entity.factor.FactorInstance
         """
-        data = values.of({'Binding': binding, 'FriendlyName': friendly_name, 'FactorType': factor_type, })
-        headers = values.of({'Twilio-Authy-Sandbox-Mode': twilio_authy_sandbox_mode, })
+        data = values.of({
+            'Binding': binding,
+            'FriendlyName': friendly_name,
+            'FactorType': factor_type,
+            'Config': config,
+        })
+        headers = values.of({
+            'Twilio-Authy-Sandbox-Mode': twilio_authy_sandbox_mode,
+            'Authorization': authorization,
+        })
 
         payload = self._version.create(method='POST', uri=self._uri, data=data, headers=headers, )
 
@@ -299,18 +309,20 @@ class FactorContext(InstanceContext):
             sid=self._solution['sid'],
         )
 
-    def update(self, auth_payload=values.unset,
-               twilio_authy_sandbox_mode=values.unset):
+    def update(self, auth_payload=values.unset, friendly_name=values.unset,
+               config=values.unset, twilio_authy_sandbox_mode=values.unset):
         """
         Update the FactorInstance
 
         :param unicode auth_payload: Optional payload to verify the Factor for the first time
+        :param unicode friendly_name: The friendly name of this Factor
+        :param unicode config: The config for this Factor as a json string
         :param unicode twilio_authy_sandbox_mode: The Twilio-Authy-Sandbox-Mode HTTP request header
 
         :returns: The updated FactorInstance
         :rtype: twilio.rest.authy.v1.service.entity.factor.FactorInstance
         """
-        data = values.of({'AuthPayload': auth_payload, })
+        data = values.of({'AuthPayload': auth_payload, 'FriendlyName': friendly_name, 'Config': config, })
         headers = values.of({'Twilio-Authy-Sandbox-Mode': twilio_authy_sandbox_mode, })
 
         payload = self._version.update(method='POST', uri=self._uri, data=data, headers=headers, )
@@ -387,6 +399,7 @@ class FactorInstance(InstanceResource):
             'friendly_name': payload.get('friendly_name'),
             'status': payload.get('status'),
             'factor_type': payload.get('factor_type'),
+            'config': payload.get('config'),
             'url': payload.get('url'),
             'links': payload.get('links'),
         }
@@ -498,6 +511,14 @@ class FactorInstance(InstanceResource):
         return self._properties['factor_type']
 
     @property
+    def config(self):
+        """
+        :returns: The config
+        :rtype: dict
+        """
+        return self._properties['config']
+
+    @property
     def url(self):
         """
         :returns: The URL of this resource.
@@ -535,12 +556,14 @@ class FactorInstance(InstanceResource):
         """
         return self._proxy.fetch(twilio_authy_sandbox_mode=twilio_authy_sandbox_mode, )
 
-    def update(self, auth_payload=values.unset,
-               twilio_authy_sandbox_mode=values.unset):
+    def update(self, auth_payload=values.unset, friendly_name=values.unset,
+               config=values.unset, twilio_authy_sandbox_mode=values.unset):
         """
         Update the FactorInstance
 
         :param unicode auth_payload: Optional payload to verify the Factor for the first time
+        :param unicode friendly_name: The friendly name of this Factor
+        :param unicode config: The config for this Factor as a json string
         :param unicode twilio_authy_sandbox_mode: The Twilio-Authy-Sandbox-Mode HTTP request header
 
         :returns: The updated FactorInstance
@@ -548,6 +571,8 @@ class FactorInstance(InstanceResource):
         """
         return self._proxy.update(
             auth_payload=auth_payload,
+            friendly_name=friendly_name,
+            config=config,
             twilio_authy_sandbox_mode=twilio_authy_sandbox_mode,
         )
 
