@@ -77,7 +77,10 @@ class FunctionVersionTestCase(IntegrationTestCase):
                 "path": "test-path",
                 "visibility": "public",
                 "date_created": "2018-11-10T20:00:00Z",
-                "url": "https://serverless.twilio.com/v1/Services/ZS00000000000000000000000000000000/Functions/ZH00000000000000000000000000000000/Versions/ZN00000000000000000000000000000000"
+                "url": "https://serverless.twilio.com/v1/Services/ZS00000000000000000000000000000000/Functions/ZH00000000000000000000000000000000/Versions/ZN00000000000000000000000000000000",
+                "links": {
+                    "function_version_content": "https://serverless.twilio.com/v1/Services/ZS00000000000000000000000000000000/Functions/ZH00000000000000000000000000000000/Versions/ZN00000000000000000000000000000000/Content"
+                }
             }
             '''
         ))

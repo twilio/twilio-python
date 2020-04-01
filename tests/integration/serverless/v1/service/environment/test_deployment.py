@@ -94,14 +94,11 @@ class DeploymentTestCase(IntegrationTestCase):
         with self.assertRaises(TwilioException):
             self.client.serverless.v1.services("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                      .environments("ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                     .deployments.create(build_sid="ZBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
-
-        values = {'BuildSid': "ZBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", }
+                                     .deployments.create()
 
         self.holodeck.assert_has_request(Request(
             'post',
             'https://serverless.twilio.com/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Environments/ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Deployments',
-            data=values,
         ))
 
     def test_create_response(self):
@@ -123,6 +120,6 @@ class DeploymentTestCase(IntegrationTestCase):
 
         actual = self.client.serverless.v1.services("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                           .environments("ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                          .deployments.create(build_sid="ZBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+                                          .deployments.create()
 
         self.assertIsNotNone(actual)

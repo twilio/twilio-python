@@ -266,18 +266,19 @@ class ServiceContext(InstanceContext):
 
         return ServiceInstance(self._version, payload, sid=self._solution['sid'], )
 
-    def update(self, friendly_name=values.unset,
+    def update(self, friendly_name=values.unset, push=values.unset,
                twilio_authy_sandbox_mode=values.unset):
         """
         Update the ServiceInstance
 
         :param unicode friendly_name: A human readable description of this resource.
+        :param unicode push: Optional service level push factors configuration
         :param unicode twilio_authy_sandbox_mode: The Twilio-Authy-Sandbox-Mode HTTP request header
 
         :returns: The updated ServiceInstance
         :rtype: twilio.rest.authy.v1.service.ServiceInstance
         """
-        data = values.of({'FriendlyName': friendly_name, })
+        data = values.of({'FriendlyName': friendly_name, 'Push': push, })
         headers = values.of({'Twilio-Authy-Sandbox-Mode': twilio_authy_sandbox_mode, })
 
         payload = self._version.update(method='POST', uri=self._uri, data=data, headers=headers, )
@@ -436,12 +437,13 @@ class ServiceInstance(InstanceResource):
         """
         return self._proxy.fetch(twilio_authy_sandbox_mode=twilio_authy_sandbox_mode, )
 
-    def update(self, friendly_name=values.unset,
+    def update(self, friendly_name=values.unset, push=values.unset,
                twilio_authy_sandbox_mode=values.unset):
         """
         Update the ServiceInstance
 
         :param unicode friendly_name: A human readable description of this resource.
+        :param unicode push: Optional service level push factors configuration
         :param unicode twilio_authy_sandbox_mode: The Twilio-Authy-Sandbox-Mode HTTP request header
 
         :returns: The updated ServiceInstance
@@ -449,6 +451,7 @@ class ServiceInstance(InstanceResource):
         """
         return self._proxy.update(
             friendly_name=friendly_name,
+            push=push,
             twilio_authy_sandbox_mode=twilio_authy_sandbox_mode,
         )
 

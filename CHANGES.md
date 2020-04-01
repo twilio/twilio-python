@@ -3,6 +3,29 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2020-04-01] Version 6.38.0
+---------------------------
+**Api**
+- Add optional 'secure' parameter to SIP Domain
+
+**Authy**
+- Added an endpoint to list the challenges of a factor
+- Added optional parameter `Push` when updating a service to send the service level push factor configuration
+
+**Bulkexports**
+- exposing bulk exports (vault/slapchop) API as public beta API
+
+**Flex**
+- Adding `queue_stats_configuration` and `wfm_integrations` to Flex Configuration
+
+**Serverless**
+- Add Function Version Content endpoint
+- Allow build_sid to be optional for deployment requests
+
+**Supersim**
+- Remove `deactivated` status for Super SIM which is replaced by `inactive` **(breaking change)**
+
+
 [2020-03-18] Version 6.37.0
 ---------------------------
 **Api**

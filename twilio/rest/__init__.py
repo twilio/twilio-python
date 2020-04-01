@@ -80,6 +80,7 @@ class Client(object):
         self._voice = None
         self._wireless = None
         self._supersim = None
+        self._bulkexports = None
 
     def request(self, method, uri, params=None, data=None, headers=None, auth=None,
                 timeout=None, allow_redirects=False):
@@ -495,6 +496,19 @@ class Client(object):
             from twilio.rest.supersim import Supersim
             self._supersim = Supersim(self)
         return self._supersim
+
+    @property
+    def bulkexports(self):
+        """
+        Access the Bulkexports Twilio Domain
+
+        :returns: Bulkexports Twilio Domain
+        :rtype: twilio.rest.bulkexports.Bulkexports
+        """
+        if self._bulkexports is None:
+            from twilio.rest.bulkexports import Bulkexports
+            self._bulkexports = Bulkexports(self)
+        return self._bulkexports
 
     @property
     def addresses(self):

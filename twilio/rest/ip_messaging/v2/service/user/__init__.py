@@ -425,7 +425,7 @@ class UserInstance(InstanceResource):
     @property
     def role_sid(self):
         """
-        :returns: The SID of the assigned to the user
+        :returns: The SID of the Role assigned to the user
         :rtype: unicode
         """
         return self._properties['role_sid']

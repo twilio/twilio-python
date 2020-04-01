@@ -273,16 +273,11 @@ class SimInstance(InstanceResource):
         NEW = "new"
         READY = "ready"
         ACTIVE = "active"
-        SUSPENDED = "suspended"
-        DEACTIVATED = "deactivated"
         INACTIVE = "inactive"
-        CANCELED = "canceled"
         SCHEDULED = "scheduled"
 
     class StatusUpdate(object):
         ACTIVE = "active"
-        SUSPENDED = "suspended"
-        DEACTIVATED = "deactivated"
         INACTIVE = "inactive"
 
     def __init__(self, version, payload, sid=None):

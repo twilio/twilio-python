@@ -119,7 +119,7 @@ class DomainList(ListResource):
                voice_status_callback_url=values.unset,
                voice_status_callback_method=values.unset,
                sip_registration=values.unset,
-               emergency_calling_enabled=values.unset):
+               emergency_calling_enabled=values.unset, secure=values.unset):
         """
         Create the DomainInstance
 
@@ -133,6 +133,7 @@ class DomainList(ListResource):
         :param unicode voice_status_callback_method: The HTTP method we should use to call `voice_status_callback_url`
         :param bool sip_registration: Whether SIP registration is allowed
         :param bool emergency_calling_enabled: Whether emergency calling is enabled for the domain.
+        :param bool secure: Whether secure SIP is enabled for the domain
 
         :returns: The created DomainInstance
         :rtype: twilio.rest.api.v2010.account.sip.domain.DomainInstance
@@ -148,6 +149,7 @@ class DomainList(ListResource):
             'VoiceStatusCallbackMethod': voice_status_callback_method,
             'SipRegistration': sip_registration,
             'EmergencyCallingEnabled': emergency_calling_enabled,
+            'Secure': secure,
         })
 
         payload = self._version.create(method='POST', uri=self._uri, data=data, )
@@ -272,7 +274,7 @@ class DomainContext(InstanceContext):
                voice_status_callback_method=values.unset,
                voice_status_callback_url=values.unset, voice_url=values.unset,
                sip_registration=values.unset, domain_name=values.unset,
-               emergency_calling_enabled=values.unset):
+               emergency_calling_enabled=values.unset, secure=values.unset):
         """
         Update the DomainInstance
 
@@ -286,6 +288,7 @@ class DomainContext(InstanceContext):
         :param bool sip_registration: Whether SIP registration is allowed
         :param unicode domain_name: The unique address on Twilio to route SIP traffic
         :param bool emergency_calling_enabled: Whether emergency calling is enabled for the domain.
+        :param bool secure: Whether secure SIP is enabled for the domain
 
         :returns: The updated DomainInstance
         :rtype: twilio.rest.api.v2010.account.sip.domain.DomainInstance
@@ -301,6 +304,7 @@ class DomainContext(InstanceContext):
             'SipRegistration': sip_registration,
             'DomainName': domain_name,
             'EmergencyCallingEnabled': emergency_calling_enabled,
+            'Secure': secure,
         })
 
         payload = self._version.update(method='POST', uri=self._uri, data=data, )
@@ -412,6 +416,7 @@ class DomainInstance(InstanceResource):
             'subresource_uris': payload.get('subresource_uris'),
             'sip_registration': payload.get('sip_registration'),
             'emergency_calling_enabled': payload.get('emergency_calling_enabled'),
+            'secure': payload.get('secure'),
         }
 
         # Context
@@ -579,6 +584,14 @@ class DomainInstance(InstanceResource):
         """
         return self._properties['emergency_calling_enabled']
 
+    @property
+    def secure(self):
+        """
+        :returns: Whether secure SIP is enabled for the domain
+        :rtype: bool
+        """
+        return self._properties['secure']
+
     def fetch(self):
         """
         Fetch the DomainInstance
@@ -593,7 +606,7 @@ class DomainInstance(InstanceResource):
                voice_status_callback_method=values.unset,
                voice_status_callback_url=values.unset, voice_url=values.unset,
                sip_registration=values.unset, domain_name=values.unset,
-               emergency_calling_enabled=values.unset):
+               emergency_calling_enabled=values.unset, secure=values.unset):
         """
         Update the DomainInstance
 
@@ -607,6 +620,7 @@ class DomainInstance(InstanceResource):
         :param bool sip_registration: Whether SIP registration is allowed
         :param unicode domain_name: The unique address on Twilio to route SIP traffic
         :param bool emergency_calling_enabled: Whether emergency calling is enabled for the domain.
+        :param bool secure: Whether secure SIP is enabled for the domain
 
         :returns: The updated DomainInstance
         :rtype: twilio.rest.api.v2010.account.sip.domain.DomainInstance
@@ -622,6 +636,7 @@ class DomainInstance(InstanceResource):
             sip_registration=sip_registration,
             domain_name=domain_name,
             emergency_calling_enabled=emergency_calling_enabled,
+            secure=secure,
         )
 
     def delete(self):

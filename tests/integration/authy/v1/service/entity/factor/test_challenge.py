@@ -171,6 +171,93 @@ class ChallengeTestCase(IntegrationTestCase):
 
         self.assertIsNotNone(actual)
 
+    def test_list_request(self):
+        self.holodeck.mock(Response(500, ''))
+
+        with self.assertRaises(TwilioException):
+            self.client.authy.v1.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                .entities("identity") \
+                                .factors("YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                .challenges.list(twilio_authy_sandbox_mode="twilio_authy_sandbox_mode")
+
+        headers = {'Twilio-Authy-Sandbox-Mode': "twilio_authy_sandbox_mode", }
+        self.holodeck.assert_has_request(Request(
+            'get',
+            'https://authy.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Entities/identity/Factors/YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Challenges',
+            headers=headers,
+        ))
+
+    def test_read_empty_response(self):
+        self.holodeck.mock(Response(
+            200,
+            '''
+            {
+                "challenges": [],
+                "meta": {
+                    "page": 0,
+                    "page_size": 50,
+                    "first_page_url": "https://authy.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Factors/YFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Challenges?PageSize=50&Page=0",
+                    "previous_page_url": null,
+                    "url": "https://authy.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Factors/YFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Challenges?PageSize=50&Page=0",
+                    "next_page_url": null,
+                    "key": "challenges"
+                }
+            }
+            '''
+        ))
+
+        actual = self.client.authy.v1.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                     .entities("identity") \
+                                     .factors("YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                     .challenges.list()
+
+        self.assertIsNotNone(actual)
+
+    def test_read_full_response(self):
+        self.holodeck.mock(Response(
+            200,
+            '''
+            {
+                "challenges": [
+                    {
+                        "sid": "YCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                        "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                        "service_sid": "ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                        "entity_sid": "YEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                        "identity": "ff483d1ff591898a9942916050d2ca3f",
+                        "factor_sid": "YFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                        "date_created": "2015-07-30T20:00:00Z",
+                        "date_updated": "2015-07-30T20:00:00Z",
+                        "date_responded": "2015-07-30T20:00:00Z",
+                        "expiration_date": "2015-07-30T20:00:00Z",
+                        "status": "pending",
+                        "responded_reason": "none",
+                        "details": "details",
+                        "hidden_details": "hidden_details",
+                        "factor_type": "sms",
+                        "url": "https://authy.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Factors/YFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Challenges/YCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+                    }
+                ],
+                "meta": {
+                    "page": 0,
+                    "page_size": 50,
+                    "first_page_url": "https://authy.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Factors/YFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Challenges?PageSize=50&Page=0",
+                    "previous_page_url": null,
+                    "url": "https://authy.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Factors/YFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Challenges?PageSize=50&Page=0",
+                    "next_page_url": null,
+                    "key": "challenges"
+                }
+            }
+            '''
+        ))
+
+        actual = self.client.authy.v1.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                     .entities("identity") \
+                                     .factors("YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                     .challenges.list()
+
+        self.assertIsNotNone(actual)
+
     def test_update_request(self):
         self.holodeck.mock(Response(500, ''))
 

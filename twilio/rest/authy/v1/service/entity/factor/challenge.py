@@ -68,6 +68,107 @@ class ChallengeList(ListResource):
             factor_sid=self._solution['factor_sid'],
         )
 
+    def stream(self, status=values.unset, twilio_authy_sandbox_mode=values.unset,
+               limit=None, page_size=None):
+        """
+        Streams ChallengeInstance records from the API as a generator stream.
+        This operation lazily loads records as efficiently as possible until the limit
+        is reached.
+        The results are returned as a generator, so this operation is memory efficient.
+
+        :param ChallengeInstance.ChallengeStatuses status: The Status of theChallenges to fetch
+        :param unicode twilio_authy_sandbox_mode: The Twilio-Authy-Sandbox-Mode HTTP request header
+        :param int limit: Upper limit for the number of records to return. stream()
+                          guarantees to never return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, stream() will attempt to read the
+                              limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.authy.v1.service.entity.factor.challenge.ChallengeInstance]
+        """
+        limits = self._version.read_limits(limit, page_size)
+
+        page = self.page(
+            status=status,
+            twilio_authy_sandbox_mode=twilio_authy_sandbox_mode,
+            page_size=limits['page_size'],
+        )
+
+        return self._version.stream(page, limits['limit'], limits['page_limit'])
+
+    def list(self, status=values.unset, twilio_authy_sandbox_mode=values.unset,
+             limit=None, page_size=None):
+        """
+        Lists ChallengeInstance records from the API as a list.
+        Unlike stream(), this operation is eager and will load `limit` records into
+        memory before returning.
+
+        :param ChallengeInstance.ChallengeStatuses status: The Status of theChallenges to fetch
+        :param unicode twilio_authy_sandbox_mode: The Twilio-Authy-Sandbox-Mode HTTP request header
+        :param int limit: Upper limit for the number of records to return. list() guarantees
+                          never to return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, list() will attempt to read the limit
+                              with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.authy.v1.service.entity.factor.challenge.ChallengeInstance]
+        """
+        return list(self.stream(
+            status=status,
+            twilio_authy_sandbox_mode=twilio_authy_sandbox_mode,
+            limit=limit,
+            page_size=page_size,
+        ))
+
+    def page(self, status=values.unset, twilio_authy_sandbox_mode=values.unset,
+             page_token=values.unset, page_number=values.unset,
+             page_size=values.unset):
+        """
+        Retrieve a single page of ChallengeInstance records from the API.
+        Request is executed immediately
+
+        :param ChallengeInstance.ChallengeStatuses status: The Status of theChallenges to fetch
+        :param unicode twilio_authy_sandbox_mode: The Twilio-Authy-Sandbox-Mode HTTP request header
+        :param str page_token: PageToken provided by the API
+        :param int page_number: Page Number, this value is simply for client state
+        :param int page_size: Number of records to return, defaults to 50
+
+        :returns: Page of ChallengeInstance
+        :rtype: twilio.rest.authy.v1.service.entity.factor.challenge.ChallengePage
+        """
+        data = values.of({
+            'Status': status,
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
+        })
+        headers = values.of({'Twilio-Authy-Sandbox-Mode': twilio_authy_sandbox_mode, })
+
+        response = self._version.page(method='GET', uri=self._uri, params=data, headers=headers, )
+
+        return ChallengePage(self._version, response, self._solution)
+
+    def get_page(self, target_url):
+        """
+        Retrieve a specific page of ChallengeInstance records from the API.
+        Request is executed immediately
+
+        :param str target_url: API-generated URL for the requested results page
+
+        :returns: Page of ChallengeInstance
+        :rtype: twilio.rest.authy.v1.service.entity.factor.challenge.ChallengePage
+        """
+        response = self._version.domain.twilio.request(
+            'GET',
+            target_url,
+        )
+
+        return ChallengePage(self._version, response, self._solution)
+
     def get(self, sid):
         """
         Constructs a ChallengeContext

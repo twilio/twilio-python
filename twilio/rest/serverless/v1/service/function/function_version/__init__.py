@@ -12,6 +12,7 @@ from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.page import Page
+from twilio.rest.serverless.v1.service.function.function_version.function_version_content import FunctionVersionContentList
 
 
 class FunctionVersionList(ListResource):
@@ -226,6 +227,9 @@ class FunctionVersionContext(InstanceContext):
         self._solution = {'service_sid': service_sid, 'function_sid': function_sid, 'sid': sid, }
         self._uri = '/Services/{service_sid}/Functions/{function_sid}/Versions/{sid}'.format(**self._solution)
 
+        # Dependents
+        self._function_version_content = None
+
     def fetch(self):
         """
         Fetch the FunctionVersionInstance
@@ -242,6 +246,23 @@ class FunctionVersionContext(InstanceContext):
             function_sid=self._solution['function_sid'],
             sid=self._solution['sid'],
         )
+
+    @property
+    def function_version_content(self):
+        """
+        Access the function_version_content
+
+        :returns: twilio.rest.serverless.v1.service.function.function_version.function_version_content.FunctionVersionContentList
+        :rtype: twilio.rest.serverless.v1.service.function.function_version.function_version_content.FunctionVersionContentList
+        """
+        if self._function_version_content is None:
+            self._function_version_content = FunctionVersionContentList(
+                self._version,
+                service_sid=self._solution['service_sid'],
+                function_sid=self._solution['function_sid'],
+                sid=self._solution['sid'],
+            )
+        return self._function_version_content
 
     def __repr__(self):
         """
@@ -283,6 +304,7 @@ class FunctionVersionInstance(InstanceResource):
             'visibility': payload.get('visibility'),
             'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
             'url': payload.get('url'),
+            'links': payload.get('links'),
         }
 
         # Context
@@ -375,6 +397,14 @@ class FunctionVersionInstance(InstanceResource):
         """
         return self._properties['url']
 
+    @property
+    def links(self):
+        """
+        :returns: The links
+        :rtype: unicode
+        """
+        return self._properties['links']
+
     def fetch(self):
         """
         Fetch the FunctionVersionInstance
@@ -383,6 +413,16 @@ class FunctionVersionInstance(InstanceResource):
         :rtype: twilio.rest.serverless.v1.service.function.function_version.FunctionVersionInstance
         """
         return self._proxy.fetch()
+
+    @property
+    def function_version_content(self):
+        """
+        Access the function_version_content
+
+        :returns: twilio.rest.serverless.v1.service.function.function_version.function_version_content.FunctionVersionContentList
+        :rtype: twilio.rest.serverless.v1.service.function.function_version.function_version_content.FunctionVersionContentList
+        """
+        return self._proxy.function_version_content
 
     def __repr__(self):
         """
