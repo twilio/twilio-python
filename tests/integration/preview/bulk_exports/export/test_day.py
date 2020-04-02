@@ -31,7 +31,7 @@ class DayTestCase(IntegrationTestCase):
             200,
             '''
             {
-                "redirect_to": "https://api.bulkexports.twilio.s3.amazonaws.com/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+                "redirect_to": "https://www.twilio.com"
             }
             '''
         ))
