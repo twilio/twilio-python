@@ -19,7 +19,7 @@ class FlowValidateTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.studio.v2.flow_valid.update(friendly_name="friendly_name", status="draft", definition={})
+            self.client.studio.v2.flow_validate.update(friendly_name="friendly_name", status="draft", definition={})
 
         values = {'FriendlyName': "friendly_name", 'Status': "draft", 'Definition': serialize.object({}), }
 
@@ -39,6 +39,6 @@ class FlowValidateTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.studio.v2.flow_valid.update(friendly_name="friendly_name", status="draft", definition={})
+        actual = self.client.studio.v2.flow_validate.update(friendly_name="friendly_name", status="draft", definition={})
 
         self.assertIsNotNone(actual)

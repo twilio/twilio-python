@@ -155,3 +155,46 @@ class ExecutionTestCase(IntegrationTestCase):
                                       .executions("FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
 
         self.assertTrue(actual)
+
+    def test_update_request(self):
+        self.holodeck.mock(Response(500, ''))
+
+        with self.assertRaises(TwilioException):
+            self.client.studio.v1.flows("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                 .executions("FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update(status="active")
+
+        values = {'Status': "active", }
+
+        self.holodeck.assert_has_request(Request(
+            'post',
+            'https://studio.twilio.com/v1/Flows/FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Executions/FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+            data=values,
+        ))
+
+    def test_update_response(self):
+        self.holodeck.mock(Response(
+            200,
+            '''
+            {
+                "url": "https://studio.twilio.com/v1/Flows/FWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Executions/FNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "sid": "FNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "flow_sid": "FWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "context": {},
+                "contact_sid": "FCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "contact_channel_address": "+14155555555",
+                "status": "ended",
+                "date_created": "2017-11-06T12:00:00Z",
+                "date_updated": "2017-11-06T12:00:00Z",
+                "links": {
+                    "steps": "https://studio.twilio.com/v1/Flows/FWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Executions/FNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Steps",
+                    "execution_context": "https://studio.twilio.com/v1/Flows/FWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Executions/FNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Context"
+                }
+            }
+            '''
+        ))
+
+        actual = self.client.studio.v1.flows("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                      .executions("FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update(status="active")
+
+        self.assertIsNotNone(actual)

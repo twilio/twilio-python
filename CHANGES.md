@@ -3,6 +3,28 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2020-04-15] Version 6.38.1
+---------------------------
+**Library - Chore**
+- [PR #513](https://github.com/twilio/twilio-python/pull/513): remove S3 URLs from test data. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+
+**Api**
+- Updated description for property `call_reason` in the call create request
+
+**Contacts**
+- Added Read, Delete All, and Delete by SID docs
+- Initial Release
+
+**Studio**
+- Rename `flow_valid` to `flow_validate`
+- Removed `errors` and `warnings` from flows error response and added new property named `details`
+- Add Update Execution endpoints to v1 and v2 to end execution via API
+- Add new `warnings` attribute v2 flow POST api
+
+**Twiml**
+- Add enhanced attribute to use with `speech_model` for the `Gather` verb
+
+
 [2020-04-01] Version 6.38.0
 ---------------------------
 **Api**
