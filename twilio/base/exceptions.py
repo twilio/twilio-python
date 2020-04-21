@@ -19,12 +19,13 @@ class TwilioRestException(TwilioException):
          not available for all errors.
     """
 
-    def __init__(self, status, uri, msg="", code=None, method='GET'):
+    def __init__(self, status, uri, msg="", code=None, method='GET', details={}):
         self.uri = uri
         self.status = status
         self.msg = msg
         self.code = code
         self.method = method
+        self.details = details
 
     def __str__(self):
         """ Try to pretty-print the exception, if this is going on screen. """
