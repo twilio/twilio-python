@@ -4,6 +4,8 @@ import unittest
 from mock import patch, Mock
 from requests import Session
 
+from twilio.base.version import Version
+from twilio.base.exceptions import TwilioRestException
 from twilio.http.http_client import TwilioHttpClient
 from twilio.http.response import Response
 
@@ -64,7 +66,7 @@ class TestHttpClientRequest(unittest.TestCase):
         self.client.timeout = 30
 
         response = self.client.request(
-                'doesnt matter', 'doesnt matter')
+            'doesnt matter', 'doesnt matter')
         self.assertEqual('other.twilio.com', self.request_mock.headers['Host'])
         self.assertEqual(200, response.status_code)
         self.assertEqual('testing-unicode: Ω≈ç√, 💩', response.content)
@@ -143,6 +145,28 @@ class TestHttpClientRequest(unittest.TestCase):
         self.client.request('doesnt matter', 'doesnt matter')
         self.assertEqual(proxies, self.session_mock.proxies)
 
+    def test_exception_with_details(self):
+        v1 = MyVersion(self.client)
+        error_text = """{   
+            "code": 20001,
+            "message": "Bad request",
+            "more_info": "https://www.twilio.com/docs/errors/20001",
+            "status": 400,
+            "details": {
+                "foo":"bar"
+            }
+        }"""
+        self.session_mock.send.return_value = Response(400, error_text)
+        try:
+            v1.fetch("get", "none", None, None, None, None, None)
+            self.fail('should not happen')
+        except TwilioRestException as err:
+            self.assertEqual(400, err.status)
+            self.assertEqual(20001, err.code)
+            self.assertEqual("get", err.method)
+            self.assertEqual("Unable to fetch record: Bad request", err.msg)
+            self.assertEqual({"foo": "bar"}, err.details)
+
 
 class TestHttpClientSession(unittest.TestCase):
 
@@ -186,3 +210,10 @@ class TestHttpClientSession(unittest.TestCase):
         # Used different session, responses should be different
         self.assertEqual(response_1.content, 'response_1')
         self.assertEqual(response_2.content, 'response_2')
+
+
+class MyVersion(Version):
+    def __init__(self, domain):
+        super(MyVersion, self).__init__(domain)
+        self.version = 'v1'
+        self._credentials = None
