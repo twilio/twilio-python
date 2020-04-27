@@ -55,11 +55,9 @@ class Version(object):
         # noinspection PyBroadException
         try:
             error_payload = json.loads(response.text)
-            details = {}
             if 'message' in error_payload:
                 message = '{}: {}'.format(message, error_payload['message'])
-            if 'details' in error_payload:
-                details = error_payload['details']
+            details = error_payload.get('details')
             code = error_payload.get('code', response.status_code)
             return TwilioRestException(response.status_code, uri, message, code, method, details)
         except Exception:
