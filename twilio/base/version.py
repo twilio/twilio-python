@@ -57,8 +57,9 @@ class Version(object):
             error_payload = json.loads(response.text)
             if 'message' in error_payload:
                 message = '{}: {}'.format(message, error_payload['message'])
+            details = error_payload.get('details')
             code = error_payload.get('code', response.status_code)
-            return TwilioRestException(response.status_code, uri, message, code, method)
+            return TwilioRestException(response.status_code, uri, message, code, method, details)
         except Exception:
             return TwilioRestException(response.status_code, uri, message, response.status_code, method)
 
