@@ -14,9 +14,7 @@ from twilio.base.page import Page
 
 
 class CompositionSettingsList(ListResource):
-    """ PLEASE NOTE that this class contains preview products that are subject
-    to change. Use them with caution. If you currently do not have developer
-    preview access, please contact help@twilio.com. """
+    """  """
 
     def __init__(self, version):
         """
@@ -61,9 +59,7 @@ class CompositionSettingsList(ListResource):
 
 
 class CompositionSettingsPage(Page):
-    """ PLEASE NOTE that this class contains preview products that are subject
-    to change. Use them with caution. If you currently do not have developer
-    preview access, please contact help@twilio.com. """
+    """  """
 
     def __init__(self, version, response, solution):
         """
@@ -102,9 +98,7 @@ class CompositionSettingsPage(Page):
 
 
 class CompositionSettingsContext(InstanceContext):
-    """ PLEASE NOTE that this class contains preview products that are subject
-    to change. Use them with caution. If you currently do not have developer
-    preview access, please contact help@twilio.com. """
+    """  """
 
     def __init__(self, version):
         """
@@ -173,9 +167,7 @@ class CompositionSettingsContext(InstanceContext):
 
 
 class CompositionSettingsInstance(InstanceResource):
-    """ PLEASE NOTE that this class contains preview products that are subject
-    to change. Use them with caution. If you currently do not have developer
-    preview access, please contact help@twilio.com. """
+    """  """
 
     def __init__(self, version, payload):
         """

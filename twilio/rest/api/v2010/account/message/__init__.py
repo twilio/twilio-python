@@ -38,11 +38,12 @@ class MessageList(ListResource):
 
     def create(self, to, status_callback=values.unset, application_sid=values.unset,
                max_price=values.unset, provide_feedback=values.unset,
-               validity_period=values.unset, force_delivery=values.unset,
-               content_retention=values.unset, address_retention=values.unset,
-               smart_encoded=values.unset, persistent_action=values.unset,
-               from_=values.unset, messaging_service_sid=values.unset,
-               body=values.unset, media_url=values.unset):
+               attempt=values.unset, validity_period=values.unset,
+               force_delivery=values.unset, content_retention=values.unset,
+               address_retention=values.unset, smart_encoded=values.unset,
+               persistent_action=values.unset, from_=values.unset,
+               messaging_service_sid=values.unset, body=values.unset,
+               media_url=values.unset):
         """
         Create the MessageInstance
 
@@ -51,6 +52,7 @@ class MessageList(ListResource):
         :param unicode application_sid: The application to use for callbacks
         :param unicode max_price: The total maximum price up to 4 decimal places in US dollars acceptable for the message to be delivered.
         :param bool provide_feedback: Whether to confirm delivery of the message
+        :param unicode attempt: Total numer of attempts made , this inclusive to send out the message
         :param unicode validity_period: The number of seconds that the message can remain in our outgoing queue.
         :param bool force_delivery: Reserved
         :param MessageInstance.ContentRetention content_retention: Determines if the message content can be stored or redacted based on privacy settings
@@ -75,6 +77,7 @@ class MessageList(ListResource):
             'ApplicationSid': application_sid,
             'MaxPrice': max_price,
             'ProvideFeedback': provide_feedback,
+            'Attempt': attempt,
             'ValidityPeriod': validity_period,
             'ForceDelivery': force_delivery,
             'ContentRetention': content_retention,

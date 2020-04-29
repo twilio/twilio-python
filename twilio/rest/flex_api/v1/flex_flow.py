@@ -144,8 +144,8 @@ class FlexFlowList(ListResource):
         :param unicode integration_timeout: The task timeout in seconds for a new task
         :param unicode integration_priority: The task priority of a new task
         :param bool integration_creation_on_message: Whether to create a task when the first message arrives
-        :param bool long_lived: Whether new channels are long-lived
-        :param bool janitor_enabled: Boolean flag for enabling or disabling the Janitor
+        :param bool long_lived: Reuse this chat channel for future interactions with a contact
+        :param bool janitor_enabled: Remove active Proxy sessions if the corresponding Task is deleted
         :param unicode integration_retry_count: The number of times to retry the webhook if the first attempt fails
 
         :returns: The created FlexFlowInstance
@@ -304,8 +304,8 @@ class FlexFlowContext(InstanceContext):
         :param unicode integration_timeout: The task timeout in seconds for a new task
         :param unicode integration_priority: The task priority of a new task
         :param bool integration_creation_on_message: Whether to create a task when the first message arrives
-        :param bool long_lived: Whether new channels created are long-lived
-        :param bool janitor_enabled: Boolean flag for enabling or disabling the Janitor
+        :param bool long_lived: Reuse this chat channel for future interactions with a contact
+        :param bool janitor_enabled: Remove active Proxy sessions if the corresponding Task is deleted.
         :param unicode integration_retry_count: The number of times to retry the webhook if the first attempt fails
 
         :returns: The updated FlexFlowInstance
@@ -506,7 +506,7 @@ class FlexFlowInstance(InstanceResource):
     @property
     def long_lived(self):
         """
-        :returns: Whether new channels are long-lived
+        :returns: Re-use this chat channel for future interactions with a contact
         :rtype: bool
         """
         return self._properties['long_lived']
@@ -514,7 +514,7 @@ class FlexFlowInstance(InstanceResource):
     @property
     def janitor_enabled(self):
         """
-        :returns: Boolean flag for enabling or disabling the Janitor
+        :returns: Remove active Proxy sessions if the corresponding Task is deleted.
         :rtype: bool
         """
         return self._properties['janitor_enabled']
@@ -564,8 +564,8 @@ class FlexFlowInstance(InstanceResource):
         :param unicode integration_timeout: The task timeout in seconds for a new task
         :param unicode integration_priority: The task priority of a new task
         :param bool integration_creation_on_message: Whether to create a task when the first message arrives
-        :param bool long_lived: Whether new channels created are long-lived
-        :param bool janitor_enabled: Boolean flag for enabling or disabling the Janitor
+        :param bool long_lived: Reuse this chat channel for future interactions with a contact
+        :param bool janitor_enabled: Remove active Proxy sessions if the corresponding Task is deleted.
         :param unicode integration_retry_count: The number of times to retry the webhook if the first attempt fails
 
         :returns: The updated FlexFlowInstance

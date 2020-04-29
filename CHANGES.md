@@ -3,6 +3,21 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2020-04-29] Version 6.39.0
+---------------------------
+**Library - Feature**
+- [PR #517](https://github.com/twilio/twilio-python/pull/517): add details to TwilioRestException. Thanks to [@ashish-s](https://github.com/ashish-s)!
+
+**Preview**
+- Added `Dispatch` version to `preview`
+
+**Studio**
+- Reroute Create Execution for V2 to the V2 downstream
+
+**Supersim**
+- Add Networks resource
+
+
 [2020-04-15] Version 6.38.1
 ---------------------------
 **Library - Chore**

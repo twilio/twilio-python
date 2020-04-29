@@ -40,6 +40,7 @@ class ConversationTestCase(IntegrationTestCase):
                 "attributes": "{ \\"topic\\": \\"feedback\\" }",
                 "date_created": "2015-12-16T22:18:37Z",
                 "date_updated": "2015-12-16T22:18:38Z",
+                "state": "inactive",
                 "url": "https://conversations.twilio.com/v1/Conversations/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "links": {
                     "participants": "https://conversations.twilio.com/v1/Conversations/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants",
@@ -80,6 +81,7 @@ class ConversationTestCase(IntegrationTestCase):
                 "attributes": "{ \\"topic\\": \\"feedback\\" }",
                 "date_created": "2015-12-16T22:18:37Z",
                 "date_updated": "2015-12-16T22:18:38Z",
+                "state": "inactive",
                 "url": "https://conversations.twilio.com/v1/Conversations/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "links": {
                     "participants": "https://conversations.twilio.com/v1/Conversations/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants",
@@ -141,6 +143,7 @@ class ConversationTestCase(IntegrationTestCase):
                 "attributes": "{ \\"topic\\": \\"feedback\\" }",
                 "date_created": "2015-12-16T22:18:37Z",
                 "date_updated": "2015-12-16T22:18:38Z",
+                "state": "active",
                 "url": "https://conversations.twilio.com/v1/Conversations/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "links": {
                     "participants": "https://conversations.twilio.com/v1/Conversations/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants",
@@ -181,6 +184,7 @@ class ConversationTestCase(IntegrationTestCase):
                         "attributes": "{ \\"topic\\": \\"feedback\\" }",
                         "date_created": "2015-12-16T22:18:37Z",
                         "date_updated": "2015-12-16T22:18:38Z",
+                        "state": "active",
                         "url": "https://conversations.twilio.com/v1/Conversations/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                         "links": {
                             "participants": "https://conversations.twilio.com/v1/Conversations/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants",

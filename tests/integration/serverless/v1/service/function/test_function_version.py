@@ -74,7 +74,7 @@ class FunctionVersionTestCase(IntegrationTestCase):
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "service_sid": "ZS00000000000000000000000000000000",
                 "function_sid": "ZH00000000000000000000000000000000",
-                "path": "test-path",
+                "path": "/test-path",
                 "visibility": "public",
                 "date_created": "2018-11-10T20:00:00Z",
                 "url": "https://serverless.twilio.com/v1/Services/ZS00000000000000000000000000000000/Functions/ZH00000000000000000000000000000000/Versions/ZN00000000000000000000000000000000",

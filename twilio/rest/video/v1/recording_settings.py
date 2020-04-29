@@ -14,9 +14,7 @@ from twilio.base.page import Page
 
 
 class RecordingSettingsList(ListResource):
-    """ PLEASE NOTE that this class contains preview products that are subject
-    to change. Use them with caution. If you currently do not have developer
-    preview access, please contact help@twilio.com. """
+    """  """
 
     def __init__(self, version):
         """
@@ -61,9 +59,7 @@ class RecordingSettingsList(ListResource):
 
 
 class RecordingSettingsPage(Page):
-    """ PLEASE NOTE that this class contains preview products that are subject
-    to change. Use them with caution. If you currently do not have developer
-    preview access, please contact help@twilio.com. """
+    """  """
 
     def __init__(self, version, response, solution):
         """
@@ -102,9 +98,7 @@ class RecordingSettingsPage(Page):
 
 
 class RecordingSettingsContext(InstanceContext):
-    """ PLEASE NOTE that this class contains preview products that are subject
-    to change. Use them with caution. If you currently do not have developer
-    preview access, please contact help@twilio.com. """
+    """  """
 
     def __init__(self, version):
         """
@@ -173,9 +167,7 @@ class RecordingSettingsContext(InstanceContext):
 
 
 class RecordingSettingsInstance(InstanceResource):
-    """ PLEASE NOTE that this class contains preview products that are subject
-    to change. Use them with caution. If you currently do not have developer
-    preview access, please contact help@twilio.com. """
+    """  """
 
     def __init__(self, version, payload):
         """
