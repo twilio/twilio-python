@@ -17,15 +17,16 @@ from twilio.http.http_client import TwilioHttpClient
 class Client(object):
     """ A client for accessing the Twilio API. """
 
-    def __init__(self, username=None, password=None, account_sid=None, region=None,
-                 http_client=None, environment=None):
+    def __init__(self, username=None, password=None, account_sid=None, edge=None,
+                 region=None, http_client=None, environment=None):
         """
         Initializes the Twilio Client
 
         :param str username: Username to authenticate with
         :param str password: Password to authenticate with
         :param str account_sid: Account Sid, defaults to Username
-        :param str region: Twilio Region to make requests to
+        :param str edge: Twilio Edge to make requests to, defaults to None
+        :param str region: Twilio Region to make requests to, defaults to 'us1' if an edge is provided
         :param HttpClient http_client: HttpClient, defaults to TwilioHttpClient
         :param dict environment: Environment to look for auth details, defaults to os.environ
 
@@ -40,7 +41,9 @@ class Client(object):
         """ :type : str """
         self.account_sid = account_sid or self.username
         """ :type : str """
-        self.region = region
+        self.edge = edge or environment.get('TWILIO_EDGE')
+        """ :type : str """
+        self.region = region or environment.get('TWILIO_REGION')
         """ :type : str """
 
         if not self.username or not self.password:
@@ -116,11 +119,23 @@ class Client(object):
         if 'Accept' not in headers:
             headers['Accept'] = 'application/json'
 
-        if self.region:
-            head, tail = uri.split('.', 1)
+        if self.region or self.edge:
+            pieces = uri.split('.')
+            pieces[-2:] = ['.'.join(pieces[-2:])]
 
-            if not tail.startswith(self.region):
-                uri = '.'.join([head, self.region, tail])
+            region = None
+            edge = None
+            if len(pieces) == 3:
+                region = pieces[1]
+            elif len(pieces) == 4:
+                edge = pieces[1]
+                region = pieces[2]
+
+            edge = self.edge or edge
+            region = self.region or region or (edge and 'us1')
+            pieces[1:-1] = [edge, region]
+
+            uri = '.'.join([piece for piece in pieces if piece])
 
         return self.http_client.request(
             method,
