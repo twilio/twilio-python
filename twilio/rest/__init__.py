@@ -17,18 +17,18 @@ from twilio.http.http_client import TwilioHttpClient
 class Client(object):
     """ A client for accessing the Twilio API. """
 
-    def __init__(self, username=None, password=None, account_sid=None, edge=None,
-                 region=None, http_client=None, environment=None):
+    def __init__(self, username=None, password=None, account_sid=None, region=None,
+                 http_client=None, environment=None, edge=None):
         """
         Initializes the Twilio Client
 
         :param str username: Username to authenticate with
         :param str password: Password to authenticate with
         :param str account_sid: Account Sid, defaults to Username
-        :param str edge: Twilio Edge to make requests to, defaults to None
         :param str region: Twilio Region to make requests to, defaults to 'us1' if an edge is provided
         :param HttpClient http_client: HttpClient, defaults to TwilioHttpClient
         :param dict environment: Environment to look for auth details, defaults to os.environ
+        :param str edge: Twilio Edge to make requests to, defaults to None
 
         :returns: Twilio Client
         :rtype: twilio.rest.Client
@@ -121,21 +121,22 @@ class Client(object):
 
         if self.region or self.edge:
             pieces = uri.split('.')
-            pieces[-2:] = ['.'.join(pieces[-2:])]
-
+            prefix = pieces[0]
+            suffix = '.'.join(pieces[-2:])
             region = None
             edge = None
             if len(pieces) == 3:
+                # https://product.region.twilio.com
                 region = pieces[1]
             elif len(pieces) == 4:
+                # https://product.edge.region.twilio.com
                 edge = pieces[1]
                 region = pieces[2]
 
             edge = self.edge or edge
             region = self.region or region or (edge and 'us1')
-            pieces[1:-1] = [edge, region]
 
-            uri = '.'.join([piece for piece in pieces if piece])
+            uri = '.'.join([part for part in [prefix, edge, region, suffix] if part])
 
         return self.http_client.request(
             method,
