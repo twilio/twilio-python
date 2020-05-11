@@ -66,7 +66,7 @@ class TestRegionEdgeClients(unittest.TestCase):
         self.http_client_constructor_mock = self.http_client_patcher.start()
         self.http_client_constructor_mock.return_value = self.http_client_mock
 
-        self.client = Client()
+        self.client = Client('username', 'password')
 
     def tearDown(self):
         self.http_client_patcher.stop()
