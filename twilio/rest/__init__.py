@@ -123,8 +123,7 @@ class Client(object):
         if 'Accept' not in headers:
             headers['Accept'] = 'application/json'
 
-        if self.region or self.edge:
-            uri = self.get_hostname(uri)
+        uri = self.get_hostname(uri)
 
         return self.http_client.request(
             method,
@@ -147,6 +146,9 @@ class Client(object):
         :returns: The final uri used to make the request
         :rtype: str
         """
+        if not self.edge and not self.region:
+            return uri
+
         parsed_url = urlparse(uri)
         pieces = parsed_url.netloc.split('.')
         prefix = pieces[0]
@@ -154,10 +156,10 @@ class Client(object):
         region = None
         edge = None
         if len(pieces) == 4:
-            # https://product.region.twilio.com
+            # product.region.twilio.com
             region = pieces[1]
         elif len(pieces) == 5:
-            # https://product.edge.region.twilio.com
+            # product.edge.region.twilio.com
             edge = pieces[1]
             region = pieces[2]
 
