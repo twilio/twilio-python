@@ -68,7 +68,7 @@ token = "YYYYYYYYYYYYYYYYYY"
 client = Client(account, token)
 ```
 
-Alternately, a `Client` constructor without these parameters will
+Alternatively, a `Client` constructor without these parameters will
 look for `TWILIO_ACCOUNT_SID` and `TWILIO_AUTH_TOKEN` variables inside the
 current environment.
 
@@ -81,6 +81,28 @@ somewhere public.
 from twilio.rest import Client
 client = Client()
 ```
+
+### Specify Region and/or Edge
+
+```python
+from twilio.rest import Client
+
+client = Client(region='au1', edge='sydney')
+```
+A `Client` constructor  without these parameters will also look for `TWILIO_REGION` and `TWILIO_EDGE` variables inside the current environment.
+
+Alternatively, you may specify the edge and/or region after constructing the Twilio client:
+
+```python
+from twilio.rest import Client
+
+client = Client()
+client.region = 'au1'
+client.edge = 'sydney'
+```
+
+
+This will result in the `hostname` transforming from `api.twilio.com` to `api.sydney.au1.twilio.com`.
 
 ### Make a Call
 

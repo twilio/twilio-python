@@ -11,6 +11,10 @@ import platform
 from twilio import __version__
 from twilio.base.exceptions import TwilioException
 from twilio.base.obsolete import obsolete_client
+from twilio.compat import (
+    urlparse,
+    urlunparse,
+)
 from twilio.http.http_client import TwilioHttpClient
 
 
@@ -18,16 +22,17 @@ class Client(object):
     """ A client for accessing the Twilio API. """
 
     def __init__(self, username=None, password=None, account_sid=None, region=None,
-                 http_client=None, environment=None):
+                 http_client=None, environment=None, edge=None):
         """
         Initializes the Twilio Client
 
         :param str username: Username to authenticate with
         :param str password: Password to authenticate with
         :param str account_sid: Account Sid, defaults to Username
-        :param str region: Twilio Region to make requests to
+        :param str region: Twilio Region to make requests to, defaults to 'us1' if an edge is provided
         :param HttpClient http_client: HttpClient, defaults to TwilioHttpClient
         :param dict environment: Environment to look for auth details, defaults to os.environ
+        :param str edge: Twilio Edge to make requests to, defaults to None
 
         :returns: Twilio Client
         :rtype: twilio.rest.Client
@@ -40,7 +45,9 @@ class Client(object):
         """ :type : str """
         self.account_sid = account_sid or self.username
         """ :type : str """
-        self.region = region
+        self.edge = edge or environment.get('TWILIO_EDGE')
+        """ :type : str """
+        self.region = region or environment.get('TWILIO_REGION')
         """ :type : str """
 
         if not self.username or not self.password:
@@ -116,11 +123,7 @@ class Client(object):
         if 'Accept' not in headers:
             headers['Accept'] = 'application/json'
 
-        if self.region:
-            head, tail = uri.split('.', 1)
-
-            if not tail.startswith(self.region):
-                uri = '.'.join([head, self.region, tail])
+        uri = self.get_hostname(uri)
 
         return self.http_client.request(
             method,
@@ -132,6 +135,41 @@ class Client(object):
             timeout=timeout,
             allow_redirects=allow_redirects
         )
+
+    def get_hostname(self, uri):
+        """
+        Determines the proper hostname given edge and region preferences
+        via client configuration or uri.
+
+        :param str uri: Fully qualified url
+
+        :returns: The final uri used to make the request
+        :rtype: str
+        """
+        if not self.edge and not self.region:
+            return uri
+
+        parsed_url = urlparse(uri)
+        pieces = parsed_url.netloc.split('.')
+        prefix = pieces[0]
+        suffix = '.'.join(pieces[-2:])
+        region = None
+        edge = None
+        if len(pieces) == 4:
+            # product.region.twilio.com
+            region = pieces[1]
+        elif len(pieces) == 5:
+            # product.edge.region.twilio.com
+            edge = pieces[1]
+            region = pieces[2]
+
+        edge = self.edge or edge
+        region = self.region or region or (edge and 'us1')
+
+        parsed_url = parsed_url._replace(
+            netloc='.'.join([part for part in [prefix, edge, region, suffix] if part])
+        )
+        return urlunparse(parsed_url)
 
     @property
     def accounts(self):
