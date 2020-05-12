@@ -11,6 +11,10 @@ import platform
 from twilio import __version__
 from twilio.base.exceptions import TwilioException
 from twilio.base.obsolete import obsolete_client
+from twilio.compat import (
+    urlparse,
+    urlunparse,
+)
 from twilio.http.http_client import TwilioHttpClient
 
 
@@ -120,15 +124,16 @@ class Client(object):
             headers['Accept'] = 'application/json'
 
         if self.region or self.edge:
-            pieces = uri.split('.')
+            parsed_url = urlparse(uri)
+            pieces = parsed_url.netloc.split('.')
             prefix = pieces[0]
             suffix = '.'.join(pieces[-2:])
             region = None
             edge = None
-            if len(pieces) == 3:
+            if len(pieces) == 4:
                 # https://product.region.twilio.com
                 region = pieces[1]
-            elif len(pieces) == 4:
+            elif len(pieces) == 5:
                 # https://product.edge.region.twilio.com
                 edge = pieces[1]
                 region = pieces[2]
@@ -136,7 +141,8 @@ class Client(object):
             edge = self.edge or edge
             region = self.region or region or (edge and 'us1')
 
-            uri = '.'.join([part for part in [prefix, edge, region, suffix] if part])
+            parsed_url = parsed_url._replace(netloc='.'.join([part for part in [prefix, edge, region, suffix] if part]))
+            uri = urlunparse(parsed_url)
 
         return self.http_client.request(
             method,
