@@ -141,7 +141,9 @@ class Client(object):
             edge = self.edge or edge
             region = self.region or region or (edge and 'us1')
 
-            parsed_url = parsed_url._replace(netloc='.'.join([part for part in [prefix, edge, region, suffix] if part]))
+            parsed_url = parsed_url._replace(
+                netloc='.'.join([part for part in [prefix, edge, region, suffix] if part])
+            )
             uri = urlunparse(parsed_url)
 
         return self.http_client.request(
