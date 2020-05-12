@@ -91,3 +91,9 @@ class TestRegionEdgeClients(unittest.TestCase):
         self.assertEqual(self.client.get_hostname('https://api.edge.region.twilio.com'),
                          'https://api.edge.region.twilio.com')
 
+    def test_periods_in_query(self):
+        self.client.region = 'region'
+        self.client.edge = 'edge'
+        self.assertEqual(self.client.get_hostname('https://api.twilio.com/path/to/something.json?foo=12.34'),
+                         'https://api.edge.region.twilio.com/path/to/something.json?foo=12.34')
+
