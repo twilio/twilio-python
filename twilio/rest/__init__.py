@@ -124,27 +124,7 @@ class Client(object):
             headers['Accept'] = 'application/json'
 
         if self.region or self.edge:
-            parsed_url = urlparse(uri)
-            pieces = parsed_url.netloc.split('.')
-            prefix = pieces[0]
-            suffix = '.'.join(pieces[-2:])
-            region = None
-            edge = None
-            if len(pieces) == 4:
-                # https://product.region.twilio.com
-                region = pieces[1]
-            elif len(pieces) == 5:
-                # https://product.edge.region.twilio.com
-                edge = pieces[1]
-                region = pieces[2]
-
-            edge = self.edge or edge
-            region = self.region or region or (edge and 'us1')
-
-            parsed_url = parsed_url._replace(
-                netloc='.'.join([part for part in [prefix, edge, region, suffix] if part])
-            )
-            uri = urlunparse(parsed_url)
+            uri = self.get_hostname(uri)
 
         return self.http_client.request(
             method,
@@ -156,6 +136,38 @@ class Client(object):
             timeout=timeout,
             allow_redirects=allow_redirects
         )
+
+    def get_hostname(self, uri):
+        """
+        Determines the proper hostname given edge and region preferences
+        via client configuration or uri.
+
+        :param str uri: Fully qualified url
+
+        :returns: The final uri used to make the request
+        :rtype: str
+        """
+        parsed_url = urlparse(uri)
+        pieces = parsed_url.netloc.split('.')
+        prefix = pieces[0]
+        suffix = '.'.join(pieces[-2:])
+        region = None
+        edge = None
+        if len(pieces) == 4:
+            # https://product.region.twilio.com
+            region = pieces[1]
+        elif len(pieces) == 5:
+            # https://product.edge.region.twilio.com
+            edge = pieces[1]
+            region = pieces[2]
+
+        edge = self.edge or edge
+        region = self.region or region or (edge and 'us1')
+
+        parsed_url = parsed_url._replace(
+            netloc='.'.join([part for part in [prefix, edge, region, suffix] if part])
+        )
+        return urlunparse(parsed_url)
 
     @property
     def accounts(self):
