@@ -31,24 +31,36 @@ class TokenTestCase(IntegrationTestCase):
             201,
             '''
             {
-                "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                "date_created": "Fri, 24 Jul 2015 18:43:58 +0000",
-                "date_updated": "Fri, 24 Jul 2015 18:43:58 +0000",
+                "username": "dc2d2894d5a9023620c467b0e71cfa6a35457e6679785ed6ae9856fe5bdfa269",
                 "ice_servers": [
                     {
-                        "url": "stun:global.stun:3478?transport=udp",
-                        "urls": "stun:global.stun:3478?transport=udp"
+                        "url": "stun:global.stun.twilio.com:3478?transport=udp",
+                        "urls": "stun:global.stun.twilio.com:3478?transport=udp"
                     },
                     {
-                        "credential": "5SR2x8mZK1lTFJW3NVgLGw6UM9C0dja4jI/Hdw3xr+w=",
-                        "url": "turn:global.turn:3478?transport=udp",
-                        "urls": "turn:global.turn:3478?transport=udp",
-                        "username": "cda92e5006c7810494639fc466ecc80182cef8183fdf400f84c4126f3b59d0bb"
+                        "username": "dc2d2894d5a9023620c467b0e71cfa6a35457e6679785ed6ae9856fe5bdfa269",
+                        "credential": "tE2DajzSJwnsSbc123",
+                        "url": "turn:global.turn.twilio.com:3478?transport=udp",
+                        "urls": "turn:global.turn.twilio.com:3478?transport=udp"
+                    },
+                    {
+                        "username": "dc2d2894d5a9023620c467b0e71cfa6a35457e6679785ed6ae9856fe5bdfa269",
+                        "credential": "tE2DajzSJwnsSbc123",
+                        "url": "turn:global.turn.twilio.com:3478?transport=tcp",
+                        "urls": "turn:global.turn.twilio.com:3478?transport=tcp"
+                    },
+                    {
+                        "username": "dc2d2894d5a9023620c467b0e71cfa6a35457e6679785ed6ae9856fe5bdfa269",
+                        "credential": "tE2DajzSJwnsSbc123",
+                        "url": "turn:global.turn.twilio.com:443?transport=tcp",
+                        "urls": "turn:global.turn.twilio.com:443?transport=tcp"
                     }
                 ],
-                "password": "5SR2x8mZK1lTFJW3NVgLGw6UM9C0dja4jI/Hdw3xr+w=",
+                "date_updated": "Fri, 01 May 2020 01:42:57 +0000",
+                "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "ttl": "86400",
-                "username": "cda92e5006c7810494639fc466ecc80182cef8183fdf400f84c4126f3b59d0bb"
+                "date_created": "Fri, 01 May 2020 01:42:57 +0000",
+                "password": "tE2DajzSJwnsSbc123"
             }
             '''
         ))

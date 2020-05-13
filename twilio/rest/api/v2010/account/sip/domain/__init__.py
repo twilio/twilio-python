@@ -119,7 +119,8 @@ class DomainList(ListResource):
                voice_status_callback_url=values.unset,
                voice_status_callback_method=values.unset,
                sip_registration=values.unset,
-               emergency_calling_enabled=values.unset, secure=values.unset):
+               emergency_calling_enabled=values.unset, secure=values.unset,
+               byoc_trunk_sid=values.unset, emergency_caller_sid=values.unset):
         """
         Create the DomainInstance
 
@@ -134,6 +135,8 @@ class DomainList(ListResource):
         :param bool sip_registration: Whether SIP registration is allowed
         :param bool emergency_calling_enabled: Whether emergency calling is enabled for the domain.
         :param bool secure: Whether secure SIP is enabled for the domain
+        :param unicode byoc_trunk_sid: The SID of the BYOC Trunk resource.
+        :param unicode emergency_caller_sid: Whether an emergency caller sid is configured for the domain.
 
         :returns: The created DomainInstance
         :rtype: twilio.rest.api.v2010.account.sip.domain.DomainInstance
@@ -150,6 +153,8 @@ class DomainList(ListResource):
             'SipRegistration': sip_registration,
             'EmergencyCallingEnabled': emergency_calling_enabled,
             'Secure': secure,
+            'ByocTrunkSid': byoc_trunk_sid,
+            'EmergencyCallerSid': emergency_caller_sid,
         })
 
         payload = self._version.create(method='POST', uri=self._uri, data=data, )
@@ -274,7 +279,8 @@ class DomainContext(InstanceContext):
                voice_status_callback_method=values.unset,
                voice_status_callback_url=values.unset, voice_url=values.unset,
                sip_registration=values.unset, domain_name=values.unset,
-               emergency_calling_enabled=values.unset, secure=values.unset):
+               emergency_calling_enabled=values.unset, secure=values.unset,
+               byoc_trunk_sid=values.unset, emergency_caller_sid=values.unset):
         """
         Update the DomainInstance
 
@@ -289,6 +295,8 @@ class DomainContext(InstanceContext):
         :param unicode domain_name: The unique address on Twilio to route SIP traffic
         :param bool emergency_calling_enabled: Whether emergency calling is enabled for the domain.
         :param bool secure: Whether secure SIP is enabled for the domain
+        :param unicode byoc_trunk_sid: The SID of the BYOC Trunk resource.
+        :param unicode emergency_caller_sid: Whether an emergency caller sid is configured for the domain.
 
         :returns: The updated DomainInstance
         :rtype: twilio.rest.api.v2010.account.sip.domain.DomainInstance
@@ -305,6 +313,8 @@ class DomainContext(InstanceContext):
             'DomainName': domain_name,
             'EmergencyCallingEnabled': emergency_calling_enabled,
             'Secure': secure,
+            'ByocTrunkSid': byoc_trunk_sid,
+            'EmergencyCallerSid': emergency_caller_sid,
         })
 
         payload = self._version.update(method='POST', uri=self._uri, data=data, )
@@ -417,6 +427,8 @@ class DomainInstance(InstanceResource):
             'sip_registration': payload.get('sip_registration'),
             'emergency_calling_enabled': payload.get('emergency_calling_enabled'),
             'secure': payload.get('secure'),
+            'byoc_trunk_sid': payload.get('byoc_trunk_sid'),
+            'emergency_caller_sid': payload.get('emergency_caller_sid'),
         }
 
         # Context
@@ -592,6 +604,22 @@ class DomainInstance(InstanceResource):
         """
         return self._properties['secure']
 
+    @property
+    def byoc_trunk_sid(self):
+        """
+        :returns: The SID of the BYOC Trunk resource.
+        :rtype: unicode
+        """
+        return self._properties['byoc_trunk_sid']
+
+    @property
+    def emergency_caller_sid(self):
+        """
+        :returns: Whether an emergency caller sid is configured for the domain.
+        :rtype: unicode
+        """
+        return self._properties['emergency_caller_sid']
+
     def fetch(self):
         """
         Fetch the DomainInstance
@@ -606,7 +634,8 @@ class DomainInstance(InstanceResource):
                voice_status_callback_method=values.unset,
                voice_status_callback_url=values.unset, voice_url=values.unset,
                sip_registration=values.unset, domain_name=values.unset,
-               emergency_calling_enabled=values.unset, secure=values.unset):
+               emergency_calling_enabled=values.unset, secure=values.unset,
+               byoc_trunk_sid=values.unset, emergency_caller_sid=values.unset):
         """
         Update the DomainInstance
 
@@ -621,6 +650,8 @@ class DomainInstance(InstanceResource):
         :param unicode domain_name: The unique address on Twilio to route SIP traffic
         :param bool emergency_calling_enabled: Whether emergency calling is enabled for the domain.
         :param bool secure: Whether secure SIP is enabled for the domain
+        :param unicode byoc_trunk_sid: The SID of the BYOC Trunk resource.
+        :param unicode emergency_caller_sid: Whether an emergency caller sid is configured for the domain.
 
         :returns: The updated DomainInstance
         :rtype: twilio.rest.api.v2010.account.sip.domain.DomainInstance
@@ -637,6 +668,8 @@ class DomainInstance(InstanceResource):
             domain_name=domain_name,
             emergency_calling_enabled=emergency_calling_enabled,
             secure=secure,
+            byoc_trunk_sid=byoc_trunk_sid,
+            emergency_caller_sid=emergency_caller_sid,
         )
 
     def delete(self):

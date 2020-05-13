@@ -43,6 +43,13 @@ class Autopilot(Domain):
         """
         return self.v1.assistants
 
+    @property
+    def restore_assistant(self):
+        """
+        :rtype: twilio.rest.autopilot.v1.restore_assistant.RestoreAssistantList
+        """
+        return self.v1.restore_assistant
+
     def __repr__(self):
         """
         Provide a friendly representation

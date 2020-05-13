@@ -12,6 +12,7 @@ from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.page import Page
+from twilio.rest.numbers.v2.regulatory_compliance.bundle.evaluation import EvaluationList
 from twilio.rest.numbers.v2.regulatory_compliance.bundle.item_assignment import ItemAssignmentList
 
 
@@ -277,6 +278,7 @@ class BundleContext(InstanceContext):
         self._uri = '/RegulatoryCompliance/Bundles/{sid}'.format(**self._solution)
 
         # Dependents
+        self._evaluations = None
         self._item_assignments = None
 
     def fetch(self):
@@ -313,6 +315,18 @@ class BundleContext(InstanceContext):
         payload = self._version.update(method='POST', uri=self._uri, data=data, )
 
         return BundleInstance(self._version, payload, sid=self._solution['sid'], )
+
+    @property
+    def evaluations(self):
+        """
+        Access the evaluations
+
+        :returns: twilio.rest.numbers.v2.regulatory_compliance.bundle.evaluation.EvaluationList
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.evaluation.EvaluationList
+        """
+        if self._evaluations is None:
+            self._evaluations = EvaluationList(self._version, bundle_sid=self._solution['sid'], )
+        return self._evaluations
 
     @property
     def item_assignments(self):
@@ -508,6 +522,16 @@ class BundleInstance(InstanceResource):
             friendly_name=friendly_name,
             email=email,
         )
+
+    @property
+    def evaluations(self):
+        """
+        Access the evaluations
+
+        :returns: twilio.rest.numbers.v2.regulatory_compliance.bundle.evaluation.EvaluationList
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.evaluation.EvaluationList
+        """
+        return self._proxy.evaluations
 
     @property
     def item_assignments(self):

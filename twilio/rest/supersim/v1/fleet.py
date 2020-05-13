@@ -36,7 +36,7 @@ class FleetList(ListResource):
 
     def create(self, unique_name=values.unset, data_enabled=values.unset,
                commands_enabled=values.unset, commands_url=values.unset,
-               commands_method=values.unset):
+               commands_method=values.unset, network_access_profile=values.unset):
         """
         Create the FleetInstance
 
@@ -45,6 +45,7 @@ class FleetList(ListResource):
         :param bool commands_enabled: Defines whether SIMs in the Fleet are capable of sending and receiving Commands via SMS
         :param unicode commands_url: The URL that will receive a webhook when a SIM in the Fleet originates a machine-to-machine Command
         :param unicode commands_method: A string representing the HTTP method to use when making a request to `commands_url`
+        :param unicode network_access_profile: The SID or unique name of the Network Access Profile of the Fleet
 
         :returns: The created FleetInstance
         :rtype: twilio.rest.supersim.v1.fleet.FleetInstance
@@ -55,19 +56,22 @@ class FleetList(ListResource):
             'CommandsEnabled': commands_enabled,
             'CommandsUrl': commands_url,
             'CommandsMethod': commands_method,
+            'NetworkAccessProfile': network_access_profile,
         })
 
         payload = self._version.create(method='POST', uri=self._uri, data=data, )
 
         return FleetInstance(self._version, payload, )
 
-    def stream(self, limit=None, page_size=None):
+    def stream(self, network_access_profile=values.unset, limit=None,
+               page_size=None):
         """
         Streams FleetInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
+        :param unicode network_access_profile: The SID or unique name of the Network Access Profile of the Fleet
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -80,16 +84,17 @@ class FleetList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
 
-        page = self.page(page_size=limits['page_size'], )
+        page = self.page(network_access_profile=network_access_profile, page_size=limits['page_size'], )
 
         return self._version.stream(page, limits['limit'], limits['page_limit'])
 
-    def list(self, limit=None, page_size=None):
+    def list(self, network_access_profile=values.unset, limit=None, page_size=None):
         """
         Lists FleetInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
+        :param unicode network_access_profile: The SID or unique name of the Network Access Profile of the Fleet
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -100,14 +105,19 @@ class FleetList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.supersim.v1.fleet.FleetInstance]
         """
-        return list(self.stream(limit=limit, page_size=page_size, ))
+        return list(self.stream(
+            network_access_profile=network_access_profile,
+            limit=limit,
+            page_size=page_size,
+        ))
 
-    def page(self, page_token=values.unset, page_number=values.unset,
-             page_size=values.unset):
+    def page(self, network_access_profile=values.unset, page_token=values.unset,
+             page_number=values.unset, page_size=values.unset):
         """
         Retrieve a single page of FleetInstance records from the API.
         Request is executed immediately
 
+        :param unicode network_access_profile: The SID or unique name of the Network Access Profile of the Fleet
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -115,7 +125,12 @@ class FleetList(ListResource):
         :returns: Page of FleetInstance
         :rtype: twilio.rest.supersim.v1.fleet.FleetPage
         """
-        data = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
+        data = values.of({
+            'NetworkAccessProfile': network_access_profile,
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
+        })
 
         response = self._version.page(method='GET', uri=self._uri, params=data, )
 
@@ -243,16 +258,17 @@ class FleetContext(InstanceContext):
 
         return FleetInstance(self._version, payload, sid=self._solution['sid'], )
 
-    def update(self, unique_name=values.unset):
+    def update(self, unique_name=values.unset, network_access_profile=values.unset):
         """
         Update the FleetInstance
 
         :param unicode unique_name: An application-defined string that uniquely identifies the resource
+        :param unicode network_access_profile: The SID or unique name of the Network Access Profile of the Fleet
 
         :returns: The updated FleetInstance
         :rtype: twilio.rest.supersim.v1.fleet.FleetInstance
         """
-        data = values.of({'UniqueName': unique_name, })
+        data = values.of({'UniqueName': unique_name, 'NetworkAccessProfile': network_access_profile, })
 
         payload = self._version.update(method='POST', uri=self._uri, data=data, )
 
@@ -299,6 +315,7 @@ class FleetInstance(InstanceResource):
             'commands_enabled': payload.get('commands_enabled'),
             'commands_url': payload.get('commands_url'),
             'commands_method': payload.get('commands_method'),
+            'network_access_profile_sid': payload.get('network_access_profile_sid'),
         }
 
         # Context
@@ -406,6 +423,14 @@ class FleetInstance(InstanceResource):
         """
         return self._properties['commands_method']
 
+    @property
+    def network_access_profile_sid(self):
+        """
+        :returns: The SID of the Network Access Profile of the Fleet
+        :rtype: unicode
+        """
+        return self._properties['network_access_profile_sid']
+
     def fetch(self):
         """
         Fetch the FleetInstance
@@ -415,16 +440,17 @@ class FleetInstance(InstanceResource):
         """
         return self._proxy.fetch()
 
-    def update(self, unique_name=values.unset):
+    def update(self, unique_name=values.unset, network_access_profile=values.unset):
         """
         Update the FleetInstance
 
         :param unicode unique_name: An application-defined string that uniquely identifies the resource
+        :param unicode network_access_profile: The SID or unique name of the Network Access Profile of the Fleet
 
         :returns: The updated FleetInstance
         :rtype: twilio.rest.supersim.v1.fleet.FleetInstance
         """
-        return self._proxy.update(unique_name=unique_name, )
+        return self._proxy.update(unique_name=unique_name, network_access_profile=network_access_profile, )
 
     def __repr__(self):
         """
