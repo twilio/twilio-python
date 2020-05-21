@@ -310,6 +310,7 @@ Here you can see the full list of changes between each twilio-python release.
 **Api**
 - Make `persistent_action` parameter public
 - Add `twiml` optional private parameter for call create
+- Update the call `price` property type to be string **(breaking change)**
 
 **Autopilot**
 - Add Export resource to Autopilot Assistant.
