@@ -21,9 +21,9 @@ class ChallengeTestCase(IntegrationTestCase):
             self.client.authy.v1.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                 .entities("identity") \
                                 .factors("YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                .challenges.create(twilio_authy_sandbox_mode="twilio_authy_sandbox_mode")
+                                .challenges.create(twilio_sandbox_mode="twilio_sandbox_mode")
 
-        headers = {'Twilio-Authy-Sandbox-Mode': "twilio_authy_sandbox_mode", }
+        headers = {'Twilio-Sandbox-Mode': "twilio_sandbox_mode", }
         self.holodeck.assert_has_request(Request(
             'post',
             'https://authy.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Entities/identity/Factors/YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Challenges',
@@ -69,9 +69,9 @@ class ChallengeTestCase(IntegrationTestCase):
             self.client.authy.v1.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                 .entities("identity") \
                                 .factors("YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                .challenges("sid").delete(twilio_authy_sandbox_mode="twilio_authy_sandbox_mode")
+                                .challenges("sid").delete(twilio_sandbox_mode="twilio_sandbox_mode")
 
-        headers = {'Twilio-Authy-Sandbox-Mode': "twilio_authy_sandbox_mode", }
+        headers = {'Twilio-Sandbox-Mode': "twilio_sandbox_mode", }
         self.holodeck.assert_has_request(Request(
             'delete',
             'https://authy.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Entities/identity/Factors/YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Challenges/sid',
@@ -98,9 +98,9 @@ class ChallengeTestCase(IntegrationTestCase):
             self.client.authy.v1.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                 .entities("identity") \
                                 .factors("YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                .challenges("sid").fetch(twilio_authy_sandbox_mode="twilio_authy_sandbox_mode")
+                                .challenges("sid").fetch(twilio_sandbox_mode="twilio_sandbox_mode")
 
-        headers = {'Twilio-Authy-Sandbox-Mode': "twilio_authy_sandbox_mode", }
+        headers = {'Twilio-Sandbox-Mode': "twilio_sandbox_mode", }
         self.holodeck.assert_has_request(Request(
             'get',
             'https://authy.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Entities/identity/Factors/YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Challenges/sid',
@@ -178,9 +178,9 @@ class ChallengeTestCase(IntegrationTestCase):
             self.client.authy.v1.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                 .entities("identity") \
                                 .factors("YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                .challenges.list(twilio_authy_sandbox_mode="twilio_authy_sandbox_mode")
+                                .challenges.list(twilio_sandbox_mode="twilio_sandbox_mode")
 
-        headers = {'Twilio-Authy-Sandbox-Mode': "twilio_authy_sandbox_mode", }
+        headers = {'Twilio-Sandbox-Mode': "twilio_sandbox_mode", }
         self.holodeck.assert_has_request(Request(
             'get',
             'https://authy.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Entities/identity/Factors/YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Challenges',
@@ -265,9 +265,9 @@ class ChallengeTestCase(IntegrationTestCase):
             self.client.authy.v1.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                 .entities("identity") \
                                 .factors("YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                .challenges("sid").update(twilio_authy_sandbox_mode="twilio_authy_sandbox_mode")
+                                .challenges("sid").update(twilio_sandbox_mode="twilio_sandbox_mode")
 
-        headers = {'Twilio-Authy-Sandbox-Mode': "twilio_authy_sandbox_mode", }
+        headers = {'Twilio-Sandbox-Mode': "twilio_sandbox_mode", }
         self.holodeck.assert_has_request(Request(
             'post',
             'https://authy.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Entities/identity/Factors/YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Challenges/sid',

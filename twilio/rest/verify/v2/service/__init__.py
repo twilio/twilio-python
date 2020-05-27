@@ -12,6 +12,7 @@ from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.page import Page
+from twilio.rest.verify.v2.service.entity import EntityList
 from twilio.rest.verify.v2.service.messaging_configuration import MessagingConfigurationList
 from twilio.rest.verify.v2.service.rate_limit import RateLimitList
 from twilio.rest.verify.v2.service.verification import VerificationList
@@ -245,6 +246,7 @@ class ServiceContext(InstanceContext):
         self._verification_checks = None
         self._rate_limits = None
         self._messaging_configurations = None
+        self._entities = None
 
     def fetch(self):
         """
@@ -353,6 +355,18 @@ class ServiceContext(InstanceContext):
                 service_sid=self._solution['sid'],
             )
         return self._messaging_configurations
+
+    @property
+    def entities(self):
+        """
+        Access the entities
+
+        :returns: twilio.rest.verify.v2.service.entity.EntityList
+        :rtype: twilio.rest.verify.v2.service.entity.EntityList
+        """
+        if self._entities is None:
+            self._entities = EntityList(self._version, service_sid=self._solution['sid'], )
+        return self._entities
 
     def __repr__(self):
         """
@@ -623,6 +637,16 @@ class ServiceInstance(InstanceResource):
         :rtype: twilio.rest.verify.v2.service.messaging_configuration.MessagingConfigurationList
         """
         return self._proxy.messaging_configurations
+
+    @property
+    def entities(self):
+        """
+        Access the entities
+
+        :returns: twilio.rest.verify.v2.service.entity.EntityList
+        :rtype: twilio.rest.verify.v2.service.entity.EntityList
+        """
+        return self._proxy.entities
 
     def __repr__(self):
         """

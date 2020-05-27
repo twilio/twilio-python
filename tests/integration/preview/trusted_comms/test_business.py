@@ -34,6 +34,7 @@ class BusinessTestCase(IntegrationTestCase):
                 "sid": "BXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "url": "https://preview.twilio.com/TrustedComms/Businesses/BXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "links": {
+                    "brands": "https://preview.twilio.com/TrustedComms/Businesses/BXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Brands",
                     "insights": "https://preview.twilio.com/TrustedComms/Businesses/BXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Insights"
                 }
             }

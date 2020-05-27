@@ -19,11 +19,11 @@ class EntityTestCase(IntegrationTestCase):
 
         with self.assertRaises(TwilioException):
             self.client.authy.v1.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                .entities.create(identity="identity", twilio_authy_sandbox_mode="twilio_authy_sandbox_mode")
+                                .entities.create(identity="identity", twilio_sandbox_mode="twilio_sandbox_mode")
 
         values = {'Identity': "identity", }
 
-        headers = {'Twilio-Authy-Sandbox-Mode': "twilio_authy_sandbox_mode", }
+        headers = {'Twilio-Sandbox-Mode': "twilio_sandbox_mode", }
         self.holodeck.assert_has_request(Request(
             'post',
             'https://authy.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Entities',
@@ -64,9 +64,9 @@ class EntityTestCase(IntegrationTestCase):
 
         with self.assertRaises(TwilioException):
             self.client.authy.v1.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                .entities("identity").delete(twilio_authy_sandbox_mode="twilio_authy_sandbox_mode")
+                                .entities("identity").delete(twilio_sandbox_mode="twilio_sandbox_mode")
 
-        headers = {'Twilio-Authy-Sandbox-Mode': "twilio_authy_sandbox_mode", }
+        headers = {'Twilio-Sandbox-Mode': "twilio_sandbox_mode", }
         self.holodeck.assert_has_request(Request(
             'delete',
             'https://authy.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Entities/identity',
@@ -89,9 +89,9 @@ class EntityTestCase(IntegrationTestCase):
 
         with self.assertRaises(TwilioException):
             self.client.authy.v1.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                .entities("identity").fetch(twilio_authy_sandbox_mode="twilio_authy_sandbox_mode")
+                                .entities("identity").fetch(twilio_sandbox_mode="twilio_sandbox_mode")
 
-        headers = {'Twilio-Authy-Sandbox-Mode': "twilio_authy_sandbox_mode", }
+        headers = {'Twilio-Sandbox-Mode': "twilio_sandbox_mode", }
         self.holodeck.assert_has_request(Request(
             'get',
             'https://authy.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Entities/identity',
@@ -127,9 +127,9 @@ class EntityTestCase(IntegrationTestCase):
 
         with self.assertRaises(TwilioException):
             self.client.authy.v1.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                .entities.list(twilio_authy_sandbox_mode="twilio_authy_sandbox_mode")
+                                .entities.list(twilio_sandbox_mode="twilio_sandbox_mode")
 
-        headers = {'Twilio-Authy-Sandbox-Mode': "twilio_authy_sandbox_mode", }
+        headers = {'Twilio-Sandbox-Mode': "twilio_sandbox_mode", }
         self.holodeck.assert_has_request(Request(
             'get',
             'https://authy.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Entities',

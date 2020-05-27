@@ -40,7 +40,7 @@ class ParticipantList(ListResource):
                date_created=values.unset, date_updated=values.unset,
                attributes=values.unset,
                messaging_binding_projected_address=values.unset,
-               x_twilio_webhook_enabled=values.unset):
+               role_sid=values.unset, x_twilio_webhook_enabled=values.unset):
         """
         Create the ParticipantInstance
 
@@ -51,6 +51,7 @@ class ParticipantList(ListResource):
         :param datetime date_updated: The date that this resource was last updated.
         :param unicode attributes: An optional string metadata field you can use to store any data you wish.
         :param unicode messaging_binding_projected_address: The address of the Twilio phone number that is used in Group MMS.
+        :param unicode role_sid: The SID of the Role to assign to the participant
         :param ParticipantInstance.WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
 
         :returns: The created ParticipantInstance
@@ -64,6 +65,7 @@ class ParticipantList(ListResource):
             'DateUpdated': serialize.iso8601_datetime(date_updated),
             'Attributes': attributes,
             'MessagingBinding.ProjectedAddress': messaging_binding_projected_address,
+            'RoleSid': role_sid,
         })
         headers = values.of({'X-Twilio-Webhook-Enabled': x_twilio_webhook_enabled, })
 
@@ -259,13 +261,15 @@ class ParticipantContext(InstanceContext):
         self._uri = '/Conversations/{conversation_sid}/Participants/{sid}'.format(**self._solution)
 
     def update(self, date_created=values.unset, date_updated=values.unset,
-               attributes=values.unset, x_twilio_webhook_enabled=values.unset):
+               attributes=values.unset, role_sid=values.unset,
+               x_twilio_webhook_enabled=values.unset):
         """
         Update the ParticipantInstance
 
         :param datetime date_created: The date that this resource was created.
         :param datetime date_updated: The date that this resource was last updated.
         :param unicode attributes: An optional string metadata field you can use to store any data you wish.
+        :param unicode role_sid: The SID of the Role to assign to the participant
         :param ParticipantInstance.WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
 
         :returns: The updated ParticipantInstance
@@ -275,6 +279,7 @@ class ParticipantContext(InstanceContext):
             'DateCreated': serialize.iso8601_datetime(date_created),
             'DateUpdated': serialize.iso8601_datetime(date_updated),
             'Attributes': attributes,
+            'RoleSid': role_sid,
         })
         headers = values.of({'X-Twilio-Webhook-Enabled': x_twilio_webhook_enabled, })
 
@@ -352,6 +357,7 @@ class ParticipantInstance(InstanceResource):
             'identity': payload.get('identity'),
             'attributes': payload.get('attributes'),
             'messaging_binding': payload.get('messaging_binding'),
+            'role_sid': payload.get('role_sid'),
             'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
             'date_updated': deserialize.iso8601_datetime(payload.get('date_updated')),
             'url': payload.get('url'),
@@ -427,6 +433,14 @@ class ParticipantInstance(InstanceResource):
         return self._properties['messaging_binding']
 
     @property
+    def role_sid(self):
+        """
+        :returns: The SID of the Role to assign to the participant
+        :rtype: unicode
+        """
+        return self._properties['role_sid']
+
+    @property
     def date_created(self):
         """
         :returns: The date that this resource was created.
@@ -451,13 +465,15 @@ class ParticipantInstance(InstanceResource):
         return self._properties['url']
 
     def update(self, date_created=values.unset, date_updated=values.unset,
-               attributes=values.unset, x_twilio_webhook_enabled=values.unset):
+               attributes=values.unset, role_sid=values.unset,
+               x_twilio_webhook_enabled=values.unset):
         """
         Update the ParticipantInstance
 
         :param datetime date_created: The date that this resource was created.
         :param datetime date_updated: The date that this resource was last updated.
         :param unicode attributes: An optional string metadata field you can use to store any data you wish.
+        :param unicode role_sid: The SID of the Role to assign to the participant
         :param ParticipantInstance.WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
 
         :returns: The updated ParticipantInstance
@@ -467,6 +483,7 @@ class ParticipantInstance(InstanceResource):
             date_created=date_created,
             date_updated=date_updated,
             attributes=attributes,
+            role_sid=role_sid,
             x_twilio_webhook_enabled=x_twilio_webhook_enabled,
         )
 

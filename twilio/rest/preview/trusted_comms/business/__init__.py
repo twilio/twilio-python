@@ -11,6 +11,7 @@ from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.page import Page
+from twilio.rest.preview.trusted_comms.business.brand import BrandList
 from twilio.rest.preview.trusted_comms.business.insights import InsightsList
 
 
@@ -128,6 +129,7 @@ class BusinessContext(InstanceContext):
         self._uri = '/Businesses/{sid}'.format(**self._solution)
 
         # Dependents
+        self._brands = None
         self._insights = None
 
     def fetch(self):
@@ -140,6 +142,18 @@ class BusinessContext(InstanceContext):
         payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return BusinessInstance(self._version, payload, sid=self._solution['sid'], )
+
+    @property
+    def brands(self):
+        """
+        Access the brands
+
+        :returns: twilio.rest.preview.trusted_comms.business.brand.BrandList
+        :rtype: twilio.rest.preview.trusted_comms.business.brand.BrandList
+        """
+        if self._brands is None:
+            self._brands = BrandList(self._version, business_sid=self._solution['sid'], )
+        return self._brands
 
     @property
     def insights(self):
@@ -243,6 +257,16 @@ class BusinessInstance(InstanceResource):
         :rtype: twilio.rest.preview.trusted_comms.business.BusinessInstance
         """
         return self._proxy.fetch()
+
+    @property
+    def brands(self):
+        """
+        Access the brands
+
+        :returns: twilio.rest.preview.trusted_comms.business.brand.BrandList
+        :rtype: twilio.rest.preview.trusted_comms.business.brand.BrandList
+        """
+        return self._proxy.brands
 
     @property
     def insights(self):

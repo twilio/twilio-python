@@ -43,6 +43,7 @@ class ParticipantTestCase(IntegrationTestCase):
                     "address": "+15558675310",
                     "proxy_address": "+15017122661"
                 },
+                "role_sid": "RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "date_created": "2015-12-16T22:18:37Z",
                 "date_updated": "2015-12-16T22:18:38Z",
                 "url": "https://conversations.twilio.com/v1/Conversations/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants/MBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
@@ -66,6 +67,7 @@ class ParticipantTestCase(IntegrationTestCase):
                 "identity": "IDENTITY",
                 "attributes": "{ \\"role\\": \\"driver\\" }",
                 "messaging_binding": null,
+                "role_sid": "RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "date_created": "2015-12-16T22:18:37Z",
                 "date_updated": "2015-12-16T22:18:38Z",
                 "url": "https://conversations.twilio.com/v1/Conversations/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants/MBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
@@ -92,6 +94,7 @@ class ParticipantTestCase(IntegrationTestCase):
                     "type": "sms",
                     "projected_address": "+15017122661"
                 },
+                "role_sid": "RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "date_created": "2015-12-16T22:18:37Z",
                 "date_updated": "2015-12-16T22:18:38Z",
                 "url": "https://conversations.twilio.com/v1/Conversations/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants/MBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
@@ -133,6 +136,7 @@ class ParticipantTestCase(IntegrationTestCase):
                     "address": "+15558675310",
                     "proxy_address": "+15017122661"
                 },
+                "role_sid": "RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "date_created": "2015-12-16T22:18:37Z",
                 "date_updated": "2015-12-16T22:18:38Z",
                 "url": "https://conversations.twilio.com/v1/Conversations/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants/MBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
@@ -197,6 +201,7 @@ class ParticipantTestCase(IntegrationTestCase):
                     "address": "+15558675310",
                     "proxy_address": "+15017122661"
                 },
+                "role_sid": "RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "date_created": "2016-03-24T21:05:50Z",
                 "date_updated": "2016-03-24T21:05:50Z",
                 "url": "https://conversations.twilio.com/v1/Conversations/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants/MBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
@@ -247,6 +252,7 @@ class ParticipantTestCase(IntegrationTestCase):
                             "address": "+15558675310",
                             "proxy_address": "+15017122661"
                         },
+                        "role_sid": "RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                         "date_created": "2016-03-24T21:05:50Z",
                         "date_updated": "2016-03-24T21:05:50Z",
                         "url": "https://conversations.twilio.com/v1/Conversations/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants/MBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
@@ -258,6 +264,7 @@ class ParticipantTestCase(IntegrationTestCase):
                         "identity": "IDENTITY",
                         "attributes": "{ \\"role\\": \\"driver\\" }",
                         "messaging_binding": null,
+                        "role_sid": "RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                         "date_created": "2016-03-24T21:05:50Z",
                         "date_updated": "2016-03-24T21:05:50Z",
                         "url": "https://conversations.twilio.com/v1/Conversations/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants/MBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"

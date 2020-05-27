@@ -439,26 +439,26 @@ class MessageInstance(InstanceResource):
 
         # Marshaled Properties
         self._properties = {
-            'account_sid': payload.get('account_sid'),
-            'api_version': payload.get('api_version'),
             'body': payload.get('body'),
-            'date_created': deserialize.rfc2822_datetime(payload.get('date_created')),
-            'date_updated': deserialize.rfc2822_datetime(payload.get('date_updated')),
-            'date_sent': deserialize.rfc2822_datetime(payload.get('date_sent')),
-            'direction': payload.get('direction'),
-            'error_code': deserialize.integer(payload.get('error_code')),
-            'error_message': payload.get('error_message'),
-            'from_': payload.get('from'),
-            'messaging_service_sid': payload.get('messaging_service_sid'),
-            'num_media': payload.get('num_media'),
             'num_segments': payload.get('num_segments'),
-            'price': payload.get('price'),
-            'price_unit': payload.get('price_unit'),
-            'sid': payload.get('sid'),
-            'status': payload.get('status'),
-            'subresource_uris': payload.get('subresource_uris'),
+            'direction': payload.get('direction'),
+            'from_': payload.get('from'),
             'to': payload.get('to'),
+            'date_updated': deserialize.rfc2822_datetime(payload.get('date_updated')),
+            'price': payload.get('price'),
+            'error_message': payload.get('error_message'),
             'uri': payload.get('uri'),
+            'account_sid': payload.get('account_sid'),
+            'num_media': payload.get('num_media'),
+            'status': payload.get('status'),
+            'messaging_service_sid': payload.get('messaging_service_sid'),
+            'sid': payload.get('sid'),
+            'date_sent': deserialize.rfc2822_datetime(payload.get('date_sent')),
+            'date_created': deserialize.rfc2822_datetime(payload.get('date_created')),
+            'error_code': deserialize.integer(payload.get('error_code')),
+            'price_unit': payload.get('price_unit'),
+            'api_version': payload.get('api_version'),
+            'subresource_uris': payload.get('subresource_uris'),
         }
 
         # Context
@@ -483,100 +483,12 @@ class MessageInstance(InstanceResource):
         return self._context
 
     @property
-    def account_sid(self):
-        """
-        :returns: The SID of the Account that created the resource
-        :rtype: unicode
-        """
-        return self._properties['account_sid']
-
-    @property
-    def api_version(self):
-        """
-        :returns: The API version used to process the message
-        :rtype: unicode
-        """
-        return self._properties['api_version']
-
-    @property
     def body(self):
         """
         :returns: The message text
         :rtype: unicode
         """
         return self._properties['body']
-
-    @property
-    def date_created(self):
-        """
-        :returns: The RFC 2822 date and time in GMT that the resource was created
-        :rtype: datetime
-        """
-        return self._properties['date_created']
-
-    @property
-    def date_updated(self):
-        """
-        :returns: The RFC 2822 date and time in GMT that the resource was last updated
-        :rtype: datetime
-        """
-        return self._properties['date_updated']
-
-    @property
-    def date_sent(self):
-        """
-        :returns: The RFC 2822 date and time in GMT when the message was sent
-        :rtype: datetime
-        """
-        return self._properties['date_sent']
-
-    @property
-    def direction(self):
-        """
-        :returns: The direction of the message
-        :rtype: MessageInstance.Direction
-        """
-        return self._properties['direction']
-
-    @property
-    def error_code(self):
-        """
-        :returns: The error code associated with the message
-        :rtype: unicode
-        """
-        return self._properties['error_code']
-
-    @property
-    def error_message(self):
-        """
-        :returns: The description of the error_code
-        :rtype: unicode
-        """
-        return self._properties['error_message']
-
-    @property
-    def from_(self):
-        """
-        :returns: The phone number that initiated the message
-        :rtype: unicode
-        """
-        return self._properties['from_']
-
-    @property
-    def messaging_service_sid(self):
-        """
-        :returns: The SID of the Messaging Service used with the message.
-        :rtype: unicode
-        """
-        return self._properties['messaging_service_sid']
-
-    @property
-    def num_media(self):
-        """
-        :returns: The number of media files associated with the message
-        :rtype: unicode
-        """
-        return self._properties['num_media']
 
     @property
     def num_segments(self):
@@ -587,44 +499,20 @@ class MessageInstance(InstanceResource):
         return self._properties['num_segments']
 
     @property
-    def price(self):
+    def direction(self):
         """
-        :returns: The amount billed for the message
-        :rtype: unicode
+        :returns: The direction of the message
+        :rtype: MessageInstance.Direction
         """
-        return self._properties['price']
+        return self._properties['direction']
 
     @property
-    def price_unit(self):
+    def from_(self):
         """
-        :returns: The currency in which price is measured
+        :returns: The phone number that initiated the message
         :rtype: unicode
         """
-        return self._properties['price_unit']
-
-    @property
-    def sid(self):
-        """
-        :returns: The unique string that identifies the resource
-        :rtype: unicode
-        """
-        return self._properties['sid']
-
-    @property
-    def status(self):
-        """
-        :returns: The status of the message
-        :rtype: MessageInstance.Status
-        """
-        return self._properties['status']
-
-    @property
-    def subresource_uris(self):
-        """
-        :returns: A list of related resources identified by their relative URIs
-        :rtype: unicode
-        """
-        return self._properties['subresource_uris']
+        return self._properties['from_']
 
     @property
     def to(self):
@@ -635,12 +523,124 @@ class MessageInstance(InstanceResource):
         return self._properties['to']
 
     @property
+    def date_updated(self):
+        """
+        :returns: The RFC 2822 date and time in GMT that the resource was last updated
+        :rtype: datetime
+        """
+        return self._properties['date_updated']
+
+    @property
+    def price(self):
+        """
+        :returns: The amount billed for the message
+        :rtype: unicode
+        """
+        return self._properties['price']
+
+    @property
+    def error_message(self):
+        """
+        :returns: The description of the error_code
+        :rtype: unicode
+        """
+        return self._properties['error_message']
+
+    @property
     def uri(self):
         """
         :returns: The URI of the resource, relative to `https://api.twilio.com`
         :rtype: unicode
         """
         return self._properties['uri']
+
+    @property
+    def account_sid(self):
+        """
+        :returns: The SID of the Account that created the resource
+        :rtype: unicode
+        """
+        return self._properties['account_sid']
+
+    @property
+    def num_media(self):
+        """
+        :returns: The number of media files associated with the message
+        :rtype: unicode
+        """
+        return self._properties['num_media']
+
+    @property
+    def status(self):
+        """
+        :returns: The status of the message
+        :rtype: MessageInstance.Status
+        """
+        return self._properties['status']
+
+    @property
+    def messaging_service_sid(self):
+        """
+        :returns: The SID of the Messaging Service used with the message.
+        :rtype: unicode
+        """
+        return self._properties['messaging_service_sid']
+
+    @property
+    def sid(self):
+        """
+        :returns: The unique string that identifies the resource
+        :rtype: unicode
+        """
+        return self._properties['sid']
+
+    @property
+    def date_sent(self):
+        """
+        :returns: The RFC 2822 date and time in GMT when the message was sent
+        :rtype: datetime
+        """
+        return self._properties['date_sent']
+
+    @property
+    def date_created(self):
+        """
+        :returns: The RFC 2822 date and time in GMT that the resource was created
+        :rtype: datetime
+        """
+        return self._properties['date_created']
+
+    @property
+    def error_code(self):
+        """
+        :returns: The error code associated with the message
+        :rtype: unicode
+        """
+        return self._properties['error_code']
+
+    @property
+    def price_unit(self):
+        """
+        :returns: The currency in which price is measured
+        :rtype: unicode
+        """
+        return self._properties['price_unit']
+
+    @property
+    def api_version(self):
+        """
+        :returns: The API version used to process the message
+        :rtype: unicode
+        """
+        return self._properties['api_version']
+
+    @property
+    def subresource_uris(self):
+        """
+        :returns: A list of related resources identified by their relative URIs
+        :rtype: unicode
+        """
+        return self._properties['subresource_uris']
 
     def delete(self):
         """

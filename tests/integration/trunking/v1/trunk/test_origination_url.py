@@ -18,12 +18,12 @@ class OriginationUrlTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.trunking.v1.trunks("TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+            self.client.trunking.v1.trunks("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                    .origination_urls("OUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.holodeck.assert_has_request(Request(
             'get',
-            'https://trunking.twilio.com/v1/Trunks/TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/OriginationUrls/OUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+            'https://trunking.twilio.com/v1/Trunks/TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/OriginationUrls/OUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
         ))
 
     def test_fetch_response(self):
@@ -40,13 +40,13 @@ class OriginationUrlTestCase(IntegrationTestCase):
                 "sip_url": "sip://sip-box.com:1234",
                 "sid": "OUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "date_created": "2018-05-07T20:20:46Z",
-                "trunk_sid": "TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                "url": "https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OriginationUrls/OUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+                "trunk_sid": "TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "url": "https://trunking.twilio.com/v1/Trunks/TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OriginationUrls/OUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
             '''
         ))
 
-        actual = self.client.trunking.v1.trunks("TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+        actual = self.client.trunking.v1.trunks("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                         .origination_urls("OUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.assertIsNotNone(actual)
@@ -55,12 +55,12 @@ class OriginationUrlTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.trunking.v1.trunks("TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+            self.client.trunking.v1.trunks("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                    .origination_urls("OUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
 
         self.holodeck.assert_has_request(Request(
             'delete',
-            'https://trunking.twilio.com/v1/Trunks/TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/OriginationUrls/OUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+            'https://trunking.twilio.com/v1/Trunks/TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/OriginationUrls/OUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
         ))
 
     def test_delete_response(self):
@@ -69,7 +69,7 @@ class OriginationUrlTestCase(IntegrationTestCase):
             None,
         ))
 
-        actual = self.client.trunking.v1.trunks("TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+        actual = self.client.trunking.v1.trunks("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                         .origination_urls("OUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
 
         self.assertTrue(actual)
@@ -78,7 +78,7 @@ class OriginationUrlTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.trunking.v1.trunks("TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+            self.client.trunking.v1.trunks("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                    .origination_urls.create(weight=1, priority=1, enabled=True, friendly_name="friendly_name", sip_url="https://example.com")
 
         values = {
@@ -91,7 +91,7 @@ class OriginationUrlTestCase(IntegrationTestCase):
 
         self.holodeck.assert_has_request(Request(
             'post',
-            'https://trunking.twilio.com/v1/Trunks/TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/OriginationUrls',
+            'https://trunking.twilio.com/v1/Trunks/TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/OriginationUrls',
             data=values,
         ))
 
@@ -109,13 +109,13 @@ class OriginationUrlTestCase(IntegrationTestCase):
                 "sip_url": "sip://sip-box.com:1234",
                 "sid": "OUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "date_created": "2018-05-07T20:50:58Z",
-                "trunk_sid": "TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                "url": "https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OriginationUrls/OUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+                "trunk_sid": "TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "url": "https://trunking.twilio.com/v1/Trunks/TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OriginationUrls/OUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
             '''
         ))
 
-        actual = self.client.trunking.v1.trunks("TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+        actual = self.client.trunking.v1.trunks("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                         .origination_urls.create(weight=1, priority=1, enabled=True, friendly_name="friendly_name", sip_url="https://example.com")
 
         self.assertIsNotNone(actual)
@@ -124,12 +124,12 @@ class OriginationUrlTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.trunking.v1.trunks("TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+            self.client.trunking.v1.trunks("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                    .origination_urls.list()
 
         self.holodeck.assert_has_request(Request(
             'get',
-            'https://trunking.twilio.com/v1/Trunks/TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/OriginationUrls',
+            'https://trunking.twilio.com/v1/Trunks/TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/OriginationUrls',
         ))
 
     def test_read_full_response(self):
@@ -138,13 +138,13 @@ class OriginationUrlTestCase(IntegrationTestCase):
             '''
             {
                 "meta": {
-                    "first_page_url": "https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OriginationUrls?PageSize=50&Page=0",
+                    "first_page_url": "https://trunking.twilio.com/v1/Trunks/TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OriginationUrls?PageSize=50&Page=0",
                     "key": "origination_urls",
                     "next_page_url": null,
                     "page": 0,
                     "page_size": 50,
                     "previous_page_url": null,
-                    "url": "https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OriginationUrls?PageSize=50&Page=0"
+                    "url": "https://trunking.twilio.com/v1/Trunks/TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OriginationUrls?PageSize=50&Page=0"
                 },
                 "origination_urls": [
                     {
@@ -157,15 +157,15 @@ class OriginationUrlTestCase(IntegrationTestCase):
                         "sip_url": "sip://sip-box.com:1234",
                         "sid": "OUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                         "date_created": "2018-05-09T20:47:35Z",
-                        "trunk_sid": "TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                        "url": "https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OriginationUrls/OUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+                        "trunk_sid": "TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                        "url": "https://trunking.twilio.com/v1/Trunks/TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OriginationUrls/OUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
                     }
                 ]
             }
             '''
         ))
 
-        actual = self.client.trunking.v1.trunks("TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+        actual = self.client.trunking.v1.trunks("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                         .origination_urls.list()
 
         self.assertIsNotNone(actual)
@@ -176,20 +176,20 @@ class OriginationUrlTestCase(IntegrationTestCase):
             '''
             {
                 "meta": {
-                    "first_page_url": "https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OriginationUrls?PageSize=50&Page=0",
+                    "first_page_url": "https://trunking.twilio.com/v1/Trunks/TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OriginationUrls?PageSize=50&Page=0",
                     "key": "origination_urls",
                     "next_page_url": null,
                     "page": 0,
                     "page_size": 50,
                     "previous_page_url": null,
-                    "url": "https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OriginationUrls?PageSize=50&Page=0"
+                    "url": "https://trunking.twilio.com/v1/Trunks/TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OriginationUrls?PageSize=50&Page=0"
                 },
                 "origination_urls": []
             }
             '''
         ))
 
-        actual = self.client.trunking.v1.trunks("TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+        actual = self.client.trunking.v1.trunks("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                         .origination_urls.list()
 
         self.assertIsNotNone(actual)
@@ -198,12 +198,12 @@ class OriginationUrlTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.trunking.v1.trunks("TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+            self.client.trunking.v1.trunks("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                    .origination_urls("OUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
 
         self.holodeck.assert_has_request(Request(
             'post',
-            'https://trunking.twilio.com/v1/Trunks/TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/OriginationUrls/OUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+            'https://trunking.twilio.com/v1/Trunks/TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/OriginationUrls/OUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
         ))
 
     def test_update_response(self):
@@ -220,13 +220,13 @@ class OriginationUrlTestCase(IntegrationTestCase):
                 "sip_url": "sip://sip-updated.com:4321",
                 "sid": "OUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "date_created": "2018-05-07T20:50:58Z",
-                "trunk_sid": "TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                "url": "https://trunking.twilio.com/v1/Trunks/TRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OriginationUrls/OUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+                "trunk_sid": "TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "url": "https://trunking.twilio.com/v1/Trunks/TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/OriginationUrls/OUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
             '''
         ))
 
-        actual = self.client.trunking.v1.trunks("TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+        actual = self.client.trunking.v1.trunks("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                         .origination_urls("OUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
 
         self.assertIsNotNone(actual)

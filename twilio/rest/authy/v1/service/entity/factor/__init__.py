@@ -38,7 +38,7 @@ class FactorList(ListResource):
         self._uri = '/Services/{service_sid}/Entities/{identity}/Factors'.format(**self._solution)
 
     def create(self, binding, friendly_name, factor_type, config,
-               twilio_authy_sandbox_mode=values.unset, authorization=values.unset):
+               twilio_sandbox_mode=values.unset, authorization=values.unset):
         """
         Create the FactorInstance
 
@@ -46,7 +46,7 @@ class FactorList(ListResource):
         :param unicode friendly_name: The friendly name of this Factor
         :param FactorInstance.FactorTypes factor_type: The Type of this Factor
         :param unicode config: The config for this Factor as a json string
-        :param unicode twilio_authy_sandbox_mode: The Twilio-Authy-Sandbox-Mode HTTP request header
+        :param unicode twilio_sandbox_mode: The Twilio-Sandbox-Mode HTTP request header
         :param unicode authorization: The Authorization HTTP request header
 
         :returns: The created FactorInstance
@@ -58,10 +58,7 @@ class FactorList(ListResource):
             'FactorType': factor_type,
             'Config': config,
         })
-        headers = values.of({
-            'Twilio-Authy-Sandbox-Mode': twilio_authy_sandbox_mode,
-            'Authorization': authorization,
-        })
+        headers = values.of({'Twilio-Sandbox-Mode': twilio_sandbox_mode, 'Authorization': authorization, })
 
         payload = self._version.create(method='POST', uri=self._uri, data=data, headers=headers, )
 
@@ -72,15 +69,14 @@ class FactorList(ListResource):
             identity=self._solution['identity'],
         )
 
-    def stream(self, twilio_authy_sandbox_mode=values.unset, limit=None,
-               page_size=None):
+    def stream(self, twilio_sandbox_mode=values.unset, limit=None, page_size=None):
         """
         Streams FactorInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param unicode twilio_authy_sandbox_mode: The Twilio-Authy-Sandbox-Mode HTTP request header
+        :param unicode twilio_sandbox_mode: The Twilio-Sandbox-Mode HTTP request header
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -93,18 +89,17 @@ class FactorList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
 
-        page = self.page(twilio_authy_sandbox_mode=twilio_authy_sandbox_mode, page_size=limits['page_size'], )
+        page = self.page(twilio_sandbox_mode=twilio_sandbox_mode, page_size=limits['page_size'], )
 
         return self._version.stream(page, limits['limit'], limits['page_limit'])
 
-    def list(self, twilio_authy_sandbox_mode=values.unset, limit=None,
-             page_size=None):
+    def list(self, twilio_sandbox_mode=values.unset, limit=None, page_size=None):
         """
         Lists FactorInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param unicode twilio_authy_sandbox_mode: The Twilio-Authy-Sandbox-Mode HTTP request header
+        :param unicode twilio_sandbox_mode: The Twilio-Sandbox-Mode HTTP request header
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -115,19 +110,15 @@ class FactorList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.authy.v1.service.entity.factor.FactorInstance]
         """
-        return list(self.stream(
-            twilio_authy_sandbox_mode=twilio_authy_sandbox_mode,
-            limit=limit,
-            page_size=page_size,
-        ))
+        return list(self.stream(twilio_sandbox_mode=twilio_sandbox_mode, limit=limit, page_size=page_size, ))
 
-    def page(self, twilio_authy_sandbox_mode=values.unset, page_token=values.unset,
+    def page(self, twilio_sandbox_mode=values.unset, page_token=values.unset,
              page_number=values.unset, page_size=values.unset):
         """
         Retrieve a single page of FactorInstance records from the API.
         Request is executed immediately
 
-        :param unicode twilio_authy_sandbox_mode: The Twilio-Authy-Sandbox-Mode HTTP request header
+        :param unicode twilio_sandbox_mode: The Twilio-Sandbox-Mode HTTP request header
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -136,7 +127,7 @@ class FactorList(ListResource):
         :rtype: twilio.rest.authy.v1.service.entity.factor.FactorPage
         """
         data = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
-        headers = values.of({'Twilio-Authy-Sandbox-Mode': twilio_authy_sandbox_mode, })
+        headers = values.of({'Twilio-Sandbox-Mode': twilio_sandbox_mode, })
 
         response = self._version.page(method='GET', uri=self._uri, params=data, headers=headers, )
 
@@ -275,29 +266,29 @@ class FactorContext(InstanceContext):
         # Dependents
         self._challenges = None
 
-    def delete(self, twilio_authy_sandbox_mode=values.unset):
+    def delete(self, twilio_sandbox_mode=values.unset):
         """
         Deletes the FactorInstance
 
-        :param unicode twilio_authy_sandbox_mode: The Twilio-Authy-Sandbox-Mode HTTP request header
+        :param unicode twilio_sandbox_mode: The Twilio-Sandbox-Mode HTTP request header
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        headers = values.of({'Twilio-Authy-Sandbox-Mode': twilio_authy_sandbox_mode, })
+        headers = values.of({'Twilio-Sandbox-Mode': twilio_sandbox_mode, })
 
         return self._version.delete(method='DELETE', uri=self._uri, headers=headers, )
 
-    def fetch(self, twilio_authy_sandbox_mode=values.unset):
+    def fetch(self, twilio_sandbox_mode=values.unset):
         """
         Fetch the FactorInstance
 
-        :param unicode twilio_authy_sandbox_mode: The Twilio-Authy-Sandbox-Mode HTTP request header
+        :param unicode twilio_sandbox_mode: The Twilio-Sandbox-Mode HTTP request header
 
         :returns: The fetched FactorInstance
         :rtype: twilio.rest.authy.v1.service.entity.factor.FactorInstance
         """
-        headers = values.of({'Twilio-Authy-Sandbox-Mode': twilio_authy_sandbox_mode, })
+        headers = values.of({'Twilio-Sandbox-Mode': twilio_sandbox_mode, })
 
         payload = self._version.fetch(method='GET', uri=self._uri, headers=headers, )
 
@@ -310,20 +301,20 @@ class FactorContext(InstanceContext):
         )
 
     def update(self, auth_payload=values.unset, friendly_name=values.unset,
-               config=values.unset, twilio_authy_sandbox_mode=values.unset):
+               config=values.unset, twilio_sandbox_mode=values.unset):
         """
         Update the FactorInstance
 
         :param unicode auth_payload: Optional payload to verify the Factor for the first time
         :param unicode friendly_name: The friendly name of this Factor
         :param unicode config: The config for this Factor as a json string
-        :param unicode twilio_authy_sandbox_mode: The Twilio-Authy-Sandbox-Mode HTTP request header
+        :param unicode twilio_sandbox_mode: The Twilio-Sandbox-Mode HTTP request header
 
         :returns: The updated FactorInstance
         :rtype: twilio.rest.authy.v1.service.entity.factor.FactorInstance
         """
         data = values.of({'AuthPayload': auth_payload, 'FriendlyName': friendly_name, 'Config': config, })
-        headers = values.of({'Twilio-Authy-Sandbox-Mode': twilio_authy_sandbox_mode, })
+        headers = values.of({'Twilio-Sandbox-Mode': twilio_sandbox_mode, })
 
         payload = self._version.update(method='POST', uri=self._uri, data=data, headers=headers, )
 
@@ -534,37 +525,37 @@ class FactorInstance(InstanceResource):
         """
         return self._properties['links']
 
-    def delete(self, twilio_authy_sandbox_mode=values.unset):
+    def delete(self, twilio_sandbox_mode=values.unset):
         """
         Deletes the FactorInstance
 
-        :param unicode twilio_authy_sandbox_mode: The Twilio-Authy-Sandbox-Mode HTTP request header
+        :param unicode twilio_sandbox_mode: The Twilio-Sandbox-Mode HTTP request header
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._proxy.delete(twilio_authy_sandbox_mode=twilio_authy_sandbox_mode, )
+        return self._proxy.delete(twilio_sandbox_mode=twilio_sandbox_mode, )
 
-    def fetch(self, twilio_authy_sandbox_mode=values.unset):
+    def fetch(self, twilio_sandbox_mode=values.unset):
         """
         Fetch the FactorInstance
 
-        :param unicode twilio_authy_sandbox_mode: The Twilio-Authy-Sandbox-Mode HTTP request header
+        :param unicode twilio_sandbox_mode: The Twilio-Sandbox-Mode HTTP request header
 
         :returns: The fetched FactorInstance
         :rtype: twilio.rest.authy.v1.service.entity.factor.FactorInstance
         """
-        return self._proxy.fetch(twilio_authy_sandbox_mode=twilio_authy_sandbox_mode, )
+        return self._proxy.fetch(twilio_sandbox_mode=twilio_sandbox_mode, )
 
     def update(self, auth_payload=values.unset, friendly_name=values.unset,
-               config=values.unset, twilio_authy_sandbox_mode=values.unset):
+               config=values.unset, twilio_sandbox_mode=values.unset):
         """
         Update the FactorInstance
 
         :param unicode auth_payload: Optional payload to verify the Factor for the first time
         :param unicode friendly_name: The friendly name of this Factor
         :param unicode config: The config for this Factor as a json string
-        :param unicode twilio_authy_sandbox_mode: The Twilio-Authy-Sandbox-Mode HTTP request header
+        :param unicode twilio_sandbox_mode: The Twilio-Sandbox-Mode HTTP request header
 
         :returns: The updated FactorInstance
         :rtype: twilio.rest.authy.v1.service.entity.factor.FactorInstance
@@ -573,7 +564,7 @@ class FactorInstance(InstanceResource):
             auth_payload=auth_payload,
             friendly_name=friendly_name,
             config=config,
-            twilio_authy_sandbox_mode=twilio_authy_sandbox_mode,
+            twilio_sandbox_mode=twilio_sandbox_mode,
         )
 
     @property

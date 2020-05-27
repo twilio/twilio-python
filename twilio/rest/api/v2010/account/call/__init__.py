@@ -587,33 +587,33 @@ class CallInstance(InstanceResource):
 
         # Marshaled Properties
         self._properties = {
-            'account_sid': payload.get('account_sid'),
-            'annotation': payload.get('annotation'),
-            'answered_by': payload.get('answered_by'),
-            'api_version': payload.get('api_version'),
-            'caller_name': payload.get('caller_name'),
+            'sid': payload.get('sid'),
             'date_created': deserialize.rfc2822_datetime(payload.get('date_created')),
             'date_updated': deserialize.rfc2822_datetime(payload.get('date_updated')),
-            'direction': payload.get('direction'),
-            'duration': payload.get('duration'),
-            'end_time': deserialize.rfc2822_datetime(payload.get('end_time')),
-            'forwarded_from': payload.get('forwarded_from'),
-            'from_': payload.get('from'),
-            'from_formatted': payload.get('from_formatted'),
-            'group_sid': payload.get('group_sid'),
             'parent_call_sid': payload.get('parent_call_sid'),
-            'phone_number_sid': payload.get('phone_number_sid'),
-            'price': payload.get('price'),
-            'price_unit': payload.get('price_unit'),
-            'sid': payload.get('sid'),
-            'start_time': deserialize.rfc2822_datetime(payload.get('start_time')),
-            'status': payload.get('status'),
-            'subresource_uris': payload.get('subresource_uris'),
+            'account_sid': payload.get('account_sid'),
             'to': payload.get('to'),
             'to_formatted': payload.get('to_formatted'),
+            'from_': payload.get('from'),
+            'from_formatted': payload.get('from_formatted'),
+            'phone_number_sid': payload.get('phone_number_sid'),
+            'status': payload.get('status'),
+            'start_time': deserialize.rfc2822_datetime(payload.get('start_time')),
+            'end_time': deserialize.rfc2822_datetime(payload.get('end_time')),
+            'duration': payload.get('duration'),
+            'price': payload.get('price'),
+            'price_unit': payload.get('price_unit'),
+            'direction': payload.get('direction'),
+            'answered_by': payload.get('answered_by'),
+            'annotation': payload.get('annotation'),
+            'api_version': payload.get('api_version'),
+            'forwarded_from': payload.get('forwarded_from'),
+            'group_sid': payload.get('group_sid'),
+            'caller_name': payload.get('caller_name'),
+            'queue_time': payload.get('queue_time'),
             'trunk_sid': payload.get('trunk_sid'),
             'uri': payload.get('uri'),
-            'queue_time': payload.get('queue_time'),
+            'subresource_uris': payload.get('subresource_uris'),
         }
 
         # Context
@@ -638,44 +638,12 @@ class CallInstance(InstanceResource):
         return self._context
 
     @property
-    def account_sid(self):
+    def sid(self):
         """
-        :returns: The SID of the Account that created this resource
+        :returns: The unique string that identifies this resource
         :rtype: unicode
         """
-        return self._properties['account_sid']
-
-    @property
-    def annotation(self):
-        """
-        :returns: The annotation provided for the call
-        :rtype: unicode
-        """
-        return self._properties['annotation']
-
-    @property
-    def answered_by(self):
-        """
-        :returns: Either `human` or `machine` if this call was initiated with answering machine detection. Empty otherwise.
-        :rtype: unicode
-        """
-        return self._properties['answered_by']
-
-    @property
-    def api_version(self):
-        """
-        :returns: The API Version used to create the call
-        :rtype: unicode
-        """
-        return self._properties['api_version']
-
-    @property
-    def caller_name(self):
-        """
-        :returns: The caller's name if this call was an incoming call to a phone number with caller ID Lookup enabled. Otherwise, empty.
-        :rtype: unicode
-        """
-        return self._properties['caller_name']
+        return self._properties['sid']
 
     @property
     def date_created(self):
@@ -694,62 +662,6 @@ class CallInstance(InstanceResource):
         return self._properties['date_updated']
 
     @property
-    def direction(self):
-        """
-        :returns: A string describing the direction of the call. `inbound` for inbound calls, `outbound-api` for calls initiated via the REST API or `outbound-dial` for calls initiated by a `Dial` verb.
-        :rtype: unicode
-        """
-        return self._properties['direction']
-
-    @property
-    def duration(self):
-        """
-        :returns: The length of the call in seconds.
-        :rtype: unicode
-        """
-        return self._properties['duration']
-
-    @property
-    def end_time(self):
-        """
-        :returns: The end time of the call. Null if the call did not complete successfully.
-        :rtype: datetime
-        """
-        return self._properties['end_time']
-
-    @property
-    def forwarded_from(self):
-        """
-        :returns: The forwarding phone number if this call was an incoming call forwarded from another number (depends on carrier supporting forwarding). Otherwise, empty.
-        :rtype: unicode
-        """
-        return self._properties['forwarded_from']
-
-    @property
-    def from_(self):
-        """
-        :returns: The phone number, SIP address or Client identifier that made this call. Phone numbers are in E.164 format (e.g., +16175551212). SIP addresses are formatted as `name@company.com`. Client identifiers are formatted `client:name`.
-        :rtype: unicode
-        """
-        return self._properties['from_']
-
-    @property
-    def from_formatted(self):
-        """
-        :returns: The calling phone number, SIP address, or Client identifier formatted for display.
-        :rtype: unicode
-        """
-        return self._properties['from_formatted']
-
-    @property
-    def group_sid(self):
-        """
-        :returns: The Group SID associated with this call. If no Group is associated with the call, the field is empty.
-        :rtype: unicode
-        """
-        return self._properties['group_sid']
-
-    @property
     def parent_call_sid(self):
         """
         :returns: The SID that identifies the call that created this leg.
@@ -758,60 +670,12 @@ class CallInstance(InstanceResource):
         return self._properties['parent_call_sid']
 
     @property
-    def phone_number_sid(self):
+    def account_sid(self):
         """
-        :returns: If the call was inbound, this is the SID of the IncomingPhoneNumber resource that received the call. If the call was outbound, it is the SID of the OutgoingCallerId resource from which the call was placed.
+        :returns: The SID of the Account that created this resource
         :rtype: unicode
         """
-        return self._properties['phone_number_sid']
-
-    @property
-    def price(self):
-        """
-        :returns: The charge for this call, in the currency associated with the account. Populated after the call is completed. May not be immediately available.
-        :rtype: unicode
-        """
-        return self._properties['price']
-
-    @property
-    def price_unit(self):
-        """
-        :returns: The currency in which `Price` is measured.
-        :rtype: unicode
-        """
-        return self._properties['price_unit']
-
-    @property
-    def sid(self):
-        """
-        :returns: The unique string that identifies this resource
-        :rtype: unicode
-        """
-        return self._properties['sid']
-
-    @property
-    def start_time(self):
-        """
-        :returns: The start time of the call. Null if the call has not yet been dialed.
-        :rtype: datetime
-        """
-        return self._properties['start_time']
-
-    @property
-    def status(self):
-        """
-        :returns: The status of this call.
-        :rtype: CallInstance.Status
-        """
-        return self._properties['status']
-
-    @property
-    def subresource_uris(self):
-        """
-        :returns: A list of related subresources identified by their relative URIs
-        :rtype: unicode
-        """
-        return self._properties['subresource_uris']
+        return self._properties['account_sid']
 
     @property
     def to(self):
@@ -830,6 +694,142 @@ class CallInstance(InstanceResource):
         return self._properties['to_formatted']
 
     @property
+    def from_(self):
+        """
+        :returns: The phone number, SIP address or Client identifier that made this call. Phone numbers are in E.164 format (e.g., +16175551212). SIP addresses are formatted as `name@company.com`. Client identifiers are formatted `client:name`.
+        :rtype: unicode
+        """
+        return self._properties['from_']
+
+    @property
+    def from_formatted(self):
+        """
+        :returns: The calling phone number, SIP address, or Client identifier formatted for display.
+        :rtype: unicode
+        """
+        return self._properties['from_formatted']
+
+    @property
+    def phone_number_sid(self):
+        """
+        :returns: If the call was inbound, this is the SID of the IncomingPhoneNumber resource that received the call. If the call was outbound, it is the SID of the OutgoingCallerId resource from which the call was placed.
+        :rtype: unicode
+        """
+        return self._properties['phone_number_sid']
+
+    @property
+    def status(self):
+        """
+        :returns: The status of this call.
+        :rtype: CallInstance.Status
+        """
+        return self._properties['status']
+
+    @property
+    def start_time(self):
+        """
+        :returns: The start time of the call. Null if the call has not yet been dialed.
+        :rtype: datetime
+        """
+        return self._properties['start_time']
+
+    @property
+    def end_time(self):
+        """
+        :returns: The end time of the call. Null if the call did not complete successfully.
+        :rtype: datetime
+        """
+        return self._properties['end_time']
+
+    @property
+    def duration(self):
+        """
+        :returns: The length of the call in seconds.
+        :rtype: unicode
+        """
+        return self._properties['duration']
+
+    @property
+    def price(self):
+        """
+        :returns: The charge for this call, in the currency associated with the account. Populated after the call is completed. May not be immediately available.
+        :rtype: unicode
+        """
+        return self._properties['price']
+
+    @property
+    def price_unit(self):
+        """
+        :returns: The currency in which `Price` is measured.
+        :rtype: unicode
+        """
+        return self._properties['price_unit']
+
+    @property
+    def direction(self):
+        """
+        :returns: A string describing the direction of the call. `inbound` for inbound calls, `outbound-api` for calls initiated via the REST API or `outbound-dial` for calls initiated by a `Dial` verb.
+        :rtype: unicode
+        """
+        return self._properties['direction']
+
+    @property
+    def answered_by(self):
+        """
+        :returns: Either `human` or `machine` if this call was initiated with answering machine detection. Empty otherwise.
+        :rtype: unicode
+        """
+        return self._properties['answered_by']
+
+    @property
+    def annotation(self):
+        """
+        :returns: The annotation provided for the call
+        :rtype: unicode
+        """
+        return self._properties['annotation']
+
+    @property
+    def api_version(self):
+        """
+        :returns: The API Version used to create the call
+        :rtype: unicode
+        """
+        return self._properties['api_version']
+
+    @property
+    def forwarded_from(self):
+        """
+        :returns: The forwarding phone number if this call was an incoming call forwarded from another number (depends on carrier supporting forwarding). Otherwise, empty.
+        :rtype: unicode
+        """
+        return self._properties['forwarded_from']
+
+    @property
+    def group_sid(self):
+        """
+        :returns: The Group SID associated with this call. If no Group is associated with the call, the field is empty.
+        :rtype: unicode
+        """
+        return self._properties['group_sid']
+
+    @property
+    def caller_name(self):
+        """
+        :returns: The caller's name if this call was an incoming call to a phone number with caller ID Lookup enabled. Otherwise, empty.
+        :rtype: unicode
+        """
+        return self._properties['caller_name']
+
+    @property
+    def queue_time(self):
+        """
+        :returns: The wait time in milliseconds before the call is placed.
+        :rtype: unicode
+        """
+        return self._properties['queue_time']
+
+    @property
     def trunk_sid(self):
         """
         :returns: The (optional) unique identifier of the trunk resource that was used for this call.
@@ -846,12 +846,12 @@ class CallInstance(InstanceResource):
         return self._properties['uri']
 
     @property
-    def queue_time(self):
+    def subresource_uris(self):
         """
-        :returns: The wait time in milliseconds before the call is placed.
+        :returns: A list of related subresources identified by their relative URIs
         :rtype: unicode
         """
-        return self._properties['queue_time']
+        return self._properties['subresource_uris']
 
     def delete(self):
         """

@@ -309,15 +309,15 @@ class QueueInstance(InstanceResource):
 
         # Marshaled Properties
         self._properties = {
+            'date_updated': deserialize.rfc2822_datetime(payload.get('date_updated')),
+            'current_size': deserialize.integer(payload.get('current_size')),
+            'friendly_name': payload.get('friendly_name'),
+            'uri': payload.get('uri'),
             'account_sid': payload.get('account_sid'),
             'average_wait_time': deserialize.integer(payload.get('average_wait_time')),
-            'current_size': deserialize.integer(payload.get('current_size')),
-            'date_created': deserialize.rfc2822_datetime(payload.get('date_created')),
-            'date_updated': deserialize.rfc2822_datetime(payload.get('date_updated')),
-            'friendly_name': payload.get('friendly_name'),
-            'max_size': deserialize.integer(payload.get('max_size')),
             'sid': payload.get('sid'),
-            'uri': payload.get('uri'),
+            'date_created': deserialize.rfc2822_datetime(payload.get('date_created')),
+            'max_size': deserialize.integer(payload.get('max_size')),
         }
 
         # Context
@@ -342,6 +342,38 @@ class QueueInstance(InstanceResource):
         return self._context
 
     @property
+    def date_updated(self):
+        """
+        :returns: The RFC 2822 date and time in GMT that this resource was last updated
+        :rtype: datetime
+        """
+        return self._properties['date_updated']
+
+    @property
+    def current_size(self):
+        """
+        :returns: The number of calls currently in the queue.
+        :rtype: unicode
+        """
+        return self._properties['current_size']
+
+    @property
+    def friendly_name(self):
+        """
+        :returns: A string that you assigned to describe this resource
+        :rtype: unicode
+        """
+        return self._properties['friendly_name']
+
+    @property
+    def uri(self):
+        """
+        :returns: The URI of this resource, relative to `https://api.twilio.com`
+        :rtype: unicode
+        """
+        return self._properties['uri']
+
+    @property
     def account_sid(self):
         """
         :returns: The SID of the Account that created this resource
@@ -358,12 +390,12 @@ class QueueInstance(InstanceResource):
         return self._properties['average_wait_time']
 
     @property
-    def current_size(self):
+    def sid(self):
         """
-        :returns: The number of calls currently in the queue.
+        :returns: The unique string that identifies this resource
         :rtype: unicode
         """
-        return self._properties['current_size']
+        return self._properties['sid']
 
     @property
     def date_created(self):
@@ -374,44 +406,12 @@ class QueueInstance(InstanceResource):
         return self._properties['date_created']
 
     @property
-    def date_updated(self):
-        """
-        :returns: The RFC 2822 date and time in GMT that this resource was last updated
-        :rtype: datetime
-        """
-        return self._properties['date_updated']
-
-    @property
-    def friendly_name(self):
-        """
-        :returns: A string that you assigned to describe this resource
-        :rtype: unicode
-        """
-        return self._properties['friendly_name']
-
-    @property
     def max_size(self):
         """
         :returns: The max number of calls allowed in the queue
         :rtype: unicode
         """
         return self._properties['max_size']
-
-    @property
-    def sid(self):
-        """
-        :returns: The unique string that identifies this resource
-        :rtype: unicode
-        """
-        return self._properties['sid']
-
-    @property
-    def uri(self):
-        """
-        :returns: The URI of this resource, relative to `https://api.twilio.com`
-        :rtype: unicode
-        """
-        return self._properties['uri']
 
     def fetch(self):
         """

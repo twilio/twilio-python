@@ -13,6 +13,7 @@ from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.page import Page
+from twilio.rest.supersim.v1.network_access_profile.network_access_profile_network import NetworkAccessProfileNetworkList
 
 
 class NetworkAccessProfileList(ListResource):
@@ -39,8 +40,8 @@ class NetworkAccessProfileList(ListResource):
         """
         Create the NetworkAccessProfileInstance
 
-        :param unicode unique_name: The unique_name
-        :param unicode networks: The networks
+        :param unicode unique_name: An application-defined string that uniquely identifies the resource
+        :param unicode networks: List of Network SIDs that this Network Access Profile will allow connections to
 
         :returns: The created NetworkAccessProfileInstance
         :rtype: twilio.rest.supersim.v1.network_access_profile.NetworkAccessProfileInstance
@@ -132,7 +133,7 @@ class NetworkAccessProfileList(ListResource):
         """
         Constructs a NetworkAccessProfileContext
 
-        :param sid: The sid
+        :param sid: The SID that identifies the resource to fetch
 
         :returns: twilio.rest.supersim.v1.network_access_profile.NetworkAccessProfileContext
         :rtype: twilio.rest.supersim.v1.network_access_profile.NetworkAccessProfileContext
@@ -143,7 +144,7 @@ class NetworkAccessProfileList(ListResource):
         """
         Constructs a NetworkAccessProfileContext
 
-        :param sid: The sid
+        :param sid: The SID that identifies the resource to fetch
 
         :returns: twilio.rest.supersim.v1.network_access_profile.NetworkAccessProfileContext
         :rtype: twilio.rest.supersim.v1.network_access_profile.NetworkAccessProfileContext
@@ -211,7 +212,7 @@ class NetworkAccessProfileContext(InstanceContext):
         Initialize the NetworkAccessProfileContext
 
         :param Version version: Version that contains the resource
-        :param sid: The sid
+        :param sid: The SID that identifies the resource to fetch
 
         :returns: twilio.rest.supersim.v1.network_access_profile.NetworkAccessProfileContext
         :rtype: twilio.rest.supersim.v1.network_access_profile.NetworkAccessProfileContext
@@ -221,6 +222,9 @@ class NetworkAccessProfileContext(InstanceContext):
         # Path Solution
         self._solution = {'sid': sid, }
         self._uri = '/NetworkAccessProfiles/{sid}'.format(**self._solution)
+
+        # Dependents
+        self._networks = None
 
     def fetch(self):
         """
@@ -237,7 +241,7 @@ class NetworkAccessProfileContext(InstanceContext):
         """
         Update the NetworkAccessProfileInstance
 
-        :param unicode unique_name: The unique_name
+        :param unicode unique_name: The new unique name of the resource
 
         :returns: The updated NetworkAccessProfileInstance
         :rtype: twilio.rest.supersim.v1.network_access_profile.NetworkAccessProfileInstance
@@ -247,6 +251,21 @@ class NetworkAccessProfileContext(InstanceContext):
         payload = self._version.update(method='POST', uri=self._uri, data=data, )
 
         return NetworkAccessProfileInstance(self._version, payload, sid=self._solution['sid'], )
+
+    @property
+    def networks(self):
+        """
+        Access the networks
+
+        :returns: twilio.rest.supersim.v1.network_access_profile.network_access_profile_network.NetworkAccessProfileNetworkList
+        :rtype: twilio.rest.supersim.v1.network_access_profile.network_access_profile_network.NetworkAccessProfileNetworkList
+        """
+        if self._networks is None:
+            self._networks = NetworkAccessProfileNetworkList(
+                self._version,
+                network_access_profile_sid=self._solution['sid'],
+            )
+        return self._networks
 
     def __repr__(self):
         """
@@ -281,6 +300,7 @@ class NetworkAccessProfileInstance(InstanceResource):
             'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
             'date_updated': deserialize.iso8601_datetime(payload.get('date_updated')),
             'url': payload.get('url'),
+            'links': payload.get('links'),
         }
 
         # Context
@@ -303,7 +323,7 @@ class NetworkAccessProfileInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: The sid
+        :returns: The unique string that identifies the resource
         :rtype: unicode
         """
         return self._properties['sid']
@@ -311,7 +331,7 @@ class NetworkAccessProfileInstance(InstanceResource):
     @property
     def unique_name(self):
         """
-        :returns: The unique_name
+        :returns: An application-defined string that uniquely identifies the resource
         :rtype: unicode
         """
         return self._properties['unique_name']
@@ -319,7 +339,7 @@ class NetworkAccessProfileInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The account_sid
+        :returns: The SID of the Account that the Network Access Profile belongs to
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -327,7 +347,7 @@ class NetworkAccessProfileInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The date_created
+        :returns: The ISO 8601 date and time in GMT when the resource was created
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -335,7 +355,7 @@ class NetworkAccessProfileInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The date_updated
+        :returns: The ISO 8601 date and time in GMT when the resource was last updated
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -343,10 +363,18 @@ class NetworkAccessProfileInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: The url
+        :returns: The absolute URL of the resource
         :rtype: unicode
         """
         return self._properties['url']
+
+    @property
+    def links(self):
+        """
+        :returns: The links
+        :rtype: unicode
+        """
+        return self._properties['links']
 
     def fetch(self):
         """
@@ -361,12 +389,22 @@ class NetworkAccessProfileInstance(InstanceResource):
         """
         Update the NetworkAccessProfileInstance
 
-        :param unicode unique_name: The unique_name
+        :param unicode unique_name: The new unique name of the resource
 
         :returns: The updated NetworkAccessProfileInstance
         :rtype: twilio.rest.supersim.v1.network_access_profile.NetworkAccessProfileInstance
         """
         return self._proxy.update(unique_name=unique_name, )
+
+    @property
+    def networks(self):
+        """
+        Access the networks
+
+        :returns: twilio.rest.supersim.v1.network_access_profile.network_access_profile_network.NetworkAccessProfileNetworkList
+        :rtype: twilio.rest.supersim.v1.network_access_profile.network_access_profile_network.NetworkAccessProfileNetworkList
+        """
+        return self._proxy.networks
 
     def __repr__(self):
         """

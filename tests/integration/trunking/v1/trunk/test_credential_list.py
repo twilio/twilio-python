@@ -18,12 +18,12 @@ class CredentialListTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.trunking.v1.trunks("TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+            self.client.trunking.v1.trunks("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                    .credentials_lists("CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.holodeck.assert_has_request(Request(
             'get',
-            'https://trunking.twilio.com/v1/Trunks/TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/CredentialLists/CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+            'https://trunking.twilio.com/v1/Trunks/TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/CredentialLists/CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
         ))
 
     def test_fetch_response(self):
@@ -42,7 +42,7 @@ class CredentialListTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.trunking.v1.trunks("TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+        actual = self.client.trunking.v1.trunks("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                         .credentials_lists("CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
         self.assertIsNotNone(actual)
@@ -51,12 +51,12 @@ class CredentialListTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.trunking.v1.trunks("TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+            self.client.trunking.v1.trunks("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                    .credentials_lists("CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
 
         self.holodeck.assert_has_request(Request(
             'delete',
-            'https://trunking.twilio.com/v1/Trunks/TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/CredentialLists/CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+            'https://trunking.twilio.com/v1/Trunks/TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/CredentialLists/CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
         ))
 
     def test_delete_response(self):
@@ -65,7 +65,7 @@ class CredentialListTestCase(IntegrationTestCase):
             None,
         ))
 
-        actual = self.client.trunking.v1.trunks("TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+        actual = self.client.trunking.v1.trunks("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                         .credentials_lists("CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
 
         self.assertTrue(actual)
@@ -74,14 +74,14 @@ class CredentialListTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.trunking.v1.trunks("TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+            self.client.trunking.v1.trunks("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                    .credentials_lists.create(credential_list_sid="CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
 
         values = {'CredentialListSid': "CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", }
 
         self.holodeck.assert_has_request(Request(
             'post',
-            'https://trunking.twilio.com/v1/Trunks/TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/CredentialLists',
+            'https://trunking.twilio.com/v1/Trunks/TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/CredentialLists',
             data=values,
         ))
 
@@ -101,7 +101,7 @@ class CredentialListTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.trunking.v1.trunks("TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+        actual = self.client.trunking.v1.trunks("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                         .credentials_lists.create(credential_list_sid="CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
 
         self.assertIsNotNone(actual)
@@ -110,12 +110,12 @@ class CredentialListTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.trunking.v1.trunks("TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+            self.client.trunking.v1.trunks("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                    .credentials_lists.list()
 
         self.holodeck.assert_has_request(Request(
             'get',
-            'https://trunking.twilio.com/v1/Trunks/TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/CredentialLists',
+            'https://trunking.twilio.com/v1/Trunks/TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/CredentialLists',
         ))
 
     def test_read_full_response(self):
@@ -147,7 +147,7 @@ class CredentialListTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.trunking.v1.trunks("TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+        actual = self.client.trunking.v1.trunks("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                         .credentials_lists.list()
 
         self.assertIsNotNone(actual)
@@ -171,7 +171,7 @@ class CredentialListTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.trunking.v1.trunks("TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+        actual = self.client.trunking.v1.trunks("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                         .credentials_lists.list()
 
         self.assertIsNotNone(actual)

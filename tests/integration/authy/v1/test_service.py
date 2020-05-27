@@ -18,11 +18,11 @@ class ServiceTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.authy.v1.services.create(friendly_name="friendly_name", twilio_authy_sandbox_mode="twilio_authy_sandbox_mode")
+            self.client.authy.v1.services.create(friendly_name="friendly_name", twilio_sandbox_mode="twilio_sandbox_mode")
 
         values = {'FriendlyName': "friendly_name", }
 
-        headers = {'Twilio-Authy-Sandbox-Mode': "twilio_authy_sandbox_mode", }
+        headers = {'Twilio-Sandbox-Mode': "twilio_sandbox_mode", }
         self.holodeck.assert_has_request(Request(
             'post',
             'https://authy.twilio.com/v1/Services',
@@ -61,9 +61,9 @@ class ServiceTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.authy.v1.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete(twilio_authy_sandbox_mode="twilio_authy_sandbox_mode")
+            self.client.authy.v1.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete(twilio_sandbox_mode="twilio_sandbox_mode")
 
-        headers = {'Twilio-Authy-Sandbox-Mode': "twilio_authy_sandbox_mode", }
+        headers = {'Twilio-Sandbox-Mode': "twilio_sandbox_mode", }
         self.holodeck.assert_has_request(Request(
             'delete',
             'https://authy.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
@@ -84,9 +84,9 @@ class ServiceTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.authy.v1.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(twilio_authy_sandbox_mode="twilio_authy_sandbox_mode")
+            self.client.authy.v1.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(twilio_sandbox_mode="twilio_sandbox_mode")
 
-        headers = {'Twilio-Authy-Sandbox-Mode': "twilio_authy_sandbox_mode", }
+        headers = {'Twilio-Sandbox-Mode': "twilio_sandbox_mode", }
         self.holodeck.assert_has_request(Request(
             'get',
             'https://authy.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
@@ -120,9 +120,9 @@ class ServiceTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.authy.v1.services.list(twilio_authy_sandbox_mode="twilio_authy_sandbox_mode")
+            self.client.authy.v1.services.list(twilio_sandbox_mode="twilio_sandbox_mode")
 
-        headers = {'Twilio-Authy-Sandbox-Mode': "twilio_authy_sandbox_mode", }
+        headers = {'Twilio-Sandbox-Mode': "twilio_sandbox_mode", }
         self.holodeck.assert_has_request(Request(
             'get',
             'https://authy.twilio.com/v1/Services',
@@ -192,9 +192,9 @@ class ServiceTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.authy.v1.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update(twilio_authy_sandbox_mode="twilio_authy_sandbox_mode")
+            self.client.authy.v1.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update(twilio_sandbox_mode="twilio_sandbox_mode")
 
-        headers = {'Twilio-Authy-Sandbox-Mode': "twilio_authy_sandbox_mode", }
+        headers = {'Twilio-Sandbox-Mode': "twilio_sandbox_mode", }
         self.holodeck.assert_has_request(Request(
             'post',
             'https://authy.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',

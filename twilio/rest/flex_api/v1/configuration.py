@@ -199,6 +199,7 @@ class ConfigurationInstance(InstanceResource):
             'runtime_domain': payload.get('runtime_domain'),
             'messaging_service_instance_sid': payload.get('messaging_service_instance_sid'),
             'chat_service_instance_sid': payload.get('chat_service_instance_sid'),
+            'flex_service_instance_sid': payload.get('flex_service_instance_sid'),
             'ui_language': payload.get('ui_language'),
             'ui_attributes': payload.get('ui_attributes'),
             'ui_dependencies': payload.get('ui_dependencies'),
@@ -366,6 +367,14 @@ class ConfigurationInstance(InstanceResource):
         :rtype: unicode
         """
         return self._properties['chat_service_instance_sid']
+
+    @property
+    def flex_service_instance_sid(self):
+        """
+        :returns: The SID of the Flex service instance
+        :rtype: unicode
+        """
+        return self._properties['flex_service_instance_sid']
 
     @property
     def ui_language(self):

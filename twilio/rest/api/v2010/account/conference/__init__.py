@@ -371,6 +371,13 @@ class ConferenceInstance(InstanceResource):
     class UpdateStatus(object):
         COMPLETED = "completed"
 
+    class ReasonConferenceEnded(object):
+        CONFERENCE_ENDED_VIA_API = "conference-ended-via-api"
+        PARTICIPANT_WITH_END_CONFERENCE_ON_EXIT_LEFT = "participant-with-end-conference-on-exit-left"
+        PARTICIPANT_WITH_END_CONFERENCE_ON_EXIT_KICKED = "participant-with-end-conference-on-exit-kicked"
+        LAST_PARTICIPANT_KICKED = "last-participant-kicked"
+        LAST_PARTICIPANT_LEFT = "last-participant-left"
+
     def __init__(self, version, payload, account_sid, sid=None):
         """
         Initialize the ConferenceInstance
@@ -392,6 +399,8 @@ class ConferenceInstance(InstanceResource):
             'status': payload.get('status'),
             'uri': payload.get('uri'),
             'subresource_uris': payload.get('subresource_uris'),
+            'reason_conference_ended': payload.get('reason_conference_ended'),
+            'call_sid_ending_conference': payload.get('call_sid_ending_conference'),
         }
 
         # Context
@@ -494,6 +503,22 @@ class ConferenceInstance(InstanceResource):
         :rtype: unicode
         """
         return self._properties['subresource_uris']
+
+    @property
+    def reason_conference_ended(self):
+        """
+        :returns: The reason why a conference ended.
+        :rtype: ConferenceInstance.ReasonConferenceEnded
+        """
+        return self._properties['reason_conference_ended']
+
+    @property
+    def call_sid_ending_conference(self):
+        """
+        :returns: The call SID that caused the conference to end
+        :rtype: unicode
+        """
+        return self._properties['call_sid_ending_conference']
 
     def fetch(self):
         """

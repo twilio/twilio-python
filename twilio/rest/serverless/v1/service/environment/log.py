@@ -310,6 +310,7 @@ class LogInstance(InstanceResource):
             'account_sid': payload.get('account_sid'),
             'service_sid': payload.get('service_sid'),
             'environment_sid': payload.get('environment_sid'),
+            'build_sid': payload.get('build_sid'),
             'deployment_sid': payload.get('deployment_sid'),
             'function_sid': payload.get('function_sid'),
             'request_sid': payload.get('request_sid'),
@@ -376,6 +377,14 @@ class LogInstance(InstanceResource):
         :rtype: unicode
         """
         return self._properties['environment_sid']
+
+    @property
+    def build_sid(self):
+        """
+        :returns: The SID of the build that corresponds to the log
+        :rtype: unicode
+        """
+        return self._properties['build_sid']
 
     @property
     def deployment_sid(self):

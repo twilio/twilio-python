@@ -51,6 +51,13 @@ class Supersim(Domain):
         return self.v1.fleets
 
     @property
+    def networks(self):
+        """
+        :rtype: twilio.rest.supersim.v1.network.NetworkList
+        """
+        return self.v1.networks
+
+    @property
     def network_access_profiles(self):
         """
         :rtype: twilio.rest.supersim.v1.network_access_profile.NetworkAccessProfileList

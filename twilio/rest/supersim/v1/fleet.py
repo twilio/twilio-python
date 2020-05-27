@@ -35,13 +35,15 @@ class FleetList(ListResource):
         self._uri = '/Fleets'.format(**self._solution)
 
     def create(self, unique_name=values.unset, data_enabled=values.unset,
-               commands_enabled=values.unset, commands_url=values.unset,
-               commands_method=values.unset, network_access_profile=values.unset):
+               data_limit=values.unset, commands_enabled=values.unset,
+               commands_url=values.unset, commands_method=values.unset,
+               network_access_profile=values.unset):
         """
         Create the FleetInstance
 
         :param unicode unique_name: An application-defined string that uniquely identifies the resource
         :param bool data_enabled: Defines whether SIMs in the Fleet are capable of using data connectivity
+        :param unicode data_limit: The data_limit
         :param bool commands_enabled: Defines whether SIMs in the Fleet are capable of sending and receiving Commands via SMS
         :param unicode commands_url: The URL that will receive a webhook when a SIM in the Fleet originates a machine-to-machine Command
         :param unicode commands_method: A string representing the HTTP method to use when making a request to `commands_url`
@@ -53,6 +55,7 @@ class FleetList(ListResource):
         data = values.of({
             'UniqueName': unique_name,
             'DataEnabled': data_enabled,
+            'DataLimit': data_limit,
             'CommandsEnabled': commands_enabled,
             'CommandsUrl': commands_url,
             'CommandsMethod': commands_method,
@@ -311,6 +314,7 @@ class FleetInstance(InstanceResource):
             'date_updated': deserialize.iso8601_datetime(payload.get('date_updated')),
             'url': payload.get('url'),
             'data_enabled': payload.get('data_enabled'),
+            'data_limit': deserialize.integer(payload.get('data_limit')),
             'data_metering': payload.get('data_metering'),
             'commands_enabled': payload.get('commands_enabled'),
             'commands_url': payload.get('commands_url'),
@@ -390,6 +394,14 @@ class FleetInstance(InstanceResource):
         :rtype: bool
         """
         return self._properties['data_enabled']
+
+    @property
+    def data_limit(self):
+        """
+        :returns: The total data usage (download and upload combined) in Megabytes that each Sim resource assigned to the Fleet resource can consume
+        :rtype: unicode
+        """
+        return self._properties['data_limit']
 
     @property
     def data_metering(self):
