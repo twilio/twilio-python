@@ -84,6 +84,8 @@ client = Client()
 
 ### Specify Region and/or Edge
 
+To take advantage of Twilio's [Global Infrastructure](https://www.twilio.com/docs/global-infrastructure), specify the target Region and/or Edge for the client:
+
 ```python
 from twilio.rest import Client
 
@@ -100,7 +102,6 @@ client = Client()
 client.region = 'au1'
 client.edge = 'sydney'
 ```
-
 
 This will result in the `hostname` transforming from `api.twilio.com` to `api.sydney.au1.twilio.com`.
 
