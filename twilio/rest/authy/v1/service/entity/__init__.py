@@ -75,7 +75,7 @@ class EntityList(ListResource):
 
         page = self.page(twilio_sandbox_mode=twilio_sandbox_mode, page_size=limits['page_size'], )
 
-        return self._version.stream(page, limits['limit'], limits['page_limit'])
+        return self._version.stream(page, limits['limit'])
 
     def list(self, twilio_sandbox_mode=values.unset, limit=None, page_size=None):
         """

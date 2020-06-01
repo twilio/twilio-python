@@ -58,7 +58,7 @@ class NetworkList(ListResource):
 
         page = self.page(iso_country=iso_country, mcc=mcc, mnc=mnc, page_size=limits['page_size'], )
 
-        return self._version.stream(page, limits['limit'], limits['page_limit'])
+        return self._version.stream(page, limits['limit'])
 
     def list(self, iso_country=values.unset, mcc=values.unset, mnc=values.unset,
              limit=None, page_size=None):

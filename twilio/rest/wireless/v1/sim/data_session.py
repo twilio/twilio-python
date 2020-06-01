@@ -57,7 +57,7 @@ class DataSessionList(ListResource):
 
         page = self.page(end=end, start=start, page_size=limits['page_size'], )
 
-        return self._version.stream(page, limits['limit'], limits['page_limit'])
+        return self._version.stream(page, limits['limit'])
 
     def list(self, end=values.unset, start=values.unset, limit=None,
              page_size=None):

@@ -73,7 +73,7 @@ class CountryList(ListResource):
             page_size=limits['page_size'],
         )
 
-        return self._version.stream(page, limits['limit'], limits['page_limit'])
+        return self._version.stream(page, limits['limit'])
 
     def list(self, iso_code=values.unset, continent=values.unset,
              country_code=values.unset, low_risk_numbers_enabled=values.unset,

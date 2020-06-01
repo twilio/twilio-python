@@ -64,7 +64,7 @@ class WorkspaceList(ListResource):
 
         page = self.page(friendly_name=friendly_name, page_size=limits['page_size'], )
 
-        return self._version.stream(page, limits['limit'], limits['page_limit'])
+        return self._version.stream(page, limits['limit'])
 
     def list(self, friendly_name=values.unset, limit=None, page_size=None):
         """

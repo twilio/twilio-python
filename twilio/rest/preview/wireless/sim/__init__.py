@@ -70,7 +70,7 @@ class SimList(ListResource):
             page_size=limits['page_size'],
         )
 
-        return self._version.stream(page, limits['limit'], limits['page_limit'])
+        return self._version.stream(page, limits['limit'])
 
     def list(self, status=values.unset, iccid=values.unset, rate_plan=values.unset,
              e_id=values.unset, sim_registration_code=values.unset, limit=None,

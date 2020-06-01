@@ -125,7 +125,7 @@ class MessageList(ListResource):
             page_size=limits['page_size'],
         )
 
-        return self._version.stream(page, limits['limit'], limits['page_limit'])
+        return self._version.stream(page, limits['limit'])
 
     def list(self, to=values.unset, from_=values.unset,
              date_sent_before=values.unset, date_sent=values.unset,

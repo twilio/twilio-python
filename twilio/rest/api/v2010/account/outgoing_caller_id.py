@@ -61,7 +61,7 @@ class OutgoingCallerIdList(ListResource):
             page_size=limits['page_size'],
         )
 
-        return self._version.stream(page, limits['limit'], limits['page_limit'])
+        return self._version.stream(page, limits['limit'])
 
     def list(self, phone_number=values.unset, friendly_name=values.unset,
              limit=None, page_size=None):

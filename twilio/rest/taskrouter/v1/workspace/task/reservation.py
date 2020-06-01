@@ -57,7 +57,7 @@ class ReservationList(ListResource):
 
         page = self.page(reservation_status=reservation_status, page_size=limits['page_size'], )
 
-        return self._version.stream(page, limits['limit'], limits['page_limit'])
+        return self._version.stream(page, limits['limit'])
 
     def list(self, reservation_status=values.unset, limit=None, page_size=None):
         """

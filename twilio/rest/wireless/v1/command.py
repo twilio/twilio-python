@@ -64,7 +64,7 @@ class CommandList(ListResource):
             page_size=limits['page_size'],
         )
 
-        return self._version.stream(page, limits['limit'], limits['page_limit'])
+        return self._version.stream(page, limits['limit'])
 
     def list(self, sim=values.unset, status=values.unset, direction=values.unset,
              transport=values.unset, limit=None, page_size=None):

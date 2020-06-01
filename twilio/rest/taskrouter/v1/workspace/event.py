@@ -84,7 +84,7 @@ class EventList(ListResource):
             page_size=limits['page_size'],
         )
 
-        return self._version.stream(page, limits['limit'], limits['page_limit'])
+        return self._version.stream(page, limits['limit'])
 
     def list(self, end_date=values.unset, event_type=values.unset,
              minutes=values.unset, reservation_sid=values.unset,

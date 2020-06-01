@@ -94,7 +94,7 @@ class TriggerList(ListResource):
             page_size=limits['page_size'],
         )
 
-        return self._version.stream(page, limits['limit'], limits['page_limit'])
+        return self._version.stream(page, limits['limit'])
 
     def list(self, recurring=values.unset, trigger_by=values.unset,
              usage_category=values.unset, limit=None, page_size=None):

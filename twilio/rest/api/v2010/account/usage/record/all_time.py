@@ -66,7 +66,7 @@ class AllTimeList(ListResource):
             page_size=limits['page_size'],
         )
 
-        return self._version.stream(page, limits['limit'], limits['page_limit'])
+        return self._version.stream(page, limits['limit'])
 
     def list(self, category=values.unset, start_date=values.unset,
              end_date=values.unset, include_subaccounts=values.unset, limit=None,

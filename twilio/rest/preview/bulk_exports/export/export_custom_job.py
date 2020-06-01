@@ -61,7 +61,7 @@ class ExportCustomJobList(ListResource):
             page_size=limits['page_size'],
         )
 
-        return self._version.stream(page, limits['limit'], limits['page_limit'])
+        return self._version.stream(page, limits['limit'])
 
     def list(self, next_token=values.unset, previous_token=values.unset, limit=None,
              page_size=None):

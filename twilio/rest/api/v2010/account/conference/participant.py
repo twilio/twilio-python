@@ -168,7 +168,7 @@ class ParticipantList(ListResource):
 
         page = self.page(muted=muted, hold=hold, coaching=coaching, page_size=limits['page_size'], )
 
-        return self._version.stream(page, limits['limit'], limits['page_limit'])
+        return self._version.stream(page, limits['limit'])
 
     def list(self, muted=values.unset, hold=values.unset, coaching=values.unset,
              limit=None, page_size=None):

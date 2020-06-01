@@ -83,7 +83,7 @@ class SyncMapItemList(ListResource):
 
         page = self.page(order=order, from_=from_, bounds=bounds, page_size=limits['page_size'], )
 
-        return self._version.stream(page, limits['limit'], limits['page_limit'])
+        return self._version.stream(page, limits['limit'])
 
     def list(self, order=values.unset, from_=values.unset, bounds=values.unset,
              limit=None, page_size=None):

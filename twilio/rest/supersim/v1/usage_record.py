@@ -67,7 +67,7 @@ class UsageRecordList(ListResource):
             page_size=limits['page_size'],
         )
 
-        return self._version.stream(page, limits['limit'], limits['page_limit'])
+        return self._version.stream(page, limits['limit'])
 
     def list(self, sim=values.unset, granularity=values.unset,
              start_time=values.unset, end_time=values.unset, limit=None,

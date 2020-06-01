@@ -98,7 +98,7 @@ class BindingList(ListResource):
             page_size=limits['page_size'],
         )
 
-        return self._version.stream(page, limits['limit'], limits['page_limit'])
+        return self._version.stream(page, limits['limit'])
 
     def list(self, start_date=values.unset, end_date=values.unset,
              identity=values.unset, tag=values.unset, limit=None, page_size=None):
