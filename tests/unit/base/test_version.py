@@ -13,7 +13,6 @@ class TestPage(Page):
 
 
 class VersionTestCase(IntegrationTestCase):
-
     def setUp(self):
         super(VersionTestCase, self).setUp()
 
