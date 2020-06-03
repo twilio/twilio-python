@@ -78,7 +78,7 @@ class InviteList(ListResource):
 
         page = self.page(identity=identity, page_size=limits['page_size'], )
 
-        return self._version.stream(page, limits['limit'], limits['page_limit'])
+        return self._version.stream(page, limits['limit'])
 
     def list(self, identity=values.unset, limit=None, page_size=None):
         """

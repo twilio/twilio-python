@@ -55,7 +55,7 @@ class EventList(ListResource):
 
         page = self.page(edge=edge, page_size=limits['page_size'], )
 
-        return self._version.stream(page, limits['limit'], limits['page_limit'])
+        return self._version.stream(page, limits['limit'])
 
     def list(self, edge=values.unset, limit=None, page_size=None):
         """

@@ -61,7 +61,7 @@ class RegulationList(ListResource):
             page_size=limits['page_size'],
         )
 
-        return self._version.stream(page, limits['limit'], limits['page_limit'])
+        return self._version.stream(page, limits['limit'])
 
     def list(self, end_user_type=values.unset, iso_country=values.unset,
              number_type=values.unset, limit=None, page_size=None):

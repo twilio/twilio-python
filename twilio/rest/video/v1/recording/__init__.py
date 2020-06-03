@@ -71,7 +71,7 @@ class RecordingList(ListResource):
             page_size=limits['page_size'],
         )
 
-        return self._version.stream(page, limits['limit'], limits['page_limit'])
+        return self._version.stream(page, limits['limit'])
 
     def list(self, status=values.unset, source_sid=values.unset,
              grouping_sid=values.unset, date_created_after=values.unset,

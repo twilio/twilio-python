@@ -188,7 +188,7 @@ class CallList(ListResource):
             page_size=limits['page_size'],
         )
 
-        return self._version.stream(page, limits['limit'], limits['page_limit'])
+        return self._version.stream(page, limits['limit'])
 
     def list(self, to=values.unset, from_=values.unset,
              parent_call_sid=values.unset, status=values.unset,

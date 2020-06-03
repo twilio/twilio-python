@@ -80,7 +80,7 @@ class TaskList(ListResource):
             page_size=limits['page_size'],
         )
 
-        return self._version.stream(page, limits['limit'], limits['page_limit'])
+        return self._version.stream(page, limits['limit'])
 
     def list(self, priority=values.unset, assignment_status=values.unset,
              workflow_sid=values.unset, workflow_name=values.unset,

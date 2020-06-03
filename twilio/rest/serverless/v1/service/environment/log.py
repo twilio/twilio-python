@@ -67,7 +67,7 @@ class LogList(ListResource):
             page_size=limits['page_size'],
         )
 
-        return self._version.stream(page, limits['limit'], limits['page_limit'])
+        return self._version.stream(page, limits['limit'])
 
     def list(self, function_sid=values.unset, start_date=values.unset,
              end_date=values.unset, limit=None, page_size=None):

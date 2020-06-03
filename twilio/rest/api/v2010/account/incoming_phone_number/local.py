@@ -65,7 +65,7 @@ class LocalList(ListResource):
             page_size=limits['page_size'],
         )
 
-        return self._version.stream(page, limits['limit'], limits['page_limit'])
+        return self._version.stream(page, limits['limit'])
 
     def list(self, beta=values.unset, friendly_name=values.unset,
              phone_number=values.unset, origin=values.unset, limit=None,

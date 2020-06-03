@@ -102,7 +102,7 @@ class MachineToMachineList(ListResource):
             page_size=limits['page_size'],
         )
 
-        return self._version.stream(page, limits['limit'], limits['page_limit'])
+        return self._version.stream(page, limits['limit'])
 
     def list(self, area_code=values.unset, contains=values.unset,
              sms_enabled=values.unset, mms_enabled=values.unset,

@@ -82,7 +82,7 @@ class WorkerList(ListResource):
             page_size=limits['page_size'],
         )
 
-        return self._version.stream(page, limits['limit'], limits['page_limit'])
+        return self._version.stream(page, limits['limit'])
 
     def list(self, activity_name=values.unset, activity_sid=values.unset,
              available=values.unset, friendly_name=values.unset,

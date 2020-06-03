@@ -68,7 +68,7 @@ class NotificationList(ListResource):
             page_size=limits['page_size'],
         )
 
-        return self._version.stream(page, limits['limit'], limits['page_limit'])
+        return self._version.stream(page, limits['limit'])
 
     def list(self, log=values.unset, message_date_before=values.unset,
              message_date=values.unset, message_date_after=values.unset, limit=None,

@@ -83,7 +83,7 @@ class ChannelList(ListResource):
 
         page = self.page(type=type, page_size=limits['page_size'], )
 
-        return self._version.stream(page, limits['limit'], limits['page_limit'])
+        return self._version.stream(page, limits['limit'])
 
     def list(self, type=values.unset, limit=None, page_size=None):
         """

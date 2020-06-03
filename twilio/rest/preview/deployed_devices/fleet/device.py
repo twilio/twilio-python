@@ -84,7 +84,7 @@ class DeviceList(ListResource):
 
         page = self.page(deployment_sid=deployment_sid, page_size=limits['page_size'], )
 
-        return self._version.stream(page, limits['limit'], limits['page_limit'])
+        return self._version.stream(page, limits['limit'])
 
     def list(self, deployment_sid=values.unset, limit=None, page_size=None):
         """

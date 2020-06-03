@@ -99,7 +99,7 @@ class AddressList(ListResource):
             page_size=limits['page_size'],
         )
 
-        return self._version.stream(page, limits['limit'], limits['page_limit'])
+        return self._version.stream(page, limits['limit'])
 
     def list(self, customer_name=values.unset, friendly_name=values.unset,
              iso_country=values.unset, limit=None, page_size=None):

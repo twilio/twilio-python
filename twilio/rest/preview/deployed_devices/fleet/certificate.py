@@ -79,7 +79,7 @@ class CertificateList(ListResource):
 
         page = self.page(device_sid=device_sid, page_size=limits['page_size'], )
 
-        return self._version.stream(page, limits['limit'], limits['page_limit'])
+        return self._version.stream(page, limits['limit'])
 
     def list(self, device_sid=values.unset, limit=None, page_size=None):
         """
