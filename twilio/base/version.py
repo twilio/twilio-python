@@ -61,7 +61,8 @@ class Version(object):
             code = error_payload.get('code', response.status_code)
             return TwilioRestException(response.status_code, uri, message, code, method, details)
         except Exception:
-            return TwilioRestException(response.status_code, uri, message, response.status_code, method)
+            return TwilioRestException(response.status_code, uri, message, response.status_code,
+                                       method)
 
     def fetch(self, method, uri, params=None, data=None, headers=None, auth=None, timeout=None,
               allow_redirects=False):
@@ -135,19 +136,12 @@ class Version(object):
         :param int page_size: Max page size.
         :return dict: A dictionary of paging limits.
         """
-        page_limit = values.unset
-
-        if limit is not None:
-
-            if page_size is None:
-                page_size = limit
-
-            page_limit = int(ceil(limit / float(page_size)))
+        if limit is not None and page_size is None:
+            page_size = limit
 
         return {
             'limit': limit or values.unset,
             'page_size': page_size or values.unset,
-            'page_limit': page_limit,
         }
 
     def page(self, method, uri, params=None, data=None, headers=None, auth=None, timeout=None,
@@ -172,7 +166,7 @@ class Version(object):
 
         :param Page page: The page to stream.
         :param int limit: The max number of records to read.
-        :param int page_imit: The max number of pages to read.
+        :param int page_limit: The max number of pages to read.
         """
         current_record = 1
         current_page = 1
@@ -184,11 +178,11 @@ class Version(object):
                 if limit and limit is not values.unset and limit < current_record:
                     return
 
+            current_page += 1
             if page_limit and page_limit is not values.unset and page_limit < current_page:
                 return
 
             page = page.next_page()
-            current_page += 1
 
     def create(self, method, uri, params=None, data=None, headers=None, auth=None, timeout=None,
                allow_redirects=False):
