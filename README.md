@@ -173,6 +173,10 @@ print(str(r))
 
 The `Dockerfile` present in this repository and its respective `twilio/twilio-python` Docker image are currently used by Twilio for testing purposes only.
 
+### Using a Custom HTTP Client
+
+To use a custom HTTP client with this helper library, please [check the Twilio documentation](https://www.twilio.com/docs/libraries/python/custom-http-clients-python).
+
 ### Getting help
 
 If you need help installing or using the library, please check the [Twilio Support Help Center](https://support.twilio.com) first, and [file a support ticket](https://twilio.com/help/contact) if you don't find an answer to your question.
