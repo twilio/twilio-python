@@ -169,13 +169,13 @@ print(str(r))
 <Response><Say>Welcome to twilio!</Say></Response>
 ```
 
+### Using a Custom HTTP Client
+
+To use a custom HTTP client with this helper library, please see the [Twilio documentation](https://www.twilio.com/docs/libraries/python/custom-http-clients-python).
+
 ### Docker Image
 
 The `Dockerfile` present in this repository and its respective `twilio/twilio-python` Docker image are currently used by Twilio for testing purposes only.
-
-### Using a Custom HTTP Client
-
-To use a custom HTTP client with this helper library, please [check the Twilio documentation](https://www.twilio.com/docs/libraries/python/custom-http-clients-python).
 
 ### Getting help
 
