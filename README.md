@@ -150,6 +150,8 @@ except TwilioRestException as e:
   print(e)
 ```
 
+For more descriptive exception types, please see the [Twilio documentation](https://www.twilio.com/docs/libraries/python/usage-guide#exceptions).
+
 ### Generating TwiML
 
 To control phone calls, your application needs to output [TwiML][twiml].
