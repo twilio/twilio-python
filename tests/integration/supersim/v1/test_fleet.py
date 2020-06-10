@@ -18,11 +18,14 @@ class FleetTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.supersim.v1.fleets.create()
+            self.client.supersim.v1.fleets.create(network_access_profile="HAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+
+        values = {'NetworkAccessProfile': "HAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", }
 
         self.holodeck.assert_has_request(Request(
             'post',
             'https://supersim.twilio.com/v1/Fleets',
+            data=values,
         ))
 
     def test_create_response(self):
@@ -47,7 +50,7 @@ class FleetTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.supersim.v1.fleets.create()
+        actual = self.client.supersim.v1.fleets.create(network_access_profile="HAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
 
         self.assertIsNotNone(actual)
 

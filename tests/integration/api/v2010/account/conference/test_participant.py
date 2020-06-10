@@ -34,6 +34,36 @@ class ParticipantTestCase(IntegrationTestCase):
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "call_sid": "CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "label": null,
+                "conference_sid": "CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "date_created": "Fri, 18 Feb 2011 21:07:19 +0000",
+                "date_updated": "Fri, 18 Feb 2011 21:07:19 +0000",
+                "end_conference_on_exit": false,
+                "muted": false,
+                "hold": false,
+                "status": "complete",
+                "start_conference_on_enter": true,
+                "coaching": true,
+                "call_sid_to_coach": "CAbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+                "uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json"
+            }
+            '''
+        ))
+
+        actual = self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                      .conferences("CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                      .participants("CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+
+        self.assertIsNotNone(actual)
+
+    def test_fetch_by_label_response(self):
+        self.holodeck.mock(Response(
+            200,
+            '''
+            {
+                "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "call_sid": "CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "label": "customer",
                 "conference_sid": "CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "date_created": "Fri, 18 Feb 2011 21:07:19 +0000",
                 "date_updated": "Fri, 18 Feb 2011 21:07:19 +0000",
@@ -75,6 +105,36 @@ class ParticipantTestCase(IntegrationTestCase):
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "call_sid": "CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "label": null,
+                "conference_sid": "CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "date_created": "Fri, 18 Feb 2011 21:07:19 +0000",
+                "date_updated": "Fri, 18 Feb 2011 21:07:19 +0000",
+                "end_conference_on_exit": false,
+                "muted": true,
+                "hold": false,
+                "status": "complete",
+                "start_conference_on_enter": true,
+                "coaching": false,
+                "call_sid_to_coach": null,
+                "uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json"
+            }
+            '''
+        ))
+
+        actual = self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                      .conferences("CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                      .participants("CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
+
+        self.assertIsNotNone(actual)
+
+    def test_mute_participant_by_label_response(self):
+        self.holodeck.mock(Response(
+            200,
+            '''
+            {
+                "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "call_sid": "CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "label": "customer",
                 "conference_sid": "CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "date_created": "Fri, 18 Feb 2011 21:07:19 +0000",
                 "date_updated": "Fri, 18 Feb 2011 21:07:19 +0000",
@@ -103,6 +163,36 @@ class ParticipantTestCase(IntegrationTestCase):
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "call_sid": "CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "label": null,
+                "conference_sid": "CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "date_created": "Fri, 18 Feb 2011 21:07:19 +0000",
+                "date_updated": "Fri, 18 Feb 2011 21:07:19 +0000",
+                "end_conference_on_exit": false,
+                "muted": false,
+                "hold": false,
+                "status": "complete",
+                "start_conference_on_enter": true,
+                "coaching": true,
+                "call_sid_to_coach": "CAbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+                "uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json"
+            }
+            '''
+        ))
+
+        actual = self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                      .conferences("CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                      .participants("CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
+
+        self.assertIsNotNone(actual)
+
+    def test_modify_participant_by_label_response(self):
+        self.holodeck.mock(Response(
+            200,
+            '''
+            {
+                "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "call_sid": "CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "label": "customer",
                 "conference_sid": "CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "date_created": "Fri, 18 Feb 2011 21:07:19 +0000",
                 "date_updated": "Fri, 18 Feb 2011 21:07:19 +0000",
@@ -147,6 +237,7 @@ class ParticipantTestCase(IntegrationTestCase):
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "call_sid": "CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "label": "customer",
                 "conference_sid": "CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "date_created": "Fri, 18 Feb 2011 21:07:19 +0000",
                 "date_updated": "Fri, 18 Feb 2011 21:07:19 +0000",
@@ -175,6 +266,7 @@ class ParticipantTestCase(IntegrationTestCase):
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "call_sid": "CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "label": "customer",
                 "conference_sid": "CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "date_created": "Fri, 18 Feb 2011 21:07:19 +0000",
                 "date_updated": "Fri, 18 Feb 2011 21:07:19 +0000",
@@ -203,6 +295,7 @@ class ParticipantTestCase(IntegrationTestCase):
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "call_sid": "CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "label": null,
                 "conference_sid": "CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "date_created": "Fri, 18 Feb 2011 21:07:19 +0000",
                 "date_updated": "Fri, 18 Feb 2011 21:07:19 +0000",
@@ -231,6 +324,7 @@ class ParticipantTestCase(IntegrationTestCase):
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "call_sid": "CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "label": null,
                 "conference_sid": "CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "date_created": "Fri, 18 Feb 2011 21:07:19 +0000",
                 "date_updated": "Fri, 18 Feb 2011 21:07:19 +0000",
@@ -259,6 +353,7 @@ class ParticipantTestCase(IntegrationTestCase):
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "call_sid": "CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "label": null,
                 "conference_sid": "CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "date_created": "Fri, 18 Feb 2011 21:07:19 +0000",
                 "date_updated": "Fri, 18 Feb 2011 21:07:19 +0000",
@@ -294,6 +389,18 @@ class ParticipantTestCase(IntegrationTestCase):
         ))
 
     def test_delete_response(self):
+        self.holodeck.mock(Response(
+            204,
+            None,
+        ))
+
+        actual = self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                      .conferences("CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                      .participants("CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+
+        self.assertTrue(actual)
+
+    def test_delete_by_label_response(self):
         self.holodeck.mock(Response(
             204,
             None,
@@ -351,6 +458,7 @@ class ParticipantTestCase(IntegrationTestCase):
                     {
                         "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                         "call_sid": "CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                        "label": null,
                         "conference_sid": "CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                         "date_created": "Sat, 19 Feb 2011 21:07:19 +0000",
                         "date_updated": "Sat, 19 Feb 2011 21:07:19 +0000",
@@ -366,6 +474,7 @@ class ParticipantTestCase(IntegrationTestCase):
                     {
                         "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                         "call_sid": "CAbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+                        "label": null,
                         "conference_sid": "CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                         "date_created": "Fri, 18 Feb 2011 21:07:19 +0000",
                         "date_updated": "Fri, 18 Feb 2011 21:07:19 +0000",
@@ -406,6 +515,7 @@ class ParticipantTestCase(IntegrationTestCase):
                     {
                         "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                         "call_sid": "CAcccccccccccccccccccccccccccccccc",
+                        "label": null,
                         "conference_sid": "CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                         "date_created": "Thu, 17 Feb 2011 21:07:19 +0000",
                         "date_updated": "Thu, 17 Feb 2011 21:07:19 +0000",
@@ -421,6 +531,7 @@ class ParticipantTestCase(IntegrationTestCase):
                     {
                         "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                         "call_sid": "CAdddddddddddddddddddddddddddddddd",
+                        "label": null,
                         "conference_sid": "CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                         "date_created": "Wed, 16 Feb 2011 21:07:19 +0000",
                         "date_updated": "Wed, 16 Feb 2011 21:07:19 +0000",
@@ -461,6 +572,7 @@ class ParticipantTestCase(IntegrationTestCase):
                     {
                         "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                         "call_sid": "CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                        "label": null,
                         "conference_sid": "CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                         "date_created": "Sat, 19 Feb 2011 21:07:19 +0000",
                         "date_updated": "Sat, 19 Feb 2011 21:07:19 +0000",
@@ -476,6 +588,7 @@ class ParticipantTestCase(IntegrationTestCase):
                     {
                         "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                         "call_sid": "CAbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+                        "label": null,
                         "conference_sid": "CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                         "date_created": "Fri, 18 Feb 2011 21:07:19 +0000",
                         "date_updated": "Fri, 18 Feb 2011 21:07:19 +0000",

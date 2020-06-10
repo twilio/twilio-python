@@ -39,17 +39,16 @@ class ChannelList(ListResource):
         }
         self._uri = '/Businesses/{business_sid}/Brands/{brand_sid}/BrandedChannels/{branded_channel_sid}/Channels'.format(**self._solution)
 
-    def create(self, phone_number_sid, phone_number):
+    def create(self, phone_number_sid):
         """
         Create the ChannelInstance
 
         :param unicode phone_number_sid: Phone Number Sid to be branded.
-        :param unicode phone_number: Twilio number to assign to the Branded Channel
 
         :returns: The created ChannelInstance
         :rtype: twilio.rest.preview.trusted_comms.business.brand.branded_channel.channel.ChannelInstance
         """
-        data = values.of({'PhoneNumberSid': phone_number_sid, 'PhoneNumber': phone_number, })
+        data = values.of({'PhoneNumberSid': phone_number_sid, })
 
         payload = self._version.create(method='POST', uri=self._uri, data=data, )
 

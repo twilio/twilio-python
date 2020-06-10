@@ -360,6 +360,7 @@ class BundleInstance(InstanceResource):
         IN_REVIEW = "in-review"
         TWILIO_REJECTED = "twilio-rejected"
         TWILIO_APPROVED = "twilio-approved"
+        PROVISIONALLY_APPROVED = "provisionally-approved"
 
     class EndUserType(object):
         INDIVIDUAL = "individual"

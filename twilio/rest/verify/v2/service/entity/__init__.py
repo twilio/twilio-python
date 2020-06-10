@@ -12,6 +12,7 @@ from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.page import Page
+from twilio.rest.verify.v2.service.entity.access_token import AccessTokenList
 from twilio.rest.verify.v2.service.entity.factor import FactorList
 
 
@@ -232,6 +233,7 @@ class EntityContext(InstanceContext):
 
         # Dependents
         self._factors = None
+        self._access_tokens = None
 
     def delete(self, twilio_sandbox_mode=values.unset):
         """
@@ -281,6 +283,22 @@ class EntityContext(InstanceContext):
                 identity=self._solution['identity'],
             )
         return self._factors
+
+    @property
+    def access_tokens(self):
+        """
+        Access the access_tokens
+
+        :returns: twilio.rest.verify.v2.service.entity.access_token.AccessTokenList
+        :rtype: twilio.rest.verify.v2.service.entity.access_token.AccessTokenList
+        """
+        if self._access_tokens is None:
+            self._access_tokens = AccessTokenList(
+                self._version,
+                service_sid=self._solution['service_sid'],
+                identity=self._solution['identity'],
+            )
+        return self._access_tokens
 
     def __repr__(self):
         """
@@ -435,6 +453,16 @@ class EntityInstance(InstanceResource):
         :rtype: twilio.rest.verify.v2.service.entity.factor.FactorList
         """
         return self._proxy.factors
+
+    @property
+    def access_tokens(self):
+        """
+        Access the access_tokens
+
+        :returns: twilio.rest.verify.v2.service.entity.access_token.AccessTokenList
+        :rtype: twilio.rest.verify.v2.service.entity.access_token.AccessTokenList
+        """
+        return self._proxy.access_tokens
 
     def __repr__(self):
         """

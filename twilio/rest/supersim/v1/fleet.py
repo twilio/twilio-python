@@ -34,32 +34,32 @@ class FleetList(ListResource):
         self._solution = {}
         self._uri = '/Fleets'.format(**self._solution)
 
-    def create(self, unique_name=values.unset, data_enabled=values.unset,
-               data_limit=values.unset, commands_enabled=values.unset,
-               commands_url=values.unset, commands_method=values.unset,
-               network_access_profile=values.unset):
+    def create(self, network_access_profile, unique_name=values.unset,
+               data_enabled=values.unset, data_limit=values.unset,
+               commands_enabled=values.unset, commands_url=values.unset,
+               commands_method=values.unset):
         """
         Create the FleetInstance
 
+        :param unicode network_access_profile: The SID or unique name of the Network Access Profile of the Fleet
         :param unicode unique_name: An application-defined string that uniquely identifies the resource
         :param bool data_enabled: Defines whether SIMs in the Fleet are capable of using data connectivity
-        :param unicode data_limit: The data_limit
-        :param bool commands_enabled: Defines whether SIMs in the Fleet are capable of sending and receiving Commands via SMS
-        :param unicode commands_url: The URL that will receive a webhook when a SIM in the Fleet originates a machine-to-machine Command
+        :param unicode data_limit: The total data usage (download and upload combined) in Megabytes that each Sim resource assigned to the Fleet resource can consume
+        :param bool commands_enabled: Defines whether SIMs in the Fleet are capable of sending and receiving machine-to-machine SMS via Commands
+        :param unicode commands_url: The URL that will receive a webhook when a SIM in the Fleet originates a machine-to-machine SMS via Commands
         :param unicode commands_method: A string representing the HTTP method to use when making a request to `commands_url`
-        :param unicode network_access_profile: The SID or unique name of the Network Access Profile of the Fleet
 
         :returns: The created FleetInstance
         :rtype: twilio.rest.supersim.v1.fleet.FleetInstance
         """
         data = values.of({
+            'NetworkAccessProfile': network_access_profile,
             'UniqueName': unique_name,
             'DataEnabled': data_enabled,
             'DataLimit': data_limit,
             'CommandsEnabled': commands_enabled,
             'CommandsUrl': commands_url,
             'CommandsMethod': commands_method,
-            'NetworkAccessProfile': network_access_profile,
         })
 
         payload = self._version.create(method='POST', uri=self._uri, data=data, )
@@ -414,7 +414,7 @@ class FleetInstance(InstanceResource):
     @property
     def commands_enabled(self):
         """
-        :returns: Defines whether SIMs in the Fleet are capable of sending and receiving Commands via SMS
+        :returns: Defines whether SIMs in the Fleet are capable of sending and receiving machine-to-machine SMS via Commands
         :rtype: bool
         """
         return self._properties['commands_enabled']
@@ -422,7 +422,7 @@ class FleetInstance(InstanceResource):
     @property
     def commands_url(self):
         """
-        :returns: The URL that will receive a webhook when a SIM in the Fleet originates a machine-to-machine Command
+        :returns: The URL that will receive a webhook when a SIM in the Fleet originates a machine-to-machine SMS via Commands
         :rtype: unicode
         """
         return self._properties['commands_url']

@@ -249,7 +249,7 @@ class ParticipantList(ListResource):
         """
         Constructs a ParticipantContext
 
-        :param call_sid: The Call SID of the resource to fetch
+        :param call_sid: The Call SID or URL encoded label of the participant to fetch
 
         :returns: twilio.rest.api.v2010.account.conference.participant.ParticipantContext
         :rtype: twilio.rest.api.v2010.account.conference.participant.ParticipantContext
@@ -265,7 +265,7 @@ class ParticipantList(ListResource):
         """
         Constructs a ParticipantContext
 
-        :param call_sid: The Call SID of the resource to fetch
+        :param call_sid: The Call SID or URL encoded label of the participant to fetch
 
         :returns: twilio.rest.api.v2010.account.conference.participant.ParticipantContext
         :rtype: twilio.rest.api.v2010.account.conference.participant.ParticipantContext
@@ -343,7 +343,7 @@ class ParticipantContext(InstanceContext):
         :param Version version: Version that contains the resource
         :param account_sid: The SID of the Account that created the resource to fetch
         :param conference_sid: The SID of the conference with the participant to fetch
-        :param call_sid: The Call SID of the resource to fetch
+        :param call_sid: The Call SID or URL encoded label of the participant to fetch
 
         :returns: twilio.rest.api.v2010.account.conference.participant.ParticipantContext
         :rtype: twilio.rest.api.v2010.account.conference.participant.ParticipantContext

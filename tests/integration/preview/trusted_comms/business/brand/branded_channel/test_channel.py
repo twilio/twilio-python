@@ -21,9 +21,9 @@ class ChannelTestCase(IntegrationTestCase):
             self.client.preview.trusted_comms.businesses("BXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                              .brands("BZXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                              .branded_channels("BWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                             .channels.create(phone_number_sid="PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", phone_number="phone_number")
+                                             .channels.create(phone_number_sid="PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
 
-        values = {'PhoneNumberSid': "PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", 'PhoneNumber': "phone_number", }
+        values = {'PhoneNumberSid': "PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", }
 
         self.holodeck.assert_has_request(Request(
             'post',
@@ -50,6 +50,6 @@ class ChannelTestCase(IntegrationTestCase):
         actual = self.client.preview.trusted_comms.businesses("BXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                                   .brands("BZXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                                   .branded_channels("BWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                                  .channels.create(phone_number_sid="PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", phone_number="phone_number")
+                                                  .channels.create(phone_number_sid="PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
 
         self.assertIsNotNone(actual)

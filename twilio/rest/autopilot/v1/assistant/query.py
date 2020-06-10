@@ -36,7 +36,8 @@ class QueryList(ListResource):
         self._uri = '/Assistants/{assistant_sid}/Queries'.format(**self._solution)
 
     def stream(self, language=values.unset, model_build=values.unset,
-               status=values.unset, limit=None, page_size=None):
+               status=values.unset, dialogue_sid=values.unset, limit=None,
+               page_size=None):
         """
         Streams QueryInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -46,6 +47,7 @@ class QueryList(ListResource):
         :param unicode language: The ISO language-country string that specifies the language used by the Query resources to read
         :param unicode model_build: The SID or unique name of the Model Build to be queried
         :param unicode status: The status of the resources to read
+        :param unicode dialogue_sid: The SID of the [Dialogue](https://www.twilio.com/docs/autopilot/api/dialogue).
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -62,13 +64,15 @@ class QueryList(ListResource):
             language=language,
             model_build=model_build,
             status=status,
+            dialogue_sid=dialogue_sid,
             page_size=limits['page_size'],
         )
 
         return self._version.stream(page, limits['limit'])
 
     def list(self, language=values.unset, model_build=values.unset,
-             status=values.unset, limit=None, page_size=None):
+             status=values.unset, dialogue_sid=values.unset, limit=None,
+             page_size=None):
         """
         Lists QueryInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -77,6 +81,7 @@ class QueryList(ListResource):
         :param unicode language: The ISO language-country string that specifies the language used by the Query resources to read
         :param unicode model_build: The SID or unique name of the Model Build to be queried
         :param unicode status: The status of the resources to read
+        :param unicode dialogue_sid: The SID of the [Dialogue](https://www.twilio.com/docs/autopilot/api/dialogue).
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -91,12 +96,14 @@ class QueryList(ListResource):
             language=language,
             model_build=model_build,
             status=status,
+            dialogue_sid=dialogue_sid,
             limit=limit,
             page_size=page_size,
         ))
 
     def page(self, language=values.unset, model_build=values.unset,
-             status=values.unset, page_token=values.unset, page_number=values.unset,
+             status=values.unset, dialogue_sid=values.unset,
+             page_token=values.unset, page_number=values.unset,
              page_size=values.unset):
         """
         Retrieve a single page of QueryInstance records from the API.
@@ -105,6 +112,7 @@ class QueryList(ListResource):
         :param unicode language: The ISO language-country string that specifies the language used by the Query resources to read
         :param unicode model_build: The SID or unique name of the Model Build to be queried
         :param unicode status: The status of the resources to read
+        :param unicode dialogue_sid: The SID of the [Dialogue](https://www.twilio.com/docs/autopilot/api/dialogue).
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -116,6 +124,7 @@ class QueryList(ListResource):
             'Language': language,
             'ModelBuild': model_build,
             'Status': status,
+            'DialogueSid': dialogue_sid,
             'PageToken': page_token,
             'Page': page_number,
             'PageSize': page_size,
