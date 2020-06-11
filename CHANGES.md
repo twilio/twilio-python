@@ -19,15 +19,6 @@ Here you can see the full list of changes between each twilio-python release.
 **Autopilot**
 - Add dialogue_sid param to Query list resource
 
-**Contacts**
-- Added contacts channel create, update, read, delete API definition
-- Added contacts Get API definition
-- Added contacts Update API definition
-- Added contacts Delete API definition
-- Added contacts Search API definition
-- Added AccountSID to CFD CREATE and GET Responses
-- Added contacts location Create, update, read and delete API definitions
-
 **Notify**
 - delivery_callback_url and delivery_callback_enabled added
 
