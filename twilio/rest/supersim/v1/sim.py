@@ -277,6 +277,7 @@ class SimInstance(InstanceResource):
         SCHEDULED = "scheduled"
 
     class StatusUpdate(object):
+        READY = "ready"
         ACTIVE = "active"
         INACTIVE = "inactive"
 

@@ -61,7 +61,6 @@ class Client(object):
         # Domains
         self._accounts = None
         self._api = None
-        self._authy = None
         self._autopilot = None
         self._chat = None
         self._conversations = None
@@ -196,19 +195,6 @@ class Client(object):
             from twilio.rest.api import Api
             self._api = Api(self)
         return self._api
-
-    @property
-    def authy(self):
-        """
-        Access the Authy Twilio Domain
-
-        :returns: Authy Twilio Domain
-        :rtype: twilio.rest.authy.Authy
-        """
-        if self._authy is None:
-            from twilio.rest.authy import Authy
-            self._authy = Authy(self)
-        return self._authy
 
     @property
     def autopilot(self):

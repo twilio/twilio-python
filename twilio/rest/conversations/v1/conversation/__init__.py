@@ -40,6 +40,7 @@ class ConversationList(ListResource):
     def create(self, friendly_name=values.unset, date_created=values.unset,
                date_updated=values.unset, messaging_service_sid=values.unset,
                attributes=values.unset, state=values.unset,
+               timers_inactive=values.unset, timers_closed=values.unset,
                x_twilio_webhook_enabled=values.unset):
         """
         Create the ConversationInstance
@@ -50,6 +51,8 @@ class ConversationList(ListResource):
         :param unicode messaging_service_sid: The unique id of the SMS Service this conversation belongs to.
         :param unicode attributes: An optional string metadata field you can use to store any data you wish.
         :param ConversationInstance.State state: Current state of this conversation.
+        :param unicode timers_inactive: ISO8601 duration when conversation will be switched to `inactive` state.
+        :param unicode timers_closed: ISO8601 duration when conversation will be switched to `closed` state.
         :param ConversationInstance.WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
 
         :returns: The created ConversationInstance
@@ -62,6 +65,8 @@ class ConversationList(ListResource):
             'MessagingServiceSid': messaging_service_sid,
             'Attributes': attributes,
             'State': state,
+            'Timers.Inactive': timers_inactive,
+            'Timers.Closed': timers_closed,
         })
         headers = values.of({'X-Twilio-Webhook-Enabled': x_twilio_webhook_enabled, })
 
@@ -246,6 +251,7 @@ class ConversationContext(InstanceContext):
     def update(self, friendly_name=values.unset, date_created=values.unset,
                date_updated=values.unset, attributes=values.unset,
                messaging_service_sid=values.unset, state=values.unset,
+               timers_inactive=values.unset, timers_closed=values.unset,
                x_twilio_webhook_enabled=values.unset):
         """
         Update the ConversationInstance
@@ -256,6 +262,8 @@ class ConversationContext(InstanceContext):
         :param unicode attributes: An optional string metadata field you can use to store any data you wish.
         :param unicode messaging_service_sid: The unique id of the SMS Service this conversation belongs to.
         :param ConversationInstance.State state: Current state of this conversation.
+        :param unicode timers_inactive: ISO8601 duration when conversation will be switched to `inactive` state.
+        :param unicode timers_closed: ISO8601 duration when conversation will be switched to `closed` state.
         :param ConversationInstance.WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
 
         :returns: The updated ConversationInstance
@@ -268,6 +276,8 @@ class ConversationContext(InstanceContext):
             'Attributes': attributes,
             'MessagingServiceSid': messaging_service_sid,
             'State': state,
+            'Timers.Inactive': timers_inactive,
+            'Timers.Closed': timers_closed,
         })
         headers = values.of({'X-Twilio-Webhook-Enabled': x_twilio_webhook_enabled, })
 
@@ -379,6 +389,7 @@ class ConversationInstance(InstanceResource):
             'state': payload.get('state'),
             'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
             'date_updated': deserialize.iso8601_datetime(payload.get('date_updated')),
+            'timers': payload.get('timers'),
             'url': payload.get('url'),
             'links': payload.get('links'),
         }
@@ -473,6 +484,14 @@ class ConversationInstance(InstanceResource):
         return self._properties['date_updated']
 
     @property
+    def timers(self):
+        """
+        :returns: Timer date values for this conversation.
+        :rtype: dict
+        """
+        return self._properties['timers']
+
+    @property
     def url(self):
         """
         :returns: An absolute URL for this conversation.
@@ -491,6 +510,7 @@ class ConversationInstance(InstanceResource):
     def update(self, friendly_name=values.unset, date_created=values.unset,
                date_updated=values.unset, attributes=values.unset,
                messaging_service_sid=values.unset, state=values.unset,
+               timers_inactive=values.unset, timers_closed=values.unset,
                x_twilio_webhook_enabled=values.unset):
         """
         Update the ConversationInstance
@@ -501,6 +521,8 @@ class ConversationInstance(InstanceResource):
         :param unicode attributes: An optional string metadata field you can use to store any data you wish.
         :param unicode messaging_service_sid: The unique id of the SMS Service this conversation belongs to.
         :param ConversationInstance.State state: Current state of this conversation.
+        :param unicode timers_inactive: ISO8601 duration when conversation will be switched to `inactive` state.
+        :param unicode timers_closed: ISO8601 duration when conversation will be switched to `closed` state.
         :param ConversationInstance.WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
 
         :returns: The updated ConversationInstance
@@ -513,6 +535,8 @@ class ConversationInstance(InstanceResource):
             attributes=attributes,
             messaging_service_sid=messaging_service_sid,
             state=state,
+            timers_inactive=timers_inactive,
+            timers_closed=timers_closed,
             x_twilio_webhook_enabled=x_twilio_webhook_enabled,
         )
 

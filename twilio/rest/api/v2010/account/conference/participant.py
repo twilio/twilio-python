@@ -37,9 +37,9 @@ class ParticipantList(ListResource):
 
     def create(self, from_, to, status_callback=values.unset,
                status_callback_method=values.unset,
-               status_callback_event=values.unset, timeout=values.unset,
-               record=values.unset, muted=values.unset, beep=values.unset,
-               start_conference_on_enter=values.unset,
+               status_callback_event=values.unset, label=values.unset,
+               timeout=values.unset, record=values.unset, muted=values.unset,
+               beep=values.unset, start_conference_on_enter=values.unset,
                end_conference_on_exit=values.unset, wait_url=values.unset,
                wait_method=values.unset, early_media=values.unset,
                max_participants=values.unset, conference_record=values.unset,
@@ -57,15 +57,17 @@ class ParticipantList(ListResource):
                recording_status_callback_event=values.unset,
                conference_recording_status_callback_event=values.unset,
                coaching=values.unset, call_sid_to_coach=values.unset,
-               byoc=values.unset):
+               jitter_buffer_size=values.unset, byoc=values.unset,
+               caller_id=values.unset):
         """
         Create the ParticipantInstance
 
-        :param unicode from_: The `from` phone number used to invite a participant
-        :param unicode to: The number, client id, or sip address of the new participant
+        :param unicode from_: The phone number, Client identifier, or username portion of SIP address that made this call.
+        :param unicode to: The phone number, SIP address or Client identifier that received this call.
         :param unicode status_callback: The URL we should call to send status information to your application
         :param unicode status_callback_method: The HTTP method we should use to call `status_callback`
         :param unicode status_callback_event: Set state change events that will trigger a callback
+        :param unicode label: The label of this participant
         :param unicode timeout: he number of seconds that we should wait for an answer
         :param bool record: Whether to record the participant and their conferences
         :param bool muted: Whether to mute the agent
@@ -93,7 +95,9 @@ class ParticipantList(ListResource):
         :param unicode conference_recording_status_callback_event: The conference recording state changes that should generate a call to `conference_recording_status_callback`
         :param bool coaching: Indicates if the participant changed to coach
         :param unicode call_sid_to_coach: The SID of the participant who is being `coached`
+        :param unicode jitter_buffer_size: Jitter Buffer size for the connecting participant
         :param unicode byoc: BYOC trunk SID (Beta)
+        :param unicode caller_id: The phone number, Client identifier, or username portion of SIP address that made this call.
 
         :returns: The created ParticipantInstance
         :rtype: twilio.rest.api.v2010.account.conference.participant.ParticipantInstance
@@ -104,6 +108,7 @@ class ParticipantList(ListResource):
             'StatusCallback': status_callback,
             'StatusCallbackMethod': status_callback_method,
             'StatusCallbackEvent': serialize.map(status_callback_event, lambda e: e),
+            'Label': label,
             'Timeout': timeout,
             'Record': record,
             'Muted': muted,
@@ -131,7 +136,9 @@ class ParticipantList(ListResource):
             'ConferenceRecordingStatusCallbackEvent': serialize.map(conference_recording_status_callback_event, lambda e: e),
             'Coaching': coaching,
             'CallSidToCoach': call_sid_to_coach,
+            'JitterBufferSize': jitter_buffer_size,
             'Byoc': byoc,
+            'CallerId': caller_id,
         })
 
         payload = self._version.create(method='POST', uri=self._uri, data=data, )
@@ -470,6 +477,7 @@ class ParticipantInstance(InstanceResource):
         self._properties = {
             'account_sid': payload.get('account_sid'),
             'call_sid': payload.get('call_sid'),
+            'label': payload.get('label'),
             'call_sid_to_coach': payload.get('call_sid_to_coach'),
             'coaching': payload.get('coaching'),
             'conference_sid': payload.get('conference_sid'),
@@ -524,6 +532,14 @@ class ParticipantInstance(InstanceResource):
         :rtype: unicode
         """
         return self._properties['call_sid']
+
+    @property
+    def label(self):
+        """
+        :returns: The label of this participant
+        :rtype: unicode
+        """
+        return self._properties['label']
 
     @property
     def call_sid_to_coach(self):

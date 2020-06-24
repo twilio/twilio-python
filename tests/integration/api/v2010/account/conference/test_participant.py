@@ -346,6 +346,35 @@ class ParticipantTestCase(IntegrationTestCase):
 
         self.assertIsNotNone(actual)
 
+    def test_create_with_friendly_name_jitter_buffer_size_response(self):
+        self.holodeck.mock(Response(
+            201,
+            '''
+            {
+                "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "call_sid": "CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "label": null,
+                "conference_sid": "CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "date_created": "Fri, 18 Feb 2011 21:07:19 +0000",
+                "date_updated": "Fri, 18 Feb 2011 21:07:19 +0000",
+                "end_conference_on_exit": false,
+                "muted": false,
+                "hold": false,
+                "status": "complete",
+                "start_conference_on_enter": true,
+                "coaching": false,
+                "call_sid_to_coach": null,
+                "uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json"
+            }
+            '''
+        ))
+
+        actual = self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                      .conferences("CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                      .participants.create(from_="+15017122661", to="+15558675310")
+
+        self.assertIsNotNone(actual)
+
     def test_create_with_friendly_name_byoc_response(self):
         self.holodeck.mock(Response(
             201,
@@ -364,6 +393,35 @@ class ParticipantTestCase(IntegrationTestCase):
                 "start_conference_on_enter": true,
                 "coaching": false,
                 "call_sid_to_coach": null,
+                "uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json"
+            }
+            '''
+        ))
+
+        actual = self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                      .conferences("CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                      .participants.create(from_="+15017122661", to="+15558675310")
+
+        self.assertIsNotNone(actual)
+
+    def test_create_with_friendly_name_caller_id_response(self):
+        self.holodeck.mock(Response(
+            201,
+            '''
+            {
+                "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "call_sid": "CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "conference_sid": "CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "date_created": "Fri, 18 Feb 2011 21:07:19 +0000",
+                "date_updated": "Fri, 18 Feb 2011 21:07:19 +0000",
+                "end_conference_on_exit": false,
+                "muted": false,
+                "hold": false,
+                "status": "complete",
+                "start_conference_on_enter": true,
+                "coaching": false,
+                "call_sid_to_coach": null,
+                "label": null,
                 "uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Conferences/CFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json"
             }
             '''

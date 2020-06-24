@@ -17,6 +17,7 @@ from twilio.rest.verify.v2.service.messaging_configuration import MessagingConfi
 from twilio.rest.verify.v2.service.rate_limit import RateLimitList
 from twilio.rest.verify.v2.service.verification import VerificationList
 from twilio.rest.verify.v2.service.verification_check import VerificationCheckList
+from twilio.rest.verify.v2.service.webhook import WebhookList
 
 
 class ServiceList(ListResource):
@@ -247,6 +248,7 @@ class ServiceContext(InstanceContext):
         self._rate_limits = None
         self._messaging_configurations = None
         self._entities = None
+        self._webhooks = None
 
     def fetch(self):
         """
@@ -367,6 +369,18 @@ class ServiceContext(InstanceContext):
         if self._entities is None:
             self._entities = EntityList(self._version, service_sid=self._solution['sid'], )
         return self._entities
+
+    @property
+    def webhooks(self):
+        """
+        Access the webhooks
+
+        :returns: twilio.rest.verify.v2.service.webhook.WebhookList
+        :rtype: twilio.rest.verify.v2.service.webhook.WebhookList
+        """
+        if self._webhooks is None:
+            self._webhooks = WebhookList(self._version, service_sid=self._solution['sid'], )
+        return self._webhooks
 
     def __repr__(self):
         """
@@ -647,6 +661,16 @@ class ServiceInstance(InstanceResource):
         :rtype: twilio.rest.verify.v2.service.entity.EntityList
         """
         return self._proxy.entities
+
+    @property
+    def webhooks(self):
+        """
+        Access the webhooks
+
+        :returns: twilio.rest.verify.v2.service.webhook.WebhookList
+        :rtype: twilio.rest.verify.v2.service.webhook.WebhookList
+        """
+        return self._proxy.webhooks
 
     def __repr__(self):
         """
