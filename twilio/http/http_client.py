@@ -1,11 +1,11 @@
+import logging
+
 from requests import Request, Session, hooks
 from requests.adapters import HTTPAdapter
-
-from twilio.http import HttpClient
-from twilio.http.response import Response
-from twilio.http.request import Request as TwilioRequest
-import logging
 from twilio.compat import urlencode
+from twilio.http import HttpClient
+from twilio.http.request import Request as TwilioRequest
+from twilio.http.response import Response
 
 _logger = logging.getLogger('twilio.http_client')
 
@@ -14,7 +14,9 @@ class TwilioHttpClient(HttpClient):
     """
     General purpose HTTP Client for interacting with the Twilio API
     """
-    def __init__(self, pool_connections=True, request_hooks=None, timeout=None, logger=_logger, proxy=None, max_retries=None):
+
+    def __init__(self, pool_connections=True, request_hooks=None, timeout=None, logger=_logger, proxy=None,
+                 max_retries=None):
         """
         Constructor for the TwilioHttpClient
 
@@ -96,6 +98,6 @@ class TwilioHttpClient(HttpClient):
             method=method, status=response.status_code, text=response.text)
         )
 
-        self.last_response = Response(int(response.status_code), response.text)
+        self.last_response = Response(int(response.status_code), response.text, response.headers)
 
         return self.last_response
