@@ -37,9 +37,10 @@ class IncomingPhoneNumberTestCase(IntegrationTestCase):
                 "api_version": "2010-04-01",
                 "beta": false,
                 "capabilities": {
-                    "mms": true,
+                    "voice": true,
                     "sms": false,
-                    "voice": true
+                    "mms": true,
+                    "fax": false
                 },
                 "date_created": "Thu, 30 Jul 2015 23:19:04 +0000",
                 "date_updated": "Thu, 30 Jul 2015 23:19:04 +0000",
@@ -60,12 +61,20 @@ class IncomingPhoneNumberTestCase(IntegrationTestCase):
                 "trunk_sid": null,
                 "uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IncomingPhoneNumbers/PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json",
                 "voice_application_sid": "",
-                "voice_caller_id_lookup": false,
+                "voice_caller_id_lookup": true,
                 "voice_fallback_method": "POST",
                 "voice_fallback_url": null,
                 "voice_method": "POST",
                 "voice_url": null,
-                "bundle_sid": "BUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+                "voice_receive_mode": "voice",
+                "status": "in-use",
+                "bundle_sid": "BUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "subresource_uris": {
+                    "assigned_add_ons": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IncomingPhoneNumbers/PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AssignedAddOns.json",
+                    "local": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IncomingPhoneNumbers/Local.json",
+                    "mobile": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IncomingPhoneNumbers/Mobile.json",
+                    "toll_free": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IncomingPhoneNumbers/TollFree.json"
+                }
             }
             '''
         ))
@@ -98,9 +107,10 @@ class IncomingPhoneNumberTestCase(IntegrationTestCase):
                 "api_version": "2010-04-01",
                 "beta": false,
                 "capabilities": {
-                    "mms": true,
+                    "voice": true,
                     "sms": false,
-                    "voice": true
+                    "mms": true,
+                    "fax": false
                 },
                 "date_created": "Thu, 30 Jul 2015 23:19:04 +0000",
                 "date_updated": "Thu, 30 Jul 2015 23:19:04 +0000",
@@ -126,7 +136,15 @@ class IncomingPhoneNumberTestCase(IntegrationTestCase):
                 "voice_fallback_url": null,
                 "voice_method": "POST",
                 "voice_url": null,
-                "bundle_sid": "BUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+                "voice_receive_mode": "voice",
+                "status": "in-use",
+                "bundle_sid": "BUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "subresource_uris": {
+                    "assigned_add_ons": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IncomingPhoneNumbers/PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AssignedAddOns.json",
+                    "local": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IncomingPhoneNumbers/Local.json",
+                    "mobile": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IncomingPhoneNumbers/Mobile.json",
+                    "toll_free": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IncomingPhoneNumbers/TollFree.json"
+                }
             }
             '''
         ))
@@ -214,17 +232,22 @@ class IncomingPhoneNumberTestCase(IntegrationTestCase):
                         "voice_fallback_url": null,
                         "voice_method": "POST",
                         "voice_url": null,
-                        "bundle_sid": "BUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+                        "bundle_sid": "BUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                        "voice_receive_mode": "voice",
+                        "status": "in-use",
+                        "subresource_uris": {
+                            "assigned_add_ons": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IncomingPhoneNumbers/PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AssignedAddOns.json",
+                            "local": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IncomingPhoneNumbers/Local.json",
+                            "mobile": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IncomingPhoneNumbers/Mobile.json",
+                            "toll_free": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IncomingPhoneNumbers/TollFree.json"
+                        }
                     }
                 ],
-                "last_page_uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IncomingPhoneNumbers.json?PageSize=1&Page=2",
                 "next_page_uri": null,
-                "num_pages": 3,
                 "page": 0,
                 "page_size": 1,
                 "previous_page_uri": null,
                 "start": 0,
-                "total": 3,
                 "uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IncomingPhoneNumbers.json?PageSize=1"
             }
             '''
@@ -243,14 +266,11 @@ class IncomingPhoneNumberTestCase(IntegrationTestCase):
                 "end": 0,
                 "first_page_uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IncomingPhoneNumbers.json?PageSize=1&Page=0",
                 "incoming_phone_numbers": [],
-                "last_page_uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IncomingPhoneNumbers.json?PageSize=1&Page=2",
                 "next_page_uri": null,
-                "num_pages": 3,
                 "page": 0,
                 "page_size": 1,
                 "previous_page_uri": null,
                 "start": 0,
-                "total": 3,
                 "uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IncomingPhoneNumbers.json?PageSize=1"
             }
             '''
@@ -312,7 +332,15 @@ class IncomingPhoneNumberTestCase(IntegrationTestCase):
                 "voice_fallback_url": null,
                 "voice_method": "POST",
                 "voice_url": null,
-                "bundle_sid": "BUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+                "bundle_sid": "BUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "voice_receive_mode": "voice",
+                "status": "in-use",
+                "subresource_uris": {
+                    "assigned_add_ons": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IncomingPhoneNumbers/PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AssignedAddOns.json",
+                    "local": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IncomingPhoneNumbers/Local.json",
+                    "mobile": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IncomingPhoneNumbers/Mobile.json",
+                    "toll_free": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/IncomingPhoneNumbers/TollFree.json"
+                }
             }
             '''
         ))

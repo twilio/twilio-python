@@ -3,6 +3,35 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2020-07-08] Version 6.44.0
+---------------------------
+**Library - Feature**
+- [PR #528](https://github.com/twilio/twilio-python/pull/528): include API response headers in 'Last Response'. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+
+**Conversations**
+- Allow Address updates for Participants
+- Message delivery receipts
+
+**Events**
+- Add account_sid to subscription and subscribed_events resources
+
+**Flex**
+- Changed `wfm_integrations` Flex Configuration key to private **(breaking change)**
+
+**Messaging**
+- Add error states to WhatsApp Sender status with failed reason **(breaking change)**
+- Delete WhatsApp Template API
+- Update WhatsApp Template API
+- Add WhatsApp Template Get Api (fetch and read)
+
+**Numbers**
+- Add `valid_until` in the Bundles resource
+- Add API for Bundle deletion
+
+**Verify**
+- Removed support for `sms`, `totp` and `app-push` factor types in Verify push **(breaking change)**
+
+
 [2020-06-24] Version 6.43.0
 ---------------------------
 **Api**

@@ -19,14 +19,13 @@ class AccessTokenTestCase(IntegrationTestCase):
 
         with self.assertRaises(TwilioException):
             self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .entities("identity") \
-                                 .access_tokens.create(factor_type="push")
+                                 .access_tokens.create(identity="identity", factor_type="push")
 
-        values = {'FactorType': "push", }
+        values = {'Identity': "identity", 'FactorType': "push", }
 
         self.holodeck.assert_has_request(Request(
             'post',
-            'https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Entities/identity/AccessTokens',
+            'https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/AccessTokens',
             data=values,
         ))
 
@@ -41,7 +40,6 @@ class AccessTokenTestCase(IntegrationTestCase):
         ))
 
         actual = self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .entities("identity") \
-                                      .access_tokens.create(factor_type="push")
+                                      .access_tokens.create(identity="identity", factor_type="push")
 
         self.assertIsNotNone(actual)

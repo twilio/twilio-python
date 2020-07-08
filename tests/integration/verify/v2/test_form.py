@@ -18,11 +18,11 @@ class FormTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.verify.v2.forms("form-app-push").fetch()
+            self.client.verify.v2.forms("form-push").fetch()
 
         self.holodeck.assert_has_request(Request(
             'get',
-            'https://verify.twilio.com/v2/Forms/form-app-push',
+            'https://verify.twilio.com/v2/Forms/form-push',
         ))
 
     def test_fetch_response(self):
@@ -30,18 +30,18 @@ class FormTestCase(IntegrationTestCase):
             200,
             '''
             {
-                "form_type": "form-sms",
+                "form_type": "form-push",
                 "forms": {
                     "create_factor": {},
                     "verify_factor": {},
                     "create_challenge": {}
                 },
                 "form_meta": {},
-                "url": "https://verify.twilio.com/v2/Forms/form-sms"
+                "url": "https://verify.twilio.com/v2/Forms/form-push"
             }
             '''
         ))
 
-        actual = self.client.verify.v2.forms("form-app-push").fetch()
+        actual = self.client.verify.v2.forms("form-push").fetch()
 
         self.assertIsNotNone(actual)

@@ -41,6 +41,7 @@ class BundleTestCase(IntegrationTestCase):
                 "status": "draft",
                 "email": "email",
                 "status_callback": "http://www.example.com",
+                "valid_until": null,
                 "date_created": "2019-07-30T22:29:24Z",
                 "date_updated": "2019-07-31T01:09:00Z",
                 "url": "https://numbers.twilio.com/v2/RegulatoryCompliance/Bundles/BUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -104,9 +105,10 @@ class BundleTestCase(IntegrationTestCase):
                         "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                         "regulation_sid": "RNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                         "friendly_name": "friendly_name",
-                        "status": "draft",
+                        "status": "provisionally-approved",
                         "email": "email",
                         "status_callback": "http://www.example.com",
+                        "valid_until": "2020-07-31T01:00:00Z",
                         "date_created": "2019-07-30T22:29:24Z",
                         "date_updated": "2019-07-31T01:09:00Z",
                         "url": "https://numbers.twilio.com/v2/RegulatoryCompliance/Bundles/BUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -156,6 +158,7 @@ class BundleTestCase(IntegrationTestCase):
                 "regulation_sid": "RNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "friendly_name": "friendly_name",
                 "status": "draft",
+                "valid_until": null,
                 "email": "email",
                 "status_callback": "http://www.example.com",
                 "date_created": "2019-07-30T22:29:24Z",
@@ -198,6 +201,7 @@ class BundleTestCase(IntegrationTestCase):
                 "status": "draft",
                 "email": "email",
                 "status_callback": "http://www.example.com",
+                "valid_until": null,
                 "date_created": "2019-07-30T22:29:24Z",
                 "date_updated": "2019-07-31T01:09:00Z",
                 "url": "https://numbers.twilio.com/v2/RegulatoryCompliance/Bundles/BUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -213,3 +217,26 @@ class BundleTestCase(IntegrationTestCase):
                                        .bundles("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
 
         self.assertIsNotNone(actual)
+
+    def test_delete_request(self):
+        self.holodeck.mock(Response(500, ''))
+
+        with self.assertRaises(TwilioException):
+            self.client.numbers.v2.regulatory_compliance \
+                                  .bundles("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+
+        self.holodeck.assert_has_request(Request(
+            'delete',
+            'https://numbers.twilio.com/v2/RegulatoryCompliance/Bundles/BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        ))
+
+    def test_delete_response(self):
+        self.holodeck.mock(Response(
+            204,
+            None,
+        ))
+
+        actual = self.client.numbers.v2.regulatory_compliance \
+                                       .bundles("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+
+        self.assertTrue(actual)

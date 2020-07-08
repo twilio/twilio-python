@@ -218,7 +218,6 @@ class ConfigurationInstance(InstanceResource):
             'integrations': payload.get('integrations'),
             'outbound_call_flows': payload.get('outbound_call_flows'),
             'serverless_service_sids': payload.get('serverless_service_sids'),
-            'wfm_integrations': payload.get('wfm_integrations'),
             'queue_stats_configuration': payload.get('queue_stats_configuration'),
             'url': payload.get('url'),
         }
@@ -519,14 +518,6 @@ class ConfigurationInstance(InstanceResource):
         :rtype: unicode
         """
         return self._properties['serverless_service_sids']
-
-    @property
-    def wfm_integrations(self):
-        """
-        :returns: A list of objects that contain the configurations for the WFM Integrations supported in this configuration
-        :rtype: dict
-        """
-        return self._properties['wfm_integrations']
 
     @property
     def queue_stats_configuration(self):

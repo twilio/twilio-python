@@ -553,6 +553,7 @@ class IncomingPhoneNumberInstance(InstanceResource):
             'status_callback_method': payload.get('status_callback_method'),
             'trunk_sid': payload.get('trunk_sid'),
             'uri': payload.get('uri'),
+            'voice_receive_mode': payload.get('voice_receive_mode'),
             'voice_application_sid': payload.get('voice_application_sid'),
             'voice_caller_id_lookup': payload.get('voice_caller_id_lookup'),
             'voice_fallback_method': payload.get('voice_fallback_method'),
@@ -562,6 +563,7 @@ class IncomingPhoneNumberInstance(InstanceResource):
             'emergency_status': payload.get('emergency_status'),
             'emergency_address_sid': payload.get('emergency_address_sid'),
             'bundle_sid': payload.get('bundle_sid'),
+            'status': payload.get('status'),
         }
 
         # Context
@@ -762,6 +764,14 @@ class IncomingPhoneNumberInstance(InstanceResource):
         return self._properties['uri']
 
     @property
+    def voice_receive_mode(self):
+        """
+        :returns: The voice_receive_mode
+        :rtype: IncomingPhoneNumberInstance.VoiceReceiveMode
+        """
+        return self._properties['voice_receive_mode']
+
+    @property
     def voice_application_sid(self):
         """
         :returns: The SID of the application that handles calls to the phone number
@@ -832,6 +842,14 @@ class IncomingPhoneNumberInstance(InstanceResource):
         :rtype: unicode
         """
         return self._properties['bundle_sid']
+
+    @property
+    def status(self):
+        """
+        :returns: The status
+        :rtype: unicode
+        """
+        return self._properties['status']
 
     def update(self, account_sid=values.unset, api_version=values.unset,
                friendly_name=values.unset, sms_application_sid=values.unset,

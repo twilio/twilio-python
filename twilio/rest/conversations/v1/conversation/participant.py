@@ -262,6 +262,8 @@ class ParticipantContext(InstanceContext):
 
     def update(self, date_created=values.unset, date_updated=values.unset,
                attributes=values.unset, role_sid=values.unset,
+               messaging_binding_proxy_address=values.unset,
+               messaging_binding_projected_address=values.unset,
                x_twilio_webhook_enabled=values.unset):
         """
         Update the ParticipantInstance
@@ -270,6 +272,8 @@ class ParticipantContext(InstanceContext):
         :param datetime date_updated: The date that this resource was last updated.
         :param unicode attributes: An optional string metadata field you can use to store any data you wish.
         :param unicode role_sid: The SID of the Role to assign to the participant
+        :param unicode messaging_binding_proxy_address: The address of the Twilio phone number that the participant is in contact with.
+        :param unicode messaging_binding_projected_address: The address of the Twilio phone number that is used in Group MMS.
         :param ParticipantInstance.WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
 
         :returns: The updated ParticipantInstance
@@ -280,6 +284,8 @@ class ParticipantContext(InstanceContext):
             'DateUpdated': serialize.iso8601_datetime(date_updated),
             'Attributes': attributes,
             'RoleSid': role_sid,
+            'MessagingBinding.ProxyAddress': messaging_binding_proxy_address,
+            'MessagingBinding.ProjectedAddress': messaging_binding_projected_address,
         })
         headers = values.of({'X-Twilio-Webhook-Enabled': x_twilio_webhook_enabled, })
 
@@ -466,6 +472,8 @@ class ParticipantInstance(InstanceResource):
 
     def update(self, date_created=values.unset, date_updated=values.unset,
                attributes=values.unset, role_sid=values.unset,
+               messaging_binding_proxy_address=values.unset,
+               messaging_binding_projected_address=values.unset,
                x_twilio_webhook_enabled=values.unset):
         """
         Update the ParticipantInstance
@@ -474,6 +482,8 @@ class ParticipantInstance(InstanceResource):
         :param datetime date_updated: The date that this resource was last updated.
         :param unicode attributes: An optional string metadata field you can use to store any data you wish.
         :param unicode role_sid: The SID of the Role to assign to the participant
+        :param unicode messaging_binding_proxy_address: The address of the Twilio phone number that the participant is in contact with.
+        :param unicode messaging_binding_projected_address: The address of the Twilio phone number that is used in Group MMS.
         :param ParticipantInstance.WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
 
         :returns: The updated ParticipantInstance
@@ -484,6 +494,8 @@ class ParticipantInstance(InstanceResource):
             date_updated=date_updated,
             attributes=attributes,
             role_sid=role_sid,
+            messaging_binding_proxy_address=messaging_binding_proxy_address,
+            messaging_binding_projected_address=messaging_binding_projected_address,
             x_twilio_webhook_enabled=x_twilio_webhook_enabled,
         )
 

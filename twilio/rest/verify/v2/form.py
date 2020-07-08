@@ -154,9 +154,7 @@ class FormInstance(InstanceResource):
     preview access, please contact help@twilio.com. """
 
     class FormTypes(object):
-        FORM_APP_PUSH = "form-app-push"
-        FORM_SMS = "form-sms"
-        FORM_TOTP = "form-totp"
+        FORM_PUSH = "form-push"
 
     def __init__(self, version, payload, form_type=None):
         """

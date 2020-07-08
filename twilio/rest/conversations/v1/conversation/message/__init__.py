@@ -13,6 +13,7 @@ from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.page import Page
+from twilio.rest.conversations.v1.conversation.message.delivery_receipt import DeliveryReceiptList
 
 
 class MessageList(ListResource):
@@ -238,6 +239,9 @@ class MessageContext(InstanceContext):
         self._solution = {'conversation_sid': conversation_sid, 'sid': sid, }
         self._uri = '/Conversations/{conversation_sid}/Messages/{sid}'.format(**self._solution)
 
+        # Dependents
+        self._delivery_receipts = None
+
     def update(self, author=values.unset, body=values.unset,
                date_created=values.unset, date_updated=values.unset,
                attributes=values.unset, x_twilio_webhook_enabled=values.unset):
@@ -301,6 +305,22 @@ class MessageContext(InstanceContext):
             sid=self._solution['sid'],
         )
 
+    @property
+    def delivery_receipts(self):
+        """
+        Access the delivery_receipts
+
+        :returns: twilio.rest.conversations.v1.conversation.message.delivery_receipt.DeliveryReceiptList
+        :rtype: twilio.rest.conversations.v1.conversation.message.delivery_receipt.DeliveryReceiptList
+        """
+        if self._delivery_receipts is None:
+            self._delivery_receipts = DeliveryReceiptList(
+                self._version,
+                conversation_sid=self._solution['conversation_sid'],
+                message_sid=self._solution['sid'],
+            )
+        return self._delivery_receipts
+
     def __repr__(self):
         """
         Provide a friendly representation
@@ -343,6 +363,8 @@ class MessageInstance(InstanceResource):
             'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
             'date_updated': deserialize.iso8601_datetime(payload.get('date_updated')),
             'url': payload.get('url'),
+            'delivery': payload.get('delivery'),
+            'links': payload.get('links'),
         }
 
         # Context
@@ -462,6 +484,22 @@ class MessageInstance(InstanceResource):
         """
         return self._properties['url']
 
+    @property
+    def delivery(self):
+        """
+        :returns: An object that contains the summary of delivery statuses for the message to non-chat participants.
+        :rtype: dict
+        """
+        return self._properties['delivery']
+
+    @property
+    def links(self):
+        """
+        :returns: The links
+        :rtype: unicode
+        """
+        return self._properties['links']
+
     def update(self, author=values.unset, body=values.unset,
                date_created=values.unset, date_updated=values.unset,
                attributes=values.unset, x_twilio_webhook_enabled=values.unset):
@@ -506,6 +544,16 @@ class MessageInstance(InstanceResource):
         :rtype: twilio.rest.conversations.v1.conversation.message.MessageInstance
         """
         return self._proxy.fetch()
+
+    @property
+    def delivery_receipts(self):
+        """
+        Access the delivery_receipts
+
+        :returns: twilio.rest.conversations.v1.conversation.message.delivery_receipt.DeliveryReceiptList
+        :rtype: twilio.rest.conversations.v1.conversation.message.delivery_receipt.DeliveryReceiptList
+        """
+        return self._proxy.delivery_receipts
 
     def __repr__(self):
         """

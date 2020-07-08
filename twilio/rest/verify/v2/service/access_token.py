@@ -17,42 +17,37 @@ class AccessTokenList(ListResource):
     to change. Use them with caution. If you currently do not have developer
     preview access, please contact help@twilio.com. """
 
-    def __init__(self, version, service_sid, identity):
+    def __init__(self, version, service_sid):
         """
         Initialize the AccessTokenList
 
         :param Version version: Version that contains the resource
-        :param service_sid: Service Sid.
-        :param identity: Unique identity of the Entity
+        :param service_sid: The unique string that identifies the resource
 
-        :returns: twilio.rest.verify.v2.service.entity.access_token.AccessTokenList
-        :rtype: twilio.rest.verify.v2.service.entity.access_token.AccessTokenList
+        :returns: twilio.rest.verify.v2.service.access_token.AccessTokenList
+        :rtype: twilio.rest.verify.v2.service.access_token.AccessTokenList
         """
         super(AccessTokenList, self).__init__(version)
 
         # Path Solution
-        self._solution = {'service_sid': service_sid, 'identity': identity, }
-        self._uri = '/Services/{service_sid}/Entities/{identity}/AccessTokens'.format(**self._solution)
+        self._solution = {'service_sid': service_sid, }
+        self._uri = '/Services/{service_sid}/AccessTokens'.format(**self._solution)
 
-    def create(self, factor_type):
+    def create(self, identity, factor_type):
         """
         Create the AccessTokenInstance
 
+        :param unicode identity: Unique external identifier of the Entity
         :param AccessTokenInstance.FactorTypes factor_type: The Type of this Factor
 
         :returns: The created AccessTokenInstance
-        :rtype: twilio.rest.verify.v2.service.entity.access_token.AccessTokenInstance
+        :rtype: twilio.rest.verify.v2.service.access_token.AccessTokenInstance
         """
-        data = values.of({'FactorType': factor_type, })
+        data = values.of({'Identity': identity, 'FactorType': factor_type, })
 
         payload = self._version.create(method='POST', uri=self._uri, data=data, )
 
-        return AccessTokenInstance(
-            self._version,
-            payload,
-            service_sid=self._solution['service_sid'],
-            identity=self._solution['identity'],
-        )
+        return AccessTokenInstance(self._version, payload, service_sid=self._solution['service_sid'], )
 
     def __repr__(self):
         """
@@ -75,11 +70,10 @@ class AccessTokenPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param service_sid: Service Sid.
-        :param identity: Unique identity of the Entity
+        :param service_sid: The unique string that identifies the resource
 
-        :returns: twilio.rest.verify.v2.service.entity.access_token.AccessTokenPage
-        :rtype: twilio.rest.verify.v2.service.entity.access_token.AccessTokenPage
+        :returns: twilio.rest.verify.v2.service.access_token.AccessTokenPage
+        :rtype: twilio.rest.verify.v2.service.access_token.AccessTokenPage
         """
         super(AccessTokenPage, self).__init__(version, response)
 
@@ -92,15 +86,10 @@ class AccessTokenPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.verify.v2.service.entity.access_token.AccessTokenInstance
-        :rtype: twilio.rest.verify.v2.service.entity.access_token.AccessTokenInstance
+        :returns: twilio.rest.verify.v2.service.access_token.AccessTokenInstance
+        :rtype: twilio.rest.verify.v2.service.access_token.AccessTokenInstance
         """
-        return AccessTokenInstance(
-            self._version,
-            payload,
-            service_sid=self._solution['service_sid'],
-            identity=self._solution['identity'],
-        )
+        return AccessTokenInstance(self._version, payload, service_sid=self._solution['service_sid'], )
 
     def __repr__(self):
         """
@@ -120,12 +109,12 @@ class AccessTokenInstance(InstanceResource):
     class FactorTypes(object):
         PUSH = "push"
 
-    def __init__(self, version, payload, service_sid, identity):
+    def __init__(self, version, payload, service_sid):
         """
         Initialize the AccessTokenInstance
 
-        :returns: twilio.rest.verify.v2.service.entity.access_token.AccessTokenInstance
-        :rtype: twilio.rest.verify.v2.service.entity.access_token.AccessTokenInstance
+        :returns: twilio.rest.verify.v2.service.access_token.AccessTokenInstance
+        :rtype: twilio.rest.verify.v2.service.access_token.AccessTokenInstance
         """
         super(AccessTokenInstance, self).__init__(version)
 
@@ -134,7 +123,7 @@ class AccessTokenInstance(InstanceResource):
 
         # Context
         self._context = None
-        self._solution = {'service_sid': service_sid, 'identity': identity, }
+        self._solution = {'service_sid': service_sid, }
 
     @property
     def token(self):

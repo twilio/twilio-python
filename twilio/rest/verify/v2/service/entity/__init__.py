@@ -12,7 +12,7 @@ from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.page import Page
-from twilio.rest.verify.v2.service.entity.access_token import AccessTokenList
+from twilio.rest.verify.v2.service.entity.challenge import ChallengeList
 from twilio.rest.verify.v2.service.entity.factor import FactorList
 
 
@@ -41,7 +41,7 @@ class EntityList(ListResource):
         """
         Create the EntityInstance
 
-        :param unicode identity: Unique identity of the Entity
+        :param unicode identity: Unique external identifier of the Entity
         :param unicode twilio_sandbox_mode: The Twilio-Sandbox-Mode HTTP request header
 
         :returns: The created EntityInstance
@@ -139,7 +139,7 @@ class EntityList(ListResource):
         """
         Constructs a EntityContext
 
-        :param identity: Unique identity of the Entity
+        :param identity: Unique external identifier of the Entity
 
         :returns: twilio.rest.verify.v2.service.entity.EntityContext
         :rtype: twilio.rest.verify.v2.service.entity.EntityContext
@@ -150,7 +150,7 @@ class EntityList(ListResource):
         """
         Constructs a EntityContext
 
-        :param identity: Unique identity of the Entity
+        :param identity: Unique external identifier of the Entity
 
         :returns: twilio.rest.verify.v2.service.entity.EntityContext
         :rtype: twilio.rest.verify.v2.service.entity.EntityContext
@@ -220,7 +220,7 @@ class EntityContext(InstanceContext):
 
         :param Version version: Version that contains the resource
         :param service_sid: Service Sid.
-        :param identity: Unique identity of the Entity
+        :param identity: Unique external identifier of the Entity
 
         :returns: twilio.rest.verify.v2.service.entity.EntityContext
         :rtype: twilio.rest.verify.v2.service.entity.EntityContext
@@ -233,7 +233,7 @@ class EntityContext(InstanceContext):
 
         # Dependents
         self._factors = None
-        self._access_tokens = None
+        self._challenges = None
 
     def delete(self, twilio_sandbox_mode=values.unset):
         """
@@ -285,20 +285,20 @@ class EntityContext(InstanceContext):
         return self._factors
 
     @property
-    def access_tokens(self):
+    def challenges(self):
         """
-        Access the access_tokens
+        Access the challenges
 
-        :returns: twilio.rest.verify.v2.service.entity.access_token.AccessTokenList
-        :rtype: twilio.rest.verify.v2.service.entity.access_token.AccessTokenList
+        :returns: twilio.rest.verify.v2.service.entity.challenge.ChallengeList
+        :rtype: twilio.rest.verify.v2.service.entity.challenge.ChallengeList
         """
-        if self._access_tokens is None:
-            self._access_tokens = AccessTokenList(
+        if self._challenges is None:
+            self._challenges = ChallengeList(
                 self._version,
                 service_sid=self._solution['service_sid'],
                 identity=self._solution['identity'],
             )
-        return self._access_tokens
+        return self._challenges
 
     def __repr__(self):
         """
@@ -369,7 +369,7 @@ class EntityInstance(InstanceResource):
     @property
     def identity(self):
         """
-        :returns: Unique identity of the Entity
+        :returns: Unique external identifier of the Entity
         :rtype: unicode
         """
         return self._properties['identity']
@@ -455,14 +455,14 @@ class EntityInstance(InstanceResource):
         return self._proxy.factors
 
     @property
-    def access_tokens(self):
+    def challenges(self):
         """
-        Access the access_tokens
+        Access the challenges
 
-        :returns: twilio.rest.verify.v2.service.entity.access_token.AccessTokenList
-        :rtype: twilio.rest.verify.v2.service.entity.access_token.AccessTokenList
+        :returns: twilio.rest.verify.v2.service.entity.challenge.ChallengeList
+        :rtype: twilio.rest.verify.v2.service.entity.challenge.ChallengeList
         """
-        return self._proxy.access_tokens
+        return self._proxy.challenges
 
     def __repr__(self):
         """

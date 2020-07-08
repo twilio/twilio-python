@@ -316,6 +316,15 @@ class BundleContext(InstanceContext):
 
         return BundleInstance(self._version, payload, sid=self._solution['sid'], )
 
+    def delete(self):
+        """
+        Deletes the BundleInstance
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(method='DELETE', uri=self._uri, )
+
     @property
     def evaluations(self):
         """
@@ -382,6 +391,7 @@ class BundleInstance(InstanceResource):
             'regulation_sid': payload.get('regulation_sid'),
             'friendly_name': payload.get('friendly_name'),
             'status': payload.get('status'),
+            'valid_until': deserialize.iso8601_datetime(payload.get('valid_until')),
             'email': payload.get('email'),
             'status_callback': payload.get('status_callback'),
             'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
@@ -446,6 +456,14 @@ class BundleInstance(InstanceResource):
         :rtype: BundleInstance.Status
         """
         return self._properties['status']
+
+    @property
+    def valid_until(self):
+        """
+        :returns: The ISO 8601 date and time in GMT when the resource will be valid until.
+        :rtype: datetime
+        """
+        return self._properties['valid_until']
 
     @property
     def email(self):
@@ -523,6 +541,15 @@ class BundleInstance(InstanceResource):
             friendly_name=friendly_name,
             email=email,
         )
+
+    def delete(self):
+        """
+        Deletes the BundleInstance
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._proxy.delete()
 
     @property
     def evaluations(self):
