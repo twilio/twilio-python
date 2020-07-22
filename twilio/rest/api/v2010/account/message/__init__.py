@@ -428,6 +428,10 @@ class MessageInstance(InstanceResource):
     class TrafficType(object):
         FREE = "free"
 
+    class ScheduleType(object):
+        FIXED = "fixed"
+        OPTIMIZE = "optimize"
+
     def __init__(self, version, payload, account_sid, sid=None):
         """
         Initialize the MessageInstance

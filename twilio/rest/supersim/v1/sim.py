@@ -236,18 +236,27 @@ class SimContext(InstanceContext):
         return SimInstance(self._version, payload, sid=self._solution['sid'], )
 
     def update(self, unique_name=values.unset, status=values.unset,
-               fleet=values.unset):
+               fleet=values.unset, callback_url=values.unset,
+               callback_method=values.unset):
         """
         Update the SimInstance
 
         :param unicode unique_name: An application-defined string that uniquely identifies the resource
         :param SimInstance.StatusUpdate status: The new status of the Super SIM
         :param unicode fleet: The SID or unique name of the Fleet to which the SIM resource should be assigned
+        :param unicode callback_url: The URL we should call after the update has finished
+        :param unicode callback_method: The HTTP method we should use to call callback_url
 
         :returns: The updated SimInstance
         :rtype: twilio.rest.supersim.v1.sim.SimInstance
         """
-        data = values.of({'UniqueName': unique_name, 'Status': status, 'Fleet': fleet, })
+        data = values.of({
+            'UniqueName': unique_name,
+            'Status': status,
+            'Fleet': fleet,
+            'CallbackUrl': callback_url,
+            'CallbackMethod': callback_method,
+        })
 
         payload = self._version.update(method='POST', uri=self._uri, data=data, )
 
@@ -402,18 +411,27 @@ class SimInstance(InstanceResource):
         return self._proxy.fetch()
 
     def update(self, unique_name=values.unset, status=values.unset,
-               fleet=values.unset):
+               fleet=values.unset, callback_url=values.unset,
+               callback_method=values.unset):
         """
         Update the SimInstance
 
         :param unicode unique_name: An application-defined string that uniquely identifies the resource
         :param SimInstance.StatusUpdate status: The new status of the Super SIM
         :param unicode fleet: The SID or unique name of the Fleet to which the SIM resource should be assigned
+        :param unicode callback_url: The URL we should call after the update has finished
+        :param unicode callback_method: The HTTP method we should use to call callback_url
 
         :returns: The updated SimInstance
         :rtype: twilio.rest.supersim.v1.sim.SimInstance
         """
-        return self._proxy.update(unique_name=unique_name, status=status, fleet=fleet, )
+        return self._proxy.update(
+            unique_name=unique_name,
+            status=status,
+            fleet=fleet,
+            callback_url=callback_url,
+            callback_method=callback_method,
+        )
 
     def __repr__(self):
         """
