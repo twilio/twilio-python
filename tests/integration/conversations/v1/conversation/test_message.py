@@ -109,6 +109,43 @@ class MessageTestCase(IntegrationTestCase):
 
         self.assertIsNotNone(actual)
 
+    def test_create_no_attributes_response(self):
+        self.holodeck.mock(Response(
+            201,
+            '''
+            {
+                "sid": "IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "conversation_sid": "CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "body": "Hello",
+                "media": null,
+                "author": "message author",
+                "participant_sid": "MBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "attributes": "{}",
+                "date_created": "2020-07-01T22:18:37Z",
+                "date_updated": "2020-07-01T22:18:37Z",
+                "index": 0,
+                "delivery": {
+                    "total": 2,
+                    "sent": "all",
+                    "delivered": "some",
+                    "read": "some",
+                    "failed": "none",
+                    "undelivered": "none"
+                },
+                "url": "https://conversations.twilio.com/v1/Conversations/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages/IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "links": {
+                    "delivery_receipts": "https://conversations.twilio.com/v1/Conversations/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages/IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Receipts"
+                }
+            }
+            '''
+        ))
+
+        actual = self.client.conversations.v1.conversations("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                             .messages.create()
+
+        self.assertIsNotNone(actual)
+
     def test_update_request(self):
         self.holodeck.mock(Response(500, ''))
 
