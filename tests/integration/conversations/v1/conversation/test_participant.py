@@ -107,6 +107,60 @@ class ParticipantTestCase(IntegrationTestCase):
 
         self.assertIsNotNone(actual)
 
+    def test_create_gmms_chat_no_attributes_response(self):
+        self.holodeck.mock(Response(
+            201,
+            '''
+            {
+                "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "conversation_sid": "CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "sid": "MBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "identity": "IDENTITY",
+                "attributes": "{}",
+                "messaging_binding": {
+                    "type": "sms",
+                    "projected_address": "+15017122661"
+                },
+                "role_sid": "RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "date_created": "2020-07-01T22:18:37Z",
+                "date_updated": "2020-07-01T22:18:37Z",
+                "url": "https://conversations.twilio.com/v1/Conversations/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants/MBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            }
+            '''
+        ))
+
+        actual = self.client.conversations.v1.conversations("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                             .participants.create()
+
+        self.assertIsNotNone(actual)
+
+    def test_create_gmms_sms_no_attributes_response(self):
+        self.holodeck.mock(Response(
+            201,
+            '''
+            {
+                "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "conversation_sid": "CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "sid": "MBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "identity": "null",
+                "attributes": "{}",
+                "messaging_binding": {
+                    "type": "sms",
+                    "address": "+15017122661"
+                },
+                "role_sid": "null",
+                "date_created": "2020-07-01T22:18:37Z",
+                "date_updated": "2020-07-01T22:18:37Z",
+                "url": "https://conversations.twilio.com/v1/Conversations/CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Participants/MBaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            }
+            '''
+        ))
+
+        actual = self.client.conversations.v1.conversations("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                             .participants.create()
+
+        self.assertIsNotNone(actual)
+
     def test_update_request(self):
         self.holodeck.mock(Response(500, ''))
 
