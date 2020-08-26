@@ -46,8 +46,8 @@ class RecordingList(ListResource):
         :param RecordingInstance.Status status: Read only the recordings that have this status
         :param unicode source_sid: Read only the recordings that have this source_sid
         :param unicode grouping_sid: Read only recordings that have this grouping_sid
-        :param datetime date_created_after: Read only recordings that started on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time with time zone
-        :param datetime date_created_before: Read only recordings that started before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time with time zone
+        :param datetime date_created_after: Read only recordings that started on or after this .. _ISO 8601 link: https://en.wikipedia.org/wiki/ISO_8601 date-time with time zone
+        :param datetime date_created_before: Read only recordings that started before this .. _ISO 8601 link: https://en.wikipedia.org/wiki/ISO_8601 date-time with time zone
         :param RecordingInstance.Type media_type: Read only recordings that have this media type
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
@@ -85,8 +85,8 @@ class RecordingList(ListResource):
         :param RecordingInstance.Status status: Read only the recordings that have this status
         :param unicode source_sid: Read only the recordings that have this source_sid
         :param unicode grouping_sid: Read only recordings that have this grouping_sid
-        :param datetime date_created_after: Read only recordings that started on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time with time zone
-        :param datetime date_created_before: Read only recordings that started before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time with time zone
+        :param datetime date_created_after: Read only recordings that started on or after this .. _ISO 8601 link: https://en.wikipedia.org/wiki/ISO_8601 date-time with time zone
+        :param datetime date_created_before: Read only recordings that started before this .. _ISO 8601 link: https://en.wikipedia.org/wiki/ISO_8601 date-time with time zone
         :param RecordingInstance.Type media_type: Read only recordings that have this media type
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
@@ -121,8 +121,8 @@ class RecordingList(ListResource):
         :param RecordingInstance.Status status: Read only the recordings that have this status
         :param unicode source_sid: Read only the recordings that have this source_sid
         :param unicode grouping_sid: Read only recordings that have this grouping_sid
-        :param datetime date_created_after: Read only recordings that started on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time with time zone
-        :param datetime date_created_before: Read only recordings that started before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time with time zone
+        :param datetime date_created_after: Read only recordings that started on or after this .. _ISO 8601 link: https://en.wikipedia.org/wiki/ISO_8601 date-time with time zone
+        :param datetime date_created_before: Read only recordings that started before this .. _ISO 8601 link: https://en.wikipedia.org/wiki/ISO_8601 date-time with time zone
         :param RecordingInstance.Type media_type: Read only recordings that have this media type
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state

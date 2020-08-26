@@ -39,7 +39,7 @@ class IpRecordList(ListResource):
 
         :param unicode ip_address: An IP address in dotted decimal notation, IPv4 only.
         :param unicode friendly_name: A string to describe the resource
-        :param unicode cidr_prefix_length: An integer representing the length of the [CIDR](https://tools.ietf.org/html/rfc4632) prefix to use with this IP address. By default the entire IP address is used, which for IPv4 is value 32.
+        :param unicode cidr_prefix_length: An integer representing the length of the .. _CIDR link: https://tools.ietf.org/html/rfc4632 prefix to use with this IP address. By default the entire IP address is used, which for IPv4 is value 32.
 
         :returns: The created IpRecordInstance
         :rtype: twilio.rest.voice.v1.ip_record.IpRecordInstance
@@ -343,7 +343,7 @@ class IpRecordInstance(InstanceResource):
     @property
     def cidr_prefix_length(self):
         """
-        :returns: An integer representing the length of the [CIDR](https://tools.ietf.org/html/rfc4632) prefix to use with this IP address. By default the entire IP address is used, which for IPv4 is value 32.
+        :returns: An integer representing the length of the .. _CIDR link: https://tools.ietf.org/html/rfc4632 prefix to use with this IP address. By default the entire IP address is used, which for IPv4 is value 32.
         :rtype: unicode
         """
         return self._properties['cidr_prefix_length']
