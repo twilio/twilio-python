@@ -2,7 +2,7 @@ import warnings
 import functools
 
 
-class ObsoleteException(BaseException):
+class ObsoleteException(Exception):
     """ Base class for warnings about obsolete features. """
     pass
 
@@ -21,3 +21,25 @@ def obsolete_client(func):
         )
 
     return new_func
+
+
+def deprecated_method(new_func=None):
+    """
+    This is a decorator which can be used to mark deprecated methods.
+    It will report in a DeprecationWarning being emitted to stderr when the deprecated method is used.
+    """
+
+    def deprecated_method_wrapper(func):
+
+        @functools.wraps(func)
+        def wrapper(*args, **kwargs):
+            msg = 'Function method .{}() is deprecated'.format(func.__name__)
+            msg += ' in favor of .{}()'.format(new_func) if isinstance(new_func, str) else ''
+            warnings.warn(msg, DeprecationWarning)
+            return func(*args, **kwargs)
+        return wrapper
+
+    if callable(new_func):
+        return deprecated_method_wrapper(new_func)
+
+    return deprecated_method_wrapper

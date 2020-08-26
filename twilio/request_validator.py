@@ -21,19 +21,42 @@ def compare(string1, string2):
     result = True
     for c1, c2 in izip(string1, string2):
         result &= c1 == c2
+
     return result
 
 
 def remove_port(uri):
     """Remove the port number from a URI
 
-    :param uri: full URI that Twilio requested on your server
+    :param uri: parsed URI that Twilio requested on your server
 
     :returns: full URI without a port number
     :rtype: str
     """
+    if not uri.port:
+        return uri.geturl()
+
     new_netloc = uri.netloc.split(':')[0]
     new_uri = uri._replace(netloc=new_netloc)
+
+    return new_uri.geturl()
+
+
+def add_port(uri):
+    """Add the port number to a URI
+
+    :param uri: parsed URI that Twilio requested on your server
+
+    :returns: full URI with a port number
+    :rtype: str
+    """
+    if uri.port:
+        return uri.geturl()
+
+    port = 443 if uri.scheme == "https" else 80
+    new_netloc = uri.netloc + ":" + str(port)
+    new_uri = uri._replace(netloc=new_netloc)
+
     return new_uri.geturl()
 
 
@@ -52,7 +75,7 @@ class RequestValidator(object):
         :returns: The computed signature
         """
         s = uri
-        if len(params) > 0:
+        if params:
             for k, v in sorted(params.items()):
                 s += k + v
 
@@ -64,11 +87,8 @@ class RequestValidator(object):
 
         return computed.strip()
 
-    def compute_hash(self, body, utf=PY3):
-        computed = base64.b64encode(sha256(body.encode("utf-8")).digest())
-
-        if utf:
-            computed = computed.decode('utf-8')
+    def compute_hash(self, body):
+        computed = sha256(body.encode("utf-8")).hexdigest()
 
         return computed.strip()
 
@@ -85,17 +105,21 @@ class RequestValidator(object):
             params = {}
 
         parsed_uri = urlparse(uri)
-        if parsed_uri.scheme == "https" and parsed_uri.port:
-            uri = remove_port(parsed_uri)
+        uri_with_port = add_port(parsed_uri)
+        uri_without_port = remove_port(parsed_uri)
 
         valid_signature = False  # Default fail
+        valid_signature_with_port = False
         valid_body_hash = True  # May not receive body hash, so default succeed
 
         query = parse_qs(parsed_uri.query)
         if "bodySHA256" in query and isinstance(params, string_types):
             valid_body_hash = compare(self.compute_hash(params), query["bodySHA256"][0])
-            valid_signature = compare(self.compute_signature(uri, {}), signature)
-        else:
-            valid_signature = compare(self.compute_signature(uri, params), signature)
+            params = {}
 
-        return valid_signature and valid_body_hash
+        #  check signature of uri with and without port,
+        #  since sig generation on back end is inconsistent
+        valid_signature = compare(self.compute_signature(uri_without_port, params), signature)
+        valid_signature_with_port = compare(self.compute_signature(uri_with_port, params), signature)
+
+        return valid_body_hash and (valid_signature or valid_signature_with_port)

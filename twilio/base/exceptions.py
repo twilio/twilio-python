@@ -17,14 +17,16 @@ class TwilioRestException(TwilioException):
     :param str method: The HTTP method used to make the request
     :param int|None code: A Twilio-specific error code for the error. This is
          not available for all errors.
+    :param dictionary|None details: Additional error details returned for the exception
     """
 
-    def __init__(self, status, uri, msg="", code=None, method='GET'):
+    def __init__(self, status, uri, msg="", code=None, method='GET', details=None):
         self.uri = uri
         self.status = status
         self.msg = msg
         self.code = code
         self.method = method
+        self.details = details
 
     def __str__(self):
         """ Try to pretty-print the exception, if this is going on screen. """

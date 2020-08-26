@@ -1,14 +1,11 @@
 # -*- coding: utf-8 -*-
-
-import six
-
 import unittest
 
-import mock
 from mock import patch, Mock
-from requests import Request
 from requests import Session
 
+from twilio.base.version import Version
+from twilio.base.exceptions import TwilioRestException
 from twilio.http.http_client import TwilioHttpClient
 from twilio.http.response import Response
 
@@ -41,6 +38,61 @@ class TestHttpClientRequest(unittest.TestCase):
         self.assertEqual('other.twilio.com', self.request_mock.headers['Host'])
         self.assertIsNotNone(self.client.last_request)
         self.assertIsNotNone(self.client.last_response)
+
+    def test_request_with_timeout(self):
+        self.request_mock.url = 'https://api.twilio.com/'
+        self.request_mock.headers = {'Host': 'other.twilio.com'}
+
+        response = self.client.request(
+            'doesnt matter', 'doesnt matter', None, None, None, None, 30, None)
+
+        self.assertEqual('other.twilio.com', self.request_mock.headers['Host'])
+        self.assertEqual(200, response.status_code)
+        self.assertEqual('testing-unicode: Ω≈ç√, 💩', response.content)
+
+    def test_request_where_method_timeout_equals_zero(self):
+        self.request_mock.url = 'https://api.twilio.com/'
+        self.request_mock.headers = {'Host': 'other.twilio.com'}
+
+        try:
+            self.client.request(
+                'doesnt matter', 'doesnt matter', None, None, None, None, 0, None)
+        except Exception as e:
+            self.assertEqual(ValueError, type(e))
+
+    def test_request_where_class_timeout_manually_set(self):
+        self.request_mock.url = 'https://api.twilio.com/'
+        self.request_mock.headers = {'Host': 'other.twilio.com'}
+        self.client.timeout = 30
+
+        response = self.client.request(
+            'doesnt matter', 'doesnt matter')
+        self.assertEqual('other.twilio.com', self.request_mock.headers['Host'])
+        self.assertEqual(200, response.status_code)
+        self.assertEqual('testing-unicode: Ω≈ç√, 💩', response.content)
+
+    def test_request_where_class_timeout_equals_zero(self):
+        self.request_mock.url = 'https://api.twilio.com/'
+        self.request_mock.headers = {'Host': 'other.twilio.com'}
+        self.client.timeout = 0
+
+        try:
+            self.client.request(
+                'doesnt matter', 'doesnt matter')
+        except Exception as e:
+            self.assertEqual(type(e), ValueError)
+
+    def test_request_where_class_timeout_and_method_timeout_set(self):
+        self.request_mock.url = 'https://api.twilio.com/'
+        self.request_mock.headers = {'Host': 'other.twilio.com'}
+        self.client.timeout = 30
+
+        response = self.client.request(
+            'doesnt matter', 'doesnt matter', None, None, None, None, 15, None)
+
+        self.assertEqual('other.twilio.com', self.request_mock.headers['Host'])
+        self.assertEqual(200, response.status_code)
+        self.assertEqual('testing-unicode: Ω≈ç√, 💩', response.content)
 
     def test_request_with_unicode_response(self):
         self.request_mock.url = 'https://api.twilio.com/'
@@ -83,6 +135,37 @@ class TestHttpClientRequest(unittest.TestCase):
 
             self.assertIsNotNone(self.client.last_request)
             self.assertIsNone(self.client.last_response)
+
+    def test_request_behind_proxy(self):
+        proxies = {
+            'http': 'http://proxy.twilio.com',
+            'https': 'https://proxy.twilio.com',
+        }
+        self.client = TwilioHttpClient(proxy=proxies)
+        self.client.request('doesnt matter', 'doesnt matter')
+        self.assertEqual(proxies, self.session_mock.proxies)
+
+    def test_exception_with_details(self):
+        v1 = MyVersion(self.client)
+        error_text = """{   
+            "code": 20001,
+            "message": "Bad request",
+            "more_info": "https://www.twilio.com/docs/errors/20001",
+            "status": 400,
+            "details": {
+                "foo":"bar"
+            }
+        }"""
+        self.session_mock.send.return_value = Response(400, error_text)
+        try:
+            v1.fetch("get", "none", None, None, None, None, None)
+            self.fail('should not happen')
+        except TwilioRestException as err:
+            self.assertEqual(400, err.status)
+            self.assertEqual(20001, err.code)
+            self.assertEqual("get", err.method)
+            self.assertEqual("Unable to fetch record: Bad request", err.msg)
+            self.assertEqual({"foo": "bar"}, err.details)
 
 
 class TestHttpClientSession(unittest.TestCase):
@@ -127,3 +210,10 @@ class TestHttpClientSession(unittest.TestCase):
         # Used different session, responses should be different
         self.assertEqual(response_1.content, 'response_1')
         self.assertEqual(response_2.content, 'response_2')
+
+
+class MyVersion(Version):
+    def __init__(self, domain):
+        super(MyVersion, self).__init__(domain)
+        self.version = 'v1'
+        self._credentials = None

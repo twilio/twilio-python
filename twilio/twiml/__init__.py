@@ -36,6 +36,7 @@ class TwiML(object):
         'xml_lang': 'xml:lang',
         'interpret_as': 'interpret-as',
         'for_': 'for',
+        'break_': 'break'
     }
 
     def __init__(self, **kwargs):

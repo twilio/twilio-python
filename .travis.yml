@@ -1,9 +1,12 @@
+dist: xenial # required for Python >= 3.7
 language: python
 python:
   - "2.7"
   - "3.4"
   - "3.5"
   - "3.6"
+  - "3.7"
+  - "3.8"
 services:
   - docker
 install:
@@ -13,9 +16,25 @@ install:
 script:
   - make test
 deploy:
-  provider: script
-  script: make docker-build && make docker-push
-  skip_cleanup: true
-  on:
-    tags: true
-    python: "3.6"
+  - provider: script
+    script: make docker-build && make docker-push
+    skip_cleanup: true
+    on:
+      tags: true
+      python: "3.6"
+  - provider: pypi
+    skip_cleanup: true
+    user: "__token__"
+    password: $PYPI_TOKEN
+    on:
+      tags: true
+      python: "3.6"
+
+notifications:
+  slack:
+    if: branch = main
+    on_pull_requests: false
+    on_success: never
+    on_failure: change
+    rooms:
+      - secure: hH8HAepfg60pch6GZ/GprMDpcyu7IjXS4eD+lIcG6TIhEIdn0YCO5K1GiFlDtWgiFfnk5tY5Wr40CEv66cJLg2DnI/q7l3O3wDof80mrbX18EOZ4cFg9ZgAAfSij4znbzf4/9ZQvLxA826Nx/yk9D33o1UE6nHF2xVMfb4bRptw=

@@ -3,6 +3,1023 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2020-08-19] Version 6.45.0
+---------------------------
+**Library - Chore**
+- [PR #536](https://github.com/twilio/twilio-python/pull/536): update GitHub branch references to use HEAD. Thanks to [@thinkingserious](https://github.com/thinkingserious)!
+
+**Conversations**
+- Allow Identity addition to Participants
+
+**Events**
+- Sinks API Get all Sinks
+
+**Proxy**
+- Clarified usage of FailOnParticipantConflict param as experimental
+- Add FailOnParticipantConflict param to Proxy Session create and Proxy Participant create
+
+**Supersim**
+- Add fleet, network, and isoCountryCode to the UsageRecords resource
+- Change sort order of UsageRecords from ascending to descending with respect to start time field, records are now returned newest to oldest
+
+**Wireless**
+- Removed `Start` and `End` parameters from the Data Sessions list endpoint. **(breaking change)**
+
+
+[2020-08-05] Version 6.44.2
+---------------------------
+**Messaging**
+- Add rejection reason support to WhatsApp API
+- Removed status parameter for create and update in WhatsApp Templates API
+
+**Proxy**
+- Add FailOnParticipantConflict param to Proxy Session update
+
+**Verify**
+- Add `CustomFriendlyName` optional parameter on Verification creation.
+- Changes in `Challenge` resource to update documentation of both `details` and `hidden_details` properties.
+
+
+[2020-07-22] Version 6.44.1
+---------------------------
+**Api**
+- Add optional Click Tracking and Scheduling parameters to Create action of Message resource
+
+**Supersim**
+- Add callback_url and callback_method parameters to Sim resource update request
+
+
+[2020-07-08] Version 6.44.0
+---------------------------
+**Library - Feature**
+- [PR #528](https://github.com/twilio/twilio-python/pull/528): include API response headers in 'Last Response'. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+
+**Conversations**
+- Allow Address updates for Participants
+- Message delivery receipts
+
+**Events**
+- Add account_sid to subscription and subscribed_events resources
+
+**Flex**
+- Changed `wfm_integrations` Flex Configuration key to private **(breaking change)**
+
+**Messaging**
+- Add error states to WhatsApp Sender status with failed reason **(breaking change)**
+- Delete WhatsApp Template API
+- Update WhatsApp Template API
+- Add WhatsApp Template Get Api (fetch and read)
+
+**Numbers**
+- Add `valid_until` in the Bundles resource
+- Add API for Bundle deletion
+
+**Verify**
+- Removed support for `sms`, `totp` and `app-push` factor types in Verify push **(breaking change)**
+
+
+[2020-06-24] Version 6.43.0
+---------------------------
+**Api**
+- Added optional `JitterBufferSize` parameter for creating conference participant
+- Added optional `label` property for conference participants
+- Added optional parameter `caller_id` for creating conference participant endpoint.
+
+**Autopilot**
+- Remove Export resource from Autopilot Assistant
+
+**Conversations**
+- Expose Conversation timers
+
+**Monitor**
+- Update start/end date filter params to support date-or-time format **(breaking change)**
+
+**Numbers**
+- Add `provisionally-approved` as a Supporting Document status
+
+**Preview**
+- Removed `Authy` resources. **(breaking change)**
+
+**Supersim**
+- Add ready state to the allowed transitions in the sim update call behind the feature flag supersim.ready-state.v1
+
+**Verify**
+- Webhook resources added to Verify services and put behind the `api.verify.push` beta feature
+
+**Twiml**
+- Add more supported locales for the `Gather` verb.
+
+
+[2020-06-10] Version 6.42.0
+---------------------------
+**Library - Docs**
+- [PR #525](https://github.com/twilio/twilio-python/pull/525): link to handling exceptions. Thanks to [@thinkingserious](https://github.com/thinkingserious)!
+- [PR #524](https://github.com/twilio/twilio-python/pull/524): link to custom HTTP client instructions. Thanks to [@thinkingserious](https://github.com/thinkingserious)!
+
+**Library - Fix**
+- [PR #523](https://github.com/twilio/twilio-python/pull/523): drop the page limit calculation and correct the page limit stop condition. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+- [PR #522](https://github.com/twilio/twilio-python/pull/522): drop passing a page limit when listing/streaming resources. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+
+**Api**
+- Added `pstnconnectivity` to `usage_record` API
+
+**Autopilot**
+- Add dialogue_sid param to Query list resource
+
+**Notify**
+- delivery_callback_url and delivery_callback_enabled added
+
+**Numbers**
+- Add `provisionally-approved` as a Bundle status
+
+**Preview**
+- `BrandsInformation` endpoint now returns a single `BrandsInformation`
+- Deleted phone number required field in the brand phone number endpoint from `kyc-api`
+- Removed insights `preview API` from API Definitions **(breaking change)**
+- Added `BrandsInformation` endpoint to query brands information stored in KYC
+
+**Supersim**
+- Require a Network Access Profile when creating a Fleet **(breaking change)**
+
+
+[2020-05-27] Version 6.41.0
+---------------------------
+**Api**
+- Added `reason_conference_ended` and `call_sid_ending_conference` to Conference read/fetch/update
+- Fixed some examples to use the correct "TK" SID prefix for Trunk resources.
+
+**Authy**
+- Renamed `twilio_authy_sandbox_mode` headers to `twilio_sandbox_mode` **(breaking change)**
+- Renamed `Twilio-Authy-*` headers to `Twilio-Veriry-*` **(breaking change)**
+
+**Flex**
+- Adding `flex_service_instance_sid` to Flex Configuration
+
+**Preview**
+- Removed insights preview API from API Definitions **(breaking change)**
+- Added `Channels` endpoint to brand a phone number for BrandedCalls
+
+**Serverless**
+- Add Build Sid to Log results
+
+**Supersim**
+- Add Network Access Profile resource Networks subresource
+- Allow specifying a Data Limit on Fleets
+
+**Trunking**
+- Fixed some examples to use the correct "TK" SID prefix for Trunk resources.
+
+
+[2020-05-13] Version 6.40.0
+---------------------------
+**Library - Feature**
+- [PR #520](https://github.com/twilio/twilio-python/pull/520): add regional and edge support. Thanks to [@eshanholtz](https://github.com/eshanholtz)!
+
+**Api**
+- Add optional `emergency_caller_sid` parameter to SIP Domain
+- Updated `call_reason` optional property to be treated as PII
+- Added optional BYOC Trunk Sid property to Sip Domain API resource
+
+**Autopilot**
+- Add Restore resource to Autopilot Assistant
+
+**Contacts**
+- Added contacts Create API definition
+
+**Events**
+- Subscriptions API initial release
+
+**Numbers**
+- Add Evaluations API
+
+**Supersim**
+- Allow filtering the Fleets resource by Network Access Profile
+- Allow assigning a Network Access Profile when creating and updating a Fleet
+- Add Network Access Profiles resource
+
+**Verify**
+- Add `CustomCode` optional parameter on Verification creation.
+- Add delete action on Service resource.
+
+**Voice**
+- Added endpoints for BYOC trunks, SIP connection policies and source IP mappings
+
+
+[2020-04-29] Version 6.39.0
+---------------------------
+**Library - Feature**
+- [PR #517](https://github.com/twilio/twilio-python/pull/517): add details to TwilioRestException. Thanks to [@ashish-s](https://github.com/ashish-s)!
+
+**Preview**
+- Added `Dispatch` version to `preview`
+
+**Studio**
+- Reroute Create Execution for V2 to the V2 downstream
+
+**Supersim**
+- Add Networks resource
+
+
+[2020-04-15] Version 6.38.1
+---------------------------
+**Library - Chore**
+- [PR #513](https://github.com/twilio/twilio-python/pull/513): remove S3 URLs from test data. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+
+**Api**
+- Updated description for property `call_reason` in the call create request
+
+**Contacts**
+- Added Read, Delete All, and Delete by SID docs
+- Initial Release
+
+**Studio**
+- Rename `flow_valid` to `flow_validate`
+- Removed `errors` and `warnings` from flows error response and added new property named `details`
+- Add Update Execution endpoints to v1 and v2 to end execution via API
+- Add new `warnings` attribute v2 flow POST api
+
+**Twiml**
+- Add enhanced attribute to use with `speech_model` for the `Gather` verb
+
+
+[2020-04-01] Version 6.38.0
+---------------------------
+**Api**
+- Add optional 'secure' parameter to SIP Domain
+
+**Authy**
+- Added an endpoint to list the challenges of a factor
+- Added optional parameter `Push` when updating a service to send the service level push factor configuration
+
+**Bulkexports**
+- exposing bulk exports (vault/slapchop) API as public beta API
+
+**Flex**
+- Adding `queue_stats_configuration` and `wfm_integrations` to Flex Configuration
+
+**Serverless**
+- Add Function Version Content endpoint
+- Allow build_sid to be optional for deployment requests
+
+**Supersim**
+- Remove `deactivated` status for Super SIM which is replaced by `inactive` **(breaking change)**
+
+
+[2020-03-18] Version 6.37.0
+---------------------------
+**Api**
+- Add optional `emergency_calling_enabled` parameter to SIP Domain
+- Add optional property `call_reason` in the call create request
+
+**Authy**
+- Added `friendly_name` and `config` as optional params to Factor update
+- Added `config` param to Factor creation **(breaking change)**
+
+**Preview**
+- Renamed `SuccessRate` endpoint to `ImpressionsRate` for Branded Calls (fka. Verified by Twilio) **(breaking change)**
+
+
+[2020-03-04] Version 6.36.0
+---------------------------
+**Library - Feature**
+- [PR #507](https://github.com/twilio/twilio-python/pull/507): add new max_retries param to TwilioHttpClient. Thanks to [@msaelices](https://github.com/msaelices)!
+
+**Authy**
+- Added the `configuration` property to services to return the service level configurations
+- Added optional parameter `Push` when creating a service to send the service level push factor configuration
+- Remove FactorStrength support for Factors and Challenges **(breaking change)**
+
+**Messaging**
+- Correct the alpha sender capabilities property type **(breaking change)**
+
+**Preview**
+- Removed `/Devices` register Branded Calls endpoint, as per iOS sample app deprecation **(breaking change)**
+- Removed `Twilio-Sandbox-Mode` request header from the Branded Calls endpoints, as not officially supported **(breaking change)**
+- Removed `Verify` version from `preview` subdomain in favor to `verify` subdomain. **(breaking change)**
+
+**Serverless**
+- Add UI-Editable field to Services
+
+**Supersim**
+- Add `inactive` status for Super SIM which is an alias for `deactivated`
+
+**Taskrouter**
+- Adding value range to `priority` in task endpoint
+
+**Verify**
+- Fix `SendCodeAttempts` type. It's an array of objects instead of a unique object. **(breaking change)**
+
+
+[2020-02-19] Version 6.35.5
+---------------------------
+**Api**
+- Make call create parameters `async_amd`, `async_amd_status_callback`, and `async_amd_status_callback_method` public
+- Add `trunk_sid` as an optional field to Call resource fetch/read responses
+- Add property `queue_time` to successful response of create, fetch, and update requests for Call
+- Add optional parameter `byoc` to conference participant create.
+
+**Authy**
+- Added support for challenges associated to push factors
+
+**Flex**
+- Adding `ui_dependencies` to Flex Configuration
+
+**Messaging**
+- Deprecate Session API **(breaking change)**
+
+**Numbers**
+- Add Regulations API
+
+**Studio**
+- Add Execution and Step endpoints to v2 API
+- Add webhook_url to Flow response and add new /TestUsers endpoint to v2 API
+
+**Taskrouter**
+- Adding `longest_relative_task_age_in_queue` and `longest_relative_task_sid_in_queue` to TaskQueue Real Time Statistics API.
+- Add `wait_duration_in_queue_until_accepted` aggregations to TaskQueues Cumulative Statistics endpoint
+- Add TaskQueueEnteredDate property to Tasks.
+
+**Video**
+- [Composer] Clarification for the composition hooks creation documentation: one source is mandatory, either the `audio_sources` or the `video_layout`, but one of them has to be provided
+- [Composer] `audio_sources` type on the composer HTTP POST command, changed from `sid[]` to `string[]` **(breaking change)**
+- [Composer] Clarification for the composition creation documentation: one source is mandatory, either the `audio_sources` or the `video_layout`, but one of them has to be provided
+
+
+[2020-02-05] Version 6.35.4
+---------------------------
+**Api**
+- Making content retention and address retention public
+- Update `status` enum for Messages to include 'partially_delivered'
+
+**Authy**
+- Added support for push factors
+
+**Autopilot**
+- Add one new property in Query i.e dialogue_sid
+
+**Verify**
+- Add `SendCodeAttempts` to create verification response.
+
+**Video**
+- Clarification in composition creation documentation: one source is mandatory, either `audio_sources` or `video_layout`, but on of them has to be provided
+
+**Twiml**
+- Add Polly Neural voices.
+
+
+[2020-01-22] Version 6.35.3
+---------------------------
+**Library - Docs**
+- [PR #504](https://github.com/twilio/twilio-python/pull/504): baseline all the templated markdown docs. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+
+**Api**
+- Add payments public APIs
+- Add optional parameter `byoc` to call create request.
+
+**Flex**
+- Updating a Flex Flow `creation_on_message` parameter documentation
+
+**Preview**
+-
+- Removed Verify v2 from preview in favor of its own namespace as GA **(breaking change)**
+
+**Studio**
+- Flow definition type update from string to object
+
+**Verify**
+- Add `AppHash` parameter when creating a Verification.
+- Add `DoNotShareWarningEnabled` parameter to the Service resource.
+
+**Twiml**
+- Add `track` attribute to siprec noun.
+- Add attribute `byoc` to `<Number>`
+
+
+[2020-01-08] Version 6.35.2
+---------------------------
+**Numbers**
+- Add Regulatory Compliance CRUD APIs
+
+**Studio**
+- Add parameter validation for Studio v2 Flows API
+
+**Twiml**
+- Add support for `speech_model` to `Gather` verb
+
+
+[2019-12-18] Version 6.35.1
+---------------------------
+**Preview**
+- Add `/Insights/SuccessRate` endpoint for Businesses Branded Calls (Verified by Twilio)
+
+**Studio**
+- StudioV2 API in beta
+
+**Verify**
+- Add `MailerSid` property to Verify Service resource.
+
+**Wireless**
+- Added `data_limit_strategy` to Rate Plan resource.
+
+
+[2019-12-12] Version 6.35.0
+---------------------------
+**Library**
+- [PR #500](https://github.com/twilio/twilio-python/pull/500): feat: support http proxy in TwilioHttpClient. Thanks to [@thehackercat](https://github.com/thehackercat)!
+
+**Api**
+- Make `twiml` conditional for create. One of `url`, `twiml`, or `application_sid` is now required.
+- Add `bundle_sid` parameter to /IncomingPhoneNumbers API
+- Removed discard / obfuscate parameters from ContentRetention, AddressRetention **(breaking change)**
+
+**Chat**
+- Added `last_consumed_message_index` and `last_consumption_timestamp` parameters in update method for UserChannel resource **(breaking change)**
+
+**Conversations**
+- Add Participant SID to Message properties
+
+**Messaging**
+- Fix incorrectly typed capabilities property for ShortCodes. **(breaking change)**
+
+
+[2019-12-04] Version 6.34.0
+---------------------------
+**Library**
+- [PR #501](https://github.com/twilio/twilio-python/pull/501): BREAKING CHANGE feat: add custom HTTP header support. Thanks to [@eshanholtz](https://github.com/eshanholtz)! **(breaking change)**
+- [PR #502](https://github.com/twilio/twilio-python/pull/502): fix: regenerate python lib with yoyodyne refactor. Thanks to [@eshanholtz](https://github.com/eshanholtz)!
+- [PR #499](https://github.com/twilio/twilio-python/pull/499): docs: add supported language versions to README. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+
+**Api**
+- Add optional `twiml` parameter for call create
+
+**Chat**
+- Added `delete` method in UserChannel resource
+
+**Conversations**
+- Allow Messaging Service update
+
+**Taskrouter**
+- Support ReEvaluateTasks parameter on Workflow update
+
+**Twiml**
+- Remove unsupported `mixed_track` value from `<Stream>` **(breaking change)**
+- Add missing fax `<Receive>` optional attributes
+
+
+[2019-11-13] Version 6.33.1
+---------------------------
+**Library**
+- [PR #498](https://github.com/twilio/twilio-python/pull/498): docs: Add local testing docs. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+- [PR #497](https://github.com/twilio/twilio-python/pull/497): fix: Resolve some bug risks and code quality issues. Thanks to [@sanketsaurav](https://github.com/sanketsaurav)!
+- [PR #495](https://github.com/twilio/twilio-python/pull/495): Rename child twiml methods to be the tag name and deprecate old methods. Thanks to [@eshanholtz](https://github.com/eshanholtz)!
+- [PR #490](https://github.com/twilio/twilio-python/pull/490): fix: Change ObsoleteException to inherit from Exception instead of BaseException. Thanks to [@fefi95](https://github.com/fefi95)!
+
+**Api**
+- Make `persistent_action` parameter public
+- Add `twiml` optional private parameter for call create
+- Update the call `price` property type to be string **(breaking change)**
+
+**Autopilot**
+- Add Export resource to Autopilot Assistant.
+
+**Flex**
+- Added Integration.RetryCount attribute to Flex Flow
+- Updating a Flex Flow `channel_type` options documentation
+
+**Insights**
+- Added edges to events and metrics
+- Added new endpoint definitions for Events and Metrics
+
+**Messaging**
+- **create** support for sender registration
+- **fetch** support for fetching a sender
+- **update** support for sender verification
+
+**Supersim**
+- Add `Direction` filter parameter to list commands endpoint
+- Allow filtering commands list by Sim Unique Name
+- Add `Iccid` filter parameter to list sims endpoint
+
+**Twiml**
+- Add support for `<Refer>` verb
+
+
+[2019-10-30] Version 6.33.0
+---------------------------
+**Library**
+- [PR #414](https://github.com/twilio/twilio-python/pull/414): Add support for passing custom logger into TwilioHttpClient. Thanks to [@tysonholub](https://github.com/tysonholub)!
+- [PR #423](https://github.com/twilio/twilio-python/pull/423): Document exception case in README. Thanks to [@prateem](https://github.com/prateem)!
+- [PR #489](https://github.com/twilio/twilio-python/pull/489): Include the license file when packaging the library. Thanks to [@marcelotrevisani](https://github.com/marcelotrevisani)!
+- [PR #485](https://github.com/twilio/twilio-python/pull/485): Adding timeout to TwilioHttpClient constructor. Thanks to [@Kerl1310](https://github.com/Kerl1310)!
+- [PR #488](https://github.com/twilio/twilio-python/pull/488): Update resources after sorting. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+- [PR #486](https://github.com/twilio/twilio-python/pull/486): Declare support for Python 3.8. Thanks to [@Jamim](https://github.com/Jamim)!
+
+**Api**
+- Add new usage categories to the public api `sms-messages-carrierfees` and `mms-messages-carrierfees`
+
+**Conversations**
+- Add ProjectedAddress to Conversations Participant resource
+
+**Preview**
+- Implemented different `Sid` for Current Calls (Verified by Twilio), instead of relying in `Call.Sid` from Voice API team **(breaking change)**
+
+**Supersim**
+- Add List endpoint to Commands resource for Super Sim Pilot
+- Add UsageRecords resource for the Super Sim Pilot
+- Add List endpoint to UsageRecords resource for the Super Sim Pilot
+- Allow assigning a Sim to a Fleet by Fleet SID or Unique Name for Super SIM Pilot
+- Add Update endpoint to Fleets resource for Super Sim Pilot
+- Add Fetch endpoint to Commands resource for Super Sim Pilot
+- Allow filtering the Sims resource List endpoint by Fleet
+- Add List endpoint to Fleets resource for Super Sim Pilot
+
+**Wireless**
+- Added `account_sid` to Sim update parameters.
+
+**Twiml**
+- Add new locales and voices for `Say` from Polly
+
+
+[2019-10-16] Version 6.32.0
+---------------------------
+**Library**
+- [PR #482](https://github.com/twilio/twilio-python/pull/482): Update a few property types in the lookups and trunking responses. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+- [PR #483](https://github.com/twilio/twilio-python/pull/483): Update instance property marshaling to allow missing properties. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+- [PR #484](https://github.com/twilio/twilio-python/pull/484): Feature/remove socks dependency. Thanks to [@Kerl1310](https://github.com/Kerl1310)!
+- [PR #481](https://github.com/twilio/twilio-python/pull/481): Change typehint for `PhoneNumberInstance.carrier`. Thanks to [@NCPlayz](https://github.com/NCPlayz)!
+- [PR #480](https://github.com/twilio/twilio-python/pull/480): Auto-deploy via Travis CI upon tagged commit to master. Thanks to [@thinkingserious](https://github.com/thinkingserious)!
+- [PR #479](https://github.com/twilio/twilio-python/pull/479): breaking: Correct video composition date types. Thanks to [@childish-sambino](https://github.com/childish-sambino)! **(breaking change)**
+
+**Api**
+- Add new property `attempt` to sms_messages
+- Fixed a typo in the documentation for Feedback outcome enum **(breaking change)**
+- Update the call price to be optional for deserializing **(breaking change)**
+
+**Flex**
+- Added `JanitorEnabled` attribute to Flex Flow
+- Change `features_enabled` Flex Configuration key to private **(breaking change)**
+
+**Supersim**
+- Add Fetch endpoint to Fleets resource for Super Sim Pilot
+- Allow assigning a Sim to a Fleet for Super Sim Pilot
+- Add Create endpoint to Fleets resource for Super Sim Pilot
+
+**Twiml**
+- Update `<Conference>` rename "whisper" attribute to "coach" **(breaking change)**
+
+
+[2019-10-02] Version 6.31.1
+---------------------------
+**Library**
+- [PR #477](https://github.com/twilio/twilio-python/pull/477): added validation of signature without stripping port number. Thanks to [@eshanholtz](https://github.com/eshanholtz)!
+
+**Conversations**
+- Add media to Conversations Message resource
+
+**Supersim**
+- Add List endpoint to Sims resource for Super Sim Pilot
+
+
+[2019-09-18] Version 6.31.0
+----------------------------
+**Numbers**
+- Add v2 of the Identites API
+
+**Preview**
+- Changed authentication method for SDK Trusted Comms endpoints: `/CPS`, `/CurrentCall`, and `/Devices`. Please use `Authorization: Bearer <xCNAM JWT>` **(breaking change)**
+
+**Voice**
+- Add Recordings endpoints
+
+
+[2019-09-04] Version 6.30.0
+----------------------------
+**Api**
+-  Pass Twiml in call update request
+
+**Conversations**
+- Add attributes to Conversations resources
+
+**Flex**
+- Adding `features_enabled` and `serverless_service_sids` to Flex Configuration
+
+**Messaging**
+- Message API required params updated **(breaking change)**
+
+**Preview**
+- Added support for the optional `CallSid` to `/BrandedCalls` endpoint
+
+
+[2019-08-21] Version 6.29.4
+----------------------------
+**Library**
+- [PR #474](https://github.com/twilio/twilio-python/pull/474): Use PyJWT version >= 1.4.2 in requirements.txt. Thanks to [@storymode7](https://github.com/storymode7)!
+- [PR #473](https://github.com/twilio/twilio-python/pull/473): Update the IP messaging domain name to be 'chat'. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+
+**Conversations**
+- Add Chat Conversation SID to conversation default output properties
+
+**Flex**
+- Adding `outbound_call_flows` object to Flex Configuration
+- Adding read and fetch to channels API
+
+**Supersim**
+- Add Sims and Commands resources for the Super Sim Pilot
+
+**Sync**
+- Added configuration option for enabling webhooks from REST.
+
+**Wireless**
+- Added `usage_notification_method` and `usage_notification_url` properties to `rate_plan`.
+
+**Twiml**
+- Add support for `ach-debit` transactions in `Pay` verb
+
+
+[2019-08-05] Version 6.29.3
+----------------------------
+**Preview**
+- Added support for the header `Twilio-Sandbox-Mode` to mock all Voice dependencies
+
+**Twiml**
+- Add support for `<Siprec>` noun
+- Add support for `<Stream>` noun
+- Create verbs `<Start>` and `<Stop>`
+
+
+[2019-07-24] Version 6.29.2
+----------------------------
+**Insights**
+- Added `properties` to summary.
+
+**Preview**
+- Added endpoint to brand a call without initiating it, so it can be initiated manually by the Customer
+
+**Twiml**
+- Update `<Conference>` recording events **(breaking change)**
+
+
+[2019-07-10] Version 6.29.1
+----------------------------
+**Api**
+- Make `friendly_name` optional for applications create
+- Add new property `as_of` date to Usage Record API calls
+
+**Wireless**
+- Added Usage Records resource.
+
+
+[2019-06-26] Version 6.29.0
+----------------------------
+**Autopilot**
+- Adds two new properties in Assistant i.e needs_model_build and development_stage
+
+**Preview**
+- Changed phone numbers from _URL|Path_ to `X-XCNAM-Sensitive` headers **(breaking change)**
+
+**Verify**
+- Add `MessagingConfiguration` resource to verify service
+
+
+[2019-06-12] Version 6.28.0
+----------------------------
+**Autopilot**
+- Add Webhooks resource to Autopilot Assistant.
+
+**Flex**
+- Added missing 'custom' type to Flex Flow
+- Adding `integrations` to Flex Configuration
+
+**Insights**
+- Added attributes to summary.
+
+**Messaging**
+- Message API Create updated with conditional params **(breaking change)**
+
+**Proxy**
+- Document that Proxy will return a maximum of 100 records for read/list endpoints **(breaking change)**
+- Remove non-updatable property parameters for Session update (mode, participants) **(breaking change)**
+
+**Sync**
+- Added reachability debouncing configuration options.
+
+**Verify**
+- Add `RateLimits` and `Buckets` resources to Verify Services
+- Add `RateLimits` optional parameter on `Verification` creation.
+
+**Twiml**
+- Fix `<Room>` participantIdentity casing
+
+
+[2019-05-29] Version 6.27.1
+----------------------------
+**Verify**
+- Add `approved` to status enum
+
+
+[2019-05-15] Version 6.27.0
+----------------------------
+**Api**
+- Make `method` optional for queue members update
+
+**Chat**
+- Removed `webhook.*.format` update parameters in Service resource from public library visibility in v1 **(breaking change)**
+
+**Insights**
+- Added client metrics as sdk_edge to summary.
+- Added optional query param processing_state.
+
+**Numbers**
+- Add addtional metadata fields on a Document
+- Add status callback fields and parameters
+
+**Taskrouter**
+- Added `channel_optimized_routing` attribute to task-channel endpoint
+
+**Video**
+- [Rooms] Add Video Subscription API
+
+**Wireless**
+- Added `imei` to Data Session resource.
+- Remove `imeisv` from Data Session resource. **(breaking change)**
+
+
+[2019-05-01] Version 6.26.3
+----------------------------
+**Serverless**
+- Documentation
+
+**Wireless**
+- Added `imeisv` to Data Session resource.
+
+
+[2019-04-24] Version 6.26.2
+----------------------------
+**Library**
+- PR #465: Prepend the repo root to the system paths during doc generation. Thanks to @childish-sambino!
+- PR #463: Migrate the README to markdown. Thanks to @childish-sambino!
+
+**Api**
+- Add `verified` property to Addresses
+
+**Numbers**
+- Add API for Identites and documents
+
+**Proxy**
+- Add in use count on number instance
+
+
+[2019-04-12] Version 6.26.1
+----------------------------
+**Library**
+- PR #459: Add py37 to TravisCI config. Thanks to @childish-sambino!
+- PR #458: Make the Yoyodyne watermark a raw string. Thanks to @childish-sambino!
+
+**Flex**
+- Adding PluginService to Flex Configuration
+
+**Numbers**
+- Add API for Proof of Addresses
+
+**Proxy**
+- Clarify documentation for Service and Session fetch
+
+**Serverless**
+- Serverless scaffolding
+
+
+[2019-03-28] Version 6.26.0
+----------------------------
+**Api**
+- Remove optional `if_machine` call create parameter from helper libraries **(breaking change)**
+- Changed `call_sid` path parameter type on QueueMember fetch and update requests **(breaking change)**
+
+**Voice**
+- changed file names to dialing_permissions prefix **(breaking change)**
+
+**Wireless**
+- Added `ResetStatus` property to Sim resource to allow resetting connectivity via the API.
+
+
+[2019-03-15] Version 6.25.2
+----------------------------
+**Library**
+- PR #457: Add Help Center and Support Ticket links to the README. Thanks to @childish-sambino!
+
+**Api**
+- Add `machine_detection_speech_threshold`, `machine_detection_speech_end_threshold`, `machine_detection_silence_timeout` optional params to Call create request
+
+**Flex**
+- Adding Flex Channel Orchestration
+- Adding Flex Flow
+
+
+[2019-03-06] Version 6.25.1
+----------------------------
+**Twiml**
+- Add `de1` to `<Conference>` regions
+
+
+[2019-03-01] Version 6.25.0
+----------------------------
+**Api**
+- Make conference participant preview parameters public
+
+**Authy**
+- Added support for FactorType and FactorStrength for Factors and Challenges
+
+**Iam**
+- First public release
+
+**Verify**
+- Add endpoint to update/cancel a Verification **(breaking change)**
+
+**Video**
+- [Composer] Make RoomSid mandatory **(breaking change)**
+- [Composer] Add `enqueued` state to Composition
+
+**Twiml**
+- Update message body to not be required for TwiML `Dial` noun.
+
+
+[2019-02-15] Version 6.24.1
+----------------------------
+**Api**
+- Add `force_opt_in` optional param to Messages create request
+- Add agent conference category to usage records
+
+**Flex**
+- First public release
+
+**Taskrouter**
+- Adding `reject_pending_reservations` to worker update endpoint
+- Added `event_date_ms` and `worker_time_in_previous_activity_ms` to Events API response
+- Add ability to filter events by TaskChannel
+
+**Verify**
+- Add `EnablePsd2` optional parameter for PSD2 on Service resource creation or update.
+- Add `Amount`, `Payee` optional parameters for PSD2.
+
+
+[2019-02-04] Version 6.24.0
+----------------------------
+**Library**
+- PR #453: Switch body validator to use hex instead of base64. Thanks to @cjcodes!
+
+**Video**
+- [Recordings] Add media type filter to list operation
+- [Composer] Filter Composition Hook resources by FriendlyName
+
+**Twiml**
+- Update `language` enum for `Gather` to fix language code for Filipino (Philippines) and include additional supported languages **(breaking change)**
+
+
+[2019-01-11] Version 6.23.1
+----------------------------
+**Verify**
+- Add `lookup` information in the response when creating a new verification (depends on the LookupEnabled flag being enabled at the service level)
+- Add `VerificationSid` optional parameter on Verification check.
+
+
+[2019-01-10] Version 6.23.0
+----------------------------
+**Chat**
+- Mark Member attributes as PII
+
+**Proxy**
+- Remove unsupported query parameters **(breaking change)**
+- Remove invalid session statuses in doc
+
+
+[2019-01-02] Version 6.22.1
+----------------------------
+**Insights**
+- Initial revision.
+
+
+[2018-12-17] Version 6.22.0
+----------------------------
+**Authy**
+- Reverted the change to `FactorType` and `FormType`, avoiding conflicts with Helper Libraries reserved words (`type`) **(breaking change)**
+
+**Proxy**
+- Remove incorrect parameter for Session List
+
+**Studio**
+- Support date created filtering on list of executions
+
+**Taskrouter**
+- Adding ability to Create, Modify and Delete Task Channels.
+
+**Verify**
+- Add `SkipSmsToLandlines`, `TtsName`, `DtmfInputRequired` optional parameters on Service resource creation or update.
+
+**Wireless**
+- Added delete action on Command resource.
+- Added delete action on Sim resource.
+
+**Twiml**
+- Change `currency` from enum to string for `Pay` **(breaking change)**
+
+
+[2018-11-30] Version 6.21.0
+----------------------------
+**Api**
+- Add `interactive_data` optional param to Messages create request
+
+**Authy**
+- Required authentication for `/v1/Forms/{type}` endpoint **(breaking change)**
+- Removed `Challenge.reason` to `Challenge.responded_reason`
+- Removed `verification_sid` from Challenge responses
+- Removed `config` param from the Factor creation
+- Replaced all occurrences of `FactorType` and `FormType` in favor of a unified `Type` **(breaking change)**
+
+**Chat**
+- Add Member attributes
+
+**Preview**
+- Removed `Authy` version from `preview` subdomain in favor to `authy` subdomain. **(breaking change)**
+
+**Verify**
+- Add `CustomCode` optional parameter on Verication creation.
+
+
+[2018-11-16] Version 6.20.0
+----------------------------
+**Messaging**
+- Session API
+
+**Twiml**
+- Change `master-card` to `mastercard` as `cardType` for `Pay` and `Prompt`, remove attribute `credential_sid` from `Pay` **(breaking change)**
+
+
+[2018-10-29] Version 6.19.2
+----------------------------
+**Api**
+- Add new Balance resource:
+    - url: '/v1/Accounts/{account sid}/Balance'
+    - supported methods: GET
+    - returns the balance of the account
+
+**Proxy**
+- Add chat_instance_sid to Service
+
+**Verify**
+- Add `Locale` optional parameter on Verification creation.
+
+
+[2018-10-15] Version 6.19.1
+----------------------------
+**Api**
+- Add <Pay> Verb Transactions category to usage records
+
+**Twiml**
+- Add support for `Pay` verb
+
+
+[2018-10-15] Version 6.19.0
+----------------------------
+**Api**
+- Add `coaching` and `call_sid_to_coach` to participant properties, create and update requests.
+
+**Authy**
+- Set public library visibility, and added PII stanza
+- Dropped support for `FactorType` param given new Factor prefixes **(breaking change)**
+- Supported `DELETE` actions for Authy resources
+- Move Authy Services resources to `authy` subdomain
+
+**Autopilot**
+- Introduce `autopilot` subdomain with all resources from `preview.understand`
+
+**Preview**
+- Renamed Understand intent to task **(breaking change)**
+- Deprecated Authy endpoints from `preview` to `authy` subdomain
+
+**Taskrouter**
+- Allow TaskQueue ReservationActivitySid and AssignmentActivitySid to not be configured for MultiTask Workspaces
+
+**Verify**
+- Add `LookupEnabled` optional parameter on Service resource creation or update.
+- Add `SendDigits` optional parameter on Verification creation.
+- Add delete action on Service resourse.
+
+**Twiml**
+- Add custom parameters to TwiML `Client` noun and renamed the optional `name` field to `identity`. This is a breaking change in Ruby, and applications will need to transition from `dial.client ''` and `dial.client 'alice'` formats to `dial.client` and `dial.client(identity: alice)` formats. **(breaking change)**
+
+
+[2018-10-04] Version 6.18.1
+----------------------------
+**Preview**
+- Renamed response headers for Challenge and Factors Signatures
+
+**Video**
+- [Composer] Add Composition Hook resources
+
+**Twiml**
+- Add `debug` to `Gather`
+- Add `participantIdentity` to `Room`
+
+
 [2018-09-28] Version 6.18.0
 ----------------------------
 **Api**

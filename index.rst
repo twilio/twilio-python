@@ -12,7 +12,7 @@ Release v\ |version|.
 .. toctree::
    :maxdepth: 2
 
-   readme_include
+   README.md
 
 
 API auto-generated documentation

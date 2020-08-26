@@ -23,9 +23,8 @@ class ValidationTest(unittest.TestCase):
         }
         self.expected = "RSOYDt4T1cUTdK1PDd93/VVr8B8="
         self.body = "{\"property\": \"value\", \"boolean\": true}"
-        self.bodyHash = "Ch/3Y02as7ldtcmi3+lBbkFQKyg6gMfPGWMmMvluZiA="
-        self.encodedBodyHash = self.bodyHash.replace("+", "%2B").replace("=", "%3D")
-        self.uriWithBody = self.uri + "&bodySHA256=" + self.encodedBodyHash
+        self.bodyHash = "0a1ff7634d9ab3b95db5c9a2dfe9416e41502b283a80c7cf19632632f96e6620"
+        self.uriWithBody = self.uri + "&bodySHA256=" + self.bodyHash
 
     def test_compute_signature_bytecode(self):
         expected = b(self.expected)
@@ -34,22 +33,16 @@ class ValidationTest(unittest.TestCase):
                                                      utf=False)
         assert_equal(signature, expected)
 
-    def test_compute_signature_unicode(self):
-        expected = u(self.expected)
+    def test_compute_signature(self):
+        expected = (self.expected)
         signature = self.validator.compute_signature(self.uri,
                                                      self.params,
                                                      utf=True)
         assert_equal(signature, expected)
 
-    def test_compute_hash_bytecode(self):
-        expected = b(self.bodyHash)
-        body_hash = self.validator.compute_hash(self.body, utf=False)
-
-        assert_equal(expected, body_hash)
-
     def test_compute_hash_unicode(self):
         expected = u(self.bodyHash)
-        body_hash = self.validator.compute_hash(self.body, utf=True)
+        body_hash = self.validator.compute_hash(self.body)
 
         assert_equal(expected, body_hash)
 
@@ -60,7 +53,21 @@ class ValidationTest(unittest.TestCase):
         uri = self.uri.replace(".com", ".com:1234")
         assert_true(self.validator.validate(uri, self.params, self.expected))
 
+    def test_validation_removes_port_on_http(self):
+        expected = "Zmvh+3yNM1Phv2jhDCwEM3q5ebU="  # hash of http uri with port 1234
+        uri = self.uri.replace(".com", ".com:1234").replace("https", "http")
+        assert_true(self.validator.validate(uri, self.params, expected))
+
+    def test_validation_adds_port_on_https(self):
+        expected = "kvajT1Ptam85bY51eRf/AJRuM3w="  # hash of uri with port 443
+        assert_true(self.validator.validate(self.uri, self.params, expected))
+
+    def test_validation_adds_port_on_http(self):
+        uri = self.uri.replace("https", "http")
+        expected = "0ZXoZLH/DfblKGATFgpif+LLRf4="  # hash of uri with port 80
+        assert_true(self.validator.validate(uri, self.params, expected))
+
     def test_validation_of_body_succeeds(self):
         uri = self.uriWithBody
-        is_valid = self.validator.validate(uri, self.body, "afcFvPLPYT8mg/JyIVkdnqQKa2s=")
+        is_valid = self.validator.validate(uri, self.body, "a9nBmqA0ju/hNViExpshrM61xv4=")
         assert_true(is_valid)
