@@ -30,11 +30,11 @@ class ExportConfigurationTestCase(IntegrationTestCase):
             200,
             '''
             {
-                "url": "https://bulkexports.twilio.com/v1/Exports/Calls/Configuration",
+                "url": "https://bulkexports.twilio.com/v1/Exports/Messages/Configuration",
                 "enabled": true,
                 "webhook_url": "",
                 "webhook_method": "",
-                "resource_type": "Calls"
+                "resource_type": "Messages"
             }
             '''
         ))
@@ -59,10 +59,10 @@ class ExportConfigurationTestCase(IntegrationTestCase):
             200,
             '''
             {
-                "url": "https://bulkexports.twilio.com/v1/Exports/Calls/Configuration",
+                "url": "https://bulkexports.twilio.com/v1/Exports/Messages/Configuration",
                 "enabled": true,
                 "webhook_url": "",
-                "resource_type": "Calls",
+                "resource_type": "Messages",
                 "webhook_method": ""
             }
             '''

@@ -197,3 +197,26 @@ class EndUserTestCase(IntegrationTestCase):
                                        .end_users("ITXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
 
         self.assertIsNotNone(actual)
+
+    def test_delete_request(self):
+        self.holodeck.mock(Response(500, ''))
+
+        with self.assertRaises(TwilioException):
+            self.client.numbers.v2.regulatory_compliance \
+                                  .end_users("ITXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+
+        self.holodeck.assert_has_request(Request(
+            'delete',
+            'https://numbers.twilio.com/v2/RegulatoryCompliance/EndUsers/ITXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        ))
+
+    def test_delete_response(self):
+        self.holodeck.mock(Response(
+            204,
+            None,
+        ))
+
+        actual = self.client.numbers.v2.regulatory_compliance \
+                                       .end_users("ITXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+
+        self.assertTrue(actual)

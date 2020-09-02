@@ -3,6 +3,33 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2020-09-02] Version 6.45.1
+---------------------------
+**Library - Docs**
+- [PR #538](https://github.com/twilio/twilio-python/pull/538): convert markdown links to rst formatted links. Thanks to [@thinkingserious](https://github.com/thinkingserious)!
+
+**Ai**
+- Initial release
+
+**Bulkexports**
+- removing public beta feature flag from BulkExports Jobs API
+
+**Messaging**
+- Add Deactivation List API
+- Added page token parameter for fetch in WhatsApp Templates API
+
+**Numbers**
+- Add API endpoint for End User deletion
+
+**Routes**
+- Add Resource Route Configurations API
+- Add Route Configurations API
+- Initial Release
+
+**Trunking**
+- Added `transfer_mode` property on Trunks.
+
+
 [2020-08-19] Version 6.45.0
 ---------------------------
 **Library - Chore**

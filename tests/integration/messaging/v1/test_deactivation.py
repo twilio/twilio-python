@@ -12,17 +12,17 @@ from twilio.base.exceptions import TwilioException
 from twilio.http.response import Response
 
 
-class ExportTestCase(IntegrationTestCase):
+class DeactivationsTestCase(IntegrationTestCase):
 
     def test_fetch_request(self):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.bulkexports.v1.exports("resource_type").fetch()
+            self.client.messaging.v1.deactivations().fetch()
 
         self.holodeck.assert_has_request(Request(
             'get',
-            'https://bulkexports.twilio.com/v1/Exports/resource_type',
+            'https://messaging.twilio.com/v1/Deactivations',
         ))
 
     def test_fetch_response(self):
@@ -30,15 +30,11 @@ class ExportTestCase(IntegrationTestCase):
             200,
             '''
             {
-                "resource_type": "Messages",
-                "url": "https://bulkexports.twilio.com/v1/Exports/Messages",
-                "links": {
-                    "days": "https://bulkexports.twilio.com/v1/Exports/Messages/Days"
-                }
+                "redirect_to": "https://www.twilio.com"
             }
             '''
         ))
 
-        actual = self.client.bulkexports.v1.exports("resource_type").fetch()
+        actual = self.client.messaging.v1.deactivations().fetch()
 
         self.assertIsNotNone(actual)
