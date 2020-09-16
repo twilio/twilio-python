@@ -245,6 +245,15 @@ class SupportingDocumentContext(InstanceContext):
 
         return SupportingDocumentInstance(self._version, payload, sid=self._solution['sid'], )
 
+    def delete(self):
+        """
+        Deletes the SupportingDocumentInstance
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(method='DELETE', uri=self._uri, )
+
     def __repr__(self):
         """
         Provide a friendly representation
@@ -406,6 +415,15 @@ class SupportingDocumentInstance(InstanceResource):
         :rtype: twilio.rest.numbers.v2.regulatory_compliance.supporting_document.SupportingDocumentInstance
         """
         return self._proxy.update(friendly_name=friendly_name, attributes=attributes, )
+
+    def delete(self):
+        """
+        Deletes the SupportingDocumentInstance
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._proxy.delete()
 
     def __repr__(self):
         """

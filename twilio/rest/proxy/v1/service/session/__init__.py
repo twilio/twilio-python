@@ -127,7 +127,7 @@ class SessionList(ListResource):
         :param SessionInstance.Mode mode: The Mode of the Session
         :param SessionInstance.Status status: Session status
         :param dict participants: The Participant objects to include in the new session
-        :param bool fail_on_participant_conflict: An experimental flag that instructs Proxy to reject a Session create request when it detects a Participant conflict.
+        :param bool fail_on_participant_conflict: An experimental parameter to override the ProxyAllowParticipantConflict account flag on a per-request basis.
 
         :returns: The created SessionInstance
         :rtype: twilio.rest.proxy.v1.service.session.SessionInstance
@@ -277,7 +277,7 @@ class SessionContext(InstanceContext):
         :param datetime date_expiry: The ISO 8601 date when the Session should expire
         :param unicode ttl: When the session will expire
         :param SessionInstance.Status status: The new status of the resource
-        :param bool fail_on_participant_conflict: An experimental flag that instructs Proxy to return 400 instead of 200 when it detects that conflicts would result from re-open requests.
+        :param bool fail_on_participant_conflict: An experimental parameter to override the ProxyAllowParticipantConflict account flag on a per-request basis.
 
         :returns: The updated SessionInstance
         :rtype: twilio.rest.proxy.v1.service.session.SessionInstance
@@ -561,7 +561,7 @@ class SessionInstance(InstanceResource):
         :param datetime date_expiry: The ISO 8601 date when the Session should expire
         :param unicode ttl: When the session will expire
         :param SessionInstance.Status status: The new status of the resource
-        :param bool fail_on_participant_conflict: An experimental flag that instructs Proxy to return 400 instead of 200 when it detects that conflicts would result from re-open requests.
+        :param bool fail_on_participant_conflict: An experimental parameter to override the ProxyAllowParticipantConflict account flag on a per-request basis.
 
         :returns: The updated SessionInstance
         :rtype: twilio.rest.proxy.v1.service.session.SessionInstance

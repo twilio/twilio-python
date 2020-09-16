@@ -33,6 +33,7 @@ class DeliveryReceiptTestCase(IntegrationTestCase):
             '''
             {
                 "sid": "DYaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "conversation_sid": "CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "message_sid": "IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "channel_message_sid": "SMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -82,6 +83,7 @@ class DeliveryReceiptTestCase(IntegrationTestCase):
                 "delivery_receipts": [
                     {
                         "sid": "DYaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                        "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                         "conversation_sid": "CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                         "message_sid": "IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                         "channel_message_sid": "SMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -94,6 +96,7 @@ class DeliveryReceiptTestCase(IntegrationTestCase):
                     },
                     {
                         "sid": "DYaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                        "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                         "conversation_sid": "CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                         "message_sid": "IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                         "channel_message_sid": "SMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -106,6 +109,7 @@ class DeliveryReceiptTestCase(IntegrationTestCase):
                     },
                     {
                         "sid": "DYaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                        "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                         "conversation_sid": "CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                         "message_sid": "IMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                         "channel_message_sid": "SMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",

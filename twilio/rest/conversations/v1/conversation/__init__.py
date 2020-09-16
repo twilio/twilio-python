@@ -37,15 +37,16 @@ class ConversationList(ListResource):
         self._solution = {}
         self._uri = '/Conversations'.format(**self._solution)
 
-    def create(self, friendly_name=values.unset, date_created=values.unset,
-               date_updated=values.unset, messaging_service_sid=values.unset,
-               attributes=values.unset, state=values.unset,
-               timers_inactive=values.unset, timers_closed=values.unset,
-               x_twilio_webhook_enabled=values.unset):
+    def create(self, friendly_name=values.unset, unique_name=values.unset,
+               date_created=values.unset, date_updated=values.unset,
+               messaging_service_sid=values.unset, attributes=values.unset,
+               state=values.unset, timers_inactive=values.unset,
+               timers_closed=values.unset, x_twilio_webhook_enabled=values.unset):
         """
         Create the ConversationInstance
 
         :param unicode friendly_name: The human-readable name of this conversation.
+        :param unicode unique_name: An application-defined string that uniquely identifies the resource
         :param datetime date_created: The date that this resource was created.
         :param datetime date_updated: The date that this resource was last updated.
         :param unicode messaging_service_sid: The unique id of the SMS Service this conversation belongs to.
@@ -60,6 +61,7 @@ class ConversationList(ListResource):
         """
         data = values.of({
             'FriendlyName': friendly_name,
+            'UniqueName': unique_name,
             'DateCreated': serialize.iso8601_datetime(date_created),
             'DateUpdated': serialize.iso8601_datetime(date_updated),
             'MessagingServiceSid': messaging_service_sid,
@@ -385,6 +387,7 @@ class ConversationInstance(InstanceResource):
             'messaging_service_sid': payload.get('messaging_service_sid'),
             'sid': payload.get('sid'),
             'friendly_name': payload.get('friendly_name'),
+            'unique_name': payload.get('unique_name'),
             'attributes': payload.get('attributes'),
             'state': payload.get('state'),
             'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
@@ -452,6 +455,14 @@ class ConversationInstance(InstanceResource):
         return self._properties['friendly_name']
 
     @property
+    def unique_name(self):
+        """
+        :returns: An application-defined string that uniquely identifies the resource
+        :rtype: unicode
+        """
+        return self._properties['unique_name']
+
+    @property
     def attributes(self):
         """
         :returns: An optional string metadata field you can use to store any data you wish.
@@ -502,7 +513,7 @@ class ConversationInstance(InstanceResource):
     @property
     def links(self):
         """
-        :returns: Absolute URLs to access the Participants of this Conversation.
+        :returns: Absolute URLs to access the Participants, Messages and Webhooks of this Conversation.
         :rtype: unicode
         """
         return self._properties['links']

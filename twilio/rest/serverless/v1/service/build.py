@@ -118,9 +118,9 @@ class BuildList(ListResource):
         """
         Create the BuildInstance
 
-        :param unicode asset_versions: The list of Asset Version resource SIDs to include in the build
-        :param unicode function_versions: The list of the Variable resource SIDs to include in the build
-        :param unicode dependencies: A list of objects that describe the Dependencies included in the build
+        :param unicode asset_versions: The list of Asset Version resource SIDs to include in the Build
+        :param unicode function_versions: The list of the Function Version resource SIDs to include in the Build
+        :param unicode dependencies: A list of objects that describe the Dependencies included in the Build
 
         :returns: The created BuildInstance
         :rtype: twilio.rest.serverless.v1.service.build.BuildInstance
@@ -348,7 +348,7 @@ class BuildInstance(InstanceResource):
     @property
     def status(self):
         """
-        :returns: The status of the build
+        :returns: The status of the Build
         :rtype: BuildInstance.Status
         """
         return self._properties['status']
@@ -356,7 +356,7 @@ class BuildInstance(InstanceResource):
     @property
     def asset_versions(self):
         """
-        :returns: The list of Asset Version resource SIDs that are included in the build
+        :returns: The list of Asset Version resource SIDs that are included in the Build
         :rtype: dict
         """
         return self._properties['asset_versions']
@@ -364,7 +364,7 @@ class BuildInstance(InstanceResource):
     @property
     def function_versions(self):
         """
-        :returns: The list of Function Version resource SIDs that are included in the build
+        :returns: The list of Function Version resource SIDs that are included in the Build
         :rtype: dict
         """
         return self._properties['function_versions']
@@ -372,7 +372,7 @@ class BuildInstance(InstanceResource):
     @property
     def dependencies(self):
         """
-        :returns: A list of objects that describe the Dependencies included in the build
+        :returns: A list of objects that describe the Dependencies included in the Build
         :rtype: dict
         """
         return self._properties['dependencies']

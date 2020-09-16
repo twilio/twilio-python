@@ -120,7 +120,7 @@ class ServiceList(ListResource):
         """
         Create the ServiceInstance
 
-        :param unicode unique_name: An application-defined string that uniquely identifies the Service resource
+        :param unicode unique_name: A user-defined string that uniquely identifies the Service resource
         :param unicode friendly_name: A string to describe the Service resource
         :param bool include_credentials: Whether to inject Account credentials into a function invocation context
         :param bool ui_editable: Whether the Service's properties and subresources can be edited via the UI
@@ -266,7 +266,7 @@ class ServiceContext(InstanceContext):
 
         :param bool include_credentials: Whether to inject Account credentials into a function invocation context
         :param unicode friendly_name: A string to describe the Service resource
-        :param bool ui_editable: Whether the Service's properties and subresources can be edited via the UI
+        :param bool ui_editable: Whether the Service resource's properties and subresources can be edited via the UI
 
         :returns: The updated ServiceInstance
         :rtype: twilio.rest.serverless.v1.service.ServiceInstance
@@ -412,7 +412,7 @@ class ServiceInstance(InstanceResource):
     @property
     def unique_name(self):
         """
-        :returns: An application-defined string that uniquely identifies the Service resource
+        :returns: A user-defined string that uniquely identifies the Service resource
         :rtype: unicode
         """
         return self._properties['unique_name']
@@ -428,7 +428,7 @@ class ServiceInstance(InstanceResource):
     @property
     def ui_editable(self):
         """
-        :returns: Whether the Service's properties and subresources can be edited via the UI
+        :returns: Whether the Service resource's properties and subresources can be edited via the UI
         :rtype: bool
         """
         return self._properties['ui_editable']
@@ -490,7 +490,7 @@ class ServiceInstance(InstanceResource):
 
         :param bool include_credentials: Whether to inject Account credentials into a function invocation context
         :param unicode friendly_name: A string to describe the Service resource
-        :param bool ui_editable: Whether the Service's properties and subresources can be edited via the UI
+        :param bool ui_editable: Whether the Service resource's properties and subresources can be edited via the UI
 
         :returns: The updated ServiceInstance
         :rtype: twilio.rest.serverless.v1.service.ServiceInstance

@@ -237,7 +237,7 @@ class SimContext(InstanceContext):
 
     def update(self, unique_name=values.unset, status=values.unset,
                fleet=values.unset, callback_url=values.unset,
-               callback_method=values.unset):
+               callback_method=values.unset, account_sid=values.unset):
         """
         Update the SimInstance
 
@@ -246,6 +246,7 @@ class SimContext(InstanceContext):
         :param unicode fleet: The SID or unique name of the Fleet to which the SIM resource should be assigned
         :param unicode callback_url: The URL we should call after the update has finished
         :param unicode callback_method: The HTTP method we should use to call callback_url
+        :param unicode account_sid: The SID of the Account to which the Sim resource should belong
 
         :returns: The updated SimInstance
         :rtype: twilio.rest.supersim.v1.sim.SimInstance
@@ -256,6 +257,7 @@ class SimContext(InstanceContext):
             'Fleet': fleet,
             'CallbackUrl': callback_url,
             'CallbackMethod': callback_method,
+            'AccountSid': account_sid,
         })
 
         payload = self._version.update(method='POST', uri=self._uri, data=data, )
@@ -412,7 +414,7 @@ class SimInstance(InstanceResource):
 
     def update(self, unique_name=values.unset, status=values.unset,
                fleet=values.unset, callback_url=values.unset,
-               callback_method=values.unset):
+               callback_method=values.unset, account_sid=values.unset):
         """
         Update the SimInstance
 
@@ -421,6 +423,7 @@ class SimInstance(InstanceResource):
         :param unicode fleet: The SID or unique name of the Fleet to which the SIM resource should be assigned
         :param unicode callback_url: The URL we should call after the update has finished
         :param unicode callback_method: The HTTP method we should use to call callback_url
+        :param unicode account_sid: The SID of the Account to which the Sim resource should belong
 
         :returns: The updated SimInstance
         :rtype: twilio.rest.supersim.v1.sim.SimInstance
@@ -431,6 +434,7 @@ class SimInstance(InstanceResource):
             fleet=fleet,
             callback_url=callback_url,
             callback_method=callback_method,
+            account_sid=account_sid,
         )
 
     def __repr__(self):

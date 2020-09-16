@@ -25,7 +25,7 @@ class VariableList(ListResource):
 
         :param Version version: Version that contains the resource
         :param service_sid: The SID of the Service that the Variable resource is associated with
-        :param environment_sid: The SID of the environment in which the variable exists
+        :param environment_sid: The SID of the Environment in which the Variable exists
 
         :returns: twilio.rest.serverless.v1.service.environment.variable.VariableList
         :rtype: twilio.rest.serverless.v1.service.environment.variable.VariableList
@@ -118,7 +118,7 @@ class VariableList(ListResource):
         Create the VariableInstance
 
         :param unicode key: A string by which the Variable resource can be referenced
-        :param unicode value: A string that contains the actual value of the variable
+        :param unicode value: A string that contains the actual value of the Variable
 
         :returns: The created VariableInstance
         :rtype: twilio.rest.serverless.v1.service.environment.variable.VariableInstance
@@ -188,7 +188,7 @@ class VariablePage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
         :param service_sid: The SID of the Service that the Variable resource is associated with
-        :param environment_sid: The SID of the environment in which the variable exists
+        :param environment_sid: The SID of the Environment in which the Variable exists
 
         :returns: twilio.rest.serverless.v1.service.environment.variable.VariablePage
         :rtype: twilio.rest.serverless.v1.service.environment.variable.VariablePage
@@ -235,7 +235,7 @@ class VariableContext(InstanceContext):
 
         :param Version version: Version that contains the resource
         :param service_sid: The SID of the Service to fetch the Variable resource from
-        :param environment_sid: The SID of the environment with the Variable resource to fetch
+        :param environment_sid: The SID of the Environment with the Variable resource to fetch
         :param sid: The SID of the Variable resource to fetch
 
         :returns: twilio.rest.serverless.v1.service.environment.variable.VariableContext
@@ -269,7 +269,7 @@ class VariableContext(InstanceContext):
         Update the VariableInstance
 
         :param unicode key: A string by which the Variable resource can be referenced
-        :param unicode value: A string that contains the actual value of the variable
+        :param unicode value: A string that contains the actual value of the Variable
 
         :returns: The updated VariableInstance
         :rtype: twilio.rest.serverless.v1.service.environment.variable.VariableInstance
@@ -386,7 +386,7 @@ class VariableInstance(InstanceResource):
     @property
     def environment_sid(self):
         """
-        :returns: The SID of the environment in which the variable exists
+        :returns: The SID of the Environment in which the Variable exists
         :rtype: unicode
         """
         return self._properties['environment_sid']
@@ -402,7 +402,7 @@ class VariableInstance(InstanceResource):
     @property
     def value(self):
         """
-        :returns: A string that contains the actual value of the variable
+        :returns: A string that contains the actual value of the Variable
         :rtype: unicode
         """
         return self._properties['value']
@@ -445,7 +445,7 @@ class VariableInstance(InstanceResource):
         Update the VariableInstance
 
         :param unicode key: A string by which the Variable resource can be referenced
-        :param unicode value: A string that contains the actual value of the variable
+        :param unicode value: A string that contains the actual value of the Variable
 
         :returns: The updated VariableInstance
         :rtype: twilio.rest.serverless.v1.service.environment.variable.VariableInstance

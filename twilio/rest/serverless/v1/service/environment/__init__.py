@@ -119,7 +119,7 @@ class EnvironmentList(ListResource):
         """
         Create the EnvironmentInstance
 
-        :param unicode unique_name: An application-defined string that uniquely identifies the Environment resource
+        :param unicode unique_name: A user-defined string that uniquely identifies the Environment resource
         :param unicode domain_suffix: A URL-friendly name that represents the environment
 
         :returns: The created EnvironmentInstance
@@ -401,7 +401,7 @@ class EnvironmentInstance(InstanceResource):
     @property
     def unique_name(self):
         """
-        :returns: An application-defined string that uniquely identifies the Environment resource
+        :returns: A user-defined string that uniquely identifies the Environment resource
         :rtype: unicode
         """
         return self._properties['unique_name']
@@ -417,7 +417,7 @@ class EnvironmentInstance(InstanceResource):
     @property
     def domain_name(self):
         """
-        :returns: The base domain name for all Functions and Assets deployed in the environment
+        :returns: The base domain name for all Functions and Assets deployed in the Environment
         :rtype: unicode
         """
         return self._properties['domain_name']
@@ -449,7 +449,7 @@ class EnvironmentInstance(InstanceResource):
     @property
     def links(self):
         """
-        :returns: The URLs of the environment's nested resources
+        :returns: The URLs of the Environment resource's nested resources
         :rtype: unicode
         """
         return self._properties['links']

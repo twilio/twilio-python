@@ -37,6 +37,13 @@ class Conversations(Domain):
         return self._v1
 
     @property
+    def configuration(self):
+        """
+        :rtype: twilio.rest.conversations.v1.configuration.ConfigurationList
+        """
+        return self.v1.configuration
+
+    @property
     def conversations(self):
         """
         :rtype: twilio.rest.conversations.v1.conversation.ConversationList
@@ -49,6 +56,41 @@ class Conversations(Domain):
         :rtype: twilio.rest.conversations.v1.webhook.WebhookList
         """
         return self.v1.webhooks
+
+    @property
+    def credentials(self):
+        """
+        :rtype: twilio.rest.conversations.v1.credential.CredentialList
+        """
+        return self.v1.credentials
+
+    @property
+    def roles(self):
+        """
+        :rtype: twilio.rest.conversations.v1.role.RoleList
+        """
+        return self.v1.roles
+
+    @property
+    def services(self):
+        """
+        :rtype: twilio.rest.conversations.v1.service.ServiceList
+        """
+        return self.v1.services
+
+    @property
+    def notifications(self):
+        """
+        :rtype: twilio.rest.conversations.v1.notification.NotificationList
+        """
+        return self.v1.notifications
+
+    @property
+    def users(self):
+        """
+        :rtype: twilio.rest.conversations.v1.user.UserList
+        """
+        return self.v1.users
 
     def __repr__(self):
         """

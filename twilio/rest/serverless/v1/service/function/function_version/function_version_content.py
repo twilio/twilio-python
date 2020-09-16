@@ -134,7 +134,7 @@ class FunctionVersionContentContext(InstanceContext):
 
         :param Version version: Version that contains the resource
         :param service_sid: The SID of the Service to fetch the Function Version content from
-        :param function_sid: The SID of the function that is the parent of the Function Version content to fetch
+        :param function_sid: The SID of the Function that is the parent of the Function Version content to fetch
         :param sid: The SID that identifies the Function Version content to fetch
 
         :returns: twilio.rest.serverless.v1.service.function.function_version.function_version_content.FunctionVersionContentContext

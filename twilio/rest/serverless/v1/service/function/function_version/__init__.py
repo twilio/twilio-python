@@ -26,7 +26,7 @@ class FunctionVersionList(ListResource):
 
         :param Version version: Version that contains the resource
         :param service_sid: The SID of the Service that the Function Version resource is associated with
-        :param function_sid: The SID of the function that is the parent of the function version
+        :param function_sid: The SID of the Function resource that is the parent of the Function Version resource
 
         :returns: twilio.rest.serverless.v1.service.function.function_version.FunctionVersionList
         :rtype: twilio.rest.serverless.v1.service.function.function_version.FunctionVersionList
@@ -168,7 +168,7 @@ class FunctionVersionPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
         :param service_sid: The SID of the Service that the Function Version resource is associated with
-        :param function_sid: The SID of the function that is the parent of the function version
+        :param function_sid: The SID of the Function resource that is the parent of the Function Version resource
 
         :returns: twilio.rest.serverless.v1.service.function.function_version.FunctionVersionPage
         :rtype: twilio.rest.serverless.v1.service.function.function_version.FunctionVersionPage
@@ -360,7 +360,7 @@ class FunctionVersionInstance(InstanceResource):
     @property
     def function_sid(self):
         """
-        :returns: The SID of the function that is the parent of the function version
+        :returns: The SID of the Function resource that is the parent of the Function Version resource
         :rtype: unicode
         """
         return self._properties['function_sid']
@@ -368,7 +368,7 @@ class FunctionVersionInstance(InstanceResource):
     @property
     def path(self):
         """
-        :returns: The URL-friendly string by which the function version can be referenced
+        :returns: The URL-friendly string by which the Function Version resource can be referenced
         :rtype: unicode
         """
         return self._properties['path']
@@ -376,7 +376,7 @@ class FunctionVersionInstance(InstanceResource):
     @property
     def visibility(self):
         """
-        :returns: The access control that determines how the function version can be accessed
+        :returns: The access control that determines how the Function Version resource can be accessed
         :rtype: FunctionVersionInstance.Visibility
         """
         return self._properties['visibility']

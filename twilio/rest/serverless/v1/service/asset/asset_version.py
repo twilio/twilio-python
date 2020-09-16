@@ -25,7 +25,7 @@ class AssetVersionList(ListResource):
 
         :param Version version: Version that contains the resource
         :param service_sid: The SID of the Service that the Asset Version resource is associated with
-        :param asset_sid: The SID of the Asset resource that is the parent of the asset version
+        :param asset_sid: The SID of the Asset resource that is the parent of the Asset Version
 
         :returns: twilio.rest.serverless.v1.service.asset.asset_version.AssetVersionList
         :rtype: twilio.rest.serverless.v1.service.asset.asset_version.AssetVersionList
@@ -167,7 +167,7 @@ class AssetVersionPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
         :param service_sid: The SID of the Service that the Asset Version resource is associated with
-        :param asset_sid: The SID of the Asset resource that is the parent of the asset version
+        :param asset_sid: The SID of the Asset resource that is the parent of the Asset Version
 
         :returns: twilio.rest.serverless.v1.service.asset.asset_version.AssetVersionPage
         :rtype: twilio.rest.serverless.v1.service.asset.asset_version.AssetVersionPage
@@ -338,7 +338,7 @@ class AssetVersionInstance(InstanceResource):
     @property
     def asset_sid(self):
         """
-        :returns: The SID of the Asset resource that is the parent of the asset version
+        :returns: The SID of the Asset resource that is the parent of the Asset Version
         :rtype: unicode
         """
         return self._properties['asset_sid']
@@ -346,7 +346,7 @@ class AssetVersionInstance(InstanceResource):
     @property
     def path(self):
         """
-        :returns: The URL-friendly string by which the asset version can be referenced
+        :returns: The URL-friendly string by which the Asset Version can be referenced
         :rtype: unicode
         """
         return self._properties['path']
@@ -354,7 +354,7 @@ class AssetVersionInstance(InstanceResource):
     @property
     def visibility(self):
         """
-        :returns: The access control that determines how the asset version can be accessed
+        :returns: The access control that determines how the Asset Version can be accessed
         :rtype: AssetVersionInstance.Visibility
         """
         return self._properties['visibility']

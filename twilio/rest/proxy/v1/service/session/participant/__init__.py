@@ -123,7 +123,7 @@ class ParticipantList(ListResource):
         :param unicode friendly_name: The string that you assigned to describe the participant
         :param unicode proxy_identifier: The proxy phone number to use for the Participant
         :param unicode proxy_identifier_sid: The Proxy Identifier Sid
-        :param bool fail_on_participant_conflict: An experimental flag that instructs Proxy to reject a Participant create request when it detects a conflict.
+        :param bool fail_on_participant_conflict: An experimental parameter to override the ProxyAllowParticipantConflict account flag on a per-request basis.
 
         :returns: The created ParticipantInstance
         :rtype: twilio.rest.proxy.v1.service.session.participant.ParticipantInstance

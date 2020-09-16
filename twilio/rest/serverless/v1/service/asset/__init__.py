@@ -405,7 +405,7 @@ class AssetInstance(InstanceResource):
     @property
     def links(self):
         """
-        :returns: The links to the nested resources of the asset
+        :returns: The URLs of the Asset resource's nested resources
         :rtype: unicode
         """
         return self._properties['links']

@@ -405,7 +405,7 @@ class FunctionInstance(InstanceResource):
     @property
     def links(self):
         """
-        :returns: The URLs of nested resources of the function
+        :returns: The URLs of nested resources of the Function resource
         :rtype: unicode
         """
         return self._properties['links']

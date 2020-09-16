@@ -146,6 +146,28 @@ class SimTestCase(IntegrationTestCase):
 
         self.assertIsNotNone(actual)
 
+    def test_transfer_sim_to_another_account_response(self):
+        self.holodeck.mock(Response(
+            200,
+            '''
+            {
+                "sid": "HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "account_sid": "ACbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+                "unique_name": null,
+                "status": "new",
+                "fleet_sid": "HFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "iccid": "iccid",
+                "date_created": "2015-07-30T20:00:00Z",
+                "date_updated": "2015-07-30T20:00:00Z",
+                "url": "https://supersim.twilio.com/v1/Sims/HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            }
+            '''
+        ))
+
+        actual = self.client.supersim.v1.sims("HSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
+
+        self.assertIsNotNone(actual)
+
     def test_list_request(self):
         self.holodeck.mock(Response(500, ''))
 

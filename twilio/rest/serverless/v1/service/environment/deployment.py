@@ -25,7 +25,7 @@ class DeploymentList(ListResource):
 
         :param Version version: Version that contains the resource
         :param service_sid: The SID of the Service that the Deployment resource is associated with
-        :param environment_sid: The SID of the environment for the deployment
+        :param environment_sid: The SID of the Environment for the Deployment
 
         :returns: twilio.rest.serverless.v1.service.environment.deployment.DeploymentList
         :rtype: twilio.rest.serverless.v1.service.environment.deployment.DeploymentList
@@ -117,7 +117,7 @@ class DeploymentList(ListResource):
         """
         Create the DeploymentInstance
 
-        :param unicode build_sid: The SID of the build for the deployment
+        :param unicode build_sid: The SID of the Build for the Deployment
 
         :returns: The created DeploymentInstance
         :rtype: twilio.rest.serverless.v1.service.environment.deployment.DeploymentInstance
@@ -187,7 +187,7 @@ class DeploymentPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
         :param service_sid: The SID of the Service that the Deployment resource is associated with
-        :param environment_sid: The SID of the environment for the deployment
+        :param environment_sid: The SID of the Environment for the Deployment
 
         :returns: twilio.rest.serverless.v1.service.environment.deployment.DeploymentPage
         :rtype: twilio.rest.serverless.v1.service.environment.deployment.DeploymentPage
@@ -234,7 +234,7 @@ class DeploymentContext(InstanceContext):
 
         :param Version version: Version that contains the resource
         :param service_sid: The SID of the Service to fetch the Deployment resource from
-        :param environment_sid: The SID of the environment used by the Deployment to fetch
+        :param environment_sid: The SID of the Environment used by the Deployment to fetch
         :param sid: The SID that identifies the Deployment resource to fetch
 
         :returns: twilio.rest.serverless.v1.service.environment.deployment.DeploymentContext
@@ -353,7 +353,7 @@ class DeploymentInstance(InstanceResource):
     @property
     def environment_sid(self):
         """
-        :returns: The SID of the environment for the deployment
+        :returns: The SID of the Environment for the Deployment
         :rtype: unicode
         """
         return self._properties['environment_sid']
@@ -361,7 +361,7 @@ class DeploymentInstance(InstanceResource):
     @property
     def build_sid(self):
         """
-        :returns: The SID of the build for the deployment
+        :returns: The SID of the Build for the deployment
         :rtype: unicode
         """
         return self._properties['build_sid']

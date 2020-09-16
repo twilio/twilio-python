@@ -23,7 +23,7 @@ class DeliveryReceiptList(ListResource):
         Initialize the DeliveryReceiptList
 
         :param Version version: Version that contains the resource
-        :param conversation_sid: The conversation_sid
+        :param conversation_sid: The unique id of the Conversation for this message.
         :param message_sid: The sid of the message the delivery receipt belongs to
 
         :returns: twilio.rest.conversations.v1.conversation.message.delivery_receipt.DeliveryReceiptList
@@ -164,7 +164,7 @@ class DeliveryReceiptPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param conversation_sid: The conversation_sid
+        :param conversation_sid: The unique id of the Conversation for this message.
         :param message_sid: The sid of the message the delivery receipt belongs to
 
         :returns: twilio.rest.conversations.v1.conversation.message.delivery_receipt.DeliveryReceiptPage
@@ -211,7 +211,7 @@ class DeliveryReceiptContext(InstanceContext):
 
         :param Version version: Version that contains the resource
         :param conversation_sid: The unique id of the Conversation for this delivery receipt.
-        :param message_sid: The sid of the message the delivery receipt belongs to
+        :param message_sid: The sid of the message the delivery receipt belongs to.
         :param sid: A 34 character string that uniquely identifies this resource.
 
         :returns: twilio.rest.conversations.v1.conversation.message.delivery_receipt.DeliveryReceiptContext
@@ -273,9 +273,10 @@ class DeliveryReceiptInstance(InstanceResource):
 
         # Marshaled Properties
         self._properties = {
+            'account_sid': payload.get('account_sid'),
+            'conversation_sid': payload.get('conversation_sid'),
             'sid': payload.get('sid'),
             'message_sid': payload.get('message_sid'),
-            'conversation_sid': payload.get('conversation_sid'),
             'channel_message_sid': payload.get('channel_message_sid'),
             'participant_sid': payload.get('participant_sid'),
             'status': payload.get('status'),
@@ -312,6 +313,22 @@ class DeliveryReceiptInstance(InstanceResource):
         return self._context
 
     @property
+    def account_sid(self):
+        """
+        :returns: The unique id of the Account responsible for this participant.
+        :rtype: unicode
+        """
+        return self._properties['account_sid']
+
+    @property
+    def conversation_sid(self):
+        """
+        :returns: The unique id of the Conversation for this message.
+        :rtype: unicode
+        """
+        return self._properties['conversation_sid']
+
+    @property
     def sid(self):
         """
         :returns: A 34 character string that uniquely identifies this resource.
@@ -326,14 +343,6 @@ class DeliveryReceiptInstance(InstanceResource):
         :rtype: unicode
         """
         return self._properties['message_sid']
-
-    @property
-    def conversation_sid(self):
-        """
-        :returns: The conversation_sid
-        :rtype: unicode
-        """
-        return self._properties['conversation_sid']
 
     @property
     def channel_message_sid(self):
