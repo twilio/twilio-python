@@ -80,7 +80,8 @@ class Version(object):
             allow_redirects=allow_redirects,
         )
 
-        if response.status_code < 200 or response.status_code >= 300:
+        # Note that 3XX response codes are allowed for fetches.
+        if response.status_code < 200 or response.status_code >= 400:
             raise self.exception(method, uri, response, 'Unable to fetch record')
 
         return json.loads(response.text)
