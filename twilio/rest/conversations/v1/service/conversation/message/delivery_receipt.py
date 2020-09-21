@@ -23,9 +23,9 @@ class DeliveryReceiptList(ListResource):
         Initialize the DeliveryReceiptList
 
         :param Version version: Version that contains the resource
-        :param chat_service_sid: The SID of the Chat Service that the resource is associated with.
-        :param conversation_sid: The unique id of the Conversation for this message.
-        :param message_sid: The sid of the message the delivery receipt belongs to
+        :param chat_service_sid: The SID of the Conversation Service that the resource is associated with.
+        :param conversation_sid: The unique ID of the Conversation for this message.
+        :param message_sid: The SID of the message the delivery receipt belongs to
 
         :returns: twilio.rest.conversations.v1.service.conversation.message.delivery_receipt.DeliveryReceiptList
         :rtype: twilio.rest.conversations.v1.service.conversation.message.delivery_receipt.DeliveryReceiptList
@@ -171,9 +171,9 @@ class DeliveryReceiptPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param chat_service_sid: The SID of the Chat Service that the resource is associated with.
-        :param conversation_sid: The unique id of the Conversation for this message.
-        :param message_sid: The sid of the message the delivery receipt belongs to
+        :param chat_service_sid: The SID of the Conversation Service that the resource is associated with.
+        :param conversation_sid: The unique ID of the Conversation for this message.
+        :param message_sid: The SID of the message the delivery receipt belongs to
 
         :returns: twilio.rest.conversations.v1.service.conversation.message.delivery_receipt.DeliveryReceiptPage
         :rtype: twilio.rest.conversations.v1.service.conversation.message.delivery_receipt.DeliveryReceiptPage
@@ -220,9 +220,9 @@ class DeliveryReceiptContext(InstanceContext):
         Initialize the DeliveryReceiptContext
 
         :param Version version: Version that contains the resource
-        :param chat_service_sid: The SID of the Chat Service that the resource is associated with.
-        :param conversation_sid: The unique id of the Conversation for this delivery receipt.
-        :param message_sid: The sid of the message the delivery receipt belongs to.
+        :param chat_service_sid: The SID of the Conversation Service that the resource is associated with.
+        :param conversation_sid: The unique ID of the Conversation for this delivery receipt.
+        :param message_sid: The SID of the message the delivery receipt belongs to.
         :param sid: A 34 character string that uniquely identifies this resource.
 
         :returns: twilio.rest.conversations.v1.service.conversation.message.delivery_receipt.DeliveryReceiptContext
@@ -336,7 +336,7 @@ class DeliveryReceiptInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The unique id of the Account responsible for this participant.
+        :returns: The unique ID of the Account responsible for this participant.
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -344,7 +344,7 @@ class DeliveryReceiptInstance(InstanceResource):
     @property
     def chat_service_sid(self):
         """
-        :returns: The SID of the Chat Service that the resource is associated with.
+        :returns: The SID of the Conversation Service that the resource is associated with.
         :rtype: unicode
         """
         return self._properties['chat_service_sid']
@@ -352,7 +352,7 @@ class DeliveryReceiptInstance(InstanceResource):
     @property
     def conversation_sid(self):
         """
-        :returns: The unique id of the Conversation for this message.
+        :returns: The unique ID of the Conversation for this message.
         :rtype: unicode
         """
         return self._properties['conversation_sid']
@@ -360,7 +360,7 @@ class DeliveryReceiptInstance(InstanceResource):
     @property
     def message_sid(self):
         """
-        :returns: The sid of the message the delivery receipt belongs to
+        :returns: The SID of the message the delivery receipt belongs to
         :rtype: unicode
         """
         return self._properties['message_sid']
@@ -384,7 +384,7 @@ class DeliveryReceiptInstance(InstanceResource):
     @property
     def participant_sid(self):
         """
-        :returns: The unique id of the participant the delivery receipt belongs to.
+        :returns: The unique ID of the participant the delivery receipt belongs to.
         :rtype: unicode
         """
         return self._properties['participant_sid']

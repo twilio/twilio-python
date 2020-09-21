@@ -24,8 +24,8 @@ class WebhookList(ListResource):
 
         :param Version version: Version that contains the resource
 
-        :returns: twilio.rest.conversations.v1.webhook.WebhookList
-        :rtype: twilio.rest.conversations.v1.webhook.WebhookList
+        :returns: twilio.rest.conversations.v1.configuration.webhook.WebhookList
+        :rtype: twilio.rest.conversations.v1.configuration.webhook.WebhookList
         """
         super(WebhookList, self).__init__(version)
 
@@ -36,8 +36,8 @@ class WebhookList(ListResource):
         """
         Constructs a WebhookContext
 
-        :returns: twilio.rest.conversations.v1.webhook.WebhookContext
-        :rtype: twilio.rest.conversations.v1.webhook.WebhookContext
+        :returns: twilio.rest.conversations.v1.configuration.webhook.WebhookContext
+        :rtype: twilio.rest.conversations.v1.configuration.webhook.WebhookContext
         """
         return WebhookContext(self._version, )
 
@@ -45,8 +45,8 @@ class WebhookList(ListResource):
         """
         Constructs a WebhookContext
 
-        :returns: twilio.rest.conversations.v1.webhook.WebhookContext
-        :rtype: twilio.rest.conversations.v1.webhook.WebhookContext
+        :returns: twilio.rest.conversations.v1.configuration.webhook.WebhookContext
+        :rtype: twilio.rest.conversations.v1.configuration.webhook.WebhookContext
         """
         return WebhookContext(self._version, )
 
@@ -71,8 +71,8 @@ class WebhookPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.conversations.v1.webhook.WebhookPage
-        :rtype: twilio.rest.conversations.v1.webhook.WebhookPage
+        :returns: twilio.rest.conversations.v1.configuration.webhook.WebhookPage
+        :rtype: twilio.rest.conversations.v1.configuration.webhook.WebhookPage
         """
         super(WebhookPage, self).__init__(version, response)
 
@@ -85,8 +85,8 @@ class WebhookPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.conversations.v1.webhook.WebhookInstance
-        :rtype: twilio.rest.conversations.v1.webhook.WebhookInstance
+        :returns: twilio.rest.conversations.v1.configuration.webhook.WebhookInstance
+        :rtype: twilio.rest.conversations.v1.configuration.webhook.WebhookInstance
         """
         return WebhookInstance(self._version, payload, )
 
@@ -110,21 +110,21 @@ class WebhookContext(InstanceContext):
 
         :param Version version: Version that contains the resource
 
-        :returns: twilio.rest.conversations.v1.webhook.WebhookContext
-        :rtype: twilio.rest.conversations.v1.webhook.WebhookContext
+        :returns: twilio.rest.conversations.v1.configuration.webhook.WebhookContext
+        :rtype: twilio.rest.conversations.v1.configuration.webhook.WebhookContext
         """
         super(WebhookContext, self).__init__(version)
 
         # Path Solution
         self._solution = {}
-        self._uri = '/Conversations/Webhooks'.format(**self._solution)
+        self._uri = '/Configuration/Webhooks'.format(**self._solution)
 
     def fetch(self):
         """
         Fetch the WebhookInstance
 
         :returns: The fetched WebhookInstance
-        :rtype: twilio.rest.conversations.v1.webhook.WebhookInstance
+        :rtype: twilio.rest.conversations.v1.configuration.webhook.WebhookInstance
         """
         payload = self._version.fetch(method='GET', uri=self._uri, )
 
@@ -143,7 +143,7 @@ class WebhookContext(InstanceContext):
         :param WebhookInstance.Target target: The routing target of the webhook.
 
         :returns: The updated WebhookInstance
-        :rtype: twilio.rest.conversations.v1.webhook.WebhookInstance
+        :rtype: twilio.rest.conversations.v1.configuration.webhook.WebhookInstance
         """
         data = values.of({
             'Method': method,
@@ -184,8 +184,8 @@ class WebhookInstance(InstanceResource):
         """
         Initialize the WebhookInstance
 
-        :returns: twilio.rest.conversations.v1.webhook.WebhookInstance
-        :rtype: twilio.rest.conversations.v1.webhook.WebhookInstance
+        :returns: twilio.rest.conversations.v1.configuration.webhook.WebhookInstance
+        :rtype: twilio.rest.conversations.v1.configuration.webhook.WebhookInstance
         """
         super(WebhookInstance, self).__init__(version)
 
@@ -211,7 +211,7 @@ class WebhookInstance(InstanceResource):
         performing various actions.  All instance actions are proxied to the context
 
         :returns: WebhookContext for this WebhookInstance
-        :rtype: twilio.rest.conversations.v1.webhook.WebhookContext
+        :rtype: twilio.rest.conversations.v1.configuration.webhook.WebhookContext
         """
         if self._context is None:
             self._context = WebhookContext(self._version, )
@@ -220,7 +220,7 @@ class WebhookInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The unique id of the Account responsible for this conversation.
+        :returns: The unique ID of the Account responsible for this conversation.
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -278,7 +278,7 @@ class WebhookInstance(InstanceResource):
         Fetch the WebhookInstance
 
         :returns: The fetched WebhookInstance
-        :rtype: twilio.rest.conversations.v1.webhook.WebhookInstance
+        :rtype: twilio.rest.conversations.v1.configuration.webhook.WebhookInstance
         """
         return self._proxy.fetch()
 
@@ -295,7 +295,7 @@ class WebhookInstance(InstanceResource):
         :param WebhookInstance.Target target: The routing target of the webhook.
 
         :returns: The updated WebhookInstance
-        :rtype: twilio.rest.conversations.v1.webhook.WebhookInstance
+        :rtype: twilio.rest.conversations.v1.configuration.webhook.WebhookInstance
         """
         return self._proxy.update(
             method=method,

@@ -353,7 +353,7 @@ class CredentialInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The unique id of the Account responsible for this credential.
+        :returns: The unique ID of the Account responsible for this credential.
         :rtype: unicode
         """
         return self._properties['account_sid']

@@ -172,6 +172,40 @@ class SubscriptionTestCase(IntegrationTestCase):
 
         self.assertIsNotNone(actual)
 
+    def test_update_request(self):
+        self.holodeck.mock(Response(500, ''))
+
+        with self.assertRaises(TwilioException):
+            self.client.events.v1.subscriptions("DFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
+
+        self.holodeck.assert_has_request(Request(
+            'post',
+            'https://events.twilio.com/v1/Subscriptions/DFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        ))
+
+    def test_update_response(self):
+        self.holodeck.mock(Response(
+            200,
+            '''
+            {
+                "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "date_created": "2015-07-30T20:00:00Z",
+                "date_updated": "2020-07-30T20:01:33Z",
+                "sid": "DFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "sink_sid": "DGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaab",
+                "description": "Updated description",
+                "url": "https://events.twilio.com/v1/Subscriptions/DFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "links": {
+                    "subscribed_events": "https://events.twilio.com/v1/Subscriptions/DFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SubscribedEvents"
+                }
+            }
+            '''
+        ))
+
+        actual = self.client.events.v1.subscriptions("DFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
+
+        self.assertIsNotNone(actual)
+
     def test_delete_request(self):
         self.holodeck.mock(Response(500, ''))
 

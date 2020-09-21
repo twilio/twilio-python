@@ -11,6 +11,7 @@ from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.page import Page
+from twilio.rest.conversations.v1.service.configuration.notification import NotificationList
 
 
 class ConfigurationList(ListResource):
@@ -31,6 +32,24 @@ class ConfigurationList(ListResource):
 
         # Path Solution
         self._solution = {'chat_service_sid': chat_service_sid, }
+
+        # Components
+        self._notifications = None
+
+    @property
+    def notifications(self):
+        """
+        Access the notifications
+
+        :returns: twilio.rest.conversations.v1.service.configuration.notification.NotificationList
+        :rtype: twilio.rest.conversations.v1.service.configuration.notification.NotificationList
+        """
+        if self._notifications is None:
+            self._notifications = NotificationList(
+                self._version,
+                chat_service_sid=self._solution['chat_service_sid'],
+            )
+        return self._notifications
 
     def get(self):
         """

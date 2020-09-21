@@ -17,41 +17,38 @@ class NotificationList(ListResource):
     """ PLEASE NOTE that this class contains beta products that are subject to
     change. Use them with caution. """
 
-    def __init__(self, version):
+    def __init__(self, version, chat_service_sid):
         """
         Initialize the NotificationList
 
         :param Version version: Version that contains the resource
+        :param chat_service_sid: The unique string that identifies the resource
 
-        :returns: twilio.rest.conversations.v1.notification.NotificationList
-        :rtype: twilio.rest.conversations.v1.notification.NotificationList
+        :returns: twilio.rest.conversations.v1.service.configuration.notification.NotificationList
+        :rtype: twilio.rest.conversations.v1.service.configuration.notification.NotificationList
         """
         super(NotificationList, self).__init__(version)
 
         # Path Solution
-        self._solution = {}
+        self._solution = {'chat_service_sid': chat_service_sid, }
 
-    def get(self, chat_service_sid):
+    def get(self):
         """
         Constructs a NotificationContext
 
-        :param chat_service_sid: The SID of the Chat Service that the Configuration applies to.
-
-        :returns: twilio.rest.conversations.v1.notification.NotificationContext
-        :rtype: twilio.rest.conversations.v1.notification.NotificationContext
+        :returns: twilio.rest.conversations.v1.service.configuration.notification.NotificationContext
+        :rtype: twilio.rest.conversations.v1.service.configuration.notification.NotificationContext
         """
-        return NotificationContext(self._version, chat_service_sid=chat_service_sid, )
+        return NotificationContext(self._version, chat_service_sid=self._solution['chat_service_sid'], )
 
-    def __call__(self, chat_service_sid):
+    def __call__(self):
         """
         Constructs a NotificationContext
 
-        :param chat_service_sid: The SID of the Chat Service that the Configuration applies to.
-
-        :returns: twilio.rest.conversations.v1.notification.NotificationContext
-        :rtype: twilio.rest.conversations.v1.notification.NotificationContext
+        :returns: twilio.rest.conversations.v1.service.configuration.notification.NotificationContext
+        :rtype: twilio.rest.conversations.v1.service.configuration.notification.NotificationContext
         """
-        return NotificationContext(self._version, chat_service_sid=chat_service_sid, )
+        return NotificationContext(self._version, chat_service_sid=self._solution['chat_service_sid'], )
 
     def __repr__(self):
         """
@@ -73,9 +70,10 @@ class NotificationPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
+        :param chat_service_sid: The unique string that identifies the resource
 
-        :returns: twilio.rest.conversations.v1.notification.NotificationPage
-        :rtype: twilio.rest.conversations.v1.notification.NotificationPage
+        :returns: twilio.rest.conversations.v1.service.configuration.notification.NotificationPage
+        :rtype: twilio.rest.conversations.v1.service.configuration.notification.NotificationPage
         """
         super(NotificationPage, self).__init__(version, response)
 
@@ -88,10 +86,14 @@ class NotificationPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.conversations.v1.notification.NotificationInstance
-        :rtype: twilio.rest.conversations.v1.notification.NotificationInstance
+        :returns: twilio.rest.conversations.v1.service.configuration.notification.NotificationInstance
+        :rtype: twilio.rest.conversations.v1.service.configuration.notification.NotificationInstance
         """
-        return NotificationInstance(self._version, payload, )
+        return NotificationInstance(
+            self._version,
+            payload,
+            chat_service_sid=self._solution['chat_service_sid'],
+        )
 
     def __repr__(self):
         """
@@ -112,10 +114,10 @@ class NotificationContext(InstanceContext):
         Initialize the NotificationContext
 
         :param Version version: Version that contains the resource
-        :param chat_service_sid: The SID of the Chat Service that the Configuration applies to.
+        :param chat_service_sid: The SID of the Conversation Service that the Configuration applies to.
 
-        :returns: twilio.rest.conversations.v1.notification.NotificationContext
-        :rtype: twilio.rest.conversations.v1.notification.NotificationContext
+        :returns: twilio.rest.conversations.v1.service.configuration.notification.NotificationContext
+        :rtype: twilio.rest.conversations.v1.service.configuration.notification.NotificationContext
         """
         super(NotificationContext, self).__init__(version)
 
@@ -148,7 +150,7 @@ class NotificationContext(InstanceContext):
         :param unicode removed_from_conversation_sound: The name of the sound to play to a user when they are removed from a conversation.
 
         :returns: The updated NotificationInstance
-        :rtype: twilio.rest.conversations.v1.notification.NotificationInstance
+        :rtype: twilio.rest.conversations.v1.service.configuration.notification.NotificationInstance
         """
         data = values.of({
             'LogEnabled': log_enabled,
@@ -177,7 +179,7 @@ class NotificationContext(InstanceContext):
         Fetch the NotificationInstance
 
         :returns: The fetched NotificationInstance
-        :rtype: twilio.rest.conversations.v1.notification.NotificationInstance
+        :rtype: twilio.rest.conversations.v1.service.configuration.notification.NotificationInstance
         """
         payload = self._version.fetch(method='GET', uri=self._uri, )
 
@@ -202,12 +204,12 @@ class NotificationInstance(InstanceResource):
     """ PLEASE NOTE that this class contains beta products that are subject to
     change. Use them with caution. """
 
-    def __init__(self, version, payload, chat_service_sid=None):
+    def __init__(self, version, payload, chat_service_sid):
         """
         Initialize the NotificationInstance
 
-        :returns: twilio.rest.conversations.v1.notification.NotificationInstance
-        :rtype: twilio.rest.conversations.v1.notification.NotificationInstance
+        :returns: twilio.rest.conversations.v1.service.configuration.notification.NotificationInstance
+        :rtype: twilio.rest.conversations.v1.service.configuration.notification.NotificationInstance
         """
         super(NotificationInstance, self).__init__(version)
 
@@ -224,7 +226,7 @@ class NotificationInstance(InstanceResource):
 
         # Context
         self._context = None
-        self._solution = {'chat_service_sid': chat_service_sid or self._properties['chat_service_sid'], }
+        self._solution = {'chat_service_sid': chat_service_sid, }
 
     @property
     def _proxy(self):
@@ -233,7 +235,7 @@ class NotificationInstance(InstanceResource):
         performing various actions.  All instance actions are proxied to the context
 
         :returns: NotificationContext for this NotificationInstance
-        :rtype: twilio.rest.conversations.v1.notification.NotificationContext
+        :rtype: twilio.rest.conversations.v1.service.configuration.notification.NotificationContext
         """
         if self._context is None:
             self._context = NotificationContext(
@@ -245,7 +247,7 @@ class NotificationInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The unique id of the Account responsible for this configuration.
+        :returns: The unique ID of the Account responsible for this configuration.
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -253,7 +255,7 @@ class NotificationInstance(InstanceResource):
     @property
     def chat_service_sid(self):
         """
-        :returns: The SID of the Chat Service that the Configuration applies to.
+        :returns: The SID of the Conversation Service that the Configuration applies to.
         :rtype: unicode
         """
         return self._properties['chat_service_sid']
@@ -323,7 +325,7 @@ class NotificationInstance(InstanceResource):
         :param unicode removed_from_conversation_sound: The name of the sound to play to a user when they are removed from a conversation.
 
         :returns: The updated NotificationInstance
-        :rtype: twilio.rest.conversations.v1.notification.NotificationInstance
+        :rtype: twilio.rest.conversations.v1.service.configuration.notification.NotificationInstance
         """
         return self._proxy.update(
             log_enabled=log_enabled,
@@ -344,7 +346,7 @@ class NotificationInstance(InstanceResource):
         Fetch the NotificationInstance
 
         :returns: The fetched NotificationInstance
-        :rtype: twilio.rest.conversations.v1.notification.NotificationInstance
+        :rtype: twilio.rest.conversations.v1.service.configuration.notification.NotificationInstance
         """
         return self._proxy.fetch()
 

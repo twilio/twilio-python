@@ -24,7 +24,7 @@ class WebhookList(ListResource):
         Initialize the WebhookList
 
         :param Version version: Version that contains the resource
-        :param conversation_sid: The unique id of the Conversation for this webhook.
+        :param conversation_sid: The unique ID of the Conversation for this webhook.
 
         :returns: twilio.rest.conversations.v1.conversation.webhook.WebhookList
         :rtype: twilio.rest.conversations.v1.conversation.webhook.WebhookList
@@ -126,7 +126,7 @@ class WebhookList(ListResource):
         :param WebhookInstance.Method configuration_method: The HTTP method to be used when sending a webhook request.
         :param unicode configuration_filters: The list of events, firing webhook event for this Conversation.
         :param unicode configuration_triggers: The list of keywords, firing webhook event for this Conversation.
-        :param unicode configuration_flow_sid: The studio flow sid, where the webhook should be sent to.
+        :param unicode configuration_flow_sid: The studio flow SID, where the webhook should be sent to.
         :param unicode configuration_replay_after: The message index for which and it's successors the webhook will be replayed.
 
         :returns: The created WebhookInstance
@@ -188,7 +188,7 @@ class WebhookPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param conversation_sid: The unique id of the Conversation for this webhook.
+        :param conversation_sid: The unique ID of the Conversation for this webhook.
 
         :returns: twilio.rest.conversations.v1.conversation.webhook.WebhookPage
         :rtype: twilio.rest.conversations.v1.conversation.webhook.WebhookPage
@@ -228,7 +228,7 @@ class WebhookContext(InstanceContext):
         Initialize the WebhookContext
 
         :param Version version: Version that contains the resource
-        :param conversation_sid: The unique id of the Conversation for this webhook.
+        :param conversation_sid: The unique ID of the Conversation for this webhook.
         :param sid: A 34 character string that uniquely identifies this resource.
 
         :returns: twilio.rest.conversations.v1.conversation.webhook.WebhookContext
@@ -268,7 +268,7 @@ class WebhookContext(InstanceContext):
         :param WebhookInstance.Method configuration_method: The HTTP method to be used when sending a webhook request.
         :param unicode configuration_filters: The list of events, firing webhook event for this Conversation.
         :param unicode configuration_triggers: The list of keywords, firing webhook event for this Conversation.
-        :param unicode configuration_flow_sid: The studio flow sid, where the webhook should be sent to.
+        :param unicode configuration_flow_sid: The studio flow SID, where the webhook should be sent to.
 
         :returns: The updated WebhookInstance
         :rtype: twilio.rest.conversations.v1.conversation.webhook.WebhookInstance
@@ -376,7 +376,7 @@ class WebhookInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The unique id of the Account responsible for this conversation.
+        :returns: The unique ID of the Account responsible for this conversation.
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -384,7 +384,7 @@ class WebhookInstance(InstanceResource):
     @property
     def conversation_sid(self):
         """
-        :returns: The unique id of the Conversation for this webhook.
+        :returns: The unique ID of the Conversation for this webhook.
         :rtype: unicode
         """
         return self._properties['conversation_sid']
@@ -450,7 +450,7 @@ class WebhookInstance(InstanceResource):
         :param WebhookInstance.Method configuration_method: The HTTP method to be used when sending a webhook request.
         :param unicode configuration_filters: The list of events, firing webhook event for this Conversation.
         :param unicode configuration_triggers: The list of keywords, firing webhook event for this Conversation.
-        :param unicode configuration_flow_sid: The studio flow sid, where the webhook should be sent to.
+        :param unicode configuration_flow_sid: The studio flow SID, where the webhook should be sent to.
 
         :returns: The updated WebhookInstance
         :rtype: twilio.rest.conversations.v1.conversation.webhook.WebhookInstance

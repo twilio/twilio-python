@@ -44,6 +44,13 @@ class Events(Domain):
         return self.v1.event_types
 
     @property
+    def schemas(self):
+        """
+        :rtype: twilio.rest.events.v1.schema.SchemaList
+        """
+        return self.v1.schemas
+
+    @property
     def sinks(self):
         """
         :rtype: twilio.rest.events.v1.sink.SinkList

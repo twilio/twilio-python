@@ -25,7 +25,7 @@ class MessageList(ListResource):
         Initialize the MessageList
 
         :param Version version: Version that contains the resource
-        :param conversation_sid: The unique id of the Conversation for this message.
+        :param conversation_sid: The unique ID of the Conversation for this message.
 
         :returns: twilio.rest.conversations.v1.conversation.message.MessageList
         :rtype: twilio.rest.conversations.v1.conversation.message.MessageList
@@ -48,7 +48,7 @@ class MessageList(ListResource):
         :param datetime date_created: The date that this resource was created.
         :param datetime date_updated: The date that this resource was last updated.
         :param unicode attributes: A string metadata field you can use to store any data you wish.
-        :param unicode media_sid: The Media Sid to be attached to the new Message.
+        :param unicode media_sid: The Media SID to be attached to the new Message.
         :param MessageInstance.WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
 
         :returns: The created MessageInstance
@@ -187,7 +187,7 @@ class MessagePage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param conversation_sid: The unique id of the Conversation for this message.
+        :param conversation_sid: The unique ID of the Conversation for this message.
 
         :returns: twilio.rest.conversations.v1.conversation.message.MessagePage
         :rtype: twilio.rest.conversations.v1.conversation.message.MessagePage
@@ -227,7 +227,7 @@ class MessageContext(InstanceContext):
         Initialize the MessageContext
 
         :param Version version: Version that contains the resource
-        :param conversation_sid: The unique id of the Conversation for this message.
+        :param conversation_sid: The unique ID of the Conversation for this message.
         :param sid: A 34 character string that uniquely identifies this resource.
 
         :returns: twilio.rest.conversations.v1.conversation.message.MessageContext
@@ -391,7 +391,7 @@ class MessageInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The unique id of the Account responsible for this message.
+        :returns: The unique ID of the Account responsible for this message.
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -399,7 +399,7 @@ class MessageInstance(InstanceResource):
     @property
     def conversation_sid(self):
         """
-        :returns: The unique id of the Conversation for this message.
+        :returns: The unique ID of the Conversation for this message.
         :rtype: unicode
         """
         return self._properties['conversation_sid']
@@ -455,7 +455,7 @@ class MessageInstance(InstanceResource):
     @property
     def participant_sid(self):
         """
-        :returns: The unique id of messages's author participant.
+        :returns: The unique ID of messages's author participant.
         :rtype: unicode
         """
         return self._properties['participant_sid']

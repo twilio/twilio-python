@@ -336,7 +336,7 @@ class RoleInstance(InstanceResource):
     @property
     def chat_service_sid(self):
         """
-        :returns: The SID of the Service that the resource is associated with
+        :returns: The SID of the Conversation Service that the resource is associated with
         :rtype: unicode
         """
         return self._properties['chat_service_sid']

@@ -24,8 +24,8 @@ class ParticipantList(ListResource):
         Initialize the ParticipantList
 
         :param Version version: Version that contains the resource
-        :param chat_service_sid: The SID of the Chat Service that the resource is associated with.
-        :param conversation_sid: The unique id of the Conversation for this participant.
+        :param chat_service_sid: The SID of the Conversation Service that the resource is associated with.
+        :param conversation_sid: The unique ID of the Conversation for this participant.
 
         :returns: twilio.rest.conversations.v1.service.conversation.participant.ParticipantList
         :rtype: twilio.rest.conversations.v1.service.conversation.participant.ParticipantList
@@ -45,14 +45,14 @@ class ParticipantList(ListResource):
         """
         Create the ParticipantInstance
 
-        :param unicode identity: A unique string identifier for the conversation participant as Chat User.
+        :param unicode identity: A unique string identifier for the conversation participant as Conversation User.
         :param unicode messaging_binding_address: The address of the participant's device.
         :param unicode messaging_binding_proxy_address: The address of the Twilio phone number that the participant is in contact with.
         :param datetime date_created: The date that this resource was created.
         :param datetime date_updated: The date that this resource was last updated.
         :param unicode attributes: An optional string metadata field you can use to store any data you wish.
         :param unicode messaging_binding_projected_address: The address of the Twilio phone number that is used in Group MMS.
-        :param unicode role_sid: The SID of the Role to assign to the participant
+        :param unicode role_sid: The SID of a conversation-level Role to assign to the participant
         :param ParticipantInstance.WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
 
         :returns: The created ParticipantInstance
@@ -208,8 +208,8 @@ class ParticipantPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param chat_service_sid: The SID of the Chat Service that the resource is associated with.
-        :param conversation_sid: The unique id of the Conversation for this participant.
+        :param chat_service_sid: The SID of the Conversation Service that the resource is associated with.
+        :param conversation_sid: The unique ID of the Conversation for this participant.
 
         :returns: twilio.rest.conversations.v1.service.conversation.participant.ParticipantPage
         :rtype: twilio.rest.conversations.v1.service.conversation.participant.ParticipantPage
@@ -254,8 +254,8 @@ class ParticipantContext(InstanceContext):
         Initialize the ParticipantContext
 
         :param Version version: Version that contains the resource
-        :param chat_service_sid: The SID of the Chat Service that the resource is associated with.
-        :param conversation_sid: The unique id of the Conversation for this participant.
+        :param chat_service_sid: The SID of the Conversation Service that the resource is associated with.
+        :param conversation_sid: The unique ID of the Conversation for this participant.
         :param sid: A 34 character string that uniquely identifies this resource.
 
         :returns: twilio.rest.conversations.v1.service.conversation.participant.ParticipantContext
@@ -281,9 +281,9 @@ class ParticipantContext(InstanceContext):
 
         :param datetime date_created: The date that this resource was created.
         :param datetime date_updated: The date that this resource was last updated.
-        :param unicode identity: A unique string identifier for the conversation participant as Chat User.
+        :param unicode identity: A unique string identifier for the conversation participant as Conversation User.
         :param unicode attributes: An optional string metadata field you can use to store any data you wish.
-        :param unicode role_sid: The SID of the Role to assign to the participant
+        :param unicode role_sid: The SID of a conversation-level Role to assign to the participant
         :param unicode messaging_binding_proxy_address: The address of the Twilio phone number that the participant is in contact with.
         :param unicode messaging_binding_projected_address: The address of the Twilio phone number that is used in Group MMS.
         :param ParticipantInstance.WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
@@ -415,7 +415,7 @@ class ParticipantInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The unique id of the Account responsible for this participant.
+        :returns: The unique ID of the Account responsible for this participant.
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -423,7 +423,7 @@ class ParticipantInstance(InstanceResource):
     @property
     def chat_service_sid(self):
         """
-        :returns: The SID of the Chat Service that the resource is associated with.
+        :returns: The SID of the Conversation Service that the resource is associated with.
         :rtype: unicode
         """
         return self._properties['chat_service_sid']
@@ -431,7 +431,7 @@ class ParticipantInstance(InstanceResource):
     @property
     def conversation_sid(self):
         """
-        :returns: The unique id of the Conversation for this participant.
+        :returns: The unique ID of the Conversation for this participant.
         :rtype: unicode
         """
         return self._properties['conversation_sid']
@@ -447,7 +447,7 @@ class ParticipantInstance(InstanceResource):
     @property
     def identity(self):
         """
-        :returns: A unique string identifier for the conversation participant as Chat User.
+        :returns: A unique string identifier for the conversation participant as Conversation User.
         :rtype: unicode
         """
         return self._properties['identity']
@@ -471,7 +471,7 @@ class ParticipantInstance(InstanceResource):
     @property
     def role_sid(self):
         """
-        :returns: The SID of the Role to assign to the participant
+        :returns: The SID of a conversation-level Role to assign to the participant
         :rtype: unicode
         """
         return self._properties['role_sid']
@@ -510,9 +510,9 @@ class ParticipantInstance(InstanceResource):
 
         :param datetime date_created: The date that this resource was created.
         :param datetime date_updated: The date that this resource was last updated.
-        :param unicode identity: A unique string identifier for the conversation participant as Chat User.
+        :param unicode identity: A unique string identifier for the conversation participant as Conversation User.
         :param unicode attributes: An optional string metadata field you can use to store any data you wish.
-        :param unicode role_sid: The SID of the Role to assign to the participant
+        :param unicode role_sid: The SID of a conversation-level Role to assign to the participant
         :param unicode messaging_binding_proxy_address: The address of the Twilio phone number that the participant is in contact with.
         :param unicode messaging_binding_projected_address: The address of the Twilio phone number that is used in Group MMS.
         :param ParticipantInstance.WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header

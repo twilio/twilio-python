@@ -27,7 +27,7 @@ class ConversationList(ListResource):
         Initialize the ConversationList
 
         :param Version version: Version that contains the resource
-        :param chat_service_sid: The unique id of the Chat Service this conversation belongs to.
+        :param chat_service_sid: The unique ID of the Conversation Service this conversation belongs to.
 
         :returns: twilio.rest.conversations.v1.service.conversation.ConversationList
         :rtype: twilio.rest.conversations.v1.service.conversation.ConversationList
@@ -49,7 +49,7 @@ class ConversationList(ListResource):
         :param unicode friendly_name: The human-readable name of this conversation.
         :param unicode unique_name: An application-defined string that uniquely identifies the resource
         :param unicode attributes: An optional string metadata field you can use to store any data you wish.
-        :param unicode messaging_service_sid: The unique id of the SMS Service this conversation belongs to.
+        :param unicode messaging_service_sid: The unique ID of the Messaging Service this conversation belongs to.
         :param datetime date_created: The date that this resource was created.
         :param datetime date_updated: The date that this resource was last updated.
         :param ConversationInstance.State state: Current state of this conversation.
@@ -208,7 +208,7 @@ class ConversationPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param chat_service_sid: The unique id of the Chat Service this conversation belongs to.
+        :param chat_service_sid: The unique ID of the Conversation Service this conversation belongs to.
 
         :returns: twilio.rest.conversations.v1.service.conversation.ConversationPage
         :rtype: twilio.rest.conversations.v1.service.conversation.ConversationPage
@@ -281,7 +281,7 @@ class ConversationContext(InstanceContext):
         :param datetime date_created: The date that this resource was created.
         :param datetime date_updated: The date that this resource was last updated.
         :param unicode attributes: An optional string metadata field you can use to store any data you wish.
-        :param unicode messaging_service_sid: The unique id of the SMS Service this conversation belongs to.
+        :param unicode messaging_service_sid: The unique ID of the Messaging Service this conversation belongs to.
         :param ConversationInstance.State state: Current state of this conversation.
         :param unicode timers_inactive: ISO8601 duration when conversation will be switched to `inactive` state.
         :param unicode timers_closed: ISO8601 duration when conversation will be switched to `closed` state.
@@ -462,7 +462,7 @@ class ConversationInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The unique id of the Account responsible for this conversation.
+        :returns: The unique ID of the Account responsible for this conversation.
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -470,7 +470,7 @@ class ConversationInstance(InstanceResource):
     @property
     def chat_service_sid(self):
         """
-        :returns: The unique id of the Chat Service this conversation belongs to.
+        :returns: The unique ID of the Conversation Service this conversation belongs to.
         :rtype: unicode
         """
         return self._properties['chat_service_sid']
@@ -478,7 +478,7 @@ class ConversationInstance(InstanceResource):
     @property
     def messaging_service_sid(self):
         """
-        :returns: The unique id of the SMS Service this conversation belongs to.
+        :returns: The unique ID of the Messaging Service this conversation belongs to.
         :rtype: unicode
         """
         return self._properties['messaging_service_sid']
@@ -575,7 +575,7 @@ class ConversationInstance(InstanceResource):
         :param datetime date_created: The date that this resource was created.
         :param datetime date_updated: The date that this resource was last updated.
         :param unicode attributes: An optional string metadata field you can use to store any data you wish.
-        :param unicode messaging_service_sid: The unique id of the SMS Service this conversation belongs to.
+        :param unicode messaging_service_sid: The unique ID of the Messaging Service this conversation belongs to.
         :param ConversationInstance.State state: Current state of this conversation.
         :param unicode timers_inactive: ISO8601 duration when conversation will be switched to `inactive` state.
         :param unicode timers_closed: ISO8601 duration when conversation will be switched to `closed` state.

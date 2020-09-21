@@ -23,7 +23,7 @@ class UserList(ListResource):
         Initialize the UserList
 
         :param Version version: Version that contains the resource
-        :param chat_service_sid: The SID of the Service that the resource is associated with
+        :param chat_service_sid: The SID of the Conversation Service that the resource is associated with
 
         :returns: twilio.rest.conversations.v1.service.user.UserList
         :rtype: twilio.rest.conversations.v1.service.user.UserList
@@ -42,7 +42,7 @@ class UserList(ListResource):
         :param unicode identity: The string that identifies the resource's User
         :param unicode friendly_name: The string that you assigned to describe the resource
         :param unicode attributes: The JSON Object string that stores application-specific data
-        :param unicode role_sid: The SID of the Role to assign to the user
+        :param unicode role_sid: The SID of a service-level Role to assign to the user
 
         :returns: The created UserInstance
         :rtype: twilio.rest.conversations.v1.service.user.UserInstance
@@ -177,7 +177,7 @@ class UserPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param chat_service_sid: The SID of the Service that the resource is associated with
+        :param chat_service_sid: The SID of the Conversation Service that the resource is associated with
 
         :returns: twilio.rest.conversations.v1.service.user.UserPage
         :rtype: twilio.rest.conversations.v1.service.user.UserPage
@@ -217,7 +217,7 @@ class UserContext(InstanceContext):
         Initialize the UserContext
 
         :param Version version: Version that contains the resource
-        :param chat_service_sid: The SID of the Service to fetch the resource from
+        :param chat_service_sid: The SID of the Conversation Service to fetch the resource from
         :param sid: The SID of the User resource to fetch
 
         :returns: twilio.rest.conversations.v1.service.user.UserContext
@@ -236,7 +236,7 @@ class UserContext(InstanceContext):
 
         :param unicode friendly_name: The string that you assigned to describe the resource
         :param unicode attributes: The JSON Object string that stores application-specific data
-        :param unicode role_sid: The SID of the Role to assign to the user
+        :param unicode role_sid: The SID of a service-level Role to assign to the user
 
         :returns: The updated UserInstance
         :rtype: twilio.rest.conversations.v1.service.user.UserInstance
@@ -356,7 +356,7 @@ class UserInstance(InstanceResource):
     @property
     def chat_service_sid(self):
         """
-        :returns: The SID of the Service that the resource is associated with
+        :returns: The SID of the Conversation Service that the resource is associated with
         :rtype: unicode
         """
         return self._properties['chat_service_sid']
@@ -364,7 +364,7 @@ class UserInstance(InstanceResource):
     @property
     def role_sid(self):
         """
-        :returns: The SID of the Role assigned to the user
+        :returns: The SID of a service-level Role assigned to the user
         :rtype: unicode
         """
         return self._properties['role_sid']
@@ -432,7 +432,7 @@ class UserInstance(InstanceResource):
 
         :param unicode friendly_name: The string that you assigned to describe the resource
         :param unicode attributes: The JSON Object string that stores application-specific data
-        :param unicode role_sid: The SID of the Role to assign to the user
+        :param unicode role_sid: The SID of a service-level Role to assign to the user
 
         :returns: The updated UserInstance
         :rtype: twilio.rest.conversations.v1.service.user.UserInstance

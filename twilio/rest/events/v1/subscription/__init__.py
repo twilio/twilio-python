@@ -242,6 +242,22 @@ class SubscriptionContext(InstanceContext):
 
         return SubscriptionInstance(self._version, payload, sid=self._solution['sid'], )
 
+    def update(self, description=values.unset, sink_sid=values.unset):
+        """
+        Update the SubscriptionInstance
+
+        :param unicode description: Subscription description.
+        :param unicode sink_sid: Sink SID.
+
+        :returns: The updated SubscriptionInstance
+        :rtype: twilio.rest.events.v1.subscription.SubscriptionInstance
+        """
+        data = values.of({'Description': description, 'SinkSid': sink_sid, })
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data, )
+
+        return SubscriptionInstance(self._version, payload, sid=self._solution['sid'], )
+
     def delete(self):
         """
         Deletes the SubscriptionInstance
@@ -389,6 +405,18 @@ class SubscriptionInstance(InstanceResource):
         :rtype: twilio.rest.events.v1.subscription.SubscriptionInstance
         """
         return self._proxy.fetch()
+
+    def update(self, description=values.unset, sink_sid=values.unset):
+        """
+        Update the SubscriptionInstance
+
+        :param unicode description: Subscription description.
+        :param unicode sink_sid: Sink SID.
+
+        :returns: The updated SubscriptionInstance
+        :rtype: twilio.rest.events.v1.subscription.SubscriptionInstance
+        """
+        return self._proxy.update(description=description, sink_sid=sink_sid, )
 
     def delete(self):
         """

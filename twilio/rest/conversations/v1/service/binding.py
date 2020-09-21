@@ -24,7 +24,7 @@ class BindingList(ListResource):
         Initialize the BindingList
 
         :param Version version: Version that contains the resource
-        :param chat_service_sid: The SID of the Chat Service that the resource is associated with.
+        :param chat_service_sid: The SID of the Conversation Service that the resource is associated with.
 
         :returns: twilio.rest.conversations.v1.service.binding.BindingList
         :rtype: twilio.rest.conversations.v1.service.binding.BindingList
@@ -44,7 +44,7 @@ class BindingList(ListResource):
         The results are returned as a generator, so this operation is memory efficient.
 
         :param BindingInstance.BindingType binding_type: The push technology used by the Binding resources to read.
-        :param unicode identity: The `identity` value of the resources to read.
+        :param unicode identity: The identity of Conversation User associated with this binding.
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -69,7 +69,7 @@ class BindingList(ListResource):
         memory before returning.
 
         :param BindingInstance.BindingType binding_type: The push technology used by the Binding resources to read.
-        :param unicode identity: The `identity` value of the resources to read.
+        :param unicode identity: The identity of Conversation User associated with this binding.
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -95,7 +95,7 @@ class BindingList(ListResource):
         Request is executed immediately
 
         :param BindingInstance.BindingType binding_type: The push technology used by the Binding resources to read.
-        :param unicode identity: The `identity` value of the resources to read.
+        :param unicode identity: The identity of Conversation User associated with this binding.
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -174,7 +174,7 @@ class BindingPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param chat_service_sid: The SID of the Chat Service that the resource is associated with.
+        :param chat_service_sid: The SID of the Conversation Service that the resource is associated with.
 
         :returns: twilio.rest.conversations.v1.service.binding.BindingPage
         :rtype: twilio.rest.conversations.v1.service.binding.BindingPage
@@ -214,7 +214,7 @@ class BindingContext(InstanceContext):
         Initialize the BindingContext
 
         :param Version version: Version that contains the resource
-        :param chat_service_sid: The SID of the Chat Service that the resource is associated with.
+        :param chat_service_sid: The SID of the Conversation Service that the resource is associated with.
         :param sid: A 34 character string that uniquely identifies this resource.
 
         :returns: twilio.rest.conversations.v1.service.binding.BindingContext
@@ -327,7 +327,7 @@ class BindingInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The unique id of the Account responsible for this binding.
+        :returns: The unique ID of the Account responsible for this binding.
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -335,7 +335,7 @@ class BindingInstance(InstanceResource):
     @property
     def chat_service_sid(self):
         """
-        :returns: The SID of the Chat Service that the resource is associated with.
+        :returns: The SID of the Conversation Service that the resource is associated with.
         :rtype: unicode
         """
         return self._properties['chat_service_sid']
@@ -375,7 +375,7 @@ class BindingInstance(InstanceResource):
     @property
     def identity(self):
         """
-        :returns: The string that identifies the resource's User.
+        :returns: The identity of Conversation User associated with this binding.
         :rtype: unicode
         """
         return self._properties['identity']
@@ -391,7 +391,7 @@ class BindingInstance(InstanceResource):
     @property
     def message_types(self):
         """
-        :returns: The Chat message types the binding is subscribed to.
+        :returns: The Conversation message types the binding is subscribed to.
         :rtype: unicode
         """
         return self._properties['message_types']

@@ -18,11 +18,12 @@ class WebhookTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.conversations.v1.webhooks().fetch()
+            self.client.conversations.v1.configuration \
+                                        .webhooks().fetch()
 
         self.holodeck.assert_has_request(Request(
             'get',
-            'https://conversations.twilio.com/v1/Conversations/Webhooks',
+            'https://conversations.twilio.com/v1/Configuration/Webhooks',
         ))
 
     def test_fetch_response(self):
@@ -39,12 +40,13 @@ class WebhookTestCase(IntegrationTestCase):
                     "onConversationUpdated"
                 ],
                 "target": "webhook",
-                "url": "https://conversations.twilio.com/v1/Conversations/Webhooks"
+                "url": "https://conversations.twilio.com/v1/Configuration/Webhooks"
             }
             '''
         ))
 
-        actual = self.client.conversations.v1.webhooks().fetch()
+        actual = self.client.conversations.v1.configuration \
+                                             .webhooks().fetch()
 
         self.assertIsNotNone(actual)
 
@@ -52,11 +54,12 @@ class WebhookTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.conversations.v1.webhooks().update()
+            self.client.conversations.v1.configuration \
+                                        .webhooks().update()
 
         self.holodeck.assert_has_request(Request(
             'post',
-            'https://conversations.twilio.com/v1/Conversations/Webhooks',
+            'https://conversations.twilio.com/v1/Configuration/Webhooks',
         ))
 
     def test_update_response(self):
@@ -72,11 +75,12 @@ class WebhookTestCase(IntegrationTestCase):
                     "onConversationUpdated"
                 ],
                 "target": "webhook",
-                "url": "https://conversations.twilio.com/v1/Conversations/Webhooks"
+                "url": "https://conversations.twilio.com/v1/Configuration/Webhooks"
             }
             '''
         ))
 
-        actual = self.client.conversations.v1.webhooks().update()
+        actual = self.client.conversations.v1.configuration \
+                                             .webhooks().update()
 
         self.assertIsNotNone(actual)

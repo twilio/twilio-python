@@ -41,7 +41,7 @@ class UserList(ListResource):
         :param unicode identity: The string that identifies the resource's User
         :param unicode friendly_name: The string that you assigned to describe the resource
         :param unicode attributes: The JSON Object string that stores application-specific data
-        :param unicode role_sid: The SID of the Role to assign to the user
+        :param unicode role_sid: The SID of a service-level Role to assign to the user
 
         :returns: The created UserInstance
         :rtype: twilio.rest.conversations.v1.user.UserInstance
@@ -233,7 +233,7 @@ class UserContext(InstanceContext):
 
         :param unicode friendly_name: The string that you assigned to describe the resource
         :param unicode attributes: The JSON Object string that stores application-specific data
-        :param unicode role_sid: The SID of the Role to assign to the user
+        :param unicode role_sid: The SID of a service-level Role to assign to the user
 
         :returns: The updated UserInstance
         :rtype: twilio.rest.conversations.v1.user.UserInstance
@@ -339,7 +339,7 @@ class UserInstance(InstanceResource):
     @property
     def chat_service_sid(self):
         """
-        :returns: The SID of the Service that the resource is associated with
+        :returns: The SID of the Conversation Service that the resource is associated with
         :rtype: unicode
         """
         return self._properties['chat_service_sid']
@@ -347,7 +347,7 @@ class UserInstance(InstanceResource):
     @property
     def role_sid(self):
         """
-        :returns: The SID of the Role assigned to the user
+        :returns: The SID of a service-level Role assigned to the user
         :rtype: unicode
         """
         return self._properties['role_sid']
@@ -415,7 +415,7 @@ class UserInstance(InstanceResource):
 
         :param unicode friendly_name: The string that you assigned to describe the resource
         :param unicode attributes: The JSON Object string that stores application-specific data
-        :param unicode role_sid: The SID of the Role to assign to the user
+        :param unicode role_sid: The SID of a service-level Role to assign to the user
 
         :returns: The updated UserInstance
         :rtype: twilio.rest.conversations.v1.user.UserInstance

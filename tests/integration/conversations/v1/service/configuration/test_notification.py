@@ -18,7 +18,9 @@ class NotificationTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.conversations.v1.notifications("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
+            self.client.conversations.v1.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                        .configuration \
+                                        .notifications().update()
 
         self.holodeck.assert_has_request(Request(
             'post',
@@ -54,7 +56,9 @@ class NotificationTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.conversations.v1.notifications("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
+        actual = self.client.conversations.v1.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                             .configuration \
+                                             .notifications().update()
 
         self.assertIsNotNone(actual)
 
@@ -62,7 +66,9 @@ class NotificationTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.conversations.v1.notifications("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+            self.client.conversations.v1.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                        .configuration \
+                                        .notifications().fetch()
 
         self.holodeck.assert_has_request(Request(
             'get',
@@ -98,6 +104,8 @@ class NotificationTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.conversations.v1.notifications("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+        actual = self.client.conversations.v1.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                             .configuration \
+                                             .notifications().fetch()
 
         self.assertIsNotNone(actual)

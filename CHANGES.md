@@ -3,6 +3,21 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2020-09-21] Version 6.45.3
+---------------------------
+**Library - Fix**
+- [PR #540](https://github.com/twilio/twilio-python/pull/540): allow API redirect responses. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+
+**Accounts**
+- Add Auth Token rotation API
+
+**Conversations**
+- Change resource path for Webhook Configuration
+
+**Events**
+- Schemas API get all Schemas names and versions
+
+
 [2020-09-16] Version 6.45.2
 ---------------------------
 **Conversations**

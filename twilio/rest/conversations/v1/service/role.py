@@ -24,7 +24,7 @@ class RoleList(ListResource):
         Initialize the RoleList
 
         :param Version version: Version that contains the resource
-        :param chat_service_sid: The SID of the Service that the resource is associated with
+        :param chat_service_sid: The SID of the Conversation Service that the resource is associated with
 
         :returns: twilio.rest.conversations.v1.service.role.RoleList
         :rtype: twilio.rest.conversations.v1.service.role.RoleList
@@ -175,7 +175,7 @@ class RolePage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param chat_service_sid: The SID of the Service that the resource is associated with
+        :param chat_service_sid: The SID of the Conversation Service that the resource is associated with
 
         :returns: twilio.rest.conversations.v1.service.role.RolePage
         :rtype: twilio.rest.conversations.v1.service.role.RolePage
@@ -215,7 +215,7 @@ class RoleContext(InstanceContext):
         Initialize the RoleContext
 
         :param Version version: Version that contains the resource
-        :param chat_service_sid: The SID of the Service to fetch the resource from
+        :param chat_service_sid: The SID of the Conversation Service to fetch the resource from
         :param sid: The SID of the Role resource to fetch
 
         :returns: twilio.rest.conversations.v1.service.role.RoleContext
@@ -353,7 +353,7 @@ class RoleInstance(InstanceResource):
     @property
     def chat_service_sid(self):
         """
-        :returns: The SID of the Service that the resource is associated with
+        :returns: The SID of the Conversation Service that the resource is associated with
         :rtype: unicode
         """
         return self._properties['chat_service_sid']

@@ -11,6 +11,7 @@ from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.page import Page
+from twilio.rest.conversations.v1.configuration.webhook import WebhookList
 
 
 class ConfigurationList(ListResource):
@@ -30,6 +31,21 @@ class ConfigurationList(ListResource):
 
         # Path Solution
         self._solution = {}
+
+        # Components
+        self._webhooks = None
+
+    @property
+    def webhooks(self):
+        """
+        Access the webhooks
+
+        :returns: twilio.rest.conversations.v1.configuration.webhook.WebhookList
+        :rtype: twilio.rest.conversations.v1.configuration.webhook.WebhookList
+        """
+        if self._webhooks is None:
+            self._webhooks = WebhookList(self._version, )
+        return self._webhooks
 
     def get(self):
         """
@@ -136,7 +152,7 @@ class ConfigurationContext(InstanceContext):
         """
         Update the ConfigurationInstance
 
-        :param unicode default_chat_service_sid: The SID of the default Chat Service that every new conversation will be associated with.
+        :param unicode default_chat_service_sid: The SID of the default Conversation Service that every new conversation will be associated with.
         :param unicode default_messaging_service_sid: The SID of the default Messaging Service that every new conversation will be associated with.
         :param unicode default_inactive_timer: Default ISO8601 duration when conversation will be switched to `inactive` state.
         :param unicode default_closed_timer: Default ISO8601 duration when conversation will be switched to `closed` state.
@@ -218,7 +234,7 @@ class ConfigurationInstance(InstanceResource):
     @property
     def default_chat_service_sid(self):
         """
-        :returns: The SID of the default Chat Service that every new conversation is associated with.
+        :returns: The SID of the default Conversation Service that every new conversation is associated with.
         :rtype: unicode
         """
         return self._properties['default_chat_service_sid']
@@ -279,7 +295,7 @@ class ConfigurationInstance(InstanceResource):
         """
         Update the ConfigurationInstance
 
-        :param unicode default_chat_service_sid: The SID of the default Chat Service that every new conversation will be associated with.
+        :param unicode default_chat_service_sid: The SID of the default Conversation Service that every new conversation will be associated with.
         :param unicode default_messaging_service_sid: The SID of the default Messaging Service that every new conversation will be associated with.
         :param unicode default_inactive_timer: Default ISO8601 duration when conversation will be switched to `inactive` state.
         :param unicode default_closed_timer: Default ISO8601 duration when conversation will be switched to `closed` state.

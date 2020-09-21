@@ -10,11 +10,9 @@ from twilio.base.version import Version
 from twilio.rest.conversations.v1.configuration import ConfigurationList
 from twilio.rest.conversations.v1.conversation import ConversationList
 from twilio.rest.conversations.v1.credential import CredentialList
-from twilio.rest.conversations.v1.notification import NotificationList
 from twilio.rest.conversations.v1.role import RoleList
 from twilio.rest.conversations.v1.service import ServiceList
 from twilio.rest.conversations.v1.user import UserList
-from twilio.rest.conversations.v1.webhook import WebhookList
 
 
 class V1(Version):
@@ -30,11 +28,9 @@ class V1(Version):
         self.version = 'v1'
         self._configuration = None
         self._conversations = None
-        self._webhooks = None
         self._credentials = None
         self._roles = None
         self._services = None
-        self._notifications = None
         self._users = None
 
     @property
@@ -54,15 +50,6 @@ class V1(Version):
         if self._conversations is None:
             self._conversations = ConversationList(self)
         return self._conversations
-
-    @property
-    def webhooks(self):
-        """
-        :rtype: twilio.rest.conversations.v1.webhook.WebhookList
-        """
-        if self._webhooks is None:
-            self._webhooks = WebhookList(self)
-        return self._webhooks
 
     @property
     def credentials(self):
@@ -90,15 +77,6 @@ class V1(Version):
         if self._services is None:
             self._services = ServiceList(self)
         return self._services
-
-    @property
-    def notifications(self):
-        """
-        :rtype: twilio.rest.conversations.v1.notification.NotificationList
-        """
-        if self._notifications is None:
-            self._notifications = NotificationList(self)
-        return self._notifications
 
     @property
     def users(self):

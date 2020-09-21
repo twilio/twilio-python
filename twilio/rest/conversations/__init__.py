@@ -51,13 +51,6 @@ class Conversations(Domain):
         return self.v1.conversations
 
     @property
-    def webhooks(self):
-        """
-        :rtype: twilio.rest.conversations.v1.webhook.WebhookList
-        """
-        return self.v1.webhooks
-
-    @property
     def credentials(self):
         """
         :rtype: twilio.rest.conversations.v1.credential.CredentialList
@@ -77,13 +70,6 @@ class Conversations(Domain):
         :rtype: twilio.rest.conversations.v1.service.ServiceList
         """
         return self.v1.services
-
-    @property
-    def notifications(self):
-        """
-        :rtype: twilio.rest.conversations.v1.notification.NotificationList
-        """
-        return self.v1.notifications
 
     @property
     def users(self):

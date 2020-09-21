@@ -37,7 +37,8 @@ class ConfigurationTestCase(IntegrationTestCase):
                 "default_closed_timer": "PT10M",
                 "url": "https://conversations.twilio.com/v1/Configuration",
                 "links": {
-                    "service": "https://conversations.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Configuration"
+                    "service": "https://conversations.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Configuration",
+                    "webhooks": "https://conversations.twilio.com/v1/Configuration/Webhooks"
                 }
             }
             '''
@@ -70,7 +71,8 @@ class ConfigurationTestCase(IntegrationTestCase):
                 "default_closed_timer": "PT10M",
                 "url": "https://conversations.twilio.com/v1/Configuration",
                 "links": {
-                    "service": "https://conversations.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Configuration"
+                    "service": "https://conversations.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Configuration",
+                    "webhooks": "https://conversations.twilio.com/v1/Configuration/Webhooks"
                 }
             }
             '''
