@@ -12,9 +12,9 @@ class TestPage(Page):
         return payload
 
 
-class VersionTestCase(IntegrationTestCase):
+class StreamTestCase(IntegrationTestCase):
     def setUp(self):
-        super(VersionTestCase, self).setUp()
+        super(StreamTestCase, self).setUp()
 
         self.holodeck.mock(Response(
             200,
@@ -64,3 +64,17 @@ class VersionTestCase(IntegrationTestCase):
         messages = list(self.version.stream(self.page, page_limit=1))
 
         self.assertEqual(len(messages), 2)
+
+
+class VersionTestCase(IntegrationTestCase):
+    def test_fetch_redirect(self):
+        self.holodeck.mock(Response(
+            307,
+            '{"redirect_to": "some_place"}'
+        ), Request(url='https://messaging.twilio.com/v1/Deactivations'))
+        response = self.client.messaging.v1.fetch(
+            method='GET',
+            uri='/Deactivations'
+        )
+
+        self.assertIsNotNone(response)
