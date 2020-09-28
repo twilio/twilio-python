@@ -19,10 +19,16 @@ class UserTestCase(IntegrationTestCase):
 
         with self.assertRaises(TwilioException):
             self.client.conversations.v1.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                        .users.create(identity="identity")
+                                        .users.create(identity="identity", x_twilio_webhook_enabled="true")
 
         values = {'Identity': "identity", }
 
+        headers = {'X-Twilio-Webhook-Enabled': "true", }
+        self.holodeck.assert_has_request(Request(
+            'post',
+            'https://conversations.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Users',
+            headers=headers,
+        ))
         self.holodeck.assert_has_request(Request(
             'post',
             'https://conversations.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Users',
@@ -59,11 +65,13 @@ class UserTestCase(IntegrationTestCase):
 
         with self.assertRaises(TwilioException):
             self.client.conversations.v1.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                        .users("USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
+                                        .users("USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update(x_twilio_webhook_enabled="true")
 
+        headers = {'X-Twilio-Webhook-Enabled': "true", }
         self.holodeck.assert_has_request(Request(
             'post',
             'https://conversations.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Users/USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+            headers=headers,
         ))
 
     def test_update_response(self):
@@ -96,11 +104,13 @@ class UserTestCase(IntegrationTestCase):
 
         with self.assertRaises(TwilioException):
             self.client.conversations.v1.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                        .users("USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+                                        .users("USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete(x_twilio_webhook_enabled="true")
 
+        headers = {'X-Twilio-Webhook-Enabled': "true", }
         self.holodeck.assert_has_request(Request(
             'delete',
             'https://conversations.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Users/USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+            headers=headers,
         ))
 
     def test_delete_response(self):

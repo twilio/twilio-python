@@ -15,8 +15,6 @@ from twilio.rest.conversations.v1.service.configuration.notification import Noti
 
 
 class ConfigurationList(ListResource):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
 
     def __init__(self, version, chat_service_sid):
         """
@@ -80,8 +78,6 @@ class ConfigurationList(ListResource):
 
 
 class ConfigurationPage(Page):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
 
     def __init__(self, version, response, solution):
         """
@@ -125,8 +121,6 @@ class ConfigurationPage(Page):
 
 
 class ConfigurationContext(InstanceContext):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
 
     def __init__(self, version, chat_service_sid):
         """
@@ -198,8 +192,6 @@ class ConfigurationContext(InstanceContext):
 
 
 class ConfigurationInstance(InstanceResource):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
 
     def __init__(self, version, payload, chat_service_sid):
         """
@@ -275,7 +267,7 @@ class ConfigurationInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: The absolute URL of the Service configuration resource
+        :returns: An absolute URL for this service configuration.
         :rtype: unicode
         """
         return self._properties['url']
@@ -283,7 +275,7 @@ class ConfigurationInstance(InstanceResource):
     @property
     def links(self):
         """
-        :returns: Absolute URL to access the Push Notifications configuration of this Service.
+        :returns: Absolute URL to access the push notifications configuration of this service.
         :rtype: unicode
         """
         return self._properties['links']

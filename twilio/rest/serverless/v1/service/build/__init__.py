@@ -13,6 +13,7 @@ from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.page import Page
+from twilio.rest.serverless.v1.service.build.build_status import BuildStatusList
 
 
 class BuildList(ListResource):
@@ -231,6 +232,9 @@ class BuildContext(InstanceContext):
         self._solution = {'service_sid': service_sid, 'sid': sid, }
         self._uri = '/Services/{service_sid}/Builds/{sid}'.format(**self._solution)
 
+        # Dependents
+        self._build_status = None
+
     def fetch(self):
         """
         Fetch the BuildInstance
@@ -255,6 +259,22 @@ class BuildContext(InstanceContext):
         :rtype: bool
         """
         return self._version.delete(method='DELETE', uri=self._uri, )
+
+    @property
+    def build_status(self):
+        """
+        Access the build_status
+
+        :returns: twilio.rest.serverless.v1.service.build.build_status.BuildStatusList
+        :rtype: twilio.rest.serverless.v1.service.build.build_status.BuildStatusList
+        """
+        if self._build_status is None:
+            self._build_status = BuildStatusList(
+                self._version,
+                service_sid=self._solution['service_sid'],
+                sid=self._solution['sid'],
+            )
+        return self._build_status
 
     def __repr__(self):
         """
@@ -298,6 +318,7 @@ class BuildInstance(InstanceResource):
             'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
             'date_updated': deserialize.iso8601_datetime(payload.get('date_updated')),
             'url': payload.get('url'),
+            'links': payload.get('links'),
         }
 
         # Context
@@ -401,6 +422,14 @@ class BuildInstance(InstanceResource):
         """
         return self._properties['url']
 
+    @property
+    def links(self):
+        """
+        :returns: The links
+        :rtype: unicode
+        """
+        return self._properties['links']
+
     def fetch(self):
         """
         Fetch the BuildInstance
@@ -418,6 +447,16 @@ class BuildInstance(InstanceResource):
         :rtype: bool
         """
         return self._proxy.delete()
+
+    @property
+    def build_status(self):
+        """
+        Access the build_status
+
+        :returns: twilio.rest.serverless.v1.service.build.build_status.BuildStatusList
+        :rtype: twilio.rest.serverless.v1.service.build.build_status.BuildStatusList
+        """
+        return self._proxy.build_status
 
     def __repr__(self):
         """

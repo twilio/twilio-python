@@ -101,7 +101,10 @@ class BuildTestCase(IntegrationTestCase):
                 "status": "deploying",
                 "date_created": "2018-11-10T20:00:00Z",
                 "date_updated": "2018-11-10T20:00:00Z",
-                "url": "https://serverless.twilio.com/v1/Services/ZS00000000000000000000000000000000/Builds/ZB00000000000000000000000000000000"
+                "url": "https://serverless.twilio.com/v1/Services/ZS00000000000000000000000000000000/Builds/ZB00000000000000000000000000000000",
+                "links": {
+                    "build_status": "https://serverless.twilio.com/v1/Services/ZS00000000000000000000000000000000/Builds/ZB00000000000000000000000000000000/Status"
+                }
             }
             '''
         ))
@@ -185,7 +188,10 @@ class BuildTestCase(IntegrationTestCase):
                 "status": "building",
                 "date_created": "2018-11-10T20:00:00Z",
                 "date_updated": "2018-11-10T20:00:00Z",
-                "url": "https://serverless.twilio.com/v1/Services/ZS00000000000000000000000000000000/Builds/ZB00000000000000000000000000000000"
+                "url": "https://serverless.twilio.com/v1/Services/ZS00000000000000000000000000000000/Builds/ZB00000000000000000000000000000000",
+                "links": {
+                    "build_status": "https://serverless.twilio.com/v1/Services/ZS00000000000000000000000000000000/Builds/ZB00000000000000000000000000000000/Status"
+                }
             }
             '''
         ))

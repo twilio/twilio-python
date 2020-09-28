@@ -16,8 +16,6 @@ from twilio.base.page import Page
 
 
 class RoleList(ListResource):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
 
     def __init__(self, version, chat_service_sid):
         """
@@ -166,8 +164,6 @@ class RoleList(ListResource):
 
 
 class RolePage(Page):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
 
     def __init__(self, version, response, solution):
         """
@@ -207,8 +203,6 @@ class RolePage(Page):
 
 
 class RoleContext(InstanceContext):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
 
     def __init__(self, version, chat_service_sid, sid):
         """
@@ -284,8 +278,6 @@ class RoleContext(InstanceContext):
 
 
 class RoleInstance(InstanceResource):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
 
     class RoleType(object):
         CONVERSATION = "conversation"
@@ -401,7 +393,7 @@ class RoleInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: The absolute URL of the Role resource
+        :returns: An absolute URL for this user role.
         :rtype: unicode
         """
         return self._properties['url']

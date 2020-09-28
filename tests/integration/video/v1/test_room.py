@@ -108,7 +108,7 @@ class RoomTestCase(IntegrationTestCase):
 
         self.assertIsNotNone(actual)
 
-    def test_create_p2p_basic_response(self):
+    def test_create_webrtc_go_response(self):
         self.holodeck.mock(Response(
             201,
             '''
@@ -117,7 +117,7 @@ class RoomTestCase(IntegrationTestCase):
                 "date_created": "2015-07-30T20:00:00Z",
                 "date_updated": "2015-07-30T20:00:00Z",
                 "status": "in-progress",
-                "type": "peer-to-peer-basic",
+                "type": "go",
                 "sid": "RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "enable_turn": true,
                 "unique_name": "room1",

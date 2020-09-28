@@ -15,8 +15,6 @@ from twilio.base.page import Page
 
 
 class CredentialList(ListResource):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
 
     def __init__(self, version):
         """
@@ -174,8 +172,6 @@ class CredentialList(ListResource):
 
 
 class CredentialPage(Page):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
 
     def __init__(self, version, response, solution):
         """
@@ -214,8 +210,6 @@ class CredentialPage(Page):
 
 
 class CredentialContext(InstanceContext):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
 
     def __init__(self, version, sid):
         """
@@ -296,8 +290,6 @@ class CredentialContext(InstanceContext):
 
 
 class CredentialInstance(InstanceResource):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
 
     class PushType(object):
         APN = "apn"

@@ -348,7 +348,7 @@ class RoomInstance(InstanceResource):
         FAILED = "failed"
 
     class RoomType(object):
-        PEER_TO_PEER_BASIC = "peer-to-peer-basic"
+        GO = "go"
         PEER_TO_PEER = "peer-to-peer"
         GROUP = "group"
         GROUP_SMALL = "group-small"

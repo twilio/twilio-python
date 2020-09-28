@@ -37,7 +37,7 @@ class FactorList(ListResource):
         self._uri = '/Services/{service_sid}/Entities/{identity}/Factors'.format(**self._solution)
 
     def create(self, binding, friendly_name, factor_type, config,
-               twilio_sandbox_mode=values.unset, authorization=values.unset):
+               twilio_sandbox_mode=values.unset):
         """
         Create the FactorInstance
 
@@ -46,7 +46,6 @@ class FactorList(ListResource):
         :param FactorInstance.FactorTypes factor_type: The Type of this Factor
         :param unicode config: The config for this Factor as a json string
         :param unicode twilio_sandbox_mode: The Twilio-Sandbox-Mode HTTP request header
-        :param unicode authorization: The Authorization HTTP request header
 
         :returns: The created FactorInstance
         :rtype: twilio.rest.verify.v2.service.entity.factor.FactorInstance
@@ -57,7 +56,7 @@ class FactorList(ListResource):
             'FactorType': factor_type,
             'Config': config,
         })
-        headers = values.of({'Twilio-Sandbox-Mode': twilio_sandbox_mode, 'Authorization': authorization, })
+        headers = values.of({'Twilio-Sandbox-Mode': twilio_sandbox_mode, })
 
         payload = self._version.create(method='POST', uri=self._uri, data=data, headers=headers, )
 

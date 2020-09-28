@@ -20,7 +20,7 @@ class FactorTestCase(IntegrationTestCase):
         with self.assertRaises(TwilioException):
             self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                  .entities("identity") \
-                                 .factors.create(binding="binding", friendly_name="friendly_name", factor_type="push", config="config", twilio_sandbox_mode="twilio_sandbox_mode", authorization="authorization")
+                                 .factors.create(binding="binding", friendly_name="friendly_name", factor_type="push", config="config", twilio_sandbox_mode="twilio_sandbox_mode")
 
         values = {
             'Binding': "binding",
@@ -29,7 +29,7 @@ class FactorTestCase(IntegrationTestCase):
             'Config': "config",
         }
 
-        headers = {'Twilio-Sandbox-Mode': "twilio_sandbox_mode", 'Authorization': "authorization", }
+        headers = {'Twilio-Sandbox-Mode': "twilio_sandbox_mode", }
         self.holodeck.assert_has_request(Request(
             'post',
             'https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Entities/identity/Factors',

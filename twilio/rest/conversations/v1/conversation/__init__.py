@@ -19,8 +19,6 @@ from twilio.rest.conversations.v1.conversation.webhook import WebhookList
 
 
 class ConversationList(ListResource):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
 
     def __init__(self, version):
         """
@@ -186,8 +184,6 @@ class ConversationList(ListResource):
 
 
 class ConversationPage(Page):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
 
     def __init__(self, version, response, solution):
         """
@@ -226,8 +222,6 @@ class ConversationPage(Page):
 
 
 class ConversationContext(InstanceContext):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
 
     def __init__(self, version, sid):
         """
@@ -359,8 +353,6 @@ class ConversationContext(InstanceContext):
 
 
 class ConversationInstance(InstanceResource):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
 
     class WebhookEnabledType(object):
         TRUE = "true"
@@ -513,7 +505,7 @@ class ConversationInstance(InstanceResource):
     @property
     def links(self):
         """
-        :returns: Absolute URLs to access the Participants, Messages and Webhooks of this Conversation.
+        :returns: Absolute URLs to access the participants, messages and webhooks of this conversation.
         :rtype: unicode
         """
         return self._properties['links']

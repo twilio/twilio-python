@@ -15,8 +15,6 @@ from twilio.rest.conversations.v1.configuration.webhook import WebhookList
 
 
 class ConfigurationList(ListResource):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
 
     def __init__(self, version):
         """
@@ -76,8 +74,6 @@ class ConfigurationList(ListResource):
 
 
 class ConfigurationPage(Page):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
 
     def __init__(self, version, response, solution):
         """
@@ -116,8 +112,6 @@ class ConfigurationPage(Page):
 
 
 class ConfigurationContext(InstanceContext):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
 
     def __init__(self, version):
         """
@@ -183,8 +177,6 @@ class ConfigurationContext(InstanceContext):
 
 
 class ConfigurationInstance(InstanceResource):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
 
     def __init__(self, version, payload):
         """
@@ -266,7 +258,7 @@ class ConfigurationInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: The url
+        :returns: An absolute URL for this global configuration.
         :rtype: unicode
         """
         return self._properties['url']
@@ -274,7 +266,7 @@ class ConfigurationInstance(InstanceResource):
     @property
     def links(self):
         """
-        :returns: The links
+        :returns: Absolute URLs to access the webhook and default service configurations.
         :rtype: unicode
         """
         return self._properties['links']

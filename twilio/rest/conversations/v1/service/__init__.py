@@ -20,8 +20,6 @@ from twilio.rest.conversations.v1.service.user import UserList
 
 
 class ServiceList(ListResource):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
 
     def __init__(self, version):
         """
@@ -163,8 +161,6 @@ class ServiceList(ListResource):
 
 
 class ServicePage(Page):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
 
     def __init__(self, version, response, solution):
         """
@@ -203,8 +199,6 @@ class ServicePage(Page):
 
 
 class ServiceContext(InstanceContext):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
 
     def __init__(self, version, sid):
         """
@@ -321,8 +315,6 @@ class ServiceContext(InstanceContext):
 
 
 class ServiceInstance(InstanceResource):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
 
     def __init__(self, version, payload, sid=None):
         """
@@ -412,7 +404,7 @@ class ServiceInstance(InstanceResource):
     @property
     def links(self):
         """
-        :returns: Absolute URLs to access the Conversations, Users, Roles and Bindings of this Service.
+        :returns: Absolute URLs to access the conversations, users, roles, bindings and configuration of this service.
         :rtype: unicode
         """
         return self._properties['links']

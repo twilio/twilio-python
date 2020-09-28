@@ -17,8 +17,6 @@ from twilio.rest.conversations.v1.service.conversation.message.delivery_receipt 
 
 
 class MessageList(ListResource):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
 
     def __init__(self, version, chat_service_sid, conversation_sid):
         """
@@ -194,8 +192,6 @@ class MessageList(ListResource):
 
 
 class MessagePage(Page):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
 
     def __init__(self, version, response, solution):
         """
@@ -241,8 +237,6 @@ class MessagePage(Page):
 
 
 class MessageContext(InstanceContext):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
 
     def __init__(self, version, chat_service_sid, conversation_sid, sid):
         """
@@ -363,8 +357,6 @@ class MessageContext(InstanceContext):
 
 
 class MessageInstance(InstanceResource):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
 
     class WebhookEnabledType(object):
         TRUE = "true"
@@ -540,7 +532,7 @@ class MessageInstance(InstanceResource):
     @property
     def links(self):
         """
-        :returns: Absolute URLs to access the Receipts of this Message.
+        :returns: Absolute URL to access the receipts of this message.
         :rtype: unicode
         """
         return self._properties['links']

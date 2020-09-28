@@ -15,8 +15,6 @@ from twilio.base.page import Page
 
 
 class DeliveryReceiptList(ListResource):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
 
     def __init__(self, version, conversation_sid, message_sid):
         """
@@ -155,8 +153,6 @@ class DeliveryReceiptList(ListResource):
 
 
 class DeliveryReceiptPage(Page):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
 
     def __init__(self, version, response, solution):
         """
@@ -202,8 +198,6 @@ class DeliveryReceiptPage(Page):
 
 
 class DeliveryReceiptContext(InstanceContext):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
 
     def __init__(self, version, conversation_sid, message_sid, sid):
         """
@@ -252,8 +246,6 @@ class DeliveryReceiptContext(InstanceContext):
 
 
 class DeliveryReceiptInstance(InstanceResource):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
 
     class DeliveryStatus(object):
         READ = "read"

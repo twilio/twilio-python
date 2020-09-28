@@ -3,6 +3,25 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2020-09-28] Version 6.45.4
+---------------------------
+**Library - Docs**
+- [PR #541](https://github.com/twilio/twilio-python/pull/541): Fix pip download link. Thanks to [@swarnava](https://github.com/swarnava)!
+
+**Api**
+- Add optional property `call_reason` in the participant create request
+- Make sip-domain-service endpoints available in stage-au1 and prod-au1
+
+**Messaging**
+- Removed beta feature gate from WhatsApp Templates API
+
+**Serverless**
+- Add Build Status endpoint
+
+**Video**
+- [Rooms] Add new room type "go" for WebRTC Go
+
+
 [2020-09-21] Version 6.45.3
 ---------------------------
 **Library - Fix**

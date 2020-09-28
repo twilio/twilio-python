@@ -16,8 +16,6 @@ from twilio.base.page import Page
 
 
 class BindingList(ListResource):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
 
     def __init__(self, version, chat_service_sid):
         """
@@ -165,8 +163,6 @@ class BindingList(ListResource):
 
 
 class BindingPage(Page):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
 
     def __init__(self, version, response, solution):
         """
@@ -206,8 +202,6 @@ class BindingPage(Page):
 
 
 class BindingContext(InstanceContext):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
 
     def __init__(self, version, chat_service_sid, sid):
         """
@@ -263,8 +257,6 @@ class BindingContext(InstanceContext):
 
 
 class BindingInstance(InstanceResource):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
 
     class BindingType(object):
         APN = "apn"
