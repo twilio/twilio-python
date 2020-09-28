@@ -1,0 +1,31 @@
+twilio.rest.events.v1 package
+=============================
+
+Subpackages
+-----------
+
+.. toctree::
+
+    twilio.rest.events.v1.schema
+    twilio.rest.events.v1.sink
+    twilio.rest.events.v1.subscription
+
+Submodules
+----------
+
+twilio.rest.events.v1.event\_type module
+----------------------------------------
+
+.. automodule:: twilio.rest.events.v1.event_type
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: twilio.rest.events.v1
+    :members:
+    :undoc-members:
+    :show-inheritance:

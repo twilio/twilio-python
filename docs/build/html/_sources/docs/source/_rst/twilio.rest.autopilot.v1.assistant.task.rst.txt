@@ -1,0 +1,46 @@
+twilio.rest.autopilot.v1.assistant.task package
+===============================================
+
+Submodules
+----------
+
+twilio.rest.autopilot.v1.assistant.task.field module
+----------------------------------------------------
+
+.. automodule:: twilio.rest.autopilot.v1.assistant.task.field
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+twilio.rest.autopilot.v1.assistant.task.sample module
+-----------------------------------------------------
+
+.. automodule:: twilio.rest.autopilot.v1.assistant.task.sample
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+twilio.rest.autopilot.v1.assistant.task.task\_actions module
+------------------------------------------------------------
+
+.. automodule:: twilio.rest.autopilot.v1.assistant.task.task_actions
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+twilio.rest.autopilot.v1.assistant.task.task\_statistics module
+---------------------------------------------------------------
+
+.. automodule:: twilio.rest.autopilot.v1.assistant.task.task_statistics
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: twilio.rest.autopilot.v1.assistant.task
+    :members:
+    :undoc-members:
+    :show-inheritance:

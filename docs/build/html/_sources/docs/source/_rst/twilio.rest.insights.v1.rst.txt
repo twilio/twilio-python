@@ -1,0 +1,17 @@
+twilio.rest.insights.v1 package
+===============================
+
+Subpackages
+-----------
+
+.. toctree::
+
+    twilio.rest.insights.v1.call
+
+Module contents
+---------------
+
+.. automodule:: twilio.rest.insights.v1
+    :members:
+    :undoc-members:
+    :show-inheritance:

@@ -1,0 +1,22 @@
+twilio.rest.pricing.v1.messaging package
+========================================
+
+Submodules
+----------
+
+twilio.rest.pricing.v1.messaging.country module
+-----------------------------------------------
+
+.. automodule:: twilio.rest.pricing.v1.messaging.country
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: twilio.rest.pricing.v1.messaging
+    :members:
+    :undoc-members:
+    :show-inheritance:

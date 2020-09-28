@@ -1,0 +1,30 @@
+twilio.rest.wireless.v1.sim package
+===================================
+
+Submodules
+----------
+
+twilio.rest.wireless.v1.sim.data\_session module
+------------------------------------------------
+
+.. automodule:: twilio.rest.wireless.v1.sim.data_session
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+twilio.rest.wireless.v1.sim.usage\_record module
+------------------------------------------------
+
+.. automodule:: twilio.rest.wireless.v1.sim.usage_record
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: twilio.rest.wireless.v1.sim
+    :members:
+    :undoc-members:
+    :show-inheritance:

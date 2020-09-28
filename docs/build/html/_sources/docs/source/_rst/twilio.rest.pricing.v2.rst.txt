@@ -1,0 +1,17 @@
+twilio.rest.pricing.v2 package
+==============================
+
+Subpackages
+-----------
+
+.. toctree::
+
+    twilio.rest.pricing.v2.voice
+
+Module contents
+---------------
+
+.. automodule:: twilio.rest.pricing.v2
+    :members:
+    :undoc-members:
+    :show-inheritance:

@@ -1,0 +1,29 @@
+twilio.rest.proxy.v1.service.session package
+============================================
+
+Subpackages
+-----------
+
+.. toctree::
+
+    twilio.rest.proxy.v1.service.session.participant
+
+Submodules
+----------
+
+twilio.rest.proxy.v1.service.session.interaction module
+-------------------------------------------------------
+
+.. automodule:: twilio.rest.proxy.v1.service.session.interaction
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: twilio.rest.proxy.v1.service.session
+    :members:
+    :undoc-members:
+    :show-inheritance:

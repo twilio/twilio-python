@@ -1,0 +1,29 @@
+twilio.rest.preview.hosted\_numbers package
+===========================================
+
+Subpackages
+-----------
+
+.. toctree::
+
+    twilio.rest.preview.hosted_numbers.authorization_document
+
+Submodules
+----------
+
+twilio.rest.preview.hosted\_numbers.hosted\_number\_order module
+----------------------------------------------------------------
+
+.. automodule:: twilio.rest.preview.hosted_numbers.hosted_number_order
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: twilio.rest.preview.hosted_numbers
+    :members:
+    :undoc-members:
+    :show-inheritance:

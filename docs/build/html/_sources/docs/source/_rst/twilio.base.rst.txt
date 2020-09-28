@@ -1,0 +1,102 @@
+twilio.base package
+===================
+
+Submodules
+----------
+
+twilio.base.deserialize module
+------------------------------
+
+.. automodule:: twilio.base.deserialize
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+twilio.base.domain module
+-------------------------
+
+.. automodule:: twilio.base.domain
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+twilio.base.exceptions module
+-----------------------------
+
+.. automodule:: twilio.base.exceptions
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+twilio.base.instance\_context module
+------------------------------------
+
+.. automodule:: twilio.base.instance_context
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+twilio.base.instance\_resource module
+-------------------------------------
+
+.. automodule:: twilio.base.instance_resource
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+twilio.base.list\_resource module
+---------------------------------
+
+.. automodule:: twilio.base.list_resource
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+twilio.base.obsolete module
+---------------------------
+
+.. automodule:: twilio.base.obsolete
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+twilio.base.page module
+-----------------------
+
+.. automodule:: twilio.base.page
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+twilio.base.serialize module
+----------------------------
+
+.. automodule:: twilio.base.serialize
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+twilio.base.values module
+-------------------------
+
+.. automodule:: twilio.base.values
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+twilio.base.version module
+--------------------------
+
+.. automodule:: twilio.base.version
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: twilio.base
+    :members:
+    :undoc-members:
+    :show-inheritance:

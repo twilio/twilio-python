@@ -1,0 +1,17 @@
+twilio.rest.fax.v1 package
+==========================
+
+Subpackages
+-----------
+
+.. toctree::
+
+    twilio.rest.fax.v1.fax
+
+Module contents
+---------------
+
+.. automodule:: twilio.rest.fax.v1
+    :members:
+    :undoc-members:
+    :show-inheritance:

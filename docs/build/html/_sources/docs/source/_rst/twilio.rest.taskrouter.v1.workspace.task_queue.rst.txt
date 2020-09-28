@@ -1,0 +1,46 @@
+twilio.rest.taskrouter.v1.workspace.task\_queue package
+=======================================================
+
+Submodules
+----------
+
+twilio.rest.taskrouter.v1.workspace.task\_queue.task\_queue\_cumulative\_statistics module
+------------------------------------------------------------------------------------------
+
+.. automodule:: twilio.rest.taskrouter.v1.workspace.task_queue.task_queue_cumulative_statistics
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+twilio.rest.taskrouter.v1.workspace.task\_queue.task\_queue\_real\_time\_statistics module
+------------------------------------------------------------------------------------------
+
+.. automodule:: twilio.rest.taskrouter.v1.workspace.task_queue.task_queue_real_time_statistics
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+twilio.rest.taskrouter.v1.workspace.task\_queue.task\_queue\_statistics module
+------------------------------------------------------------------------------
+
+.. automodule:: twilio.rest.taskrouter.v1.workspace.task_queue.task_queue_statistics
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+twilio.rest.taskrouter.v1.workspace.task\_queue.task\_queues\_statistics module
+-------------------------------------------------------------------------------
+
+.. automodule:: twilio.rest.taskrouter.v1.workspace.task_queue.task_queues_statistics
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: twilio.rest.taskrouter.v1.workspace.task_queue
+    :members:
+    :undoc-members:
+    :show-inheritance:

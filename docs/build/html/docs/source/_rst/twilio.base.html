@@ -1,0 +1,511 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head><!--Google Tag Manager--><script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-MWRD6S');</script><!--End Google Tag Manager-->
+<meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+<title>twilio.base package — twilio-python 6.45.4 documentation</title>
+<link href="../../../_static/alabaster.css" rel="stylesheet" type="text/css"/>
+<link href="../../../_static/pygments.css" rel="stylesheet" type="text/css"/>
+<script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js" type="text/javascript"></script>
+<script src="../../../_static/jquery.js" type="text/javascript"></script>
+<script src="../../../_static/underscore.js" type="text/javascript"></script>
+<script src="../../../_static/doctools.js" type="text/javascript"></script>
+<script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+<link href="../../../genindex.html" rel="index" title="Index"/>
+<link href="../../../search.html" rel="search" title="Search"/>
+<link href="twilio.http.html" rel="next" title="twilio.http package"/>
+<link href="twilio.html" rel="prev" title="twilio package"/>
+<link href="../../../_static/custom.css" rel="stylesheet" type="text/css"/>
+<meta content="width=device-width, initial-scale=0.9, maximum-scale=0.9" name="viewport"/>
+</head><body><!--Google Tag Manager (noscript)--><noscript><iframe height="0" src="https://www.googletagmanager.com/ns.html?id=GTM-MWRD6S" style="display:none;visibility:hidden" width="0"></iframe></noscript><!--End Google Tag Manager (noscript)-->
+<div class="document">
+<div class="documentwrapper">
+<div class="bodywrapper">
+<div class="body" role="main">
+<div class="section" id="twilio-base-package">
+<h1>twilio.base package<a class="headerlink" href="#twilio-base-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-twilio.base.deserialize">
+<span id="twilio-base-deserialize-module"></span><h2>twilio.base.deserialize module<a class="headerlink" href="#module-twilio.base.deserialize" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="twilio.base.deserialize.decimal">
+<code class="descclassname">twilio.base.deserialize.</code><code class="descname">decimal</code><span class="sig-paren">(</span><em>d</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/base/deserialize.html#decimal"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.base.deserialize.decimal" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parses a decimal string into a Decimal
+:param d: decimal string
+:return: Decimal</p>
+</dd></dl>
+<dl class="function">
+<dt id="twilio.base.deserialize.integer">
+<code class="descclassname">twilio.base.deserialize.</code><code class="descname">integer</code><span class="sig-paren">(</span><em>i</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/base/deserialize.html#integer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.base.deserialize.integer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parses an integer string into an int
+:param i: integer string
+:return: int</p>
+</dd></dl>
+<dl class="function">
+<dt id="twilio.base.deserialize.iso8601_date">
+<code class="descclassname">twilio.base.deserialize.</code><code class="descname">iso8601_date</code><span class="sig-paren">(</span><em>s</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/base/deserialize.html#iso8601_date"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.base.deserialize.iso8601_date" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parses an ISO 8601 date string and returns a UTC date object or the string
+if the parsing failed.
+:param s: ISO 8601-formatted date string (2015-01-25)
+:return:</p>
+</dd></dl>
+<dl class="function">
+<dt id="twilio.base.deserialize.iso8601_datetime">
+<code class="descclassname">twilio.base.deserialize.</code><code class="descname">iso8601_datetime</code><span class="sig-paren">(</span><em>s</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/base/deserialize.html#iso8601_datetime"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.base.deserialize.iso8601_datetime" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parses an ISO 8601 datetime string and returns a UTC datetime object,
+or the string if parsing failed.
+:param s: ISO 8601-formatted datetime string (2015-01-25T12:34:56Z)
+:return: datetime or str</p>
+</dd></dl>
+<dl class="function">
+<dt id="twilio.base.deserialize.rfc2822_datetime">
+<code class="descclassname">twilio.base.deserialize.</code><code class="descname">rfc2822_datetime</code><span class="sig-paren">(</span><em>s</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/base/deserialize.html#rfc2822_datetime"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.base.deserialize.rfc2822_datetime" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parses an RFC 2822 date string and returns a UTC datetime object,
+or the string if parsing failed.
+:param s: RFC 2822-formatted string date
+:return: datetime or str</p>
+</dd></dl>
+</div>
+<div class="section" id="module-twilio.base.domain">
+<span id="twilio-base-domain-module"></span><h2>twilio.base.domain module<a class="headerlink" href="#module-twilio.base.domain" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="twilio.base.domain.Domain">
+<em class="property">class </em><code class="descclassname">twilio.base.domain.</code><code class="descname">Domain</code><span class="sig-paren">(</span><em>twilio</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/base/domain.html#Domain"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.base.domain.Domain" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>This represents at Twilio API subdomain.</p>
+<p>Like, <cite>api.twilio.com</cite> or <a href="#id1"><span class="problematic" id="id2">`</span></a>lookups.twilio.com’.</p>
+<dl class="method">
+<dt id="twilio.base.domain.Domain.absolute_url">
+<code class="descname">absolute_url</code><span class="sig-paren">(</span><em>uri</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/base/domain.html#Domain.absolute_url"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.base.domain.Domain.absolute_url" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts a relative <cite>uri</cite> to an absolute url.
+:param string uri: The relative uri to make absolute.
+:return: An absolute url (based off this domain)</p>
+</dd></dl>
+<dl class="method">
+<dt id="twilio.base.domain.Domain.request">
+<code class="descname">request</code><span class="sig-paren">(</span><em>method</em>, <em>uri</em>, <em>params=None</em>, <em>data=None</em>, <em>headers=None</em>, <em>auth=None</em>, <em>timeout=None</em>, <em>allow_redirects=False</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/base/domain.html#Domain.request"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.base.domain.Domain.request" title="Permalink to this definition">¶</a></dt>
+<dd><p>Makes an HTTP request to this domain.
+:param string method: The HTTP method.
+:param string uri: The HTTP uri.
+:param dict params: Query parameters.
+:param object data: The request body.
+:param dict headers: The HTTP headers.
+:param tuple auth: Basic auth tuple of (username, password)
+:param int timeout: The request timeout.
+:param bool allow_redirects: True if the client should follow HTTP
+redirects.</p>
+</dd></dl>
+</dd></dl>
+</div>
+<div class="section" id="module-twilio.base.exceptions">
+<span id="twilio-base-exceptions-module"></span><h2>twilio.base.exceptions module<a class="headerlink" href="#module-twilio.base.exceptions" title="Permalink to this headline">¶</a></h2>
+<dl class="exception">
+<dt id="twilio.base.exceptions.TwilioException">
+<em class="property">exception </em><code class="descclassname">twilio.base.exceptions.</code><code class="descname">TwilioException</code><a class="reference internal" href="../../../_modules/twilio/base/exceptions.html#TwilioException"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.base.exceptions.TwilioException" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/exceptions.html#Exception" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></a></p>
+</dd></dl>
+<dl class="exception">
+<dt id="twilio.base.exceptions.TwilioRestException">
+<em class="property">exception </em><code class="descclassname">twilio.base.exceptions.</code><code class="descname">TwilioRestException</code><span class="sig-paren">(</span><em>status</em>, <em>uri</em>, <em>msg=''</em>, <em>code=None</em>, <em>method='GET'</em>, <em>details=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/base/exceptions.html#TwilioRestException"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.base.exceptions.TwilioRestException" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#twilio.base.exceptions.TwilioException" title="twilio.base.exceptions.TwilioException"><code class="xref py py-class docutils literal notranslate"><span class="pre">twilio.base.exceptions.TwilioException</span></code></a></p>
+<p>A generic 400 or 500 level exception from the Twilio API</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>status</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – the HTTP status that was returned for the exception</li>
+<li><strong>uri</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – The URI that caused the exception</li>
+<li><strong>msg</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – A human-readable message for the error</li>
+<li><strong>method</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – The HTTP method used to make the request</li>
+<li><strong>code</strong> (<em>int|None</em>) – A Twilio-specific error code for the error. This is
+not available for all errors.</li>
+<li><strong>details</strong> (<em>dictionary|None</em>) – Additional error details returned for the exception</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+</div>
+<div class="section" id="module-twilio.base.instance_context">
+<span id="twilio-base-instance-context-module"></span><h2>twilio.base.instance_context module<a class="headerlink" href="#module-twilio.base.instance_context" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="twilio.base.instance_context.InstanceContext">
+<em class="property">class </em><code class="descclassname">twilio.base.instance_context.</code><code class="descname">InstanceContext</code><span class="sig-paren">(</span><em>version</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/base/instance_context.html#InstanceContext"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.base.instance_context.InstanceContext" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+</dd></dl>
+</div>
+<div class="section" id="module-twilio.base.instance_resource">
+<span id="twilio-base-instance-resource-module"></span><h2>twilio.base.instance_resource module<a class="headerlink" href="#module-twilio.base.instance_resource" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="twilio.base.instance_resource.InstanceResource">
+<em class="property">class </em><code class="descclassname">twilio.base.instance_resource.</code><code class="descname">InstanceResource</code><span class="sig-paren">(</span><em>version</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/base/instance_resource.html#InstanceResource"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.base.instance_resource.InstanceResource" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+</dd></dl>
+</div>
+<div class="section" id="module-twilio.base.list_resource">
+<span id="twilio-base-list-resource-module"></span><h2>twilio.base.list_resource module<a class="headerlink" href="#module-twilio.base.list_resource" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="twilio.base.list_resource.ListResource">
+<em class="property">class </em><code class="descclassname">twilio.base.list_resource.</code><code class="descname">ListResource</code><span class="sig-paren">(</span><em>version</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/base/list_resource.html#ListResource"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.base.list_resource.ListResource" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+</dd></dl>
+</div>
+<div class="section" id="module-twilio.base.obsolete">
+<span id="twilio-base-obsolete-module"></span><h2>twilio.base.obsolete module<a class="headerlink" href="#module-twilio.base.obsolete" title="Permalink to this headline">¶</a></h2>
+<dl class="exception">
+<dt id="twilio.base.obsolete.ObsoleteException">
+<em class="property">exception </em><code class="descclassname">twilio.base.obsolete.</code><code class="descname">ObsoleteException</code><a class="reference internal" href="../../../_modules/twilio/base/obsolete.html#ObsoleteException"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.base.obsolete.ObsoleteException" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/exceptions.html#Exception" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></a></p>
+<p>Base class for warnings about obsolete features.</p>
+</dd></dl>
+<dl class="function">
+<dt id="twilio.base.obsolete.deprecated_method">
+<code class="descclassname">twilio.base.obsolete.</code><code class="descname">deprecated_method</code><span class="sig-paren">(</span><em>new_func=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/base/obsolete.html#deprecated_method"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.base.obsolete.deprecated_method" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is a decorator which can be used to mark deprecated methods.
+It will report in a DeprecationWarning being emitted to stderr when the deprecated method is used.</p>
+</dd></dl>
+<dl class="function">
+<dt id="twilio.base.obsolete.obsolete_client">
+<code class="descclassname">twilio.base.obsolete.</code><code class="descname">obsolete_client</code><span class="sig-paren">(</span><em>func</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/base/obsolete.html#obsolete_client"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.base.obsolete.obsolete_client" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is a decorator which can be used to mark Client classes as
+obsolete. It will result in an error being emitted when the class is
+instantiated.</p>
+</dd></dl>
+</div>
+<div class="section" id="module-twilio.base.page">
+<span id="twilio-base-page-module"></span><h2>twilio.base.page module<a class="headerlink" href="#module-twilio.base.page" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="twilio.base.page.Page">
+<em class="property">class </em><code class="descclassname">twilio.base.page.</code><code class="descname">Page</code><span class="sig-paren">(</span><em>version</em>, <em>response</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/base/page.html#Page"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.base.page.Page" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Represents a page of records in a collection.</p>
+<p>A <cite>Page</cite> lets you iterate over its records and fetch the next and previous
+pages in the collection.</p>
+<dl class="attribute">
+<dt id="twilio.base.page.Page.META_KEYS">
+<code class="descname">META_KEYS</code><em class="property"> = {'end', 'first_page_uri', 'last_page_uri', 'next_page_uri', 'num_pages', 'page', 'page_size', 'previous_page_uri', 'start', 'total', 'uri'}</em><a class="headerlink" href="#twilio.base.page.Page.META_KEYS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="method">
+<dt id="twilio.base.page.Page.get_instance">
+<code class="descname">get_instance</code><span class="sig-paren">(</span><em>payload</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/base/page.html#Page.get_instance"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.base.page.Page.get_instance" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>payload</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a>) – A JSON-loaded representation of an instance record.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">A rich, resource-dependent object.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+<dl class="method">
+<dt id="twilio.base.page.Page.load_page">
+<code class="descname">load_page</code><span class="sig-paren">(</span><em>payload</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/base/page.html#Page.load_page"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.base.page.Page.load_page" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parses the collection of records out of a list payload.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>payload</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a>) – The JSON-loaded content.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return list:</th><td class="field-body">The list of records.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+<dl class="method">
+<dt id="twilio.base.page.Page.next">
+<code class="descname">next</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/base/page.html#Page.next"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.base.page.Page.next" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the next record in the <cite>Page</cite>.</p>
+</dd></dl>
+<dl class="method">
+<dt id="twilio.base.page.Page.next_page">
+<code class="descname">next_page</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/base/page.html#Page.next_page"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.base.page.Page.next_page" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the <cite>Page</cite> after this one.
+:return Page: The next page.</p>
+</dd></dl>
+<dl class="attribute">
+<dt id="twilio.base.page.Page.next_page_url">
+<code class="descname">next_page_url</code><a class="headerlink" href="#twilio.base.page.Page.next_page_url" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return str:</th><td class="field-body">Returns a link to the next_page_url or None if doesn’t exist.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+<dl class="method">
+<dt id="twilio.base.page.Page.previous_page">
+<code class="descname">previous_page</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/base/page.html#Page.previous_page"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.base.page.Page.previous_page" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the <cite>Page</cite> before this one.
+:return Page: The previous page.</p>
+</dd></dl>
+<dl class="attribute">
+<dt id="twilio.base.page.Page.previous_page_url">
+<code class="descname">previous_page_url</code><a class="headerlink" href="#twilio.base.page.Page.previous_page_url" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return str:</th><td class="field-body">Returns a link to the previous_page_url or None if doesn’t exist.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+<dl class="classmethod">
+<dt id="twilio.base.page.Page.process_response">
+<em class="property">classmethod </em><code class="descname">process_response</code><span class="sig-paren">(</span><em>response</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/base/page.html#Page.process_response"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.base.page.Page.process_response" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load a JSON response.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>response</strong> (<a class="reference internal" href="twilio.http.html#twilio.http.response.Response" title="twilio.http.response.Response"><em>Response</em></a>) – The HTTP response.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return dict:</th><td class="field-body">The JSON-loaded content.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+</dd></dl>
+</div>
+<div class="section" id="module-twilio.base.serialize">
+<span id="twilio-base-serialize-module"></span><h2>twilio.base.serialize module<a class="headerlink" href="#module-twilio.base.serialize" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="twilio.base.serialize.iso8601_date">
+<code class="descclassname">twilio.base.serialize.</code><code class="descname">iso8601_date</code><span class="sig-paren">(</span><em>d</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/base/serialize.html#iso8601_date"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.base.serialize.iso8601_date" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a string representation of a date that the Twilio API understands
+Format is YYYY-MM-DD. Returns None if d is not a string, datetime, or date</p>
+</dd></dl>
+<dl class="function">
+<dt id="twilio.base.serialize.iso8601_datetime">
+<code class="descclassname">twilio.base.serialize.</code><code class="descname">iso8601_datetime</code><span class="sig-paren">(</span><em>d</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/base/serialize.html#iso8601_datetime"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.base.serialize.iso8601_datetime" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a string representation of a date that the Twilio API understands
+Format is YYYY-MM-DD. Returns None if d is not a string, datetime, or date</p>
+</dd></dl>
+<dl class="function">
+<dt id="twilio.base.serialize.map">
+<code class="descclassname">twilio.base.serialize.</code><code class="descname">map</code><span class="sig-paren">(</span><em>lst</em>, <em>serialize_func</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/base/serialize.html#map"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.base.serialize.map" title="Permalink to this definition">¶</a></dt>
+<dd><p>Applies serialize_func to every element in lst</p>
+</dd></dl>
+<dl class="function">
+<dt id="twilio.base.serialize.object">
+<code class="descclassname">twilio.base.serialize.</code><code class="descname">object</code><span class="sig-paren">(</span><em>obj</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/base/serialize.html#object"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.base.serialize.object" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a jsonified string represenation of obj if obj is jsonifiable else
+return obj untouched</p>
+</dd></dl>
+<dl class="function">
+<dt id="twilio.base.serialize.prefixed_collapsible_map">
+<code class="descclassname">twilio.base.serialize.</code><code class="descname">prefixed_collapsible_map</code><span class="sig-paren">(</span><em>m</em>, <em>prefix</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/base/serialize.html#prefixed_collapsible_map"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.base.serialize.prefixed_collapsible_map" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a dict of params corresponding to those in m with the added prefix</p>
+</dd></dl>
+</div>
+<div class="section" id="module-twilio.base.values">
+<span id="twilio-base-values-module"></span><h2>twilio.base.values module<a class="headerlink" href="#module-twilio.base.values" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="twilio.base.values.of">
+<code class="descclassname">twilio.base.values.</code><code class="descname">of</code><span class="sig-paren">(</span><em>d</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/base/values.html#of"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.base.values.of" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove unset values from a dict.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>d</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a>) – A dict to strip.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return dict:</th><td class="field-body">A dict with unset values removed.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+</div>
+<div class="section" id="module-twilio.base.version">
+<span id="twilio-base-version-module"></span><h2>twilio.base.version module<a class="headerlink" href="#module-twilio.base.version" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="twilio.base.version.Version">
+<em class="property">class </em><code class="descclassname">twilio.base.version.</code><code class="descname">Version</code><span class="sig-paren">(</span><em>domain</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/base/version.html#Version"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.base.version.Version" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Represents an API version.</p>
+<dl class="method">
+<dt id="twilio.base.version.Version.absolute_url">
+<code class="descname">absolute_url</code><span class="sig-paren">(</span><em>uri</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/base/version.html#Version.absolute_url"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.base.version.Version.absolute_url" title="Permalink to this definition">¶</a></dt>
+<dd><p>Turns a relative uri into an absolute url.</p>
+</dd></dl>
+<dl class="method">
+<dt id="twilio.base.version.Version.create">
+<code class="descname">create</code><span class="sig-paren">(</span><em>method</em>, <em>uri</em>, <em>params=None</em>, <em>data=None</em>, <em>headers=None</em>, <em>auth=None</em>, <em>timeout=None</em>, <em>allow_redirects=False</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/base/version.html#Version.create"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.base.version.Version.create" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a resource instance.</p>
+</dd></dl>
+<dl class="method">
+<dt id="twilio.base.version.Version.delete">
+<code class="descname">delete</code><span class="sig-paren">(</span><em>method</em>, <em>uri</em>, <em>params=None</em>, <em>data=None</em>, <em>headers=None</em>, <em>auth=None</em>, <em>timeout=None</em>, <em>allow_redirects=False</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/base/version.html#Version.delete"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.base.version.Version.delete" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete a resource.</p>
+</dd></dl>
+<dl class="classmethod">
+<dt id="twilio.base.version.Version.exception">
+<em class="property">classmethod </em><code class="descname">exception</code><span class="sig-paren">(</span><em>method</em>, <em>uri</em>, <em>response</em>, <em>message</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/base/version.html#Version.exception"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.base.version.Version.exception" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wraps an exceptional response in a <cite>TwilioRestException</cite>.</p>
+</dd></dl>
+<dl class="method">
+<dt id="twilio.base.version.Version.fetch">
+<code class="descname">fetch</code><span class="sig-paren">(</span><em>method</em>, <em>uri</em>, <em>params=None</em>, <em>data=None</em>, <em>headers=None</em>, <em>auth=None</em>, <em>timeout=None</em>, <em>allow_redirects=False</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/base/version.html#Version.fetch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.base.version.Version.fetch" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fetch a resource instance.</p>
+</dd></dl>
+<dl class="method">
+<dt id="twilio.base.version.Version.page">
+<code class="descname">page</code><span class="sig-paren">(</span><em>method</em>, <em>uri</em>, <em>params=None</em>, <em>data=None</em>, <em>headers=None</em>, <em>auth=None</em>, <em>timeout=None</em>, <em>allow_redirects=False</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/base/version.html#Version.page"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.base.version.Version.page" title="Permalink to this definition">¶</a></dt>
+<dd><p>Makes an HTTP request.</p>
+</dd></dl>
+<dl class="method">
+<dt id="twilio.base.version.Version.read_limits">
+<code class="descname">read_limits</code><span class="sig-paren">(</span><em>limit=None</em>, <em>page_size=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/base/version.html#Version.read_limits"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.base.version.Version.read_limits" title="Permalink to this definition">¶</a></dt>
+<dd><p>Takes a limit on the max number of records to read and a max page_size
+and calculates the max number of pages to read.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – Max number of records to read.</li>
+<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – Max page size.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return dict:</th><td class="field-body"><p class="first last">A dictionary of paging limits.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+<dl class="method">
+<dt id="twilio.base.version.Version.relative_uri">
+<code class="descname">relative_uri</code><span class="sig-paren">(</span><em>uri</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/base/version.html#Version.relative_uri"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.base.version.Version.relative_uri" title="Permalink to this definition">¶</a></dt>
+<dd><p>Turns a relative uri into a versioned relative uri.</p>
+</dd></dl>
+<dl class="method">
+<dt id="twilio.base.version.Version.request">
+<code class="descname">request</code><span class="sig-paren">(</span><em>method</em>, <em>uri</em>, <em>params=None</em>, <em>data=None</em>, <em>headers=None</em>, <em>auth=None</em>, <em>timeout=None</em>, <em>allow_redirects=False</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/base/version.html#Version.request"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.base.version.Version.request" title="Permalink to this definition">¶</a></dt>
+<dd><p>Make an HTTP request.</p>
+</dd></dl>
+<dl class="method">
+<dt id="twilio.base.version.Version.stream">
+<code class="descname">stream</code><span class="sig-paren">(</span><em>page</em>, <em>limit=None</em>, <em>page_limit=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/base/version.html#Version.stream"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.base.version.Version.stream" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates records one a time from a page, stopping at prescribed limits.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>page</strong> (<a class="reference internal" href="#twilio.base.page.Page" title="twilio.base.page.Page"><em>Page</em></a>) – The page to stream.</li>
+<li><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – The max number of records to read.</li>
+<li><strong>page_limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – The max number of pages to read.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+<dl class="method">
+<dt id="twilio.base.version.Version.update">
+<code class="descname">update</code><span class="sig-paren">(</span><em>method</em>, <em>uri</em>, <em>params=None</em>, <em>data=None</em>, <em>headers=None</em>, <em>auth=None</em>, <em>timeout=None</em>, <em>allow_redirects=False</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/base/version.html#Version.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.base.version.Version.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update a resource instance.</p>
+</dd></dl>
+</dd></dl>
+</div>
+<div class="section" id="module-twilio.base">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-twilio.base" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div aria-label="main navigation" class="sphinxsidebar" role="navigation">
+<div class="sphinxsidebarwrapper"><h3><a href="https://www.twilio.com/docs/libraries/python">About twilio-python</a></h3>
+<p>
+    A Python module for communicating with the Twilio API and generating <a href="http://www.twilio.com/docs/api/twiml/">TwiML</a>.
+</p>
+<h3>Useful Links</h3>
+<ul>
+<li><a href="https://www.twilio.com/docs/libraries/python">Twilio's Python Helper Library Docs</a></li>
+<li><a href="https://pypi.org/project/twilio/">twilio @ PyPI</a></li>
+<li><a href="https://github.com/twilio/twilio-python">twilio-python @ GitHub</a></li>
+</ul>
+<h3><a href="../../../index.html">Table of Contents</a></h3>
+<ul>
+<li><a class="reference internal" href="#">twilio.base package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-twilio.base.deserialize">twilio.base.deserialize module</a></li>
+<li><a class="reference internal" href="#module-twilio.base.domain">twilio.base.domain module</a></li>
+<li><a class="reference internal" href="#module-twilio.base.exceptions">twilio.base.exceptions module</a></li>
+<li><a class="reference internal" href="#module-twilio.base.instance_context">twilio.base.instance_context module</a></li>
+<li><a class="reference internal" href="#module-twilio.base.instance_resource">twilio.base.instance_resource module</a></li>
+<li><a class="reference internal" href="#module-twilio.base.list_resource">twilio.base.list_resource module</a></li>
+<li><a class="reference internal" href="#module-twilio.base.obsolete">twilio.base.obsolete module</a></li>
+<li><a class="reference internal" href="#module-twilio.base.page">twilio.base.page module</a></li>
+<li><a class="reference internal" href="#module-twilio.base.serialize">twilio.base.serialize module</a></li>
+<li><a class="reference internal" href="#module-twilio.base.values">twilio.base.values module</a></li>
+<li><a class="reference internal" href="#module-twilio.base.version">twilio.base.version module</a></li>
+<li><a class="reference internal" href="#module-twilio.base">Module contents</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+<li><a href="../../../index.html">Documentation overview</a><ul>
+<li><a href="modules.html">twilio</a><ul>
+<li><a href="twilio.html">twilio package</a><ul>
+<li>Previous: <a href="twilio.html" title="previous chapter">twilio package</a></li>
+<li>Next: <a href="twilio.http.html" title="next chapter">twilio.http package</a></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
+<div aria-label="source link" role="note">
+<h3>This Page</h3>
+<ul class="this-page-menu">
+<li><a href="../../../_sources/docs/source/_rst/twilio.base.rst.txt" rel="nofollow">Show Source</a></li>
+</ul>
+</div>
+<div id="searchbox" role="search" style="display: none">
+<h3>Quick search</h3>
+<div class="searchformwrapper">
+<form action="../../../search.html" class="search" method="get">
+<input name="q" type="text"/>
+<input type="submit" value="Go"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
+</div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+</div>
+</div>
+<div class="clearer"></div>
+</div>
+<div class="footer">
+      ©2019, Twilio.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../../../_sources/docs/source/_rst/twilio.base.rst.txt" rel="nofollow">Page source</a>
+</div>
+</body>
+</html>

@@ -1,0 +1,29 @@
+twilio.rest.chat.v2 package
+===========================
+
+Subpackages
+-----------
+
+.. toctree::
+
+    twilio.rest.chat.v2.service
+
+Submodules
+----------
+
+twilio.rest.chat.v2.credential module
+-------------------------------------
+
+.. automodule:: twilio.rest.chat.v2.credential
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: twilio.rest.chat.v2
+    :members:
+    :undoc-members:
+    :show-inheritance:

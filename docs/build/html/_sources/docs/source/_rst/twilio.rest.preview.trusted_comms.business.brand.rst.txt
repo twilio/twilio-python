@@ -1,0 +1,17 @@
+twilio.rest.preview.trusted\_comms.business.brand package
+=========================================================
+
+Subpackages
+-----------
+
+.. toctree::
+
+    twilio.rest.preview.trusted_comms.business.brand.branded_channel
+
+Module contents
+---------------
+
+.. automodule:: twilio.rest.preview.trusted_comms.business.brand
+    :members:
+    :undoc-members:
+    :show-inheritance:

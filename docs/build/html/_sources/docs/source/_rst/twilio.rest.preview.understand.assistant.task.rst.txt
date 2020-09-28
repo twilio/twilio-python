@@ -1,0 +1,46 @@
+twilio.rest.preview.understand.assistant.task package
+=====================================================
+
+Submodules
+----------
+
+twilio.rest.preview.understand.assistant.task.field module
+----------------------------------------------------------
+
+.. automodule:: twilio.rest.preview.understand.assistant.task.field
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+twilio.rest.preview.understand.assistant.task.sample module
+-----------------------------------------------------------
+
+.. automodule:: twilio.rest.preview.understand.assistant.task.sample
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+twilio.rest.preview.understand.assistant.task.task\_actions module
+------------------------------------------------------------------
+
+.. automodule:: twilio.rest.preview.understand.assistant.task.task_actions
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+twilio.rest.preview.understand.assistant.task.task\_statistics module
+---------------------------------------------------------------------
+
+.. automodule:: twilio.rest.preview.understand.assistant.task.task_statistics
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: twilio.rest.preview.understand.assistant.task
+    :members:
+    :undoc-members:
+    :show-inheritance:

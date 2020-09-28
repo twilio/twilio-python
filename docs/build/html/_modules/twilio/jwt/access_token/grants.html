@@ -1,0 +1,280 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head><!--Google Tag Manager--><script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-MWRD6S');</script><!--End Google Tag Manager-->
+<meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+<title>twilio.jwt.access_token.grants — twilio-python 6.45.4 documentation</title>
+<link href="../../../../_static/alabaster.css" rel="stylesheet" type="text/css"/>
+<link href="../../../../_static/pygments.css" rel="stylesheet" type="text/css"/>
+<script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js" type="text/javascript"></script>
+<script src="../../../../_static/jquery.js" type="text/javascript"></script>
+<script src="../../../../_static/underscore.js" type="text/javascript"></script>
+<script src="../../../../_static/doctools.js" type="text/javascript"></script>
+<script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+<link href="../../../../genindex.html" rel="index" title="Index"/>
+<link href="../../../../search.html" rel="search" title="Search"/>
+<link href="../../../../_static/custom.css" rel="stylesheet" type="text/css"/>
+<meta content="width=device-width, initial-scale=0.9, maximum-scale=0.9" name="viewport"/>
+</head><body><!--Google Tag Manager (noscript)--><noscript><iframe height="0" src="https://www.googletagmanager.com/ns.html?id=GTM-MWRD6S" style="display:none;visibility:hidden" width="0"></iframe></noscript><!--End Google Tag Manager (noscript)-->
+<div class="document">
+<div class="documentwrapper">
+<div class="bodywrapper">
+<div class="body" role="main">
+<h1>Source code for twilio.jwt.access_token.grants</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">twilio.jwt.access_token</span> <span class="kn">import</span> <span class="n">AccessTokenGrant</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="kn">import</span> <span class="nn">functools</span>
+
+
+<div class="viewcode-block" id="deprecated"><a class="viewcode-back" href="../../../../docs/source/_rst/twilio.jwt.access_token.html#twilio.jwt.access_token.grants.deprecated">[docs]</a><span class="k">def</span> <span class="nf">deprecated</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
+    <span class="sd">'''This is a decorator which can be used to mark functions</span>
+<span class="sd">    as deprecated. It will result in a warning being emitted</span>
+<span class="sd">    when the function is used.'''</span>
+
+    <span class="nd">@functools</span><span class="o">.</span><span class="n">wraps</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">new_func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="s1">'always'</span><span class="p">,</span> <span class="ne">DeprecationWarning</span><span class="p">)</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">"Call to deprecated function </span><span class="si">{}</span><span class="s2">."</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">func</span><span class="o">.</span><span class="vm">__name__</span><span class="p">),</span> <span class="n">category</span><span class="o">=</span><span class="ne">DeprecationWarning</span><span class="p">,</span> <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="s1">'default'</span><span class="p">,</span> <span class="ne">DeprecationWarning</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">new_func</span></div>
+
+
+<div class="viewcode-block" id="ChatGrant"><a class="viewcode-back" href="../../../../docs/source/_rst/twilio.jwt.access_token.html#twilio.jwt.access_token.grants.ChatGrant">[docs]</a><span class="k">class</span> <span class="nc">ChatGrant</span><span class="p">(</span><span class="n">AccessTokenGrant</span><span class="p">):</span>
+    <span class="sd">"""Grant to access Twilio Chat"""</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">service_sid</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">endpoint_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">deployment_role_sid</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">push_credential_sid</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">service_sid</span> <span class="o">=</span> <span class="n">service_sid</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">endpoint_id</span> <span class="o">=</span> <span class="n">endpoint_id</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">deployment_role_sid</span> <span class="o">=</span> <span class="n">deployment_role_sid</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">push_credential_sid</span> <span class="o">=</span> <span class="n">push_credential_sid</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">key</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">"chat"</span>
+
+<div class="viewcode-block" id="ChatGrant.to_payload"><a class="viewcode-back" href="../../../../docs/source/_rst/twilio.jwt.access_token.html#twilio.jwt.access_token.grants.ChatGrant.to_payload">[docs]</a>    <span class="k">def</span> <span class="nf">to_payload</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">grant</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">service_sid</span><span class="p">:</span>
+            <span class="n">grant</span><span class="p">[</span><span class="s1">'service_sid'</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">service_sid</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">endpoint_id</span><span class="p">:</span>
+            <span class="n">grant</span><span class="p">[</span><span class="s1">'endpoint_id'</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">endpoint_id</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">deployment_role_sid</span><span class="p">:</span>
+            <span class="n">grant</span><span class="p">[</span><span class="s1">'deployment_role_sid'</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">deployment_role_sid</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">push_credential_sid</span><span class="p">:</span>
+            <span class="n">grant</span><span class="p">[</span><span class="s1">'push_credential_sid'</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">push_credential_sid</span>
+
+        <span class="k">return</span> <span class="n">grant</span></div></div>
+
+
+<div class="viewcode-block" id="IpMessagingGrant"><a class="viewcode-back" href="../../../../docs/source/_rst/twilio.jwt.access_token.html#twilio.jwt.access_token.grants.IpMessagingGrant">[docs]</a><span class="k">class</span> <span class="nc">IpMessagingGrant</span><span class="p">(</span><span class="n">AccessTokenGrant</span><span class="p">):</span>
+    <span class="sd">"""Grant to access Twilio IP Messaging"""</span>
+
+    <span class="nd">@deprecated</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">service_sid</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">endpoint_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">deployment_role_sid</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">push_credential_sid</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">service_sid</span> <span class="o">=</span> <span class="n">service_sid</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">endpoint_id</span> <span class="o">=</span> <span class="n">endpoint_id</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">deployment_role_sid</span> <span class="o">=</span> <span class="n">deployment_role_sid</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">push_credential_sid</span> <span class="o">=</span> <span class="n">push_credential_sid</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">key</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">"ip_messaging"</span>
+
+<div class="viewcode-block" id="IpMessagingGrant.to_payload"><a class="viewcode-back" href="../../../../docs/source/_rst/twilio.jwt.access_token.html#twilio.jwt.access_token.grants.IpMessagingGrant.to_payload">[docs]</a>    <span class="k">def</span> <span class="nf">to_payload</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">grant</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">service_sid</span><span class="p">:</span>
+            <span class="n">grant</span><span class="p">[</span><span class="s1">'service_sid'</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">service_sid</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">endpoint_id</span><span class="p">:</span>
+            <span class="n">grant</span><span class="p">[</span><span class="s1">'endpoint_id'</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">endpoint_id</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">deployment_role_sid</span><span class="p">:</span>
+            <span class="n">grant</span><span class="p">[</span><span class="s1">'deployment_role_sid'</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">deployment_role_sid</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">push_credential_sid</span><span class="p">:</span>
+            <span class="n">grant</span><span class="p">[</span><span class="s1">'push_credential_sid'</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">push_credential_sid</span>
+
+        <span class="k">return</span> <span class="n">grant</span></div></div>
+
+
+<div class="viewcode-block" id="SyncGrant"><a class="viewcode-back" href="../../../../docs/source/_rst/twilio.jwt.access_token.html#twilio.jwt.access_token.grants.SyncGrant">[docs]</a><span class="k">class</span> <span class="nc">SyncGrant</span><span class="p">(</span><span class="n">AccessTokenGrant</span><span class="p">):</span>
+    <span class="sd">"""Grant to access Twilio Sync"""</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">service_sid</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">endpoint_id</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">service_sid</span> <span class="o">=</span> <span class="n">service_sid</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">endpoint_id</span> <span class="o">=</span> <span class="n">endpoint_id</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">key</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">"data_sync"</span>
+
+<div class="viewcode-block" id="SyncGrant.to_payload"><a class="viewcode-back" href="../../../../docs/source/_rst/twilio.jwt.access_token.html#twilio.jwt.access_token.grants.SyncGrant.to_payload">[docs]</a>    <span class="k">def</span> <span class="nf">to_payload</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">grant</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">service_sid</span><span class="p">:</span>
+            <span class="n">grant</span><span class="p">[</span><span class="s1">'service_sid'</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">service_sid</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">endpoint_id</span><span class="p">:</span>
+            <span class="n">grant</span><span class="p">[</span><span class="s1">'endpoint_id'</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">endpoint_id</span>
+
+        <span class="k">return</span> <span class="n">grant</span></div></div>
+
+
+<div class="viewcode-block" id="VoiceGrant"><a class="viewcode-back" href="../../../../docs/source/_rst/twilio.jwt.access_token.html#twilio.jwt.access_token.grants.VoiceGrant">[docs]</a><span class="k">class</span> <span class="nc">VoiceGrant</span><span class="p">(</span><span class="n">AccessTokenGrant</span><span class="p">):</span>
+    <span class="sd">"""Grant to access Twilio Programmable Voice"""</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                 <span class="n">incoming_allow</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">outgoing_application_sid</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">outgoing_application_params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">push_credential_sid</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">endpoint_id</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">incoming_allow</span> <span class="o">=</span> <span class="n">incoming_allow</span>
+        <span class="sd">""" :type : bool """</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">outgoing_application_sid</span> <span class="o">=</span> <span class="n">outgoing_application_sid</span>
+        <span class="sd">""" :type : str """</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">outgoing_application_params</span> <span class="o">=</span> <span class="n">outgoing_application_params</span>
+        <span class="sd">""" :type : dict """</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">push_credential_sid</span> <span class="o">=</span> <span class="n">push_credential_sid</span>
+        <span class="sd">""" :type : str """</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">endpoint_id</span> <span class="o">=</span> <span class="n">endpoint_id</span>
+        <span class="sd">""" :type : str """</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">key</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">"voice"</span>
+
+<div class="viewcode-block" id="VoiceGrant.to_payload"><a class="viewcode-back" href="../../../../docs/source/_rst/twilio.jwt.access_token.html#twilio.jwt.access_token.grants.VoiceGrant.to_payload">[docs]</a>    <span class="k">def</span> <span class="nf">to_payload</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">grant</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">incoming_allow</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="n">grant</span><span class="p">[</span><span class="s1">'incoming'</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="n">grant</span><span class="p">[</span><span class="s1">'incoming'</span><span class="p">][</span><span class="s1">'allow'</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">outgoing_application_sid</span><span class="p">:</span>
+            <span class="n">grant</span><span class="p">[</span><span class="s1">'outgoing'</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="n">grant</span><span class="p">[</span><span class="s1">'outgoing'</span><span class="p">][</span><span class="s1">'application_sid'</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">outgoing_application_sid</span>
+
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">outgoing_application_params</span><span class="p">:</span>
+                <span class="n">grant</span><span class="p">[</span><span class="s1">'outgoing'</span><span class="p">][</span><span class="s1">'params'</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">outgoing_application_params</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">push_credential_sid</span><span class="p">:</span>
+            <span class="n">grant</span><span class="p">[</span><span class="s1">'push_credential_sid'</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">push_credential_sid</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">endpoint_id</span><span class="p">:</span>
+            <span class="n">grant</span><span class="p">[</span><span class="s1">'endpoint_id'</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">endpoint_id</span>
+
+        <span class="k">return</span> <span class="n">grant</span></div></div>
+
+
+<div class="viewcode-block" id="ConversationsGrant"><a class="viewcode-back" href="../../../../docs/source/_rst/twilio.jwt.access_token.html#twilio.jwt.access_token.grants.ConversationsGrant">[docs]</a><span class="k">class</span> <span class="nc">ConversationsGrant</span><span class="p">(</span><span class="n">AccessTokenGrant</span><span class="p">):</span>
+    <span class="sd">"""Grant to access Twilio Conversations"""</span>
+    <span class="nd">@deprecated</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">configuration_profile_sid</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">configuration_profile_sid</span> <span class="o">=</span> <span class="n">configuration_profile_sid</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">key</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">"rtc"</span>
+
+<div class="viewcode-block" id="ConversationsGrant.to_payload"><a class="viewcode-back" href="../../../../docs/source/_rst/twilio.jwt.access_token.html#twilio.jwt.access_token.grants.ConversationsGrant.to_payload">[docs]</a>    <span class="k">def</span> <span class="nf">to_payload</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">grant</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">configuration_profile_sid</span><span class="p">:</span>
+            <span class="n">grant</span><span class="p">[</span><span class="s1">'configuration_profile_sid'</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">configuration_profile_sid</span>
+
+        <span class="k">return</span> <span class="n">grant</span></div></div>
+
+
+<div class="viewcode-block" id="VideoGrant"><a class="viewcode-back" href="../../../../docs/source/_rst/twilio.jwt.access_token.html#twilio.jwt.access_token.grants.VideoGrant">[docs]</a><span class="k">class</span> <span class="nc">VideoGrant</span><span class="p">(</span><span class="n">AccessTokenGrant</span><span class="p">):</span>
+    <span class="sd">"""Grant to access Twilio Video"""</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">room</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">room</span> <span class="o">=</span> <span class="n">room</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">key</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">"video"</span>
+
+<div class="viewcode-block" id="VideoGrant.to_payload"><a class="viewcode-back" href="../../../../docs/source/_rst/twilio.jwt.access_token.html#twilio.jwt.access_token.grants.VideoGrant.to_payload">[docs]</a>    <span class="k">def</span> <span class="nf">to_payload</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">grant</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">room</span><span class="p">:</span>
+            <span class="n">grant</span><span class="p">[</span><span class="s1">'room'</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">room</span>
+
+        <span class="k">return</span> <span class="n">grant</span></div></div>
+
+
+<div class="viewcode-block" id="TaskRouterGrant"><a class="viewcode-back" href="../../../../docs/source/_rst/twilio.jwt.access_token.html#twilio.jwt.access_token.grants.TaskRouterGrant">[docs]</a><span class="k">class</span> <span class="nc">TaskRouterGrant</span><span class="p">(</span><span class="n">AccessTokenGrant</span><span class="p">):</span>
+    <span class="sd">"""Grant to access Twilio TaskRouter"""</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">workspace_sid</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">worker_sid</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">role</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">workspace_sid</span> <span class="o">=</span> <span class="n">workspace_sid</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">worker_sid</span> <span class="o">=</span> <span class="n">worker_sid</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">role</span> <span class="o">=</span> <span class="n">role</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">key</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">"task_router"</span>
+
+<div class="viewcode-block" id="TaskRouterGrant.to_payload"><a class="viewcode-back" href="../../../../docs/source/_rst/twilio.jwt.access_token.html#twilio.jwt.access_token.grants.TaskRouterGrant.to_payload">[docs]</a>    <span class="k">def</span> <span class="nf">to_payload</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">grant</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">workspace_sid</span><span class="p">:</span>
+            <span class="n">grant</span><span class="p">[</span><span class="s1">'workspace_sid'</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">workspace_sid</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">worker_sid</span><span class="p">:</span>
+            <span class="n">grant</span><span class="p">[</span><span class="s1">'worker_sid'</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">worker_sid</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">role</span><span class="p">:</span>
+            <span class="n">grant</span><span class="p">[</span><span class="s1">'role'</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">role</span>
+
+        <span class="k">return</span> <span class="n">grant</span></div></div>
+</pre></div>
+</div>
+</div>
+</div>
+<div aria-label="main navigation" class="sphinxsidebar" role="navigation">
+<div class="sphinxsidebarwrapper"><h3><a href="https://www.twilio.com/docs/libraries/python">About twilio-python</a></h3>
+<p>
+    A Python module for communicating with the Twilio API and generating <a href="http://www.twilio.com/docs/api/twiml/">TwiML</a>.
+</p>
+<h3>Useful Links</h3>
+<ul>
+<li><a href="https://www.twilio.com/docs/libraries/python">Twilio's Python Helper Library Docs</a></li>
+<li><a href="https://pypi.org/project/twilio/">twilio @ PyPI</a></li>
+<li><a href="https://github.com/twilio/twilio-python">twilio-python @ GitHub</a></li>
+</ul><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+<li><a href="../../../../index.html">Documentation overview</a><ul>
+<li><a href="../../../index.html">Module code</a><ul>
+<li><a href="../../jwt.html">twilio.jwt</a><ul>
+<li><a href="../access_token.html">twilio.jwt.access_token</a><ul>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
+<div id="searchbox" role="search" style="display: none">
+<h3>Quick search</h3>
+<div class="searchformwrapper">
+<form action="../../../../search.html" class="search" method="get">
+<input name="q" type="text"/>
+<input type="submit" value="Go"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
+</div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+</div>
+</div>
+<div class="clearer"></div>
+</div>
+<div class="footer">
+      ©2019, Twilio.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+</div>
+</body>
+</html>

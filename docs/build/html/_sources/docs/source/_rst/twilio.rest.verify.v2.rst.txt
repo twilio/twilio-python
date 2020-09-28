@@ -1,0 +1,29 @@
+twilio.rest.verify.v2 package
+=============================
+
+Subpackages
+-----------
+
+.. toctree::
+
+    twilio.rest.verify.v2.service
+
+Submodules
+----------
+
+twilio.rest.verify.v2.form module
+---------------------------------
+
+.. automodule:: twilio.rest.verify.v2.form
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: twilio.rest.verify.v2
+    :members:
+    :undoc-members:
+    :show-inheritance:

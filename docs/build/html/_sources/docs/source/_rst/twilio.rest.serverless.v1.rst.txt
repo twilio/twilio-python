@@ -1,0 +1,17 @@
+twilio.rest.serverless.v1 package
+=================================
+
+Subpackages
+-----------
+
+.. toctree::
+
+    twilio.rest.serverless.v1.service
+
+Module contents
+---------------
+
+.. automodule:: twilio.rest.serverless.v1
+    :members:
+    :undoc-members:
+    :show-inheritance:

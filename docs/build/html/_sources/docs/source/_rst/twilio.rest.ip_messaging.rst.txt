@@ -1,0 +1,18 @@
+twilio.rest.ip\_messaging package
+=================================
+
+Subpackages
+-----------
+
+.. toctree::
+
+    twilio.rest.ip_messaging.v1
+    twilio.rest.ip_messaging.v2
+
+Module contents
+---------------
+
+.. automodule:: twilio.rest.ip_messaging
+    :members:
+    :undoc-members:
+    :show-inheritance:

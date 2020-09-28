@@ -1,0 +1,22 @@
+twilio.rest.chat.v1.service.user package
+========================================
+
+Submodules
+----------
+
+twilio.rest.chat.v1.service.user.user\_channel module
+-----------------------------------------------------
+
+.. automodule:: twilio.rest.chat.v1.service.user.user_channel
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: twilio.rest.chat.v1.service.user
+    :members:
+    :undoc-members:
+    :show-inheritance:

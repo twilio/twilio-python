@@ -1,0 +1,17 @@
+twilio.rest.sync package
+========================
+
+Subpackages
+-----------
+
+.. toctree::
+
+    twilio.rest.sync.v1
+
+Module contents
+---------------
+
+.. automodule:: twilio.rest.sync
+    :members:
+    :undoc-members:
+    :show-inheritance:

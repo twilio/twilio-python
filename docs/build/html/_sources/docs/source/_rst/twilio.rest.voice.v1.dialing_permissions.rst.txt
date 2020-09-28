@@ -1,0 +1,37 @@
+twilio.rest.voice.v1.dialing\_permissions package
+=================================================
+
+Subpackages
+-----------
+
+.. toctree::
+
+    twilio.rest.voice.v1.dialing_permissions.country
+
+Submodules
+----------
+
+twilio.rest.voice.v1.dialing\_permissions.bulk\_country\_update module
+----------------------------------------------------------------------
+
+.. automodule:: twilio.rest.voice.v1.dialing_permissions.bulk_country_update
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+twilio.rest.voice.v1.dialing\_permissions.settings module
+---------------------------------------------------------
+
+.. automodule:: twilio.rest.voice.v1.dialing_permissions.settings
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: twilio.rest.voice.v1.dialing_permissions
+    :members:
+    :undoc-members:
+    :show-inheritance:

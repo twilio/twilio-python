@@ -1,0 +1,17 @@
+twilio.rest.preview.sync package
+================================
+
+Subpackages
+-----------
+
+.. toctree::
+
+    twilio.rest.preview.sync.service
+
+Module contents
+---------------
+
+.. automodule:: twilio.rest.preview.sync
+    :members:
+    :undoc-members:
+    :show-inheritance:

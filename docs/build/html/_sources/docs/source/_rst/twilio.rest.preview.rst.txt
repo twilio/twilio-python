@@ -1,0 +1,24 @@
+twilio.rest.preview package
+===========================
+
+Subpackages
+-----------
+
+.. toctree::
+
+    twilio.rest.preview.bulk_exports
+    twilio.rest.preview.deployed_devices
+    twilio.rest.preview.hosted_numbers
+    twilio.rest.preview.marketplace
+    twilio.rest.preview.sync
+    twilio.rest.preview.trusted_comms
+    twilio.rest.preview.understand
+    twilio.rest.preview.wireless
+
+Module contents
+---------------
+
+.. automodule:: twilio.rest.preview
+    :members:
+    :undoc-members:
+    :show-inheritance:

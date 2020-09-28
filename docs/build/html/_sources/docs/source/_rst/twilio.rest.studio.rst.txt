@@ -1,0 +1,18 @@
+twilio.rest.studio package
+==========================
+
+Subpackages
+-----------
+
+.. toctree::
+
+    twilio.rest.studio.v1
+    twilio.rest.studio.v2
+
+Module contents
+---------------
+
+.. automodule:: twilio.rest.studio
+    :members:
+    :undoc-members:
+    :show-inheritance:

@@ -1,0 +1,22 @@
+twilio.rest.verify.v2.service.rate\_limit package
+=================================================
+
+Submodules
+----------
+
+twilio.rest.verify.v2.service.rate\_limit.bucket module
+-------------------------------------------------------
+
+.. automodule:: twilio.rest.verify.v2.service.rate_limit.bucket
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: twilio.rest.verify.v2.service.rate_limit
+    :members:
+    :undoc-members:
+    :show-inheritance:

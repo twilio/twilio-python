@@ -1,0 +1,10 @@
+twilio.rest.video.v1.recording package
+======================================
+
+Module contents
+---------------
+
+.. automodule:: twilio.rest.video.v1.recording
+    :members:
+    :undoc-members:
+    :show-inheritance:

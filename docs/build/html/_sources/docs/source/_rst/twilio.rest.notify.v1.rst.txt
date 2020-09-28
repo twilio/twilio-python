@@ -1,0 +1,29 @@
+twilio.rest.notify.v1 package
+=============================
+
+Subpackages
+-----------
+
+.. toctree::
+
+    twilio.rest.notify.v1.service
+
+Submodules
+----------
+
+twilio.rest.notify.v1.credential module
+---------------------------------------
+
+.. automodule:: twilio.rest.notify.v1.credential
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: twilio.rest.notify.v1
+    :members:
+    :undoc-members:
+    :show-inheritance:

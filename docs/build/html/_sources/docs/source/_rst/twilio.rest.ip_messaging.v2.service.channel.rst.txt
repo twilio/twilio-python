@@ -1,0 +1,46 @@
+twilio.rest.ip\_messaging.v2.service.channel package
+====================================================
+
+Submodules
+----------
+
+twilio.rest.ip\_messaging.v2.service.channel.invite module
+----------------------------------------------------------
+
+.. automodule:: twilio.rest.ip_messaging.v2.service.channel.invite
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+twilio.rest.ip\_messaging.v2.service.channel.member module
+----------------------------------------------------------
+
+.. automodule:: twilio.rest.ip_messaging.v2.service.channel.member
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+twilio.rest.ip\_messaging.v2.service.channel.message module
+-----------------------------------------------------------
+
+.. automodule:: twilio.rest.ip_messaging.v2.service.channel.message
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+twilio.rest.ip\_messaging.v2.service.channel.webhook module
+-----------------------------------------------------------
+
+.. automodule:: twilio.rest.ip_messaging.v2.service.channel.webhook
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: twilio.rest.ip_messaging.v2.service.channel
+    :members:
+    :undoc-members:
+    :show-inheritance:

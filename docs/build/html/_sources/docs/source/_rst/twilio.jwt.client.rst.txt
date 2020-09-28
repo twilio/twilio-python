@@ -1,0 +1,10 @@
+twilio.jwt.client package
+=========================
+
+Module contents
+---------------
+
+.. automodule:: twilio.jwt.client
+    :members:
+    :undoc-members:
+    :show-inheritance:

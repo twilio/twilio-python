@@ -1,0 +1,342 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head><!--Google Tag Manager--><script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-MWRD6S');</script><!--End Google Tag Manager-->
+<meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+<title>twilio.jwt.access_token package — twilio-python 6.45.4 documentation</title>
+<link href="../../../_static/alabaster.css" rel="stylesheet" type="text/css"/>
+<link href="../../../_static/pygments.css" rel="stylesheet" type="text/css"/>
+<script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js" type="text/javascript"></script>
+<script src="../../../_static/jquery.js" type="text/javascript"></script>
+<script src="../../../_static/underscore.js" type="text/javascript"></script>
+<script src="../../../_static/doctools.js" type="text/javascript"></script>
+<script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+<link href="../../../genindex.html" rel="index" title="Index"/>
+<link href="../../../search.html" rel="search" title="Search"/>
+<link href="twilio.jwt.client.html" rel="next" title="twilio.jwt.client package"/>
+<link href="twilio.jwt.html" rel="prev" title="twilio.jwt package"/>
+<link href="../../../_static/custom.css" rel="stylesheet" type="text/css"/>
+<meta content="width=device-width, initial-scale=0.9, maximum-scale=0.9" name="viewport"/>
+</head><body><!--Google Tag Manager (noscript)--><noscript><iframe height="0" src="https://www.googletagmanager.com/ns.html?id=GTM-MWRD6S" style="display:none;visibility:hidden" width="0"></iframe></noscript><!--End Google Tag Manager (noscript)-->
+<div class="document">
+<div class="documentwrapper">
+<div class="bodywrapper">
+<div class="body" role="main">
+<div class="section" id="twilio-jwt-access-token-package">
+<h1>twilio.jwt.access_token package<a class="headerlink" href="#twilio-jwt-access-token-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-twilio.jwt.access_token.grants">
+<span id="twilio-jwt-access-token-grants-module"></span><h2>twilio.jwt.access_token.grants module<a class="headerlink" href="#module-twilio.jwt.access_token.grants" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="twilio.jwt.access_token.grants.ChatGrant">
+<em class="property">class </em><code class="descclassname">twilio.jwt.access_token.grants.</code><code class="descname">ChatGrant</code><span class="sig-paren">(</span><em>service_sid=None</em>, <em>endpoint_id=None</em>, <em>deployment_role_sid=None</em>, <em>push_credential_sid=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/jwt/access_token/grants.html#ChatGrant"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.jwt.access_token.grants.ChatGrant" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#twilio.jwt.access_token.AccessTokenGrant" title="twilio.jwt.access_token.AccessTokenGrant"><code class="xref py py-class docutils literal notranslate"><span class="pre">twilio.jwt.access_token.AccessTokenGrant</span></code></a></p>
+<p>Grant to access Twilio Chat</p>
+<dl class="attribute">
+<dt id="twilio.jwt.access_token.grants.ChatGrant.key">
+<code class="descname">key</code><a class="headerlink" href="#twilio.jwt.access_token.grants.ChatGrant.key" title="Permalink to this definition">¶</a></dt>
+<dd><p>:rtype str Grant’s twilio specific key</p>
+</dd></dl>
+<dl class="method">
+<dt id="twilio.jwt.access_token.grants.ChatGrant.to_payload">
+<code class="descname">to_payload</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/jwt/access_token/grants.html#ChatGrant.to_payload"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.jwt.access_token.grants.ChatGrant.to_payload" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">dict something</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+</dd></dl>
+<dl class="class">
+<dt id="twilio.jwt.access_token.grants.ConversationsGrant">
+<em class="property">class </em><code class="descclassname">twilio.jwt.access_token.grants.</code><code class="descname">ConversationsGrant</code><span class="sig-paren">(</span><em>configuration_profile_sid=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/jwt/access_token/grants.html#ConversationsGrant"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.jwt.access_token.grants.ConversationsGrant" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#twilio.jwt.access_token.AccessTokenGrant" title="twilio.jwt.access_token.AccessTokenGrant"><code class="xref py py-class docutils literal notranslate"><span class="pre">twilio.jwt.access_token.AccessTokenGrant</span></code></a></p>
+<p>Grant to access Twilio Conversations</p>
+<dl class="attribute">
+<dt id="twilio.jwt.access_token.grants.ConversationsGrant.key">
+<code class="descname">key</code><a class="headerlink" href="#twilio.jwt.access_token.grants.ConversationsGrant.key" title="Permalink to this definition">¶</a></dt>
+<dd><p>:rtype str Grant’s twilio specific key</p>
+</dd></dl>
+<dl class="method">
+<dt id="twilio.jwt.access_token.grants.ConversationsGrant.to_payload">
+<code class="descname">to_payload</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/jwt/access_token/grants.html#ConversationsGrant.to_payload"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.jwt.access_token.grants.ConversationsGrant.to_payload" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">dict something</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+</dd></dl>
+<dl class="class">
+<dt id="twilio.jwt.access_token.grants.IpMessagingGrant">
+<em class="property">class </em><code class="descclassname">twilio.jwt.access_token.grants.</code><code class="descname">IpMessagingGrant</code><span class="sig-paren">(</span><em>service_sid=None</em>, <em>endpoint_id=None</em>, <em>deployment_role_sid=None</em>, <em>push_credential_sid=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/jwt/access_token/grants.html#IpMessagingGrant"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.jwt.access_token.grants.IpMessagingGrant" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#twilio.jwt.access_token.AccessTokenGrant" title="twilio.jwt.access_token.AccessTokenGrant"><code class="xref py py-class docutils literal notranslate"><span class="pre">twilio.jwt.access_token.AccessTokenGrant</span></code></a></p>
+<p>Grant to access Twilio IP Messaging</p>
+<dl class="attribute">
+<dt id="twilio.jwt.access_token.grants.IpMessagingGrant.key">
+<code class="descname">key</code><a class="headerlink" href="#twilio.jwt.access_token.grants.IpMessagingGrant.key" title="Permalink to this definition">¶</a></dt>
+<dd><p>:rtype str Grant’s twilio specific key</p>
+</dd></dl>
+<dl class="method">
+<dt id="twilio.jwt.access_token.grants.IpMessagingGrant.to_payload">
+<code class="descname">to_payload</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/jwt/access_token/grants.html#IpMessagingGrant.to_payload"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.jwt.access_token.grants.IpMessagingGrant.to_payload" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">dict something</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+</dd></dl>
+<dl class="class">
+<dt id="twilio.jwt.access_token.grants.SyncGrant">
+<em class="property">class </em><code class="descclassname">twilio.jwt.access_token.grants.</code><code class="descname">SyncGrant</code><span class="sig-paren">(</span><em>service_sid=None</em>, <em>endpoint_id=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/jwt/access_token/grants.html#SyncGrant"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.jwt.access_token.grants.SyncGrant" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#twilio.jwt.access_token.AccessTokenGrant" title="twilio.jwt.access_token.AccessTokenGrant"><code class="xref py py-class docutils literal notranslate"><span class="pre">twilio.jwt.access_token.AccessTokenGrant</span></code></a></p>
+<p>Grant to access Twilio Sync</p>
+<dl class="attribute">
+<dt id="twilio.jwt.access_token.grants.SyncGrant.key">
+<code class="descname">key</code><a class="headerlink" href="#twilio.jwt.access_token.grants.SyncGrant.key" title="Permalink to this definition">¶</a></dt>
+<dd><p>:rtype str Grant’s twilio specific key</p>
+</dd></dl>
+<dl class="method">
+<dt id="twilio.jwt.access_token.grants.SyncGrant.to_payload">
+<code class="descname">to_payload</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/jwt/access_token/grants.html#SyncGrant.to_payload"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.jwt.access_token.grants.SyncGrant.to_payload" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">dict something</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+</dd></dl>
+<dl class="class">
+<dt id="twilio.jwt.access_token.grants.TaskRouterGrant">
+<em class="property">class </em><code class="descclassname">twilio.jwt.access_token.grants.</code><code class="descname">TaskRouterGrant</code><span class="sig-paren">(</span><em>workspace_sid=None</em>, <em>worker_sid=None</em>, <em>role=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/jwt/access_token/grants.html#TaskRouterGrant"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.jwt.access_token.grants.TaskRouterGrant" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#twilio.jwt.access_token.AccessTokenGrant" title="twilio.jwt.access_token.AccessTokenGrant"><code class="xref py py-class docutils literal notranslate"><span class="pre">twilio.jwt.access_token.AccessTokenGrant</span></code></a></p>
+<p>Grant to access Twilio TaskRouter</p>
+<dl class="attribute">
+<dt id="twilio.jwt.access_token.grants.TaskRouterGrant.key">
+<code class="descname">key</code><a class="headerlink" href="#twilio.jwt.access_token.grants.TaskRouterGrant.key" title="Permalink to this definition">¶</a></dt>
+<dd><p>:rtype str Grant’s twilio specific key</p>
+</dd></dl>
+<dl class="method">
+<dt id="twilio.jwt.access_token.grants.TaskRouterGrant.to_payload">
+<code class="descname">to_payload</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/jwt/access_token/grants.html#TaskRouterGrant.to_payload"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.jwt.access_token.grants.TaskRouterGrant.to_payload" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">dict something</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+</dd></dl>
+<dl class="class">
+<dt id="twilio.jwt.access_token.grants.VideoGrant">
+<em class="property">class </em><code class="descclassname">twilio.jwt.access_token.grants.</code><code class="descname">VideoGrant</code><span class="sig-paren">(</span><em>room=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/jwt/access_token/grants.html#VideoGrant"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.jwt.access_token.grants.VideoGrant" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#twilio.jwt.access_token.AccessTokenGrant" title="twilio.jwt.access_token.AccessTokenGrant"><code class="xref py py-class docutils literal notranslate"><span class="pre">twilio.jwt.access_token.AccessTokenGrant</span></code></a></p>
+<p>Grant to access Twilio Video</p>
+<dl class="attribute">
+<dt id="twilio.jwt.access_token.grants.VideoGrant.key">
+<code class="descname">key</code><a class="headerlink" href="#twilio.jwt.access_token.grants.VideoGrant.key" title="Permalink to this definition">¶</a></dt>
+<dd><p>:rtype str Grant’s twilio specific key</p>
+</dd></dl>
+<dl class="method">
+<dt id="twilio.jwt.access_token.grants.VideoGrant.to_payload">
+<code class="descname">to_payload</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/jwt/access_token/grants.html#VideoGrant.to_payload"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.jwt.access_token.grants.VideoGrant.to_payload" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">dict something</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+</dd></dl>
+<dl class="class">
+<dt id="twilio.jwt.access_token.grants.VoiceGrant">
+<em class="property">class </em><code class="descclassname">twilio.jwt.access_token.grants.</code><code class="descname">VoiceGrant</code><span class="sig-paren">(</span><em>incoming_allow=None</em>, <em>outgoing_application_sid=None</em>, <em>outgoing_application_params=None</em>, <em>push_credential_sid=None</em>, <em>endpoint_id=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/jwt/access_token/grants.html#VoiceGrant"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.jwt.access_token.grants.VoiceGrant" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#twilio.jwt.access_token.AccessTokenGrant" title="twilio.jwt.access_token.AccessTokenGrant"><code class="xref py py-class docutils literal notranslate"><span class="pre">twilio.jwt.access_token.AccessTokenGrant</span></code></a></p>
+<p>Grant to access Twilio Programmable Voice</p>
+<dl class="attribute">
+<dt id="twilio.jwt.access_token.grants.VoiceGrant.endpoint_id">
+<code class="descname">endpoint_id</code><em class="property"> = None</em><a class="headerlink" href="#twilio.jwt.access_token.grants.VoiceGrant.endpoint_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>:type : str</p>
+</dd></dl>
+<dl class="attribute">
+<dt id="twilio.jwt.access_token.grants.VoiceGrant.incoming_allow">
+<code class="descname">incoming_allow</code><em class="property"> = None</em><a class="headerlink" href="#twilio.jwt.access_token.grants.VoiceGrant.incoming_allow" title="Permalink to this definition">¶</a></dt>
+<dd><p>:type : bool</p>
+</dd></dl>
+<dl class="attribute">
+<dt id="twilio.jwt.access_token.grants.VoiceGrant.key">
+<code class="descname">key</code><a class="headerlink" href="#twilio.jwt.access_token.grants.VoiceGrant.key" title="Permalink to this definition">¶</a></dt>
+<dd><p>:rtype str Grant’s twilio specific key</p>
+</dd></dl>
+<dl class="attribute">
+<dt id="twilio.jwt.access_token.grants.VoiceGrant.outgoing_application_params">
+<code class="descname">outgoing_application_params</code><em class="property"> = None</em><a class="headerlink" href="#twilio.jwt.access_token.grants.VoiceGrant.outgoing_application_params" title="Permalink to this definition">¶</a></dt>
+<dd><p>:type : dict</p>
+</dd></dl>
+<dl class="attribute">
+<dt id="twilio.jwt.access_token.grants.VoiceGrant.outgoing_application_sid">
+<code class="descname">outgoing_application_sid</code><em class="property"> = None</em><a class="headerlink" href="#twilio.jwt.access_token.grants.VoiceGrant.outgoing_application_sid" title="Permalink to this definition">¶</a></dt>
+<dd><p>:type : str</p>
+</dd></dl>
+<dl class="attribute">
+<dt id="twilio.jwt.access_token.grants.VoiceGrant.push_credential_sid">
+<code class="descname">push_credential_sid</code><em class="property"> = None</em><a class="headerlink" href="#twilio.jwt.access_token.grants.VoiceGrant.push_credential_sid" title="Permalink to this definition">¶</a></dt>
+<dd><p>:type : str</p>
+</dd></dl>
+<dl class="method">
+<dt id="twilio.jwt.access_token.grants.VoiceGrant.to_payload">
+<code class="descname">to_payload</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/jwt/access_token/grants.html#VoiceGrant.to_payload"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.jwt.access_token.grants.VoiceGrant.to_payload" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">dict something</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+</dd></dl>
+<dl class="function">
+<dt id="twilio.jwt.access_token.grants.deprecated">
+<code class="descclassname">twilio.jwt.access_token.grants.</code><code class="descname">deprecated</code><span class="sig-paren">(</span><em>func</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/jwt/access_token/grants.html#deprecated"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.jwt.access_token.grants.deprecated" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is a decorator which can be used to mark functions
+as deprecated. It will result in a warning being emitted
+when the function is used.</p>
+</dd></dl>
+</div>
+<div class="section" id="module-twilio.jwt.access_token">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-twilio.jwt.access_token" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="twilio.jwt.access_token.AccessToken">
+<em class="property">class </em><code class="descclassname">twilio.jwt.access_token.</code><code class="descname">AccessToken</code><span class="sig-paren">(</span><em>account_sid</em>, <em>signing_key_sid</em>, <em>secret</em>, <em>grants=None</em>, <em>identity=None</em>, <em>nbf=&lt;object object&gt;</em>, <em>ttl=3600</em>, <em>valid_until=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/jwt/access_token.html#AccessToken"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.jwt.access_token.AccessToken" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="twilio.jwt.html#twilio.jwt.Jwt" title="twilio.jwt.Jwt"><code class="xref py py-class docutils literal notranslate"><span class="pre">twilio.jwt.Jwt</span></code></a></p>
+<p>Access Token containing one or more AccessTokenGrants used to access Twilio Resources</p>
+<dl class="method">
+<dt id="twilio.jwt.access_token.AccessToken.add_grant">
+<code class="descname">add_grant</code><span class="sig-paren">(</span><em>grant</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/jwt/access_token.html#AccessToken.add_grant"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.jwt.access_token.AccessToken.add_grant" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a grant to this AccessToken</p>
+</dd></dl>
+</dd></dl>
+<dl class="class">
+<dt id="twilio.jwt.access_token.AccessTokenGrant">
+<em class="property">class </em><code class="descclassname">twilio.jwt.access_token.</code><code class="descname">AccessTokenGrant</code><a class="reference internal" href="../../../_modules/twilio/jwt/access_token.html#AccessTokenGrant"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.jwt.access_token.AccessTokenGrant" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>A Grant giving access to a Twilio Resource</p>
+<dl class="attribute">
+<dt id="twilio.jwt.access_token.AccessTokenGrant.key">
+<code class="descname">key</code><a class="headerlink" href="#twilio.jwt.access_token.AccessTokenGrant.key" title="Permalink to this definition">¶</a></dt>
+<dd><p>:rtype str Grant’s twilio specific key</p>
+</dd></dl>
+<dl class="method">
+<dt id="twilio.jwt.access_token.AccessTokenGrant.to_payload">
+<code class="descname">to_payload</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/jwt/access_token.html#AccessTokenGrant.to_payload"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.jwt.access_token.AccessTokenGrant.to_payload" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">dict something</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+</dd></dl>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div aria-label="main navigation" class="sphinxsidebar" role="navigation">
+<div class="sphinxsidebarwrapper"><h3><a href="https://www.twilio.com/docs/libraries/python">About twilio-python</a></h3>
+<p>
+    A Python module for communicating with the Twilio API and generating <a href="http://www.twilio.com/docs/api/twiml/">TwiML</a>.
+</p>
+<h3>Useful Links</h3>
+<ul>
+<li><a href="https://www.twilio.com/docs/libraries/python">Twilio's Python Helper Library Docs</a></li>
+<li><a href="https://pypi.org/project/twilio/">twilio @ PyPI</a></li>
+<li><a href="https://github.com/twilio/twilio-python">twilio-python @ GitHub</a></li>
+</ul>
+<h3><a href="../../../index.html">Table of Contents</a></h3>
+<ul>
+<li><a class="reference internal" href="#">twilio.jwt.access_token package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-twilio.jwt.access_token.grants">twilio.jwt.access_token.grants module</a></li>
+<li><a class="reference internal" href="#module-twilio.jwt.access_token">Module contents</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+<li><a href="../../../index.html">Documentation overview</a><ul>
+<li><a href="modules.html">twilio</a><ul>
+<li><a href="twilio.html">twilio package</a><ul>
+<li><a href="twilio.jwt.html">twilio.jwt package</a><ul>
+<li>Previous: <a href="twilio.jwt.html" title="previous chapter">twilio.jwt package</a></li>
+<li>Next: <a href="twilio.jwt.client.html" title="next chapter">twilio.jwt.client package</a></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
+<div aria-label="source link" role="note">
+<h3>This Page</h3>
+<ul class="this-page-menu">
+<li><a href="../../../_sources/docs/source/_rst/twilio.jwt.access_token.rst.txt" rel="nofollow">Show Source</a></li>
+</ul>
+</div>
+<div id="searchbox" role="search" style="display: none">
+<h3>Quick search</h3>
+<div class="searchformwrapper">
+<form action="../../../search.html" class="search" method="get">
+<input name="q" type="text"/>
+<input type="submit" value="Go"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
+</div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+</div>
+</div>
+<div class="clearer"></div>
+</div>
+<div class="footer">
+      ©2019, Twilio.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../../../_sources/docs/source/_rst/twilio.jwt.access_token.rst.txt" rel="nofollow">Page source</a>
+</div>
+</body>
+</html>

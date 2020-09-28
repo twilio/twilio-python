@@ -1,0 +1,22 @@
+twilio.rest.preview.understand.assistant.field\_type package
+============================================================
+
+Submodules
+----------
+
+twilio.rest.preview.understand.assistant.field\_type.field\_value module
+------------------------------------------------------------------------
+
+.. automodule:: twilio.rest.preview.understand.assistant.field_type.field_value
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: twilio.rest.preview.understand.assistant.field_type
+    :members:
+    :undoc-members:
+    :show-inheritance:

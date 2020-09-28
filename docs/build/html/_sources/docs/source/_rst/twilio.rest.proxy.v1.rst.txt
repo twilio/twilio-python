@@ -1,0 +1,17 @@
+twilio.rest.proxy.v1 package
+============================
+
+Subpackages
+-----------
+
+.. toctree::
+
+    twilio.rest.proxy.v1.service
+
+Module contents
+---------------
+
+.. automodule:: twilio.rest.proxy.v1
+    :members:
+    :undoc-members:
+    :show-inheritance:

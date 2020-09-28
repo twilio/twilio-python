@@ -1,0 +1,17 @@
+twilio.rest.taskrouter package
+==============================
+
+Subpackages
+-----------
+
+.. toctree::
+
+    twilio.rest.taskrouter.v1
+
+Module contents
+---------------
+
+.. automodule:: twilio.rest.taskrouter
+    :members:
+    :undoc-members:
+    :show-inheritance:

@@ -1,0 +1,41 @@
+twilio package
+==============
+
+Subpackages
+-----------
+
+.. toctree::
+
+    twilio.base
+    twilio.http
+    twilio.jwt
+    twilio.rest
+    twilio.twiml
+
+Submodules
+----------
+
+twilio.compat module
+--------------------
+
+.. automodule:: twilio.compat
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+twilio.request\_validator module
+--------------------------------
+
+.. automodule:: twilio.request_validator
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: twilio
+    :members:
+    :undoc-members:
+    :show-inheritance:

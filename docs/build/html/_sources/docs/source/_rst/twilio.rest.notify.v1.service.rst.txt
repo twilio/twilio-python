@@ -1,0 +1,30 @@
+twilio.rest.notify.v1.service package
+=====================================
+
+Submodules
+----------
+
+twilio.rest.notify.v1.service.binding module
+--------------------------------------------
+
+.. automodule:: twilio.rest.notify.v1.service.binding
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+twilio.rest.notify.v1.service.notification module
+-------------------------------------------------
+
+.. automodule:: twilio.rest.notify.v1.service.notification
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: twilio.rest.notify.v1.service
+    :members:
+    :undoc-members:
+    :show-inheritance:

@@ -1,0 +1,22 @@
+twilio.rest.sync.v1.service.document package
+============================================
+
+Submodules
+----------
+
+twilio.rest.sync.v1.service.document.document\_permission module
+----------------------------------------------------------------
+
+.. automodule:: twilio.rest.sync.v1.service.document.document_permission
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: twilio.rest.sync.v1.service.document
+    :members:
+    :undoc-members:
+    :show-inheritance:

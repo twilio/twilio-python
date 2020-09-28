@@ -1,0 +1,17 @@
+twilio.rest.numbers package
+===========================
+
+Subpackages
+-----------
+
+.. toctree::
+
+    twilio.rest.numbers.v2
+
+Module contents
+---------------
+
+.. automodule:: twilio.rest.numbers
+    :members:
+    :undoc-members:
+    :show-inheritance:

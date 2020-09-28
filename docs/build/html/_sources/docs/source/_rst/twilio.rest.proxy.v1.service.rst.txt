@@ -1,0 +1,37 @@
+twilio.rest.proxy.v1.service package
+====================================
+
+Subpackages
+-----------
+
+.. toctree::
+
+    twilio.rest.proxy.v1.service.session
+
+Submodules
+----------
+
+twilio.rest.proxy.v1.service.phone\_number module
+-------------------------------------------------
+
+.. automodule:: twilio.rest.proxy.v1.service.phone_number
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+twilio.rest.proxy.v1.service.short\_code module
+-----------------------------------------------
+
+.. automodule:: twilio.rest.proxy.v1.service.short_code
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: twilio.rest.proxy.v1.service
+    :members:
+    :undoc-members:
+    :show-inheritance:

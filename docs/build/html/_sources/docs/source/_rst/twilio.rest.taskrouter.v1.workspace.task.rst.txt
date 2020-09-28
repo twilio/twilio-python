@@ -1,0 +1,22 @@
+twilio.rest.taskrouter.v1.workspace.task package
+================================================
+
+Submodules
+----------
+
+twilio.rest.taskrouter.v1.workspace.task.reservation module
+-----------------------------------------------------------
+
+.. automodule:: twilio.rest.taskrouter.v1.workspace.task.reservation
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: twilio.rest.taskrouter.v1.workspace.task
+    :members:
+    :undoc-members:
+    :show-inheritance:

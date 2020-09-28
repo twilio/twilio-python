@@ -1,0 +1,37 @@
+twilio.rest.preview.wireless package
+====================================
+
+Subpackages
+-----------
+
+.. toctree::
+
+    twilio.rest.preview.wireless.sim
+
+Submodules
+----------
+
+twilio.rest.preview.wireless.command module
+-------------------------------------------
+
+.. automodule:: twilio.rest.preview.wireless.command
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+twilio.rest.preview.wireless.rate\_plan module
+----------------------------------------------
+
+.. automodule:: twilio.rest.preview.wireless.rate_plan
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: twilio.rest.preview.wireless
+    :members:
+    :undoc-members:
+    :show-inheritance:

@@ -1,0 +1,18 @@
+twilio.rest.video.v1.room package
+=================================
+
+Subpackages
+-----------
+
+.. toctree::
+
+    twilio.rest.video.v1.room.recording
+    twilio.rest.video.v1.room.room_participant
+
+Module contents
+---------------
+
+.. automodule:: twilio.rest.video.v1.room
+    :members:
+    :undoc-members:
+    :show-inheritance:

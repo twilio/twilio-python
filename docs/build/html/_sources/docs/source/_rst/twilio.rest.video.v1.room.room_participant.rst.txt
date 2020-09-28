@@ -1,0 +1,38 @@
+twilio.rest.video.v1.room.room\_participant package
+===================================================
+
+Submodules
+----------
+
+twilio.rest.video.v1.room.room\_participant.room\_participant\_published\_track module
+--------------------------------------------------------------------------------------
+
+.. automodule:: twilio.rest.video.v1.room.room_participant.room_participant_published_track
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+twilio.rest.video.v1.room.room\_participant.room\_participant\_subscribe\_rule module
+-------------------------------------------------------------------------------------
+
+.. automodule:: twilio.rest.video.v1.room.room_participant.room_participant_subscribe_rule
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+twilio.rest.video.v1.room.room\_participant.room\_participant\_subscribed\_track module
+---------------------------------------------------------------------------------------
+
+.. automodule:: twilio.rest.video.v1.room.room_participant.room_participant_subscribed_track
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: twilio.rest.video.v1.room.room_participant
+    :members:
+    :undoc-members:
+    :show-inheritance:

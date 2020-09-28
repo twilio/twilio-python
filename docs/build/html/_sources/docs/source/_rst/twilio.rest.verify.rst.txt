@@ -1,0 +1,17 @@
+twilio.rest.verify package
+==========================
+
+Subpackages
+-----------
+
+.. toctree::
+
+    twilio.rest.verify.v2
+
+Module contents
+---------------
+
+.. automodule:: twilio.rest.verify
+    :members:
+    :undoc-members:
+    :show-inheritance:

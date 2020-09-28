@@ -1,0 +1,22 @@
+twilio.rest.preview.wireless.sim package
+========================================
+
+Submodules
+----------
+
+twilio.rest.preview.wireless.sim.usage module
+---------------------------------------------
+
+.. automodule:: twilio.rest.preview.wireless.sim.usage
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: twilio.rest.preview.wireless.sim
+    :members:
+    :undoc-members:
+    :show-inheritance:

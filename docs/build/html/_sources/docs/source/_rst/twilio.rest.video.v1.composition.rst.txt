@@ -1,0 +1,10 @@
+twilio.rest.video.v1.composition package
+========================================
+
+Module contents
+---------------
+
+.. automodule:: twilio.rest.video.v1.composition
+    :members:
+    :undoc-members:
+    :show-inheritance:

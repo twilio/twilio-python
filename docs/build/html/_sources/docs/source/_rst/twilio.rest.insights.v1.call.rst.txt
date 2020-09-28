@@ -1,0 +1,38 @@
+twilio.rest.insights.v1.call package
+====================================
+
+Submodules
+----------
+
+twilio.rest.insights.v1.call.event module
+-----------------------------------------
+
+.. automodule:: twilio.rest.insights.v1.call.event
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+twilio.rest.insights.v1.call.metric module
+------------------------------------------
+
+.. automodule:: twilio.rest.insights.v1.call.metric
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+twilio.rest.insights.v1.call.summary module
+-------------------------------------------
+
+.. automodule:: twilio.rest.insights.v1.call.summary
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: twilio.rest.insights.v1.call
+    :members:
+    :undoc-members:
+    :show-inheritance:

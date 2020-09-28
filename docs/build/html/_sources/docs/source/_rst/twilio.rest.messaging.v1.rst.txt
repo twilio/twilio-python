@@ -1,0 +1,29 @@
+twilio.rest.messaging.v1 package
+================================
+
+Subpackages
+-----------
+
+.. toctree::
+
+    twilio.rest.messaging.v1.service
+
+Submodules
+----------
+
+twilio.rest.messaging.v1.deactivation module
+--------------------------------------------
+
+.. automodule:: twilio.rest.messaging.v1.deactivation
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: twilio.rest.messaging.v1
+    :members:
+    :undoc-members:
+    :show-inheritance:

@@ -1,0 +1,32 @@
+twilio.jwt package
+==================
+
+Subpackages
+-----------
+
+.. toctree::
+
+    twilio.jwt.access_token
+    twilio.jwt.client
+    twilio.jwt.taskrouter
+    twilio.jwt.validation
+
+Submodules
+----------
+
+twilio.jwt.compat module
+------------------------
+
+.. automodule:: twilio.jwt.compat
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: twilio.jwt
+    :members:
+    :undoc-members:
+    :show-inheritance:

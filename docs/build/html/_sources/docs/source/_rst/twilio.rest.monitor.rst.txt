@@ -1,0 +1,17 @@
+twilio.rest.monitor package
+===========================
+
+Subpackages
+-----------
+
+.. toctree::
+
+    twilio.rest.monitor.v1
+
+Module contents
+---------------
+
+.. automodule:: twilio.rest.monitor
+    :members:
+    :undoc-members:
+    :show-inheritance:

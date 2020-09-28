@@ -1,0 +1,45 @@
+twilio.rest.wireless.v1 package
+===============================
+
+Subpackages
+-----------
+
+.. toctree::
+
+    twilio.rest.wireless.v1.sim
+
+Submodules
+----------
+
+twilio.rest.wireless.v1.command module
+--------------------------------------
+
+.. automodule:: twilio.rest.wireless.v1.command
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+twilio.rest.wireless.v1.rate\_plan module
+-----------------------------------------
+
+.. automodule:: twilio.rest.wireless.v1.rate_plan
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+twilio.rest.wireless.v1.usage\_record module
+--------------------------------------------
+
+.. automodule:: twilio.rest.wireless.v1.usage_record
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: twilio.rest.wireless.v1
+    :members:
+    :undoc-members:
+    :show-inheritance:

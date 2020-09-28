@@ -1,0 +1,46 @@
+twilio.rest.preview.deployed\_devices.fleet package
+===================================================
+
+Submodules
+----------
+
+twilio.rest.preview.deployed\_devices.fleet.certificate module
+--------------------------------------------------------------
+
+.. automodule:: twilio.rest.preview.deployed_devices.fleet.certificate
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+twilio.rest.preview.deployed\_devices.fleet.deployment module
+-------------------------------------------------------------
+
+.. automodule:: twilio.rest.preview.deployed_devices.fleet.deployment
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+twilio.rest.preview.deployed\_devices.fleet.device module
+---------------------------------------------------------
+
+.. automodule:: twilio.rest.preview.deployed_devices.fleet.device
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+twilio.rest.preview.deployed\_devices.fleet.key module
+------------------------------------------------------
+
+.. automodule:: twilio.rest.preview.deployed_devices.fleet.key
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: twilio.rest.preview.deployed_devices.fleet
+    :members:
+    :undoc-members:
+    :show-inheritance:

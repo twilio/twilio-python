@@ -1,0 +1,22 @@
+twilio.jwt.taskrouter package
+=============================
+
+Submodules
+----------
+
+twilio.jwt.taskrouter.capabilities module
+-----------------------------------------
+
+.. automodule:: twilio.jwt.taskrouter.capabilities
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: twilio.jwt.taskrouter
+    :members:
+    :undoc-members:
+    :show-inheritance:

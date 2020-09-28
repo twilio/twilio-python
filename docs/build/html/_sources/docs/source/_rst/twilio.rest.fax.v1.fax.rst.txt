@@ -1,0 +1,22 @@
+twilio.rest.fax.v1.fax package
+==============================
+
+Submodules
+----------
+
+twilio.rest.fax.v1.fax.fax\_media module
+----------------------------------------
+
+.. automodule:: twilio.rest.fax.v1.fax.fax_media
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: twilio.rest.fax.v1.fax
+    :members:
+    :undoc-members:
+    :show-inheritance:

@@ -1,0 +1,45 @@
+twilio.rest package
+===================
+
+Subpackages
+-----------
+
+.. toctree::
+
+    twilio.rest.accounts
+    twilio.rest.api
+    twilio.rest.autopilot
+    twilio.rest.bulkexports
+    twilio.rest.chat
+    twilio.rest.conversations
+    twilio.rest.events
+    twilio.rest.fax
+    twilio.rest.flex_api
+    twilio.rest.insights
+    twilio.rest.ip_messaging
+    twilio.rest.lookups
+    twilio.rest.messaging
+    twilio.rest.monitor
+    twilio.rest.notify
+    twilio.rest.numbers
+    twilio.rest.preview
+    twilio.rest.pricing
+    twilio.rest.proxy
+    twilio.rest.serverless
+    twilio.rest.studio
+    twilio.rest.supersim
+    twilio.rest.sync
+    twilio.rest.taskrouter
+    twilio.rest.trunking
+    twilio.rest.verify
+    twilio.rest.video
+    twilio.rest.voice
+    twilio.rest.wireless
+
+Module contents
+---------------
+
+.. automodule:: twilio.rest
+    :members:
+    :undoc-members:
+    :show-inheritance:

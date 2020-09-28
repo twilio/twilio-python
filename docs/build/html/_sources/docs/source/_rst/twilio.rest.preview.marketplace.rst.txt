@@ -1,0 +1,18 @@
+twilio.rest.preview.marketplace package
+=======================================
+
+Subpackages
+-----------
+
+.. toctree::
+
+    twilio.rest.preview.marketplace.available_add_on
+    twilio.rest.preview.marketplace.installed_add_on
+
+Module contents
+---------------
+
+.. automodule:: twilio.rest.preview.marketplace
+    :members:
+    :undoc-members:
+    :show-inheritance:

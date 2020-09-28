@@ -1,0 +1,22 @@
+twilio.rest.conversations.v1.service.configuration package
+==========================================================
+
+Submodules
+----------
+
+twilio.rest.conversations.v1.service.configuration.notification module
+----------------------------------------------------------------------
+
+.. automodule:: twilio.rest.conversations.v1.service.configuration.notification
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: twilio.rest.conversations.v1.service.configuration
+    :members:
+    :undoc-members:
+    :show-inheritance:

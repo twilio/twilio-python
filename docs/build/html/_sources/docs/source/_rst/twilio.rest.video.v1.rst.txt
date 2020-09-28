@@ -1,0 +1,47 @@
+twilio.rest.video.v1 package
+============================
+
+Subpackages
+-----------
+
+.. toctree::
+
+    twilio.rest.video.v1.composition
+    twilio.rest.video.v1.recording
+    twilio.rest.video.v1.room
+
+Submodules
+----------
+
+twilio.rest.video.v1.composition\_hook module
+---------------------------------------------
+
+.. automodule:: twilio.rest.video.v1.composition_hook
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+twilio.rest.video.v1.composition\_settings module
+-------------------------------------------------
+
+.. automodule:: twilio.rest.video.v1.composition_settings
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+twilio.rest.video.v1.recording\_settings module
+-----------------------------------------------
+
+.. automodule:: twilio.rest.video.v1.recording_settings
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: twilio.rest.video.v1
+    :members:
+    :undoc-members:
+    :show-inheritance:

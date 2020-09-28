@@ -1,0 +1,18 @@
+twilio.rest.api.v2010.account.sip.domain.auth\_types package
+============================================================
+
+Subpackages
+-----------
+
+.. toctree::
+
+    twilio.rest.api.v2010.account.sip.domain.auth_types.auth_calls_mapping
+    twilio.rest.api.v2010.account.sip.domain.auth_types.auth_registrations_mapping
+
+Module contents
+---------------
+
+.. automodule:: twilio.rest.api.v2010.account.sip.domain.auth_types
+    :members:
+    :undoc-members:
+    :show-inheritance:

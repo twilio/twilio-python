@@ -1,0 +1,22 @@
+twilio.rest.pricing.v1.phone\_number package
+============================================
+
+Submodules
+----------
+
+twilio.rest.pricing.v1.phone\_number.country module
+---------------------------------------------------
+
+.. automodule:: twilio.rest.pricing.v1.phone_number.country
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: twilio.rest.pricing.v1.phone_number
+    :members:
+    :undoc-members:
+    :show-inheritance:

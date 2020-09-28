@@ -1,0 +1,30 @@
+twilio.rest.ip\_messaging.v1.service package
+============================================
+
+Subpackages
+-----------
+
+.. toctree::
+
+    twilio.rest.ip_messaging.v1.service.channel
+    twilio.rest.ip_messaging.v1.service.user
+
+Submodules
+----------
+
+twilio.rest.ip\_messaging.v1.service.role module
+------------------------------------------------
+
+.. automodule:: twilio.rest.ip_messaging.v1.service.role
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: twilio.rest.ip_messaging.v1.service
+    :members:
+    :undoc-members:
+    :show-inheritance:

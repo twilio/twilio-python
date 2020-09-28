@@ -1,0 +1,22 @@
+twilio.rest.preview.hosted\_numbers.authorization\_document package
+===================================================================
+
+Submodules
+----------
+
+twilio.rest.preview.hosted\_numbers.authorization\_document.dependent\_hosted\_number\_order module
+---------------------------------------------------------------------------------------------------
+
+.. automodule:: twilio.rest.preview.hosted_numbers.authorization_document.dependent_hosted_number_order
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: twilio.rest.preview.hosted_numbers.authorization_document
+    :members:
+    :undoc-members:
+    :show-inheritance:

@@ -1,0 +1,22 @@
+twilio.rest.voice.v1.dialing\_permissions.country package
+=========================================================
+
+Submodules
+----------
+
+twilio.rest.voice.v1.dialing\_permissions.country.highrisk\_special\_prefix module
+----------------------------------------------------------------------------------
+
+.. automodule:: twilio.rest.voice.v1.dialing_permissions.country.highrisk_special_prefix
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: twilio.rest.voice.v1.dialing_permissions.country
+    :members:
+    :undoc-members:
+    :show-inheritance:

@@ -1,0 +1,17 @@
+twilio.rest.preview.deployed\_devices package
+=============================================
+
+Subpackages
+-----------
+
+.. toctree::
+
+    twilio.rest.preview.deployed_devices.fleet
+
+Module contents
+---------------
+
+.. automodule:: twilio.rest.preview.deployed_devices
+    :members:
+    :undoc-members:
+    :show-inheritance:

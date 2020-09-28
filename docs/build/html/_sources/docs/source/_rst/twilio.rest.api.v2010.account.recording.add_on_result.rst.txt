@@ -1,0 +1,17 @@
+twilio.rest.api.v2010.account.recording.add\_on\_result package
+===============================================================
+
+Subpackages
+-----------
+
+.. toctree::
+
+    twilio.rest.api.v2010.account.recording.add_on_result.payload
+
+Module contents
+---------------
+
+.. automodule:: twilio.rest.api.v2010.account.recording.add_on_result
+    :members:
+    :undoc-members:
+    :show-inheritance:

@@ -1,0 +1,17 @@
+twilio.rest.preview.understand package
+======================================
+
+Subpackages
+-----------
+
+.. toctree::
+
+    twilio.rest.preview.understand.assistant
+
+Module contents
+---------------
+
+.. automodule:: twilio.rest.preview.understand
+    :members:
+    :undoc-members:
+    :show-inheritance:

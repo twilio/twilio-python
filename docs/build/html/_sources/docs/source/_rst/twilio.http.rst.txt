@@ -1,0 +1,46 @@
+twilio.http package
+===================
+
+Submodules
+----------
+
+twilio.http.http\_client module
+-------------------------------
+
+.. automodule:: twilio.http.http_client
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+twilio.http.request module
+--------------------------
+
+.. automodule:: twilio.http.request
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+twilio.http.response module
+---------------------------
+
+.. automodule:: twilio.http.response
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+twilio.http.validation\_client module
+-------------------------------------
+
+.. automodule:: twilio.http.validation_client
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: twilio.http
+    :members:
+    :undoc-members:
+    :show-inheritance:

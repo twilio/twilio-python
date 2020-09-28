@@ -1,0 +1,54 @@
+twilio.rest.trunking.v1.trunk package
+=====================================
+
+Submodules
+----------
+
+twilio.rest.trunking.v1.trunk.credential\_list module
+-----------------------------------------------------
+
+.. automodule:: twilio.rest.trunking.v1.trunk.credential_list
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+twilio.rest.trunking.v1.trunk.ip\_access\_control\_list module
+--------------------------------------------------------------
+
+.. automodule:: twilio.rest.trunking.v1.trunk.ip_access_control_list
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+twilio.rest.trunking.v1.trunk.origination\_url module
+-----------------------------------------------------
+
+.. automodule:: twilio.rest.trunking.v1.trunk.origination_url
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+twilio.rest.trunking.v1.trunk.phone\_number module
+--------------------------------------------------
+
+.. automodule:: twilio.rest.trunking.v1.trunk.phone_number
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+twilio.rest.trunking.v1.trunk.recording module
+----------------------------------------------
+
+.. automodule:: twilio.rest.trunking.v1.trunk.recording
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: twilio.rest.trunking.v1.trunk
+    :members:
+    :undoc-members:
+    :show-inheritance:

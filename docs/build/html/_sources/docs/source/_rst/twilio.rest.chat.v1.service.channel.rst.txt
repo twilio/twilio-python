@@ -1,0 +1,38 @@
+twilio.rest.chat.v1.service.channel package
+===========================================
+
+Submodules
+----------
+
+twilio.rest.chat.v1.service.channel.invite module
+-------------------------------------------------
+
+.. automodule:: twilio.rest.chat.v1.service.channel.invite
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+twilio.rest.chat.v1.service.channel.member module
+-------------------------------------------------
+
+.. automodule:: twilio.rest.chat.v1.service.channel.member
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+twilio.rest.chat.v1.service.channel.message module
+--------------------------------------------------
+
+.. automodule:: twilio.rest.chat.v1.service.channel.message
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: twilio.rest.chat.v1.service.channel
+    :members:
+    :undoc-members:
+    :show-inheritance:

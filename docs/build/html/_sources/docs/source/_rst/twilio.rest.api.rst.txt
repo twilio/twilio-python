@@ -1,0 +1,17 @@
+twilio.rest.api package
+=======================
+
+Subpackages
+-----------
+
+.. toctree::
+
+    twilio.rest.api.v2010
+
+Module contents
+---------------
+
+.. automodule:: twilio.rest.api
+    :members:
+    :undoc-members:
+    :show-inheritance:

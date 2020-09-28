@@ -1,0 +1,19 @@
+twilio.rest.pricing.v1 package
+==============================
+
+Subpackages
+-----------
+
+.. toctree::
+
+    twilio.rest.pricing.v1.messaging
+    twilio.rest.pricing.v1.phone_number
+    twilio.rest.pricing.v1.voice
+
+Module contents
+---------------
+
+.. automodule:: twilio.rest.pricing.v1
+    :members:
+    :undoc-members:
+    :show-inheritance:

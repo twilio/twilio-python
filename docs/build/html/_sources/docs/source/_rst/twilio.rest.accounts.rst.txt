@@ -1,0 +1,17 @@
+twilio.rest.accounts package
+============================
+
+Subpackages
+-----------
+
+.. toctree::
+
+    twilio.rest.accounts.v1
+
+Module contents
+---------------
+
+.. automodule:: twilio.rest.accounts
+    :members:
+    :undoc-members:
+    :show-inheritance:

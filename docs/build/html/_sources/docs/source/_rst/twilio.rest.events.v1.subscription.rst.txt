@@ -1,0 +1,22 @@
+twilio.rest.events.v1.subscription package
+==========================================
+
+Submodules
+----------
+
+twilio.rest.events.v1.subscription.subscribed\_event module
+-----------------------------------------------------------
+
+.. automodule:: twilio.rest.events.v1.subscription.subscribed_event
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: twilio.rest.events.v1.subscription
+    :members:
+    :undoc-members:
+    :show-inheritance:

@@ -1,0 +1,17 @@
+twilio.rest.serverless.v1.service.function package
+==================================================
+
+Subpackages
+-----------
+
+.. toctree::
+
+    twilio.rest.serverless.v1.service.function.function_version
+
+Module contents
+---------------
+
+.. automodule:: twilio.rest.serverless.v1.service.function
+    :members:
+    :undoc-members:
+    :show-inheritance:

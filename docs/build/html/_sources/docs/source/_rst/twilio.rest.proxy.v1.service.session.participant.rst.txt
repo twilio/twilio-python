@@ -1,0 +1,22 @@
+twilio.rest.proxy.v1.service.session.participant package
+========================================================
+
+Submodules
+----------
+
+twilio.rest.proxy.v1.service.session.participant.message\_interaction module
+----------------------------------------------------------------------------
+
+.. automodule:: twilio.rest.proxy.v1.service.session.participant.message_interaction
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: twilio.rest.proxy.v1.service.session.participant
+    :members:
+    :undoc-members:
+    :show-inheritance:

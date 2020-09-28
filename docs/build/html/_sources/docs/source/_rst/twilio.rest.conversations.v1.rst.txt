@@ -1,0 +1,47 @@
+twilio.rest.conversations.v1 package
+====================================
+
+Subpackages
+-----------
+
+.. toctree::
+
+    twilio.rest.conversations.v1.configuration
+    twilio.rest.conversations.v1.conversation
+    twilio.rest.conversations.v1.service
+
+Submodules
+----------
+
+twilio.rest.conversations.v1.credential module
+----------------------------------------------
+
+.. automodule:: twilio.rest.conversations.v1.credential
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+twilio.rest.conversations.v1.role module
+----------------------------------------
+
+.. automodule:: twilio.rest.conversations.v1.role
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+twilio.rest.conversations.v1.user module
+----------------------------------------
+
+.. automodule:: twilio.rest.conversations.v1.user
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: twilio.rest.conversations.v1
+    :members:
+    :undoc-members:
+    :show-inheritance:

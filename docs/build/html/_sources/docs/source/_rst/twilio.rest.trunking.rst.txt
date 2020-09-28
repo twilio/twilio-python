@@ -1,0 +1,17 @@
+twilio.rest.trunking package
+============================
+
+Subpackages
+-----------
+
+.. toctree::
+
+    twilio.rest.trunking.v1
+
+Module contents
+---------------
+
+.. automodule:: twilio.rest.trunking
+    :members:
+    :undoc-members:
+    :show-inheritance:

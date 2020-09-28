@@ -1,0 +1,272 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head><!--Google Tag Manager--><script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-MWRD6S');</script><!--End Google Tag Manager-->
+<meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+<title>Contributing to twilio-python — twilio-python 6.45.4 documentation</title>
+<link href="_static/alabaster.css" rel="stylesheet" type="text/css"/>
+<link href="_static/pygments.css" rel="stylesheet" type="text/css"/>
+<script data-url_root="./" id="documentation_options" src="_static/documentation_options.js" type="text/javascript"></script>
+<script src="_static/jquery.js" type="text/javascript"></script>
+<script src="_static/underscore.js" type="text/javascript"></script>
+<script src="_static/doctools.js" type="text/javascript"></script>
+<script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+<link href="genindex.html" rel="index" title="Index"/>
+<link href="search.html" rel="search" title="Search"/>
+<link href="_static/custom.css" rel="stylesheet" type="text/css"/>
+<meta content="width=device-width, initial-scale=0.9, maximum-scale=0.9" name="viewport"/>
+</head><body><!--Google Tag Manager (noscript)--><noscript><iframe height="0" src="https://www.googletagmanager.com/ns.html?id=GTM-MWRD6S" style="display:none;visibility:hidden" width="0"></iframe></noscript><!--End Google Tag Manager (noscript)-->
+<div class="document">
+<div class="documentwrapper">
+<div class="bodywrapper">
+<div class="body" role="main">
+<div class="section" id="contributing-to-twilio-python">
+<h1>Contributing to <code class="docutils literal notranslate"><span class="pre">twilio-python</span></code><a class="headerlink" href="#contributing-to-twilio-python" title="Permalink to this headline">¶</a></h1>
+<p>We’d love for you to contribute to our source code and to make <code class="docutils literal notranslate"><span class="pre">twilio-python</span></code>
+even better than it is today! Here are the guidelines we’d like you to follow:</p>
+<ul class="simple">
+<li><a class="reference external" href="#coc">Code of Conduct</a></li>
+<li><a class="reference external" href="#question">Question or Problem?</a></li>
+<li><a class="reference external" href="#issue">Issues and Bugs</a></li>
+<li><a class="reference external" href="#feature">Feature Requests</a></li>
+<li><a class="reference external" href="#docs">Documentation fixes</a></li>
+<li><a class="reference external" href="#submit">Submission Guidelines</a></li>
+<li><a class="reference external" href="#rules">Coding Rules</a></li>
+<li><a class="reference external" href="#testing">Local Testing</a></li>
+</ul>
+<div class="section" id="a-name-coc-a-code-of-conduct">
+<h2><a name="coc"></a> Code of Conduct<a class="headerlink" href="#a-name-coc-a-code-of-conduct" title="Permalink to this headline">¶</a></h2>
+<p>Help us keep <code class="docutils literal notranslate"><span class="pre">twilio-python</span></code> open and inclusive. Please be kind to and considerate
+of other developers, as we all have the same goal: make <code class="docutils literal notranslate"><span class="pre">twilio-python</span></code> as good as
+it can be.</p>
+</div>
+<div class="section" id="a-name-question-a-got-an-api-product-question-or-problem">
+<h2><a name="question"></a> Got an API/Product Question or Problem?<a class="headerlink" href="#a-name-question-a-got-an-api-product-question-or-problem" title="Permalink to this headline">¶</a></h2>
+<p>If you have questions about how to use <code class="docutils literal notranslate"><span class="pre">twilio-python</span></code>, please see our
+<a class="reference external" href="https://www.twilio.com/docs/libraries/python">docs</a>, and if you don’t find the answer there, please contact
+<a class="reference external" href="mailto:help%40twilio.com">help<span>@</span>twilio<span>.</span>com</a> with any issues you have.</p>
+</div>
+<div class="section" id="a-name-issue-a-found-an-issue">
+<h2><a name="issue"></a> Found an Issue?<a class="headerlink" href="#a-name-issue-a-found-an-issue" title="Permalink to this headline">¶</a></h2>
+<p>If you find a bug in the source code or a mistake in the documentation, you can
+help us by submitting <a class="reference external" href="https://github.com/twilio/twilio-python/issues/new">an issue</a>. If the file in which the error
+exists has this header:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="sd">"""</span>
+<span class="sd">This code was generated by</span>
+<span class="sd">\ / _    _  _|   _  _</span>
+<span class="sd"> | (_)\/(_)(_|\/| |(/_  v1.0.0</span>
+<span class="sd">      /       /</span>
+<span class="sd">"""</span>
+</pre></div>
+</div>
+<p>then it is a generated file and the change will need to be made by us, but
+submitting an issue will help us track it and keep you up-to-date. If the file
+isn’t generated, you can help us out even more by submitting a Pull Request with
+a fix.</p>
+<p><strong>Please see the <a class="reference external" href="#submit">Submission Guidelines</a> below.</strong></p>
+</div>
+<div class="section" id="a-name-feature-a-want-a-feature">
+<h2><a name="feature"></a> Want a Feature?<a class="headerlink" href="#a-name-feature-a-want-a-feature" title="Permalink to this headline">¶</a></h2>
+<p>You can request a new feature by submitting an issue to our
+<a class="reference external" href="https://github.com/twilio/twilio-python">GitHub Repository</a>. If you would like to implement a new feature then
+consider what kind of change it is:</p>
+<ul class="simple">
+<li><strong>Major Changes</strong> that you wish to contribute to the project should be
+discussed first with <code class="docutils literal notranslate"><span class="pre">twilio-python</span></code> contributors in an issue or pull request so
+that we can develop a proper solution and better coordinate our efforts,
+prevent duplication of work, and help you to craft the change so that it is
+successfully accepted into the project.</li>
+<li><strong>Small Changes</strong> can be crafted and submitted to the
+<a class="reference external" href="https://github.com/twilio/twilio-python">GitHub Repository</a> as a Pull Request.</li>
+</ul>
+</div>
+<div class="section" id="a-name-docs-a-want-a-doc-fix">
+<h2><a name="docs"></a> Want a Doc Fix?<a class="headerlink" href="#a-name-docs-a-want-a-doc-fix" title="Permalink to this headline">¶</a></h2>
+<p>If you want to help improve the docs in the helper library, it’s a good idea to
+let others know what you’re working on to minimize duplication of effort. Create
+a new issue (or comment on a related existing one) to let others know what
+you’re working on.</p>
+<p>For large fixes, please build and test the documentation before submitting the
+PR to be sure you haven’t accidentally introduced layout or formatting issues.</p>
+<p>If you want to help improve the docs at
+<a class="reference external" href="https://www.twilio.com/docs/libraries/python">https://www.twilio.com/docs/libraries/python</a>, please contact
+<a class="reference external" href="mailto:help%40twilio.com">help<span>@</span>twilio<span>.</span>com</a>.</p>
+</div>
+<div class="section" id="a-name-submit-a-submission-guidelines">
+<h2><a name="submit"></a> Submission Guidelines<a class="headerlink" href="#a-name-submit-a-submission-guidelines" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="submitting-an-issue">
+<h3>Submitting an Issue<a class="headerlink" href="#submitting-an-issue" title="Permalink to this headline">¶</a></h3>
+<p>Before you submit your issue search the archive, maybe your question was already
+answered.</p>
+<p>If your issue appears to be a bug, and hasn’t been reported, open a new issue.
+Help us to maximize the effort we can spend fixing issues and adding new
+features by not reporting duplicate issues. Providing the following information
+will increase the chances of your issue being dealt with quickly:</p>
+<ul class="simple">
+<li><strong>Overview of the Issue</strong> - if an error is being thrown a non-minified stack
+trace helps</li>
+<li><strong>Motivation for or Use Case</strong> - explain why this is a bug for you</li>
+<li><strong><code class="docutils literal notranslate"><span class="pre">twilio-python</span></code> Version(s)</strong> - is it a regression?</li>
+<li><strong>Operating System (if relevant)</strong> - is this a problem with all systems or
+only specific ones?</li>
+<li><strong>Reproduce the Error</strong> - provide an isolated code snippet or an unambiguous
+set of steps.</li>
+<li><strong>Related Issues</strong> - has a similar issue been reported before?</li>
+<li><strong>Suggest a Fix</strong> - if you can’t fix the bug yourself, perhaps you can point
+to what might be causing the problem (line of code or commit)</li>
+</ul>
+<p><strong>If you get help, help others. Good karma rules!</strong></p>
+</div>
+<div class="section" id="submitting-a-pull-request">
+<h3>Submitting a Pull Request<a class="headerlink" href="#submitting-a-pull-request" title="Permalink to this headline">¶</a></h3>
+<p>Before you submit your pull request consider the following guidelines:</p>
+<ul>
+<li><p class="first">Search <a class="reference external" href="https://github.com/twilio/twilio-python">GitHub</a> for an open or closed Pull Request that relates to
+your submission. You don’t want to duplicate effort.</p>
+</li>
+<li><p class="first">Make your changes in a new git branch:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>git checkout -b my-fix-branch main
+</pre></div>
+</div>
+</li>
+<li><p class="first">Create your patch, <strong>including appropriate test cases</strong>.</p>
+</li>
+<li><p class="first">Follow our <a class="reference external" href="#rules">Coding Rules</a>.</p>
+</li>
+<li><p class="first">Run the full <code class="docutils literal notranslate"><span class="pre">twilio-python</span></code> test suite (aliased by <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">test</span></code>), and ensure
+that all tests pass.</p>
+</li>
+<li><p class="first">Commit your changes using a descriptive commit message.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>git commit -a
+</pre></div>
+</div>
+<p>Note: the optional commit <code class="docutils literal notranslate"><span class="pre">-a</span></code> command line option will automatically “add”
+and “rm” edited files.</p>
+</li>
+<li><p class="first">Build your changes locally to ensure all the tests pass:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>make <span class="nb">test</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Push your branch to GitHub:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>git push origin my-fix-branch
+</pre></div>
+</div>
+</li>
+</ul>
+<p>In GitHub, send a pull request to <code class="docutils literal notranslate"><span class="pre">twilio-python:main</span></code>.
+If we suggest changes, then:</p>
+<ul class="simple">
+<li>Make the required updates.</li>
+<li>Re-run the <code class="docutils literal notranslate"><span class="pre">twilio-python</span></code> test suite to ensure tests are still passing.</li>
+<li>Commit your changes to your branch (e.g. <code class="docutils literal notranslate"><span class="pre">my-fix-branch</span></code>).</li>
+<li>Push the changes to your GitHub repository (this will update your Pull Request).</li>
+</ul>
+<p>That’s it! Thank you for your contribution!</p>
+<div class="section" id="after-your-pull-request-is-merged">
+<h4>After your pull request is merged<a class="headerlink" href="#after-your-pull-request-is-merged" title="Permalink to this headline">¶</a></h4>
+<p>After your pull request is merged, you can safely delete your branch and pull
+the changes from the main (upstream) repository.</p>
+</div>
+</div>
+</div>
+<div class="section" id="a-name-rules-a-coding-rules">
+<h2><a name="rules"></a> Coding Rules<a class="headerlink" href="#a-name-rules-a-coding-rules" title="Permalink to this headline">¶</a></h2>
+<p>To ensure consistency throughout the source code, keep these rules in mind as
+you are working:</p>
+<ul class="simple">
+<li>All features or bug fixes <strong>must be tested</strong> by one or more tests.</li>
+<li>All classes and methods <strong>must be documented</strong>.</li>
+</ul>
+</div>
+<div class="section" id="a-name-testing-a-local-testing">
+<h2><a name="testing"></a> Local Testing<a class="headerlink" href="#a-name-testing-a-local-testing" title="Permalink to this headline">¶</a></h2>
+<p>There exists a separate <code class="docutils literal notranslate"><span class="pre">requirements.txt</span></code> document under <code class="docutils literal notranslate"><span class="pre">tests</span></code> that contains dependencies required for running unit tests. To install them and run the unit tests, try this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">make</span> <span class="n">test</span><span class="o">-</span><span class="n">install</span> <span class="n">test</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div aria-label="main navigation" class="sphinxsidebar" role="navigation">
+<div class="sphinxsidebarwrapper"><h3><a href="https://www.twilio.com/docs/libraries/python">About twilio-python</a></h3>
+<p>
+    A Python module for communicating with the Twilio API and generating <a href="http://www.twilio.com/docs/api/twiml/">TwiML</a>.
+</p>
+<h3>Useful Links</h3>
+<ul>
+<li><a href="https://www.twilio.com/docs/libraries/python">Twilio's Python Helper Library Docs</a></li>
+<li><a href="https://pypi.org/project/twilio/">twilio @ PyPI</a></li>
+<li><a href="https://github.com/twilio/twilio-python">twilio-python @ GitHub</a></li>
+</ul>
+<h3><a href="index.html">Table of Contents</a></h3>
+<ul>
+<li><a class="reference internal" href="#">Contributing to <code class="docutils literal notranslate"><span class="pre">twilio-python</span></code></a><ul>
+<li><a class="reference internal" href="#a-name-coc-a-code-of-conduct"><a name="coc"></a> Code of Conduct</a></li>
+<li><a class="reference internal" href="#a-name-question-a-got-an-api-product-question-or-problem"><a name="question"></a> Got an API/Product Question or Problem?</a></li>
+<li><a class="reference internal" href="#a-name-issue-a-found-an-issue"><a name="issue"></a> Found an Issue?</a></li>
+<li><a class="reference internal" href="#a-name-feature-a-want-a-feature"><a name="feature"></a> Want a Feature?</a></li>
+<li><a class="reference internal" href="#a-name-docs-a-want-a-doc-fix"><a name="docs"></a> Want a Doc Fix?</a></li>
+<li><a class="reference internal" href="#a-name-submit-a-submission-guidelines"><a name="submit"></a> Submission Guidelines</a><ul>
+<li><a class="reference internal" href="#submitting-an-issue">Submitting an Issue</a></li>
+<li><a class="reference internal" href="#submitting-a-pull-request">Submitting a Pull Request</a><ul>
+<li><a class="reference internal" href="#after-your-pull-request-is-merged">After your pull request is merged</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#a-name-rules-a-coding-rules"><a name="rules"></a> Coding Rules</a></li>
+<li><a class="reference internal" href="#a-name-testing-a-local-testing"><a name="testing"></a> Local Testing</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+<li><a href="index.html">Documentation overview</a><ul>
+</ul></li>
+</ul>
+</div>
+<div aria-label="source link" role="note">
+<h3>This Page</h3>
+<ul class="this-page-menu">
+<li><a href="_sources/CONTRIBUTING.md.txt" rel="nofollow">Show Source</a></li>
+</ul>
+</div>
+<div id="searchbox" role="search" style="display: none">
+<h3>Quick search</h3>
+<div class="searchformwrapper">
+<form action="search.html" class="search" method="get">
+<input name="q" type="text"/>
+<input type="submit" value="Go"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
+</div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+</div>
+</div>
+<div class="clearer"></div>
+</div>
+<div class="footer">
+      ©2019, Twilio.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/CONTRIBUTING.md.txt" rel="nofollow">Page source</a>
+</div>
+</body>
+</html>

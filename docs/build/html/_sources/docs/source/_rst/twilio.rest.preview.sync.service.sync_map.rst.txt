@@ -1,0 +1,30 @@
+twilio.rest.preview.sync.service.sync\_map package
+==================================================
+
+Submodules
+----------
+
+twilio.rest.preview.sync.service.sync\_map.sync\_map\_item module
+-----------------------------------------------------------------
+
+.. automodule:: twilio.rest.preview.sync.service.sync_map.sync_map_item
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+twilio.rest.preview.sync.service.sync\_map.sync\_map\_permission module
+-----------------------------------------------------------------------
+
+.. automodule:: twilio.rest.preview.sync.service.sync_map.sync_map_permission
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: twilio.rest.preview.sync.service.sync_map
+    :members:
+    :undoc-members:
+    :show-inheritance:

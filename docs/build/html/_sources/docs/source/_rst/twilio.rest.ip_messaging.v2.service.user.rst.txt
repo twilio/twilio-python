@@ -1,0 +1,30 @@
+twilio.rest.ip\_messaging.v2.service.user package
+=================================================
+
+Submodules
+----------
+
+twilio.rest.ip\_messaging.v2.service.user.user\_binding module
+--------------------------------------------------------------
+
+.. automodule:: twilio.rest.ip_messaging.v2.service.user.user_binding
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+twilio.rest.ip\_messaging.v2.service.user.user\_channel module
+--------------------------------------------------------------
+
+.. automodule:: twilio.rest.ip_messaging.v2.service.user.user_channel
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: twilio.rest.ip_messaging.v2.service.user
+    :members:
+    :undoc-members:
+    :show-inheritance:

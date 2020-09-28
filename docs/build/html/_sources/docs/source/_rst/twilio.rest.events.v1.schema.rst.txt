@@ -1,0 +1,22 @@
+twilio.rest.events.v1.schema package
+====================================
+
+Submodules
+----------
+
+twilio.rest.events.v1.schema.schema\_version module
+---------------------------------------------------
+
+.. automodule:: twilio.rest.events.v1.schema.schema_version
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: twilio.rest.events.v1.schema
+    :members:
+    :undoc-members:
+    :show-inheritance:

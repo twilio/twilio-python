@@ -1,0 +1,72 @@
+twilio.rest.taskrouter.v1.workspace package
+===========================================
+
+Subpackages
+-----------
+
+.. toctree::
+
+    twilio.rest.taskrouter.v1.workspace.task
+    twilio.rest.taskrouter.v1.workspace.task_queue
+    twilio.rest.taskrouter.v1.workspace.worker
+    twilio.rest.taskrouter.v1.workspace.workflow
+
+Submodules
+----------
+
+twilio.rest.taskrouter.v1.workspace.activity module
+---------------------------------------------------
+
+.. automodule:: twilio.rest.taskrouter.v1.workspace.activity
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+twilio.rest.taskrouter.v1.workspace.event module
+------------------------------------------------
+
+.. automodule:: twilio.rest.taskrouter.v1.workspace.event
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+twilio.rest.taskrouter.v1.workspace.task\_channel module
+--------------------------------------------------------
+
+.. automodule:: twilio.rest.taskrouter.v1.workspace.task_channel
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+twilio.rest.taskrouter.v1.workspace.workspace\_cumulative\_statistics module
+----------------------------------------------------------------------------
+
+.. automodule:: twilio.rest.taskrouter.v1.workspace.workspace_cumulative_statistics
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+twilio.rest.taskrouter.v1.workspace.workspace\_real\_time\_statistics module
+----------------------------------------------------------------------------
+
+.. automodule:: twilio.rest.taskrouter.v1.workspace.workspace_real_time_statistics
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+twilio.rest.taskrouter.v1.workspace.workspace\_statistics module
+----------------------------------------------------------------
+
+.. automodule:: twilio.rest.taskrouter.v1.workspace.workspace_statistics
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: twilio.rest.taskrouter.v1.workspace
+    :members:
+    :undoc-members:
+    :show-inheritance:

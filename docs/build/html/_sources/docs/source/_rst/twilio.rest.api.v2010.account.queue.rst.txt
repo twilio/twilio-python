@@ -1,0 +1,22 @@
+twilio.rest.api.v2010.account.queue package
+===========================================
+
+Submodules
+----------
+
+twilio.rest.api.v2010.account.queue.member module
+-------------------------------------------------
+
+.. automodule:: twilio.rest.api.v2010.account.queue.member
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: twilio.rest.api.v2010.account.queue
+    :members:
+    :undoc-members:
+    :show-inheritance:

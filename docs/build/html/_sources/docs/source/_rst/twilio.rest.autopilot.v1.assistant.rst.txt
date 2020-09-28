@@ -1,0 +1,70 @@
+twilio.rest.autopilot.v1.assistant package
+==========================================
+
+Subpackages
+-----------
+
+.. toctree::
+
+    twilio.rest.autopilot.v1.assistant.field_type
+    twilio.rest.autopilot.v1.assistant.task
+
+Submodules
+----------
+
+twilio.rest.autopilot.v1.assistant.defaults module
+--------------------------------------------------
+
+.. automodule:: twilio.rest.autopilot.v1.assistant.defaults
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+twilio.rest.autopilot.v1.assistant.dialogue module
+--------------------------------------------------
+
+.. automodule:: twilio.rest.autopilot.v1.assistant.dialogue
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+twilio.rest.autopilot.v1.assistant.model\_build module
+------------------------------------------------------
+
+.. automodule:: twilio.rest.autopilot.v1.assistant.model_build
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+twilio.rest.autopilot.v1.assistant.query module
+-----------------------------------------------
+
+.. automodule:: twilio.rest.autopilot.v1.assistant.query
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+twilio.rest.autopilot.v1.assistant.style\_sheet module
+------------------------------------------------------
+
+.. automodule:: twilio.rest.autopilot.v1.assistant.style_sheet
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+twilio.rest.autopilot.v1.assistant.webhook module
+-------------------------------------------------
+
+.. automodule:: twilio.rest.autopilot.v1.assistant.webhook
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: twilio.rest.autopilot.v1.assistant
+    :members:
+    :undoc-members:
+    :show-inheritance:

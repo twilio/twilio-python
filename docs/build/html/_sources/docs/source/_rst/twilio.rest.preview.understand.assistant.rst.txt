@@ -1,0 +1,70 @@
+twilio.rest.preview.understand.assistant package
+================================================
+
+Subpackages
+-----------
+
+.. toctree::
+
+    twilio.rest.preview.understand.assistant.field_type
+    twilio.rest.preview.understand.assistant.task
+
+Submodules
+----------
+
+twilio.rest.preview.understand.assistant.assistant\_fallback\_actions module
+----------------------------------------------------------------------------
+
+.. automodule:: twilio.rest.preview.understand.assistant.assistant_fallback_actions
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+twilio.rest.preview.understand.assistant.assistant\_initiation\_actions module
+------------------------------------------------------------------------------
+
+.. automodule:: twilio.rest.preview.understand.assistant.assistant_initiation_actions
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+twilio.rest.preview.understand.assistant.dialogue module
+--------------------------------------------------------
+
+.. automodule:: twilio.rest.preview.understand.assistant.dialogue
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+twilio.rest.preview.understand.assistant.model\_build module
+------------------------------------------------------------
+
+.. automodule:: twilio.rest.preview.understand.assistant.model_build
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+twilio.rest.preview.understand.assistant.query module
+-----------------------------------------------------
+
+.. automodule:: twilio.rest.preview.understand.assistant.query
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+twilio.rest.preview.understand.assistant.style\_sheet module
+------------------------------------------------------------
+
+.. automodule:: twilio.rest.preview.understand.assistant.style_sheet
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: twilio.rest.preview.understand.assistant
+    :members:
+    :undoc-members:
+    :show-inheritance:
