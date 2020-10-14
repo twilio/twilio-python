@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-MWRD6S');</script><!--End Google Tag Manager-->
 <meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<title>twilio.rest.supersim.v1 package — twilio-python 6.45.4 documentation</title>
+<title>twilio.rest.supersim.v1 package — twilio-python 6.46.0 documentation</title>
 <link href="../../../_static/alabaster.css" rel="stylesheet" type="text/css"/>
 <link href="../../../_static/pygments.css" rel="stylesheet" type="text/css"/>
 <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js" type="text/javascript"></script>
@@ -90,7 +90,7 @@ preview access, please contact <a class="reference external" href="mailto:help%4
 <dl class="class">
 <dt id="twilio.rest.supersim.v1.command.CommandInstance.Direction">
 <em class="property">class </em><code class="descname">Direction</code><a class="reference internal" href="../../../_modules/twilio/rest/supersim/v1/command.html#CommandInstance.Direction"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.supersim.v1.command.CommandInstance.Direction" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <dl class="attribute">
 <dt id="twilio.rest.supersim.v1.command.CommandInstance.Direction.FROM_SIM">
 <code class="descname">FROM_SIM</code><em class="property"> = 'from_sim'</em><a class="headerlink" href="#twilio.rest.supersim.v1.command.CommandInstance.Direction.FROM_SIM" title="Permalink to this definition">¶</a></dt>
@@ -103,7 +103,7 @@ preview access, please contact <a class="reference external" href="mailto:help%4
 <dl class="class">
 <dt id="twilio.rest.supersim.v1.command.CommandInstance.Status">
 <em class="property">class </em><code class="descname">Status</code><a class="reference internal" href="../../../_modules/twilio/rest/supersim/v1/command.html#CommandInstance.Status"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.supersim.v1.command.CommandInstance.Status" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <dl class="attribute">
 <dt id="twilio.rest.supersim.v1.command.CommandInstance.Status.DELIVERED">
 <code class="descname">DELIVERED</code><em class="property"> = 'delivered'</em><a class="headerlink" href="#twilio.rest.supersim.v1.command.CommandInstance.Status.DELIVERED" title="Permalink to this definition">¶</a></dt>
@@ -325,7 +325,7 @@ Request is executed immediately</p>
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>target_url</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – API-generated URL for the requested results page</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>target_url</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – API-generated URL for the requested results page</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Page of CommandInstance</td>
 </tr>
@@ -348,9 +348,9 @@ memory before returning.</p>
 <li><strong>sim</strong> (<em>unicode</em>) – The SID or unique name of the Sim that Command was sent to or from.</li>
 <li><strong>status</strong> (<a class="reference internal" href="#twilio.rest.supersim.v1.command.CommandInstance.Status" title="twilio.rest.supersim.v1.command.CommandInstance.Status"><em>CommandInstance.Status</em></a>) – The status of the Command</li>
 <li><strong>direction</strong> (<a class="reference internal" href="#twilio.rest.supersim.v1.command.CommandInstance.Direction" title="twilio.rest.supersim.v1.command.CommandInstance.Direction"><em>CommandInstance.Direction</em></a>) – The direction of the Command</li>
-<li><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – Upper limit for the number of records to return. list() guarantees
+<li><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – Upper limit for the number of records to return. list() guarantees
 never to return more than limit.  Default is no limit</li>
-<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – Number of records to fetch per request, when not set will use
+<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – Number of records to fetch per request, when not set will use
 the default value of 50 records.  If no page_size is defined
 but a limit is defined, list() will attempt to read the limit
 with the most efficient page size, i.e. min(limit, 1000)</li>
@@ -360,7 +360,7 @@ with the most efficient page size, i.e. min(limit, 1000)</li>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Generator that will yield up to limit results</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)">list</a>[<a class="reference internal" href="#twilio.rest.supersim.v1.command.CommandInstance" title="twilio.rest.supersim.v1.command.CommandInstance">twilio.rest.supersim.v1.command.CommandInstance</a>]</p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)">list</a>[<a class="reference internal" href="#twilio.rest.supersim.v1.command.CommandInstance" title="twilio.rest.supersim.v1.command.CommandInstance">twilio.rest.supersim.v1.command.CommandInstance</a>]</p>
 </td>
 </tr>
 </tbody>
@@ -379,9 +379,9 @@ Request is executed immediately</p>
 <li><strong>sim</strong> (<em>unicode</em>) – The SID or unique name of the Sim that Command was sent to or from.</li>
 <li><strong>status</strong> (<a class="reference internal" href="#twilio.rest.supersim.v1.command.CommandInstance.Status" title="twilio.rest.supersim.v1.command.CommandInstance.Status"><em>CommandInstance.Status</em></a>) – The status of the Command</li>
 <li><strong>direction</strong> (<a class="reference internal" href="#twilio.rest.supersim.v1.command.CommandInstance.Direction" title="twilio.rest.supersim.v1.command.CommandInstance.Direction"><em>CommandInstance.Direction</em></a>) – The direction of the Command</li>
-<li><strong>page_token</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – PageToken provided by the API</li>
-<li><strong>page_number</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – Page Number, this value is simply for client state</li>
-<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – Number of records to return, defaults to 50</li>
+<li><strong>page_token</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – PageToken provided by the API</li>
+<li><strong>page_number</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – Page Number, this value is simply for client state</li>
+<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – Number of records to return, defaults to 50</li>
 </ul>
 </td>
 </tr>
@@ -409,9 +409,9 @@ The results are returned as a generator, so this operation is memory efficient.<
 <li><strong>sim</strong> (<em>unicode</em>) – The SID or unique name of the Sim that Command was sent to or from.</li>
 <li><strong>status</strong> (<a class="reference internal" href="#twilio.rest.supersim.v1.command.CommandInstance.Status" title="twilio.rest.supersim.v1.command.CommandInstance.Status"><em>CommandInstance.Status</em></a>) – The status of the Command</li>
 <li><strong>direction</strong> (<a class="reference internal" href="#twilio.rest.supersim.v1.command.CommandInstance.Direction" title="twilio.rest.supersim.v1.command.CommandInstance.Direction"><em>CommandInstance.Direction</em></a>) – The direction of the Command</li>
-<li><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – Upper limit for the number of records to return. stream()
+<li><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – Upper limit for the number of records to return. stream()
 guarantees to never return more than limit.  Default is no limit</li>
-<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – Number of records to fetch per request, when not set will use
+<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – Number of records to fetch per request, when not set will use
 the default value of 50 records.  If no page_size is defined
 but a limit is defined, stream() will attempt to read the
 limit with the most efficient page size, i.e. min(limit, 1000)</li>
@@ -421,7 +421,7 @@ limit with the most efficient page size, i.e. min(limit, 1000)</li>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Generator that will yield up to limit results</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)">list</a>[<a class="reference internal" href="#twilio.rest.supersim.v1.command.CommandInstance" title="twilio.rest.supersim.v1.command.CommandInstance">twilio.rest.supersim.v1.command.CommandInstance</a>]</p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)">list</a>[<a class="reference internal" href="#twilio.rest.supersim.v1.command.CommandInstance" title="twilio.rest.supersim.v1.command.CommandInstance">twilio.rest.supersim.v1.command.CommandInstance</a>]</p>
 </td>
 </tr>
 </tbody>
@@ -443,7 +443,7 @@ preview access, please contact <a class="reference external" href="mailto:help%4
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>payload</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a>) – Payload response from the API</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>payload</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – Payload response from the API</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">twilio.rest.supersim.v1.command.CommandInstance</td>
 </tr>
@@ -520,7 +520,7 @@ preview access, please contact <a class="reference external" href="mailto:help%4
 <dl class="class">
 <dt id="twilio.rest.supersim.v1.fleet.FleetInstance.DataMetering">
 <em class="property">class </em><code class="descname">DataMetering</code><a class="reference internal" href="../../../_modules/twilio/rest/supersim/v1/fleet.html#FleetInstance.DataMetering"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.supersim.v1.fleet.FleetInstance.DataMetering" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <dl class="attribute">
 <dt id="twilio.rest.supersim.v1.fleet.FleetInstance.DataMetering.PAYG">
 <code class="descname">PAYG</code><em class="property"> = 'payg'</em><a class="headerlink" href="#twilio.rest.supersim.v1.fleet.FleetInstance.DataMetering.PAYG" title="Permalink to this definition">¶</a></dt>
@@ -549,7 +549,7 @@ preview access, please contact <a class="reference external" href="mailto:help%4
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Defines whether SIMs in the Fleet are capable of sending and receiving machine-to-machine SMS via Commands</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)">bool</a></td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)">bool</a></td>
 </tr>
 </tbody>
 </table>
@@ -591,7 +591,7 @@ preview access, please contact <a class="reference external" href="mailto:help%4
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Defines whether SIMs in the Fleet are capable of using data connectivity</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)">bool</a></td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)">bool</a></td>
 </tr>
 </tbody>
 </table>
@@ -765,9 +765,9 @@ preview access, please contact <a class="reference external" href="mailto:help%4
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>network_access_profile</strong> (<em>unicode</em>) – The SID or unique name of the Network Access Profile of the Fleet</li>
 <li><strong>unique_name</strong> (<em>unicode</em>) – An application-defined string that uniquely identifies the resource</li>
-<li><strong>data_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – Defines whether SIMs in the Fleet are capable of using data connectivity</li>
+<li><strong>data_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – Defines whether SIMs in the Fleet are capable of using data connectivity</li>
 <li><strong>data_limit</strong> (<em>unicode</em>) – The total data usage (download and upload combined) in Megabytes that each Sim resource assigned to the Fleet resource can consume</li>
-<li><strong>commands_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – Defines whether SIMs in the Fleet are capable of sending and receiving machine-to-machine SMS via Commands</li>
+<li><strong>commands_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – Defines whether SIMs in the Fleet are capable of sending and receiving machine-to-machine SMS via Commands</li>
 <li><strong>commands_url</strong> (<em>unicode</em>) – The URL that will receive a webhook when a SIM in the Fleet originates a machine-to-machine SMS via Commands</li>
 <li><strong>commands_method</strong> (<em>unicode</em>) – A string representing the HTTP method to use when making a request to <cite>commands_url</cite></li>
 </ul>
@@ -808,7 +808,7 @@ Request is executed immediately</p>
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>target_url</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – API-generated URL for the requested results page</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>target_url</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – API-generated URL for the requested results page</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Page of FleetInstance</td>
 </tr>
@@ -829,9 +829,9 @@ memory before returning.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>network_access_profile</strong> (<em>unicode</em>) – The SID or unique name of the Network Access Profile of the Fleet</li>
-<li><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – Upper limit for the number of records to return. list() guarantees
+<li><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – Upper limit for the number of records to return. list() guarantees
 never to return more than limit.  Default is no limit</li>
-<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – Number of records to fetch per request, when not set will use
+<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – Number of records to fetch per request, when not set will use
 the default value of 50 records.  If no page_size is defined
 but a limit is defined, list() will attempt to read the limit
 with the most efficient page size, i.e. min(limit, 1000)</li>
@@ -841,7 +841,7 @@ with the most efficient page size, i.e. min(limit, 1000)</li>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Generator that will yield up to limit results</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)">list</a>[<a class="reference internal" href="#twilio.rest.supersim.v1.fleet.FleetInstance" title="twilio.rest.supersim.v1.fleet.FleetInstance">twilio.rest.supersim.v1.fleet.FleetInstance</a>]</p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)">list</a>[<a class="reference internal" href="#twilio.rest.supersim.v1.fleet.FleetInstance" title="twilio.rest.supersim.v1.fleet.FleetInstance">twilio.rest.supersim.v1.fleet.FleetInstance</a>]</p>
 </td>
 </tr>
 </tbody>
@@ -858,9 +858,9 @@ Request is executed immediately</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>network_access_profile</strong> (<em>unicode</em>) – The SID or unique name of the Network Access Profile of the Fleet</li>
-<li><strong>page_token</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – PageToken provided by the API</li>
-<li><strong>page_number</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – Page Number, this value is simply for client state</li>
-<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – Number of records to return, defaults to 50</li>
+<li><strong>page_token</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – PageToken provided by the API</li>
+<li><strong>page_number</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – Page Number, this value is simply for client state</li>
+<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – Number of records to return, defaults to 50</li>
 </ul>
 </td>
 </tr>
@@ -886,9 +886,9 @@ The results are returned as a generator, so this operation is memory efficient.<
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>network_access_profile</strong> (<em>unicode</em>) – The SID or unique name of the Network Access Profile of the Fleet</li>
-<li><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – Upper limit for the number of records to return. stream()
+<li><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – Upper limit for the number of records to return. stream()
 guarantees to never return more than limit.  Default is no limit</li>
-<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – Number of records to fetch per request, when not set will use
+<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – Number of records to fetch per request, when not set will use
 the default value of 50 records.  If no page_size is defined
 but a limit is defined, stream() will attempt to read the
 limit with the most efficient page size, i.e. min(limit, 1000)</li>
@@ -898,7 +898,7 @@ limit with the most efficient page size, i.e. min(limit, 1000)</li>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Generator that will yield up to limit results</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)">list</a>[<a class="reference internal" href="#twilio.rest.supersim.v1.fleet.FleetInstance" title="twilio.rest.supersim.v1.fleet.FleetInstance">twilio.rest.supersim.v1.fleet.FleetInstance</a>]</p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)">list</a>[<a class="reference internal" href="#twilio.rest.supersim.v1.fleet.FleetInstance" title="twilio.rest.supersim.v1.fleet.FleetInstance">twilio.rest.supersim.v1.fleet.FleetInstance</a>]</p>
 </td>
 </tr>
 </tbody>
@@ -920,7 +920,7 @@ preview access, please contact <a class="reference external" href="mailto:help%4
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>payload</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a>) – Payload response from the API</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>payload</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – Payload response from the API</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">twilio.rest.supersim.v1.fleet.FleetInstance</td>
 </tr>
@@ -1009,7 +1009,7 @@ preview access, please contact <a class="reference external" href="mailto:help%4
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The MCC/MNCs included in the Network resource</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)">dict</a></td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)">dict</a></td>
 </tr>
 </tbody>
 </table>
@@ -1090,7 +1090,7 @@ Request is executed immediately</p>
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>target_url</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – API-generated URL for the requested results page</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>target_url</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – API-generated URL for the requested results page</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Page of NetworkInstance</td>
 </tr>
@@ -1113,9 +1113,9 @@ memory before returning.</p>
 <li><strong>iso_country</strong> (<em>unicode</em>) – The ISO country code of the Network resources to read</li>
 <li><strong>mcc</strong> (<em>unicode</em>) – The MCC of Network resource identifiers to be read</li>
 <li><strong>mnc</strong> (<em>unicode</em>) – The MNC of Network resource identifiers to be read</li>
-<li><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – Upper limit for the number of records to return. list() guarantees
+<li><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – Upper limit for the number of records to return. list() guarantees
 never to return more than limit.  Default is no limit</li>
-<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – Number of records to fetch per request, when not set will use
+<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – Number of records to fetch per request, when not set will use
 the default value of 50 records.  If no page_size is defined
 but a limit is defined, list() will attempt to read the limit
 with the most efficient page size, i.e. min(limit, 1000)</li>
@@ -1125,7 +1125,7 @@ with the most efficient page size, i.e. min(limit, 1000)</li>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Generator that will yield up to limit results</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)">list</a>[<a class="reference internal" href="#twilio.rest.supersim.v1.network.NetworkInstance" title="twilio.rest.supersim.v1.network.NetworkInstance">twilio.rest.supersim.v1.network.NetworkInstance</a>]</p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)">list</a>[<a class="reference internal" href="#twilio.rest.supersim.v1.network.NetworkInstance" title="twilio.rest.supersim.v1.network.NetworkInstance">twilio.rest.supersim.v1.network.NetworkInstance</a>]</p>
 </td>
 </tr>
 </tbody>
@@ -1144,9 +1144,9 @@ Request is executed immediately</p>
 <li><strong>iso_country</strong> (<em>unicode</em>) – The ISO country code of the Network resources to read</li>
 <li><strong>mcc</strong> (<em>unicode</em>) – The MCC of Network resource identifiers to be read</li>
 <li><strong>mnc</strong> (<em>unicode</em>) – The MNC of Network resource identifiers to be read</li>
-<li><strong>page_token</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – PageToken provided by the API</li>
-<li><strong>page_number</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – Page Number, this value is simply for client state</li>
-<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – Number of records to return, defaults to 50</li>
+<li><strong>page_token</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – PageToken provided by the API</li>
+<li><strong>page_number</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – Page Number, this value is simply for client state</li>
+<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – Number of records to return, defaults to 50</li>
 </ul>
 </td>
 </tr>
@@ -1174,9 +1174,9 @@ The results are returned as a generator, so this operation is memory efficient.<
 <li><strong>iso_country</strong> (<em>unicode</em>) – The ISO country code of the Network resources to read</li>
 <li><strong>mcc</strong> (<em>unicode</em>) – The MCC of Network resource identifiers to be read</li>
 <li><strong>mnc</strong> (<em>unicode</em>) – The MNC of Network resource identifiers to be read</li>
-<li><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – Upper limit for the number of records to return. stream()
+<li><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – Upper limit for the number of records to return. stream()
 guarantees to never return more than limit.  Default is no limit</li>
-<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – Number of records to fetch per request, when not set will use
+<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – Number of records to fetch per request, when not set will use
 the default value of 50 records.  If no page_size is defined
 but a limit is defined, stream() will attempt to read the
 limit with the most efficient page size, i.e. min(limit, 1000)</li>
@@ -1186,7 +1186,7 @@ limit with the most efficient page size, i.e. min(limit, 1000)</li>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Generator that will yield up to limit results</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)">list</a>[<a class="reference internal" href="#twilio.rest.supersim.v1.network.NetworkInstance" title="twilio.rest.supersim.v1.network.NetworkInstance">twilio.rest.supersim.v1.network.NetworkInstance</a>]</p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)">list</a>[<a class="reference internal" href="#twilio.rest.supersim.v1.network.NetworkInstance" title="twilio.rest.supersim.v1.network.NetworkInstance">twilio.rest.supersim.v1.network.NetworkInstance</a>]</p>
 </td>
 </tr>
 </tbody>
@@ -1208,7 +1208,7 @@ preview access, please contact <a class="reference external" href="mailto:help%4
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>payload</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a>) – Payload response from the API</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>payload</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – Payload response from the API</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">twilio.rest.supersim.v1.network.NetworkInstance</td>
 </tr>
@@ -1289,7 +1289,7 @@ preview access, please contact <a class="reference external" href="mailto:help%4
 <dl class="class">
 <dt id="twilio.rest.supersim.v1.sim.SimInstance.Status">
 <em class="property">class </em><code class="descname">Status</code><a class="reference internal" href="../../../_modules/twilio/rest/supersim/v1/sim.html#SimInstance.Status"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.supersim.v1.sim.SimInstance.Status" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <dl class="attribute">
 <dt id="twilio.rest.supersim.v1.sim.SimInstance.Status.ACTIVE">
 <code class="descname">ACTIVE</code><em class="property"> = 'active'</em><a class="headerlink" href="#twilio.rest.supersim.v1.sim.SimInstance.Status.ACTIVE" title="Permalink to this definition">¶</a></dt>
@@ -1314,7 +1314,7 @@ preview access, please contact <a class="reference external" href="mailto:help%4
 <dl class="class">
 <dt id="twilio.rest.supersim.v1.sim.SimInstance.StatusUpdate">
 <em class="property">class </em><code class="descname">StatusUpdate</code><a class="reference internal" href="../../../_modules/twilio/rest/supersim/v1/sim.html#SimInstance.StatusUpdate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.supersim.v1.sim.SimInstance.StatusUpdate" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <dl class="attribute">
 <dt id="twilio.rest.supersim.v1.sim.SimInstance.StatusUpdate.ACTIVE">
 <code class="descname">ACTIVE</code><em class="property"> = 'active'</em><a class="headerlink" href="#twilio.rest.supersim.v1.sim.SimInstance.StatusUpdate.ACTIVE" title="Permalink to this definition">¶</a></dt>
@@ -1530,7 +1530,7 @@ Request is executed immediately</p>
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>target_url</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – API-generated URL for the requested results page</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>target_url</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – API-generated URL for the requested results page</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Page of SimInstance</td>
 </tr>
@@ -1553,9 +1553,9 @@ memory before returning.</p>
 <li><strong>status</strong> (<a class="reference internal" href="#twilio.rest.supersim.v1.sim.SimInstance.Status" title="twilio.rest.supersim.v1.sim.SimInstance.Status"><em>SimInstance.Status</em></a>) – The status of the Sim resources to read</li>
 <li><strong>fleet</strong> (<em>unicode</em>) – The SID or unique name of the Fleet to which a list of Sims are assigned</li>
 <li><strong>iccid</strong> (<em>unicode</em>) – The ICCID associated with a Super SIM to filter the list by</li>
-<li><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – Upper limit for the number of records to return. list() guarantees
+<li><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – Upper limit for the number of records to return. list() guarantees
 never to return more than limit.  Default is no limit</li>
-<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – Number of records to fetch per request, when not set will use
+<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – Number of records to fetch per request, when not set will use
 the default value of 50 records.  If no page_size is defined
 but a limit is defined, list() will attempt to read the limit
 with the most efficient page size, i.e. min(limit, 1000)</li>
@@ -1565,7 +1565,7 @@ with the most efficient page size, i.e. min(limit, 1000)</li>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Generator that will yield up to limit results</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)">list</a>[<a class="reference internal" href="#twilio.rest.supersim.v1.sim.SimInstance" title="twilio.rest.supersim.v1.sim.SimInstance">twilio.rest.supersim.v1.sim.SimInstance</a>]</p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)">list</a>[<a class="reference internal" href="#twilio.rest.supersim.v1.sim.SimInstance" title="twilio.rest.supersim.v1.sim.SimInstance">twilio.rest.supersim.v1.sim.SimInstance</a>]</p>
 </td>
 </tr>
 </tbody>
@@ -1584,9 +1584,9 @@ Request is executed immediately</p>
 <li><strong>status</strong> (<a class="reference internal" href="#twilio.rest.supersim.v1.sim.SimInstance.Status" title="twilio.rest.supersim.v1.sim.SimInstance.Status"><em>SimInstance.Status</em></a>) – The status of the Sim resources to read</li>
 <li><strong>fleet</strong> (<em>unicode</em>) – The SID or unique name of the Fleet to which a list of Sims are assigned</li>
 <li><strong>iccid</strong> (<em>unicode</em>) – The ICCID associated with a Super SIM to filter the list by</li>
-<li><strong>page_token</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – PageToken provided by the API</li>
-<li><strong>page_number</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – Page Number, this value is simply for client state</li>
-<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – Number of records to return, defaults to 50</li>
+<li><strong>page_token</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – PageToken provided by the API</li>
+<li><strong>page_number</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – Page Number, this value is simply for client state</li>
+<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – Number of records to return, defaults to 50</li>
 </ul>
 </td>
 </tr>
@@ -1614,9 +1614,9 @@ The results are returned as a generator, so this operation is memory efficient.<
 <li><strong>status</strong> (<a class="reference internal" href="#twilio.rest.supersim.v1.sim.SimInstance.Status" title="twilio.rest.supersim.v1.sim.SimInstance.Status"><em>SimInstance.Status</em></a>) – The status of the Sim resources to read</li>
 <li><strong>fleet</strong> (<em>unicode</em>) – The SID or unique name of the Fleet to which a list of Sims are assigned</li>
 <li><strong>iccid</strong> (<em>unicode</em>) – The ICCID associated with a Super SIM to filter the list by</li>
-<li><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – Upper limit for the number of records to return. stream()
+<li><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – Upper limit for the number of records to return. stream()
 guarantees to never return more than limit.  Default is no limit</li>
-<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – Number of records to fetch per request, when not set will use
+<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – Number of records to fetch per request, when not set will use
 the default value of 50 records.  If no page_size is defined
 but a limit is defined, stream() will attempt to read the
 limit with the most efficient page size, i.e. min(limit, 1000)</li>
@@ -1626,7 +1626,7 @@ limit with the most efficient page size, i.e. min(limit, 1000)</li>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Generator that will yield up to limit results</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)">list</a>[<a class="reference internal" href="#twilio.rest.supersim.v1.sim.SimInstance" title="twilio.rest.supersim.v1.sim.SimInstance">twilio.rest.supersim.v1.sim.SimInstance</a>]</p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)">list</a>[<a class="reference internal" href="#twilio.rest.supersim.v1.sim.SimInstance" title="twilio.rest.supersim.v1.sim.SimInstance">twilio.rest.supersim.v1.sim.SimInstance</a>]</p>
 </td>
 </tr>
 </tbody>
@@ -1648,7 +1648,7 @@ preview access, please contact <a class="reference external" href="mailto:help%4
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>payload</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a>) – Payload response from the API</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>payload</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – Payload response from the API</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">twilio.rest.supersim.v1.sim.SimInstance</td>
 </tr>
@@ -1679,7 +1679,7 @@ preview access, please contact <a class="reference external" href="mailto:help%4
 <dl class="class">
 <dt id="twilio.rest.supersim.v1.usage_record.UsageRecordInstance.Granularity">
 <em class="property">class </em><code class="descname">Granularity</code><a class="reference internal" href="../../../_modules/twilio/rest/supersim/v1/usage_record.html#UsageRecordInstance.Granularity"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.supersim.v1.usage_record.UsageRecordInstance.Granularity" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <dl class="attribute">
 <dt id="twilio.rest.supersim.v1.usage_record.UsageRecordInstance.Granularity.ALL">
 <code class="descname">ALL</code><em class="property"> = 'all'</em><a class="headerlink" href="#twilio.rest.supersim.v1.usage_record.UsageRecordInstance.Granularity.ALL" title="Permalink to this definition">¶</a></dt>
@@ -1696,7 +1696,7 @@ preview access, please contact <a class="reference external" href="mailto:help%4
 <dl class="class">
 <dt id="twilio.rest.supersim.v1.usage_record.UsageRecordInstance.Group">
 <em class="property">class </em><code class="descname">Group</code><a class="reference internal" href="../../../_modules/twilio/rest/supersim/v1/usage_record.html#UsageRecordInstance.Group"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.supersim.v1.usage_record.UsageRecordInstance.Group" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <dl class="attribute">
 <dt id="twilio.rest.supersim.v1.usage_record.UsageRecordInstance.Group.FLEET">
 <code class="descname">FLEET</code><em class="property"> = 'fleet'</em><a class="headerlink" href="#twilio.rest.supersim.v1.usage_record.UsageRecordInstance.Group.FLEET" title="Permalink to this definition">¶</a></dt>
@@ -1717,7 +1717,7 @@ preview access, please contact <a class="reference external" href="mailto:help%4
 <dl class="class">
 <dt id="twilio.rest.supersim.v1.usage_record.UsageRecordInstance.SortBy">
 <em class="property">class </em><code class="descname">SortBy</code><a class="reference internal" href="../../../_modules/twilio/rest/supersim/v1/usage_record.html#UsageRecordInstance.SortBy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.supersim.v1.usage_record.UsageRecordInstance.SortBy" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <dl class="attribute">
 <dt id="twilio.rest.supersim.v1.usage_record.UsageRecordInstance.SortBy.TIME">
 <code class="descname">TIME</code><em class="property"> = 'time'</em><a class="headerlink" href="#twilio.rest.supersim.v1.usage_record.UsageRecordInstance.SortBy.TIME" title="Permalink to this definition">¶</a></dt>
@@ -1830,7 +1830,7 @@ preview access, please contact <a class="reference external" href="mailto:help%4
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The time period for which the usage is reported.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)">dict</a></td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)">dict</a></td>
 </tr>
 </tbody>
 </table>
@@ -1866,7 +1866,7 @@ Request is executed immediately</p>
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>target_url</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – API-generated URL for the requested results page</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>target_url</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – API-generated URL for the requested results page</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Page of UsageRecordInstance</td>
 </tr>
@@ -1894,9 +1894,9 @@ memory before returning.</p>
 <li><strong>granularity</strong> (<a class="reference internal" href="#twilio.rest.supersim.v1.usage_record.UsageRecordInstance.Granularity" title="twilio.rest.supersim.v1.usage_record.UsageRecordInstance.Granularity"><em>UsageRecordInstance.Granularity</em></a>) – Time-based grouping that UsageRecords should be aggregated by. Can be: <cite>hour</cite>, <cite>day</cite>, or <cite>all</cite>. Default is <cite>all</cite>.</li>
 <li><strong>start_time</strong> (<em>datetime</em>) – Only include usage that occurred at or after this time.</li>
 <li><strong>end_time</strong> (<em>datetime</em>) – Only include usage that occurred before this time.</li>
-<li><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – Upper limit for the number of records to return. list() guarantees
+<li><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – Upper limit for the number of records to return. list() guarantees
 never to return more than limit.  Default is no limit</li>
-<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – Number of records to fetch per request, when not set will use
+<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – Number of records to fetch per request, when not set will use
 the default value of 50 records.  If no page_size is defined
 but a limit is defined, list() will attempt to read the limit
 with the most efficient page size, i.e. min(limit, 1000)</li>
@@ -1906,7 +1906,7 @@ with the most efficient page size, i.e. min(limit, 1000)</li>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Generator that will yield up to limit results</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)">list</a>[<a class="reference internal" href="#twilio.rest.supersim.v1.usage_record.UsageRecordInstance" title="twilio.rest.supersim.v1.usage_record.UsageRecordInstance">twilio.rest.supersim.v1.usage_record.UsageRecordInstance</a>]</p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)">list</a>[<a class="reference internal" href="#twilio.rest.supersim.v1.usage_record.UsageRecordInstance" title="twilio.rest.supersim.v1.usage_record.UsageRecordInstance">twilio.rest.supersim.v1.usage_record.UsageRecordInstance</a>]</p>
 </td>
 </tr>
 </tbody>
@@ -1930,9 +1930,9 @@ Request is executed immediately</p>
 <li><strong>granularity</strong> (<a class="reference internal" href="#twilio.rest.supersim.v1.usage_record.UsageRecordInstance.Granularity" title="twilio.rest.supersim.v1.usage_record.UsageRecordInstance.Granularity"><em>UsageRecordInstance.Granularity</em></a>) – Time-based grouping that UsageRecords should be aggregated by. Can be: <cite>hour</cite>, <cite>day</cite>, or <cite>all</cite>. Default is <cite>all</cite>.</li>
 <li><strong>start_time</strong> (<em>datetime</em>) – Only include usage that occurred at or after this time.</li>
 <li><strong>end_time</strong> (<em>datetime</em>) – Only include usage that occurred before this time.</li>
-<li><strong>page_token</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – PageToken provided by the API</li>
-<li><strong>page_number</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – Page Number, this value is simply for client state</li>
-<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – Number of records to return, defaults to 50</li>
+<li><strong>page_token</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – PageToken provided by the API</li>
+<li><strong>page_number</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – Page Number, this value is simply for client state</li>
+<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – Number of records to return, defaults to 50</li>
 </ul>
 </td>
 </tr>
@@ -1965,9 +1965,9 @@ The results are returned as a generator, so this operation is memory efficient.<
 <li><strong>granularity</strong> (<a class="reference internal" href="#twilio.rest.supersim.v1.usage_record.UsageRecordInstance.Granularity" title="twilio.rest.supersim.v1.usage_record.UsageRecordInstance.Granularity"><em>UsageRecordInstance.Granularity</em></a>) – Time-based grouping that UsageRecords should be aggregated by. Can be: <cite>hour</cite>, <cite>day</cite>, or <cite>all</cite>. Default is <cite>all</cite>.</li>
 <li><strong>start_time</strong> (<em>datetime</em>) – Only include usage that occurred at or after this time.</li>
 <li><strong>end_time</strong> (<em>datetime</em>) – Only include usage that occurred before this time.</li>
-<li><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – Upper limit for the number of records to return. stream()
+<li><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – Upper limit for the number of records to return. stream()
 guarantees to never return more than limit.  Default is no limit</li>
-<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – Number of records to fetch per request, when not set will use
+<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – Number of records to fetch per request, when not set will use
 the default value of 50 records.  If no page_size is defined
 but a limit is defined, stream() will attempt to read the
 limit with the most efficient page size, i.e. min(limit, 1000)</li>
@@ -1977,7 +1977,7 @@ limit with the most efficient page size, i.e. min(limit, 1000)</li>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Generator that will yield up to limit results</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)">list</a>[<a class="reference internal" href="#twilio.rest.supersim.v1.usage_record.UsageRecordInstance" title="twilio.rest.supersim.v1.usage_record.UsageRecordInstance">twilio.rest.supersim.v1.usage_record.UsageRecordInstance</a>]</p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)">list</a>[<a class="reference internal" href="#twilio.rest.supersim.v1.usage_record.UsageRecordInstance" title="twilio.rest.supersim.v1.usage_record.UsageRecordInstance">twilio.rest.supersim.v1.usage_record.UsageRecordInstance</a>]</p>
 </td>
 </tr>
 </tbody>
@@ -1999,7 +1999,7 @@ preview access, please contact <a class="reference external" href="mailto:help%4
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>payload</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a>) – Payload response from the API</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>payload</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – Payload response from the API</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">twilio.rest.supersim.v1.usage_record.UsageRecordInstance</td>
 </tr>

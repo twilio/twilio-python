@@ -6,6 +6,7 @@ Subpackages
 
 .. toctree::
 
+    twilio.rest.preview.trusted_comms.branded_channel
     twilio.rest.preview.trusted_comms.business
 
 Submodules

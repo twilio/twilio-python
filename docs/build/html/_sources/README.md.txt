@@ -39,6 +39,8 @@ package manager for Python.
 
     pip install twilio
 
+If pip install fails on Windows, check the path length of the directory. If it is greater 260 characters then enable [Long Paths](https://docs.microsoft.com/en-us/windows/win32/fileio/maximum-file-path-limitation) or choose other shorter location.
+
 Don't have pip installed? Try installing it, by running this from the command
 line:
 

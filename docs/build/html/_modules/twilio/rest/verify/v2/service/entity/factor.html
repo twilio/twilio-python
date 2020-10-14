@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-MWRD6S');</script><!--End Google Tag Manager-->
 <meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<title>twilio.rest.verify.v2.service.entity.factor — twilio-python 6.45.4 documentation</title>
+<title>twilio.rest.verify.v2.service.entity.factor — twilio-python 6.46.0 documentation</title>
 <link href="../../../../../../../_static/alabaster.css" rel="stylesheet" type="text/css"/>
 <link href="../../../../../../../_static/pygments.css" rel="stylesheet" type="text/css"/>
 <script data-url_root="../../../../../../../" id="documentation_options" src="../../../../../../../_static/documentation_options.js" type="text/javascript"></script>
@@ -66,25 +66,36 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="bp">self</span><span class="o">.</span><span class="n">_solution</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'service_sid'</span><span class="p">:</span> <span class="n">service_sid</span><span class="p">,</span> <span class="s1">'identity'</span><span class="p">:</span> <span class="n">identity</span><span class="p">,</span> <span class="p">}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_uri</span> <span class="o">=</span> <span class="s1">'/Services/</span><span class="si">{service_sid}</span><span class="s1">/Entities/</span><span class="si">{identity}</span><span class="s1">/Factors'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">_solution</span><span class="p">)</span>
 
-<div class="viewcode-block" id="FactorList.create"><a class="viewcode-back" href="../../../../../../../docs/source/_rst/twilio.rest.verify.v2.service.entity.html#twilio.rest.verify.v2.service.entity.factor.FactorList.create">[docs]</a>    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">binding</span><span class="p">,</span> <span class="n">friendly_name</span><span class="p">,</span> <span class="n">factor_type</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span>
-               <span class="n">twilio_sandbox_mode</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">):</span>
+<div class="viewcode-block" id="FactorList.create"><a class="viewcode-back" href="../../../../../../../docs/source/_rst/twilio.rest.verify.v2.service.entity.html#twilio.rest.verify.v2.service.entity.factor.FactorList.create">[docs]</a>    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">friendly_name</span><span class="p">,</span> <span class="n">factor_type</span><span class="p">,</span> <span class="n">binding_alg</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
+               <span class="n">binding_public_key</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">config_app_id</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
+               <span class="n">config_notification_platform</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
+               <span class="n">config_notification_token</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
+               <span class="n">config_sdk_version</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">twilio_sandbox_mode</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">):</span>
         <span class="sd">"""</span>
 <span class="sd">        Create the FactorInstance</span>
 
-<span class="sd">        :param unicode binding: A unique binding for this Factor as a json string</span>
 <span class="sd">        :param unicode friendly_name: The friendly name of this Factor</span>
 <span class="sd">        :param FactorInstance.FactorTypes factor_type: The Type of this Factor</span>
-<span class="sd">        :param unicode config: The config for this Factor as a json string</span>
+<span class="sd">        :param unicode binding_alg: The algorithm used when `factor_type` is `push`</span>
+<span class="sd">        :param unicode binding_public_key: The public key encoded in Base64</span>
+<span class="sd">        :param unicode config_app_id: The ID that uniquely identifies your app in the Google or Apple store</span>
+<span class="sd">        :param FactorInstance.NotificationPlatforms config_notification_platform: The transport technology used to generate the Notification Token</span>
+<span class="sd">        :param unicode config_notification_token: For APN, the device token. For FCM the registration token</span>
+<span class="sd">        :param unicode config_sdk_version: The Verify Push SDK version used to configure the factor</span>
 <span class="sd">        :param unicode twilio_sandbox_mode: The Twilio-Sandbox-Mode HTTP request header</span>
 
 <span class="sd">        :returns: The created FactorInstance</span>
 <span class="sd">        :rtype: twilio.rest.verify.v2.service.entity.factor.FactorInstance</span>
 <span class="sd">        """</span>
         <span class="n">data</span> <span class="o">=</span> <span class="n">values</span><span class="o">.</span><span class="n">of</span><span class="p">({</span>
-            <span class="s1">'Binding'</span><span class="p">:</span> <span class="n">binding</span><span class="p">,</span>
             <span class="s1">'FriendlyName'</span><span class="p">:</span> <span class="n">friendly_name</span><span class="p">,</span>
             <span class="s1">'FactorType'</span><span class="p">:</span> <span class="n">factor_type</span><span class="p">,</span>
-            <span class="s1">'Config'</span><span class="p">:</span> <span class="n">config</span><span class="p">,</span>
+            <span class="s1">'Binding.Alg'</span><span class="p">:</span> <span class="n">binding_alg</span><span class="p">,</span>
+            <span class="s1">'Binding.PublicKey'</span><span class="p">:</span> <span class="n">binding_public_key</span><span class="p">,</span>
+            <span class="s1">'Config.AppId'</span><span class="p">:</span> <span class="n">config_app_id</span><span class="p">,</span>
+            <span class="s1">'Config.NotificationPlatform'</span><span class="p">:</span> <span class="n">config_notification_platform</span><span class="p">,</span>
+            <span class="s1">'Config.NotificationToken'</span><span class="p">:</span> <span class="n">config_notification_token</span><span class="p">,</span>
+            <span class="s1">'Config.SdkVersion'</span><span class="p">:</span> <span class="n">config_sdk_version</span><span class="p">,</span>
         <span class="p">})</span>
         <span class="n">headers</span> <span class="o">=</span> <span class="n">values</span><span class="o">.</span><span class="n">of</span><span class="p">({</span><span class="s1">'Twilio-Sandbox-Mode'</span><span class="p">:</span> <span class="n">twilio_sandbox_mode</span><span class="p">,</span> <span class="p">})</span>
 
@@ -326,19 +337,26 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="FactorContext.update"><a class="viewcode-back" href="../../../../../../../docs/source/_rst/twilio.rest.verify.v2.service.entity.html#twilio.rest.verify.v2.service.entity.factor.FactorContext.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">auth_payload</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">friendly_name</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
-               <span class="n">config</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">twilio_sandbox_mode</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">):</span>
+               <span class="n">config_notification_token</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
+               <span class="n">config_sdk_version</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">twilio_sandbox_mode</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">):</span>
         <span class="sd">"""</span>
 <span class="sd">        Update the FactorInstance</span>
 
 <span class="sd">        :param unicode auth_payload: Optional payload to verify the Factor for the first time</span>
 <span class="sd">        :param unicode friendly_name: The friendly name of this Factor</span>
-<span class="sd">        :param unicode config: The config for this Factor as a json string</span>
+<span class="sd">        :param unicode config_notification_token: For APN, the device token. For FCM the registration token</span>
+<span class="sd">        :param unicode config_sdk_version: The Verify Push SDK version used to configure the factor</span>
 <span class="sd">        :param unicode twilio_sandbox_mode: The Twilio-Sandbox-Mode HTTP request header</span>
 
 <span class="sd">        :returns: The updated FactorInstance</span>
 <span class="sd">        :rtype: twilio.rest.verify.v2.service.entity.factor.FactorInstance</span>
 <span class="sd">        """</span>
-        <span class="n">data</span> <span class="o">=</span> <span class="n">values</span><span class="o">.</span><span class="n">of</span><span class="p">({</span><span class="s1">'AuthPayload'</span><span class="p">:</span> <span class="n">auth_payload</span><span class="p">,</span> <span class="s1">'FriendlyName'</span><span class="p">:</span> <span class="n">friendly_name</span><span class="p">,</span> <span class="s1">'Config'</span><span class="p">:</span> <span class="n">config</span><span class="p">,</span> <span class="p">})</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">values</span><span class="o">.</span><span class="n">of</span><span class="p">({</span>
+            <span class="s1">'AuthPayload'</span><span class="p">:</span> <span class="n">auth_payload</span><span class="p">,</span>
+            <span class="s1">'FriendlyName'</span><span class="p">:</span> <span class="n">friendly_name</span><span class="p">,</span>
+            <span class="s1">'Config.NotificationToken'</span><span class="p">:</span> <span class="n">config_notification_token</span><span class="p">,</span>
+            <span class="s1">'Config.SdkVersion'</span><span class="p">:</span> <span class="n">config_sdk_version</span><span class="p">,</span>
+        <span class="p">})</span>
         <span class="n">headers</span> <span class="o">=</span> <span class="n">values</span><span class="o">.</span><span class="n">of</span><span class="p">({</span><span class="s1">'Twilio-Sandbox-Mode'</span><span class="p">:</span> <span class="n">twilio_sandbox_mode</span><span class="p">,</span> <span class="p">})</span>
 
         <span class="n">payload</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_version</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">'POST'</span><span class="p">,</span> <span class="n">uri</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_uri</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> <span class="p">)</span>
@@ -373,6 +391,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
 <div class="viewcode-block" id="FactorInstance.FactorTypes"><a class="viewcode-back" href="../../../../../../../docs/source/_rst/twilio.rest.verify.v2.service.entity.html#twilio.rest.verify.v2.service.entity.factor.FactorInstance.FactorTypes">[docs]</a>    <span class="k">class</span> <span class="nc">FactorTypes</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
         <span class="n">PUSH</span> <span class="o">=</span> <span class="s2">"push"</span></div>
+
+<div class="viewcode-block" id="FactorInstance.NotificationPlatforms"><a class="viewcode-back" href="../../../../../../../docs/source/_rst/twilio.rest.verify.v2.service.entity.html#twilio.rest.verify.v2.service.entity.factor.FactorInstance.NotificationPlatforms">[docs]</a>    <span class="k">class</span> <span class="nc">NotificationPlatforms</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+        <span class="n">APN</span> <span class="o">=</span> <span class="s2">"apn"</span>
+        <span class="n">FCM</span> <span class="o">=</span> <span class="s2">"fcm"</span></div>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">version</span><span class="p">,</span> <span class="n">payload</span><span class="p">,</span> <span class="n">service_sid</span><span class="p">,</span> <span class="n">identity</span><span class="p">,</span> <span class="n">sid</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">"""</span>
@@ -544,13 +566,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_proxy</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="n">twilio_sandbox_mode</span><span class="o">=</span><span class="n">twilio_sandbox_mode</span><span class="p">,</span> <span class="p">)</span></div>
 
 <div class="viewcode-block" id="FactorInstance.update"><a class="viewcode-back" href="../../../../../../../docs/source/_rst/twilio.rest.verify.v2.service.entity.html#twilio.rest.verify.v2.service.entity.factor.FactorInstance.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">auth_payload</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">friendly_name</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
-               <span class="n">config</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">twilio_sandbox_mode</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">):</span>
+               <span class="n">config_notification_token</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
+               <span class="n">config_sdk_version</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">twilio_sandbox_mode</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">):</span>
         <span class="sd">"""</span>
 <span class="sd">        Update the FactorInstance</span>
 
 <span class="sd">        :param unicode auth_payload: Optional payload to verify the Factor for the first time</span>
 <span class="sd">        :param unicode friendly_name: The friendly name of this Factor</span>
-<span class="sd">        :param unicode config: The config for this Factor as a json string</span>
+<span class="sd">        :param unicode config_notification_token: For APN, the device token. For FCM the registration token</span>
+<span class="sd">        :param unicode config_sdk_version: The Verify Push SDK version used to configure the factor</span>
 <span class="sd">        :param unicode twilio_sandbox_mode: The Twilio-Sandbox-Mode HTTP request header</span>
 
 <span class="sd">        :returns: The updated FactorInstance</span>
@@ -559,7 +583,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_proxy</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
             <span class="n">auth_payload</span><span class="o">=</span><span class="n">auth_payload</span><span class="p">,</span>
             <span class="n">friendly_name</span><span class="o">=</span><span class="n">friendly_name</span><span class="p">,</span>
-            <span class="n">config</span><span class="o">=</span><span class="n">config</span><span class="p">,</span>
+            <span class="n">config_notification_token</span><span class="o">=</span><span class="n">config_notification_token</span><span class="p">,</span>
+            <span class="n">config_sdk_version</span><span class="o">=</span><span class="n">config_sdk_version</span><span class="p">,</span>
             <span class="n">twilio_sandbox_mode</span><span class="o">=</span><span class="n">twilio_sandbox_mode</span><span class="p">,</span>
         <span class="p">)</span></div>
 

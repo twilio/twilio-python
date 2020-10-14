@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-MWRD6S');</script><!--End Google Tag Manager-->
 <meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<title>twilio-python Changelog — twilio-python 6.45.4 documentation</title>
+<title>twilio-python Changelog — twilio-python 6.46.0 documentation</title>
 <link href="_static/alabaster.css" rel="stylesheet" type="text/css"/>
 <link href="_static/pygments.css" rel="stylesheet" type="text/css"/>
 <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js" type="text/javascript"></script>
@@ -30,6 +30,37 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <div class="section" id="twilio-python-changelog">
 <h1>twilio-python Changelog<a class="headerlink" href="#twilio-python-changelog" title="Permalink to this headline">¶</a></h1>
 <p>Here you can see the full list of changes between each twilio-python release.</p>
+<div class="section" id="version-6-46-0">
+<h2>[2020-10-14] Version 6.46.0<a class="headerlink" href="#version-6-46-0" title="Permalink to this headline">¶</a></h2>
+<p><strong>Library - Docs</strong></p>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/twilio/twilio-python/pull/542">PR #542</a>: add path limit error for windows. Thanks to <a class="reference external" href="https://github.com/hack3r-0m">@hack3r-0m</a>!</li>
+</ul>
+<p><strong>Ai</strong></p>
+<ul class="simple">
+<li>Add <code class="docutils literal notranslate"><span class="pre">Annotation</span> <span class="pre">Project</span></code> and <code class="docutils literal notranslate"><span class="pre">Annotation</span> <span class="pre">Task</span></code> endpoints</li>
+<li>Add <code class="docutils literal notranslate"><span class="pre">Primitives</span></code> endpoints</li>
+<li>Add <code class="docutils literal notranslate"><span class="pre">meta.total</span></code> to the search endpoint</li>
+</ul>
+<p><strong>Conversations</strong></p>
+<ul class="simple">
+<li>Mutable Conversation Unique Names</li>
+</ul>
+<p><strong>Insights</strong></p>
+<ul class="simple">
+<li>Added <code class="docutils literal notranslate"><span class="pre">trust</span></code> to summary.</li>
+</ul>
+<p><strong>Preview</strong></p>
+<ul class="simple">
+<li>Simplified <code class="docutils literal notranslate"><span class="pre">Channels</span></code> resource. The path is now <code class="docutils literal notranslate"><span class="pre">/BrandedChannels/branded_channel_sid/Channels</span></code> <strong>(breaking change)</strong></li>
+</ul>
+<p><strong>Verify</strong></p>
+<ul class="simple">
+<li>Changed parameters (<code class="docutils literal notranslate"><span class="pre">config</span></code> and <code class="docutils literal notranslate"><span class="pre">binding</span></code>) to use dot notation instead of JSON string (e.i. Before: <code class="docutils literal notranslate"><span class="pre">binding={"alg":"ES256",</span> <span class="pre">"public_key":</span> <span class="pre">"xxx..."}</span></code>, Now: <code class="docutils literal notranslate"><span class="pre">Binding.Alg="ES256"</span></code>, <code class="docutils literal notranslate"><span class="pre">Binding.PublicKey="xxx..."</span></code>). <strong>(breaking change)</strong></li>
+<li>Changed parameters (<code class="docutils literal notranslate"><span class="pre">details</span></code> and <code class="docutils literal notranslate"><span class="pre">hidden_details</span></code>) to use dot notation instead of JSON string (e.i. Before: <code class="docutils literal notranslate"><span class="pre">details={"message":"Test</span> <span class="pre">message",</span> <span class="pre">"fields":</span> <span class="pre">"[{\"label\":</span> <span class="pre">\"Action</span> <span class="pre">1\",</span> <span class="pre">\"value\":\"value</span> <span class="pre">1\"}]"}</span></code>, Now: <code class="docutils literal notranslate"><span class="pre">details.Message="Test</span> <span class="pre">message"</span></code>, <code class="docutils literal notranslate"><span class="pre">Details.Fields=["{\"label\":</span> <span class="pre">\"Action</span> <span class="pre">1\",</span> <span class="pre">\"value\":\"value</span> <span class="pre">1\"}"]</span></code>). <strong>(breaking change)</strong></li>
+<li>Removed <code class="docutils literal notranslate"><span class="pre">notify_service_sid</span></code> from <code class="docutils literal notranslate"><span class="pre">push</span></code> service configuration object. Add <code class="docutils literal notranslate"><span class="pre">Push.IncludeDate</span></code>, <code class="docutils literal notranslate"><span class="pre">Push.ApnCredentialSid</span></code> and <code class="docutils literal notranslate"><span class="pre">Push.FcmCredentialSid</span></code> service configuration parameters. <strong>(breaking change)</strong></li>
+</ul>
+</div>
 <div class="section" id="version-6-45-4">
 <h2>[2020-09-28] Version 6.45.4<a class="headerlink" href="#version-6-45-4" title="Permalink to this headline">¶</a></h2>
 <p><strong>Library - Docs</strong></p>
@@ -2615,6 +2646,7 @@ querying list resources</li>
 <h3><a href="index.html">Table of Contents</a></h3>
 <ul>
 <li><a class="reference internal" href="#">twilio-python Changelog</a><ul>
+<li><a class="reference internal" href="#version-6-46-0">[2020-10-14] Version 6.46.0</a></li>
 <li><a class="reference internal" href="#version-6-45-4">[2020-09-28] Version 6.45.4</a></li>
 <li><a class="reference internal" href="#version-6-45-3">[2020-09-21] Version 6.45.3</a></li>
 <li><a class="reference internal" href="#version-6-45-2">[2020-09-16] Version 6.45.2</a></li>

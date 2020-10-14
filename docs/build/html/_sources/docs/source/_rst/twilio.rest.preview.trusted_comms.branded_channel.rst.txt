@@ -1,0 +1,22 @@
+twilio.rest.preview.trusted\_comms.branded\_channel package
+===========================================================
+
+Submodules
+----------
+
+twilio.rest.preview.trusted\_comms.branded\_channel.channel module
+------------------------------------------------------------------
+
+.. automodule:: twilio.rest.preview.trusted_comms.branded_channel.channel
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: twilio.rest.preview.trusted_comms.branded_channel
+    :members:
+    :undoc-members:
+    :show-inheritance:

@@ -6,7 +6,6 @@ Subpackages
 
 .. toctree::
 
-    twilio.rest.preview.trusted_comms.business.brand
     twilio.rest.preview.trusted_comms.business.insights
 
 Module contents

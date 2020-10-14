@@ -8,6 +8,26 @@ Subpackages
 
     twilio.rest.accounts.v1.credential
 
+Submodules
+----------
+
+twilio.rest.accounts.v1.auth\_token\_promotion module
+-----------------------------------------------------
+
+.. automodule:: twilio.rest.accounts.v1.auth_token_promotion
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+twilio.rest.accounts.v1.secondary\_auth\_token module
+-----------------------------------------------------
+
+.. automodule:: twilio.rest.accounts.v1.secondary_auth_token
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
 Module contents
 ---------------
 
