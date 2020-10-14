@@ -37,15 +37,17 @@ class ChallengeList(ListResource):
         self._solution = {'service_sid': service_sid, 'identity': identity, }
         self._uri = '/Services/{service_sid}/Entities/{identity}/Challenges'.format(**self._solution)
 
-    def create(self, factor_sid, expiration_date=values.unset, details=values.unset,
+    def create(self, factor_sid, expiration_date=values.unset,
+               details_message=values.unset, details_fields=values.unset,
                hidden_details=values.unset, twilio_sandbox_mode=values.unset):
         """
         Create the ChallengeInstance
 
         :param unicode factor_sid: Factor Sid.
         :param datetime expiration_date: The future date in which this Challenge will expire
-        :param unicode details: Public details provided to contextualize the Challenge
-        :param unicode hidden_details: Hidden details provided to contextualize the Challenge
+        :param unicode details_message: Shown to the user when the push notification arrives
+        :param dict details_fields: A list of objects that describe the Fields included in the Challenge
+        :param dict hidden_details: Hidden details provided to contextualize the Challenge
         :param unicode twilio_sandbox_mode: The Twilio-Sandbox-Mode HTTP request header
 
         :returns: The created ChallengeInstance
@@ -54,8 +56,9 @@ class ChallengeList(ListResource):
         data = values.of({
             'FactorSid': factor_sid,
             'ExpirationDate': serialize.iso8601_datetime(expiration_date),
-            'Details': details,
-            'HiddenDetails': hidden_details,
+            'Details.Message': details_message,
+            'Details.Fields': serialize.map(details_fields, lambda e: serialize.object(e)),
+            'HiddenDetails': serialize.object(hidden_details),
         })
         headers = values.of({'Twilio-Sandbox-Mode': twilio_sandbox_mode, })
 
@@ -516,8 +519,8 @@ class ChallengeInstance(InstanceResource):
     @property
     def details(self):
         """
-        :returns: Public details provided to contextualize the Challenge
-        :rtype: unicode
+        :returns: The details
+        :rtype: dict
         """
         return self._properties['details']
 
@@ -525,7 +528,7 @@ class ChallengeInstance(InstanceResource):
     def hidden_details(self):
         """
         :returns: Hidden details provided to contextualize the Challenge
-        :rtype: unicode
+        :rtype: dict
         """
         return self._properties['hidden_details']
 

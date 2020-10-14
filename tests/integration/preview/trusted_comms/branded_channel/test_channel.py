@@ -18,16 +18,14 @@ class ChannelTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.preview.trusted_comms.businesses("BXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                             .brands("BZXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                             .branded_channels("BWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+            self.client.preview.trusted_comms.branded_channels("BWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                              .channels.create(phone_number_sid="PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
 
         values = {'PhoneNumberSid': "PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", }
 
         self.holodeck.assert_has_request(Request(
             'post',
-            'https://preview.twilio.com/TrustedComms/Businesses/BXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Brands/BZXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/BrandedChannels/BWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Channels',
+            'https://preview.twilio.com/TrustedComms/BrandedChannels/BWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Channels',
             data=values,
         ))
 
@@ -42,14 +40,12 @@ class ChannelTestCase(IntegrationTestCase):
                 "branded_channel_sid": "BWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "phone_number_sid": "PNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "phone_number": "+15000000000",
-                "url": "https://preview.twilio.com/TrustedComms/Businesses/BXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Brands/BZaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/BrandedChannels/BWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels"
+                "url": "https://preview.twilio.com/TrustedComms/BrandedChannels/BWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels"
             }
             '''
         ))
 
-        actual = self.client.preview.trusted_comms.businesses("BXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                                  .brands("BZXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                                  .branded_channels("BWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+        actual = self.client.preview.trusted_comms.branded_channels("BWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                                   .channels.create(phone_number_sid="PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
 
         self.assertIsNotNone(actual)

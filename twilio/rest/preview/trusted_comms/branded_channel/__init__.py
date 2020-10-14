@@ -11,7 +11,7 @@ from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.page import Page
-from twilio.rest.preview.trusted_comms.business.brand.branded_channel.channel import ChannelList
+from twilio.rest.preview.trusted_comms.branded_channel.channel import ChannelList
 
 
 class BrandedChannelList(ListResource):
@@ -19,21 +19,19 @@ class BrandedChannelList(ListResource):
     to change. Use them with caution. If you currently do not have developer
     preview access, please contact help@twilio.com. """
 
-    def __init__(self, version, business_sid, brand_sid):
+    def __init__(self, version):
         """
         Initialize the BrandedChannelList
 
         :param Version version: Version that contains the resource
-        :param business_sid: Business Sid.
-        :param brand_sid: Brand Sid.
 
-        :returns: twilio.rest.preview.trusted_comms.business.brand.branded_channel.BrandedChannelList
-        :rtype: twilio.rest.preview.trusted_comms.business.brand.branded_channel.BrandedChannelList
+        :returns: twilio.rest.preview.trusted_comms.branded_channel.BrandedChannelList
+        :rtype: twilio.rest.preview.trusted_comms.branded_channel.BrandedChannelList
         """
         super(BrandedChannelList, self).__init__(version)
 
         # Path Solution
-        self._solution = {'business_sid': business_sid, 'brand_sid': brand_sid, }
+        self._solution = {}
 
     def get(self, sid):
         """
@@ -41,15 +39,10 @@ class BrandedChannelList(ListResource):
 
         :param sid: Branded Channel Sid.
 
-        :returns: twilio.rest.preview.trusted_comms.business.brand.branded_channel.BrandedChannelContext
-        :rtype: twilio.rest.preview.trusted_comms.business.brand.branded_channel.BrandedChannelContext
+        :returns: twilio.rest.preview.trusted_comms.branded_channel.BrandedChannelContext
+        :rtype: twilio.rest.preview.trusted_comms.branded_channel.BrandedChannelContext
         """
-        return BrandedChannelContext(
-            self._version,
-            business_sid=self._solution['business_sid'],
-            brand_sid=self._solution['brand_sid'],
-            sid=sid,
-        )
+        return BrandedChannelContext(self._version, sid=sid, )
 
     def __call__(self, sid):
         """
@@ -57,15 +50,10 @@ class BrandedChannelList(ListResource):
 
         :param sid: Branded Channel Sid.
 
-        :returns: twilio.rest.preview.trusted_comms.business.brand.branded_channel.BrandedChannelContext
-        :rtype: twilio.rest.preview.trusted_comms.business.brand.branded_channel.BrandedChannelContext
+        :returns: twilio.rest.preview.trusted_comms.branded_channel.BrandedChannelContext
+        :rtype: twilio.rest.preview.trusted_comms.branded_channel.BrandedChannelContext
         """
-        return BrandedChannelContext(
-            self._version,
-            business_sid=self._solution['business_sid'],
-            brand_sid=self._solution['brand_sid'],
-            sid=sid,
-        )
+        return BrandedChannelContext(self._version, sid=sid, )
 
     def __repr__(self):
         """
@@ -88,11 +76,9 @@ class BrandedChannelPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param business_sid: Business Sid.
-        :param brand_sid: Brand Sid.
 
-        :returns: twilio.rest.preview.trusted_comms.business.brand.branded_channel.BrandedChannelPage
-        :rtype: twilio.rest.preview.trusted_comms.business.brand.branded_channel.BrandedChannelPage
+        :returns: twilio.rest.preview.trusted_comms.branded_channel.BrandedChannelPage
+        :rtype: twilio.rest.preview.trusted_comms.branded_channel.BrandedChannelPage
         """
         super(BrandedChannelPage, self).__init__(version, response)
 
@@ -105,15 +91,10 @@ class BrandedChannelPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.preview.trusted_comms.business.brand.branded_channel.BrandedChannelInstance
-        :rtype: twilio.rest.preview.trusted_comms.business.brand.branded_channel.BrandedChannelInstance
+        :returns: twilio.rest.preview.trusted_comms.branded_channel.BrandedChannelInstance
+        :rtype: twilio.rest.preview.trusted_comms.branded_channel.BrandedChannelInstance
         """
-        return BrandedChannelInstance(
-            self._version,
-            payload,
-            business_sid=self._solution['business_sid'],
-            brand_sid=self._solution['brand_sid'],
-        )
+        return BrandedChannelInstance(self._version, payload, )
 
     def __repr__(self):
         """
@@ -130,23 +111,21 @@ class BrandedChannelContext(InstanceContext):
     to change. Use them with caution. If you currently do not have developer
     preview access, please contact help@twilio.com. """
 
-    def __init__(self, version, business_sid, brand_sid, sid):
+    def __init__(self, version, sid):
         """
         Initialize the BrandedChannelContext
 
         :param Version version: Version that contains the resource
-        :param business_sid: Business Sid.
-        :param brand_sid: Brand Sid.
         :param sid: Branded Channel Sid.
 
-        :returns: twilio.rest.preview.trusted_comms.business.brand.branded_channel.BrandedChannelContext
-        :rtype: twilio.rest.preview.trusted_comms.business.brand.branded_channel.BrandedChannelContext
+        :returns: twilio.rest.preview.trusted_comms.branded_channel.BrandedChannelContext
+        :rtype: twilio.rest.preview.trusted_comms.branded_channel.BrandedChannelContext
         """
         super(BrandedChannelContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {'business_sid': business_sid, 'brand_sid': brand_sid, 'sid': sid, }
-        self._uri = '/Businesses/{business_sid}/Brands/{brand_sid}/BrandedChannels/{sid}'.format(**self._solution)
+        self._solution = {'sid': sid, }
+        self._uri = '/BrandedChannels/{sid}'.format(**self._solution)
 
         # Dependents
         self._channels = None
@@ -156,33 +135,22 @@ class BrandedChannelContext(InstanceContext):
         Fetch the BrandedChannelInstance
 
         :returns: The fetched BrandedChannelInstance
-        :rtype: twilio.rest.preview.trusted_comms.business.brand.branded_channel.BrandedChannelInstance
+        :rtype: twilio.rest.preview.trusted_comms.branded_channel.BrandedChannelInstance
         """
         payload = self._version.fetch(method='GET', uri=self._uri, )
 
-        return BrandedChannelInstance(
-            self._version,
-            payload,
-            business_sid=self._solution['business_sid'],
-            brand_sid=self._solution['brand_sid'],
-            sid=self._solution['sid'],
-        )
+        return BrandedChannelInstance(self._version, payload, sid=self._solution['sid'], )
 
     @property
     def channels(self):
         """
         Access the channels
 
-        :returns: twilio.rest.preview.trusted_comms.business.brand.branded_channel.channel.ChannelList
-        :rtype: twilio.rest.preview.trusted_comms.business.brand.branded_channel.channel.ChannelList
+        :returns: twilio.rest.preview.trusted_comms.branded_channel.channel.ChannelList
+        :rtype: twilio.rest.preview.trusted_comms.branded_channel.channel.ChannelList
         """
         if self._channels is None:
-            self._channels = ChannelList(
-                self._version,
-                business_sid=self._solution['business_sid'],
-                brand_sid=self._solution['brand_sid'],
-                branded_channel_sid=self._solution['sid'],
-            )
+            self._channels = ChannelList(self._version, branded_channel_sid=self._solution['sid'], )
         return self._channels
 
     def __repr__(self):
@@ -201,12 +169,12 @@ class BrandedChannelInstance(InstanceResource):
     to change. Use them with caution. If you currently do not have developer
     preview access, please contact help@twilio.com. """
 
-    def __init__(self, version, payload, business_sid, brand_sid, sid=None):
+    def __init__(self, version, payload, sid=None):
         """
         Initialize the BrandedChannelInstance
 
-        :returns: twilio.rest.preview.trusted_comms.business.brand.branded_channel.BrandedChannelInstance
-        :rtype: twilio.rest.preview.trusted_comms.business.brand.branded_channel.BrandedChannelInstance
+        :returns: twilio.rest.preview.trusted_comms.branded_channel.BrandedChannelInstance
+        :rtype: twilio.rest.preview.trusted_comms.branded_channel.BrandedChannelInstance
         """
         super(BrandedChannelInstance, self).__init__(version)
 
@@ -222,11 +190,7 @@ class BrandedChannelInstance(InstanceResource):
 
         # Context
         self._context = None
-        self._solution = {
-            'business_sid': business_sid,
-            'brand_sid': brand_sid,
-            'sid': sid or self._properties['sid'],
-        }
+        self._solution = {'sid': sid or self._properties['sid'], }
 
     @property
     def _proxy(self):
@@ -235,15 +199,10 @@ class BrandedChannelInstance(InstanceResource):
         performing various actions.  All instance actions are proxied to the context
 
         :returns: BrandedChannelContext for this BrandedChannelInstance
-        :rtype: twilio.rest.preview.trusted_comms.business.brand.branded_channel.BrandedChannelContext
+        :rtype: twilio.rest.preview.trusted_comms.branded_channel.BrandedChannelContext
         """
         if self._context is None:
-            self._context = BrandedChannelContext(
-                self._version,
-                business_sid=self._solution['business_sid'],
-                brand_sid=self._solution['brand_sid'],
-                sid=self._solution['sid'],
-            )
+            self._context = BrandedChannelContext(self._version, sid=self._solution['sid'], )
         return self._context
 
     @property
@@ -299,7 +258,7 @@ class BrandedChannelInstance(InstanceResource):
         Fetch the BrandedChannelInstance
 
         :returns: The fetched BrandedChannelInstance
-        :rtype: twilio.rest.preview.trusted_comms.business.brand.branded_channel.BrandedChannelInstance
+        :rtype: twilio.rest.preview.trusted_comms.branded_channel.BrandedChannelInstance
         """
         return self._proxy.fetch()
 
@@ -308,8 +267,8 @@ class BrandedChannelInstance(InstanceResource):
         """
         Access the channels
 
-        :returns: twilio.rest.preview.trusted_comms.business.brand.branded_channel.channel.ChannelList
-        :rtype: twilio.rest.preview.trusted_comms.business.brand.branded_channel.channel.ChannelList
+        :returns: twilio.rest.preview.trusted_comms.branded_channel.channel.ChannelList
+        :rtype: twilio.rest.preview.trusted_comms.branded_channel.channel.ChannelList
         """
         return self._proxy.channels
 

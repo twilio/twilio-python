@@ -246,7 +246,7 @@ class ConversationContext(InstanceContext):
         Initialize the ConversationContext
 
         :param Version version: Version that contains the resource
-        :param chat_service_sid: The chat_service_sid
+        :param chat_service_sid: The SID of the Conversation Service that the resource is associated with.
         :param sid: A 34 character string that uniquely identifies this resource.
 
         :returns: twilio.rest.conversations.v1.service.conversation.ConversationContext
@@ -267,7 +267,7 @@ class ConversationContext(InstanceContext):
                date_updated=values.unset, attributes=values.unset,
                messaging_service_sid=values.unset, state=values.unset,
                timers_inactive=values.unset, timers_closed=values.unset,
-               x_twilio_webhook_enabled=values.unset):
+               unique_name=values.unset, x_twilio_webhook_enabled=values.unset):
         """
         Update the ConversationInstance
 
@@ -279,6 +279,7 @@ class ConversationContext(InstanceContext):
         :param ConversationInstance.State state: Current state of this conversation.
         :param unicode timers_inactive: ISO8601 duration when conversation will be switched to `inactive` state.
         :param unicode timers_closed: ISO8601 duration when conversation will be switched to `closed` state.
+        :param unicode unique_name: An application-defined string that uniquely identifies the resource
         :param ConversationInstance.WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
 
         :returns: The updated ConversationInstance
@@ -293,6 +294,7 @@ class ConversationContext(InstanceContext):
             'State': state,
             'Timers.Inactive': timers_inactive,
             'Timers.Closed': timers_closed,
+            'UniqueName': unique_name,
         })
         headers = values.of({'X-Twilio-Webhook-Enabled': x_twilio_webhook_enabled, })
 
@@ -559,7 +561,7 @@ class ConversationInstance(InstanceResource):
                date_updated=values.unset, attributes=values.unset,
                messaging_service_sid=values.unset, state=values.unset,
                timers_inactive=values.unset, timers_closed=values.unset,
-               x_twilio_webhook_enabled=values.unset):
+               unique_name=values.unset, x_twilio_webhook_enabled=values.unset):
         """
         Update the ConversationInstance
 
@@ -571,6 +573,7 @@ class ConversationInstance(InstanceResource):
         :param ConversationInstance.State state: Current state of this conversation.
         :param unicode timers_inactive: ISO8601 duration when conversation will be switched to `inactive` state.
         :param unicode timers_closed: ISO8601 duration when conversation will be switched to `closed` state.
+        :param unicode unique_name: An application-defined string that uniquely identifies the resource
         :param ConversationInstance.WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
 
         :returns: The updated ConversationInstance
@@ -585,6 +588,7 @@ class ConversationInstance(InstanceResource):
             state=state,
             timers_inactive=timers_inactive,
             timers_closed=timers_closed,
+            unique_name=unique_name,
             x_twilio_webhook_enabled=x_twilio_webhook_enabled,
         )
 

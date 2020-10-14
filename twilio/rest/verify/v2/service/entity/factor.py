@@ -36,25 +36,36 @@ class FactorList(ListResource):
         self._solution = {'service_sid': service_sid, 'identity': identity, }
         self._uri = '/Services/{service_sid}/Entities/{identity}/Factors'.format(**self._solution)
 
-    def create(self, binding, friendly_name, factor_type, config,
-               twilio_sandbox_mode=values.unset):
+    def create(self, friendly_name, factor_type, binding_alg=values.unset,
+               binding_public_key=values.unset, config_app_id=values.unset,
+               config_notification_platform=values.unset,
+               config_notification_token=values.unset,
+               config_sdk_version=values.unset, twilio_sandbox_mode=values.unset):
         """
         Create the FactorInstance
 
-        :param unicode binding: A unique binding for this Factor as a json string
         :param unicode friendly_name: The friendly name of this Factor
         :param FactorInstance.FactorTypes factor_type: The Type of this Factor
-        :param unicode config: The config for this Factor as a json string
+        :param unicode binding_alg: The algorithm used when `factor_type` is `push`
+        :param unicode binding_public_key: The public key encoded in Base64
+        :param unicode config_app_id: The ID that uniquely identifies your app in the Google or Apple store
+        :param FactorInstance.NotificationPlatforms config_notification_platform: The transport technology used to generate the Notification Token
+        :param unicode config_notification_token: For APN, the device token. For FCM the registration token
+        :param unicode config_sdk_version: The Verify Push SDK version used to configure the factor
         :param unicode twilio_sandbox_mode: The Twilio-Sandbox-Mode HTTP request header
 
         :returns: The created FactorInstance
         :rtype: twilio.rest.verify.v2.service.entity.factor.FactorInstance
         """
         data = values.of({
-            'Binding': binding,
             'FriendlyName': friendly_name,
             'FactorType': factor_type,
-            'Config': config,
+            'Binding.Alg': binding_alg,
+            'Binding.PublicKey': binding_public_key,
+            'Config.AppId': config_app_id,
+            'Config.NotificationPlatform': config_notification_platform,
+            'Config.NotificationToken': config_notification_token,
+            'Config.SdkVersion': config_sdk_version,
         })
         headers = values.of({'Twilio-Sandbox-Mode': twilio_sandbox_mode, })
 
@@ -296,19 +307,26 @@ class FactorContext(InstanceContext):
         )
 
     def update(self, auth_payload=values.unset, friendly_name=values.unset,
-               config=values.unset, twilio_sandbox_mode=values.unset):
+               config_notification_token=values.unset,
+               config_sdk_version=values.unset, twilio_sandbox_mode=values.unset):
         """
         Update the FactorInstance
 
         :param unicode auth_payload: Optional payload to verify the Factor for the first time
         :param unicode friendly_name: The friendly name of this Factor
-        :param unicode config: The config for this Factor as a json string
+        :param unicode config_notification_token: For APN, the device token. For FCM the registration token
+        :param unicode config_sdk_version: The Verify Push SDK version used to configure the factor
         :param unicode twilio_sandbox_mode: The Twilio-Sandbox-Mode HTTP request header
 
         :returns: The updated FactorInstance
         :rtype: twilio.rest.verify.v2.service.entity.factor.FactorInstance
         """
-        data = values.of({'AuthPayload': auth_payload, 'FriendlyName': friendly_name, 'Config': config, })
+        data = values.of({
+            'AuthPayload': auth_payload,
+            'FriendlyName': friendly_name,
+            'Config.NotificationToken': config_notification_token,
+            'Config.SdkVersion': config_sdk_version,
+        })
         headers = values.of({'Twilio-Sandbox-Mode': twilio_sandbox_mode, })
 
         payload = self._version.update(method='POST', uri=self._uri, data=data, headers=headers, )
@@ -343,6 +361,10 @@ class FactorInstance(InstanceResource):
 
     class FactorTypes(object):
         PUSH = "push"
+
+    class NotificationPlatforms(object):
+        APN = "apn"
+        FCM = "fcm"
 
     def __init__(self, version, payload, service_sid, identity, sid=None):
         """
@@ -514,13 +536,15 @@ class FactorInstance(InstanceResource):
         return self._proxy.fetch(twilio_sandbox_mode=twilio_sandbox_mode, )
 
     def update(self, auth_payload=values.unset, friendly_name=values.unset,
-               config=values.unset, twilio_sandbox_mode=values.unset):
+               config_notification_token=values.unset,
+               config_sdk_version=values.unset, twilio_sandbox_mode=values.unset):
         """
         Update the FactorInstance
 
         :param unicode auth_payload: Optional payload to verify the Factor for the first time
         :param unicode friendly_name: The friendly name of this Factor
-        :param unicode config: The config for this Factor as a json string
+        :param unicode config_notification_token: For APN, the device token. For FCM the registration token
+        :param unicode config_sdk_version: The Verify Push SDK version used to configure the factor
         :param unicode twilio_sandbox_mode: The Twilio-Sandbox-Mode HTTP request header
 
         :returns: The updated FactorInstance
@@ -529,7 +553,8 @@ class FactorInstance(InstanceResource):
         return self._proxy.update(
             auth_payload=auth_payload,
             friendly_name=friendly_name,
-            config=config,
+            config_notification_token=config_notification_token,
+            config_sdk_version=config_sdk_version,
             twilio_sandbox_mode=twilio_sandbox_mode,
         )
 

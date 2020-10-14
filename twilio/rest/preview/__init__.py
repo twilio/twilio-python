@@ -212,6 +212,13 @@ class Preview(Domain):
         return self.trusted_comms.branded_calls
 
     @property
+    def branded_channels(self):
+        """
+        :rtype: twilio.rest.preview.trusted_comms.branded_channel.BrandedChannelList
+        """
+        return self.trusted_comms.branded_channels
+
+    @property
     def brands_information(self):
         """
         :rtype: twilio.rest.preview.trusted_comms.brands_information.BrandsInformationList

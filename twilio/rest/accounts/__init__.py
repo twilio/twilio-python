@@ -37,11 +37,25 @@ class Accounts(Domain):
         return self._v1
 
     @property
+    def auth_token_promotion(self):
+        """
+        :rtype: twilio.rest.accounts.v1.auth_token_promotion.AuthTokenPromotionList
+        """
+        return self.v1.auth_token_promotion
+
+    @property
     def credentials(self):
         """
         :rtype: twilio.rest.accounts.v1.credential.CredentialList
         """
         return self.v1.credentials
+
+    @property
+    def secondary_auth_token(self):
+        """
+        :rtype: twilio.rest.accounts.v1.secondary_auth_token.SecondaryAuthTokenList
+        """
+        return self.v1.secondary_auth_token
 
     def __repr__(self):
         """

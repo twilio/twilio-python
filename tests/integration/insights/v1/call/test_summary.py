@@ -51,6 +51,7 @@ class CallSummaryTestCase(IntegrationTestCase):
                 ],
                 "attributes": {},
                 "properties": {},
+                "trust": {},
                 "url": "https://insights.twilio.com/v1/Voice/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Summary"
             }
             '''

@@ -3,6 +3,31 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2020-10-14] Version 6.46.0
+---------------------------
+**Library - Docs**
+- [PR #542](https://github.com/twilio/twilio-python/pull/542): add path limit error for windows. Thanks to [@hack3r-0m](https://github.com/hack3r-0m)!
+
+**Ai**
+- Add `Annotation Project` and `Annotation Task` endpoints
+- Add `Primitives` endpoints
+- Add `meta.total` to the search endpoint
+
+**Conversations**
+- Mutable Conversation Unique Names
+
+**Insights**
+- Added `trust` to summary.
+
+**Preview**
+- Simplified `Channels` resource. The path is now `/BrandedChannels/branded_channel_sid/Channels` **(breaking change)**
+
+**Verify**
+- Changed parameters (`config` and `binding`) to use dot notation instead of JSON string (e.i. Before: `binding={"alg":"ES256", "public_key": "xxx..."}`, Now: `Binding.Alg="ES256"`, `Binding.PublicKey="xxx..."`). **(breaking change)**
+- Changed parameters (`details` and `hidden_details`) to use dot notation instead of JSON string (e.i. Before: `details={"message":"Test message", "fields": "[{\"label\": \"Action 1\", \"value\":\"value 1\"}]"}`, Now: `details.Message="Test message"`, `Details.Fields=["{\"label\": \"Action 1\", \"value\":\"value 1\"}"]`). **(breaking change)**
+- Removed `notify_service_sid` from `push` service configuration object. Add `Push.IncludeDate`, `Push.ApnCredentialSid` and `Push.FcmCredentialSid` service configuration parameters. **(breaking change)**
+
+
 [2020-09-28] Version 6.45.4
 ---------------------------
 **Library - Docs**

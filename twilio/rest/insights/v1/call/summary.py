@@ -206,6 +206,7 @@ class CallSummaryInstance(InstanceResource):
             'url': payload.get('url'),
             'attributes': payload.get('attributes'),
             'properties': payload.get('properties'),
+            'trust': payload.get('trust'),
         }
 
         # Context
@@ -376,6 +377,14 @@ class CallSummaryInstance(InstanceResource):
         :rtype: dict
         """
         return self._properties['properties']
+
+    @property
+    def trust(self):
+        """
+        :returns: The trust
+        :rtype: dict
+        """
+        return self._properties['trust']
 
     def fetch(self, processing_state=values.unset):
         """
