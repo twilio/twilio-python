@@ -7,6 +7,7 @@ from twilio.http import HttpClient
 from twilio.http.request import Request as TwilioRequest
 from twilio.http.response import Response
 
+logging.basicConfig(level=logging.ERROR) # https://docs.python.org/3/library/logging.html#levels
 _logger = logging.getLogger('twilio.http_client')
 
 
