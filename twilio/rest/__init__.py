@@ -34,7 +34,7 @@ class Client(object):
         :param HttpClient http_client: HttpClient, defaults to TwilioHttpClient
         :param dict environment: Environment to look for auth details, defaults to os.environ
         :param str edge: Twilio Edge to make requests to, defaults to None
-        :param str log_level (warning|info|debug|error)
+        :param str log_level (e.g. logging.DEBUG) https://docs.python.org/3/library/logging.html#levels
 
         :returns: Twilio Client
         :rtype: twilio.rest.Client
