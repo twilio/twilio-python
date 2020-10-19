@@ -140,14 +140,18 @@ message = client.messages.create(to="+12316851234", from_="+15555555555",
 ### Enable Debug Logging
 There are two ways to enable debug logging in the default HTTP client. You can create an environment variable called `TWILIO_LOG_LEVEL` and set it to `debug` or you can set the `log_level` variable on the client as debug:
 ```python
+include logging
+
 account = "ACXXXXXXXXXXXXXXXXX"
 token = "YYYYYYYYYYYYYYYYYY"
-client = Client(account, token, log_level="debug")
+client = Client(account, token, log_level=logging.DEBUG)
 ```
 You can also set the log_level variable on the client after constructing the Twilio client:
 ```python
+include logging
+
 client = Client(account, token)
-client.log_level = 'debug';
+client.log_level = logging.DEBUG;
 ```
 
 ### Handling Exceptions

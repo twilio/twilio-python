@@ -127,9 +127,6 @@ class Client(object):
 
         uri = self.get_hostname(uri)
 
-        if isinstance(self.http_client, TwilioHttpClient):
-            self.http_client.logger.root.setLevel('INFO')
-
         return self.http_client.request(
             method,
             uri,
