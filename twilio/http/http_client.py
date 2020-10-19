@@ -16,7 +16,7 @@ class TwilioHttpClient(HttpClient):
     """
 
     def __init__(self, pool_connections=True, request_hooks=None, timeout=None, logger=_logger, proxy=None,
-                 max_retries=None, log_level=None):
+                 max_retries=None):
         """
         Constructor for the TwilioHttpClient
 
@@ -40,9 +40,6 @@ class TwilioHttpClient(HttpClient):
             raise ValueError(timeout)
         self.timeout = timeout
         self.proxy = proxy
-
-        if log_level:
-            logging.basicConfig(level=log_level)  # https://docs.python.org/3/library/logging.html#levels
 
     def request(self, method, url, params=None, data=None, headers=None, auth=None, timeout=None,
                 allow_redirects=False):
@@ -102,8 +99,5 @@ class TwilioHttpClient(HttpClient):
         )
 
         self.last_response = Response(int(response.status_code), response.text, response.headers)
-
-        self.logger.debug('-- BEGIN Twilio API Request --')
-        self.logger.debug('-- END Twilio API Request --')
 
         return self.last_response
