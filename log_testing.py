@@ -1,4 +1,5 @@
 import os
+import logging
 
 from twilio.rest import Client
 # from twilio.twiml.voice_response import VoiceResponse
@@ -13,14 +14,14 @@ def example():
     """
     Some example usage of different twilio resources.
     """
-    client = Client(ACCOUNT_SID, AUTH_TOKEN)
+    client = Client(ACCOUNT_SID, AUTH_TOKEN, log_level=logging.DEBUG)
 
     # # Get all messages
     # all_messages = client.messages.list()
     # print('There are {} messages in your account.'.format(len(all_messages)))
 
     # Get only last 10 messages...
-    some_messages = client.messages.list(limit=10)
+    some_messages = client.messages.list(limit=1)
     print('Here are the last 10 messages in your account:')
     for m in some_messages:
         print(m)
