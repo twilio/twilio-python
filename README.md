@@ -151,7 +151,6 @@ logging.basicConfig(level=logging.INFO)
 ### Handling Exceptions
 
 ```python
-import os
 from twilio.rest import Client
 from twilio.base.exceptions import TwilioRestException
 
