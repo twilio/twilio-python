@@ -137,6 +137,28 @@ message = client.messages.create(to="+12316851234", from_="+15555555555",
                                  body="Hello there!")
 ```
 
+### Enable Debug Logging
+
+Log the API request and response data to the console:
+
+```python
+import logging
+
+client = Client(account, token)
+logging.basicConfig()
+client.http_client.logger.setLevel(logging.INFO)
+```
+
+Log the API request and response data to a file:
+
+```python
+import logging
+
+client = Client(account, token)
+logging.basicConfig(filename='./log.txt')
+client.http_client.logger.setLevel(logging.INFO)
+```
+
 ### Handling Exceptions
 
 ```python
