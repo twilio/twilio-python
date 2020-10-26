@@ -54,6 +54,18 @@ class AccessTokenTest(unittest.TestCase):
         self._validate_claims(decoded_token.payload)
         assert_equal({}, decoded_token.payload['grants'])
 
+    def test_region(self):
+        scat = AccessToken(ACCOUNT_SID, SIGNING_KEY_SID, 'secret', region='foo')
+        token = scat.to_jwt()
+        decoded_token = AccessToken.from_jwt(token, 'secret')
+        assert_equal(decoded_token.headers['twr'], 'foo')
+
+    def test_empty_region(self):
+        scat = AccessToken(ACCOUNT_SID, SIGNING_KEY_SID, 'secret')
+        token = scat.to_jwt()
+        decoded_token = AccessToken.from_jwt(token, 'secret')
+        self.assertRaises(KeyError, lambda: decoded_token.headers['twr'])
+
     def test_nbf(self):
         now = int(time.mktime(datetime.now().timetuple()))
         scat = AccessToken(ACCOUNT_SID, SIGNING_KEY_SID, 'secret', nbf=now)
