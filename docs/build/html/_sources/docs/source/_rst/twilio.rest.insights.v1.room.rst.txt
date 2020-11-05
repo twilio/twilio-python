@@ -1,0 +1,22 @@
+twilio.rest.insights.v1.room package
+====================================
+
+Submodules
+----------
+
+twilio.rest.insights.v1.room.participant module
+-----------------------------------------------
+
+.. automodule:: twilio.rest.insights.v1.room.participant
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: twilio.rest.insights.v1.room
+    :members:
+    :undoc-members:
+    :show-inheritance:

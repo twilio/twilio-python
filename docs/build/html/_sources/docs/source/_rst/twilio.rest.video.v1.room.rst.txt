@@ -9,6 +9,18 @@ Subpackages
     twilio.rest.video.v1.room.recording
     twilio.rest.video.v1.room.room_participant
 
+Submodules
+----------
+
+twilio.rest.video.v1.room.room\_recording\_rule module
+------------------------------------------------------
+
+.. automodule:: twilio.rest.video.v1.room.room_recording_rule
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
 Module contents
 ---------------
 

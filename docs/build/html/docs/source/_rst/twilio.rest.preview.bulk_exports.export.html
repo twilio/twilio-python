@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-MWRD6S');</script><!--End Google Tag Manager-->
 <meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<title>twilio.rest.preview.bulk_exports.export package — twilio-python 6.46.0 documentation</title>
+<title>twilio.rest.preview.bulk_exports.export package — twilio-python 6.47.0 documentation</title>
 <link href="../../../_static/alabaster.css" rel="stylesheet" type="text/css"/>
 <link href="../../../_static/pygments.css" rel="stylesheet" type="text/css"/>
 <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js" type="text/javascript"></script>
@@ -218,7 +218,7 @@ Request is executed immediately</p>
 </dd></dl>
 <dl class="method">
 <dt id="twilio.rest.preview.bulk_exports.export.day.DayList.list">
-<code class="descname">list</code><span class="sig-paren">(</span><em>next_token=&lt;object object&gt;</em>, <em>previous_token=&lt;object object&gt;</em>, <em>limit=None</em>, <em>page_size=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/preview/bulk_exports/export/day.html#DayList.list"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.preview.bulk_exports.export.day.DayList.list" title="Permalink to this definition">¶</a></dt>
+<code class="descname">list</code><span class="sig-paren">(</span><em>limit=None</em>, <em>page_size=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/preview/bulk_exports/export/day.html#DayList.list"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.preview.bulk_exports.export.day.DayList.list" title="Permalink to this definition">¶</a></dt>
 <dd><p>Lists DayInstance records from the API as a list.
 Unlike stream(), this operation is eager and will load <cite>limit</cite> records into
 memory before returning.</p>
@@ -227,8 +227,6 @@ memory before returning.</p>
 <col class="field-body"/>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>next_token</strong> (<em>unicode</em>) – The next_token</li>
-<li><strong>previous_token</strong> (<em>unicode</em>) – The previous_token</li>
 <li><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – Upper limit for the number of records to return. list() guarantees
 never to return more than limit.  Default is no limit</li>
 <li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – Number of records to fetch per request, when not set will use
@@ -249,7 +247,7 @@ with the most efficient page size, i.e. min(limit, 1000)</li>
 </dd></dl>
 <dl class="method">
 <dt id="twilio.rest.preview.bulk_exports.export.day.DayList.page">
-<code class="descname">page</code><span class="sig-paren">(</span><em>next_token=&lt;object object&gt;</em>, <em>previous_token=&lt;object object&gt;</em>, <em>page_token=&lt;object object&gt;</em>, <em>page_number=&lt;object object&gt;</em>, <em>page_size=&lt;object object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/preview/bulk_exports/export/day.html#DayList.page"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.preview.bulk_exports.export.day.DayList.page" title="Permalink to this definition">¶</a></dt>
+<code class="descname">page</code><span class="sig-paren">(</span><em>page_token=&lt;object object&gt;</em>, <em>page_number=&lt;object object&gt;</em>, <em>page_size=&lt;object object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/preview/bulk_exports/export/day.html#DayList.page"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.preview.bulk_exports.export.day.DayList.page" title="Permalink to this definition">¶</a></dt>
 <dd><p>Retrieve a single page of DayInstance records from the API.
 Request is executed immediately</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -257,8 +255,6 @@ Request is executed immediately</p>
 <col class="field-body"/>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>next_token</strong> (<em>unicode</em>) – The next_token</li>
-<li><strong>previous_token</strong> (<em>unicode</em>) – The previous_token</li>
 <li><strong>page_token</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – PageToken provided by the API</li>
 <li><strong>page_number</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – Page Number, this value is simply for client state</li>
 <li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – Number of records to return, defaults to 50</li>
@@ -276,7 +272,7 @@ Request is executed immediately</p>
 </dd></dl>
 <dl class="method">
 <dt id="twilio.rest.preview.bulk_exports.export.day.DayList.stream">
-<code class="descname">stream</code><span class="sig-paren">(</span><em>next_token=&lt;object object&gt;</em>, <em>previous_token=&lt;object object&gt;</em>, <em>limit=None</em>, <em>page_size=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/preview/bulk_exports/export/day.html#DayList.stream"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.preview.bulk_exports.export.day.DayList.stream" title="Permalink to this definition">¶</a></dt>
+<code class="descname">stream</code><span class="sig-paren">(</span><em>limit=None</em>, <em>page_size=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/preview/bulk_exports/export/day.html#DayList.stream"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.preview.bulk_exports.export.day.DayList.stream" title="Permalink to this definition">¶</a></dt>
 <dd><p>Streams DayInstance records from the API as a generator stream.
 This operation lazily loads records as efficiently as possible until the limit
 is reached.
@@ -286,8 +282,6 @@ The results are returned as a generator, so this operation is memory efficient.<
 <col class="field-body"/>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>next_token</strong> (<em>unicode</em>) – The next_token</li>
-<li><strong>previous_token</strong> (<em>unicode</em>) – The previous_token</li>
 <li><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – Upper limit for the number of records to return. stream()
 guarantees to never return more than limit.  Default is no limit</li>
 <li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – Number of records to fetch per request, when not set will use
@@ -385,7 +379,7 @@ preview access, please contact <a class="reference external" href="mailto:help%4
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The end time for the export specified when creating the job</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The end day for the custom export specified as a string in the format of yyyy-MM-dd</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">unicode</td>
 </tr>
@@ -413,7 +407,7 @@ preview access, please contact <a class="reference external" href="mailto:help%4
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The job_sid returned when the export was created</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The unique job_sid returned when the custom export was created. This can be used to look up the status of the job.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">unicode</td>
 </tr>
@@ -441,7 +435,7 @@ preview access, please contact <a class="reference external" href="mailto:help%4
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The start time for the export specified when creating the job</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The start day for the custom export specified as a string in the format of yyyy-MM-dd</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">unicode</td>
 </tr>
@@ -486,19 +480,19 @@ to change. Use them with caution. If you currently do not have developer
 preview access, please contact <a class="reference external" href="mailto:help%40twilio.com">help<span>@</span>twilio<span>.</span>com</a>.</p>
 <dl class="method">
 <dt id="twilio.rest.preview.bulk_exports.export.export_custom_job.ExportCustomJobList.create">
-<code class="descname">create</code><span class="sig-paren">(</span><em>friendly_name=&lt;object object&gt;</em>, <em>start_day=&lt;object object&gt;</em>, <em>end_day=&lt;object object&gt;</em>, <em>webhook_url=&lt;object object&gt;</em>, <em>webhook_method=&lt;object object&gt;</em>, <em>email=&lt;object object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/preview/bulk_exports/export/export_custom_job.html#ExportCustomJobList.create"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.preview.bulk_exports.export.export_custom_job.ExportCustomJobList.create" title="Permalink to this definition">¶</a></dt>
+<code class="descname">create</code><span class="sig-paren">(</span><em>start_day</em>, <em>end_day</em>, <em>friendly_name</em>, <em>webhook_url=&lt;object object&gt;</em>, <em>webhook_method=&lt;object object&gt;</em>, <em>email=&lt;object object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/preview/bulk_exports/export/export_custom_job.html#ExportCustomJobList.create"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.preview.bulk_exports.export.export_custom_job.ExportCustomJobList.create" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create the ExportCustomJobInstance</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>friendly_name</strong> (<em>unicode</em>) – The friendly_name</li>
-<li><strong>start_day</strong> (<em>unicode</em>) – The start_day</li>
-<li><strong>end_day</strong> (<em>unicode</em>) – The end_day</li>
-<li><strong>webhook_url</strong> (<em>unicode</em>) – The webhook_url</li>
-<li><strong>webhook_method</strong> (<em>unicode</em>) – The webhook_method</li>
-<li><strong>email</strong> (<em>unicode</em>) – The email</li>
+<li><strong>start_day</strong> (<em>unicode</em>) – The start day for the custom export specified as a string in the format of yyyy-mm-dd</li>
+<li><strong>end_day</strong> (<em>unicode</em>) – The end day for the custom export specified as a string in the format of yyyy-mm-dd. End day is inclusive and must be 2 days earlier than the current UTC day.</li>
+<li><strong>friendly_name</strong> (<em>unicode</em>) – The friendly name specified when creating the job</li>
+<li><strong>webhook_url</strong> (<em>unicode</em>) – The optional webhook url called on completion of the job. If this is supplied, <cite>WebhookMethod</cite> must also be supplied.</li>
+<li><strong>webhook_method</strong> (<em>unicode</em>) – This is the method used to call the webhook on completion of the job. If this is supplied, <cite>WebhookUrl</cite> must also be supplied.</li>
+<li><strong>email</strong> (<em>unicode</em>) – The optional email to send the completion notification to</li>
 </ul>
 </td>
 </tr>
@@ -531,7 +525,7 @@ Request is executed immediately</p>
 </dd></dl>
 <dl class="method">
 <dt id="twilio.rest.preview.bulk_exports.export.export_custom_job.ExportCustomJobList.list">
-<code class="descname">list</code><span class="sig-paren">(</span><em>next_token=&lt;object object&gt;</em>, <em>previous_token=&lt;object object&gt;</em>, <em>limit=None</em>, <em>page_size=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/preview/bulk_exports/export/export_custom_job.html#ExportCustomJobList.list"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.preview.bulk_exports.export.export_custom_job.ExportCustomJobList.list" title="Permalink to this definition">¶</a></dt>
+<code class="descname">list</code><span class="sig-paren">(</span><em>limit=None</em>, <em>page_size=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/preview/bulk_exports/export/export_custom_job.html#ExportCustomJobList.list"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.preview.bulk_exports.export.export_custom_job.ExportCustomJobList.list" title="Permalink to this definition">¶</a></dt>
 <dd><p>Lists ExportCustomJobInstance records from the API as a list.
 Unlike stream(), this operation is eager and will load <cite>limit</cite> records into
 memory before returning.</p>
@@ -540,8 +534,6 @@ memory before returning.</p>
 <col class="field-body"/>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>next_token</strong> (<em>unicode</em>) – The token for the next page of job results</li>
-<li><strong>previous_token</strong> (<em>unicode</em>) – The token for the previous page of result</li>
 <li><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – Upper limit for the number of records to return. list() guarantees
 never to return more than limit.  Default is no limit</li>
 <li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – Number of records to fetch per request, when not set will use
@@ -562,7 +554,7 @@ with the most efficient page size, i.e. min(limit, 1000)</li>
 </dd></dl>
 <dl class="method">
 <dt id="twilio.rest.preview.bulk_exports.export.export_custom_job.ExportCustomJobList.page">
-<code class="descname">page</code><span class="sig-paren">(</span><em>next_token=&lt;object object&gt;</em>, <em>previous_token=&lt;object object&gt;</em>, <em>page_token=&lt;object object&gt;</em>, <em>page_number=&lt;object object&gt;</em>, <em>page_size=&lt;object object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/preview/bulk_exports/export/export_custom_job.html#ExportCustomJobList.page"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.preview.bulk_exports.export.export_custom_job.ExportCustomJobList.page" title="Permalink to this definition">¶</a></dt>
+<code class="descname">page</code><span class="sig-paren">(</span><em>page_token=&lt;object object&gt;</em>, <em>page_number=&lt;object object&gt;</em>, <em>page_size=&lt;object object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/preview/bulk_exports/export/export_custom_job.html#ExportCustomJobList.page"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.preview.bulk_exports.export.export_custom_job.ExportCustomJobList.page" title="Permalink to this definition">¶</a></dt>
 <dd><p>Retrieve a single page of ExportCustomJobInstance records from the API.
 Request is executed immediately</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -570,8 +562,6 @@ Request is executed immediately</p>
 <col class="field-body"/>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>next_token</strong> (<em>unicode</em>) – The token for the next page of job results</li>
-<li><strong>previous_token</strong> (<em>unicode</em>) – The token for the previous page of result</li>
 <li><strong>page_token</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – PageToken provided by the API</li>
 <li><strong>page_number</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – Page Number, this value is simply for client state</li>
 <li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – Number of records to return, defaults to 50</li>
@@ -589,7 +579,7 @@ Request is executed immediately</p>
 </dd></dl>
 <dl class="method">
 <dt id="twilio.rest.preview.bulk_exports.export.export_custom_job.ExportCustomJobList.stream">
-<code class="descname">stream</code><span class="sig-paren">(</span><em>next_token=&lt;object object&gt;</em>, <em>previous_token=&lt;object object&gt;</em>, <em>limit=None</em>, <em>page_size=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/preview/bulk_exports/export/export_custom_job.html#ExportCustomJobList.stream"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.preview.bulk_exports.export.export_custom_job.ExportCustomJobList.stream" title="Permalink to this definition">¶</a></dt>
+<code class="descname">stream</code><span class="sig-paren">(</span><em>limit=None</em>, <em>page_size=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/preview/bulk_exports/export/export_custom_job.html#ExportCustomJobList.stream"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.preview.bulk_exports.export.export_custom_job.ExportCustomJobList.stream" title="Permalink to this definition">¶</a></dt>
 <dd><p>Streams ExportCustomJobInstance records from the API as a generator stream.
 This operation lazily loads records as efficiently as possible until the limit
 is reached.
@@ -599,8 +589,6 @@ The results are returned as a generator, so this operation is memory efficient.<
 <col class="field-body"/>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>next_token</strong> (<em>unicode</em>) – The token for the next page of job results</li>
-<li><strong>previous_token</strong> (<em>unicode</em>) – The token for the previous page of result</li>
 <li><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – Upper limit for the number of records to return. stream()
 guarantees to never return more than limit.  Default is no limit</li>
 <li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – Number of records to fetch per request, when not set will use

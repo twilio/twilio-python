@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-MWRD6S');</script><!--End Google Tag Manager-->
 <meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<title>twilio.rest.ip_messaging.v2.service.channel — twilio-python 6.46.0 documentation</title>
+<title>twilio.rest.ip_messaging.v2.service.channel — twilio-python 6.47.0 documentation</title>
 <link href="../../../../../../_static/alabaster.css" rel="stylesheet" type="text/css"/>
 <link href="../../../../../../_static/pygments.css" rel="stylesheet" type="text/css"/>
 <script data-url_root="../../../../../../" id="documentation_options" src="../../../../../../_static/documentation_options.js" type="text/javascript"></script>
@@ -56,10 +56,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <span class="sd">        Initialize the ChannelList</span>
 
 <span class="sd">        :param Version version: Version that contains the resource</span>
-<span class="sd">        :param service_sid: The SID of the Service that the resource is associated with</span>
+<span class="sd">        :param service_sid: The service_sid</span>
 
-<span class="sd">        :returns: twilio.rest.chat.v2.service.channel.ChannelList</span>
-<span class="sd">        :rtype: twilio.rest.chat.v2.service.channel.ChannelList</span>
+<span class="sd">        :returns: twilio.rest.ip_messaging.v2.service.channel.ChannelList</span>
+<span class="sd">        :rtype: twilio.rest.ip_messaging.v2.service.channel.ChannelList</span>
 <span class="sd">        """</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">ChannelList</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">version</span><span class="p">)</span>
 
@@ -74,17 +74,17 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="sd">"""</span>
 <span class="sd">        Create the ChannelInstance</span>
 
-<span class="sd">        :param unicode friendly_name: A string to describe the new resource</span>
-<span class="sd">        :param unicode unique_name: An application-defined string that uniquely identifies the Channel resource</span>
-<span class="sd">        :param unicode attributes: A valid JSON string that contains application-specific data</span>
-<span class="sd">        :param ChannelInstance.ChannelType type: The visibility of the channel</span>
-<span class="sd">        :param datetime date_created: The ISO 8601 date and time in GMT when the resource was created</span>
-<span class="sd">        :param datetime date_updated: The ISO 8601 date and time in GMT when the resource was updated</span>
-<span class="sd">        :param unicode created_by: The identity of the User that created the Channel</span>
+<span class="sd">        :param unicode friendly_name: The friendly_name</span>
+<span class="sd">        :param unicode unique_name: The unique_name</span>
+<span class="sd">        :param unicode attributes: The attributes</span>
+<span class="sd">        :param ChannelInstance.ChannelType type: The type</span>
+<span class="sd">        :param datetime date_created: The date_created</span>
+<span class="sd">        :param datetime date_updated: The date_updated</span>
+<span class="sd">        :param unicode created_by: The created_by</span>
 <span class="sd">        :param ChannelInstance.WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header</span>
 
 <span class="sd">        :returns: The created ChannelInstance</span>
-<span class="sd">        :rtype: twilio.rest.chat.v2.service.channel.ChannelInstance</span>
+<span class="sd">        :rtype: twilio.rest.ip_messaging.v2.service.channel.ChannelInstance</span>
 <span class="sd">        """</span>
         <span class="n">data</span> <span class="o">=</span> <span class="n">values</span><span class="o">.</span><span class="n">of</span><span class="p">({</span>
             <span class="s1">'FriendlyName'</span><span class="p">:</span> <span class="n">friendly_name</span><span class="p">,</span>
@@ -108,7 +108,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <span class="sd">        is reached.</span>
 <span class="sd">        The results are returned as a generator, so this operation is memory efficient.</span>
 
-<span class="sd">        :param ChannelInstance.ChannelType type: The visibility of the channel to read</span>
+<span class="sd">        :param ChannelInstance.ChannelType type: The type</span>
 <span class="sd">        :param int limit: Upper limit for the number of records to return. stream()</span>
 <span class="sd">                          guarantees to never return more than limit.  Default is no limit</span>
 <span class="sd">        :param int page_size: Number of records to fetch per request, when not set will use</span>
@@ -117,7 +117,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <span class="sd">                              limit with the most efficient page size, i.e. min(limit, 1000)</span>
 
 <span class="sd">        :returns: Generator that will yield up to limit results</span>
-<span class="sd">        :rtype: list[twilio.rest.chat.v2.service.channel.ChannelInstance]</span>
+<span class="sd">        :rtype: list[twilio.rest.ip_messaging.v2.service.channel.ChannelInstance]</span>
 <span class="sd">        """</span>
         <span class="n">limits</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_version</span><span class="o">.</span><span class="n">read_limits</span><span class="p">(</span><span class="n">limit</span><span class="p">,</span> <span class="n">page_size</span><span class="p">)</span>
 
@@ -131,7 +131,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <span class="sd">        Unlike stream(), this operation is eager and will load `limit` records into</span>
 <span class="sd">        memory before returning.</span>
 
-<span class="sd">        :param ChannelInstance.ChannelType type: The visibility of the channel to read</span>
+<span class="sd">        :param ChannelInstance.ChannelType type: The type</span>
 <span class="sd">        :param int limit: Upper limit for the number of records to return. list() guarantees</span>
 <span class="sd">                          never to return more than limit.  Default is no limit</span>
 <span class="sd">        :param int page_size: Number of records to fetch per request, when not set will use</span>
@@ -140,7 +140,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <span class="sd">                              with the most efficient page size, i.e. min(limit, 1000)</span>
 
 <span class="sd">        :returns: Generator that will yield up to limit results</span>
-<span class="sd">        :rtype: list[twilio.rest.chat.v2.service.channel.ChannelInstance]</span>
+<span class="sd">        :rtype: list[twilio.rest.ip_messaging.v2.service.channel.ChannelInstance]</span>
 <span class="sd">        """</span>
         <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stream</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="nb">type</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="n">limit</span><span class="p">,</span> <span class="n">page_size</span><span class="o">=</span><span class="n">page_size</span><span class="p">,</span> <span class="p">))</span></div>
 
@@ -150,13 +150,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <span class="sd">        Retrieve a single page of ChannelInstance records from the API.</span>
 <span class="sd">        Request is executed immediately</span>
 
-<span class="sd">        :param ChannelInstance.ChannelType type: The visibility of the channel to read</span>
+<span class="sd">        :param ChannelInstance.ChannelType type: The type</span>
 <span class="sd">        :param str page_token: PageToken provided by the API</span>
 <span class="sd">        :param int page_number: Page Number, this value is simply for client state</span>
 <span class="sd">        :param int page_size: Number of records to return, defaults to 50</span>
 
 <span class="sd">        :returns: Page of ChannelInstance</span>
-<span class="sd">        :rtype: twilio.rest.chat.v2.service.channel.ChannelPage</span>
+<span class="sd">        :rtype: twilio.rest.ip_messaging.v2.service.channel.ChannelPage</span>
 <span class="sd">        """</span>
         <span class="n">data</span> <span class="o">=</span> <span class="n">values</span><span class="o">.</span><span class="n">of</span><span class="p">({</span>
             <span class="s1">'Type'</span><span class="p">:</span> <span class="n">serialize</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="nb">type</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">e</span><span class="p">:</span> <span class="n">e</span><span class="p">),</span>
@@ -177,7 +177,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <span class="sd">        :param str target_url: API-generated URL for the requested results page</span>
 
 <span class="sd">        :returns: Page of ChannelInstance</span>
-<span class="sd">        :rtype: twilio.rest.chat.v2.service.channel.ChannelPage</span>
+<span class="sd">        :rtype: twilio.rest.ip_messaging.v2.service.channel.ChannelPage</span>
 <span class="sd">        """</span>
         <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_version</span><span class="o">.</span><span class="n">domain</span><span class="o">.</span><span class="n">twilio</span><span class="o">.</span><span class="n">request</span><span class="p">(</span>
             <span class="s1">'GET'</span><span class="p">,</span>
@@ -190,10 +190,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="sd">"""</span>
 <span class="sd">        Constructs a ChannelContext</span>
 
-<span class="sd">        :param sid: The SID of the resource</span>
+<span class="sd">        :param sid: The sid</span>
 
-<span class="sd">        :returns: twilio.rest.chat.v2.service.channel.ChannelContext</span>
-<span class="sd">        :rtype: twilio.rest.chat.v2.service.channel.ChannelContext</span>
+<span class="sd">        :returns: twilio.rest.ip_messaging.v2.service.channel.ChannelContext</span>
+<span class="sd">        :rtype: twilio.rest.ip_messaging.v2.service.channel.ChannelContext</span>
 <span class="sd">        """</span>
         <span class="k">return</span> <span class="n">ChannelContext</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_version</span><span class="p">,</span> <span class="n">service_sid</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_solution</span><span class="p">[</span><span class="s1">'service_sid'</span><span class="p">],</span> <span class="n">sid</span><span class="o">=</span><span class="n">sid</span><span class="p">,</span> <span class="p">)</span></div>
 
@@ -201,10 +201,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="sd">"""</span>
 <span class="sd">        Constructs a ChannelContext</span>
 
-<span class="sd">        :param sid: The SID of the resource</span>
+<span class="sd">        :param sid: The sid</span>
 
-<span class="sd">        :returns: twilio.rest.chat.v2.service.channel.ChannelContext</span>
-<span class="sd">        :rtype: twilio.rest.chat.v2.service.channel.ChannelContext</span>
+<span class="sd">        :returns: twilio.rest.ip_messaging.v2.service.channel.ChannelContext</span>
+<span class="sd">        :rtype: twilio.rest.ip_messaging.v2.service.channel.ChannelContext</span>
 <span class="sd">        """</span>
         <span class="k">return</span> <span class="n">ChannelContext</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_version</span><span class="p">,</span> <span class="n">service_sid</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_solution</span><span class="p">[</span><span class="s1">'service_sid'</span><span class="p">],</span> <span class="n">sid</span><span class="o">=</span><span class="n">sid</span><span class="p">,</span> <span class="p">)</span>
 
@@ -226,10 +226,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
 <span class="sd">        :param Version version: Version that contains the resource</span>
 <span class="sd">        :param Response response: Response from the API</span>
-<span class="sd">        :param service_sid: The SID of the Service that the resource is associated with</span>
+<span class="sd">        :param service_sid: The service_sid</span>
 
-<span class="sd">        :returns: twilio.rest.chat.v2.service.channel.ChannelPage</span>
-<span class="sd">        :rtype: twilio.rest.chat.v2.service.channel.ChannelPage</span>
+<span class="sd">        :returns: twilio.rest.ip_messaging.v2.service.channel.ChannelPage</span>
+<span class="sd">        :rtype: twilio.rest.ip_messaging.v2.service.channel.ChannelPage</span>
 <span class="sd">        """</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">ChannelPage</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">version</span><span class="p">,</span> <span class="n">response</span><span class="p">)</span>
 
@@ -242,8 +242,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
 <span class="sd">        :param dict payload: Payload response from the API</span>
 
-<span class="sd">        :returns: twilio.rest.chat.v2.service.channel.ChannelInstance</span>
-<span class="sd">        :rtype: twilio.rest.chat.v2.service.channel.ChannelInstance</span>
+<span class="sd">        :returns: twilio.rest.ip_messaging.v2.service.channel.ChannelInstance</span>
+<span class="sd">        :rtype: twilio.rest.ip_messaging.v2.service.channel.ChannelInstance</span>
 <span class="sd">        """</span>
         <span class="k">return</span> <span class="n">ChannelInstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_version</span><span class="p">,</span> <span class="n">payload</span><span class="p">,</span> <span class="n">service_sid</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_solution</span><span class="p">[</span><span class="s1">'service_sid'</span><span class="p">],</span> <span class="p">)</span></div>
 
@@ -264,11 +264,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <span class="sd">        Initialize the ChannelContext</span>
 
 <span class="sd">        :param Version version: Version that contains the resource</span>
-<span class="sd">        :param service_sid: The SID of the Service to fetch the resource from</span>
-<span class="sd">        :param sid: The SID of the resource</span>
+<span class="sd">        :param service_sid: The service_sid</span>
+<span class="sd">        :param sid: The sid</span>
 
-<span class="sd">        :returns: twilio.rest.chat.v2.service.channel.ChannelContext</span>
-<span class="sd">        :rtype: twilio.rest.chat.v2.service.channel.ChannelContext</span>
+<span class="sd">        :returns: twilio.rest.ip_messaging.v2.service.channel.ChannelContext</span>
+<span class="sd">        :rtype: twilio.rest.ip_messaging.v2.service.channel.ChannelContext</span>
 <span class="sd">        """</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">ChannelContext</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">version</span><span class="p">)</span>
 
@@ -287,7 +287,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <span class="sd">        Fetch the ChannelInstance</span>
 
 <span class="sd">        :returns: The fetched ChannelInstance</span>
-<span class="sd">        :rtype: twilio.rest.chat.v2.service.channel.ChannelInstance</span>
+<span class="sd">        :rtype: twilio.rest.ip_messaging.v2.service.channel.ChannelInstance</span>
 <span class="sd">        """</span>
         <span class="n">payload</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_version</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">'GET'</span><span class="p">,</span> <span class="n">uri</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_uri</span><span class="p">,</span> <span class="p">)</span>
 
@@ -318,16 +318,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="sd">"""</span>
 <span class="sd">        Update the ChannelInstance</span>
 
-<span class="sd">        :param unicode friendly_name: A string to describe the resource</span>
-<span class="sd">        :param unicode unique_name: An application-defined string that uniquely identifies the resource</span>
-<span class="sd">        :param unicode attributes: A valid JSON string that contains application-specific data</span>
-<span class="sd">        :param datetime date_created: The ISO 8601 date and time in GMT when the resource was created</span>
-<span class="sd">        :param datetime date_updated: The ISO 8601 date and time in GMT when the resource was updated</span>
-<span class="sd">        :param unicode created_by: The identity of the User that created the Channel</span>
+<span class="sd">        :param unicode friendly_name: The friendly_name</span>
+<span class="sd">        :param unicode unique_name: The unique_name</span>
+<span class="sd">        :param unicode attributes: The attributes</span>
+<span class="sd">        :param datetime date_created: The date_created</span>
+<span class="sd">        :param datetime date_updated: The date_updated</span>
+<span class="sd">        :param unicode created_by: The created_by</span>
 <span class="sd">        :param ChannelInstance.WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header</span>
 
 <span class="sd">        :returns: The updated ChannelInstance</span>
-<span class="sd">        :rtype: twilio.rest.chat.v2.service.channel.ChannelInstance</span>
+<span class="sd">        :rtype: twilio.rest.ip_messaging.v2.service.channel.ChannelInstance</span>
 <span class="sd">        """</span>
         <span class="n">data</span> <span class="o">=</span> <span class="n">values</span><span class="o">.</span><span class="n">of</span><span class="p">({</span>
             <span class="s1">'FriendlyName'</span><span class="p">:</span> <span class="n">friendly_name</span><span class="p">,</span>
@@ -353,8 +353,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="sd">"""</span>
 <span class="sd">        Access the members</span>
 
-<span class="sd">        :returns: twilio.rest.chat.v2.service.channel.member.MemberList</span>
-<span class="sd">        :rtype: twilio.rest.chat.v2.service.channel.member.MemberList</span>
+<span class="sd">        :returns: twilio.rest.ip_messaging.v2.service.channel.member.MemberList</span>
+<span class="sd">        :rtype: twilio.rest.ip_messaging.v2.service.channel.member.MemberList</span>
 <span class="sd">        """</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_members</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_members</span> <span class="o">=</span> <span class="n">MemberList</span><span class="p">(</span>
@@ -369,8 +369,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="sd">"""</span>
 <span class="sd">        Access the messages</span>
 
-<span class="sd">        :returns: twilio.rest.chat.v2.service.channel.message.MessageList</span>
-<span class="sd">        :rtype: twilio.rest.chat.v2.service.channel.message.MessageList</span>
+<span class="sd">        :returns: twilio.rest.ip_messaging.v2.service.channel.message.MessageList</span>
+<span class="sd">        :rtype: twilio.rest.ip_messaging.v2.service.channel.message.MessageList</span>
 <span class="sd">        """</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_messages</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_messages</span> <span class="o">=</span> <span class="n">MessageList</span><span class="p">(</span>
@@ -385,8 +385,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="sd">"""</span>
 <span class="sd">        Access the invites</span>
 
-<span class="sd">        :returns: twilio.rest.chat.v2.service.channel.invite.InviteList</span>
-<span class="sd">        :rtype: twilio.rest.chat.v2.service.channel.invite.InviteList</span>
+<span class="sd">        :returns: twilio.rest.ip_messaging.v2.service.channel.invite.InviteList</span>
+<span class="sd">        :rtype: twilio.rest.ip_messaging.v2.service.channel.invite.InviteList</span>
 <span class="sd">        """</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_invites</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_invites</span> <span class="o">=</span> <span class="n">InviteList</span><span class="p">(</span>
@@ -401,8 +401,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="sd">"""</span>
 <span class="sd">        Access the webhooks</span>
 
-<span class="sd">        :returns: twilio.rest.chat.v2.service.channel.webhook.WebhookList</span>
-<span class="sd">        :rtype: twilio.rest.chat.v2.service.channel.webhook.WebhookList</span>
+<span class="sd">        :returns: twilio.rest.ip_messaging.v2.service.channel.webhook.WebhookList</span>
+<span class="sd">        :rtype: twilio.rest.ip_messaging.v2.service.channel.webhook.WebhookList</span>
 <span class="sd">        """</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_webhooks</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_webhooks</span> <span class="o">=</span> <span class="n">WebhookList</span><span class="p">(</span>
@@ -437,8 +437,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="sd">"""</span>
 <span class="sd">        Initialize the ChannelInstance</span>
 
-<span class="sd">        :returns: twilio.rest.chat.v2.service.channel.ChannelInstance</span>
-<span class="sd">        :rtype: twilio.rest.chat.v2.service.channel.ChannelInstance</span>
+<span class="sd">        :returns: twilio.rest.ip_messaging.v2.service.channel.ChannelInstance</span>
+<span class="sd">        :rtype: twilio.rest.ip_messaging.v2.service.channel.ChannelInstance</span>
 <span class="sd">        """</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">ChannelInstance</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">version</span><span class="p">)</span>
 
@@ -471,7 +471,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <span class="sd">        performing various actions.  All instance actions are proxied to the context</span>
 
 <span class="sd">        :returns: ChannelContext for this ChannelInstance</span>
-<span class="sd">        :rtype: twilio.rest.chat.v2.service.channel.ChannelContext</span>
+<span class="sd">        :rtype: twilio.rest.ip_messaging.v2.service.channel.ChannelContext</span>
 <span class="sd">        """</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_context</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_context</span> <span class="o">=</span> <span class="n">ChannelContext</span><span class="p">(</span>
@@ -484,7 +484,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">sid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">"""</span>
-<span class="sd">        :returns: The unique string that identifies the resource</span>
+<span class="sd">        :returns: The sid</span>
 <span class="sd">        :rtype: unicode</span>
 <span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="p">[</span><span class="s1">'sid'</span><span class="p">]</span>
@@ -492,7 +492,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">account_sid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">"""</span>
-<span class="sd">        :returns: The SID of the Account that created the resource</span>
+<span class="sd">        :returns: The account_sid</span>
 <span class="sd">        :rtype: unicode</span>
 <span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="p">[</span><span class="s1">'account_sid'</span><span class="p">]</span>
@@ -500,7 +500,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">service_sid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">"""</span>
-<span class="sd">        :returns: The SID of the Service that the resource is associated with</span>
+<span class="sd">        :returns: The service_sid</span>
 <span class="sd">        :rtype: unicode</span>
 <span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="p">[</span><span class="s1">'service_sid'</span><span class="p">]</span>
@@ -508,7 +508,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">friendly_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">"""</span>
-<span class="sd">        :returns: The string that you assigned to describe the resource</span>
+<span class="sd">        :returns: The friendly_name</span>
 <span class="sd">        :rtype: unicode</span>
 <span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="p">[</span><span class="s1">'friendly_name'</span><span class="p">]</span>
@@ -516,7 +516,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">unique_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">"""</span>
-<span class="sd">        :returns: An application-defined string that uniquely identifies the resource</span>
+<span class="sd">        :returns: The unique_name</span>
 <span class="sd">        :rtype: unicode</span>
 <span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="p">[</span><span class="s1">'unique_name'</span><span class="p">]</span>
@@ -524,7 +524,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">attributes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">"""</span>
-<span class="sd">        :returns: The JSON string that stores application-specific data</span>
+<span class="sd">        :returns: The attributes</span>
 <span class="sd">        :rtype: unicode</span>
 <span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="p">[</span><span class="s1">'attributes'</span><span class="p">]</span>
@@ -532,7 +532,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">type</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">"""</span>
-<span class="sd">        :returns: The visibility of the channel. Can be: `public` or `private`</span>
+<span class="sd">        :returns: The type</span>
 <span class="sd">        :rtype: ChannelInstance.ChannelType</span>
 <span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="p">[</span><span class="s1">'type'</span><span class="p">]</span>
@@ -540,7 +540,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">date_created</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">"""</span>
-<span class="sd">        :returns: The ISO 8601 date and time in GMT when the resource was created</span>
+<span class="sd">        :returns: The date_created</span>
 <span class="sd">        :rtype: datetime</span>
 <span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="p">[</span><span class="s1">'date_created'</span><span class="p">]</span>
@@ -548,7 +548,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">date_updated</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">"""</span>
-<span class="sd">        :returns: The ISO 8601 date and time in GMT when the resource was last updated</span>
+<span class="sd">        :returns: The date_updated</span>
 <span class="sd">        :rtype: datetime</span>
 <span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="p">[</span><span class="s1">'date_updated'</span><span class="p">]</span>
@@ -556,7 +556,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">created_by</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">"""</span>
-<span class="sd">        :returns: The identity of the User that created the channel</span>
+<span class="sd">        :returns: The created_by</span>
 <span class="sd">        :rtype: unicode</span>
 <span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="p">[</span><span class="s1">'created_by'</span><span class="p">]</span>
@@ -564,7 +564,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">members_count</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">"""</span>
-<span class="sd">        :returns: The number of Members in the Channel</span>
+<span class="sd">        :returns: The members_count</span>
 <span class="sd">        :rtype: unicode</span>
 <span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="p">[</span><span class="s1">'members_count'</span><span class="p">]</span>
@@ -572,7 +572,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">messages_count</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">"""</span>
-<span class="sd">        :returns: The number of Messages that have been passed in the Channel</span>
+<span class="sd">        :returns: The messages_count</span>
 <span class="sd">        :rtype: unicode</span>
 <span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="p">[</span><span class="s1">'messages_count'</span><span class="p">]</span>
@@ -580,7 +580,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">url</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">"""</span>
-<span class="sd">        :returns: The absolute URL of the Channel resource</span>
+<span class="sd">        :returns: The url</span>
 <span class="sd">        :rtype: unicode</span>
 <span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="p">[</span><span class="s1">'url'</span><span class="p">]</span>
@@ -588,7 +588,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">links</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">"""</span>
-<span class="sd">        :returns: Absolute URLs to access the Members, Messages , Invites and, if it exists, the last Message for the Channel</span>
+<span class="sd">        :returns: The links</span>
 <span class="sd">        :rtype: unicode</span>
 <span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="p">[</span><span class="s1">'links'</span><span class="p">]</span>
@@ -598,7 +598,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <span class="sd">        Fetch the ChannelInstance</span>
 
 <span class="sd">        :returns: The fetched ChannelInstance</span>
-<span class="sd">        :rtype: twilio.rest.chat.v2.service.channel.ChannelInstance</span>
+<span class="sd">        :rtype: twilio.rest.ip_messaging.v2.service.channel.ChannelInstance</span>
 <span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_proxy</span><span class="o">.</span><span class="n">fetch</span><span class="p">()</span></div>
 
@@ -620,16 +620,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="sd">"""</span>
 <span class="sd">        Update the ChannelInstance</span>
 
-<span class="sd">        :param unicode friendly_name: A string to describe the resource</span>
-<span class="sd">        :param unicode unique_name: An application-defined string that uniquely identifies the resource</span>
-<span class="sd">        :param unicode attributes: A valid JSON string that contains application-specific data</span>
-<span class="sd">        :param datetime date_created: The ISO 8601 date and time in GMT when the resource was created</span>
-<span class="sd">        :param datetime date_updated: The ISO 8601 date and time in GMT when the resource was updated</span>
-<span class="sd">        :param unicode created_by: The identity of the User that created the Channel</span>
+<span class="sd">        :param unicode friendly_name: The friendly_name</span>
+<span class="sd">        :param unicode unique_name: The unique_name</span>
+<span class="sd">        :param unicode attributes: The attributes</span>
+<span class="sd">        :param datetime date_created: The date_created</span>
+<span class="sd">        :param datetime date_updated: The date_updated</span>
+<span class="sd">        :param unicode created_by: The created_by</span>
 <span class="sd">        :param ChannelInstance.WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header</span>
 
 <span class="sd">        :returns: The updated ChannelInstance</span>
-<span class="sd">        :rtype: twilio.rest.chat.v2.service.channel.ChannelInstance</span>
+<span class="sd">        :rtype: twilio.rest.ip_messaging.v2.service.channel.ChannelInstance</span>
 <span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_proxy</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
             <span class="n">friendly_name</span><span class="o">=</span><span class="n">friendly_name</span><span class="p">,</span>
@@ -646,8 +646,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="sd">"""</span>
 <span class="sd">        Access the members</span>
 
-<span class="sd">        :returns: twilio.rest.chat.v2.service.channel.member.MemberList</span>
-<span class="sd">        :rtype: twilio.rest.chat.v2.service.channel.member.MemberList</span>
+<span class="sd">        :returns: twilio.rest.ip_messaging.v2.service.channel.member.MemberList</span>
+<span class="sd">        :rtype: twilio.rest.ip_messaging.v2.service.channel.member.MemberList</span>
 <span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_proxy</span><span class="o">.</span><span class="n">members</span>
 
@@ -656,8 +656,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="sd">"""</span>
 <span class="sd">        Access the messages</span>
 
-<span class="sd">        :returns: twilio.rest.chat.v2.service.channel.message.MessageList</span>
-<span class="sd">        :rtype: twilio.rest.chat.v2.service.channel.message.MessageList</span>
+<span class="sd">        :returns: twilio.rest.ip_messaging.v2.service.channel.message.MessageList</span>
+<span class="sd">        :rtype: twilio.rest.ip_messaging.v2.service.channel.message.MessageList</span>
 <span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_proxy</span><span class="o">.</span><span class="n">messages</span>
 
@@ -666,8 +666,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="sd">"""</span>
 <span class="sd">        Access the invites</span>
 
-<span class="sd">        :returns: twilio.rest.chat.v2.service.channel.invite.InviteList</span>
-<span class="sd">        :rtype: twilio.rest.chat.v2.service.channel.invite.InviteList</span>
+<span class="sd">        :returns: twilio.rest.ip_messaging.v2.service.channel.invite.InviteList</span>
+<span class="sd">        :rtype: twilio.rest.ip_messaging.v2.service.channel.invite.InviteList</span>
 <span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_proxy</span><span class="o">.</span><span class="n">invites</span>
 
@@ -676,8 +676,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="sd">"""</span>
 <span class="sd">        Access the webhooks</span>
 
-<span class="sd">        :returns: twilio.rest.chat.v2.service.channel.webhook.WebhookList</span>
-<span class="sd">        :rtype: twilio.rest.chat.v2.service.channel.webhook.WebhookList</span>
+<span class="sd">        :returns: twilio.rest.ip_messaging.v2.service.channel.webhook.WebhookList</span>
+<span class="sd">        :rtype: twilio.rest.ip_messaging.v2.service.channel.webhook.WebhookList</span>
 <span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_proxy</span><span class="o">.</span><span class="n">webhooks</span>
 

@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-MWRD6S');</script><!--End Google Tag Manager-->
 <meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<title>twilio.rest.verify.v2.service.entity package — twilio-python 6.46.0 documentation</title>
+<title>twilio.rest.verify.v2.service.entity package — twilio-python 6.47.0 documentation</title>
 <link href="../../../_static/alabaster.css" rel="stylesheet" type="text/css"/>
 <link href="../../../_static/pygments.css" rel="stylesheet" type="text/css"/>
 <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js" type="text/javascript"></script>
@@ -48,45 +48,36 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <dt id="twilio.rest.verify.v2.service.entity.challenge.ChallengeContext">
 <em class="property">class </em><code class="descclassname">twilio.rest.verify.v2.service.entity.challenge.</code><code class="descname">ChallengeContext</code><span class="sig-paren">(</span><em>version</em>, <em>service_sid</em>, <em>identity</em>, <em>sid</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/verify/v2/service/entity/challenge.html#ChallengeContext"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.verify.v2.service.entity.challenge.ChallengeContext" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="twilio.base.html#twilio.base.instance_context.InstanceContext" title="twilio.base.instance_context.InstanceContext"><code class="xref py py-class docutils literal notranslate"><span class="pre">twilio.base.instance_context.InstanceContext</span></code></a></p>
-<p>PLEASE NOTE that this class contains preview products that are subject
-to change. Use them with caution. If you currently do not have developer
-preview access, please contact <a class="reference external" href="mailto:help%40twilio.com">help<span>@</span>twilio<span>.</span>com</a>.</p>
+<p>PLEASE NOTE that this class contains beta products that are subject to
+change. Use them with caution.</p>
 <dl class="method">
 <dt id="twilio.rest.verify.v2.service.entity.challenge.ChallengeContext.fetch">
-<code class="descname">fetch</code><span class="sig-paren">(</span><em>twilio_sandbox_mode=&lt;object object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/verify/v2/service/entity/challenge.html#ChallengeContext.fetch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.verify.v2.service.entity.challenge.ChallengeContext.fetch" title="Permalink to this definition">¶</a></dt>
+<code class="descname">fetch</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/verify/v2/service/entity/challenge.html#ChallengeContext.fetch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.verify.v2.service.entity.challenge.ChallengeContext.fetch" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fetch the ChallengeInstance</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>twilio_sandbox_mode</strong> (<em>unicode</em>) – The Twilio-Sandbox-Mode HTTP request header</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The fetched ChallengeInstance</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The fetched ChallengeInstance</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#twilio.rest.verify.v2.service.entity.challenge.ChallengeInstance" title="twilio.rest.verify.v2.service.entity.challenge.ChallengeInstance">twilio.rest.verify.v2.service.entity.challenge.ChallengeInstance</a></td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#twilio.rest.verify.v2.service.entity.challenge.ChallengeInstance" title="twilio.rest.verify.v2.service.entity.challenge.ChallengeInstance">twilio.rest.verify.v2.service.entity.challenge.ChallengeInstance</a></td>
 </tr>
 </tbody>
 </table>
 </dd></dl>
 <dl class="method">
 <dt id="twilio.rest.verify.v2.service.entity.challenge.ChallengeContext.update">
-<code class="descname">update</code><span class="sig-paren">(</span><em>auth_payload=&lt;object object&gt;</em>, <em>twilio_sandbox_mode=&lt;object object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/verify/v2/service/entity/challenge.html#ChallengeContext.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.verify.v2.service.entity.challenge.ChallengeContext.update" title="Permalink to this definition">¶</a></dt>
+<code class="descname">update</code><span class="sig-paren">(</span><em>auth_payload=&lt;object object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/verify/v2/service/entity/challenge.html#ChallengeContext.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.verify.v2.service.entity.challenge.ChallengeContext.update" title="Permalink to this definition">¶</a></dt>
 <dd><p>Update the ChallengeInstance</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>auth_payload</strong> (<em>unicode</em>) – Optional payload to verify the Challenge</li>
-<li><strong>twilio_sandbox_mode</strong> (<em>unicode</em>) – The Twilio-Sandbox-Mode HTTP request header</li>
-</ul>
-</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>auth_payload</strong> (<em>unicode</em>) – Optional payload to verify the Challenge</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The updated ChallengeInstance</p>
-</td>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The updated ChallengeInstance</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#twilio.rest.verify.v2.service.entity.challenge.ChallengeInstance" title="twilio.rest.verify.v2.service.entity.challenge.ChallengeInstance">twilio.rest.verify.v2.service.entity.challenge.ChallengeInstance</a></p>
-</td>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#twilio.rest.verify.v2.service.entity.challenge.ChallengeInstance" title="twilio.rest.verify.v2.service.entity.challenge.ChallengeInstance">twilio.rest.verify.v2.service.entity.challenge.ChallengeInstance</a></td>
 </tr>
 </tbody>
 </table>
@@ -96,9 +87,8 @@ preview access, please contact <a class="reference external" href="mailto:help%4
 <dt id="twilio.rest.verify.v2.service.entity.challenge.ChallengeInstance">
 <em class="property">class </em><code class="descclassname">twilio.rest.verify.v2.service.entity.challenge.</code><code class="descname">ChallengeInstance</code><span class="sig-paren">(</span><em>version</em>, <em>payload</em>, <em>service_sid</em>, <em>identity</em>, <em>sid=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/verify/v2/service/entity/challenge.html#ChallengeInstance"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.verify.v2.service.entity.challenge.ChallengeInstance" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="twilio.base.html#twilio.base.instance_resource.InstanceResource" title="twilio.base.instance_resource.InstanceResource"><code class="xref py py-class docutils literal notranslate"><span class="pre">twilio.base.instance_resource.InstanceResource</span></code></a></p>
-<p>PLEASE NOTE that this class contains preview products that are subject
-to change. Use them with caution. If you currently do not have developer
-preview access, please contact <a class="reference external" href="mailto:help%40twilio.com">help<span>@</span>twilio<span>.</span>com</a>.</p>
+<p>PLEASE NOTE that this class contains beta products that are subject to
+change. Use them with caution.</p>
 <dl class="class">
 <dt id="twilio.rest.verify.v2.service.entity.challenge.ChallengeInstance.ChallengeReasons">
 <em class="property">class </em><code class="descname">ChallengeReasons</code><a class="reference internal" href="../../../_modules/twilio/rest/verify/v2/service/entity/challenge.html#ChallengeInstance.ChallengeReasons"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.verify.v2.service.entity.challenge.ChallengeInstance.ChallengeReasons" title="Permalink to this definition">¶</a></dt>
@@ -209,7 +199,7 @@ preview access, please contact <a class="reference external" href="mailto:help%4
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The details</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Details about the Challenge.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)">dict</a></td>
 </tr>
@@ -274,17 +264,15 @@ preview access, please contact <a class="reference external" href="mailto:help%4
 </dd></dl>
 <dl class="method">
 <dt id="twilio.rest.verify.v2.service.entity.challenge.ChallengeInstance.fetch">
-<code class="descname">fetch</code><span class="sig-paren">(</span><em>twilio_sandbox_mode=&lt;object object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/verify/v2/service/entity/challenge.html#ChallengeInstance.fetch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.verify.v2.service.entity.challenge.ChallengeInstance.fetch" title="Permalink to this definition">¶</a></dt>
+<code class="descname">fetch</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/verify/v2/service/entity/challenge.html#ChallengeInstance.fetch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.verify.v2.service.entity.challenge.ChallengeInstance.fetch" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fetch the ChallengeInstance</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>twilio_sandbox_mode</strong> (<em>unicode</em>) – The Twilio-Sandbox-Mode HTTP request header</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The fetched ChallengeInstance</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The fetched ChallengeInstance</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#twilio.rest.verify.v2.service.entity.challenge.ChallengeInstance" title="twilio.rest.verify.v2.service.entity.challenge.ChallengeInstance">twilio.rest.verify.v2.service.entity.challenge.ChallengeInstance</a></td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#twilio.rest.verify.v2.service.entity.challenge.ChallengeInstance" title="twilio.rest.verify.v2.service.entity.challenge.ChallengeInstance">twilio.rest.verify.v2.service.entity.challenge.ChallengeInstance</a></td>
 </tr>
 </tbody>
 </table>
@@ -296,7 +284,7 @@ preview access, please contact <a class="reference external" href="mailto:help%4
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Hidden details provided to contextualize the Challenge</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Hidden details about the Challenge</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)">dict</a></td>
 </tr>
@@ -375,23 +363,17 @@ preview access, please contact <a class="reference external" href="mailto:help%4
 </dd></dl>
 <dl class="method">
 <dt id="twilio.rest.verify.v2.service.entity.challenge.ChallengeInstance.update">
-<code class="descname">update</code><span class="sig-paren">(</span><em>auth_payload=&lt;object object&gt;</em>, <em>twilio_sandbox_mode=&lt;object object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/verify/v2/service/entity/challenge.html#ChallengeInstance.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.verify.v2.service.entity.challenge.ChallengeInstance.update" title="Permalink to this definition">¶</a></dt>
+<code class="descname">update</code><span class="sig-paren">(</span><em>auth_payload=&lt;object object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/verify/v2/service/entity/challenge.html#ChallengeInstance.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.verify.v2.service.entity.challenge.ChallengeInstance.update" title="Permalink to this definition">¶</a></dt>
 <dd><p>Update the ChallengeInstance</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>auth_payload</strong> (<em>unicode</em>) – Optional payload to verify the Challenge</li>
-<li><strong>twilio_sandbox_mode</strong> (<em>unicode</em>) – The Twilio-Sandbox-Mode HTTP request header</li>
-</ul>
-</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>auth_payload</strong> (<em>unicode</em>) – Optional payload to verify the Challenge</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The updated ChallengeInstance</p>
-</td>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The updated ChallengeInstance</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#twilio.rest.verify.v2.service.entity.challenge.ChallengeInstance" title="twilio.rest.verify.v2.service.entity.challenge.ChallengeInstance">twilio.rest.verify.v2.service.entity.challenge.ChallengeInstance</a></p>
-</td>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#twilio.rest.verify.v2.service.entity.challenge.ChallengeInstance" title="twilio.rest.verify.v2.service.entity.challenge.ChallengeInstance">twilio.rest.verify.v2.service.entity.challenge.ChallengeInstance</a></td>
 </tr>
 </tbody>
 </table>
@@ -415,12 +397,11 @@ preview access, please contact <a class="reference external" href="mailto:help%4
 <dt id="twilio.rest.verify.v2.service.entity.challenge.ChallengeList">
 <em class="property">class </em><code class="descclassname">twilio.rest.verify.v2.service.entity.challenge.</code><code class="descname">ChallengeList</code><span class="sig-paren">(</span><em>version</em>, <em>service_sid</em>, <em>identity</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/verify/v2/service/entity/challenge.html#ChallengeList"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.verify.v2.service.entity.challenge.ChallengeList" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="twilio.base.html#twilio.base.list_resource.ListResource" title="twilio.base.list_resource.ListResource"><code class="xref py py-class docutils literal notranslate"><span class="pre">twilio.base.list_resource.ListResource</span></code></a></p>
-<p>PLEASE NOTE that this class contains preview products that are subject
-to change. Use them with caution. If you currently do not have developer
-preview access, please contact <a class="reference external" href="mailto:help%40twilio.com">help<span>@</span>twilio<span>.</span>com</a>.</p>
+<p>PLEASE NOTE that this class contains beta products that are subject to
+change. Use them with caution.</p>
 <dl class="method">
 <dt id="twilio.rest.verify.v2.service.entity.challenge.ChallengeList.create">
-<code class="descname">create</code><span class="sig-paren">(</span><em>factor_sid</em>, <em>expiration_date=&lt;object object&gt;</em>, <em>details_message=&lt;object object&gt;</em>, <em>details_fields=&lt;object object&gt;</em>, <em>hidden_details=&lt;object object&gt;</em>, <em>twilio_sandbox_mode=&lt;object object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/verify/v2/service/entity/challenge.html#ChallengeList.create"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.verify.v2.service.entity.challenge.ChallengeList.create" title="Permalink to this definition">¶</a></dt>
+<code class="descname">create</code><span class="sig-paren">(</span><em>factor_sid</em>, <em>expiration_date=&lt;object object&gt;</em>, <em>details_message=&lt;object object&gt;</em>, <em>details_fields=&lt;object object&gt;</em>, <em>hidden_details=&lt;object object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/verify/v2/service/entity/challenge.html#ChallengeList.create"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.verify.v2.service.entity.challenge.ChallengeList.create" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create the ChallengeInstance</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name"/>
@@ -432,7 +413,6 @@ preview access, please contact <a class="reference external" href="mailto:help%4
 <li><strong>details_message</strong> (<em>unicode</em>) – Shown to the user when the push notification arrives</li>
 <li><strong>details_fields</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – A list of objects that describe the Fields included in the Challenge</li>
 <li><strong>hidden_details</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – Hidden details provided to contextualize the Challenge</li>
-<li><strong>twilio_sandbox_mode</strong> (<em>unicode</em>) – The Twilio-Sandbox-Mode HTTP request header</li>
 </ul>
 </td>
 </tr>
@@ -482,7 +462,7 @@ Request is executed immediately</p>
 </dd></dl>
 <dl class="method">
 <dt id="twilio.rest.verify.v2.service.entity.challenge.ChallengeList.list">
-<code class="descname">list</code><span class="sig-paren">(</span><em>factor_sid=&lt;object object&gt;</em>, <em>status=&lt;object object&gt;</em>, <em>twilio_sandbox_mode=&lt;object object&gt;</em>, <em>limit=None</em>, <em>page_size=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/verify/v2/service/entity/challenge.html#ChallengeList.list"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.verify.v2.service.entity.challenge.ChallengeList.list" title="Permalink to this definition">¶</a></dt>
+<code class="descname">list</code><span class="sig-paren">(</span><em>factor_sid=&lt;object object&gt;</em>, <em>status=&lt;object object&gt;</em>, <em>limit=None</em>, <em>page_size=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/verify/v2/service/entity/challenge.html#ChallengeList.list"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.verify.v2.service.entity.challenge.ChallengeList.list" title="Permalink to this definition">¶</a></dt>
 <dd><p>Lists ChallengeInstance records from the API as a list.
 Unlike stream(), this operation is eager and will load <cite>limit</cite> records into
 memory before returning.</p>
@@ -493,7 +473,6 @@ memory before returning.</p>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>factor_sid</strong> (<em>unicode</em>) – Factor Sid.</li>
 <li><strong>status</strong> (<a class="reference internal" href="#twilio.rest.verify.v2.service.entity.challenge.ChallengeInstance.ChallengeStatuses" title="twilio.rest.verify.v2.service.entity.challenge.ChallengeInstance.ChallengeStatuses"><em>ChallengeInstance.ChallengeStatuses</em></a>) – The Status of theChallenges to fetch</li>
-<li><strong>twilio_sandbox_mode</strong> (<em>unicode</em>) – The Twilio-Sandbox-Mode HTTP request header</li>
 <li><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – Upper limit for the number of records to return. list() guarantees
 never to return more than limit.  Default is no limit</li>
 <li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – Number of records to fetch per request, when not set will use
@@ -514,7 +493,7 @@ with the most efficient page size, i.e. min(limit, 1000)</li>
 </dd></dl>
 <dl class="method">
 <dt id="twilio.rest.verify.v2.service.entity.challenge.ChallengeList.page">
-<code class="descname">page</code><span class="sig-paren">(</span><em>factor_sid=&lt;object object&gt;</em>, <em>status=&lt;object object&gt;</em>, <em>twilio_sandbox_mode=&lt;object object&gt;</em>, <em>page_token=&lt;object object&gt;</em>, <em>page_number=&lt;object object&gt;</em>, <em>page_size=&lt;object object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/verify/v2/service/entity/challenge.html#ChallengeList.page"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.verify.v2.service.entity.challenge.ChallengeList.page" title="Permalink to this definition">¶</a></dt>
+<code class="descname">page</code><span class="sig-paren">(</span><em>factor_sid=&lt;object object&gt;</em>, <em>status=&lt;object object&gt;</em>, <em>page_token=&lt;object object&gt;</em>, <em>page_number=&lt;object object&gt;</em>, <em>page_size=&lt;object object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/verify/v2/service/entity/challenge.html#ChallengeList.page"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.verify.v2.service.entity.challenge.ChallengeList.page" title="Permalink to this definition">¶</a></dt>
 <dd><p>Retrieve a single page of ChallengeInstance records from the API.
 Request is executed immediately</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -524,7 +503,6 @@ Request is executed immediately</p>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>factor_sid</strong> (<em>unicode</em>) – Factor Sid.</li>
 <li><strong>status</strong> (<a class="reference internal" href="#twilio.rest.verify.v2.service.entity.challenge.ChallengeInstance.ChallengeStatuses" title="twilio.rest.verify.v2.service.entity.challenge.ChallengeInstance.ChallengeStatuses"><em>ChallengeInstance.ChallengeStatuses</em></a>) – The Status of theChallenges to fetch</li>
-<li><strong>twilio_sandbox_mode</strong> (<em>unicode</em>) – The Twilio-Sandbox-Mode HTTP request header</li>
 <li><strong>page_token</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – PageToken provided by the API</li>
 <li><strong>page_number</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – Page Number, this value is simply for client state</li>
 <li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – Number of records to return, defaults to 50</li>
@@ -542,7 +520,7 @@ Request is executed immediately</p>
 </dd></dl>
 <dl class="method">
 <dt id="twilio.rest.verify.v2.service.entity.challenge.ChallengeList.stream">
-<code class="descname">stream</code><span class="sig-paren">(</span><em>factor_sid=&lt;object object&gt;</em>, <em>status=&lt;object object&gt;</em>, <em>twilio_sandbox_mode=&lt;object object&gt;</em>, <em>limit=None</em>, <em>page_size=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/verify/v2/service/entity/challenge.html#ChallengeList.stream"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.verify.v2.service.entity.challenge.ChallengeList.stream" title="Permalink to this definition">¶</a></dt>
+<code class="descname">stream</code><span class="sig-paren">(</span><em>factor_sid=&lt;object object&gt;</em>, <em>status=&lt;object object&gt;</em>, <em>limit=None</em>, <em>page_size=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/verify/v2/service/entity/challenge.html#ChallengeList.stream"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.verify.v2.service.entity.challenge.ChallengeList.stream" title="Permalink to this definition">¶</a></dt>
 <dd><p>Streams ChallengeInstance records from the API as a generator stream.
 This operation lazily loads records as efficiently as possible until the limit
 is reached.
@@ -554,7 +532,6 @@ The results are returned as a generator, so this operation is memory efficient.<
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>factor_sid</strong> (<em>unicode</em>) – Factor Sid.</li>
 <li><strong>status</strong> (<a class="reference internal" href="#twilio.rest.verify.v2.service.entity.challenge.ChallengeInstance.ChallengeStatuses" title="twilio.rest.verify.v2.service.entity.challenge.ChallengeInstance.ChallengeStatuses"><em>ChallengeInstance.ChallengeStatuses</em></a>) – The Status of theChallenges to fetch</li>
-<li><strong>twilio_sandbox_mode</strong> (<em>unicode</em>) – The Twilio-Sandbox-Mode HTTP request header</li>
 <li><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – Upper limit for the number of records to return. stream()
 guarantees to never return more than limit.  Default is no limit</li>
 <li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – Number of records to fetch per request, when not set will use
@@ -578,9 +555,8 @@ limit with the most efficient page size, i.e. min(limit, 1000)</li>
 <dt id="twilio.rest.verify.v2.service.entity.challenge.ChallengePage">
 <em class="property">class </em><code class="descclassname">twilio.rest.verify.v2.service.entity.challenge.</code><code class="descname">ChallengePage</code><span class="sig-paren">(</span><em>version</em>, <em>response</em>, <em>solution</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/verify/v2/service/entity/challenge.html#ChallengePage"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.verify.v2.service.entity.challenge.ChallengePage" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="twilio.base.html#twilio.base.page.Page" title="twilio.base.page.Page"><code class="xref py py-class docutils literal notranslate"><span class="pre">twilio.base.page.Page</span></code></a></p>
-<p>PLEASE NOTE that this class contains preview products that are subject
-to change. Use them with caution. If you currently do not have developer
-preview access, please contact <a class="reference external" href="mailto:help%40twilio.com">help<span>@</span>twilio<span>.</span>com</a>.</p>
+<p>PLEASE NOTE that this class contains beta products that are subject to
+change. Use them with caution.</p>
 <dl class="method">
 <dt id="twilio.rest.verify.v2.service.entity.challenge.ChallengePage.get_instance">
 <code class="descname">get_instance</code><span class="sig-paren">(</span><em>payload</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/verify/v2/service/entity/challenge.html#ChallengePage.get_instance"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.verify.v2.service.entity.challenge.ChallengePage.get_instance" title="Permalink to this definition">¶</a></dt>
@@ -614,46 +590,41 @@ preview access, please contact <a class="reference external" href="mailto:help%4
 <dt id="twilio.rest.verify.v2.service.entity.factor.FactorContext">
 <em class="property">class </em><code class="descclassname">twilio.rest.verify.v2.service.entity.factor.</code><code class="descname">FactorContext</code><span class="sig-paren">(</span><em>version</em>, <em>service_sid</em>, <em>identity</em>, <em>sid</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/verify/v2/service/entity/factor.html#FactorContext"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.verify.v2.service.entity.factor.FactorContext" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="twilio.base.html#twilio.base.instance_context.InstanceContext" title="twilio.base.instance_context.InstanceContext"><code class="xref py py-class docutils literal notranslate"><span class="pre">twilio.base.instance_context.InstanceContext</span></code></a></p>
-<p>PLEASE NOTE that this class contains preview products that are subject
-to change. Use them with caution. If you currently do not have developer
-preview access, please contact <a class="reference external" href="mailto:help%40twilio.com">help<span>@</span>twilio<span>.</span>com</a>.</p>
+<p>PLEASE NOTE that this class contains beta products that are subject to
+change. Use them with caution.</p>
 <dl class="method">
 <dt id="twilio.rest.verify.v2.service.entity.factor.FactorContext.delete">
-<code class="descname">delete</code><span class="sig-paren">(</span><em>twilio_sandbox_mode=&lt;object object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/verify/v2/service/entity/factor.html#FactorContext.delete"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.verify.v2.service.entity.factor.FactorContext.delete" title="Permalink to this definition">¶</a></dt>
+<code class="descname">delete</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/verify/v2/service/entity/factor.html#FactorContext.delete"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.verify.v2.service.entity.factor.FactorContext.delete" title="Permalink to this definition">¶</a></dt>
 <dd><p>Deletes the FactorInstance</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>twilio_sandbox_mode</strong> (<em>unicode</em>) – The Twilio-Sandbox-Mode HTTP request header</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">True if delete succeeds, False otherwise</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">True if delete succeeds, False otherwise</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)">bool</a></td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)">bool</a></td>
 </tr>
 </tbody>
 </table>
 </dd></dl>
 <dl class="method">
 <dt id="twilio.rest.verify.v2.service.entity.factor.FactorContext.fetch">
-<code class="descname">fetch</code><span class="sig-paren">(</span><em>twilio_sandbox_mode=&lt;object object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/verify/v2/service/entity/factor.html#FactorContext.fetch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.verify.v2.service.entity.factor.FactorContext.fetch" title="Permalink to this definition">¶</a></dt>
+<code class="descname">fetch</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/verify/v2/service/entity/factor.html#FactorContext.fetch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.verify.v2.service.entity.factor.FactorContext.fetch" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fetch the FactorInstance</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>twilio_sandbox_mode</strong> (<em>unicode</em>) – The Twilio-Sandbox-Mode HTTP request header</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The fetched FactorInstance</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The fetched FactorInstance</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#twilio.rest.verify.v2.service.entity.factor.FactorInstance" title="twilio.rest.verify.v2.service.entity.factor.FactorInstance">twilio.rest.verify.v2.service.entity.factor.FactorInstance</a></td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#twilio.rest.verify.v2.service.entity.factor.FactorInstance" title="twilio.rest.verify.v2.service.entity.factor.FactorInstance">twilio.rest.verify.v2.service.entity.factor.FactorInstance</a></td>
 </tr>
 </tbody>
 </table>
 </dd></dl>
 <dl class="method">
 <dt id="twilio.rest.verify.v2.service.entity.factor.FactorContext.update">
-<code class="descname">update</code><span class="sig-paren">(</span><em>auth_payload=&lt;object object&gt;</em>, <em>friendly_name=&lt;object object&gt;</em>, <em>config_notification_token=&lt;object object&gt;</em>, <em>config_sdk_version=&lt;object object&gt;</em>, <em>twilio_sandbox_mode=&lt;object object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/verify/v2/service/entity/factor.html#FactorContext.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.verify.v2.service.entity.factor.FactorContext.update" title="Permalink to this definition">¶</a></dt>
+<code class="descname">update</code><span class="sig-paren">(</span><em>auth_payload=&lt;object object&gt;</em>, <em>friendly_name=&lt;object object&gt;</em>, <em>config_notification_token=&lt;object object&gt;</em>, <em>config_sdk_version=&lt;object object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/verify/v2/service/entity/factor.html#FactorContext.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.verify.v2.service.entity.factor.FactorContext.update" title="Permalink to this definition">¶</a></dt>
 <dd><p>Update the FactorInstance</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name"/>
@@ -664,7 +635,6 @@ preview access, please contact <a class="reference external" href="mailto:help%4
 <li><strong>friendly_name</strong> (<em>unicode</em>) – The friendly name of this Factor</li>
 <li><strong>config_notification_token</strong> (<em>unicode</em>) – For APN, the device token. For FCM the registration token</li>
 <li><strong>config_sdk_version</strong> (<em>unicode</em>) – The Verify Push SDK version used to configure the factor</li>
-<li><strong>twilio_sandbox_mode</strong> (<em>unicode</em>) – The Twilio-Sandbox-Mode HTTP request header</li>
 </ul>
 </td>
 </tr>
@@ -682,9 +652,8 @@ preview access, please contact <a class="reference external" href="mailto:help%4
 <dt id="twilio.rest.verify.v2.service.entity.factor.FactorInstance">
 <em class="property">class </em><code class="descclassname">twilio.rest.verify.v2.service.entity.factor.</code><code class="descname">FactorInstance</code><span class="sig-paren">(</span><em>version</em>, <em>payload</em>, <em>service_sid</em>, <em>identity</em>, <em>sid=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/verify/v2/service/entity/factor.html#FactorInstance"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.verify.v2.service.entity.factor.FactorInstance" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="twilio.base.html#twilio.base.instance_resource.InstanceResource" title="twilio.base.instance_resource.InstanceResource"><code class="xref py py-class docutils literal notranslate"><span class="pre">twilio.base.instance_resource.InstanceResource</span></code></a></p>
-<p>PLEASE NOTE that this class contains preview products that are subject
-to change. Use them with caution. If you currently do not have developer
-preview access, please contact <a class="reference external" href="mailto:help%40twilio.com">help<span>@</span>twilio<span>.</span>com</a>.</p>
+<p>PLEASE NOTE that this class contains beta products that are subject to
+change. Use them with caution.</p>
 <dl class="class">
 <dt id="twilio.rest.verify.v2.service.entity.factor.FactorInstance.FactorStatuses">
 <em class="property">class </em><code class="descname">FactorStatuses</code><a class="reference internal" href="../../../_modules/twilio/rest/verify/v2/service/entity/factor.html#FactorInstance.FactorStatuses"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.verify.v2.service.entity.factor.FactorInstance.FactorStatuses" title="Permalink to this definition">¶</a></dt>
@@ -741,7 +710,7 @@ preview access, please contact <a class="reference external" href="mailto:help%4
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The config</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Configurations for a <cite>factor_type</cite>.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)">dict</a></td>
 </tr>
@@ -778,17 +747,15 @@ preview access, please contact <a class="reference external" href="mailto:help%4
 </dd></dl>
 <dl class="method">
 <dt id="twilio.rest.verify.v2.service.entity.factor.FactorInstance.delete">
-<code class="descname">delete</code><span class="sig-paren">(</span><em>twilio_sandbox_mode=&lt;object object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/verify/v2/service/entity/factor.html#FactorInstance.delete"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.verify.v2.service.entity.factor.FactorInstance.delete" title="Permalink to this definition">¶</a></dt>
+<code class="descname">delete</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/verify/v2/service/entity/factor.html#FactorInstance.delete"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.verify.v2.service.entity.factor.FactorInstance.delete" title="Permalink to this definition">¶</a></dt>
 <dd><p>Deletes the FactorInstance</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>twilio_sandbox_mode</strong> (<em>unicode</em>) – The Twilio-Sandbox-Mode HTTP request header</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">True if delete succeeds, False otherwise</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">True if delete succeeds, False otherwise</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)">bool</a></td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)">bool</a></td>
 </tr>
 </tbody>
 </table>
@@ -823,17 +790,15 @@ preview access, please contact <a class="reference external" href="mailto:help%4
 </dd></dl>
 <dl class="method">
 <dt id="twilio.rest.verify.v2.service.entity.factor.FactorInstance.fetch">
-<code class="descname">fetch</code><span class="sig-paren">(</span><em>twilio_sandbox_mode=&lt;object object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/verify/v2/service/entity/factor.html#FactorInstance.fetch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.verify.v2.service.entity.factor.FactorInstance.fetch" title="Permalink to this definition">¶</a></dt>
+<code class="descname">fetch</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/verify/v2/service/entity/factor.html#FactorInstance.fetch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.verify.v2.service.entity.factor.FactorInstance.fetch" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fetch the FactorInstance</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>twilio_sandbox_mode</strong> (<em>unicode</em>) – The Twilio-Sandbox-Mode HTTP request header</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The fetched FactorInstance</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The fetched FactorInstance</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#twilio.rest.verify.v2.service.entity.factor.FactorInstance" title="twilio.rest.verify.v2.service.entity.factor.FactorInstance">twilio.rest.verify.v2.service.entity.factor.FactorInstance</a></td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#twilio.rest.verify.v2.service.entity.factor.FactorInstance" title="twilio.rest.verify.v2.service.entity.factor.FactorInstance">twilio.rest.verify.v2.service.entity.factor.FactorInstance</a></td>
 </tr>
 </tbody>
 </table>
@@ -910,7 +875,7 @@ preview access, please contact <a class="reference external" href="mailto:help%4
 </dd></dl>
 <dl class="method">
 <dt id="twilio.rest.verify.v2.service.entity.factor.FactorInstance.update">
-<code class="descname">update</code><span class="sig-paren">(</span><em>auth_payload=&lt;object object&gt;</em>, <em>friendly_name=&lt;object object&gt;</em>, <em>config_notification_token=&lt;object object&gt;</em>, <em>config_sdk_version=&lt;object object&gt;</em>, <em>twilio_sandbox_mode=&lt;object object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/verify/v2/service/entity/factor.html#FactorInstance.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.verify.v2.service.entity.factor.FactorInstance.update" title="Permalink to this definition">¶</a></dt>
+<code class="descname">update</code><span class="sig-paren">(</span><em>auth_payload=&lt;object object&gt;</em>, <em>friendly_name=&lt;object object&gt;</em>, <em>config_notification_token=&lt;object object&gt;</em>, <em>config_sdk_version=&lt;object object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/verify/v2/service/entity/factor.html#FactorInstance.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.verify.v2.service.entity.factor.FactorInstance.update" title="Permalink to this definition">¶</a></dt>
 <dd><p>Update the FactorInstance</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name"/>
@@ -921,7 +886,6 @@ preview access, please contact <a class="reference external" href="mailto:help%4
 <li><strong>friendly_name</strong> (<em>unicode</em>) – The friendly name of this Factor</li>
 <li><strong>config_notification_token</strong> (<em>unicode</em>) – For APN, the device token. For FCM the registration token</li>
 <li><strong>config_sdk_version</strong> (<em>unicode</em>) – The Verify Push SDK version used to configure the factor</li>
-<li><strong>twilio_sandbox_mode</strong> (<em>unicode</em>) – The Twilio-Sandbox-Mode HTTP request header</li>
 </ul>
 </td>
 </tr>
@@ -953,12 +917,11 @@ preview access, please contact <a class="reference external" href="mailto:help%4
 <dt id="twilio.rest.verify.v2.service.entity.factor.FactorList">
 <em class="property">class </em><code class="descclassname">twilio.rest.verify.v2.service.entity.factor.</code><code class="descname">FactorList</code><span class="sig-paren">(</span><em>version</em>, <em>service_sid</em>, <em>identity</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/verify/v2/service/entity/factor.html#FactorList"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.verify.v2.service.entity.factor.FactorList" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="twilio.base.html#twilio.base.list_resource.ListResource" title="twilio.base.list_resource.ListResource"><code class="xref py py-class docutils literal notranslate"><span class="pre">twilio.base.list_resource.ListResource</span></code></a></p>
-<p>PLEASE NOTE that this class contains preview products that are subject
-to change. Use them with caution. If you currently do not have developer
-preview access, please contact <a class="reference external" href="mailto:help%40twilio.com">help<span>@</span>twilio<span>.</span>com</a>.</p>
+<p>PLEASE NOTE that this class contains beta products that are subject to
+change. Use them with caution.</p>
 <dl class="method">
 <dt id="twilio.rest.verify.v2.service.entity.factor.FactorList.create">
-<code class="descname">create</code><span class="sig-paren">(</span><em>friendly_name</em>, <em>factor_type</em>, <em>binding_alg=&lt;object object&gt;</em>, <em>binding_public_key=&lt;object object&gt;</em>, <em>config_app_id=&lt;object object&gt;</em>, <em>config_notification_platform=&lt;object object&gt;</em>, <em>config_notification_token=&lt;object object&gt;</em>, <em>config_sdk_version=&lt;object object&gt;</em>, <em>twilio_sandbox_mode=&lt;object object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/verify/v2/service/entity/factor.html#FactorList.create"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.verify.v2.service.entity.factor.FactorList.create" title="Permalink to this definition">¶</a></dt>
+<code class="descname">create</code><span class="sig-paren">(</span><em>friendly_name</em>, <em>factor_type</em>, <em>binding_alg=&lt;object object&gt;</em>, <em>binding_public_key=&lt;object object&gt;</em>, <em>config_app_id=&lt;object object&gt;</em>, <em>config_notification_platform=&lt;object object&gt;</em>, <em>config_notification_token=&lt;object object&gt;</em>, <em>config_sdk_version=&lt;object object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/verify/v2/service/entity/factor.html#FactorList.create"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.verify.v2.service.entity.factor.FactorList.create" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create the FactorInstance</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name"/>
@@ -973,7 +936,6 @@ preview access, please contact <a class="reference external" href="mailto:help%4
 <li><strong>config_notification_platform</strong> (<a class="reference internal" href="#twilio.rest.verify.v2.service.entity.factor.FactorInstance.NotificationPlatforms" title="twilio.rest.verify.v2.service.entity.factor.FactorInstance.NotificationPlatforms"><em>FactorInstance.NotificationPlatforms</em></a>) – The transport technology used to generate the Notification Token</li>
 <li><strong>config_notification_token</strong> (<em>unicode</em>) – For APN, the device token. For FCM the registration token</li>
 <li><strong>config_sdk_version</strong> (<em>unicode</em>) – The Verify Push SDK version used to configure the factor</li>
-<li><strong>twilio_sandbox_mode</strong> (<em>unicode</em>) – The Twilio-Sandbox-Mode HTTP request header</li>
 </ul>
 </td>
 </tr>
@@ -1023,7 +985,7 @@ Request is executed immediately</p>
 </dd></dl>
 <dl class="method">
 <dt id="twilio.rest.verify.v2.service.entity.factor.FactorList.list">
-<code class="descname">list</code><span class="sig-paren">(</span><em>twilio_sandbox_mode=&lt;object object&gt;</em>, <em>limit=None</em>, <em>page_size=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/verify/v2/service/entity/factor.html#FactorList.list"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.verify.v2.service.entity.factor.FactorList.list" title="Permalink to this definition">¶</a></dt>
+<code class="descname">list</code><span class="sig-paren">(</span><em>limit=None</em>, <em>page_size=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/verify/v2/service/entity/factor.html#FactorList.list"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.verify.v2.service.entity.factor.FactorList.list" title="Permalink to this definition">¶</a></dt>
 <dd><p>Lists FactorInstance records from the API as a list.
 Unlike stream(), this operation is eager and will load <cite>limit</cite> records into
 memory before returning.</p>
@@ -1032,7 +994,6 @@ memory before returning.</p>
 <col class="field-body"/>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>twilio_sandbox_mode</strong> (<em>unicode</em>) – The Twilio-Sandbox-Mode HTTP request header</li>
 <li><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – Upper limit for the number of records to return. list() guarantees
 never to return more than limit.  Default is no limit</li>
 <li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – Number of records to fetch per request, when not set will use
@@ -1053,7 +1014,7 @@ with the most efficient page size, i.e. min(limit, 1000)</li>
 </dd></dl>
 <dl class="method">
 <dt id="twilio.rest.verify.v2.service.entity.factor.FactorList.page">
-<code class="descname">page</code><span class="sig-paren">(</span><em>twilio_sandbox_mode=&lt;object object&gt;</em>, <em>page_token=&lt;object object&gt;</em>, <em>page_number=&lt;object object&gt;</em>, <em>page_size=&lt;object object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/verify/v2/service/entity/factor.html#FactorList.page"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.verify.v2.service.entity.factor.FactorList.page" title="Permalink to this definition">¶</a></dt>
+<code class="descname">page</code><span class="sig-paren">(</span><em>page_token=&lt;object object&gt;</em>, <em>page_number=&lt;object object&gt;</em>, <em>page_size=&lt;object object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/verify/v2/service/entity/factor.html#FactorList.page"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.verify.v2.service.entity.factor.FactorList.page" title="Permalink to this definition">¶</a></dt>
 <dd><p>Retrieve a single page of FactorInstance records from the API.
 Request is executed immediately</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -1061,7 +1022,6 @@ Request is executed immediately</p>
 <col class="field-body"/>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>twilio_sandbox_mode</strong> (<em>unicode</em>) – The Twilio-Sandbox-Mode HTTP request header</li>
 <li><strong>page_token</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – PageToken provided by the API</li>
 <li><strong>page_number</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – Page Number, this value is simply for client state</li>
 <li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – Number of records to return, defaults to 50</li>
@@ -1079,7 +1039,7 @@ Request is executed immediately</p>
 </dd></dl>
 <dl class="method">
 <dt id="twilio.rest.verify.v2.service.entity.factor.FactorList.stream">
-<code class="descname">stream</code><span class="sig-paren">(</span><em>twilio_sandbox_mode=&lt;object object&gt;</em>, <em>limit=None</em>, <em>page_size=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/verify/v2/service/entity/factor.html#FactorList.stream"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.verify.v2.service.entity.factor.FactorList.stream" title="Permalink to this definition">¶</a></dt>
+<code class="descname">stream</code><span class="sig-paren">(</span><em>limit=None</em>, <em>page_size=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/verify/v2/service/entity/factor.html#FactorList.stream"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.verify.v2.service.entity.factor.FactorList.stream" title="Permalink to this definition">¶</a></dt>
 <dd><p>Streams FactorInstance records from the API as a generator stream.
 This operation lazily loads records as efficiently as possible until the limit
 is reached.
@@ -1089,7 +1049,6 @@ The results are returned as a generator, so this operation is memory efficient.<
 <col class="field-body"/>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>twilio_sandbox_mode</strong> (<em>unicode</em>) – The Twilio-Sandbox-Mode HTTP request header</li>
 <li><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – Upper limit for the number of records to return. stream()
 guarantees to never return more than limit.  Default is no limit</li>
 <li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – Number of records to fetch per request, when not set will use
@@ -1113,9 +1072,8 @@ limit with the most efficient page size, i.e. min(limit, 1000)</li>
 <dt id="twilio.rest.verify.v2.service.entity.factor.FactorPage">
 <em class="property">class </em><code class="descclassname">twilio.rest.verify.v2.service.entity.factor.</code><code class="descname">FactorPage</code><span class="sig-paren">(</span><em>version</em>, <em>response</em>, <em>solution</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/verify/v2/service/entity/factor.html#FactorPage"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.verify.v2.service.entity.factor.FactorPage" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="twilio.base.html#twilio.base.page.Page" title="twilio.base.page.Page"><code class="xref py py-class docutils literal notranslate"><span class="pre">twilio.base.page.Page</span></code></a></p>
-<p>PLEASE NOTE that this class contains preview products that are subject
-to change. Use them with caution. If you currently do not have developer
-preview access, please contact <a class="reference external" href="mailto:help%40twilio.com">help<span>@</span>twilio<span>.</span>com</a>.</p>
+<p>PLEASE NOTE that this class contains beta products that are subject to
+change. Use them with caution.</p>
 <dl class="method">
 <dt id="twilio.rest.verify.v2.service.entity.factor.FactorPage.get_instance">
 <code class="descname">get_instance</code><span class="sig-paren">(</span><em>payload</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/verify/v2/service/entity/factor.html#FactorPage.get_instance"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.verify.v2.service.entity.factor.FactorPage.get_instance" title="Permalink to this definition">¶</a></dt>
@@ -1149,9 +1107,8 @@ preview access, please contact <a class="reference external" href="mailto:help%4
 <dt id="twilio.rest.verify.v2.service.entity.EntityContext">
 <em class="property">class </em><code class="descclassname">twilio.rest.verify.v2.service.entity.</code><code class="descname">EntityContext</code><span class="sig-paren">(</span><em>version</em>, <em>service_sid</em>, <em>identity</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/verify/v2/service/entity.html#EntityContext"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.verify.v2.service.entity.EntityContext" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="twilio.base.html#twilio.base.instance_context.InstanceContext" title="twilio.base.instance_context.InstanceContext"><code class="xref py py-class docutils literal notranslate"><span class="pre">twilio.base.instance_context.InstanceContext</span></code></a></p>
-<p>PLEASE NOTE that this class contains preview products that are subject
-to change. Use them with caution. If you currently do not have developer
-preview access, please contact <a class="reference external" href="mailto:help%40twilio.com">help<span>@</span>twilio<span>.</span>com</a>.</p>
+<p>PLEASE NOTE that this class contains beta products that are subject to
+change. Use them with caution.</p>
 <dl class="attribute">
 <dt id="twilio.rest.verify.v2.service.entity.EntityContext.challenges">
 <code class="descname">challenges</code><a class="headerlink" href="#twilio.rest.verify.v2.service.entity.EntityContext.challenges" title="Permalink to this definition">¶</a></dt>
@@ -1169,17 +1126,15 @@ preview access, please contact <a class="reference external" href="mailto:help%4
 </dd></dl>
 <dl class="method">
 <dt id="twilio.rest.verify.v2.service.entity.EntityContext.delete">
-<code class="descname">delete</code><span class="sig-paren">(</span><em>twilio_sandbox_mode=&lt;object object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/verify/v2/service/entity.html#EntityContext.delete"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.verify.v2.service.entity.EntityContext.delete" title="Permalink to this definition">¶</a></dt>
+<code class="descname">delete</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/verify/v2/service/entity.html#EntityContext.delete"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.verify.v2.service.entity.EntityContext.delete" title="Permalink to this definition">¶</a></dt>
 <dd><p>Deletes the EntityInstance</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>twilio_sandbox_mode</strong> (<em>unicode</em>) – The Twilio-Sandbox-Mode HTTP request header</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">True if delete succeeds, False otherwise</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">True if delete succeeds, False otherwise</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)">bool</a></td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)">bool</a></td>
 </tr>
 </tbody>
 </table>
@@ -1201,17 +1156,15 @@ preview access, please contact <a class="reference external" href="mailto:help%4
 </dd></dl>
 <dl class="method">
 <dt id="twilio.rest.verify.v2.service.entity.EntityContext.fetch">
-<code class="descname">fetch</code><span class="sig-paren">(</span><em>twilio_sandbox_mode=&lt;object object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/verify/v2/service/entity.html#EntityContext.fetch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.verify.v2.service.entity.EntityContext.fetch" title="Permalink to this definition">¶</a></dt>
+<code class="descname">fetch</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/verify/v2/service/entity.html#EntityContext.fetch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.verify.v2.service.entity.EntityContext.fetch" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fetch the EntityInstance</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>twilio_sandbox_mode</strong> (<em>unicode</em>) – The Twilio-Sandbox-Mode HTTP request header</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The fetched EntityInstance</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The fetched EntityInstance</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#twilio.rest.verify.v2.service.entity.EntityInstance" title="twilio.rest.verify.v2.service.entity.EntityInstance">twilio.rest.verify.v2.service.entity.EntityInstance</a></td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#twilio.rest.verify.v2.service.entity.EntityInstance" title="twilio.rest.verify.v2.service.entity.EntityInstance">twilio.rest.verify.v2.service.entity.EntityInstance</a></td>
 </tr>
 </tbody>
 </table>
@@ -1221,9 +1174,8 @@ preview access, please contact <a class="reference external" href="mailto:help%4
 <dt id="twilio.rest.verify.v2.service.entity.EntityInstance">
 <em class="property">class </em><code class="descclassname">twilio.rest.verify.v2.service.entity.</code><code class="descname">EntityInstance</code><span class="sig-paren">(</span><em>version</em>, <em>payload</em>, <em>service_sid</em>, <em>identity=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/verify/v2/service/entity.html#EntityInstance"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.verify.v2.service.entity.EntityInstance" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="twilio.base.html#twilio.base.instance_resource.InstanceResource" title="twilio.base.instance_resource.InstanceResource"><code class="xref py py-class docutils literal notranslate"><span class="pre">twilio.base.instance_resource.InstanceResource</span></code></a></p>
-<p>PLEASE NOTE that this class contains preview products that are subject
-to change. Use them with caution. If you currently do not have developer
-preview access, please contact <a class="reference external" href="mailto:help%40twilio.com">help<span>@</span>twilio<span>.</span>com</a>.</p>
+<p>PLEASE NOTE that this class contains beta products that are subject to
+change. Use them with caution.</p>
 <dl class="attribute">
 <dt id="twilio.rest.verify.v2.service.entity.EntityInstance.account_sid">
 <code class="descname">account_sid</code><a class="headerlink" href="#twilio.rest.verify.v2.service.entity.EntityInstance.account_sid" title="Permalink to this definition">¶</a></dt>
@@ -1283,17 +1235,15 @@ preview access, please contact <a class="reference external" href="mailto:help%4
 </dd></dl>
 <dl class="method">
 <dt id="twilio.rest.verify.v2.service.entity.EntityInstance.delete">
-<code class="descname">delete</code><span class="sig-paren">(</span><em>twilio_sandbox_mode=&lt;object object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/verify/v2/service/entity.html#EntityInstance.delete"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.verify.v2.service.entity.EntityInstance.delete" title="Permalink to this definition">¶</a></dt>
+<code class="descname">delete</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/verify/v2/service/entity.html#EntityInstance.delete"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.verify.v2.service.entity.EntityInstance.delete" title="Permalink to this definition">¶</a></dt>
 <dd><p>Deletes the EntityInstance</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>twilio_sandbox_mode</strong> (<em>unicode</em>) – The Twilio-Sandbox-Mode HTTP request header</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">True if delete succeeds, False otherwise</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">True if delete succeeds, False otherwise</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)">bool</a></td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)">bool</a></td>
 </tr>
 </tbody>
 </table>
@@ -1315,17 +1265,15 @@ preview access, please contact <a class="reference external" href="mailto:help%4
 </dd></dl>
 <dl class="method">
 <dt id="twilio.rest.verify.v2.service.entity.EntityInstance.fetch">
-<code class="descname">fetch</code><span class="sig-paren">(</span><em>twilio_sandbox_mode=&lt;object object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/verify/v2/service/entity.html#EntityInstance.fetch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.verify.v2.service.entity.EntityInstance.fetch" title="Permalink to this definition">¶</a></dt>
+<code class="descname">fetch</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/verify/v2/service/entity.html#EntityInstance.fetch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.verify.v2.service.entity.EntityInstance.fetch" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fetch the EntityInstance</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>twilio_sandbox_mode</strong> (<em>unicode</em>) – The Twilio-Sandbox-Mode HTTP request header</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The fetched EntityInstance</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The fetched EntityInstance</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#twilio.rest.verify.v2.service.entity.EntityInstance" title="twilio.rest.verify.v2.service.entity.EntityInstance">twilio.rest.verify.v2.service.entity.EntityInstance</a></td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#twilio.rest.verify.v2.service.entity.EntityInstance" title="twilio.rest.verify.v2.service.entity.EntityInstance">twilio.rest.verify.v2.service.entity.EntityInstance</a></td>
 </tr>
 </tbody>
 </table>
@@ -1405,28 +1353,21 @@ preview access, please contact <a class="reference external" href="mailto:help%4
 <dt id="twilio.rest.verify.v2.service.entity.EntityList">
 <em class="property">class </em><code class="descclassname">twilio.rest.verify.v2.service.entity.</code><code class="descname">EntityList</code><span class="sig-paren">(</span><em>version</em>, <em>service_sid</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/verify/v2/service/entity.html#EntityList"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.verify.v2.service.entity.EntityList" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="twilio.base.html#twilio.base.list_resource.ListResource" title="twilio.base.list_resource.ListResource"><code class="xref py py-class docutils literal notranslate"><span class="pre">twilio.base.list_resource.ListResource</span></code></a></p>
-<p>PLEASE NOTE that this class contains preview products that are subject
-to change. Use them with caution. If you currently do not have developer
-preview access, please contact <a class="reference external" href="mailto:help%40twilio.com">help<span>@</span>twilio<span>.</span>com</a>.</p>
+<p>PLEASE NOTE that this class contains beta products that are subject to
+change. Use them with caution.</p>
 <dl class="method">
 <dt id="twilio.rest.verify.v2.service.entity.EntityList.create">
-<code class="descname">create</code><span class="sig-paren">(</span><em>identity</em>, <em>twilio_sandbox_mode=&lt;object object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/verify/v2/service/entity.html#EntityList.create"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.verify.v2.service.entity.EntityList.create" title="Permalink to this definition">¶</a></dt>
+<code class="descname">create</code><span class="sig-paren">(</span><em>identity</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/verify/v2/service/entity.html#EntityList.create"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.verify.v2.service.entity.EntityList.create" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create the EntityInstance</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>identity</strong> (<em>unicode</em>) – Unique external identifier of the Entity</li>
-<li><strong>twilio_sandbox_mode</strong> (<em>unicode</em>) – The Twilio-Sandbox-Mode HTTP request header</li>
-</ul>
-</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>identity</strong> (<em>unicode</em>) – Unique external identifier of the Entity</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The created EntityInstance</p>
-</td>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The created EntityInstance</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#twilio.rest.verify.v2.service.entity.EntityInstance" title="twilio.rest.verify.v2.service.entity.EntityInstance">twilio.rest.verify.v2.service.entity.EntityInstance</a></p>
-</td>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#twilio.rest.verify.v2.service.entity.EntityInstance" title="twilio.rest.verify.v2.service.entity.EntityInstance">twilio.rest.verify.v2.service.entity.EntityInstance</a></td>
 </tr>
 </tbody>
 </table>
@@ -1468,7 +1409,7 @@ Request is executed immediately</p>
 </dd></dl>
 <dl class="method">
 <dt id="twilio.rest.verify.v2.service.entity.EntityList.list">
-<code class="descname">list</code><span class="sig-paren">(</span><em>twilio_sandbox_mode=&lt;object object&gt;</em>, <em>limit=None</em>, <em>page_size=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/verify/v2/service/entity.html#EntityList.list"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.verify.v2.service.entity.EntityList.list" title="Permalink to this definition">¶</a></dt>
+<code class="descname">list</code><span class="sig-paren">(</span><em>limit=None</em>, <em>page_size=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/verify/v2/service/entity.html#EntityList.list"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.verify.v2.service.entity.EntityList.list" title="Permalink to this definition">¶</a></dt>
 <dd><p>Lists EntityInstance records from the API as a list.
 Unlike stream(), this operation is eager and will load <cite>limit</cite> records into
 memory before returning.</p>
@@ -1477,7 +1418,6 @@ memory before returning.</p>
 <col class="field-body"/>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>twilio_sandbox_mode</strong> (<em>unicode</em>) – The Twilio-Sandbox-Mode HTTP request header</li>
 <li><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – Upper limit for the number of records to return. list() guarantees
 never to return more than limit.  Default is no limit</li>
 <li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – Number of records to fetch per request, when not set will use
@@ -1498,7 +1438,7 @@ with the most efficient page size, i.e. min(limit, 1000)</li>
 </dd></dl>
 <dl class="method">
 <dt id="twilio.rest.verify.v2.service.entity.EntityList.page">
-<code class="descname">page</code><span class="sig-paren">(</span><em>twilio_sandbox_mode=&lt;object object&gt;</em>, <em>page_token=&lt;object object&gt;</em>, <em>page_number=&lt;object object&gt;</em>, <em>page_size=&lt;object object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/verify/v2/service/entity.html#EntityList.page"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.verify.v2.service.entity.EntityList.page" title="Permalink to this definition">¶</a></dt>
+<code class="descname">page</code><span class="sig-paren">(</span><em>page_token=&lt;object object&gt;</em>, <em>page_number=&lt;object object&gt;</em>, <em>page_size=&lt;object object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/verify/v2/service/entity.html#EntityList.page"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.verify.v2.service.entity.EntityList.page" title="Permalink to this definition">¶</a></dt>
 <dd><p>Retrieve a single page of EntityInstance records from the API.
 Request is executed immediately</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -1506,7 +1446,6 @@ Request is executed immediately</p>
 <col class="field-body"/>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>twilio_sandbox_mode</strong> (<em>unicode</em>) – The Twilio-Sandbox-Mode HTTP request header</li>
 <li><strong>page_token</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – PageToken provided by the API</li>
 <li><strong>page_number</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – Page Number, this value is simply for client state</li>
 <li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – Number of records to return, defaults to 50</li>
@@ -1524,7 +1463,7 @@ Request is executed immediately</p>
 </dd></dl>
 <dl class="method">
 <dt id="twilio.rest.verify.v2.service.entity.EntityList.stream">
-<code class="descname">stream</code><span class="sig-paren">(</span><em>twilio_sandbox_mode=&lt;object object&gt;</em>, <em>limit=None</em>, <em>page_size=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/verify/v2/service/entity.html#EntityList.stream"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.verify.v2.service.entity.EntityList.stream" title="Permalink to this definition">¶</a></dt>
+<code class="descname">stream</code><span class="sig-paren">(</span><em>limit=None</em>, <em>page_size=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/verify/v2/service/entity.html#EntityList.stream"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.verify.v2.service.entity.EntityList.stream" title="Permalink to this definition">¶</a></dt>
 <dd><p>Streams EntityInstance records from the API as a generator stream.
 This operation lazily loads records as efficiently as possible until the limit
 is reached.
@@ -1534,7 +1473,6 @@ The results are returned as a generator, so this operation is memory efficient.<
 <col class="field-body"/>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>twilio_sandbox_mode</strong> (<em>unicode</em>) – The Twilio-Sandbox-Mode HTTP request header</li>
 <li><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – Upper limit for the number of records to return. stream()
 guarantees to never return more than limit.  Default is no limit</li>
 <li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – Number of records to fetch per request, when not set will use
@@ -1558,9 +1496,8 @@ limit with the most efficient page size, i.e. min(limit, 1000)</li>
 <dt id="twilio.rest.verify.v2.service.entity.EntityPage">
 <em class="property">class </em><code class="descclassname">twilio.rest.verify.v2.service.entity.</code><code class="descname">EntityPage</code><span class="sig-paren">(</span><em>version</em>, <em>response</em>, <em>solution</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/verify/v2/service/entity.html#EntityPage"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.verify.v2.service.entity.EntityPage" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="twilio.base.html#twilio.base.page.Page" title="twilio.base.page.Page"><code class="xref py py-class docutils literal notranslate"><span class="pre">twilio.base.page.Page</span></code></a></p>
-<p>PLEASE NOTE that this class contains preview products that are subject
-to change. Use them with caution. If you currently do not have developer
-preview access, please contact <a class="reference external" href="mailto:help%40twilio.com">help<span>@</span>twilio<span>.</span>com</a>.</p>
+<p>PLEASE NOTE that this class contains beta products that are subject to
+change. Use them with caution.</p>
 <dl class="method">
 <dt id="twilio.rest.verify.v2.service.entity.EntityPage.get_instance">
 <code class="descname">get_instance</code><span class="sig-paren">(</span><em>payload</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/verify/v2/service/entity.html#EntityPage.get_instance"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.verify.v2.service.entity.EntityPage.get_instance" title="Permalink to this definition">¶</a></dt>
