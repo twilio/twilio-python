@@ -43,6 +43,13 @@ class Insights(Domain):
         """
         return self.v1.calls
 
+    @property
+    def rooms(self):
+        """
+        :rtype: twilio.rest.insights.v1.room.RoomList
+        """
+        return self.v1.rooms
+
     def __repr__(self):
         """
         Provide a friendly representation

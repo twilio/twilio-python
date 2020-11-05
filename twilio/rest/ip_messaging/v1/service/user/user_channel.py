@@ -20,11 +20,11 @@ class UserChannelList(ListResource):
         Initialize the UserChannelList
 
         :param Version version: Version that contains the resource
-        :param service_sid: The SID of the Service that the resource is associated with
-        :param user_sid: The unique string that identifies the resource
+        :param service_sid: The service_sid
+        :param user_sid: The sid
 
-        :returns: twilio.rest.chat.v1.service.user.user_channel.UserChannelList
-        :rtype: twilio.rest.chat.v1.service.user.user_channel.UserChannelList
+        :returns: twilio.rest.ip_messaging.v1.service.user.user_channel.UserChannelList
+        :rtype: twilio.rest.ip_messaging.v1.service.user.user_channel.UserChannelList
         """
         super(UserChannelList, self).__init__(version)
 
@@ -47,7 +47,7 @@ class UserChannelList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.chat.v1.service.user.user_channel.UserChannelInstance]
+        :rtype: list[twilio.rest.ip_messaging.v1.service.user.user_channel.UserChannelInstance]
         """
         limits = self._version.read_limits(limit, page_size)
 
@@ -69,7 +69,7 @@ class UserChannelList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.chat.v1.service.user.user_channel.UserChannelInstance]
+        :rtype: list[twilio.rest.ip_messaging.v1.service.user.user_channel.UserChannelInstance]
         """
         return list(self.stream(limit=limit, page_size=page_size, ))
 
@@ -84,7 +84,7 @@ class UserChannelList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of UserChannelInstance
-        :rtype: twilio.rest.chat.v1.service.user.user_channel.UserChannelPage
+        :rtype: twilio.rest.ip_messaging.v1.service.user.user_channel.UserChannelPage
         """
         data = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
 
@@ -100,7 +100,7 @@ class UserChannelList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of UserChannelInstance
-        :rtype: twilio.rest.chat.v1.service.user.user_channel.UserChannelPage
+        :rtype: twilio.rest.ip_messaging.v1.service.user.user_channel.UserChannelPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -127,11 +127,11 @@ class UserChannelPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param service_sid: The SID of the Service that the resource is associated with
-        :param user_sid: The unique string that identifies the resource
+        :param service_sid: The service_sid
+        :param user_sid: The sid
 
-        :returns: twilio.rest.chat.v1.service.user.user_channel.UserChannelPage
-        :rtype: twilio.rest.chat.v1.service.user.user_channel.UserChannelPage
+        :returns: twilio.rest.ip_messaging.v1.service.user.user_channel.UserChannelPage
+        :rtype: twilio.rest.ip_messaging.v1.service.user.user_channel.UserChannelPage
         """
         super(UserChannelPage, self).__init__(version, response)
 
@@ -144,8 +144,8 @@ class UserChannelPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.chat.v1.service.user.user_channel.UserChannelInstance
-        :rtype: twilio.rest.chat.v1.service.user.user_channel.UserChannelInstance
+        :returns: twilio.rest.ip_messaging.v1.service.user.user_channel.UserChannelInstance
+        :rtype: twilio.rest.ip_messaging.v1.service.user.user_channel.UserChannelInstance
         """
         return UserChannelInstance(
             self._version,
@@ -175,8 +175,8 @@ class UserChannelInstance(InstanceResource):
         """
         Initialize the UserChannelInstance
 
-        :returns: twilio.rest.chat.v1.service.user.user_channel.UserChannelInstance
-        :rtype: twilio.rest.chat.v1.service.user.user_channel.UserChannelInstance
+        :returns: twilio.rest.ip_messaging.v1.service.user.user_channel.UserChannelInstance
+        :rtype: twilio.rest.ip_messaging.v1.service.user.user_channel.UserChannelInstance
         """
         super(UserChannelInstance, self).__init__(version)
 
@@ -199,7 +199,7 @@ class UserChannelInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The SID of the Account that created the resource
+        :returns: The account_sid
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -207,7 +207,7 @@ class UserChannelInstance(InstanceResource):
     @property
     def service_sid(self):
         """
-        :returns: The SID of the Service that the resource is associated with
+        :returns: The service_sid
         :rtype: unicode
         """
         return self._properties['service_sid']
@@ -215,7 +215,7 @@ class UserChannelInstance(InstanceResource):
     @property
     def channel_sid(self):
         """
-        :returns: The SID of the Channel the resource belongs to
+        :returns: The channel_sid
         :rtype: unicode
         """
         return self._properties['channel_sid']
@@ -223,7 +223,7 @@ class UserChannelInstance(InstanceResource):
     @property
     def member_sid(self):
         """
-        :returns: The SID of the User as a Member in the Channel
+        :returns: The member_sid
         :rtype: unicode
         """
         return self._properties['member_sid']
@@ -231,7 +231,7 @@ class UserChannelInstance(InstanceResource):
     @property
     def status(self):
         """
-        :returns: The status of the User on the Channel
+        :returns: The status
         :rtype: UserChannelInstance.ChannelStatus
         """
         return self._properties['status']
@@ -239,7 +239,7 @@ class UserChannelInstance(InstanceResource):
     @property
     def last_consumed_message_index(self):
         """
-        :returns: The index of the last Message in the Channel the Member has read
+        :returns: The last_consumed_message_index
         :rtype: unicode
         """
         return self._properties['last_consumed_message_index']
@@ -247,7 +247,7 @@ class UserChannelInstance(InstanceResource):
     @property
     def unread_messages_count(self):
         """
-        :returns: The number of unread Messages in the Channel for the User
+        :returns: The unread_messages_count
         :rtype: unicode
         """
         return self._properties['unread_messages_count']
@@ -255,7 +255,7 @@ class UserChannelInstance(InstanceResource):
     @property
     def links(self):
         """
-        :returns: Absolute URLs to access the Members, Messages , Invites and, if it exists, the last Message for the Channel
+        :returns: The links
         :rtype: unicode
         """
         return self._properties['links']

@@ -22,8 +22,8 @@ class CredentialList(ListResource):
 
         :param Version version: Version that contains the resource
 
-        :returns: twilio.rest.chat.v1.credential.CredentialList
-        :rtype: twilio.rest.chat.v1.credential.CredentialList
+        :returns: twilio.rest.ip_messaging.v1.credential.CredentialList
+        :rtype: twilio.rest.ip_messaging.v1.credential.CredentialList
         """
         super(CredentialList, self).__init__(version)
 
@@ -46,7 +46,7 @@ class CredentialList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.chat.v1.credential.CredentialInstance]
+        :rtype: list[twilio.rest.ip_messaging.v1.credential.CredentialInstance]
         """
         limits = self._version.read_limits(limit, page_size)
 
@@ -68,7 +68,7 @@ class CredentialList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.chat.v1.credential.CredentialInstance]
+        :rtype: list[twilio.rest.ip_messaging.v1.credential.CredentialInstance]
         """
         return list(self.stream(limit=limit, page_size=page_size, ))
 
@@ -83,7 +83,7 @@ class CredentialList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of CredentialInstance
-        :rtype: twilio.rest.chat.v1.credential.CredentialPage
+        :rtype: twilio.rest.ip_messaging.v1.credential.CredentialPage
         """
         data = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
 
@@ -99,7 +99,7 @@ class CredentialList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of CredentialInstance
-        :rtype: twilio.rest.chat.v1.credential.CredentialPage
+        :rtype: twilio.rest.ip_messaging.v1.credential.CredentialPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -114,16 +114,16 @@ class CredentialList(ListResource):
         """
         Create the CredentialInstance
 
-        :param CredentialInstance.PushService type: The type of push-notification service the credential is for
-        :param unicode friendly_name: A string to describe the resource
-        :param unicode certificate: [APN only] The URL encoded representation of the certificate
-        :param unicode private_key: [APN only] The URL encoded representation of the private key
-        :param bool sandbox: [APN only] Whether to send the credential to sandbox APNs
-        :param unicode api_key: [GCM only] The API key for the project that was obtained from the Google Developer console for your GCM Service application credential
-        :param unicode secret: [FCM only] The Server key of your project from Firebase console
+        :param CredentialInstance.PushService type: The type
+        :param unicode friendly_name: The friendly_name
+        :param unicode certificate: The certificate
+        :param unicode private_key: The private_key
+        :param bool sandbox: The sandbox
+        :param unicode api_key: The api_key
+        :param unicode secret: The secret
 
         :returns: The created CredentialInstance
-        :rtype: twilio.rest.chat.v1.credential.CredentialInstance
+        :rtype: twilio.rest.ip_messaging.v1.credential.CredentialInstance
         """
         data = values.of({
             'Type': type,
@@ -143,10 +143,10 @@ class CredentialList(ListResource):
         """
         Constructs a CredentialContext
 
-        :param sid: The unique string that identifies the resource
+        :param sid: The sid
 
-        :returns: twilio.rest.chat.v1.credential.CredentialContext
-        :rtype: twilio.rest.chat.v1.credential.CredentialContext
+        :returns: twilio.rest.ip_messaging.v1.credential.CredentialContext
+        :rtype: twilio.rest.ip_messaging.v1.credential.CredentialContext
         """
         return CredentialContext(self._version, sid=sid, )
 
@@ -154,10 +154,10 @@ class CredentialList(ListResource):
         """
         Constructs a CredentialContext
 
-        :param sid: The unique string that identifies the resource
+        :param sid: The sid
 
-        :returns: twilio.rest.chat.v1.credential.CredentialContext
-        :rtype: twilio.rest.chat.v1.credential.CredentialContext
+        :returns: twilio.rest.ip_messaging.v1.credential.CredentialContext
+        :rtype: twilio.rest.ip_messaging.v1.credential.CredentialContext
         """
         return CredentialContext(self._version, sid=sid, )
 
@@ -180,8 +180,8 @@ class CredentialPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.chat.v1.credential.CredentialPage
-        :rtype: twilio.rest.chat.v1.credential.CredentialPage
+        :returns: twilio.rest.ip_messaging.v1.credential.CredentialPage
+        :rtype: twilio.rest.ip_messaging.v1.credential.CredentialPage
         """
         super(CredentialPage, self).__init__(version, response)
 
@@ -194,8 +194,8 @@ class CredentialPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.chat.v1.credential.CredentialInstance
-        :rtype: twilio.rest.chat.v1.credential.CredentialInstance
+        :returns: twilio.rest.ip_messaging.v1.credential.CredentialInstance
+        :rtype: twilio.rest.ip_messaging.v1.credential.CredentialInstance
         """
         return CredentialInstance(self._version, payload, )
 
@@ -216,10 +216,10 @@ class CredentialContext(InstanceContext):
         Initialize the CredentialContext
 
         :param Version version: Version that contains the resource
-        :param sid: The unique string that identifies the resource
+        :param sid: The sid
 
-        :returns: twilio.rest.chat.v1.credential.CredentialContext
-        :rtype: twilio.rest.chat.v1.credential.CredentialContext
+        :returns: twilio.rest.ip_messaging.v1.credential.CredentialContext
+        :rtype: twilio.rest.ip_messaging.v1.credential.CredentialContext
         """
         super(CredentialContext, self).__init__(version)
 
@@ -232,7 +232,7 @@ class CredentialContext(InstanceContext):
         Fetch the CredentialInstance
 
         :returns: The fetched CredentialInstance
-        :rtype: twilio.rest.chat.v1.credential.CredentialInstance
+        :rtype: twilio.rest.ip_messaging.v1.credential.CredentialInstance
         """
         payload = self._version.fetch(method='GET', uri=self._uri, )
 
@@ -244,15 +244,15 @@ class CredentialContext(InstanceContext):
         """
         Update the CredentialInstance
 
-        :param unicode friendly_name: A string to describe the resource
-        :param unicode certificate: [APN only] The URL encoded representation of the certificate
-        :param unicode private_key: [APN only] The URL encoded representation of the private key
-        :param bool sandbox: [APN only] Whether to send the credential to sandbox APNs
-        :param unicode api_key: [GCM only] The API key for the project that was obtained from the Google Developer console for your GCM Service application credential
-        :param unicode secret: [FCM only] The Server key of your project from Firebase console
+        :param unicode friendly_name: The friendly_name
+        :param unicode certificate: The certificate
+        :param unicode private_key: The private_key
+        :param bool sandbox: The sandbox
+        :param unicode api_key: The api_key
+        :param unicode secret: The secret
 
         :returns: The updated CredentialInstance
-        :rtype: twilio.rest.chat.v1.credential.CredentialInstance
+        :rtype: twilio.rest.ip_messaging.v1.credential.CredentialInstance
         """
         data = values.of({
             'FriendlyName': friendly_name,
@@ -298,8 +298,8 @@ class CredentialInstance(InstanceResource):
         """
         Initialize the CredentialInstance
 
-        :returns: twilio.rest.chat.v1.credential.CredentialInstance
-        :rtype: twilio.rest.chat.v1.credential.CredentialInstance
+        :returns: twilio.rest.ip_messaging.v1.credential.CredentialInstance
+        :rtype: twilio.rest.ip_messaging.v1.credential.CredentialInstance
         """
         super(CredentialInstance, self).__init__(version)
 
@@ -326,7 +326,7 @@ class CredentialInstance(InstanceResource):
         performing various actions.  All instance actions are proxied to the context
 
         :returns: CredentialContext for this CredentialInstance
-        :rtype: twilio.rest.chat.v1.credential.CredentialContext
+        :rtype: twilio.rest.ip_messaging.v1.credential.CredentialContext
         """
         if self._context is None:
             self._context = CredentialContext(self._version, sid=self._solution['sid'], )
@@ -335,7 +335,7 @@ class CredentialInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: The unique string that identifies the resource
+        :returns: The sid
         :rtype: unicode
         """
         return self._properties['sid']
@@ -343,7 +343,7 @@ class CredentialInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The SID of the Account that created the resource
+        :returns: The account_sid
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -351,7 +351,7 @@ class CredentialInstance(InstanceResource):
     @property
     def friendly_name(self):
         """
-        :returns: The string that you assigned to describe the resource
+        :returns: The friendly_name
         :rtype: unicode
         """
         return self._properties['friendly_name']
@@ -359,7 +359,7 @@ class CredentialInstance(InstanceResource):
     @property
     def type(self):
         """
-        :returns: The type of push-notification service the credential is for
+        :returns: The type
         :rtype: CredentialInstance.PushService
         """
         return self._properties['type']
@@ -367,7 +367,7 @@ class CredentialInstance(InstanceResource):
     @property
     def sandbox(self):
         """
-        :returns: [APN only] Whether to send the credential to sandbox APNs
+        :returns: The sandbox
         :rtype: unicode
         """
         return self._properties['sandbox']
@@ -375,7 +375,7 @@ class CredentialInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The RFC 2822 date and time in GMT when the resource was created
+        :returns: The date_created
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -383,7 +383,7 @@ class CredentialInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The RFC 2822 date and time in GMT when the resource was last updated
+        :returns: The date_updated
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -391,7 +391,7 @@ class CredentialInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: The absolute URL of the Credential resource
+        :returns: The url
         :rtype: unicode
         """
         return self._properties['url']
@@ -401,7 +401,7 @@ class CredentialInstance(InstanceResource):
         Fetch the CredentialInstance
 
         :returns: The fetched CredentialInstance
-        :rtype: twilio.rest.chat.v1.credential.CredentialInstance
+        :rtype: twilio.rest.ip_messaging.v1.credential.CredentialInstance
         """
         return self._proxy.fetch()
 
@@ -411,15 +411,15 @@ class CredentialInstance(InstanceResource):
         """
         Update the CredentialInstance
 
-        :param unicode friendly_name: A string to describe the resource
-        :param unicode certificate: [APN only] The URL encoded representation of the certificate
-        :param unicode private_key: [APN only] The URL encoded representation of the private key
-        :param bool sandbox: [APN only] Whether to send the credential to sandbox APNs
-        :param unicode api_key: [GCM only] The API key for the project that was obtained from the Google Developer console for your GCM Service application credential
-        :param unicode secret: [FCM only] The Server key of your project from Firebase console
+        :param unicode friendly_name: The friendly_name
+        :param unicode certificate: The certificate
+        :param unicode private_key: The private_key
+        :param bool sandbox: The sandbox
+        :param unicode api_key: The api_key
+        :param unicode secret: The secret
 
         :returns: The updated CredentialInstance
-        :rtype: twilio.rest.chat.v1.credential.CredentialInstance
+        :rtype: twilio.rest.ip_messaging.v1.credential.CredentialInstance
         """
         return self._proxy.update(
             friendly_name=friendly_name,

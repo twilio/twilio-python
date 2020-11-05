@@ -27,8 +27,8 @@ class ServiceList(ListResource):
 
         :param Version version: Version that contains the resource
 
-        :returns: twilio.rest.chat.v2.service.ServiceList
-        :rtype: twilio.rest.chat.v2.service.ServiceList
+        :returns: twilio.rest.ip_messaging.v2.service.ServiceList
+        :rtype: twilio.rest.ip_messaging.v2.service.ServiceList
         """
         super(ServiceList, self).__init__(version)
 
@@ -40,10 +40,10 @@ class ServiceList(ListResource):
         """
         Create the ServiceInstance
 
-        :param unicode friendly_name: A string to describe the resource
+        :param unicode friendly_name: The friendly_name
 
         :returns: The created ServiceInstance
-        :rtype: twilio.rest.chat.v2.service.ServiceInstance
+        :rtype: twilio.rest.ip_messaging.v2.service.ServiceInstance
         """
         data = values.of({'FriendlyName': friendly_name, })
 
@@ -66,7 +66,7 @@ class ServiceList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.chat.v2.service.ServiceInstance]
+        :rtype: list[twilio.rest.ip_messaging.v2.service.ServiceInstance]
         """
         limits = self._version.read_limits(limit, page_size)
 
@@ -88,7 +88,7 @@ class ServiceList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.chat.v2.service.ServiceInstance]
+        :rtype: list[twilio.rest.ip_messaging.v2.service.ServiceInstance]
         """
         return list(self.stream(limit=limit, page_size=page_size, ))
 
@@ -103,7 +103,7 @@ class ServiceList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of ServiceInstance
-        :rtype: twilio.rest.chat.v2.service.ServicePage
+        :rtype: twilio.rest.ip_messaging.v2.service.ServicePage
         """
         data = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
 
@@ -119,7 +119,7 @@ class ServiceList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of ServiceInstance
-        :rtype: twilio.rest.chat.v2.service.ServicePage
+        :rtype: twilio.rest.ip_messaging.v2.service.ServicePage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -132,10 +132,10 @@ class ServiceList(ListResource):
         """
         Constructs a ServiceContext
 
-        :param sid: The SID of the Service resource to fetch
+        :param sid: The sid
 
-        :returns: twilio.rest.chat.v2.service.ServiceContext
-        :rtype: twilio.rest.chat.v2.service.ServiceContext
+        :returns: twilio.rest.ip_messaging.v2.service.ServiceContext
+        :rtype: twilio.rest.ip_messaging.v2.service.ServiceContext
         """
         return ServiceContext(self._version, sid=sid, )
 
@@ -143,10 +143,10 @@ class ServiceList(ListResource):
         """
         Constructs a ServiceContext
 
-        :param sid: The SID of the Service resource to fetch
+        :param sid: The sid
 
-        :returns: twilio.rest.chat.v2.service.ServiceContext
-        :rtype: twilio.rest.chat.v2.service.ServiceContext
+        :returns: twilio.rest.ip_messaging.v2.service.ServiceContext
+        :rtype: twilio.rest.ip_messaging.v2.service.ServiceContext
         """
         return ServiceContext(self._version, sid=sid, )
 
@@ -169,8 +169,8 @@ class ServicePage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.chat.v2.service.ServicePage
-        :rtype: twilio.rest.chat.v2.service.ServicePage
+        :returns: twilio.rest.ip_messaging.v2.service.ServicePage
+        :rtype: twilio.rest.ip_messaging.v2.service.ServicePage
         """
         super(ServicePage, self).__init__(version, response)
 
@@ -183,8 +183,8 @@ class ServicePage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.chat.v2.service.ServiceInstance
-        :rtype: twilio.rest.chat.v2.service.ServiceInstance
+        :returns: twilio.rest.ip_messaging.v2.service.ServiceInstance
+        :rtype: twilio.rest.ip_messaging.v2.service.ServiceInstance
         """
         return ServiceInstance(self._version, payload, )
 
@@ -205,10 +205,10 @@ class ServiceContext(InstanceContext):
         Initialize the ServiceContext
 
         :param Version version: Version that contains the resource
-        :param sid: The SID of the Service resource to fetch
+        :param sid: The sid
 
-        :returns: twilio.rest.chat.v2.service.ServiceContext
-        :rtype: twilio.rest.chat.v2.service.ServiceContext
+        :returns: twilio.rest.ip_messaging.v2.service.ServiceContext
+        :rtype: twilio.rest.ip_messaging.v2.service.ServiceContext
         """
         super(ServiceContext, self).__init__(version)
 
@@ -227,7 +227,7 @@ class ServiceContext(InstanceContext):
         Fetch the ServiceInstance
 
         :returns: The fetched ServiceInstance
-        :rtype: twilio.rest.chat.v2.service.ServiceInstance
+        :rtype: twilio.rest.ip_messaging.v2.service.ServiceInstance
         """
         payload = self._version.fetch(method='GET', uri=self._uri, )
 
@@ -273,40 +273,40 @@ class ServiceContext(InstanceContext):
         """
         Update the ServiceInstance
 
-        :param unicode friendly_name: A string to describe the resource
-        :param unicode default_service_role_sid: The service role assigned to users when they are added to the service
-        :param unicode default_channel_role_sid: The channel role assigned to users when they are added to a channel
-        :param unicode default_channel_creator_role_sid: The channel role assigned to a channel creator when they join a new channel
-        :param bool read_status_enabled: Whether to enable the Message Consumption Horizon feature
-        :param bool reachability_enabled: Whether to enable the Reachability Indicator feature for this Service instance
-        :param unicode typing_indicator_timeout: How long in seconds to wait before assuming the user is no longer typing
-        :param unicode consumption_report_interval: DEPRECATED
-        :param bool notifications_new_message_enabled: Whether to send a notification when a new message is added to a channel
-        :param unicode notifications_new_message_template: The template to use to create the notification text displayed when a new message is added to a channel
-        :param unicode notifications_new_message_sound: The name of the sound to play when a new message is added to a channel
-        :param bool notifications_new_message_badge_count_enabled: Whether the new message badge is enabled
-        :param bool notifications_added_to_channel_enabled: Whether to send a notification when a member is added to a channel
-        :param unicode notifications_added_to_channel_template: The template to use to create the notification text displayed when a member is added to a channel
-        :param unicode notifications_added_to_channel_sound: The name of the sound to play when a member is added to a channel
-        :param bool notifications_removed_from_channel_enabled: Whether to send a notification to a user when they are removed from a channel
-        :param unicode notifications_removed_from_channel_template: The template to use to create the notification text displayed to a user when they are removed
-        :param unicode notifications_removed_from_channel_sound: The name of the sound to play to a user when they are removed from a channel
-        :param bool notifications_invited_to_channel_enabled: Whether to send a notification when a user is invited to a channel
-        :param unicode notifications_invited_to_channel_template: The template to use to create the notification text displayed when a user is invited to a channel
-        :param unicode notifications_invited_to_channel_sound: The name of the sound to play when a user is invited to a channel
-        :param unicode pre_webhook_url: The webhook URL for pre-event webhooks
-        :param unicode post_webhook_url: The URL for post-event webhooks
-        :param unicode webhook_method: The HTTP method  to use for both PRE and POST webhooks
-        :param unicode webhook_filters: The list of webhook events that are enabled for this Service instance
-        :param unicode limits_channel_members: The maximum number of Members that can be added to Channels within this Service
-        :param unicode limits_user_channels: The maximum number of Channels Users can be a Member of within this Service
-        :param unicode media_compatibility_message: The message to send when a media message has no text
-        :param unicode pre_webhook_retry_count: Count of times webhook will be retried in case of timeout or 429/503/504 HTTP responses
-        :param unicode post_webhook_retry_count: The number of times calls to the `post_webhook_url` will be retried
-        :param bool notifications_log_enabled: Whether to log notifications
+        :param unicode friendly_name: The friendly_name
+        :param unicode default_service_role_sid: The default_service_role_sid
+        :param unicode default_channel_role_sid: The default_channel_role_sid
+        :param unicode default_channel_creator_role_sid: The default_channel_creator_role_sid
+        :param bool read_status_enabled: The read_status_enabled
+        :param bool reachability_enabled: The reachability_enabled
+        :param unicode typing_indicator_timeout: The typing_indicator_timeout
+        :param unicode consumption_report_interval: The consumption_report_interval
+        :param bool notifications_new_message_enabled: The notifications.new_message.enabled
+        :param unicode notifications_new_message_template: The notifications.new_message.template
+        :param unicode notifications_new_message_sound: The notifications.new_message.sound
+        :param bool notifications_new_message_badge_count_enabled: The notifications.new_message.badge_count_enabled
+        :param bool notifications_added_to_channel_enabled: The notifications.added_to_channel.enabled
+        :param unicode notifications_added_to_channel_template: The notifications.added_to_channel.template
+        :param unicode notifications_added_to_channel_sound: The notifications.added_to_channel.sound
+        :param bool notifications_removed_from_channel_enabled: The notifications.removed_from_channel.enabled
+        :param unicode notifications_removed_from_channel_template: The notifications.removed_from_channel.template
+        :param unicode notifications_removed_from_channel_sound: The notifications.removed_from_channel.sound
+        :param bool notifications_invited_to_channel_enabled: The notifications.invited_to_channel.enabled
+        :param unicode notifications_invited_to_channel_template: The notifications.invited_to_channel.template
+        :param unicode notifications_invited_to_channel_sound: The notifications.invited_to_channel.sound
+        :param unicode pre_webhook_url: The pre_webhook_url
+        :param unicode post_webhook_url: The post_webhook_url
+        :param unicode webhook_method: The webhook_method
+        :param unicode webhook_filters: The webhook_filters
+        :param unicode limits_channel_members: The limits.channel_members
+        :param unicode limits_user_channels: The limits.user_channels
+        :param unicode media_compatibility_message: The media.compatibility_message
+        :param unicode pre_webhook_retry_count: The pre_webhook_retry_count
+        :param unicode post_webhook_retry_count: The post_webhook_retry_count
+        :param bool notifications_log_enabled: The notifications.log_enabled
 
         :returns: The updated ServiceInstance
-        :rtype: twilio.rest.chat.v2.service.ServiceInstance
+        :rtype: twilio.rest.ip_messaging.v2.service.ServiceInstance
         """
         data = values.of({
             'FriendlyName': friendly_name,
@@ -351,8 +351,8 @@ class ServiceContext(InstanceContext):
         """
         Access the channels
 
-        :returns: twilio.rest.chat.v2.service.channel.ChannelList
-        :rtype: twilio.rest.chat.v2.service.channel.ChannelList
+        :returns: twilio.rest.ip_messaging.v2.service.channel.ChannelList
+        :rtype: twilio.rest.ip_messaging.v2.service.channel.ChannelList
         """
         if self._channels is None:
             self._channels = ChannelList(self._version, service_sid=self._solution['sid'], )
@@ -363,8 +363,8 @@ class ServiceContext(InstanceContext):
         """
         Access the roles
 
-        :returns: twilio.rest.chat.v2.service.role.RoleList
-        :rtype: twilio.rest.chat.v2.service.role.RoleList
+        :returns: twilio.rest.ip_messaging.v2.service.role.RoleList
+        :rtype: twilio.rest.ip_messaging.v2.service.role.RoleList
         """
         if self._roles is None:
             self._roles = RoleList(self._version, service_sid=self._solution['sid'], )
@@ -375,8 +375,8 @@ class ServiceContext(InstanceContext):
         """
         Access the users
 
-        :returns: twilio.rest.chat.v2.service.user.UserList
-        :rtype: twilio.rest.chat.v2.service.user.UserList
+        :returns: twilio.rest.ip_messaging.v2.service.user.UserList
+        :rtype: twilio.rest.ip_messaging.v2.service.user.UserList
         """
         if self._users is None:
             self._users = UserList(self._version, service_sid=self._solution['sid'], )
@@ -387,8 +387,8 @@ class ServiceContext(InstanceContext):
         """
         Access the bindings
 
-        :returns: twilio.rest.chat.v2.service.binding.BindingList
-        :rtype: twilio.rest.chat.v2.service.binding.BindingList
+        :returns: twilio.rest.ip_messaging.v2.service.binding.BindingList
+        :rtype: twilio.rest.ip_messaging.v2.service.binding.BindingList
         """
         if self._bindings is None:
             self._bindings = BindingList(self._version, service_sid=self._solution['sid'], )
@@ -411,8 +411,8 @@ class ServiceInstance(InstanceResource):
         """
         Initialize the ServiceInstance
 
-        :returns: twilio.rest.chat.v2.service.ServiceInstance
-        :rtype: twilio.rest.chat.v2.service.ServiceInstance
+        :returns: twilio.rest.ip_messaging.v2.service.ServiceInstance
+        :rtype: twilio.rest.ip_messaging.v2.service.ServiceInstance
         """
         super(ServiceInstance, self).__init__(version)
 
@@ -454,7 +454,7 @@ class ServiceInstance(InstanceResource):
         performing various actions.  All instance actions are proxied to the context
 
         :returns: ServiceContext for this ServiceInstance
-        :rtype: twilio.rest.chat.v2.service.ServiceContext
+        :rtype: twilio.rest.ip_messaging.v2.service.ServiceContext
         """
         if self._context is None:
             self._context = ServiceContext(self._version, sid=self._solution['sid'], )
@@ -463,7 +463,7 @@ class ServiceInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: The unique string that identifies the resource
+        :returns: The sid
         :rtype: unicode
         """
         return self._properties['sid']
@@ -471,7 +471,7 @@ class ServiceInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The SID of the Account that created the resource
+        :returns: The account_sid
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -479,7 +479,7 @@ class ServiceInstance(InstanceResource):
     @property
     def friendly_name(self):
         """
-        :returns: The string that you assigned to describe the resource
+        :returns: The friendly_name
         :rtype: unicode
         """
         return self._properties['friendly_name']
@@ -487,7 +487,7 @@ class ServiceInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The RFC 2822 date and time in GMT when the resource was created
+        :returns: The date_created
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -495,7 +495,7 @@ class ServiceInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The RFC 2822 date and time in GMT when the resource was last updated
+        :returns: The date_updated
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -503,7 +503,7 @@ class ServiceInstance(InstanceResource):
     @property
     def default_service_role_sid(self):
         """
-        :returns: The service role assigned to users when they are added to the service
+        :returns: The default_service_role_sid
         :rtype: unicode
         """
         return self._properties['default_service_role_sid']
@@ -511,7 +511,7 @@ class ServiceInstance(InstanceResource):
     @property
     def default_channel_role_sid(self):
         """
-        :returns: The channel role assigned to users when they are added to a channel
+        :returns: The default_channel_role_sid
         :rtype: unicode
         """
         return self._properties['default_channel_role_sid']
@@ -519,7 +519,7 @@ class ServiceInstance(InstanceResource):
     @property
     def default_channel_creator_role_sid(self):
         """
-        :returns: The channel role assigned to a channel creator when they join a new channel
+        :returns: The default_channel_creator_role_sid
         :rtype: unicode
         """
         return self._properties['default_channel_creator_role_sid']
@@ -527,7 +527,7 @@ class ServiceInstance(InstanceResource):
     @property
     def read_status_enabled(self):
         """
-        :returns: Whether the Message Consumption Horizon feature is enabled
+        :returns: The read_status_enabled
         :rtype: bool
         """
         return self._properties['read_status_enabled']
@@ -535,7 +535,7 @@ class ServiceInstance(InstanceResource):
     @property
     def reachability_enabled(self):
         """
-        :returns: Whether the Reachability Indicator feature is enabled for this Service instance
+        :returns: The reachability_enabled
         :rtype: bool
         """
         return self._properties['reachability_enabled']
@@ -543,7 +543,7 @@ class ServiceInstance(InstanceResource):
     @property
     def typing_indicator_timeout(self):
         """
-        :returns: How long in seconds to wait before assuming the user is no longer typing
+        :returns: The typing_indicator_timeout
         :rtype: unicode
         """
         return self._properties['typing_indicator_timeout']
@@ -551,7 +551,7 @@ class ServiceInstance(InstanceResource):
     @property
     def consumption_report_interval(self):
         """
-        :returns: DEPRECATED
+        :returns: The consumption_report_interval
         :rtype: unicode
         """
         return self._properties['consumption_report_interval']
@@ -559,7 +559,7 @@ class ServiceInstance(InstanceResource):
     @property
     def limits(self):
         """
-        :returns: An object that describes the limits of the service instance
+        :returns: The limits
         :rtype: dict
         """
         return self._properties['limits']
@@ -567,7 +567,7 @@ class ServiceInstance(InstanceResource):
     @property
     def pre_webhook_url(self):
         """
-        :returns: The webhook URL for pre-event webhooks
+        :returns: The pre_webhook_url
         :rtype: unicode
         """
         return self._properties['pre_webhook_url']
@@ -575,7 +575,7 @@ class ServiceInstance(InstanceResource):
     @property
     def post_webhook_url(self):
         """
-        :returns: The URL for post-event webhooks
+        :returns: The post_webhook_url
         :rtype: unicode
         """
         return self._properties['post_webhook_url']
@@ -583,7 +583,7 @@ class ServiceInstance(InstanceResource):
     @property
     def webhook_method(self):
         """
-        :returns: The HTTP method  to use for both PRE and POST webhooks
+        :returns: The webhook_method
         :rtype: unicode
         """
         return self._properties['webhook_method']
@@ -591,7 +591,7 @@ class ServiceInstance(InstanceResource):
     @property
     def webhook_filters(self):
         """
-        :returns: The list of webhook events that are enabled for this Service instance
+        :returns: The webhook_filters
         :rtype: unicode
         """
         return self._properties['webhook_filters']
@@ -599,7 +599,7 @@ class ServiceInstance(InstanceResource):
     @property
     def pre_webhook_retry_count(self):
         """
-        :returns: Count of times webhook will be retried in case of timeout or 429/503/504 HTTP responses
+        :returns: The pre_webhook_retry_count
         :rtype: unicode
         """
         return self._properties['pre_webhook_retry_count']
@@ -607,7 +607,7 @@ class ServiceInstance(InstanceResource):
     @property
     def post_webhook_retry_count(self):
         """
-        :returns: The number of times calls to the `post_webhook_url` will be retried
+        :returns: The post_webhook_retry_count
         :rtype: unicode
         """
         return self._properties['post_webhook_retry_count']
@@ -615,7 +615,7 @@ class ServiceInstance(InstanceResource):
     @property
     def notifications(self):
         """
-        :returns: The notification configuration for the Service instance
+        :returns: The notifications
         :rtype: dict
         """
         return self._properties['notifications']
@@ -623,7 +623,7 @@ class ServiceInstance(InstanceResource):
     @property
     def media(self):
         """
-        :returns: The properties of the media that the service supports
+        :returns: The media
         :rtype: dict
         """
         return self._properties['media']
@@ -631,7 +631,7 @@ class ServiceInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: The absolute URL of the Service resource
+        :returns: The url
         :rtype: unicode
         """
         return self._properties['url']
@@ -639,7 +639,7 @@ class ServiceInstance(InstanceResource):
     @property
     def links(self):
         """
-        :returns: The absolute URLs of the Service's Channels, Roles, and Users
+        :returns: The links
         :rtype: unicode
         """
         return self._properties['links']
@@ -649,7 +649,7 @@ class ServiceInstance(InstanceResource):
         Fetch the ServiceInstance
 
         :returns: The fetched ServiceInstance
-        :rtype: twilio.rest.chat.v2.service.ServiceInstance
+        :rtype: twilio.rest.ip_messaging.v2.service.ServiceInstance
         """
         return self._proxy.fetch()
 
@@ -693,40 +693,40 @@ class ServiceInstance(InstanceResource):
         """
         Update the ServiceInstance
 
-        :param unicode friendly_name: A string to describe the resource
-        :param unicode default_service_role_sid: The service role assigned to users when they are added to the service
-        :param unicode default_channel_role_sid: The channel role assigned to users when they are added to a channel
-        :param unicode default_channel_creator_role_sid: The channel role assigned to a channel creator when they join a new channel
-        :param bool read_status_enabled: Whether to enable the Message Consumption Horizon feature
-        :param bool reachability_enabled: Whether to enable the Reachability Indicator feature for this Service instance
-        :param unicode typing_indicator_timeout: How long in seconds to wait before assuming the user is no longer typing
-        :param unicode consumption_report_interval: DEPRECATED
-        :param bool notifications_new_message_enabled: Whether to send a notification when a new message is added to a channel
-        :param unicode notifications_new_message_template: The template to use to create the notification text displayed when a new message is added to a channel
-        :param unicode notifications_new_message_sound: The name of the sound to play when a new message is added to a channel
-        :param bool notifications_new_message_badge_count_enabled: Whether the new message badge is enabled
-        :param bool notifications_added_to_channel_enabled: Whether to send a notification when a member is added to a channel
-        :param unicode notifications_added_to_channel_template: The template to use to create the notification text displayed when a member is added to a channel
-        :param unicode notifications_added_to_channel_sound: The name of the sound to play when a member is added to a channel
-        :param bool notifications_removed_from_channel_enabled: Whether to send a notification to a user when they are removed from a channel
-        :param unicode notifications_removed_from_channel_template: The template to use to create the notification text displayed to a user when they are removed
-        :param unicode notifications_removed_from_channel_sound: The name of the sound to play to a user when they are removed from a channel
-        :param bool notifications_invited_to_channel_enabled: Whether to send a notification when a user is invited to a channel
-        :param unicode notifications_invited_to_channel_template: The template to use to create the notification text displayed when a user is invited to a channel
-        :param unicode notifications_invited_to_channel_sound: The name of the sound to play when a user is invited to a channel
-        :param unicode pre_webhook_url: The webhook URL for pre-event webhooks
-        :param unicode post_webhook_url: The URL for post-event webhooks
-        :param unicode webhook_method: The HTTP method  to use for both PRE and POST webhooks
-        :param unicode webhook_filters: The list of webhook events that are enabled for this Service instance
-        :param unicode limits_channel_members: The maximum number of Members that can be added to Channels within this Service
-        :param unicode limits_user_channels: The maximum number of Channels Users can be a Member of within this Service
-        :param unicode media_compatibility_message: The message to send when a media message has no text
-        :param unicode pre_webhook_retry_count: Count of times webhook will be retried in case of timeout or 429/503/504 HTTP responses
-        :param unicode post_webhook_retry_count: The number of times calls to the `post_webhook_url` will be retried
-        :param bool notifications_log_enabled: Whether to log notifications
+        :param unicode friendly_name: The friendly_name
+        :param unicode default_service_role_sid: The default_service_role_sid
+        :param unicode default_channel_role_sid: The default_channel_role_sid
+        :param unicode default_channel_creator_role_sid: The default_channel_creator_role_sid
+        :param bool read_status_enabled: The read_status_enabled
+        :param bool reachability_enabled: The reachability_enabled
+        :param unicode typing_indicator_timeout: The typing_indicator_timeout
+        :param unicode consumption_report_interval: The consumption_report_interval
+        :param bool notifications_new_message_enabled: The notifications.new_message.enabled
+        :param unicode notifications_new_message_template: The notifications.new_message.template
+        :param unicode notifications_new_message_sound: The notifications.new_message.sound
+        :param bool notifications_new_message_badge_count_enabled: The notifications.new_message.badge_count_enabled
+        :param bool notifications_added_to_channel_enabled: The notifications.added_to_channel.enabled
+        :param unicode notifications_added_to_channel_template: The notifications.added_to_channel.template
+        :param unicode notifications_added_to_channel_sound: The notifications.added_to_channel.sound
+        :param bool notifications_removed_from_channel_enabled: The notifications.removed_from_channel.enabled
+        :param unicode notifications_removed_from_channel_template: The notifications.removed_from_channel.template
+        :param unicode notifications_removed_from_channel_sound: The notifications.removed_from_channel.sound
+        :param bool notifications_invited_to_channel_enabled: The notifications.invited_to_channel.enabled
+        :param unicode notifications_invited_to_channel_template: The notifications.invited_to_channel.template
+        :param unicode notifications_invited_to_channel_sound: The notifications.invited_to_channel.sound
+        :param unicode pre_webhook_url: The pre_webhook_url
+        :param unicode post_webhook_url: The post_webhook_url
+        :param unicode webhook_method: The webhook_method
+        :param unicode webhook_filters: The webhook_filters
+        :param unicode limits_channel_members: The limits.channel_members
+        :param unicode limits_user_channels: The limits.user_channels
+        :param unicode media_compatibility_message: The media.compatibility_message
+        :param unicode pre_webhook_retry_count: The pre_webhook_retry_count
+        :param unicode post_webhook_retry_count: The post_webhook_retry_count
+        :param bool notifications_log_enabled: The notifications.log_enabled
 
         :returns: The updated ServiceInstance
-        :rtype: twilio.rest.chat.v2.service.ServiceInstance
+        :rtype: twilio.rest.ip_messaging.v2.service.ServiceInstance
         """
         return self._proxy.update(
             friendly_name=friendly_name,
@@ -767,8 +767,8 @@ class ServiceInstance(InstanceResource):
         """
         Access the channels
 
-        :returns: twilio.rest.chat.v2.service.channel.ChannelList
-        :rtype: twilio.rest.chat.v2.service.channel.ChannelList
+        :returns: twilio.rest.ip_messaging.v2.service.channel.ChannelList
+        :rtype: twilio.rest.ip_messaging.v2.service.channel.ChannelList
         """
         return self._proxy.channels
 
@@ -777,8 +777,8 @@ class ServiceInstance(InstanceResource):
         """
         Access the roles
 
-        :returns: twilio.rest.chat.v2.service.role.RoleList
-        :rtype: twilio.rest.chat.v2.service.role.RoleList
+        :returns: twilio.rest.ip_messaging.v2.service.role.RoleList
+        :rtype: twilio.rest.ip_messaging.v2.service.role.RoleList
         """
         return self._proxy.roles
 
@@ -787,8 +787,8 @@ class ServiceInstance(InstanceResource):
         """
         Access the users
 
-        :returns: twilio.rest.chat.v2.service.user.UserList
-        :rtype: twilio.rest.chat.v2.service.user.UserList
+        :returns: twilio.rest.ip_messaging.v2.service.user.UserList
+        :rtype: twilio.rest.ip_messaging.v2.service.user.UserList
         """
         return self._proxy.users
 
@@ -797,8 +797,8 @@ class ServiceInstance(InstanceResource):
         """
         Access the bindings
 
-        :returns: twilio.rest.chat.v2.service.binding.BindingList
-        :rtype: twilio.rest.chat.v2.service.binding.BindingList
+        :returns: twilio.rest.ip_messaging.v2.service.binding.BindingList
+        :rtype: twilio.rest.ip_messaging.v2.service.binding.BindingList
         """
         return self._proxy.bindings
 

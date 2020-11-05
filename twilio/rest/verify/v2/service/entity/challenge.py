@@ -16,9 +16,8 @@ from twilio.base.page import Page
 
 
 class ChallengeList(ListResource):
-    """ PLEASE NOTE that this class contains preview products that are subject
-    to change. Use them with caution. If you currently do not have developer
-    preview access, please contact help@twilio.com. """
+    """ PLEASE NOTE that this class contains beta products that are subject to
+    change. Use them with caution. """
 
     def __init__(self, version, service_sid, identity):
         """
@@ -39,7 +38,7 @@ class ChallengeList(ListResource):
 
     def create(self, factor_sid, expiration_date=values.unset,
                details_message=values.unset, details_fields=values.unset,
-               hidden_details=values.unset, twilio_sandbox_mode=values.unset):
+               hidden_details=values.unset):
         """
         Create the ChallengeInstance
 
@@ -48,7 +47,6 @@ class ChallengeList(ListResource):
         :param unicode details_message: Shown to the user when the push notification arrives
         :param dict details_fields: A list of objects that describe the Fields included in the Challenge
         :param dict hidden_details: Hidden details provided to contextualize the Challenge
-        :param unicode twilio_sandbox_mode: The Twilio-Sandbox-Mode HTTP request header
 
         :returns: The created ChallengeInstance
         :rtype: twilio.rest.verify.v2.service.entity.challenge.ChallengeInstance
@@ -60,9 +58,8 @@ class ChallengeList(ListResource):
             'Details.Fields': serialize.map(details_fields, lambda e: serialize.object(e)),
             'HiddenDetails': serialize.object(hidden_details),
         })
-        headers = values.of({'Twilio-Sandbox-Mode': twilio_sandbox_mode, })
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data, headers=headers, )
+        payload = self._version.create(method='POST', uri=self._uri, data=data, )
 
         return ChallengeInstance(
             self._version,
@@ -71,8 +68,8 @@ class ChallengeList(ListResource):
             identity=self._solution['identity'],
         )
 
-    def stream(self, factor_sid=values.unset, status=values.unset,
-               twilio_sandbox_mode=values.unset, limit=None, page_size=None):
+    def stream(self, factor_sid=values.unset, status=values.unset, limit=None,
+               page_size=None):
         """
         Streams ChallengeInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -81,7 +78,6 @@ class ChallengeList(ListResource):
 
         :param unicode factor_sid: Factor Sid.
         :param ChallengeInstance.ChallengeStatuses status: The Status of theChallenges to fetch
-        :param unicode twilio_sandbox_mode: The Twilio-Sandbox-Mode HTTP request header
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -94,17 +90,12 @@ class ChallengeList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
 
-        page = self.page(
-            factor_sid=factor_sid,
-            status=status,
-            twilio_sandbox_mode=twilio_sandbox_mode,
-            page_size=limits['page_size'],
-        )
+        page = self.page(factor_sid=factor_sid, status=status, page_size=limits['page_size'], )
 
         return self._version.stream(page, limits['limit'])
 
-    def list(self, factor_sid=values.unset, status=values.unset,
-             twilio_sandbox_mode=values.unset, limit=None, page_size=None):
+    def list(self, factor_sid=values.unset, status=values.unset, limit=None,
+             page_size=None):
         """
         Lists ChallengeInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -112,7 +103,6 @@ class ChallengeList(ListResource):
 
         :param unicode factor_sid: Factor Sid.
         :param ChallengeInstance.ChallengeStatuses status: The Status of theChallenges to fetch
-        :param unicode twilio_sandbox_mode: The Twilio-Sandbox-Mode HTTP request header
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -123,24 +113,17 @@ class ChallengeList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.verify.v2.service.entity.challenge.ChallengeInstance]
         """
-        return list(self.stream(
-            factor_sid=factor_sid,
-            status=status,
-            twilio_sandbox_mode=twilio_sandbox_mode,
-            limit=limit,
-            page_size=page_size,
-        ))
+        return list(self.stream(factor_sid=factor_sid, status=status, limit=limit, page_size=page_size, ))
 
     def page(self, factor_sid=values.unset, status=values.unset,
-             twilio_sandbox_mode=values.unset, page_token=values.unset,
-             page_number=values.unset, page_size=values.unset):
+             page_token=values.unset, page_number=values.unset,
+             page_size=values.unset):
         """
         Retrieve a single page of ChallengeInstance records from the API.
         Request is executed immediately
 
         :param unicode factor_sid: Factor Sid.
         :param ChallengeInstance.ChallengeStatuses status: The Status of theChallenges to fetch
-        :param unicode twilio_sandbox_mode: The Twilio-Sandbox-Mode HTTP request header
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -155,9 +138,8 @@ class ChallengeList(ListResource):
             'Page': page_number,
             'PageSize': page_size,
         })
-        headers = values.of({'Twilio-Sandbox-Mode': twilio_sandbox_mode, })
 
-        response = self._version.page(method='GET', uri=self._uri, params=data, headers=headers, )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return ChallengePage(self._version, response, self._solution)
 
@@ -221,9 +203,8 @@ class ChallengeList(ListResource):
 
 
 class ChallengePage(Page):
-    """ PLEASE NOTE that this class contains preview products that are subject
-    to change. Use them with caution. If you currently do not have developer
-    preview access, please contact help@twilio.com. """
+    """ PLEASE NOTE that this class contains beta products that are subject to
+    change. Use them with caution. """
 
     def __init__(self, version, response, solution):
         """
@@ -269,9 +250,8 @@ class ChallengePage(Page):
 
 
 class ChallengeContext(InstanceContext):
-    """ PLEASE NOTE that this class contains preview products that are subject
-    to change. Use them with caution. If you currently do not have developer
-    preview access, please contact help@twilio.com. """
+    """ PLEASE NOTE that this class contains beta products that are subject to
+    change. Use them with caution. """
 
     def __init__(self, version, service_sid, identity, sid):
         """
@@ -291,18 +271,14 @@ class ChallengeContext(InstanceContext):
         self._solution = {'service_sid': service_sid, 'identity': identity, 'sid': sid, }
         self._uri = '/Services/{service_sid}/Entities/{identity}/Challenges/{sid}'.format(**self._solution)
 
-    def fetch(self, twilio_sandbox_mode=values.unset):
+    def fetch(self):
         """
         Fetch the ChallengeInstance
-
-        :param unicode twilio_sandbox_mode: The Twilio-Sandbox-Mode HTTP request header
 
         :returns: The fetched ChallengeInstance
         :rtype: twilio.rest.verify.v2.service.entity.challenge.ChallengeInstance
         """
-        headers = values.of({'Twilio-Sandbox-Mode': twilio_sandbox_mode, })
-
-        payload = self._version.fetch(method='GET', uri=self._uri, headers=headers, )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return ChallengeInstance(
             self._version,
@@ -312,20 +288,18 @@ class ChallengeContext(InstanceContext):
             sid=self._solution['sid'],
         )
 
-    def update(self, auth_payload=values.unset, twilio_sandbox_mode=values.unset):
+    def update(self, auth_payload=values.unset):
         """
         Update the ChallengeInstance
 
         :param unicode auth_payload: Optional payload to verify the Challenge
-        :param unicode twilio_sandbox_mode: The Twilio-Sandbox-Mode HTTP request header
 
         :returns: The updated ChallengeInstance
         :rtype: twilio.rest.verify.v2.service.entity.challenge.ChallengeInstance
         """
         data = values.of({'AuthPayload': auth_payload, })
-        headers = values.of({'Twilio-Sandbox-Mode': twilio_sandbox_mode, })
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data, headers=headers, )
+        payload = self._version.update(method='POST', uri=self._uri, data=data, )
 
         return ChallengeInstance(
             self._version,
@@ -347,9 +321,8 @@ class ChallengeContext(InstanceContext):
 
 
 class ChallengeInstance(InstanceResource):
-    """ PLEASE NOTE that this class contains preview products that are subject
-    to change. Use them with caution. If you currently do not have developer
-    preview access, please contact help@twilio.com. """
+    """ PLEASE NOTE that this class contains beta products that are subject to
+    change. Use them with caution. """
 
     class ChallengeStatuses(object):
         PENDING = "pending"
@@ -519,7 +492,7 @@ class ChallengeInstance(InstanceResource):
     @property
     def details(self):
         """
-        :returns: The details
+        :returns: Details about the Challenge.
         :rtype: dict
         """
         return self._properties['details']
@@ -527,7 +500,7 @@ class ChallengeInstance(InstanceResource):
     @property
     def hidden_details(self):
         """
-        :returns: Hidden details provided to contextualize the Challenge
+        :returns: Hidden details about the Challenge
         :rtype: dict
         """
         return self._properties['hidden_details']
@@ -548,28 +521,25 @@ class ChallengeInstance(InstanceResource):
         """
         return self._properties['url']
 
-    def fetch(self, twilio_sandbox_mode=values.unset):
+    def fetch(self):
         """
         Fetch the ChallengeInstance
-
-        :param unicode twilio_sandbox_mode: The Twilio-Sandbox-Mode HTTP request header
 
         :returns: The fetched ChallengeInstance
         :rtype: twilio.rest.verify.v2.service.entity.challenge.ChallengeInstance
         """
-        return self._proxy.fetch(twilio_sandbox_mode=twilio_sandbox_mode, )
+        return self._proxy.fetch()
 
-    def update(self, auth_payload=values.unset, twilio_sandbox_mode=values.unset):
+    def update(self, auth_payload=values.unset):
         """
         Update the ChallengeInstance
 
         :param unicode auth_payload: Optional payload to verify the Challenge
-        :param unicode twilio_sandbox_mode: The Twilio-Sandbox-Mode HTTP request header
 
         :returns: The updated ChallengeInstance
         :rtype: twilio.rest.verify.v2.service.entity.challenge.ChallengeInstance
         """
-        return self._proxy.update(auth_payload=auth_payload, twilio_sandbox_mode=twilio_sandbox_mode, )
+        return self._proxy.update(auth_payload=auth_payload, )
 
     def __repr__(self):
         """

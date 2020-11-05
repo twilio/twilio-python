@@ -31,7 +31,7 @@ class SinkTestTestCase(IntegrationTestCase):
             201,
             '''
             {
-                "result": "valid"
+                "result": "submitted"
             }
             '''
         ))

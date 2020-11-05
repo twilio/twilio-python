@@ -15,6 +15,7 @@ from twilio.base.list_resource import ListResource
 from twilio.base.page import Page
 from twilio.rest.video.v1.room.recording import RoomRecordingList
 from twilio.rest.video.v1.room.room_participant import ParticipantList
+from twilio.rest.video.v1.room.room_recording_rule import RecordingRulesList
 
 
 class RoomList(ListResource):
@@ -278,6 +279,7 @@ class RoomContext(InstanceContext):
         # Dependents
         self._recordings = None
         self._participants = None
+        self._recording_rules = None
 
     def fetch(self):
         """
@@ -328,6 +330,18 @@ class RoomContext(InstanceContext):
         if self._participants is None:
             self._participants = ParticipantList(self._version, room_sid=self._solution['sid'], )
         return self._participants
+
+    @property
+    def recording_rules(self):
+        """
+        Access the recording_rules
+
+        :returns: twilio.rest.video.v1.room.room_recording_rule.RecordingRulesList
+        :rtype: twilio.rest.video.v1.room.room_recording_rule.RecordingRulesList
+        """
+        if self._recording_rules is None:
+            self._recording_rules = RecordingRulesList(self._version, room_sid=self._solution['sid'], )
+        return self._recording_rules
 
     def __repr__(self):
         """
@@ -588,6 +602,16 @@ class RoomInstance(InstanceResource):
         :rtype: twilio.rest.video.v1.room.room_participant.ParticipantList
         """
         return self._proxy.participants
+
+    @property
+    def recording_rules(self):
+        """
+        Access the recording_rules
+
+        :returns: twilio.rest.video.v1.room.room_recording_rule.RecordingRulesList
+        :rtype: twilio.rest.video.v1.room.room_recording_rule.RecordingRulesList
+        """
+        return self._proxy.recording_rules
 
     def __repr__(self):
         """

@@ -22,11 +22,11 @@ class MemberList(ListResource):
         Initialize the MemberList
 
         :param Version version: Version that contains the resource
-        :param service_sid: The SID of the Service that the resource is associated with
-        :param channel_sid: The SID of the Channel for the member
+        :param service_sid: The service_sid
+        :param channel_sid: The channel_sid
 
-        :returns: twilio.rest.chat.v2.service.channel.member.MemberList
-        :rtype: twilio.rest.chat.v2.service.channel.member.MemberList
+        :returns: twilio.rest.ip_messaging.v2.service.channel.member.MemberList
+        :rtype: twilio.rest.ip_messaging.v2.service.channel.member.MemberList
         """
         super(MemberList, self).__init__(version)
 
@@ -42,17 +42,17 @@ class MemberList(ListResource):
         """
         Create the MemberInstance
 
-        :param unicode identity: The `identity` value that identifies the new resource's User
-        :param unicode role_sid: The SID of the Role to assign to the member
-        :param unicode last_consumed_message_index: The index of the last Message in the Channel the Member has read
-        :param datetime last_consumption_timestamp: The ISO 8601 based timestamp string representing the datetime of the last Message read event for the member within the Channel
-        :param datetime date_created: The ISO 8601 date and time in GMT when the resource was created
-        :param datetime date_updated: The ISO 8601 date and time in GMT when the resource was updated
-        :param unicode attributes: A valid JSON string that contains application-specific data
+        :param unicode identity: The identity
+        :param unicode role_sid: The role_sid
+        :param unicode last_consumed_message_index: The last_consumed_message_index
+        :param datetime last_consumption_timestamp: The last_consumption_timestamp
+        :param datetime date_created: The date_created
+        :param datetime date_updated: The date_updated
+        :param unicode attributes: The attributes
         :param MemberInstance.WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
 
         :returns: The created MemberInstance
-        :rtype: twilio.rest.chat.v2.service.channel.member.MemberInstance
+        :rtype: twilio.rest.ip_messaging.v2.service.channel.member.MemberInstance
         """
         data = values.of({
             'Identity': identity,
@@ -81,7 +81,7 @@ class MemberList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param unicode identity: The `identity` value of the resources to read
+        :param unicode identity: The identity
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -90,7 +90,7 @@ class MemberList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.chat.v2.service.channel.member.MemberInstance]
+        :rtype: list[twilio.rest.ip_messaging.v2.service.channel.member.MemberInstance]
         """
         limits = self._version.read_limits(limit, page_size)
 
@@ -104,7 +104,7 @@ class MemberList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param unicode identity: The `identity` value of the resources to read
+        :param unicode identity: The identity
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -113,7 +113,7 @@ class MemberList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.chat.v2.service.channel.member.MemberInstance]
+        :rtype: list[twilio.rest.ip_messaging.v2.service.channel.member.MemberInstance]
         """
         return list(self.stream(identity=identity, limit=limit, page_size=page_size, ))
 
@@ -123,13 +123,13 @@ class MemberList(ListResource):
         Retrieve a single page of MemberInstance records from the API.
         Request is executed immediately
 
-        :param unicode identity: The `identity` value of the resources to read
+        :param unicode identity: The identity
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of MemberInstance
-        :rtype: twilio.rest.chat.v2.service.channel.member.MemberPage
+        :rtype: twilio.rest.ip_messaging.v2.service.channel.member.MemberPage
         """
         data = values.of({
             'Identity': serialize.map(identity, lambda e: e),
@@ -150,7 +150,7 @@ class MemberList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of MemberInstance
-        :rtype: twilio.rest.chat.v2.service.channel.member.MemberPage
+        :rtype: twilio.rest.ip_messaging.v2.service.channel.member.MemberPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -163,10 +163,10 @@ class MemberList(ListResource):
         """
         Constructs a MemberContext
 
-        :param sid: The SID of the Member resource to fetch
+        :param sid: The sid
 
-        :returns: twilio.rest.chat.v2.service.channel.member.MemberContext
-        :rtype: twilio.rest.chat.v2.service.channel.member.MemberContext
+        :returns: twilio.rest.ip_messaging.v2.service.channel.member.MemberContext
+        :rtype: twilio.rest.ip_messaging.v2.service.channel.member.MemberContext
         """
         return MemberContext(
             self._version,
@@ -179,10 +179,10 @@ class MemberList(ListResource):
         """
         Constructs a MemberContext
 
-        :param sid: The SID of the Member resource to fetch
+        :param sid: The sid
 
-        :returns: twilio.rest.chat.v2.service.channel.member.MemberContext
-        :rtype: twilio.rest.chat.v2.service.channel.member.MemberContext
+        :returns: twilio.rest.ip_messaging.v2.service.channel.member.MemberContext
+        :rtype: twilio.rest.ip_messaging.v2.service.channel.member.MemberContext
         """
         return MemberContext(
             self._version,
@@ -209,11 +209,11 @@ class MemberPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param service_sid: The SID of the Service that the resource is associated with
-        :param channel_sid: The SID of the Channel for the member
+        :param service_sid: The service_sid
+        :param channel_sid: The channel_sid
 
-        :returns: twilio.rest.chat.v2.service.channel.member.MemberPage
-        :rtype: twilio.rest.chat.v2.service.channel.member.MemberPage
+        :returns: twilio.rest.ip_messaging.v2.service.channel.member.MemberPage
+        :rtype: twilio.rest.ip_messaging.v2.service.channel.member.MemberPage
         """
         super(MemberPage, self).__init__(version, response)
 
@@ -226,8 +226,8 @@ class MemberPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.chat.v2.service.channel.member.MemberInstance
-        :rtype: twilio.rest.chat.v2.service.channel.member.MemberInstance
+        :returns: twilio.rest.ip_messaging.v2.service.channel.member.MemberInstance
+        :rtype: twilio.rest.ip_messaging.v2.service.channel.member.MemberInstance
         """
         return MemberInstance(
             self._version,
@@ -253,12 +253,12 @@ class MemberContext(InstanceContext):
         Initialize the MemberContext
 
         :param Version version: Version that contains the resource
-        :param service_sid: The SID of the Service to fetch the resource from
-        :param channel_sid: The SID of the channel the member belongs to
-        :param sid: The SID of the Member resource to fetch
+        :param service_sid: The service_sid
+        :param channel_sid: The channel_sid
+        :param sid: The sid
 
-        :returns: twilio.rest.chat.v2.service.channel.member.MemberContext
-        :rtype: twilio.rest.chat.v2.service.channel.member.MemberContext
+        :returns: twilio.rest.ip_messaging.v2.service.channel.member.MemberContext
+        :rtype: twilio.rest.ip_messaging.v2.service.channel.member.MemberContext
         """
         super(MemberContext, self).__init__(version)
 
@@ -271,7 +271,7 @@ class MemberContext(InstanceContext):
         Fetch the MemberInstance
 
         :returns: The fetched MemberInstance
-        :rtype: twilio.rest.chat.v2.service.channel.member.MemberInstance
+        :rtype: twilio.rest.ip_messaging.v2.service.channel.member.MemberInstance
         """
         payload = self._version.fetch(method='GET', uri=self._uri, )
 
@@ -304,16 +304,16 @@ class MemberContext(InstanceContext):
         """
         Update the MemberInstance
 
-        :param unicode role_sid: The SID of the Role to assign to the member
-        :param unicode last_consumed_message_index: The index of the last consumed Message for the Channel for the Member
-        :param datetime last_consumption_timestamp: The ISO 8601 based timestamp string representing the datetime of the last Message read event for the Member within the Channel
-        :param datetime date_created: The ISO 8601 date and time in GMT when the resource was created
-        :param datetime date_updated: The ISO 8601 date and time in GMT when the resource was updated
-        :param unicode attributes: A valid JSON string that contains application-specific data
+        :param unicode role_sid: The role_sid
+        :param unicode last_consumed_message_index: The last_consumed_message_index
+        :param datetime last_consumption_timestamp: The last_consumption_timestamp
+        :param datetime date_created: The date_created
+        :param datetime date_updated: The date_updated
+        :param unicode attributes: The attributes
         :param MemberInstance.WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
 
         :returns: The updated MemberInstance
-        :rtype: twilio.rest.chat.v2.service.channel.member.MemberInstance
+        :rtype: twilio.rest.ip_messaging.v2.service.channel.member.MemberInstance
         """
         data = values.of({
             'RoleSid': role_sid,
@@ -356,8 +356,8 @@ class MemberInstance(InstanceResource):
         """
         Initialize the MemberInstance
 
-        :returns: twilio.rest.chat.v2.service.channel.member.MemberInstance
-        :rtype: twilio.rest.chat.v2.service.channel.member.MemberInstance
+        :returns: twilio.rest.ip_messaging.v2.service.channel.member.MemberInstance
+        :rtype: twilio.rest.ip_messaging.v2.service.channel.member.MemberInstance
         """
         super(MemberInstance, self).__init__(version)
 
@@ -392,7 +392,7 @@ class MemberInstance(InstanceResource):
         performing various actions.  All instance actions are proxied to the context
 
         :returns: MemberContext for this MemberInstance
-        :rtype: twilio.rest.chat.v2.service.channel.member.MemberContext
+        :rtype: twilio.rest.ip_messaging.v2.service.channel.member.MemberContext
         """
         if self._context is None:
             self._context = MemberContext(
@@ -406,7 +406,7 @@ class MemberInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: The unique string that identifies the resource
+        :returns: The sid
         :rtype: unicode
         """
         return self._properties['sid']
@@ -414,7 +414,7 @@ class MemberInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The SID of the Account that created the resource
+        :returns: The account_sid
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -422,7 +422,7 @@ class MemberInstance(InstanceResource):
     @property
     def channel_sid(self):
         """
-        :returns: The SID of the Channel for the member
+        :returns: The channel_sid
         :rtype: unicode
         """
         return self._properties['channel_sid']
@@ -430,7 +430,7 @@ class MemberInstance(InstanceResource):
     @property
     def service_sid(self):
         """
-        :returns: The SID of the Service that the resource is associated with
+        :returns: The service_sid
         :rtype: unicode
         """
         return self._properties['service_sid']
@@ -438,7 +438,7 @@ class MemberInstance(InstanceResource):
     @property
     def identity(self):
         """
-        :returns: The string that identifies the resource's User
+        :returns: The identity
         :rtype: unicode
         """
         return self._properties['identity']
@@ -446,7 +446,7 @@ class MemberInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The ISO 8601 date and time in GMT when the resource was created
+        :returns: The date_created
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -454,7 +454,7 @@ class MemberInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The ISO 8601 date and time in GMT when the resource was last updated
+        :returns: The date_updated
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -462,7 +462,7 @@ class MemberInstance(InstanceResource):
     @property
     def role_sid(self):
         """
-        :returns: The SID of the Role assigned to the member
+        :returns: The role_sid
         :rtype: unicode
         """
         return self._properties['role_sid']
@@ -470,7 +470,7 @@ class MemberInstance(InstanceResource):
     @property
     def last_consumed_message_index(self):
         """
-        :returns: The index of the last Message that the Member has read within the Channel
+        :returns: The last_consumed_message_index
         :rtype: unicode
         """
         return self._properties['last_consumed_message_index']
@@ -478,7 +478,7 @@ class MemberInstance(InstanceResource):
     @property
     def last_consumption_timestamp(self):
         """
-        :returns: The ISO 8601 based timestamp string that represents the datetime of the last Message read event for the Member within the Channel
+        :returns: The last_consumption_timestamp
         :rtype: datetime
         """
         return self._properties['last_consumption_timestamp']
@@ -486,7 +486,7 @@ class MemberInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: The absolute URL of the Member resource
+        :returns: The url
         :rtype: unicode
         """
         return self._properties['url']
@@ -494,7 +494,7 @@ class MemberInstance(InstanceResource):
     @property
     def attributes(self):
         """
-        :returns: The JSON string that stores application-specific data
+        :returns: The attributes
         :rtype: unicode
         """
         return self._properties['attributes']
@@ -504,7 +504,7 @@ class MemberInstance(InstanceResource):
         Fetch the MemberInstance
 
         :returns: The fetched MemberInstance
-        :rtype: twilio.rest.chat.v2.service.channel.member.MemberInstance
+        :rtype: twilio.rest.ip_messaging.v2.service.channel.member.MemberInstance
         """
         return self._proxy.fetch()
 
@@ -527,16 +527,16 @@ class MemberInstance(InstanceResource):
         """
         Update the MemberInstance
 
-        :param unicode role_sid: The SID of the Role to assign to the member
-        :param unicode last_consumed_message_index: The index of the last consumed Message for the Channel for the Member
-        :param datetime last_consumption_timestamp: The ISO 8601 based timestamp string representing the datetime of the last Message read event for the Member within the Channel
-        :param datetime date_created: The ISO 8601 date and time in GMT when the resource was created
-        :param datetime date_updated: The ISO 8601 date and time in GMT when the resource was updated
-        :param unicode attributes: A valid JSON string that contains application-specific data
+        :param unicode role_sid: The role_sid
+        :param unicode last_consumed_message_index: The last_consumed_message_index
+        :param datetime last_consumption_timestamp: The last_consumption_timestamp
+        :param datetime date_created: The date_created
+        :param datetime date_updated: The date_updated
+        :param unicode attributes: The attributes
         :param MemberInstance.WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
 
         :returns: The updated MemberInstance
-        :rtype: twilio.rest.chat.v2.service.channel.member.MemberInstance
+        :rtype: twilio.rest.ip_messaging.v2.service.channel.member.MemberInstance
         """
         return self._proxy.update(
             role_sid=role_sid,
