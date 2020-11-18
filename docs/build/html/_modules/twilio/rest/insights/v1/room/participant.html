@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-MWRD6S');</script><!--End Google Tag Manager-->
 <meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<title>twilio.rest.insights.v1.room.participant — twilio-python 6.47.0 documentation</title>
+<title>twilio.rest.insights.v1.room.participant — twilio-python 6.48.0 documentation</title>
 <link href="../../../../../../_static/alabaster.css" rel="stylesheet" type="text/css"/>
 <link href="../../../../../../_static/pygments.css" rel="stylesheet" type="text/css"/>
 <script data-url_root="../../../../../../" id="documentation_options" src="../../../../../../_static/documentation_options.js" type="text/javascript"></script>
@@ -283,54 +283,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="n">H264</span> <span class="o">=</span> <span class="s2">"H264"</span>
         <span class="n">VP9</span> <span class="o">=</span> <span class="s2">"VP9"</span></div>
 
-<div class="viewcode-block" id="ParticipantInstance.EndReason"><a class="viewcode-back" href="../../../../../../docs/source/_rst/twilio.rest.insights.v1.room.html#twilio.rest.insights.v1.room.participant.ParticipantInstance.EndReason">[docs]</a>    <span class="k">class</span> <span class="nc">EndReason</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-        <span class="n">DISCONNECTED_VIA_API</span> <span class="o">=</span> <span class="s2">"disconnected_via_api"</span>
-        <span class="n">SIGNALING_CONNECTION_ERROR</span> <span class="o">=</span> <span class="s2">"signaling_connection_error"</span>
-        <span class="n">SIGNALING_CONNECTION_DISCONNECTED</span> <span class="o">=</span> <span class="s2">"signaling_connection_disconnected"</span>
-        <span class="n">SIGNALING_CONNECTION_TIMED_OUT</span> <span class="o">=</span> <span class="s2">"signaling_connection_timed_out"</span>
-        <span class="n">CLIENT_RECEIVED_AN_INVALID_SIGNALING_MESSAGE</span> <span class="o">=</span> <span class="s2">"client_received_an_invalid_signaling_message"</span>
-        <span class="n">CLIENT_SENT_AN_INVALID_SIGNALING_MESSAGE</span> <span class="o">=</span> <span class="s2">"client_sent_an_invalid_signaling_message"</span>
-        <span class="n">ROOM_NAME_IS_INVALID</span> <span class="o">=</span> <span class="s2">"room_name_is_invalid"</span>
-        <span class="n">ROOM_NAME_IS_TOO_LONG</span> <span class="o">=</span> <span class="s2">"room_name_is_too_long"</span>
-        <span class="n">ROOM_NAME_CONTAINS_INVALID_CHARACTERS</span> <span class="o">=</span> <span class="s2">"room_name_contains_invalid_characters"</span>
-        <span class="n">UNABLE_TO_CREATE_ROOM</span> <span class="o">=</span> <span class="s2">"unable_to_create_room"</span>
-        <span class="n">UNABLE_TO_CONNECT_TO_ROOM</span> <span class="o">=</span> <span class="s2">"unable_to_connect_to_room"</span>
-        <span class="n">ROOM_CONTAINS_TOO_MANY_PARTICIPANTS</span> <span class="o">=</span> <span class="s2">"room_contains_too_many_participants"</span>
-        <span class="n">ROOM_NOT_FOUND</span> <span class="o">=</span> <span class="s2">"room_not_found"</span>
-        <span class="n">MAX_PARTICIPANTS_IS_OUT_OF_RANGE</span> <span class="o">=</span> <span class="s2">"max_participants_is_out_of_range"</span>
-        <span class="n">ROOM_TYPE_IS_NOT_VALID</span> <span class="o">=</span> <span class="s2">"room_type_is_not_valid"</span>
-        <span class="n">TIMEOUT_IS_OUT_OF_RANGE</span> <span class="o">=</span> <span class="s2">"timeout_is_out_of_range"</span>
-        <span class="n">STATUS_CALLBACK_METHOD_IS_INVALID</span> <span class="o">=</span> <span class="s2">"status_callback_method_is_invalid"</span>
-        <span class="n">STATUS_CALLBACK_IS_INVALID</span> <span class="o">=</span> <span class="s2">"status_callback_is_invalid"</span>
-        <span class="n">STATUS_IS_INVALID</span> <span class="o">=</span> <span class="s2">"status_is_invalid"</span>
-        <span class="n">ROOM_CREATION_FAILED</span> <span class="o">=</span> <span class="s2">"room_creation_failed"</span>
-        <span class="n">ROOM_COMPLETED_ERROR</span> <span class="o">=</span> <span class="s2">"room_completed_error"</span>
-        <span class="n">THE_ROOM_ACCOUNT_LIMIT_WAS_EXCEEDED</span> <span class="o">=</span> <span class="s2">"the_room_account_limit_was_exceeded"</span>
-        <span class="n">INVALID_RECORDING_RULE</span> <span class="o">=</span> <span class="s2">"invalid_recording_rule"</span>
-        <span class="n">APPROACHING_ROOM_OR_PARTICIPANT_CONCURRENCY_LIMITS</span> <span class="o">=</span> <span class="s2">"approaching_room_or_participant_concurrency_limits"</span>
-        <span class="n">RECORDING_OPERATION_REQUESTED_IS_NOT_SUPPORTED_FOR_THE_ROOM_TYPE</span> <span class="o">=</span> <span class="s2">"recording_operation_requested_is_not_supported_for_the_Room_type"</span>
-        <span class="n">PARTICIPANT_IDENTITY_IS_INVALID</span> <span class="o">=</span> <span class="s2">"participant_identity_is_invalid"</span>
-        <span class="n">PARTICIPANT_IDENTITY_IS_TOO_LONG</span> <span class="o">=</span> <span class="s2">"participant_identity_is_too_long"</span>
-        <span class="n">PARTICIPANT_IDENTITY_CONTAINS_INVALID_CHARACTERS</span> <span class="o">=</span> <span class="s2">"participant_identity_contains_invalid_characters"</span>
-        <span class="n">PARTICIPANT_HAS_TOO_MANY_TRACKS</span> <span class="o">=</span> <span class="s2">"participant_has_too_many_tracks"</span>
-        <span class="n">PARTICIPANT_NOT_FOUND</span> <span class="o">=</span> <span class="s2">"participant_not_found"</span>
-        <span class="n">PARTICIPANT_DISCONNECTED_BECAUSE_OF_DUPLICATE_IDENTITY</span> <span class="o">=</span> <span class="s2">"participant_disconnected_because_of_duplicate_identity"</span>
-        <span class="n">PARTICIPANT_ACCOUNT_LIMIT_WAS_EXCEEDED</span> <span class="o">=</span> <span class="s2">"participant_account_limit_was_exceeded"</span>
-        <span class="n">INVALID_SUBSCRIBE_RULE</span> <span class="o">=</span> <span class="s2">"invalid_subscribe_rule"</span>
-        <span class="n">TRACK_IS_INVALID</span> <span class="o">=</span> <span class="s2">"track_is_invalid"</span>
-        <span class="n">TRACK_NAME_IS_INVALID</span> <span class="o">=</span> <span class="s2">"track_name_is_invalid"</span>
-        <span class="n">TRACK_NAME_IS_TOO_LONG</span> <span class="o">=</span> <span class="s2">"track_name_is_too_long"</span>
-        <span class="n">TRACK_NAME_CONTAINS_INVALID_CHARACTERS</span> <span class="o">=</span> <span class="s2">"track_name_contains_invalid_characters"</span>
-        <span class="n">TRACK_NAME_IS_DUPLICATED</span> <span class="o">=</span> <span class="s2">"track_name_is_duplicated"</span>
-        <span class="n">CLIENT_IS_UNABLE_TO_CREATE_OR_APPLY_A_LOCAL_MEDIA_DESCRIPTION</span> <span class="o">=</span> <span class="s2">"client_is_unable_to_create_or_apply_a_local_media_description"</span>
-        <span class="n">SERVER_IS_UNABLE_TO_CREATE_OR_APPLY_A_LOCAL_MEDIA_DESCRIPTION</span> <span class="o">=</span> <span class="s2">"server_is_unable_to_create_or_apply_a_local_media_description"</span>
-        <span class="n">CLIENT_IS_UNABLE_TO_APPLY_A_REMOTE_MEDIA_DESCRIPTION</span> <span class="o">=</span> <span class="s2">"client_is_unable_to_apply_a_remote_media_description"</span>
-        <span class="n">SERVER_IS_UNABLE_TO_APPLY_A_REMOTE_MEDIA_DESCRIPTION</span> <span class="o">=</span> <span class="s2">"server_is_unable_to_apply_a_remote_media_description"</span>
-        <span class="n">NO_SUPPORTED_CODEC</span> <span class="o">=</span> <span class="s2">"no_supported_codec"</span>
-        <span class="n">MEDIA_CONNECTION_FAILED_OR_MEDIA_ACTIVITY_CEASED</span> <span class="o">=</span> <span class="s2">"media_connection_failed_or_media_activity_ceased"</span>
-        <span class="n">UNABLE_TO_ACQUIRE_CONFIGURATION</span> <span class="o">=</span> <span class="s2">"unable_to_acquire_configuration"</span>
-        <span class="n">UNABLE_TO_ACQUIRE_TURN_CREDENTIALS</span> <span class="o">=</span> <span class="s2">"unable_to_acquire_TURN_credentials"</span></div>
-
 <div class="viewcode-block" id="ParticipantInstance.TwilioRealm"><a class="viewcode-back" href="../../../../../../docs/source/_rst/twilio.rest.insights.v1.room.html#twilio.rest.insights.v1.room.participant.ParticipantInstance.TwilioRealm">[docs]</a>    <span class="k">class</span> <span class="nc">TwilioRealm</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
         <span class="n">US1</span> <span class="o">=</span> <span class="s2">"us1"</span>
         <span class="n">US2</span> <span class="o">=</span> <span class="s2">"us2"</span>
@@ -341,19 +293,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="n">SG1</span> <span class="o">=</span> <span class="s2">"sg1"</span>
         <span class="n">IN1</span> <span class="o">=</span> <span class="s2">"in1"</span>
         <span class="n">DE1</span> <span class="o">=</span> <span class="s2">"de1"</span>
-        <span class="n">GLL</span> <span class="o">=</span> <span class="s2">"gll"</span>
-        <span class="n">OUTSIDE</span> <span class="o">=</span> <span class="s2">"outside"</span>
-        <span class="n">STAGE_US1</span> <span class="o">=</span> <span class="s2">"stage_us1"</span>
-        <span class="n">STAGE_US2</span> <span class="o">=</span> <span class="s2">"stage_us2"</span>
-        <span class="n">STAGE_AU1</span> <span class="o">=</span> <span class="s2">"stage_au1"</span>
-        <span class="n">STAGE_BR1</span> <span class="o">=</span> <span class="s2">"stage_br1"</span>
-        <span class="n">STAGE_IE1</span> <span class="o">=</span> <span class="s2">"stage_ie1"</span>
-        <span class="n">STAGE_JP1</span> <span class="o">=</span> <span class="s2">"stage_jp1"</span>
-        <span class="n">STAGE_SG1</span> <span class="o">=</span> <span class="s2">"stage_sg1"</span>
-        <span class="n">STAGE_IN1</span> <span class="o">=</span> <span class="s2">"stage_in1"</span>
-        <span class="n">STAGE_DE1</span> <span class="o">=</span> <span class="s2">"stage_de1"</span>
-        <span class="n">DEV_US1</span> <span class="o">=</span> <span class="s2">"dev_us1"</span>
-        <span class="n">DEV_US2</span> <span class="o">=</span> <span class="s2">"dev_us2"</span></div>
+        <span class="n">GLL</span> <span class="o">=</span> <span class="s2">"gll"</span></div>
 
 <div class="viewcode-block" id="ParticipantInstance.EdgeLocation"><a class="viewcode-back" href="../../../../../../docs/source/_rst/twilio.rest.insights.v1.room.html#twilio.rest.insights.v1.room.participant.ParticipantInstance.EdgeLocation">[docs]</a>    <span class="k">class</span> <span class="nc">EdgeLocation</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
         <span class="n">ASHBURN</span> <span class="o">=</span> <span class="s2">"ashburn"</span>
@@ -382,7 +322,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
             <span class="s1">'join_time'</span><span class="p">:</span> <span class="n">deserialize</span><span class="o">.</span><span class="n">iso8601_datetime</span><span class="p">(</span><span class="n">payload</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'join_time'</span><span class="p">)),</span>
             <span class="s1">'leave_time'</span><span class="p">:</span> <span class="n">deserialize</span><span class="o">.</span><span class="n">iso8601_datetime</span><span class="p">(</span><span class="n">payload</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'leave_time'</span><span class="p">)),</span>
             <span class="s1">'duration_sec'</span><span class="p">:</span> <span class="n">deserialize</span><span class="o">.</span><span class="n">integer</span><span class="p">(</span><span class="n">payload</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'duration_sec'</span><span class="p">)),</span>
-            <span class="s1">'call_sid'</span><span class="p">:</span> <span class="n">payload</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'call_sid'</span><span class="p">),</span>
             <span class="s1">'account_sid'</span><span class="p">:</span> <span class="n">payload</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'account_sid'</span><span class="p">),</span>
             <span class="s1">'room_sid'</span><span class="p">:</span> <span class="n">payload</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'room_sid'</span><span class="p">),</span>
             <span class="s1">'status'</span><span class="p">:</span> <span class="n">payload</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'status'</span><span class="p">),</span>
@@ -462,14 +401,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="p">[</span><span class="s1">'duration_sec'</span><span class="p">]</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">call_sid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
-<span class="sd">        :returns: The call_sid</span>
-<span class="sd">        :rtype: unicode</span>
-<span class="sd">        """</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="p">[</span><span class="s1">'call_sid'</span><span class="p">]</span>
-
-    <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">account_sid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">"""</span>
 <span class="sd">        :returns: The account_sid</span>
@@ -505,7 +436,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
     <span class="k">def</span> <span class="nf">end_reason</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">"""</span>
 <span class="sd">        :returns: The end_reason</span>
-<span class="sd">        :rtype: ParticipantInstance.EndReason</span>
+<span class="sd">        :rtype: unicode</span>
 <span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="p">[</span><span class="s1">'end_reason'</span><span class="p">]</span>
 

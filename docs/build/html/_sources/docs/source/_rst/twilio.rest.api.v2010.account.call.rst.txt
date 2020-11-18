@@ -4,6 +4,14 @@ twilio.rest.api.v2010.account.call package
 Submodules
 ----------
 
+twilio.rest.api.v2010.account.call.event module
+-----------------------------------------------
+
+.. automodule:: twilio.rest.api.v2010.account.call.event
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 twilio.rest.api.v2010.account.call.feedback module
 --------------------------------------------------
 
