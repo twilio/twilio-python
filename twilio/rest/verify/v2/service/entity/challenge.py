@@ -43,7 +43,7 @@ class ChallengeList(ListResource):
         Create the ChallengeInstance
 
         :param unicode factor_sid: Factor Sid.
-        :param datetime expiration_date: The future date in which this Challenge will expire
+        :param datetime expiration_date: The date-time when this Challenge expires
         :param unicode details_message: Shown to the user when the push notification arrives
         :param dict details_fields: A list of objects that describe the Fields included in the Challenge
         :param dict hidden_details: Hidden details provided to contextualize the Challenge
@@ -468,7 +468,7 @@ class ChallengeInstance(InstanceResource):
     @property
     def expiration_date(self):
         """
-        :returns: The date this Challenge is expired
+        :returns: The date-time when this Challenge expires
         :rtype: datetime
         """
         return self._properties['expiration_date']

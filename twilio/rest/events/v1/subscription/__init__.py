@@ -36,13 +36,14 @@ class SubscriptionList(ListResource):
         self._solution = {}
         self._uri = '/Subscriptions'.format(**self._solution)
 
-    def stream(self, limit=None, page_size=None):
+    def stream(self, sink_sid=values.unset, limit=None, page_size=None):
         """
         Streams SubscriptionInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
+        :param unicode sink_sid: Sink SID.
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -55,16 +56,17 @@ class SubscriptionList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
 
-        page = self.page(page_size=limits['page_size'], )
+        page = self.page(sink_sid=sink_sid, page_size=limits['page_size'], )
 
         return self._version.stream(page, limits['limit'])
 
-    def list(self, limit=None, page_size=None):
+    def list(self, sink_sid=values.unset, limit=None, page_size=None):
         """
         Lists SubscriptionInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
+        :param unicode sink_sid: Sink SID.
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -75,14 +77,15 @@ class SubscriptionList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.events.v1.subscription.SubscriptionInstance]
         """
-        return list(self.stream(limit=limit, page_size=page_size, ))
+        return list(self.stream(sink_sid=sink_sid, limit=limit, page_size=page_size, ))
 
-    def page(self, page_token=values.unset, page_number=values.unset,
-             page_size=values.unset):
+    def page(self, sink_sid=values.unset, page_token=values.unset,
+             page_number=values.unset, page_size=values.unset):
         """
         Retrieve a single page of SubscriptionInstance records from the API.
         Request is executed immediately
 
+        :param unicode sink_sid: Sink SID.
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -90,7 +93,12 @@ class SubscriptionList(ListResource):
         :returns: Page of SubscriptionInstance
         :rtype: twilio.rest.events.v1.subscription.SubscriptionPage
         """
-        data = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
+        data = values.of({
+            'SinkSid': sink_sid,
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
+        })
 
         response = self._version.page(method='GET', uri=self._uri, params=data, )
 

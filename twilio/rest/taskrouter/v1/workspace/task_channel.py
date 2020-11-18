@@ -21,7 +21,7 @@ class TaskChannelList(ListResource):
         Initialize the TaskChannelList
 
         :param Version version: Version that contains the resource
-        :param workspace_sid: The SID of the Workspace that contains the TaskChannel
+        :param workspace_sid: The SID of the Workspace that contains the Task Channel
 
         :returns: twilio.rest.taskrouter.v1.workspace.task_channel.TaskChannelList
         :rtype: twilio.rest.taskrouter.v1.workspace.task_channel.TaskChannelList
@@ -114,9 +114,9 @@ class TaskChannelList(ListResource):
         """
         Create the TaskChannelInstance
 
-        :param unicode friendly_name: A string to describe the TaskChannel resource
-        :param unicode unique_name: An application-defined string that uniquely identifies the TaskChannel
-        :param bool channel_optimized_routing: Whether the TaskChannel should prioritize Workers that have been idle
+        :param unicode friendly_name: A string to describe the Task Channel resource
+        :param unicode unique_name: An application-defined string that uniquely identifies the Task Channel
+        :param bool channel_optimized_routing: Whether the Task Channel should prioritize Workers that have been idle
 
         :returns: The created TaskChannelInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.task_channel.TaskChannelInstance
@@ -135,7 +135,7 @@ class TaskChannelList(ListResource):
         """
         Constructs a TaskChannelContext
 
-        :param sid: The SID of the TaskChannel resource to fetch
+        :param sid: The SID of the Task Channel resource to fetch
 
         :returns: twilio.rest.taskrouter.v1.workspace.task_channel.TaskChannelContext
         :rtype: twilio.rest.taskrouter.v1.workspace.task_channel.TaskChannelContext
@@ -146,7 +146,7 @@ class TaskChannelList(ListResource):
         """
         Constructs a TaskChannelContext
 
-        :param sid: The SID of the TaskChannel resource to fetch
+        :param sid: The SID of the Task Channel resource to fetch
 
         :returns: twilio.rest.taskrouter.v1.workspace.task_channel.TaskChannelContext
         :rtype: twilio.rest.taskrouter.v1.workspace.task_channel.TaskChannelContext
@@ -171,7 +171,7 @@ class TaskChannelPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param workspace_sid: The SID of the Workspace that contains the TaskChannel
+        :param workspace_sid: The SID of the Workspace that contains the Task Channel
 
         :returns: twilio.rest.taskrouter.v1.workspace.task_channel.TaskChannelPage
         :rtype: twilio.rest.taskrouter.v1.workspace.task_channel.TaskChannelPage
@@ -209,8 +209,8 @@ class TaskChannelContext(InstanceContext):
         Initialize the TaskChannelContext
 
         :param Version version: Version that contains the resource
-        :param workspace_sid: The SID of the Workspace with the TaskChannel to fetch
-        :param sid: The SID of the TaskChannel resource to fetch
+        :param workspace_sid: The SID of the Workspace with the Task Channel to fetch
+        :param sid: The SID of the Task Channel resource to fetch
 
         :returns: twilio.rest.taskrouter.v1.workspace.task_channel.TaskChannelContext
         :rtype: twilio.rest.taskrouter.v1.workspace.task_channel.TaskChannelContext
@@ -242,7 +242,7 @@ class TaskChannelContext(InstanceContext):
         """
         Update the TaskChannelInstance
 
-        :param unicode friendly_name: A string to describe the TaskChannel resource
+        :param unicode friendly_name: A string to describe the Task Channel resource
         :param bool channel_optimized_routing: Whether the TaskChannel should prioritize Workers that have been idle
 
         :returns: The updated TaskChannelInstance
@@ -371,7 +371,7 @@ class TaskChannelInstance(InstanceResource):
     @property
     def unique_name(self):
         """
-        :returns: An application-defined string that uniquely identifies the TaskChannel
+        :returns: An application-defined string that uniquely identifies the Task Channel
         :rtype: unicode
         """
         return self._properties['unique_name']
@@ -379,7 +379,7 @@ class TaskChannelInstance(InstanceResource):
     @property
     def workspace_sid(self):
         """
-        :returns: The SID of the Workspace that contains the TaskChannel
+        :returns: The SID of the Workspace that contains the Task Channel
         :rtype: unicode
         """
         return self._properties['workspace_sid']
@@ -387,7 +387,7 @@ class TaskChannelInstance(InstanceResource):
     @property
     def channel_optimized_routing(self):
         """
-        :returns: Whether the TaskChannel will prioritize Workers that have been idle
+        :returns: Whether the Task Channel will prioritize Workers that have been idle
         :rtype: bool
         """
         return self._properties['channel_optimized_routing']
@@ -395,7 +395,7 @@ class TaskChannelInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: The absolute URL of the TaskChannel resource
+        :returns: The absolute URL of the Task Channel resource
         :rtype: unicode
         """
         return self._properties['url']
@@ -422,7 +422,7 @@ class TaskChannelInstance(InstanceResource):
         """
         Update the TaskChannelInstance
 
-        :param unicode friendly_name: A string to describe the TaskChannel resource
+        :param unicode friendly_name: A string to describe the Task Channel resource
         :param bool channel_optimized_routing: Whether the TaskChannel should prioritize Workers that have been idle
 
         :returns: The updated TaskChannelInstance
