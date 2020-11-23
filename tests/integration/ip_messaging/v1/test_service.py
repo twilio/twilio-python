@@ -22,7 +22,7 @@ class ServiceTestCase(IntegrationTestCase):
 
         self.holodeck.assert_has_request(Request(
             'get',
-            'https://chat.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+            'https://ip-messaging.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
         ))
 
     def test_fetch_response(self):
@@ -73,7 +73,7 @@ class ServiceTestCase(IntegrationTestCase):
 
         self.holodeck.assert_has_request(Request(
             'delete',
-            'https://chat.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+            'https://ip-messaging.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
         ))
 
     def test_delete_response(self):
@@ -96,7 +96,7 @@ class ServiceTestCase(IntegrationTestCase):
 
         self.holodeck.assert_has_request(Request(
             'post',
-            'https://chat.twilio.com/v1/Services',
+            'https://ip-messaging.twilio.com/v1/Services',
             data=values,
         ))
 
@@ -148,7 +148,7 @@ class ServiceTestCase(IntegrationTestCase):
 
         self.holodeck.assert_has_request(Request(
             'get',
-            'https://chat.twilio.com/v1/Services',
+            'https://ip-messaging.twilio.com/v1/Services',
         ))
 
     def test_read_empty_response(self):
@@ -157,13 +157,13 @@ class ServiceTestCase(IntegrationTestCase):
             '''
             {
                 "meta": {
-                    "first_page_url": "https://chat.twilio.com/v1/Services?Page=0&PageSize=50",
+                    "first_page_url": "https://ip-messaging.twilio.com/v1/Services?Page=0&PageSize=50",
                     "key": "services",
                     "next_page_url": null,
                     "page": 0,
                     "page_size": 0,
                     "previous_page_url": null,
-                    "url": "https://chat.twilio.com/v1/Services"
+                    "url": "https://ip-messaging.twilio.com/v1/Services"
                 },
                 "services": []
             }
@@ -180,13 +180,13 @@ class ServiceTestCase(IntegrationTestCase):
             '''
             {
                 "meta": {
-                    "first_page_url": "https://chat.twilio.com/v1/Services?Page=0&PageSize=50",
+                    "first_page_url": "https://ip-messaging.twilio.com/v1/Services?Page=0&PageSize=50",
                     "key": "services",
                     "next_page_url": null,
                     "page": 0,
                     "page_size": 1,
                     "previous_page_url": null,
-                    "url": "https://chat.twilio.com/v1/Services"
+                    "url": "https://ip-messaging.twilio.com/v1/Services"
                 },
                 "services": [
                     {
@@ -235,7 +235,7 @@ class ServiceTestCase(IntegrationTestCase):
 
         self.holodeck.assert_has_request(Request(
             'post',
-            'https://chat.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+            'https://ip-messaging.twilio.com/v1/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
         ))
 
     def test_update_response(self):

@@ -17,9 +17,8 @@ from twilio.rest.serverless.v1.service.build.build_status import BuildStatusList
 
 
 class BuildList(ListResource):
-    """ PLEASE NOTE that this class contains preview products that are subject
-    to change. Use them with caution. If you currently do not have developer
-    preview access, please contact help@twilio.com. """
+    """ PLEASE NOTE that this class contains beta products that are subject to
+    change. Use them with caution. """
 
     def __init__(self, version, service_sid):
         """
@@ -169,9 +168,8 @@ class BuildList(ListResource):
 
 
 class BuildPage(Page):
-    """ PLEASE NOTE that this class contains preview products that are subject
-    to change. Use them with caution. If you currently do not have developer
-    preview access, please contact help@twilio.com. """
+    """ PLEASE NOTE that this class contains beta products that are subject to
+    change. Use them with caution. """
 
     def __init__(self, version, response, solution):
         """
@@ -211,9 +209,8 @@ class BuildPage(Page):
 
 
 class BuildContext(InstanceContext):
-    """ PLEASE NOTE that this class contains preview products that are subject
-    to change. Use them with caution. If you currently do not have developer
-    preview access, please contact help@twilio.com. """
+    """ PLEASE NOTE that this class contains beta products that are subject to
+    change. Use them with caution. """
 
     def __init__(self, version, service_sid, sid):
         """
@@ -288,9 +285,8 @@ class BuildContext(InstanceContext):
 
 
 class BuildInstance(InstanceResource):
-    """ PLEASE NOTE that this class contains preview products that are subject
-    to change. Use them with caution. If you currently do not have developer
-    preview access, please contact help@twilio.com. """
+    """ PLEASE NOTE that this class contains beta products that are subject to
+    change. Use them with caution. """
 
     class Status(object):
         BUILDING = "building"

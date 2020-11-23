@@ -13,6 +13,7 @@ from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.page import Page
+from twilio.rest.api.v2010.account.call.event import EventList
 from twilio.rest.api.v2010.account.call.feedback import FeedbackList
 from twilio.rest.api.v2010.account.call.feedback_summary import FeedbackSummaryList
 from twilio.rest.api.v2010.account.call.notification import NotificationList
@@ -409,6 +410,7 @@ class CallContext(InstanceContext):
         self._recordings = None
         self._notifications = None
         self._feedback = None
+        self._events = None
         self._payments = None
 
     def delete(self):
@@ -522,6 +524,22 @@ class CallContext(InstanceContext):
                 call_sid=self._solution['sid'],
             )
         return self._feedback
+
+    @property
+    def events(self):
+        """
+        Access the events
+
+        :returns: twilio.rest.api.v2010.account.call.event.EventList
+        :rtype: twilio.rest.api.v2010.account.call.event.EventList
+        """
+        if self._events is None:
+            self._events = EventList(
+                self._version,
+                account_sid=self._solution['account_sid'],
+                call_sid=self._solution['sid'],
+            )
+        return self._events
 
     @property
     def payments(self):
@@ -926,6 +944,16 @@ class CallInstance(InstanceResource):
         :rtype: twilio.rest.api.v2010.account.call.feedback.FeedbackList
         """
         return self._proxy.feedback
+
+    @property
+    def events(self):
+        """
+        Access the events
+
+        :returns: twilio.rest.api.v2010.account.call.event.EventList
+        :rtype: twilio.rest.api.v2010.account.call.event.EventList
+        """
+        return self._proxy.events
 
     @property
     def payments(self):

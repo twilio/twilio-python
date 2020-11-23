@@ -20,16 +20,10 @@ class FactorTestCase(IntegrationTestCase):
         with self.assertRaises(TwilioException):
             self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                  .entities("identity") \
-                                 .factors.create(friendly_name="friendly_name", factor_type="push", twilio_sandbox_mode="twilio_sandbox_mode")
+                                 .factors.create(friendly_name="friendly_name", factor_type="push")
 
         values = {'FriendlyName': "friendly_name", 'FactorType': "push", }
 
-        headers = {'Twilio-Sandbox-Mode': "twilio_sandbox_mode", }
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Entities/identity/Factors',
-            headers=headers,
-        ))
         self.holodeck.assert_has_request(Request(
             'post',
             'https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Entities/identity/Factors',
@@ -74,13 +68,11 @@ class FactorTestCase(IntegrationTestCase):
         with self.assertRaises(TwilioException):
             self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                  .entities("identity") \
-                                 .factors("YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete(twilio_sandbox_mode="twilio_sandbox_mode")
+                                 .factors("YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
 
-        headers = {'Twilio-Sandbox-Mode': "twilio_sandbox_mode", }
         self.holodeck.assert_has_request(Request(
             'delete',
             'https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Entities/identity/Factors/YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-            headers=headers,
         ))
 
     def test_delete_response(self):
@@ -101,13 +93,11 @@ class FactorTestCase(IntegrationTestCase):
         with self.assertRaises(TwilioException):
             self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                  .entities("identity") \
-                                 .factors("YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(twilio_sandbox_mode="twilio_sandbox_mode")
+                                 .factors("YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
-        headers = {'Twilio-Sandbox-Mode': "twilio_sandbox_mode", }
         self.holodeck.assert_has_request(Request(
             'get',
             'https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Entities/identity/Factors/YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-            headers=headers,
         ))
 
     def test_fetch_response(self):
@@ -148,13 +138,11 @@ class FactorTestCase(IntegrationTestCase):
         with self.assertRaises(TwilioException):
             self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                  .entities("identity") \
-                                 .factors.list(twilio_sandbox_mode="twilio_sandbox_mode")
+                                 .factors.list()
 
-        headers = {'Twilio-Sandbox-Mode': "twilio_sandbox_mode", }
         self.holodeck.assert_has_request(Request(
             'get',
             'https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Entities/identity/Factors',
-            headers=headers,
         ))
 
     def test_read_empty_response(self):
@@ -233,13 +221,11 @@ class FactorTestCase(IntegrationTestCase):
         with self.assertRaises(TwilioException):
             self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                  .entities("identity") \
-                                 .factors("YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update(twilio_sandbox_mode="twilio_sandbox_mode")
+                                 .factors("YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
 
-        headers = {'Twilio-Sandbox-Mode': "twilio_sandbox_mode", }
         self.holodeck.assert_has_request(Request(
             'post',
             'https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Entities/identity/Factors/YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-            headers=headers,
         ))
 
     def test_verify_response(self):

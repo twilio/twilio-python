@@ -16,9 +16,8 @@ from twilio.rest.serverless.v1.service.asset.asset_version import AssetVersionLi
 
 
 class AssetList(ListResource):
-    """ PLEASE NOTE that this class contains preview products that are subject
-    to change. Use them with caution. If you currently do not have developer
-    preview access, please contact help@twilio.com. """
+    """ PLEASE NOTE that this class contains beta products that are subject to
+    change. Use them with caution. """
 
     def __init__(self, version, service_sid):
         """
@@ -161,9 +160,8 @@ class AssetList(ListResource):
 
 
 class AssetPage(Page):
-    """ PLEASE NOTE that this class contains preview products that are subject
-    to change. Use them with caution. If you currently do not have developer
-    preview access, please contact help@twilio.com. """
+    """ PLEASE NOTE that this class contains beta products that are subject to
+    change. Use them with caution. """
 
     def __init__(self, version, response, solution):
         """
@@ -203,9 +201,8 @@ class AssetPage(Page):
 
 
 class AssetContext(InstanceContext):
-    """ PLEASE NOTE that this class contains preview products that are subject
-    to change. Use them with caution. If you currently do not have developer
-    preview access, please contact help@twilio.com. """
+    """ PLEASE NOTE that this class contains beta products that are subject to
+    change. Use them with caution. """
 
     def __init__(self, version, service_sid, sid):
         """
@@ -300,9 +297,8 @@ class AssetContext(InstanceContext):
 
 
 class AssetInstance(InstanceResource):
-    """ PLEASE NOTE that this class contains preview products that are subject
-    to change. Use them with caution. If you currently do not have developer
-    preview access, please contact help@twilio.com. """
+    """ PLEASE NOTE that this class contains beta products that are subject to
+    change. Use them with caution. """
 
     def __init__(self, version, payload, service_sid, sid=None):
         """

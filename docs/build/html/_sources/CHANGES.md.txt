@@ -3,6 +3,58 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2020-11-18] Version 6.48.0
+---------------------------
+**Api**
+- Add new call events resource - GET /2010-04-01/Accounts/{account_sid}/Calls/{call_sid}/Events.json
+
+**Conversations**
+- Fixed default response property issue for Service Notifications Configuration
+
+**Insights**
+- Removing call_sid from participant summary. **(breaking change)**
+
+**Serverless**
+- Allow Service unique name to be used in path (in place of SID) in Service update request
+
+**Sync**
+- Added HideExpired query parameter for filtering Sync Documents with expired
+
+**Verify**
+- Challenge `Details` and `HiddenDetails` properties are now marked as `PII`
+- Challenge `expiration_date` attribute updated to set a default value of five (5) minutes and to allow max dates of one (1) hour after creation.
+- Entity `identity` attribute updated to allow values between 8 and 64 characters.
+- Verify Service frinedly_name attribute updated from 64 max lenght to 30 characters.
+
+
+[2020-11-05] Version 6.47.0
+---------------------------
+**Library - Docs**
+- [PR #544](https://github.com/twilio/twilio-python/pull/544): add debug logging example. Thanks to [@thinkingserious](https://github.com/thinkingserious)!
+
+**Api**
+- Added `verify-push` to `usage_record` API
+
+**Bulkexports**
+- When creating a custom export the StartDay, EndDay, and FriendlyName fields were required but this was not reflected in the API documentation.  The API itself failed the request without these fields. **(breaking change)**
+- Added property descriptions for Custom Export create method
+- Clarified WebhookUrl and WebhookMethod must be provided together for Custom Export
+
+**Insights**
+- Added video room and participant summary apis.
+
+**Ip_messaging**
+- Create separate definition for ip-messaging
+- Restore v2 endpoints for ip-messaging
+
+**Verify**
+- Verify Push madurity were updated from `preview` to `beta`
+- `twilio_sandbox_mode` header was removed from Verify Push resources **(breaking change)**
+
+**Video**
+- [Rooms] Add Recording Rules API
+
+
 [2020-10-14] Version 6.46.0
 ---------------------------
 **Library - Docs**

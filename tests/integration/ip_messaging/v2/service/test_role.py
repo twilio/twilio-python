@@ -24,7 +24,7 @@ class RoleTestCase(IntegrationTestCase):
 
         self.holodeck.assert_has_request(Request(
             'get',
-            'https://chat.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Roles/RLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+            'https://ip-messaging.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Roles/RLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
         ))
 
     def test_fetch_response(self):
@@ -45,7 +45,7 @@ class RoleTestCase(IntegrationTestCase):
                 ],
                 "date_created": "2016-03-03T19:47:15Z",
                 "date_updated": "2016-03-03T19:47:15Z",
-                "url": "https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Roles/RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+                "url": "https://ip-messaging.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Roles/RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
             '''
         ))
@@ -64,7 +64,7 @@ class RoleTestCase(IntegrationTestCase):
 
         self.holodeck.assert_has_request(Request(
             'delete',
-            'https://chat.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Roles/RLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+            'https://ip-messaging.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Roles/RLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
         ))
 
     def test_delete_response(self):
@@ -93,7 +93,7 @@ class RoleTestCase(IntegrationTestCase):
 
         self.holodeck.assert_has_request(Request(
             'post',
-            'https://chat.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Roles',
+            'https://ip-messaging.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Roles',
             data=values,
         ))
 
@@ -115,7 +115,7 @@ class RoleTestCase(IntegrationTestCase):
                 ],
                 "date_created": "2016-03-03T19:47:15Z",
                 "date_updated": "2016-03-03T19:47:15Z",
-                "url": "https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Roles/RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+                "url": "https://ip-messaging.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Roles/RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
             '''
         ))
@@ -134,7 +134,7 @@ class RoleTestCase(IntegrationTestCase):
 
         self.holodeck.assert_has_request(Request(
             'get',
-            'https://chat.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Roles',
+            'https://ip-messaging.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Roles',
         ))
 
     def test_read_full_response(self):
@@ -145,9 +145,9 @@ class RoleTestCase(IntegrationTestCase):
                 "meta": {
                     "page": 0,
                     "page_size": 50,
-                    "first_page_url": "https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Roles?PageSize=50&Page=0",
+                    "first_page_url": "https://ip-messaging.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Roles?PageSize=50&Page=0",
                     "previous_page_url": null,
-                    "url": "https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Roles?PageSize=50&Page=0",
+                    "url": "https://ip-messaging.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Roles?PageSize=50&Page=0",
                     "next_page_url": null,
                     "key": "roles"
                 },
@@ -166,7 +166,7 @@ class RoleTestCase(IntegrationTestCase):
                         ],
                         "date_created": "2016-03-03T19:47:15Z",
                         "date_updated": "2016-03-03T19:47:15Z",
-                        "url": "https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Roles/RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+                        "url": "https://ip-messaging.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Roles/RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
                     }
                 ]
             }
@@ -186,9 +186,9 @@ class RoleTestCase(IntegrationTestCase):
                 "meta": {
                     "page": 0,
                     "page_size": 50,
-                    "first_page_url": "https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Roles?PageSize=50&Page=0",
+                    "first_page_url": "https://ip-messaging.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Roles?PageSize=50&Page=0",
                     "previous_page_url": null,
-                    "url": "https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Roles?PageSize=50&Page=0",
+                    "url": "https://ip-messaging.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Roles?PageSize=50&Page=0",
                     "next_page_url": null,
                     "key": "roles"
                 },
@@ -213,7 +213,7 @@ class RoleTestCase(IntegrationTestCase):
 
         self.holodeck.assert_has_request(Request(
             'post',
-            'https://chat.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Roles/RLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+            'https://ip-messaging.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Roles/RLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
             data=values,
         ))
 
@@ -235,7 +235,7 @@ class RoleTestCase(IntegrationTestCase):
                 ],
                 "date_created": "2016-03-03T19:47:15Z",
                 "date_updated": "2016-03-03T19:47:15Z",
-                "url": "https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Roles/RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+                "url": "https://ip-messaging.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Roles/RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
             '''
         ))

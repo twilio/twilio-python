@@ -22,11 +22,11 @@ class InviteList(ListResource):
         Initialize the InviteList
 
         :param Version version: Version that contains the resource
-        :param service_sid: The SID of the Service that the resource is associated with
-        :param channel_sid: The SID of the Channel the new resource belongs to
+        :param service_sid: The service_sid
+        :param channel_sid: The channel_sid
 
-        :returns: twilio.rest.chat.v1.service.channel.invite.InviteList
-        :rtype: twilio.rest.chat.v1.service.channel.invite.InviteList
+        :returns: twilio.rest.ip_messaging.v1.service.channel.invite.InviteList
+        :rtype: twilio.rest.ip_messaging.v1.service.channel.invite.InviteList
         """
         super(InviteList, self).__init__(version)
 
@@ -38,11 +38,11 @@ class InviteList(ListResource):
         """
         Create the InviteInstance
 
-        :param unicode identity: The `identity` value that identifies the new resource's User
-        :param unicode role_sid: The Role assigned to the new member
+        :param unicode identity: The identity
+        :param unicode role_sid: The role_sid
 
         :returns: The created InviteInstance
-        :rtype: twilio.rest.chat.v1.service.channel.invite.InviteInstance
+        :rtype: twilio.rest.ip_messaging.v1.service.channel.invite.InviteInstance
         """
         data = values.of({'Identity': identity, 'RoleSid': role_sid, })
 
@@ -62,7 +62,7 @@ class InviteList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param unicode identity: The `identity` value of the resources to read
+        :param unicode identity: The identity
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -71,7 +71,7 @@ class InviteList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.chat.v1.service.channel.invite.InviteInstance]
+        :rtype: list[twilio.rest.ip_messaging.v1.service.channel.invite.InviteInstance]
         """
         limits = self._version.read_limits(limit, page_size)
 
@@ -85,7 +85,7 @@ class InviteList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param unicode identity: The `identity` value of the resources to read
+        :param unicode identity: The identity
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -94,7 +94,7 @@ class InviteList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.chat.v1.service.channel.invite.InviteInstance]
+        :rtype: list[twilio.rest.ip_messaging.v1.service.channel.invite.InviteInstance]
         """
         return list(self.stream(identity=identity, limit=limit, page_size=page_size, ))
 
@@ -104,13 +104,13 @@ class InviteList(ListResource):
         Retrieve a single page of InviteInstance records from the API.
         Request is executed immediately
 
-        :param unicode identity: The `identity` value of the resources to read
+        :param unicode identity: The identity
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of InviteInstance
-        :rtype: twilio.rest.chat.v1.service.channel.invite.InvitePage
+        :rtype: twilio.rest.ip_messaging.v1.service.channel.invite.InvitePage
         """
         data = values.of({
             'Identity': serialize.map(identity, lambda e: e),
@@ -131,7 +131,7 @@ class InviteList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of InviteInstance
-        :rtype: twilio.rest.chat.v1.service.channel.invite.InvitePage
+        :rtype: twilio.rest.ip_messaging.v1.service.channel.invite.InvitePage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -144,10 +144,10 @@ class InviteList(ListResource):
         """
         Constructs a InviteContext
 
-        :param sid: The unique string that identifies the resource
+        :param sid: The sid
 
-        :returns: twilio.rest.chat.v1.service.channel.invite.InviteContext
-        :rtype: twilio.rest.chat.v1.service.channel.invite.InviteContext
+        :returns: twilio.rest.ip_messaging.v1.service.channel.invite.InviteContext
+        :rtype: twilio.rest.ip_messaging.v1.service.channel.invite.InviteContext
         """
         return InviteContext(
             self._version,
@@ -160,10 +160,10 @@ class InviteList(ListResource):
         """
         Constructs a InviteContext
 
-        :param sid: The unique string that identifies the resource
+        :param sid: The sid
 
-        :returns: twilio.rest.chat.v1.service.channel.invite.InviteContext
-        :rtype: twilio.rest.chat.v1.service.channel.invite.InviteContext
+        :returns: twilio.rest.ip_messaging.v1.service.channel.invite.InviteContext
+        :rtype: twilio.rest.ip_messaging.v1.service.channel.invite.InviteContext
         """
         return InviteContext(
             self._version,
@@ -190,11 +190,11 @@ class InvitePage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param service_sid: The SID of the Service that the resource is associated with
-        :param channel_sid: The SID of the Channel the new resource belongs to
+        :param service_sid: The service_sid
+        :param channel_sid: The channel_sid
 
-        :returns: twilio.rest.chat.v1.service.channel.invite.InvitePage
-        :rtype: twilio.rest.chat.v1.service.channel.invite.InvitePage
+        :returns: twilio.rest.ip_messaging.v1.service.channel.invite.InvitePage
+        :rtype: twilio.rest.ip_messaging.v1.service.channel.invite.InvitePage
         """
         super(InvitePage, self).__init__(version, response)
 
@@ -207,8 +207,8 @@ class InvitePage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.chat.v1.service.channel.invite.InviteInstance
-        :rtype: twilio.rest.chat.v1.service.channel.invite.InviteInstance
+        :returns: twilio.rest.ip_messaging.v1.service.channel.invite.InviteInstance
+        :rtype: twilio.rest.ip_messaging.v1.service.channel.invite.InviteInstance
         """
         return InviteInstance(
             self._version,
@@ -234,12 +234,12 @@ class InviteContext(InstanceContext):
         Initialize the InviteContext
 
         :param Version version: Version that contains the resource
-        :param service_sid: The SID of the Service to fetch the resource from
-        :param channel_sid: The SID of the Channel the resource to fetch belongs to
-        :param sid: The unique string that identifies the resource
+        :param service_sid: The service_sid
+        :param channel_sid: The channel_sid
+        :param sid: The sid
 
-        :returns: twilio.rest.chat.v1.service.channel.invite.InviteContext
-        :rtype: twilio.rest.chat.v1.service.channel.invite.InviteContext
+        :returns: twilio.rest.ip_messaging.v1.service.channel.invite.InviteContext
+        :rtype: twilio.rest.ip_messaging.v1.service.channel.invite.InviteContext
         """
         super(InviteContext, self).__init__(version)
 
@@ -252,7 +252,7 @@ class InviteContext(InstanceContext):
         Fetch the InviteInstance
 
         :returns: The fetched InviteInstance
-        :rtype: twilio.rest.chat.v1.service.channel.invite.InviteInstance
+        :rtype: twilio.rest.ip_messaging.v1.service.channel.invite.InviteInstance
         """
         payload = self._version.fetch(method='GET', uri=self._uri, )
 
@@ -290,8 +290,8 @@ class InviteInstance(InstanceResource):
         """
         Initialize the InviteInstance
 
-        :returns: twilio.rest.chat.v1.service.channel.invite.InviteInstance
-        :rtype: twilio.rest.chat.v1.service.channel.invite.InviteInstance
+        :returns: twilio.rest.ip_messaging.v1.service.channel.invite.InviteInstance
+        :rtype: twilio.rest.ip_messaging.v1.service.channel.invite.InviteInstance
         """
         super(InviteInstance, self).__init__(version)
 
@@ -324,7 +324,7 @@ class InviteInstance(InstanceResource):
         performing various actions.  All instance actions are proxied to the context
 
         :returns: InviteContext for this InviteInstance
-        :rtype: twilio.rest.chat.v1.service.channel.invite.InviteContext
+        :rtype: twilio.rest.ip_messaging.v1.service.channel.invite.InviteContext
         """
         if self._context is None:
             self._context = InviteContext(
@@ -338,7 +338,7 @@ class InviteInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: The unique string that identifies the resource
+        :returns: The sid
         :rtype: unicode
         """
         return self._properties['sid']
@@ -346,7 +346,7 @@ class InviteInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The SID of the Account that created the resource
+        :returns: The account_sid
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -354,7 +354,7 @@ class InviteInstance(InstanceResource):
     @property
     def channel_sid(self):
         """
-        :returns: The SID of the Channel the new resource belongs to
+        :returns: The channel_sid
         :rtype: unicode
         """
         return self._properties['channel_sid']
@@ -362,7 +362,7 @@ class InviteInstance(InstanceResource):
     @property
     def service_sid(self):
         """
-        :returns: The SID of the Service that the resource is associated with
+        :returns: The service_sid
         :rtype: unicode
         """
         return self._properties['service_sid']
@@ -370,7 +370,7 @@ class InviteInstance(InstanceResource):
     @property
     def identity(self):
         """
-        :returns: The string that identifies the resource's User
+        :returns: The identity
         :rtype: unicode
         """
         return self._properties['identity']
@@ -378,7 +378,7 @@ class InviteInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The RFC 2822 date and time in GMT when the resource was created
+        :returns: The date_created
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -386,7 +386,7 @@ class InviteInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The RFC 2822 date and time in GMT when the resource was last updated
+        :returns: The date_updated
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -394,7 +394,7 @@ class InviteInstance(InstanceResource):
     @property
     def role_sid(self):
         """
-        :returns: The SID of the Role assigned to the member
+        :returns: The role_sid
         :rtype: unicode
         """
         return self._properties['role_sid']
@@ -402,7 +402,7 @@ class InviteInstance(InstanceResource):
     @property
     def created_by(self):
         """
-        :returns: The identity of the User that created the invite
+        :returns: The created_by
         :rtype: unicode
         """
         return self._properties['created_by']
@@ -410,7 +410,7 @@ class InviteInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: The absolute URL of the Invite resource
+        :returns: The url
         :rtype: unicode
         """
         return self._properties['url']
@@ -420,7 +420,7 @@ class InviteInstance(InstanceResource):
         Fetch the InviteInstance
 
         :returns: The fetched InviteInstance
-        :rtype: twilio.rest.chat.v1.service.channel.invite.InviteInstance
+        :rtype: twilio.rest.ip_messaging.v1.service.channel.invite.InviteInstance
         """
         return self._proxy.fetch()
 

@@ -91,11 +91,14 @@ class ExportCustomJobTestCase(IntegrationTestCase):
 
         with self.assertRaises(TwilioException):
             self.client.preview.bulk_exports.exports("resource_type") \
-                                            .export_custom_jobs.create()
+                                            .export_custom_jobs.create(start_day="start_day", end_day="end_day", friendly_name="friendly_name")
+
+        values = {'StartDay': "start_day", 'EndDay': "end_day", 'FriendlyName': "friendly_name", }
 
         self.holodeck.assert_has_request(Request(
             'post',
             'https://preview.twilio.com/BulkExports/Exports/resource_type/Jobs',
+            data=values,
         ))
 
     def test_create_response(self):
@@ -117,6 +120,6 @@ class ExportCustomJobTestCase(IntegrationTestCase):
         ))
 
         actual = self.client.preview.bulk_exports.exports("resource_type") \
-                                                 .export_custom_jobs.create()
+                                                 .export_custom_jobs.create(start_day="start_day", end_day="end_day", friendly_name="friendly_name")
 
         self.assertIsNotNone(actual)

@@ -17,9 +17,8 @@ from twilio.rest.verify.v2.service.entity.factor import FactorList
 
 
 class EntityList(ListResource):
-    """ PLEASE NOTE that this class contains preview products that are subject
-    to change. Use them with caution. If you currently do not have developer
-    preview access, please contact help@twilio.com. """
+    """ PLEASE NOTE that this class contains beta products that are subject to
+    change. Use them with caution. """
 
     def __init__(self, version, service_sid):
         """
@@ -37,31 +36,28 @@ class EntityList(ListResource):
         self._solution = {'service_sid': service_sid, }
         self._uri = '/Services/{service_sid}/Entities'.format(**self._solution)
 
-    def create(self, identity, twilio_sandbox_mode=values.unset):
+    def create(self, identity):
         """
         Create the EntityInstance
 
         :param unicode identity: Unique external identifier of the Entity
-        :param unicode twilio_sandbox_mode: The Twilio-Sandbox-Mode HTTP request header
 
         :returns: The created EntityInstance
         :rtype: twilio.rest.verify.v2.service.entity.EntityInstance
         """
         data = values.of({'Identity': identity, })
-        headers = values.of({'Twilio-Sandbox-Mode': twilio_sandbox_mode, })
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data, headers=headers, )
+        payload = self._version.create(method='POST', uri=self._uri, data=data, )
 
         return EntityInstance(self._version, payload, service_sid=self._solution['service_sid'], )
 
-    def stream(self, twilio_sandbox_mode=values.unset, limit=None, page_size=None):
+    def stream(self, limit=None, page_size=None):
         """
         Streams EntityInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param unicode twilio_sandbox_mode: The Twilio-Sandbox-Mode HTTP request header
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -74,17 +70,16 @@ class EntityList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
 
-        page = self.page(twilio_sandbox_mode=twilio_sandbox_mode, page_size=limits['page_size'], )
+        page = self.page(page_size=limits['page_size'], )
 
         return self._version.stream(page, limits['limit'])
 
-    def list(self, twilio_sandbox_mode=values.unset, limit=None, page_size=None):
+    def list(self, limit=None, page_size=None):
         """
         Lists EntityInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param unicode twilio_sandbox_mode: The Twilio-Sandbox-Mode HTTP request header
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -95,15 +90,14 @@ class EntityList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.verify.v2.service.entity.EntityInstance]
         """
-        return list(self.stream(twilio_sandbox_mode=twilio_sandbox_mode, limit=limit, page_size=page_size, ))
+        return list(self.stream(limit=limit, page_size=page_size, ))
 
-    def page(self, twilio_sandbox_mode=values.unset, page_token=values.unset,
-             page_number=values.unset, page_size=values.unset):
+    def page(self, page_token=values.unset, page_number=values.unset,
+             page_size=values.unset):
         """
         Retrieve a single page of EntityInstance records from the API.
         Request is executed immediately
 
-        :param unicode twilio_sandbox_mode: The Twilio-Sandbox-Mode HTTP request header
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -112,9 +106,8 @@ class EntityList(ListResource):
         :rtype: twilio.rest.verify.v2.service.entity.EntityPage
         """
         data = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
-        headers = values.of({'Twilio-Sandbox-Mode': twilio_sandbox_mode, })
 
-        response = self._version.page(method='GET', uri=self._uri, params=data, headers=headers, )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return EntityPage(self._version, response, self._solution)
 
@@ -168,9 +161,8 @@ class EntityList(ListResource):
 
 
 class EntityPage(Page):
-    """ PLEASE NOTE that this class contains preview products that are subject
-    to change. Use them with caution. If you currently do not have developer
-    preview access, please contact help@twilio.com. """
+    """ PLEASE NOTE that this class contains beta products that are subject to
+    change. Use them with caution. """
 
     def __init__(self, version, response, solution):
         """
@@ -210,9 +202,8 @@ class EntityPage(Page):
 
 
 class EntityContext(InstanceContext):
-    """ PLEASE NOTE that this class contains preview products that are subject
-    to change. Use them with caution. If you currently do not have developer
-    preview access, please contact help@twilio.com. """
+    """ PLEASE NOTE that this class contains beta products that are subject to
+    change. Use them with caution. """
 
     def __init__(self, version, service_sid, identity):
         """
@@ -235,31 +226,23 @@ class EntityContext(InstanceContext):
         self._factors = None
         self._challenges = None
 
-    def delete(self, twilio_sandbox_mode=values.unset):
+    def delete(self):
         """
         Deletes the EntityInstance
-
-        :param unicode twilio_sandbox_mode: The Twilio-Sandbox-Mode HTTP request header
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        headers = values.of({'Twilio-Sandbox-Mode': twilio_sandbox_mode, })
+        return self._version.delete(method='DELETE', uri=self._uri, )
 
-        return self._version.delete(method='DELETE', uri=self._uri, headers=headers, )
-
-    def fetch(self, twilio_sandbox_mode=values.unset):
+    def fetch(self):
         """
         Fetch the EntityInstance
-
-        :param unicode twilio_sandbox_mode: The Twilio-Sandbox-Mode HTTP request header
 
         :returns: The fetched EntityInstance
         :rtype: twilio.rest.verify.v2.service.entity.EntityInstance
         """
-        headers = values.of({'Twilio-Sandbox-Mode': twilio_sandbox_mode, })
-
-        payload = self._version.fetch(method='GET', uri=self._uri, headers=headers, )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return EntityInstance(
             self._version,
@@ -312,9 +295,8 @@ class EntityContext(InstanceContext):
 
 
 class EntityInstance(InstanceResource):
-    """ PLEASE NOTE that this class contains preview products that are subject
-    to change. Use them with caution. If you currently do not have developer
-    preview access, please contact help@twilio.com. """
+    """ PLEASE NOTE that this class contains beta products that are subject to
+    change. Use them with caution. """
 
     def __init__(self, version, payload, service_sid, identity=None):
         """
@@ -422,27 +404,23 @@ class EntityInstance(InstanceResource):
         """
         return self._properties['links']
 
-    def delete(self, twilio_sandbox_mode=values.unset):
+    def delete(self):
         """
         Deletes the EntityInstance
-
-        :param unicode twilio_sandbox_mode: The Twilio-Sandbox-Mode HTTP request header
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._proxy.delete(twilio_sandbox_mode=twilio_sandbox_mode, )
+        return self._proxy.delete()
 
-    def fetch(self, twilio_sandbox_mode=values.unset):
+    def fetch(self):
         """
         Fetch the EntityInstance
-
-        :param unicode twilio_sandbox_mode: The Twilio-Sandbox-Mode HTTP request header
 
         :returns: The fetched EntityInstance
         :rtype: twilio.rest.verify.v2.service.entity.EntityInstance
         """
-        return self._proxy.fetch(twilio_sandbox_mode=twilio_sandbox_mode, )
+        return self._proxy.fetch()
 
     @property
     def factors(self):

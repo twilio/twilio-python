@@ -22,11 +22,11 @@ class UserBindingList(ListResource):
         Initialize the UserBindingList
 
         :param Version version: Version that contains the resource
-        :param service_sid: The SID of the Service that the resource is associated with
-        :param user_sid: The SID of the User with the binding
+        :param service_sid: The service_sid
+        :param user_sid: The user_sid
 
-        :returns: twilio.rest.chat.v2.service.user.user_binding.UserBindingList
-        :rtype: twilio.rest.chat.v2.service.user.user_binding.UserBindingList
+        :returns: twilio.rest.ip_messaging.v2.service.user.user_binding.UserBindingList
+        :rtype: twilio.rest.ip_messaging.v2.service.user.user_binding.UserBindingList
         """
         super(UserBindingList, self).__init__(version)
 
@@ -41,7 +41,7 @@ class UserBindingList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param UserBindingInstance.BindingType binding_type: The push technology used by the User Binding resources to read
+        :param UserBindingInstance.BindingType binding_type: The binding_type
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -50,7 +50,7 @@ class UserBindingList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.chat.v2.service.user.user_binding.UserBindingInstance]
+        :rtype: list[twilio.rest.ip_messaging.v2.service.user.user_binding.UserBindingInstance]
         """
         limits = self._version.read_limits(limit, page_size)
 
@@ -64,7 +64,7 @@ class UserBindingList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param UserBindingInstance.BindingType binding_type: The push technology used by the User Binding resources to read
+        :param UserBindingInstance.BindingType binding_type: The binding_type
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -73,7 +73,7 @@ class UserBindingList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.chat.v2.service.user.user_binding.UserBindingInstance]
+        :rtype: list[twilio.rest.ip_messaging.v2.service.user.user_binding.UserBindingInstance]
         """
         return list(self.stream(binding_type=binding_type, limit=limit, page_size=page_size, ))
 
@@ -83,13 +83,13 @@ class UserBindingList(ListResource):
         Retrieve a single page of UserBindingInstance records from the API.
         Request is executed immediately
 
-        :param UserBindingInstance.BindingType binding_type: The push technology used by the User Binding resources to read
+        :param UserBindingInstance.BindingType binding_type: The binding_type
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of UserBindingInstance
-        :rtype: twilio.rest.chat.v2.service.user.user_binding.UserBindingPage
+        :rtype: twilio.rest.ip_messaging.v2.service.user.user_binding.UserBindingPage
         """
         data = values.of({
             'BindingType': serialize.map(binding_type, lambda e: e),
@@ -110,7 +110,7 @@ class UserBindingList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of UserBindingInstance
-        :rtype: twilio.rest.chat.v2.service.user.user_binding.UserBindingPage
+        :rtype: twilio.rest.ip_messaging.v2.service.user.user_binding.UserBindingPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -123,10 +123,10 @@ class UserBindingList(ListResource):
         """
         Constructs a UserBindingContext
 
-        :param sid: The SID of the User Binding resource to fetch
+        :param sid: The sid
 
-        :returns: twilio.rest.chat.v2.service.user.user_binding.UserBindingContext
-        :rtype: twilio.rest.chat.v2.service.user.user_binding.UserBindingContext
+        :returns: twilio.rest.ip_messaging.v2.service.user.user_binding.UserBindingContext
+        :rtype: twilio.rest.ip_messaging.v2.service.user.user_binding.UserBindingContext
         """
         return UserBindingContext(
             self._version,
@@ -139,10 +139,10 @@ class UserBindingList(ListResource):
         """
         Constructs a UserBindingContext
 
-        :param sid: The SID of the User Binding resource to fetch
+        :param sid: The sid
 
-        :returns: twilio.rest.chat.v2.service.user.user_binding.UserBindingContext
-        :rtype: twilio.rest.chat.v2.service.user.user_binding.UserBindingContext
+        :returns: twilio.rest.ip_messaging.v2.service.user.user_binding.UserBindingContext
+        :rtype: twilio.rest.ip_messaging.v2.service.user.user_binding.UserBindingContext
         """
         return UserBindingContext(
             self._version,
@@ -169,11 +169,11 @@ class UserBindingPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param service_sid: The SID of the Service that the resource is associated with
-        :param user_sid: The SID of the User with the binding
+        :param service_sid: The service_sid
+        :param user_sid: The user_sid
 
-        :returns: twilio.rest.chat.v2.service.user.user_binding.UserBindingPage
-        :rtype: twilio.rest.chat.v2.service.user.user_binding.UserBindingPage
+        :returns: twilio.rest.ip_messaging.v2.service.user.user_binding.UserBindingPage
+        :rtype: twilio.rest.ip_messaging.v2.service.user.user_binding.UserBindingPage
         """
         super(UserBindingPage, self).__init__(version, response)
 
@@ -186,8 +186,8 @@ class UserBindingPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.chat.v2.service.user.user_binding.UserBindingInstance
-        :rtype: twilio.rest.chat.v2.service.user.user_binding.UserBindingInstance
+        :returns: twilio.rest.ip_messaging.v2.service.user.user_binding.UserBindingInstance
+        :rtype: twilio.rest.ip_messaging.v2.service.user.user_binding.UserBindingInstance
         """
         return UserBindingInstance(
             self._version,
@@ -213,12 +213,12 @@ class UserBindingContext(InstanceContext):
         Initialize the UserBindingContext
 
         :param Version version: Version that contains the resource
-        :param service_sid: The SID of the Service to fetch the resource from
-        :param user_sid: The SID of the User with the binding
-        :param sid: The SID of the User Binding resource to fetch
+        :param service_sid: The service_sid
+        :param user_sid: The user_sid
+        :param sid: The sid
 
-        :returns: twilio.rest.chat.v2.service.user.user_binding.UserBindingContext
-        :rtype: twilio.rest.chat.v2.service.user.user_binding.UserBindingContext
+        :returns: twilio.rest.ip_messaging.v2.service.user.user_binding.UserBindingContext
+        :rtype: twilio.rest.ip_messaging.v2.service.user.user_binding.UserBindingContext
         """
         super(UserBindingContext, self).__init__(version)
 
@@ -231,7 +231,7 @@ class UserBindingContext(InstanceContext):
         Fetch the UserBindingInstance
 
         :returns: The fetched UserBindingInstance
-        :rtype: twilio.rest.chat.v2.service.user.user_binding.UserBindingInstance
+        :rtype: twilio.rest.ip_messaging.v2.service.user.user_binding.UserBindingInstance
         """
         payload = self._version.fetch(method='GET', uri=self._uri, )
 
@@ -274,8 +274,8 @@ class UserBindingInstance(InstanceResource):
         """
         Initialize the UserBindingInstance
 
-        :returns: twilio.rest.chat.v2.service.user.user_binding.UserBindingInstance
-        :rtype: twilio.rest.chat.v2.service.user.user_binding.UserBindingInstance
+        :returns: twilio.rest.ip_messaging.v2.service.user.user_binding.UserBindingInstance
+        :rtype: twilio.rest.ip_messaging.v2.service.user.user_binding.UserBindingInstance
         """
         super(UserBindingInstance, self).__init__(version)
 
@@ -310,7 +310,7 @@ class UserBindingInstance(InstanceResource):
         performing various actions.  All instance actions are proxied to the context
 
         :returns: UserBindingContext for this UserBindingInstance
-        :rtype: twilio.rest.chat.v2.service.user.user_binding.UserBindingContext
+        :rtype: twilio.rest.ip_messaging.v2.service.user.user_binding.UserBindingContext
         """
         if self._context is None:
             self._context = UserBindingContext(
@@ -324,7 +324,7 @@ class UserBindingInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: The unique string that identifies the resource
+        :returns: The sid
         :rtype: unicode
         """
         return self._properties['sid']
@@ -332,7 +332,7 @@ class UserBindingInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The SID of the Account that created the resource
+        :returns: The account_sid
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -340,7 +340,7 @@ class UserBindingInstance(InstanceResource):
     @property
     def service_sid(self):
         """
-        :returns: The SID of the Service that the resource is associated with
+        :returns: The service_sid
         :rtype: unicode
         """
         return self._properties['service_sid']
@@ -348,7 +348,7 @@ class UserBindingInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The ISO 8601 date and time in GMT when the resource was created
+        :returns: The date_created
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -356,7 +356,7 @@ class UserBindingInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The ISO 8601 date and time in GMT when the resource was last updated
+        :returns: The date_updated
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -364,7 +364,7 @@ class UserBindingInstance(InstanceResource):
     @property
     def endpoint(self):
         """
-        :returns: The unique endpoint identifier for the User Binding
+        :returns: The endpoint
         :rtype: unicode
         """
         return self._properties['endpoint']
@@ -372,7 +372,7 @@ class UserBindingInstance(InstanceResource):
     @property
     def identity(self):
         """
-        :returns: The string that identifies the resource's User
+        :returns: The identity
         :rtype: unicode
         """
         return self._properties['identity']
@@ -380,7 +380,7 @@ class UserBindingInstance(InstanceResource):
     @property
     def user_sid(self):
         """
-        :returns: The SID of the User with the binding
+        :returns: The user_sid
         :rtype: unicode
         """
         return self._properties['user_sid']
@@ -388,7 +388,7 @@ class UserBindingInstance(InstanceResource):
     @property
     def credential_sid(self):
         """
-        :returns: The SID of the Credential for the binding
+        :returns: The credential_sid
         :rtype: unicode
         """
         return self._properties['credential_sid']
@@ -396,7 +396,7 @@ class UserBindingInstance(InstanceResource):
     @property
     def binding_type(self):
         """
-        :returns: The push technology to use for the binding
+        :returns: The binding_type
         :rtype: UserBindingInstance.BindingType
         """
         return self._properties['binding_type']
@@ -404,7 +404,7 @@ class UserBindingInstance(InstanceResource):
     @property
     def message_types(self):
         """
-        :returns: The Programmable Chat message types the binding is subscribed to
+        :returns: The message_types
         :rtype: unicode
         """
         return self._properties['message_types']
@@ -412,7 +412,7 @@ class UserBindingInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: The absolute URL of the User Binding resource
+        :returns: The url
         :rtype: unicode
         """
         return self._properties['url']
@@ -422,7 +422,7 @@ class UserBindingInstance(InstanceResource):
         Fetch the UserBindingInstance
 
         :returns: The fetched UserBindingInstance
-        :rtype: twilio.rest.chat.v2.service.user.user_binding.UserBindingInstance
+        :rtype: twilio.rest.ip_messaging.v2.service.user.user_binding.UserBindingInstance
         """
         return self._proxy.fetch()
 

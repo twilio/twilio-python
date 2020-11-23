@@ -16,9 +16,8 @@ from twilio.rest.serverless.v1.service.function.function_version.function_versio
 
 
 class FunctionVersionList(ListResource):
-    """ PLEASE NOTE that this class contains preview products that are subject
-    to change. Use them with caution. If you currently do not have developer
-    preview access, please contact help@twilio.com. """
+    """ PLEASE NOTE that this class contains beta products that are subject to
+    change. Use them with caution. """
 
     def __init__(self, version, service_sid, function_sid):
         """
@@ -157,9 +156,8 @@ class FunctionVersionList(ListResource):
 
 
 class FunctionVersionPage(Page):
-    """ PLEASE NOTE that this class contains preview products that are subject
-    to change. Use them with caution. If you currently do not have developer
-    preview access, please contact help@twilio.com. """
+    """ PLEASE NOTE that this class contains beta products that are subject to
+    change. Use them with caution. """
 
     def __init__(self, version, response, solution):
         """
@@ -205,9 +203,8 @@ class FunctionVersionPage(Page):
 
 
 class FunctionVersionContext(InstanceContext):
-    """ PLEASE NOTE that this class contains preview products that are subject
-    to change. Use them with caution. If you currently do not have developer
-    preview access, please contact help@twilio.com. """
+    """ PLEASE NOTE that this class contains beta products that are subject to
+    change. Use them with caution. """
 
     def __init__(self, version, service_sid, function_sid, sid):
         """
@@ -276,9 +273,8 @@ class FunctionVersionContext(InstanceContext):
 
 
 class FunctionVersionInstance(InstanceResource):
-    """ PLEASE NOTE that this class contains preview products that are subject
-    to change. Use them with caution. If you currently do not have developer
-    preview access, please contact help@twilio.com. """
+    """ PLEASE NOTE that this class contains beta products that are subject to
+    change. Use them with caution. """
 
     class Visibility(object):
         PUBLIC = "public"

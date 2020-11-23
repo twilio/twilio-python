@@ -20,16 +20,10 @@ class ChallengeTestCase(IntegrationTestCase):
         with self.assertRaises(TwilioException):
             self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                  .entities("identity") \
-                                 .challenges.create(factor_sid="YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", twilio_sandbox_mode="twilio_sandbox_mode")
+                                 .challenges.create(factor_sid="YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
 
         values = {'FactorSid': "YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", }
 
-        headers = {'Twilio-Sandbox-Mode': "twilio_sandbox_mode", }
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Entities/identity/Challenges',
-            headers=headers,
-        ))
         self.holodeck.assert_has_request(Request(
             'post',
             'https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Entities/identity/Challenges',
@@ -84,13 +78,11 @@ class ChallengeTestCase(IntegrationTestCase):
         with self.assertRaises(TwilioException):
             self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                  .entities("identity") \
-                                 .challenges("YCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(twilio_sandbox_mode="twilio_sandbox_mode")
+                                 .challenges("YCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
 
-        headers = {'Twilio-Sandbox-Mode': "twilio_sandbox_mode", }
         self.holodeck.assert_has_request(Request(
             'get',
             'https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Entities/identity/Challenges/YCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-            headers=headers,
         ))
 
     def test_fetch_sid_response(self):
@@ -141,13 +133,11 @@ class ChallengeTestCase(IntegrationTestCase):
         with self.assertRaises(TwilioException):
             self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                  .entities("identity") \
-                                 .challenges.list(twilio_sandbox_mode="twilio_sandbox_mode")
+                                 .challenges.list()
 
-        headers = {'Twilio-Sandbox-Mode': "twilio_sandbox_mode", }
         self.holodeck.assert_has_request(Request(
             'get',
             'https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Entities/identity/Challenges',
-            headers=headers,
         ))
 
     def test_read_empty_response(self):
@@ -236,13 +226,11 @@ class ChallengeTestCase(IntegrationTestCase):
         with self.assertRaises(TwilioException):
             self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                  .entities("identity") \
-                                 .challenges("YCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update(twilio_sandbox_mode="twilio_sandbox_mode")
+                                 .challenges("YCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
 
-        headers = {'Twilio-Sandbox-Mode': "twilio_sandbox_mode", }
         self.holodeck.assert_has_request(Request(
             'post',
             'https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Entities/identity/Challenges/YCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-            headers=headers,
         ))
 
     def test_verify_sid_response(self):

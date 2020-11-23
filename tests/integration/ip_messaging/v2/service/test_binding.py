@@ -23,7 +23,7 @@ class BindingTestCase(IntegrationTestCase):
 
         self.holodeck.assert_has_request(Request(
             'get',
-            'https://chat.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Bindings',
+            'https://ip-messaging.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Bindings',
         ))
 
     def test_read_full_response(self):
@@ -34,9 +34,9 @@ class BindingTestCase(IntegrationTestCase):
                 "meta": {
                     "page": 0,
                     "page_size": 50,
-                    "first_page_url": "https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Bindings?PageSize=50&Page=0",
+                    "first_page_url": "https://ip-messaging.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Bindings?PageSize=50&Page=0",
                     "previous_page_url": null,
-                    "url": "https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Bindings?PageSize=50&Page=0",
+                    "url": "https://ip-messaging.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Bindings?PageSize=50&Page=0",
                     "next_page_url": null,
                     "key": "bindings"
                 },
@@ -57,9 +57,9 @@ class BindingTestCase(IntegrationTestCase):
                             "added_to_channel",
                             "invited_to_channel"
                         ],
-                        "url": "https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Bindings/BSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                        "url": "https://ip-messaging.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Bindings/BSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                         "links": {
-                            "user": "https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users/TestUser"
+                            "user": "https://ip-messaging.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users/TestUser"
                         }
                     }
                 ]
@@ -80,9 +80,9 @@ class BindingTestCase(IntegrationTestCase):
                 "meta": {
                     "page": 0,
                     "page_size": 50,
-                    "first_page_url": "https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Bindings?PageSize=50&Page=0",
+                    "first_page_url": "https://ip-messaging.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Bindings?PageSize=50&Page=0",
                     "previous_page_url": null,
-                    "url": "https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Bindings?PageSize=50&Page=0",
+                    "url": "https://ip-messaging.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Bindings?PageSize=50&Page=0",
                     "next_page_url": null,
                     "key": "bindings"
                 },
@@ -105,7 +105,7 @@ class BindingTestCase(IntegrationTestCase):
 
         self.holodeck.assert_has_request(Request(
             'get',
-            'https://chat.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Bindings/BSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+            'https://ip-messaging.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Bindings/BSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
         ))
 
     def test_fetch_response(self):
@@ -128,9 +128,9 @@ class BindingTestCase(IntegrationTestCase):
                     "added_to_channel",
                     "invited_to_channel"
                 ],
-                "url": "https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Bindings/BSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "url": "https://ip-messaging.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Bindings/BSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "links": {
-                    "user": "https://chat.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users/TestUser"
+                    "user": "https://ip-messaging.twilio.com/v2/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users/TestUser"
                 }
             }
             '''
@@ -150,7 +150,7 @@ class BindingTestCase(IntegrationTestCase):
 
         self.holodeck.assert_has_request(Request(
             'delete',
-            'https://chat.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Bindings/BSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+            'https://ip-messaging.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Bindings/BSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
         ))
 
     def test_delete_response(self):

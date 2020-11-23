@@ -15,9 +15,8 @@ from twilio.base.page import Page
 
 
 class FactorList(ListResource):
-    """ PLEASE NOTE that this class contains preview products that are subject
-    to change. Use them with caution. If you currently do not have developer
-    preview access, please contact help@twilio.com. """
+    """ PLEASE NOTE that this class contains beta products that are subject to
+    change. Use them with caution. """
 
     def __init__(self, version, service_sid, identity):
         """
@@ -40,7 +39,7 @@ class FactorList(ListResource):
                binding_public_key=values.unset, config_app_id=values.unset,
                config_notification_platform=values.unset,
                config_notification_token=values.unset,
-               config_sdk_version=values.unset, twilio_sandbox_mode=values.unset):
+               config_sdk_version=values.unset):
         """
         Create the FactorInstance
 
@@ -52,7 +51,6 @@ class FactorList(ListResource):
         :param FactorInstance.NotificationPlatforms config_notification_platform: The transport technology used to generate the Notification Token
         :param unicode config_notification_token: For APN, the device token. For FCM the registration token
         :param unicode config_sdk_version: The Verify Push SDK version used to configure the factor
-        :param unicode twilio_sandbox_mode: The Twilio-Sandbox-Mode HTTP request header
 
         :returns: The created FactorInstance
         :rtype: twilio.rest.verify.v2.service.entity.factor.FactorInstance
@@ -67,9 +65,8 @@ class FactorList(ListResource):
             'Config.NotificationToken': config_notification_token,
             'Config.SdkVersion': config_sdk_version,
         })
-        headers = values.of({'Twilio-Sandbox-Mode': twilio_sandbox_mode, })
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data, headers=headers, )
+        payload = self._version.create(method='POST', uri=self._uri, data=data, )
 
         return FactorInstance(
             self._version,
@@ -78,14 +75,13 @@ class FactorList(ListResource):
             identity=self._solution['identity'],
         )
 
-    def stream(self, twilio_sandbox_mode=values.unset, limit=None, page_size=None):
+    def stream(self, limit=None, page_size=None):
         """
         Streams FactorInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param unicode twilio_sandbox_mode: The Twilio-Sandbox-Mode HTTP request header
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -98,17 +94,16 @@ class FactorList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
 
-        page = self.page(twilio_sandbox_mode=twilio_sandbox_mode, page_size=limits['page_size'], )
+        page = self.page(page_size=limits['page_size'], )
 
         return self._version.stream(page, limits['limit'])
 
-    def list(self, twilio_sandbox_mode=values.unset, limit=None, page_size=None):
+    def list(self, limit=None, page_size=None):
         """
         Lists FactorInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param unicode twilio_sandbox_mode: The Twilio-Sandbox-Mode HTTP request header
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -119,15 +114,14 @@ class FactorList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.verify.v2.service.entity.factor.FactorInstance]
         """
-        return list(self.stream(twilio_sandbox_mode=twilio_sandbox_mode, limit=limit, page_size=page_size, ))
+        return list(self.stream(limit=limit, page_size=page_size, ))
 
-    def page(self, twilio_sandbox_mode=values.unset, page_token=values.unset,
-             page_number=values.unset, page_size=values.unset):
+    def page(self, page_token=values.unset, page_number=values.unset,
+             page_size=values.unset):
         """
         Retrieve a single page of FactorInstance records from the API.
         Request is executed immediately
 
-        :param unicode twilio_sandbox_mode: The Twilio-Sandbox-Mode HTTP request header
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -136,9 +130,8 @@ class FactorList(ListResource):
         :rtype: twilio.rest.verify.v2.service.entity.factor.FactorPage
         """
         data = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
-        headers = values.of({'Twilio-Sandbox-Mode': twilio_sandbox_mode, })
 
-        response = self._version.page(method='GET', uri=self._uri, params=data, headers=headers, )
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
 
         return FactorPage(self._version, response, self._solution)
 
@@ -202,9 +195,8 @@ class FactorList(ListResource):
 
 
 class FactorPage(Page):
-    """ PLEASE NOTE that this class contains preview products that are subject
-    to change. Use them with caution. If you currently do not have developer
-    preview access, please contact help@twilio.com. """
+    """ PLEASE NOTE that this class contains beta products that are subject to
+    change. Use them with caution. """
 
     def __init__(self, version, response, solution):
         """
@@ -250,9 +242,8 @@ class FactorPage(Page):
 
 
 class FactorContext(InstanceContext):
-    """ PLEASE NOTE that this class contains preview products that are subject
-    to change. Use them with caution. If you currently do not have developer
-    preview access, please contact help@twilio.com. """
+    """ PLEASE NOTE that this class contains beta products that are subject to
+    change. Use them with caution. """
 
     def __init__(self, version, service_sid, identity, sid):
         """
@@ -272,31 +263,23 @@ class FactorContext(InstanceContext):
         self._solution = {'service_sid': service_sid, 'identity': identity, 'sid': sid, }
         self._uri = '/Services/{service_sid}/Entities/{identity}/Factors/{sid}'.format(**self._solution)
 
-    def delete(self, twilio_sandbox_mode=values.unset):
+    def delete(self):
         """
         Deletes the FactorInstance
-
-        :param unicode twilio_sandbox_mode: The Twilio-Sandbox-Mode HTTP request header
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        headers = values.of({'Twilio-Sandbox-Mode': twilio_sandbox_mode, })
+        return self._version.delete(method='DELETE', uri=self._uri, )
 
-        return self._version.delete(method='DELETE', uri=self._uri, headers=headers, )
-
-    def fetch(self, twilio_sandbox_mode=values.unset):
+    def fetch(self):
         """
         Fetch the FactorInstance
-
-        :param unicode twilio_sandbox_mode: The Twilio-Sandbox-Mode HTTP request header
 
         :returns: The fetched FactorInstance
         :rtype: twilio.rest.verify.v2.service.entity.factor.FactorInstance
         """
-        headers = values.of({'Twilio-Sandbox-Mode': twilio_sandbox_mode, })
-
-        payload = self._version.fetch(method='GET', uri=self._uri, headers=headers, )
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return FactorInstance(
             self._version,
@@ -308,7 +291,7 @@ class FactorContext(InstanceContext):
 
     def update(self, auth_payload=values.unset, friendly_name=values.unset,
                config_notification_token=values.unset,
-               config_sdk_version=values.unset, twilio_sandbox_mode=values.unset):
+               config_sdk_version=values.unset):
         """
         Update the FactorInstance
 
@@ -316,7 +299,6 @@ class FactorContext(InstanceContext):
         :param unicode friendly_name: The friendly name of this Factor
         :param unicode config_notification_token: For APN, the device token. For FCM the registration token
         :param unicode config_sdk_version: The Verify Push SDK version used to configure the factor
-        :param unicode twilio_sandbox_mode: The Twilio-Sandbox-Mode HTTP request header
 
         :returns: The updated FactorInstance
         :rtype: twilio.rest.verify.v2.service.entity.factor.FactorInstance
@@ -327,9 +309,8 @@ class FactorContext(InstanceContext):
             'Config.NotificationToken': config_notification_token,
             'Config.SdkVersion': config_sdk_version,
         })
-        headers = values.of({'Twilio-Sandbox-Mode': twilio_sandbox_mode, })
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data, headers=headers, )
+        payload = self._version.update(method='POST', uri=self._uri, data=data, )
 
         return FactorInstance(
             self._version,
@@ -351,9 +332,8 @@ class FactorContext(InstanceContext):
 
 
 class FactorInstance(InstanceResource):
-    """ PLEASE NOTE that this class contains preview products that are subject
-    to change. Use them with caution. If you currently do not have developer
-    preview access, please contact help@twilio.com. """
+    """ PLEASE NOTE that this class contains beta products that are subject to
+    change. Use them with caution. """
 
     class FactorStatuses(object):
         UNVERIFIED = "unverified"
@@ -500,7 +480,7 @@ class FactorInstance(InstanceResource):
     @property
     def config(self):
         """
-        :returns: The config
+        :returns: Configurations for a `factor_type`.
         :rtype: dict
         """
         return self._properties['config']
@@ -513,31 +493,27 @@ class FactorInstance(InstanceResource):
         """
         return self._properties['url']
 
-    def delete(self, twilio_sandbox_mode=values.unset):
+    def delete(self):
         """
         Deletes the FactorInstance
-
-        :param unicode twilio_sandbox_mode: The Twilio-Sandbox-Mode HTTP request header
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._proxy.delete(twilio_sandbox_mode=twilio_sandbox_mode, )
+        return self._proxy.delete()
 
-    def fetch(self, twilio_sandbox_mode=values.unset):
+    def fetch(self):
         """
         Fetch the FactorInstance
-
-        :param unicode twilio_sandbox_mode: The Twilio-Sandbox-Mode HTTP request header
 
         :returns: The fetched FactorInstance
         :rtype: twilio.rest.verify.v2.service.entity.factor.FactorInstance
         """
-        return self._proxy.fetch(twilio_sandbox_mode=twilio_sandbox_mode, )
+        return self._proxy.fetch()
 
     def update(self, auth_payload=values.unset, friendly_name=values.unset,
                config_notification_token=values.unset,
-               config_sdk_version=values.unset, twilio_sandbox_mode=values.unset):
+               config_sdk_version=values.unset):
         """
         Update the FactorInstance
 
@@ -545,7 +521,6 @@ class FactorInstance(InstanceResource):
         :param unicode friendly_name: The friendly name of this Factor
         :param unicode config_notification_token: For APN, the device token. For FCM the registration token
         :param unicode config_sdk_version: The Verify Push SDK version used to configure the factor
-        :param unicode twilio_sandbox_mode: The Twilio-Sandbox-Mode HTTP request header
 
         :returns: The updated FactorInstance
         :rtype: twilio.rest.verify.v2.service.entity.factor.FactorInstance
@@ -555,7 +530,6 @@ class FactorInstance(InstanceResource):
             friendly_name=friendly_name,
             config_notification_token=config_notification_token,
             config_sdk_version=config_sdk_version,
-            twilio_sandbox_mode=twilio_sandbox_mode,
         )
 
     def __repr__(self):

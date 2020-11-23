@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-MWRD6S');</script><!--End Google Tag Manager-->
 <meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<title>twilio.rest.video.v1.room — twilio-python 6.46.0 documentation</title>
+<title>twilio.rest.video.v1.room — twilio-python 6.48.0 documentation</title>
 <link href="../../../../../_static/alabaster.css" rel="stylesheet" type="text/css"/>
 <link href="../../../../../_static/pygments.css" rel="stylesheet" type="text/css"/>
 <script data-url_root="../../../../../" id="documentation_options" src="../../../../../_static/documentation_options.js" type="text/javascript"></script>
@@ -45,6 +45,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <span class="kn">from</span> <span class="nn">twilio.base.page</span> <span class="kn">import</span> <span class="n">Page</span>
 <span class="kn">from</span> <span class="nn">twilio.rest.video.v1.room.recording</span> <span class="kn">import</span> <span class="n">RoomRecordingList</span>
 <span class="kn">from</span> <span class="nn">twilio.rest.video.v1.room.room_participant</span> <span class="kn">import</span> <span class="n">ParticipantList</span>
+<span class="kn">from</span> <span class="nn">twilio.rest.video.v1.room.room_recording_rule</span> <span class="kn">import</span> <span class="n">RecordingRulesList</span>
 
 
 <div class="viewcode-block" id="RoomList"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.video.v1.room.html#twilio.rest.video.v1.room.RoomList">[docs]</a><span class="k">class</span> <span class="nc">RoomList</span><span class="p">(</span><span class="n">ListResource</span><span class="p">):</span>
@@ -308,6 +309,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="c1"># Dependents</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_recordings</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_participants</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_recording_rules</span> <span class="o">=</span> <span class="kc">None</span>
 
 <div class="viewcode-block" id="RoomContext.fetch"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.video.v1.room.html#twilio.rest.video.v1.room.RoomContext.fetch">[docs]</a>    <span class="k">def</span> <span class="nf">fetch</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">"""</span>
@@ -358,6 +360,18 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_participants</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_participants</span> <span class="o">=</span> <span class="n">ParticipantList</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_version</span><span class="p">,</span> <span class="n">room_sid</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_solution</span><span class="p">[</span><span class="s1">'sid'</span><span class="p">],</span> <span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_participants</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">recording_rules</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Access the recording_rules</span>
+
+<span class="sd">        :returns: twilio.rest.video.v1.room.room_recording_rule.RecordingRulesList</span>
+<span class="sd">        :rtype: twilio.rest.video.v1.room.room_recording_rule.RecordingRulesList</span>
+<span class="sd">        """</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_recording_rules</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_recording_rules</span> <span class="o">=</span> <span class="n">RecordingRulesList</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_version</span><span class="p">,</span> <span class="n">room_sid</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_solution</span><span class="p">[</span><span class="s1">'sid'</span><span class="p">],</span> <span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_recording_rules</span>
 
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">"""</span>
@@ -618,6 +632,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <span class="sd">        :rtype: twilio.rest.video.v1.room.room_participant.ParticipantList</span>
 <span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_proxy</span><span class="o">.</span><span class="n">participants</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">recording_rules</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Access the recording_rules</span>
+
+<span class="sd">        :returns: twilio.rest.video.v1.room.room_recording_rule.RecordingRulesList</span>
+<span class="sd">        :rtype: twilio.rest.video.v1.room.room_recording_rule.RecordingRulesList</span>
+<span class="sd">        """</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_proxy</span><span class="o">.</span><span class="n">recording_rules</span>
 
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">"""</span>

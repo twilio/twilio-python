@@ -22,7 +22,7 @@ class IpMessaging(Domain):
         """
         super(IpMessaging, self).__init__(twilio)
 
-        self.base_url = 'https://chat.twilio.com'
+        self.base_url = 'https://ip-messaging.twilio.com'
 
         # Versions
         self._v1 = None
@@ -51,14 +51,14 @@ class IpMessaging(Domain):
     @property
     def credentials(self):
         """
-        :rtype: twilio.rest.chat.v2.credential.CredentialList
+        :rtype: twilio.rest.ip_messaging.v2.credential.CredentialList
         """
         return self.v2.credentials
 
     @property
     def services(self):
         """
-        :rtype: twilio.rest.chat.v2.service.ServiceList
+        :rtype: twilio.rest.ip_messaging.v2.service.ServiceList
         """
         return self.v2.services
 

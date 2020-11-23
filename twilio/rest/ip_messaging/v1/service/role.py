@@ -22,10 +22,10 @@ class RoleList(ListResource):
         Initialize the RoleList
 
         :param Version version: Version that contains the resource
-        :param service_sid: The SID of the Service that the resource is associated with
+        :param service_sid: The service_sid
 
-        :returns: twilio.rest.chat.v1.service.role.RoleList
-        :rtype: twilio.rest.chat.v1.service.role.RoleList
+        :returns: twilio.rest.ip_messaging.v1.service.role.RoleList
+        :rtype: twilio.rest.ip_messaging.v1.service.role.RoleList
         """
         super(RoleList, self).__init__(version)
 
@@ -37,12 +37,12 @@ class RoleList(ListResource):
         """
         Create the RoleInstance
 
-        :param unicode friendly_name: A string to describe the new resource
-        :param RoleInstance.RoleType type: The type of role
-        :param unicode permission: A permission the role should have
+        :param unicode friendly_name: The friendly_name
+        :param RoleInstance.RoleType type: The type
+        :param unicode permission: The permission
 
         :returns: The created RoleInstance
-        :rtype: twilio.rest.chat.v1.service.role.RoleInstance
+        :rtype: twilio.rest.ip_messaging.v1.service.role.RoleInstance
         """
         data = values.of({
             'FriendlyName': friendly_name,
@@ -69,7 +69,7 @@ class RoleList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.chat.v1.service.role.RoleInstance]
+        :rtype: list[twilio.rest.ip_messaging.v1.service.role.RoleInstance]
         """
         limits = self._version.read_limits(limit, page_size)
 
@@ -91,7 +91,7 @@ class RoleList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.chat.v1.service.role.RoleInstance]
+        :rtype: list[twilio.rest.ip_messaging.v1.service.role.RoleInstance]
         """
         return list(self.stream(limit=limit, page_size=page_size, ))
 
@@ -106,7 +106,7 @@ class RoleList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of RoleInstance
-        :rtype: twilio.rest.chat.v1.service.role.RolePage
+        :rtype: twilio.rest.ip_messaging.v1.service.role.RolePage
         """
         data = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
 
@@ -122,7 +122,7 @@ class RoleList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of RoleInstance
-        :rtype: twilio.rest.chat.v1.service.role.RolePage
+        :rtype: twilio.rest.ip_messaging.v1.service.role.RolePage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -135,10 +135,10 @@ class RoleList(ListResource):
         """
         Constructs a RoleContext
 
-        :param sid: The unique string that identifies the resource
+        :param sid: The sid
 
-        :returns: twilio.rest.chat.v1.service.role.RoleContext
-        :rtype: twilio.rest.chat.v1.service.role.RoleContext
+        :returns: twilio.rest.ip_messaging.v1.service.role.RoleContext
+        :rtype: twilio.rest.ip_messaging.v1.service.role.RoleContext
         """
         return RoleContext(self._version, service_sid=self._solution['service_sid'], sid=sid, )
 
@@ -146,10 +146,10 @@ class RoleList(ListResource):
         """
         Constructs a RoleContext
 
-        :param sid: The unique string that identifies the resource
+        :param sid: The sid
 
-        :returns: twilio.rest.chat.v1.service.role.RoleContext
-        :rtype: twilio.rest.chat.v1.service.role.RoleContext
+        :returns: twilio.rest.ip_messaging.v1.service.role.RoleContext
+        :rtype: twilio.rest.ip_messaging.v1.service.role.RoleContext
         """
         return RoleContext(self._version, service_sid=self._solution['service_sid'], sid=sid, )
 
@@ -171,10 +171,10 @@ class RolePage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param service_sid: The SID of the Service that the resource is associated with
+        :param service_sid: The service_sid
 
-        :returns: twilio.rest.chat.v1.service.role.RolePage
-        :rtype: twilio.rest.chat.v1.service.role.RolePage
+        :returns: twilio.rest.ip_messaging.v1.service.role.RolePage
+        :rtype: twilio.rest.ip_messaging.v1.service.role.RolePage
         """
         super(RolePage, self).__init__(version, response)
 
@@ -187,8 +187,8 @@ class RolePage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.chat.v1.service.role.RoleInstance
-        :rtype: twilio.rest.chat.v1.service.role.RoleInstance
+        :returns: twilio.rest.ip_messaging.v1.service.role.RoleInstance
+        :rtype: twilio.rest.ip_messaging.v1.service.role.RoleInstance
         """
         return RoleInstance(self._version, payload, service_sid=self._solution['service_sid'], )
 
@@ -209,11 +209,11 @@ class RoleContext(InstanceContext):
         Initialize the RoleContext
 
         :param Version version: Version that contains the resource
-        :param service_sid: The SID of the Service to fetch the resource from
-        :param sid: The unique string that identifies the resource
+        :param service_sid: The service_sid
+        :param sid: The sid
 
-        :returns: twilio.rest.chat.v1.service.role.RoleContext
-        :rtype: twilio.rest.chat.v1.service.role.RoleContext
+        :returns: twilio.rest.ip_messaging.v1.service.role.RoleContext
+        :rtype: twilio.rest.ip_messaging.v1.service.role.RoleContext
         """
         super(RoleContext, self).__init__(version)
 
@@ -226,7 +226,7 @@ class RoleContext(InstanceContext):
         Fetch the RoleInstance
 
         :returns: The fetched RoleInstance
-        :rtype: twilio.rest.chat.v1.service.role.RoleInstance
+        :rtype: twilio.rest.ip_messaging.v1.service.role.RoleInstance
         """
         payload = self._version.fetch(method='GET', uri=self._uri, )
 
@@ -250,10 +250,10 @@ class RoleContext(InstanceContext):
         """
         Update the RoleInstance
 
-        :param unicode permission: A permission the role should have
+        :param unicode permission: The permission
 
         :returns: The updated RoleInstance
-        :rtype: twilio.rest.chat.v1.service.role.RoleInstance
+        :rtype: twilio.rest.ip_messaging.v1.service.role.RoleInstance
         """
         data = values.of({'Permission': serialize.map(permission, lambda e: e), })
 
@@ -287,8 +287,8 @@ class RoleInstance(InstanceResource):
         """
         Initialize the RoleInstance
 
-        :returns: twilio.rest.chat.v1.service.role.RoleInstance
-        :rtype: twilio.rest.chat.v1.service.role.RoleInstance
+        :returns: twilio.rest.ip_messaging.v1.service.role.RoleInstance
+        :rtype: twilio.rest.ip_messaging.v1.service.role.RoleInstance
         """
         super(RoleInstance, self).__init__(version)
 
@@ -316,7 +316,7 @@ class RoleInstance(InstanceResource):
         performing various actions.  All instance actions are proxied to the context
 
         :returns: RoleContext for this RoleInstance
-        :rtype: twilio.rest.chat.v1.service.role.RoleContext
+        :rtype: twilio.rest.ip_messaging.v1.service.role.RoleContext
         """
         if self._context is None:
             self._context = RoleContext(
@@ -329,7 +329,7 @@ class RoleInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: The unique string that identifies the resource
+        :returns: The sid
         :rtype: unicode
         """
         return self._properties['sid']
@@ -337,7 +337,7 @@ class RoleInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The SID of the Account that created the resource
+        :returns: The account_sid
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -345,7 +345,7 @@ class RoleInstance(InstanceResource):
     @property
     def service_sid(self):
         """
-        :returns: The SID of the Service that the resource is associated with
+        :returns: The service_sid
         :rtype: unicode
         """
         return self._properties['service_sid']
@@ -353,7 +353,7 @@ class RoleInstance(InstanceResource):
     @property
     def friendly_name(self):
         """
-        :returns: The string that you assigned to describe the resource
+        :returns: The friendly_name
         :rtype: unicode
         """
         return self._properties['friendly_name']
@@ -361,7 +361,7 @@ class RoleInstance(InstanceResource):
     @property
     def type(self):
         """
-        :returns: The type of role
+        :returns: The type
         :rtype: RoleInstance.RoleType
         """
         return self._properties['type']
@@ -369,7 +369,7 @@ class RoleInstance(InstanceResource):
     @property
     def permissions(self):
         """
-        :returns: An array of the permissions the role has been granted
+        :returns: The permissions
         :rtype: unicode
         """
         return self._properties['permissions']
@@ -377,7 +377,7 @@ class RoleInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The RFC 2822 date and time in GMT when the resource was created
+        :returns: The date_created
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -385,7 +385,7 @@ class RoleInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The RFC 2822 date and time in GMT when the resource was last updated
+        :returns: The date_updated
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -393,7 +393,7 @@ class RoleInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: The absolute URL of the Role resource
+        :returns: The url
         :rtype: unicode
         """
         return self._properties['url']
@@ -403,7 +403,7 @@ class RoleInstance(InstanceResource):
         Fetch the RoleInstance
 
         :returns: The fetched RoleInstance
-        :rtype: twilio.rest.chat.v1.service.role.RoleInstance
+        :rtype: twilio.rest.ip_messaging.v1.service.role.RoleInstance
         """
         return self._proxy.fetch()
 
@@ -420,10 +420,10 @@ class RoleInstance(InstanceResource):
         """
         Update the RoleInstance
 
-        :param unicode permission: A permission the role should have
+        :param unicode permission: The permission
 
         :returns: The updated RoleInstance
-        :rtype: twilio.rest.chat.v1.service.role.RoleInstance
+        :rtype: twilio.rest.ip_messaging.v1.service.role.RoleInstance
         """
         return self._proxy.update(permission, )
 

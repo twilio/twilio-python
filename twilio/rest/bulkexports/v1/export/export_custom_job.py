@@ -32,16 +32,13 @@ class ExportCustomJobList(ListResource):
         self._solution = {'resource_type': resource_type, }
         self._uri = '/Exports/{resource_type}/Jobs'.format(**self._solution)
 
-    def stream(self, next_token=values.unset, previous_token=values.unset,
-               limit=None, page_size=None):
+    def stream(self, limit=None, page_size=None):
         """
         Streams ExportCustomJobInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param unicode next_token: The token for the next page of job results
-        :param unicode previous_token: The token for the previous page of result
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -54,23 +51,16 @@ class ExportCustomJobList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
 
-        page = self.page(
-            next_token=next_token,
-            previous_token=previous_token,
-            page_size=limits['page_size'],
-        )
+        page = self.page(page_size=limits['page_size'], )
 
         return self._version.stream(page, limits['limit'])
 
-    def list(self, next_token=values.unset, previous_token=values.unset, limit=None,
-             page_size=None):
+    def list(self, limit=None, page_size=None):
         """
         Lists ExportCustomJobInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param unicode next_token: The token for the next page of job results
-        :param unicode previous_token: The token for the previous page of result
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -81,22 +71,14 @@ class ExportCustomJobList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.bulkexports.v1.export.export_custom_job.ExportCustomJobInstance]
         """
-        return list(self.stream(
-            next_token=next_token,
-            previous_token=previous_token,
-            limit=limit,
-            page_size=page_size,
-        ))
+        return list(self.stream(limit=limit, page_size=page_size, ))
 
-    def page(self, next_token=values.unset, previous_token=values.unset,
-             page_token=values.unset, page_number=values.unset,
+    def page(self, page_token=values.unset, page_number=values.unset,
              page_size=values.unset):
         """
         Retrieve a single page of ExportCustomJobInstance records from the API.
         Request is executed immediately
 
-        :param unicode next_token: The token for the next page of job results
-        :param unicode previous_token: The token for the previous page of result
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -104,13 +86,7 @@ class ExportCustomJobList(ListResource):
         :returns: Page of ExportCustomJobInstance
         :rtype: twilio.rest.bulkexports.v1.export.export_custom_job.ExportCustomJobPage
         """
-        data = values.of({
-            'NextToken': next_token,
-            'PreviousToken': previous_token,
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
 
         response = self._version.page(method='GET', uri=self._uri, params=data, )
 
@@ -133,26 +109,25 @@ class ExportCustomJobList(ListResource):
 
         return ExportCustomJobPage(self._version, response, self._solution)
 
-    def create(self, friendly_name=values.unset, start_day=values.unset,
-               end_day=values.unset, webhook_url=values.unset,
+    def create(self, start_day, end_day, friendly_name, webhook_url=values.unset,
                webhook_method=values.unset, email=values.unset):
         """
         Create the ExportCustomJobInstance
 
-        :param unicode friendly_name: The friendly_name
-        :param unicode start_day: The start_day
-        :param unicode end_day: The end_day
-        :param unicode webhook_url: The webhook_url
-        :param unicode webhook_method: The webhook_method
-        :param unicode email: The email
+        :param unicode start_day: The start day for the custom export specified as a string in the format of yyyy-mm-dd
+        :param unicode end_day: The end day for the custom export specified as a string in the format of yyyy-mm-dd. End day is inclusive and must be 2 days earlier than the current UTC day.
+        :param unicode friendly_name: The friendly name specified when creating the job
+        :param unicode webhook_url: The optional webhook url called on completion of the job. If this is supplied, `WebhookMethod` must also be supplied.
+        :param unicode webhook_method: This is the method used to call the webhook on completion of the job. If this is supplied, `WebhookUrl` must also be supplied.
+        :param unicode email: The optional email to send the completion notification to
 
         :returns: The created ExportCustomJobInstance
         :rtype: twilio.rest.bulkexports.v1.export.export_custom_job.ExportCustomJobInstance
         """
         data = values.of({
-            'FriendlyName': friendly_name,
             'StartDay': start_day,
             'EndDay': end_day,
+            'FriendlyName': friendly_name,
             'WebhookUrl': webhook_url,
             'WebhookMethod': webhook_method,
             'Email': email,
@@ -270,7 +245,7 @@ class ExportCustomJobInstance(InstanceResource):
     @property
     def start_day(self):
         """
-        :returns: The start time for the export specified when creating the job
+        :returns: The start day for the custom export specified as a string in the format of yyyy-MM-dd
         :rtype: unicode
         """
         return self._properties['start_day']
@@ -278,7 +253,7 @@ class ExportCustomJobInstance(InstanceResource):
     @property
     def end_day(self):
         """
-        :returns: The end time for the export specified when creating the job
+        :returns: The end day for the custom export specified as a string in the format of yyyy-MM-dd. This will be the last day exported. For instance, to export a single day, choose the same day for start and end day. To export the first 4 days of July, you would set the start date to 2020-07-01 and the end date to 2020-07-04. The end date must be the UTC day before yesterday.
         :rtype: unicode
         """
         return self._properties['end_day']
@@ -310,7 +285,7 @@ class ExportCustomJobInstance(InstanceResource):
     @property
     def job_sid(self):
         """
-        :returns: The job_sid returned when the export was created
+        :returns: The unique job_sid returned when the custom export was created. This can be used to look up the status of the job.
         :rtype: unicode
         """
         return self._properties['job_sid']
@@ -318,7 +293,7 @@ class ExportCustomJobInstance(InstanceResource):
     @property
     def details(self):
         """
-        :returns: The details
+        :returns: The details of a job state which is an object that contains a status string, a day count integer, and list of days in the job
         :rtype: dict
         """
         return self._properties['details']

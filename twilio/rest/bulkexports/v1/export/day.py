@@ -34,16 +34,13 @@ class DayList(ListResource):
         self._solution = {'resource_type': resource_type, }
         self._uri = '/Exports/{resource_type}/Days'.format(**self._solution)
 
-    def stream(self, next_token=values.unset, previous_token=values.unset,
-               limit=None, page_size=None):
+    def stream(self, limit=None, page_size=None):
         """
         Streams DayInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param unicode next_token: The next_token
-        :param unicode previous_token: The previous_token
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -56,23 +53,16 @@ class DayList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
 
-        page = self.page(
-            next_token=next_token,
-            previous_token=previous_token,
-            page_size=limits['page_size'],
-        )
+        page = self.page(page_size=limits['page_size'], )
 
         return self._version.stream(page, limits['limit'])
 
-    def list(self, next_token=values.unset, previous_token=values.unset, limit=None,
-             page_size=None):
+    def list(self, limit=None, page_size=None):
         """
         Lists DayInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param unicode next_token: The next_token
-        :param unicode previous_token: The previous_token
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -83,22 +73,14 @@ class DayList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.bulkexports.v1.export.day.DayInstance]
         """
-        return list(self.stream(
-            next_token=next_token,
-            previous_token=previous_token,
-            limit=limit,
-            page_size=page_size,
-        ))
+        return list(self.stream(limit=limit, page_size=page_size, ))
 
-    def page(self, next_token=values.unset, previous_token=values.unset,
-             page_token=values.unset, page_number=values.unset,
+    def page(self, page_token=values.unset, page_number=values.unset,
              page_size=values.unset):
         """
         Retrieve a single page of DayInstance records from the API.
         Request is executed immediately
 
-        :param unicode next_token: The next_token
-        :param unicode previous_token: The previous_token
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -106,13 +88,7 @@ class DayList(ListResource):
         :returns: Page of DayInstance
         :rtype: twilio.rest.bulkexports.v1.export.day.DayPage
         """
-        data = values.of({
-            'NextToken': next_token,
-            'PreviousToken': previous_token,
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
 
         response = self._version.page(method='GET', uri=self._uri, params=data, )
 

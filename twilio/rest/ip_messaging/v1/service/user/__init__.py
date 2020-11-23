@@ -22,10 +22,10 @@ class UserList(ListResource):
         Initialize the UserList
 
         :param Version version: Version that contains the resource
-        :param service_sid: The SID of the Service that the resource is associated with
+        :param service_sid: The service_sid
 
-        :returns: twilio.rest.chat.v1.service.user.UserList
-        :rtype: twilio.rest.chat.v1.service.user.UserList
+        :returns: twilio.rest.ip_messaging.v1.service.user.UserList
+        :rtype: twilio.rest.ip_messaging.v1.service.user.UserList
         """
         super(UserList, self).__init__(version)
 
@@ -38,13 +38,13 @@ class UserList(ListResource):
         """
         Create the UserInstance
 
-        :param unicode identity: The `identity` value that identifies the new resource's User
-        :param unicode role_sid: The SID of the Role assigned to this user
-        :param unicode attributes: A valid JSON string that contains application-specific data
-        :param unicode friendly_name: A string to describe the new resource
+        :param unicode identity: The identity
+        :param unicode role_sid: The role_sid
+        :param unicode attributes: The attributes
+        :param unicode friendly_name: The friendly_name
 
         :returns: The created UserInstance
-        :rtype: twilio.rest.chat.v1.service.user.UserInstance
+        :rtype: twilio.rest.ip_messaging.v1.service.user.UserInstance
         """
         data = values.of({
             'Identity': identity,
@@ -72,7 +72,7 @@ class UserList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.chat.v1.service.user.UserInstance]
+        :rtype: list[twilio.rest.ip_messaging.v1.service.user.UserInstance]
         """
         limits = self._version.read_limits(limit, page_size)
 
@@ -94,7 +94,7 @@ class UserList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.chat.v1.service.user.UserInstance]
+        :rtype: list[twilio.rest.ip_messaging.v1.service.user.UserInstance]
         """
         return list(self.stream(limit=limit, page_size=page_size, ))
 
@@ -109,7 +109,7 @@ class UserList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of UserInstance
-        :rtype: twilio.rest.chat.v1.service.user.UserPage
+        :rtype: twilio.rest.ip_messaging.v1.service.user.UserPage
         """
         data = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
 
@@ -125,7 +125,7 @@ class UserList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of UserInstance
-        :rtype: twilio.rest.chat.v1.service.user.UserPage
+        :rtype: twilio.rest.ip_messaging.v1.service.user.UserPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -138,10 +138,10 @@ class UserList(ListResource):
         """
         Constructs a UserContext
 
-        :param sid: The unique string that identifies the resource
+        :param sid: The sid
 
-        :returns: twilio.rest.chat.v1.service.user.UserContext
-        :rtype: twilio.rest.chat.v1.service.user.UserContext
+        :returns: twilio.rest.ip_messaging.v1.service.user.UserContext
+        :rtype: twilio.rest.ip_messaging.v1.service.user.UserContext
         """
         return UserContext(self._version, service_sid=self._solution['service_sid'], sid=sid, )
 
@@ -149,10 +149,10 @@ class UserList(ListResource):
         """
         Constructs a UserContext
 
-        :param sid: The unique string that identifies the resource
+        :param sid: The sid
 
-        :returns: twilio.rest.chat.v1.service.user.UserContext
-        :rtype: twilio.rest.chat.v1.service.user.UserContext
+        :returns: twilio.rest.ip_messaging.v1.service.user.UserContext
+        :rtype: twilio.rest.ip_messaging.v1.service.user.UserContext
         """
         return UserContext(self._version, service_sid=self._solution['service_sid'], sid=sid, )
 
@@ -174,10 +174,10 @@ class UserPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param service_sid: The SID of the Service that the resource is associated with
+        :param service_sid: The service_sid
 
-        :returns: twilio.rest.chat.v1.service.user.UserPage
-        :rtype: twilio.rest.chat.v1.service.user.UserPage
+        :returns: twilio.rest.ip_messaging.v1.service.user.UserPage
+        :rtype: twilio.rest.ip_messaging.v1.service.user.UserPage
         """
         super(UserPage, self).__init__(version, response)
 
@@ -190,8 +190,8 @@ class UserPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.chat.v1.service.user.UserInstance
-        :rtype: twilio.rest.chat.v1.service.user.UserInstance
+        :returns: twilio.rest.ip_messaging.v1.service.user.UserInstance
+        :rtype: twilio.rest.ip_messaging.v1.service.user.UserInstance
         """
         return UserInstance(self._version, payload, service_sid=self._solution['service_sid'], )
 
@@ -212,11 +212,11 @@ class UserContext(InstanceContext):
         Initialize the UserContext
 
         :param Version version: Version that contains the resource
-        :param service_sid: The SID of the Service to fetch the resource from
-        :param sid: The unique string that identifies the resource
+        :param service_sid: The service_sid
+        :param sid: The sid
 
-        :returns: twilio.rest.chat.v1.service.user.UserContext
-        :rtype: twilio.rest.chat.v1.service.user.UserContext
+        :returns: twilio.rest.ip_messaging.v1.service.user.UserContext
+        :rtype: twilio.rest.ip_messaging.v1.service.user.UserContext
         """
         super(UserContext, self).__init__(version)
 
@@ -232,7 +232,7 @@ class UserContext(InstanceContext):
         Fetch the UserInstance
 
         :returns: The fetched UserInstance
-        :rtype: twilio.rest.chat.v1.service.user.UserInstance
+        :rtype: twilio.rest.ip_messaging.v1.service.user.UserInstance
         """
         payload = self._version.fetch(method='GET', uri=self._uri, )
 
@@ -257,12 +257,12 @@ class UserContext(InstanceContext):
         """
         Update the UserInstance
 
-        :param unicode role_sid: The SID id of the Role assigned to this user
-        :param unicode attributes: A valid JSON string that contains application-specific data
-        :param unicode friendly_name: A string to describe the resource
+        :param unicode role_sid: The role_sid
+        :param unicode attributes: The attributes
+        :param unicode friendly_name: The friendly_name
 
         :returns: The updated UserInstance
-        :rtype: twilio.rest.chat.v1.service.user.UserInstance
+        :rtype: twilio.rest.ip_messaging.v1.service.user.UserInstance
         """
         data = values.of({'RoleSid': role_sid, 'Attributes': attributes, 'FriendlyName': friendly_name, })
 
@@ -280,8 +280,8 @@ class UserContext(InstanceContext):
         """
         Access the user_channels
 
-        :returns: twilio.rest.chat.v1.service.user.user_channel.UserChannelList
-        :rtype: twilio.rest.chat.v1.service.user.user_channel.UserChannelList
+        :returns: twilio.rest.ip_messaging.v1.service.user.user_channel.UserChannelList
+        :rtype: twilio.rest.ip_messaging.v1.service.user.user_channel.UserChannelList
         """
         if self._user_channels is None:
             self._user_channels = UserChannelList(
@@ -308,8 +308,8 @@ class UserInstance(InstanceResource):
         """
         Initialize the UserInstance
 
-        :returns: twilio.rest.chat.v1.service.user.UserInstance
-        :rtype: twilio.rest.chat.v1.service.user.UserInstance
+        :returns: twilio.rest.ip_messaging.v1.service.user.UserInstance
+        :rtype: twilio.rest.ip_messaging.v1.service.user.UserInstance
         """
         super(UserInstance, self).__init__(version)
 
@@ -342,7 +342,7 @@ class UserInstance(InstanceResource):
         performing various actions.  All instance actions are proxied to the context
 
         :returns: UserContext for this UserInstance
-        :rtype: twilio.rest.chat.v1.service.user.UserContext
+        :rtype: twilio.rest.ip_messaging.v1.service.user.UserContext
         """
         if self._context is None:
             self._context = UserContext(
@@ -355,7 +355,7 @@ class UserInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: The unique string that identifies the resource
+        :returns: The sid
         :rtype: unicode
         """
         return self._properties['sid']
@@ -363,7 +363,7 @@ class UserInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The SID of the Account that created the resource
+        :returns: The account_sid
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -371,7 +371,7 @@ class UserInstance(InstanceResource):
     @property
     def service_sid(self):
         """
-        :returns: The SID of the Service that the resource is associated with
+        :returns: The service_sid
         :rtype: unicode
         """
         return self._properties['service_sid']
@@ -379,7 +379,7 @@ class UserInstance(InstanceResource):
     @property
     def attributes(self):
         """
-        :returns: The JSON string that stores application-specific data
+        :returns: The attributes
         :rtype: unicode
         """
         return self._properties['attributes']
@@ -387,7 +387,7 @@ class UserInstance(InstanceResource):
     @property
     def friendly_name(self):
         """
-        :returns: The string that you assigned to describe the resource
+        :returns: The friendly_name
         :rtype: unicode
         """
         return self._properties['friendly_name']
@@ -395,7 +395,7 @@ class UserInstance(InstanceResource):
     @property
     def role_sid(self):
         """
-        :returns: The SID of the assigned to the user
+        :returns: The role_sid
         :rtype: unicode
         """
         return self._properties['role_sid']
@@ -403,7 +403,7 @@ class UserInstance(InstanceResource):
     @property
     def identity(self):
         """
-        :returns: The string that identifies the resource's User
+        :returns: The identity
         :rtype: unicode
         """
         return self._properties['identity']
@@ -411,7 +411,7 @@ class UserInstance(InstanceResource):
     @property
     def is_online(self):
         """
-        :returns: Whether the User is actively connected to the Service instance and online
+        :returns: The is_online
         :rtype: bool
         """
         return self._properties['is_online']
@@ -419,7 +419,7 @@ class UserInstance(InstanceResource):
     @property
     def is_notifiable(self):
         """
-        :returns: Whether the User has a potentially valid Push Notification registration for the Service instance
+        :returns: The is_notifiable
         :rtype: bool
         """
         return self._properties['is_notifiable']
@@ -427,7 +427,7 @@ class UserInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The RFC 2822 date and time in GMT when the resource was created
+        :returns: The date_created
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -435,7 +435,7 @@ class UserInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The RFC 2822 date and time in GMT when the resource was last updated
+        :returns: The date_updated
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -443,7 +443,7 @@ class UserInstance(InstanceResource):
     @property
     def joined_channels_count(self):
         """
-        :returns: The number of Channels this User is a Member of
+        :returns: The joined_channels_count
         :rtype: unicode
         """
         return self._properties['joined_channels_count']
@@ -451,7 +451,7 @@ class UserInstance(InstanceResource):
     @property
     def links(self):
         """
-        :returns: The absolute URLs of the Channel and Binding resources related to the user
+        :returns: The links
         :rtype: unicode
         """
         return self._properties['links']
@@ -459,7 +459,7 @@ class UserInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: The absolute URL of the User resource
+        :returns: The url
         :rtype: unicode
         """
         return self._properties['url']
@@ -469,7 +469,7 @@ class UserInstance(InstanceResource):
         Fetch the UserInstance
 
         :returns: The fetched UserInstance
-        :rtype: twilio.rest.chat.v1.service.user.UserInstance
+        :rtype: twilio.rest.ip_messaging.v1.service.user.UserInstance
         """
         return self._proxy.fetch()
 
@@ -487,12 +487,12 @@ class UserInstance(InstanceResource):
         """
         Update the UserInstance
 
-        :param unicode role_sid: The SID id of the Role assigned to this user
-        :param unicode attributes: A valid JSON string that contains application-specific data
-        :param unicode friendly_name: A string to describe the resource
+        :param unicode role_sid: The role_sid
+        :param unicode attributes: The attributes
+        :param unicode friendly_name: The friendly_name
 
         :returns: The updated UserInstance
-        :rtype: twilio.rest.chat.v1.service.user.UserInstance
+        :rtype: twilio.rest.ip_messaging.v1.service.user.UserInstance
         """
         return self._proxy.update(role_sid=role_sid, attributes=attributes, friendly_name=friendly_name, )
 
@@ -501,8 +501,8 @@ class UserInstance(InstanceResource):
         """
         Access the user_channels
 
-        :returns: twilio.rest.chat.v1.service.user.user_channel.UserChannelList
-        :rtype: twilio.rest.chat.v1.service.user.user_channel.UserChannelList
+        :returns: twilio.rest.ip_messaging.v1.service.user.user_channel.UserChannelList
+        :rtype: twilio.rest.ip_messaging.v1.service.user.user_channel.UserChannelList
         """
         return self._proxy.user_channels
 

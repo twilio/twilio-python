@@ -21,11 +21,11 @@ class MessageList(ListResource):
         Initialize the MessageList
 
         :param Version version: Version that contains the resource
-        :param service_sid: The SID of the Service that the resource is associated with
-        :param channel_sid: The unique ID of the Channel the Message resource belongs to
+        :param service_sid: The service_sid
+        :param channel_sid: The channel_sid
 
-        :returns: twilio.rest.chat.v1.service.channel.message.MessageList
-        :rtype: twilio.rest.chat.v1.service.channel.message.MessageList
+        :returns: twilio.rest.ip_messaging.v1.service.channel.message.MessageList
+        :rtype: twilio.rest.ip_messaging.v1.service.channel.message.MessageList
         """
         super(MessageList, self).__init__(version)
 
@@ -37,12 +37,12 @@ class MessageList(ListResource):
         """
         Create the MessageInstance
 
-        :param unicode body: The message to send to the channel
-        :param unicode from_: The identity of the new message's author
-        :param unicode attributes: A valid JSON string that contains application-specific data
+        :param unicode body: The body
+        :param unicode from_: The from
+        :param unicode attributes: The attributes
 
         :returns: The created MessageInstance
-        :rtype: twilio.rest.chat.v1.service.channel.message.MessageInstance
+        :rtype: twilio.rest.ip_messaging.v1.service.channel.message.MessageInstance
         """
         data = values.of({'Body': body, 'From': from_, 'Attributes': attributes, })
 
@@ -62,7 +62,7 @@ class MessageList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param MessageInstance.OrderType order: The sort order of the returned messages
+        :param MessageInstance.OrderType order: The order
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -71,7 +71,7 @@ class MessageList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.chat.v1.service.channel.message.MessageInstance]
+        :rtype: list[twilio.rest.ip_messaging.v1.service.channel.message.MessageInstance]
         """
         limits = self._version.read_limits(limit, page_size)
 
@@ -85,7 +85,7 @@ class MessageList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param MessageInstance.OrderType order: The sort order of the returned messages
+        :param MessageInstance.OrderType order: The order
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -94,7 +94,7 @@ class MessageList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.chat.v1.service.channel.message.MessageInstance]
+        :rtype: list[twilio.rest.ip_messaging.v1.service.channel.message.MessageInstance]
         """
         return list(self.stream(order=order, limit=limit, page_size=page_size, ))
 
@@ -104,13 +104,13 @@ class MessageList(ListResource):
         Retrieve a single page of MessageInstance records from the API.
         Request is executed immediately
 
-        :param MessageInstance.OrderType order: The sort order of the returned messages
+        :param MessageInstance.OrderType order: The order
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of MessageInstance
-        :rtype: twilio.rest.chat.v1.service.channel.message.MessagePage
+        :rtype: twilio.rest.ip_messaging.v1.service.channel.message.MessagePage
         """
         data = values.of({
             'Order': order,
@@ -131,7 +131,7 @@ class MessageList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of MessageInstance
-        :rtype: twilio.rest.chat.v1.service.channel.message.MessagePage
+        :rtype: twilio.rest.ip_messaging.v1.service.channel.message.MessagePage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -144,10 +144,10 @@ class MessageList(ListResource):
         """
         Constructs a MessageContext
 
-        :param sid: The unique string that identifies the resource
+        :param sid: The sid
 
-        :returns: twilio.rest.chat.v1.service.channel.message.MessageContext
-        :rtype: twilio.rest.chat.v1.service.channel.message.MessageContext
+        :returns: twilio.rest.ip_messaging.v1.service.channel.message.MessageContext
+        :rtype: twilio.rest.ip_messaging.v1.service.channel.message.MessageContext
         """
         return MessageContext(
             self._version,
@@ -160,10 +160,10 @@ class MessageList(ListResource):
         """
         Constructs a MessageContext
 
-        :param sid: The unique string that identifies the resource
+        :param sid: The sid
 
-        :returns: twilio.rest.chat.v1.service.channel.message.MessageContext
-        :rtype: twilio.rest.chat.v1.service.channel.message.MessageContext
+        :returns: twilio.rest.ip_messaging.v1.service.channel.message.MessageContext
+        :rtype: twilio.rest.ip_messaging.v1.service.channel.message.MessageContext
         """
         return MessageContext(
             self._version,
@@ -190,11 +190,11 @@ class MessagePage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param service_sid: The SID of the Service that the resource is associated with
-        :param channel_sid: The unique ID of the Channel the Message resource belongs to
+        :param service_sid: The service_sid
+        :param channel_sid: The channel_sid
 
-        :returns: twilio.rest.chat.v1.service.channel.message.MessagePage
-        :rtype: twilio.rest.chat.v1.service.channel.message.MessagePage
+        :returns: twilio.rest.ip_messaging.v1.service.channel.message.MessagePage
+        :rtype: twilio.rest.ip_messaging.v1.service.channel.message.MessagePage
         """
         super(MessagePage, self).__init__(version, response)
 
@@ -207,8 +207,8 @@ class MessagePage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.chat.v1.service.channel.message.MessageInstance
-        :rtype: twilio.rest.chat.v1.service.channel.message.MessageInstance
+        :returns: twilio.rest.ip_messaging.v1.service.channel.message.MessageInstance
+        :rtype: twilio.rest.ip_messaging.v1.service.channel.message.MessageInstance
         """
         return MessageInstance(
             self._version,
@@ -234,12 +234,12 @@ class MessageContext(InstanceContext):
         Initialize the MessageContext
 
         :param Version version: Version that contains the resource
-        :param service_sid: The SID of the Service to fetch the resource from
-        :param channel_sid: The unique ID of the Channel the message to fetch belongs to
-        :param sid: The unique string that identifies the resource
+        :param service_sid: The service_sid
+        :param channel_sid: The channel_sid
+        :param sid: The sid
 
-        :returns: twilio.rest.chat.v1.service.channel.message.MessageContext
-        :rtype: twilio.rest.chat.v1.service.channel.message.MessageContext
+        :returns: twilio.rest.ip_messaging.v1.service.channel.message.MessageContext
+        :rtype: twilio.rest.ip_messaging.v1.service.channel.message.MessageContext
         """
         super(MessageContext, self).__init__(version)
 
@@ -252,7 +252,7 @@ class MessageContext(InstanceContext):
         Fetch the MessageInstance
 
         :returns: The fetched MessageInstance
-        :rtype: twilio.rest.chat.v1.service.channel.message.MessageInstance
+        :rtype: twilio.rest.ip_messaging.v1.service.channel.message.MessageInstance
         """
         payload = self._version.fetch(method='GET', uri=self._uri, )
 
@@ -277,11 +277,11 @@ class MessageContext(InstanceContext):
         """
         Update the MessageInstance
 
-        :param unicode body: The message to send to the channel
-        :param unicode attributes: A valid JSON string that contains application-specific data
+        :param unicode body: The body
+        :param unicode attributes: The attributes
 
         :returns: The updated MessageInstance
-        :rtype: twilio.rest.chat.v1.service.channel.message.MessageInstance
+        :rtype: twilio.rest.ip_messaging.v1.service.channel.message.MessageInstance
         """
         data = values.of({'Body': body, 'Attributes': attributes, })
 
@@ -316,8 +316,8 @@ class MessageInstance(InstanceResource):
         """
         Initialize the MessageInstance
 
-        :returns: twilio.rest.chat.v1.service.channel.message.MessageInstance
-        :rtype: twilio.rest.chat.v1.service.channel.message.MessageInstance
+        :returns: twilio.rest.ip_messaging.v1.service.channel.message.MessageInstance
+        :rtype: twilio.rest.ip_messaging.v1.service.channel.message.MessageInstance
         """
         super(MessageInstance, self).__init__(version)
 
@@ -353,7 +353,7 @@ class MessageInstance(InstanceResource):
         performing various actions.  All instance actions are proxied to the context
 
         :returns: MessageContext for this MessageInstance
-        :rtype: twilio.rest.chat.v1.service.channel.message.MessageContext
+        :rtype: twilio.rest.ip_messaging.v1.service.channel.message.MessageContext
         """
         if self._context is None:
             self._context = MessageContext(
@@ -367,7 +367,7 @@ class MessageInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: The unique string that identifies the resource
+        :returns: The sid
         :rtype: unicode
         """
         return self._properties['sid']
@@ -375,7 +375,7 @@ class MessageInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The SID of the Account that created the resource
+        :returns: The account_sid
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -383,7 +383,7 @@ class MessageInstance(InstanceResource):
     @property
     def attributes(self):
         """
-        :returns: The JSON string that stores application-specific data
+        :returns: The attributes
         :rtype: unicode
         """
         return self._properties['attributes']
@@ -391,7 +391,7 @@ class MessageInstance(InstanceResource):
     @property
     def service_sid(self):
         """
-        :returns: The SID of the Service that the resource is associated with
+        :returns: The service_sid
         :rtype: unicode
         """
         return self._properties['service_sid']
@@ -399,7 +399,7 @@ class MessageInstance(InstanceResource):
     @property
     def to(self):
         """
-        :returns: The SID of the Channel that the message was sent to
+        :returns: The to
         :rtype: unicode
         """
         return self._properties['to']
@@ -407,7 +407,7 @@ class MessageInstance(InstanceResource):
     @property
     def channel_sid(self):
         """
-        :returns: The unique ID of the Channel the Message resource belongs to
+        :returns: The channel_sid
         :rtype: unicode
         """
         return self._properties['channel_sid']
@@ -415,7 +415,7 @@ class MessageInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The RFC 2822 date and time in GMT when the resource was created
+        :returns: The date_created
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -423,7 +423,7 @@ class MessageInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The RFC 2822 date and time in GMT when the resource was last updated
+        :returns: The date_updated
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -431,7 +431,7 @@ class MessageInstance(InstanceResource):
     @property
     def was_edited(self):
         """
-        :returns: Whether the message has been edited since  it was created
+        :returns: The was_edited
         :rtype: bool
         """
         return self._properties['was_edited']
@@ -439,7 +439,7 @@ class MessageInstance(InstanceResource):
     @property
     def from_(self):
         """
-        :returns: The identity of the message's author
+        :returns: The from
         :rtype: unicode
         """
         return self._properties['from_']
@@ -447,7 +447,7 @@ class MessageInstance(InstanceResource):
     @property
     def body(self):
         """
-        :returns: The content of the message
+        :returns: The body
         :rtype: unicode
         """
         return self._properties['body']
@@ -455,7 +455,7 @@ class MessageInstance(InstanceResource):
     @property
     def index(self):
         """
-        :returns: The index of the message within the Channel
+        :returns: The index
         :rtype: unicode
         """
         return self._properties['index']
@@ -463,7 +463,7 @@ class MessageInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: The absolute URL of the Message resource
+        :returns: The url
         :rtype: unicode
         """
         return self._properties['url']
@@ -473,7 +473,7 @@ class MessageInstance(InstanceResource):
         Fetch the MessageInstance
 
         :returns: The fetched MessageInstance
-        :rtype: twilio.rest.chat.v1.service.channel.message.MessageInstance
+        :rtype: twilio.rest.ip_messaging.v1.service.channel.message.MessageInstance
         """
         return self._proxy.fetch()
 
@@ -490,11 +490,11 @@ class MessageInstance(InstanceResource):
         """
         Update the MessageInstance
 
-        :param unicode body: The message to send to the channel
-        :param unicode attributes: A valid JSON string that contains application-specific data
+        :param unicode body: The body
+        :param unicode attributes: The attributes
 
         :returns: The updated MessageInstance
-        :rtype: twilio.rest.chat.v1.service.channel.message.MessageInstance
+        :rtype: twilio.rest.ip_messaging.v1.service.channel.message.MessageInstance
         """
         return self._proxy.update(body=body, attributes=attributes, )
 
