@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-MWRD6S');</script><!--End Google Tag Manager-->
 <meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<title>twilio.rest.trunking.v1.trunk.recording — twilio-python 6.48.0 documentation</title>
+<title>twilio.rest.trunking.v1.trunk.recording — twilio-python 6.49.0 documentation</title>
 <link href="../../../../../../_static/alabaster.css" rel="stylesheet" type="text/css"/>
 <link href="../../../../../../_static/pygments.css" rel="stylesheet" type="text/css"/>
 <script data-url_root="../../../../../../" id="documentation_options" src="../../../../../../_static/documentation_options.js" type="text/javascript"></script>
@@ -50,7 +50,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <span class="sd">        Initialize the RecordingList</span>
 
 <span class="sd">        :param Version version: Version that contains the resource</span>
-<span class="sd">        :param trunk_sid: The trunk_sid</span>
+<span class="sd">        :param trunk_sid: The unique string that identifies the resource</span>
 
 <span class="sd">        :returns: twilio.rest.trunking.v1.trunk.recording.RecordingList</span>
 <span class="sd">        :rtype: twilio.rest.trunking.v1.trunk.recording.RecordingList</span>
@@ -96,7 +96,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
 <span class="sd">        :param Version version: Version that contains the resource</span>
 <span class="sd">        :param Response response: Response from the API</span>
-<span class="sd">        :param trunk_sid: The trunk_sid</span>
+<span class="sd">        :param trunk_sid: The unique string that identifies the resource</span>
 
 <span class="sd">        :returns: twilio.rest.trunking.v1.trunk.recording.RecordingPage</span>
 <span class="sd">        :rtype: twilio.rest.trunking.v1.trunk.recording.RecordingPage</span>
@@ -156,14 +156,19 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
         <span class="k">return</span> <span class="n">RecordingInstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_version</span><span class="p">,</span> <span class="n">payload</span><span class="p">,</span> <span class="n">trunk_sid</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_solution</span><span class="p">[</span><span class="s1">'trunk_sid'</span><span class="p">],</span> <span class="p">)</span></div>
 
-<div class="viewcode-block" id="RecordingContext.update"><a class="viewcode-back" href="../../../../../../docs/source/_rst/twilio.rest.trunking.v1.trunk.html#twilio.rest.trunking.v1.trunk.recording.RecordingContext.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="RecordingContext.update"><a class="viewcode-back" href="../../../../../../docs/source/_rst/twilio.rest.trunking.v1.trunk.html#twilio.rest.trunking.v1.trunk.recording.RecordingContext.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">trim</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">):</span>
         <span class="sd">"""</span>
 <span class="sd">        Update the RecordingInstance</span>
+
+<span class="sd">        :param RecordingInstance.RecordingMode mode: The recording mode for the trunk.</span>
+<span class="sd">        :param RecordingInstance.RecordingTrim trim: The recording trim setting for the trunk.</span>
 
 <span class="sd">        :returns: The updated RecordingInstance</span>
 <span class="sd">        :rtype: twilio.rest.trunking.v1.trunk.recording.RecordingInstance</span>
 <span class="sd">        """</span>
-        <span class="n">payload</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_version</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">'POST'</span><span class="p">,</span> <span class="n">uri</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_uri</span><span class="p">,</span> <span class="p">)</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">values</span><span class="o">.</span><span class="n">of</span><span class="p">({</span><span class="s1">'Mode'</span><span class="p">:</span> <span class="n">mode</span><span class="p">,</span> <span class="s1">'Trim'</span><span class="p">:</span> <span class="n">trim</span><span class="p">,</span> <span class="p">})</span>
+
+        <span class="n">payload</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_version</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">'POST'</span><span class="p">,</span> <span class="n">uri</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_uri</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="p">)</span>
 
         <span class="k">return</span> <span class="n">RecordingInstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_version</span><span class="p">,</span> <span class="n">payload</span><span class="p">,</span> <span class="n">trunk_sid</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_solution</span><span class="p">[</span><span class="s1">'trunk_sid'</span><span class="p">],</span> <span class="p">)</span></div>
 
@@ -201,12 +206,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="nb">super</span><span class="p">(</span><span class="n">RecordingInstance</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">version</span><span class="p">)</span>
 
         <span class="c1"># Marshaled Properties</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s1">'mode'</span><span class="p">:</span> <span class="n">payload</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'mode'</span><span class="p">),</span>
-            <span class="s1">'trim'</span><span class="p">:</span> <span class="n">payload</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'trim'</span><span class="p">),</span>
-            <span class="s1">'url'</span><span class="p">:</span> <span class="n">payload</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'url'</span><span class="p">),</span>
-            <span class="s1">'trunk_sid'</span><span class="p">:</span> <span class="n">payload</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'trunk_sid'</span><span class="p">),</span>
-        <span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'mode'</span><span class="p">:</span> <span class="n">payload</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'mode'</span><span class="p">),</span> <span class="s1">'trim'</span><span class="p">:</span> <span class="n">payload</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'trim'</span><span class="p">),</span> <span class="p">}</span>
 
         <span class="c1"># Context</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_context</span> <span class="o">=</span> <span class="kc">None</span>
@@ -241,22 +241,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="p">[</span><span class="s1">'trim'</span><span class="p">]</span>
 
-    <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">url</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
-<span class="sd">        :returns: The url</span>
-<span class="sd">        :rtype: unicode</span>
-<span class="sd">        """</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="p">[</span><span class="s1">'url'</span><span class="p">]</span>
-
-    <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">trunk_sid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
-<span class="sd">        :returns: The trunk_sid</span>
-<span class="sd">        :rtype: unicode</span>
-<span class="sd">        """</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="p">[</span><span class="s1">'trunk_sid'</span><span class="p">]</span>
-
 <div class="viewcode-block" id="RecordingInstance.fetch"><a class="viewcode-back" href="../../../../../../docs/source/_rst/twilio.rest.trunking.v1.trunk.html#twilio.rest.trunking.v1.trunk.recording.RecordingInstance.fetch">[docs]</a>    <span class="k">def</span> <span class="nf">fetch</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">"""</span>
 <span class="sd">        Fetch the RecordingInstance</span>
@@ -266,14 +250,17 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_proxy</span><span class="o">.</span><span class="n">fetch</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="RecordingInstance.update"><a class="viewcode-back" href="../../../../../../docs/source/_rst/twilio.rest.trunking.v1.trunk.html#twilio.rest.trunking.v1.trunk.recording.RecordingInstance.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="RecordingInstance.update"><a class="viewcode-back" href="../../../../../../docs/source/_rst/twilio.rest.trunking.v1.trunk.html#twilio.rest.trunking.v1.trunk.recording.RecordingInstance.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">trim</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">):</span>
         <span class="sd">"""</span>
 <span class="sd">        Update the RecordingInstance</span>
+
+<span class="sd">        :param RecordingInstance.RecordingMode mode: The recording mode for the trunk.</span>
+<span class="sd">        :param RecordingInstance.RecordingTrim trim: The recording trim setting for the trunk.</span>
 
 <span class="sd">        :returns: The updated RecordingInstance</span>
 <span class="sd">        :rtype: twilio.rest.trunking.v1.trunk.recording.RecordingInstance</span>
 <span class="sd">        """</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_proxy</span><span class="o">.</span><span class="n">update</span><span class="p">()</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_proxy</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="n">mode</span><span class="p">,</span> <span class="n">trim</span><span class="o">=</span><span class="n">trim</span><span class="p">,</span> <span class="p">)</span></div>
 
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">"""</span>
