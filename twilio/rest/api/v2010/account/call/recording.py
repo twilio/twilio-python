@@ -387,6 +387,7 @@ class RecordingInstance(InstanceResource):
             'channels': deserialize.integer(payload.get('channels')),
             'source': payload.get('source'),
             'error_code': deserialize.integer(payload.get('error_code')),
+            'track': payload.get('track'),
         }
 
         # Context
@@ -550,6 +551,14 @@ class RecordingInstance(InstanceResource):
         :rtype: unicode
         """
         return self._properties['error_code']
+
+    @property
+    def track(self):
+        """
+        :returns: The recorded track. Can be: `inbound`, `outbound`, or `both`.
+        :rtype: unicode
+        """
+        return self._properties['track']
 
     def update(self, status, pause_behavior=values.unset):
         """

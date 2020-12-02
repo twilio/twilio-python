@@ -20,7 +20,7 @@ class RecordingList(ListResource):
         Initialize the RecordingList
 
         :param Version version: Version that contains the resource
-        :param trunk_sid: The trunk_sid
+        :param trunk_sid: The unique string that identifies the resource
 
         :returns: twilio.rest.trunking.v1.trunk.recording.RecordingList
         :rtype: twilio.rest.trunking.v1.trunk.recording.RecordingList
@@ -66,7 +66,7 @@ class RecordingPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param trunk_sid: The trunk_sid
+        :param trunk_sid: The unique string that identifies the resource
 
         :returns: twilio.rest.trunking.v1.trunk.recording.RecordingPage
         :rtype: twilio.rest.trunking.v1.trunk.recording.RecordingPage
@@ -126,14 +126,19 @@ class RecordingContext(InstanceContext):
 
         return RecordingInstance(self._version, payload, trunk_sid=self._solution['trunk_sid'], )
 
-    def update(self):
+    def update(self, mode=values.unset, trim=values.unset):
         """
         Update the RecordingInstance
+
+        :param RecordingInstance.RecordingMode mode: The recording mode for the trunk.
+        :param RecordingInstance.RecordingTrim trim: The recording trim setting for the trunk.
 
         :returns: The updated RecordingInstance
         :rtype: twilio.rest.trunking.v1.trunk.recording.RecordingInstance
         """
-        payload = self._version.update(method='POST', uri=self._uri, )
+        data = values.of({'Mode': mode, 'Trim': trim, })
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data, )
 
         return RecordingInstance(self._version, payload, trunk_sid=self._solution['trunk_sid'], )
 
@@ -171,12 +176,7 @@ class RecordingInstance(InstanceResource):
         super(RecordingInstance, self).__init__(version)
 
         # Marshaled Properties
-        self._properties = {
-            'mode': payload.get('mode'),
-            'trim': payload.get('trim'),
-            'url': payload.get('url'),
-            'trunk_sid': payload.get('trunk_sid'),
-        }
+        self._properties = {'mode': payload.get('mode'), 'trim': payload.get('trim'), }
 
         # Context
         self._context = None
@@ -211,22 +211,6 @@ class RecordingInstance(InstanceResource):
         """
         return self._properties['trim']
 
-    @property
-    def url(self):
-        """
-        :returns: The url
-        :rtype: unicode
-        """
-        return self._properties['url']
-
-    @property
-    def trunk_sid(self):
-        """
-        :returns: The trunk_sid
-        :rtype: unicode
-        """
-        return self._properties['trunk_sid']
-
     def fetch(self):
         """
         Fetch the RecordingInstance
@@ -236,14 +220,17 @@ class RecordingInstance(InstanceResource):
         """
         return self._proxy.fetch()
 
-    def update(self):
+    def update(self, mode=values.unset, trim=values.unset):
         """
         Update the RecordingInstance
+
+        :param RecordingInstance.RecordingMode mode: The recording mode for the trunk.
+        :param RecordingInstance.RecordingTrim trim: The recording trim setting for the trunk.
 
         :returns: The updated RecordingInstance
         :rtype: twilio.rest.trunking.v1.trunk.recording.RecordingInstance
         """
-        return self._proxy.update()
+        return self._proxy.update(mode=mode, trim=trim, )
 
     def __repr__(self):
         """

@@ -32,9 +32,7 @@ class RecordingTestCase(IntegrationTestCase):
             '''
             {
                 "mode": "do-not-record",
-                "trim": "do-not-trim",
-                "url": "https://trunking.twilio.com/v1/Trunks/TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Recording",
-                "trunk_sid": "TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+                "trim": "do-not-trim"
             }
             '''
         ))
@@ -62,9 +60,7 @@ class RecordingTestCase(IntegrationTestCase):
             '''
             {
                 "mode": "do-not-record",
-                "trim": "do-not-trim",
-                "url": "https://trunking.twilio.com/v1/Trunks/TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Recording",
-                "trunk_sid": "TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+                "trim": "do-not-trim"
             }
             '''
         ))

@@ -3,6 +3,26 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2020-12-02] Version 6.49.0
+---------------------------
+**Library - Feature**
+- [PR #546](https://github.com/twilio/twilio-python/pull/546): Regional twr header in the access token. Thanks to [@charliesantos](https://github.com/charliesantos)!
+
+**Api**
+- Remove `RecordingTrack` parameter for create calls, create participants, and create call recordings **(breaking change)**
+- Added `RecordingTrack` parameter for create calls and create call recordings
+- Add optional property `recording_track` in the participant create request
+
+**Lookups**
+- Changed `caller_name` and `carrier` properties type to object **(breaking change)**
+
+**Trunking**
+- Added dual channel recording options for Trunks.
+
+**Twiml**
+- Add `jitterBufferSize` and `participantLabel` to `Conference`.
+
+
 [2020-11-18] Version 6.48.0
 ---------------------------
 **Api**

@@ -1251,7 +1251,7 @@ class Dial(TwiML):
                    status_callback_method=None, recording_status_callback=None,
                    recording_status_callback_method=None,
                    recording_status_callback_event=None, event_callback_url=None,
-                   **kwargs):
+                   jitter_buffer_size=None, participant_label=None, **kwargs):
         """
         Create a <Conference> element
 
@@ -1274,6 +1274,8 @@ class Dial(TwiML):
         :param recording_status_callback_method: Recording status callback URL method
         :param recording_status_callback_event: Recording status callback events
         :param event_callback_url: Event callback URL
+        :param jitter_buffer_size: Size of jitter buffer for participant
+        :param participant_label: A label for participant
         :param kwargs: additional attributes
 
         :returns: <Conference> element
@@ -1298,6 +1300,8 @@ class Dial(TwiML):
             recording_status_callback_method=recording_status_callback_method,
             recording_status_callback_event=recording_status_callback_event,
             event_callback_url=event_callback_url,
+            jitter_buffer_size=jitter_buffer_size,
+            participant_label=participant_label,
             **kwargs
         ))
 
