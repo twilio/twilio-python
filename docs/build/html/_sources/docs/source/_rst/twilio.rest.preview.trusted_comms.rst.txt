@@ -7,18 +7,9 @@ Subpackages
 .. toctree::
 
     twilio.rest.preview.trusted_comms.branded_channel
-    twilio.rest.preview.trusted_comms.business
 
 Submodules
 ----------
-
-twilio.rest.preview.trusted\_comms.branded\_call module
--------------------------------------------------------
-
-.. automodule:: twilio.rest.preview.trusted_comms.branded_call
-    :members:
-    :undoc-members:
-    :show-inheritance:
 
 twilio.rest.preview.trusted\_comms.brands\_information module
 -------------------------------------------------------------
@@ -40,14 +31,6 @@ twilio.rest.preview.trusted\_comms.current\_call module
 -------------------------------------------------------
 
 .. automodule:: twilio.rest.preview.trusted_comms.current_call
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-twilio.rest.preview.trusted\_comms.phone\_call module
------------------------------------------------------
-
-.. automodule:: twilio.rest.preview.trusted_comms.phone_call
     :members:
     :undoc-members:
     :show-inheritance:
