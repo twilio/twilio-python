@@ -57,7 +57,8 @@ class ParticipantList(ListResource):
                conference_recording_status_callback_event=values.unset,
                coaching=values.unset, call_sid_to_coach=values.unset,
                jitter_buffer_size=values.unset, byoc=values.unset,
-               caller_id=values.unset, call_reason=values.unset):
+               caller_id=values.unset, call_reason=values.unset,
+               recording_track=values.unset):
         """
         Create the ParticipantInstance
 
@@ -98,6 +99,7 @@ class ParticipantList(ListResource):
         :param unicode byoc: BYOC trunk SID (Beta)
         :param unicode caller_id: The phone number, Client identifier, or username portion of SIP address that made this call.
         :param unicode call_reason: Reason for the call (Branded Calls Beta)
+        :param unicode recording_track: The track to record
 
         :returns: The created ParticipantInstance
         :rtype: twilio.rest.api.v2010.account.conference.participant.ParticipantInstance
@@ -140,6 +142,7 @@ class ParticipantList(ListResource):
             'Byoc': byoc,
             'CallerId': caller_id,
             'CallReason': call_reason,
+            'RecordingTrack': recording_track,
         })
 
         payload = self._version.create(method='POST', uri=self._uri, data=data, )

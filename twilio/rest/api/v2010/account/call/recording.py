@@ -37,7 +37,7 @@ class RecordingList(ListResource):
     def create(self, recording_status_callback_event=values.unset,
                recording_status_callback=values.unset,
                recording_status_callback_method=values.unset, trim=values.unset,
-               recording_channels=values.unset):
+               recording_channels=values.unset, recording_track=values.unset):
         """
         Create the RecordingInstance
 
@@ -46,6 +46,7 @@ class RecordingList(ListResource):
         :param unicode recording_status_callback_method: The HTTP method we should use to call `recording_status_callback`
         :param unicode trim: Whether to trim the silence in the recording
         :param unicode recording_channels: The number of channels that the output recording will be configured with
+        :param unicode recording_track: Which track(s) to record
 
         :returns: The created RecordingInstance
         :rtype: twilio.rest.api.v2010.account.call.recording.RecordingInstance
@@ -56,6 +57,7 @@ class RecordingList(ListResource):
             'RecordingStatusCallbackMethod': recording_status_callback_method,
             'Trim': trim,
             'RecordingChannels': recording_channels,
+            'RecordingTrack': recording_track,
         })
 
         payload = self._version.create(method='POST', uri=self._uri, data=data, )

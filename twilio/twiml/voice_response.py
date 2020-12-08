@@ -38,7 +38,7 @@ class VoiceResponse(TwiML):
              trim=None, recording_status_callback=None,
              recording_status_callback_method=None,
              recording_status_callback_event=None, answer_on_bridge=None,
-             ring_tone=None, **kwargs):
+             ring_tone=None, recording_track=None, **kwargs):
         """
         Create a <Dial> element
 
@@ -56,6 +56,7 @@ class VoiceResponse(TwiML):
         :param recording_status_callback_event: Recording status callback events
         :param answer_on_bridge: Preserve the ringing behavior of the inbound call until the Dialed call picks up
         :param ring_tone: Ringtone allows you to override the ringback tone that Twilio will play back to the caller while executing the Dial
+        :param recording_track: To indicate which audio track should be recorded
         :param kwargs: additional attributes
 
         :returns: <Dial> element
@@ -75,6 +76,7 @@ class VoiceResponse(TwiML):
             recording_status_callback_event=recording_status_callback_event,
             answer_on_bridge=answer_on_bridge,
             ring_tone=ring_tone,
+            recording_track=recording_track,
             **kwargs
         ))
 

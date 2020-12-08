@@ -205,13 +205,6 @@ class Preview(Domain):
         return self.wireless.sims
 
     @property
-    def branded_calls(self):
-        """
-        :rtype: twilio.rest.preview.trusted_comms.branded_call.BrandedCallList
-        """
-        return self.trusted_comms.branded_calls
-
-    @property
     def branded_channels(self):
         """
         :rtype: twilio.rest.preview.trusted_comms.branded_channel.BrandedChannelList
@@ -226,13 +219,6 @@ class Preview(Domain):
         return self.trusted_comms.brands_information
 
     @property
-    def businesses(self):
-        """
-        :rtype: twilio.rest.preview.trusted_comms.business.BusinessList
-        """
-        return self.trusted_comms.businesses
-
-    @property
     def cps(self):
         """
         :rtype: twilio.rest.preview.trusted_comms.cps.CpsList
@@ -245,13 +231,6 @@ class Preview(Domain):
         :rtype: twilio.rest.preview.trusted_comms.current_call.CurrentCallList
         """
         return self.trusted_comms.current_calls
-
-    @property
-    def phone_calls(self):
-        """
-        :rtype: twilio.rest.preview.trusted_comms.phone_call.PhoneCallList
-        """
-        return self.trusted_comms.phone_calls
 
     def __repr__(self):
         """
