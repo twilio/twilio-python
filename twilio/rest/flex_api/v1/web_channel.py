@@ -114,7 +114,7 @@ class WebChannelList(ListResource):
         """
         Create the WebChannelInstance
 
-        :param unicode flex_flow_sid: The SID of the FlexFlow
+        :param unicode flex_flow_sid: The SID of the Flex Flow
         :param unicode identity: The chat identity
         :param unicode customer_friendly_name: The chat participant's friendly name
         :param unicode chat_friendly_name: The chat channel's friendly name
@@ -324,7 +324,7 @@ class WebChannelInstance(InstanceResource):
     @property
     def flex_flow_sid(self):
         """
-        :returns: The SID of the FlexFlow
+        :returns: The SID of the Flex Flow
         :rtype: unicode
         """
         return self._properties['flex_flow_sid']

@@ -315,6 +315,7 @@ class UserInstance(InstanceResource):
             'friendly_name': payload.get('friendly_name'),
             'attributes': payload.get('attributes'),
             'is_online': payload.get('is_online'),
+            'is_notifiable': payload.get('is_notifiable'),
             'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
             'date_updated': deserialize.iso8601_datetime(payload.get('date_updated')),
             'url': payload.get('url'),
@@ -400,10 +401,18 @@ class UserInstance(InstanceResource):
     @property
     def is_online(self):
         """
-        :returns: Whether the User is actively connected to the Service instance and online
+        :returns: Whether the User is actively connected to this Conversations Service and online
         :rtype: bool
         """
         return self._properties['is_online']
+
+    @property
+    def is_notifiable(self):
+        """
+        :returns: Whether the User has a potentially valid Push Notification registration for this Conversations Service
+        :rtype: bool
+        """
+        return self._properties['is_notifiable']
 
     @property
     def date_created(self):

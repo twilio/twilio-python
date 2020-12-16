@@ -155,13 +155,15 @@ class ConfigurationContext(InstanceContext):
 
     def update(self, default_conversation_creator_role_sid=values.unset,
                default_conversation_role_sid=values.unset,
-               default_chat_service_role_sid=values.unset):
+               default_chat_service_role_sid=values.unset,
+               reachability_enabled=values.unset):
         """
         Update the ConfigurationInstance
 
         :param unicode default_conversation_creator_role_sid: The role assigned to a conversation creator when they join a new conversation
         :param unicode default_conversation_role_sid: The role assigned to users when they are added to a conversation
         :param unicode default_chat_service_role_sid: The service role assigned to users when they are added to the service
+        :param bool reachability_enabled: Whether the Reachability Indicator feature is enabled for this Conversations Service
 
         :returns: The updated ConfigurationInstance
         :rtype: twilio.rest.conversations.v1.service.configuration.ConfigurationInstance
@@ -170,6 +172,7 @@ class ConfigurationContext(InstanceContext):
             'DefaultConversationCreatorRoleSid': default_conversation_creator_role_sid,
             'DefaultConversationRoleSid': default_conversation_role_sid,
             'DefaultChatServiceRoleSid': default_chat_service_role_sid,
+            'ReachabilityEnabled': reachability_enabled,
         })
 
         payload = self._version.update(method='POST', uri=self._uri, data=data, )
@@ -210,6 +213,7 @@ class ConfigurationInstance(InstanceResource):
             'default_chat_service_role_sid': payload.get('default_chat_service_role_sid'),
             'url': payload.get('url'),
             'links': payload.get('links'),
+            'reachability_enabled': payload.get('reachability_enabled'),
         }
 
         # Context
@@ -280,6 +284,14 @@ class ConfigurationInstance(InstanceResource):
         """
         return self._properties['links']
 
+    @property
+    def reachability_enabled(self):
+        """
+        :returns: Whether the Reachability Indicator feature is enabled for this Conversations Service
+        :rtype: bool
+        """
+        return self._properties['reachability_enabled']
+
     def fetch(self):
         """
         Fetch the ConfigurationInstance
@@ -291,13 +303,15 @@ class ConfigurationInstance(InstanceResource):
 
     def update(self, default_conversation_creator_role_sid=values.unset,
                default_conversation_role_sid=values.unset,
-               default_chat_service_role_sid=values.unset):
+               default_chat_service_role_sid=values.unset,
+               reachability_enabled=values.unset):
         """
         Update the ConfigurationInstance
 
         :param unicode default_conversation_creator_role_sid: The role assigned to a conversation creator when they join a new conversation
         :param unicode default_conversation_role_sid: The role assigned to users when they are added to a conversation
         :param unicode default_chat_service_role_sid: The service role assigned to users when they are added to the service
+        :param bool reachability_enabled: Whether the Reachability Indicator feature is enabled for this Conversations Service
 
         :returns: The updated ConfigurationInstance
         :rtype: twilio.rest.conversations.v1.service.configuration.ConfigurationInstance
@@ -306,6 +320,7 @@ class ConfigurationInstance(InstanceResource):
             default_conversation_creator_role_sid=default_conversation_creator_role_sid,
             default_conversation_role_sid=default_conversation_role_sid,
             default_chat_service_role_sid=default_chat_service_role_sid,
+            reachability_enabled=reachability_enabled,
         )
 
     def __repr__(self):

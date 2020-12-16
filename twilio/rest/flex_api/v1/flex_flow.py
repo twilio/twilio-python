@@ -38,7 +38,7 @@ class FlexFlowList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param unicode friendly_name: The `friendly_name` of the FlexFlow resources to read
+        :param unicode friendly_name: The `friendly_name` of the Flex Flow resources to read
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -61,7 +61,7 @@ class FlexFlowList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param unicode friendly_name: The `friendly_name` of the FlexFlow resources to read
+        :param unicode friendly_name: The `friendly_name` of the Flex Flow resources to read
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -80,7 +80,7 @@ class FlexFlowList(ListResource):
         Retrieve a single page of FlexFlowInstance records from the API.
         Request is executed immediately
 
-        :param unicode friendly_name: The `friendly_name` of the FlexFlow resources to read
+        :param unicode friendly_name: The `friendly_name` of the Flex Flow resources to read
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -133,16 +133,16 @@ class FlexFlowList(ListResource):
         :param unicode chat_service_sid: The SID of the chat service
         :param FlexFlowInstance.ChannelType channel_type: The channel type
         :param unicode contact_identity: The channel contact's Identity
-        :param bool enabled: Whether the new FlexFlow is enabled
+        :param bool enabled: Whether the new Flex Flow is enabled
         :param FlexFlowInstance.IntegrationType integration_type: The integration type
-        :param unicode integration_flow_sid: The SID of the Flow
+        :param unicode integration_flow_sid: The SID of the Studio Flow
         :param unicode integration_url: The External Webhook URL
-        :param unicode integration_workspace_sid: The Workspace SID for a new task
-        :param unicode integration_workflow_sid: The Workflow SID for a new task
-        :param unicode integration_channel: The task channel for a new task
-        :param unicode integration_timeout: The task timeout in seconds for a new task
-        :param unicode integration_priority: The task priority of a new task
-        :param bool integration_creation_on_message: Whether to create a task when the first message arrives
+        :param unicode integration_workspace_sid: The Workspace SID for a new Task
+        :param unicode integration_workflow_sid: The Workflow SID for a new Task
+        :param unicode integration_channel: The Task Channel for a new Task
+        :param unicode integration_timeout: The Task timeout in seconds for a new Task
+        :param unicode integration_priority: The Task priority of a new Task
+        :param bool integration_creation_on_message: Whether to create a Task when the first message arrives
         :param bool long_lived: Reuse this chat channel for future interactions with a contact
         :param bool janitor_enabled: Remove active Proxy sessions if the corresponding Task is deleted
         :param unicode integration_retry_count: The number of times to retry the webhook if the first attempt fails
@@ -291,18 +291,18 @@ class FlexFlowContext(InstanceContext):
         :param unicode chat_service_sid: The SID of the chat service
         :param FlexFlowInstance.ChannelType channel_type: The channel type
         :param unicode contact_identity: The channel contact's Identity
-        :param bool enabled: Whether the FlexFlow is enabled
+        :param bool enabled: Whether the new Flex Flow is enabled
         :param FlexFlowInstance.IntegrationType integration_type: The integration type
-        :param unicode integration_flow_sid: The SID of the Flow
+        :param unicode integration_flow_sid: The SID of the Studio Flow
         :param unicode integration_url: The External Webhook URL
-        :param unicode integration_workspace_sid: The Workspace SID for a new task
-        :param unicode integration_workflow_sid: The Workflow SID for a new task
-        :param unicode integration_channel: task channel for a new task
-        :param unicode integration_timeout: The task timeout in seconds for a new task
-        :param unicode integration_priority: The task priority of a new task
-        :param bool integration_creation_on_message: Whether to create a task when the first message arrives
+        :param unicode integration_workspace_sid: The Workspace SID for a new Task
+        :param unicode integration_workflow_sid: The Workflow SID for a new Task
+        :param unicode integration_channel: The Task Channel for a new Task
+        :param unicode integration_timeout: The Task timeout in seconds for a new Task
+        :param unicode integration_priority: The Task priority of a new Task
+        :param bool integration_creation_on_message: Whether to create a Task when the first message arrives
         :param bool long_lived: Reuse this chat channel for future interactions with a contact
-        :param bool janitor_enabled: Remove active Proxy sessions if the corresponding Task is deleted.
+        :param bool janitor_enabled: Remove active Proxy sessions if the corresponding Task is deleted
         :param unicode integration_retry_count: The number of times to retry the webhook if the first attempt fails
 
         :returns: The updated FlexFlowInstance
@@ -478,7 +478,7 @@ class FlexFlowInstance(InstanceResource):
     @property
     def enabled(self):
         """
-        :returns: Whether the FlexFlow is enabled
+        :returns: Whether the Flex Flow is enabled
         :rtype: bool
         """
         return self._properties['enabled']
@@ -518,7 +518,7 @@ class FlexFlowInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: The absolute URL of the FlexFlow resource
+        :returns: The absolute URL of the Flex Flow resource
         :rtype: unicode
         """
         return self._properties['url']
@@ -550,18 +550,18 @@ class FlexFlowInstance(InstanceResource):
         :param unicode chat_service_sid: The SID of the chat service
         :param FlexFlowInstance.ChannelType channel_type: The channel type
         :param unicode contact_identity: The channel contact's Identity
-        :param bool enabled: Whether the FlexFlow is enabled
+        :param bool enabled: Whether the new Flex Flow is enabled
         :param FlexFlowInstance.IntegrationType integration_type: The integration type
-        :param unicode integration_flow_sid: The SID of the Flow
+        :param unicode integration_flow_sid: The SID of the Studio Flow
         :param unicode integration_url: The External Webhook URL
-        :param unicode integration_workspace_sid: The Workspace SID for a new task
-        :param unicode integration_workflow_sid: The Workflow SID for a new task
-        :param unicode integration_channel: task channel for a new task
-        :param unicode integration_timeout: The task timeout in seconds for a new task
-        :param unicode integration_priority: The task priority of a new task
-        :param bool integration_creation_on_message: Whether to create a task when the first message arrives
+        :param unicode integration_workspace_sid: The Workspace SID for a new Task
+        :param unicode integration_workflow_sid: The Workflow SID for a new Task
+        :param unicode integration_channel: The Task Channel for a new Task
+        :param unicode integration_timeout: The Task timeout in seconds for a new Task
+        :param unicode integration_priority: The Task priority of a new Task
+        :param bool integration_creation_on_message: Whether to create a Task when the first message arrives
         :param bool long_lived: Reuse this chat channel for future interactions with a contact
-        :param bool janitor_enabled: Remove active Proxy sessions if the corresponding Task is deleted.
+        :param bool janitor_enabled: Remove active Proxy sessions if the corresponding Task is deleted
         :param unicode integration_retry_count: The number of times to retry the webhook if the first attempt fails
 
         :returns: The updated FlexFlowInstance

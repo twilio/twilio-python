@@ -99,7 +99,7 @@ class ParticipantList(ListResource):
         :param unicode byoc: BYOC trunk SID (Beta)
         :param unicode caller_id: The phone number, Client identifier, or username portion of SIP address that made this call.
         :param unicode call_reason: Reason for the call (Branded Calls Beta)
-        :param unicode recording_track: The track to record
+        :param unicode recording_track: The track(s) to record
 
         :returns: The created ParticipantInstance
         :rtype: twilio.rest.api.v2010.account.conference.participant.ParticipantInstance

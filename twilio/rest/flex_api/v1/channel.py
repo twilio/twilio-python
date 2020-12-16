@@ -116,15 +116,15 @@ class ChannelList(ListResource):
         """
         Create the ChannelInstance
 
-        :param unicode flex_flow_sid: The SID of the FlexFlow
+        :param unicode flex_flow_sid: The SID of the Flex Flow
         :param unicode identity: The identity value that identifies the new resource's chat User
         :param unicode chat_user_friendly_name: The chat participant's friendly name
         :param unicode chat_friendly_name: The chat channel's friendly name
         :param unicode target: The Target Contact Identity
         :param unicode chat_unique_name: The chat channel's unique name
         :param unicode pre_engagement_data: The pre-engagement data
-        :param unicode task_sid: The SID of the TaskRouter task
-        :param unicode task_attributes: The task attributes to be added for the TaskRouter Task
+        :param unicode task_sid: The SID of the TaskRouter Task
+        :param unicode task_attributes: The Task attributes to be added for the TaskRouter Task
         :param bool long_lived: Whether to create the channel as long-lived
 
         :returns: The created ChannelInstance
@@ -317,7 +317,7 @@ class ChannelInstance(InstanceResource):
     @property
     def flex_flow_sid(self):
         """
-        :returns: The SID of the FlexFlow
+        :returns: The SID of the Flex Flow
         :rtype: unicode
         """
         return self._properties['flex_flow_sid']
@@ -341,7 +341,7 @@ class ChannelInstance(InstanceResource):
     @property
     def task_sid(self):
         """
-        :returns: The SID of the TaskRouter task
+        :returns: The SID of the TaskRouter Task
         :rtype: unicode
         """
         return self._properties['task_sid']

@@ -269,6 +269,8 @@ class ParticipantContext(InstanceContext):
                identity=values.unset, attributes=values.unset,
                role_sid=values.unset, messaging_binding_proxy_address=values.unset,
                messaging_binding_projected_address=values.unset,
+               last_read_message_index=values.unset,
+               last_read_timestamp=values.unset,
                x_twilio_webhook_enabled=values.unset):
         """
         Update the ParticipantInstance
@@ -280,6 +282,8 @@ class ParticipantContext(InstanceContext):
         :param unicode role_sid: The SID of a conversation-level Role to assign to the participant
         :param unicode messaging_binding_proxy_address: The address of the Twilio phone number that the participant is in contact with.
         :param unicode messaging_binding_projected_address: The address of the Twilio phone number that is used in Group MMS.
+        :param unicode last_read_message_index: Index of last “read” message in the Conversation for the Participant.
+        :param unicode last_read_timestamp: Timestamp of last “read” message in the Conversation for the Participant.
         :param ParticipantInstance.WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
 
         :returns: The updated ParticipantInstance
@@ -293,6 +297,8 @@ class ParticipantContext(InstanceContext):
             'RoleSid': role_sid,
             'MessagingBinding.ProxyAddress': messaging_binding_proxy_address,
             'MessagingBinding.ProjectedAddress': messaging_binding_projected_address,
+            'LastReadMessageIndex': last_read_message_index,
+            'LastReadTimestamp': last_read_timestamp,
         })
         headers = values.of({'X-Twilio-Webhook-Enabled': x_twilio_webhook_enabled, })
 
@@ -376,6 +382,8 @@ class ParticipantInstance(InstanceResource):
             'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
             'date_updated': deserialize.iso8601_datetime(payload.get('date_updated')),
             'url': payload.get('url'),
+            'last_read_message_index': deserialize.integer(payload.get('last_read_message_index')),
+            'last_read_timestamp': payload.get('last_read_timestamp'),
         }
 
         # Context
@@ -492,10 +500,28 @@ class ParticipantInstance(InstanceResource):
         """
         return self._properties['url']
 
+    @property
+    def last_read_message_index(self):
+        """
+        :returns: Index of last “read” message in the Conversation for the Participant.
+        :rtype: unicode
+        """
+        return self._properties['last_read_message_index']
+
+    @property
+    def last_read_timestamp(self):
+        """
+        :returns: Timestamp of last “read” message in the Conversation for the Participant.
+        :rtype: unicode
+        """
+        return self._properties['last_read_timestamp']
+
     def update(self, date_created=values.unset, date_updated=values.unset,
                identity=values.unset, attributes=values.unset,
                role_sid=values.unset, messaging_binding_proxy_address=values.unset,
                messaging_binding_projected_address=values.unset,
+               last_read_message_index=values.unset,
+               last_read_timestamp=values.unset,
                x_twilio_webhook_enabled=values.unset):
         """
         Update the ParticipantInstance
@@ -507,6 +533,8 @@ class ParticipantInstance(InstanceResource):
         :param unicode role_sid: The SID of a conversation-level Role to assign to the participant
         :param unicode messaging_binding_proxy_address: The address of the Twilio phone number that the participant is in contact with.
         :param unicode messaging_binding_projected_address: The address of the Twilio phone number that is used in Group MMS.
+        :param unicode last_read_message_index: Index of last “read” message in the Conversation for the Participant.
+        :param unicode last_read_timestamp: Timestamp of last “read” message in the Conversation for the Participant.
         :param ParticipantInstance.WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
 
         :returns: The updated ParticipantInstance
@@ -520,6 +548,8 @@ class ParticipantInstance(InstanceResource):
             role_sid=role_sid,
             messaging_binding_proxy_address=messaging_binding_proxy_address,
             messaging_binding_projected_address=messaging_binding_projected_address,
+            last_read_message_index=last_read_message_index,
+            last_read_timestamp=last_read_timestamp,
             x_twilio_webhook_enabled=x_twilio_webhook_enabled,
         )
 

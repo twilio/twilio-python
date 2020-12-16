@@ -38,7 +38,7 @@ class VoiceResponse(TwiML):
              trim=None, recording_status_callback=None,
              recording_status_callback_method=None,
              recording_status_callback_event=None, answer_on_bridge=None,
-             ring_tone=None, recording_track=None, **kwargs):
+             ring_tone=None, recording_track=None, sequential=None, **kwargs):
         """
         Create a <Dial> element
 
@@ -57,6 +57,7 @@ class VoiceResponse(TwiML):
         :param answer_on_bridge: Preserve the ringing behavior of the inbound call until the Dialed call picks up
         :param ring_tone: Ringtone allows you to override the ringback tone that Twilio will play back to the caller while executing the Dial
         :param recording_track: To indicate which audio track should be recorded
+        :param sequential: Used to determine if child TwiML nouns should be dialed in order, one after the other (sequential) or dial all at once (parallel). Default is false, parallel
         :param kwargs: additional attributes
 
         :returns: <Dial> element
@@ -77,6 +78,7 @@ class VoiceResponse(TwiML):
             answer_on_bridge=answer_on_bridge,
             ring_tone=ring_tone,
             recording_track=recording_track,
+            sequential=sequential,
             **kwargs
         ))
 
