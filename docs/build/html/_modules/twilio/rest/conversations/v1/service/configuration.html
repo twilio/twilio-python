@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-MWRD6S');</script><!--End Google Tag Manager-->
 <meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<title>twilio.rest.conversations.v1.service.configuration — twilio-python 6.50.0 documentation</title>
+<title>twilio.rest.conversations.v1.service.configuration — twilio-python 6.50.1 documentation</title>
 <link href="../../../../../../_static/alabaster.css" rel="stylesheet" type="text/css"/>
 <link href="../../../../../../_static/pygments.css" rel="stylesheet" type="text/css"/>
 <script data-url_root="../../../../../../" id="documentation_options" src="../../../../../../_static/documentation_options.js" type="text/javascript"></script>
@@ -185,13 +185,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
 <div class="viewcode-block" id="ConfigurationContext.update"><a class="viewcode-back" href="../../../../../../docs/source/_rst/twilio.rest.conversations.v1.service.configuration.html#twilio.rest.conversations.v1.service.configuration.ConfigurationContext.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">default_conversation_creator_role_sid</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
                <span class="n">default_conversation_role_sid</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
-               <span class="n">default_chat_service_role_sid</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">):</span>
+               <span class="n">default_chat_service_role_sid</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
+               <span class="n">reachability_enabled</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">):</span>
         <span class="sd">"""</span>
 <span class="sd">        Update the ConfigurationInstance</span>
 
 <span class="sd">        :param unicode default_conversation_creator_role_sid: The role assigned to a conversation creator when they join a new conversation</span>
 <span class="sd">        :param unicode default_conversation_role_sid: The role assigned to users when they are added to a conversation</span>
 <span class="sd">        :param unicode default_chat_service_role_sid: The service role assigned to users when they are added to the service</span>
+<span class="sd">        :param bool reachability_enabled: Whether the Reachability Indicator feature is enabled for this Conversations Service</span>
 
 <span class="sd">        :returns: The updated ConfigurationInstance</span>
 <span class="sd">        :rtype: twilio.rest.conversations.v1.service.configuration.ConfigurationInstance</span>
@@ -200,6 +202,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
             <span class="s1">'DefaultConversationCreatorRoleSid'</span><span class="p">:</span> <span class="n">default_conversation_creator_role_sid</span><span class="p">,</span>
             <span class="s1">'DefaultConversationRoleSid'</span><span class="p">:</span> <span class="n">default_conversation_role_sid</span><span class="p">,</span>
             <span class="s1">'DefaultChatServiceRoleSid'</span><span class="p">:</span> <span class="n">default_chat_service_role_sid</span><span class="p">,</span>
+            <span class="s1">'ReachabilityEnabled'</span><span class="p">:</span> <span class="n">reachability_enabled</span><span class="p">,</span>
         <span class="p">})</span>
 
         <span class="n">payload</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_version</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">'POST'</span><span class="p">,</span> <span class="n">uri</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_uri</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="p">)</span>
@@ -240,6 +243,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
             <span class="s1">'default_chat_service_role_sid'</span><span class="p">:</span> <span class="n">payload</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'default_chat_service_role_sid'</span><span class="p">),</span>
             <span class="s1">'url'</span><span class="p">:</span> <span class="n">payload</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'url'</span><span class="p">),</span>
             <span class="s1">'links'</span><span class="p">:</span> <span class="n">payload</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'links'</span><span class="p">),</span>
+            <span class="s1">'reachability_enabled'</span><span class="p">:</span> <span class="n">payload</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'reachability_enabled'</span><span class="p">),</span>
         <span class="p">}</span>
 
         <span class="c1"># Context</span>
@@ -310,6 +314,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="p">[</span><span class="s1">'links'</span><span class="p">]</span>
 
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">reachability_enabled</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        :returns: Whether the Reachability Indicator feature is enabled for this Conversations Service</span>
+<span class="sd">        :rtype: bool</span>
+<span class="sd">        """</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="p">[</span><span class="s1">'reachability_enabled'</span><span class="p">]</span>
+
 <div class="viewcode-block" id="ConfigurationInstance.fetch"><a class="viewcode-back" href="../../../../../../docs/source/_rst/twilio.rest.conversations.v1.service.configuration.html#twilio.rest.conversations.v1.service.configuration.ConfigurationInstance.fetch">[docs]</a>    <span class="k">def</span> <span class="nf">fetch</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">"""</span>
 <span class="sd">        Fetch the ConfigurationInstance</span>
@@ -321,13 +333,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
 <div class="viewcode-block" id="ConfigurationInstance.update"><a class="viewcode-back" href="../../../../../../docs/source/_rst/twilio.rest.conversations.v1.service.configuration.html#twilio.rest.conversations.v1.service.configuration.ConfigurationInstance.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">default_conversation_creator_role_sid</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
                <span class="n">default_conversation_role_sid</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
-               <span class="n">default_chat_service_role_sid</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">):</span>
+               <span class="n">default_chat_service_role_sid</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
+               <span class="n">reachability_enabled</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">):</span>
         <span class="sd">"""</span>
 <span class="sd">        Update the ConfigurationInstance</span>
 
 <span class="sd">        :param unicode default_conversation_creator_role_sid: The role assigned to a conversation creator when they join a new conversation</span>
 <span class="sd">        :param unicode default_conversation_role_sid: The role assigned to users when they are added to a conversation</span>
 <span class="sd">        :param unicode default_chat_service_role_sid: The service role assigned to users when they are added to the service</span>
+<span class="sd">        :param bool reachability_enabled: Whether the Reachability Indicator feature is enabled for this Conversations Service</span>
 
 <span class="sd">        :returns: The updated ConfigurationInstance</span>
 <span class="sd">        :rtype: twilio.rest.conversations.v1.service.configuration.ConfigurationInstance</span>
@@ -336,6 +350,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
             <span class="n">default_conversation_creator_role_sid</span><span class="o">=</span><span class="n">default_conversation_creator_role_sid</span><span class="p">,</span>
             <span class="n">default_conversation_role_sid</span><span class="o">=</span><span class="n">default_conversation_role_sid</span><span class="p">,</span>
             <span class="n">default_chat_service_role_sid</span><span class="o">=</span><span class="n">default_chat_service_role_sid</span><span class="p">,</span>
+            <span class="n">reachability_enabled</span><span class="o">=</span><span class="n">reachability_enabled</span><span class="p">,</span>
         <span class="p">)</span></div>
 
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>

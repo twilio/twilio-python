@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-MWRD6S');</script><!--End Google Tag Manager-->
 <meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<title>twilio.rest.flex_api.v1.channel — twilio-python 6.50.0 documentation</title>
+<title>twilio.rest.flex_api.v1.channel — twilio-python 6.50.1 documentation</title>
 <link href="../../../../../_static/alabaster.css" rel="stylesheet" type="text/css"/>
 <link href="../../../../../_static/pygments.css" rel="stylesheet" type="text/css"/>
 <script data-url_root="../../../../../" id="documentation_options" src="../../../../../_static/documentation_options.js" type="text/javascript"></script>
@@ -146,15 +146,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="sd">"""</span>
 <span class="sd">        Create the ChannelInstance</span>
 
-<span class="sd">        :param unicode flex_flow_sid: The SID of the FlexFlow</span>
+<span class="sd">        :param unicode flex_flow_sid: The SID of the Flex Flow</span>
 <span class="sd">        :param unicode identity: The identity value that identifies the new resource's chat User</span>
 <span class="sd">        :param unicode chat_user_friendly_name: The chat participant's friendly name</span>
 <span class="sd">        :param unicode chat_friendly_name: The chat channel's friendly name</span>
 <span class="sd">        :param unicode target: The Target Contact Identity</span>
 <span class="sd">        :param unicode chat_unique_name: The chat channel's unique name</span>
 <span class="sd">        :param unicode pre_engagement_data: The pre-engagement data</span>
-<span class="sd">        :param unicode task_sid: The SID of the TaskRouter task</span>
-<span class="sd">        :param unicode task_attributes: The task attributes to be added for the TaskRouter Task</span>
+<span class="sd">        :param unicode task_sid: The SID of the TaskRouter Task</span>
+<span class="sd">        :param unicode task_attributes: The Task attributes to be added for the TaskRouter Task</span>
 <span class="sd">        :param bool long_lived: Whether to create the channel as long-lived</span>
 
 <span class="sd">        :returns: The created ChannelInstance</span>
@@ -347,7 +347,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">flex_flow_sid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">"""</span>
-<span class="sd">        :returns: The SID of the FlexFlow</span>
+<span class="sd">        :returns: The SID of the Flex Flow</span>
 <span class="sd">        :rtype: unicode</span>
 <span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="p">[</span><span class="s1">'flex_flow_sid'</span><span class="p">]</span>
@@ -371,7 +371,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">task_sid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">"""</span>
-<span class="sd">        :returns: The SID of the TaskRouter task</span>
+<span class="sd">        :returns: The SID of the TaskRouter Task</span>
 <span class="sd">        :rtype: unicode</span>
 <span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="p">[</span><span class="s1">'task_sid'</span><span class="p">]</span>

@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-MWRD6S');</script><!--End Google Tag Manager-->
 <meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<title>twilio.rest.flex_api.v1 package — twilio-python 6.50.0 documentation</title>
+<title>twilio.rest.flex_api.v1 package — twilio-python 6.50.1 documentation</title>
 <link href="../../../_static/alabaster.css" rel="stylesheet" type="text/css"/>
 <link href="../../../_static/pygments.css" rel="stylesheet" type="text/css"/>
 <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js" type="text/javascript"></script>
@@ -162,7 +162,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The SID of the FlexFlow</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The SID of the Flex Flow</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">unicode</td>
 </tr>
@@ -190,7 +190,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The SID of the TaskRouter task</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The SID of the TaskRouter Task</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">unicode</td>
 </tr>
@@ -239,15 +239,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <col class="field-body"/>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>flex_flow_sid</strong> (<em>unicode</em>) – The SID of the FlexFlow</li>
+<li><strong>flex_flow_sid</strong> (<em>unicode</em>) – The SID of the Flex Flow</li>
 <li><strong>identity</strong> (<em>unicode</em>) – The identity value that identifies the new resource’s chat User</li>
 <li><strong>chat_user_friendly_name</strong> (<em>unicode</em>) – The chat participant’s friendly name</li>
 <li><strong>chat_friendly_name</strong> (<em>unicode</em>) – The chat channel’s friendly name</li>
 <li><strong>target</strong> (<em>unicode</em>) – The Target Contact Identity</li>
 <li><strong>chat_unique_name</strong> (<em>unicode</em>) – The chat channel’s unique name</li>
 <li><strong>pre_engagement_data</strong> (<em>unicode</em>) – The pre-engagement data</li>
-<li><strong>task_sid</strong> (<em>unicode</em>) – The SID of the TaskRouter task</li>
-<li><strong>task_attributes</strong> (<em>unicode</em>) – The task attributes to be added for the TaskRouter Task</li>
+<li><strong>task_sid</strong> (<em>unicode</em>) – The SID of the TaskRouter Task</li>
+<li><strong>task_attributes</strong> (<em>unicode</em>) – The Task attributes to be added for the TaskRouter Task</li>
 <li><strong>long_lived</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – Whether to create the channel as long-lived</li>
 </ul>
 </td>
@@ -1153,18 +1153,18 @@ limit with the most efficient page size, i.e. min(limit, 1000)</li>
 <li><strong>chat_service_sid</strong> (<em>unicode</em>) – The SID of the chat service</li>
 <li><strong>channel_type</strong> (<a class="reference internal" href="#twilio.rest.flex_api.v1.flex_flow.FlexFlowInstance.ChannelType" title="twilio.rest.flex_api.v1.flex_flow.FlexFlowInstance.ChannelType"><em>FlexFlowInstance.ChannelType</em></a>) – The channel type</li>
 <li><strong>contact_identity</strong> (<em>unicode</em>) – The channel contact’s Identity</li>
-<li><strong>enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – Whether the FlexFlow is enabled</li>
+<li><strong>enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – Whether the new Flex Flow is enabled</li>
 <li><strong>integration_type</strong> (<a class="reference internal" href="#twilio.rest.flex_api.v1.flex_flow.FlexFlowInstance.IntegrationType" title="twilio.rest.flex_api.v1.flex_flow.FlexFlowInstance.IntegrationType"><em>FlexFlowInstance.IntegrationType</em></a>) – The integration type</li>
-<li><strong>integration_flow_sid</strong> (<em>unicode</em>) – The SID of the Flow</li>
+<li><strong>integration_flow_sid</strong> (<em>unicode</em>) – The SID of the Studio Flow</li>
 <li><strong>integration_url</strong> (<em>unicode</em>) – The External Webhook URL</li>
-<li><strong>integration_workspace_sid</strong> (<em>unicode</em>) – The Workspace SID for a new task</li>
-<li><strong>integration_workflow_sid</strong> (<em>unicode</em>) – The Workflow SID for a new task</li>
-<li><strong>integration_channel</strong> (<em>unicode</em>) – task channel for a new task</li>
-<li><strong>integration_timeout</strong> (<em>unicode</em>) – The task timeout in seconds for a new task</li>
-<li><strong>integration_priority</strong> (<em>unicode</em>) – The task priority of a new task</li>
-<li><strong>integration_creation_on_message</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – Whether to create a task when the first message arrives</li>
+<li><strong>integration_workspace_sid</strong> (<em>unicode</em>) – The Workspace SID for a new Task</li>
+<li><strong>integration_workflow_sid</strong> (<em>unicode</em>) – The Workflow SID for a new Task</li>
+<li><strong>integration_channel</strong> (<em>unicode</em>) – The Task Channel for a new Task</li>
+<li><strong>integration_timeout</strong> (<em>unicode</em>) – The Task timeout in seconds for a new Task</li>
+<li><strong>integration_priority</strong> (<em>unicode</em>) – The Task priority of a new Task</li>
+<li><strong>integration_creation_on_message</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – Whether to create a Task when the first message arrives</li>
 <li><strong>long_lived</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – Reuse this chat channel for future interactions with a contact</li>
-<li><strong>janitor_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – Remove active Proxy sessions if the corresponding Task is deleted.</li>
+<li><strong>janitor_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – Remove active Proxy sessions if the corresponding Task is deleted</li>
 <li><strong>integration_retry_count</strong> (<em>unicode</em>) – The number of times to retry the webhook if the first attempt fails</li>
 </ul>
 </td>
@@ -1335,7 +1335,7 @@ limit with the most efficient page size, i.e. min(limit, 1000)</li>
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Whether the FlexFlow is enabled</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Whether the Flex Flow is enabled</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)">bool</a></td>
 </tr>
@@ -1454,18 +1454,18 @@ limit with the most efficient page size, i.e. min(limit, 1000)</li>
 <li><strong>chat_service_sid</strong> (<em>unicode</em>) – The SID of the chat service</li>
 <li><strong>channel_type</strong> (<a class="reference internal" href="#twilio.rest.flex_api.v1.flex_flow.FlexFlowInstance.ChannelType" title="twilio.rest.flex_api.v1.flex_flow.FlexFlowInstance.ChannelType"><em>FlexFlowInstance.ChannelType</em></a>) – The channel type</li>
 <li><strong>contact_identity</strong> (<em>unicode</em>) – The channel contact’s Identity</li>
-<li><strong>enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – Whether the FlexFlow is enabled</li>
+<li><strong>enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – Whether the new Flex Flow is enabled</li>
 <li><strong>integration_type</strong> (<a class="reference internal" href="#twilio.rest.flex_api.v1.flex_flow.FlexFlowInstance.IntegrationType" title="twilio.rest.flex_api.v1.flex_flow.FlexFlowInstance.IntegrationType"><em>FlexFlowInstance.IntegrationType</em></a>) – The integration type</li>
-<li><strong>integration_flow_sid</strong> (<em>unicode</em>) – The SID of the Flow</li>
+<li><strong>integration_flow_sid</strong> (<em>unicode</em>) – The SID of the Studio Flow</li>
 <li><strong>integration_url</strong> (<em>unicode</em>) – The External Webhook URL</li>
-<li><strong>integration_workspace_sid</strong> (<em>unicode</em>) – The Workspace SID for a new task</li>
-<li><strong>integration_workflow_sid</strong> (<em>unicode</em>) – The Workflow SID for a new task</li>
-<li><strong>integration_channel</strong> (<em>unicode</em>) – task channel for a new task</li>
-<li><strong>integration_timeout</strong> (<em>unicode</em>) – The task timeout in seconds for a new task</li>
-<li><strong>integration_priority</strong> (<em>unicode</em>) – The task priority of a new task</li>
-<li><strong>integration_creation_on_message</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – Whether to create a task when the first message arrives</li>
+<li><strong>integration_workspace_sid</strong> (<em>unicode</em>) – The Workspace SID for a new Task</li>
+<li><strong>integration_workflow_sid</strong> (<em>unicode</em>) – The Workflow SID for a new Task</li>
+<li><strong>integration_channel</strong> (<em>unicode</em>) – The Task Channel for a new Task</li>
+<li><strong>integration_timeout</strong> (<em>unicode</em>) – The Task timeout in seconds for a new Task</li>
+<li><strong>integration_priority</strong> (<em>unicode</em>) – The Task priority of a new Task</li>
+<li><strong>integration_creation_on_message</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – Whether to create a Task when the first message arrives</li>
 <li><strong>long_lived</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – Reuse this chat channel for future interactions with a contact</li>
-<li><strong>janitor_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – Remove active Proxy sessions if the corresponding Task is deleted.</li>
+<li><strong>janitor_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – Remove active Proxy sessions if the corresponding Task is deleted</li>
 <li><strong>integration_retry_count</strong> (<em>unicode</em>) – The number of times to retry the webhook if the first attempt fails</li>
 </ul>
 </td>
@@ -1486,7 +1486,7 @@ limit with the most efficient page size, i.e. min(limit, 1000)</li>
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The absolute URL of the FlexFlow resource</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The absolute URL of the Flex Flow resource</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">unicode</td>
 </tr>
@@ -1511,16 +1511,16 @@ limit with the most efficient page size, i.e. min(limit, 1000)</li>
 <li><strong>chat_service_sid</strong> (<em>unicode</em>) – The SID of the chat service</li>
 <li><strong>channel_type</strong> (<a class="reference internal" href="#twilio.rest.flex_api.v1.flex_flow.FlexFlowInstance.ChannelType" title="twilio.rest.flex_api.v1.flex_flow.FlexFlowInstance.ChannelType"><em>FlexFlowInstance.ChannelType</em></a>) – The channel type</li>
 <li><strong>contact_identity</strong> (<em>unicode</em>) – The channel contact’s Identity</li>
-<li><strong>enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – Whether the new FlexFlow is enabled</li>
+<li><strong>enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – Whether the new Flex Flow is enabled</li>
 <li><strong>integration_type</strong> (<a class="reference internal" href="#twilio.rest.flex_api.v1.flex_flow.FlexFlowInstance.IntegrationType" title="twilio.rest.flex_api.v1.flex_flow.FlexFlowInstance.IntegrationType"><em>FlexFlowInstance.IntegrationType</em></a>) – The integration type</li>
-<li><strong>integration_flow_sid</strong> (<em>unicode</em>) – The SID of the Flow</li>
+<li><strong>integration_flow_sid</strong> (<em>unicode</em>) – The SID of the Studio Flow</li>
 <li><strong>integration_url</strong> (<em>unicode</em>) – The External Webhook URL</li>
-<li><strong>integration_workspace_sid</strong> (<em>unicode</em>) – The Workspace SID for a new task</li>
-<li><strong>integration_workflow_sid</strong> (<em>unicode</em>) – The Workflow SID for a new task</li>
-<li><strong>integration_channel</strong> (<em>unicode</em>) – The task channel for a new task</li>
-<li><strong>integration_timeout</strong> (<em>unicode</em>) – The task timeout in seconds for a new task</li>
-<li><strong>integration_priority</strong> (<em>unicode</em>) – The task priority of a new task</li>
-<li><strong>integration_creation_on_message</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – Whether to create a task when the first message arrives</li>
+<li><strong>integration_workspace_sid</strong> (<em>unicode</em>) – The Workspace SID for a new Task</li>
+<li><strong>integration_workflow_sid</strong> (<em>unicode</em>) – The Workflow SID for a new Task</li>
+<li><strong>integration_channel</strong> (<em>unicode</em>) – The Task Channel for a new Task</li>
+<li><strong>integration_timeout</strong> (<em>unicode</em>) – The Task timeout in seconds for a new Task</li>
+<li><strong>integration_priority</strong> (<em>unicode</em>) – The Task priority of a new Task</li>
+<li><strong>integration_creation_on_message</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – Whether to create a Task when the first message arrives</li>
 <li><strong>long_lived</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – Reuse this chat channel for future interactions with a contact</li>
 <li><strong>janitor_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – Remove active Proxy sessions if the corresponding Task is deleted</li>
 <li><strong>integration_retry_count</strong> (<em>unicode</em>) – The number of times to retry the webhook if the first attempt fails</li>
@@ -1582,7 +1582,7 @@ memory before returning.</p>
 <col class="field-body"/>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>friendly_name</strong> (<em>unicode</em>) – The <cite>friendly_name</cite> of the FlexFlow resources to read</li>
+<li><strong>friendly_name</strong> (<em>unicode</em>) – The <cite>friendly_name</cite> of the Flex Flow resources to read</li>
 <li><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – Upper limit for the number of records to return. list() guarantees
 never to return more than limit.  Default is no limit</li>
 <li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – Number of records to fetch per request, when not set will use
@@ -1611,7 +1611,7 @@ Request is executed immediately</p>
 <col class="field-body"/>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>friendly_name</strong> (<em>unicode</em>) – The <cite>friendly_name</cite> of the FlexFlow resources to read</li>
+<li><strong>friendly_name</strong> (<em>unicode</em>) – The <cite>friendly_name</cite> of the Flex Flow resources to read</li>
 <li><strong>page_token</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – PageToken provided by the API</li>
 <li><strong>page_number</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – Page Number, this value is simply for client state</li>
 <li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – Number of records to return, defaults to 50</li>
@@ -1639,7 +1639,7 @@ The results are returned as a generator, so this operation is memory efficient.<
 <col class="field-body"/>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>friendly_name</strong> (<em>unicode</em>) – The <cite>friendly_name</cite> of the FlexFlow resources to read</li>
+<li><strong>friendly_name</strong> (<em>unicode</em>) – The <cite>friendly_name</cite> of the Flex Flow resources to read</li>
 <li><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – Upper limit for the number of records to return. stream()
 guarantees to never return more than limit.  Default is no limit</li>
 <li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – Number of records to fetch per request, when not set will use
@@ -1842,7 +1842,7 @@ limit with the most efficient page size, i.e. min(limit, 1000)</li>
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The SID of the FlexFlow</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The SID of the Flex Flow</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">unicode</td>
 </tr>
@@ -1914,7 +1914,7 @@ limit with the most efficient page size, i.e. min(limit, 1000)</li>
 <col class="field-body"/>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>flex_flow_sid</strong> (<em>unicode</em>) – The SID of the FlexFlow</li>
+<li><strong>flex_flow_sid</strong> (<em>unicode</em>) – The SID of the Flex Flow</li>
 <li><strong>identity</strong> (<em>unicode</em>) – The chat identity</li>
 <li><strong>customer_friendly_name</strong> (<em>unicode</em>) – The chat participant’s friendly name</li>
 <li><strong>chat_friendly_name</strong> (<em>unicode</em>) – The chat channel’s friendly name</li>
