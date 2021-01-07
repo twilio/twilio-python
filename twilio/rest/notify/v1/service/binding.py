@@ -44,7 +44,7 @@ class BindingList(ListResource):
         :param unicode identity: The `identity` value that identifies the new resource's User
         :param BindingInstance.BindingType binding_type: The type of the Binding
         :param unicode address: The channel-specific address
-        :param unicode tag: A tag that can be used to select the Bindings to notify
+        :param list[unicode] tag: A tag that can be used to select the Bindings to notify
         :param unicode notification_protocol_version: The protocol version to use to send the notification
         :param unicode credential_sid: The SID of the Credential resource to be used to send notifications to this Binding
         :param unicode endpoint: Deprecated
@@ -76,8 +76,8 @@ class BindingList(ListResource):
 
         :param date start_date: Only include usage that has occurred on or after this date
         :param date end_date: Only include usage that occurred on or before this date
-        :param unicode identity: The `identity` value of the resources to read
-        :param unicode tag: Only list Bindings that have all of the specified Tags
+        :param list[unicode] identity: The `identity` value of the resources to read
+        :param list[unicode] tag: Only list Bindings that have all of the specified Tags
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -109,8 +109,8 @@ class BindingList(ListResource):
 
         :param date start_date: Only include usage that has occurred on or after this date
         :param date end_date: Only include usage that occurred on or before this date
-        :param unicode identity: The `identity` value of the resources to read
-        :param unicode tag: Only list Bindings that have all of the specified Tags
+        :param list[unicode] identity: The `identity` value of the resources to read
+        :param list[unicode] tag: Only list Bindings that have all of the specified Tags
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -139,8 +139,8 @@ class BindingList(ListResource):
 
         :param date start_date: Only include usage that has occurred on or after this date
         :param date end_date: Only include usage that occurred on or before this date
-        :param unicode identity: The `identity` value of the resources to read
-        :param unicode tag: Only list Bindings that have all of the specified Tags
+        :param list[unicode] identity: The `identity` value of the resources to read
+        :param list[unicode] tag: Only list Bindings that have all of the specified Tags
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -461,7 +461,7 @@ class BindingInstance(InstanceResource):
     def tags(self):
         """
         :returns: The list of tags associated with this Binding
-        :rtype: unicode
+        :rtype: list[unicode]
         """
         return self._properties['tags']
 

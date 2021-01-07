@@ -161,8 +161,8 @@ class CompositionList(ListResource):
 
         :param unicode room_sid: The SID of the Group Room with the media tracks to be used as composition sources
         :param dict video_layout: An object that describes the video layout of the composition
-        :param unicode audio_sources: An array of track names from the same group room to merge
-        :param unicode audio_sources_excluded: An array of track names to exclude
+        :param list[unicode] audio_sources: An array of track names from the same group room to merge
+        :param list[unicode] audio_sources_excluded: An array of track names to exclude
         :param unicode resolution: A string that describes the columns (width) and rows (height) of the generated composed video in pixels
         :param CompositionInstance.Format format: The container format of the composition's media files
         :param unicode status_callback: The URL we should call to send status information to your application
@@ -437,7 +437,7 @@ class CompositionInstance(InstanceResource):
     def audio_sources(self):
         """
         :returns: The array of track names to include in the composition
-        :rtype: unicode
+        :rtype: list[unicode]
         """
         return self._properties['audio_sources']
 
@@ -445,7 +445,7 @@ class CompositionInstance(InstanceResource):
     def audio_sources_excluded(self):
         """
         :returns: The array of track names to exclude from the composition
-        :rtype: unicode
+        :rtype: list[unicode]
         """
         return self._properties['audio_sources_excluded']
 

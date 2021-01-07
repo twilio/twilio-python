@@ -275,7 +275,7 @@ class CountryInstance(InstanceResource):
     def outbound_prefix_prices(self):
         """
         :returns: The list of OutboundPrefixPriceWithOrigin records
-        :rtype: unicode
+        :rtype: list[unicode]
         """
         return self._properties['outbound_prefix_prices']
 
@@ -283,7 +283,7 @@ class CountryInstance(InstanceResource):
     def inbound_call_prices(self):
         """
         :returns: The list of InboundCallPrice records
-        :rtype: unicode
+        :rtype: list[unicode]
         """
         return self._properties['inbound_call_prices']
 

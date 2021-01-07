@@ -149,7 +149,7 @@ class TokenInstance(InstanceResource):
     def ice_servers(self):
         """
         :returns: An array representing the ephemeral credentials
-        :rtype: unicode
+        :rtype: list[unicode]
         """
         return self._properties['ice_servers']
 

@@ -356,7 +356,7 @@ class VerificationInstance(InstanceResource):
     def send_code_attempts(self):
         """
         :returns: An array of verification attempt objects.
-        :rtype: dict
+        :rtype: list[dict]
         """
         return self._properties['send_code_attempts']
 

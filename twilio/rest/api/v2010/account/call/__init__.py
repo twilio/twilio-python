@@ -71,7 +71,7 @@ class CallList(ListResource):
         :param unicode fallback_url: Fallback URL in case of error
         :param unicode fallback_method: HTTP Method to use with fallback_url
         :param unicode status_callback: The URL we should call to send status information to your application
-        :param unicode status_callback_event: The call progress events that we send to the `status_callback` URL.
+        :param list[unicode] status_callback_event: The call progress events that we send to the `status_callback` URL.
         :param unicode status_callback_method: HTTP Method to use with status_callback
         :param unicode send_digits: The digits to dial after connecting to the number
         :param unicode timeout: Number of seconds to wait for an answer
@@ -83,7 +83,7 @@ class CallList(ListResource):
         :param unicode sip_auth_password: The password required to authenticate the user account specified in `sip_auth_username`.
         :param unicode machine_detection: Enable machine detection or end of greeting detection
         :param unicode machine_detection_timeout: Number of seconds to wait for machine detection
-        :param unicode recording_status_callback_event: The recording status events that will trigger calls to the URL specified in `recording_status_callback`
+        :param list[unicode] recording_status_callback_event: The recording status events that will trigger calls to the URL specified in `recording_status_callback`
         :param unicode trim: Set this parameter to control trimming of silence on the recording.
         :param unicode caller_id: The phone number, SIP address, or Client identifier that made this call. Phone numbers are in E.164 format (e.g., +16175551212). SIP addresses are formatted as `name@company.com`.
         :param unicode machine_detection_speech_threshold: Number of milliseconds for measuring stick for the length of the speech activity

@@ -313,7 +313,7 @@ class ServiceContext(InstanceContext):
         :param unicode pre_webhook_url: The webhook URL for pre-event webhooks
         :param unicode post_webhook_url: The URL for post-event webhooks
         :param unicode webhook_method: The HTTP method  to use for both PRE and POST webhooks
-        :param unicode webhook_filters: The list of WebHook events that are enabled for this Service instance
+        :param list[unicode] webhook_filters: The list of WebHook events that are enabled for this Service instance
         :param unicode webhooks_on_message_send_url: The URL of the webhook to call in response to the on_message_send event
         :param unicode webhooks_on_message_send_method: The HTTP method to use when calling the webhooks.on_message_send.url
         :param unicode webhooks_on_message_update_url: The URL of the webhook to call in response to the on_message_update event
@@ -653,7 +653,7 @@ class ServiceInstance(InstanceResource):
     def webhook_filters(self):
         """
         :returns: The list of WebHook events that are enabled for this Service instance
-        :rtype: unicode
+        :rtype: list[unicode]
         """
         return self._properties['webhook_filters']
 
@@ -772,7 +772,7 @@ class ServiceInstance(InstanceResource):
         :param unicode pre_webhook_url: The webhook URL for pre-event webhooks
         :param unicode post_webhook_url: The URL for post-event webhooks
         :param unicode webhook_method: The HTTP method  to use for both PRE and POST webhooks
-        :param unicode webhook_filters: The list of WebHook events that are enabled for this Service instance
+        :param list[unicode] webhook_filters: The list of WebHook events that are enabled for this Service instance
         :param unicode webhooks_on_message_send_url: The URL of the webhook to call in response to the on_message_send event
         :param unicode webhooks_on_message_send_method: The HTTP method to use when calling the webhooks.on_message_send.url
         :param unicode webhooks_on_message_update_url: The URL of the webhook to call in response to the on_message_update event

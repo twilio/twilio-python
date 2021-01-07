@@ -282,7 +282,7 @@ class SupportingDocumentTypeInstance(InstanceResource):
     def fields(self):
         """
         :returns: The required information for creating a Supporting Document
-        :rtype: dict
+        :rtype: list[dict]
         """
         return self._properties['fields']
 

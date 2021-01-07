@@ -174,7 +174,7 @@ class HostedNumberOrderList(ListResource):
         :param unicode account_sid: Account Sid.
         :param unicode friendly_name: A human readable description of this resource.
         :param unicode unique_name: A unique, developer assigned name of this HostedNumberOrder.
-        :param unicode cc_emails: A list of emails.
+        :param list[unicode] cc_emails: A list of emails.
         :param unicode sms_url: SMS URL.
         :param unicode sms_method: SMS Method.
         :param unicode sms_fallback_url: SMS Fallback URL.
@@ -339,7 +339,7 @@ class HostedNumberOrderContext(InstanceContext):
         :param unicode friendly_name: A human readable description of this resource.
         :param unicode unique_name: A unique, developer assigned name of this HostedNumberOrder.
         :param unicode email: Email.
-        :param unicode cc_emails: A list of emails.
+        :param list[unicode] cc_emails: A list of emails.
         :param HostedNumberOrderInstance.Status status: The Status of this HostedNumberOrder.
         :param unicode verification_code: A verification code.
         :param HostedNumberOrderInstance.VerificationType verification_type: Verification Type.
@@ -575,7 +575,7 @@ class HostedNumberOrderInstance(InstanceResource):
     def cc_emails(self):
         """
         :returns: A list of emails.
-        :rtype: unicode
+        :rtype: list[unicode]
         """
         return self._properties['cc_emails']
 
@@ -631,7 +631,7 @@ class HostedNumberOrderInstance(InstanceResource):
     def verification_call_sids(self):
         """
         :returns: List of IDs for ownership verification calls.
-        :rtype: unicode
+        :rtype: list[unicode]
         """
         return self._properties['verification_call_sids']
 
@@ -664,7 +664,7 @@ class HostedNumberOrderInstance(InstanceResource):
         :param unicode friendly_name: A human readable description of this resource.
         :param unicode unique_name: A unique, developer assigned name of this HostedNumberOrder.
         :param unicode email: Email.
-        :param unicode cc_emails: A list of emails.
+        :param list[unicode] cc_emails: A list of emails.
         :param HostedNumberOrderInstance.Status status: The Status of this HostedNumberOrder.
         :param unicode verification_code: A verification code.
         :param HostedNumberOrderInstance.VerificationType verification_type: Verification Type.

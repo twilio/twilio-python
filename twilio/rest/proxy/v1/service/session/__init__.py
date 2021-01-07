@@ -126,7 +126,7 @@ class SessionList(ListResource):
         :param unicode ttl: When the session will expire
         :param SessionInstance.Mode mode: The Mode of the Session
         :param SessionInstance.Status status: Session status
-        :param dict participants: The Participant objects to include in the new session
+        :param list[dict] participants: The Participant objects to include in the new session
         :param bool fail_on_participant_conflict: An experimental parameter to override the ProxyAllowParticipantConflict account flag on a per-request basis.
 
         :returns: The created SessionInstance

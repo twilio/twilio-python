@@ -131,7 +131,7 @@ class WebhookContext(InstanceContext):
         Update the WebhookInstance
 
         :param unicode method: The HTTP method to be used when sending a webhook request.
-        :param unicode filters: The list of webhook event triggers that are enabled for this Service.
+        :param list[unicode] filters: The list of webhook event triggers that are enabled for this Service.
         :param unicode pre_webhook_url: The absolute url the pre-event webhook request should be sent to.
         :param unicode post_webhook_url: The absolute url the post-event webhook request should be sent to.
         :param WebhookInstance.Target target: The routing target of the webhook.
@@ -229,7 +229,7 @@ class WebhookInstance(InstanceResource):
     def filters(self):
         """
         :returns: The list of webhook event triggers that are enabled for this Service.
-        :rtype: unicode
+        :rtype: list[unicode]
         """
         return self._properties['filters']
 
@@ -281,7 +281,7 @@ class WebhookInstance(InstanceResource):
         Update the WebhookInstance
 
         :param unicode method: The HTTP method to be used when sending a webhook request.
-        :param unicode filters: The list of webhook event triggers that are enabled for this Service.
+        :param list[unicode] filters: The list of webhook event triggers that are enabled for this Service.
         :param unicode pre_webhook_url: The absolute url the pre-event webhook request should be sent to.
         :param unicode post_webhook_url: The absolute url the post-event webhook request should be sent to.
         :param WebhookInstance.Target target: The routing target of the webhook.

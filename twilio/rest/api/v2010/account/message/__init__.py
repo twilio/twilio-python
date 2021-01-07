@@ -57,11 +57,11 @@ class MessageList(ListResource):
         :param MessageInstance.ContentRetention content_retention: Determines if the message content can be stored or redacted based on privacy settings
         :param MessageInstance.AddressRetention address_retention: Determines if the address can be stored or obfuscated based on privacy settings
         :param bool smart_encoded: Whether to detect Unicode characters that have a similar GSM-7 character and replace them
-        :param unicode persistent_action: Rich actions for Channels Messages.
+        :param list[unicode] persistent_action: Rich actions for Channels Messages.
         :param unicode from_: The phone number that initiated the message
         :param unicode messaging_service_sid: The SID of the Messaging Service you want to associate with the message.
         :param unicode body: The text of the message you want to send. Can be up to 1,600 characters in length.
-        :param unicode media_url: The URL of the media to send with the message
+        :param list[unicode] media_url: The URL of the media to send with the message
 
         :returns: The created MessageInstance
         :rtype: twilio.rest.api.v2010.account.message.MessageInstance

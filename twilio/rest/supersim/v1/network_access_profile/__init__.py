@@ -41,7 +41,7 @@ class NetworkAccessProfileList(ListResource):
         Create the NetworkAccessProfileInstance
 
         :param unicode unique_name: An application-defined string that uniquely identifies the resource
-        :param unicode networks: List of Network SIDs that this Network Access Profile will allow connections to
+        :param list[unicode] networks: List of Network SIDs that this Network Access Profile will allow connections to
 
         :returns: The created NetworkAccessProfileInstance
         :rtype: twilio.rest.supersim.v1.network_access_profile.NetworkAccessProfileInstance

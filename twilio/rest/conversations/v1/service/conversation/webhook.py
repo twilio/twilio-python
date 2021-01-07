@@ -46,8 +46,8 @@ class WebhookList(ListResource):
         :param WebhookInstance.Target target: The target of this webhook.
         :param unicode configuration_url: The absolute url the webhook request should be sent to.
         :param WebhookInstance.Method configuration_method: The HTTP method to be used when sending a webhook request.
-        :param unicode configuration_filters: The list of events, firing webhook event for this Conversation.
-        :param unicode configuration_triggers: The list of keywords, firing webhook event for this Conversation.
+        :param list[unicode] configuration_filters: The list of events, firing webhook event for this Conversation.
+        :param list[unicode] configuration_triggers: The list of keywords, firing webhook event for this Conversation.
         :param unicode configuration_flow_sid: The studio flow SID, where the webhook should be sent to.
         :param unicode configuration_replay_after: The message index for which and it's successors the webhook will be replayed.
 
@@ -271,8 +271,8 @@ class WebhookContext(InstanceContext):
 
         :param unicode configuration_url: The absolute url the webhook request should be sent to.
         :param WebhookInstance.Method configuration_method: The HTTP method to be used when sending a webhook request.
-        :param unicode configuration_filters: The list of events, firing webhook event for this Conversation.
-        :param unicode configuration_triggers: The list of keywords, firing webhook event for this Conversation.
+        :param list[unicode] configuration_filters: The list of events, firing webhook event for this Conversation.
+        :param list[unicode] configuration_triggers: The list of keywords, firing webhook event for this Conversation.
         :param unicode configuration_flow_sid: The studio flow SID, where the webhook should be sent to.
 
         :returns: The updated WebhookInstance
@@ -475,8 +475,8 @@ class WebhookInstance(InstanceResource):
 
         :param unicode configuration_url: The absolute url the webhook request should be sent to.
         :param WebhookInstance.Method configuration_method: The HTTP method to be used when sending a webhook request.
-        :param unicode configuration_filters: The list of events, firing webhook event for this Conversation.
-        :param unicode configuration_triggers: The list of keywords, firing webhook event for this Conversation.
+        :param list[unicode] configuration_filters: The list of events, firing webhook event for this Conversation.
+        :param list[unicode] configuration_triggers: The list of keywords, firing webhook event for this Conversation.
         :param unicode configuration_flow_sid: The studio flow SID, where the webhook should be sent to.
 
         :returns: The updated WebhookInstance

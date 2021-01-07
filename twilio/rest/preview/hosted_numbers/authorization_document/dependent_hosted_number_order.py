@@ -395,7 +395,7 @@ class DependentHostedNumberOrderInstance(InstanceResource):
     def cc_emails(self):
         """
         :returns: A list of emails.
-        :rtype: unicode
+        :rtype: list[unicode]
         """
         return self._properties['cc_emails']
 
@@ -443,7 +443,7 @@ class DependentHostedNumberOrderInstance(InstanceResource):
     def verification_call_sids(self):
         """
         :returns: List of IDs for ownership verification calls.
-        :rtype: unicode
+        :rtype: list[unicode]
         """
         return self._properties['verification_call_sids']
 

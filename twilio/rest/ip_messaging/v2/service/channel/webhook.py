@@ -123,8 +123,8 @@ class WebhookList(ListResource):
         :param WebhookInstance.Type type: The type
         :param unicode configuration_url: The configuration.url
         :param WebhookInstance.Method configuration_method: The configuration.method
-        :param unicode configuration_filters: The configuration.filters
-        :param unicode configuration_triggers: The configuration.triggers
+        :param list[unicode] configuration_filters: The configuration.filters
+        :param list[unicode] configuration_triggers: The configuration.triggers
         :param unicode configuration_flow_sid: The configuration.flow_sid
         :param unicode configuration_retry_count: The configuration.retry_count
 
@@ -285,8 +285,8 @@ class WebhookContext(InstanceContext):
 
         :param unicode configuration_url: The configuration.url
         :param WebhookInstance.Method configuration_method: The configuration.method
-        :param unicode configuration_filters: The configuration.filters
-        :param unicode configuration_triggers: The configuration.triggers
+        :param list[unicode] configuration_filters: The configuration.filters
+        :param list[unicode] configuration_triggers: The configuration.triggers
         :param unicode configuration_flow_sid: The configuration.flow_sid
         :param unicode configuration_retry_count: The configuration.retry_count
 
@@ -483,8 +483,8 @@ class WebhookInstance(InstanceResource):
 
         :param unicode configuration_url: The configuration.url
         :param WebhookInstance.Method configuration_method: The configuration.method
-        :param unicode configuration_filters: The configuration.filters
-        :param unicode configuration_triggers: The configuration.triggers
+        :param list[unicode] configuration_filters: The configuration.filters
+        :param list[unicode] configuration_triggers: The configuration.triggers
         :param unicode configuration_flow_sid: The configuration.flow_sid
         :param unicode configuration_retry_count: The configuration.retry_count
 

@@ -241,7 +241,7 @@ class WorkersCumulativeStatisticsInstance(InstanceResource):
     def activity_durations(self):
         """
         :returns: The minimum, average, maximum, and total time that Workers spent in each Activity
-        :rtype: dict
+        :rtype: list[dict]
         """
         return self._properties['activity_durations']
 

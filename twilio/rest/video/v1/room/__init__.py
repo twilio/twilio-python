@@ -50,7 +50,7 @@ class RoomList(ListResource):
         :param unicode status_callback_method: The HTTP method we should use to call status_callback
         :param unicode max_participants: The maximum number of concurrent Participants allowed in the room
         :param bool record_participants_on_connect: Whether to start recording when Participants connect
-        :param RoomInstance.VideoCodec video_codecs: An array of the video codecs that are supported when publishing a track in the room
+        :param list[RoomInstance.VideoCodec] video_codecs: An array of the video codecs that are supported when publishing a track in the room
         :param unicode media_region: The region for the media server in Group Rooms
 
         :returns: The created RoomInstance
@@ -535,7 +535,7 @@ class RoomInstance(InstanceResource):
     def video_codecs(self):
         """
         :returns: An array of the video codecs that are supported when publishing a track in the room
-        :rtype: RoomInstance.VideoCodec
+        :rtype: list[RoomInstance.VideoCodec]
         """
         return self._properties['video_codecs']
 
