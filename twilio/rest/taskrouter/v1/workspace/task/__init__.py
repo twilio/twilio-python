@@ -46,7 +46,7 @@ class TaskList(ListResource):
         The results are returned as a generator, so this operation is memory efficient.
 
         :param unicode priority: The priority value of the Tasks to read
-        :param unicode assignment_status: Returns the list of all Tasks in the Workspace with the specified assignment_status
+        :param list[unicode] assignment_status: Returns the list of all Tasks in the Workspace with the specified assignment_status
         :param unicode workflow_sid: The SID of the Workflow with the Tasks to read
         :param unicode workflow_name: The friendly name of the Workflow with the Tasks to read
         :param unicode task_queue_sid: The SID of the TaskQueue with the Tasks to read
@@ -92,7 +92,7 @@ class TaskList(ListResource):
         memory before returning.
 
         :param unicode priority: The priority value of the Tasks to read
-        :param unicode assignment_status: Returns the list of all Tasks in the Workspace with the specified assignment_status
+        :param list[unicode] assignment_status: Returns the list of all Tasks in the Workspace with the specified assignment_status
         :param unicode workflow_sid: The SID of the Workflow with the Tasks to read
         :param unicode workflow_name: The friendly name of the Workflow with the Tasks to read
         :param unicode task_queue_sid: The SID of the TaskQueue with the Tasks to read
@@ -135,7 +135,7 @@ class TaskList(ListResource):
         Request is executed immediately
 
         :param unicode priority: The priority value of the Tasks to read
-        :param unicode assignment_status: Returns the list of all Tasks in the Workspace with the specified assignment_status
+        :param list[unicode] assignment_status: Returns the list of all Tasks in the Workspace with the specified assignment_status
         :param unicode workflow_sid: The SID of the Workflow with the Tasks to read
         :param unicode workflow_name: The friendly name of the Workflow with the Tasks to read
         :param unicode task_queue_sid: The SID of the TaskQueue with the Tasks to read

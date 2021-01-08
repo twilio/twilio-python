@@ -398,7 +398,7 @@ class ParticipantInstance(InstanceResource):
     def codecs(self):
         """
         :returns: The codecs
-        :rtype: ParticipantInstance.Codec
+        :rtype: list[ParticipantInstance.Codec]
         """
         return self._properties['codecs']
 

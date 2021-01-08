@@ -127,7 +127,7 @@ class SubscriptionList(ListResource):
 
         :param unicode description: Subscription description
         :param unicode sink_sid: Sink SID.
-        :param dict types: Nested resource URLs.
+        :param list[dict] types: Nested resource URLs.
 
         :returns: The created SubscriptionInstance
         :rtype: twilio.rest.events.v1.subscription.SubscriptionInstance

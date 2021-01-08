@@ -124,8 +124,8 @@ class PhoneNumberContext(InstanceContext):
         Fetch the PhoneNumberInstance
 
         :param unicode country_code: The ISO country code of the phone number
-        :param unicode type: The type of information to return
-        :param unicode add_ons: The unique_name of an Add-on you would like to invoke
+        :param list[unicode] type: The type of information to return
+        :param list[unicode] add_ons: The unique_name of an Add-on you would like to invoke
         :param dict add_ons_data: Data specific to the add-on you would like to invoke
 
         :returns: The fetched PhoneNumberInstance
@@ -259,8 +259,8 @@ class PhoneNumberInstance(InstanceResource):
         Fetch the PhoneNumberInstance
 
         :param unicode country_code: The ISO country code of the phone number
-        :param unicode type: The type of information to return
-        :param unicode add_ons: The unique_name of an Add-on you would like to invoke
+        :param list[unicode] type: The type of information to return
+        :param list[unicode] add_ons: The unique_name of an Add-on you would like to invoke
         :param dict add_ons_data: Data specific to the add-on you would like to invoke
 
         :returns: The fetched PhoneNumberInstance

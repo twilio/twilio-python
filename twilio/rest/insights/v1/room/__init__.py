@@ -44,8 +44,8 @@ class RoomList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param RoomInstance.RoomType room_type: The room_type
-        :param RoomInstance.Codec codec: The codec
+        :param list[RoomInstance.RoomType] room_type: The room_type
+        :param list[RoomInstance.Codec] codec: The codec
         :param unicode room_name: The room_name
         :param datetime created_after: The created_after
         :param datetime created_before: The created_before
@@ -80,8 +80,8 @@ class RoomList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param RoomInstance.RoomType room_type: The room_type
-        :param RoomInstance.Codec codec: The codec
+        :param list[RoomInstance.RoomType] room_type: The room_type
+        :param list[RoomInstance.Codec] codec: The codec
         :param unicode room_name: The room_name
         :param datetime created_after: The created_after
         :param datetime created_before: The created_before
@@ -113,8 +113,8 @@ class RoomList(ListResource):
         Retrieve a single page of RoomInstance records from the API.
         Request is executed immediately
 
-        :param RoomInstance.RoomType room_type: The room_type
-        :param RoomInstance.Codec codec: The codec
+        :param list[RoomInstance.RoomType] room_type: The room_type
+        :param list[RoomInstance.Codec] codec: The codec
         :param unicode room_name: The room_name
         :param datetime created_after: The created_after
         :param datetime created_before: The created_before
@@ -529,7 +529,7 @@ class RoomInstance(InstanceResource):
     def codecs(self):
         """
         :returns: The codecs
-        :rtype: RoomInstance.Codec
+        :rtype: list[RoomInstance.Codec]
         """
         return self._properties['codecs']
 

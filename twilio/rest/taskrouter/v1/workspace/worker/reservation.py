@@ -302,7 +302,7 @@ class ReservationContext(InstanceContext):
         :param unicode from_: The caller ID of the call to the worker when executing a Conference instruction
         :param unicode status_callback: The URL we should call to send status information to your application
         :param unicode status_callback_method: The HTTP method we should use to call status_callback
-        :param ReservationInstance.CallStatus status_callback_event: The call progress events that we will send to status_callback
+        :param list[ReservationInstance.CallStatus] status_callback_event: The call progress events that we will send to status_callback
         :param unicode timeout: The timeout for a call when executing a Conference instruction
         :param bool record: Whether to record the participant and their conferences
         :param bool muted: Whether to mute the agent
@@ -315,7 +315,7 @@ class ReservationContext(InstanceContext):
         :param unicode max_participants: The maximum number of agent conference participants
         :param unicode conference_status_callback: The callback URL for conference events
         :param unicode conference_status_callback_method: HTTP method for requesting `conference_status_callback` URL
-        :param ReservationInstance.ConferenceEvent conference_status_callback_event: The conference status events that we will send to conference_status_callback
+        :param list[ReservationInstance.ConferenceEvent] conference_status_callback_event: The conference status events that we will send to conference_status_callback
         :param unicode conference_record: Whether to record the conference the participant is joining
         :param unicode conference_trim: Whether to trim leading and trailing silence from your recorded conference audio files
         :param unicode recording_channels: Specify `mono` or `dual` recording channels
@@ -326,7 +326,7 @@ class ReservationContext(InstanceContext):
         :param unicode region: The region where we should mix the conference audio
         :param unicode sip_auth_username: The SIP username used for authentication
         :param unicode sip_auth_password: The SIP password for authentication
-        :param unicode dequeue_status_callback_event: The call progress events sent via webhooks as a result of a Dequeue instruction
+        :param list[unicode] dequeue_status_callback_event: The call progress events sent via webhooks as a result of a Dequeue instruction
         :param unicode post_work_activity_sid: The new worker activity SID after executing a Conference instruction
         :param bool end_conference_on_customer_exit: Whether to end the conference when the customer leaves
         :param bool beep_on_customer_entrance: Whether to play a notification beep when the customer joins
@@ -642,7 +642,7 @@ class ReservationInstance(InstanceResource):
         :param unicode from_: The caller ID of the call to the worker when executing a Conference instruction
         :param unicode status_callback: The URL we should call to send status information to your application
         :param unicode status_callback_method: The HTTP method we should use to call status_callback
-        :param ReservationInstance.CallStatus status_callback_event: The call progress events that we will send to status_callback
+        :param list[ReservationInstance.CallStatus] status_callback_event: The call progress events that we will send to status_callback
         :param unicode timeout: The timeout for a call when executing a Conference instruction
         :param bool record: Whether to record the participant and their conferences
         :param bool muted: Whether to mute the agent
@@ -655,7 +655,7 @@ class ReservationInstance(InstanceResource):
         :param unicode max_participants: The maximum number of agent conference participants
         :param unicode conference_status_callback: The callback URL for conference events
         :param unicode conference_status_callback_method: HTTP method for requesting `conference_status_callback` URL
-        :param ReservationInstance.ConferenceEvent conference_status_callback_event: The conference status events that we will send to conference_status_callback
+        :param list[ReservationInstance.ConferenceEvent] conference_status_callback_event: The conference status events that we will send to conference_status_callback
         :param unicode conference_record: Whether to record the conference the participant is joining
         :param unicode conference_trim: Whether to trim leading and trailing silence from your recorded conference audio files
         :param unicode recording_channels: Specify `mono` or `dual` recording channels
@@ -666,7 +666,7 @@ class ReservationInstance(InstanceResource):
         :param unicode region: The region where we should mix the conference audio
         :param unicode sip_auth_username: The SIP username used for authentication
         :param unicode sip_auth_password: The SIP password for authentication
-        :param unicode dequeue_status_callback_event: The call progress events sent via webhooks as a result of a Dequeue instruction
+        :param list[unicode] dequeue_status_callback_event: The call progress events sent via webhooks as a result of a Dequeue instruction
         :param unicode post_work_activity_sid: The new worker activity SID after executing a Conference instruction
         :param bool end_conference_on_customer_exit: Whether to end the conference when the customer leaves
         :param bool beep_on_customer_entrance: Whether to play a notification beep when the customer joins

@@ -44,7 +44,7 @@ class RecordingList(ListResource):
 
         :param RecordingInstance.Status status: Read only the recordings that have this status
         :param unicode source_sid: Read only the recordings that have this source_sid
-        :param unicode grouping_sid: Read only recordings that have this grouping_sid
+        :param list[unicode] grouping_sid: Read only recordings that have this grouping_sid
         :param datetime date_created_after: Read only recordings that started on or after this `ISO 8601 <https://en.wikipedia.org/wiki/ISO_8601>`_ date-time with time zone
         :param datetime date_created_before: Read only recordings that started before this `ISO 8601 <https://en.wikipedia.org/wiki/ISO_8601>`_ date-time with time zone
         :param RecordingInstance.Type media_type: Read only recordings that have this media type
@@ -83,7 +83,7 @@ class RecordingList(ListResource):
 
         :param RecordingInstance.Status status: Read only the recordings that have this status
         :param unicode source_sid: Read only the recordings that have this source_sid
-        :param unicode grouping_sid: Read only recordings that have this grouping_sid
+        :param list[unicode] grouping_sid: Read only recordings that have this grouping_sid
         :param datetime date_created_after: Read only recordings that started on or after this `ISO 8601 <https://en.wikipedia.org/wiki/ISO_8601>`_ date-time with time zone
         :param datetime date_created_before: Read only recordings that started before this `ISO 8601 <https://en.wikipedia.org/wiki/ISO_8601>`_ date-time with time zone
         :param RecordingInstance.Type media_type: Read only recordings that have this media type
@@ -119,7 +119,7 @@ class RecordingList(ListResource):
 
         :param RecordingInstance.Status status: Read only the recordings that have this status
         :param unicode source_sid: Read only the recordings that have this source_sid
-        :param unicode grouping_sid: Read only recordings that have this grouping_sid
+        :param list[unicode] grouping_sid: Read only recordings that have this grouping_sid
         :param datetime date_created_after: Read only recordings that started on or after this `ISO 8601 <https://en.wikipedia.org/wiki/ISO_8601>`_ date-time with time zone
         :param datetime date_created_before: Read only recordings that started before this `ISO 8601 <https://en.wikipedia.org/wiki/ISO_8601>`_ date-time with time zone
         :param RecordingInstance.Type media_type: Read only recordings that have this media type

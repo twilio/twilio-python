@@ -350,7 +350,7 @@ class CallSummaryInstance(InstanceResource):
     def tags(self):
         """
         :returns: The tags
-        :rtype: unicode
+        :rtype: list[unicode]
         """
         return self._properties['tags']
 

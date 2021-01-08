@@ -130,7 +130,7 @@ class RatePlanList(ListResource):
         :param bool voice_enabled: The voice_enabled
         :param bool commands_enabled: The commands_enabled
         :param bool national_roaming_enabled: The national_roaming_enabled
-        :param unicode international_roaming: The international_roaming
+        :param list[unicode] international_roaming: The international_roaming
 
         :returns: The created RatePlanInstance
         :rtype: twilio.rest.preview.wireless.rate_plan.RatePlanInstance
@@ -426,7 +426,7 @@ class RatePlanInstance(InstanceResource):
     def international_roaming(self):
         """
         :returns: The international_roaming
-        :rtype: unicode
+        :rtype: list[unicode]
         """
         return self._properties['international_roaming']
 

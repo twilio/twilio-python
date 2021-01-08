@@ -148,7 +148,7 @@ class RecordingRulesInstance(InstanceResource):
     def rules(self):
         """
         :returns: A collection of recording Rules that describe how to include or exclude matching tracks for recording
-        :rtype: unicode
+        :rtype: list[unicode]
         """
         return self._properties['rules']
 

@@ -282,7 +282,7 @@ class EndUserTypeInstance(InstanceResource):
     def fields(self):
         """
         :returns: The required information for creating an End-User.
-        :rtype: dict
+        :rtype: list[dict]
         """
         return self._properties['fields']
 

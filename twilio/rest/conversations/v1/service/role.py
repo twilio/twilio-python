@@ -39,7 +39,7 @@ class RoleList(ListResource):
 
         :param unicode friendly_name: A string to describe the new resource
         :param RoleInstance.RoleType type: The type of role
-        :param unicode permission: A permission the role should have
+        :param list[unicode] permission: A permission the role should have
 
         :returns: The created RoleInstance
         :rtype: twilio.rest.conversations.v1.service.role.RoleInstance
@@ -225,7 +225,7 @@ class RoleContext(InstanceContext):
         """
         Update the RoleInstance
 
-        :param unicode permission: A permission the role should have
+        :param list[unicode] permission: A permission the role should have
 
         :returns: The updated RoleInstance
         :rtype: twilio.rest.conversations.v1.service.role.RoleInstance
@@ -370,7 +370,7 @@ class RoleInstance(InstanceResource):
     def permissions(self):
         """
         :returns: An array of the permissions the role has been granted
-        :rtype: unicode
+        :rtype: list[unicode]
         """
         return self._properties['permissions']
 
@@ -402,7 +402,7 @@ class RoleInstance(InstanceResource):
         """
         Update the RoleInstance
 
-        :param unicode permission: A permission the role should have
+        :param list[unicode] permission: A permission the role should have
 
         :returns: The updated RoleInstance
         :rtype: twilio.rest.conversations.v1.service.role.RoleInstance

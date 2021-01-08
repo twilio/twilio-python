@@ -301,7 +301,7 @@ class FeedbackSummaryInstance(InstanceResource):
     def issues(self):
         """
         :returns: Issues experienced during the call
-        :rtype: unicode
+        :rtype: list[unicode]
         """
         return self._properties['issues']
 

@@ -447,7 +447,7 @@ class FlowInstance(InstanceResource):
     def errors(self):
         """
         :returns: List of error in the flow definition
-        :rtype: dict
+        :rtype: list[dict]
         """
         return self._properties['errors']
 
@@ -455,7 +455,7 @@ class FlowInstance(InstanceResource):
     def warnings(self):
         """
         :returns: List of warnings in the flow definition
-        :rtype: dict
+        :rtype: list[dict]
         """
         return self._properties['warnings']
 

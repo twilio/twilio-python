@@ -358,7 +358,7 @@ class NetworkAccessProfileNetworkInstance(InstanceResource):
     def identifiers(self):
         """
         :returns: The MCC/MNCs included in the resource
-        :rtype: dict
+        :rtype: list[dict]
         """
         return self._properties['identifiers']
 

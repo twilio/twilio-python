@@ -230,7 +230,7 @@ class ConnectAppContext(InstanceContext):
         :param unicode description: A description of the Connect App
         :param unicode friendly_name: A string to describe the resource
         :param unicode homepage_url: A public URL where users can obtain more information
-        :param ConnectAppInstance.Permission permissions: The set of permissions that your ConnectApp will request
+        :param list[ConnectAppInstance.Permission] permissions: The set of permissions that your ConnectApp will request
 
         :returns: The updated ConnectAppInstance
         :rtype: twilio.rest.api.v2010.account.connect_app.ConnectAppInstance
@@ -394,7 +394,7 @@ class ConnectAppInstance(InstanceResource):
     def permissions(self):
         """
         :returns: The set of permissions that your ConnectApp requests
-        :rtype: ConnectAppInstance.Permission
+        :rtype: list[ConnectAppInstance.Permission]
         """
         return self._properties['permissions']
 
@@ -438,7 +438,7 @@ class ConnectAppInstance(InstanceResource):
         :param unicode description: A description of the Connect App
         :param unicode friendly_name: A string to describe the resource
         :param unicode homepage_url: A public URL where users can obtain more information
-        :param ConnectAppInstance.Permission permissions: The set of permissions that your ConnectApp will request
+        :param list[ConnectAppInstance.Permission] permissions: The set of permissions that your ConnectApp will request
 
         :returns: The updated ConnectAppInstance
         :rtype: twilio.rest.api.v2010.account.connect_app.ConnectAppInstance

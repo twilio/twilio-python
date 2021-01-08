@@ -162,8 +162,8 @@ class CompositionHookList(ListResource):
         :param unicode friendly_name: A unique string to describe the resource
         :param bool enabled: Whether the composition hook is active
         :param dict video_layout: An object that describes the video layout of the composition hook
-        :param unicode audio_sources: An array of track names from the same group room to merge
-        :param unicode audio_sources_excluded: An array of track names to exclude
+        :param list[unicode] audio_sources: An array of track names from the same group room to merge
+        :param list[unicode] audio_sources_excluded: An array of track names to exclude
         :param unicode resolution: A string that describes the rows (width) and columns (height) of the generated composed video in pixels
         :param CompositionHookInstance.Format format: The container format of the media files used by the compositions created by the composition hook
         :param unicode status_callback: The URL we should call to send status information to your application
@@ -314,8 +314,8 @@ class CompositionHookContext(InstanceContext):
         :param unicode friendly_name: A unique string to describe the resource
         :param bool enabled: Whether the composition hook is active
         :param dict video_layout: A JSON object that describes the video layout of the composition hook
-        :param unicode audio_sources: An array of track names from the same group room to merge
-        :param unicode audio_sources_excluded: An array of track names to exclude
+        :param list[unicode] audio_sources: An array of track names from the same group room to merge
+        :param list[unicode] audio_sources_excluded: An array of track names to exclude
         :param bool trim: Whether to clip the intervals where there is no active media in the Compositions triggered by the composition hook
         :param CompositionHookInstance.Format format: The container format of the media files used by the compositions created by the composition hook
         :param unicode resolution: A string that describes the columns (width) and rows (height) of the generated composed video in pixels
@@ -459,7 +459,7 @@ class CompositionHookInstance(InstanceResource):
     def audio_sources(self):
         """
         :returns: The array of track names to include in the compositions created by the composition hook
-        :rtype: unicode
+        :rtype: list[unicode]
         """
         return self._properties['audio_sources']
 
@@ -467,7 +467,7 @@ class CompositionHookInstance(InstanceResource):
     def audio_sources_excluded(self):
         """
         :returns: The array of track names to exclude from the compositions created by the composition hook
-        :rtype: unicode
+        :rtype: list[unicode]
         """
         return self._properties['audio_sources_excluded']
 
@@ -555,8 +555,8 @@ class CompositionHookInstance(InstanceResource):
         :param unicode friendly_name: A unique string to describe the resource
         :param bool enabled: Whether the composition hook is active
         :param dict video_layout: A JSON object that describes the video layout of the composition hook
-        :param unicode audio_sources: An array of track names from the same group room to merge
-        :param unicode audio_sources_excluded: An array of track names to exclude
+        :param list[unicode] audio_sources: An array of track names from the same group room to merge
+        :param list[unicode] audio_sources_excluded: An array of track names to exclude
         :param bool trim: Whether to clip the intervals where there is no active media in the Compositions triggered by the composition hook
         :param CompositionHookInstance.Format format: The container format of the media files used by the compositions created by the composition hook
         :param unicode resolution: A string that describes the columns (width) and rows (height) of the generated composed video in pixels

@@ -118,8 +118,8 @@ class BuildList(ListResource):
         """
         Create the BuildInstance
 
-        :param unicode asset_versions: The list of Asset Version resource SIDs to include in the Build
-        :param unicode function_versions: The list of the Function Version resource SIDs to include in the Build
+        :param list[unicode] asset_versions: The list of Asset Version resource SIDs to include in the Build
+        :param list[unicode] function_versions: The list of the Function Version resource SIDs to include in the Build
         :param unicode dependencies: A list of objects that describe the Dependencies included in the Build
 
         :returns: The created BuildInstance
@@ -374,7 +374,7 @@ class BuildInstance(InstanceResource):
     def asset_versions(self):
         """
         :returns: The list of Asset Version resource SIDs that are included in the Build
-        :rtype: dict
+        :rtype: list[dict]
         """
         return self._properties['asset_versions']
 
@@ -382,7 +382,7 @@ class BuildInstance(InstanceResource):
     def function_versions(self):
         """
         :returns: The list of Function Version resource SIDs that are included in the Build
-        :rtype: dict
+        :rtype: list[dict]
         """
         return self._properties['function_versions']
 
@@ -390,7 +390,7 @@ class BuildInstance(InstanceResource):
     def dependencies(self):
         """
         :returns: A list of objects that describe the Dependencies included in the Build
-        :rtype: dict
+        :rtype: list[dict]
         """
         return self._properties['dependencies']
 

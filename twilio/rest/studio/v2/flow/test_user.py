@@ -137,7 +137,7 @@ class FlowTestUserContext(InstanceContext):
         """
         Update the FlowTestUserInstance
 
-        :param unicode test_users: The test_users
+        :param list[unicode] test_users: The test_users
 
         :returns: The updated FlowTestUserInstance
         :rtype: twilio.rest.studio.v2.flow.test_user.FlowTestUserInstance
@@ -208,7 +208,7 @@ class FlowTestUserInstance(InstanceResource):
     def test_users(self):
         """
         :returns: The test_users
-        :rtype: unicode
+        :rtype: list[unicode]
         """
         return self._properties['test_users']
 
@@ -233,7 +233,7 @@ class FlowTestUserInstance(InstanceResource):
         """
         Update the FlowTestUserInstance
 
-        :param unicode test_users: The test_users
+        :param list[unicode] test_users: The test_users
 
         :returns: The updated FlowTestUserInstance
         :rtype: twilio.rest.studio.v2.flow.test_user.FlowTestUserInstance

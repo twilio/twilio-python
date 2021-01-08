@@ -228,7 +228,7 @@ class NumberInstance(InstanceResource):
     def outbound_call_prices(self):
         """
         :returns: The list of OutboundCallPriceWithOrigin records
-        :rtype: unicode
+        :rtype: list[unicode]
         """
         return self._properties['outbound_call_prices']
 

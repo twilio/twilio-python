@@ -66,7 +66,7 @@ class ParticipantList(ListResource):
         :param unicode to: The phone number, SIP address or Client identifier that received this call.
         :param unicode status_callback: The URL we should call to send status information to your application
         :param unicode status_callback_method: The HTTP method we should use to call `status_callback`
-        :param unicode status_callback_event: Set state change events that will trigger a callback
+        :param list[unicode] status_callback_event: Set state change events that will trigger a callback
         :param unicode label: The label of this participant
         :param unicode timeout: he number of seconds that we should wait for an answer
         :param bool record: Whether to record the participant and their conferences
@@ -82,7 +82,7 @@ class ParticipantList(ListResource):
         :param unicode conference_trim: Whether to trim leading and trailing silence from your recorded conference audio files
         :param unicode conference_status_callback: The callback URL for conference events
         :param unicode conference_status_callback_method: HTTP method for requesting `conference_status_callback` URL
-        :param unicode conference_status_callback_event: The conference state changes that should generate a call to `conference_status_callback`
+        :param list[unicode] conference_status_callback_event: The conference state changes that should generate a call to `conference_status_callback`
         :param unicode recording_channels: Specify `mono` or `dual` recording channels
         :param unicode recording_status_callback: The URL that we should call using the `recording_status_callback_method` when the recording status changes
         :param unicode recording_status_callback_method: The HTTP method we should use when we call `recording_status_callback`
@@ -91,8 +91,8 @@ class ParticipantList(ListResource):
         :param unicode region: The region where we should mix the conference audio
         :param unicode conference_recording_status_callback: The URL we should call using the `conference_recording_status_callback_method` when the conference recording is available
         :param unicode conference_recording_status_callback_method: The HTTP method we should use to call `conference_recording_status_callback`
-        :param unicode recording_status_callback_event: The recording state changes that should generate a call to `recording_status_callback`
-        :param unicode conference_recording_status_callback_event: The conference recording state changes that should generate a call to `conference_recording_status_callback`
+        :param list[unicode] recording_status_callback_event: The recording state changes that should generate a call to `recording_status_callback`
+        :param list[unicode] conference_recording_status_callback_event: The conference recording state changes that should generate a call to `conference_recording_status_callback`
         :param bool coaching: Indicates if the participant changed to coach
         :param unicode call_sid_to_coach: The SID of the participant who is being `coached`
         :param unicode jitter_buffer_size: Jitter Buffer size for the connecting participant

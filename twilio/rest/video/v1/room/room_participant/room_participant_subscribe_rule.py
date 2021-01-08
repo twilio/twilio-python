@@ -168,7 +168,7 @@ class SubscribeRulesInstance(InstanceResource):
     def rules(self):
         """
         :returns: A collection of Subscribe Rules that describe how to include or exclude matching tracks
-        :rtype: unicode
+        :rtype: list[unicode]
         """
         return self._properties['rules']
 

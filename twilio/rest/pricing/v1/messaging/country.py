@@ -275,7 +275,7 @@ class CountryInstance(InstanceResource):
     def outbound_sms_prices(self):
         """
         :returns: The list of OutboundSMSPrice records
-        :rtype: unicode
+        :rtype: list[unicode]
         """
         return self._properties['outbound_sms_prices']
 
@@ -283,7 +283,7 @@ class CountryInstance(InstanceResource):
     def inbound_sms_prices(self):
         """
         :returns: The list of InboundPrice records
-        :rtype: unicode
+        :rtype: list[unicode]
         """
         return self._properties['inbound_sms_prices']
 

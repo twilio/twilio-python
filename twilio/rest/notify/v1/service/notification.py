@@ -56,12 +56,12 @@ class NotificationList(ListResource):
         :param dict sms: The SMS-specific payload that overrides corresponding attributes in generic payload for SMS Bindings
         :param dict facebook_messenger: Deprecated
         :param dict fcm: The FCM-specific payload that overrides corresponding attributes in generic payload for FCM Bindings
-        :param unicode segment: A Segment to notify
+        :param list[unicode] segment: A Segment to notify
         :param dict alexa: Deprecated
-        :param unicode to_binding: The destination address specified as a JSON string
+        :param list[unicode] to_binding: The destination address specified as a JSON string
         :param unicode delivery_callback_url: URL to send webhooks
-        :param unicode identity: The `identity` value that identifies the new resource's User
-        :param unicode tag: A tag that selects the Bindings to notify
+        :param list[unicode] identity: The `identity` value that identifies the new resource's User
+        :param list[unicode] tag: A tag that selects the Bindings to notify
 
         :returns: The created NotificationInstance
         :rtype: twilio.rest.notify.v1.service.notification.NotificationInstance
@@ -223,7 +223,7 @@ class NotificationInstance(InstanceResource):
     def identities(self):
         """
         :returns: The list of identity values of the Users to notify
-        :rtype: unicode
+        :rtype: list[unicode]
         """
         return self._properties['identities']
 
@@ -231,7 +231,7 @@ class NotificationInstance(InstanceResource):
     def tags(self):
         """
         :returns: The tags that select the Bindings to notify
-        :rtype: unicode
+        :rtype: list[unicode]
         """
         return self._properties['tags']
 
@@ -239,7 +239,7 @@ class NotificationInstance(InstanceResource):
     def segments(self):
         """
         :returns: The list of Segments to notify
-        :rtype: unicode
+        :rtype: list[unicode]
         """
         return self._properties['segments']
 
