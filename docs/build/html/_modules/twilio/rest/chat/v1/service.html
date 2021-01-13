@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-MWRD6S');</script><!--End Google Tag Manager-->
 <meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<title>twilio.rest.chat.v1.service — twilio-python 6.50.1 documentation</title>
+<title>twilio.rest.chat.v1.service — twilio-python 6.51.0 documentation</title>
 <link href="../../../../../_static/alabaster.css" rel="stylesheet" type="text/css"/>
 <link href="../../../../../_static/pygments.css" rel="stylesheet" type="text/css"/>
 <script data-url_root="../../../../../" id="documentation_options" src="../../../../../_static/documentation_options.js" type="text/javascript"></script>
@@ -343,7 +343,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <span class="sd">        :param unicode pre_webhook_url: The webhook URL for pre-event webhooks</span>
 <span class="sd">        :param unicode post_webhook_url: The URL for post-event webhooks</span>
 <span class="sd">        :param unicode webhook_method: The HTTP method  to use for both PRE and POST webhooks</span>
-<span class="sd">        :param unicode webhook_filters: The list of WebHook events that are enabled for this Service instance</span>
+<span class="sd">        :param list[unicode] webhook_filters: The list of WebHook events that are enabled for this Service instance</span>
 <span class="sd">        :param unicode webhooks_on_message_send_url: The URL of the webhook to call in response to the on_message_send event</span>
 <span class="sd">        :param unicode webhooks_on_message_send_method: The HTTP method to use when calling the webhooks.on_message_send.url</span>
 <span class="sd">        :param unicode webhooks_on_message_update_url: The URL of the webhook to call in response to the on_message_update event</span>
@@ -683,7 +683,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
     <span class="k">def</span> <span class="nf">webhook_filters</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">"""</span>
 <span class="sd">        :returns: The list of WebHook events that are enabled for this Service instance</span>
-<span class="sd">        :rtype: unicode</span>
+<span class="sd">        :rtype: list[unicode]</span>
 <span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="p">[</span><span class="s1">'webhook_filters'</span><span class="p">]</span>
 
@@ -802,7 +802,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <span class="sd">        :param unicode pre_webhook_url: The webhook URL for pre-event webhooks</span>
 <span class="sd">        :param unicode post_webhook_url: The URL for post-event webhooks</span>
 <span class="sd">        :param unicode webhook_method: The HTTP method  to use for both PRE and POST webhooks</span>
-<span class="sd">        :param unicode webhook_filters: The list of WebHook events that are enabled for this Service instance</span>
+<span class="sd">        :param list[unicode] webhook_filters: The list of WebHook events that are enabled for this Service instance</span>
 <span class="sd">        :param unicode webhooks_on_message_send_url: The URL of the webhook to call in response to the on_message_send event</span>
 <span class="sd">        :param unicode webhooks_on_message_send_method: The HTTP method to use when calling the webhooks.on_message_send.url</span>
 <span class="sd">        :param unicode webhooks_on_message_update_url: The URL of the webhook to call in response to the on_message_update event</span>

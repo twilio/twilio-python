@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-MWRD6S');</script><!--End Google Tag Manager-->
 <meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<title>twilio.rest.video.v1.room — twilio-python 6.50.1 documentation</title>
+<title>twilio.rest.video.v1.room — twilio-python 6.51.0 documentation</title>
 <link href="../../../../../_static/alabaster.css" rel="stylesheet" type="text/css"/>
 <link href="../../../../../_static/pygments.css" rel="stylesheet" type="text/css"/>
 <script data-url_root="../../../../../" id="documentation_options" src="../../../../../_static/documentation_options.js" type="text/javascript"></script>
@@ -80,7 +80,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <span class="sd">        :param unicode status_callback_method: The HTTP method we should use to call status_callback</span>
 <span class="sd">        :param unicode max_participants: The maximum number of concurrent Participants allowed in the room</span>
 <span class="sd">        :param bool record_participants_on_connect: Whether to start recording when Participants connect</span>
-<span class="sd">        :param RoomInstance.VideoCodec video_codecs: An array of the video codecs that are supported when publishing a track in the room</span>
+<span class="sd">        :param list[RoomInstance.VideoCodec] video_codecs: An array of the video codecs that are supported when publishing a track in the room</span>
 <span class="sd">        :param unicode media_region: The region for the media server in Group Rooms</span>
 
 <span class="sd">        :returns: The created RoomInstance</span>
@@ -425,6 +425,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
             <span class="s1">'duration'</span><span class="p">:</span> <span class="n">deserialize</span><span class="o">.</span><span class="n">integer</span><span class="p">(</span><span class="n">payload</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'duration'</span><span class="p">)),</span>
             <span class="s1">'type'</span><span class="p">:</span> <span class="n">payload</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'type'</span><span class="p">),</span>
             <span class="s1">'max_participants'</span><span class="p">:</span> <span class="n">deserialize</span><span class="o">.</span><span class="n">integer</span><span class="p">(</span><span class="n">payload</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'max_participants'</span><span class="p">)),</span>
+            <span class="s1">'max_concurrent_published_tracks'</span><span class="p">:</span> <span class="n">deserialize</span><span class="o">.</span><span class="n">integer</span><span class="p">(</span><span class="n">payload</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'max_concurrent_published_tracks'</span><span class="p">)),</span>
             <span class="s1">'record_participants_on_connect'</span><span class="p">:</span> <span class="n">payload</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'record_participants_on_connect'</span><span class="p">),</span>
             <span class="s1">'video_codecs'</span><span class="p">:</span> <span class="n">payload</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'video_codecs'</span><span class="p">),</span>
             <span class="s1">'media_region'</span><span class="p">:</span> <span class="n">payload</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'media_region'</span><span class="p">),</span>
@@ -554,6 +555,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="p">[</span><span class="s1">'max_participants'</span><span class="p">]</span>
 
     <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">max_concurrent_published_tracks</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        :returns: The maximum number of published tracks allowed in the room at the same time</span>
+<span class="sd">        :rtype: unicode</span>
+<span class="sd">        """</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="p">[</span><span class="s1">'max_concurrent_published_tracks'</span><span class="p">]</span>
+
+    <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">record_participants_on_connect</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">"""</span>
 <span class="sd">        :returns: Whether to start recording when Participants connect</span>
@@ -565,7 +574,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
     <span class="k">def</span> <span class="nf">video_codecs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">"""</span>
 <span class="sd">        :returns: An array of the video codecs that are supported when publishing a track in the room</span>
-<span class="sd">        :rtype: RoomInstance.VideoCodec</span>
+<span class="sd">        :rtype: list[RoomInstance.VideoCodec]</span>
 <span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="p">[</span><span class="s1">'video_codecs'</span><span class="p">]</span>
 

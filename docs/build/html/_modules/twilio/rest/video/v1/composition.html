@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-MWRD6S');</script><!--End Google Tag Manager-->
 <meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<title>twilio.rest.video.v1.composition — twilio-python 6.50.1 documentation</title>
+<title>twilio.rest.video.v1.composition — twilio-python 6.51.0 documentation</title>
 <link href="../../../../../_static/alabaster.css" rel="stylesheet" type="text/css"/>
 <link href="../../../../../_static/pygments.css" rel="stylesheet" type="text/css"/>
 <script data-url_root="../../../../../" id="documentation_options" src="../../../../../_static/documentation_options.js" type="text/javascript"></script>
@@ -191,8 +191,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
 <span class="sd">        :param unicode room_sid: The SID of the Group Room with the media tracks to be used as composition sources</span>
 <span class="sd">        :param dict video_layout: An object that describes the video layout of the composition</span>
-<span class="sd">        :param unicode audio_sources: An array of track names from the same group room to merge</span>
-<span class="sd">        :param unicode audio_sources_excluded: An array of track names to exclude</span>
+<span class="sd">        :param list[unicode] audio_sources: An array of track names from the same group room to merge</span>
+<span class="sd">        :param list[unicode] audio_sources_excluded: An array of track names to exclude</span>
 <span class="sd">        :param unicode resolution: A string that describes the columns (width) and rows (height) of the generated composed video in pixels</span>
 <span class="sd">        :param CompositionInstance.Format format: The container format of the composition's media files</span>
 <span class="sd">        :param unicode status_callback: The URL we should call to send status information to your application</span>
@@ -467,7 +467,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
     <span class="k">def</span> <span class="nf">audio_sources</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">"""</span>
 <span class="sd">        :returns: The array of track names to include in the composition</span>
-<span class="sd">        :rtype: unicode</span>
+<span class="sd">        :rtype: list[unicode]</span>
 <span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="p">[</span><span class="s1">'audio_sources'</span><span class="p">]</span>
 
@@ -475,7 +475,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
     <span class="k">def</span> <span class="nf">audio_sources_excluded</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">"""</span>
 <span class="sd">        :returns: The array of track names to exclude from the composition</span>
-<span class="sd">        :rtype: unicode</span>
+<span class="sd">        :rtype: list[unicode]</span>
 <span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="p">[</span><span class="s1">'audio_sources_excluded'</span><span class="p">]</span>
 

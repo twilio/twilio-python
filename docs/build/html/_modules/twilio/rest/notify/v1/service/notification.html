@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-MWRD6S');</script><!--End Google Tag Manager-->
 <meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<title>twilio.rest.notify.v1.service.notification — twilio-python 6.50.1 documentation</title>
+<title>twilio.rest.notify.v1.service.notification — twilio-python 6.51.0 documentation</title>
 <link href="../../../../../../_static/alabaster.css" rel="stylesheet" type="text/css"/>
 <link href="../../../../../../_static/pygments.css" rel="stylesheet" type="text/css"/>
 <script data-url_root="../../../../../../" id="documentation_options" src="../../../../../../_static/documentation_options.js" type="text/javascript"></script>
@@ -86,12 +86,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <span class="sd">        :param dict sms: The SMS-specific payload that overrides corresponding attributes in generic payload for SMS Bindings</span>
 <span class="sd">        :param dict facebook_messenger: Deprecated</span>
 <span class="sd">        :param dict fcm: The FCM-specific payload that overrides corresponding attributes in generic payload for FCM Bindings</span>
-<span class="sd">        :param unicode segment: A Segment to notify</span>
+<span class="sd">        :param list[unicode] segment: A Segment to notify</span>
 <span class="sd">        :param dict alexa: Deprecated</span>
-<span class="sd">        :param unicode to_binding: The destination address specified as a JSON string</span>
+<span class="sd">        :param list[unicode] to_binding: The destination address specified as a JSON string</span>
 <span class="sd">        :param unicode delivery_callback_url: URL to send webhooks</span>
-<span class="sd">        :param unicode identity: The `identity` value that identifies the new resource's User</span>
-<span class="sd">        :param unicode tag: A tag that selects the Bindings to notify</span>
+<span class="sd">        :param list[unicode] identity: The `identity` value that identifies the new resource's User</span>
+<span class="sd">        :param list[unicode] tag: A tag that selects the Bindings to notify</span>
 
 <span class="sd">        :returns: The created NotificationInstance</span>
 <span class="sd">        :rtype: twilio.rest.notify.v1.service.notification.NotificationInstance</span>
@@ -253,7 +253,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
     <span class="k">def</span> <span class="nf">identities</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">"""</span>
 <span class="sd">        :returns: The list of identity values of the Users to notify</span>
-<span class="sd">        :rtype: unicode</span>
+<span class="sd">        :rtype: list[unicode]</span>
 <span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="p">[</span><span class="s1">'identities'</span><span class="p">]</span>
 
@@ -261,7 +261,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
     <span class="k">def</span> <span class="nf">tags</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">"""</span>
 <span class="sd">        :returns: The tags that select the Bindings to notify</span>
-<span class="sd">        :rtype: unicode</span>
+<span class="sd">        :rtype: list[unicode]</span>
 <span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="p">[</span><span class="s1">'tags'</span><span class="p">]</span>
 
@@ -269,7 +269,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
     <span class="k">def</span> <span class="nf">segments</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">"""</span>
 <span class="sd">        :returns: The list of Segments to notify</span>
-<span class="sd">        :rtype: unicode</span>
+<span class="sd">        :rtype: list[unicode]</span>
 <span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="p">[</span><span class="s1">'segments'</span><span class="p">]</span>
 
