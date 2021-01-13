@@ -54,14 +54,13 @@ class SyncListList(ListResource):
 
         return SyncListInstance(self._version, payload, service_sid=self._solution['service_sid'], )
 
-    def stream(self, hide_expired=values.unset, limit=None, page_size=None):
+    def stream(self, limit=None, page_size=None):
         """
         Streams SyncListInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param SyncListInstance.HideExpiredType hide_expired: Hide expired Sync Lists and show only active ones.
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -74,17 +73,16 @@ class SyncListList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
 
-        page = self.page(hide_expired=hide_expired, page_size=limits['page_size'], )
+        page = self.page(page_size=limits['page_size'], )
 
         return self._version.stream(page, limits['limit'])
 
-    def list(self, hide_expired=values.unset, limit=None, page_size=None):
+    def list(self, limit=None, page_size=None):
         """
         Lists SyncListInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param SyncListInstance.HideExpiredType hide_expired: Hide expired Sync Lists and show only active ones.
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -95,15 +93,14 @@ class SyncListList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.sync.v1.service.sync_list.SyncListInstance]
         """
-        return list(self.stream(hide_expired=hide_expired, limit=limit, page_size=page_size, ))
+        return list(self.stream(limit=limit, page_size=page_size, ))
 
-    def page(self, hide_expired=values.unset, page_token=values.unset,
-             page_number=values.unset, page_size=values.unset):
+    def page(self, page_token=values.unset, page_number=values.unset,
+             page_size=values.unset):
         """
         Retrieve a single page of SyncListInstance records from the API.
         Request is executed immediately
 
-        :param SyncListInstance.HideExpiredType hide_expired: Hide expired Sync Lists and show only active ones.
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -111,12 +108,7 @@ class SyncListList(ListResource):
         :returns: Page of SyncListInstance
         :rtype: twilio.rest.sync.v1.service.sync_list.SyncListPage
         """
-        data = values.of({
-            'HideExpired': hide_expired,
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
 
         response = self._version.page(method='GET', uri=self._uri, params=data, )
 
@@ -329,10 +321,6 @@ class SyncListContext(InstanceContext):
 class SyncListInstance(InstanceResource):
     """ PLEASE NOTE that this class contains beta products that are subject to
     change. Use them with caution. """
-
-    class HideExpiredType(object):
-        TRUE = "true"
-        FALSE = "false"
 
     def __init__(self, version, payload, service_sid, sid=None):
         """

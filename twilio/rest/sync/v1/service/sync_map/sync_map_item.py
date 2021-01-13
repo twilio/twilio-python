@@ -68,7 +68,7 @@ class SyncMapItemList(ListResource):
         )
 
     def stream(self, order=values.unset, from_=values.unset, bounds=values.unset,
-               hide_expired=values.unset, limit=None, page_size=None):
+               limit=None, page_size=None):
         """
         Streams SyncMapItemInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -78,7 +78,6 @@ class SyncMapItemList(ListResource):
         :param SyncMapItemInstance.QueryResultOrder order: How to order the Map Items returned by their key value
         :param unicode from_: The index of the first Sync Map Item resource to read
         :param SyncMapItemInstance.QueryFromBoundType bounds: Whether to include the Map Item referenced by the from parameter
-        :param SyncMapItemInstance.HideExpiredType hide_expired: Hide expired Sync Map items and show only active ones.
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -91,18 +90,12 @@ class SyncMapItemList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
 
-        page = self.page(
-            order=order,
-            from_=from_,
-            bounds=bounds,
-            hide_expired=hide_expired,
-            page_size=limits['page_size'],
-        )
+        page = self.page(order=order, from_=from_, bounds=bounds, page_size=limits['page_size'], )
 
         return self._version.stream(page, limits['limit'])
 
     def list(self, order=values.unset, from_=values.unset, bounds=values.unset,
-             hide_expired=values.unset, limit=None, page_size=None):
+             limit=None, page_size=None):
         """
         Lists SyncMapItemInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -111,7 +104,6 @@ class SyncMapItemList(ListResource):
         :param SyncMapItemInstance.QueryResultOrder order: How to order the Map Items returned by their key value
         :param unicode from_: The index of the first Sync Map Item resource to read
         :param SyncMapItemInstance.QueryFromBoundType bounds: Whether to include the Map Item referenced by the from parameter
-        :param SyncMapItemInstance.HideExpiredType hide_expired: Hide expired Sync Map items and show only active ones.
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -122,18 +114,11 @@ class SyncMapItemList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.sync.v1.service.sync_map.sync_map_item.SyncMapItemInstance]
         """
-        return list(self.stream(
-            order=order,
-            from_=from_,
-            bounds=bounds,
-            hide_expired=hide_expired,
-            limit=limit,
-            page_size=page_size,
-        ))
+        return list(self.stream(order=order, from_=from_, bounds=bounds, limit=limit, page_size=page_size, ))
 
     def page(self, order=values.unset, from_=values.unset, bounds=values.unset,
-             hide_expired=values.unset, page_token=values.unset,
-             page_number=values.unset, page_size=values.unset):
+             page_token=values.unset, page_number=values.unset,
+             page_size=values.unset):
         """
         Retrieve a single page of SyncMapItemInstance records from the API.
         Request is executed immediately
@@ -141,7 +126,6 @@ class SyncMapItemList(ListResource):
         :param SyncMapItemInstance.QueryResultOrder order: How to order the Map Items returned by their key value
         :param unicode from_: The index of the first Sync Map Item resource to read
         :param SyncMapItemInstance.QueryFromBoundType bounds: Whether to include the Map Item referenced by the from parameter
-        :param SyncMapItemInstance.HideExpiredType hide_expired: Hide expired Sync Map items and show only active ones.
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -153,7 +137,6 @@ class SyncMapItemList(ListResource):
             'Order': order,
             'From': from_,
             'Bounds': bounds,
-            'HideExpired': hide_expired,
             'PageToken': page_token,
             'Page': page_number,
             'PageSize': page_size,
@@ -375,10 +358,6 @@ class SyncMapItemInstance(InstanceResource):
     class QueryFromBoundType(object):
         INCLUSIVE = "inclusive"
         EXCLUSIVE = "exclusive"
-
-    class HideExpiredType(object):
-        TRUE = "true"
-        FALSE = "false"
 
     def __init__(self, version, payload, service_sid, map_sid, key=None):
         """

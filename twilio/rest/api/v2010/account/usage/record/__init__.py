@@ -356,6 +356,7 @@ class RecordInstance(InstanceResource):
         GROUP_ROOMS_MEDIA_STORED = "group-rooms-media-stored"
         GROUP_ROOMS_PARTICIPANT_MINUTES = "group-rooms-participant-minutes"
         GROUP_ROOMS_RECORDED_MINUTES = "group-rooms-recorded-minutes"
+        IMP_V1_USAGE = "imp-v1-usage"
         LOOKUPS = "lookups"
         MARKETPLACE = "marketplace"
         MARKETPLACE_ALGORITHMIA_NAMED_ENTITY_RECOGNITION = "marketplace-algorithmia-named-entity-recognition"
