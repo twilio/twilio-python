@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-MWRD6S');</script><!--End Google Tag Manager-->
 <meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<title>twilio.rest.taskrouter.v1.workspace.task — twilio-python 6.51.0 documentation</title>
+<title>twilio.rest.taskrouter.v1.workspace.task — twilio-python 6.51.1 documentation</title>
 <link href="../../../../../../_static/alabaster.css" rel="stylesheet" type="text/css"/>
 <link href="../../../../../../_static/pygments.css" rel="stylesheet" type="text/css"/>
 <script data-url_root="../../../../../../" id="documentation_options" src="../../../../../../_static/documentation_options.js" type="text/javascript"></script>
@@ -222,7 +222,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="sd">"""</span>
 <span class="sd">        Create the TaskInstance</span>
 
-<span class="sd">        :param unicode timeout: The amount of time in seconds the task is allowed to live</span>
+<span class="sd">        :param unicode timeout: The amount of time in seconds the task can live before being assigned</span>
 <span class="sd">        :param unicode priority: The priority to assign the new task and override the default</span>
 <span class="sd">        :param unicode task_channel: When MultiTasking is enabled specify the TaskChannel by passing either its unique_name or SID</span>
 <span class="sd">        :param unicode workflow_sid: The SID of the Workflow that you would like to handle routing for the new Task</span>
@@ -608,7 +608,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">timeout</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">"""</span>
-<span class="sd">        :returns: The amount of time in seconds that the Task is allowed to live</span>
+<span class="sd">        :returns: The amount of time in seconds that the Task can live before being assigned</span>
 <span class="sd">        :rtype: unicode</span>
 <span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="p">[</span><span class="s1">'timeout'</span><span class="p">]</span>

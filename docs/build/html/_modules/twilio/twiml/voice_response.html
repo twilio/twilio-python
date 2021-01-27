@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-MWRD6S');</script><!--End Google Tag Manager-->
 <meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<title>twilio.twiml.voice_response — twilio-python 6.51.0 documentation</title>
+<title>twilio.twiml.voice_response — twilio-python 6.51.1 documentation</title>
 <link href="../../../_static/alabaster.css" rel="stylesheet" type="text/css"/>
 <link href="../../../_static/pygments.css" rel="stylesheet" type="text/css"/>
 <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js" type="text/javascript"></script>
@@ -527,7 +527,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">'Stop'</span>
 
 <div class="viewcode-block" id="Stop.stream"><a class="viewcode-back" href="../../../docs/source/_rst/twilio.twiml.html#twilio.twiml.voice_response.Stop.stream">[docs]</a>    <span class="k">def</span> <span class="nf">stream</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">connector_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">track</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-               <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+               <span class="n">status_callback</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">status_callback_method</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">"""</span>
 <span class="sd">        Create a &lt;Stream&gt; element</span>
 
@@ -535,11 +535,21 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <span class="sd">        :param connector_name: Unique name for Stream Connector</span>
 <span class="sd">        :param url: URL of the remote service where the Stream is routed</span>
 <span class="sd">        :param track: Track to be streamed to remote service</span>
+<span class="sd">        :param status_callback: Status Callback URL</span>
+<span class="sd">        :param status_callback_method: Status Callback URL method</span>
 <span class="sd">        :param kwargs: additional attributes</span>
 
 <span class="sd">        :returns: &lt;Stream&gt; element</span>
 <span class="sd">        """</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">nest</span><span class="p">(</span><span class="n">Stream</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">connector_name</span><span class="o">=</span><span class="n">connector_name</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="n">url</span><span class="p">,</span> <span class="n">track</span><span class="o">=</span><span class="n">track</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">))</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">nest</span><span class="p">(</span><span class="n">Stream</span><span class="p">(</span>
+            <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
+            <span class="n">connector_name</span><span class="o">=</span><span class="n">connector_name</span><span class="p">,</span>
+            <span class="n">url</span><span class="o">=</span><span class="n">url</span><span class="p">,</span>
+            <span class="n">track</span><span class="o">=</span><span class="n">track</span><span class="p">,</span>
+            <span class="n">status_callback</span><span class="o">=</span><span class="n">status_callback</span><span class="p">,</span>
+            <span class="n">status_callback_method</span><span class="o">=</span><span class="n">status_callback_method</span><span class="p">,</span>
+            <span class="o">**</span><span class="n">kwargs</span>
+        <span class="p">))</span></div>
 
 <div class="viewcode-block" id="Stop.siprec"><a class="viewcode-back" href="../../../docs/source/_rst/twilio.twiml.html#twilio.twiml.voice_response.Stop.siprec">[docs]</a>    <span class="k">def</span> <span class="nf">siprec</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">connector_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">track</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">"""</span>
@@ -611,7 +621,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">'Start'</span>
 
 <div class="viewcode-block" id="Start.stream"><a class="viewcode-back" href="../../../docs/source/_rst/twilio.twiml.html#twilio.twiml.voice_response.Start.stream">[docs]</a>    <span class="k">def</span> <span class="nf">stream</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">connector_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">track</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-               <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+               <span class="n">status_callback</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">status_callback_method</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">"""</span>
 <span class="sd">        Create a &lt;Stream&gt; element</span>
 
@@ -619,11 +629,21 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <span class="sd">        :param connector_name: Unique name for Stream Connector</span>
 <span class="sd">        :param url: URL of the remote service where the Stream is routed</span>
 <span class="sd">        :param track: Track to be streamed to remote service</span>
+<span class="sd">        :param status_callback: Status Callback URL</span>
+<span class="sd">        :param status_callback_method: Status Callback URL method</span>
 <span class="sd">        :param kwargs: additional attributes</span>
 
 <span class="sd">        :returns: &lt;Stream&gt; element</span>
 <span class="sd">        """</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">nest</span><span class="p">(</span><span class="n">Stream</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">connector_name</span><span class="o">=</span><span class="n">connector_name</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="n">url</span><span class="p">,</span> <span class="n">track</span><span class="o">=</span><span class="n">track</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">))</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">nest</span><span class="p">(</span><span class="n">Stream</span><span class="p">(</span>
+            <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
+            <span class="n">connector_name</span><span class="o">=</span><span class="n">connector_name</span><span class="p">,</span>
+            <span class="n">url</span><span class="o">=</span><span class="n">url</span><span class="p">,</span>
+            <span class="n">track</span><span class="o">=</span><span class="n">track</span><span class="p">,</span>
+            <span class="n">status_callback</span><span class="o">=</span><span class="n">status_callback</span><span class="p">,</span>
+            <span class="n">status_callback_method</span><span class="o">=</span><span class="n">status_callback_method</span><span class="p">,</span>
+            <span class="o">**</span><span class="n">kwargs</span>
+        <span class="p">))</span></div>
 
 <div class="viewcode-block" id="Start.siprec"><a class="viewcode-back" href="../../../docs/source/_rst/twilio.twiml.html#twilio.twiml.voice_response.Start.siprec">[docs]</a>    <span class="k">def</span> <span class="nf">siprec</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">connector_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">track</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">"""</span>
@@ -1543,7 +1563,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">nest</span><span class="p">(</span><span class="n">Autopilot</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">))</span></div>
 
 <div class="viewcode-block" id="Connect.stream"><a class="viewcode-back" href="../../../docs/source/_rst/twilio.twiml.html#twilio.twiml.voice_response.Connect.stream">[docs]</a>    <span class="k">def</span> <span class="nf">stream</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">connector_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">track</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-               <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+               <span class="n">status_callback</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">status_callback_method</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">"""</span>
 <span class="sd">        Create a &lt;Stream&gt; element</span>
 
@@ -1551,11 +1571,21 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <span class="sd">        :param connector_name: Unique name for Stream Connector</span>
 <span class="sd">        :param url: URL of the remote service where the Stream is routed</span>
 <span class="sd">        :param track: Track to be streamed to remote service</span>
+<span class="sd">        :param status_callback: Status Callback URL</span>
+<span class="sd">        :param status_callback_method: Status Callback URL method</span>
 <span class="sd">        :param kwargs: additional attributes</span>
 
 <span class="sd">        :returns: &lt;Stream&gt; element</span>
 <span class="sd">        """</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">nest</span><span class="p">(</span><span class="n">Stream</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">connector_name</span><span class="o">=</span><span class="n">connector_name</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="n">url</span><span class="p">,</span> <span class="n">track</span><span class="o">=</span><span class="n">track</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">))</span></div></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">nest</span><span class="p">(</span><span class="n">Stream</span><span class="p">(</span>
+            <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
+            <span class="n">connector_name</span><span class="o">=</span><span class="n">connector_name</span><span class="p">,</span>
+            <span class="n">url</span><span class="o">=</span><span class="n">url</span><span class="p">,</span>
+            <span class="n">track</span><span class="o">=</span><span class="n">track</span><span class="p">,</span>
+            <span class="n">status_callback</span><span class="o">=</span><span class="n">status_callback</span><span class="p">,</span>
+            <span class="n">status_callback_method</span><span class="o">=</span><span class="n">status_callback_method</span><span class="p">,</span>
+            <span class="o">**</span><span class="n">kwargs</span>
+        <span class="p">))</span></div></div>
 
 
 <div class="viewcode-block" id="Autopilot"><a class="viewcode-back" href="../../../docs/source/_rst/twilio.twiml.html#twilio.twiml.voice_response.Autopilot">[docs]</a><span class="k">class</span> <span class="nc">Autopilot</span><span class="p">(</span><span class="n">TwiML</span><span class="p">):</span>

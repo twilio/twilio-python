@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-MWRD6S');</script><!--End Google Tag Manager-->
 <meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<title>twilio.rest.studio.v2.flow.test_user — twilio-python 6.51.0 documentation</title>
+<title>twilio.rest.studio.v2.flow.test_user — twilio-python 6.51.1 documentation</title>
 <link href="../../../../../../_static/alabaster.css" rel="stylesheet" type="text/css"/>
 <link href="../../../../../../_static/pygments.css" rel="stylesheet" type="text/css"/>
 <script data-url_root="../../../../../../" id="documentation_options" src="../../../../../../_static/documentation_options.js" type="text/javascript"></script>
@@ -45,15 +45,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
 
 <div class="viewcode-block" id="FlowTestUserList"><a class="viewcode-back" href="../../../../../../docs/source/_rst/twilio.rest.studio.v2.flow.html#twilio.rest.studio.v2.flow.test_user.FlowTestUserList">[docs]</a><span class="k">class</span> <span class="nc">FlowTestUserList</span><span class="p">(</span><span class="n">ListResource</span><span class="p">):</span>
-    <span class="sd">""" PLEASE NOTE that this class contains beta products that are subject to</span>
-<span class="sd">    change. Use them with caution. """</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">version</span><span class="p">,</span> <span class="n">sid</span><span class="p">):</span>
         <span class="sd">"""</span>
 <span class="sd">        Initialize the FlowTestUserList</span>
 
 <span class="sd">        :param Version version: Version that contains the resource</span>
-<span class="sd">        :param sid: The sid</span>
+<span class="sd">        :param sid: Unique identifier of the flow.</span>
 
 <span class="sd">        :returns: twilio.rest.studio.v2.flow.test_user.FlowTestUserList</span>
 <span class="sd">        :rtype: twilio.rest.studio.v2.flow.test_user.FlowTestUserList</span>
@@ -92,8 +90,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
 
 <div class="viewcode-block" id="FlowTestUserPage"><a class="viewcode-back" href="../../../../../../docs/source/_rst/twilio.rest.studio.v2.flow.html#twilio.rest.studio.v2.flow.test_user.FlowTestUserPage">[docs]</a><span class="k">class</span> <span class="nc">FlowTestUserPage</span><span class="p">(</span><span class="n">Page</span><span class="p">):</span>
-    <span class="sd">""" PLEASE NOTE that this class contains beta products that are subject to</span>
-<span class="sd">    change. Use them with caution. """</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">version</span><span class="p">,</span> <span class="n">response</span><span class="p">,</span> <span class="n">solution</span><span class="p">):</span>
         <span class="sd">"""</span>
@@ -101,7 +97,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
 <span class="sd">        :param Version version: Version that contains the resource</span>
 <span class="sd">        :param Response response: Response from the API</span>
-<span class="sd">        :param sid: The sid</span>
+<span class="sd">        :param sid: Unique identifier of the flow.</span>
 
 <span class="sd">        :returns: twilio.rest.studio.v2.flow.test_user.FlowTestUserPage</span>
 <span class="sd">        :rtype: twilio.rest.studio.v2.flow.test_user.FlowTestUserPage</span>
@@ -133,15 +129,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
 
 <div class="viewcode-block" id="FlowTestUserContext"><a class="viewcode-back" href="../../../../../../docs/source/_rst/twilio.rest.studio.v2.flow.html#twilio.rest.studio.v2.flow.test_user.FlowTestUserContext">[docs]</a><span class="k">class</span> <span class="nc">FlowTestUserContext</span><span class="p">(</span><span class="n">InstanceContext</span><span class="p">):</span>
-    <span class="sd">""" PLEASE NOTE that this class contains beta products that are subject to</span>
-<span class="sd">    change. Use them with caution. """</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">version</span><span class="p">,</span> <span class="n">sid</span><span class="p">):</span>
         <span class="sd">"""</span>
 <span class="sd">        Initialize the FlowTestUserContext</span>
 
 <span class="sd">        :param Version version: Version that contains the resource</span>
-<span class="sd">        :param sid: The sid</span>
+<span class="sd">        :param sid: Unique identifier of the flow.</span>
 
 <span class="sd">        :returns: twilio.rest.studio.v2.flow.test_user.FlowTestUserContext</span>
 <span class="sd">        :rtype: twilio.rest.studio.v2.flow.test_user.FlowTestUserContext</span>
@@ -167,7 +161,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="sd">"""</span>
 <span class="sd">        Update the FlowTestUserInstance</span>
 
-<span class="sd">        :param list[unicode] test_users: The test_users</span>
+<span class="sd">        :param list[unicode] test_users: List of test user identities that can test draft versions of the flow.</span>
 
 <span class="sd">        :returns: The updated FlowTestUserInstance</span>
 <span class="sd">        :rtype: twilio.rest.studio.v2.flow.test_user.FlowTestUserInstance</span>
@@ -190,8 +184,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
 
 <div class="viewcode-block" id="FlowTestUserInstance"><a class="viewcode-back" href="../../../../../../docs/source/_rst/twilio.rest.studio.v2.flow.html#twilio.rest.studio.v2.flow.test_user.FlowTestUserInstance">[docs]</a><span class="k">class</span> <span class="nc">FlowTestUserInstance</span><span class="p">(</span><span class="n">InstanceResource</span><span class="p">):</span>
-    <span class="sd">""" PLEASE NOTE that this class contains beta products that are subject to</span>
-<span class="sd">    change. Use them with caution. """</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">version</span><span class="p">,</span> <span class="n">payload</span><span class="p">,</span> <span class="n">sid</span><span class="p">):</span>
         <span class="sd">"""</span>
@@ -229,7 +221,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">sid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">"""</span>
-<span class="sd">        :returns: The sid</span>
+<span class="sd">        :returns: Unique identifier of the flow.</span>
 <span class="sd">        :rtype: unicode</span>
 <span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="p">[</span><span class="s1">'sid'</span><span class="p">]</span>
@@ -237,7 +229,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">test_users</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">"""</span>
-<span class="sd">        :returns: The test_users</span>
+<span class="sd">        :returns: List of test user identities that can test draft versions of the flow.</span>
 <span class="sd">        :rtype: list[unicode]</span>
 <span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="p">[</span><span class="s1">'test_users'</span><span class="p">]</span>
@@ -245,7 +237,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">url</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">"""</span>
-<span class="sd">        :returns: The url</span>
+<span class="sd">        :returns: The URL of this resource.</span>
 <span class="sd">        :rtype: unicode</span>
 <span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="p">[</span><span class="s1">'url'</span><span class="p">]</span>
@@ -263,7 +255,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="sd">"""</span>
 <span class="sd">        Update the FlowTestUserInstance</span>
 
-<span class="sd">        :param list[unicode] test_users: The test_users</span>
+<span class="sd">        :param list[unicode] test_users: List of test user identities that can test draft versions of the flow.</span>
 
 <span class="sd">        :returns: The updated FlowTestUserInstance</span>
 <span class="sd">        :rtype: twilio.rest.studio.v2.flow.test_user.FlowTestUserInstance</span>
