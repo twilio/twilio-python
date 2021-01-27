@@ -15,8 +15,6 @@ from twilio.base.page import Page
 
 
 class FlowRevisionList(ListResource):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
 
     def __init__(self, version, sid):
         """
@@ -144,8 +142,6 @@ class FlowRevisionList(ListResource):
 
 
 class FlowRevisionPage(Page):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
 
     def __init__(self, version, response, solution):
         """
@@ -185,8 +181,6 @@ class FlowRevisionPage(Page):
 
 
 class FlowRevisionContext(InstanceContext):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
 
     def __init__(self, version, sid, revision):
         """
@@ -233,8 +227,6 @@ class FlowRevisionContext(InstanceContext):
 
 
 class FlowRevisionInstance(InstanceResource):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
 
     class Status(object):
         DRAFT = "draft"
@@ -337,7 +329,7 @@ class FlowRevisionInstance(InstanceResource):
     @property
     def commit_message(self):
         """
-        :returns: Description on change made in the revision
+        :returns: Description of change made in the revision
         :rtype: unicode
         """
         return self._properties['commit_message']

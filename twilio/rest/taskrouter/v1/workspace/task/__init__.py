@@ -192,7 +192,7 @@ class TaskList(ListResource):
         """
         Create the TaskInstance
 
-        :param unicode timeout: The amount of time in seconds the task is allowed to live
+        :param unicode timeout: The amount of time in seconds the task can live before being assigned
         :param unicode priority: The priority to assign the new task and override the default
         :param unicode task_channel: When MultiTasking is enabled specify the TaskChannel by passing either its unique_name or SID
         :param unicode workflow_sid: The SID of the Workflow that you would like to handle routing for the new Task
@@ -578,7 +578,7 @@ class TaskInstance(InstanceResource):
     @property
     def timeout(self):
         """
-        :returns: The amount of time in seconds that the Task is allowed to live
+        :returns: The amount of time in seconds that the Task can live before being assigned
         :rtype: unicode
         """
         return self._properties['timeout']
