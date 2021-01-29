@@ -3,6 +3,18 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2021-01-27] Version 6.51.1
+---------------------------
+**Studio**
+- Studio V2 API is now GA
+
+**Supersim**
+- Allow updating `CommandsUrl` and `CommandsMethod` on a Fleet
+
+**Twiml**
+- Add `status_callback` and `status_callback_method` to `Stream`.
+
+
 [2021-01-13] Version 6.51.0
 ---------------------------
 **Library - Docs**

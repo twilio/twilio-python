@@ -14,8 +14,6 @@ from twilio.base.page import Page
 
 
 class FlowValidateList(ListResource):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
 
     def __init__(self, version):
         """
@@ -37,10 +35,10 @@ class FlowValidateList(ListResource):
         """
         Update the FlowValidateInstance
 
-        :param unicode friendly_name: The friendly_name
-        :param FlowValidateInstance.Status status: The status
-        :param dict definition: The definition
-        :param unicode commit_message: The commit_message
+        :param unicode friendly_name: The string that you assigned to describe the Flow
+        :param FlowValidateInstance.Status status: The status of the Flow
+        :param dict definition: JSON representation of flow definition
+        :param unicode commit_message: Description of change made in the revision
 
         :returns: The updated FlowValidateInstance
         :rtype: twilio.rest.studio.v2.flow_validate.FlowValidateInstance
@@ -67,8 +65,6 @@ class FlowValidateList(ListResource):
 
 
 class FlowValidatePage(Page):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
 
     def __init__(self, version, response, solution):
         """
@@ -107,8 +103,6 @@ class FlowValidatePage(Page):
 
 
 class FlowValidateInstance(InstanceResource):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
 
     class Status(object):
         DRAFT = "draft"
@@ -133,7 +127,7 @@ class FlowValidateInstance(InstanceResource):
     @property
     def valid(self):
         """
-        :returns: The valid
+        :returns: Boolean if the flow definition is valid
         :rtype: bool
         """
         return self._properties['valid']

@@ -497,7 +497,7 @@ class Stop(TwiML):
         self.name = 'Stop'
 
     def stream(self, name=None, connector_name=None, url=None, track=None,
-               **kwargs):
+               status_callback=None, status_callback_method=None, **kwargs):
         """
         Create a <Stream> element
 
@@ -505,11 +505,21 @@ class Stop(TwiML):
         :param connector_name: Unique name for Stream Connector
         :param url: URL of the remote service where the Stream is routed
         :param track: Track to be streamed to remote service
+        :param status_callback: Status Callback URL
+        :param status_callback_method: Status Callback URL method
         :param kwargs: additional attributes
 
         :returns: <Stream> element
         """
-        return self.nest(Stream(name=name, connector_name=connector_name, url=url, track=track, **kwargs))
+        return self.nest(Stream(
+            name=name,
+            connector_name=connector_name,
+            url=url,
+            track=track,
+            status_callback=status_callback,
+            status_callback_method=status_callback_method,
+            **kwargs
+        ))
 
     def siprec(self, name=None, connector_name=None, track=None, **kwargs):
         """
@@ -581,7 +591,7 @@ class Start(TwiML):
         self.name = 'Start'
 
     def stream(self, name=None, connector_name=None, url=None, track=None,
-               **kwargs):
+               status_callback=None, status_callback_method=None, **kwargs):
         """
         Create a <Stream> element
 
@@ -589,11 +599,21 @@ class Start(TwiML):
         :param connector_name: Unique name for Stream Connector
         :param url: URL of the remote service where the Stream is routed
         :param track: Track to be streamed to remote service
+        :param status_callback: Status Callback URL
+        :param status_callback_method: Status Callback URL method
         :param kwargs: additional attributes
 
         :returns: <Stream> element
         """
-        return self.nest(Stream(name=name, connector_name=connector_name, url=url, track=track, **kwargs))
+        return self.nest(Stream(
+            name=name,
+            connector_name=connector_name,
+            url=url,
+            track=track,
+            status_callback=status_callback,
+            status_callback_method=status_callback_method,
+            **kwargs
+        ))
 
     def siprec(self, name=None, connector_name=None, track=None, **kwargs):
         """
@@ -1513,7 +1533,7 @@ class Connect(TwiML):
         return self.nest(Autopilot(name, **kwargs))
 
     def stream(self, name=None, connector_name=None, url=None, track=None,
-               **kwargs):
+               status_callback=None, status_callback_method=None, **kwargs):
         """
         Create a <Stream> element
 
@@ -1521,11 +1541,21 @@ class Connect(TwiML):
         :param connector_name: Unique name for Stream Connector
         :param url: URL of the remote service where the Stream is routed
         :param track: Track to be streamed to remote service
+        :param status_callback: Status Callback URL
+        :param status_callback_method: Status Callback URL method
         :param kwargs: additional attributes
 
         :returns: <Stream> element
         """
-        return self.nest(Stream(name=name, connector_name=connector_name, url=url, track=track, **kwargs))
+        return self.nest(Stream(
+            name=name,
+            connector_name=connector_name,
+            url=url,
+            track=track,
+            status_callback=status_callback,
+            status_callback_method=status_callback_method,
+            **kwargs
+        ))
 
 
 class Autopilot(TwiML):
