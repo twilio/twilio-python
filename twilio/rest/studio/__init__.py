@@ -51,9 +51,9 @@ class Studio(Domain):
     @property
     def flows(self):
         """
-        :rtype: twilio.rest.studio.v2.flow.FlowList
+        :rtype: twilio.rest.studio.v1.flow.FlowList
         """
-        return self.v2.flows
+        return self.v1.flows
 
     @property
     def flow_validate(self):
