@@ -43,7 +43,7 @@ class JwtTest(unittest.TestCase):
         expected_headers = expected_headers or {}
         expected_payload = expected_payload or {}
 
-        decoded_payload = jwt_lib.decode(jwt, key, algorithms=["HS256"], options={"verify_signature":False})
+        decoded_payload = jwt_lib.decode(jwt, key, algorithms=["HS256"], options={"verify_signature": False})
         decoded_headers = jwt_lib.get_unverified_header(jwt)
 
         self.assertEqual(expected_headers, decoded_headers)
