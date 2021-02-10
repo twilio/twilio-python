@@ -46,7 +46,7 @@ class MessageInteractionList(ListResource):
         Create the MessageInteractionInstance
 
         :param unicode body: Message body
-        :param unicode media_url: Reserved
+        :param list[unicode] media_url: Reserved
 
         :returns: The created MessageInteractionInstance
         :rtype: twilio.rest.proxy.v1.service.session.participant.message_interaction.MessageInteractionInstance

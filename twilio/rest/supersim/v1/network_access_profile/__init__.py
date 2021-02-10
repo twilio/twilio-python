@@ -17,9 +17,8 @@ from twilio.rest.supersim.v1.network_access_profile.network_access_profile_netwo
 
 
 class NetworkAccessProfileList(ListResource):
-    """ PLEASE NOTE that this class contains preview products that are subject
-    to change. Use them with caution. If you currently do not have developer
-    preview access, please contact help@twilio.com. """
+    """ PLEASE NOTE that this class contains beta products that are subject to
+    change. Use them with caution. """
 
     def __init__(self, version):
         """
@@ -41,7 +40,7 @@ class NetworkAccessProfileList(ListResource):
         Create the NetworkAccessProfileInstance
 
         :param unicode unique_name: An application-defined string that uniquely identifies the resource
-        :param unicode networks: List of Network SIDs that this Network Access Profile will allow connections to
+        :param list[unicode] networks: List of Network SIDs that this Network Access Profile will allow connections to
 
         :returns: The created NetworkAccessProfileInstance
         :rtype: twilio.rest.supersim.v1.network_access_profile.NetworkAccessProfileInstance
@@ -162,9 +161,8 @@ class NetworkAccessProfileList(ListResource):
 
 
 class NetworkAccessProfilePage(Page):
-    """ PLEASE NOTE that this class contains preview products that are subject
-    to change. Use them with caution. If you currently do not have developer
-    preview access, please contact help@twilio.com. """
+    """ PLEASE NOTE that this class contains beta products that are subject to
+    change. Use them with caution. """
 
     def __init__(self, version, response, solution):
         """
@@ -203,9 +201,8 @@ class NetworkAccessProfilePage(Page):
 
 
 class NetworkAccessProfileContext(InstanceContext):
-    """ PLEASE NOTE that this class contains preview products that are subject
-    to change. Use them with caution. If you currently do not have developer
-    preview access, please contact help@twilio.com. """
+    """ PLEASE NOTE that this class contains beta products that are subject to
+    change. Use them with caution. """
 
     def __init__(self, version, sid):
         """
@@ -279,9 +276,8 @@ class NetworkAccessProfileContext(InstanceContext):
 
 
 class NetworkAccessProfileInstance(InstanceResource):
-    """ PLEASE NOTE that this class contains preview products that are subject
-    to change. Use them with caution. If you currently do not have developer
-    preview access, please contact help@twilio.com. """
+    """ PLEASE NOTE that this class contains beta products that are subject to
+    change. Use them with caution. """
 
     def __init__(self, version, payload, sid=None):
         """

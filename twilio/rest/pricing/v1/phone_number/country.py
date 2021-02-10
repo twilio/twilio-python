@@ -274,7 +274,7 @@ class CountryInstance(InstanceResource):
     def phone_number_prices(self):
         """
         :returns: The list of PhoneNumberPrices records
-        :rtype: unicode
+        :rtype: list[unicode]
         """
         return self._properties['phone_number_prices']
 

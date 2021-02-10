@@ -15,9 +15,6 @@ from twilio.base.page import Page
 
 
 class CallSummaryList(ListResource):
-    """ PLEASE NOTE that this class contains preview products that are subject
-    to change. Use them with caution. If you currently do not have developer
-    preview access, please contact help@twilio.com. """
 
     def __init__(self, version, call_sid):
         """
@@ -63,9 +60,6 @@ class CallSummaryList(ListResource):
 
 
 class CallSummaryPage(Page):
-    """ PLEASE NOTE that this class contains preview products that are subject
-    to change. Use them with caution. If you currently do not have developer
-    preview access, please contact help@twilio.com. """
 
     def __init__(self, version, response, solution):
         """
@@ -105,9 +99,6 @@ class CallSummaryPage(Page):
 
 
 class CallSummaryContext(InstanceContext):
-    """ PLEASE NOTE that this class contains preview products that are subject
-    to change. Use them with caution. If you currently do not have developer
-    preview access, please contact help@twilio.com. """
 
     def __init__(self, version, call_sid):
         """
@@ -152,9 +143,6 @@ class CallSummaryContext(InstanceContext):
 
 
 class CallSummaryInstance(InstanceResource):
-    """ PLEASE NOTE that this class contains preview products that are subject
-    to change. Use them with caution. If you currently do not have developer
-    preview access, please contact help@twilio.com. """
 
     class CallType(object):
         CARRIER = "carrier"
@@ -192,6 +180,7 @@ class CallSummaryInstance(InstanceResource):
             'call_type': payload.get('call_type'),
             'call_state': payload.get('call_state'),
             'processing_state': payload.get('processing_state'),
+            'created_time': deserialize.iso8601_datetime(payload.get('created_time')),
             'start_time': deserialize.iso8601_datetime(payload.get('start_time')),
             'end_time': deserialize.iso8601_datetime(payload.get('end_time')),
             'duration': deserialize.integer(payload.get('duration')),
@@ -265,6 +254,14 @@ class CallSummaryInstance(InstanceResource):
         :rtype: CallSummaryInstance.ProcessingState
         """
         return self._properties['processing_state']
+
+    @property
+    def created_time(self):
+        """
+        :returns: The created_time
+        :rtype: datetime
+        """
+        return self._properties['created_time']
 
     @property
     def start_time(self):
@@ -350,7 +347,7 @@ class CallSummaryInstance(InstanceResource):
     def tags(self):
         """
         :returns: The tags
-        :rtype: unicode
+        :rtype: list[unicode]
         """
         return self._properties['tags']
 

@@ -132,12 +132,12 @@ class AuthorizationDocumentList(ListResource):
         """
         Create the AuthorizationDocumentInstance
 
-        :param unicode hosted_number_order_sids: A list of HostedNumberOrder sids.
+        :param list[unicode] hosted_number_order_sids: A list of HostedNumberOrder sids.
         :param unicode address_sid: Address sid.
         :param unicode email: Email.
         :param unicode contact_title: Title of signee of this Authorization Document.
         :param unicode contact_phone_number: Authorization Document's signee's phone number.
-        :param unicode cc_emails: A list of emails.
+        :param list[unicode] cc_emails: A list of emails.
 
         :returns: The created AuthorizationDocumentInstance
         :rtype: twilio.rest.preview.hosted_numbers.authorization_document.AuthorizationDocumentInstance
@@ -270,10 +270,10 @@ class AuthorizationDocumentContext(InstanceContext):
         """
         Update the AuthorizationDocumentInstance
 
-        :param unicode hosted_number_order_sids: A list of HostedNumberOrder sids.
+        :param list[unicode] hosted_number_order_sids: A list of HostedNumberOrder sids.
         :param unicode address_sid: Address sid.
         :param unicode email: Email.
-        :param unicode cc_emails: A list of emails.
+        :param list[unicode] cc_emails: A list of emails.
         :param AuthorizationDocumentInstance.Status status: The Status of this AuthorizationDocument.
         :param unicode contact_title: Title of signee of this Authorization Document.
         :param unicode contact_phone_number: Authorization Document's signee's phone number.
@@ -408,7 +408,7 @@ class AuthorizationDocumentInstance(InstanceResource):
     def cc_emails(self):
         """
         :returns: A list of emails.
-        :rtype: unicode
+        :rtype: list[unicode]
         """
         return self._properties['cc_emails']
 
@@ -460,10 +460,10 @@ class AuthorizationDocumentInstance(InstanceResource):
         """
         Update the AuthorizationDocumentInstance
 
-        :param unicode hosted_number_order_sids: A list of HostedNumberOrder sids.
+        :param list[unicode] hosted_number_order_sids: A list of HostedNumberOrder sids.
         :param unicode address_sid: Address sid.
         :param unicode email: Email.
-        :param unicode cc_emails: A list of emails.
+        :param list[unicode] cc_emails: A list of emails.
         :param AuthorizationDocumentInstance.Status status: The Status of this AuthorizationDocument.
         :param unicode contact_title: Title of signee of this Authorization Document.
         :param unicode contact_phone_number: Authorization Document's signee's phone number.

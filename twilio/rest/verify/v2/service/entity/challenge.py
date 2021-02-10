@@ -45,7 +45,7 @@ class ChallengeList(ListResource):
         :param unicode factor_sid: Factor Sid.
         :param datetime expiration_date: The date-time when this Challenge expires
         :param unicode details_message: Shown to the user when the push notification arrives
-        :param dict details_fields: A list of objects that describe the Fields included in the Challenge
+        :param list[dict] details_fields: A list of objects that describe the Fields included in the Challenge
         :param dict hidden_details: Hidden details provided to contextualize the Challenge
 
         :returns: The created ChallengeInstance

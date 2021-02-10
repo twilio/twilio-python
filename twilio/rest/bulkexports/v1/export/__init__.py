@@ -53,7 +53,7 @@ class ExportList(ListResource):
         """
         Constructs a ExportContext
 
-        :param resource_type: The type of communication – Messages, Calls
+        :param resource_type: The type of communication – Messages, Calls, Conferences, and Participants
 
         :returns: twilio.rest.bulkexports.v1.export.ExportContext
         :rtype: twilio.rest.bulkexports.v1.export.ExportContext
@@ -64,7 +64,7 @@ class ExportList(ListResource):
         """
         Constructs a ExportContext
 
-        :param resource_type: The type of communication – Messages, Calls
+        :param resource_type: The type of communication – Messages, Calls, Conferences, and Participants
 
         :returns: twilio.rest.bulkexports.v1.export.ExportContext
         :rtype: twilio.rest.bulkexports.v1.export.ExportContext
@@ -130,7 +130,7 @@ class ExportContext(InstanceContext):
         Initialize the ExportContext
 
         :param Version version: Version that contains the resource
-        :param resource_type: The type of communication – Messages, Calls
+        :param resource_type: The type of communication – Messages, Calls, Conferences, and Participants
 
         :returns: twilio.rest.bulkexports.v1.export.ExportContext
         :rtype: twilio.rest.bulkexports.v1.export.ExportContext
@@ -234,7 +234,7 @@ class ExportInstance(InstanceResource):
     @property
     def resource_type(self):
         """
-        :returns: The type of communication – Messages, Calls
+        :returns: The type of communication – Messages, Calls, Conferences, and Participants
         :rtype: unicode
         """
         return self._properties['resource_type']

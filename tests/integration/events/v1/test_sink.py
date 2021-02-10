@@ -186,6 +186,20 @@ class SinkTestCase(IntegrationTestCase):
                             "sink_test": "https://events.twilio.com/v1/Sinks/DGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaab/Test",
                             "sink_validate": "https://events.twilio.com/v1/Sinks/DGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaab/Validate"
                         }
+                    },
+                    {
+                        "status": "active",
+                        "sink_configuration": {},
+                        "description": "A webhook Sink",
+                        "sid": "DGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaac",
+                        "date_created": "2015-07-30T20:00:00Z",
+                        "sink_type": "webhook",
+                        "date_updated": "2015-07-30T20:00:00Z",
+                        "url": "https://events.twilio.com/v1/Sinks/DGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaac",
+                        "links": {
+                            "sink_test": "https://events.twilio.com/v1/Sinks/DGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaac/Test",
+                            "sink_validate": "https://events.twilio.com/v1/Sinks/DGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaac/Validate"
+                        }
                     }
                 ],
                 "meta": {

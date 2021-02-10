@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-MWRD6S');</script><!--End Google Tag Manager-->
 <meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<title>twilio.rest.api.v2010.account.call — twilio-python 6.50.1 documentation</title>
+<title>twilio.rest.api.v2010.account.call — twilio-python 6.51.1 documentation</title>
 <link href="../../../../../../_static/alabaster.css" rel="stylesheet" type="text/css"/>
 <link href="../../../../../../_static/pygments.css" rel="stylesheet" type="text/css"/>
 <script data-url_root="../../../../../../" id="documentation_options" src="../../../../../../_static/documentation_options.js" type="text/javascript"></script>
@@ -101,7 +101,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <span class="sd">        :param unicode fallback_url: Fallback URL in case of error</span>
 <span class="sd">        :param unicode fallback_method: HTTP Method to use with fallback_url</span>
 <span class="sd">        :param unicode status_callback: The URL we should call to send status information to your application</span>
-<span class="sd">        :param unicode status_callback_event: The call progress events that we send to the `status_callback` URL.</span>
+<span class="sd">        :param list[unicode] status_callback_event: The call progress events that we send to the `status_callback` URL.</span>
 <span class="sd">        :param unicode status_callback_method: HTTP Method to use with status_callback</span>
 <span class="sd">        :param unicode send_digits: The digits to dial after connecting to the number</span>
 <span class="sd">        :param unicode timeout: Number of seconds to wait for an answer</span>
@@ -113,7 +113,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <span class="sd">        :param unicode sip_auth_password: The password required to authenticate the user account specified in `sip_auth_username`.</span>
 <span class="sd">        :param unicode machine_detection: Enable machine detection or end of greeting detection</span>
 <span class="sd">        :param unicode machine_detection_timeout: Number of seconds to wait for machine detection</span>
-<span class="sd">        :param unicode recording_status_callback_event: The recording status events that will trigger calls to the URL specified in `recording_status_callback`</span>
+<span class="sd">        :param list[unicode] recording_status_callback_event: The recording status events that will trigger calls to the URL specified in `recording_status_callback`</span>
 <span class="sd">        :param unicode trim: Set this parameter to control trimming of silence on the recording.</span>
 <span class="sd">        :param unicode caller_id: The phone number, SIP address, or Client identifier that made this call. Phone numbers are in E.164 format (e.g., +16175551212). SIP addresses are formatted as `name@company.com`.</span>
 <span class="sd">        :param unicode machine_detection_speech_threshold: Number of milliseconds for measuring stick for the length of the speech activity</span>

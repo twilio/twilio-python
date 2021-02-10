@@ -477,7 +477,7 @@ class MessageInstance(InstanceResource):
     def media(self):
         """
         :returns: An array of objects that describe the Message's media if attached, otherwise, null.
-        :rtype: dict
+        :rtype: list[dict]
         """
         return self._properties['media']
 

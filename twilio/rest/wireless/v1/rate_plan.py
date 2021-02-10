@@ -127,7 +127,7 @@ class RatePlanList(ListResource):
         :param bool messaging_enabled: Whether SIMs can make, send, and receive SMS using Commands
         :param bool voice_enabled: Whether SIMs can make and receive voice calls
         :param bool national_roaming_enabled: Whether SIMs can roam on networks other than the home network in the United States
-        :param unicode international_roaming: The services that SIMs capable of using GPRS/3G/4G/LTE data connectivity can use outside of the United States
+        :param list[unicode] international_roaming: The services that SIMs capable of using GPRS/3G/4G/LTE data connectivity can use outside of the United States
         :param unicode national_roaming_data_limit: The total data usage in Megabytes that the Network allows during one month on non-home networks in the United States
         :param unicode international_roaming_data_limit: The total data usage (download and upload combined) in Megabytes that the Network allows during one month when roaming outside the United States
 
@@ -431,7 +431,7 @@ class RatePlanInstance(InstanceResource):
     def international_roaming(self):
         """
         :returns: The services that SIMs capable of using GPRS/3G/4G/LTE data connectivity can use outside of the United States
-        :rtype: unicode
+        :rtype: list[unicode]
         """
         return self._properties['international_roaming']
 

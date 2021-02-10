@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-MWRD6S');</script><!--End Google Tag Manager-->
 <meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<title>twilio.rest.verify.v2.service.webhook — twilio-python 6.50.1 documentation</title>
+<title>twilio.rest.verify.v2.service.webhook — twilio-python 6.51.1 documentation</title>
 <link href="../../../../../../_static/alabaster.css" rel="stylesheet" type="text/css"/>
 <link href="../../../../../../_static/pygments.css" rel="stylesheet" type="text/css"/>
 <script data-url_root="../../../../../../" id="documentation_options" src="../../../../../../_static/documentation_options.js" type="text/javascript"></script>
@@ -70,7 +70,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <span class="sd">        Create the WebhookInstance</span>
 
 <span class="sd">        :param unicode friendly_name: The string that you assigned to describe the webhook</span>
-<span class="sd">        :param unicode event_types: The array of events that this Webhook is subscribed to.</span>
+<span class="sd">        :param list[unicode] event_types: The array of events that this Webhook is subscribed to.</span>
 <span class="sd">        :param unicode webhook_url: The URL associated with this Webhook.</span>
 <span class="sd">        :param WebhookInstance.Status status: The webhook status</span>
 
@@ -265,7 +265,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <span class="sd">        Update the WebhookInstance</span>
 
 <span class="sd">        :param unicode friendly_name: The string that you assigned to describe the webhook</span>
-<span class="sd">        :param unicode event_types: The array of events that this Webhook is subscribed to.</span>
+<span class="sd">        :param list[unicode] event_types: The array of events that this Webhook is subscribed to.</span>
 <span class="sd">        :param unicode webhook_url: The URL associated with this Webhook.</span>
 <span class="sd">        :param WebhookInstance.Status status: The webhook status</span>
 
@@ -417,7 +417,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
     <span class="k">def</span> <span class="nf">event_types</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">"""</span>
 <span class="sd">        :returns: The array of events that this Webhook is subscribed to.</span>
-<span class="sd">        :rtype: unicode</span>
+<span class="sd">        :rtype: list[unicode]</span>
 <span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="p">[</span><span class="s1">'event_types'</span><span class="p">]</span>
 
@@ -475,7 +475,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <span class="sd">        Update the WebhookInstance</span>
 
 <span class="sd">        :param unicode friendly_name: The string that you assigned to describe the webhook</span>
-<span class="sd">        :param unicode event_types: The array of events that this Webhook is subscribed to.</span>
+<span class="sd">        :param list[unicode] event_types: The array of events that this Webhook is subscribed to.</span>
 <span class="sd">        :param unicode webhook_url: The URL associated with this Webhook.</span>
 <span class="sd">        :param WebhookInstance.Status status: The webhook status</span>
 

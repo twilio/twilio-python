@@ -50,7 +50,7 @@ class RoomList(ListResource):
         :param unicode status_callback_method: The HTTP method we should use to call status_callback
         :param unicode max_participants: The maximum number of concurrent Participants allowed in the room
         :param bool record_participants_on_connect: Whether to start recording when Participants connect
-        :param RoomInstance.VideoCodec video_codecs: An array of the video codecs that are supported when publishing a track in the room
+        :param list[RoomInstance.VideoCodec] video_codecs: An array of the video codecs that are supported when publishing a track in the room
         :param unicode media_region: The region for the media server in Group Rooms
 
         :returns: The created RoomInstance
@@ -395,6 +395,7 @@ class RoomInstance(InstanceResource):
             'duration': deserialize.integer(payload.get('duration')),
             'type': payload.get('type'),
             'max_participants': deserialize.integer(payload.get('max_participants')),
+            'max_concurrent_published_tracks': deserialize.integer(payload.get('max_concurrent_published_tracks')),
             'record_participants_on_connect': payload.get('record_participants_on_connect'),
             'video_codecs': payload.get('video_codecs'),
             'media_region': payload.get('media_region'),
@@ -524,6 +525,14 @@ class RoomInstance(InstanceResource):
         return self._properties['max_participants']
 
     @property
+    def max_concurrent_published_tracks(self):
+        """
+        :returns: The maximum number of published tracks allowed in the room at the same time
+        :rtype: unicode
+        """
+        return self._properties['max_concurrent_published_tracks']
+
+    @property
     def record_participants_on_connect(self):
         """
         :returns: Whether to start recording when Participants connect
@@ -535,7 +544,7 @@ class RoomInstance(InstanceResource):
     def video_codecs(self):
         """
         :returns: An array of the video codecs that are supported when publishing a track in the room
-        :rtype: RoomInstance.VideoCodec
+        :rtype: list[RoomInstance.VideoCodec]
         """
         return self._properties['video_codecs']
 

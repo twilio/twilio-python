@@ -19,8 +19,6 @@ from twilio.rest.studio.v2.flow.test_user import FlowTestUserList
 
 
 class FlowList(ListResource):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
 
     def __init__(self, version):
         """
@@ -45,7 +43,7 @@ class FlowList(ListResource):
         :param unicode friendly_name: The string that you assigned to describe the Flow
         :param FlowInstance.Status status: The status of the Flow
         :param dict definition: JSON representation of flow definition
-        :param unicode commit_message: Description on change made in the revision
+        :param unicode commit_message: Description of change made in the revision
 
         :returns: The created FlowInstance
         :rtype: twilio.rest.studio.v2.flow.FlowInstance
@@ -171,8 +169,6 @@ class FlowList(ListResource):
 
 
 class FlowPage(Page):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
 
     def __init__(self, version, response, solution):
         """
@@ -211,8 +207,6 @@ class FlowPage(Page):
 
 
 class FlowContext(InstanceContext):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
 
     def __init__(self, version, sid):
         """
@@ -243,7 +237,7 @@ class FlowContext(InstanceContext):
         :param FlowInstance.Status status: The status of the Flow
         :param unicode friendly_name: The string that you assigned to describe the Flow
         :param dict definition: JSON representation of flow definition
-        :param unicode commit_message: Description on change made in the revision
+        :param unicode commit_message: Description of change made in the revision
 
         :returns: The updated FlowInstance
         :rtype: twilio.rest.studio.v2.flow.FlowInstance
@@ -327,8 +321,6 @@ class FlowContext(InstanceContext):
 
 
 class FlowInstance(InstanceResource):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
 
     class Status(object):
         DRAFT = "draft"
@@ -430,7 +422,7 @@ class FlowInstance(InstanceResource):
     @property
     def commit_message(self):
         """
-        :returns: Description on change made in the revision
+        :returns: Description of change made in the revision
         :rtype: unicode
         """
         return self._properties['commit_message']
@@ -447,7 +439,7 @@ class FlowInstance(InstanceResource):
     def errors(self):
         """
         :returns: List of error in the flow definition
-        :rtype: dict
+        :rtype: list[dict]
         """
         return self._properties['errors']
 
@@ -455,7 +447,7 @@ class FlowInstance(InstanceResource):
     def warnings(self):
         """
         :returns: List of warnings in the flow definition
-        :rtype: dict
+        :rtype: list[dict]
         """
         return self._properties['warnings']
 
@@ -507,7 +499,7 @@ class FlowInstance(InstanceResource):
         :param FlowInstance.Status status: The status of the Flow
         :param unicode friendly_name: The string that you assigned to describe the Flow
         :param dict definition: JSON representation of flow definition
-        :param unicode commit_message: Description on change made in the revision
+        :param unicode commit_message: Description of change made in the revision
 
         :returns: The updated FlowInstance
         :rtype: twilio.rest.studio.v2.flow.FlowInstance

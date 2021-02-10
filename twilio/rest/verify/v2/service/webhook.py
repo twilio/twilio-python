@@ -40,7 +40,7 @@ class WebhookList(ListResource):
         Create the WebhookInstance
 
         :param unicode friendly_name: The string that you assigned to describe the webhook
-        :param unicode event_types: The array of events that this Webhook is subscribed to.
+        :param list[unicode] event_types: The array of events that this Webhook is subscribed to.
         :param unicode webhook_url: The URL associated with this Webhook.
         :param WebhookInstance.Status status: The webhook status
 
@@ -235,7 +235,7 @@ class WebhookContext(InstanceContext):
         Update the WebhookInstance
 
         :param unicode friendly_name: The string that you assigned to describe the webhook
-        :param unicode event_types: The array of events that this Webhook is subscribed to.
+        :param list[unicode] event_types: The array of events that this Webhook is subscribed to.
         :param unicode webhook_url: The URL associated with this Webhook.
         :param WebhookInstance.Status status: The webhook status
 
@@ -387,7 +387,7 @@ class WebhookInstance(InstanceResource):
     def event_types(self):
         """
         :returns: The array of events that this Webhook is subscribed to.
-        :rtype: unicode
+        :rtype: list[unicode]
         """
         return self._properties['event_types']
 
@@ -445,7 +445,7 @@ class WebhookInstance(InstanceResource):
         Update the WebhookInstance
 
         :param unicode friendly_name: The string that you assigned to describe the webhook
-        :param unicode event_types: The array of events that this Webhook is subscribed to.
+        :param list[unicode] event_types: The array of events that this Webhook is subscribed to.
         :param unicode webhook_url: The URL associated with this Webhook.
         :param WebhookInstance.Status status: The webhook status
 

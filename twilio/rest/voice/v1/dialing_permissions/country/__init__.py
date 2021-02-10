@@ -374,7 +374,7 @@ class CountryInstance(InstanceResource):
     def country_codes(self):
         """
         :returns: The E.164 assigned country codes(s)
-        :rtype: unicode
+        :rtype: list[unicode]
         """
         return self._properties['country_codes']
 

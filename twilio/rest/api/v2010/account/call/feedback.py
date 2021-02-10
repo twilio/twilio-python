@@ -138,7 +138,7 @@ class FeedbackContext(InstanceContext):
         Create the FeedbackInstance
 
         :param unicode quality_score: The call quality expressed as an integer from 1 to 5
-        :param FeedbackInstance.Issues issue: Issues experienced during the call
+        :param list[FeedbackInstance.Issues] issue: Issues experienced during the call
 
         :returns: The created FeedbackInstance
         :rtype: twilio.rest.api.v2010.account.call.feedback.FeedbackInstance
@@ -175,7 +175,7 @@ class FeedbackContext(InstanceContext):
         Update the FeedbackInstance
 
         :param unicode quality_score: The call quality expressed as an integer from 1 to 5
-        :param FeedbackInstance.Issues issue: Issues experienced during the call
+        :param list[FeedbackInstance.Issues] issue: Issues experienced during the call
 
         :returns: The updated FeedbackInstance
         :rtype: twilio.rest.api.v2010.account.call.feedback.FeedbackInstance
@@ -282,7 +282,7 @@ class FeedbackInstance(InstanceResource):
     def issues(self):
         """
         :returns: Issues experienced during the call
-        :rtype: FeedbackInstance.Issues
+        :rtype: list[FeedbackInstance.Issues]
         """
         return self._properties['issues']
 
@@ -307,7 +307,7 @@ class FeedbackInstance(InstanceResource):
         Create the FeedbackInstance
 
         :param unicode quality_score: The call quality expressed as an integer from 1 to 5
-        :param FeedbackInstance.Issues issue: Issues experienced during the call
+        :param list[FeedbackInstance.Issues] issue: Issues experienced during the call
 
         :returns: The created FeedbackInstance
         :rtype: twilio.rest.api.v2010.account.call.feedback.FeedbackInstance
@@ -328,7 +328,7 @@ class FeedbackInstance(InstanceResource):
         Update the FeedbackInstance
 
         :param unicode quality_score: The call quality expressed as an integer from 1 to 5
-        :param FeedbackInstance.Issues issue: Issues experienced during the call
+        :param list[FeedbackInstance.Issues] issue: Issues experienced during the call
 
         :returns: The updated FeedbackInstance
         :rtype: twilio.rest.api.v2010.account.call.feedback.FeedbackInstance

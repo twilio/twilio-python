@@ -313,7 +313,7 @@ class ServiceContext(InstanceContext):
         :param unicode pre_webhook_url: The pre_webhook_url
         :param unicode post_webhook_url: The post_webhook_url
         :param unicode webhook_method: The webhook_method
-        :param unicode webhook_filters: The webhook_filters
+        :param list[unicode] webhook_filters: The webhook_filters
         :param unicode webhooks_on_message_send_url: The webhooks.on_message_send.url
         :param unicode webhooks_on_message_send_method: The webhooks.on_message_send.method
         :param unicode webhooks_on_message_update_url: The webhooks.on_message_update.url
@@ -653,7 +653,7 @@ class ServiceInstance(InstanceResource):
     def webhook_filters(self):
         """
         :returns: The webhook_filters
-        :rtype: unicode
+        :rtype: list[unicode]
         """
         return self._properties['webhook_filters']
 
@@ -772,7 +772,7 @@ class ServiceInstance(InstanceResource):
         :param unicode pre_webhook_url: The pre_webhook_url
         :param unicode post_webhook_url: The post_webhook_url
         :param unicode webhook_method: The webhook_method
-        :param unicode webhook_filters: The webhook_filters
+        :param list[unicode] webhook_filters: The webhook_filters
         :param unicode webhooks_on_message_send_url: The webhooks.on_message_send.url
         :param unicode webhooks_on_message_send_method: The webhooks.on_message_send.method
         :param unicode webhooks_on_message_update_url: The webhooks.on_message_update.url

@@ -15,15 +15,13 @@ from twilio.base.page import Page
 
 
 class FlowTestUserList(ListResource):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
 
     def __init__(self, version, sid):
         """
         Initialize the FlowTestUserList
 
         :param Version version: Version that contains the resource
-        :param sid: The sid
+        :param sid: Unique identifier of the flow.
 
         :returns: twilio.rest.studio.v2.flow.test_user.FlowTestUserList
         :rtype: twilio.rest.studio.v2.flow.test_user.FlowTestUserList
@@ -62,8 +60,6 @@ class FlowTestUserList(ListResource):
 
 
 class FlowTestUserPage(Page):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
 
     def __init__(self, version, response, solution):
         """
@@ -71,7 +67,7 @@ class FlowTestUserPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param sid: The sid
+        :param sid: Unique identifier of the flow.
 
         :returns: twilio.rest.studio.v2.flow.test_user.FlowTestUserPage
         :rtype: twilio.rest.studio.v2.flow.test_user.FlowTestUserPage
@@ -103,15 +99,13 @@ class FlowTestUserPage(Page):
 
 
 class FlowTestUserContext(InstanceContext):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
 
     def __init__(self, version, sid):
         """
         Initialize the FlowTestUserContext
 
         :param Version version: Version that contains the resource
-        :param sid: The sid
+        :param sid: Unique identifier of the flow.
 
         :returns: twilio.rest.studio.v2.flow.test_user.FlowTestUserContext
         :rtype: twilio.rest.studio.v2.flow.test_user.FlowTestUserContext
@@ -137,7 +131,7 @@ class FlowTestUserContext(InstanceContext):
         """
         Update the FlowTestUserInstance
 
-        :param unicode test_users: The test_users
+        :param list[unicode] test_users: List of test user identities that can test draft versions of the flow.
 
         :returns: The updated FlowTestUserInstance
         :rtype: twilio.rest.studio.v2.flow.test_user.FlowTestUserInstance
@@ -160,8 +154,6 @@ class FlowTestUserContext(InstanceContext):
 
 
 class FlowTestUserInstance(InstanceResource):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
 
     def __init__(self, version, payload, sid):
         """
@@ -199,7 +191,7 @@ class FlowTestUserInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: The sid
+        :returns: Unique identifier of the flow.
         :rtype: unicode
         """
         return self._properties['sid']
@@ -207,15 +199,15 @@ class FlowTestUserInstance(InstanceResource):
     @property
     def test_users(self):
         """
-        :returns: The test_users
-        :rtype: unicode
+        :returns: List of test user identities that can test draft versions of the flow.
+        :rtype: list[unicode]
         """
         return self._properties['test_users']
 
     @property
     def url(self):
         """
-        :returns: The url
+        :returns: The URL of this resource.
         :rtype: unicode
         """
         return self._properties['url']
@@ -233,7 +225,7 @@ class FlowTestUserInstance(InstanceResource):
         """
         Update the FlowTestUserInstance
 
-        :param unicode test_users: The test_users
+        :param list[unicode] test_users: List of test user identities that can test draft versions of the flow.
 
         :returns: The updated FlowTestUserInstance
         :rtype: twilio.rest.studio.v2.flow.test_user.FlowTestUserInstance

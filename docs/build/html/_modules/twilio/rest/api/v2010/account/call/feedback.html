@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-MWRD6S');</script><!--End Google Tag Manager-->
 <meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<title>twilio.rest.api.v2010.account.call.feedback — twilio-python 6.50.1 documentation</title>
+<title>twilio.rest.api.v2010.account.call.feedback — twilio-python 6.51.1 documentation</title>
 <link href="../../../../../../../_static/alabaster.css" rel="stylesheet" type="text/css"/>
 <link href="../../../../../../../_static/pygments.css" rel="stylesheet" type="text/css"/>
 <script data-url_root="../../../../../../../" id="documentation_options" src="../../../../../../../_static/documentation_options.js" type="text/javascript"></script>
@@ -168,7 +168,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <span class="sd">        Create the FeedbackInstance</span>
 
 <span class="sd">        :param unicode quality_score: The call quality expressed as an integer from 1 to 5</span>
-<span class="sd">        :param FeedbackInstance.Issues issue: Issues experienced during the call</span>
+<span class="sd">        :param list[FeedbackInstance.Issues] issue: Issues experienced during the call</span>
 
 <span class="sd">        :returns: The created FeedbackInstance</span>
 <span class="sd">        :rtype: twilio.rest.api.v2010.account.call.feedback.FeedbackInstance</span>
@@ -205,7 +205,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <span class="sd">        Update the FeedbackInstance</span>
 
 <span class="sd">        :param unicode quality_score: The call quality expressed as an integer from 1 to 5</span>
-<span class="sd">        :param FeedbackInstance.Issues issue: Issues experienced during the call</span>
+<span class="sd">        :param list[FeedbackInstance.Issues] issue: Issues experienced during the call</span>
 
 <span class="sd">        :returns: The updated FeedbackInstance</span>
 <span class="sd">        :rtype: twilio.rest.api.v2010.account.call.feedback.FeedbackInstance</span>
@@ -312,7 +312,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
     <span class="k">def</span> <span class="nf">issues</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">"""</span>
 <span class="sd">        :returns: Issues experienced during the call</span>
-<span class="sd">        :rtype: FeedbackInstance.Issues</span>
+<span class="sd">        :rtype: list[FeedbackInstance.Issues]</span>
 <span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="p">[</span><span class="s1">'issues'</span><span class="p">]</span>
 
@@ -337,7 +337,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <span class="sd">        Create the FeedbackInstance</span>
 
 <span class="sd">        :param unicode quality_score: The call quality expressed as an integer from 1 to 5</span>
-<span class="sd">        :param FeedbackInstance.Issues issue: Issues experienced during the call</span>
+<span class="sd">        :param list[FeedbackInstance.Issues] issue: Issues experienced during the call</span>
 
 <span class="sd">        :returns: The created FeedbackInstance</span>
 <span class="sd">        :rtype: twilio.rest.api.v2010.account.call.feedback.FeedbackInstance</span>
@@ -358,7 +358,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <span class="sd">        Update the FeedbackInstance</span>
 
 <span class="sd">        :param unicode quality_score: The call quality expressed as an integer from 1 to 5</span>
-<span class="sd">        :param FeedbackInstance.Issues issue: Issues experienced during the call</span>
+<span class="sd">        :param list[FeedbackInstance.Issues] issue: Issues experienced during the call</span>
 
 <span class="sd">        :returns: The updated FeedbackInstance</span>
 <span class="sd">        :rtype: twilio.rest.api.v2010.account.call.feedback.FeedbackInstance</span>

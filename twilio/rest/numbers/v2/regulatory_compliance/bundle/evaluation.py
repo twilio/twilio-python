@@ -329,7 +329,7 @@ class EvaluationInstance(InstanceResource):
     def results(self):
         """
         :returns: The results of the Evaluation resource
-        :rtype: dict
+        :rtype: list[dict]
         """
         return self._properties['results']
 

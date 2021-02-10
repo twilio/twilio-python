@@ -35,7 +35,7 @@ class JobList(ListResource):
         """
         Constructs a JobContext
 
-        :param job_sid: The job_sid
+        :param job_sid: The unique string that that we created to identify the Bulk Export job
 
         :returns: twilio.rest.bulkexports.v1.export.job.JobContext
         :rtype: twilio.rest.bulkexports.v1.export.job.JobContext
@@ -46,7 +46,7 @@ class JobList(ListResource):
         """
         Constructs a JobContext
 
-        :param job_sid: The job_sid
+        :param job_sid: The unique string that that we created to identify the Bulk Export job
 
         :returns: twilio.rest.bulkexports.v1.export.job.JobContext
         :rtype: twilio.rest.bulkexports.v1.export.job.JobContext
@@ -112,7 +112,7 @@ class JobContext(InstanceContext):
         Initialize the JobContext
 
         :param Version version: Version that contains the resource
-        :param job_sid: The job_sid
+        :param job_sid: The unique string that that we created to identify the Bulk Export job
 
         :returns: twilio.rest.bulkexports.v1.export.job.JobContext
         :rtype: twilio.rest.bulkexports.v1.export.job.JobContext
@@ -201,7 +201,7 @@ class JobInstance(InstanceResource):
     @property
     def resource_type(self):
         """
-        :returns: The type of communication – Messages, Calls
+        :returns: The type of communication – Messages, Calls, Conferences, and Participants
         :rtype: unicode
         """
         return self._properties['resource_type']

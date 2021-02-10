@@ -123,8 +123,8 @@ class WebhookList(ListResource):
         :param WebhookInstance.Type type: The type of webhook
         :param unicode configuration_url: The URL of the webhook to call
         :param WebhookInstance.Method configuration_method: The HTTP method used to call `configuration.url`
-        :param unicode configuration_filters: The events that cause us to call the Channel Webhook
-        :param unicode configuration_triggers: A string that will cause us to call the webhook when it is found in a message body
+        :param list[unicode] configuration_filters: The events that cause us to call the Channel Webhook
+        :param list[unicode] configuration_triggers: A string that will cause us to call the webhook when it is found in a message body
         :param unicode configuration_flow_sid: The SID of the Studio Flow to call when an event occurs
         :param unicode configuration_retry_count: The number of times to retry the webhook if the first attempt fails
 
@@ -285,8 +285,8 @@ class WebhookContext(InstanceContext):
 
         :param unicode configuration_url: The URL of the webhook to call
         :param WebhookInstance.Method configuration_method: The HTTP method used to call `configuration.url`
-        :param unicode configuration_filters: The events that cause us to call the Channel Webhook
-        :param unicode configuration_triggers: A string that will cause us to call the webhook when it is found in a message body
+        :param list[unicode] configuration_filters: The events that cause us to call the Channel Webhook
+        :param list[unicode] configuration_triggers: A string that will cause us to call the webhook when it is found in a message body
         :param unicode configuration_flow_sid: The SID of the Studio Flow to call when an event occurs
         :param unicode configuration_retry_count: The number of times to retry the webhook if the first attempt fails
 
@@ -483,8 +483,8 @@ class WebhookInstance(InstanceResource):
 
         :param unicode configuration_url: The URL of the webhook to call
         :param WebhookInstance.Method configuration_method: The HTTP method used to call `configuration.url`
-        :param unicode configuration_filters: The events that cause us to call the Channel Webhook
-        :param unicode configuration_triggers: A string that will cause us to call the webhook when it is found in a message body
+        :param list[unicode] configuration_filters: The events that cause us to call the Channel Webhook
+        :param list[unicode] configuration_triggers: A string that will cause us to call the webhook when it is found in a message body
         :param unicode configuration_flow_sid: The SID of the Studio Flow to call when an event occurs
         :param unicode configuration_retry_count: The number of times to retry the webhook if the first attempt fails
 

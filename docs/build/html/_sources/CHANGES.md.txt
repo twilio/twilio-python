@@ -3,6 +3,42 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2021-01-27] Version 6.51.1
+---------------------------
+**Studio**
+- Studio V2 API is now GA
+
+**Supersim**
+- Allow updating `CommandsUrl` and `CommandsMethod` on a Fleet
+
+**Twiml**
+- Add `status_callback` and `status_callback_method` to `Stream`.
+
+
+[2021-01-13] Version 6.51.0
+---------------------------
+**Library - Docs**
+- [PR #555](https://github.com/twilio/twilio-python/pull/555): Fixing documentation for list parameter types. Thanks to [@shwetha-manvinkurke](https://github.com/shwetha-manvinkurke)!
+
+**Library - Fix**
+- [PR #552](https://github.com/twilio/twilio-python/pull/552): pin pyjwt dependency. Thanks to [@thinkingserious](https://github.com/thinkingserious)!
+
+**Api**
+- Add 'Electric Imp v1 Usage' to usage categories
+
+**Conversations**
+- Changed `last_read_message_index` type in Participant's resource **(breaking change)**
+
+**Insights**
+- Added `created_time` to call summary.
+
+**Sync**
+- Remove HideExpired query parameter for filtering Sync Documents with expired **(breaking change)**
+
+**Video**
+- [Rooms] Expose maxConcurrentPublishedTracks property in Room resource
+
+
 [2020-12-16] Version 6.50.1
 ---------------------------
 **Api**

@@ -21,7 +21,7 @@ class ExportCustomJobList(ListResource):
         Initialize the ExportCustomJobList
 
         :param Version version: Version that contains the resource
-        :param resource_type: The type of communication – Messages, Calls
+        :param resource_type: The type of communication – Messages, Calls, Conferences, and Participants
 
         :returns: twilio.rest.bulkexports.v1.export.export_custom_job.ExportCustomJobList
         :rtype: twilio.rest.bulkexports.v1.export.export_custom_job.ExportCustomJobList
@@ -161,7 +161,7 @@ class ExportCustomJobPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param resource_type: The type of communication – Messages, Calls
+        :param resource_type: The type of communication – Messages, Calls, Conferences, and Participants
 
         :returns: twilio.rest.bulkexports.v1.export.export_custom_job.ExportCustomJobPage
         :rtype: twilio.rest.bulkexports.v1.export.export_custom_job.ExportCustomJobPage
@@ -237,7 +237,7 @@ class ExportCustomJobInstance(InstanceResource):
     @property
     def resource_type(self):
         """
-        :returns: The type of communication – Messages, Calls
+        :returns: The type of communication – Messages, Calls, Conferences, and Participants
         :rtype: unicode
         """
         return self._properties['resource_type']

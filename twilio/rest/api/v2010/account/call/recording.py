@@ -41,7 +41,7 @@ class RecordingList(ListResource):
         """
         Create the RecordingInstance
 
-        :param unicode recording_status_callback_event: The recording status changes that should generate a callback
+        :param list[unicode] recording_status_callback_event: The recording status changes that should generate a callback
         :param unicode recording_status_callback: The callback URL on each selected recording event
         :param unicode recording_status_callback_method: The HTTP method we should use to call `recording_status_callback`
         :param unicode trim: Whether to trim the silence in the recording
