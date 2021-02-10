@@ -35,7 +35,7 @@ class Jwt(object):
         self.issuer = issuer
         """:type str: The issuer of this JWT"""
         self.subject = subject
-        """:type str: The subject of this JWT, ommited from payload by default"""
+        """:type str: The subject of this JWT, omitted from payload by default"""
         self.algorithm = algorithm
         """:type str: The algorithm used to encode the JWT, defaults to 'HS256'"""
         self.nbf = nbf
