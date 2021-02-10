@@ -17,8 +17,6 @@ from twilio.rest.sync.v1.service.document.document_permission import DocumentPer
 
 
 class DocumentList(ListResource):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
 
     def __init__(self, version, service_sid):
         """
@@ -163,8 +161,6 @@ class DocumentList(ListResource):
 
 
 class DocumentPage(Page):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
 
     def __init__(self, version, response, solution):
         """
@@ -204,8 +200,6 @@ class DocumentPage(Page):
 
 
 class DocumentContext(InstanceContext):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
 
     def __init__(self, version, service_sid, sid):
         """
@@ -243,18 +237,14 @@ class DocumentContext(InstanceContext):
             sid=self._solution['sid'],
         )
 
-    def delete(self, if_match=values.unset):
+    def delete(self):
         """
         Deletes the DocumentInstance
-
-        :param unicode if_match: The If-Match HTTP request header
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        headers = values.of({'If-Match': if_match, })
-
-        return self._version.delete(method='DELETE', uri=self._uri, headers=headers, )
+        return self._version.delete(method='DELETE', uri=self._uri, )
 
     def update(self, data=values.unset, ttl=values.unset, if_match=values.unset):
         """
@@ -307,8 +297,6 @@ class DocumentContext(InstanceContext):
 
 
 class DocumentInstance(InstanceResource):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
 
     def __init__(self, version, payload, service_sid, sid=None):
         """
@@ -461,16 +449,14 @@ class DocumentInstance(InstanceResource):
         """
         return self._proxy.fetch()
 
-    def delete(self, if_match=values.unset):
+    def delete(self):
         """
         Deletes the DocumentInstance
-
-        :param unicode if_match: The If-Match HTTP request header
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._proxy.delete(if_match=if_match, )
+        return self._proxy.delete()
 
     def update(self, data=values.unset, ttl=values.unset, if_match=values.unset):
         """

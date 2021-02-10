@@ -245,18 +245,14 @@ class DocumentContext(InstanceContext):
             sid=self._solution['sid'],
         )
 
-    def delete(self, if_match=values.unset):
+    def delete(self):
         """
         Deletes the DocumentInstance
-
-        :param unicode if_match: The If-Match HTTP request header
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        headers = values.of({'If-Match': if_match, })
-
-        return self._version.delete(method='DELETE', uri=self._uri, headers=headers, )
+        return self._version.delete(method='DELETE', uri=self._uri, )
 
     def update(self, data, if_match=values.unset):
         """
@@ -454,16 +450,14 @@ class DocumentInstance(InstanceResource):
         """
         return self._proxy.fetch()
 
-    def delete(self, if_match=values.unset):
+    def delete(self):
         """
         Deletes the DocumentInstance
-
-        :param unicode if_match: The If-Match HTTP request header
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._proxy.delete(if_match=if_match, )
+        return self._proxy.delete()
 
     def update(self, data, if_match=values.unset):
         """

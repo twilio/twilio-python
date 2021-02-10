@@ -19,8 +19,6 @@ from twilio.rest.sync.v1.service.sync_stream import SyncStreamList
 
 
 class ServiceList(ListResource):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
 
     def __init__(self, version):
         """
@@ -180,8 +178,6 @@ class ServiceList(ListResource):
 
 
 class ServicePage(Page):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
 
     def __init__(self, version, response, solution):
         """
@@ -220,8 +216,6 @@ class ServicePage(Page):
 
 
 class ServiceContext(InstanceContext):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
 
     def __init__(self, version, sid):
         """
@@ -358,8 +352,6 @@ class ServiceContext(InstanceContext):
 
 
 class ServiceInstance(InstanceResource):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
 
     def __init__(self, version, payload, sid=None):
         """

@@ -16,8 +16,6 @@ from twilio.rest.sync.v1.service.sync_stream.stream_message import StreamMessage
 
 
 class SyncStreamList(ListResource):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
 
     def __init__(self, version, service_sid):
         """
@@ -161,8 +159,6 @@ class SyncStreamList(ListResource):
 
 
 class SyncStreamPage(Page):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
 
     def __init__(self, version, response, solution):
         """
@@ -202,8 +198,6 @@ class SyncStreamPage(Page):
 
 
 class SyncStreamContext(InstanceContext):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
 
     def __init__(self, version, service_sid, sid):
         """
@@ -298,8 +292,6 @@ class SyncStreamContext(InstanceContext):
 
 
 class SyncStreamInstance(InstanceResource):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
 
     def __init__(self, version, payload, service_sid, sid=None):
         """

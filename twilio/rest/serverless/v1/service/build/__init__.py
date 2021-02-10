@@ -114,13 +114,14 @@ class BuildList(ListResource):
         return BuildPage(self._version, response, self._solution)
 
     def create(self, asset_versions=values.unset, function_versions=values.unset,
-               dependencies=values.unset):
+               dependencies=values.unset, runtime=values.unset):
         """
         Create the BuildInstance
 
         :param list[unicode] asset_versions: The list of Asset Version resource SIDs to include in the Build
         :param list[unicode] function_versions: The list of the Function Version resource SIDs to include in the Build
         :param unicode dependencies: A list of objects that describe the Dependencies included in the Build
+        :param unicode runtime: The Runtime version that will be used to run the Build.
 
         :returns: The created BuildInstance
         :rtype: twilio.rest.serverless.v1.service.build.BuildInstance
@@ -129,6 +130,7 @@ class BuildList(ListResource):
             'AssetVersions': serialize.map(asset_versions, lambda e: e),
             'FunctionVersions': serialize.map(function_versions, lambda e: e),
             'Dependencies': dependencies,
+            'Runtime': runtime,
         })
 
         payload = self._version.create(method='POST', uri=self._uri, data=data, )
@@ -293,6 +295,11 @@ class BuildInstance(InstanceResource):
         COMPLETED = "completed"
         FAILED = "failed"
 
+    class Runtime(object):
+        NODE8 = "node8"
+        NODE10 = "node10"
+        NODE12 = "node12"
+
     def __init__(self, version, payload, service_sid, sid=None):
         """
         Initialize the BuildInstance
@@ -311,6 +318,7 @@ class BuildInstance(InstanceResource):
             'asset_versions': payload.get('asset_versions'),
             'function_versions': payload.get('function_versions'),
             'dependencies': payload.get('dependencies'),
+            'runtime': payload.get('runtime'),
             'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
             'date_updated': deserialize.iso8601_datetime(payload.get('date_updated')),
             'url': payload.get('url'),
@@ -393,6 +401,14 @@ class BuildInstance(InstanceResource):
         :rtype: list[dict]
         """
         return self._properties['dependencies']
+
+    @property
+    def runtime(self):
+        """
+        :returns: The Runtime version that will be used to run the Build.
+        :rtype: BuildInstance.Runtime
+        """
+        return self._properties['runtime']
 
     @property
     def date_created(self):

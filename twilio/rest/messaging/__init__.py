@@ -37,6 +37,20 @@ class Messaging(Domain):
         return self._v1
 
     @property
+    def brand_registrations(self):
+        """
+        :rtype: twilio.rest.messaging.v1.brand_registration.BrandRegistrationList
+        """
+        return self.v1.brand_registrations
+
+    @property
+    def campaigns(self):
+        """
+        :rtype: twilio.rest.messaging.v1.campaign.CampaignList
+        """
+        return self.v1.campaigns
+
+    @property
     def deactivations(self):
         """
         :rtype: twilio.rest.messaging.v1.deactivation.DeactivationsList
@@ -49,6 +63,13 @@ class Messaging(Domain):
         :rtype: twilio.rest.messaging.v1.service.ServiceList
         """
         return self.v1.services
+
+    @property
+    def use_cases(self):
+        """
+        :rtype: twilio.rest.messaging.v1.use_case.UseCaseList
+        """
+        return self.v1.use_cases
 
     def __repr__(self):
         """

@@ -14,8 +14,6 @@ from twilio.base.page import Page
 
 
 class DocumentPermissionList(ListResource):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
 
     def __init__(self, version, service_sid, document_sid):
         """
@@ -154,8 +152,6 @@ class DocumentPermissionList(ListResource):
 
 
 class DocumentPermissionPage(Page):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
 
     def __init__(self, version, response, solution):
         """
@@ -201,8 +197,6 @@ class DocumentPermissionPage(Page):
 
 
 class DocumentPermissionContext(InstanceContext):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
 
     def __init__(self, version, service_sid, document_sid, identity):
         """
@@ -283,8 +277,6 @@ class DocumentPermissionContext(InstanceContext):
 
 
 class DocumentPermissionInstance(InstanceResource):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
 
     def __init__(self, version, payload, service_sid, document_sid, identity=None):
         """
