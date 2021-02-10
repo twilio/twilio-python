@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-MWRD6S');</script><!--End Google Tag Manager-->
 <meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<title>twilio.rest.messaging package — twilio-python 6.51.1 documentation</title>
+<title>twilio.rest.messaging package — twilio-python 6.52.0 documentation</title>
 <link href="../../../_static/alabaster.css" rel="stylesheet" type="text/css"/>
 <link href="../../../_static/pygments.css" rel="stylesheet" type="text/css"/>
 <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js" type="text/javascript"></script>
@@ -48,7 +48,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="twilio.rest.messaging.v1.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="twilio.rest.messaging.v1.html#module-twilio.rest.messaging.v1.brand_registration">twilio.rest.messaging.v1.brand_registration module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="twilio.rest.messaging.v1.html#module-twilio.rest.messaging.v1.campaign">twilio.rest.messaging.v1.campaign module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="twilio.rest.messaging.v1.html#module-twilio.rest.messaging.v1.deactivation">twilio.rest.messaging.v1.deactivation module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="twilio.rest.messaging.v1.html#module-twilio.rest.messaging.v1.use_case">twilio.rest.messaging.v1.use_case module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="twilio.rest.messaging.v1.html#module-twilio.rest.messaging.v1">Module contents</a></li>
 </ul>
 </li>
@@ -70,6 +73,30 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <em class="property">class </em><code class="descclassname">twilio.rest.messaging.</code><code class="descname">Messaging</code><span class="sig-paren">(</span><em>twilio</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/messaging.html#Messaging"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.messaging.Messaging" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="twilio.base.html#twilio.base.domain.Domain" title="twilio.base.domain.Domain"><code class="xref py py-class docutils literal notranslate"><span class="pre">twilio.base.domain.Domain</span></code></a></p>
 <dl class="attribute">
+<dt id="twilio.rest.messaging.Messaging.brand_registrations">
+<code class="descname">brand_registrations</code><a class="headerlink" href="#twilio.rest.messaging.Messaging.brand_registrations" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="twilio.rest.messaging.v1.html#twilio.rest.messaging.v1.brand_registration.BrandRegistrationList" title="twilio.rest.messaging.v1.brand_registration.BrandRegistrationList">twilio.rest.messaging.v1.brand_registration.BrandRegistrationList</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+<dl class="attribute">
+<dt id="twilio.rest.messaging.Messaging.campaigns">
+<code class="descname">campaigns</code><a class="headerlink" href="#twilio.rest.messaging.Messaging.campaigns" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="twilio.rest.messaging.v1.html#twilio.rest.messaging.v1.campaign.CampaignList" title="twilio.rest.messaging.v1.campaign.CampaignList">twilio.rest.messaging.v1.campaign.CampaignList</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+<dl class="attribute">
 <dt id="twilio.rest.messaging.Messaging.deactivations">
 <code class="descname">deactivations</code><a class="headerlink" href="#twilio.rest.messaging.Messaging.deactivations" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
@@ -89,6 +116,18 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <col class="field-body"/>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="twilio.rest.messaging.v1.service.html#twilio.rest.messaging.v1.service.ServiceList" title="twilio.rest.messaging.v1.service.ServiceList">twilio.rest.messaging.v1.service.ServiceList</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+<dl class="attribute">
+<dt id="twilio.rest.messaging.Messaging.use_cases">
+<code class="descname">use_cases</code><a class="headerlink" href="#twilio.rest.messaging.Messaging.use_cases" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="twilio.rest.messaging.v1.html#twilio.rest.messaging.v1.use_case.UseCaseList" title="twilio.rest.messaging.v1.use_case.UseCaseList">twilio.rest.messaging.v1.use_case.UseCaseList</a></td>
 </tr>
 </tbody>
 </table>

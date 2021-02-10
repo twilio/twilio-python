@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-MWRD6S');</script><!--End Google Tag Manager-->
 <meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<title>twilio.twiml package — twilio-python 6.51.1 documentation</title>
+<title>twilio.twiml package — twilio-python 6.52.0 documentation</title>
 <link href="../../../_static/alabaster.css" rel="stylesheet" type="text/css"/>
 <link href="../../../_static/pygments.css" rel="stylesheet" type="text/css"/>
 <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js" type="text/javascript"></script>
@@ -1569,7 +1569,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 </dd></dl>
 <dl class="method">
 <dt id="twilio.twiml.voice_response.VoiceResponse.dial">
-<code class="descname">dial</code><span class="sig-paren">(</span><em>number=None</em>, <em>action=None</em>, <em>method=None</em>, <em>timeout=None</em>, <em>hangup_on_star=None</em>, <em>time_limit=None</em>, <em>caller_id=None</em>, <em>record=None</em>, <em>trim=None</em>, <em>recording_status_callback=None</em>, <em>recording_status_callback_method=None</em>, <em>recording_status_callback_event=None</em>, <em>answer_on_bridge=None</em>, <em>ring_tone=None</em>, <em>recording_track=None</em>, <em>sequential=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/twiml/voice_response.html#VoiceResponse.dial"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.twiml.voice_response.VoiceResponse.dial" title="Permalink to this definition">¶</a></dt>
+<code class="descname">dial</code><span class="sig-paren">(</span><em>number=None</em>, <em>action=None</em>, <em>method=None</em>, <em>timeout=None</em>, <em>hangup_on_star=None</em>, <em>time_limit=None</em>, <em>caller_id=None</em>, <em>record=None</em>, <em>trim=None</em>, <em>recording_status_callback=None</em>, <em>recording_status_callback_method=None</em>, <em>recording_status_callback_event=None</em>, <em>answer_on_bridge=None</em>, <em>ring_tone=None</em>, <em>recording_track=None</em>, <em>sequential=None</em>, <em>refer_url=None</em>, <em>refer_method=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/twiml/voice_response.html#VoiceResponse.dial"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.twiml.voice_response.VoiceResponse.dial" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create a &lt;Dial&gt; element</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name"/>
@@ -1592,6 +1592,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <li><strong>ring_tone</strong> – Ringtone allows you to override the ringback tone that Twilio will play back to the caller while executing the Dial</li>
 <li><strong>recording_track</strong> – To indicate which audio track should be recorded</li>
 <li><strong>sequential</strong> – Used to determine if child TwiML nouns should be dialed in order, one after the other (sequential) or dial all at once (parallel). Default is false, parallel</li>
+<li><strong>refer_url</strong> – Webhook that will receive future SIP REFER requests</li>
+<li><strong>refer_method</strong> – The HTTP method to use for the refer Webhook</li>
 <li><strong>kwargs</strong> – additional attributes</li>
 </ul>
 </td>
