@@ -27,7 +27,7 @@ setup(
     install_requires=[
         "six",
         "pytz",
-        "PyJWT >= 2.0.0",
+        "PyJWT >= 2.0.0, < 3.0.0",
     ],
     extras_require={
         ':python_version<"3.0"': [
