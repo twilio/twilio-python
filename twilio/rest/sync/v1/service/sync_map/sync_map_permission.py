@@ -14,8 +14,6 @@ from twilio.base.page import Page
 
 
 class SyncMapPermissionList(ListResource):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
 
     def __init__(self, version, service_sid, map_sid):
         """
@@ -154,8 +152,6 @@ class SyncMapPermissionList(ListResource):
 
 
 class SyncMapPermissionPage(Page):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
 
     def __init__(self, version, response, solution):
         """
@@ -201,8 +197,6 @@ class SyncMapPermissionPage(Page):
 
 
 class SyncMapPermissionContext(InstanceContext):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
 
     def __init__(self, version, service_sid, map_sid, identity):
         """
@@ -283,8 +277,6 @@ class SyncMapPermissionContext(InstanceContext):
 
 
 class SyncMapPermissionInstance(InstanceResource):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
 
     def __init__(self, version, payload, service_sid, map_sid, identity=None):
         """

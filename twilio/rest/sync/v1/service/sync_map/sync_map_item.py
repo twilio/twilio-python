@@ -16,8 +16,6 @@ from twilio.base.page import Page
 
 
 class SyncMapItemList(ListResource):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
 
     def __init__(self, version, service_sid, map_sid):
         """
@@ -206,8 +204,6 @@ class SyncMapItemList(ListResource):
 
 
 class SyncMapItemPage(Page):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
 
     def __init__(self, version, response, solution):
         """
@@ -253,8 +249,6 @@ class SyncMapItemPage(Page):
 
 
 class SyncMapItemContext(InstanceContext):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
 
     def __init__(self, version, service_sid, map_sid, key):
         """
@@ -348,8 +342,6 @@ class SyncMapItemContext(InstanceContext):
 
 
 class SyncMapItemInstance(InstanceResource):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
 
     class QueryResultOrder(object):
         ASC = "asc"

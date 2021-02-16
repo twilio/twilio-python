@@ -215,6 +215,8 @@ class ConfigurationInstance(InstanceResource):
             'outbound_call_flows': payload.get('outbound_call_flows'),
             'serverless_service_sids': payload.get('serverless_service_sids'),
             'queue_stats_configuration': payload.get('queue_stats_configuration'),
+            'notifications': payload.get('notifications'),
+            'markdown': payload.get('markdown'),
             'url': payload.get('url'),
         }
 
@@ -522,6 +524,22 @@ class ConfigurationInstance(InstanceResource):
         :rtype: dict
         """
         return self._properties['queue_stats_configuration']
+
+    @property
+    def notifications(self):
+        """
+        :returns: Configurable parameters for Notifications
+        :rtype: dict
+        """
+        return self._properties['notifications']
+
+    @property
+    def markdown(self):
+        """
+        :returns: Configurable parameters for Markdown
+        :rtype: dict
+        """
+        return self._properties['markdown']
 
     @property
     def url(self):
