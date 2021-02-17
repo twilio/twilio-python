@@ -3,7 +3,7 @@ from collections import namedtuple
 from requests import Request, Session
 
 from twilio.base.exceptions import TwilioRestException
-from twilio.compat import urlparse
+from urllib.parse import urlparse
 from twilio.http import HttpClient
 from twilio.http.response import Response
 from twilio.jwt.validation import ClientValidationJwt

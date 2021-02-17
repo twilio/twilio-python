@@ -1,7 +1,6 @@
 from twilio.jwt import Jwt
 
-from six import iteritems
-from twilio.compat import urlencode
+from urllib.parse import urlencode
 
 
 class ClientCapabilityToken(Jwt):
@@ -94,7 +93,7 @@ class ScopeURI(object):
 
     def to_payload(self):
         if self.params:
-            sorted_params = sorted([(k, v) for k, v in iteritems(self.params)])
+            sorted_params = sorted([(k, v) for k, v in self.params.items()])
             encoded_params = urlencode(sorted_params)
             param_string = '?{}'.format(encoded_params)
         else:

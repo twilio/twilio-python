@@ -1,5 +1,4 @@
 from hashlib import sha256
-from six import string_types
 
 from twilio.jwt import Jwt
 
@@ -73,7 +72,7 @@ class ClientValidationJwt(Jwt):
 
     @classmethod
     def _sort_and_join(cls, values, joiner):
-        if isinstance(values, string_types):
+        if isinstance(values, str):
             return values
         return joiner.join(sorted(values))
 

@@ -1,12 +1,6 @@
 import hmac
 import sys
 
-from twilio.jwt import compat
-
-if sys.version_info[0] == 3 and sys.version_info[1] == 2:
-    # PyJWT expects hmac.compare_digest to exist even under python 3.2
-    hmac.compare_digest = compat.compare_digest
-
 import jwt as jwt_lib
 
 try:
