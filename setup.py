@@ -1,10 +1,6 @@
 from __future__ import with_statement
 from setuptools import setup, find_packages
 
-__version__ = None
-with open('twilio/__init__.py') as f:
-    exec(f.read())
-
 with open('README.md') as f:
     long_description = f.read()
 
@@ -18,7 +14,7 @@ with open('README.md') as f:
 
 setup(
     name="twilio",
-    version=__version__,
+    version="6.52.0",
     description="Twilio API client and TwiML generator",
     author="Twilio",
     author_email="help@twilio.com",
