@@ -19,26 +19,10 @@ twilio.rest.messaging.v1.brand\_registration module
     :undoc-members:
     :show-inheritance:
 
-twilio.rest.messaging.v1.campaign module
-----------------------------------------
-
-.. automodule:: twilio.rest.messaging.v1.campaign
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
 twilio.rest.messaging.v1.deactivation module
 --------------------------------------------
 
 .. automodule:: twilio.rest.messaging.v1.deactivation
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-twilio.rest.messaging.v1.use\_case module
------------------------------------------
-
-.. automodule:: twilio.rest.messaging.v1.use_case
     :members:
     :undoc-members:
     :show-inheritance:

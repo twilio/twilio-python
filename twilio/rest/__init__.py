@@ -82,6 +82,7 @@ class Client(object):
         self._sync = None
         self._taskrouter = None
         self._trunking = None
+        self._trusthub = None
         self._verify = None
         self._video = None
         self._voice = None
@@ -469,6 +470,19 @@ class Client(object):
             from twilio.rest.trunking import Trunking
             self._trunking = Trunking(self)
         return self._trunking
+
+    @property
+    def trusthub(self):
+        """
+        Access the Trusthub Twilio Domain
+
+        :returns: Trusthub Twilio Domain
+        :rtype: twilio.rest.trusthub.Trusthub
+        """
+        if self._trusthub is None:
+            from twilio.rest.trusthub import Trusthub
+            self._trusthub = Trusthub(self)
+        return self._trusthub
 
     @property
     def verify(self):

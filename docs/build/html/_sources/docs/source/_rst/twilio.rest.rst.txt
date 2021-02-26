@@ -31,6 +31,7 @@ Subpackages
     twilio.rest.sync
     twilio.rest.taskrouter
     twilio.rest.trunking
+    twilio.rest.trusthub
     twilio.rest.verify
     twilio.rest.video
     twilio.rest.voice

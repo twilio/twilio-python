@@ -1,0 +1,38 @@
+twilio.rest.trusthub.v1.customer\_profiles package
+==================================================
+
+Submodules
+----------
+
+twilio.rest.trusthub.v1.customer\_profiles.customer\_profiles\_channel\_endpoint\_assignment module
+---------------------------------------------------------------------------------------------------
+
+.. automodule:: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_channel_endpoint_assignment
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+twilio.rest.trusthub.v1.customer\_profiles.customer\_profiles\_entity\_assignments module
+-----------------------------------------------------------------------------------------
+
+.. automodule:: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_entity_assignments
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+twilio.rest.trusthub.v1.customer\_profiles.customer\_profiles\_evaluations module
+---------------------------------------------------------------------------------
+
+.. automodule:: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_evaluations
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: twilio.rest.trusthub.v1.customer_profiles
+    :members:
+    :undoc-members:
+    :show-inheritance:

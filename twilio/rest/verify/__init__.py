@@ -50,6 +50,13 @@ class Verify(Domain):
         """
         return self.v2.services
 
+    @property
+    def verification_attempts(self):
+        """
+        :rtype: twilio.rest.verify.v2.verification_attempt.VerificationAttemptList
+        """
+        return self.v2.verification_attempts
+
     def __repr__(self):
         """
         Provide a friendly representation
