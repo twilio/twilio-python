@@ -1,0 +1,38 @@
+twilio.rest.trusthub.v1.trust\_products package
+===============================================
+
+Submodules
+----------
+
+twilio.rest.trusthub.v1.trust\_products.trust\_products\_channel\_endpoint\_assignment module
+---------------------------------------------------------------------------------------------
+
+.. automodule:: twilio.rest.trusthub.v1.trust_products.trust_products_channel_endpoint_assignment
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+twilio.rest.trusthub.v1.trust\_products.trust\_products\_entity\_assignments module
+-----------------------------------------------------------------------------------
+
+.. automodule:: twilio.rest.trusthub.v1.trust_products.trust_products_entity_assignments
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+twilio.rest.trusthub.v1.trust\_products.trust\_products\_evaluations module
+---------------------------------------------------------------------------
+
+.. automodule:: twilio.rest.trusthub.v1.trust_products.trust_products_evaluations
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: twilio.rest.trusthub.v1.trust_products
+    :members:
+    :undoc-members:
+    :show-inheritance:

@@ -3,6 +3,26 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2021-02-24] Version 6.53.0
+---------------------------
+**Library - Chore**
+- [PR #561](https://github.com/twilio/twilio-python/pull/561): removed file exec to get version. Thanks to [@shwetha-manvinkurke](https://github.com/shwetha-manvinkurke)!
+
+**Events**
+- Update description of types in the create sink resource
+
+**Messaging**
+- Add WA template header and footer
+- Remove A2P campaign and use cases API **(breaking change)**
+- Add number_registration_status field to read and fetch campaign responses
+
+**Trusthub**
+- Make all resources public
+
+**Verify**
+- Verify List Attempts API endpoints added.
+
+
 [2021-02-10] Version 6.52.0
 ---------------------------
 **Library - Docs**

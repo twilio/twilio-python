@@ -19,6 +19,14 @@ twilio.rest.verify.v2.form module
     :undoc-members:
     :show-inheritance:
 
+twilio.rest.verify.v2.verification\_attempt module
+--------------------------------------------------
+
+.. automodule:: twilio.rest.verify.v2.verification_attempt
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 
 Module contents
 ---------------
