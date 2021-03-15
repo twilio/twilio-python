@@ -30,7 +30,7 @@ class FactorTestCase(IntegrationTestCase):
             data=values,
         ))
 
-    def test_create_response(self):
+    def test_create_push_response(self):
         self.holodeck.mock(Response(
             201,
             '''
@@ -100,7 +100,7 @@ class FactorTestCase(IntegrationTestCase):
             'https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Entities/identity/Factors/YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
         ))
 
-    def test_fetch_response(self):
+    def test_fetch_push_response(self):
         self.holodeck.mock(Response(
             200,
             '''
@@ -228,7 +228,7 @@ class FactorTestCase(IntegrationTestCase):
             'https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Entities/identity/Factors/YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
         ))
 
-    def test_verify_response(self):
+    def test_verify_push_response(self):
         self.holodeck.mock(Response(
             200,
             '''

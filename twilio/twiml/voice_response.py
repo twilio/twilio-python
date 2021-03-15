@@ -1562,6 +1562,35 @@ class Connect(TwiML):
             **kwargs
         ))
 
+    def virtual_agent(self, connector_name=None, language=None,
+                      sentiment_analysis=None, status_callback=None, **kwargs):
+        """
+        Create a <VirtualAgent> element
+
+        :param connector_name: Defines the conversation profile Dialogflow needs to use
+        :param language: Language to be used by Dialogflow to transcribe speech
+        :param sentiment_analysis: Whether sentiment analysis needs to be enabled or not
+        :param status_callback: URL to post status callbacks from Twilio
+        :param kwargs: additional attributes
+
+        :returns: <VirtualAgent> element
+        """
+        return self.nest(VirtualAgent(
+            connector_name=connector_name,
+            language=language,
+            sentiment_analysis=sentiment_analysis,
+            status_callback=status_callback,
+            **kwargs
+        ))
+
+
+class VirtualAgent(TwiML):
+    """ <VirtualAgent> TwiML Noun """
+
+    def __init__(self, **kwargs):
+        super(VirtualAgent, self).__init__(**kwargs)
+        self.name = 'VirtualAgent'
+
 
 class Autopilot(TwiML):
     """ <Autopilot> TwiML Noun """

@@ -412,7 +412,7 @@ class ParticipantInstance(InstanceResource):
     @property
     def identifier(self):
         """
-        :returns: The phone number of the Participant
+        :returns: The phone number or channel identifier of the Participant
         :rtype: unicode
         """
         return self._properties['identifier']

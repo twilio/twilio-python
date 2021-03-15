@@ -23,7 +23,7 @@ class ParticipantList(ListResource):
         Initialize the ParticipantList
 
         :param Version version: Version that contains the resource
-        :param room_sid: The room_sid
+        :param room_sid: Unique identifier for the room.
 
         :returns: twilio.rest.insights.v1.room.participant.ParticipantList
         :rtype: twilio.rest.insights.v1.room.participant.ParticipantList
@@ -115,7 +115,7 @@ class ParticipantList(ListResource):
         """
         Constructs a ParticipantContext
 
-        :param participant_sid: The participant_sid
+        :param participant_sid: The SID of the Participant resource.
 
         :returns: twilio.rest.insights.v1.room.participant.ParticipantContext
         :rtype: twilio.rest.insights.v1.room.participant.ParticipantContext
@@ -130,7 +130,7 @@ class ParticipantList(ListResource):
         """
         Constructs a ParticipantContext
 
-        :param participant_sid: The participant_sid
+        :param participant_sid: The SID of the Participant resource.
 
         :returns: twilio.rest.insights.v1.room.participant.ParticipantContext
         :rtype: twilio.rest.insights.v1.room.participant.ParticipantContext
@@ -161,7 +161,7 @@ class ParticipantPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param room_sid: The room_sid
+        :param room_sid: Unique identifier for the room.
 
         :returns: twilio.rest.insights.v1.room.participant.ParticipantPage
         :rtype: twilio.rest.insights.v1.room.participant.ParticipantPage
@@ -201,8 +201,8 @@ class ParticipantContext(InstanceContext):
         Initialize the ParticipantContext
 
         :param Version version: Version that contains the resource
-        :param room_sid: The room_sid
-        :param participant_sid: The participant_sid
+        :param room_sid: The SID of the Room resource.
+        :param participant_sid: The SID of the Participant resource.
 
         :returns: twilio.rest.insights.v1.room.participant.ParticipantContext
         :rtype: twilio.rest.insights.v1.room.participant.ParticipantContext
@@ -333,7 +333,7 @@ class ParticipantInstance(InstanceResource):
     @property
     def participant_sid(self):
         """
-        :returns: The participant_sid
+        :returns: Unique identifier for the participant.
         :rtype: unicode
         """
         return self._properties['participant_sid']
@@ -341,7 +341,7 @@ class ParticipantInstance(InstanceResource):
     @property
     def participant_identity(self):
         """
-        :returns: The participant_identity
+        :returns: The application-defined string that uniquely identifies the participant within a Room.
         :rtype: unicode
         """
         return self._properties['participant_identity']
@@ -349,7 +349,7 @@ class ParticipantInstance(InstanceResource):
     @property
     def join_time(self):
         """
-        :returns: The join_time
+        :returns: When the participant joined the room.
         :rtype: datetime
         """
         return self._properties['join_time']
@@ -357,7 +357,7 @@ class ParticipantInstance(InstanceResource):
     @property
     def leave_time(self):
         """
-        :returns: The leave_time
+        :returns: When the participant left the room
         :rtype: datetime
         """
         return self._properties['leave_time']
@@ -365,7 +365,7 @@ class ParticipantInstance(InstanceResource):
     @property
     def duration_sec(self):
         """
-        :returns: The duration_sec
+        :returns: Amount of time in seconds the participant was in the room.
         :rtype: unicode
         """
         return self._properties['duration_sec']
@@ -373,7 +373,7 @@ class ParticipantInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The account_sid
+        :returns: Account SID associated with the room.
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -381,7 +381,7 @@ class ParticipantInstance(InstanceResource):
     @property
     def room_sid(self):
         """
-        :returns: The room_sid
+        :returns: Unique identifier for the room.
         :rtype: unicode
         """
         return self._properties['room_sid']
@@ -389,7 +389,7 @@ class ParticipantInstance(InstanceResource):
     @property
     def status(self):
         """
-        :returns: The status
+        :returns: Status of the room.
         :rtype: ParticipantInstance.RoomStatus
         """
         return self._properties['status']
@@ -397,7 +397,7 @@ class ParticipantInstance(InstanceResource):
     @property
     def codecs(self):
         """
-        :returns: The codecs
+        :returns: Codecs detected from the participant.
         :rtype: list[ParticipantInstance.Codec]
         """
         return self._properties['codecs']
@@ -405,7 +405,7 @@ class ParticipantInstance(InstanceResource):
     @property
     def end_reason(self):
         """
-        :returns: The end_reason
+        :returns: Reason the participant left the room.
         :rtype: unicode
         """
         return self._properties['end_reason']
@@ -413,7 +413,7 @@ class ParticipantInstance(InstanceResource):
     @property
     def error_code(self):
         """
-        :returns: The error_code
+        :returns: Errors encountered by the participant.
         :rtype: unicode
         """
         return self._properties['error_code']
@@ -421,7 +421,7 @@ class ParticipantInstance(InstanceResource):
     @property
     def error_code_url(self):
         """
-        :returns: The error_code_url
+        :returns: Twilio error code dictionary link.
         :rtype: unicode
         """
         return self._properties['error_code_url']
@@ -429,7 +429,7 @@ class ParticipantInstance(InstanceResource):
     @property
     def media_region(self):
         """
-        :returns: The media_region
+        :returns: Twilio media region the participant connected to.
         :rtype: ParticipantInstance.TwilioRealm
         """
         return self._properties['media_region']
@@ -437,7 +437,7 @@ class ParticipantInstance(InstanceResource):
     @property
     def properties(self):
         """
-        :returns: The properties
+        :returns: Object containing information about the participant's data from the room.
         :rtype: dict
         """
         return self._properties['properties']
@@ -445,7 +445,7 @@ class ParticipantInstance(InstanceResource):
     @property
     def edge_location(self):
         """
-        :returns: The edge_location
+        :returns: Name of the edge location the participant connected to.
         :rtype: ParticipantInstance.EdgeLocation
         """
         return self._properties['edge_location']
@@ -453,7 +453,7 @@ class ParticipantInstance(InstanceResource):
     @property
     def publisher_info(self):
         """
-        :returns: The publisher_info
+        :returns: Object containing information about the SDK name and version.
         :rtype: dict
         """
         return self._properties['publisher_info']
@@ -461,7 +461,7 @@ class ParticipantInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: The url
+        :returns: URL of the participant resource.
         :rtype: unicode
         """
         return self._properties['url']

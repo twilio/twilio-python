@@ -337,6 +337,7 @@ class ChallengeInstance(InstanceResource):
 
     class FactorTypes(object):
         PUSH = "push"
+        TOTP = "totp"
 
     def __init__(self, version, payload, service_sid, identity, sid=None):
         """
