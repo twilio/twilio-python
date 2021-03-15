@@ -3,6 +3,27 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2021-03-15] Version 6.54.0
+---------------------------
+**Library - Chore**
+- [PR #563](https://github.com/twilio/twilio-python/pull/563): Add support for python 3.9. Thanks to [@tim-schilling](https://github.com/tim-schilling)!
+
+**Events**
+- Set maturity to beta
+
+**Messaging**
+- Adjust A2P brand registration status enum **(breaking change)**
+
+**Studio**
+- Remove internal safeguards for Studio V2 API usage now that it's GA
+
+**Verify**
+- Add support for creating and verifying totp factors. Support for totp factors is behind the `api.verify.totp` beta feature.
+
+**Twiml**
+- Add support for `<VirtualAgent>` noun
+
+
 [2021-02-24] Version 6.53.0
 ---------------------------
 **Library - Chore**

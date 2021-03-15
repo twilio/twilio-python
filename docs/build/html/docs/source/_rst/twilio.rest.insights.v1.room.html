@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-MWRD6S');</script><!--End Google Tag Manager-->
 <meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<title>twilio.rest.insights.v1.room package — twilio-python 6.53.0 documentation</title>
+<title>twilio.rest.insights.v1.room package — twilio-python 6.54.0 documentation</title>
 <link href="../../../_static/alabaster.css" rel="stylesheet" type="text/css"/>
 <link href="../../../_static/pygments.css" rel="stylesheet" type="text/css"/>
 <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js" type="text/javascript"></script>
@@ -195,7 +195,7 @@ change. Use them with caution.</p>
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The account_sid</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Account SID associated with the room.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">unicode</td>
 </tr>
@@ -209,7 +209,7 @@ change. Use them with caution.</p>
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The codecs</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Codecs detected from the participant.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)">list</a>[<a class="reference internal" href="#twilio.rest.insights.v1.room.participant.ParticipantInstance.Codec" title="twilio.rest.insights.v1.room.participant.ParticipantInstance.Codec">ParticipantInstance.Codec</a>]</td>
 </tr>
@@ -223,7 +223,7 @@ change. Use them with caution.</p>
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The duration_sec</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Amount of time in seconds the participant was in the room.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">unicode</td>
 </tr>
@@ -237,7 +237,7 @@ change. Use them with caution.</p>
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The edge_location</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Name of the edge location the participant connected to.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#twilio.rest.insights.v1.room.participant.ParticipantInstance.EdgeLocation" title="twilio.rest.insights.v1.room.participant.ParticipantInstance.EdgeLocation">ParticipantInstance.EdgeLocation</a></td>
 </tr>
@@ -251,7 +251,7 @@ change. Use them with caution.</p>
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The end_reason</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Reason the participant left the room.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">unicode</td>
 </tr>
@@ -265,7 +265,7 @@ change. Use them with caution.</p>
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The error_code</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Errors encountered by the participant.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">unicode</td>
 </tr>
@@ -279,7 +279,7 @@ change. Use them with caution.</p>
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The error_code_url</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Twilio error code dictionary link.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">unicode</td>
 </tr>
@@ -308,7 +308,7 @@ change. Use them with caution.</p>
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The join_time</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">When the participant joined the room.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">datetime</td>
 </tr>
@@ -322,7 +322,7 @@ change. Use them with caution.</p>
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The leave_time</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">When the participant left the room</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">datetime</td>
 </tr>
@@ -336,7 +336,7 @@ change. Use them with caution.</p>
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The media_region</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Twilio media region the participant connected to.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#twilio.rest.insights.v1.room.participant.ParticipantInstance.TwilioRealm" title="twilio.rest.insights.v1.room.participant.ParticipantInstance.TwilioRealm">ParticipantInstance.TwilioRealm</a></td>
 </tr>
@@ -350,7 +350,7 @@ change. Use them with caution.</p>
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The participant_identity</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The application-defined string that uniquely identifies the participant within a Room.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">unicode</td>
 </tr>
@@ -364,7 +364,7 @@ change. Use them with caution.</p>
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The participant_sid</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Unique identifier for the participant.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">unicode</td>
 </tr>
@@ -378,7 +378,7 @@ change. Use them with caution.</p>
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The properties</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Object containing information about the participant’s data from the room.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)">dict</a></td>
 </tr>
@@ -392,7 +392,7 @@ change. Use them with caution.</p>
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The publisher_info</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Object containing information about the SDK name and version.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)">dict</a></td>
 </tr>
@@ -406,7 +406,7 @@ change. Use them with caution.</p>
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The room_sid</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Unique identifier for the room.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">unicode</td>
 </tr>
@@ -420,7 +420,7 @@ change. Use them with caution.</p>
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The status</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Status of the room.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#twilio.rest.insights.v1.room.participant.ParticipantInstance.RoomStatus" title="twilio.rest.insights.v1.room.participant.ParticipantInstance.RoomStatus">ParticipantInstance.RoomStatus</a></td>
 </tr>
@@ -434,7 +434,7 @@ change. Use them with caution.</p>
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The url</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">URL of the participant resource.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">unicode</td>
 </tr>
@@ -456,7 +456,7 @@ change. Use them with caution.</p>
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>participant_sid</strong> – The participant_sid</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>participant_sid</strong> – The SID of the Participant resource.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">twilio.rest.insights.v1.room.participant.ParticipantContext</td>
 </tr>
@@ -833,7 +833,7 @@ change. Use them with caution.</p>
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The account_sid</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Account SID associated with this room.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">unicode</td>
 </tr>
@@ -847,7 +847,7 @@ change. Use them with caution.</p>
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The codecs</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Codecs used by participants in the room.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)">list</a>[<a class="reference internal" href="#twilio.rest.insights.v1.room.RoomInstance.Codec" title="twilio.rest.insights.v1.room.RoomInstance.Codec">RoomInstance.Codec</a>]</td>
 </tr>
@@ -861,7 +861,7 @@ change. Use them with caution.</p>
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The concurrent_participants</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Actual number of concurrent participants.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">unicode</td>
 </tr>
@@ -875,7 +875,7 @@ change. Use them with caution.</p>
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The create_time</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Creation time of the room.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">datetime</td>
 </tr>
@@ -889,7 +889,7 @@ change. Use them with caution.</p>
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The created_method</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">How the room was created.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#twilio.rest.insights.v1.room.RoomInstance.CreatedMethod" title="twilio.rest.insights.v1.room.RoomInstance.CreatedMethod">RoomInstance.CreatedMethod</a></td>
 </tr>
@@ -903,7 +903,7 @@ change. Use them with caution.</p>
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The duration_sec</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Total room duration from create time to end time.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">unicode</td>
 </tr>
@@ -917,7 +917,7 @@ change. Use them with caution.</p>
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The edge_location</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Edge location of Twilio media servers for the room.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#twilio.rest.insights.v1.room.RoomInstance.EdgeLocation" title="twilio.rest.insights.v1.room.RoomInstance.EdgeLocation">RoomInstance.EdgeLocation</a></td>
 </tr>
@@ -931,7 +931,7 @@ change. Use them with caution.</p>
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The end_reason</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Reason the room ended.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#twilio.rest.insights.v1.room.RoomInstance.EndReason" title="twilio.rest.insights.v1.room.RoomInstance.EndReason">RoomInstance.EndReason</a></td>
 </tr>
@@ -945,7 +945,7 @@ change. Use them with caution.</p>
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The end_time</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">End time for the room.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">datetime</td>
 </tr>
@@ -974,7 +974,7 @@ change. Use them with caution.</p>
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The links</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Room subresources.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">unicode</td>
 </tr>
@@ -988,7 +988,7 @@ change. Use them with caution.</p>
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The max_concurrent_participants</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Maximum number of participants allowed in the room at the same time allowed by the application settings.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">unicode</td>
 </tr>
@@ -1002,7 +1002,7 @@ change. Use them with caution.</p>
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The max_participants</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Max number of total participants allowed by the application settings.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">unicode</td>
 </tr>
@@ -1016,7 +1016,7 @@ change. Use them with caution.</p>
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The media_region</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Region of Twilio media servers for the room.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#twilio.rest.insights.v1.room.RoomInstance.TwilioRealm" title="twilio.rest.insights.v1.room.RoomInstance.TwilioRealm">RoomInstance.TwilioRealm</a></td>
 </tr>
@@ -1045,7 +1045,7 @@ change. Use them with caution.</p>
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The processing_state</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Video Log Analyzer resource state. Will be either <cite>in-progress</cite> or <cite>complete</cite>.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#twilio.rest.insights.v1.room.RoomInstance.ProcessingState" title="twilio.rest.insights.v1.room.RoomInstance.ProcessingState">RoomInstance.ProcessingState</a></td>
 </tr>
@@ -1059,7 +1059,7 @@ change. Use them with caution.</p>
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The recording_enabled</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Boolean indicating if recording is enabled for the room.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)">bool</a></td>
 </tr>
@@ -1073,7 +1073,7 @@ change. Use them with caution.</p>
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The room_name</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">room friendly name.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">unicode</td>
 </tr>
@@ -1087,7 +1087,7 @@ change. Use them with caution.</p>
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The room_sid</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Unique identifier for the room.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">unicode</td>
 </tr>
@@ -1101,7 +1101,7 @@ change. Use them with caution.</p>
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The room_status</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Status of the room.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#twilio.rest.insights.v1.room.RoomInstance.RoomStatus" title="twilio.rest.insights.v1.room.RoomInstance.RoomStatus">RoomInstance.RoomStatus</a></td>
 </tr>
@@ -1115,7 +1115,7 @@ change. Use them with caution.</p>
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The room_type</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Type of room.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#twilio.rest.insights.v1.room.RoomInstance.RoomType" title="twilio.rest.insights.v1.room.RoomInstance.RoomType">RoomInstance.RoomType</a></td>
 </tr>
@@ -1129,7 +1129,7 @@ change. Use them with caution.</p>
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The status_callback</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Webhook provided for status callbacks.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">unicode</td>
 </tr>
@@ -1143,7 +1143,7 @@ change. Use them with caution.</p>
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The status_callback_method</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">HTTP method provided for status callback URL.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">unicode</td>
 </tr>
@@ -1157,7 +1157,7 @@ change. Use them with caution.</p>
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The total_participant_duration_sec</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Combined amount of participant time in the room.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">unicode</td>
 </tr>
@@ -1171,7 +1171,7 @@ change. Use them with caution.</p>
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The total_recording_duration_sec</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Combined amount of recorded seconds for participants in the room.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">unicode</td>
 </tr>
@@ -1185,7 +1185,7 @@ change. Use them with caution.</p>
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The unique_participant_identities</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Unique number of participant identities.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">unicode</td>
 </tr>
@@ -1199,7 +1199,7 @@ change. Use them with caution.</p>
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The unique_participants</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Number of participants. May include duplicate identities for participants who left and rejoined.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">unicode</td>
 </tr>
@@ -1213,7 +1213,7 @@ change. Use them with caution.</p>
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The url</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">URL for the room resource.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">unicode</td>
 </tr>
@@ -1235,7 +1235,7 @@ change. Use them with caution.</p>
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>room_sid</strong> – The room_sid</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>room_sid</strong> – The SID of the Room resource.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">twilio.rest.insights.v1.room.RoomContext</td>
 </tr>
@@ -1273,11 +1273,11 @@ memory before returning.</p>
 <col class="field-body"/>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>room_type</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a><em>[</em><a class="reference internal" href="#twilio.rest.insights.v1.room.RoomInstance.RoomType" title="twilio.rest.insights.v1.room.RoomInstance.RoomType"><em>RoomInstance.RoomType</em></a><em>]</em>) – The room_type</li>
-<li><strong>codec</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a><em>[</em><a class="reference internal" href="#twilio.rest.insights.v1.room.RoomInstance.Codec" title="twilio.rest.insights.v1.room.RoomInstance.Codec"><em>RoomInstance.Codec</em></a><em>]</em>) – The codec</li>
-<li><strong>room_name</strong> (<em>unicode</em>) – The room_name</li>
-<li><strong>created_after</strong> (<em>datetime</em>) – The created_after</li>
-<li><strong>created_before</strong> (<em>datetime</em>) – The created_before</li>
+<li><strong>room_type</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a><em>[</em><a class="reference internal" href="#twilio.rest.insights.v1.room.RoomInstance.RoomType" title="twilio.rest.insights.v1.room.RoomInstance.RoomType"><em>RoomInstance.RoomType</em></a><em>]</em>) – Type of room.</li>
+<li><strong>codec</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a><em>[</em><a class="reference internal" href="#twilio.rest.insights.v1.room.RoomInstance.Codec" title="twilio.rest.insights.v1.room.RoomInstance.Codec"><em>RoomInstance.Codec</em></a><em>]</em>) – Codecs used by participants in the room.</li>
+<li><strong>room_name</strong> (<em>unicode</em>) – Room friendly name.</li>
+<li><strong>created_after</strong> (<em>datetime</em>) – Only read rooms that started on or after this ISO 8601 timestamp.</li>
+<li><strong>created_before</strong> (<em>datetime</em>) – Only read rooms that started before this ISO 8601 timestamp.</li>
 <li><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – Upper limit for the number of records to return. list() guarantees
 never to return more than limit.  Default is no limit</li>
 <li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – Number of records to fetch per request, when not set will use
@@ -1306,11 +1306,11 @@ Request is executed immediately</p>
 <col class="field-body"/>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>room_type</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a><em>[</em><a class="reference internal" href="#twilio.rest.insights.v1.room.RoomInstance.RoomType" title="twilio.rest.insights.v1.room.RoomInstance.RoomType"><em>RoomInstance.RoomType</em></a><em>]</em>) – The room_type</li>
-<li><strong>codec</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a><em>[</em><a class="reference internal" href="#twilio.rest.insights.v1.room.RoomInstance.Codec" title="twilio.rest.insights.v1.room.RoomInstance.Codec"><em>RoomInstance.Codec</em></a><em>]</em>) – The codec</li>
-<li><strong>room_name</strong> (<em>unicode</em>) – The room_name</li>
-<li><strong>created_after</strong> (<em>datetime</em>) – The created_after</li>
-<li><strong>created_before</strong> (<em>datetime</em>) – The created_before</li>
+<li><strong>room_type</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a><em>[</em><a class="reference internal" href="#twilio.rest.insights.v1.room.RoomInstance.RoomType" title="twilio.rest.insights.v1.room.RoomInstance.RoomType"><em>RoomInstance.RoomType</em></a><em>]</em>) – Type of room.</li>
+<li><strong>codec</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a><em>[</em><a class="reference internal" href="#twilio.rest.insights.v1.room.RoomInstance.Codec" title="twilio.rest.insights.v1.room.RoomInstance.Codec"><em>RoomInstance.Codec</em></a><em>]</em>) – Codecs used by participants in the room.</li>
+<li><strong>room_name</strong> (<em>unicode</em>) – Room friendly name.</li>
+<li><strong>created_after</strong> (<em>datetime</em>) – Only read rooms that started on or after this ISO 8601 timestamp.</li>
+<li><strong>created_before</strong> (<em>datetime</em>) – Only read rooms that started before this ISO 8601 timestamp.</li>
 <li><strong>page_token</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – PageToken provided by the API</li>
 <li><strong>page_number</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – Page Number, this value is simply for client state</li>
 <li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – Number of records to return, defaults to 50</li>
@@ -1338,11 +1338,11 @@ The results are returned as a generator, so this operation is memory efficient.<
 <col class="field-body"/>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>room_type</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a><em>[</em><a class="reference internal" href="#twilio.rest.insights.v1.room.RoomInstance.RoomType" title="twilio.rest.insights.v1.room.RoomInstance.RoomType"><em>RoomInstance.RoomType</em></a><em>]</em>) – The room_type</li>
-<li><strong>codec</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a><em>[</em><a class="reference internal" href="#twilio.rest.insights.v1.room.RoomInstance.Codec" title="twilio.rest.insights.v1.room.RoomInstance.Codec"><em>RoomInstance.Codec</em></a><em>]</em>) – The codec</li>
-<li><strong>room_name</strong> (<em>unicode</em>) – The room_name</li>
-<li><strong>created_after</strong> (<em>datetime</em>) – The created_after</li>
-<li><strong>created_before</strong> (<em>datetime</em>) – The created_before</li>
+<li><strong>room_type</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a><em>[</em><a class="reference internal" href="#twilio.rest.insights.v1.room.RoomInstance.RoomType" title="twilio.rest.insights.v1.room.RoomInstance.RoomType"><em>RoomInstance.RoomType</em></a><em>]</em>) – Type of room.</li>
+<li><strong>codec</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a><em>[</em><a class="reference internal" href="#twilio.rest.insights.v1.room.RoomInstance.Codec" title="twilio.rest.insights.v1.room.RoomInstance.Codec"><em>RoomInstance.Codec</em></a><em>]</em>) – Codecs used by participants in the room.</li>
+<li><strong>room_name</strong> (<em>unicode</em>) – Room friendly name.</li>
+<li><strong>created_after</strong> (<em>datetime</em>) – Only read rooms that started on or after this ISO 8601 timestamp.</li>
+<li><strong>created_before</strong> (<em>datetime</em>) – Only read rooms that started before this ISO 8601 timestamp.</li>
 <li><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – Upper limit for the number of records to return. stream()
 guarantees to never return more than limit.  Default is no limit</li>
 <li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – Number of records to fetch per request, when not set will use
