@@ -12,6 +12,7 @@ from twilio.rest.supersim.v1.fleet import FleetList
 from twilio.rest.supersim.v1.network import NetworkList
 from twilio.rest.supersim.v1.network_access_profile import NetworkAccessProfileList
 from twilio.rest.supersim.v1.sim import SimList
+from twilio.rest.supersim.v1.sms_command import SmsCommandList
 from twilio.rest.supersim.v1.usage_record import UsageRecordList
 
 
@@ -31,6 +32,7 @@ class V1(Version):
         self._networks = None
         self._network_access_profiles = None
         self._sims = None
+        self._sms_commands = None
         self._usage_records = None
 
     @property
@@ -77,6 +79,15 @@ class V1(Version):
         if self._sims is None:
             self._sims = SimList(self)
         return self._sims
+
+    @property
+    def sms_commands(self):
+        """
+        :rtype: twilio.rest.supersim.v1.sms_command.SmsCommandList
+        """
+        if self._sms_commands is None:
+            self._sms_commands = SmsCommandList(self)
+        return self._sms_commands
 
     @property
     def usage_records(self):

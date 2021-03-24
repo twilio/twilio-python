@@ -179,6 +179,8 @@ class JobInstance(InstanceResource):
             'webhook_method': payload.get('webhook_method'),
             'email': payload.get('email'),
             'url': payload.get('url'),
+            'job_queue_position': payload.get('job_queue_position'),
+            'estimated_completion_time': payload.get('estimated_completion_time'),
         }
 
         # Context
@@ -277,6 +279,22 @@ class JobInstance(InstanceResource):
         :rtype: unicode
         """
         return self._properties['url']
+
+    @property
+    def job_queue_position(self):
+        """
+        :returns: This is the job position from the 1st in line. Your queue position will never increase. As jobs ahead of yours in the queue are processed, the queue position number will decrease
+        :rtype: unicode
+        """
+        return self._properties['job_queue_position']
+
+    @property
+    def estimated_completion_time(self):
+        """
+        :returns: this is the time estimated until your job is complete. This is calculated each time you request the job list. The time is calculated based on the current rate of job completion (which may vary) and your job queue position
+        :rtype: unicode
+        """
+        return self._properties['estimated_completion_time']
 
     def fetch(self):
         """

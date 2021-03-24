@@ -15,8 +15,6 @@ from twilio.base.page import Page
 
 
 class RecordingRulesList(ListResource):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
 
     def __init__(self, version, room_sid):
         """
@@ -71,8 +69,6 @@ class RecordingRulesList(ListResource):
 
 
 class RecordingRulesPage(Page):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
 
     def __init__(self, version, response, solution):
         """
@@ -112,8 +108,6 @@ class RecordingRulesPage(Page):
 
 
 class RecordingRulesInstance(InstanceResource):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
 
     def __init__(self, version, payload, room_sid):
         """

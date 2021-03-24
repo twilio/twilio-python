@@ -220,6 +220,8 @@ class ExportCustomJobInstance(InstanceResource):
             'email': payload.get('email'),
             'job_sid': payload.get('job_sid'),
             'details': payload.get('details'),
+            'job_queue_position': payload.get('job_queue_position'),
+            'estimated_completion_time': payload.get('estimated_completion_time'),
         }
 
         # Context
@@ -297,6 +299,22 @@ class ExportCustomJobInstance(InstanceResource):
         :rtype: dict
         """
         return self._properties['details']
+
+    @property
+    def job_queue_position(self):
+        """
+        :returns: This is the job position from the 1st in line. Your queue position will never increase. As jobs ahead of yours in the queue are processed, the queue position number will decrease
+        :rtype: unicode
+        """
+        return self._properties['job_queue_position']
+
+    @property
+    def estimated_completion_time(self):
+        """
+        :returns: this is the time estimated until your job is complete. This is calculated each time you request the job list. The time is calculated based on the current rate of job completion (which may vary) and your job queue position
+        :rtype: unicode
+        """
+        return self._properties['estimated_completion_time']
 
     def __repr__(self):
         """

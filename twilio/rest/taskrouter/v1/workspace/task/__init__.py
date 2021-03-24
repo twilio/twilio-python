@@ -324,7 +324,7 @@ class TaskContext(InstanceContext):
 
     def update(self, attributes=values.unset, assignment_status=values.unset,
                reason=values.unset, priority=values.unset,
-               task_channel=values.unset):
+               task_channel=values.unset, if_match=values.unset):
         """
         Update the TaskInstance
 
@@ -333,6 +333,7 @@ class TaskContext(InstanceContext):
         :param unicode reason: The reason that the Task was canceled or complete
         :param unicode priority: The Task's new priority value
         :param unicode task_channel: When MultiTasking is enabled, specify the TaskChannel with the task to update
+        :param unicode if_match: The If-Match HTTP request header
 
         :returns: The updated TaskInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.task.TaskInstance
@@ -344,8 +345,9 @@ class TaskContext(InstanceContext):
             'Priority': priority,
             'TaskChannel': task_channel,
         })
+        headers = values.of({'If-Match': if_match, })
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data, )
+        payload = self._version.update(method='POST', uri=self._uri, data=data, headers=headers, )
 
         return TaskInstance(
             self._version,
@@ -634,7 +636,7 @@ class TaskInstance(InstanceResource):
 
     def update(self, attributes=values.unset, assignment_status=values.unset,
                reason=values.unset, priority=values.unset,
-               task_channel=values.unset):
+               task_channel=values.unset, if_match=values.unset):
         """
         Update the TaskInstance
 
@@ -643,6 +645,7 @@ class TaskInstance(InstanceResource):
         :param unicode reason: The reason that the Task was canceled or complete
         :param unicode priority: The Task's new priority value
         :param unicode task_channel: When MultiTasking is enabled, specify the TaskChannel with the task to update
+        :param unicode if_match: The If-Match HTTP request header
 
         :returns: The updated TaskInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.task.TaskInstance
@@ -653,6 +656,7 @@ class TaskInstance(InstanceResource):
             reason=reason,
             priority=priority,
             task_channel=task_channel,
+            if_match=if_match,
         )
 
     def delete(self):
