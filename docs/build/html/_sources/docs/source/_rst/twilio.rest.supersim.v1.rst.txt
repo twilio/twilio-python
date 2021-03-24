@@ -43,6 +43,14 @@ twilio.rest.supersim.v1.sim module
     :undoc-members:
     :show-inheritance:
 
+twilio.rest.supersim.v1.sms\_command module
+-------------------------------------------
+
+.. automodule:: twilio.rest.supersim.v1.sms_command
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 twilio.rest.supersim.v1.usage\_record module
 --------------------------------------------
 

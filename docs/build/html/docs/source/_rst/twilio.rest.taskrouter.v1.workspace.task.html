@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-MWRD6S');</script><!--End Google Tag Manager-->
 <meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<title>twilio.rest.taskrouter.v1.workspace.task package — twilio-python 6.54.0 documentation</title>
+<title>twilio.rest.taskrouter.v1.workspace.task package — twilio-python 6.55.0 documentation</title>
 <link href="../../../_static/alabaster.css" rel="stylesheet" type="text/css"/>
 <link href="../../../_static/pygments.css" rel="stylesheet" type="text/css"/>
 <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js" type="text/javascript"></script>
@@ -705,7 +705,7 @@ limit with the most efficient page size, i.e. min(limit, 1000)</li>
 </dd></dl>
 <dl class="method">
 <dt id="twilio.rest.taskrouter.v1.workspace.task.TaskContext.update">
-<code class="descname">update</code><span class="sig-paren">(</span><em>attributes=&lt;object object&gt;</em>, <em>assignment_status=&lt;object object&gt;</em>, <em>reason=&lt;object object&gt;</em>, <em>priority=&lt;object object&gt;</em>, <em>task_channel=&lt;object object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/taskrouter/v1/workspace/task.html#TaskContext.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.taskrouter.v1.workspace.task.TaskContext.update" title="Permalink to this definition">¶</a></dt>
+<code class="descname">update</code><span class="sig-paren">(</span><em>attributes=&lt;object object&gt;</em>, <em>assignment_status=&lt;object object&gt;</em>, <em>reason=&lt;object object&gt;</em>, <em>priority=&lt;object object&gt;</em>, <em>task_channel=&lt;object object&gt;</em>, <em>if_match=&lt;object object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/taskrouter/v1/workspace/task.html#TaskContext.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.taskrouter.v1.workspace.task.TaskContext.update" title="Permalink to this definition">¶</a></dt>
 <dd><p>Update the TaskInstance</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name"/>
@@ -717,6 +717,7 @@ limit with the most efficient page size, i.e. min(limit, 1000)</li>
 <li><strong>reason</strong> (<em>unicode</em>) – The reason that the Task was canceled or complete</li>
 <li><strong>priority</strong> (<em>unicode</em>) – The Task’s new priority value</li>
 <li><strong>task_channel</strong> (<em>unicode</em>) – When MultiTasking is enabled, specify the TaskChannel with the task to update</li>
+<li><strong>if_match</strong> (<em>unicode</em>) – The If-Match HTTP request header</li>
 </ul>
 </td>
 </tr>
@@ -1048,7 +1049,7 @@ limit with the most efficient page size, i.e. min(limit, 1000)</li>
 </dd></dl>
 <dl class="method">
 <dt id="twilio.rest.taskrouter.v1.workspace.task.TaskInstance.update">
-<code class="descname">update</code><span class="sig-paren">(</span><em>attributes=&lt;object object&gt;</em>, <em>assignment_status=&lt;object object&gt;</em>, <em>reason=&lt;object object&gt;</em>, <em>priority=&lt;object object&gt;</em>, <em>task_channel=&lt;object object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/taskrouter/v1/workspace/task.html#TaskInstance.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.taskrouter.v1.workspace.task.TaskInstance.update" title="Permalink to this definition">¶</a></dt>
+<code class="descname">update</code><span class="sig-paren">(</span><em>attributes=&lt;object object&gt;</em>, <em>assignment_status=&lt;object object&gt;</em>, <em>reason=&lt;object object&gt;</em>, <em>priority=&lt;object object&gt;</em>, <em>task_channel=&lt;object object&gt;</em>, <em>if_match=&lt;object object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/taskrouter/v1/workspace/task.html#TaskInstance.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.taskrouter.v1.workspace.task.TaskInstance.update" title="Permalink to this definition">¶</a></dt>
 <dd><p>Update the TaskInstance</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name"/>
@@ -1060,6 +1061,7 @@ limit with the most efficient page size, i.e. min(limit, 1000)</li>
 <li><strong>reason</strong> (<em>unicode</em>) – The reason that the Task was canceled or complete</li>
 <li><strong>priority</strong> (<em>unicode</em>) – The Task’s new priority value</li>
 <li><strong>task_channel</strong> (<em>unicode</em>) – When MultiTasking is enabled, specify the TaskChannel with the task to update</li>
+<li><strong>if_match</strong> (<em>unicode</em>) – The If-Match HTTP request header</li>
 </ul>
 </td>
 </tr>
