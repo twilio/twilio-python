@@ -3,6 +3,35 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2021-04-07] Version 6.56.0
+---------------------------
+**Api**
+- Added `announcement` event to conference status callback events
+- Removed optional property `time_limit` in the call create request. **(breaking change)**
+
+**Messaging**
+- Add rate_limits field to Messaging Services US App To Person API
+- Add usecase field in Service API for fetch, create, update, read
+- Add us app to person api and us app to person usecase api as dependents in service
+- Add us_app_to_person_registered field in service api for fetch, read, create, update
+- Add us app to person api
+- Add us app to person usecase api
+- Add A2P external campaign api
+- Add Usecases API
+
+**Supersim**
+- Add Create endpoint to Sims resource
+
+**Verify**
+- The `Binding` field is now returned when creating a `Factor`. This value won't be returned for other endpoints.
+
+**Video**
+- [Rooms] max_concurrent_published_tracks has got GA maturity
+
+**Twiml**
+- Add `announcement` event to `statusCallbackEvent` for `<Conference>`.
+
+
 [2021-03-24] Version 6.55.0
 ---------------------------
 **Api**

@@ -61,8 +61,8 @@ class CallList(ListResource):
                async_amd=values.unset, async_amd_status_callback=values.unset,
                async_amd_status_callback_method=values.unset, byoc=values.unset,
                call_reason=values.unset, call_token=values.unset,
-               recording_track=values.unset, time_limit=values.unset,
-               url=values.unset, twiml=values.unset, application_sid=values.unset):
+               recording_track=values.unset, url=values.unset, twiml=values.unset,
+               application_sid=values.unset):
         """
         Create the CallInstance
 
@@ -97,7 +97,6 @@ class CallList(ListResource):
         :param unicode call_reason: Reason for the call (Branded Calls Beta)
         :param unicode call_token: A token string needed to invoke a forwarded call with a caller-id recieved on a previous incoming call
         :param unicode recording_track: Which track(s) to record
-        :param unicode time_limit: The maximum duration of the call in seconds.
         :param unicode url: The absolute URL that returns TwiML for this call
         :param unicode twiml: TwiML instructions for the call
         :param unicode application_sid: The SID of the Application resource that will handle the call
@@ -140,7 +139,6 @@ class CallList(ListResource):
             'CallReason': call_reason,
             'CallToken': call_token,
             'RecordingTrack': recording_track,
-            'TimeLimit': time_limit,
         })
 
         payload = self._version.create(method='POST', uri=self._uri, data=data, )

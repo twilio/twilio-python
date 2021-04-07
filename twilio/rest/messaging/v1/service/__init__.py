@@ -15,6 +15,8 @@ from twilio.base.page import Page
 from twilio.rest.messaging.v1.service.alpha_sender import AlphaSenderList
 from twilio.rest.messaging.v1.service.phone_number import PhoneNumberList
 from twilio.rest.messaging.v1.service.short_code import ShortCodeList
+from twilio.rest.messaging.v1.service.us_app_to_person import UsAppToPersonList
+from twilio.rest.messaging.v1.service.us_app_to_person_usecase import UsAppToPersonUsecaseList
 
 
 class ServiceList(ListResource):
@@ -258,6 +260,8 @@ class ServiceContext(InstanceContext):
         self._phone_numbers = None
         self._short_codes = None
         self._alpha_senders = None
+        self._us_app_to_person = None
+        self._us_app_to_person_usecases = None
 
     def update(self, friendly_name=values.unset, inbound_request_url=values.unset,
                inbound_method=values.unset, fallback_url=values.unset,
@@ -363,6 +367,36 @@ class ServiceContext(InstanceContext):
         if self._alpha_senders is None:
             self._alpha_senders = AlphaSenderList(self._version, service_sid=self._solution['sid'], )
         return self._alpha_senders
+
+    @property
+    def us_app_to_person(self):
+        """
+        Access the us_app_to_person
+
+        :returns: twilio.rest.messaging.v1.service.us_app_to_person.UsAppToPersonList
+        :rtype: twilio.rest.messaging.v1.service.us_app_to_person.UsAppToPersonList
+        """
+        if self._us_app_to_person is None:
+            self._us_app_to_person = UsAppToPersonList(
+                self._version,
+                messaging_service_sid=self._solution['sid'],
+            )
+        return self._us_app_to_person
+
+    @property
+    def us_app_to_person_usecases(self):
+        """
+        Access the us_app_to_person_usecases
+
+        :returns: twilio.rest.messaging.v1.service.us_app_to_person_usecase.UsAppToPersonUsecaseList
+        :rtype: twilio.rest.messaging.v1.service.us_app_to_person_usecase.UsAppToPersonUsecaseList
+        """
+        if self._us_app_to_person_usecases is None:
+            self._us_app_to_person_usecases = UsAppToPersonUsecaseList(
+                self._version,
+                messaging_service_sid=self._solution['sid'],
+            )
+        return self._us_app_to_person_usecases
 
     def __repr__(self):
         """
@@ -686,6 +720,26 @@ class ServiceInstance(InstanceResource):
         :rtype: twilio.rest.messaging.v1.service.alpha_sender.AlphaSenderList
         """
         return self._proxy.alpha_senders
+
+    @property
+    def us_app_to_person(self):
+        """
+        Access the us_app_to_person
+
+        :returns: twilio.rest.messaging.v1.service.us_app_to_person.UsAppToPersonList
+        :rtype: twilio.rest.messaging.v1.service.us_app_to_person.UsAppToPersonList
+        """
+        return self._proxy.us_app_to_person
+
+    @property
+    def us_app_to_person_usecases(self):
+        """
+        Access the us_app_to_person_usecases
+
+        :returns: twilio.rest.messaging.v1.service.us_app_to_person_usecase.UsAppToPersonUsecaseList
+        :rtype: twilio.rest.messaging.v1.service.us_app_to_person_usecase.UsAppToPersonUsecaseList
+        """
+        return self._proxy.us_app_to_person_usecases
 
     def __repr__(self):
         """

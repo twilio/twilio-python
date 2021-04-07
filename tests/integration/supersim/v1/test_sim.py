@@ -14,6 +14,42 @@ from twilio.http.response import Response
 
 class SimTestCase(IntegrationTestCase):
 
+    def test_create_request(self):
+        self.holodeck.mock(Response(500, ''))
+
+        with self.assertRaises(TwilioException):
+            self.client.supersim.v1.sims.create(iccid="iccid", registration_code="registration_code")
+
+        values = {'Iccid': "iccid", 'RegistrationCode': "registration_code", }
+
+        self.holodeck.assert_has_request(Request(
+            'post',
+            'https://supersim.twilio.com/v1/Sims',
+            data=values,
+        ))
+
+    def test_create_response(self):
+        self.holodeck.mock(Response(
+            201,
+            '''
+            {
+                "sid": "HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "unique_name": "MySIM",
+                "status": "new",
+                "fleet_sid": null,
+                "iccid": "iccid",
+                "date_created": "2015-07-30T20:00:00Z",
+                "date_updated": "2015-07-30T20:00:00Z",
+                "url": "https://supersim.twilio.com/v1/Sims/HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            }
+            '''
+        ))
+
+        actual = self.client.supersim.v1.sims.create(iccid="iccid", registration_code="registration_code")
+
+        self.assertIsNotNone(actual)
+
     def test_fetch_request(self):
         self.holodeck.mock(Response(500, ''))
 

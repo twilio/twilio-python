@@ -14,54 +14,6 @@ from twilio.http.response import Response
 
 class FactorTestCase(IntegrationTestCase):
 
-    def test_create_request(self):
-        self.holodeck.mock(Response(500, ''))
-
-        with self.assertRaises(TwilioException):
-            self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .entities("identity") \
-                                 .factors.create(friendly_name="friendly_name", factor_type="push")
-
-        values = {'FriendlyName': "friendly_name", 'FactorType': "push", }
-
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Entities/identity/Factors',
-            data=values,
-        ))
-
-    def test_create_push_response(self):
-        self.holodeck.mock(Response(
-            201,
-            '''
-            {
-                "sid": "YFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                "service_sid": "VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                "entity_sid": "YEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                "identity": "ff483d1ff591898a9942916050d2ca3f",
-                "date_created": "2015-07-30T20:00:00Z",
-                "date_updated": "2015-07-30T20:00:00Z",
-                "friendly_name": "friendly_name",
-                "status": "unverified",
-                "factor_type": "push",
-                "config": {
-                    "sdk_version": "1.0",
-                    "app_id": "com.example.myapp",
-                    "notification_platform": "fcm",
-                    "notification_token": "test_token"
-                },
-                "url": "https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Factors/YFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
-            }
-            '''
-        ))
-
-        actual = self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .entities("identity") \
-                                      .factors.create(friendly_name="friendly_name", factor_type="push")
-
-        self.assertIsNotNone(actual)
-
     def test_delete_request(self):
         self.holodeck.mock(Response(500, ''))
 
@@ -132,6 +84,38 @@ class FactorTestCase(IntegrationTestCase):
 
         self.assertIsNotNone(actual)
 
+    def test_fetch_totp_response(self):
+        self.holodeck.mock(Response(
+            200,
+            '''
+            {
+                "sid": "YFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "service_sid": "VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "entity_sid": "YEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "identity": "ff483d1ff591898a9942916050d2ca3f",
+                "date_created": "2015-07-30T20:00:00Z",
+                "date_updated": "2015-07-30T20:00:00Z",
+                "friendly_name": "friendly_name",
+                "status": "unverified",
+                "factor_type": "totp",
+                "config": {
+                    "alg": "sha1",
+                    "skew": 1,
+                    "code_length": 6,
+                    "time_step": 30
+                },
+                "url": "https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Factors/YFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            }
+            '''
+        ))
+
+        actual = self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                      .entities("identity") \
+                                      .factors("YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+
+        self.assertIsNotNone(actual)
+
     def test_list_request(self):
         self.holodeck.mock(Response(500, ''))
 
@@ -170,7 +154,7 @@ class FactorTestCase(IntegrationTestCase):
 
         self.assertIsNotNone(actual)
 
-    def test_read_full_response(self):
+    def test_read_full_push_response(self):
         self.holodeck.mock(Response(
             200,
             '''
@@ -192,6 +176,51 @@ class FactorTestCase(IntegrationTestCase):
                             "app_id": "com.example.myapp",
                             "notification_platform": "fcm",
                             "notification_token": "test_token"
+                        },
+                        "url": "https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Factors/YFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+                    }
+                ],
+                "meta": {
+                    "page": 0,
+                    "page_size": 50,
+                    "first_page_url": "https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Factors?PageSize=50&Page=0",
+                    "previous_page_url": null,
+                    "url": "https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Factors?PageSize=50&Page=0",
+                    "next_page_url": null,
+                    "key": "factors"
+                }
+            }
+            '''
+        ))
+
+        actual = self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                      .entities("identity") \
+                                      .factors.list()
+
+        self.assertIsNotNone(actual)
+
+    def test_read_full_totp_response(self):
+        self.holodeck.mock(Response(
+            200,
+            '''
+            {
+                "factors": [
+                    {
+                        "sid": "YFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                        "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                        "service_sid": "VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                        "entity_sid": "YEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                        "identity": "ff483d1ff591898a9942916050d2ca3f",
+                        "date_created": "2015-07-30T20:00:00Z",
+                        "date_updated": "2015-07-30T20:00:00Z",
+                        "friendly_name": "friendly_name",
+                        "status": "unverified",
+                        "factor_type": "totp",
+                        "config": {
+                            "alg": "sha1",
+                            "skew": 1,
+                            "code_length": 6,
+                            "time_step": 30
                         },
                         "url": "https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Factors/YFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
                     }
@@ -248,6 +277,38 @@ class FactorTestCase(IntegrationTestCase):
                     "app_id": "com.example.myapp",
                     "notification_platform": "fcm",
                     "notification_token": "test_token"
+                },
+                "url": "https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Factors/YFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            }
+            '''
+        ))
+
+        actual = self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                      .entities("identity") \
+                                      .factors("YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
+
+        self.assertIsNotNone(actual)
+
+    def test_verify_totp_response(self):
+        self.holodeck.mock(Response(
+            200,
+            '''
+            {
+                "sid": "YFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "service_sid": "VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "entity_sid": "YEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "identity": "ff483d1ff591898a9942916050d2ca3f",
+                "date_created": "2015-07-30T20:00:00Z",
+                "date_updated": "2015-07-30T20:00:00Z",
+                "friendly_name": "friendly_name",
+                "status": "verified",
+                "factor_type": "totp",
+                "config": {
+                    "alg": "sha1",
+                    "skew": 1,
+                    "code_length": 6,
+                    "time_step": 30
                 },
                 "url": "https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Factors/YFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }

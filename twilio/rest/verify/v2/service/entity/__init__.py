@@ -14,6 +14,7 @@ from twilio.base.list_resource import ListResource
 from twilio.base.page import Page
 from twilio.rest.verify.v2.service.entity.challenge import ChallengeList
 from twilio.rest.verify.v2.service.entity.factor import FactorList
+from twilio.rest.verify.v2.service.entity.new_factor import NewFactorList
 
 
 class EntityList(ListResource):
@@ -224,6 +225,7 @@ class EntityContext(InstanceContext):
 
         # Dependents
         self._factors = None
+        self._new_factors = None
         self._challenges = None
 
     def delete(self):
@@ -266,6 +268,22 @@ class EntityContext(InstanceContext):
                 identity=self._solution['identity'],
             )
         return self._factors
+
+    @property
+    def new_factors(self):
+        """
+        Access the new_factors
+
+        :returns: twilio.rest.verify.v2.service.entity.new_factor.NewFactorList
+        :rtype: twilio.rest.verify.v2.service.entity.new_factor.NewFactorList
+        """
+        if self._new_factors is None:
+            self._new_factors = NewFactorList(
+                self._version,
+                service_sid=self._solution['service_sid'],
+                identity=self._solution['identity'],
+            )
+        return self._new_factors
 
     @property
     def challenges(self):
@@ -431,6 +449,16 @@ class EntityInstance(InstanceResource):
         :rtype: twilio.rest.verify.v2.service.entity.factor.FactorList
         """
         return self._proxy.factors
+
+    @property
+    def new_factors(self):
+        """
+        Access the new_factors
+
+        :returns: twilio.rest.verify.v2.service.entity.new_factor.NewFactorList
+        :rtype: twilio.rest.verify.v2.service.entity.new_factor.NewFactorList
+        """
+        return self._proxy.new_factors
 
     @property
     def challenges(self):
