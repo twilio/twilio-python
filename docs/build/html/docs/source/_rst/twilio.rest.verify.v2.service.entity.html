@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-MWRD6S');</script><!--End Google Tag Manager-->
 <meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<title>twilio.rest.verify.v2.service.entity package — twilio-python 6.55.0 documentation</title>
+<title>twilio.rest.verify.v2.service.entity package — twilio-python 6.56.0 documentation</title>
 <link href="../../../_static/alabaster.css" rel="stylesheet" type="text/css"/>
 <link href="../../../_static/pygments.css" rel="stylesheet" type="text/css"/>
 <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js" type="text/javascript"></script>
@@ -953,40 +953,6 @@ change. Use them with caution.</p>
 <p>PLEASE NOTE that this class contains beta products that are subject to
 change. Use them with caution.</p>
 <dl class="method">
-<dt id="twilio.rest.verify.v2.service.entity.factor.FactorList.create">
-<code class="descname">create</code><span class="sig-paren">(</span><em>friendly_name</em>, <em>factor_type</em>, <em>binding_alg=&lt;object object&gt;</em>, <em>binding_public_key=&lt;object object&gt;</em>, <em>config_app_id=&lt;object object&gt;</em>, <em>config_notification_platform=&lt;object object&gt;</em>, <em>config_notification_token=&lt;object object&gt;</em>, <em>config_sdk_version=&lt;object object&gt;</em>, <em>binding_secret=&lt;object object&gt;</em>, <em>config_time_step=&lt;object object&gt;</em>, <em>config_skew=&lt;object object&gt;</em>, <em>config_code_length=&lt;object object&gt;</em>, <em>config_alg=&lt;object object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/verify/v2/service/entity/factor.html#FactorList.create"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.verify.v2.service.entity.factor.FactorList.create" title="Permalink to this definition">¶</a></dt>
-<dd><p>Create the FactorInstance</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name"/>
-<col class="field-body"/>
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>friendly_name</strong> (<em>unicode</em>) – The friendly name of this Factor</li>
-<li><strong>factor_type</strong> (<a class="reference internal" href="#twilio.rest.verify.v2.service.entity.factor.FactorInstance.FactorTypes" title="twilio.rest.verify.v2.service.entity.factor.FactorInstance.FactorTypes"><em>FactorInstance.FactorTypes</em></a>) – The Type of this Factor</li>
-<li><strong>binding_alg</strong> (<em>unicode</em>) – The algorithm used when <cite>factor_type</cite> is <cite>push</cite></li>
-<li><strong>binding_public_key</strong> (<em>unicode</em>) – The public key encoded in Base64</li>
-<li><strong>config_app_id</strong> (<em>unicode</em>) – The ID that uniquely identifies your app in the Google or Apple store</li>
-<li><strong>config_notification_platform</strong> (<a class="reference internal" href="#twilio.rest.verify.v2.service.entity.factor.FactorInstance.NotificationPlatforms" title="twilio.rest.verify.v2.service.entity.factor.FactorInstance.NotificationPlatforms"><em>FactorInstance.NotificationPlatforms</em></a>) – The transport technology used to generate the Notification Token</li>
-<li><strong>config_notification_token</strong> (<em>unicode</em>) – For APN, the device token. For FCM the registration token</li>
-<li><strong>config_sdk_version</strong> (<em>unicode</em>) – The Verify Push SDK version used to configure the factor</li>
-<li><strong>binding_secret</strong> (<em>unicode</em>) – The shared secret in Base32</li>
-<li><strong>config_time_step</strong> (<em>unicode</em>) – How often, in seconds, are TOTP codes generated</li>
-<li><strong>config_skew</strong> (<em>unicode</em>) – The number of past and future time-steps valid at a given time</li>
-<li><strong>config_code_length</strong> (<em>unicode</em>) – Number of digits for generated TOTP codes</li>
-<li><strong>config_alg</strong> (<a class="reference internal" href="#twilio.rest.verify.v2.service.entity.factor.FactorInstance.TotpAlgorithms" title="twilio.rest.verify.v2.service.entity.factor.FactorInstance.TotpAlgorithms"><em>FactorInstance.TotpAlgorithms</em></a>) – The algorithm used to derive the TOTP codes</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The created FactorInstance</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#twilio.rest.verify.v2.service.entity.factor.FactorInstance" title="twilio.rest.verify.v2.service.entity.factor.FactorInstance">twilio.rest.verify.v2.service.entity.factor.FactorInstance</a></p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-<dl class="method">
 <dt id="twilio.rest.verify.v2.service.entity.factor.FactorList.get">
 <code class="descname">get</code><span class="sig-paren">(</span><em>sid</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/verify/v2/service/entity/factor.html#FactorList.get"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.verify.v2.service.entity.factor.FactorList.get" title="Permalink to this definition">¶</a></dt>
 <dd><p>Constructs a FactorContext</p>
@@ -1131,13 +1097,334 @@ change. Use them with caution.</p>
 </dd></dl>
 </dd></dl>
 </div>
+<div class="section" id="module-twilio.rest.verify.v2.service.entity.new_factor">
+<span id="twilio-rest-verify-v2-service-entity-new-factor-module"></span><h2>twilio.rest.verify.v2.service.entity.new_factor module<a class="headerlink" href="#module-twilio.rest.verify.v2.service.entity.new_factor" title="Permalink to this headline">¶</a></h2>
+<p>This code was generated by
+/ _    _  _|   _  _</p>
+<blockquote>
+<div><div class="line-block">
+<div class="line">(_)/(_)(_|/| <a href="#id5"><span class="problematic" id="id6">|</span></a>(/_  v1.0.0
+/       /</div>
+</div>
+</div></blockquote>
+<dl class="class">
+<dt id="twilio.rest.verify.v2.service.entity.new_factor.NewFactorInstance">
+<em class="property">class </em><code class="descclassname">twilio.rest.verify.v2.service.entity.new_factor.</code><code class="descname">NewFactorInstance</code><span class="sig-paren">(</span><em>version</em>, <em>payload</em>, <em>service_sid</em>, <em>identity</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/verify/v2/service/entity/new_factor.html#NewFactorInstance"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.verify.v2.service.entity.new_factor.NewFactorInstance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="twilio.base.html#twilio.base.instance_resource.InstanceResource" title="twilio.base.instance_resource.InstanceResource"><code class="xref py py-class docutils literal notranslate"><span class="pre">twilio.base.instance_resource.InstanceResource</span></code></a></p>
+<p>PLEASE NOTE that this class contains beta products that are subject to
+change. Use them with caution.</p>
+<dl class="class">
+<dt id="twilio.rest.verify.v2.service.entity.new_factor.NewFactorInstance.FactorStatuses">
+<em class="property">class </em><code class="descname">FactorStatuses</code><a class="reference internal" href="../../../_modules/twilio/rest/verify/v2/service/entity/new_factor.html#NewFactorInstance.FactorStatuses"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.verify.v2.service.entity.new_factor.NewFactorInstance.FactorStatuses" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dl class="attribute">
+<dt id="twilio.rest.verify.v2.service.entity.new_factor.NewFactorInstance.FactorStatuses.UNVERIFIED">
+<code class="descname">UNVERIFIED</code><em class="property"> = 'unverified'</em><a class="headerlink" href="#twilio.rest.verify.v2.service.entity.new_factor.NewFactorInstance.FactorStatuses.UNVERIFIED" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="attribute">
+<dt id="twilio.rest.verify.v2.service.entity.new_factor.NewFactorInstance.FactorStatuses.VERIFIED">
+<code class="descname">VERIFIED</code><em class="property"> = 'verified'</em><a class="headerlink" href="#twilio.rest.verify.v2.service.entity.new_factor.NewFactorInstance.FactorStatuses.VERIFIED" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+</dd></dl>
+<dl class="class">
+<dt id="twilio.rest.verify.v2.service.entity.new_factor.NewFactorInstance.FactorTypes">
+<em class="property">class </em><code class="descname">FactorTypes</code><a class="reference internal" href="../../../_modules/twilio/rest/verify/v2/service/entity/new_factor.html#NewFactorInstance.FactorTypes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.verify.v2.service.entity.new_factor.NewFactorInstance.FactorTypes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dl class="attribute">
+<dt id="twilio.rest.verify.v2.service.entity.new_factor.NewFactorInstance.FactorTypes.PUSH">
+<code class="descname">PUSH</code><em class="property"> = 'push'</em><a class="headerlink" href="#twilio.rest.verify.v2.service.entity.new_factor.NewFactorInstance.FactorTypes.PUSH" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="attribute">
+<dt id="twilio.rest.verify.v2.service.entity.new_factor.NewFactorInstance.FactorTypes.TOTP">
+<code class="descname">TOTP</code><em class="property"> = 'totp'</em><a class="headerlink" href="#twilio.rest.verify.v2.service.entity.new_factor.NewFactorInstance.FactorTypes.TOTP" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+</dd></dl>
+<dl class="class">
+<dt id="twilio.rest.verify.v2.service.entity.new_factor.NewFactorInstance.NotificationPlatforms">
+<em class="property">class </em><code class="descname">NotificationPlatforms</code><a class="reference internal" href="../../../_modules/twilio/rest/verify/v2/service/entity/new_factor.html#NewFactorInstance.NotificationPlatforms"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.verify.v2.service.entity.new_factor.NewFactorInstance.NotificationPlatforms" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dl class="attribute">
+<dt id="twilio.rest.verify.v2.service.entity.new_factor.NewFactorInstance.NotificationPlatforms.APN">
+<code class="descname">APN</code><em class="property"> = 'apn'</em><a class="headerlink" href="#twilio.rest.verify.v2.service.entity.new_factor.NewFactorInstance.NotificationPlatforms.APN" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="attribute">
+<dt id="twilio.rest.verify.v2.service.entity.new_factor.NewFactorInstance.NotificationPlatforms.FCM">
+<code class="descname">FCM</code><em class="property"> = 'fcm'</em><a class="headerlink" href="#twilio.rest.verify.v2.service.entity.new_factor.NewFactorInstance.NotificationPlatforms.FCM" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+</dd></dl>
+<dl class="class">
+<dt id="twilio.rest.verify.v2.service.entity.new_factor.NewFactorInstance.TotpAlgorithms">
+<em class="property">class </em><code class="descname">TotpAlgorithms</code><a class="reference internal" href="../../../_modules/twilio/rest/verify/v2/service/entity/new_factor.html#NewFactorInstance.TotpAlgorithms"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.verify.v2.service.entity.new_factor.NewFactorInstance.TotpAlgorithms" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dl class="attribute">
+<dt id="twilio.rest.verify.v2.service.entity.new_factor.NewFactorInstance.TotpAlgorithms.SHA1">
+<code class="descname">SHA1</code><em class="property"> = 'sha1'</em><a class="headerlink" href="#twilio.rest.verify.v2.service.entity.new_factor.NewFactorInstance.TotpAlgorithms.SHA1" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="attribute">
+<dt id="twilio.rest.verify.v2.service.entity.new_factor.NewFactorInstance.TotpAlgorithms.SHA256">
+<code class="descname">SHA256</code><em class="property"> = 'sha256'</em><a class="headerlink" href="#twilio.rest.verify.v2.service.entity.new_factor.NewFactorInstance.TotpAlgorithms.SHA256" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="attribute">
+<dt id="twilio.rest.verify.v2.service.entity.new_factor.NewFactorInstance.TotpAlgorithms.SHA512">
+<code class="descname">SHA512</code><em class="property"> = 'sha512'</em><a class="headerlink" href="#twilio.rest.verify.v2.service.entity.new_factor.NewFactorInstance.TotpAlgorithms.SHA512" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+</dd></dl>
+<dl class="attribute">
+<dt id="twilio.rest.verify.v2.service.entity.new_factor.NewFactorInstance.account_sid">
+<code class="descname">account_sid</code><a class="headerlink" href="#twilio.rest.verify.v2.service.entity.new_factor.NewFactorInstance.account_sid" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Account Sid.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">unicode</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+<dl class="attribute">
+<dt id="twilio.rest.verify.v2.service.entity.new_factor.NewFactorInstance.binding">
+<code class="descname">binding</code><a class="headerlink" href="#twilio.rest.verify.v2.service.entity.new_factor.NewFactorInstance.binding" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Unique external identifier of the Entity</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)">dict</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+<dl class="attribute">
+<dt id="twilio.rest.verify.v2.service.entity.new_factor.NewFactorInstance.config">
+<code class="descname">config</code><a class="headerlink" href="#twilio.rest.verify.v2.service.entity.new_factor.NewFactorInstance.config" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Binding for a <cite>factor_type</cite>.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)">dict</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+<dl class="attribute">
+<dt id="twilio.rest.verify.v2.service.entity.new_factor.NewFactorInstance.date_created">
+<code class="descname">date_created</code><a class="headerlink" href="#twilio.rest.verify.v2.service.entity.new_factor.NewFactorInstance.date_created" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The date this Factor was created</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">datetime</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+<dl class="attribute">
+<dt id="twilio.rest.verify.v2.service.entity.new_factor.NewFactorInstance.date_updated">
+<code class="descname">date_updated</code><a class="headerlink" href="#twilio.rest.verify.v2.service.entity.new_factor.NewFactorInstance.date_updated" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The date this Factor was updated</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">datetime</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+<dl class="attribute">
+<dt id="twilio.rest.verify.v2.service.entity.new_factor.NewFactorInstance.entity_sid">
+<code class="descname">entity_sid</code><a class="headerlink" href="#twilio.rest.verify.v2.service.entity.new_factor.NewFactorInstance.entity_sid" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Entity Sid.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">unicode</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+<dl class="attribute">
+<dt id="twilio.rest.verify.v2.service.entity.new_factor.NewFactorInstance.factor_type">
+<code class="descname">factor_type</code><a class="headerlink" href="#twilio.rest.verify.v2.service.entity.new_factor.NewFactorInstance.factor_type" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The Type of this Factor</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#twilio.rest.verify.v2.service.entity.new_factor.NewFactorInstance.FactorTypes" title="twilio.rest.verify.v2.service.entity.new_factor.NewFactorInstance.FactorTypes">NewFactorInstance.FactorTypes</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+<dl class="attribute">
+<dt id="twilio.rest.verify.v2.service.entity.new_factor.NewFactorInstance.friendly_name">
+<code class="descname">friendly_name</code><a class="headerlink" href="#twilio.rest.verify.v2.service.entity.new_factor.NewFactorInstance.friendly_name" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">A human readable description of this resource.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">unicode</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+<dl class="attribute">
+<dt id="twilio.rest.verify.v2.service.entity.new_factor.NewFactorInstance.identity">
+<code class="descname">identity</code><a class="headerlink" href="#twilio.rest.verify.v2.service.entity.new_factor.NewFactorInstance.identity" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Unique external identifier of the Entity</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">unicode</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+<dl class="attribute">
+<dt id="twilio.rest.verify.v2.service.entity.new_factor.NewFactorInstance.service_sid">
+<code class="descname">service_sid</code><a class="headerlink" href="#twilio.rest.verify.v2.service.entity.new_factor.NewFactorInstance.service_sid" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Service Sid.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">unicode</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+<dl class="attribute">
+<dt id="twilio.rest.verify.v2.service.entity.new_factor.NewFactorInstance.sid">
+<code class="descname">sid</code><a class="headerlink" href="#twilio.rest.verify.v2.service.entity.new_factor.NewFactorInstance.sid" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">A string that uniquely identifies this Factor.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">unicode</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+<dl class="attribute">
+<dt id="twilio.rest.verify.v2.service.entity.new_factor.NewFactorInstance.status">
+<code class="descname">status</code><a class="headerlink" href="#twilio.rest.verify.v2.service.entity.new_factor.NewFactorInstance.status" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The Status of this Factor</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#twilio.rest.verify.v2.service.entity.new_factor.NewFactorInstance.FactorStatuses" title="twilio.rest.verify.v2.service.entity.new_factor.NewFactorInstance.FactorStatuses">NewFactorInstance.FactorStatuses</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+<dl class="attribute">
+<dt id="twilio.rest.verify.v2.service.entity.new_factor.NewFactorInstance.url">
+<code class="descname">url</code><a class="headerlink" href="#twilio.rest.verify.v2.service.entity.new_factor.NewFactorInstance.url" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The URL of this resource.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">unicode</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+</dd></dl>
+<dl class="class">
+<dt id="twilio.rest.verify.v2.service.entity.new_factor.NewFactorList">
+<em class="property">class </em><code class="descclassname">twilio.rest.verify.v2.service.entity.new_factor.</code><code class="descname">NewFactorList</code><span class="sig-paren">(</span><em>version</em>, <em>service_sid</em>, <em>identity</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/verify/v2/service/entity/new_factor.html#NewFactorList"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.verify.v2.service.entity.new_factor.NewFactorList" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="twilio.base.html#twilio.base.list_resource.ListResource" title="twilio.base.list_resource.ListResource"><code class="xref py py-class docutils literal notranslate"><span class="pre">twilio.base.list_resource.ListResource</span></code></a></p>
+<p>PLEASE NOTE that this class contains beta products that are subject to
+change. Use them with caution.</p>
+<dl class="method">
+<dt id="twilio.rest.verify.v2.service.entity.new_factor.NewFactorList.create">
+<code class="descname">create</code><span class="sig-paren">(</span><em>friendly_name</em>, <em>factor_type</em>, <em>binding_alg=&lt;object object&gt;</em>, <em>binding_public_key=&lt;object object&gt;</em>, <em>config_app_id=&lt;object object&gt;</em>, <em>config_notification_platform=&lt;object object&gt;</em>, <em>config_notification_token=&lt;object object&gt;</em>, <em>config_sdk_version=&lt;object object&gt;</em>, <em>binding_secret=&lt;object object&gt;</em>, <em>config_time_step=&lt;object object&gt;</em>, <em>config_skew=&lt;object object&gt;</em>, <em>config_code_length=&lt;object object&gt;</em>, <em>config_alg=&lt;object object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/verify/v2/service/entity/new_factor.html#NewFactorList.create"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.verify.v2.service.entity.new_factor.NewFactorList.create" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create the NewFactorInstance</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>friendly_name</strong> (<em>unicode</em>) – The friendly name of this Factor</li>
+<li><strong>factor_type</strong> (<a class="reference internal" href="#twilio.rest.verify.v2.service.entity.new_factor.NewFactorInstance.FactorTypes" title="twilio.rest.verify.v2.service.entity.new_factor.NewFactorInstance.FactorTypes"><em>NewFactorInstance.FactorTypes</em></a>) – The Type of this Factor</li>
+<li><strong>binding_alg</strong> (<em>unicode</em>) – The algorithm used when <cite>factor_type</cite> is <cite>push</cite></li>
+<li><strong>binding_public_key</strong> (<em>unicode</em>) – The public key encoded in Base64</li>
+<li><strong>config_app_id</strong> (<em>unicode</em>) – The ID that uniquely identifies your app in the Google or Apple store</li>
+<li><strong>config_notification_platform</strong> (<a class="reference internal" href="#twilio.rest.verify.v2.service.entity.new_factor.NewFactorInstance.NotificationPlatforms" title="twilio.rest.verify.v2.service.entity.new_factor.NewFactorInstance.NotificationPlatforms"><em>NewFactorInstance.NotificationPlatforms</em></a>) – The transport technology used to generate the Notification Token</li>
+<li><strong>config_notification_token</strong> (<em>unicode</em>) – For APN, the device token. For FCM the registration token</li>
+<li><strong>config_sdk_version</strong> (<em>unicode</em>) – The Verify Push SDK version used to configure the factor</li>
+<li><strong>binding_secret</strong> (<em>unicode</em>) – The shared secret in Base32</li>
+<li><strong>config_time_step</strong> (<em>unicode</em>) – How often, in seconds, are TOTP codes generated</li>
+<li><strong>config_skew</strong> (<em>unicode</em>) – The number of past and future time-steps valid at a given time</li>
+<li><strong>config_code_length</strong> (<em>unicode</em>) – Number of digits for generated TOTP codes</li>
+<li><strong>config_alg</strong> (<a class="reference internal" href="#twilio.rest.verify.v2.service.entity.new_factor.NewFactorInstance.TotpAlgorithms" title="twilio.rest.verify.v2.service.entity.new_factor.NewFactorInstance.TotpAlgorithms"><em>NewFactorInstance.TotpAlgorithms</em></a>) – The algorithm used to derive the TOTP codes</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The created NewFactorInstance</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#twilio.rest.verify.v2.service.entity.new_factor.NewFactorInstance" title="twilio.rest.verify.v2.service.entity.new_factor.NewFactorInstance">twilio.rest.verify.v2.service.entity.new_factor.NewFactorInstance</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+</dd></dl>
+<dl class="class">
+<dt id="twilio.rest.verify.v2.service.entity.new_factor.NewFactorPage">
+<em class="property">class </em><code class="descclassname">twilio.rest.verify.v2.service.entity.new_factor.</code><code class="descname">NewFactorPage</code><span class="sig-paren">(</span><em>version</em>, <em>response</em>, <em>solution</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/verify/v2/service/entity/new_factor.html#NewFactorPage"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.verify.v2.service.entity.new_factor.NewFactorPage" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="twilio.base.html#twilio.base.page.Page" title="twilio.base.page.Page"><code class="xref py py-class docutils literal notranslate"><span class="pre">twilio.base.page.Page</span></code></a></p>
+<p>PLEASE NOTE that this class contains beta products that are subject to
+change. Use them with caution.</p>
+<dl class="method">
+<dt id="twilio.rest.verify.v2.service.entity.new_factor.NewFactorPage.get_instance">
+<code class="descname">get_instance</code><span class="sig-paren">(</span><em>payload</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/verify/v2/service/entity/new_factor.html#NewFactorPage.get_instance"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.verify.v2.service.entity.new_factor.NewFactorPage.get_instance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Build an instance of NewFactorInstance</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>payload</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – Payload response from the API</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">twilio.rest.verify.v2.service.entity.new_factor.NewFactorInstance</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#twilio.rest.verify.v2.service.entity.new_factor.NewFactorInstance" title="twilio.rest.verify.v2.service.entity.new_factor.NewFactorInstance">twilio.rest.verify.v2.service.entity.new_factor.NewFactorInstance</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+</dd></dl>
+</div>
 <div class="section" id="module-twilio.rest.verify.v2.service.entity">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-twilio.rest.verify.v2.service.entity" title="Permalink to this headline">¶</a></h2>
 <p>This code was generated by
 / _    _  _|   _  _</p>
 <blockquote>
 <div><div class="line-block">
-<div class="line">(_)/(_)(_|/| <a href="#id5"><span class="problematic" id="id6">|</span></a>(/_  v1.0.0
+<div class="line">(_)/(_)(_|/| <a href="#id7"><span class="problematic" id="id8">|</span></a>(/_  v1.0.0
 /       /</div>
 </div>
 </div></blockquote>
@@ -1203,6 +1490,21 @@ change. Use them with caution.</p>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The fetched EntityInstance</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#twilio.rest.verify.v2.service.entity.EntityInstance" title="twilio.rest.verify.v2.service.entity.EntityInstance">twilio.rest.verify.v2.service.entity.EntityInstance</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+<dl class="attribute">
+<dt id="twilio.rest.verify.v2.service.entity.EntityContext.new_factors">
+<code class="descname">new_factors</code><a class="headerlink" href="#twilio.rest.verify.v2.service.entity.EntityContext.new_factors" title="Permalink to this definition">¶</a></dt>
+<dd><p>Access the new_factors</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">twilio.rest.verify.v2.service.entity.new_factor.NewFactorList</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#twilio.rest.verify.v2.service.entity.new_factor.NewFactorList" title="twilio.rest.verify.v2.service.entity.new_factor.NewFactorList">twilio.rest.verify.v2.service.entity.new_factor.NewFactorList</a></td>
 </tr>
 </tbody>
 </table>
@@ -1340,6 +1642,21 @@ change. Use them with caution.</p>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Nested resource URLs.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">unicode</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+<dl class="attribute">
+<dt id="twilio.rest.verify.v2.service.entity.EntityInstance.new_factors">
+<code class="descname">new_factors</code><a class="headerlink" href="#twilio.rest.verify.v2.service.entity.EntityInstance.new_factors" title="Permalink to this definition">¶</a></dt>
+<dd><p>Access the new_factors</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">twilio.rest.verify.v2.service.entity.new_factor.NewFactorList</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#twilio.rest.verify.v2.service.entity.new_factor.NewFactorList" title="twilio.rest.verify.v2.service.entity.new_factor.NewFactorList">twilio.rest.verify.v2.service.entity.new_factor.NewFactorList</a></td>
 </tr>
 </tbody>
 </table>
@@ -1576,6 +1893,7 @@ change. Use them with caution.</p>
 <li><a class="reference internal" href="#submodules">Submodules</a></li>
 <li><a class="reference internal" href="#module-twilio.rest.verify.v2.service.entity.challenge">twilio.rest.verify.v2.service.entity.challenge module</a></li>
 <li><a class="reference internal" href="#module-twilio.rest.verify.v2.service.entity.factor">twilio.rest.verify.v2.service.entity.factor module</a></li>
+<li><a class="reference internal" href="#module-twilio.rest.verify.v2.service.entity.new_factor">twilio.rest.verify.v2.service.entity.new_factor module</a></li>
 <li><a class="reference internal" href="#module-twilio.rest.verify.v2.service.entity">Module contents</a></li>
 </ul>
 </li>

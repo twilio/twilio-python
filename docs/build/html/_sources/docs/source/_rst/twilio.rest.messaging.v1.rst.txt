@@ -27,6 +27,22 @@ twilio.rest.messaging.v1.deactivation module
     :undoc-members:
     :show-inheritance:
 
+twilio.rest.messaging.v1.external\_campaign module
+--------------------------------------------------
+
+.. automodule:: twilio.rest.messaging.v1.external_campaign
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+twilio.rest.messaging.v1.usecase module
+---------------------------------------
+
+.. automodule:: twilio.rest.messaging.v1.usecase
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 
 Module contents
 ---------------

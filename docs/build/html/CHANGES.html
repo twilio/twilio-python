@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-MWRD6S');</script><!--End Google Tag Manager-->
 <meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<title>twilio-python Changelog — twilio-python 6.55.0 documentation</title>
+<title>twilio-python Changelog — twilio-python 6.56.0 documentation</title>
 <link href="_static/alabaster.css" rel="stylesheet" type="text/css"/>
 <link href="_static/pygments.css" rel="stylesheet" type="text/css"/>
 <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js" type="text/javascript"></script>
@@ -30,6 +30,41 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <div class="section" id="twilio-python-changelog">
 <h1>twilio-python Changelog<a class="headerlink" href="#twilio-python-changelog" title="Permalink to this headline">¶</a></h1>
 <p>Here you can see the full list of changes between each twilio-python release.</p>
+<div class="section" id="version-6-56-0">
+<h2>[2021-04-07] Version 6.56.0<a class="headerlink" href="#version-6-56-0" title="Permalink to this headline">¶</a></h2>
+<p><strong>Api</strong></p>
+<ul class="simple">
+<li>Added <code class="docutils literal notranslate"><span class="pre">announcement</span></code> event to conference status callback events</li>
+<li>Removed optional property <code class="docutils literal notranslate"><span class="pre">time_limit</span></code> in the call create request. <strong>(breaking change)</strong></li>
+</ul>
+<p><strong>Messaging</strong></p>
+<ul class="simple">
+<li>Add rate_limits field to Messaging Services US App To Person API</li>
+<li>Add usecase field in Service API for fetch, create, update, read</li>
+<li>Add us app to person api and us app to person usecase api as dependents in service</li>
+<li>Add us_app_to_person_registered field in service api for fetch, read, create, update</li>
+<li>Add us app to person api</li>
+<li>Add us app to person usecase api</li>
+<li>Add A2P external campaign api</li>
+<li>Add Usecases API</li>
+</ul>
+<p><strong>Supersim</strong></p>
+<ul class="simple">
+<li>Add Create endpoint to Sims resource</li>
+</ul>
+<p><strong>Verify</strong></p>
+<ul class="simple">
+<li>The <code class="docutils literal notranslate"><span class="pre">Binding</span></code> field is now returned when creating a <code class="docutils literal notranslate"><span class="pre">Factor</span></code>. This value won’t be returned for other endpoints.</li>
+</ul>
+<p><strong>Video</strong></p>
+<ul class="simple">
+<li>[Rooms] max_concurrent_published_tracks has got GA maturity</li>
+</ul>
+<p><strong>Twiml</strong></p>
+<ul class="simple">
+<li>Add <code class="docutils literal notranslate"><span class="pre">announcement</span></code> event to <code class="docutils literal notranslate"><span class="pre">statusCallbackEvent</span></code> for <code class="docutils literal notranslate"><span class="pre">&lt;Conference&gt;</span></code>.</li>
+</ul>
+</div>
 <div class="section" id="version-6-55-0">
 <h2>[2021-03-24] Version 6.55.0<a class="headerlink" href="#version-6-55-0" title="Permalink to this headline">¶</a></h2>
 <p><strong>Api</strong></p>
@@ -2408,7 +2443,7 @@ in Client.<ul>
 </div>
 <p><strong>Api</strong></p>
 <ul class="simple">
-<li>Add VoiceReceiveMode {‘voice’, ‘fax’} option to IncomingPhoneNumber UPDATE requests</li>
+<li>Add VoiceReceiveMode {’voice’, ‘fax’} option to IncomingPhoneNumber UPDATE requests</li>
 </ul>
 <p><strong>Chat</strong></p>
 <ul class="simple">
@@ -2829,7 +2864,7 @@ addition to the client. Reporter: Trenton McManus</p>
 <h2>Version 3.4.2<a class="headerlink" href="#version-3-4-2" title="Permalink to this headline">¶</a></h2>
 <p>Released on January 2, 2013</p>
 <p>Adds a convenience function to retrieve the members of a queue by running
-client.members(“QU123”).</p>
+client.members(”QU123”).</p>
 </div>
 <div class="section" id="version-3-4-1">
 <h2>Version 3.4.1<a class="headerlink" href="#version-3-4-1" title="Permalink to this headline">¶</a></h2>
@@ -2945,6 +2980,7 @@ querying list resources</li>
 <h3><a href="index.html">Table of Contents</a></h3>
 <ul>
 <li><a class="reference internal" href="#">twilio-python Changelog</a><ul>
+<li><a class="reference internal" href="#version-6-56-0">[2021-04-07] Version 6.56.0</a></li>
 <li><a class="reference internal" href="#version-6-55-0">[2021-03-24] Version 6.55.0</a></li>
 <li><a class="reference internal" href="#version-6-54-0">[2021-03-15] Version 6.54.0</a></li>
 <li><a class="reference internal" href="#version-6-53-0">[2021-02-24] Version 6.53.0</a></li>

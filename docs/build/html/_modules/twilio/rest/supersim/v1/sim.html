@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-MWRD6S');</script><!--End Google Tag Manager-->
 <meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<title>twilio.rest.supersim.v1.sim — twilio-python 6.55.0 documentation</title>
+<title>twilio.rest.supersim.v1.sim — twilio-python 6.56.0 documentation</title>
 <link href="../../../../../_static/alabaster.css" rel="stylesheet" type="text/css"/>
 <link href="../../../../../_static/pygments.css" rel="stylesheet" type="text/css"/>
 <script data-url_root="../../../../../" id="documentation_options" src="../../../../../_static/documentation_options.js" type="text/javascript"></script>
@@ -62,6 +62,22 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="c1"># Path Solution</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_solution</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_uri</span> <span class="o">=</span> <span class="s1">'/Sims'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">_solution</span><span class="p">)</span>
+
+<div class="viewcode-block" id="SimList.create"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.supersim.v1.html#twilio.rest.supersim.v1.sim.SimList.create">[docs]</a>    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">iccid</span><span class="p">,</span> <span class="n">registration_code</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Create the SimInstance</span>
+
+<span class="sd">        :param unicode iccid: The `ICCID &lt;https://en.wikipedia.org/wiki/Subscriber_identity_module#ICCID&gt;`_ of the Super SIM to be added to your Account</span>
+<span class="sd">        :param unicode registration_code: The 10 digit code required to claim the Super SIM for your Account</span>
+
+<span class="sd">        :returns: The created SimInstance</span>
+<span class="sd">        :rtype: twilio.rest.supersim.v1.sim.SimInstance</span>
+<span class="sd">        """</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">values</span><span class="o">.</span><span class="n">of</span><span class="p">({</span><span class="s1">'Iccid'</span><span class="p">:</span> <span class="n">iccid</span><span class="p">,</span> <span class="s1">'RegistrationCode'</span><span class="p">:</span> <span class="n">registration_code</span><span class="p">,</span> <span class="p">})</span>
+
+        <span class="n">payload</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_version</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">'POST'</span><span class="p">,</span> <span class="n">uri</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_uri</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">SimInstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_version</span><span class="p">,</span> <span class="n">payload</span><span class="p">,</span> <span class="p">)</span></div>
 
 <div class="viewcode-block" id="SimList.stream"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.supersim.v1.html#twilio.rest.supersim.v1.sim.SimList.stream">[docs]</a>    <span class="k">def</span> <span class="nf">stream</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">fleet</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">iccid</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
                <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">page_size</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
