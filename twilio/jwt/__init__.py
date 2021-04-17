@@ -122,12 +122,18 @@ class Jwt(object):
         verify = True if key else False
 
         try:
+            headers = jwt_lib.get_unverified_header(jwt)
+
+            alg = headers.get('alg')
+            if alg != cls.ALGORITHM:
+                raise ValueError(f"Incorrect decoding algorithm {alg}, "
+                                 f"expecting {cls.ALGORITHM}.")
+
             payload = jwt_lib.decode(jwt, key, algorithms=[cls.ALGORITHM], options={
                 'verify_signature': verify,
                 'verify_exp': True,
                 'verify_nbf': True,
             })
-            headers = jwt_lib.get_unverified_header(jwt)
         except Exception as e:
             raise JwtDecodeError(getattr(e, 'message', str(e)))
 

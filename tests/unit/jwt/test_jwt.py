@@ -210,6 +210,10 @@ class JwtTest(unittest.TestCase):
             'sick': 'sick',
         }, decoded_jwt.payload)
 
+    def test_encode_decode_mismatched_algorithms(self):
+        jwt = DummyJwt('secret_key', 'issuer', algorithm='HS512', subject='hey', payload={'sick': 'sick'})
+        self.assertRaises(JwtDecodeError, Jwt.from_jwt, jwt.to_jwt())
+
     def test_decode_bad_secret(self):
         jwt = DummyJwt('secret_key', 'issuer')
         self.assertRaises(JwtDecodeError, Jwt.from_jwt, jwt.to_jwt(), 'letmeinplz')
