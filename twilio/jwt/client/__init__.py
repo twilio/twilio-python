@@ -6,6 +6,8 @@ from urllib.parse import urlencode
 class ClientCapabilityToken(Jwt):
     """A token to control permissions with Twilio Client"""
 
+    ALGORITHM = 'HS256'
+
     def __init__(self, account_sid, auth_token, nbf=Jwt.GENERATE, ttl=3600, valid_until=None,
                  **kwargs):
         """
@@ -20,7 +22,7 @@ class ClientCapabilityToken(Jwt):
         :returns: A new CapabilityToken with zero permissions
         """
         super(ClientCapabilityToken, self).__init__(
-            algorithm='HS256',
+            algorithm=self.ALGORITHM,
             secret_key=auth_token,
             issuer=account_sid,
             nbf=nbf,

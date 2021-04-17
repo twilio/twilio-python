@@ -10,13 +10,17 @@ from twilio.jwt import Jwt, JwtDecodeError
 
 class DummyJwt(Jwt):
     """Jwt implementation that allows setting arbitrary payload and headers for testing."""
-    def __init__(self, secret_key, issuer, subject=None, algorithm='HS256', nbf=Jwt.GENERATE,
-                 ttl=3600, valid_until=None, headers=None, payload=None):
+
+    ALGORITHM = 'HS256'
+
+    def __init__(self, secret_key, issuer, subject=None, algorithm=None,
+                 nbf=Jwt.GENERATE, ttl=3600, valid_until=None, headers=None,
+                 payload=None):
         super(DummyJwt, self).__init__(
             secret_key=secret_key,
             issuer=issuer,
             subject=subject,
-            algorithm=algorithm,
+            algorithm=algorithm or self.ALGORITHM,
             nbf=nbf,
             ttl=ttl,
             valid_until=valid_until
@@ -147,36 +151,10 @@ class JwtTest(unittest.TestCase):
         )
 
     @patch('time.time')
-    def test_encode_custom_algorithm(self, time_mock):
-        time_mock.return_value = 0.0
-
-        jwt = DummyJwt('secret_key', 'issuer', algorithm='HS512', headers={}, payload={})
-
-        self.assertJwtsEqual(
-            jwt.to_jwt(), 'secret_key',
-            expected_headers={'typ': 'JWT', 'alg': 'HS512'},
-            expected_payload={'iss': 'issuer', 'exp': 3600, 'nbf': 0},
-        )
-
-    @patch('time.time')
-    def test_encode_override_algorithm(self, time_mock):
-        time_mock.return_value = 0.0
-
-        jwt = DummyJwt('secret_key', 'issuer', algorithm='HS256', headers={}, payload={})
-
-        self.assertJwtsEqual(
-            jwt.to_jwt(algorithm='HS512'),
-            'secret_key',
-            expected_headers={'typ': 'JWT', 'alg': 'HS512'},
-            expected_payload={'iss': 'issuer', 'exp': 3600, 'nbf': 0},
-        )
-
-    @patch('time.time')
     def test_encode_with_headers(self, time_mock):
         time_mock.return_value = 0.0
 
-        jwt = DummyJwt('secret_key', 'issuer', algorithm='HS256', headers={'sooper': 'secret'},
-                       payload={})
+        jwt = DummyJwt('secret_key', 'issuer', headers={'sooper': 'secret'}, payload={})
 
         self.assertJwtsEqual(
             jwt.to_jwt(), 'secret_key',
@@ -188,7 +166,7 @@ class JwtTest(unittest.TestCase):
     def test_encode_with_payload(self, time_mock):
         time_mock.return_value = 0.0
 
-        jwt = DummyJwt('secret_key', 'issuer', algorithm='HS256', payload={'root': 'true'})
+        jwt = DummyJwt('secret_key', 'issuer', payload={'root': 'true'})
 
         self.assertJwtsEqual(
             jwt.to_jwt(), 'secret_key',
@@ -207,10 +185,6 @@ class JwtTest(unittest.TestCase):
             expected_headers={'typ': 'JWT', 'alg': 'HS256', 'yes': 'oui'},
             expected_payload={'iss': 'issuer', 'exp': 3600, 'nbf': 0, 'pay': 'me'},
         )
-
-    def test_encode_invalid_crypto_alg_fails(self):
-        jwt = DummyJwt('secret_key', 'issuer', algorithm='PlzDontTouchAlgorithm')
-        self.assertRaises(NotImplementedError, jwt.to_jwt)
 
     def test_encode_no_key_fails(self):
         jwt = DummyJwt(None, 'issuer')
