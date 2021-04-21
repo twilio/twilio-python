@@ -125,11 +125,13 @@ class TaskTestCase(IntegrationTestCase):
 
         with self.assertRaises(TwilioException):
             self.client.taskrouter.v1.workspaces("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                     .tasks("WTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+                                     .tasks("WTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete(if_match="if_match")
 
+        headers = {'If-Match': "if_match", }
         self.holodeck.assert_has_request(Request(
             'delete',
             'https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Tasks/WTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+            headers=headers,
         ))
 
     def test_delete_response(self):

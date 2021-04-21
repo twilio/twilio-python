@@ -158,6 +158,16 @@ class JobInstance(InstanceResource):
     """ PLEASE NOTE that this class contains beta products that are subject to
     change. Use them with caution. """
 
+    class Status(object):
+        ERRORDURINGRUN = "ErrorDuringRun"
+        SUBMITTED = "Submitted"
+        RUNNING = "Running"
+        COMPLETEDEMPTYRECORDS = "CompletedEmptyRecords"
+        COMPLETED = "Completed"
+        FAILED = "Failed"
+        RUNNINGTOBEDELETED = "RunningToBeDeleted"
+        DELETEDBYUSERREQUEST = "DeletedByUserRequest"
+
     def __init__(self, version, payload, job_sid=None):
         """
         Initialize the JobInstance
@@ -219,7 +229,7 @@ class JobInstance(InstanceResource):
     @property
     def details(self):
         """
-        :returns: This is a list of the completed, pending, or errored dates within the export time range, with one entry for each status with more than one day in that status
+        :returns: The details of a job state which is an object that contains a `status` string, a day count integer, and list of days in the job
         :rtype: dict
         """
         return self._properties['details']

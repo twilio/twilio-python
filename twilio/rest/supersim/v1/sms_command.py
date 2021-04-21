@@ -65,7 +65,7 @@ class SmsCommandList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param unicode sim: The SID or unique name of the Sim that SMS Command was sent to or from.
+        :param unicode sim: The SID or unique name of the Sim resource that SMS Command was sent to or from.
         :param SmsCommandInstance.Status status: The status of the SMS Command
         :param SmsCommandInstance.Direction direction: The direction of the SMS Command
         :param int limit: Upper limit for the number of records to return. stream()
@@ -91,7 +91,7 @@ class SmsCommandList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param unicode sim: The SID or unique name of the Sim that SMS Command was sent to or from.
+        :param unicode sim: The SID or unique name of the Sim resource that SMS Command was sent to or from.
         :param SmsCommandInstance.Status status: The status of the SMS Command
         :param SmsCommandInstance.Direction direction: The direction of the SMS Command
         :param int limit: Upper limit for the number of records to return. list() guarantees
@@ -119,7 +119,7 @@ class SmsCommandList(ListResource):
         Retrieve a single page of SmsCommandInstance records from the API.
         Request is executed immediately
 
-        :param unicode sim: The SID or unique name of the Sim that SMS Command was sent to or from.
+        :param unicode sim: The SID or unique name of the Sim resource that SMS Command was sent to or from.
         :param SmsCommandInstance.Status status: The status of the SMS Command
         :param SmsCommandInstance.Direction direction: The direction of the SMS Command
         :param str page_token: PageToken provided by the API

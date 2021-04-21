@@ -30,7 +30,7 @@ class ChallengeTestCase(IntegrationTestCase):
             data=values,
         ))
 
-    def test_create_response(self):
+    def test_create_without_auth_payload_response(self):
         self.holodeck.mock(Response(
             201,
             '''
@@ -61,7 +61,55 @@ class ChallengeTestCase(IntegrationTestCase):
                     "ip": "172.168.1.234"
                 },
                 "factor_type": "push",
-                "url": "https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Challenges/YCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+                "url": "https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Challenges/YCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "links": {
+                    "notifications": "https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Challenges/YCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Notifications"
+                }
+            }
+            '''
+        ))
+
+        actual = self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                      .entities("identity") \
+                                      .challenges.create(factor_sid="YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+
+        self.assertIsNotNone(actual)
+
+    def test_create_with_auth_payload_response(self):
+        self.holodeck.mock(Response(
+            201,
+            '''
+            {
+                "sid": "YCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "service_sid": "VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "entity_sid": "YEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "identity": "ff483d1ff591898a9942916050d2ca3f",
+                "factor_sid": "YFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "date_created": "2015-07-30T20:00:00Z",
+                "date_updated": "2015-07-30T20:00:00Z",
+                "date_responded": "2015-07-30T20:00:00Z",
+                "expiration_date": "2015-07-30T20:00:00Z",
+                "status": "approved",
+                "responded_reason": "none",
+                "details": {
+                    "message": "Hi! Mr. John Doe, would you like to sign up?",
+                    "date": "2020-07-01T12:13:14Z",
+                    "fields": [
+                        {
+                            "label": "Action",
+                            "value": "Sign up in portal"
+                        }
+                    ]
+                },
+                "hidden_details": {
+                    "ip": "172.168.1.234"
+                },
+                "factor_type": "push",
+                "url": "https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Challenges/YCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "links": {
+                    "notifications": "https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Challenges/YCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Notifications"
+                }
             }
             '''
         ))
@@ -116,7 +164,10 @@ class ChallengeTestCase(IntegrationTestCase):
                     "ip": "172.168.1.234"
                 },
                 "factor_type": "push",
-                "url": "https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Challenges/YCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+                "url": "https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Challenges/YCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "links": {
+                    "notifications": "https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Challenges/YCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Notifications"
+                }
             }
             '''
         ))
@@ -198,7 +249,10 @@ class ChallengeTestCase(IntegrationTestCase):
                             "ip": "172.168.1.234"
                         },
                         "factor_type": "push",
-                        "url": "https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Challenges/YCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+                        "url": "https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Challenges/YCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                        "links": {
+                            "notifications": "https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Challenges/YCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Notifications"
+                        }
                     }
                 ],
                 "meta": {
@@ -264,7 +318,10 @@ class ChallengeTestCase(IntegrationTestCase):
                     "ip": "172.168.1.234"
                 },
                 "factor_type": "push",
-                "url": "https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Challenges/YCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+                "url": "https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Challenges/YCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "links": {
+                    "notifications": "https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Challenges/YCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Notifications"
+                }
             }
             '''
         ))

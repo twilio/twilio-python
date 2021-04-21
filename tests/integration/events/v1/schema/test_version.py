@@ -12,7 +12,7 @@ from twilio.base.exceptions import TwilioException
 from twilio.http.response import Response
 
 
-class VersionTestCase(IntegrationTestCase):
+class SchemaVersionTestCase(IntegrationTestCase):
 
     def test_list_request(self):
         self.holodeck.mock(Response(500, ''))
@@ -35,9 +35,9 @@ class VersionTestCase(IntegrationTestCase):
                 "meta": {
                     "page": 0,
                     "page_size": 10,
-                    "first_page_url": "https://events.twilio.com/v1/Schemas/DataTaps.TestEventSchema/Versions?PageSize=10&Page=0",
+                    "first_page_url": "https://events.twilio.com/v1/Schemas/Messaging.MessageStatus/Versions?PageSize=10&Page=0",
                     "previous_page_url": null,
-                    "url": "https://events.twilio.com/v1/Schemas/DataTaps.TestEventSchema/Versions?PageSize=10&Page=0",
+                    "url": "https://events.twilio.com/v1/Schemas/Messaging.MessageStatus/Versions?PageSize=10&Page=0",
                     "next_page_url": null,
                     "key": "schema_versions"
                 }
@@ -57,26 +57,26 @@ class VersionTestCase(IntegrationTestCase):
             {
                 "schema_versions": [
                     {
-                        "id": "DataTaps.TestEventSchema",
+                        "id": "Messaging.MessageStatus",
                         "schema_version": 1,
                         "date_created": "2015-07-30T20:00:00Z",
-                        "url": "https://events.twilio.com/v1/Schemas/DataTaps.TestEventSchema/Versions/1",
-                        "raw": "https://events-schemas.twilio.com/DataTaps.TestEventSchema/1"
+                        "url": "https://events.twilio.com/v1/Schemas/Messaging.MessageStatus/Versions/1",
+                        "raw": "https://events-schemas.twilio.com/Messaging.MessageStatus/1"
                     },
                     {
-                        "id": "DataTaps.TestEventSchema",
+                        "id": "Messaging.MessageStatus",
                         "schema_version": 2,
                         "date_created": "2015-07-30T20:00:00Z",
-                        "url": "https://events.twilio.com/v1/Schemas/DataTaps.TestEventSchema/Versions/2",
-                        "raw": "https://events-schemas.twilio.com/DataTaps.TestEventSchema/2"
+                        "url": "https://events.twilio.com/v1/Schemas/Messaging.MessageStatus/Versions/2",
+                        "raw": "https://events-schemas.twilio.com/Messaging.MessageStatus/2"
                     }
                 ],
                 "meta": {
                     "page": 0,
                     "page_size": 50,
-                    "first_page_url": "https://events.twilio.com/v1/Schemas/DataTaps.TestEventSchema/Versions?PageSize=50&Page=0",
+                    "first_page_url": "https://events.twilio.com/v1/Schemas/Messaging.MessageStatus/Versions?PageSize=50&Page=0",
                     "previous_page_url": null,
-                    "url": "https://events.twilio.com/v1/Schemas/DataTaps.TestEventSchema/Versions?PageSize=50&Page=0",
+                    "url": "https://events.twilio.com/v1/Schemas/Messaging.MessageStatus/Versions?PageSize=50&Page=0",
                     "next_page_url": null,
                     "key": "schema_versions"
                 }
@@ -106,11 +106,11 @@ class VersionTestCase(IntegrationTestCase):
             200,
             '''
             {
-                "id": "DataTaps.TestEventSchema",
+                "id": "Messaging.MessageStatus",
                 "schema_version": 1,
                 "date_created": "2015-07-30T20:00:00Z",
-                "url": "https://events.twilio.com/v1/Schemas/DataTaps.TestEventSchema/Versions/1",
-                "raw": "https://events-schemas.twilio.com/DataTaps.TestEventSchema/1"
+                "url": "https://events.twilio.com/v1/Schemas/Messaging.MessageStatus/Versions/1",
+                "raw": "https://events-schemas.twilio.com/Messaging.MessageStatus/1"
             }
             '''
         ))

@@ -200,6 +200,16 @@ class ExportCustomJobInstance(InstanceResource):
     """ PLEASE NOTE that this class contains beta products that are subject to
     change. Use them with caution. """
 
+    class Status(object):
+        ERRORDURINGRUN = "ErrorDuringRun"
+        SUBMITTED = "Submitted"
+        RUNNING = "Running"
+        COMPLETEDEMPTYRECORDS = "CompletedEmptyRecords"
+        COMPLETED = "Completed"
+        FAILED = "Failed"
+        RUNNINGTOBEDELETED = "RunningToBeDeleted"
+        DELETEDBYUSERREQUEST = "DeletedByUserRequest"
+
     def __init__(self, version, payload, resource_type):
         """
         Initialize the ExportCustomJobInstance
@@ -295,7 +305,7 @@ class ExportCustomJobInstance(InstanceResource):
     @property
     def details(self):
         """
-        :returns: The details of a job state which is an object that contains a status string, a day count integer, and list of days in the job
+        :returns: The details of a job state which is an object that contains a `status` string, a day count integer, and list of days in the job
         :rtype: dict
         """
         return self._properties['details']

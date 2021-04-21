@@ -111,17 +111,17 @@ class SubscribedEventList(ListResource):
 
         return SubscribedEventPage(self._version, response, self._solution)
 
-    def create(self, type, version=values.unset):
+    def create(self, type, schema_version=values.unset):
         """
         Create the SubscribedEventInstance
 
         :param unicode type: Type of event being subscribed to.
-        :param unicode version: The schema version that the subscription should use.
+        :param unicode schema_version: The schema version that the subscription should use.
 
         :returns: The created SubscribedEventInstance
         :rtype: twilio.rest.events.v1.subscription.subscribed_event.SubscribedEventInstance
         """
-        data = values.of({'Type': type, 'Version': version, })
+        data = values.of({'Type': type, 'SchemaVersion': schema_version, })
 
         payload = self._version.create(method='POST', uri=self._uri, data=data, )
 
@@ -253,16 +253,16 @@ class SubscribedEventContext(InstanceContext):
             type=self._solution['type'],
         )
 
-    def update(self, version=values.unset):
+    def update(self, schema_version=values.unset):
         """
         Update the SubscribedEventInstance
 
-        :param unicode version: The schema version that the subscription should use.
+        :param unicode schema_version: The schema version that the subscription should use.
 
         :returns: The updated SubscribedEventInstance
         :rtype: twilio.rest.events.v1.subscription.subscribed_event.SubscribedEventInstance
         """
-        data = values.of({'Version': version, })
+        data = values.of({'SchemaVersion': schema_version, })
 
         payload = self._version.update(method='POST', uri=self._uri, data=data, )
 
@@ -310,7 +310,7 @@ class SubscribedEventInstance(InstanceResource):
         self._properties = {
             'account_sid': payload.get('account_sid'),
             'type': payload.get('type'),
-            'version': deserialize.integer(payload.get('version')),
+            'schema_version': deserialize.integer(payload.get('schema_version')),
             'subscription_sid': payload.get('subscription_sid'),
             'url': payload.get('url'),
         }
@@ -353,12 +353,12 @@ class SubscribedEventInstance(InstanceResource):
         return self._properties['type']
 
     @property
-    def version(self):
+    def schema_version(self):
         """
         :returns: The schema version that the subscription should use.
         :rtype: unicode
         """
-        return self._properties['version']
+        return self._properties['schema_version']
 
     @property
     def subscription_sid(self):
@@ -385,16 +385,16 @@ class SubscribedEventInstance(InstanceResource):
         """
         return self._proxy.fetch()
 
-    def update(self, version=values.unset):
+    def update(self, schema_version=values.unset):
         """
         Update the SubscribedEventInstance
 
-        :param unicode version: The schema version that the subscription should use.
+        :param unicode schema_version: The schema version that the subscription should use.
 
         :returns: The updated SubscribedEventInstance
         :rtype: twilio.rest.events.v1.subscription.subscribed_event.SubscribedEventInstance
         """
-        return self._proxy.update(version=version, )
+        return self._proxy.update(schema_version=schema_version, )
 
     def delete(self):
         """

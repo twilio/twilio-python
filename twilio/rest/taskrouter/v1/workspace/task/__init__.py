@@ -356,14 +356,18 @@ class TaskContext(InstanceContext):
             sid=self._solution['sid'],
         )
 
-    def delete(self):
+    def delete(self, if_match=values.unset):
         """
         Deletes the TaskInstance
+
+        :param unicode if_match: The If-Match HTTP request header
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri, )
+        headers = values.of({'If-Match': if_match, })
+
+        return self._version.delete(method='DELETE', uri=self._uri, headers=headers, )
 
     @property
     def reservations(self):
@@ -659,14 +663,16 @@ class TaskInstance(InstanceResource):
             if_match=if_match,
         )
 
-    def delete(self):
+    def delete(self, if_match=values.unset):
         """
         Deletes the TaskInstance
+
+        :param unicode if_match: The If-Match HTTP request header
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._proxy.delete()
+        return self._proxy.delete(if_match=if_match, )
 
     @property
     def reservations(self):

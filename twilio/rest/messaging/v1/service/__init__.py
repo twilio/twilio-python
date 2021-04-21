@@ -44,14 +44,15 @@ class ServiceList(ListResource):
                sticky_sender=values.unset, mms_converter=values.unset,
                smart_encoding=values.unset, scan_message_content=values.unset,
                fallback_to_long_code=values.unset, area_code_geomatch=values.unset,
-               validity_period=values.unset, synchronous_validation=values.unset):
+               validity_period=values.unset, synchronous_validation=values.unset,
+               use_inbound_webhook_on_number=values.unset):
         """
         Create the ServiceInstance
 
         :param unicode friendly_name: A string to describe the resource
-        :param unicode inbound_request_url: The URL we call using inbound_method when a message is received by any phone number or short code in the Service
+        :param unicode inbound_request_url: The URL we call using inbound_method when a message is received by any phone number or short code in the Service. This field will be overridden if the `use_inbound_webhook_on_number` field is enabled.
         :param unicode inbound_method: The HTTP method we should use to call inbound_request_url
-        :param unicode fallback_url: The URL that we call using fallback_method if an error occurs while retrieving or executing the TwiML from the Inbound Request URL
+        :param unicode fallback_url: The URL that we call using fallback_method if an error occurs while retrieving or executing the TwiML from the Inbound Request URL. This field will be overridden if the `use_inbound_webhook_on_number` field is enabled.
         :param unicode fallback_method: The HTTP method we should use to call fallback_url
         :param unicode status_callback: The URL we should call to pass status updates about message delivery
         :param bool sticky_sender: Whether to enable Sticky Sender on the Service instance
@@ -62,6 +63,7 @@ class ServiceList(ListResource):
         :param bool area_code_geomatch: Whether to enable Area Code Geomatch on the Service Instance
         :param unicode validity_period: How long, in seconds, messages sent from the Service are valid
         :param bool synchronous_validation: Reserved
+        :param bool use_inbound_webhook_on_number: If enabled, the webhook url configured on the phone number will be used and will override the `inbound_request_url`/`fallback_url` url called when an inbound message is received.
 
         :returns: The created ServiceInstance
         :rtype: twilio.rest.messaging.v1.service.ServiceInstance
@@ -81,6 +83,7 @@ class ServiceList(ListResource):
             'AreaCodeGeomatch': area_code_geomatch,
             'ValidityPeriod': validity_period,
             'SynchronousValidation': synchronous_validation,
+            'UseInboundWebhookOnNumber': use_inbound_webhook_on_number,
         })
 
         payload = self._version.create(method='POST', uri=self._uri, data=data, )
@@ -269,14 +272,15 @@ class ServiceContext(InstanceContext):
                sticky_sender=values.unset, mms_converter=values.unset,
                smart_encoding=values.unset, scan_message_content=values.unset,
                fallback_to_long_code=values.unset, area_code_geomatch=values.unset,
-               validity_period=values.unset, synchronous_validation=values.unset):
+               validity_period=values.unset, synchronous_validation=values.unset,
+               use_inbound_webhook_on_number=values.unset):
         """
         Update the ServiceInstance
 
         :param unicode friendly_name: A string to describe the resource
-        :param unicode inbound_request_url: The URL we call using inbound_method when a message is received by any phone number or short code in the Service
+        :param unicode inbound_request_url: The URL we call using inbound_method when a message is received by any phone number or short code in the Service. This field will be overridden if the `use_inbound_webhook_on_number` field is enabled.
         :param unicode inbound_method: The HTTP method we should use to call inbound_request_url
-        :param unicode fallback_url: The URL that we call using fallback_method if an error occurs while retrieving or executing the TwiML from the Inbound Request URL
+        :param unicode fallback_url: The URL that we call using fallback_method if an error occurs while retrieving or executing the TwiML from the Inbound Request URL. This field will be overridden if the `use_inbound_webhook_on_number` field is enabled.
         :param unicode fallback_method: The HTTP method we should use to call fallback_url
         :param unicode status_callback: The URL we should call to pass status updates about message delivery
         :param bool sticky_sender: Whether to enable Sticky Sender on the Service instance
@@ -287,6 +291,7 @@ class ServiceContext(InstanceContext):
         :param bool area_code_geomatch: Whether to enable Area Code Geomatch on the Service Instance
         :param unicode validity_period: How long, in seconds, messages sent from the Service are valid
         :param bool synchronous_validation: Reserved
+        :param bool use_inbound_webhook_on_number: If enabled, the webhook url configured on the phone number will be used and will override the `inbound_request_url`/`fallback_url` url called when an inbound message is received.
 
         :returns: The updated ServiceInstance
         :rtype: twilio.rest.messaging.v1.service.ServiceInstance
@@ -306,6 +311,7 @@ class ServiceContext(InstanceContext):
             'AreaCodeGeomatch': area_code_geomatch,
             'ValidityPeriod': validity_period,
             'SynchronousValidation': synchronous_validation,
+            'UseInboundWebhookOnNumber': use_inbound_webhook_on_number,
         })
 
         payload = self._version.update(method='POST', uri=self._uri, data=data, )
@@ -449,6 +455,7 @@ class ServiceInstance(InstanceResource):
             'validity_period': deserialize.integer(payload.get('validity_period')),
             'url': payload.get('url'),
             'links': payload.get('links'),
+            'use_inbound_webhook_on_number': payload.get('use_inbound_webhook_on_number'),
         }
 
         # Context
@@ -511,7 +518,7 @@ class ServiceInstance(InstanceResource):
     @property
     def inbound_request_url(self):
         """
-        :returns: The URL we call using inbound_method when a message is received by any phone number or short code in the Service
+        :returns: The URL we call using inbound_method when a message is received by any phone number or short code in the Service. This field will be overridden if the `use_inbound_webhook_on_number` field is enabled.
         :rtype: unicode
         """
         return self._properties['inbound_request_url']
@@ -527,7 +534,7 @@ class ServiceInstance(InstanceResource):
     @property
     def fallback_url(self):
         """
-        :returns: The URL that we call using fallback_method if an error occurs while retrieving or executing the TwiML from the Inbound Request URL
+        :returns: The URL that we call using fallback_method if an error occurs while retrieving or executing the TwiML from the Inbound Request URL. This field will be overridden if the `use_inbound_webhook_on_number` field is enabled.
         :rtype: unicode
         """
         return self._properties['fallback_url']
@@ -628,20 +635,29 @@ class ServiceInstance(InstanceResource):
         """
         return self._properties['links']
 
+    @property
+    def use_inbound_webhook_on_number(self):
+        """
+        :returns: If enabled, the webhook url configured on the phone number will be used and will override the `inbound_request_url`/`fallback_url` url called when an inbound message is received.
+        :rtype: bool
+        """
+        return self._properties['use_inbound_webhook_on_number']
+
     def update(self, friendly_name=values.unset, inbound_request_url=values.unset,
                inbound_method=values.unset, fallback_url=values.unset,
                fallback_method=values.unset, status_callback=values.unset,
                sticky_sender=values.unset, mms_converter=values.unset,
                smart_encoding=values.unset, scan_message_content=values.unset,
                fallback_to_long_code=values.unset, area_code_geomatch=values.unset,
-               validity_period=values.unset, synchronous_validation=values.unset):
+               validity_period=values.unset, synchronous_validation=values.unset,
+               use_inbound_webhook_on_number=values.unset):
         """
         Update the ServiceInstance
 
         :param unicode friendly_name: A string to describe the resource
-        :param unicode inbound_request_url: The URL we call using inbound_method when a message is received by any phone number or short code in the Service
+        :param unicode inbound_request_url: The URL we call using inbound_method when a message is received by any phone number or short code in the Service. This field will be overridden if the `use_inbound_webhook_on_number` field is enabled.
         :param unicode inbound_method: The HTTP method we should use to call inbound_request_url
-        :param unicode fallback_url: The URL that we call using fallback_method if an error occurs while retrieving or executing the TwiML from the Inbound Request URL
+        :param unicode fallback_url: The URL that we call using fallback_method if an error occurs while retrieving or executing the TwiML from the Inbound Request URL. This field will be overridden if the `use_inbound_webhook_on_number` field is enabled.
         :param unicode fallback_method: The HTTP method we should use to call fallback_url
         :param unicode status_callback: The URL we should call to pass status updates about message delivery
         :param bool sticky_sender: Whether to enable Sticky Sender on the Service instance
@@ -652,6 +668,7 @@ class ServiceInstance(InstanceResource):
         :param bool area_code_geomatch: Whether to enable Area Code Geomatch on the Service Instance
         :param unicode validity_period: How long, in seconds, messages sent from the Service are valid
         :param bool synchronous_validation: Reserved
+        :param bool use_inbound_webhook_on_number: If enabled, the webhook url configured on the phone number will be used and will override the `inbound_request_url`/`fallback_url` url called when an inbound message is received.
 
         :returns: The updated ServiceInstance
         :rtype: twilio.rest.messaging.v1.service.ServiceInstance
@@ -671,6 +688,7 @@ class ServiceInstance(InstanceResource):
             area_code_geomatch=area_code_geomatch,
             validity_period=validity_period,
             synchronous_validation=synchronous_validation,
+            use_inbound_webhook_on_number=use_inbound_webhook_on_number,
         )
 
     def fetch(self):

@@ -30,12 +30,12 @@ class SchemaTestCase(IntegrationTestCase):
             200,
             '''
             {
-                "id": "DataTaps.TestEventSchema",
-                "url": "https://events.twilio.com/v1/Schemas/DataTaps.TestEventSchema",
-                "last_created": "2018-07-30T20:00:00Z",
-                "last_version": 1,
+                "id": "Messaging.MessageStatus",
+                "url": "https://events.twilio.com/v1/Schemas/Messaging.MessageStatus",
+                "latest_version_date_created": "2020-07-30T20:00:00Z",
+                "latest_version": 1,
                 "links": {
-                    "versions": "https://events.twilio.com/v1/Schemas/DataTaps.TestEventSchema/Versions"
+                    "versions": "https://events.twilio.com/v1/Schemas/Messaging.MessageStatus/Versions"
                 }
             }
             '''

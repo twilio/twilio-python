@@ -58,17 +58,17 @@ class SubscribedEventTestCase(IntegrationTestCase):
                 "types": [
                     {
                         "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                        "type": "Voice.Calls",
-                        "version": 2,
+                        "type": "com.twilio.messaging.message.delivered",
+                        "schema_version": 2,
                         "subscription_sid": "DFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                        "url": "https://events.twilio.com/v1/Subscriptions/DFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SubscribedEvents/Voice.Calls"
+                        "url": "https://events.twilio.com/v1/Subscriptions/DFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SubscribedEvents/com.twilio.messaging.message.delivered"
                     },
                     {
                         "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                        "type": "Video.Rooms",
-                        "version": 15,
+                        "type": "com.twilio.messaging.message.failed",
+                        "schema_version": 15,
                         "subscription_sid": "DFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                        "url": "https://events.twilio.com/v1/Subscriptions/DFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SubscribedEvents/Video.Rooms"
+                        "url": "https://events.twilio.com/v1/Subscriptions/DFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SubscribedEvents/com.twilio.messaging.message.failed"
                     }
                 ],
                 "meta": {
@@ -111,9 +111,9 @@ class SubscribedEventTestCase(IntegrationTestCase):
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "subscription_sid": "DFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                "type": "event.type",
-                "version": 2,
-                "url": "https://events.twilio.com/v1/Subscriptions/DFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SubscribedEvents/event.type"
+                "type": "com.twilio.messaging.message.delivered",
+                "schema_version": 2,
+                "url": "https://events.twilio.com/v1/Subscriptions/DFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SubscribedEvents/com.twilio.messaging.message.delivered"
             }
             '''
         ))
@@ -142,9 +142,9 @@ class SubscribedEventTestCase(IntegrationTestCase):
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "subscription_sid": "DFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                "type": "event.type",
-                "version": 2,
-                "url": "https://events.twilio.com/v1/Subscriptions/DFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SubscribedEvents/event.type"
+                "type": "com.twilio.messaging.message.delivered",
+                "schema_version": 2,
+                "url": "https://events.twilio.com/v1/Subscriptions/DFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SubscribedEvents/com.twilio.messaging.message.delivered"
             }
             '''
         ))
@@ -173,9 +173,9 @@ class SubscribedEventTestCase(IntegrationTestCase):
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "subscription_sid": "DFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                "type": "event.type",
-                "version": 2,
-                "url": "https://events.twilio.com/v1/Subscriptions/DFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SubscribedEvents/event.type"
+                "type": "com.twilio.messaging.message.delivered",
+                "schema_version": 2,
+                "url": "https://events.twilio.com/v1/Subscriptions/DFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SubscribedEvents/com.twilio.messaging.message.delivered"
             }
             '''
         ))

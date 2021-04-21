@@ -53,6 +53,7 @@ class ServiceTestCase(IntegrationTestCase):
                 "synchronous_validation": true,
                 "usecase": "marketing",
                 "us_app_to_person_registered": false,
+                "use_inbound_webhook_on_number": true,
                 "links": {
                     "phone_numbers": "https://messaging.twilio.com/v1/Services/MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/PhoneNumbers",
                     "short_codes": "https://messaging.twilio.com/v1/Services/MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/ShortCodes",
@@ -107,6 +108,7 @@ class ServiceTestCase(IntegrationTestCase):
                 "status_callback": "https://www.example.com",
                 "usecase": "marketing",
                 "us_app_to_person_registered": false,
+                "use_inbound_webhook_on_number": true,
                 "links": {
                     "phone_numbers": "https://messaging.twilio.com/v1/Services/MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/PhoneNumbers",
                     "short_codes": "https://messaging.twilio.com/v1/Services/MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/ShortCodes",
@@ -172,6 +174,7 @@ class ServiceTestCase(IntegrationTestCase):
                         "status_callback": "https://www.example.com",
                         "usecase": "marketing",
                         "us_app_to_person_registered": false,
+                        "use_inbound_webhook_on_number": false,
                         "links": {
                             "phone_numbers": "https://messaging.twilio.com/v1/Services/MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/PhoneNumbers",
                             "short_codes": "https://messaging.twilio.com/v1/Services/MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/ShortCodes",
@@ -228,6 +231,7 @@ class ServiceTestCase(IntegrationTestCase):
                 "synchronous_validation": true,
                 "usecase": "marketing",
                 "us_app_to_person_registered": false,
+                "use_inbound_webhook_on_number": true,
                 "links": {
                     "phone_numbers": "https://messaging.twilio.com/v1/Services/MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/PhoneNumbers",
                     "short_codes": "https://messaging.twilio.com/v1/Services/MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/ShortCodes",

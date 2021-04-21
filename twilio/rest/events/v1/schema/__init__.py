@@ -12,7 +12,7 @@ from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.page import Page
-from twilio.rest.events.v1.schema.schema_version import VersionList
+from twilio.rest.events.v1.schema.version import SchemaVersionList
 
 
 class SchemaList(ListResource):
@@ -144,11 +144,11 @@ class SchemaContext(InstanceContext):
         """
         Access the versions
 
-        :returns: twilio.rest.events.v1.schema.schema_version.VersionList
-        :rtype: twilio.rest.events.v1.schema.schema_version.VersionList
+        :returns: twilio.rest.events.v1.schema.version.SchemaVersionList
+        :rtype: twilio.rest.events.v1.schema.version.SchemaVersionList
         """
         if self._versions is None:
-            self._versions = VersionList(self._version, id=self._solution['id'], )
+            self._versions = SchemaVersionList(self._version, id=self._solution['id'], )
         return self._versions
 
     def __repr__(self):
@@ -180,8 +180,8 @@ class SchemaInstance(InstanceResource):
             'id': payload.get('id'),
             'url': payload.get('url'),
             'links': payload.get('links'),
-            'last_created': deserialize.iso8601_datetime(payload.get('last_created')),
-            'last_version': deserialize.integer(payload.get('last_version')),
+            'latest_version_date_created': deserialize.iso8601_datetime(payload.get('latest_version_date_created')),
+            'latest_version': deserialize.integer(payload.get('latest_version')),
         }
 
         # Context
@@ -226,20 +226,20 @@ class SchemaInstance(InstanceResource):
         return self._properties['links']
 
     @property
-    def last_created(self):
+    def latest_version_date_created(self):
         """
-        :returns: The date that the last schema version was created.
+        :returns: The date that the latest schema version was created.
         :rtype: datetime
         """
-        return self._properties['last_created']
+        return self._properties['latest_version_date_created']
 
     @property
-    def last_version(self):
+    def latest_version(self):
         """
-        :returns: Last schema version.
+        :returns: Latest schema version.
         :rtype: unicode
         """
-        return self._properties['last_version']
+        return self._properties['latest_version']
 
     def fetch(self):
         """
@@ -255,8 +255,8 @@ class SchemaInstance(InstanceResource):
         """
         Access the versions
 
-        :returns: twilio.rest.events.v1.schema.schema_version.VersionList
-        :rtype: twilio.rest.events.v1.schema.schema_version.VersionList
+        :returns: twilio.rest.events.v1.schema.version.SchemaVersionList
+        :rtype: twilio.rest.events.v1.schema.version.SchemaVersionList
         """
         return self._proxy.versions
 

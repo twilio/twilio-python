@@ -55,25 +55,25 @@ class EventTypeTestCase(IntegrationTestCase):
             {
                 "types": [
                     {
-                        "date_created": "2020-08-13T12:50:18Z",
-                        "date_updated": "2020-08-13T13:28:48Z",
-                        "type": "com.twilio.test.example",
-                        "schema_id": "EventStreams.SampleSchema",
-                        "description": "A sample event type",
-                        "url": "https://events.twilio.com/v1/Types/com.twilio.test.example",
+                        "date_created": "2020-08-13T13:28:20Z",
+                        "date_updated": "2020-08-13T13:28:20Z",
+                        "type": "com.twilio.messaging.message.delivered",
+                        "schema_id": "Messaging.MessageStatus",
+                        "description": "Messaging- delivered message",
+                        "url": "https://events.twilio.com/v1/Types/com.twilio.messaging.message.delivered",
                         "links": {
-                            "schema": "https://events.twilio.com/v1/Schemas/EventStreams.SampleSchema/Versions"
+                            "schema": "https://events.twilio.com/v1/Schemas/Messaging.MessageStatus/Versions"
                         }
                     },
                     {
-                        "date_created": "2020-08-13T12:50:19Z",
-                        "date_updated": "2020-08-13T13:28:49Z",
-                        "type": "com.twilio.test.example2",
-                        "schema_id": "EventStreams.SampleSchema",
-                        "description": "Another sample event type",
-                        "url": "https://events.twilio.com/v1/Types/com.twilio.test.example2",
+                        "date_created": "2020-08-13T13:28:19Z",
+                        "date_updated": "2020-08-13T13:28:19Z",
+                        "type": "com.twilio.messaging.message.failed",
+                        "schema_id": "Messaging.MessageStatus",
+                        "description": "Messaging- failed message",
+                        "url": "https://events.twilio.com/v1/Types/com.twilio.messaging.message.failed",
                         "links": {
-                            "schema": "https://events.twilio.com/v1/Schemas/EventStreams.SampleSchema/Versions"
+                            "schema": "https://events.twilio.com/v1/Schemas/Messaging.MessageStatus/Versions"
                         }
                     }
                 ],
@@ -110,14 +110,14 @@ class EventTypeTestCase(IntegrationTestCase):
             200,
             '''
             {
-                "date_created": "2020-08-13T12:50:18Z",
-                "date_updated": "2020-08-13T13:28:48Z",
-                "type": "com.twilio.test.example",
-                "schema_id": "EventStreams.SampleSchema",
-                "description": "A sample subscription",
-                "url": "https://events.twilio.com/v1/Types/com.twilio.test.example",
+                "date_created": "2020-08-13T13:28:20Z",
+                "date_updated": "2020-08-13T13:28:20Z",
+                "type": "com.twilio.messaging.message.delivered",
+                "schema_id": "Messaging.MessageStatus",
+                "description": "Messaging- delivered message",
+                "url": "https://events.twilio.com/v1/Types/com.twilio.messaging.message.delivered",
                 "links": {
-                    "schema": "https://events.twilio.com/v1/Schemas/EventStreams.SampleSchema/Versions"
+                    "schema": "https://events.twilio.com/v1/Schemas/Messaging.MessageStatus/Versions"
                 }
             }
             '''
