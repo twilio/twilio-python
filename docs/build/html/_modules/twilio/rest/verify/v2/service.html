@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-MWRD6S');</script><!--End Google Tag Manager-->
 <meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<title>twilio.rest.verify.v2.service — twilio-python 6.56.0 documentation</title>
+<title>twilio.rest.verify.v2.service — twilio-python 6.57.0 documentation</title>
 <link href="../../../../../_static/alabaster.css" rel="stylesheet" type="text/css"/>
 <link href="../../../../../_static/pygments.css" rel="stylesheet" type="text/css"/>
 <script data-url_root="../../../../../" id="documentation_options" src="../../../../../_static/documentation_options.js" type="text/javascript"></script>
@@ -74,7 +74,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
                <span class="n">psd2_enabled</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">do_not_share_warning_enabled</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
                <span class="n">custom_code_enabled</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">push_include_date</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
                <span class="n">push_apn_credential_sid</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
-               <span class="n">push_fcm_credential_sid</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">):</span>
+               <span class="n">push_fcm_credential_sid</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">totp_issuer</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
+               <span class="n">totp_time_step</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">totp_code_length</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
+               <span class="n">totp_skew</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">):</span>
         <span class="sd">"""</span>
 <span class="sd">        Create the ServiceInstance</span>
 
@@ -90,6 +92,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <span class="sd">        :param bool push_include_date: Optional. Include the date in the Challenge's reponse. Default: true</span>
 <span class="sd">        :param unicode push_apn_credential_sid: Optional. Set APN Credential for this service.</span>
 <span class="sd">        :param unicode push_fcm_credential_sid: Optional. Set FCM Credential for this service.</span>
+<span class="sd">        :param unicode totp_issuer: Optional. Set TOTP Issuer for this service.</span>
+<span class="sd">        :param unicode totp_time_step: Optional. How often, in seconds, are TOTP codes generated</span>
+<span class="sd">        :param unicode totp_code_length: Optional. Number of digits for generated TOTP codes</span>
+<span class="sd">        :param unicode totp_skew: Optional. The number of past and future time-steps valid at a given time</span>
 
 <span class="sd">        :returns: The created ServiceInstance</span>
 <span class="sd">        :rtype: twilio.rest.verify.v2.service.ServiceInstance</span>
@@ -107,6 +113,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
             <span class="s1">'Push.IncludeDate'</span><span class="p">:</span> <span class="n">push_include_date</span><span class="p">,</span>
             <span class="s1">'Push.ApnCredentialSid'</span><span class="p">:</span> <span class="n">push_apn_credential_sid</span><span class="p">,</span>
             <span class="s1">'Push.FcmCredentialSid'</span><span class="p">:</span> <span class="n">push_fcm_credential_sid</span><span class="p">,</span>
+            <span class="s1">'Totp.Issuer'</span><span class="p">:</span> <span class="n">totp_issuer</span><span class="p">,</span>
+            <span class="s1">'Totp.TimeStep'</span><span class="p">:</span> <span class="n">totp_time_step</span><span class="p">,</span>
+            <span class="s1">'Totp.CodeLength'</span><span class="p">:</span> <span class="n">totp_code_length</span><span class="p">,</span>
+            <span class="s1">'Totp.Skew'</span><span class="p">:</span> <span class="n">totp_skew</span><span class="p">,</span>
         <span class="p">})</span>
 
         <span class="n">payload</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_version</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">'POST'</span><span class="p">,</span> <span class="n">uri</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_uri</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="p">)</span>
@@ -313,7 +323,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
                <span class="n">psd2_enabled</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">do_not_share_warning_enabled</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
                <span class="n">custom_code_enabled</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">push_include_date</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
                <span class="n">push_apn_credential_sid</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
-               <span class="n">push_fcm_credential_sid</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">):</span>
+               <span class="n">push_fcm_credential_sid</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">totp_issuer</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
+               <span class="n">totp_time_step</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">totp_code_length</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
+               <span class="n">totp_skew</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">):</span>
         <span class="sd">"""</span>
 <span class="sd">        Update the ServiceInstance</span>
 
@@ -329,6 +341,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <span class="sd">        :param bool push_include_date: Optional. Include the date in the Challenge's reponse. Default: true</span>
 <span class="sd">        :param unicode push_apn_credential_sid: Optional. Set APN Credential for this service.</span>
 <span class="sd">        :param unicode push_fcm_credential_sid: Optional. Set FCM Credential for this service.</span>
+<span class="sd">        :param unicode totp_issuer: Optional. Set TOTP Issuer for this service.</span>
+<span class="sd">        :param unicode totp_time_step: Optional. How often, in seconds, are TOTP codes generated</span>
+<span class="sd">        :param unicode totp_code_length: Optional. Number of digits for generated TOTP codes</span>
+<span class="sd">        :param unicode totp_skew: Optional. The number of past and future time-steps valid at a given time</span>
 
 <span class="sd">        :returns: The updated ServiceInstance</span>
 <span class="sd">        :rtype: twilio.rest.verify.v2.service.ServiceInstance</span>
@@ -346,6 +362,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
             <span class="s1">'Push.IncludeDate'</span><span class="p">:</span> <span class="n">push_include_date</span><span class="p">,</span>
             <span class="s1">'Push.ApnCredentialSid'</span><span class="p">:</span> <span class="n">push_apn_credential_sid</span><span class="p">,</span>
             <span class="s1">'Push.FcmCredentialSid'</span><span class="p">:</span> <span class="n">push_fcm_credential_sid</span><span class="p">,</span>
+            <span class="s1">'Totp.Issuer'</span><span class="p">:</span> <span class="n">totp_issuer</span><span class="p">,</span>
+            <span class="s1">'Totp.TimeStep'</span><span class="p">:</span> <span class="n">totp_time_step</span><span class="p">,</span>
+            <span class="s1">'Totp.CodeLength'</span><span class="p">:</span> <span class="n">totp_code_length</span><span class="p">,</span>
+            <span class="s1">'Totp.Skew'</span><span class="p">:</span> <span class="n">totp_skew</span><span class="p">,</span>
         <span class="p">})</span>
 
         <span class="n">payload</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_version</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">'POST'</span><span class="p">,</span> <span class="n">uri</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_uri</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="p">)</span>
@@ -475,6 +495,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
             <span class="s1">'do_not_share_warning_enabled'</span><span class="p">:</span> <span class="n">payload</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'do_not_share_warning_enabled'</span><span class="p">),</span>
             <span class="s1">'custom_code_enabled'</span><span class="p">:</span> <span class="n">payload</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'custom_code_enabled'</span><span class="p">),</span>
             <span class="s1">'push'</span><span class="p">:</span> <span class="n">payload</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'push'</span><span class="p">),</span>
+            <span class="s1">'totp'</span><span class="p">:</span> <span class="n">payload</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'totp'</span><span class="p">),</span>
             <span class="s1">'date_created'</span><span class="p">:</span> <span class="n">deserialize</span><span class="o">.</span><span class="n">iso8601_datetime</span><span class="p">(</span><span class="n">payload</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'date_created'</span><span class="p">)),</span>
             <span class="s1">'date_updated'</span><span class="p">:</span> <span class="n">deserialize</span><span class="o">.</span><span class="n">iso8601_datetime</span><span class="p">(</span><span class="n">payload</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'date_updated'</span><span class="p">)),</span>
             <span class="s1">'url'</span><span class="p">:</span> <span class="n">payload</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'url'</span><span class="p">),</span>
@@ -595,6 +616,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="p">[</span><span class="s1">'push'</span><span class="p">]</span>
 
     <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">totp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        :returns: The service level configuration of factor TOTP type.</span>
+<span class="sd">        :rtype: dict</span>
+<span class="sd">        """</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="p">[</span><span class="s1">'totp'</span><span class="p">]</span>
+
+    <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">date_created</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">"""</span>
 <span class="sd">        :returns: The RFC 2822 date and time in GMT when the resource was created</span>
@@ -650,7 +679,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
                <span class="n">psd2_enabled</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">do_not_share_warning_enabled</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
                <span class="n">custom_code_enabled</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">push_include_date</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
                <span class="n">push_apn_credential_sid</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
-               <span class="n">push_fcm_credential_sid</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">):</span>
+               <span class="n">push_fcm_credential_sid</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">totp_issuer</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
+               <span class="n">totp_time_step</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">totp_code_length</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
+               <span class="n">totp_skew</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">):</span>
         <span class="sd">"""</span>
 <span class="sd">        Update the ServiceInstance</span>
 
@@ -666,6 +697,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <span class="sd">        :param bool push_include_date: Optional. Include the date in the Challenge's reponse. Default: true</span>
 <span class="sd">        :param unicode push_apn_credential_sid: Optional. Set APN Credential for this service.</span>
 <span class="sd">        :param unicode push_fcm_credential_sid: Optional. Set FCM Credential for this service.</span>
+<span class="sd">        :param unicode totp_issuer: Optional. Set TOTP Issuer for this service.</span>
+<span class="sd">        :param unicode totp_time_step: Optional. How often, in seconds, are TOTP codes generated</span>
+<span class="sd">        :param unicode totp_code_length: Optional. Number of digits for generated TOTP codes</span>
+<span class="sd">        :param unicode totp_skew: Optional. The number of past and future time-steps valid at a given time</span>
 
 <span class="sd">        :returns: The updated ServiceInstance</span>
 <span class="sd">        :rtype: twilio.rest.verify.v2.service.ServiceInstance</span>
@@ -683,6 +718,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
             <span class="n">push_include_date</span><span class="o">=</span><span class="n">push_include_date</span><span class="p">,</span>
             <span class="n">push_apn_credential_sid</span><span class="o">=</span><span class="n">push_apn_credential_sid</span><span class="p">,</span>
             <span class="n">push_fcm_credential_sid</span><span class="o">=</span><span class="n">push_fcm_credential_sid</span><span class="p">,</span>
+            <span class="n">totp_issuer</span><span class="o">=</span><span class="n">totp_issuer</span><span class="p">,</span>
+            <span class="n">totp_time_step</span><span class="o">=</span><span class="n">totp_time_step</span><span class="p">,</span>
+            <span class="n">totp_code_length</span><span class="o">=</span><span class="n">totp_code_length</span><span class="p">,</span>
+            <span class="n">totp_skew</span><span class="o">=</span><span class="n">totp_skew</span><span class="p">,</span>
         <span class="p">)</span></div>
 
     <span class="nd">@property</span>

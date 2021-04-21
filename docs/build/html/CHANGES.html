@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-MWRD6S');</script><!--End Google Tag Manager-->
 <meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<title>twilio-python Changelog — twilio-python 6.56.0 documentation</title>
+<title>twilio-python Changelog — twilio-python 6.57.0 documentation</title>
 <link href="_static/alabaster.css" rel="stylesheet" type="text/css"/>
 <link href="_static/pygments.css" rel="stylesheet" type="text/css"/>
 <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js" type="text/javascript"></script>
@@ -30,6 +30,40 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <div class="section" id="twilio-python-changelog">
 <h1>twilio-python Changelog<a class="headerlink" href="#twilio-python-changelog" title="Permalink to this headline">¶</a></h1>
 <p>Here you can see the full list of changes between each twilio-python release.</p>
+<div class="section" id="version-6-57-0">
+<h2>[2021-04-21] Version 6.57.0<a class="headerlink" href="#version-6-57-0" title="Permalink to this headline">¶</a></h2>
+<p><strong>Api</strong></p>
+<ul class="simple">
+<li>Revert Update the conference participant create <code class="docutils literal notranslate"><span class="pre">from</span></code> and <code class="docutils literal notranslate"><span class="pre">to</span></code> param to be endpoint type for supporting client identifier and sip address</li>
+<li>Update the conference participant create <code class="docutils literal notranslate"><span class="pre">from</span></code> and <code class="docutils literal notranslate"><span class="pre">to</span></code> param to be endpoint type for supporting client identifier and sip address</li>
+</ul>
+<p><strong>Bulkexports</strong></p>
+<ul class="simple">
+<li>moving enum to doc root for auto generating documentation</li>
+<li>adding status enum and default output properties</li>
+</ul>
+<p><strong>Events</strong></p>
+<ul class="simple">
+<li>Change schema_versions prop and key to versions <strong>(breaking change)</strong></li>
+</ul>
+<p><strong>Messaging</strong></p>
+<ul class="simple">
+<li>Add <code class="docutils literal notranslate"><span class="pre">use_inbound_webhook_on_number</span></code> field in Service API for fetch, create, update, read</li>
+</ul>
+<p><strong>Taskrouter</strong></p>
+<ul class="simple">
+<li>Add <code class="docutils literal notranslate"><span class="pre">If-Match</span></code> Header based on ETag for Task Delete</li>
+</ul>
+<p><strong>Verify</strong></p>
+<ul class="simple">
+<li>Add <code class="docutils literal notranslate"><span class="pre">AuthPayload</span></code> parameter to support verifying a <code class="docutils literal notranslate"><span class="pre">Challenge</span></code> upon creation. This is only supported for <code class="docutils literal notranslate"><span class="pre">totp</span></code> factors.</li>
+<li>Add support to resend the notifications of a <code class="docutils literal notranslate"><span class="pre">Challenge</span></code>. This is only supported for <code class="docutils literal notranslate"><span class="pre">push</span></code> factors.</li>
+</ul>
+<p><strong>Twiml</strong></p>
+<ul class="simple">
+<li>Add Polly Neural voices.</li>
+</ul>
+</div>
 <div class="section" id="version-6-56-0">
 <h2>[2021-04-07] Version 6.56.0<a class="headerlink" href="#version-6-56-0" title="Permalink to this headline">¶</a></h2>
 <p><strong>Api</strong></p>
@@ -2980,6 +3014,7 @@ querying list resources</li>
 <h3><a href="index.html">Table of Contents</a></h3>
 <ul>
 <li><a class="reference internal" href="#">twilio-python Changelog</a><ul>
+<li><a class="reference internal" href="#version-6-57-0">[2021-04-21] Version 6.57.0</a></li>
 <li><a class="reference internal" href="#version-6-56-0">[2021-04-07] Version 6.56.0</a></li>
 <li><a class="reference internal" href="#version-6-55-0">[2021-03-24] Version 6.55.0</a></li>
 <li><a class="reference internal" href="#version-6-54-0">[2021-03-15] Version 6.54.0</a></li>

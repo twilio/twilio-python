@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-MWRD6S');</script><!--End Google Tag Manager-->
 <meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<title>twilio.rest.messaging.v1.service package — twilio-python 6.56.0 documentation</title>
+<title>twilio.rest.messaging.v1.service package — twilio-python 6.57.0 documentation</title>
 <link href="../../../_static/alabaster.css" rel="stylesheet" type="text/css"/>
 <link href="../../../_static/pygments.css" rel="stylesheet" type="text/css"/>
 <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js" type="text/javascript"></script>
@@ -1641,7 +1641,7 @@ change. Use them with caution.</p>
 </dd></dl>
 <dl class="method">
 <dt id="twilio.rest.messaging.v1.service.ServiceContext.update">
-<code class="descname">update</code><span class="sig-paren">(</span><em>friendly_name=&lt;object object&gt;</em>, <em>inbound_request_url=&lt;object object&gt;</em>, <em>inbound_method=&lt;object object&gt;</em>, <em>fallback_url=&lt;object object&gt;</em>, <em>fallback_method=&lt;object object&gt;</em>, <em>status_callback=&lt;object object&gt;</em>, <em>sticky_sender=&lt;object object&gt;</em>, <em>mms_converter=&lt;object object&gt;</em>, <em>smart_encoding=&lt;object object&gt;</em>, <em>scan_message_content=&lt;object object&gt;</em>, <em>fallback_to_long_code=&lt;object object&gt;</em>, <em>area_code_geomatch=&lt;object object&gt;</em>, <em>validity_period=&lt;object object&gt;</em>, <em>synchronous_validation=&lt;object object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/messaging/v1/service.html#ServiceContext.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.messaging.v1.service.ServiceContext.update" title="Permalink to this definition">¶</a></dt>
+<code class="descname">update</code><span class="sig-paren">(</span><em>friendly_name=&lt;object object&gt;</em>, <em>inbound_request_url=&lt;object object&gt;</em>, <em>inbound_method=&lt;object object&gt;</em>, <em>fallback_url=&lt;object object&gt;</em>, <em>fallback_method=&lt;object object&gt;</em>, <em>status_callback=&lt;object object&gt;</em>, <em>sticky_sender=&lt;object object&gt;</em>, <em>mms_converter=&lt;object object&gt;</em>, <em>smart_encoding=&lt;object object&gt;</em>, <em>scan_message_content=&lt;object object&gt;</em>, <em>fallback_to_long_code=&lt;object object&gt;</em>, <em>area_code_geomatch=&lt;object object&gt;</em>, <em>validity_period=&lt;object object&gt;</em>, <em>synchronous_validation=&lt;object object&gt;</em>, <em>use_inbound_webhook_on_number=&lt;object object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/messaging/v1/service.html#ServiceContext.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.messaging.v1.service.ServiceContext.update" title="Permalink to this definition">¶</a></dt>
 <dd><p>Update the ServiceInstance</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name"/>
@@ -1649,9 +1649,9 @@ change. Use them with caution.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>friendly_name</strong> (<em>unicode</em>) – A string to describe the resource</li>
-<li><strong>inbound_request_url</strong> (<em>unicode</em>) – The URL we call using inbound_method when a message is received by any phone number or short code in the Service</li>
+<li><strong>inbound_request_url</strong> (<em>unicode</em>) – The URL we call using inbound_method when a message is received by any phone number or short code in the Service. This field will be overridden if the <cite>use_inbound_webhook_on_number</cite> field is enabled.</li>
 <li><strong>inbound_method</strong> (<em>unicode</em>) – The HTTP method we should use to call inbound_request_url</li>
-<li><strong>fallback_url</strong> (<em>unicode</em>) – The URL that we call using fallback_method if an error occurs while retrieving or executing the TwiML from the Inbound Request URL</li>
+<li><strong>fallback_url</strong> (<em>unicode</em>) – The URL that we call using fallback_method if an error occurs while retrieving or executing the TwiML from the Inbound Request URL. This field will be overridden if the <cite>use_inbound_webhook_on_number</cite> field is enabled.</li>
 <li><strong>fallback_method</strong> (<em>unicode</em>) – The HTTP method we should use to call fallback_url</li>
 <li><strong>status_callback</strong> (<em>unicode</em>) – The URL we should call to pass status updates about message delivery</li>
 <li><strong>sticky_sender</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – Whether to enable Sticky Sender on the Service instance</li>
@@ -1662,6 +1662,7 @@ change. Use them with caution.</p>
 <li><strong>area_code_geomatch</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – Whether to enable Area Code Geomatch on the Service Instance</li>
 <li><strong>validity_period</strong> (<em>unicode</em>) – How long, in seconds, messages sent from the Service are valid</li>
 <li><strong>synchronous_validation</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – Reserved</li>
+<li><strong>use_inbound_webhook_on_number</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – If enabled, the webhook url configured on the phone number will be used and will override the <cite>inbound_request_url</cite>/<cite>fallback_url</cite> url called when an inbound message is received.</li>
 </ul>
 </td>
 </tr>
@@ -1849,7 +1850,7 @@ change. Use them with caution.</p>
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The URL that we call using fallback_method if an error occurs while retrieving or executing the TwiML from the Inbound Request URL</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The URL that we call using fallback_method if an error occurs while retrieving or executing the TwiML from the Inbound Request URL. This field will be overridden if the <cite>use_inbound_webhook_on_number</cite> field is enabled.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">unicode</td>
 </tr>
@@ -1906,7 +1907,7 @@ change. Use them with caution.</p>
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The URL we call using inbound_method when a message is received by any phone number or short code in the Service</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The URL we call using inbound_method when a message is received by any phone number or short code in the Service. This field will be overridden if the <cite>use_inbound_webhook_on_number</cite> field is enabled.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">unicode</td>
 </tr>
@@ -2057,7 +2058,7 @@ change. Use them with caution.</p>
 </dd></dl>
 <dl class="method">
 <dt id="twilio.rest.messaging.v1.service.ServiceInstance.update">
-<code class="descname">update</code><span class="sig-paren">(</span><em>friendly_name=&lt;object object&gt;</em>, <em>inbound_request_url=&lt;object object&gt;</em>, <em>inbound_method=&lt;object object&gt;</em>, <em>fallback_url=&lt;object object&gt;</em>, <em>fallback_method=&lt;object object&gt;</em>, <em>status_callback=&lt;object object&gt;</em>, <em>sticky_sender=&lt;object object&gt;</em>, <em>mms_converter=&lt;object object&gt;</em>, <em>smart_encoding=&lt;object object&gt;</em>, <em>scan_message_content=&lt;object object&gt;</em>, <em>fallback_to_long_code=&lt;object object&gt;</em>, <em>area_code_geomatch=&lt;object object&gt;</em>, <em>validity_period=&lt;object object&gt;</em>, <em>synchronous_validation=&lt;object object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/messaging/v1/service.html#ServiceInstance.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.messaging.v1.service.ServiceInstance.update" title="Permalink to this definition">¶</a></dt>
+<code class="descname">update</code><span class="sig-paren">(</span><em>friendly_name=&lt;object object&gt;</em>, <em>inbound_request_url=&lt;object object&gt;</em>, <em>inbound_method=&lt;object object&gt;</em>, <em>fallback_url=&lt;object object&gt;</em>, <em>fallback_method=&lt;object object&gt;</em>, <em>status_callback=&lt;object object&gt;</em>, <em>sticky_sender=&lt;object object&gt;</em>, <em>mms_converter=&lt;object object&gt;</em>, <em>smart_encoding=&lt;object object&gt;</em>, <em>scan_message_content=&lt;object object&gt;</em>, <em>fallback_to_long_code=&lt;object object&gt;</em>, <em>area_code_geomatch=&lt;object object&gt;</em>, <em>validity_period=&lt;object object&gt;</em>, <em>synchronous_validation=&lt;object object&gt;</em>, <em>use_inbound_webhook_on_number=&lt;object object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/messaging/v1/service.html#ServiceInstance.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.messaging.v1.service.ServiceInstance.update" title="Permalink to this definition">¶</a></dt>
 <dd><p>Update the ServiceInstance</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name"/>
@@ -2065,9 +2066,9 @@ change. Use them with caution.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>friendly_name</strong> (<em>unicode</em>) – A string to describe the resource</li>
-<li><strong>inbound_request_url</strong> (<em>unicode</em>) – The URL we call using inbound_method when a message is received by any phone number or short code in the Service</li>
+<li><strong>inbound_request_url</strong> (<em>unicode</em>) – The URL we call using inbound_method when a message is received by any phone number or short code in the Service. This field will be overridden if the <cite>use_inbound_webhook_on_number</cite> field is enabled.</li>
 <li><strong>inbound_method</strong> (<em>unicode</em>) – The HTTP method we should use to call inbound_request_url</li>
-<li><strong>fallback_url</strong> (<em>unicode</em>) – The URL that we call using fallback_method if an error occurs while retrieving or executing the TwiML from the Inbound Request URL</li>
+<li><strong>fallback_url</strong> (<em>unicode</em>) – The URL that we call using fallback_method if an error occurs while retrieving or executing the TwiML from the Inbound Request URL. This field will be overridden if the <cite>use_inbound_webhook_on_number</cite> field is enabled.</li>
 <li><strong>fallback_method</strong> (<em>unicode</em>) – The HTTP method we should use to call fallback_url</li>
 <li><strong>status_callback</strong> (<em>unicode</em>) – The URL we should call to pass status updates about message delivery</li>
 <li><strong>sticky_sender</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – Whether to enable Sticky Sender on the Service instance</li>
@@ -2078,6 +2079,7 @@ change. Use them with caution.</p>
 <li><strong>area_code_geomatch</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – Whether to enable Area Code Geomatch on the Service Instance</li>
 <li><strong>validity_period</strong> (<em>unicode</em>) – How long, in seconds, messages sent from the Service are valid</li>
 <li><strong>synchronous_validation</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – Reserved</li>
+<li><strong>use_inbound_webhook_on_number</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – If enabled, the webhook url configured on the phone number will be used and will override the <cite>inbound_request_url</cite>/<cite>fallback_url</cite> url called when an inbound message is received.</li>
 </ul>
 </td>
 </tr>
@@ -2135,6 +2137,20 @@ change. Use them with caution.</p>
 </table>
 </dd></dl>
 <dl class="attribute">
+<dt id="twilio.rest.messaging.v1.service.ServiceInstance.use_inbound_webhook_on_number">
+<code class="descname">use_inbound_webhook_on_number</code><a class="headerlink" href="#twilio.rest.messaging.v1.service.ServiceInstance.use_inbound_webhook_on_number" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">If enabled, the webhook url configured on the phone number will be used and will override the <cite>inbound_request_url</cite>/<cite>fallback_url</cite> url called when an inbound message is received.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)">bool</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+<dl class="attribute">
 <dt id="twilio.rest.messaging.v1.service.ServiceInstance.validity_period">
 <code class="descname">validity_period</code><a class="headerlink" href="#twilio.rest.messaging.v1.service.ServiceInstance.validity_period" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
@@ -2157,7 +2173,7 @@ change. Use them with caution.</p>
 change. Use them with caution.</p>
 <dl class="method">
 <dt id="twilio.rest.messaging.v1.service.ServiceList.create">
-<code class="descname">create</code><span class="sig-paren">(</span><em>friendly_name</em>, <em>inbound_request_url=&lt;object object&gt;</em>, <em>inbound_method=&lt;object object&gt;</em>, <em>fallback_url=&lt;object object&gt;</em>, <em>fallback_method=&lt;object object&gt;</em>, <em>status_callback=&lt;object object&gt;</em>, <em>sticky_sender=&lt;object object&gt;</em>, <em>mms_converter=&lt;object object&gt;</em>, <em>smart_encoding=&lt;object object&gt;</em>, <em>scan_message_content=&lt;object object&gt;</em>, <em>fallback_to_long_code=&lt;object object&gt;</em>, <em>area_code_geomatch=&lt;object object&gt;</em>, <em>validity_period=&lt;object object&gt;</em>, <em>synchronous_validation=&lt;object object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/messaging/v1/service.html#ServiceList.create"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.messaging.v1.service.ServiceList.create" title="Permalink to this definition">¶</a></dt>
+<code class="descname">create</code><span class="sig-paren">(</span><em>friendly_name</em>, <em>inbound_request_url=&lt;object object&gt;</em>, <em>inbound_method=&lt;object object&gt;</em>, <em>fallback_url=&lt;object object&gt;</em>, <em>fallback_method=&lt;object object&gt;</em>, <em>status_callback=&lt;object object&gt;</em>, <em>sticky_sender=&lt;object object&gt;</em>, <em>mms_converter=&lt;object object&gt;</em>, <em>smart_encoding=&lt;object object&gt;</em>, <em>scan_message_content=&lt;object object&gt;</em>, <em>fallback_to_long_code=&lt;object object&gt;</em>, <em>area_code_geomatch=&lt;object object&gt;</em>, <em>validity_period=&lt;object object&gt;</em>, <em>synchronous_validation=&lt;object object&gt;</em>, <em>use_inbound_webhook_on_number=&lt;object object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/messaging/v1/service.html#ServiceList.create"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.messaging.v1.service.ServiceList.create" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create the ServiceInstance</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name"/>
@@ -2165,9 +2181,9 @@ change. Use them with caution.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>friendly_name</strong> (<em>unicode</em>) – A string to describe the resource</li>
-<li><strong>inbound_request_url</strong> (<em>unicode</em>) – The URL we call using inbound_method when a message is received by any phone number or short code in the Service</li>
+<li><strong>inbound_request_url</strong> (<em>unicode</em>) – The URL we call using inbound_method when a message is received by any phone number or short code in the Service. This field will be overridden if the <cite>use_inbound_webhook_on_number</cite> field is enabled.</li>
 <li><strong>inbound_method</strong> (<em>unicode</em>) – The HTTP method we should use to call inbound_request_url</li>
-<li><strong>fallback_url</strong> (<em>unicode</em>) – The URL that we call using fallback_method if an error occurs while retrieving or executing the TwiML from the Inbound Request URL</li>
+<li><strong>fallback_url</strong> (<em>unicode</em>) – The URL that we call using fallback_method if an error occurs while retrieving or executing the TwiML from the Inbound Request URL. This field will be overridden if the <cite>use_inbound_webhook_on_number</cite> field is enabled.</li>
 <li><strong>fallback_method</strong> (<em>unicode</em>) – The HTTP method we should use to call fallback_url</li>
 <li><strong>status_callback</strong> (<em>unicode</em>) – The URL we should call to pass status updates about message delivery</li>
 <li><strong>sticky_sender</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – Whether to enable Sticky Sender on the Service instance</li>
@@ -2178,6 +2194,7 @@ change. Use them with caution.</p>
 <li><strong>area_code_geomatch</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – Whether to enable Area Code Geomatch on the Service Instance</li>
 <li><strong>validity_period</strong> (<em>unicode</em>) – How long, in seconds, messages sent from the Service are valid</li>
 <li><strong>synchronous_validation</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – Reserved</li>
+<li><strong>use_inbound_webhook_on_number</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – If enabled, the webhook url configured on the phone number will be used and will override the <cite>inbound_request_url</cite>/<cite>fallback_url</cite> url called when an inbound message is received.</li>
 </ul>
 </td>
 </tr>

@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-MWRD6S');</script><!--End Google Tag Manager-->
 <meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<title>twilio.rest.bulkexports.v1.export.export_custom_job — twilio-python 6.56.0 documentation</title>
+<title>twilio.rest.bulkexports.v1.export.export_custom_job — twilio-python 6.57.0 documentation</title>
 <link href="../../../../../../_static/alabaster.css" rel="stylesheet" type="text/css"/>
 <link href="../../../../../../_static/pygments.css" rel="stylesheet" type="text/css"/>
 <script data-url_root="../../../../../../" id="documentation_options" src="../../../../../../_static/documentation_options.js" type="text/javascript"></script>
@@ -230,6 +230,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
     <span class="sd">""" PLEASE NOTE that this class contains beta products that are subject to</span>
 <span class="sd">    change. Use them with caution. """</span>
 
+<div class="viewcode-block" id="ExportCustomJobInstance.Status"><a class="viewcode-back" href="../../../../../../docs/source/_rst/twilio.rest.bulkexports.v1.export.html#twilio.rest.bulkexports.v1.export.export_custom_job.ExportCustomJobInstance.Status">[docs]</a>    <span class="k">class</span> <span class="nc">Status</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+        <span class="n">ERRORDURINGRUN</span> <span class="o">=</span> <span class="s2">"ErrorDuringRun"</span>
+        <span class="n">SUBMITTED</span> <span class="o">=</span> <span class="s2">"Submitted"</span>
+        <span class="n">RUNNING</span> <span class="o">=</span> <span class="s2">"Running"</span>
+        <span class="n">COMPLETEDEMPTYRECORDS</span> <span class="o">=</span> <span class="s2">"CompletedEmptyRecords"</span>
+        <span class="n">COMPLETED</span> <span class="o">=</span> <span class="s2">"Completed"</span>
+        <span class="n">FAILED</span> <span class="o">=</span> <span class="s2">"Failed"</span>
+        <span class="n">RUNNINGTOBEDELETED</span> <span class="o">=</span> <span class="s2">"RunningToBeDeleted"</span>
+        <span class="n">DELETEDBYUSERREQUEST</span> <span class="o">=</span> <span class="s2">"DeletedByUserRequest"</span></div>
+
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">version</span><span class="p">,</span> <span class="n">payload</span><span class="p">,</span> <span class="n">resource_type</span><span class="p">):</span>
         <span class="sd">"""</span>
 <span class="sd">        Initialize the ExportCustomJobInstance</span>
@@ -325,7 +335,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">details</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">"""</span>
-<span class="sd">        :returns: The details of a job state which is an object that contains a status string, a day count integer, and list of days in the job</span>
+<span class="sd">        :returns: The details of a job state which is an object that contains a `status` string, a day count integer, and list of days in the job</span>
 <span class="sd">        :rtype: dict</span>
 <span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="p">[</span><span class="s1">'details'</span><span class="p">]</span>

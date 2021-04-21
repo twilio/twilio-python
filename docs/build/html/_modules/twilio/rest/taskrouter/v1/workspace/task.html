@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-MWRD6S');</script><!--End Google Tag Manager-->
 <meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<title>twilio.rest.taskrouter.v1.workspace.task — twilio-python 6.56.0 documentation</title>
+<title>twilio.rest.taskrouter.v1.workspace.task — twilio-python 6.57.0 documentation</title>
 <link href="../../../../../../_static/alabaster.css" rel="stylesheet" type="text/css"/>
 <link href="../../../../../../_static/pygments.css" rel="stylesheet" type="text/css"/>
 <script data-url_root="../../../../../../" id="documentation_options" src="../../../../../../_static/documentation_options.js" type="text/javascript"></script>
@@ -386,14 +386,18 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
             <span class="n">sid</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_solution</span><span class="p">[</span><span class="s1">'sid'</span><span class="p">],</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="TaskContext.delete"><a class="viewcode-back" href="../../../../../../docs/source/_rst/twilio.rest.taskrouter.v1.workspace.task.html#twilio.rest.taskrouter.v1.workspace.task.TaskContext.delete">[docs]</a>    <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="TaskContext.delete"><a class="viewcode-back" href="../../../../../../docs/source/_rst/twilio.rest.taskrouter.v1.workspace.task.html#twilio.rest.taskrouter.v1.workspace.task.TaskContext.delete">[docs]</a>    <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">if_match</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">):</span>
         <span class="sd">"""</span>
 <span class="sd">        Deletes the TaskInstance</span>
+
+<span class="sd">        :param unicode if_match: The If-Match HTTP request header</span>
 
 <span class="sd">        :returns: True if delete succeeds, False otherwise</span>
 <span class="sd">        :rtype: bool</span>
 <span class="sd">        """</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_version</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">'DELETE'</span><span class="p">,</span> <span class="n">uri</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_uri</span><span class="p">,</span> <span class="p">)</span></div>
+        <span class="n">headers</span> <span class="o">=</span> <span class="n">values</span><span class="o">.</span><span class="n">of</span><span class="p">({</span><span class="s1">'If-Match'</span><span class="p">:</span> <span class="n">if_match</span><span class="p">,</span> <span class="p">})</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_version</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">'DELETE'</span><span class="p">,</span> <span class="n">uri</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_uri</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> <span class="p">)</span></div>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">reservations</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -689,14 +693,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
             <span class="n">if_match</span><span class="o">=</span><span class="n">if_match</span><span class="p">,</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="TaskInstance.delete"><a class="viewcode-back" href="../../../../../../docs/source/_rst/twilio.rest.taskrouter.v1.workspace.task.html#twilio.rest.taskrouter.v1.workspace.task.TaskInstance.delete">[docs]</a>    <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="TaskInstance.delete"><a class="viewcode-back" href="../../../../../../docs/source/_rst/twilio.rest.taskrouter.v1.workspace.task.html#twilio.rest.taskrouter.v1.workspace.task.TaskInstance.delete">[docs]</a>    <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">if_match</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">):</span>
         <span class="sd">"""</span>
 <span class="sd">        Deletes the TaskInstance</span>
+
+<span class="sd">        :param unicode if_match: The If-Match HTTP request header</span>
 
 <span class="sd">        :returns: True if delete succeeds, False otherwise</span>
 <span class="sd">        :rtype: bool</span>
 <span class="sd">        """</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_proxy</span><span class="o">.</span><span class="n">delete</span><span class="p">()</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_proxy</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">if_match</span><span class="o">=</span><span class="n">if_match</span><span class="p">,</span> <span class="p">)</span></div>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">reservations</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
