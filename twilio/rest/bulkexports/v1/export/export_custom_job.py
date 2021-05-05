@@ -13,8 +13,6 @@ from twilio.base.page import Page
 
 
 class ExportCustomJobList(ListResource):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
 
     def __init__(self, version, resource_type):
         """
@@ -152,8 +150,6 @@ class ExportCustomJobList(ListResource):
 
 
 class ExportCustomJobPage(Page):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
 
     def __init__(self, version, response, solution):
         """
@@ -197,8 +193,6 @@ class ExportCustomJobPage(Page):
 
 
 class ExportCustomJobInstance(InstanceResource):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
 
     class Status(object):
         ERRORDURINGRUN = "ErrorDuringRun"

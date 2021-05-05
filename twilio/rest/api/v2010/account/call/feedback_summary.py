@@ -209,14 +209,14 @@ class FeedbackSummaryInstance(InstanceResource):
             'call_feedback_count': deserialize.integer(payload.get('call_feedback_count')),
             'date_created': deserialize.rfc2822_datetime(payload.get('date_created')),
             'date_updated': deserialize.rfc2822_datetime(payload.get('date_updated')),
-            'end_date': deserialize.iso8601_datetime(payload.get('end_date')),
+            'end_date': deserialize.iso8601_date(payload.get('end_date')),
             'include_subaccounts': payload.get('include_subaccounts'),
             'issues': payload.get('issues'),
             'quality_score_average': deserialize.decimal(payload.get('quality_score_average')),
             'quality_score_median': deserialize.decimal(payload.get('quality_score_median')),
             'quality_score_standard_deviation': deserialize.decimal(payload.get('quality_score_standard_deviation')),
             'sid': payload.get('sid'),
-            'start_date': deserialize.iso8601_datetime(payload.get('start_date')),
+            'start_date': deserialize.iso8601_date(payload.get('start_date')),
             'status': payload.get('status'),
         }
 
@@ -285,7 +285,7 @@ class FeedbackSummaryInstance(InstanceResource):
     def end_date(self):
         """
         :returns: The latest feedback entry date in the summary
-        :rtype: datetime
+        :rtype: date
         """
         return self._properties['end_date']
 
@@ -301,7 +301,7 @@ class FeedbackSummaryInstance(InstanceResource):
     def issues(self):
         """
         :returns: Issues experienced during the call
-        :rtype: list[unicode]
+        :rtype: list[dict]
         """
         return self._properties['issues']
 
@@ -341,7 +341,7 @@ class FeedbackSummaryInstance(InstanceResource):
     def start_date(self):
         """
         :returns: The earliest feedback entry date in the summary
-        :rtype: datetime
+        :rtype: date
         """
         return self._properties['start_date']
 

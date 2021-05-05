@@ -14,8 +14,6 @@ from twilio.base.page import Page
 
 
 class JobList(ListResource):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
 
     def __init__(self, version):
         """
@@ -64,8 +62,6 @@ class JobList(ListResource):
 
 
 class JobPage(Page):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
 
     def __init__(self, version, response, solution):
         """
@@ -104,8 +100,6 @@ class JobPage(Page):
 
 
 class JobContext(InstanceContext):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
 
     def __init__(self, version, job_sid):
         """
@@ -155,8 +149,6 @@ class JobContext(InstanceContext):
 
 
 class JobInstance(InstanceResource):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
 
     class Status(object):
         ERRORDURINGRUN = "ErrorDuringRun"

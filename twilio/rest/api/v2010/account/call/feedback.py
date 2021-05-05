@@ -133,6 +133,22 @@ class FeedbackContext(InstanceContext):
         self._solution = {'account_sid': account_sid, 'call_sid': call_sid, }
         self._uri = '/Accounts/{account_sid}/Calls/{call_sid}/Feedback.json'.format(**self._solution)
 
+    def fetch(self):
+        """
+        Fetch the FeedbackInstance
+
+        :returns: The fetched FeedbackInstance
+        :rtype: twilio.rest.api.v2010.account.call.feedback.FeedbackInstance
+        """
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return FeedbackInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+            call_sid=self._solution['call_sid'],
+        )
+
     def create(self, quality_score, issue=values.unset):
         """
         Create the FeedbackInstance
@@ -154,23 +170,7 @@ class FeedbackContext(InstanceContext):
             call_sid=self._solution['call_sid'],
         )
 
-    def fetch(self):
-        """
-        Fetch the FeedbackInstance
-
-        :returns: The fetched FeedbackInstance
-        :rtype: twilio.rest.api.v2010.account.call.feedback.FeedbackInstance
-        """
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return FeedbackInstance(
-            self._version,
-            payload,
-            account_sid=self._solution['account_sid'],
-            call_sid=self._solution['call_sid'],
-        )
-
-    def update(self, quality_score, issue=values.unset):
+    def update(self, quality_score=values.unset, issue=values.unset):
         """
         Update the FeedbackInstance
 
@@ -302,6 +302,15 @@ class FeedbackInstance(InstanceResource):
         """
         return self._properties['sid']
 
+    def fetch(self):
+        """
+        Fetch the FeedbackInstance
+
+        :returns: The fetched FeedbackInstance
+        :rtype: twilio.rest.api.v2010.account.call.feedback.FeedbackInstance
+        """
+        return self._proxy.fetch()
+
     def create(self, quality_score, issue=values.unset):
         """
         Create the FeedbackInstance
@@ -314,16 +323,7 @@ class FeedbackInstance(InstanceResource):
         """
         return self._proxy.create(quality_score, issue=issue, )
 
-    def fetch(self):
-        """
-        Fetch the FeedbackInstance
-
-        :returns: The fetched FeedbackInstance
-        :rtype: twilio.rest.api.v2010.account.call.feedback.FeedbackInstance
-        """
-        return self._proxy.fetch()
-
-    def update(self, quality_score, issue=values.unset):
+    def update(self, quality_score=values.unset, issue=values.unset):
         """
         Update the FeedbackInstance
 
@@ -333,7 +333,7 @@ class FeedbackInstance(InstanceResource):
         :returns: The updated FeedbackInstance
         :rtype: twilio.rest.api.v2010.account.call.feedback.FeedbackInstance
         """
-        return self._proxy.update(quality_score, issue=issue, )
+        return self._proxy.update(quality_score=quality_score, issue=issue, )
 
     def __repr__(self):
         """

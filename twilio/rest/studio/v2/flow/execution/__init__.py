@@ -141,7 +141,7 @@ class ExecutionList(ListResource):
         Create the ExecutionInstance
 
         :param unicode to: The Contact phone number to start a Studio Flow Execution
-        :param unicode from_: The Twilio phone number to send messages or initiate calls from during the Flow Execution
+        :param unicode from_: The Twilio phone number or Messaging Service SID to send messages or initiate calls from during the Flow Execution
         :param dict parameters: JSON data that will be added to the Flow's context
 
         :returns: The created ExecutionInstance

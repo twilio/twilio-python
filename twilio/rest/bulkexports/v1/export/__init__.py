@@ -17,8 +17,6 @@ from twilio.rest.bulkexports.v1.export.job import JobList
 
 
 class ExportList(ListResource):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
 
     def __init__(self, version):
         """
@@ -82,8 +80,6 @@ class ExportList(ListResource):
 
 
 class ExportPage(Page):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
 
     def __init__(self, version, response, solution):
         """
@@ -122,8 +118,6 @@ class ExportPage(Page):
 
 
 class ExportContext(InstanceContext):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
 
     def __init__(self, version, resource_type):
         """
@@ -195,8 +189,6 @@ class ExportContext(InstanceContext):
 
 
 class ExportInstance(InstanceResource):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
 
     def __init__(self, version, payload, resource_type=None):
         """

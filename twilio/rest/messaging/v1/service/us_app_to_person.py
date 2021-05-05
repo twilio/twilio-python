@@ -168,7 +168,7 @@ class UsAppToPersonInstance(InstanceResource):
             'us_app_to_person_usecase': payload.get('us_app_to_person_usecase'),
             'has_embedded_links': payload.get('has_embedded_links'),
             'has_embedded_phone': payload.get('has_embedded_phone'),
-            'status': payload.get('status'),
+            'campaign_status': payload.get('campaign_status'),
             'campaign_id': payload.get('campaign_id'),
             'is_externally_registered': payload.get('is_externally_registered'),
             'rate_limits': payload.get('rate_limits'),
@@ -246,12 +246,12 @@ class UsAppToPersonInstance(InstanceResource):
         return self._properties['has_embedded_phone']
 
     @property
-    def status(self):
+    def campaign_status(self):
         """
         :returns: Campaign status
         :rtype: unicode
         """
-        return self._properties['status']
+        return self._properties['campaign_status']
 
     @property
     def campaign_id(self):

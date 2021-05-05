@@ -78,7 +78,7 @@ class NewFactorTestCase(IntegrationTestCase):
                 "identity": "ff483d1ff591898a9942916050d2ca3f",
                 "binding": {
                     "secret": "GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ",
-                    "uri": "otpauth://totp/The%20Issuer:My%20Account?secret=GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ&issuer=The%20Issuer&algorithm=SHA1&digits=4&period=40"
+                    "uri": "otpauth://totp/test-issuer:John%E2%80%99s%20Account%20Name?secret=GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ&issuer=test-issuer&algorithm=SHA1&digits=6&period=30"
                 },
                 "date_created": "2015-07-30T20:00:00Z",
                 "date_updated": "2015-07-30T20:00:00Z",

@@ -14,8 +14,6 @@ from twilio.base.page import Page
 
 
 class ExportConfigurationList(ListResource):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
 
     def __init__(self, version):
         """
@@ -64,8 +62,6 @@ class ExportConfigurationList(ListResource):
 
 
 class ExportConfigurationPage(Page):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
 
     def __init__(self, version, response, solution):
         """
@@ -104,8 +100,6 @@ class ExportConfigurationPage(Page):
 
 
 class ExportConfigurationContext(InstanceContext):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
 
     def __init__(self, version, resource_type):
         """
@@ -172,8 +166,6 @@ class ExportConfigurationContext(InstanceContext):
 
 
 class ExportConfigurationInstance(InstanceResource):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
 
     def __init__(self, version, payload, resource_type=None):
         """

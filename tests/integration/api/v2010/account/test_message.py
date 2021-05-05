@@ -484,33 +484,34 @@ class MessageTestCase(IntegrationTestCase):
             data=values,
         ))
 
-    def test_update_response(self):
+    def test_redact_body_response(self):
         self.holodeck.mock(Response(
             200,
             '''
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "api_version": "2010-04-01",
-                "body": "Hello, this is trash Benson cut and pasted and probably does not do anything useful! \\ud83d\\udc4d",
-                "date_created": "Thu, 30 Jul 2015 20:12:31 +0000",
-                "date_sent": "Thu, 30 Jul 2015 20:12:33 +0000",
-                "date_updated": "Thu, 30 Jul 2015 20:12:33 +0000",
+                "body": "",
+                "date_created": "Fri, 24 May 2019 17:18:27 +0000",
+                "date_sent": "Fri, 24 May 2019 17:18:28 +0000",
+                "date_updated": "Fri, 24 May 2019 17:18:28 +0000",
                 "direction": "outbound-api",
-                "error_code": null,
-                "error_message": null,
-                "from": "+14155552345",
-                "messaging_service_sid": "MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "error_code": 30007,
+                "error_message": "Carrier violation",
+                "from": "+12019235161",
+                "messaging_service_sid": "MGdeadbeefdeadbeefdeadbeefdeadbeef",
                 "num_media": "0",
                 "num_segments": "1",
                 "price": "-0.00750",
                 "price_unit": "USD",
-                "sid": "SMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "sid": "SMb7c0a2ce80504485a6f653a7110836f5",
                 "status": "sent",
                 "subresource_uris": {
-                    "media": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages/SMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Media.json"
+                    "media": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages/SMb7c0a2ce80504485a6f653a7110836f5/Media.json",
+                    "feedback": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages/SMb7c0a2ce80504485a6f653a7110836f5/Feedback.json"
                 },
-                "to": "+14155552345",
-                "uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages/SMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json"
+                "to": "+18182008801",
+                "uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages/SMb7c0a2ce80504485a6f653a7110836f5.json"
             }
             '''
         ))

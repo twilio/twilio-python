@@ -250,6 +250,21 @@ class SinkContext(InstanceContext):
         """
         return self._version.delete(method='DELETE', uri=self._uri, )
 
+    def update(self, description):
+        """
+        Update the SinkInstance
+
+        :param unicode description: Sink Description
+
+        :returns: The updated SinkInstance
+        :rtype: twilio.rest.events.v1.sink.SinkInstance
+        """
+        data = values.of({'Description': description, })
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data, )
+
+        return SinkInstance(self._version, payload, sid=self._solution['sid'], )
+
     @property
     def sink_test(self):
         """
@@ -427,6 +442,17 @@ class SinkInstance(InstanceResource):
         :rtype: bool
         """
         return self._proxy.delete()
+
+    def update(self, description):
+        """
+        Update the SinkInstance
+
+        :param unicode description: Sink Description
+
+        :returns: The updated SinkInstance
+        :rtype: twilio.rest.events.v1.sink.SinkInstance
+        """
+        return self._proxy.update(description, )
 
     @property
     def sink_test(self):

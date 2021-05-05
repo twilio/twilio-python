@@ -59,6 +59,7 @@ class SchemaVersionTestCase(IntegrationTestCase):
                     {
                         "id": "Messaging.MessageStatus",
                         "schema_version": 1,
+                        "public": true,
                         "date_created": "2015-07-30T20:00:00Z",
                         "url": "https://events.twilio.com/v1/Schemas/Messaging.MessageStatus/Versions/1",
                         "raw": "https://events-schemas.twilio.com/Messaging.MessageStatus/1"
@@ -66,6 +67,7 @@ class SchemaVersionTestCase(IntegrationTestCase):
                     {
                         "id": "Messaging.MessageStatus",
                         "schema_version": 2,
+                        "public": true,
                         "date_created": "2015-07-30T20:00:00Z",
                         "url": "https://events.twilio.com/v1/Schemas/Messaging.MessageStatus/Versions/2",
                         "raw": "https://events-schemas.twilio.com/Messaging.MessageStatus/2"
@@ -108,6 +110,7 @@ class SchemaVersionTestCase(IntegrationTestCase):
             {
                 "id": "Messaging.MessageStatus",
                 "schema_version": 1,
+                "public": true,
                 "date_created": "2015-07-30T20:00:00Z",
                 "url": "https://events.twilio.com/v1/Schemas/Messaging.MessageStatus/Versions/1",
                 "raw": "https://events-schemas.twilio.com/Messaging.MessageStatus/1"
