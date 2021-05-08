@@ -28,6 +28,22 @@ twilio.rest.messaging.v1.service.short\_code module
     :undoc-members:
     :show-inheritance:
 
+twilio.rest.messaging.v1.service.us\_app\_to\_person module
+-----------------------------------------------------------
+
+.. automodule:: twilio.rest.messaging.v1.service.us_app_to_person
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+twilio.rest.messaging.v1.service.us\_app\_to\_person\_usecase module
+--------------------------------------------------------------------
+
+.. automodule:: twilio.rest.messaging.v1.service.us_app_to_person_usecase
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 
 Module contents
 ---------------

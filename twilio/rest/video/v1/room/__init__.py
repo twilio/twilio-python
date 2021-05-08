@@ -39,7 +39,8 @@ class RoomList(ListResource):
                unique_name=values.unset, status_callback=values.unset,
                status_callback_method=values.unset, max_participants=values.unset,
                record_participants_on_connect=values.unset,
-               video_codecs=values.unset, media_region=values.unset):
+               video_codecs=values.unset, media_region=values.unset,
+               recording_rules=values.unset):
         """
         Create the RoomInstance
 
@@ -52,6 +53,7 @@ class RoomList(ListResource):
         :param bool record_participants_on_connect: Whether to start recording when Participants connect
         :param list[RoomInstance.VideoCodec] video_codecs: An array of the video codecs that are supported when publishing a track in the room
         :param unicode media_region: The region for the media server in Group Rooms
+        :param dict recording_rules: A collection of Recording Rules
 
         :returns: The created RoomInstance
         :rtype: twilio.rest.video.v1.room.RoomInstance
@@ -66,6 +68,7 @@ class RoomList(ListResource):
             'RecordParticipantsOnConnect': record_participants_on_connect,
             'VideoCodecs': serialize.map(video_codecs, lambda e: e),
             'MediaRegion': media_region,
+            'RecordingRules': serialize.object(recording_rules),
         })
 
         payload = self._version.create(method='POST', uri=self._uri, data=data, )

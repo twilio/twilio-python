@@ -33,6 +33,22 @@ class SimList(ListResource):
         self._solution = {}
         self._uri = '/Sims'.format(**self._solution)
 
+    def create(self, iccid, registration_code):
+        """
+        Create the SimInstance
+
+        :param unicode iccid: The `ICCID <https://en.wikipedia.org/wiki/Subscriber_identity_module#ICCID>`_ of the Super SIM to be added to your Account
+        :param unicode registration_code: The 10 digit code required to claim the Super SIM for your Account
+
+        :returns: The created SimInstance
+        :rtype: twilio.rest.supersim.v1.sim.SimInstance
+        """
+        data = values.of({'Iccid': iccid, 'RegistrationCode': registration_code, })
+
+        payload = self._version.create(method='POST', uri=self._uri, data=data, )
+
+        return SimInstance(self._version, payload, )
+
     def stream(self, status=values.unset, fleet=values.unset, iccid=values.unset,
                limit=None, page_size=None):
         """

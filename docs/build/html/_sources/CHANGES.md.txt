@@ -3,6 +3,131 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2021-05-05] Version 6.58.0
+---------------------------
+**Api**
+- Corrected the data types for feedback summary fields **(breaking change)**
+- Update the conference participant create `from` and `to` param to be endpoint type for supporting client identifier and sip address
+
+**Bulkexports**
+- promoting API maturity to GA
+
+**Events**
+- Add endpoint to update description in sink
+- Remove beta-feature account flag
+
+**Messaging**
+- Update `status` field in us_app_to_person api to `campaign_status` **(breaking change)**
+
+**Verify**
+- Improve documentation regarding `push` factor and include extra information about `totp` factor.
+
+
+[2021-04-21] Version 6.57.0
+---------------------------
+**Api**
+- Revert Update the conference participant create `from` and `to` param to be endpoint type for supporting client identifier and sip address
+- Update the conference participant create `from` and `to` param to be endpoint type for supporting client identifier and sip address
+
+**Bulkexports**
+- moving enum to doc root for auto generating documentation
+- adding status enum and default output properties
+
+**Events**
+- Change schema_versions prop and key to versions **(breaking change)**
+
+**Messaging**
+- Add `use_inbound_webhook_on_number` field in Service API for fetch, create, update, read
+
+**Taskrouter**
+- Add `If-Match` Header based on ETag for Task Delete
+
+**Verify**
+- Add `AuthPayload` parameter to support verifying a `Challenge` upon creation. This is only supported for `totp` factors.
+- Add support to resend the notifications of a `Challenge`. This is only supported for `push` factors.
+
+**Twiml**
+- Add Polly Neural voices.
+
+
+[2021-04-07] Version 6.56.0
+---------------------------
+**Api**
+- Added `announcement` event to conference status callback events
+- Removed optional property `time_limit` in the call create request. **(breaking change)**
+
+**Messaging**
+- Add rate_limits field to Messaging Services US App To Person API
+- Add usecase field in Service API for fetch, create, update, read
+- Add us app to person api and us app to person usecase api as dependents in service
+- Add us_app_to_person_registered field in service api for fetch, read, create, update
+- Add us app to person api
+- Add us app to person usecase api
+- Add A2P external campaign api
+- Add Usecases API
+
+**Supersim**
+- Add Create endpoint to Sims resource
+
+**Verify**
+- The `Binding` field is now returned when creating a `Factor`. This value won't be returned for other endpoints.
+
+**Video**
+- [Rooms] max_concurrent_published_tracks has got GA maturity
+
+**Twiml**
+- Add `announcement` event to `statusCallbackEvent` for `<Conference>`.
+
+
+[2021-03-24] Version 6.55.0
+---------------------------
+**Api**
+- Added optional parameter `CallToken` for create calls api
+- Add optional property `time_limit` in the call create request.
+
+**Bulkexports**
+- adding two new fields with job api queue_position and estimated_completion_time
+
+**Events**
+- Add new endpoints to manage subscribed_events in subscriptions
+
+**Numbers**
+- Remove feature flags for RegulatoryCompliance endpoints
+
+**Supersim**
+- Add SmsCommands resource
+- Add fields `SmsCommandsUrl`, `SmsCommandsMethod` and `SmsCommandsEnabled` to a Fleet resource
+
+**Taskrouter**
+- Add `If-Match` Header based on ETag for Task Update
+- Add `ETag` as Response Headers to Tasks and Reservations
+
+**Video**
+- Recording rule beta flag **(breaking change)**
+- [Rooms] Add RecordingRules param to Rooms
+
+
+[2021-03-15] Version 6.54.0
+---------------------------
+**Library - Chore**
+- [PR #563](https://github.com/twilio/twilio-python/pull/563): Add support for python 3.9. Thanks to [@tim-schilling](https://github.com/tim-schilling)!
+
+**Events**
+- Set maturity to beta
+
+**Messaging**
+- Adjust A2P brand registration status enum **(breaking change)**
+
+**Studio**
+- Remove internal safeguards for Studio V2 API usage now that it's GA
+
+**Verify**
+- Add support for creating and verifying totp factors. Support for totp factors is behind the `api.verify.totp` beta feature.
+
+**Twiml**
+- Add support for `<VirtualAgent>` noun
+
+
 [2021-02-24] Version 6.53.0
 ---------------------------
 **Library - Chore**

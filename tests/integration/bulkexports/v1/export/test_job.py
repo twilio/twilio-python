@@ -40,7 +40,9 @@ class JobTestCase(IntegrationTestCase):
                 "webhook_url": "webhook_url",
                 "webhook_method": "webhook_method",
                 "email": "email",
-                "resource_type": "resource_type"
+                "resource_type": "resource_type",
+                "job_queue_position": "1",
+                "estimated_completion_time": "2021-03-15T20:20:14.547"
             }
             '''
         ))

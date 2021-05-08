@@ -35,46 +35,6 @@ class FactorList(ListResource):
         self._solution = {'service_sid': service_sid, 'identity': identity, }
         self._uri = '/Services/{service_sid}/Entities/{identity}/Factors'.format(**self._solution)
 
-    def create(self, friendly_name, factor_type, binding_alg=values.unset,
-               binding_public_key=values.unset, config_app_id=values.unset,
-               config_notification_platform=values.unset,
-               config_notification_token=values.unset,
-               config_sdk_version=values.unset):
-        """
-        Create the FactorInstance
-
-        :param unicode friendly_name: The friendly name of this Factor
-        :param FactorInstance.FactorTypes factor_type: The Type of this Factor
-        :param unicode binding_alg: The algorithm used when `factor_type` is `push`
-        :param unicode binding_public_key: The public key encoded in Base64
-        :param unicode config_app_id: The ID that uniquely identifies your app in the Google or Apple store
-        :param FactorInstance.NotificationPlatforms config_notification_platform: The transport technology used to generate the Notification Token
-        :param unicode config_notification_token: For APN, the device token. For FCM the registration token
-        :param unicode config_sdk_version: The Verify Push SDK version used to configure the factor
-
-        :returns: The created FactorInstance
-        :rtype: twilio.rest.verify.v2.service.entity.factor.FactorInstance
-        """
-        data = values.of({
-            'FriendlyName': friendly_name,
-            'FactorType': factor_type,
-            'Binding.Alg': binding_alg,
-            'Binding.PublicKey': binding_public_key,
-            'Config.AppId': config_app_id,
-            'Config.NotificationPlatform': config_notification_platform,
-            'Config.NotificationToken': config_notification_token,
-            'Config.SdkVersion': config_sdk_version,
-        })
-
-        payload = self._version.create(method='POST', uri=self._uri, data=data, )
-
-        return FactorInstance(
-            self._version,
-            payload,
-            service_sid=self._solution['service_sid'],
-            identity=self._solution['identity'],
-        )
-
     def stream(self, limit=None, page_size=None):
         """
         Streams FactorInstance records from the API as a generator stream.
@@ -291,7 +251,9 @@ class FactorContext(InstanceContext):
 
     def update(self, auth_payload=values.unset, friendly_name=values.unset,
                config_notification_token=values.unset,
-               config_sdk_version=values.unset):
+               config_sdk_version=values.unset, config_time_step=values.unset,
+               config_skew=values.unset, config_code_length=values.unset,
+               config_alg=values.unset):
         """
         Update the FactorInstance
 
@@ -299,6 +261,10 @@ class FactorContext(InstanceContext):
         :param unicode friendly_name: The friendly name of this Factor
         :param unicode config_notification_token: For APN, the device token. For FCM the registration token
         :param unicode config_sdk_version: The Verify Push SDK version used to configure the factor
+        :param unicode config_time_step: How often, in seconds, are TOTP codes generated
+        :param unicode config_skew: The number of past and future time-steps valid at a given time
+        :param unicode config_code_length: Number of digits for generated TOTP codes
+        :param FactorInstance.TotpAlgorithms config_alg: The algorithm used to derive the TOTP codes
 
         :returns: The updated FactorInstance
         :rtype: twilio.rest.verify.v2.service.entity.factor.FactorInstance
@@ -308,6 +274,10 @@ class FactorContext(InstanceContext):
             'FriendlyName': friendly_name,
             'Config.NotificationToken': config_notification_token,
             'Config.SdkVersion': config_sdk_version,
+            'Config.TimeStep': config_time_step,
+            'Config.Skew': config_skew,
+            'Config.CodeLength': config_code_length,
+            'Config.Alg': config_alg,
         })
 
         payload = self._version.update(method='POST', uri=self._uri, data=data, )
@@ -341,10 +311,16 @@ class FactorInstance(InstanceResource):
 
     class FactorTypes(object):
         PUSH = "push"
+        TOTP = "totp"
 
     class NotificationPlatforms(object):
         APN = "apn"
         FCM = "fcm"
+
+    class TotpAlgorithms(object):
+        SHA1 = "sha1"
+        SHA256 = "sha256"
+        SHA512 = "sha512"
 
     def __init__(self, version, payload, service_sid, identity, sid=None):
         """
@@ -513,7 +489,9 @@ class FactorInstance(InstanceResource):
 
     def update(self, auth_payload=values.unset, friendly_name=values.unset,
                config_notification_token=values.unset,
-               config_sdk_version=values.unset):
+               config_sdk_version=values.unset, config_time_step=values.unset,
+               config_skew=values.unset, config_code_length=values.unset,
+               config_alg=values.unset):
         """
         Update the FactorInstance
 
@@ -521,6 +499,10 @@ class FactorInstance(InstanceResource):
         :param unicode friendly_name: The friendly name of this Factor
         :param unicode config_notification_token: For APN, the device token. For FCM the registration token
         :param unicode config_sdk_version: The Verify Push SDK version used to configure the factor
+        :param unicode config_time_step: How often, in seconds, are TOTP codes generated
+        :param unicode config_skew: The number of past and future time-steps valid at a given time
+        :param unicode config_code_length: Number of digits for generated TOTP codes
+        :param FactorInstance.TotpAlgorithms config_alg: The algorithm used to derive the TOTP codes
 
         :returns: The updated FactorInstance
         :rtype: twilio.rest.verify.v2.service.entity.factor.FactorInstance
@@ -530,6 +512,10 @@ class FactorInstance(InstanceResource):
             friendly_name=friendly_name,
             config_notification_token=config_notification_token,
             config_sdk_version=config_sdk_version,
+            config_time_step=config_time_step,
+            config_skew=config_skew,
+            config_code_length=config_code_length,
+            config_alg=config_alg,
         )
 
     def __repr__(self):

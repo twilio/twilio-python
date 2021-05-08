@@ -44,7 +44,9 @@ class ServiceList(ListResource):
                psd2_enabled=values.unset, do_not_share_warning_enabled=values.unset,
                custom_code_enabled=values.unset, push_include_date=values.unset,
                push_apn_credential_sid=values.unset,
-               push_fcm_credential_sid=values.unset):
+               push_fcm_credential_sid=values.unset, totp_issuer=values.unset,
+               totp_time_step=values.unset, totp_code_length=values.unset,
+               totp_skew=values.unset):
         """
         Create the ServiceInstance
 
@@ -60,6 +62,10 @@ class ServiceList(ListResource):
         :param bool push_include_date: Optional. Include the date in the Challenge's reponse. Default: true
         :param unicode push_apn_credential_sid: Optional. Set APN Credential for this service.
         :param unicode push_fcm_credential_sid: Optional. Set FCM Credential for this service.
+        :param unicode totp_issuer: Optional. Set TOTP Issuer for this service.
+        :param unicode totp_time_step: Optional. How often, in seconds, are TOTP codes generated
+        :param unicode totp_code_length: Optional. Number of digits for generated TOTP codes
+        :param unicode totp_skew: Optional. The number of past and future time-steps valid at a given time
 
         :returns: The created ServiceInstance
         :rtype: twilio.rest.verify.v2.service.ServiceInstance
@@ -77,6 +83,10 @@ class ServiceList(ListResource):
             'Push.IncludeDate': push_include_date,
             'Push.ApnCredentialSid': push_apn_credential_sid,
             'Push.FcmCredentialSid': push_fcm_credential_sid,
+            'Totp.Issuer': totp_issuer,
+            'Totp.TimeStep': totp_time_step,
+            'Totp.CodeLength': totp_code_length,
+            'Totp.Skew': totp_skew,
         })
 
         payload = self._version.create(method='POST', uri=self._uri, data=data, )
@@ -283,7 +293,9 @@ class ServiceContext(InstanceContext):
                psd2_enabled=values.unset, do_not_share_warning_enabled=values.unset,
                custom_code_enabled=values.unset, push_include_date=values.unset,
                push_apn_credential_sid=values.unset,
-               push_fcm_credential_sid=values.unset):
+               push_fcm_credential_sid=values.unset, totp_issuer=values.unset,
+               totp_time_step=values.unset, totp_code_length=values.unset,
+               totp_skew=values.unset):
         """
         Update the ServiceInstance
 
@@ -299,6 +311,10 @@ class ServiceContext(InstanceContext):
         :param bool push_include_date: Optional. Include the date in the Challenge's reponse. Default: true
         :param unicode push_apn_credential_sid: Optional. Set APN Credential for this service.
         :param unicode push_fcm_credential_sid: Optional. Set FCM Credential for this service.
+        :param unicode totp_issuer: Optional. Set TOTP Issuer for this service.
+        :param unicode totp_time_step: Optional. How often, in seconds, are TOTP codes generated
+        :param unicode totp_code_length: Optional. Number of digits for generated TOTP codes
+        :param unicode totp_skew: Optional. The number of past and future time-steps valid at a given time
 
         :returns: The updated ServiceInstance
         :rtype: twilio.rest.verify.v2.service.ServiceInstance
@@ -316,6 +332,10 @@ class ServiceContext(InstanceContext):
             'Push.IncludeDate': push_include_date,
             'Push.ApnCredentialSid': push_apn_credential_sid,
             'Push.FcmCredentialSid': push_fcm_credential_sid,
+            'Totp.Issuer': totp_issuer,
+            'Totp.TimeStep': totp_time_step,
+            'Totp.CodeLength': totp_code_length,
+            'Totp.Skew': totp_skew,
         })
 
         payload = self._version.update(method='POST', uri=self._uri, data=data, )
@@ -445,6 +465,7 @@ class ServiceInstance(InstanceResource):
             'do_not_share_warning_enabled': payload.get('do_not_share_warning_enabled'),
             'custom_code_enabled': payload.get('custom_code_enabled'),
             'push': payload.get('push'),
+            'totp': payload.get('totp'),
             'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
             'date_updated': deserialize.iso8601_datetime(payload.get('date_updated')),
             'url': payload.get('url'),
@@ -565,6 +586,14 @@ class ServiceInstance(InstanceResource):
         return self._properties['push']
 
     @property
+    def totp(self):
+        """
+        :returns: The service level configuration of factor TOTP type.
+        :rtype: dict
+        """
+        return self._properties['totp']
+
+    @property
     def date_created(self):
         """
         :returns: The RFC 2822 date and time in GMT when the resource was created
@@ -620,7 +649,9 @@ class ServiceInstance(InstanceResource):
                psd2_enabled=values.unset, do_not_share_warning_enabled=values.unset,
                custom_code_enabled=values.unset, push_include_date=values.unset,
                push_apn_credential_sid=values.unset,
-               push_fcm_credential_sid=values.unset):
+               push_fcm_credential_sid=values.unset, totp_issuer=values.unset,
+               totp_time_step=values.unset, totp_code_length=values.unset,
+               totp_skew=values.unset):
         """
         Update the ServiceInstance
 
@@ -636,6 +667,10 @@ class ServiceInstance(InstanceResource):
         :param bool push_include_date: Optional. Include the date in the Challenge's reponse. Default: true
         :param unicode push_apn_credential_sid: Optional. Set APN Credential for this service.
         :param unicode push_fcm_credential_sid: Optional. Set FCM Credential for this service.
+        :param unicode totp_issuer: Optional. Set TOTP Issuer for this service.
+        :param unicode totp_time_step: Optional. How often, in seconds, are TOTP codes generated
+        :param unicode totp_code_length: Optional. Number of digits for generated TOTP codes
+        :param unicode totp_skew: Optional. The number of past and future time-steps valid at a given time
 
         :returns: The updated ServiceInstance
         :rtype: twilio.rest.verify.v2.service.ServiceInstance
@@ -653,6 +688,10 @@ class ServiceInstance(InstanceResource):
             push_include_date=push_include_date,
             push_apn_credential_sid=push_apn_credential_sid,
             push_fcm_credential_sid=push_fcm_credential_sid,
+            totp_issuer=totp_issuer,
+            totp_time_step=totp_time_step,
+            totp_code_length=totp_code_length,
+            totp_skew=totp_skew,
         )
 
     @property

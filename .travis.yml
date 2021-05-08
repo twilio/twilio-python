@@ -1,4 +1,4 @@
-dist: xenial # required for Python >= 3.7
+dist: xenial
 language: python
 python:
   - "3.6"
@@ -6,28 +6,27 @@ python:
   - "3.8"
   - "3.9"
 services:
-  - docker
+- docker
 install:
-  - pip install virtualenv --upgrade
-  - make install
-  - make test-install
+- pip install virtualenv --upgrade
+- make install
+- make test-install
 script:
-  - make test
+- make test
 deploy:
-  - provider: script
-    script: make docker-build && make docker-push
-    skip_cleanup: true
-    on:
-      tags: true
-      python: "3.6"
-  - provider: pypi
-    skip_cleanup: true
-    user: "__token__"
-    password: $PYPI_TOKEN
-    on:
-      tags: true
-      python: "3.6"
-
+- provider: script
+  script: make docker-build && make docker-push
+  skip_cleanup: true
+  on:
+    tags: true
+    python: '3.6'
+- provider: pypi
+  skip_cleanup: true
+  user: __token__
+  password: "$PYPI_TOKEN"
+  on:
+    tags: true
+    python: '3.6'
 notifications:
   slack:
     if: branch = main
@@ -35,4 +34,4 @@ notifications:
     on_success: never
     on_failure: change
     rooms:
-      - secure: hH8HAepfg60pch6GZ/GprMDpcyu7IjXS4eD+lIcG6TIhEIdn0YCO5K1GiFlDtWgiFfnk5tY5Wr40CEv66cJLg2DnI/q7l3O3wDof80mrbX18EOZ4cFg9ZgAAfSij4znbzf4/9ZQvLxA826Nx/yk9D33o1UE6nHF2xVMfb4bRptw=
+      secure: n7ZtDd7AvPsw7Wd6fOCCWYiakWpCnYs1QqXpiozF9Rh1Z90XcrQp72utPFyl81jJp7zlgYWXSfHqmnUpbOCWd04WTsC4dkAY6dd/ThARV4kRkxONX3nlbRESOeZIWNXNOeSR1pg6sd9H7xwIDGmmN2arnFRNiQAD0y5li0yxAfQ=

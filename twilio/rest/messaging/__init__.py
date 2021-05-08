@@ -51,11 +51,25 @@ class Messaging(Domain):
         return self.v1.deactivations
 
     @property
+    def external_campaign(self):
+        """
+        :rtype: twilio.rest.messaging.v1.external_campaign.ExternalCampaignList
+        """
+        return self.v1.external_campaign
+
+    @property
     def services(self):
         """
         :rtype: twilio.rest.messaging.v1.service.ServiceList
         """
         return self.v1.services
+
+    @property
+    def usecases(self):
+        """
+        :rtype: twilio.rest.messaging.v1.usecase.UsecaseList
+        """
+        return self.v1.usecases
 
     def __repr__(self):
         """

@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-MWRD6S');</script><!--End Google Tag Manager-->
 <meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<title>twilio.twiml package — twilio-python 6.53.0 documentation</title>
+<title>twilio.twiml package — twilio-python 6.58.0 documentation</title>
 <link href="../../../_static/alabaster.css" rel="stylesheet" type="text/css"/>
 <link href="../../../_static/pygments.css" rel="stylesheet" type="text/css"/>
 <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js" type="text/javascript"></script>
@@ -342,6 +342,29 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">&lt;Stream&gt; element</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+<dl class="method">
+<dt id="twilio.twiml.voice_response.Connect.virtual_agent">
+<code class="descname">virtual_agent</code><span class="sig-paren">(</span><em>connector_name=None</em>, <em>language=None</em>, <em>sentiment_analysis=None</em>, <em>status_callback=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/twiml/voice_response.html#Connect.virtual_agent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.twiml.voice_response.Connect.virtual_agent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a &lt;VirtualAgent&gt; element</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>connector_name</strong> – Defines the conversation profile Dialogflow needs to use</li>
+<li><strong>language</strong> – Language to be used by Dialogflow to transcribe speech</li>
+<li><strong>sentiment_analysis</strong> – Whether sentiment analysis needs to be enabled or not</li>
+<li><strong>status_callback</strong> – URL to post status callbacks from Twilio</li>
+<li><strong>kwargs</strong> – additional attributes</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">&lt;VirtualAgent&gt; element</p>
 </td>
 </tr>
 </tbody>
@@ -1540,6 +1563,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <em class="property">class </em><code class="descclassname">twilio.twiml.voice_response.</code><code class="descname">Task</code><span class="sig-paren">(</span><em>body</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/twiml/voice_response.html#Task"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.twiml.voice_response.Task" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#twilio.twiml.TwiML" title="twilio.twiml.TwiML"><code class="xref py py-class docutils literal notranslate"><span class="pre">twilio.twiml.TwiML</span></code></a></p>
 <p>&lt;Task&gt; TwiML Noun</p>
+</dd></dl>
+<dl class="class">
+<dt id="twilio.twiml.voice_response.VirtualAgent">
+<em class="property">class </em><code class="descclassname">twilio.twiml.voice_response.</code><code class="descname">VirtualAgent</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/twiml/voice_response.html#VirtualAgent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.twiml.voice_response.VirtualAgent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#twilio.twiml.TwiML" title="twilio.twiml.TwiML"><code class="xref py py-class docutils literal notranslate"><span class="pre">twilio.twiml.TwiML</span></code></a></p>
+<p>&lt;VirtualAgent&gt; TwiML Noun</p>
 </dd></dl>
 <dl class="class">
 <dt id="twilio.twiml.voice_response.VoiceResponse">

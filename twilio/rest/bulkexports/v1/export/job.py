@@ -14,8 +14,6 @@ from twilio.base.page import Page
 
 
 class JobList(ListResource):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
 
     def __init__(self, version):
         """
@@ -64,8 +62,6 @@ class JobList(ListResource):
 
 
 class JobPage(Page):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
 
     def __init__(self, version, response, solution):
         """
@@ -104,8 +100,6 @@ class JobPage(Page):
 
 
 class JobContext(InstanceContext):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
 
     def __init__(self, version, job_sid):
         """
@@ -155,8 +149,16 @@ class JobContext(InstanceContext):
 
 
 class JobInstance(InstanceResource):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
+
+    class Status(object):
+        ERRORDURINGRUN = "ErrorDuringRun"
+        SUBMITTED = "Submitted"
+        RUNNING = "Running"
+        COMPLETEDEMPTYRECORDS = "CompletedEmptyRecords"
+        COMPLETED = "Completed"
+        FAILED = "Failed"
+        RUNNINGTOBEDELETED = "RunningToBeDeleted"
+        DELETEDBYUSERREQUEST = "DeletedByUserRequest"
 
     def __init__(self, version, payload, job_sid=None):
         """
@@ -179,6 +181,8 @@ class JobInstance(InstanceResource):
             'webhook_method': payload.get('webhook_method'),
             'email': payload.get('email'),
             'url': payload.get('url'),
+            'job_queue_position': payload.get('job_queue_position'),
+            'estimated_completion_time': payload.get('estimated_completion_time'),
         }
 
         # Context
@@ -217,7 +221,7 @@ class JobInstance(InstanceResource):
     @property
     def details(self):
         """
-        :returns: This is a list of the completed, pending, or errored dates within the export time range, with one entry for each status with more than one day in that status
+        :returns: The details of a job state which is an object that contains a `status` string, a day count integer, and list of days in the job
         :rtype: dict
         """
         return self._properties['details']
@@ -277,6 +281,22 @@ class JobInstance(InstanceResource):
         :rtype: unicode
         """
         return self._properties['url']
+
+    @property
+    def job_queue_position(self):
+        """
+        :returns: This is the job position from the 1st in line. Your queue position will never increase. As jobs ahead of yours in the queue are processed, the queue position number will decrease
+        :rtype: unicode
+        """
+        return self._properties['job_queue_position']
+
+    @property
+    def estimated_completion_time(self):
+        """
+        :returns: this is the time estimated until your job is complete. This is calculated each time you request the job list. The time is calculated based on the current rate of job completion (which may vary) and your job queue position
+        :rtype: unicode
+        """
+        return self._properties['estimated_completion_time']
 
     def fetch(self):
         """

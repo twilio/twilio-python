@@ -15,8 +15,6 @@ from twilio.base.page import Page
 
 
 class DayList(ListResource):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
 
     def __init__(self, version, resource_type):
         """
@@ -144,8 +142,6 @@ class DayList(ListResource):
 
 
 class DayPage(Page):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
 
     def __init__(self, version, response, solution):
         """
@@ -185,8 +181,6 @@ class DayPage(Page):
 
 
 class DayContext(InstanceContext):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
 
     def __init__(self, version, resource_type, day):
         """
@@ -233,8 +227,6 @@ class DayContext(InstanceContext):
 
 
 class DayInstance(InstanceResource):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
 
     def __init__(self, version, payload, resource_type, day=None):
         """

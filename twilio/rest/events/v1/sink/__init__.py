@@ -18,9 +18,8 @@ from twilio.rest.events.v1.sink.sink_validate import SinkValidateList
 
 
 class SinkList(ListResource):
-    """ PLEASE NOTE that this class contains preview products that are subject
-    to change. Use them with caution. If you currently do not have developer
-    preview access, please contact help@twilio.com. """
+    """ PLEASE NOTE that this class contains beta products that are subject to
+    change. Use them with caution. """
 
     def __init__(self, version):
         """
@@ -168,9 +167,8 @@ class SinkList(ListResource):
 
 
 class SinkPage(Page):
-    """ PLEASE NOTE that this class contains preview products that are subject
-    to change. Use them with caution. If you currently do not have developer
-    preview access, please contact help@twilio.com. """
+    """ PLEASE NOTE that this class contains beta products that are subject to
+    change. Use them with caution. """
 
     def __init__(self, version, response, solution):
         """
@@ -209,9 +207,8 @@ class SinkPage(Page):
 
 
 class SinkContext(InstanceContext):
-    """ PLEASE NOTE that this class contains preview products that are subject
-    to change. Use them with caution. If you currently do not have developer
-    preview access, please contact help@twilio.com. """
+    """ PLEASE NOTE that this class contains beta products that are subject to
+    change. Use them with caution. """
 
     def __init__(self, version, sid):
         """
@@ -253,6 +250,21 @@ class SinkContext(InstanceContext):
         """
         return self._version.delete(method='DELETE', uri=self._uri, )
 
+    def update(self, description):
+        """
+        Update the SinkInstance
+
+        :param unicode description: Sink Description
+
+        :returns: The updated SinkInstance
+        :rtype: twilio.rest.events.v1.sink.SinkInstance
+        """
+        data = values.of({'Description': description, })
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data, )
+
+        return SinkInstance(self._version, payload, sid=self._solution['sid'], )
+
     @property
     def sink_test(self):
         """
@@ -289,9 +301,8 @@ class SinkContext(InstanceContext):
 
 
 class SinkInstance(InstanceResource):
-    """ PLEASE NOTE that this class contains preview products that are subject
-    to change. Use them with caution. If you currently do not have developer
-    preview access, please contact help@twilio.com. """
+    """ PLEASE NOTE that this class contains beta products that are subject to
+    change. Use them with caution. """
 
     class Status(object):
         INITIALIZED = "initialized"
@@ -431,6 +442,17 @@ class SinkInstance(InstanceResource):
         :rtype: bool
         """
         return self._proxy.delete()
+
+    def update(self, description):
+        """
+        Update the SinkInstance
+
+        :param unicode description: Sink Description
+
+        :returns: The updated SinkInstance
+        :rtype: twilio.rest.events.v1.sink.SinkInstance
+        """
+        return self._proxy.update(description, )
 
     @property
     def sink_test(self):

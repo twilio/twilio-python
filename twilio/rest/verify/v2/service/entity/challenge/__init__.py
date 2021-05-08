@@ -13,6 +13,7 @@ from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.page import Page
+from twilio.rest.verify.v2.service.entity.challenge.notification import NotificationList
 
 
 class ChallengeList(ListResource):
@@ -38,7 +39,7 @@ class ChallengeList(ListResource):
 
     def create(self, factor_sid, expiration_date=values.unset,
                details_message=values.unset, details_fields=values.unset,
-               hidden_details=values.unset):
+               hidden_details=values.unset, auth_payload=values.unset):
         """
         Create the ChallengeInstance
 
@@ -47,6 +48,7 @@ class ChallengeList(ListResource):
         :param unicode details_message: Shown to the user when the push notification arrives
         :param list[dict] details_fields: A list of objects that describe the Fields included in the Challenge
         :param dict hidden_details: Hidden details provided to contextualize the Challenge
+        :param unicode auth_payload: Optional payload to verify the Challenge
 
         :returns: The created ChallengeInstance
         :rtype: twilio.rest.verify.v2.service.entity.challenge.ChallengeInstance
@@ -57,6 +59,7 @@ class ChallengeList(ListResource):
             'Details.Message': details_message,
             'Details.Fields': serialize.map(details_fields, lambda e: serialize.object(e)),
             'HiddenDetails': serialize.object(hidden_details),
+            'AuthPayload': auth_payload,
         })
 
         payload = self._version.create(method='POST', uri=self._uri, data=data, )
@@ -271,6 +274,9 @@ class ChallengeContext(InstanceContext):
         self._solution = {'service_sid': service_sid, 'identity': identity, 'sid': sid, }
         self._uri = '/Services/{service_sid}/Entities/{identity}/Challenges/{sid}'.format(**self._solution)
 
+        # Dependents
+        self._notifications = None
+
     def fetch(self):
         """
         Fetch the ChallengeInstance
@@ -309,6 +315,23 @@ class ChallengeContext(InstanceContext):
             sid=self._solution['sid'],
         )
 
+    @property
+    def notifications(self):
+        """
+        Access the notifications
+
+        :returns: twilio.rest.verify.v2.service.entity.challenge.notification.NotificationList
+        :rtype: twilio.rest.verify.v2.service.entity.challenge.notification.NotificationList
+        """
+        if self._notifications is None:
+            self._notifications = NotificationList(
+                self._version,
+                service_sid=self._solution['service_sid'],
+                identity=self._solution['identity'],
+                challenge_sid=self._solution['sid'],
+            )
+        return self._notifications
+
     def __repr__(self):
         """
         Provide a friendly representation
@@ -337,6 +360,7 @@ class ChallengeInstance(InstanceResource):
 
     class FactorTypes(object):
         PUSH = "push"
+        TOTP = "totp"
 
     def __init__(self, version, payload, service_sid, identity, sid=None):
         """
@@ -365,6 +389,7 @@ class ChallengeInstance(InstanceResource):
             'hidden_details': payload.get('hidden_details'),
             'factor_type': payload.get('factor_type'),
             'url': payload.get('url'),
+            'links': payload.get('links'),
         }
 
         # Context
@@ -521,6 +546,14 @@ class ChallengeInstance(InstanceResource):
         """
         return self._properties['url']
 
+    @property
+    def links(self):
+        """
+        :returns: Nested resource URLs.
+        :rtype: unicode
+        """
+        return self._properties['links']
+
     def fetch(self):
         """
         Fetch the ChallengeInstance
@@ -540,6 +573,16 @@ class ChallengeInstance(InstanceResource):
         :rtype: twilio.rest.verify.v2.service.entity.challenge.ChallengeInstance
         """
         return self._proxy.update(auth_payload=auth_payload, )
+
+    @property
+    def notifications(self):
+        """
+        Access the notifications
+
+        :returns: twilio.rest.verify.v2.service.entity.challenge.notification.NotificationList
+        :rtype: twilio.rest.verify.v2.service.entity.challenge.notification.NotificationList
+        """
+        return self._proxy.notifications
 
     def __repr__(self):
         """

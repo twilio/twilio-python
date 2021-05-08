@@ -1,0 +1,22 @@
+twilio.rest.verify.v2.service.entity.challenge package
+======================================================
+
+Submodules
+----------
+
+twilio.rest.verify.v2.service.entity.challenge.notification module
+------------------------------------------------------------------
+
+.. automodule:: twilio.rest.verify.v2.service.entity.challenge.notification
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: twilio.rest.verify.v2.service.entity.challenge
+    :members:
+    :undoc-members:
+    :show-inheritance:

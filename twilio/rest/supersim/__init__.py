@@ -72,6 +72,13 @@ class Supersim(Domain):
         return self.v1.sims
 
     @property
+    def sms_commands(self):
+        """
+        :rtype: twilio.rest.supersim.v1.sms_command.SmsCommandList
+        """
+        return self.v1.sms_commands
+
+    @property
     def usage_records(self):
         """
         :rtype: twilio.rest.supersim.v1.usage_record.UsageRecordList

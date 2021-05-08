@@ -248,8 +248,8 @@ class BrandRegistrationInstance(InstanceResource):
     change. Use them with caution. """
 
     class Status(object):
-        IN_PROGRESS = "IN_PROGRESS"
-        VERIFIED = "VERIFIED"
+        PENDING = "PENDING"
+        APPROVED = "APPROVED"
         FAILED = "FAILED"
 
     def __init__(self, version, payload, sid=None):

@@ -40,26 +40,26 @@ class FeedbackSummaryTestCase(IntegrationTestCase):
             201,
             '''
             {
-                "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                "call_count": 10200,
-                "call_feedback_count": 729,
-                "end_date": "2011-01-01",
                 "include_subaccounts": false,
+                "call_feedback_count": 729,
+                "quality_score_standard_deviation": "1.0",
+                "end_date": "2014-01-01",
+                "quality_score_median": "4.0",
+                "quality_score_average": "4.5",
+                "date_updated": "Tue, 31 Aug 2010 20:36:28 +0000",
+                "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "status": "completed",
+                "call_count": 10200,
+                "sid": "FSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "date_created": "Tue, 31 Aug 2010 20:36:28 +0000",
+                "start_date": "2014-01-01",
                 "issues": [
                     {
                         "count": 45,
                         "description": "imperfect-audio",
                         "percentage_of_total_calls": "0.04%"
                     }
-                ],
-                "quality_score_average": 4.5,
-                "quality_score_median": 4,
-                "quality_score_standard_deviation": 1,
-                "sid": "FSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                "start_date": "2011-01-01",
-                "status": "completed",
-                "date_created": "Tue, 31 Aug 2010 20:36:28 +0000",
-                "date_updated": "Tue, 31 Aug 2010 20:36:44 +0000"
+                ]
             }
             '''
         ))
@@ -88,26 +88,26 @@ class FeedbackSummaryTestCase(IntegrationTestCase):
             200,
             '''
             {
-                "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                "call_count": 10200,
-                "call_feedback_count": 729,
-                "end_date": "2011-01-01",
                 "include_subaccounts": false,
+                "call_feedback_count": 729,
+                "quality_score_standard_deviation": "1.0",
+                "end_date": "2014-01-01",
+                "quality_score_median": "4.0",
+                "quality_score_average": "4.5",
+                "date_updated": "Tue, 31 Aug 2010 20:36:28 +0000",
+                "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "status": "completed",
+                "call_count": 10200,
+                "sid": "FSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "date_created": "Tue, 31 Aug 2010 20:36:28 +0000",
+                "start_date": "2014-01-01",
                 "issues": [
                     {
                         "count": 45,
                         "description": "imperfect-audio",
                         "percentage_of_total_calls": "0.04%"
                     }
-                ],
-                "quality_score_average": 4.5,
-                "quality_score_median": 4,
-                "quality_score_standard_deviation": 1,
-                "sid": "FSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                "start_date": "2011-01-01",
-                "status": "completed",
-                "date_created": "Tue, 31 Aug 2010 20:36:28 +0000",
-                "date_updated": "Tue, 31 Aug 2010 20:36:44 +0000"
+                ]
             }
             '''
         ))

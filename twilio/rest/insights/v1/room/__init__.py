@@ -44,11 +44,11 @@ class RoomList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param list[RoomInstance.RoomType] room_type: The room_type
-        :param list[RoomInstance.Codec] codec: The codec
-        :param unicode room_name: The room_name
-        :param datetime created_after: The created_after
-        :param datetime created_before: The created_before
+        :param list[RoomInstance.RoomType] room_type: Type of room.
+        :param list[RoomInstance.Codec] codec: Codecs used by participants in the room.
+        :param unicode room_name: Room friendly name.
+        :param datetime created_after: Only read rooms that started on or after this ISO 8601 timestamp.
+        :param datetime created_before: Only read rooms that started before this ISO 8601 timestamp.
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -80,11 +80,11 @@ class RoomList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param list[RoomInstance.RoomType] room_type: The room_type
-        :param list[RoomInstance.Codec] codec: The codec
-        :param unicode room_name: The room_name
-        :param datetime created_after: The created_after
-        :param datetime created_before: The created_before
+        :param list[RoomInstance.RoomType] room_type: Type of room.
+        :param list[RoomInstance.Codec] codec: Codecs used by participants in the room.
+        :param unicode room_name: Room friendly name.
+        :param datetime created_after: Only read rooms that started on or after this ISO 8601 timestamp.
+        :param datetime created_before: Only read rooms that started before this ISO 8601 timestamp.
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -113,11 +113,11 @@ class RoomList(ListResource):
         Retrieve a single page of RoomInstance records from the API.
         Request is executed immediately
 
-        :param list[RoomInstance.RoomType] room_type: The room_type
-        :param list[RoomInstance.Codec] codec: The codec
-        :param unicode room_name: The room_name
-        :param datetime created_after: The created_after
-        :param datetime created_before: The created_before
+        :param list[RoomInstance.RoomType] room_type: Type of room.
+        :param list[RoomInstance.Codec] codec: Codecs used by participants in the room.
+        :param unicode room_name: Room friendly name.
+        :param datetime created_after: Only read rooms that started on or after this ISO 8601 timestamp.
+        :param datetime created_before: Only read rooms that started before this ISO 8601 timestamp.
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -161,7 +161,7 @@ class RoomList(ListResource):
         """
         Constructs a RoomContext
 
-        :param room_sid: The room_sid
+        :param room_sid: The SID of the Room resource.
 
         :returns: twilio.rest.insights.v1.room.RoomContext
         :rtype: twilio.rest.insights.v1.room.RoomContext
@@ -172,7 +172,7 @@ class RoomList(ListResource):
         """
         Constructs a RoomContext
 
-        :param room_sid: The room_sid
+        :param room_sid: The SID of the Room resource.
 
         :returns: twilio.rest.insights.v1.room.RoomContext
         :rtype: twilio.rest.insights.v1.room.RoomContext
@@ -238,7 +238,7 @@ class RoomContext(InstanceContext):
         Initialize the RoomContext
 
         :param Version version: Version that contains the resource
-        :param room_sid: The room_sid
+        :param room_sid: The SID of the Room resource.
 
         :returns: twilio.rest.insights.v1.room.RoomContext
         :rtype: twilio.rest.insights.v1.room.RoomContext
@@ -400,7 +400,7 @@ class RoomInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The account_sid
+        :returns: Account SID associated with this room.
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -408,7 +408,7 @@ class RoomInstance(InstanceResource):
     @property
     def room_sid(self):
         """
-        :returns: The room_sid
+        :returns: Unique identifier for the room.
         :rtype: unicode
         """
         return self._properties['room_sid']
@@ -416,7 +416,7 @@ class RoomInstance(InstanceResource):
     @property
     def room_name(self):
         """
-        :returns: The room_name
+        :returns: room friendly name.
         :rtype: unicode
         """
         return self._properties['room_name']
@@ -424,7 +424,7 @@ class RoomInstance(InstanceResource):
     @property
     def create_time(self):
         """
-        :returns: The create_time
+        :returns: Creation time of the room.
         :rtype: datetime
         """
         return self._properties['create_time']
@@ -432,7 +432,7 @@ class RoomInstance(InstanceResource):
     @property
     def end_time(self):
         """
-        :returns: The end_time
+        :returns: End time for the room.
         :rtype: datetime
         """
         return self._properties['end_time']
@@ -440,7 +440,7 @@ class RoomInstance(InstanceResource):
     @property
     def room_type(self):
         """
-        :returns: The room_type
+        :returns: Type of room.
         :rtype: RoomInstance.RoomType
         """
         return self._properties['room_type']
@@ -448,7 +448,7 @@ class RoomInstance(InstanceResource):
     @property
     def room_status(self):
         """
-        :returns: The room_status
+        :returns: Status of the room.
         :rtype: RoomInstance.RoomStatus
         """
         return self._properties['room_status']
@@ -456,7 +456,7 @@ class RoomInstance(InstanceResource):
     @property
     def status_callback(self):
         """
-        :returns: The status_callback
+        :returns: Webhook provided for status callbacks.
         :rtype: unicode
         """
         return self._properties['status_callback']
@@ -464,7 +464,7 @@ class RoomInstance(InstanceResource):
     @property
     def status_callback_method(self):
         """
-        :returns: The status_callback_method
+        :returns: HTTP method provided for status callback URL.
         :rtype: unicode
         """
         return self._properties['status_callback_method']
@@ -472,7 +472,7 @@ class RoomInstance(InstanceResource):
     @property
     def created_method(self):
         """
-        :returns: The created_method
+        :returns: How the room was created.
         :rtype: RoomInstance.CreatedMethod
         """
         return self._properties['created_method']
@@ -480,7 +480,7 @@ class RoomInstance(InstanceResource):
     @property
     def end_reason(self):
         """
-        :returns: The end_reason
+        :returns: Reason the room ended.
         :rtype: RoomInstance.EndReason
         """
         return self._properties['end_reason']
@@ -488,7 +488,7 @@ class RoomInstance(InstanceResource):
     @property
     def max_participants(self):
         """
-        :returns: The max_participants
+        :returns: Max number of total participants allowed by the application settings.
         :rtype: unicode
         """
         return self._properties['max_participants']
@@ -496,7 +496,7 @@ class RoomInstance(InstanceResource):
     @property
     def unique_participants(self):
         """
-        :returns: The unique_participants
+        :returns: Number of participants. May include duplicate identities for participants who left and rejoined.
         :rtype: unicode
         """
         return self._properties['unique_participants']
@@ -504,7 +504,7 @@ class RoomInstance(InstanceResource):
     @property
     def unique_participant_identities(self):
         """
-        :returns: The unique_participant_identities
+        :returns: Unique number of participant identities.
         :rtype: unicode
         """
         return self._properties['unique_participant_identities']
@@ -512,7 +512,7 @@ class RoomInstance(InstanceResource):
     @property
     def concurrent_participants(self):
         """
-        :returns: The concurrent_participants
+        :returns: Actual number of concurrent participants.
         :rtype: unicode
         """
         return self._properties['concurrent_participants']
@@ -520,7 +520,7 @@ class RoomInstance(InstanceResource):
     @property
     def max_concurrent_participants(self):
         """
-        :returns: The max_concurrent_participants
+        :returns: Maximum number of participants allowed in the room at the same time allowed by the application settings.
         :rtype: unicode
         """
         return self._properties['max_concurrent_participants']
@@ -528,7 +528,7 @@ class RoomInstance(InstanceResource):
     @property
     def codecs(self):
         """
-        :returns: The codecs
+        :returns: Codecs used by participants in the room.
         :rtype: list[RoomInstance.Codec]
         """
         return self._properties['codecs']
@@ -536,7 +536,7 @@ class RoomInstance(InstanceResource):
     @property
     def media_region(self):
         """
-        :returns: The media_region
+        :returns: Region of Twilio media servers for the room.
         :rtype: RoomInstance.TwilioRealm
         """
         return self._properties['media_region']
@@ -544,7 +544,7 @@ class RoomInstance(InstanceResource):
     @property
     def duration_sec(self):
         """
-        :returns: The duration_sec
+        :returns: Total room duration from create time to end time.
         :rtype: unicode
         """
         return self._properties['duration_sec']
@@ -552,7 +552,7 @@ class RoomInstance(InstanceResource):
     @property
     def total_participant_duration_sec(self):
         """
-        :returns: The total_participant_duration_sec
+        :returns: Combined amount of participant time in the room.
         :rtype: unicode
         """
         return self._properties['total_participant_duration_sec']
@@ -560,7 +560,7 @@ class RoomInstance(InstanceResource):
     @property
     def total_recording_duration_sec(self):
         """
-        :returns: The total_recording_duration_sec
+        :returns: Combined amount of recorded seconds for participants in the room.
         :rtype: unicode
         """
         return self._properties['total_recording_duration_sec']
@@ -568,7 +568,7 @@ class RoomInstance(InstanceResource):
     @property
     def processing_state(self):
         """
-        :returns: The processing_state
+        :returns: Video Log Analyzer resource state. Will be either `in-progress` or `complete`.
         :rtype: RoomInstance.ProcessingState
         """
         return self._properties['processing_state']
@@ -576,7 +576,7 @@ class RoomInstance(InstanceResource):
     @property
     def recording_enabled(self):
         """
-        :returns: The recording_enabled
+        :returns: Boolean indicating if recording is enabled for the room.
         :rtype: bool
         """
         return self._properties['recording_enabled']
@@ -584,7 +584,7 @@ class RoomInstance(InstanceResource):
     @property
     def edge_location(self):
         """
-        :returns: The edge_location
+        :returns: Edge location of Twilio media servers for the room.
         :rtype: RoomInstance.EdgeLocation
         """
         return self._properties['edge_location']
@@ -592,7 +592,7 @@ class RoomInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: The url
+        :returns: URL for the room resource.
         :rtype: unicode
         """
         return self._properties['url']
@@ -600,7 +600,7 @@ class RoomInstance(InstanceResource):
     @property
     def links(self):
         """
-        :returns: The links
+        :returns: Room subresources.
         :rtype: unicode
         """
         return self._properties['links']

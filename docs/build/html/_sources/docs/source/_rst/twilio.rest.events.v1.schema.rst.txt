@@ -4,10 +4,10 @@ twilio.rest.events.v1.schema package
 Submodules
 ----------
 
-twilio.rest.events.v1.schema.schema\_version module
----------------------------------------------------
+twilio.rest.events.v1.schema.version module
+-------------------------------------------
 
-.. automodule:: twilio.rest.events.v1.schema.schema_version
+.. automodule:: twilio.rest.events.v1.schema.version
     :members:
     :undoc-members:
     :show-inheritance:

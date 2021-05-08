@@ -13,8 +13,6 @@ from twilio.base.page import Page
 
 
 class ExportCustomJobList(ListResource):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
 
     def __init__(self, version, resource_type):
         """
@@ -152,8 +150,6 @@ class ExportCustomJobList(ListResource):
 
 
 class ExportCustomJobPage(Page):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
 
     def __init__(self, version, response, solution):
         """
@@ -197,8 +193,16 @@ class ExportCustomJobPage(Page):
 
 
 class ExportCustomJobInstance(InstanceResource):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
+
+    class Status(object):
+        ERRORDURINGRUN = "ErrorDuringRun"
+        SUBMITTED = "Submitted"
+        RUNNING = "Running"
+        COMPLETEDEMPTYRECORDS = "CompletedEmptyRecords"
+        COMPLETED = "Completed"
+        FAILED = "Failed"
+        RUNNINGTOBEDELETED = "RunningToBeDeleted"
+        DELETEDBYUSERREQUEST = "DeletedByUserRequest"
 
     def __init__(self, version, payload, resource_type):
         """
@@ -220,6 +224,8 @@ class ExportCustomJobInstance(InstanceResource):
             'email': payload.get('email'),
             'job_sid': payload.get('job_sid'),
             'details': payload.get('details'),
+            'job_queue_position': payload.get('job_queue_position'),
+            'estimated_completion_time': payload.get('estimated_completion_time'),
         }
 
         # Context
@@ -293,10 +299,26 @@ class ExportCustomJobInstance(InstanceResource):
     @property
     def details(self):
         """
-        :returns: The details of a job state which is an object that contains a status string, a day count integer, and list of days in the job
+        :returns: The details of a job state which is an object that contains a `status` string, a day count integer, and list of days in the job
         :rtype: dict
         """
         return self._properties['details']
+
+    @property
+    def job_queue_position(self):
+        """
+        :returns: This is the job position from the 1st in line. Your queue position will never increase. As jobs ahead of yours in the queue are processed, the queue position number will decrease
+        :rtype: unicode
+        """
+        return self._properties['job_queue_position']
+
+    @property
+    def estimated_completion_time(self):
+        """
+        :returns: this is the time estimated until your job is complete. This is calculated each time you request the job list. The time is calculated based on the current rate of job completion (which may vary) and your job queue position
+        :rtype: unicode
+        """
+        return self._properties['estimated_completion_time']
 
     def __repr__(self):
         """

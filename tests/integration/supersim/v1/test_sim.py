@@ -14,6 +14,42 @@ from twilio.http.response import Response
 
 class SimTestCase(IntegrationTestCase):
 
+    def test_create_request(self):
+        self.holodeck.mock(Response(500, ''))
+
+        with self.assertRaises(TwilioException):
+            self.client.supersim.v1.sims.create(iccid="iccid", registration_code="registration_code")
+
+        values = {'Iccid': "iccid", 'RegistrationCode': "registration_code", }
+
+        self.holodeck.assert_has_request(Request(
+            'post',
+            'https://supersim.twilio.com/v1/Sims',
+            data=values,
+        ))
+
+    def test_create_response(self):
+        self.holodeck.mock(Response(
+            201,
+            '''
+            {
+                "sid": "HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "unique_name": "",
+                "status": "new",
+                "fleet_sid": null,
+                "iccid": "89883070000123456789",
+                "date_created": "2015-07-30T20:00:00Z",
+                "date_updated": "2015-07-30T20:00:00Z",
+                "url": "https://supersim.twilio.com/v1/Sims/HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            }
+            '''
+        ))
+
+        actual = self.client.supersim.v1.sims.create(iccid="iccid", registration_code="registration_code")
+
+        self.assertIsNotNone(actual)
+
     def test_fetch_request(self):
         self.holodeck.mock(Response(500, ''))
 
@@ -35,7 +71,7 @@ class SimTestCase(IntegrationTestCase):
                 "unique_name": "My SIM",
                 "status": "new",
                 "fleet_sid": null,
-                "iccid": "iccid",
+                "iccid": "89883070000123456789",
                 "date_created": "2015-07-30T20:00:00Z",
                 "date_updated": "2015-07-30T20:00:00Z",
                 "url": "https://supersim.twilio.com/v1/Sims/HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
@@ -68,7 +104,7 @@ class SimTestCase(IntegrationTestCase):
                 "unique_name": "MySIM",
                 "status": "new",
                 "fleet_sid": null,
-                "iccid": "iccid",
+                "iccid": "89883070000123456789",
                 "date_created": "2015-07-30T20:00:00Z",
                 "date_updated": "2015-07-30T20:00:00Z",
                 "url": "https://supersim.twilio.com/v1/Sims/HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
@@ -90,7 +126,7 @@ class SimTestCase(IntegrationTestCase):
                 "unique_name": null,
                 "status": "scheduled",
                 "fleet_sid": null,
-                "iccid": "iccid",
+                "iccid": "89883070000123456789",
                 "date_created": "2015-07-30T20:00:00Z",
                 "date_updated": "2015-07-30T20:00:00Z",
                 "url": "https://supersim.twilio.com/v1/Sims/HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
@@ -112,7 +148,7 @@ class SimTestCase(IntegrationTestCase):
                 "unique_name": null,
                 "status": "new",
                 "fleet_sid": "HFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                "iccid": "iccid",
+                "iccid": "89883070000123456789",
                 "date_created": "2015-07-30T20:00:00Z",
                 "date_updated": "2015-07-30T20:00:00Z",
                 "url": "https://supersim.twilio.com/v1/Sims/HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
@@ -134,7 +170,7 @@ class SimTestCase(IntegrationTestCase):
                 "unique_name": null,
                 "status": "new",
                 "fleet_sid": "HFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                "iccid": "iccid",
+                "iccid": "89883070000123456789",
                 "date_created": "2015-07-30T20:00:00Z",
                 "date_updated": "2015-07-30T20:00:00Z",
                 "url": "https://supersim.twilio.com/v1/Sims/HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
@@ -156,7 +192,7 @@ class SimTestCase(IntegrationTestCase):
                 "unique_name": null,
                 "status": "new",
                 "fleet_sid": "HFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                "iccid": "iccid",
+                "iccid": "89883070000123456789",
                 "date_created": "2015-07-30T20:00:00Z",
                 "date_updated": "2015-07-30T20:00:00Z",
                 "url": "https://supersim.twilio.com/v1/Sims/HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
@@ -223,7 +259,7 @@ class SimTestCase(IntegrationTestCase):
                         "unique_name": "My SIM",
                         "status": "new",
                         "fleet_sid": "HFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                        "iccid": "iccid",
+                        "iccid": "89883070000123456789",
                         "date_created": "2015-07-30T20:00:00Z",
                         "date_updated": "2015-07-30T20:00:00Z",
                         "url": "https://supersim.twilio.com/v1/Sims/HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
@@ -258,7 +294,7 @@ class SimTestCase(IntegrationTestCase):
                         "unique_name": "My SIM",
                         "status": "new",
                         "fleet_sid": "HFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                        "iccid": "iccid",
+                        "iccid": "89883070000123456789",
                         "date_created": "2015-07-30T20:00:00Z",
                         "date_updated": "2015-07-30T20:00:00Z",
                         "url": "https://supersim.twilio.com/v1/Sims/HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
@@ -278,13 +314,13 @@ class SimTestCase(IntegrationTestCase):
             '''
             {
                 "meta": {
-                    "first_page_url": "https://supersim.twilio.com/v1/Sims?Iccid=11111111111111111111&PageSize=50&Page=0",
+                    "first_page_url": "https://supersim.twilio.com/v1/Sims?Iccid=89883070000123456789&PageSize=50&Page=0",
                     "key": "sims",
                     "next_page_url": null,
                     "page": 0,
                     "page_size": 50,
                     "previous_page_url": null,
-                    "url": "https://supersim.twilio.com/v1/Sims?Iccid=11111111111111111111&PageSize=50&Page=0"
+                    "url": "https://supersim.twilio.com/v1/Sims?Iccid=89883070000123456789&PageSize=50&Page=0"
                 },
                 "sims": [
                     {
@@ -293,7 +329,7 @@ class SimTestCase(IntegrationTestCase):
                         "unique_name": "My SIM",
                         "status": "new",
                         "fleet_sid": null,
-                        "iccid": "11111111111111111111",
+                        "iccid": "89883070000123456789",
                         "date_created": "2015-07-30T20:00:00Z",
                         "date_updated": "2015-07-30T20:00:00Z",
                         "url": "https://supersim.twilio.com/v1/Sims/HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"

@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-MWRD6S');</script><!--End Google Tag Manager-->
 <meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<title>twilio.rest.api.v2010.account.call package — twilio-python 6.53.0 documentation</title>
+<title>twilio.rest.api.v2010.account.call package — twilio-python 6.58.0 documentation</title>
 <link href="../../../_static/alabaster.css" rel="stylesheet" type="text/css"/>
 <link href="../../../_static/pygments.css" rel="stylesheet" type="text/css"/>
 <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js" type="text/javascript"></script>
@@ -261,7 +261,7 @@ limit with the most efficient page size, i.e. min(limit, 1000)</li>
 </dd></dl>
 <dl class="method">
 <dt id="twilio.rest.api.v2010.account.call.feedback.FeedbackContext.update">
-<code class="descname">update</code><span class="sig-paren">(</span><em>quality_score</em>, <em>issue=&lt;object object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/api/v2010/account/call/feedback.html#FeedbackContext.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.api.v2010.account.call.feedback.FeedbackContext.update" title="Permalink to this definition">¶</a></dt>
+<code class="descname">update</code><span class="sig-paren">(</span><em>quality_score=&lt;object object&gt;</em>, <em>issue=&lt;object object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/api/v2010/account/call/feedback.html#FeedbackContext.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.api.v2010.account.call.feedback.FeedbackContext.update" title="Permalink to this definition">¶</a></dt>
 <dd><p>Update the FeedbackInstance</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name"/>
@@ -448,7 +448,7 @@ limit with the most efficient page size, i.e. min(limit, 1000)</li>
 </dd></dl>
 <dl class="method">
 <dt id="twilio.rest.api.v2010.account.call.feedback.FeedbackInstance.update">
-<code class="descname">update</code><span class="sig-paren">(</span><em>quality_score</em>, <em>issue=&lt;object object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/api/v2010/account/call/feedback.html#FeedbackInstance.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.api.v2010.account.call.feedback.FeedbackInstance.update" title="Permalink to this definition">¶</a></dt>
+<code class="descname">update</code><span class="sig-paren">(</span><em>quality_score=&lt;object object&gt;</em>, <em>issue=&lt;object object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/api/v2010/account/call/feedback.html#FeedbackInstance.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.api.v2010.account.call.feedback.FeedbackInstance.update" title="Permalink to this definition">¶</a></dt>
 <dd><p>Update the FeedbackInstance</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name"/>
@@ -677,7 +677,7 @@ limit with the most efficient page size, i.e. min(limit, 1000)</li>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The latest feedback entry date in the summary</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">datetime</td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">date</td>
 </tr>
 </tbody>
 </table>
@@ -720,7 +720,7 @@ limit with the most efficient page size, i.e. min(limit, 1000)</li>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Issues experienced during the call</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)">list</a>[unicode]</td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)">list</a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)">dict</a>]</td>
 </tr>
 </tbody>
 </table>
@@ -790,7 +790,7 @@ limit with the most efficient page size, i.e. min(limit, 1000)</li>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The earliest feedback entry date in the summary</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">datetime</td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">date</td>
 </tr>
 </tbody>
 </table>
@@ -3027,7 +3027,7 @@ limit with the most efficient page size, i.e. min(limit, 1000)</li>
 <dd><p>Bases: <a class="reference internal" href="twilio.base.html#twilio.base.list_resource.ListResource" title="twilio.base.list_resource.ListResource"><code class="xref py py-class docutils literal notranslate"><span class="pre">twilio.base.list_resource.ListResource</span></code></a></p>
 <dl class="method">
 <dt id="twilio.rest.api.v2010.account.call.CallList.create">
-<code class="descname">create</code><span class="sig-paren">(</span><em>to</em>, <em>from_</em>, <em>method=&lt;object object&gt;</em>, <em>fallback_url=&lt;object object&gt;</em>, <em>fallback_method=&lt;object object&gt;</em>, <em>status_callback=&lt;object object&gt;</em>, <em>status_callback_event=&lt;object object&gt;</em>, <em>status_callback_method=&lt;object object&gt;</em>, <em>send_digits=&lt;object object&gt;</em>, <em>timeout=&lt;object object&gt;</em>, <em>record=&lt;object object&gt;</em>, <em>recording_channels=&lt;object object&gt;</em>, <em>recording_status_callback=&lt;object object&gt;</em>, <em>recording_status_callback_method=&lt;object object&gt;</em>, <em>sip_auth_username=&lt;object object&gt;</em>, <em>sip_auth_password=&lt;object object&gt;</em>, <em>machine_detection=&lt;object object&gt;</em>, <em>machine_detection_timeout=&lt;object object&gt;</em>, <em>recording_status_callback_event=&lt;object object&gt;</em>, <em>trim=&lt;object object&gt;</em>, <em>caller_id=&lt;object object&gt;</em>, <em>machine_detection_speech_threshold=&lt;object object&gt;</em>, <em>machine_detection_speech_end_threshold=&lt;object object&gt;</em>, <em>machine_detection_silence_timeout=&lt;object object&gt;</em>, <em>async_amd=&lt;object object&gt;</em>, <em>async_amd_status_callback=&lt;object object&gt;</em>, <em>async_amd_status_callback_method=&lt;object object&gt;</em>, <em>byoc=&lt;object object&gt;</em>, <em>call_reason=&lt;object object&gt;</em>, <em>recording_track=&lt;object object&gt;</em>, <em>url=&lt;object object&gt;</em>, <em>twiml=&lt;object object&gt;</em>, <em>application_sid=&lt;object object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/api/v2010/account/call.html#CallList.create"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.api.v2010.account.call.CallList.create" title="Permalink to this definition">¶</a></dt>
+<code class="descname">create</code><span class="sig-paren">(</span><em>to</em>, <em>from_</em>, <em>method=&lt;object object&gt;</em>, <em>fallback_url=&lt;object object&gt;</em>, <em>fallback_method=&lt;object object&gt;</em>, <em>status_callback=&lt;object object&gt;</em>, <em>status_callback_event=&lt;object object&gt;</em>, <em>status_callback_method=&lt;object object&gt;</em>, <em>send_digits=&lt;object object&gt;</em>, <em>timeout=&lt;object object&gt;</em>, <em>record=&lt;object object&gt;</em>, <em>recording_channels=&lt;object object&gt;</em>, <em>recording_status_callback=&lt;object object&gt;</em>, <em>recording_status_callback_method=&lt;object object&gt;</em>, <em>sip_auth_username=&lt;object object&gt;</em>, <em>sip_auth_password=&lt;object object&gt;</em>, <em>machine_detection=&lt;object object&gt;</em>, <em>machine_detection_timeout=&lt;object object&gt;</em>, <em>recording_status_callback_event=&lt;object object&gt;</em>, <em>trim=&lt;object object&gt;</em>, <em>caller_id=&lt;object object&gt;</em>, <em>machine_detection_speech_threshold=&lt;object object&gt;</em>, <em>machine_detection_speech_end_threshold=&lt;object object&gt;</em>, <em>machine_detection_silence_timeout=&lt;object object&gt;</em>, <em>async_amd=&lt;object object&gt;</em>, <em>async_amd_status_callback=&lt;object object&gt;</em>, <em>async_amd_status_callback_method=&lt;object object&gt;</em>, <em>byoc=&lt;object object&gt;</em>, <em>call_reason=&lt;object object&gt;</em>, <em>call_token=&lt;object object&gt;</em>, <em>recording_track=&lt;object object&gt;</em>, <em>url=&lt;object object&gt;</em>, <em>twiml=&lt;object object&gt;</em>, <em>application_sid=&lt;object object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/api/v2010/account/call.html#CallList.create"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.api.v2010.account.call.CallList.create" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create the CallInstance</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name"/>
@@ -3063,6 +3063,7 @@ limit with the most efficient page size, i.e. min(limit, 1000)</li>
 <li><strong>async_amd_status_callback_method</strong> (<em>unicode</em>) – HTTP Method to use with async_amd_status_callback</li>
 <li><strong>byoc</strong> (<em>unicode</em>) – BYOC trunk SID (Beta)</li>
 <li><strong>call_reason</strong> (<em>unicode</em>) – Reason for the call (Branded Calls Beta)</li>
+<li><strong>call_token</strong> (<em>unicode</em>) – A token string needed to invoke a forwarded call with a caller-id recieved on a previous incoming call</li>
 <li><strong>recording_track</strong> (<em>unicode</em>) – Which track(s) to record</li>
 <li><strong>url</strong> (<em>unicode</em>) – The absolute URL that returns TwiML for this call</li>
 <li><strong>twiml</strong> (<em>unicode</em>) – TwiML instructions for the call</li>
