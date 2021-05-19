@@ -33,7 +33,7 @@ class SupportingDocumentTestCase(IntegrationTestCase):
             201,
             '''
             {
-                "status": "DRAFT",
+                "status": "draft",
                 "date_updated": "2021-02-11T17:23:00Z",
                 "friendly_name": "Business-profile-physical-address",
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -94,7 +94,7 @@ class SupportingDocumentTestCase(IntegrationTestCase):
             {
                 "results": [
                     {
-                        "status": "DRAFT",
+                        "status": "draft",
                         "date_updated": "2021-02-11T17:23:00Z",
                         "friendly_name": "Business-profile-physical-address",
                         "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -141,7 +141,7 @@ class SupportingDocumentTestCase(IntegrationTestCase):
             200,
             '''
             {
-                "status": "DRAFT",
+                "status": "draft",
                 "date_updated": "2021-02-11T17:23:00Z",
                 "friendly_name": "Business-profile-physical-address",
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -177,7 +177,7 @@ class SupportingDocumentTestCase(IntegrationTestCase):
             200,
             '''
             {
-                "status": "DRAFT",
+                "status": "draft",
                 "date_updated": "2021-02-11T17:23:00Z",
                 "friendly_name": "friendly_name",
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",

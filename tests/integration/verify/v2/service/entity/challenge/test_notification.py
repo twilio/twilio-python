@@ -38,7 +38,7 @@ class NotificationTestCase(IntegrationTestCase):
                 "service_sid": "VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "entity_sid": "YEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "identity": "ff483d1ff591898a9942916050d2ca3f",
-                "challenge_sid": "YC03XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+                "challenge_sid": "YC03aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "date_created": "2015-07-30T20:00:00Z",
                 "priority": "high",
                 "ttl": 150
@@ -63,7 +63,7 @@ class NotificationTestCase(IntegrationTestCase):
                 "service_sid": "VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "entity_sid": "YEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "identity": "ff483d1ff591898a9942916050d2ca3f",
-                "challenge_sid": "YC03XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+                "challenge_sid": "YC03aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "date_created": "2015-07-30T20:00:00Z",
                 "priority": "high",
                 "ttl": 300

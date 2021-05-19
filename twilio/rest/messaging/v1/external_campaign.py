@@ -113,6 +113,7 @@ class ExternalCampaignInstance(InstanceResource):
 
         # Marshaled Properties
         self._properties = {
+            'sid': payload.get('sid'),
             'account_sid': payload.get('account_sid'),
             'campaign_id': payload.get('campaign_id'),
             'messaging_service_sid': payload.get('messaging_service_sid'),
@@ -122,6 +123,14 @@ class ExternalCampaignInstance(InstanceResource):
         # Context
         self._context = None
         self._solution = {}
+
+    @property
+    def sid(self):
+        """
+        :returns: The unique string that identifies a US A2P Compliance resource
+        :rtype: unicode
+        """
+        return self._properties['sid']
 
     @property
     def account_sid(self):

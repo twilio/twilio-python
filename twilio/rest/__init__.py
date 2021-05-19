@@ -28,7 +28,7 @@ class Client(object):
 
         :param str username: Username to authenticate with
         :param str password: Password to authenticate with
-        :param str account_sid: Account Sid, defaults to Username
+        :param str account_sid: Account SID, defaults to Username
         :param str region: Twilio Region to make requests to, defaults to 'us1' if an edge is provided
         :param HttpClient http_client: HttpClient, defaults to TwilioHttpClient
         :param dict environment: Environment to look for auth details, defaults to os.environ

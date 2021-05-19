@@ -38,7 +38,7 @@ class SimList(ListResource):
         Create the SimInstance
 
         :param unicode iccid: The `ICCID <https://en.wikipedia.org/wiki/Subscriber_identity_module#ICCID>`_ of the Super SIM to be added to your Account
-        :param unicode registration_code: The 10 digit code required to claim the Super SIM for your Account
+        :param unicode registration_code: The 10-digit code required to claim the Super SIM for your Account
 
         :returns: The created SimInstance
         :rtype: twilio.rest.supersim.v1.sim.SimInstance
