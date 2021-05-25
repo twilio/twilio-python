@@ -134,7 +134,7 @@ class FlexFlowList(ListResource):
         :param FlexFlowInstance.ChannelType channel_type: The channel type
         :param unicode contact_identity: The channel contact's Identity
         :param bool enabled: Whether the new Flex Flow is enabled
-        :param FlexFlowInstance.IntegrationType integration_type: The integration type
+        :param FlexFlowInstance.IntegrationType integration_type: The software that will handle inbound messages.
         :param unicode integration_flow_sid: The SID of the Studio Flow
         :param unicode integration_url: The External Webhook URL
         :param unicode integration_workspace_sid: The Workspace SID for a new Task
@@ -292,7 +292,7 @@ class FlexFlowContext(InstanceContext):
         :param FlexFlowInstance.ChannelType channel_type: The channel type
         :param unicode contact_identity: The channel contact's Identity
         :param bool enabled: Whether the new Flex Flow is enabled
-        :param FlexFlowInstance.IntegrationType integration_type: The integration type
+        :param FlexFlowInstance.IntegrationType integration_type: The software that will handle inbound messages.
         :param unicode integration_flow_sid: The SID of the Studio Flow
         :param unicode integration_url: The External Webhook URL
         :param unicode integration_workspace_sid: The Workspace SID for a new Task
@@ -486,7 +486,7 @@ class FlexFlowInstance(InstanceResource):
     @property
     def integration_type(self):
         """
-        :returns: The integration type
+        :returns: The software that will handle inbound messages.
         :rtype: FlexFlowInstance.IntegrationType
         """
         return self._properties['integration_type']
@@ -551,7 +551,7 @@ class FlexFlowInstance(InstanceResource):
         :param FlexFlowInstance.ChannelType channel_type: The channel type
         :param unicode contact_identity: The channel contact's Identity
         :param bool enabled: Whether the new Flex Flow is enabled
-        :param FlexFlowInstance.IntegrationType integration_type: The integration type
+        :param FlexFlowInstance.IntegrationType integration_type: The software that will handle inbound messages.
         :param unicode integration_flow_sid: The SID of the Studio Flow
         :param unicode integration_url: The External Webhook URL
         :param unicode integration_workspace_sid: The Workspace SID for a new Task

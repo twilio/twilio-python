@@ -3,6 +3,26 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2021-05-19] Version 6.59.0
+---------------------------
+**Events**
+- add query param to return types filtered by Schema Id
+- Add query param to return sinks filtered by status
+- Add query param to return sinks used/not used by a subscription
+
+**Messaging**
+- Add fetch and delete instance endpoints to us_app_to_person api **(breaking change)**
+- Remove delete list endpoint from us_app_to_person api **(breaking change)**
+- Update read list endpoint to return a list of us_app_to_person compliance objects **(breaking change)**
+- Add `sid` field to Preregistered US App To Person response
+
+**Supersim**
+- Mark `unique_name` in Sim, Fleet, NAP resources as not PII
+
+**Video**
+- [Composer] GA maturity level
+
+
 [2021-05-05] Version 6.58.0
 ---------------------------
 **Api**
