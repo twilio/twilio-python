@@ -19,12 +19,20 @@ setup(
     author_email="help@twilio.com",
     url="https://github.com/twilio/twilio-python/",
     keywords=["twilio", "twiml"],
-    python_requires='>=3.6.0',
+    python_requires='>=2.7.0',
     install_requires=[
         "pytz",
         "requests >= 2.0.0",
-        "PyJWT >= 2.0.0, < 3.0.0",
+        "PyJWT == 1.7.1",
     ],
+    extras_require={
+        ':python_version<"3.0"': [
+            "requests[security] >= 2.0.0",
+        ],
+        ':python_version>="3.0"': [
+            "requests >= 2.0.0"
+        ],
+    },
     packages=find_packages(exclude=['tests', 'tests.*']),
     include_package_data=True,
     classifiers=[
