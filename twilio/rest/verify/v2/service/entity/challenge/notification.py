@@ -39,7 +39,7 @@ class NotificationList(ListResource):
         """
         Create the NotificationInstance
 
-        :param unicode ttl: How long, in seconds, the Notification is valid.
+        :param unicode ttl: How long, in seconds, the notification is valid.
 
         :returns: The created NotificationInstance
         :rtype: twilio.rest.verify.v2.service.entity.challenge.notification.NotificationInstance
@@ -196,7 +196,7 @@ class NotificationInstance(InstanceResource):
     @property
     def priority(self):
         """
-        :returns: The priority of the Notification.
+        :returns: The priority of the notification.
         :rtype: unicode
         """
         return self._properties['priority']
@@ -204,7 +204,7 @@ class NotificationInstance(InstanceResource):
     @property
     def ttl(self):
         """
-        :returns: How long, in seconds, the Notification is valid.
+        :returns: How long, in seconds, the notification is valid.
         :rtype: unicode
         """
         return self._properties['ttl']

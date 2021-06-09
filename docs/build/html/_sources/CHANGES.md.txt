@@ -3,6 +3,16 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2021-06-02] Version 6.59.1
+---------------------------
+**Events**
+- join Sinks and Subscriptions service
+
+**Verify**
+- Improved the documentation of `challenge` adding the maximum and minimum expected lengths of some fields.
+- Improve documentation regarding `notification` by updating the documentation of the field `ttl`.
+
+
 [2021-05-19] Version 6.59.0
 ---------------------------
 **Events**
