@@ -15,6 +15,7 @@ Subpackages
     twilio.rest.events
     twilio.rest.fax
     twilio.rest.flex_api
+    twilio.rest.frontline_api
     twilio.rest.insights
     twilio.rest.ip_messaging
     twilio.rest.lookups

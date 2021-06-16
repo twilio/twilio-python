@@ -3,6 +3,16 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2021-06-16] Version 6.60.0
+---------------------------
+**Api**
+- Update `status` enum for Messages to include 'canceled'
+- Update `update_status` enum for Messages to include 'canceled'
+
+**Trusthub**
+- Corrected the sid for policy sid in customer_profile_evaluation.json and trust_product_evaluation.json **(breaking change)**
+
+
 [2021-06-02] Version 6.59.1
 ---------------------------
 **Events**
