@@ -19,9 +19,9 @@ class TrustProductsEvaluationsTestCase(IntegrationTestCase):
 
         with self.assertRaises(TwilioException):
             self.client.trusthub.v1.trust_products("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                   .trust_products_evaluations.create(policy_sid="BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+                                   .trust_products_evaluations.create(policy_sid="RNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
 
-        values = {'PolicySid': "BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", }
+        values = {'PolicySid': "RNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", }
 
         self.holodeck.assert_has_request(Request(
             'post',
@@ -197,7 +197,7 @@ class TrustProductsEvaluationsTestCase(IntegrationTestCase):
         ))
 
         actual = self.client.trusthub.v1.trust_products("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                        .trust_products_evaluations.create(policy_sid="BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+                                        .trust_products_evaluations.create(policy_sid="RNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
 
         self.assertIsNotNone(actual)
 

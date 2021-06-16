@@ -408,6 +408,10 @@ class MessageInstance(InstanceResource):
         SCHEDULED = "scheduled"
         READ = "read"
         PARTIALLY_DELIVERED = "partially_delivered"
+        CANCELED = "canceled"
+
+    class UpdateStatus(object):
+        CANCELED = "canceled"
 
     class Direction(object):
         INBOUND = "inbound"

@@ -67,6 +67,7 @@ class Client(object):
         self._events = None
         self._fax = None
         self._flex_api = None
+        self._frontline_api = None
         self._insights = None
         self._ip_messaging = None
         self._lookups = None
@@ -275,6 +276,19 @@ class Client(object):
             from twilio.rest.flex_api import FlexApi
             self._flex_api = FlexApi(self)
         return self._flex_api
+
+    @property
+    def frontline_api(self):
+        """
+        Access the FrontlineApi Twilio Domain
+
+        :returns: FrontlineApi Twilio Domain
+        :rtype: twilio.rest.frontline_api.FrontlineApi
+        """
+        if self._frontline_api is None:
+            from twilio.rest.frontline_api import FrontlineApi
+            self._frontline_api = FrontlineApi(self)
+        return self._frontline_api
 
     @property
     def insights(self):
