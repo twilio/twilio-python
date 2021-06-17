@@ -18,7 +18,7 @@ script:
 - make test
 deploy:
 - provider: script
-  script: make docker-build && make docker-push
+  script: echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin && make docker-build && make docker-push
   skip_cleanup: true
   on:
     tags: true
