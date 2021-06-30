@@ -474,14 +474,11 @@ class MessageTestCase(IntegrationTestCase):
 
         with self.assertRaises(TwilioException):
             self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .messages("MMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update(body="body")
-
-        values = {'Body': "body", }
+                                 .messages("MMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
 
         self.holodeck.assert_has_request(Request(
             'post',
             'https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Messages/MMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.json',
-            data=values,
         ))
 
     def test_redact_body_response(self):
@@ -517,6 +514,43 @@ class MessageTestCase(IntegrationTestCase):
         ))
 
         actual = self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .messages("MMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update(body="body")
+                                      .messages("MMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
+
+        self.assertIsNotNone(actual)
+
+    def test_cancel_message_response(self):
+        self.holodeck.mock(Response(
+            200,
+            '''
+            {
+                "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "api_version": "2010-04-01",
+                "body": "",
+                "date_created": "Fri, 24 May 2019 17:18:27 +0000",
+                "date_sent": "Fri, 24 May 2019 17:18:28 +0000",
+                "date_updated": "Fri, 24 May 2019 17:18:28 +0000",
+                "direction": "outbound-api",
+                "error_code": 30007,
+                "error_message": "Carrier violation",
+                "from": "+12019235161",
+                "messaging_service_sid": "MGdeadbeefdeadbeefdeadbeefdeadbeef",
+                "num_media": "0",
+                "num_segments": "1",
+                "price": "-0.00750",
+                "price_unit": "USD",
+                "sid": "SMb7c0a2ce80504485a6f653a7110836f5",
+                "status": "canceled",
+                "subresource_uris": {
+                    "media": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages/SMb7c0a2ce80504485a6f653a7110836f5/Media.json",
+                    "feedback": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages/SMb7c0a2ce80504485a6f653a7110836f5/Feedback.json"
+                },
+                "to": "+18182008801",
+                "uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Messages/SMb7c0a2ce80504485a6f653a7110836f5.json"
+            }
+            '''
+        ))
+
+        actual = self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                      .messages("MMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
 
         self.assertIsNotNone(actual)

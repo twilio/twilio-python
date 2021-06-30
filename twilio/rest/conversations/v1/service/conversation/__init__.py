@@ -430,6 +430,7 @@ class ConversationInstance(InstanceResource):
             'timers': payload.get('timers'),
             'url': payload.get('url'),
             'links': payload.get('links'),
+            'bindings': payload.get('bindings'),
         }
 
         # Context
@@ -556,6 +557,14 @@ class ConversationInstance(InstanceResource):
         :rtype: unicode
         """
         return self._properties['links']
+
+    @property
+    def bindings(self):
+        """
+        :returns: The bindings
+        :rtype: dict
+        """
+        return self._properties['bindings']
 
     def update(self, friendly_name=values.unset, date_created=values.unset,
                date_updated=values.unset, attributes=values.unset,
