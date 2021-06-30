@@ -19,9 +19,9 @@ class CustomerProfilesEvaluationsTestCase(IntegrationTestCase):
 
         with self.assertRaises(TwilioException):
             self.client.trusthub.v1.customer_profiles("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                   .customer_profiles_evaluations.create(policy_sid="BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+                                   .customer_profiles_evaluations.create(policy_sid="RNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
 
-        values = {'PolicySid': "BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", }
+        values = {'PolicySid': "RNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", }
 
         self.holodeck.assert_has_request(Request(
             'post',
@@ -197,7 +197,7 @@ class CustomerProfilesEvaluationsTestCase(IntegrationTestCase):
         ))
 
         actual = self.client.trusthub.v1.customer_profiles("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                        .customer_profiles_evaluations.create(policy_sid="BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+                                        .customer_profiles_evaluations.create(policy_sid="RNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
 
         self.assertIsNotNone(actual)
 

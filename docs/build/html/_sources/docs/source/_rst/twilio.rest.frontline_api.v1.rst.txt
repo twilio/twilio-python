@@ -1,0 +1,22 @@
+twilio.rest.frontline\_api.v1 package
+=====================================
+
+Submodules
+----------
+
+twilio.rest.frontline\_api.v1.user module
+-----------------------------------------
+
+.. automodule:: twilio.rest.frontline_api.v1.user
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: twilio.rest.frontline_api.v1
+    :members:
+    :undoc-members:
+    :show-inheritance:
