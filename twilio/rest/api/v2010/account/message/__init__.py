@@ -330,7 +330,7 @@ class MessageContext(InstanceContext):
             sid=self._solution['sid'],
         )
 
-    def update(self, body):
+    def update(self, body=values.unset):
         """
         Update the MessageInstance
 
@@ -664,7 +664,7 @@ class MessageInstance(InstanceResource):
         """
         return self._proxy.fetch()
 
-    def update(self, body):
+    def update(self, body=values.unset):
         """
         Update the MessageInstance
 
@@ -673,7 +673,7 @@ class MessageInstance(InstanceResource):
         :returns: The updated MessageInstance
         :rtype: twilio.rest.api.v2010.account.message.MessageInstance
         """
-        return self._proxy.update(body, )
+        return self._proxy.update(body=body, )
 
     @property
     def media(self):

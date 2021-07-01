@@ -12,6 +12,7 @@ from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.page import Page
+from twilio.rest.supersim.v1.sim.billing_period import BillingPeriodList
 
 
 class SimList(ListResource):
@@ -237,6 +238,9 @@ class SimContext(InstanceContext):
         self._solution = {'sid': sid, }
         self._uri = '/Sims/{sid}'.format(**self._solution)
 
+        # Dependents
+        self._billing_periods = None
+
     def fetch(self):
         """
         Fetch the SimInstance
@@ -276,6 +280,18 @@ class SimContext(InstanceContext):
         payload = self._version.update(method='POST', uri=self._uri, data=data, )
 
         return SimInstance(self._version, payload, sid=self._solution['sid'], )
+
+    @property
+    def billing_periods(self):
+        """
+        Access the billing_periods
+
+        :returns: twilio.rest.supersim.v1.sim.billing_period.BillingPeriodList
+        :rtype: twilio.rest.supersim.v1.sim.billing_period.BillingPeriodList
+        """
+        if self._billing_periods is None:
+            self._billing_periods = BillingPeriodList(self._version, sim_sid=self._solution['sid'], )
+        return self._billing_periods
 
     def __repr__(self):
         """
@@ -324,6 +340,7 @@ class SimInstance(InstanceResource):
             'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
             'date_updated': deserialize.iso8601_datetime(payload.get('date_updated')),
             'url': payload.get('url'),
+            'links': payload.get('links'),
         }
 
         # Context
@@ -415,6 +432,14 @@ class SimInstance(InstanceResource):
         """
         return self._properties['url']
 
+    @property
+    def links(self):
+        """
+        :returns: The links
+        :rtype: unicode
+        """
+        return self._properties['links']
+
     def fetch(self):
         """
         Fetch the SimInstance
@@ -448,6 +473,16 @@ class SimInstance(InstanceResource):
             callback_method=callback_method,
             account_sid=account_sid,
         )
+
+    @property
+    def billing_periods(self):
+        """
+        Access the billing_periods
+
+        :returns: twilio.rest.supersim.v1.sim.billing_period.BillingPeriodList
+        :rtype: twilio.rest.supersim.v1.sim.billing_period.BillingPeriodList
+        """
+        return self._proxy.billing_periods
 
     def __repr__(self):
         """
