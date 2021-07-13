@@ -10,6 +10,12 @@ python:
 - '3.9'
 services:
 - docker
+jobs:
+  include:
+  - language: python
+    python: '3.9'
+    after_success:
+    - sonar-scanner
 install:
 - pip install virtualenv --upgrade
 - make install
@@ -19,6 +25,7 @@ script:
 - if [[ "$TRAVIS_BRANCH" == "main"  ||  "$TRAVIS_BRANCH" == "travis" ]] && [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
   echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin;
   fi
+- make cover
 deploy:
 - provider: script
   script: make docker-build && make docker-push
