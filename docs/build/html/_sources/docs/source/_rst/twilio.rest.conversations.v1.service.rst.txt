@@ -8,6 +8,7 @@ Subpackages
 
     twilio.rest.conversations.v1.service.configuration
     twilio.rest.conversations.v1.service.conversation
+    twilio.rest.conversations.v1.service.user
 
 Submodules
 ----------
@@ -24,14 +25,6 @@ twilio.rest.conversations.v1.service.role module
 ------------------------------------------------
 
 .. automodule:: twilio.rest.conversations.v1.service.role
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-twilio.rest.conversations.v1.service.user module
-------------------------------------------------
-
-.. automodule:: twilio.rest.conversations.v1.service.user
     :members:
     :undoc-members:
     :show-inheritance:

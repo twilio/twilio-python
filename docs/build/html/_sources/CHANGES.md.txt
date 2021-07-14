@@ -3,6 +3,16 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2021-07-14] Version 6.62.0
+---------------------------
+**Conversations**
+- Changed `last_read_message_index` and `unread_messages_count` type in User Conversation's resource **(breaking change)**
+- Expose UserConversations resource
+
+**Messaging**
+- Add brand_score field to brand registration responses
+
+
 [2021-06-30] Version 6.61.0
 ---------------------------
 **Conversations**
