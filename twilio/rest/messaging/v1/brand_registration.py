@@ -273,6 +273,7 @@ class BrandRegistrationInstance(InstanceResource):
             'tcr_id': payload.get('tcr_id'),
             'failure_reason': payload.get('failure_reason'),
             'url': payload.get('url'),
+            'brand_score': deserialize.integer(payload.get('brand_score')),
         }
 
         # Context
@@ -371,6 +372,14 @@ class BrandRegistrationInstance(InstanceResource):
         :rtype: unicode
         """
         return self._properties['url']
+
+    @property
+    def brand_score(self):
+        """
+        :returns: Brand score
+        :rtype: unicode
+        """
+        return self._properties['brand_score']
 
     def fetch(self):
         """
