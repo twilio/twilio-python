@@ -12,6 +12,7 @@ from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.page import Page
+from twilio.rest.conversations.v1.user.user_conversation import UserConversationList
 
 
 class UserList(ListResource):
@@ -222,6 +223,9 @@ class UserContext(InstanceContext):
         self._solution = {'sid': sid, }
         self._uri = '/Users/{sid}'.format(**self._solution)
 
+        # Dependents
+        self._user_conversations = None
+
     def update(self, friendly_name=values.unset, attributes=values.unset,
                role_sid=values.unset, x_twilio_webhook_enabled=values.unset):
         """
@@ -266,6 +270,18 @@ class UserContext(InstanceContext):
 
         return UserInstance(self._version, payload, sid=self._solution['sid'], )
 
+    @property
+    def user_conversations(self):
+        """
+        Access the user_conversations
+
+        :returns: twilio.rest.conversations.v1.user.user_conversation.UserConversationList
+        :rtype: twilio.rest.conversations.v1.user.user_conversation.UserConversationList
+        """
+        if self._user_conversations is None:
+            self._user_conversations = UserConversationList(self._version, user_sid=self._solution['sid'], )
+        return self._user_conversations
+
     def __repr__(self):
         """
         Provide a friendly representation
@@ -306,6 +322,7 @@ class UserInstance(InstanceResource):
             'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
             'date_updated': deserialize.iso8601_datetime(payload.get('date_updated')),
             'url': payload.get('url'),
+            'links': payload.get('links'),
         }
 
         # Context
@@ -421,6 +438,14 @@ class UserInstance(InstanceResource):
         """
         return self._properties['url']
 
+    @property
+    def links(self):
+        """
+        :returns: The links
+        :rtype: unicode
+        """
+        return self._properties['links']
+
     def update(self, friendly_name=values.unset, attributes=values.unset,
                role_sid=values.unset, x_twilio_webhook_enabled=values.unset):
         """
@@ -460,6 +485,16 @@ class UserInstance(InstanceResource):
         :rtype: twilio.rest.conversations.v1.user.UserInstance
         """
         return self._proxy.fetch()
+
+    @property
+    def user_conversations(self):
+        """
+        Access the user_conversations
+
+        :returns: twilio.rest.conversations.v1.user.user_conversation.UserConversationList
+        :rtype: twilio.rest.conversations.v1.user.user_conversation.UserConversationList
+        """
+        return self._proxy.user_conversations
 
     def __repr__(self):
         """
