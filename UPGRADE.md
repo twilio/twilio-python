@@ -3,7 +3,7 @@
 _`MAJOR` version bumps will have upgrade notes 
 posted here._
 
-[2021-07-XX] 6.x.x to 7.x.x
+[2021-XX-XX] 6.x.x to 7.x.x
 ---------------------------
 ### Overview
 Version `7.x.x` is the first version that officially drops support for Python versions 2.7, 3.4, and 3.5.
@@ -23,10 +23,22 @@ Version `7.x.x` is the first version that officially drops support for Python ve
 - [twilio/jwt/__init__.py](https://github.com/twilio/twilio-python/pull/560/files?file-filters%5B%5D=.ini&file-filters%5B%5D=.py&file-filters%5B%5D=.yml#diff-9152dd65476e69cc34a307781d5cef195070f48da5670ed0934fd34a9ac91150L12-L16)
     - Removed import for `simplejson` and `json`
     
-####Updated dependencies
+#### Updated dependencies
 - [Updated PyJWT to >=2.0.0](https://github.com/twilio/twilio-python/pull/560/files#diff-4d7c51b1efe9043e44439a949dfd92e5827321b34082903477fd04876edb7552L6)
 
 ### CHANGED - [Remove the ability to override the `algorithm` in `Jwt.to_jwt()`](https://github.com/karls/twilio-python/commit/dab158f429015e0894217d6503f55b517c27c474). 
+
+#### 6.x.x
+```python
+from twilio.jwt.access_token import AccessToken
+token.to_jwt(algorithm='HS512')
+```
+
+#### 7.X.x
+```python
+from twilio.jwt.access_token import AccessToken
+token.to_jwt()
+```
 
 [2017-09-28] 6.6.x to 6.7.x
 ---------------------------
