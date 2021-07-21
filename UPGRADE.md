@@ -7,7 +7,7 @@ posted here._
 ---------------------------
 ### Overview
 Version `7.x.x` is the first version that officially drops support for Python versions 2.7, 3.4, and 3.5.
-#### Removal of files and dependencies that were added to support Python 2.7, 3.4 , and 3.5:
+#### Removal of files and dependencies that were added to support Python 2.7, 3.4, and 3.5:
 - [Six](https://github.com/twilio/twilio-python/pull/560/files#diff-4d7c51b1efe9043e44439a949dfd92e5827321b34082903477fd04876edb7552L4)
     - Removed use of `u` a fake unicode literal
     - Removed use of `b` a fake bytes literal
