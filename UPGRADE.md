@@ -26,7 +26,7 @@ Version `7.x.x` is the first version that officially drops support for Python ve
 #### Updated dependencies
 - [Updated PyJWT to >=2.0.0](https://github.com/twilio/twilio-python/pull/560/files#diff-4d7c51b1efe9043e44439a949dfd92e5827321b34082903477fd04876edb7552L6)
 
-### CHANGED - [Remove the ability to override the `algorithm` in `Jwt.to_jwt()`](https://github.com/karls/twilio-python/commit/dab158f429015e0894217d6503f55b517c27c474).
+### CHANGED - [Remove the ability to override the `algorithm` in `Jwt.to_jwt()`](https://github.com/twilio/twilio-python/pull/560/commits/dab158f429015e0894217d6503f55b517c27c474).
 #### Removed the ability to override the algorithm while using a jwt access token:
 ```python
 // 6.x.x
