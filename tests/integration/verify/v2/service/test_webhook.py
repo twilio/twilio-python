@@ -51,6 +51,7 @@ class WebhookTestCase(IntegrationTestCase):
                 "webhook_method": "POST",
                 "webhook_url": "https://owlbank.twilio.com",
                 "status": "enabled",
+                "version": "v2",
                 "date_created": "2015-07-30T20:00:00Z",
                 "date_updated": "2015-07-30T20:00:00Z"
             }
@@ -91,6 +92,7 @@ class WebhookTestCase(IntegrationTestCase):
                 "webhook_method": "POST",
                 "webhook_url": "https://owlbank.twilio.com",
                 "status": "disabled",
+                "version": "v2",
                 "date_created": "2015-07-30T20:00:00Z",
                 "date_updated": "2015-07-30T20:00:00Z"
             }
@@ -154,6 +156,7 @@ class WebhookTestCase(IntegrationTestCase):
                 "webhook_method": "POST",
                 "webhook_url": "https://owlbank.twilio.com",
                 "status": "enabled",
+                "version": "v2",
                 "date_created": "2015-07-30T20:00:00Z",
                 "date_updated": "2015-07-30T20:00:00Z"
             }
@@ -220,6 +223,7 @@ class WebhookTestCase(IntegrationTestCase):
                         "webhook_method": "POST",
                         "webhook_url": "https://owlbank.twilio.com",
                         "status": "enabled",
+                        "version": "v2",
                         "date_created": "2015-07-30T20:00:00Z",
                         "date_updated": "2015-07-30T20:00:00Z"
                     }

@@ -357,7 +357,7 @@ class UserConversationInstance(InstanceResource):
     @property
     def conversation_sid(self):
         """
-        :returns: The unique ID of the Conversation for this message.
+        :returns: The unique ID of the Conversation for this User Conversation.
         :rtype: unicode
         """
         return self._properties['conversation_sid']
@@ -461,7 +461,7 @@ class UserConversationInstance(InstanceResource):
     @property
     def unique_name(self):
         """
-        :returns: An application-defined string that uniquely identifies the resource
+        :returns: An application-defined string that uniquely identifies the Conversation resource.
         :rtype: unicode
         """
         return self._properties['unique_name']

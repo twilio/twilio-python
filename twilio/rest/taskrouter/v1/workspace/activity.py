@@ -312,6 +312,7 @@ class ActivityInstance(InstanceResource):
             'sid': payload.get('sid'),
             'workspace_sid': payload.get('workspace_sid'),
             'url': payload.get('url'),
+            'links': payload.get('links'),
         }
 
         # Context
@@ -398,6 +399,14 @@ class ActivityInstance(InstanceResource):
         :rtype: unicode
         """
         return self._properties['url']
+
+    @property
+    def links(self):
+        """
+        :returns: The links
+        :rtype: unicode
+        """
+        return self._properties['links']
 
     def fetch(self):
         """
