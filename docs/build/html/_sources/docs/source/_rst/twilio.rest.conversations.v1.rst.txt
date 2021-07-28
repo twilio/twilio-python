@@ -22,6 +22,14 @@ twilio.rest.conversations.v1.credential module
     :undoc-members:
     :show-inheritance:
 
+twilio.rest.conversations.v1.participant\_conversation module
+-------------------------------------------------------------
+
+.. automodule:: twilio.rest.conversations.v1.participant_conversation
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 twilio.rest.conversations.v1.role module
 ----------------------------------------
 
