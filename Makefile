@@ -27,11 +27,6 @@ cover:
   find tests -type d | xargs nosetests --with-coverage --cover-inclusive --cover-erase --cover-package=twilio; \
   coverage xml --omit 'twilio/rest/*' -o coverage.xml
 
-cover-sonar: test-install
-	. venv/bin/activate; \
-	coverage run --omit=tests/integration/** -m unittest; \
-	coverage xml -o coverage-reports/coverage.xml -i
-
 docs-install:
 	. venv/bin/activate; pip install -r tests/requirements.txt
 
