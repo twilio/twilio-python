@@ -24,7 +24,8 @@ test: analysis
 
 cover:
 	. venv/bin/activate; \
-  find tests -type d | xargs nosetests --with-coverage --cover-inclusive --cover-erase --cover-package=twilio
+  find tests -type d | xargs nosetests --with-coverage --cover-inclusive --cover-erase --cover-package=twilio; \
+  coverage xml --omit 'twilio/rest/*' -o coverage.xml
 
 docs-install:
 	. venv/bin/activate; pip install -r tests/requirements.txt
