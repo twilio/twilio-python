@@ -50,6 +50,6 @@ notifications:
       secure: FbHzWXjWnpy97v4bmm75T15D0zLBdunEQ3l+w7LqC6cR2nCYOLqcIs2VvwJXXpSbSu9CVzRdMQYfsS7AYi+Fakg93nQOLEtkrhkYiq3yRKXsFVICaJOWPUQbZOdouTKtYZF/0P6FzjdBxbZeD7UW12FKiQ+dL9ncBrgGJExrqFo=
 addons:
   sonarcloud:
-    organization: "twilio"
+    organization: twilio
     token:
-      secure: uDJi2+fRxHes2S8/ZeCnLgalst3g/7ejUjVeTI596c3TTxDm+KFh7Nap1srVXjy0MIBPaOLoV/EPrt271C77XdNWarnz6dkqM4axWs/14DT2iRSQJuh90tr0s7mox7SkDE+W+AnPfv+807ksz0174AA4EIy/ubi2KcyHhhpYd0I=
+      secure: HVZOSecvGA6z08K3JBzCgxT81UoxB7JUXf8qR7fzzadmXtnnSfkkHFu0XyeUPuCFRRAXQMtxHEib4UsHi3U+vqXRyIDh9fLQanaDMFwDdCuUgVvWeB0PUuf/8bxou8qmhVWNfaLtzEOhCzJXuKWUG8tiURsNy2PaJ2xnNGh3UUY=
