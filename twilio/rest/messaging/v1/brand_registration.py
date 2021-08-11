@@ -110,12 +110,14 @@ class BrandRegistrationList(ListResource):
 
         return BrandRegistrationPage(self._version, response, self._solution)
 
-    def create(self, customer_profile_bundle_sid, a2p_profile_bundle_sid):
+    def create(self, customer_profile_bundle_sid, a2p_profile_bundle_sid,
+               brand_type=values.unset):
         """
         Create the BrandRegistrationInstance
 
         :param unicode customer_profile_bundle_sid: Customer Profile Bundle Sid
         :param unicode a2p_profile_bundle_sid: A2P Messaging Profile Bundle Sid
+        :param unicode brand_type: Type of brand being created. One of: "STANDARD", "STARTER".
 
         :returns: The created BrandRegistrationInstance
         :rtype: twilio.rest.messaging.v1.brand_registration.BrandRegistrationInstance
@@ -123,6 +125,7 @@ class BrandRegistrationList(ListResource):
         data = values.of({
             'CustomerProfileBundleSid': customer_profile_bundle_sid,
             'A2PProfileBundleSid': a2p_profile_bundle_sid,
+            'BrandType': brand_type,
         })
 
         payload = self._version.create(method='POST', uri=self._uri, data=data, )
@@ -269,6 +272,7 @@ class BrandRegistrationInstance(InstanceResource):
             'a2p_profile_bundle_sid': payload.get('a2p_profile_bundle_sid'),
             'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
             'date_updated': deserialize.iso8601_datetime(payload.get('date_updated')),
+            'brand_type': payload.get('brand_type'),
             'status': payload.get('status'),
             'tcr_id': payload.get('tcr_id'),
             'failure_reason': payload.get('failure_reason'),
@@ -340,6 +344,14 @@ class BrandRegistrationInstance(InstanceResource):
         :rtype: datetime
         """
         return self._properties['date_updated']
+
+    @property
+    def brand_type(self):
+        """
+        :returns: Type of brand. One of: "STANDARD", "STARTER".
+        :rtype: unicode
+        """
+        return self._properties['brand_type']
 
     @property
     def status(self):
