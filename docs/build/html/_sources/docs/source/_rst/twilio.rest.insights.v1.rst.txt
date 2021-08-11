@@ -9,6 +9,18 @@ Subpackages
     twilio.rest.insights.v1.call
     twilio.rest.insights.v1.room
 
+Submodules
+----------
+
+twilio.rest.insights.v1.call\_summaries module
+----------------------------------------------
+
+.. automodule:: twilio.rest.insights.v1.call_summaries
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
 Module contents
 ---------------
 
