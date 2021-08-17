@@ -35,7 +35,8 @@ class WebhookList(ListResource):
         self._solution = {'service_sid': service_sid, }
         self._uri = '/Services/{service_sid}/Webhooks'.format(**self._solution)
 
-    def create(self, friendly_name, event_types, webhook_url, status=values.unset):
+    def create(self, friendly_name, event_types, webhook_url, status=values.unset,
+               version=values.unset):
         """
         Create the WebhookInstance
 
@@ -43,6 +44,7 @@ class WebhookList(ListResource):
         :param list[unicode] event_types: The array of events that this Webhook is subscribed to.
         :param unicode webhook_url: The URL associated with this Webhook.
         :param WebhookInstance.Status status: The webhook status
+        :param WebhookInstance.Version version: The webhook version
 
         :returns: The created WebhookInstance
         :rtype: twilio.rest.verify.v2.service.webhook.WebhookInstance
@@ -52,6 +54,7 @@ class WebhookList(ListResource):
             'EventTypes': serialize.map(event_types, lambda e: e),
             'WebhookUrl': webhook_url,
             'Status': status,
+            'Version': version,
         })
 
         payload = self._version.create(method='POST', uri=self._uri, data=data, )
@@ -230,7 +233,7 @@ class WebhookContext(InstanceContext):
         self._uri = '/Services/{service_sid}/Webhooks/{sid}'.format(**self._solution)
 
     def update(self, friendly_name=values.unset, event_types=values.unset,
-               webhook_url=values.unset, status=values.unset):
+               webhook_url=values.unset, status=values.unset, version=values.unset):
         """
         Update the WebhookInstance
 
@@ -238,6 +241,7 @@ class WebhookContext(InstanceContext):
         :param list[unicode] event_types: The array of events that this Webhook is subscribed to.
         :param unicode webhook_url: The URL associated with this Webhook.
         :param WebhookInstance.Status status: The webhook status
+        :param WebhookInstance.Version version: The webhook version
 
         :returns: The updated WebhookInstance
         :rtype: twilio.rest.verify.v2.service.webhook.WebhookInstance
@@ -247,6 +251,7 @@ class WebhookContext(InstanceContext):
             'EventTypes': serialize.map(event_types, lambda e: e),
             'WebhookUrl': webhook_url,
             'Status': status,
+            'Version': version,
         })
 
         payload = self._version.update(method='POST', uri=self._uri, data=data, )
@@ -302,6 +307,10 @@ class WebhookInstance(InstanceResource):
         ENABLED = "enabled"
         DISABLED = "disabled"
 
+    class Version(object):
+        V1 = "v1"
+        V2 = "v2"
+
     class Methods(object):
         GET = "GET"
         POST = "POST"
@@ -323,6 +332,7 @@ class WebhookInstance(InstanceResource):
             'friendly_name': payload.get('friendly_name'),
             'event_types': payload.get('event_types'),
             'status': payload.get('status'),
+            'version': payload.get('version'),
             'webhook_url': payload.get('webhook_url'),
             'webhook_method': payload.get('webhook_method'),
             'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
@@ -400,6 +410,14 @@ class WebhookInstance(InstanceResource):
         return self._properties['status']
 
     @property
+    def version(self):
+        """
+        :returns: The webhook version
+        :rtype: WebhookInstance.Version
+        """
+        return self._properties['version']
+
+    @property
     def webhook_url(self):
         """
         :returns: The URL associated with this Webhook.
@@ -418,7 +436,7 @@ class WebhookInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The RFC 2822 date and time in GMT when the resource was created
+        :returns: The ISO 8601 date and time in GMT when the resource was created
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -426,7 +444,7 @@ class WebhookInstance(InstanceResource):
     @property
     def date_updated(self):
         """
-        :returns: The RFC 2822 date and time in GMT when the resource was last updated
+        :returns: The ISO 8601 date and time in GMT when the resource was last updated
         :rtype: datetime
         """
         return self._properties['date_updated']
@@ -440,7 +458,7 @@ class WebhookInstance(InstanceResource):
         return self._properties['url']
 
     def update(self, friendly_name=values.unset, event_types=values.unset,
-               webhook_url=values.unset, status=values.unset):
+               webhook_url=values.unset, status=values.unset, version=values.unset):
         """
         Update the WebhookInstance
 
@@ -448,6 +466,7 @@ class WebhookInstance(InstanceResource):
         :param list[unicode] event_types: The array of events that this Webhook is subscribed to.
         :param unicode webhook_url: The URL associated with this Webhook.
         :param WebhookInstance.Status status: The webhook status
+        :param WebhookInstance.Version version: The webhook version
 
         :returns: The updated WebhookInstance
         :rtype: twilio.rest.verify.v2.service.webhook.WebhookInstance
@@ -457,6 +476,7 @@ class WebhookInstance(InstanceResource):
             event_types=event_types,
             webhook_url=webhook_url,
             status=status,
+            version=version,
         )
 
     def delete(self):

@@ -21,6 +21,14 @@ twilio.rest.conversations.v1.service.binding module
     :undoc-members:
     :show-inheritance:
 
+twilio.rest.conversations.v1.service.participant\_conversation module
+---------------------------------------------------------------------
+
+.. automodule:: twilio.rest.conversations.v1.service.participant_conversation
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 twilio.rest.conversations.v1.service.role module
 ------------------------------------------------
 

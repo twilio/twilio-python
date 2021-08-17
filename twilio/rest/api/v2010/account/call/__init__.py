@@ -61,8 +61,8 @@ class CallList(ListResource):
                async_amd=values.unset, async_amd_status_callback=values.unset,
                async_amd_status_callback_method=values.unset, byoc=values.unset,
                call_reason=values.unset, call_token=values.unset,
-               recording_track=values.unset, url=values.unset, twiml=values.unset,
-               application_sid=values.unset):
+               recording_track=values.unset, time_limit=values.unset,
+               url=values.unset, twiml=values.unset, application_sid=values.unset):
         """
         Create the CallInstance
 
@@ -97,6 +97,7 @@ class CallList(ListResource):
         :param unicode call_reason: Reason for the call (Branded Calls Beta)
         :param unicode call_token: A token string needed to invoke a forwarded call with a caller-id recieved on a previous incoming call
         :param unicode recording_track: Which track(s) to record
+        :param unicode time_limit: The maximum duration of the call in seconds.
         :param unicode url: The absolute URL that returns TwiML for this call
         :param unicode twiml: TwiML instructions for the call
         :param unicode application_sid: The SID of the Application resource that will handle the call
@@ -139,6 +140,7 @@ class CallList(ListResource):
             'CallReason': call_reason,
             'CallToken': call_token,
             'RecordingTrack': recording_track,
+            'TimeLimit': time_limit,
         })
 
         payload = self._version.create(method='POST', uri=self._uri, data=data, )
@@ -446,7 +448,7 @@ class CallContext(InstanceContext):
     def update(self, url=values.unset, method=values.unset, status=values.unset,
                fallback_url=values.unset, fallback_method=values.unset,
                status_callback=values.unset, status_callback_method=values.unset,
-               twiml=values.unset):
+               twiml=values.unset, time_limit=values.unset):
         """
         Update the CallInstance
 
@@ -458,6 +460,7 @@ class CallContext(InstanceContext):
         :param unicode status_callback: The URL we should call to send status information to your application
         :param unicode status_callback_method: HTTP Method to use to call status_callback
         :param unicode twiml: TwiML instructions for the call
+        :param unicode time_limit: The maximum duration of the call in seconds.
 
         :returns: The updated CallInstance
         :rtype: twilio.rest.api.v2010.account.call.CallInstance
@@ -471,6 +474,7 @@ class CallContext(InstanceContext):
             'StatusCallback': status_callback,
             'StatusCallbackMethod': status_callback_method,
             'Twiml': twiml,
+            'TimeLimit': time_limit,
         })
 
         payload = self._version.update(method='POST', uri=self._uri, data=data, )
@@ -893,7 +897,7 @@ class CallInstance(InstanceResource):
     def update(self, url=values.unset, method=values.unset, status=values.unset,
                fallback_url=values.unset, fallback_method=values.unset,
                status_callback=values.unset, status_callback_method=values.unset,
-               twiml=values.unset):
+               twiml=values.unset, time_limit=values.unset):
         """
         Update the CallInstance
 
@@ -905,6 +909,7 @@ class CallInstance(InstanceResource):
         :param unicode status_callback: The URL we should call to send status information to your application
         :param unicode status_callback_method: HTTP Method to use to call status_callback
         :param unicode twiml: TwiML instructions for the call
+        :param unicode time_limit: The maximum duration of the call in seconds.
 
         :returns: The updated CallInstance
         :rtype: twilio.rest.api.v2010.account.call.CallInstance
@@ -918,6 +923,7 @@ class CallInstance(InstanceResource):
             status_callback=status_callback,
             status_callback_method=status_callback_method,
             twiml=twiml,
+            time_limit=time_limit,
         )
 
     @property

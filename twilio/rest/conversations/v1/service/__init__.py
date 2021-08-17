@@ -15,6 +15,7 @@ from twilio.base.page import Page
 from twilio.rest.conversations.v1.service.binding import BindingList
 from twilio.rest.conversations.v1.service.configuration import ConfigurationList
 from twilio.rest.conversations.v1.service.conversation import ConversationList
+from twilio.rest.conversations.v1.service.participant_conversation import ParticipantConversationList
 from twilio.rest.conversations.v1.service.role import RoleList
 from twilio.rest.conversations.v1.service.user import UserList
 
@@ -222,6 +223,7 @@ class ServiceContext(InstanceContext):
         self._users = None
         self._roles = None
         self._configuration = None
+        self._participant_conversations = None
 
     def delete(self):
         """
@@ -302,6 +304,21 @@ class ServiceContext(InstanceContext):
         if self._configuration is None:
             self._configuration = ConfigurationList(self._version, chat_service_sid=self._solution['sid'], )
         return self._configuration
+
+    @property
+    def participant_conversations(self):
+        """
+        Access the participant_conversations
+
+        :returns: twilio.rest.conversations.v1.service.participant_conversation.ParticipantConversationList
+        :rtype: twilio.rest.conversations.v1.service.participant_conversation.ParticipantConversationList
+        """
+        if self._participant_conversations is None:
+            self._participant_conversations = ParticipantConversationList(
+                self._version,
+                chat_service_sid=self._solution['sid'],
+            )
+        return self._participant_conversations
 
     def __repr__(self):
         """
@@ -476,6 +493,16 @@ class ServiceInstance(InstanceResource):
         :rtype: twilio.rest.conversations.v1.service.configuration.ConfigurationList
         """
         return self._proxy.configuration
+
+    @property
+    def participant_conversations(self):
+        """
+        Access the participant_conversations
+
+        :returns: twilio.rest.conversations.v1.service.participant_conversation.ParticipantConversationList
+        :rtype: twilio.rest.conversations.v1.service.participant_conversation.ParticipantConversationList
+        """
+        return self._proxy.participant_conversations
 
     def __repr__(self):
         """
