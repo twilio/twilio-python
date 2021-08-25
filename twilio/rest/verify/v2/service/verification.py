@@ -37,8 +37,7 @@ class VerificationList(ListResource):
                custom_message=values.unset, send_digits=values.unset,
                locale=values.unset, custom_code=values.unset, amount=values.unset,
                payee=values.unset, rate_limits=values.unset,
-               channel_configuration=values.unset, app_hash=values.unset,
-               template_sid=values.unset):
+               channel_configuration=values.unset, app_hash=values.unset):
         """
         Create the VerificationInstance
 
@@ -54,7 +53,6 @@ class VerificationList(ListResource):
         :param dict rate_limits: The custom key-value pairs of Programmable Rate Limits.
         :param dict channel_configuration: Channel specific configuration in json format.
         :param unicode app_hash: Your App Hash to be appended at the end of an SMS.
-        :param unicode template_sid: The SID of the custom template to be used.
 
         :returns: The created VerificationInstance
         :rtype: twilio.rest.verify.v2.service.verification.VerificationInstance
@@ -72,7 +70,6 @@ class VerificationList(ListResource):
             'RateLimits': serialize.object(rate_limits),
             'ChannelConfiguration': serialize.object(channel_configuration),
             'AppHash': app_hash,
-            'TemplateSid': template_sid,
         })
 
         payload = self._version.create(method='POST', uri=self._uri, data=data, )

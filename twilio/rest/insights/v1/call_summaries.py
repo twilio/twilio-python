@@ -38,8 +38,8 @@ class CallSummariesList(ListResource):
                start_time=values.unset, end_time=values.unset,
                call_type=values.unset, call_state=values.unset,
                direction=values.unset, processing_state=values.unset,
-               sort_by=values.unset, subaccount=values.unset, limit=None,
-               page_size=None):
+               sort_by=values.unset, subaccount=values.unset,
+               abnormal_session=values.unset, limit=None, page_size=None):
         """
         Streams CallSummariesInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -63,6 +63,7 @@ class CallSummariesList(ListResource):
         :param CallSummariesInstance.ProcessingStateRequest processing_state: The processing_state
         :param CallSummariesInstance.SortBy sort_by: The sort_by
         :param unicode subaccount: The subaccount
+        :param bool abnormal_session: The abnormal_session
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -93,6 +94,7 @@ class CallSummariesList(ListResource):
             processing_state=processing_state,
             sort_by=sort_by,
             subaccount=subaccount,
+            abnormal_session=abnormal_session,
             page_size=limits['page_size'],
         )
 
@@ -105,7 +107,8 @@ class CallSummariesList(ListResource):
              start_time=values.unset, end_time=values.unset, call_type=values.unset,
              call_state=values.unset, direction=values.unset,
              processing_state=values.unset, sort_by=values.unset,
-             subaccount=values.unset, limit=None, page_size=None):
+             subaccount=values.unset, abnormal_session=values.unset, limit=None,
+             page_size=None):
         """
         Lists CallSummariesInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -128,6 +131,7 @@ class CallSummariesList(ListResource):
         :param CallSummariesInstance.ProcessingStateRequest processing_state: The processing_state
         :param CallSummariesInstance.SortBy sort_by: The sort_by
         :param unicode subaccount: The subaccount
+        :param bool abnormal_session: The abnormal_session
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -156,6 +160,7 @@ class CallSummariesList(ListResource):
             processing_state=processing_state,
             sort_by=sort_by,
             subaccount=subaccount,
+            abnormal_session=abnormal_session,
             limit=limit,
             page_size=page_size,
         ))
@@ -167,8 +172,9 @@ class CallSummariesList(ListResource):
              start_time=values.unset, end_time=values.unset, call_type=values.unset,
              call_state=values.unset, direction=values.unset,
              processing_state=values.unset, sort_by=values.unset,
-             subaccount=values.unset, page_token=values.unset,
-             page_number=values.unset, page_size=values.unset):
+             subaccount=values.unset, abnormal_session=values.unset,
+             page_token=values.unset, page_number=values.unset,
+             page_size=values.unset):
         """
         Retrieve a single page of CallSummariesInstance records from the API.
         Request is executed immediately
@@ -190,6 +196,7 @@ class CallSummariesList(ListResource):
         :param CallSummariesInstance.ProcessingStateRequest processing_state: The processing_state
         :param CallSummariesInstance.SortBy sort_by: The sort_by
         :param unicode subaccount: The subaccount
+        :param bool abnormal_session: The abnormal_session
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -215,6 +222,7 @@ class CallSummariesList(ListResource):
             'ProcessingState': processing_state,
             'SortBy': sort_by,
             'Subaccount': subaccount,
+            'AbnormalSession': abnormal_session,
             'PageToken': page_token,
             'Page': page_number,
             'PageSize': page_size,
@@ -325,6 +333,7 @@ class CallSummariesInstance(InstanceResource):
     class ProcessingStateRequest(object):
         COMPLETED = "completed"
         STARTED = "started"
+        PARTIAL = "partial"
         ALL = "all"
 
     def __init__(self, version, payload):

@@ -26,7 +26,33 @@ class UsAppToPersonUsecaseTestCase(IntegrationTestCase):
             'https://messaging.twilio.com/v1/Services/MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Compliance/Usa2p/Usecases',
         ))
 
-    def test_fetch_response(self):
+    def test_fetch_with_brand_registration_sid_response(self):
+        self.holodeck.mock(Response(
+            200,
+            '''
+            {
+                "us_app_to_person_usecases": [
+                    {
+                        "code": "MARKETING",
+                        "name": "Marketing",
+                        "description": "Send marketing messages about sales and offers to opted in customers."
+                    },
+                    {
+                        "code": "DELIVERY_NOTIFICATION",
+                        "name": "Delivery Notification",
+                        "description": "Information about the status of the delivery of a product or service."
+                    }
+                ]
+            }
+            '''
+        ))
+
+        actual = self.client.messaging.v1.services("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                         .us_app_to_person_usecases.fetch()
+
+        self.assertIsNotNone(actual)
+
+    def test_fetch_without_brand_registration_sid_response(self):
         self.holodeck.mock(Response(
             200,
             '''

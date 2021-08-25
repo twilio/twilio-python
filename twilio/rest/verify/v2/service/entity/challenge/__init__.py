@@ -71,8 +71,8 @@ class ChallengeList(ListResource):
             identity=self._solution['identity'],
         )
 
-    def stream(self, factor_sid=values.unset, status=values.unset, limit=None,
-               page_size=None):
+    def stream(self, factor_sid=values.unset, status=values.unset,
+               order=values.unset, limit=None, page_size=None):
         """
         Streams ChallengeInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -81,6 +81,7 @@ class ChallengeList(ListResource):
 
         :param unicode factor_sid: Factor Sid.
         :param ChallengeInstance.ChallengeStatuses status: The Status of theChallenges to fetch
+        :param ChallengeInstance.ListOrders order: The sort order of the Challenges list
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -93,12 +94,12 @@ class ChallengeList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
 
-        page = self.page(factor_sid=factor_sid, status=status, page_size=limits['page_size'], )
+        page = self.page(factor_sid=factor_sid, status=status, order=order, page_size=limits['page_size'], )
 
         return self._version.stream(page, limits['limit'])
 
-    def list(self, factor_sid=values.unset, status=values.unset, limit=None,
-             page_size=None):
+    def list(self, factor_sid=values.unset, status=values.unset, order=values.unset,
+             limit=None, page_size=None):
         """
         Lists ChallengeInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -106,6 +107,7 @@ class ChallengeList(ListResource):
 
         :param unicode factor_sid: Factor Sid.
         :param ChallengeInstance.ChallengeStatuses status: The Status of theChallenges to fetch
+        :param ChallengeInstance.ListOrders order: The sort order of the Challenges list
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -116,9 +118,15 @@ class ChallengeList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.verify.v2.service.entity.challenge.ChallengeInstance]
         """
-        return list(self.stream(factor_sid=factor_sid, status=status, limit=limit, page_size=page_size, ))
+        return list(self.stream(
+            factor_sid=factor_sid,
+            status=status,
+            order=order,
+            limit=limit,
+            page_size=page_size,
+        ))
 
-    def page(self, factor_sid=values.unset, status=values.unset,
+    def page(self, factor_sid=values.unset, status=values.unset, order=values.unset,
              page_token=values.unset, page_number=values.unset,
              page_size=values.unset):
         """
@@ -127,6 +135,7 @@ class ChallengeList(ListResource):
 
         :param unicode factor_sid: Factor Sid.
         :param ChallengeInstance.ChallengeStatuses status: The Status of theChallenges to fetch
+        :param ChallengeInstance.ListOrders order: The sort order of the Challenges list
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -137,6 +146,7 @@ class ChallengeList(ListResource):
         data = values.of({
             'FactorSid': factor_sid,
             'Status': status,
+            'Order': order,
             'PageToken': page_token,
             'Page': page_number,
             'PageSize': page_size,
@@ -361,6 +371,10 @@ class ChallengeInstance(InstanceResource):
     class FactorTypes(object):
         PUSH = "push"
         TOTP = "totp"
+
+    class ListOrders(object):
+        ASC = "asc"
+        DESC = "desc"
 
     def __init__(self, version, payload, service_sid, identity, sid=None):
         """
