@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-MWRD6S');</script><!--End Google Tag Manager-->
 <meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<title>twilio.rest.insights.v1.call_summaries — twilio-python 6.63.0 documentation</title>
+<title>twilio.rest.insights.v1.call_summaries — twilio-python 6.63.1 documentation</title>
 <link href="../../../../../_static/alabaster.css" rel="stylesheet" type="text/css"/>
 <link href="../../../../../_static/pygments.css" rel="stylesheet" type="text/css"/>
 <script data-url_root="../../../../../" id="documentation_options" src="../../../../../_static/documentation_options.js" type="text/javascript"></script>
@@ -68,8 +68,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
                <span class="n">start_time</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">end_time</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
                <span class="n">call_type</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">call_state</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
                <span class="n">direction</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">processing_state</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
-               <span class="n">sort_by</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">subaccount</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-               <span class="n">page_size</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+               <span class="n">sort_by</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">subaccount</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
+               <span class="n">abnormal_session</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">page_size</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">"""</span>
 <span class="sd">        Streams CallSummariesInstance records from the API as a generator stream.</span>
 <span class="sd">        This operation lazily loads records as efficiently as possible until the limit</span>
@@ -93,6 +93,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <span class="sd">        :param CallSummariesInstance.ProcessingStateRequest processing_state: The processing_state</span>
 <span class="sd">        :param CallSummariesInstance.SortBy sort_by: The sort_by</span>
 <span class="sd">        :param unicode subaccount: The subaccount</span>
+<span class="sd">        :param bool abnormal_session: The abnormal_session</span>
 <span class="sd">        :param int limit: Upper limit for the number of records to return. stream()</span>
 <span class="sd">                          guarantees to never return more than limit.  Default is no limit</span>
 <span class="sd">        :param int page_size: Number of records to fetch per request, when not set will use</span>
@@ -123,6 +124,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
             <span class="n">processing_state</span><span class="o">=</span><span class="n">processing_state</span><span class="p">,</span>
             <span class="n">sort_by</span><span class="o">=</span><span class="n">sort_by</span><span class="p">,</span>
             <span class="n">subaccount</span><span class="o">=</span><span class="n">subaccount</span><span class="p">,</span>
+            <span class="n">abnormal_session</span><span class="o">=</span><span class="n">abnormal_session</span><span class="p">,</span>
             <span class="n">page_size</span><span class="o">=</span><span class="n">limits</span><span class="p">[</span><span class="s1">'page_size'</span><span class="p">],</span>
         <span class="p">)</span>
 
@@ -135,7 +137,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
              <span class="n">start_time</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">end_time</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">call_type</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
              <span class="n">call_state</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
              <span class="n">processing_state</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">sort_by</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
-             <span class="n">subaccount</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">page_size</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+             <span class="n">subaccount</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">abnormal_session</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+             <span class="n">page_size</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">"""</span>
 <span class="sd">        Lists CallSummariesInstance records from the API as a list.</span>
 <span class="sd">        Unlike stream(), this operation is eager and will load `limit` records into</span>
@@ -158,6 +161,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <span class="sd">        :param CallSummariesInstance.ProcessingStateRequest processing_state: The processing_state</span>
 <span class="sd">        :param CallSummariesInstance.SortBy sort_by: The sort_by</span>
 <span class="sd">        :param unicode subaccount: The subaccount</span>
+<span class="sd">        :param bool abnormal_session: The abnormal_session</span>
 <span class="sd">        :param int limit: Upper limit for the number of records to return. list() guarantees</span>
 <span class="sd">                          never to return more than limit.  Default is no limit</span>
 <span class="sd">        :param int page_size: Number of records to fetch per request, when not set will use</span>
@@ -186,6 +190,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
             <span class="n">processing_state</span><span class="o">=</span><span class="n">processing_state</span><span class="p">,</span>
             <span class="n">sort_by</span><span class="o">=</span><span class="n">sort_by</span><span class="p">,</span>
             <span class="n">subaccount</span><span class="o">=</span><span class="n">subaccount</span><span class="p">,</span>
+            <span class="n">abnormal_session</span><span class="o">=</span><span class="n">abnormal_session</span><span class="p">,</span>
             <span class="n">limit</span><span class="o">=</span><span class="n">limit</span><span class="p">,</span>
             <span class="n">page_size</span><span class="o">=</span><span class="n">page_size</span><span class="p">,</span>
         <span class="p">))</span></div>
@@ -197,8 +202,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
              <span class="n">start_time</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">end_time</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">call_type</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
              <span class="n">call_state</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
              <span class="n">processing_state</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">sort_by</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
-             <span class="n">subaccount</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">page_token</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
-             <span class="n">page_number</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">page_size</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">):</span>
+             <span class="n">subaccount</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">abnormal_session</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
+             <span class="n">page_token</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">page_number</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
+             <span class="n">page_size</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">):</span>
         <span class="sd">"""</span>
 <span class="sd">        Retrieve a single page of CallSummariesInstance records from the API.</span>
 <span class="sd">        Request is executed immediately</span>
@@ -220,6 +226,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <span class="sd">        :param CallSummariesInstance.ProcessingStateRequest processing_state: The processing_state</span>
 <span class="sd">        :param CallSummariesInstance.SortBy sort_by: The sort_by</span>
 <span class="sd">        :param unicode subaccount: The subaccount</span>
+<span class="sd">        :param bool abnormal_session: The abnormal_session</span>
 <span class="sd">        :param str page_token: PageToken provided by the API</span>
 <span class="sd">        :param int page_number: Page Number, this value is simply for client state</span>
 <span class="sd">        :param int page_size: Number of records to return, defaults to 50</span>
@@ -245,6 +252,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
             <span class="s1">'ProcessingState'</span><span class="p">:</span> <span class="n">processing_state</span><span class="p">,</span>
             <span class="s1">'SortBy'</span><span class="p">:</span> <span class="n">sort_by</span><span class="p">,</span>
             <span class="s1">'Subaccount'</span><span class="p">:</span> <span class="n">subaccount</span><span class="p">,</span>
+            <span class="s1">'AbnormalSession'</span><span class="p">:</span> <span class="n">abnormal_session</span><span class="p">,</span>
             <span class="s1">'PageToken'</span><span class="p">:</span> <span class="n">page_token</span><span class="p">,</span>
             <span class="s1">'Page'</span><span class="p">:</span> <span class="n">page_number</span><span class="p">,</span>
             <span class="s1">'PageSize'</span><span class="p">:</span> <span class="n">page_size</span><span class="p">,</span>
@@ -355,6 +363,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <div class="viewcode-block" id="CallSummariesInstance.ProcessingStateRequest"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.insights.v1.html#twilio.rest.insights.v1.call_summaries.CallSummariesInstance.ProcessingStateRequest">[docs]</a>    <span class="k">class</span> <span class="nc">ProcessingStateRequest</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
         <span class="n">COMPLETED</span> <span class="o">=</span> <span class="s2">"completed"</span>
         <span class="n">STARTED</span> <span class="o">=</span> <span class="s2">"started"</span>
+        <span class="n">PARTIAL</span> <span class="o">=</span> <span class="s2">"partial"</span>
         <span class="n">ALL</span> <span class="o">=</span> <span class="s2">"all"</span></div>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">version</span><span class="p">,</span> <span class="n">payload</span><span class="p">):</span>
