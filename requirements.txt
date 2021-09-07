@@ -5,3 +5,4 @@ six
 requests>=2.0.0
 PyJWT==1.7.1
 twine
+pygments>=2.7.4 # not directly required, pinned by Snyk to avoid a vulnerability
