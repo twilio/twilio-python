@@ -10,6 +10,7 @@ from twilio.base.version import Version
 from twilio.rest.verify.v2.form import FormList
 from twilio.rest.verify.v2.service import ServiceList
 from twilio.rest.verify.v2.verification_attempt import VerificationAttemptList
+from twilio.rest.verify.v2.verification_template import VerificationTemplateList
 
 
 class V2(Version):
@@ -26,6 +27,7 @@ class V2(Version):
         self._forms = None
         self._services = None
         self._verification_attempts = None
+        self._verification_templates = None
 
     @property
     def forms(self):
@@ -53,6 +55,15 @@ class V2(Version):
         if self._verification_attempts is None:
             self._verification_attempts = VerificationAttemptList(self)
         return self._verification_attempts
+
+    @property
+    def verification_templates(self):
+        """
+        :rtype: twilio.rest.verify.v2.verification_template.VerificationTemplateList
+        """
+        if self._verification_templates is None:
+            self._verification_templates = VerificationTemplateList(self)
+        return self._verification_templates
 
     def __repr__(self):
         """

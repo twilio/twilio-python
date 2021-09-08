@@ -111,13 +111,14 @@ class BrandRegistrationList(ListResource):
         return BrandRegistrationPage(self._version, response, self._solution)
 
     def create(self, customer_profile_bundle_sid, a2p_profile_bundle_sid,
-               brand_type=values.unset):
+               brand_type=values.unset, mock=values.unset):
         """
         Create the BrandRegistrationInstance
 
         :param unicode customer_profile_bundle_sid: Customer Profile Bundle Sid
         :param unicode a2p_profile_bundle_sid: A2P Messaging Profile Bundle Sid
         :param unicode brand_type: Type of brand being created. One of: "STANDARD", "STARTER".
+        :param bool mock: A boolean that specifies whether brand should be a mock or not. If true, brand will be registered as a mock brand. Defaults to false if no value is provided.
 
         :returns: The created BrandRegistrationInstance
         :rtype: twilio.rest.messaging.v1.brand_registration.BrandRegistrationInstance
@@ -126,6 +127,7 @@ class BrandRegistrationList(ListResource):
             'CustomerProfileBundleSid': customer_profile_bundle_sid,
             'A2PProfileBundleSid': a2p_profile_bundle_sid,
             'BrandType': brand_type,
+            'Mock': mock,
         })
 
         payload = self._version.create(method='POST', uri=self._uri, data=data, )
@@ -278,6 +280,7 @@ class BrandRegistrationInstance(InstanceResource):
             'failure_reason': payload.get('failure_reason'),
             'url': payload.get('url'),
             'brand_score': deserialize.integer(payload.get('brand_score')),
+            'mock': payload.get('mock'),
         }
 
         # Context
@@ -392,6 +395,14 @@ class BrandRegistrationInstance(InstanceResource):
         :rtype: unicode
         """
         return self._properties['brand_score']
+
+    @property
+    def mock(self):
+        """
+        :returns: A boolean that specifies whether brand should be a mock or not. If true, brand will be registered as a mock brand. Defaults to false if no value is provided.
+        :rtype: bool
+        """
+        return self._properties['mock']
 
     def fetch(self):
         """

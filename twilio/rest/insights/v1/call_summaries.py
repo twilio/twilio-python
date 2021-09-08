@@ -57,9 +57,9 @@ class CallSummariesList(ListResource):
         :param bool has_tag: The has_tag
         :param unicode start_time: The start_time
         :param unicode end_time: The end_time
-        :param list[unicode] call_type: The call_type
-        :param list[unicode] call_state: The call_state
-        :param CallSummariesInstance.CallDirection direction: The direction
+        :param list[CallSummariesInstance.CallType] call_type: The call_type
+        :param list[CallSummariesInstance.CallState] call_state: The call_state
+        :param list[CallSummariesInstance.CallDirection] direction: The direction
         :param CallSummariesInstance.ProcessingStateRequest processing_state: The processing_state
         :param CallSummariesInstance.SortBy sort_by: The sort_by
         :param unicode subaccount: The subaccount
@@ -125,9 +125,9 @@ class CallSummariesList(ListResource):
         :param bool has_tag: The has_tag
         :param unicode start_time: The start_time
         :param unicode end_time: The end_time
-        :param list[unicode] call_type: The call_type
-        :param list[unicode] call_state: The call_state
-        :param CallSummariesInstance.CallDirection direction: The direction
+        :param list[CallSummariesInstance.CallType] call_type: The call_type
+        :param list[CallSummariesInstance.CallState] call_state: The call_state
+        :param list[CallSummariesInstance.CallDirection] direction: The direction
         :param CallSummariesInstance.ProcessingStateRequest processing_state: The processing_state
         :param CallSummariesInstance.SortBy sort_by: The sort_by
         :param unicode subaccount: The subaccount
@@ -190,9 +190,9 @@ class CallSummariesList(ListResource):
         :param bool has_tag: The has_tag
         :param unicode start_time: The start_time
         :param unicode end_time: The end_time
-        :param list[unicode] call_type: The call_type
-        :param list[unicode] call_state: The call_state
-        :param CallSummariesInstance.CallDirection direction: The direction
+        :param list[CallSummariesInstance.CallType] call_type: The call_type
+        :param list[CallSummariesInstance.CallState] call_state: The call_state
+        :param list[CallSummariesInstance.CallDirection] direction: The direction
         :param CallSummariesInstance.ProcessingStateRequest processing_state: The processing_state
         :param CallSummariesInstance.SortBy sort_by: The sort_by
         :param unicode subaccount: The subaccount
@@ -218,7 +218,7 @@ class CallSummariesList(ListResource):
             'EndTime': end_time,
             'CallType': serialize.map(call_type, lambda e: e),
             'CallState': serialize.map(call_state, lambda e: e),
-            'Direction': direction,
+            'Direction': serialize.map(direction, lambda e: e),
             'ProcessingState': processing_state,
             'SortBy': sort_by,
             'Subaccount': subaccount,
