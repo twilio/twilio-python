@@ -1,4 +1,3 @@
-from __future__ import with_statement
 from setuptools import setup, find_packages
 
 with open('README.md') as f:
@@ -20,19 +19,12 @@ setup(
     author_email="help@twilio.com",
     url="https://github.com/twilio/twilio-python/",
     keywords=["twilio", "twiml"],
+    python_requires='>=3.6.0',
     install_requires=[
-        "six",
         "pytz",
-        "PyJWT == 1.7.1",
+        "requests >= 2.0.0",
+        "PyJWT >= 2.0.0, < 3.0.0",
     ],
-    extras_require={
-        ':python_version<"3.0"': [
-            "requests[security] >= 2.0.0",
-        ],
-        ':python_version>="3.0"': [
-            "requests >= 2.0.0"
-        ],
-    },
     packages=find_packages(exclude=['tests', 'tests.*']),
     include_package_data=True,
     classifiers=[
@@ -41,9 +33,6 @@ setup(
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
         "Programming Language :: Python",
-        "Programming Language :: Python :: 2.7",
-        "Programming Language :: Python :: 3.4",
-        "Programming Language :: Python :: 3.5",
         "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",

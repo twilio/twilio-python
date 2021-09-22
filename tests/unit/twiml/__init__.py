@@ -1,7 +1,6 @@
 import unittest
 
 from nose.tools import raises
-from six import text_type
 
 from twilio.twiml import (
     format_language,
@@ -13,7 +12,7 @@ from twilio.twiml import (
 
 class TwilioTest(unittest.TestCase):
     def strip(self, xml):
-        return text_type(xml)
+        return str(xml)
 
     @raises(TwiMLException)
     def test_append_fail(self):

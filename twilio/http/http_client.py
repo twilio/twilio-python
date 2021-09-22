@@ -2,7 +2,7 @@ import logging
 
 from requests import Request, Session, hooks
 from requests.adapters import HTTPAdapter
-from twilio.compat import urlencode
+from urllib.parse import urlencode
 from twilio.http import HttpClient
 from twilio.http.request import Request as TwilioRequest
 from twilio.http.response import Response

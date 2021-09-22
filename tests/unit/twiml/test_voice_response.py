@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 from nose.tools import assert_equal
-from six import u
 from tests.unit.twiml import TwilioTest
 from twilio.twiml.voice_response import VoiceResponse, Dial, Enqueue, Gather
 
@@ -82,7 +81,7 @@ class TestSay(TwilioTest):
     def test_say_french(self):
         """ should say hello monkey """
         r = VoiceResponse()
-        r.say(u('n\xe9cessaire et d\'autres'))
+        r.say('n\xe9cessaire et d\'autres')
 
         assert_equal(
             self.strip(r),

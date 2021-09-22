@@ -1,19 +1,4 @@
-import hmac
-import sys
-
-from twilio.jwt import compat
-
-if sys.version_info[0] == 3 and sys.version_info[1] == 2:
-    # PyJWT expects hmac.compare_digest to exist even under python 3.2
-    hmac.compare_digest = compat.compare_digest
-
 import jwt as jwt_lib
-
-try:
-    import json
-except ImportError:
-    import simplejson as json
-
 import time
 
 
@@ -27,8 +12,9 @@ class JwtDecodeError(Exception):
 class Jwt(object):
     """Base class for building a Json Web Token"""
     GENERATE = object()
+    ALGORITHM = 'HS256'
 
-    def __init__(self, secret_key, issuer, subject=None, algorithm='HS256', nbf=GENERATE,
+    def __init__(self, secret_key, issuer, subject=None, algorithm=None, nbf=GENERATE,
                  ttl=3600, valid_until=None):
         self.secret_key = secret_key
         """:type str: The secret used to encode the JWT"""
@@ -36,7 +22,7 @@ class Jwt(object):
         """:type str: The issuer of this JWT"""
         self.subject = subject
         """:type str: The subject of this JWT, omitted from payload by default"""
-        self.algorithm = algorithm
+        self.algorithm = algorithm or self.ALGORITHM
         """:type str: The algorithm used to encode the JWT, defaults to 'HS256'"""
         self.nbf = nbf
         """:type int: Time in secs since epoch before which this JWT is invalid. Defaults to now."""
@@ -105,10 +91,9 @@ class Jwt(object):
         headers['alg'] = self.algorithm
         return headers
 
-    def to_jwt(self, algorithm=None, ttl=None):
+    def to_jwt(self, ttl=None):
         """
         Encode this JWT object into a JWT string
-        :param str algorithm: override the algorithm used to encode the JWT
         :param int ttl: override the ttl configured in the constructor
         :rtype: str The JWT string
         """
@@ -117,15 +102,12 @@ class Jwt(object):
             raise ValueError('JWT does not have a signing key configured.')
 
         headers = self.headers.copy()
-        if algorithm:
-            headers['alg'] = algorithm
-        algorithm = algorithm or self.algorithm
 
         payload = self.payload.copy()
         if ttl:
             payload['exp'] = int(time.time()) + ttl
 
-        return jwt_lib.encode(payload, self.secret_key, algorithm=algorithm, headers=headers)
+        return jwt_lib.encode(payload, self.secret_key, algorithm=self.algorithm, headers=headers)
 
     @classmethod
     def from_jwt(cls, jwt, key=''):
@@ -140,12 +122,18 @@ class Jwt(object):
         verify = True if key else False
 
         try:
-            payload = jwt_lib.decode(bytes(jwt), key, options={
+            headers = jwt_lib.get_unverified_header(jwt)
+
+            alg = headers.get('alg')
+            if alg != cls.ALGORITHM:
+                raise ValueError(f"Incorrect decoding algorithm {alg}, "
+                                 f"expecting {cls.ALGORITHM}.")
+
+            payload = jwt_lib.decode(jwt, key, algorithms=[cls.ALGORITHM], options={
                 'verify_signature': verify,
                 'verify_exp': True,
                 'verify_nbf': True,
             })
-            headers = jwt_lib.get_unverified_header(jwt)
         except Exception as e:
             raise JwtDecodeError(getattr(e, 'message', str(e)))
 

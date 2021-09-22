@@ -2,7 +2,6 @@
 import unittest
 
 from nose.tools import assert_equal, assert_true
-from six import b, u
 
 from twilio.request_validator import RequestValidator
 
@@ -26,22 +25,13 @@ class ValidationTest(unittest.TestCase):
         self.bodyHash = "0a1ff7634d9ab3b95db5c9a2dfe9416e41502b283a80c7cf19632632f96e6620"
         self.uriWithBody = self.uri + "&bodySHA256=" + self.bodyHash
 
-    def test_compute_signature_bytecode(self):
-        expected = b(self.expected)
-        signature = self.validator.compute_signature(self.uri,
-                                                     self.params,
-                                                     utf=False)
-        assert_equal(signature, expected)
-
     def test_compute_signature(self):
         expected = (self.expected)
-        signature = self.validator.compute_signature(self.uri,
-                                                     self.params,
-                                                     utf=True)
+        signature = self.validator.compute_signature(self.uri, self.params)
         assert_equal(signature, expected)
 
     def test_compute_hash_unicode(self):
-        expected = u(self.bodyHash)
+        expected = self.bodyHash
         body_hash = self.validator.compute_hash(self.body)
 
         assert_equal(expected, body_hash)
