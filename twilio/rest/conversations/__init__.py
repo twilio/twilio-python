@@ -58,6 +58,13 @@ class Conversations(Domain):
         return self.v1.credentials
 
     @property
+    def participant_conversations(self):
+        """
+        :rtype: twilio.rest.conversations.v1.participant_conversation.ParticipantConversationList
+        """
+        return self.v1.participant_conversations
+
+    @property
     def roles(self):
         """
         :rtype: twilio.rest.conversations.v1.role.RoleList

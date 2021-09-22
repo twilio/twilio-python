@@ -32,14 +32,18 @@ class UsAppToPersonUsecaseList(ListResource):
         self._solution = {'messaging_service_sid': messaging_service_sid, }
         self._uri = '/Services/{messaging_service_sid}/Compliance/Usa2p/Usecases'.format(**self._solution)
 
-    def fetch(self):
+    def fetch(self, brand_registration_sid=values.unset):
         """
         Fetch the UsAppToPersonUsecaseInstance
+
+        :param unicode brand_registration_sid: A2P Brand Registration SID
 
         :returns: The fetched UsAppToPersonUsecaseInstance
         :rtype: twilio.rest.messaging.v1.service.us_app_to_person_usecase.UsAppToPersonUsecaseInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri, )
+        data = values.of({'BrandRegistrationSid': brand_registration_sid, })
+
+        payload = self._version.fetch(method='GET', uri=self._uri, params=data, )
 
         return UsAppToPersonUsecaseInstance(
             self._version,

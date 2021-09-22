@@ -10,6 +10,7 @@ from twilio.base.version import Version
 from twilio.rest.conversations.v1.configuration import ConfigurationList
 from twilio.rest.conversations.v1.conversation import ConversationList
 from twilio.rest.conversations.v1.credential import CredentialList
+from twilio.rest.conversations.v1.participant_conversation import ParticipantConversationList
 from twilio.rest.conversations.v1.role import RoleList
 from twilio.rest.conversations.v1.service import ServiceList
 from twilio.rest.conversations.v1.user import UserList
@@ -29,6 +30,7 @@ class V1(Version):
         self._configuration = None
         self._conversations = None
         self._credentials = None
+        self._participant_conversations = None
         self._roles = None
         self._services = None
         self._users = None
@@ -59,6 +61,15 @@ class V1(Version):
         if self._credentials is None:
             self._credentials = CredentialList(self)
         return self._credentials
+
+    @property
+    def participant_conversations(self):
+        """
+        :rtype: twilio.rest.conversations.v1.participant_conversation.ParticipantConversationList
+        """
+        if self._participant_conversations is None:
+            self._participant_conversations = ParticipantConversationList(self)
+        return self._participant_conversations
 
     @property
     def roles(self):

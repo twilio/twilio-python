@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-MWRD6S');</script><!--End Google Tag Manager-->
 <meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<title>twilio.rest.messaging.v1 package — twilio-python 6.62.0 documentation</title>
+<title>twilio.rest.messaging.v1 package — twilio-python 6.63.2 documentation</title>
 <link href="../../../_static/alabaster.css" rel="stylesheet" type="text/css"/>
 <link href="../../../_static/pygments.css" rel="stylesheet" type="text/css"/>
 <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js" type="text/javascript"></script>
@@ -149,6 +149,20 @@ change. Use them with caution.</p>
 </table>
 </dd></dl>
 <dl class="attribute">
+<dt id="twilio.rest.messaging.v1.brand_registration.BrandRegistrationInstance.brand_type">
+<code class="descname">brand_type</code><a class="headerlink" href="#twilio.rest.messaging.v1.brand_registration.BrandRegistrationInstance.brand_type" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Type of brand. One of: “STANDARD”, “STARTER”.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">unicode</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+<dl class="attribute">
 <dt id="twilio.rest.messaging.v1.brand_registration.BrandRegistrationInstance.customer_profile_bundle_sid">
 <code class="descname">customer_profile_bundle_sid</code><a class="headerlink" href="#twilio.rest.messaging.v1.brand_registration.BrandRegistrationInstance.customer_profile_bundle_sid" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
@@ -220,6 +234,20 @@ change. Use them with caution.</p>
 </table>
 </dd></dl>
 <dl class="attribute">
+<dt id="twilio.rest.messaging.v1.brand_registration.BrandRegistrationInstance.mock">
+<code class="descname">mock</code><a class="headerlink" href="#twilio.rest.messaging.v1.brand_registration.BrandRegistrationInstance.mock" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">A boolean that specifies whether brand should be a mock or not. If true, brand will be registered as a mock brand. Defaults to false if no value is provided.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)">bool</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+<dl class="attribute">
 <dt id="twilio.rest.messaging.v1.brand_registration.BrandRegistrationInstance.sid">
 <code class="descname">sid</code><a class="headerlink" href="#twilio.rest.messaging.v1.brand_registration.BrandRegistrationInstance.sid" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
@@ -284,7 +312,7 @@ change. Use them with caution.</p>
 change. Use them with caution.</p>
 <dl class="method">
 <dt id="twilio.rest.messaging.v1.brand_registration.BrandRegistrationList.create">
-<code class="descname">create</code><span class="sig-paren">(</span><em>customer_profile_bundle_sid</em>, <em>a2p_profile_bundle_sid</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/messaging/v1/brand_registration.html#BrandRegistrationList.create"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.messaging.v1.brand_registration.BrandRegistrationList.create" title="Permalink to this definition">¶</a></dt>
+<code class="descname">create</code><span class="sig-paren">(</span><em>customer_profile_bundle_sid</em>, <em>a2p_profile_bundle_sid</em>, <em>brand_type=&lt;object object&gt;</em>, <em>mock=&lt;object object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/messaging/v1/brand_registration.html#BrandRegistrationList.create"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.messaging.v1.brand_registration.BrandRegistrationList.create" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create the BrandRegistrationInstance</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name"/>
@@ -293,6 +321,8 @@ change. Use them with caution.</p>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>customer_profile_bundle_sid</strong> (<em>unicode</em>) – Customer Profile Bundle Sid</li>
 <li><strong>a2p_profile_bundle_sid</strong> (<em>unicode</em>) – A2P Messaging Profile Bundle Sid</li>
+<li><strong>brand_type</strong> (<em>unicode</em>) – Type of brand being created. One of: “STANDARD”, “STARTER”.</li>
+<li><strong>mock</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – A boolean that specifies whether brand should be a mock or not. If true, brand will be registered as a mock brand. Defaults to false if no value is provided.</li>
 </ul>
 </td>
 </tr>

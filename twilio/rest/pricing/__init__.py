@@ -69,6 +69,20 @@ class Pricing(Domain):
         """
         return self.v2.voice
 
+    @property
+    def countries(self):
+        """
+        :rtype: twilio.rest.pricing.v2.country.CountryList
+        """
+        return self.v2.countries
+
+    @property
+    def numbers(self):
+        """
+        :rtype: twilio.rest.pricing.v2.number.NumberList
+        """
+        return self.v2.numbers
+
     def __repr__(self):
         """
         Provide a friendly representation

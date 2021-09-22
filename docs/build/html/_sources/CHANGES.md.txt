@@ -3,6 +3,87 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2021-09-08] Version 6.63.2
+---------------------------
+**Api**
+- Revert adding `siprec` resource
+- Add `siprec` resource
+
+**Messaging**
+- Add 'mock' as an optional field to brand_registration api
+- Add 'mock' as an optional field to us_app_to_person api
+- Adds more Use Cases in us_app_to_person_usecase api transaction and updates us_app_to_person_usecase docs
+
+**Verify**
+- Verify List Templates API endpoint added.
+
+
+[2021-08-25] Version 6.63.1
+---------------------------
+**Api**
+- Add Programmabled Voice SIP Refer call transfers (`calls-transfers`) to usage records
+- Add Flex Voice Usage category (`flex-usage`) to usage records
+
+**Conversations**
+- Add `Order` query parameter to Message resource read operation
+
+**Insights**
+- Added `partial` to enum processing_state_request
+- Added abnormal session filter in Call Summaries
+
+**Messaging**
+- Add brand_registration_sid as an optional query param for us_app_to_person_usecase api
+
+**Pricing**
+- add trunking_numbers resource (v2)
+- add trunking_country resource (v2)
+
+**Verify**
+- Changed to private beta the `TemplateSid` optional parameter on Verification creation.
+- Added the optional parameter `Order` to the list Challenges endpoint to define the list order.
+
+
+[2021-08-11] Version 6.63.0
+---------------------------
+**Library - Fix**
+- [PR #572](https://github.com/twilio/twilio-python/pull/572): fix sonar analysis. Thanks to [@shwetha-manvinkurke](https://github.com/shwetha-manvinkurke)!
+
+**Library - Chore**
+- [PR #571](https://github.com/twilio/twilio-python/pull/571): integrate with sonarcloud. Thanks to [@shwetha-manvinkurke](https://github.com/shwetha-manvinkurke)!
+
+**Api**
+- Corrected the `price`, `call_sid_to_coach`, and `uri` data types for Conference, Participant, and Recording **(breaking change)**
+- Made documentation for property `time_limit` in the call api public. **(breaking change)**
+- Added `domain_sid` in sip_credential_list_mapping and sip_ip_access_control_list_mapping APIs **(breaking change)**
+
+**Insights**
+- Added new endpoint to fetch Call Summaries
+
+**Messaging**
+- Add brand_type field to a2p brand_registration api
+- Revert brand registration api update to add brand_type field
+- Add brand_type field to a2p brand_registration api
+
+**Taskrouter**
+- Add `X-Rate-Limit-Limit`, `X-Rate-Limit-Remaining`, and `X-Rate-Limit-Config` as Response Headers to all TaskRouter endpoints
+
+**Verify**
+- Add `TemplateSid` optional parameter on Verification creation.
+- Include `whatsapp` as a channel type in the verifications API.
+
+
+[2021-07-28] Version 6.62.1
+---------------------------
+**Conversations**
+- Expose ParticipantConversations resource
+
+**Taskrouter**
+- Adding `links` to the activity resource
+
+**Verify**
+- Added a `Version` to Verify Factors `Webhooks` to add new fields without breaking old Webhooks.
+
+
 [2021-07-14] Version 6.62.0
 ---------------------------
 **Conversations**

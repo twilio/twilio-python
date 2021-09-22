@@ -58,7 +58,7 @@ class ParticipantList(ListResource):
                coaching=values.unset, call_sid_to_coach=values.unset,
                jitter_buffer_size=values.unset, byoc=values.unset,
                caller_id=values.unset, call_reason=values.unset,
-               recording_track=values.unset):
+               recording_track=values.unset, time_limit=values.unset):
         """
         Create the ParticipantInstance
 
@@ -100,6 +100,7 @@ class ParticipantList(ListResource):
         :param unicode caller_id: The phone number, Client identifier, or username portion of SIP address that made this call.
         :param unicode call_reason: Reason for the call (Branded Calls Beta)
         :param unicode recording_track: The track(s) to record
+        :param unicode time_limit: The maximum duration of the call in seconds.
 
         :returns: The created ParticipantInstance
         :rtype: twilio.rest.api.v2010.account.conference.participant.ParticipantInstance
@@ -143,6 +144,7 @@ class ParticipantList(ListResource):
             'CallerId': caller_id,
             'CallReason': call_reason,
             'RecordingTrack': recording_track,
+            'TimeLimit': time_limit,
         })
 
         payload = self._version.create(method='POST', uri=self._uri, data=data, )

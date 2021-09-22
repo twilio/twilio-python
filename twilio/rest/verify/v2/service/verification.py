@@ -219,6 +219,7 @@ class VerificationInstance(InstanceResource):
         SMS = "sms"
         CALL = "call"
         EMAIL = "email"
+        WHATSAPP = "whatsapp"
 
     class Status(object):
         CANCELED = "canceled"
