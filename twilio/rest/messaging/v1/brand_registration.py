@@ -111,7 +111,8 @@ class BrandRegistrationList(ListResource):
         return BrandRegistrationPage(self._version, response, self._solution)
 
     def create(self, customer_profile_bundle_sid, a2p_profile_bundle_sid,
-               brand_type=values.unset, mock=values.unset):
+               brand_type=values.unset, mock=values.unset,
+               skip_automatic_sec_vet=values.unset):
         """
         Create the BrandRegistrationInstance
 
@@ -119,6 +120,7 @@ class BrandRegistrationList(ListResource):
         :param unicode a2p_profile_bundle_sid: A2P Messaging Profile Bundle Sid
         :param unicode brand_type: Type of brand being created. One of: "STANDARD", "STARTER".
         :param bool mock: A boolean that specifies whether brand should be a mock or not. If true, brand will be registered as a mock brand. Defaults to false if no value is provided.
+        :param bool skip_automatic_sec_vet: Skip Automatic Secondary Vetting
 
         :returns: The created BrandRegistrationInstance
         :rtype: twilio.rest.messaging.v1.brand_registration.BrandRegistrationInstance
@@ -128,6 +130,7 @@ class BrandRegistrationList(ListResource):
             'A2PProfileBundleSid': a2p_profile_bundle_sid,
             'BrandType': brand_type,
             'Mock': mock,
+            'SkipAutomaticSecVet': skip_automatic_sec_vet,
         })
 
         payload = self._version.create(method='POST', uri=self._uri, data=data, )
@@ -257,6 +260,12 @@ class BrandRegistrationInstance(InstanceResource):
         APPROVED = "APPROVED"
         FAILED = "FAILED"
 
+    class IdentityStatus(object):
+        SELF_DECLARED = "SELF_DECLARED"
+        UNVERIFIED = "UNVERIFIED"
+        VERIFIED = "VERIFIED"
+        VETTED_VERIFIED = "VETTED_VERIFIED"
+
     def __init__(self, version, payload, sid=None):
         """
         Initialize the BrandRegistrationInstance
@@ -280,6 +289,10 @@ class BrandRegistrationInstance(InstanceResource):
             'failure_reason': payload.get('failure_reason'),
             'url': payload.get('url'),
             'brand_score': deserialize.integer(payload.get('brand_score')),
+            'identity_status': payload.get('identity_status'),
+            'russell_3000': payload.get('russell_3000'),
+            'tax_exempt_status': payload.get('tax_exempt_status'),
+            'skip_automatic_sec_vet': payload.get('skip_automatic_sec_vet'),
             'mock': payload.get('mock'),
         }
 
@@ -395,6 +408,38 @@ class BrandRegistrationInstance(InstanceResource):
         :rtype: unicode
         """
         return self._properties['brand_score']
+
+    @property
+    def identity_status(self):
+        """
+        :returns: Identity Status
+        :rtype: BrandRegistrationInstance.IdentityStatus
+        """
+        return self._properties['identity_status']
+
+    @property
+    def russell_3000(self):
+        """
+        :returns: Russell 3000
+        :rtype: bool
+        """
+        return self._properties['russell_3000']
+
+    @property
+    def tax_exempt_status(self):
+        """
+        :returns: Tax Exempt Status
+        :rtype: unicode
+        """
+        return self._properties['tax_exempt_status']
+
+    @property
+    def skip_automatic_sec_vet(self):
+        """
+        :returns: Skip Automatic Secondary Vetting
+        :rtype: bool
+        """
+        return self._properties['skip_automatic_sec_vet']
 
     @property
     def mock(self):

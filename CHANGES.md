@@ -3,6 +3,25 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2021-09-22] Version 7.0.0
+--------------------------
+**Note:** This release contains breaking changes, check our [upgrade guide](./UPGRADE.md#2021-09-22-6xx-to-7xx) for detailed migration notes.
+
+**Library - Fix**
+- [PR #560](https://github.com/twilio/twilio-python/pull/560): update code and tests for pyjwt>=2.0.0. Thanks to [@karls](https://github.com/karls)! **(breaking change)**
+
+**Library - Docs**
+- [PR #570](https://github.com/twilio/twilio-python/pull/570): Add upgrade guide for dropping python 2.7, 3.4 & 3.5. Thanks to [@JenniferMah](https://github.com/JenniferMah)!
+
+**Events**
+- Add segment sink
+
+**Messaging**
+- Add post_approval_required attribute in GET us_app_to_person_usecase api response
+- Add Identity Status, Russell 3000, Tax Exempt Status and Should Skip SecVet fields for Brand Registrations
+- Add Should Skip Secondary Vetting optional flag parameter to create Brand API
+
+
 [2021-09-08] Version 6.63.2
 ---------------------------
 **Api**
