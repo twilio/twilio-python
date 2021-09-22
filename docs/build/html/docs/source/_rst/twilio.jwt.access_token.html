@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-MWRD6S');</script><!--End Google Tag Manager-->
 <meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<title>twilio.jwt.access_token package — twilio-python 6.63.2 documentation</title>
+<title>twilio.jwt.access_token package — twilio-python 7.0.0 documentation</title>
 <link href="../../../_static/alabaster.css" rel="stylesheet" type="text/css"/>
 <link href="../../../_static/pygments.css" rel="stylesheet" type="text/css"/>
 <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js" type="text/javascript"></script>
@@ -237,6 +237,10 @@ when the function is used.</p>
 <em class="property">class </em><code class="descclassname">twilio.jwt.access_token.</code><code class="descname">AccessToken</code><span class="sig-paren">(</span><em>account_sid</em>, <em>signing_key_sid</em>, <em>secret</em>, <em>grants=None</em>, <em>identity=None</em>, <em>nbf=&lt;object object&gt;</em>, <em>ttl=3600</em>, <em>valid_until=None</em>, <em>region=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/jwt/access_token.html#AccessToken"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.jwt.access_token.AccessToken" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="twilio.jwt.html#twilio.jwt.Jwt" title="twilio.jwt.Jwt"><code class="xref py py-class docutils literal notranslate"><span class="pre">twilio.jwt.Jwt</span></code></a></p>
 <p>Access Token containing one or more AccessTokenGrants used to access Twilio Resources</p>
+<dl class="attribute">
+<dt id="twilio.jwt.access_token.AccessToken.ALGORITHM">
+<code class="descname">ALGORITHM</code><em class="property"> = 'HS256'</em><a class="headerlink" href="#twilio.jwt.access_token.AccessToken.ALGORITHM" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 <dl class="method">
 <dt id="twilio.jwt.access_token.AccessToken.add_grant">
 <code class="descname">add_grant</code><span class="sig-paren">(</span><em>grant</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/jwt/access_token.html#AccessToken.add_grant"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.jwt.access_token.AccessToken.add_grant" title="Permalink to this definition">¶</a></dt>

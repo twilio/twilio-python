@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-MWRD6S');</script><!--End Google Tag Manager-->
 <meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<title>twilio.rest.messaging.v1.brand_registration — twilio-python 6.63.2 documentation</title>
+<title>twilio.rest.messaging.v1.brand_registration — twilio-python 7.0.0 documentation</title>
 <link href="../../../../../_static/alabaster.css" rel="stylesheet" type="text/css"/>
 <link href="../../../../../_static/pygments.css" rel="stylesheet" type="text/css"/>
 <script data-url_root="../../../../../" id="documentation_options" src="../../../../../_static/documentation_options.js" type="text/javascript"></script>
@@ -141,7 +141,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="k">return</span> <span class="n">BrandRegistrationPage</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_version</span><span class="p">,</span> <span class="n">response</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_solution</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="BrandRegistrationList.create"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.messaging.v1.html#twilio.rest.messaging.v1.brand_registration.BrandRegistrationList.create">[docs]</a>    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">customer_profile_bundle_sid</span><span class="p">,</span> <span class="n">a2p_profile_bundle_sid</span><span class="p">,</span>
-               <span class="n">brand_type</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">mock</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">):</span>
+               <span class="n">brand_type</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">mock</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
+               <span class="n">skip_automatic_sec_vet</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">):</span>
         <span class="sd">"""</span>
 <span class="sd">        Create the BrandRegistrationInstance</span>
 
@@ -149,6 +150,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <span class="sd">        :param unicode a2p_profile_bundle_sid: A2P Messaging Profile Bundle Sid</span>
 <span class="sd">        :param unicode brand_type: Type of brand being created. One of: "STANDARD", "STARTER".</span>
 <span class="sd">        :param bool mock: A boolean that specifies whether brand should be a mock or not. If true, brand will be registered as a mock brand. Defaults to false if no value is provided.</span>
+<span class="sd">        :param bool skip_automatic_sec_vet: Skip Automatic Secondary Vetting</span>
 
 <span class="sd">        :returns: The created BrandRegistrationInstance</span>
 <span class="sd">        :rtype: twilio.rest.messaging.v1.brand_registration.BrandRegistrationInstance</span>
@@ -158,6 +160,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
             <span class="s1">'A2PProfileBundleSid'</span><span class="p">:</span> <span class="n">a2p_profile_bundle_sid</span><span class="p">,</span>
             <span class="s1">'BrandType'</span><span class="p">:</span> <span class="n">brand_type</span><span class="p">,</span>
             <span class="s1">'Mock'</span><span class="p">:</span> <span class="n">mock</span><span class="p">,</span>
+            <span class="s1">'SkipAutomaticSecVet'</span><span class="p">:</span> <span class="n">skip_automatic_sec_vet</span><span class="p">,</span>
         <span class="p">})</span>
 
         <span class="n">payload</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_version</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">'POST'</span><span class="p">,</span> <span class="n">uri</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_uri</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="p">)</span>
@@ -287,6 +290,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="n">APPROVED</span> <span class="o">=</span> <span class="s2">"APPROVED"</span>
         <span class="n">FAILED</span> <span class="o">=</span> <span class="s2">"FAILED"</span></div>
 
+<div class="viewcode-block" id="BrandRegistrationInstance.IdentityStatus"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.messaging.v1.html#twilio.rest.messaging.v1.brand_registration.BrandRegistrationInstance.IdentityStatus">[docs]</a>    <span class="k">class</span> <span class="nc">IdentityStatus</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+        <span class="n">SELF_DECLARED</span> <span class="o">=</span> <span class="s2">"SELF_DECLARED"</span>
+        <span class="n">UNVERIFIED</span> <span class="o">=</span> <span class="s2">"UNVERIFIED"</span>
+        <span class="n">VERIFIED</span> <span class="o">=</span> <span class="s2">"VERIFIED"</span>
+        <span class="n">VETTED_VERIFIED</span> <span class="o">=</span> <span class="s2">"VETTED_VERIFIED"</span></div>
+
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">version</span><span class="p">,</span> <span class="n">payload</span><span class="p">,</span> <span class="n">sid</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">"""</span>
 <span class="sd">        Initialize the BrandRegistrationInstance</span>
@@ -310,6 +319,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
             <span class="s1">'failure_reason'</span><span class="p">:</span> <span class="n">payload</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'failure_reason'</span><span class="p">),</span>
             <span class="s1">'url'</span><span class="p">:</span> <span class="n">payload</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'url'</span><span class="p">),</span>
             <span class="s1">'brand_score'</span><span class="p">:</span> <span class="n">deserialize</span><span class="o">.</span><span class="n">integer</span><span class="p">(</span><span class="n">payload</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'brand_score'</span><span class="p">)),</span>
+            <span class="s1">'identity_status'</span><span class="p">:</span> <span class="n">payload</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'identity_status'</span><span class="p">),</span>
+            <span class="s1">'russell_3000'</span><span class="p">:</span> <span class="n">payload</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'russell_3000'</span><span class="p">),</span>
+            <span class="s1">'tax_exempt_status'</span><span class="p">:</span> <span class="n">payload</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'tax_exempt_status'</span><span class="p">),</span>
+            <span class="s1">'skip_automatic_sec_vet'</span><span class="p">:</span> <span class="n">payload</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'skip_automatic_sec_vet'</span><span class="p">),</span>
             <span class="s1">'mock'</span><span class="p">:</span> <span class="n">payload</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'mock'</span><span class="p">),</span>
         <span class="p">}</span>
 
@@ -425,6 +438,38 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <span class="sd">        :rtype: unicode</span>
 <span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="p">[</span><span class="s1">'brand_score'</span><span class="p">]</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">identity_status</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        :returns: Identity Status</span>
+<span class="sd">        :rtype: BrandRegistrationInstance.IdentityStatus</span>
+<span class="sd">        """</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="p">[</span><span class="s1">'identity_status'</span><span class="p">]</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">russell_3000</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        :returns: Russell 3000</span>
+<span class="sd">        :rtype: bool</span>
+<span class="sd">        """</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="p">[</span><span class="s1">'russell_3000'</span><span class="p">]</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">tax_exempt_status</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        :returns: Tax Exempt Status</span>
+<span class="sd">        :rtype: unicode</span>
+<span class="sd">        """</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="p">[</span><span class="s1">'tax_exempt_status'</span><span class="p">]</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">skip_automatic_sec_vet</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        :returns: Skip Automatic Secondary Vetting</span>
+<span class="sd">        :rtype: bool</span>
+<span class="sd">        """</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="p">[</span><span class="s1">'skip_automatic_sec_vet'</span><span class="p">]</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">mock</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>

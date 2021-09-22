@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-MWRD6S');</script><!--End Google Tag Manager-->
 <meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<title>twilio.jwt.validation — twilio-python 6.63.2 documentation</title>
+<title>twilio.jwt.validation — twilio-python 7.0.0 documentation</title>
 <link href="../../../_static/alabaster.css" rel="stylesheet" type="text/css"/>
 <link href="../../../_static/pygments.css" rel="stylesheet" type="text/css"/>
 <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js" type="text/javascript"></script>
@@ -29,7 +29,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <div class="body" role="main">
 <h1>Source code for twilio.jwt.validation</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span> <span class="nn">hashlib</span> <span class="kn">import</span> <span class="n">sha256</span>
-<span class="kn">from</span> <span class="nn">six</span> <span class="kn">import</span> <span class="n">string_types</span>
 
 <span class="kn">from</span> <span class="nn">twilio.jwt</span> <span class="kn">import</span> <span class="n">Jwt</span>
 
@@ -37,6 +36,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <div class="viewcode-block" id="ClientValidationJwt"><a class="viewcode-back" href="../../../docs/source/_rst/twilio.jwt.validation.html#twilio.jwt.validation.ClientValidationJwt">[docs]</a><span class="k">class</span> <span class="nc">ClientValidationJwt</span><span class="p">(</span><span class="n">Jwt</span><span class="p">):</span>
     <span class="sd">"""A JWT included on requests so that Twilio can verify request authenticity"""</span>
     <span class="n">__CTY</span> <span class="o">=</span> <span class="s1">'twilio-pkrv;v=1'</span>
+    <span class="n">ALGORITHM</span> <span class="o">=</span> <span class="s1">'RS256'</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">account_sid</span><span class="p">,</span> <span class="n">api_key_sid</span><span class="p">,</span> <span class="n">credential_sid</span><span class="p">,</span> <span class="n">private_key</span><span class="p">,</span> <span class="n">validation_payload</span><span class="p">):</span>
         <span class="sd">"""</span>
@@ -52,7 +52,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
             <span class="n">secret_key</span><span class="o">=</span><span class="n">private_key</span><span class="p">,</span>
             <span class="n">issuer</span><span class="o">=</span><span class="n">api_key_sid</span><span class="p">,</span>
             <span class="n">subject</span><span class="o">=</span><span class="n">account_sid</span><span class="p">,</span>
-            <span class="n">algorithm</span><span class="o">=</span><span class="s1">'RS256'</span><span class="p">,</span>
+            <span class="n">algorithm</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ALGORITHM</span><span class="p">,</span>
             <span class="n">ttl</span><span class="o">=</span><span class="mi">300</span>     <span class="c1"># 5 minute ttl</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">credential_sid</span> <span class="o">=</span> <span class="n">credential_sid</span>
@@ -103,7 +103,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">_sort_and_join</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">values</span><span class="p">,</span> <span class="n">joiner</span><span class="p">):</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">string_types</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
             <span class="k">return</span> <span class="n">values</span>
         <span class="k">return</span> <span class="n">joiner</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">values</span><span class="p">))</span>
 

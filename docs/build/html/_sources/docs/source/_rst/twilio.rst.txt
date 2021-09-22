@@ -15,14 +15,6 @@ Subpackages
 Submodules
 ----------
 
-twilio.compat module
---------------------
-
-.. automodule:: twilio.compat
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
 twilio.request\_validator module
 --------------------------------
 

@@ -11,18 +11,6 @@ Subpackages
     twilio.jwt.taskrouter
     twilio.jwt.validation
 
-Submodules
-----------
-
-twilio.jwt.compat module
-------------------------
-
-.. automodule:: twilio.jwt.compat
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-
 Module contents
 ---------------
 

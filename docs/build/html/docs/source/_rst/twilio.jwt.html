@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-MWRD6S');</script><!--End Google Tag Manager-->
 <meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<title>twilio.jwt package — twilio-python 6.63.2 documentation</title>
+<title>twilio.jwt package — twilio-python 7.0.0 documentation</title>
 <link href="../../../_static/alabaster.css" rel="stylesheet" type="text/css"/>
 <link href="../../../_static/pygments.css" rel="stylesheet" type="text/css"/>
 <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js" type="text/javascript"></script>
@@ -58,28 +58,17 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 </ul>
 </div>
 </div>
-<div class="section" id="submodules">
-<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
-</div>
-<div class="section" id="module-twilio.jwt.compat">
-<span id="twilio-jwt-compat-module"></span><h2>twilio.jwt.compat module<a class="headerlink" href="#module-twilio.jwt.compat" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
-<dt id="twilio.jwt.compat.compare_digest">
-<code class="descclassname">twilio.jwt.compat.</code><code class="descname">compare_digest</code><span class="sig-paren">(</span><em>a</em>, <em>b</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/jwt/compat.html#compare_digest"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.jwt.compat.compare_digest" title="Permalink to this definition">¶</a></dt>
-<dd><p>PyJWT expects hmac.compare_digest to exist for all Python 3.x, however it was added in Python &gt; 3.3
-It has a fallback for Python 2.x but not for Pythons between 2.x and 3.3
-Copied from: <a class="reference external" href="https://github.com/python/cpython/commit/6cea65555caf2716b4633827715004ab0291a282#diff-c49659257ec1b129707ce47a98adc96eL16">https://github.com/python/cpython/commit/6cea65555caf2716b4633827715004ab0291a282#diff-c49659257ec1b129707ce47a98adc96eL16</a></p>
-<p>Returns the equivalent of ‘a == b’, but avoids content based short
-circuiting to reduce the vulnerability to timing attacks.</p>
-</dd></dl>
-</div>
 <div class="section" id="module-twilio.jwt">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-twilio.jwt" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="twilio.jwt.Jwt">
-<em class="property">class </em><code class="descclassname">twilio.jwt.</code><code class="descname">Jwt</code><span class="sig-paren">(</span><em>secret_key</em>, <em>issuer</em>, <em>subject=None</em>, <em>algorithm='HS256'</em>, <em>nbf=&lt;object object&gt;</em>, <em>ttl=3600</em>, <em>valid_until=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/jwt.html#Jwt"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.jwt.Jwt" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">twilio.jwt.</code><code class="descname">Jwt</code><span class="sig-paren">(</span><em>secret_key</em>, <em>issuer</em>, <em>subject=None</em>, <em>algorithm=None</em>, <em>nbf=&lt;object object&gt;</em>, <em>ttl=3600</em>, <em>valid_until=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/jwt.html#Jwt"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.jwt.Jwt" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>Base class for building a Json Web Token</p>
+<dl class="attribute">
+<dt id="twilio.jwt.Jwt.ALGORITHM">
+<code class="descname">ALGORITHM</code><em class="property"> = 'HS256'</em><a class="headerlink" href="#twilio.jwt.Jwt.ALGORITHM" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 <dl class="attribute">
 <dt id="twilio.jwt.Jwt.GENERATE">
 <code class="descname">GENERATE</code><em class="property"> = &lt;object object&gt;</em><a class="headerlink" href="#twilio.jwt.Jwt.GENERATE" title="Permalink to this definition">¶</a></dt>
@@ -155,9 +144,8 @@ circuiting to reduce the vulnerability to timing attacks.</p>
 </dd></dl>
 <dl class="method">
 <dt id="twilio.jwt.Jwt.to_jwt">
-<code class="descname">to_jwt</code><span class="sig-paren">(</span><em>algorithm=None</em>, <em>ttl=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/jwt.html#Jwt.to_jwt"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.jwt.Jwt.to_jwt" title="Permalink to this definition">¶</a></dt>
+<code class="descname">to_jwt</code><span class="sig-paren">(</span><em>ttl=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/jwt.html#Jwt.to_jwt"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.jwt.Jwt.to_jwt" title="Permalink to this definition">¶</a></dt>
 <dd><p>Encode this JWT object into a JWT string
-:param str algorithm: override the algorithm used to encode the JWT
 :param int ttl: override the ttl configured in the constructor
 :rtype: str The JWT string</p>
 </dd></dl>
@@ -207,8 +195,6 @@ circuiting to reduce the vulnerability to timing attacks.</p>
 <ul>
 <li><a class="reference internal" href="#">twilio.jwt package</a><ul>
 <li><a class="reference internal" href="#subpackages">Subpackages</a></li>
-<li><a class="reference internal" href="#submodules">Submodules</a></li>
-<li><a class="reference internal" href="#module-twilio.jwt.compat">twilio.jwt.compat module</a></li>
 <li><a class="reference internal" href="#module-twilio.jwt">Module contents</a></li>
 </ul>
 </li>

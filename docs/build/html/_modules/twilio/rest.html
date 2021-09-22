@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-MWRD6S');</script><!--End Google Tag Manager-->
 <meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<title>twilio.rest — twilio-python 6.63.2 documentation</title>
+<title>twilio.rest — twilio-python 7.0.0 documentation</title>
 <link href="../../_static/alabaster.css" rel="stylesheet" type="text/css"/>
 <link href="../../_static/pygments.css" rel="stylesheet" type="text/css"/>
 <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js" type="text/javascript"></script>
@@ -41,11 +41,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <span class="kn">from</span> <span class="nn">twilio</span> <span class="kn">import</span> <span class="n">__version__</span>
 <span class="kn">from</span> <span class="nn">twilio.base.exceptions</span> <span class="kn">import</span> <span class="n">TwilioException</span>
 <span class="kn">from</span> <span class="nn">twilio.base.obsolete</span> <span class="kn">import</span> <span class="n">obsolete_client</span>
-<span class="kn">from</span> <span class="nn">twilio.compat</span> <span class="kn">import</span> <span class="p">(</span>
+<span class="kn">from</span> <span class="nn">twilio.http.http_client</span> <span class="kn">import</span> <span class="n">TwilioHttpClient</span>
+<span class="kn">from</span> <span class="nn">urllib.parse</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">urlparse</span><span class="p">,</span>
     <span class="n">urlunparse</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="kn">from</span> <span class="nn">twilio.http.http_client</span> <span class="kn">import</span> <span class="n">TwilioHttpClient</span>
 
 
 <div class="viewcode-block" id="Client"><a class="viewcode-back" href="../../docs/source/_rst/twilio.rest.html#twilio.rest.Client">[docs]</a><span class="k">class</span> <span class="nc">Client</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
