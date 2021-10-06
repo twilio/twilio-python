@@ -19,6 +19,7 @@ from twilio.rest.api.v2010.account.call.feedback_summary import FeedbackSummaryL
 from twilio.rest.api.v2010.account.call.notification import NotificationList
 from twilio.rest.api.v2010.account.call.payment import PaymentList
 from twilio.rest.api.v2010.account.call.recording import RecordingList
+from twilio.rest.api.v2010.account.call.siprec import SiprecList
 
 
 class CallList(ListResource):
@@ -419,6 +420,7 @@ class CallContext(InstanceContext):
         self._feedback = None
         self._events = None
         self._payments = None
+        self._siprec = None
 
     def delete(self):
         """
@@ -565,6 +567,22 @@ class CallContext(InstanceContext):
                 call_sid=self._solution['sid'],
             )
         return self._payments
+
+    @property
+    def siprec(self):
+        """
+        Access the siprec
+
+        :returns: twilio.rest.api.v2010.account.call.siprec.SiprecList
+        :rtype: twilio.rest.api.v2010.account.call.siprec.SiprecList
+        """
+        if self._siprec is None:
+            self._siprec = SiprecList(
+                self._version,
+                account_sid=self._solution['account_sid'],
+                call_sid=self._solution['sid'],
+            )
+        return self._siprec
 
     def __repr__(self):
         """
@@ -975,6 +993,16 @@ class CallInstance(InstanceResource):
         :rtype: twilio.rest.api.v2010.account.call.payment.PaymentList
         """
         return self._proxy.payments
+
+    @property
+    def siprec(self):
+        """
+        Access the siprec
+
+        :returns: twilio.rest.api.v2010.account.call.siprec.SiprecList
+        :rtype: twilio.rest.api.v2010.account.call.siprec.SiprecList
+        """
+        return self._proxy.siprec
 
     def __repr__(self):
         """

@@ -358,6 +358,7 @@ class ServiceInstance(InstanceResource):
             'unique_name': payload.get('unique_name'),
             'include_credentials': payload.get('include_credentials'),
             'ui_editable': payload.get('ui_editable'),
+            'domain_base': payload.get('domain_base'),
             'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
             'date_updated': deserialize.iso8601_datetime(payload.get('date_updated')),
             'url': payload.get('url'),
@@ -428,6 +429,14 @@ class ServiceInstance(InstanceResource):
         :rtype: bool
         """
         return self._properties['ui_editable']
+
+    @property
+    def domain_base(self):
+        """
+        :returns: The base domain name for this Service, which is a combination of the unique name and a randomly generated string
+        :rtype: unicode
+        """
+        return self._properties['domain_base']
 
     @property
     def date_created(self):

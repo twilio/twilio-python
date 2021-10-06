@@ -329,15 +329,16 @@ class WorkerContext(InstanceContext):
         )
 
     def update(self, activity_sid=values.unset, attributes=values.unset,
-               friendly_name=values.unset,
-               reject_pending_reservations=values.unset):
+               friendly_name=values.unset, reject_pending_reservations=values.unset,
+               if_match=values.unset):
         """
         Update the WorkerInstance
 
         :param unicode activity_sid: The SID of the Activity that describes the Worker's initial state
         :param unicode attributes: The JSON string that describes the Worker
         :param unicode friendly_name: A string to describe the Worker
-        :param bool reject_pending_reservations: Whether to reject pending reservations
+        :param bool reject_pending_reservations: Whether to reject the Worker's pending reservations
+        :param unicode if_match: The If-Match HTTP request header
 
         :returns: The updated WorkerInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkerInstance
@@ -348,8 +349,9 @@ class WorkerContext(InstanceContext):
             'FriendlyName': friendly_name,
             'RejectPendingReservations': reject_pending_reservations,
         })
+        headers = values.of({'If-Match': if_match, })
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data, )
+        payload = self._version.update(method='POST', uri=self._uri, data=data, headers=headers, )
 
         return WorkerInstance(
             self._version,
@@ -358,14 +360,18 @@ class WorkerContext(InstanceContext):
             sid=self._solution['sid'],
         )
 
-    def delete(self):
+    def delete(self, if_match=values.unset):
         """
         Deletes the WorkerInstance
+
+        :param unicode if_match: The If-Match HTTP request header
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri, )
+        headers = values.of({'If-Match': if_match, })
+
+        return self._version.delete(method='DELETE', uri=self._uri, headers=headers, )
 
     @property
     def real_time_statistics(self):
@@ -619,15 +625,16 @@ class WorkerInstance(InstanceResource):
         return self._proxy.fetch()
 
     def update(self, activity_sid=values.unset, attributes=values.unset,
-               friendly_name=values.unset,
-               reject_pending_reservations=values.unset):
+               friendly_name=values.unset, reject_pending_reservations=values.unset,
+               if_match=values.unset):
         """
         Update the WorkerInstance
 
         :param unicode activity_sid: The SID of the Activity that describes the Worker's initial state
         :param unicode attributes: The JSON string that describes the Worker
         :param unicode friendly_name: A string to describe the Worker
-        :param bool reject_pending_reservations: Whether to reject pending reservations
+        :param bool reject_pending_reservations: Whether to reject the Worker's pending reservations
+        :param unicode if_match: The If-Match HTTP request header
 
         :returns: The updated WorkerInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkerInstance
@@ -637,16 +644,19 @@ class WorkerInstance(InstanceResource):
             attributes=attributes,
             friendly_name=friendly_name,
             reject_pending_reservations=reject_pending_reservations,
+            if_match=if_match,
         )
 
-    def delete(self):
+    def delete(self, if_match=values.unset):
         """
         Deletes the WorkerInstance
+
+        :param unicode if_match: The If-Match HTTP request header
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._proxy.delete()
+        return self._proxy.delete(if_match=if_match, )
 
     @property
     def real_time_statistics(self):

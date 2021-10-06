@@ -276,7 +276,7 @@ class ReservationContext(InstanceContext):
                post_work_activity_sid=values.unset, supervisor_mode=values.unset,
                supervisor=values.unset,
                end_conference_on_customer_exit=values.unset,
-               beep_on_customer_entrance=values.unset):
+               beep_on_customer_entrance=values.unset, if_match=values.unset):
         """
         Update the ReservationInstance
 
@@ -333,6 +333,7 @@ class ReservationContext(InstanceContext):
         :param unicode supervisor: The Supervisor SID/URI when executing the Supervise instruction
         :param bool end_conference_on_customer_exit: Whether to end the conference when the customer leaves
         :param bool beep_on_customer_entrance: Whether to play a notification beep when the customer joins
+        :param unicode if_match: The If-Match HTTP request header
 
         :returns: The updated ReservationInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.task.reservation.ReservationInstance
@@ -392,8 +393,9 @@ class ReservationContext(InstanceContext):
             'EndConferenceOnCustomerExit': end_conference_on_customer_exit,
             'BeepOnCustomerEntrance': beep_on_customer_entrance,
         })
+        headers = values.of({'If-Match': if_match, })
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data, )
+        payload = self._version.update(method='POST', uri=self._uri, data=data, headers=headers, )
 
         return ReservationInstance(
             self._version,
@@ -626,7 +628,7 @@ class ReservationInstance(InstanceResource):
                post_work_activity_sid=values.unset, supervisor_mode=values.unset,
                supervisor=values.unset,
                end_conference_on_customer_exit=values.unset,
-               beep_on_customer_entrance=values.unset):
+               beep_on_customer_entrance=values.unset, if_match=values.unset):
         """
         Update the ReservationInstance
 
@@ -683,6 +685,7 @@ class ReservationInstance(InstanceResource):
         :param unicode supervisor: The Supervisor SID/URI when executing the Supervise instruction
         :param bool end_conference_on_customer_exit: Whether to end the conference when the customer leaves
         :param bool beep_on_customer_entrance: Whether to play a notification beep when the customer joins
+        :param unicode if_match: The If-Match HTTP request header
 
         :returns: The updated ReservationInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.task.reservation.ReservationInstance
@@ -741,6 +744,7 @@ class ReservationInstance(InstanceResource):
             supervisor=supervisor,
             end_conference_on_customer_exit=end_conference_on_customer_exit,
             beep_on_customer_entrance=beep_on_customer_entrance,
+            if_match=if_match,
         )
 
     def __repr__(self):

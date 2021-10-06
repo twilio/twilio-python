@@ -190,6 +190,20 @@ class ConfigurationTestCase(IntegrationTestCase):
                     "enabled": false,
                     "mode": "readOnly"
                 },
+                "flex_insights_hr": {
+                    "advanced_reporting_enabled": true,
+                    "advanced_reporting_workspaces": [
+                        {
+                            "id": "ID_1",
+                            "timezone": "America/Los_Angeles",
+                            "workspace_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+                        },
+                        {
+                            "id": "ID_2",
+                            "timezone": "Etc/UTC"
+                        }
+                    ]
+                },
                 "url": "https://flex-api.twilio.com/v1/Configuration"
             }
             '''
@@ -375,6 +389,7 @@ class ConfigurationTestCase(IntegrationTestCase):
                     "enabled": false,
                     "mode": "readOnly"
                 },
+                "flex_insights_hr": null,
                 "url": "https://flex-api.twilio.com/v1/Configuration"
             }
             '''
@@ -559,6 +574,20 @@ class ConfigurationTestCase(IntegrationTestCase):
                 "markdown": {
                     "enabled": false,
                     "mode": "readOnly"
+                },
+                "flex_insights_hr": {
+                    "advanced_reporting_enabled": true,
+                    "advanced_reporting_workspaces": [
+                        {
+                            "id": "ID_1",
+                            "timezone": "America/Los_Angeles",
+                            "workspace_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+                        },
+                        {
+                            "id": "ID_2",
+                            "timezone": "Etc/UTC"
+                        }
+                    ]
                 },
                 "url": "https://flex-api.twilio.com/v1/Configuration"
             }

@@ -144,11 +144,13 @@ class ReservationTestCase(IntegrationTestCase):
         with self.assertRaises(TwilioException):
             self.client.taskrouter.v1.workspaces("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                      .tasks("WTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                     .reservations("WRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
+                                     .reservations("WRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update(if_match="if_match")
 
+        headers = {'If-Match': "if_match", }
         self.holodeck.assert_has_request(Request(
             'post',
             'https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Tasks/WTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Reservations/WRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+            headers=headers,
         ))
 
     def test_update_response(self):

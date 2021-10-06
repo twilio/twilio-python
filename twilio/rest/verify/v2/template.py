@@ -12,18 +12,18 @@ from twilio.base.list_resource import ListResource
 from twilio.base.page import Page
 
 
-class VerificationTemplateList(ListResource):
+class TemplateList(ListResource):
 
     def __init__(self, version):
         """
-        Initialize the VerificationTemplateList
+        Initialize the TemplateList
 
         :param Version version: Version that contains the resource
 
-        :returns: twilio.rest.verify.v2.verification_template.VerificationTemplateList
-        :rtype: twilio.rest.verify.v2.verification_template.VerificationTemplateList
+        :returns: twilio.rest.verify.v2.template.TemplateList
+        :rtype: twilio.rest.verify.v2.template.TemplateList
         """
-        super(VerificationTemplateList, self).__init__(version)
+        super(TemplateList, self).__init__(version)
 
         # Path Solution
         self._solution = {}
@@ -31,7 +31,7 @@ class VerificationTemplateList(ListResource):
 
     def stream(self, friendly_name=values.unset, limit=None, page_size=None):
         """
-        Streams VerificationTemplateInstance records from the API as a generator stream.
+        Streams TemplateInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
@@ -45,7 +45,7 @@ class VerificationTemplateList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.verify.v2.verification_template.VerificationTemplateInstance]
+        :rtype: list[twilio.rest.verify.v2.template.TemplateInstance]
         """
         limits = self._version.read_limits(limit, page_size)
 
@@ -55,7 +55,7 @@ class VerificationTemplateList(ListResource):
 
     def list(self, friendly_name=values.unset, limit=None, page_size=None):
         """
-        Lists VerificationTemplateInstance records from the API as a list.
+        Lists TemplateInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
@@ -68,14 +68,14 @@ class VerificationTemplateList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.verify.v2.verification_template.VerificationTemplateInstance]
+        :rtype: list[twilio.rest.verify.v2.template.TemplateInstance]
         """
         return list(self.stream(friendly_name=friendly_name, limit=limit, page_size=page_size, ))
 
     def page(self, friendly_name=values.unset, page_token=values.unset,
              page_number=values.unset, page_size=values.unset):
         """
-        Retrieve a single page of VerificationTemplateInstance records from the API.
+        Retrieve a single page of TemplateInstance records from the API.
         Request is executed immediately
 
         :param unicode friendly_name: Filter templates using friendly name
@@ -83,8 +83,8 @@ class VerificationTemplateList(ListResource):
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
 
-        :returns: Page of VerificationTemplateInstance
-        :rtype: twilio.rest.verify.v2.verification_template.VerificationTemplatePage
+        :returns: Page of TemplateInstance
+        :rtype: twilio.rest.verify.v2.template.TemplatePage
         """
         data = values.of({
             'FriendlyName': friendly_name,
@@ -95,24 +95,24 @@ class VerificationTemplateList(ListResource):
 
         response = self._version.page(method='GET', uri=self._uri, params=data, )
 
-        return VerificationTemplatePage(self._version, response, self._solution)
+        return TemplatePage(self._version, response, self._solution)
 
     def get_page(self, target_url):
         """
-        Retrieve a specific page of VerificationTemplateInstance records from the API.
+        Retrieve a specific page of TemplateInstance records from the API.
         Request is executed immediately
 
         :param str target_url: API-generated URL for the requested results page
 
-        :returns: Page of VerificationTemplateInstance
-        :rtype: twilio.rest.verify.v2.verification_template.VerificationTemplatePage
+        :returns: Page of TemplateInstance
+        :rtype: twilio.rest.verify.v2.template.TemplatePage
         """
         response = self._version.domain.twilio.request(
             'GET',
             target_url,
         )
 
-        return VerificationTemplatePage(self._version, response, self._solution)
+        return TemplatePage(self._version, response, self._solution)
 
     def __repr__(self):
         """
@@ -121,36 +121,36 @@ class VerificationTemplateList(ListResource):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Verify.V2.VerificationTemplateList>'
+        return '<Twilio.Verify.V2.TemplateList>'
 
 
-class VerificationTemplatePage(Page):
+class TemplatePage(Page):
 
     def __init__(self, version, response, solution):
         """
-        Initialize the VerificationTemplatePage
+        Initialize the TemplatePage
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.verify.v2.verification_template.VerificationTemplatePage
-        :rtype: twilio.rest.verify.v2.verification_template.VerificationTemplatePage
+        :returns: twilio.rest.verify.v2.template.TemplatePage
+        :rtype: twilio.rest.verify.v2.template.TemplatePage
         """
-        super(VerificationTemplatePage, self).__init__(version, response)
+        super(TemplatePage, self).__init__(version, response)
 
         # Path Solution
         self._solution = solution
 
     def get_instance(self, payload):
         """
-        Build an instance of VerificationTemplateInstance
+        Build an instance of TemplateInstance
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.verify.v2.verification_template.VerificationTemplateInstance
-        :rtype: twilio.rest.verify.v2.verification_template.VerificationTemplateInstance
+        :returns: twilio.rest.verify.v2.template.TemplateInstance
+        :rtype: twilio.rest.verify.v2.template.TemplateInstance
         """
-        return VerificationTemplateInstance(self._version, payload, )
+        return TemplateInstance(self._version, payload, )
 
     def __repr__(self):
         """
@@ -159,19 +159,19 @@ class VerificationTemplatePage(Page):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Verify.V2.VerificationTemplatePage>'
+        return '<Twilio.Verify.V2.TemplatePage>'
 
 
-class VerificationTemplateInstance(InstanceResource):
+class TemplateInstance(InstanceResource):
 
     def __init__(self, version, payload):
         """
-        Initialize the VerificationTemplateInstance
+        Initialize the TemplateInstance
 
-        :returns: twilio.rest.verify.v2.verification_template.VerificationTemplateInstance
-        :rtype: twilio.rest.verify.v2.verification_template.VerificationTemplateInstance
+        :returns: twilio.rest.verify.v2.template.TemplateInstance
+        :rtype: twilio.rest.verify.v2.template.TemplateInstance
         """
-        super(VerificationTemplateInstance, self).__init__(version)
+        super(TemplateInstance, self).__init__(version)
 
         # Marshaled Properties
         self._properties = {
@@ -224,4 +224,4 @@ class VerificationTemplateInstance(InstanceResource):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Verify.V2.VerificationTemplateInstance>'
+        return '<Twilio.Verify.V2.TemplateInstance>'

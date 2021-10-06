@@ -413,7 +413,7 @@ class EnvironmentInstance(InstanceResource):
     @property
     def domain_name(self):
         """
-        :returns: The base domain name for all Functions and Assets deployed in the Environment
+        :returns: The domain name for all Functions and Assets deployed in the Environment
         :rtype: unicode
         """
         return self._properties['domain_name']

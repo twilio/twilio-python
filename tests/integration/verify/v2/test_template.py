@@ -12,13 +12,13 @@ from twilio.base.exceptions import TwilioException
 from twilio.http.response import Response
 
 
-class VerificationTemplateTestCase(IntegrationTestCase):
+class TemplateTestCase(IntegrationTestCase):
 
     def test_list_request(self):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.verify.v2.verification_templates.list()
+            self.client.verify.v2.templates.list()
 
         self.holodeck.assert_has_request(Request(
             'get',
@@ -38,7 +38,7 @@ class VerificationTemplateTestCase(IntegrationTestCase):
                         "translations": {
                             "en": {
                                 "text": "Hello, your code is {code}.",
-                                "locale": "es",
+                                "locale": "en",
                                 "status": "approved",
                                 "date_created": "2021-07-26T22:30:13.003505841Z",
                                 "date_updated": "2021-07-26T22:31:08.750971289Z"
@@ -47,18 +47,18 @@ class VerificationTemplateTestCase(IntegrationTestCase):
                     }
                 ],
                 "meta": {
-                    "key": "templates",
                     "page": 0,
                     "page_size": 50,
                     "first_page_url": "https://verify.twilio.com/v2/Templates?PageSize=50&Page=0",
                     "previous_page_url": null,
                     "url": "https://verify.twilio.com/v2/Templates?PageSize=50&Page=0",
-                    "next_page_url": null
+                    "next_page_url": null,
+                    "key": "templates"
                 }
             }
             '''
         ))
 
-        actual = self.client.verify.v2.verification_templates.list()
+        actual = self.client.verify.v2.templates.list()
 
         self.assertIsNotNone(actual)

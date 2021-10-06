@@ -58,11 +58,11 @@ class Verify(Domain):
         return self.v2.verification_attempts
 
     @property
-    def verification_templates(self):
+    def templates(self):
         """
-        :rtype: twilio.rest.verify.v2.verification_template.VerificationTemplateList
+        :rtype: twilio.rest.verify.v2.template.TemplateList
         """
-        return self.v2.verification_templates
+        return self.v2.templates
 
     def __repr__(self):
         """

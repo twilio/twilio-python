@@ -424,13 +424,106 @@ class CallSummariesTestCase(IntegrationTestCase):
                 "meta": {
                     "page": 0,
                     "page_size": 25,
-                    "first_page_url": "https://insights.twilio.com/v1/Voice/Summaries?Direction=outbound_api&StartTime=1d&VerifiedCaller=True&PageSize=25&Page=0",
+                    "first_page_url": "https://insights.twilio.com/v1/Voice/Summaries?Direction=outbound_api%2Coutbound_dial%2Ctrunking_terminating&StartTime=1d&VerifiedCaller=True&PageSize=25&Page=0",
                     "previous_page_url": null,
                     "next_page_url": null,
                     "key": "call_summaries",
-                    "url": "https://insights.twilio.com/v1/Voice/Summaries?Direction=outbound_api&StartTime=1d&VerifiedCaller=True&PageSize=25&Page=0"
+                    "url": "https://insights.twilio.com/v1/Voice/Summaries?Direction=outbound_api%2Coutbound_dial%2Ctrunking_terminating&StartTime=1d&VerifiedCaller=True&PageSize=25&Page=0"
                 },
                 "call_summaries": [
+                    {
+                        "call_sid": "CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                        "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                        "created_time": "2021-08-25T14:31:18Z",
+                        "start_time": "2021-08-25T14:31:22Z",
+                        "end_time": "2021-08-25T14:32:02Z",
+                        "duration": 44,
+                        "connect_duration": 41,
+                        "call_type": "trunking",
+                        "call_state": "completed",
+                        "from": {
+                            "caller": "+15555555555",
+                            "carrier": "ACS",
+                            "connection": "landline",
+                            "number_prefix": "1555",
+                            "location": {
+                                "lat": 60.268353,
+                                "lon": -141.13632
+                            },
+                            "country_code": "US"
+                        },
+                        "to": {
+                            "callee": "+15555555556",
+                            "carrier": "Hawaiian Telcom, Inc. - HI",
+                            "connection": "landline",
+                            "number_prefix": "1555",
+                            "location": {
+                                "lat": 20.956036,
+                                "lon": -157.23793
+                            },
+                            "country_code": "US"
+                        },
+                        "processing_state": "complete",
+                        "sdk_edge": null,
+                        "sip_edge": {
+                            "properties": {
+                                "media_region": "us1",
+                                "signaling_region": "us1",
+                                "twilio_media_ip": "54.xxx.xx.xx",
+                                "twilio_signaling_ip": "54.xxx.xx.xx",
+                                "external_signaling_ip": "54.xxx.xx.xx",
+                                "sip_call_id": "xxxxx@0.0.0.0",
+                                "user_agent": "xxxx",
+                                "edge_location": "xxxxx",
+                                "trunk_sid": "xxxxxxx",
+                                "direction": "inbound"
+                            },
+                            "metrics": {
+                                "outbound": {
+                                    "codec": 0,
+                                    "codec_name": "pcmu",
+                                    "packets_sent": 1953,
+                                    "packets_lost": 0,
+                                    "packets_loss_percentage": 0.0,
+                                    "jitter": {
+                                        "max": 1.76407,
+                                        "avg": 0.23138
+                                    },
+                                    "latency": {
+                                        "max": 0.386,
+                                        "avg": 0.3765
+                                    }
+                                }
+                            }
+                        },
+                        "client_edge": null,
+                        "carrier_edge": {
+                            "properties": {
+                                "media_region": "us1",
+                                "signaling_region": "us1",
+                                "edge_location": "xxxx",
+                                "direction": "outbound"
+                            }
+                        },
+                        "tags": [
+                            "silence"
+                        ],
+                        "attributes": {
+                            "conference_participant": false
+                        },
+                        "properties": {
+                            "last_sip_response_num": 200,
+                            "pdd_ms": 1990,
+                            "disconnected_by": "caller",
+                            "direction": "trunking_terminating"
+                        },
+                        "trust": {
+                            "verified_caller": {
+                                "verified": true
+                            }
+                        },
+                        "url": "https://insights.twilio.com/v1/Voice/Summaries"
+                    },
                     {
                         "call_sid": "CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                         "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -515,6 +608,69 @@ class CallSummariesTestCase(IntegrationTestCase):
                             }
                         },
                         "url": "https://insights.twilio.com/v1/Voice/Summaries"
+                    },
+                    {
+                        "call_sid": "CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaab",
+                        "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                        "created_time": "2021-08-24T22:28:17Z",
+                        "start_time": "2021-08-24T22:28:20Z",
+                        "end_time": "2021-08-24T22:28:23Z",
+                        "duration": 4,
+                        "connect_duration": 3,
+                        "call_type": "carrier",
+                        "call_state": "completed",
+                        "from": {
+                            "caller": "+15555555555",
+                            "carrier": "Hawaiian Telcom, Inc. - HI",
+                            "connection": "landline",
+                            "number_prefix": "1555",
+                            "location": {
+                                "lat": 20.956036,
+                                "lon": -157.23793
+                            },
+                            "country_code": "US"
+                        },
+                        "to": {
+                            "callee": "+15555555556",
+                            "connection": "pstn"
+                        },
+                        "processing_state": "complete",
+                        "sdk_edge": null,
+                        "sip_edge": null,
+                        "client_edge": null,
+                        "carrier_edge": {
+                            "properties": {
+                                "media_region": "us1",
+                                "signaling_region": "us1",
+                                "edge_location": "xxxx",
+                                "direction": "outbound"
+                            },
+                            "metrics": {
+                                "outbound": {
+                                    "codec": 0,
+                                    "codec_name": "pcmu",
+                                    "packets_sent": 103,
+                                    "packets_lost": 0,
+                                    "packets_loss_percentage": 0.0,
+                                    "jitter": {
+                                        "max": 0.596712,
+                                        "avg": 0.251725
+                                    }
+                                }
+                            }
+                        },
+                        "tags": [
+                            "silence"
+                        ],
+                        "attributes": null,
+                        "properties": {
+                            "last_sip_response_num": 200,
+                            "pdd_ms": 105,
+                            "disconnected_by": "caller",
+                            "direction": "outbound_dial"
+                        },
+                        "trust": null,
+                        "url": "https://insights.twilio.com/v1/Voice/Summaries"
                     }
                 ]
             }
@@ -533,11 +689,11 @@ class CallSummariesTestCase(IntegrationTestCase):
                 "meta": {
                     "page": 0,
                     "page_size": 25,
-                    "first_page_url": "https://insights.twilio.com/v1/Voice/Summaries?CallType=sip&CallState=completed&StartTime=15d&AbnormalSession=True&PageSize=25&Page=0",
+                    "first_page_url": "https://insights.twilio.com/v1/Voice/Summaries?CallType=sip%2Ctrunking&CallState=completed&StartTime=15d&AbnormalSession=True&PageSize=25&Page=0",
                     "previous_page_url": null,
                     "next_page_url": null,
                     "key": "call_summaries",
-                    "url": "https://insights.twilio.com/v1/Voice/Summaries?CallType=sip&CallState=completed&StartTime=15d&AbnormalSession=True&PageSize=25&Page=0"
+                    "url": "https://insights.twilio.com/v1/Voice/Summaries?CallType=sip%2Ctrunking&CallState=completed&StartTime=15d&AbnormalSession=True&PageSize=25&Page=0"
                 },
                 "call_summaries": [
                     {
@@ -617,6 +773,99 @@ class CallSummariesTestCase(IntegrationTestCase):
                             "direction": "outbound_dial"
                         },
                         "trust": null,
+                        "url": "https://insights.twilio.com/v1/Voice/Summaries"
+                    },
+                    {
+                        "call_sid": "CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                        "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                        "created_time": "2021-08-25T14:31:18Z",
+                        "start_time": "2021-08-25T14:31:22Z",
+                        "end_time": "2021-08-25T14:32:02Z",
+                        "duration": 44,
+                        "connect_duration": 41,
+                        "call_type": "trunking",
+                        "call_state": "completed",
+                        "from": {
+                            "caller": "+15555555555",
+                            "carrier": "ACS",
+                            "connection": "landline",
+                            "number_prefix": "1555",
+                            "location": {
+                                "lat": 60.268353,
+                                "lon": -141.13632
+                            },
+                            "country_code": "US"
+                        },
+                        "to": {
+                            "callee": "+15555555556",
+                            "carrier": "Hawaiian Telcom, Inc. - HI",
+                            "connection": "landline",
+                            "number_prefix": "1555",
+                            "location": {
+                                "lat": 20.956036,
+                                "lon": -157.23793
+                            },
+                            "country_code": "US"
+                        },
+                        "processing_state": "complete",
+                        "sdk_edge": null,
+                        "sip_edge": {
+                            "properties": {
+                                "media_region": "us1",
+                                "signaling_region": "us1",
+                                "twilio_media_ip": "54.xxx.xx.xx",
+                                "twilio_signaling_ip": "54.xxx.xx.xx",
+                                "external_signaling_ip": "54.xxx.xx.xx",
+                                "sip_call_id": "xxxxx@0.0.0.0",
+                                "user_agent": "xxxx",
+                                "edge_location": "xxxxx",
+                                "trunk_sid": "xxxxxxx",
+                                "direction": "inbound"
+                            },
+                            "metrics": {
+                                "outbound": {
+                                    "codec": 0,
+                                    "codec_name": "pcmu",
+                                    "packets_sent": 1953,
+                                    "packets_lost": 0,
+                                    "packets_loss_percentage": 0.0,
+                                    "jitter": {
+                                        "max": 1.76407,
+                                        "avg": 0.23138
+                                    },
+                                    "latency": {
+                                        "max": 0.386,
+                                        "avg": 0.3765
+                                    }
+                                }
+                            }
+                        },
+                        "client_edge": null,
+                        "carrier_edge": {
+                            "properties": {
+                                "media_region": "us1",
+                                "signaling_region": "us1",
+                                "edge_location": "xxxx",
+                                "direction": "outbound"
+                            }
+                        },
+                        "tags": [
+                            "silence"
+                        ],
+                        "attributes": {
+                            "conference_participant": false
+                        },
+                        "properties": {
+                            "last_sip_response_num": 200,
+                            "pdd_ms": 1990,
+                            "disconnected_by": "caller",
+                            "direction": "trunking_terminating"
+                        },
+                        "trust": {
+                            "verified_caller": {
+                                "verified": true
+                            }
+                        },
                         "url": "https://insights.twilio.com/v1/Voice/Summaries"
                     }
                 ]
