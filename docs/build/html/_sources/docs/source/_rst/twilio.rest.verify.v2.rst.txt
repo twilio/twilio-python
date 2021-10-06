@@ -19,18 +19,18 @@ twilio.rest.verify.v2.form module
     :undoc-members:
     :show-inheritance:
 
-twilio.rest.verify.v2.verification\_attempt module
---------------------------------------------------
+twilio.rest.verify.v2.template module
+-------------------------------------
 
-.. automodule:: twilio.rest.verify.v2.verification_attempt
+.. automodule:: twilio.rest.verify.v2.template
     :members:
     :undoc-members:
     :show-inheritance:
 
-twilio.rest.verify.v2.verification\_template module
----------------------------------------------------
+twilio.rest.verify.v2.verification\_attempt module
+--------------------------------------------------
 
-.. automodule:: twilio.rest.verify.v2.verification_template
+.. automodule:: twilio.rest.verify.v2.verification_attempt
     :members:
     :undoc-members:
     :show-inheritance:

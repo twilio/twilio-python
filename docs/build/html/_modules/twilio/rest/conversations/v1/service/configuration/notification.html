@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-MWRD6S');</script><!--End Google Tag Manager-->
 <meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<title>twilio.rest.conversations.v1.service.configuration.notification — twilio-python 7.0.0 documentation</title>
+<title>twilio.rest.conversations.v1.service.configuration.notification — twilio-python 7.1.0 documentation</title>
 <link href="../../../../../../../_static/alabaster.css" rel="stylesheet" type="text/css"/>
 <link href="../../../../../../../_static/pygments.css" rel="stylesheet" type="text/css"/>
 <script data-url_root="../../../../../../../" id="documentation_options" src="../../../../../../../_static/documentation_options.js" type="text/javascript"></script>
@@ -157,7 +157,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
                <span class="n">added_to_conversation_sound</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
                <span class="n">removed_from_conversation_enabled</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
                <span class="n">removed_from_conversation_template</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
-               <span class="n">removed_from_conversation_sound</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">):</span>
+               <span class="n">removed_from_conversation_sound</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
+               <span class="n">new_message_with_media_enabled</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
+               <span class="n">new_message_with_media_template</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">):</span>
         <span class="sd">"""</span>
 <span class="sd">        Update the NotificationInstance</span>
 
@@ -172,6 +174,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <span class="sd">        :param bool removed_from_conversation_enabled: Whether to send a notification to a user when they are removed from a conversation.</span>
 <span class="sd">        :param unicode removed_from_conversation_template: The template to use to create the notification text displayed to a user when they are removed.</span>
 <span class="sd">        :param unicode removed_from_conversation_sound: The name of the sound to play to a user when they are removed from a conversation.</span>
+<span class="sd">        :param bool new_message_with_media_enabled: Whether to send a notification when a new message with media/file attachments is added to a conversation.</span>
+<span class="sd">        :param unicode new_message_with_media_template: The template to use to create the notification text displayed when a new message with media/file attachments is added to a conversation.</span>
 
 <span class="sd">        :returns: The updated NotificationInstance</span>
 <span class="sd">        :rtype: twilio.rest.conversations.v1.service.configuration.notification.NotificationInstance</span>
@@ -188,6 +192,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
             <span class="s1">'RemovedFromConversation.Enabled'</span><span class="p">:</span> <span class="n">removed_from_conversation_enabled</span><span class="p">,</span>
             <span class="s1">'RemovedFromConversation.Template'</span><span class="p">:</span> <span class="n">removed_from_conversation_template</span><span class="p">,</span>
             <span class="s1">'RemovedFromConversation.Sound'</span><span class="p">:</span> <span class="n">removed_from_conversation_sound</span><span class="p">,</span>
+            <span class="s1">'NewMessage.WithMedia.Enabled'</span><span class="p">:</span> <span class="n">new_message_with_media_enabled</span><span class="p">,</span>
+            <span class="s1">'NewMessage.WithMedia.Template'</span><span class="p">:</span> <span class="n">new_message_with_media_template</span><span class="p">,</span>
         <span class="p">})</span>
 
         <span class="n">payload</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_version</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">'POST'</span><span class="p">,</span> <span class="n">uri</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_uri</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="p">)</span>
@@ -330,7 +336,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
                <span class="n">added_to_conversation_sound</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
                <span class="n">removed_from_conversation_enabled</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
                <span class="n">removed_from_conversation_template</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
-               <span class="n">removed_from_conversation_sound</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">):</span>
+               <span class="n">removed_from_conversation_sound</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
+               <span class="n">new_message_with_media_enabled</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
+               <span class="n">new_message_with_media_template</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">):</span>
         <span class="sd">"""</span>
 <span class="sd">        Update the NotificationInstance</span>
 
@@ -345,6 +353,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <span class="sd">        :param bool removed_from_conversation_enabled: Whether to send a notification to a user when they are removed from a conversation.</span>
 <span class="sd">        :param unicode removed_from_conversation_template: The template to use to create the notification text displayed to a user when they are removed.</span>
 <span class="sd">        :param unicode removed_from_conversation_sound: The name of the sound to play to a user when they are removed from a conversation.</span>
+<span class="sd">        :param bool new_message_with_media_enabled: Whether to send a notification when a new message with media/file attachments is added to a conversation.</span>
+<span class="sd">        :param unicode new_message_with_media_template: The template to use to create the notification text displayed when a new message with media/file attachments is added to a conversation.</span>
 
 <span class="sd">        :returns: The updated NotificationInstance</span>
 <span class="sd">        :rtype: twilio.rest.conversations.v1.service.configuration.notification.NotificationInstance</span>
@@ -361,6 +371,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
             <span class="n">removed_from_conversation_enabled</span><span class="o">=</span><span class="n">removed_from_conversation_enabled</span><span class="p">,</span>
             <span class="n">removed_from_conversation_template</span><span class="o">=</span><span class="n">removed_from_conversation_template</span><span class="p">,</span>
             <span class="n">removed_from_conversation_sound</span><span class="o">=</span><span class="n">removed_from_conversation_sound</span><span class="p">,</span>
+            <span class="n">new_message_with_media_enabled</span><span class="o">=</span><span class="n">new_message_with_media_enabled</span><span class="p">,</span>
+            <span class="n">new_message_with_media_template</span><span class="o">=</span><span class="n">new_message_with_media_template</span><span class="p">,</span>
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="NotificationInstance.fetch"><a class="viewcode-back" href="../../../../../../../docs/source/_rst/twilio.rest.conversations.v1.service.configuration.html#twilio.rest.conversations.v1.service.configuration.notification.NotificationInstance.fetch">[docs]</a>    <span class="k">def</span> <span class="nf">fetch</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>

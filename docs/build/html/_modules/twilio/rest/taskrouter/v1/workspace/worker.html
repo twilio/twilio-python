@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-MWRD6S');</script><!--End Google Tag Manager-->
 <meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<title>twilio.rest.taskrouter.v1.workspace.worker — twilio-python 7.0.0 documentation</title>
+<title>twilio.rest.taskrouter.v1.workspace.worker — twilio-python 7.1.0 documentation</title>
 <link href="../../../../../../_static/alabaster.css" rel="stylesheet" type="text/css"/>
 <link href="../../../../../../_static/pygments.css" rel="stylesheet" type="text/css"/>
 <script data-url_root="../../../../../../" id="documentation_options" src="../../../../../../_static/documentation_options.js" type="text/javascript"></script>
@@ -359,15 +359,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="WorkerContext.update"><a class="viewcode-back" href="../../../../../../docs/source/_rst/twilio.rest.taskrouter.v1.workspace.worker.html#twilio.rest.taskrouter.v1.workspace.worker.WorkerContext.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">activity_sid</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">attributes</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
-               <span class="n">friendly_name</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
-               <span class="n">reject_pending_reservations</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">):</span>
+               <span class="n">friendly_name</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">reject_pending_reservations</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
+               <span class="n">if_match</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">):</span>
         <span class="sd">"""</span>
 <span class="sd">        Update the WorkerInstance</span>
 
 <span class="sd">        :param unicode activity_sid: The SID of the Activity that describes the Worker's initial state</span>
 <span class="sd">        :param unicode attributes: The JSON string that describes the Worker</span>
 <span class="sd">        :param unicode friendly_name: A string to describe the Worker</span>
-<span class="sd">        :param bool reject_pending_reservations: Whether to reject pending reservations</span>
+<span class="sd">        :param bool reject_pending_reservations: Whether to reject the Worker's pending reservations</span>
+<span class="sd">        :param unicode if_match: The If-Match HTTP request header</span>
 
 <span class="sd">        :returns: The updated WorkerInstance</span>
 <span class="sd">        :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkerInstance</span>
@@ -378,8 +379,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
             <span class="s1">'FriendlyName'</span><span class="p">:</span> <span class="n">friendly_name</span><span class="p">,</span>
             <span class="s1">'RejectPendingReservations'</span><span class="p">:</span> <span class="n">reject_pending_reservations</span><span class="p">,</span>
         <span class="p">})</span>
+        <span class="n">headers</span> <span class="o">=</span> <span class="n">values</span><span class="o">.</span><span class="n">of</span><span class="p">({</span><span class="s1">'If-Match'</span><span class="p">:</span> <span class="n">if_match</span><span class="p">,</span> <span class="p">})</span>
 
-        <span class="n">payload</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_version</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">'POST'</span><span class="p">,</span> <span class="n">uri</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_uri</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="p">)</span>
+        <span class="n">payload</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_version</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">'POST'</span><span class="p">,</span> <span class="n">uri</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_uri</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> <span class="p">)</span>
 
         <span class="k">return</span> <span class="n">WorkerInstance</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_version</span><span class="p">,</span>
@@ -388,14 +390,18 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
             <span class="n">sid</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_solution</span><span class="p">[</span><span class="s1">'sid'</span><span class="p">],</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="WorkerContext.delete"><a class="viewcode-back" href="../../../../../../docs/source/_rst/twilio.rest.taskrouter.v1.workspace.worker.html#twilio.rest.taskrouter.v1.workspace.worker.WorkerContext.delete">[docs]</a>    <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="WorkerContext.delete"><a class="viewcode-back" href="../../../../../../docs/source/_rst/twilio.rest.taskrouter.v1.workspace.worker.html#twilio.rest.taskrouter.v1.workspace.worker.WorkerContext.delete">[docs]</a>    <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">if_match</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">):</span>
         <span class="sd">"""</span>
 <span class="sd">        Deletes the WorkerInstance</span>
+
+<span class="sd">        :param unicode if_match: The If-Match HTTP request header</span>
 
 <span class="sd">        :returns: True if delete succeeds, False otherwise</span>
 <span class="sd">        :rtype: bool</span>
 <span class="sd">        """</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_version</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">'DELETE'</span><span class="p">,</span> <span class="n">uri</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_uri</span><span class="p">,</span> <span class="p">)</span></div>
+        <span class="n">headers</span> <span class="o">=</span> <span class="n">values</span><span class="o">.</span><span class="n">of</span><span class="p">({</span><span class="s1">'If-Match'</span><span class="p">:</span> <span class="n">if_match</span><span class="p">,</span> <span class="p">})</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_version</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">'DELETE'</span><span class="p">,</span> <span class="n">uri</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_uri</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> <span class="p">)</span></div>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">real_time_statistics</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -649,15 +655,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_proxy</span><span class="o">.</span><span class="n">fetch</span><span class="p">()</span></div>
 
 <div class="viewcode-block" id="WorkerInstance.update"><a class="viewcode-back" href="../../../../../../docs/source/_rst/twilio.rest.taskrouter.v1.workspace.worker.html#twilio.rest.taskrouter.v1.workspace.worker.WorkerInstance.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">activity_sid</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">attributes</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
-               <span class="n">friendly_name</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
-               <span class="n">reject_pending_reservations</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">):</span>
+               <span class="n">friendly_name</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">reject_pending_reservations</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
+               <span class="n">if_match</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">):</span>
         <span class="sd">"""</span>
 <span class="sd">        Update the WorkerInstance</span>
 
 <span class="sd">        :param unicode activity_sid: The SID of the Activity that describes the Worker's initial state</span>
 <span class="sd">        :param unicode attributes: The JSON string that describes the Worker</span>
 <span class="sd">        :param unicode friendly_name: A string to describe the Worker</span>
-<span class="sd">        :param bool reject_pending_reservations: Whether to reject pending reservations</span>
+<span class="sd">        :param bool reject_pending_reservations: Whether to reject the Worker's pending reservations</span>
+<span class="sd">        :param unicode if_match: The If-Match HTTP request header</span>
 
 <span class="sd">        :returns: The updated WorkerInstance</span>
 <span class="sd">        :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkerInstance</span>
@@ -667,16 +674,19 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
             <span class="n">attributes</span><span class="o">=</span><span class="n">attributes</span><span class="p">,</span>
             <span class="n">friendly_name</span><span class="o">=</span><span class="n">friendly_name</span><span class="p">,</span>
             <span class="n">reject_pending_reservations</span><span class="o">=</span><span class="n">reject_pending_reservations</span><span class="p">,</span>
+            <span class="n">if_match</span><span class="o">=</span><span class="n">if_match</span><span class="p">,</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="WorkerInstance.delete"><a class="viewcode-back" href="../../../../../../docs/source/_rst/twilio.rest.taskrouter.v1.workspace.worker.html#twilio.rest.taskrouter.v1.workspace.worker.WorkerInstance.delete">[docs]</a>    <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="WorkerInstance.delete"><a class="viewcode-back" href="../../../../../../docs/source/_rst/twilio.rest.taskrouter.v1.workspace.worker.html#twilio.rest.taskrouter.v1.workspace.worker.WorkerInstance.delete">[docs]</a>    <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">if_match</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">):</span>
         <span class="sd">"""</span>
 <span class="sd">        Deletes the WorkerInstance</span>
+
+<span class="sd">        :param unicode if_match: The If-Match HTTP request header</span>
 
 <span class="sd">        :returns: True if delete succeeds, False otherwise</span>
 <span class="sd">        :rtype: bool</span>
 <span class="sd">        """</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_proxy</span><span class="o">.</span><span class="n">delete</span><span class="p">()</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_proxy</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">if_match</span><span class="o">=</span><span class="n">if_match</span><span class="p">,</span> <span class="p">)</span></div>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">real_time_statistics</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>

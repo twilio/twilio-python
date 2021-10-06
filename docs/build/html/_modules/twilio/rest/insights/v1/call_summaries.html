@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-MWRD6S');</script><!--End Google Tag Manager-->
 <meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<title>twilio.rest.insights.v1.call_summaries — twilio-python 7.0.0 documentation</title>
+<title>twilio.rest.insights.v1.call_summaries — twilio-python 7.1.0 documentation</title>
 <link href="../../../../../_static/alabaster.css" rel="stylesheet" type="text/css"/>
 <link href="../../../../../_static/pygments.css" rel="stylesheet" type="text/css"/>
 <script data-url_root="../../../../../" id="documentation_options" src="../../../../../_static/documentation_options.js" type="text/javascript"></script>
@@ -37,7 +37,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <span class="sd">"""</span>
 
 <span class="kn">from</span> <span class="nn">twilio.base</span> <span class="kn">import</span> <span class="n">deserialize</span>
-<span class="kn">from</span> <span class="nn">twilio.base</span> <span class="kn">import</span> <span class="n">serialize</span>
 <span class="kn">from</span> <span class="nn">twilio.base</span> <span class="kn">import</span> <span class="n">values</span>
 <span class="kn">from</span> <span class="nn">twilio.base.instance_resource</span> <span class="kn">import</span> <span class="n">InstanceResource</span>
 <span class="kn">from</span> <span class="nn">twilio.base.list_resource</span> <span class="kn">import</span> <span class="n">ListResource</span>
@@ -76,20 +75,20 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <span class="sd">        is reached.</span>
 <span class="sd">        The results are returned as a generator, so this operation is memory efficient.</span>
 
-<span class="sd">        :param list[unicode] from_: The from</span>
-<span class="sd">        :param list[unicode] to: The to</span>
-<span class="sd">        :param list[unicode] from_carrier: The from_carrier</span>
-<span class="sd">        :param list[unicode] to_carrier: The to_carrier</span>
-<span class="sd">        :param list[unicode] from_country_code: The from_country_code</span>
-<span class="sd">        :param list[unicode] to_country_code: The to_country_code</span>
+<span class="sd">        :param unicode from_: The from</span>
+<span class="sd">        :param unicode to: The to</span>
+<span class="sd">        :param unicode from_carrier: The from_carrier</span>
+<span class="sd">        :param unicode to_carrier: The to_carrier</span>
+<span class="sd">        :param unicode from_country_code: The from_country_code</span>
+<span class="sd">        :param unicode to_country_code: The to_country_code</span>
 <span class="sd">        :param bool branded: The branded</span>
 <span class="sd">        :param bool verified_caller: The verified_caller</span>
 <span class="sd">        :param bool has_tag: The has_tag</span>
 <span class="sd">        :param unicode start_time: The start_time</span>
 <span class="sd">        :param unicode end_time: The end_time</span>
-<span class="sd">        :param list[CallSummariesInstance.CallType] call_type: The call_type</span>
-<span class="sd">        :param list[CallSummariesInstance.CallState] call_state: The call_state</span>
-<span class="sd">        :param list[CallSummariesInstance.CallDirection] direction: The direction</span>
+<span class="sd">        :param unicode call_type: The call_type</span>
+<span class="sd">        :param unicode call_state: The call_state</span>
+<span class="sd">        :param unicode direction: The direction</span>
 <span class="sd">        :param CallSummariesInstance.ProcessingStateRequest processing_state: The processing_state</span>
 <span class="sd">        :param CallSummariesInstance.SortBy sort_by: The sort_by</span>
 <span class="sd">        :param unicode subaccount: The subaccount</span>
@@ -144,20 +143,20 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <span class="sd">        Unlike stream(), this operation is eager and will load `limit` records into</span>
 <span class="sd">        memory before returning.</span>
 
-<span class="sd">        :param list[unicode] from_: The from</span>
-<span class="sd">        :param list[unicode] to: The to</span>
-<span class="sd">        :param list[unicode] from_carrier: The from_carrier</span>
-<span class="sd">        :param list[unicode] to_carrier: The to_carrier</span>
-<span class="sd">        :param list[unicode] from_country_code: The from_country_code</span>
-<span class="sd">        :param list[unicode] to_country_code: The to_country_code</span>
+<span class="sd">        :param unicode from_: The from</span>
+<span class="sd">        :param unicode to: The to</span>
+<span class="sd">        :param unicode from_carrier: The from_carrier</span>
+<span class="sd">        :param unicode to_carrier: The to_carrier</span>
+<span class="sd">        :param unicode from_country_code: The from_country_code</span>
+<span class="sd">        :param unicode to_country_code: The to_country_code</span>
 <span class="sd">        :param bool branded: The branded</span>
 <span class="sd">        :param bool verified_caller: The verified_caller</span>
 <span class="sd">        :param bool has_tag: The has_tag</span>
 <span class="sd">        :param unicode start_time: The start_time</span>
 <span class="sd">        :param unicode end_time: The end_time</span>
-<span class="sd">        :param list[CallSummariesInstance.CallType] call_type: The call_type</span>
-<span class="sd">        :param list[CallSummariesInstance.CallState] call_state: The call_state</span>
-<span class="sd">        :param list[CallSummariesInstance.CallDirection] direction: The direction</span>
+<span class="sd">        :param unicode call_type: The call_type</span>
+<span class="sd">        :param unicode call_state: The call_state</span>
+<span class="sd">        :param unicode direction: The direction</span>
 <span class="sd">        :param CallSummariesInstance.ProcessingStateRequest processing_state: The processing_state</span>
 <span class="sd">        :param CallSummariesInstance.SortBy sort_by: The sort_by</span>
 <span class="sd">        :param unicode subaccount: The subaccount</span>
@@ -209,20 +208,20 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <span class="sd">        Retrieve a single page of CallSummariesInstance records from the API.</span>
 <span class="sd">        Request is executed immediately</span>
 
-<span class="sd">        :param list[unicode] from_: The from</span>
-<span class="sd">        :param list[unicode] to: The to</span>
-<span class="sd">        :param list[unicode] from_carrier: The from_carrier</span>
-<span class="sd">        :param list[unicode] to_carrier: The to_carrier</span>
-<span class="sd">        :param list[unicode] from_country_code: The from_country_code</span>
-<span class="sd">        :param list[unicode] to_country_code: The to_country_code</span>
+<span class="sd">        :param unicode from_: The from</span>
+<span class="sd">        :param unicode to: The to</span>
+<span class="sd">        :param unicode from_carrier: The from_carrier</span>
+<span class="sd">        :param unicode to_carrier: The to_carrier</span>
+<span class="sd">        :param unicode from_country_code: The from_country_code</span>
+<span class="sd">        :param unicode to_country_code: The to_country_code</span>
 <span class="sd">        :param bool branded: The branded</span>
 <span class="sd">        :param bool verified_caller: The verified_caller</span>
 <span class="sd">        :param bool has_tag: The has_tag</span>
 <span class="sd">        :param unicode start_time: The start_time</span>
 <span class="sd">        :param unicode end_time: The end_time</span>
-<span class="sd">        :param list[CallSummariesInstance.CallType] call_type: The call_type</span>
-<span class="sd">        :param list[CallSummariesInstance.CallState] call_state: The call_state</span>
-<span class="sd">        :param list[CallSummariesInstance.CallDirection] direction: The direction</span>
+<span class="sd">        :param unicode call_type: The call_type</span>
+<span class="sd">        :param unicode call_state: The call_state</span>
+<span class="sd">        :param unicode direction: The direction</span>
 <span class="sd">        :param CallSummariesInstance.ProcessingStateRequest processing_state: The processing_state</span>
 <span class="sd">        :param CallSummariesInstance.SortBy sort_by: The sort_by</span>
 <span class="sd">        :param unicode subaccount: The subaccount</span>
@@ -235,20 +234,20 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <span class="sd">        :rtype: twilio.rest.insights.v1.call_summaries.CallSummariesPage</span>
 <span class="sd">        """</span>
         <span class="n">data</span> <span class="o">=</span> <span class="n">values</span><span class="o">.</span><span class="n">of</span><span class="p">({</span>
-            <span class="s1">'From'</span><span class="p">:</span> <span class="n">serialize</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">from_</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">e</span><span class="p">:</span> <span class="n">e</span><span class="p">),</span>
-            <span class="s1">'To'</span><span class="p">:</span> <span class="n">serialize</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">to</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">e</span><span class="p">:</span> <span class="n">e</span><span class="p">),</span>
-            <span class="s1">'FromCarrier'</span><span class="p">:</span> <span class="n">serialize</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">from_carrier</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">e</span><span class="p">:</span> <span class="n">e</span><span class="p">),</span>
-            <span class="s1">'ToCarrier'</span><span class="p">:</span> <span class="n">serialize</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">to_carrier</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">e</span><span class="p">:</span> <span class="n">e</span><span class="p">),</span>
-            <span class="s1">'FromCountryCode'</span><span class="p">:</span> <span class="n">serialize</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">from_country_code</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">e</span><span class="p">:</span> <span class="n">e</span><span class="p">),</span>
-            <span class="s1">'ToCountryCode'</span><span class="p">:</span> <span class="n">serialize</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">to_country_code</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">e</span><span class="p">:</span> <span class="n">e</span><span class="p">),</span>
+            <span class="s1">'From'</span><span class="p">:</span> <span class="n">from_</span><span class="p">,</span>
+            <span class="s1">'To'</span><span class="p">:</span> <span class="n">to</span><span class="p">,</span>
+            <span class="s1">'FromCarrier'</span><span class="p">:</span> <span class="n">from_carrier</span><span class="p">,</span>
+            <span class="s1">'ToCarrier'</span><span class="p">:</span> <span class="n">to_carrier</span><span class="p">,</span>
+            <span class="s1">'FromCountryCode'</span><span class="p">:</span> <span class="n">from_country_code</span><span class="p">,</span>
+            <span class="s1">'ToCountryCode'</span><span class="p">:</span> <span class="n">to_country_code</span><span class="p">,</span>
             <span class="s1">'Branded'</span><span class="p">:</span> <span class="n">branded</span><span class="p">,</span>
             <span class="s1">'VerifiedCaller'</span><span class="p">:</span> <span class="n">verified_caller</span><span class="p">,</span>
             <span class="s1">'HasTag'</span><span class="p">:</span> <span class="n">has_tag</span><span class="p">,</span>
             <span class="s1">'StartTime'</span><span class="p">:</span> <span class="n">start_time</span><span class="p">,</span>
             <span class="s1">'EndTime'</span><span class="p">:</span> <span class="n">end_time</span><span class="p">,</span>
-            <span class="s1">'CallType'</span><span class="p">:</span> <span class="n">serialize</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">call_type</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">e</span><span class="p">:</span> <span class="n">e</span><span class="p">),</span>
-            <span class="s1">'CallState'</span><span class="p">:</span> <span class="n">serialize</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">call_state</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">e</span><span class="p">:</span> <span class="n">e</span><span class="p">),</span>
-            <span class="s1">'Direction'</span><span class="p">:</span> <span class="n">serialize</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">direction</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">e</span><span class="p">:</span> <span class="n">e</span><span class="p">),</span>
+            <span class="s1">'CallType'</span><span class="p">:</span> <span class="n">call_type</span><span class="p">,</span>
+            <span class="s1">'CallState'</span><span class="p">:</span> <span class="n">call_state</span><span class="p">,</span>
+            <span class="s1">'Direction'</span><span class="p">:</span> <span class="n">direction</span><span class="p">,</span>
             <span class="s1">'ProcessingState'</span><span class="p">:</span> <span class="n">processing_state</span><span class="p">,</span>
             <span class="s1">'SortBy'</span><span class="p">:</span> <span class="n">sort_by</span><span class="p">,</span>
             <span class="s1">'Subaccount'</span><span class="p">:</span> <span class="n">subaccount</span><span class="p">,</span>
