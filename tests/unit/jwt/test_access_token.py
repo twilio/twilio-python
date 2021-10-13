@@ -244,6 +244,7 @@ class AccessTokenTest(unittest.TestCase):
         }, decoded_token.payload['grants']['task_router'])
 
     def test_playback_grant(self):
+        """Test that PlaybackGrants are created and decoded correctly."""
         grant = {
             'requestCredentials': None,
             'playbackUrl': 'https://000.us-east-1.playback.live-video.net/api/video/v1/us-east-000.channel.000?token=xxxxx',
