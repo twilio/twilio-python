@@ -12,7 +12,8 @@ from twilio.jwt.access_token.grants import (
     VideoGrant,
     ConversationsGrant,
     TaskRouterGrant,
-    ChatGrant
+    ChatGrant,
+    PlaybackGrant,
 )
 
 ACCOUNT_SID = 'AC123'
@@ -241,6 +242,21 @@ class AccessTokenTest(unittest.TestCase):
             'worker_sid': 'WK123',
             'role': 'worker'
         }, decoded_token.payload['grants']['task_router'])
+
+    def test_playback_grant(self):
+        grant = {
+            'requestCredentials': None,
+            'playbackUrl': 'https://000.us-east-1.playback.live-video.net/api/video/v1/us-east-000.channel.000?token=xxxxx',
+            'playerStreamerSid': 'VJXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
+        }
+        scat = AccessToken(ACCOUNT_SID, SIGNING_KEY_SID, 'secret')
+        scat.add_grant(PlaybackGrant(grant=grant))
+        token = scat.to_jwt()
+        assert_is_not_none(token)
+        decoded_token = AccessToken.from_jwt(token, 'secret')
+        self._validate_claims(decoded_token.payload)
+        assert_equal(1, len(decoded_token.payload['grants']))
+        assert_equal(grant, decoded_token.payload['grants']['player'])
 
     def test_pass_grants_in_constructor(self):
         grants = [

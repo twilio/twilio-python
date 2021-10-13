@@ -196,3 +196,16 @@ class TaskRouterGrant(AccessTokenGrant):
             grant['role'] = self.role
 
         return grant
+
+
+class PlaybackGrant(AccessTokenGrant):
+    """Grant to access Twilio Live stream"""
+    def __init__(self, grant=None):
+        self.grant = grant
+
+    @property
+    def key(self):
+        return "player"
+
+    def to_payload(self):
+        return self.grant
