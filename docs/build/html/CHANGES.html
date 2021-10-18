@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-MWRD6S');</script><!--End Google Tag Manager-->
 <meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<title>twilio-python Changelog — twilio-python 7.1.0 documentation</title>
+<title>twilio-python Changelog — twilio-python 7.2.0 documentation</title>
 <link href="_static/alabaster.css" rel="stylesheet" type="text/css"/>
 <link href="_static/pygments.css" rel="stylesheet" type="text/css"/>
 <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js" type="text/javascript"></script>
@@ -30,6 +30,28 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <div class="section" id="twilio-python-changelog">
 <h1>twilio-python Changelog<a class="headerlink" href="#twilio-python-changelog" title="Permalink to this headline">¶</a></h1>
 <p>Here you can see the full list of changes between each twilio-python release.</p>
+<div class="section" id="version-7-2-0">
+<h2>[2021-10-18] Version 7.2.0<a class="headerlink" href="#version-7-2-0" title="Permalink to this headline">¶</a></h2>
+<p><strong>Library - Feature</strong></p>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/twilio/twilio-python/pull/576">PR #576</a>: Add PlaybackGrant. Thanks to <a class="reference external" href="https://github.com/sarahcstringer">@sarahcstringer</a>!</li>
+</ul>
+<p><strong>Api</strong></p>
+<ul class="simple">
+<li>Corrected enum values for <code class="docutils literal notranslate"><span class="pre">emergency_address_status</span></code> values in <code class="docutils literal notranslate"><span class="pre">/IncomingPhoneNumbers</span></code> response. <strong>(breaking change)</strong></li>
+<li>Clarify <code class="docutils literal notranslate"><span class="pre">emergency_address_status</span></code> values in <code class="docutils literal notranslate"><span class="pre">/IncomingPhoneNumbers</span></code> response.</li>
+</ul>
+<p><strong>Messaging</strong></p>
+<ul class="simple">
+<li>Add PUT and List brand vettings api</li>
+<li>Removes beta feature flag based visibility for us_app_to_person_registered and usecase field.Updates test cases to add POLITICAL usecase. <strong>(breaking change)</strong></li>
+<li>Add brand_feedback as optional field to BrandRegistrations</li>
+</ul>
+<p><strong>Video</strong></p>
+<ul class="simple">
+<li>Add <code class="docutils literal notranslate"><span class="pre">AudioOnly</span></code> to create room</li>
+</ul>
+</div>
 <div class="section" id="version-7-1-0">
 <h2>[2021-10-06] Version 7.1.0<a class="headerlink" href="#version-7-1-0" title="Permalink to this headline">¶</a></h2>
 <p><strong>Api</strong></p>
@@ -3284,6 +3306,7 @@ querying list resources</li>
 <h3><a href="index.html">Table of Contents</a></h3>
 <ul>
 <li><a class="reference internal" href="#">twilio-python Changelog</a><ul>
+<li><a class="reference internal" href="#version-7-2-0">[2021-10-18] Version 7.2.0</a></li>
 <li><a class="reference internal" href="#version-7-1-0">[2021-10-06] Version 7.1.0</a></li>
 <li><a class="reference internal" href="#version-7-0-0">[2021-09-22] Version 7.0.0</a></li>
 <li><a class="reference internal" href="#version-6-63-2">[2021-09-08] Version 6.63.2</a></li>

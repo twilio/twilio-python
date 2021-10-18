@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-MWRD6S');</script><!--End Google Tag Manager-->
 <meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<title>twilio.rest.messaging.v1.service package — twilio-python 7.1.0 documentation</title>
+<title>twilio.rest.messaging.v1.service package — twilio-python 7.2.0 documentation</title>
 <link href="../../../_static/alabaster.css" rel="stylesheet" type="text/css"/>
 <link href="../../../_static/pygments.css" rel="stylesheet" type="text/css"/>
 <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js" type="text/javascript"></script>
@@ -21,7 +21,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <link href="../../../genindex.html" rel="index" title="Index"/>
 <link href="../../../search.html" rel="search" title="Search"/>
 <link href="twilio.rest.monitor.html" rel="next" title="twilio.rest.monitor package"/>
-<link href="twilio.rest.messaging.v1.html" rel="prev" title="twilio.rest.messaging.v1 package"/>
+<link href="twilio.rest.messaging.v1.brand_registration.html" rel="prev" title="twilio.rest.messaging.v1.brand_registration package"/>
 <link href="../../../_static/custom.css" rel="stylesheet" type="text/css"/>
 <meta content="width=device-width, initial-scale=0.9, maximum-scale=0.9" name="viewport"/>
 </head><body><!--Google Tag Manager (noscript)--><noscript><iframe height="0" src="https://www.googletagmanager.com/ns.html?id=GTM-MWRD6S" style="display:none;visibility:hidden" width="0"></iframe></noscript><!--End Google Tag Manager (noscript)-->
@@ -1827,7 +1827,7 @@ change. Use them with caution.</p>
 </dd></dl>
 <dl class="method">
 <dt id="twilio.rest.messaging.v1.service.ServiceContext.update">
-<code class="descname">update</code><span class="sig-paren">(</span><em>friendly_name=&lt;object object&gt;</em>, <em>inbound_request_url=&lt;object object&gt;</em>, <em>inbound_method=&lt;object object&gt;</em>, <em>fallback_url=&lt;object object&gt;</em>, <em>fallback_method=&lt;object object&gt;</em>, <em>status_callback=&lt;object object&gt;</em>, <em>sticky_sender=&lt;object object&gt;</em>, <em>mms_converter=&lt;object object&gt;</em>, <em>smart_encoding=&lt;object object&gt;</em>, <em>scan_message_content=&lt;object object&gt;</em>, <em>fallback_to_long_code=&lt;object object&gt;</em>, <em>area_code_geomatch=&lt;object object&gt;</em>, <em>validity_period=&lt;object object&gt;</em>, <em>synchronous_validation=&lt;object object&gt;</em>, <em>use_inbound_webhook_on_number=&lt;object object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/messaging/v1/service.html#ServiceContext.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.messaging.v1.service.ServiceContext.update" title="Permalink to this definition">¶</a></dt>
+<code class="descname">update</code><span class="sig-paren">(</span><em>friendly_name=&lt;object object&gt;</em>, <em>inbound_request_url=&lt;object object&gt;</em>, <em>inbound_method=&lt;object object&gt;</em>, <em>fallback_url=&lt;object object&gt;</em>, <em>fallback_method=&lt;object object&gt;</em>, <em>status_callback=&lt;object object&gt;</em>, <em>sticky_sender=&lt;object object&gt;</em>, <em>mms_converter=&lt;object object&gt;</em>, <em>smart_encoding=&lt;object object&gt;</em>, <em>scan_message_content=&lt;object object&gt;</em>, <em>fallback_to_long_code=&lt;object object&gt;</em>, <em>area_code_geomatch=&lt;object object&gt;</em>, <em>validity_period=&lt;object object&gt;</em>, <em>synchronous_validation=&lt;object object&gt;</em>, <em>usecase=&lt;object object&gt;</em>, <em>use_inbound_webhook_on_number=&lt;object object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/messaging/v1/service.html#ServiceContext.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.messaging.v1.service.ServiceContext.update" title="Permalink to this definition">¶</a></dt>
 <dd><p>Update the ServiceInstance</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name"/>
@@ -1848,6 +1848,7 @@ change. Use them with caution.</p>
 <li><strong>area_code_geomatch</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether to enable Area Code Geomatch on the Service Instance</li>
 <li><strong>validity_period</strong> (<em>unicode</em>) – How long, in seconds, messages sent from the Service are valid</li>
 <li><strong>synchronous_validation</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Reserved</li>
+<li><strong>usecase</strong> (<em>unicode</em>) – A string describing the scenario in which the Messaging Service will be used</li>
 <li><strong>use_inbound_webhook_on_number</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – If enabled, the webhook url configured on the phone number will be used and will override the <cite>inbound_request_url</cite>/<cite>fallback_url</cite> url called when an inbound message is received.</li>
 </ul>
 </td>
@@ -2244,7 +2245,7 @@ change. Use them with caution.</p>
 </dd></dl>
 <dl class="method">
 <dt id="twilio.rest.messaging.v1.service.ServiceInstance.update">
-<code class="descname">update</code><span class="sig-paren">(</span><em>friendly_name=&lt;object object&gt;</em>, <em>inbound_request_url=&lt;object object&gt;</em>, <em>inbound_method=&lt;object object&gt;</em>, <em>fallback_url=&lt;object object&gt;</em>, <em>fallback_method=&lt;object object&gt;</em>, <em>status_callback=&lt;object object&gt;</em>, <em>sticky_sender=&lt;object object&gt;</em>, <em>mms_converter=&lt;object object&gt;</em>, <em>smart_encoding=&lt;object object&gt;</em>, <em>scan_message_content=&lt;object object&gt;</em>, <em>fallback_to_long_code=&lt;object object&gt;</em>, <em>area_code_geomatch=&lt;object object&gt;</em>, <em>validity_period=&lt;object object&gt;</em>, <em>synchronous_validation=&lt;object object&gt;</em>, <em>use_inbound_webhook_on_number=&lt;object object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/messaging/v1/service.html#ServiceInstance.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.messaging.v1.service.ServiceInstance.update" title="Permalink to this definition">¶</a></dt>
+<code class="descname">update</code><span class="sig-paren">(</span><em>friendly_name=&lt;object object&gt;</em>, <em>inbound_request_url=&lt;object object&gt;</em>, <em>inbound_method=&lt;object object&gt;</em>, <em>fallback_url=&lt;object object&gt;</em>, <em>fallback_method=&lt;object object&gt;</em>, <em>status_callback=&lt;object object&gt;</em>, <em>sticky_sender=&lt;object object&gt;</em>, <em>mms_converter=&lt;object object&gt;</em>, <em>smart_encoding=&lt;object object&gt;</em>, <em>scan_message_content=&lt;object object&gt;</em>, <em>fallback_to_long_code=&lt;object object&gt;</em>, <em>area_code_geomatch=&lt;object object&gt;</em>, <em>validity_period=&lt;object object&gt;</em>, <em>synchronous_validation=&lt;object object&gt;</em>, <em>usecase=&lt;object object&gt;</em>, <em>use_inbound_webhook_on_number=&lt;object object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/messaging/v1/service.html#ServiceInstance.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.messaging.v1.service.ServiceInstance.update" title="Permalink to this definition">¶</a></dt>
 <dd><p>Update the ServiceInstance</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name"/>
@@ -2265,6 +2266,7 @@ change. Use them with caution.</p>
 <li><strong>area_code_geomatch</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether to enable Area Code Geomatch on the Service Instance</li>
 <li><strong>validity_period</strong> (<em>unicode</em>) – How long, in seconds, messages sent from the Service are valid</li>
 <li><strong>synchronous_validation</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Reserved</li>
+<li><strong>usecase</strong> (<em>unicode</em>) – A string describing the scenario in which the Messaging Service will be used</li>
 <li><strong>use_inbound_webhook_on_number</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – If enabled, the webhook url configured on the phone number will be used and will override the <cite>inbound_request_url</cite>/<cite>fallback_url</cite> url called when an inbound message is received.</li>
 </ul>
 </td>
@@ -2308,6 +2310,20 @@ change. Use them with caution.</p>
 </table>
 </dd></dl>
 <dl class="attribute">
+<dt id="twilio.rest.messaging.v1.service.ServiceInstance.us_app_to_person_registered">
+<code class="descname">us_app_to_person_registered</code><a class="headerlink" href="#twilio.rest.messaging.v1.service.ServiceInstance.us_app_to_person_registered" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Whether US A2P campaign is registered for this Service.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)">bool</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+<dl class="attribute">
 <dt id="twilio.rest.messaging.v1.service.ServiceInstance.us_app_to_person_usecases">
 <code class="descname">us_app_to_person_usecases</code><a class="headerlink" href="#twilio.rest.messaging.v1.service.ServiceInstance.us_app_to_person_usecases" title="Permalink to this definition">¶</a></dt>
 <dd><p>Access the us_app_to_person_usecases</p>
@@ -2337,6 +2353,20 @@ change. Use them with caution.</p>
 </table>
 </dd></dl>
 <dl class="attribute">
+<dt id="twilio.rest.messaging.v1.service.ServiceInstance.usecase">
+<code class="descname">usecase</code><a class="headerlink" href="#twilio.rest.messaging.v1.service.ServiceInstance.usecase" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">A string describing the scenario in which the Messaging Service will be used</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">unicode</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+<dl class="attribute">
 <dt id="twilio.rest.messaging.v1.service.ServiceInstance.validity_period">
 <code class="descname">validity_period</code><a class="headerlink" href="#twilio.rest.messaging.v1.service.ServiceInstance.validity_period" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
@@ -2359,7 +2389,7 @@ change. Use them with caution.</p>
 change. Use them with caution.</p>
 <dl class="method">
 <dt id="twilio.rest.messaging.v1.service.ServiceList.create">
-<code class="descname">create</code><span class="sig-paren">(</span><em>friendly_name</em>, <em>inbound_request_url=&lt;object object&gt;</em>, <em>inbound_method=&lt;object object&gt;</em>, <em>fallback_url=&lt;object object&gt;</em>, <em>fallback_method=&lt;object object&gt;</em>, <em>status_callback=&lt;object object&gt;</em>, <em>sticky_sender=&lt;object object&gt;</em>, <em>mms_converter=&lt;object object&gt;</em>, <em>smart_encoding=&lt;object object&gt;</em>, <em>scan_message_content=&lt;object object&gt;</em>, <em>fallback_to_long_code=&lt;object object&gt;</em>, <em>area_code_geomatch=&lt;object object&gt;</em>, <em>validity_period=&lt;object object&gt;</em>, <em>synchronous_validation=&lt;object object&gt;</em>, <em>use_inbound_webhook_on_number=&lt;object object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/messaging/v1/service.html#ServiceList.create"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.messaging.v1.service.ServiceList.create" title="Permalink to this definition">¶</a></dt>
+<code class="descname">create</code><span class="sig-paren">(</span><em>friendly_name</em>, <em>inbound_request_url=&lt;object object&gt;</em>, <em>inbound_method=&lt;object object&gt;</em>, <em>fallback_url=&lt;object object&gt;</em>, <em>fallback_method=&lt;object object&gt;</em>, <em>status_callback=&lt;object object&gt;</em>, <em>sticky_sender=&lt;object object&gt;</em>, <em>mms_converter=&lt;object object&gt;</em>, <em>smart_encoding=&lt;object object&gt;</em>, <em>scan_message_content=&lt;object object&gt;</em>, <em>fallback_to_long_code=&lt;object object&gt;</em>, <em>area_code_geomatch=&lt;object object&gt;</em>, <em>validity_period=&lt;object object&gt;</em>, <em>synchronous_validation=&lt;object object&gt;</em>, <em>usecase=&lt;object object&gt;</em>, <em>use_inbound_webhook_on_number=&lt;object object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/messaging/v1/service.html#ServiceList.create"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.messaging.v1.service.ServiceList.create" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create the ServiceInstance</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name"/>
@@ -2380,6 +2410,7 @@ change. Use them with caution.</p>
 <li><strong>area_code_geomatch</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether to enable Area Code Geomatch on the Service Instance</li>
 <li><strong>validity_period</strong> (<em>unicode</em>) – How long, in seconds, messages sent from the Service are valid</li>
 <li><strong>synchronous_validation</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Reserved</li>
+<li><strong>usecase</strong> (<em>unicode</em>) – A string describing the scenario in which the Messaging Service will be used</li>
 <li><strong>use_inbound_webhook_on_number</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – If enabled, the webhook url configured on the phone number will be used and will override the <cite>inbound_request_url</cite>/<cite>fallback_url</cite> url called when an inbound message is received.</li>
 </ul>
 </td>
@@ -2575,7 +2606,7 @@ change. Use them with caution.</p>
 <li><a href="twilio.rest.html">twilio.rest package</a><ul>
 <li><a href="twilio.rest.messaging.html">twilio.rest.messaging package</a><ul>
 <li><a href="twilio.rest.messaging.v1.html">twilio.rest.messaging.v1 package</a><ul>
-<li>Previous: <a href="twilio.rest.messaging.v1.html" title="previous chapter">twilio.rest.messaging.v1 package</a></li>
+<li>Previous: <a href="twilio.rest.messaging.v1.brand_registration.html" title="previous chapter">twilio.rest.messaging.v1.brand_registration package</a></li>
 <li>Next: <a href="twilio.rest.monitor.html" title="next chapter">twilio.rest.monitor package</a></li>
 </ul></li>
 </ul></li>

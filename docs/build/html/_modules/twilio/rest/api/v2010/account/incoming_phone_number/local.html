@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-MWRD6S');</script><!--End Google Tag Manager-->
 <meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<title>twilio.rest.api.v2010.account.incoming_phone_number.local — twilio-python 7.1.0 documentation</title>
+<title>twilio.rest.api.v2010.account.incoming_phone_number.local — twilio-python 7.2.0 documentation</title>
 <link href="../../../../../../../_static/alabaster.css" rel="stylesheet" type="text/css"/>
 <link href="../../../../../../../_static/pygments.css" rel="stylesheet" type="text/css"/>
 <script data-url_root="../../../../../../../" id="documentation_options" src="../../../../../../../_static/documentation_options.js" type="text/javascript"></script>
@@ -311,6 +311,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="n">ACTIVE</span> <span class="o">=</span> <span class="s2">"Active"</span>
         <span class="n">INACTIVE</span> <span class="o">=</span> <span class="s2">"Inactive"</span></div>
 
+<div class="viewcode-block" id="LocalInstance.EmergencyAddressStatus"><a class="viewcode-back" href="../../../../../../../docs/source/_rst/twilio.rest.api.v2010.account.incoming_phone_number.html#twilio.rest.api.v2010.account.incoming_phone_number.local.LocalInstance.EmergencyAddressStatus">[docs]</a>    <span class="k">class</span> <span class="nc">EmergencyAddressStatus</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+        <span class="n">REGISTERED</span> <span class="o">=</span> <span class="s2">"registered"</span>
+        <span class="n">UNREGISTERED</span> <span class="o">=</span> <span class="s2">"unregistered"</span>
+        <span class="n">PENDING_REGISTRATION</span> <span class="o">=</span> <span class="s2">"pending-registration"</span>
+        <span class="n">REGISTRATION_FAILURE</span> <span class="o">=</span> <span class="s2">"registration-failure"</span>
+        <span class="n">PENDING_UNREGISTRATION</span> <span class="o">=</span> <span class="s2">"pending-unregistration"</span>
+        <span class="n">UNREGISTRATION_FAILURE</span> <span class="o">=</span> <span class="s2">"unregistration-failure"</span></div>
+
 <div class="viewcode-block" id="LocalInstance.VoiceReceiveMode"><a class="viewcode-back" href="../../../../../../../docs/source/_rst/twilio.rest.api.v2010.account.incoming_phone_number.html#twilio.rest.api.v2010.account.incoming_phone_number.local.LocalInstance.VoiceReceiveMode">[docs]</a>    <span class="k">class</span> <span class="nc">VoiceReceiveMode</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
         <span class="n">VOICE</span> <span class="o">=</span> <span class="s2">"voice"</span>
         <span class="n">FAX</span> <span class="o">=</span> <span class="s2">"fax"</span></div>
@@ -357,6 +365,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
             <span class="s1">'voice_url'</span><span class="p">:</span> <span class="n">payload</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'voice_url'</span><span class="p">),</span>
             <span class="s1">'emergency_status'</span><span class="p">:</span> <span class="n">payload</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'emergency_status'</span><span class="p">),</span>
             <span class="s1">'emergency_address_sid'</span><span class="p">:</span> <span class="n">payload</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'emergency_address_sid'</span><span class="p">),</span>
+            <span class="s1">'emergency_address_status'</span><span class="p">:</span> <span class="n">payload</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'emergency_address_status'</span><span class="p">),</span>
             <span class="s1">'bundle_sid'</span><span class="p">:</span> <span class="n">payload</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'bundle_sid'</span><span class="p">),</span>
             <span class="s1">'status'</span><span class="p">:</span> <span class="n">payload</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'status'</span><span class="p">),</span>
         <span class="p">}</span>
@@ -612,6 +621,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <span class="sd">        :rtype: unicode</span>
 <span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="p">[</span><span class="s1">'emergency_address_sid'</span><span class="p">]</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">emergency_address_status</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        :returns: State of the emergency address configuration for the phone number</span>
+<span class="sd">        :rtype: LocalInstance.EmergencyAddressStatus</span>
+<span class="sd">        """</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="p">[</span><span class="s1">'emergency_address_status'</span><span class="p">]</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">bundle_sid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>

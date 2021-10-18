@@ -3,6 +3,24 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2021-10-18] Version 7.2.0
+--------------------------
+**Library - Feature**
+- [PR #576](https://github.com/twilio/twilio-python/pull/576): Add PlaybackGrant. Thanks to [@sarahcstringer](https://github.com/sarahcstringer)!
+
+**Api**
+- Corrected enum values for `emergency_address_status` values in `/IncomingPhoneNumbers` response. **(breaking change)**
+- Clarify `emergency_address_status` values in `/IncomingPhoneNumbers` response.
+
+**Messaging**
+- Add PUT and List brand vettings api
+- Removes beta feature flag based visibility for us_app_to_person_registered and usecase field.Updates test cases to add POLITICAL usecase. **(breaking change)**
+- Add brand_feedback as optional field to BrandRegistrations
+
+**Video**
+- Add `AudioOnly` to create room
+
+
 [2021-10-06] Version 7.1.0
 --------------------------
 **Api**

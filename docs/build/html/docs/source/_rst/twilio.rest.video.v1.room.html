@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-MWRD6S');</script><!--End Google Tag Manager-->
 <meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<title>twilio.rest.video.v1.room package — twilio-python 7.1.0 documentation</title>
+<title>twilio.rest.video.v1.room package — twilio-python 7.2.0 documentation</title>
 <link href="../../../_static/alabaster.css" rel="stylesheet" type="text/css"/>
 <link href="../../../_static/pygments.css" rel="stylesheet" type="text/css"/>
 <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js" type="text/javascript"></script>
@@ -341,6 +341,20 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The SID of the Account that created the resource</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">unicode</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+<dl class="attribute">
+<dt id="twilio.rest.video.v1.room.RoomInstance.audio_only">
+<code class="descname">audio_only</code><a class="headerlink" href="#twilio.rest.video.v1.room.RoomInstance.audio_only" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Indicates whether the room will only contain audio track participants for group rooms.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)">bool</a></td>
 </tr>
 </tbody>
 </table>
@@ -681,7 +695,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <dd><p>Bases: <a class="reference internal" href="twilio.base.html#twilio.base.list_resource.ListResource" title="twilio.base.list_resource.ListResource"><code class="xref py py-class docutils literal notranslate"><span class="pre">twilio.base.list_resource.ListResource</span></code></a></p>
 <dl class="method">
 <dt id="twilio.rest.video.v1.room.RoomList.create">
-<code class="descname">create</code><span class="sig-paren">(</span><em>enable_turn=&lt;object object&gt;</em>, <em>type=&lt;object object&gt;</em>, <em>unique_name=&lt;object object&gt;</em>, <em>status_callback=&lt;object object&gt;</em>, <em>status_callback_method=&lt;object object&gt;</em>, <em>max_participants=&lt;object object&gt;</em>, <em>record_participants_on_connect=&lt;object object&gt;</em>, <em>video_codecs=&lt;object object&gt;</em>, <em>media_region=&lt;object object&gt;</em>, <em>recording_rules=&lt;object object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/video/v1/room.html#RoomList.create"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.video.v1.room.RoomList.create" title="Permalink to this definition">¶</a></dt>
+<code class="descname">create</code><span class="sig-paren">(</span><em>enable_turn=&lt;object object&gt;</em>, <em>type=&lt;object object&gt;</em>, <em>unique_name=&lt;object object&gt;</em>, <em>status_callback=&lt;object object&gt;</em>, <em>status_callback_method=&lt;object object&gt;</em>, <em>max_participants=&lt;object object&gt;</em>, <em>record_participants_on_connect=&lt;object object&gt;</em>, <em>video_codecs=&lt;object object&gt;</em>, <em>media_region=&lt;object object&gt;</em>, <em>recording_rules=&lt;object object&gt;</em>, <em>audio_only=&lt;object object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/video/v1/room.html#RoomList.create"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.video.v1.room.RoomList.create" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create the RoomInstance</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name"/>
@@ -698,6 +712,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <li><strong>video_codecs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a><em>[</em><a class="reference internal" href="#twilio.rest.video.v1.room.RoomInstance.VideoCodec" title="twilio.rest.video.v1.room.RoomInstance.VideoCodec"><em>RoomInstance.VideoCodec</em></a><em>]</em>) – An array of the video codecs that are supported when publishing a track in the room</li>
 <li><strong>media_region</strong> (<em>unicode</em>) – The region for the media server in Group Rooms</li>
 <li><strong>recording_rules</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a>) – A collection of Recording Rules</li>
+<li><strong>audio_only</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Indicates whether the room will only contain audio track participants for group rooms.</li>
 </ul>
 </td>
 </tr>

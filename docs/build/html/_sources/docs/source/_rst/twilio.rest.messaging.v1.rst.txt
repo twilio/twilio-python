@@ -6,18 +6,11 @@ Subpackages
 
 .. toctree::
 
+    twilio.rest.messaging.v1.brand_registration
     twilio.rest.messaging.v1.service
 
 Submodules
 ----------
-
-twilio.rest.messaging.v1.brand\_registration module
----------------------------------------------------
-
-.. automodule:: twilio.rest.messaging.v1.brand_registration
-    :members:
-    :undoc-members:
-    :show-inheritance:
 
 twilio.rest.messaging.v1.deactivation module
 --------------------------------------------
