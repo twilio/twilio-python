@@ -71,6 +71,7 @@ class Client(object):
         self._insights = None
         self._ip_messaging = None
         self._lookups = None
+        self._media = None
         self._messaging = None
         self._monitor = None
         self._notify = None
@@ -328,6 +329,19 @@ class Client(object):
             from twilio.rest.lookups import Lookups
             self._lookups = Lookups(self)
         return self._lookups
+
+    @property
+    def media(self):
+        """
+        Access the Media Twilio Domain
+
+        :returns: Media Twilio Domain
+        :rtype: twilio.rest.media.Media
+        """
+        if self._media is None:
+            from twilio.rest.media import Media
+            self._media = Media(self)
+        return self._media
 
     @property
     def messaging(self):

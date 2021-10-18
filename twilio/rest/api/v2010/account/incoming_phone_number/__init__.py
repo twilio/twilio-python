@@ -512,6 +512,14 @@ class IncomingPhoneNumberInstance(InstanceResource):
         ACTIVE = "Active"
         INACTIVE = "Inactive"
 
+    class EmergencyAddressStatus(object):
+        REGISTERED = "registered"
+        UNREGISTERED = "unregistered"
+        PENDING_REGISTRATION = "pending-registration"
+        REGISTRATION_FAILURE = "registration-failure"
+        PENDING_UNREGISTRATION = "pending-unregistration"
+        UNREGISTRATION_FAILURE = "unregistration-failure"
+
     class VoiceReceiveMode(object):
         VOICE = "voice"
         FAX = "fax"
@@ -558,6 +566,7 @@ class IncomingPhoneNumberInstance(InstanceResource):
             'voice_url': payload.get('voice_url'),
             'emergency_status': payload.get('emergency_status'),
             'emergency_address_sid': payload.get('emergency_address_sid'),
+            'emergency_address_status': payload.get('emergency_address_status'),
             'bundle_sid': payload.get('bundle_sid'),
             'status': payload.get('status'),
         }
@@ -830,6 +839,14 @@ class IncomingPhoneNumberInstance(InstanceResource):
         :rtype: unicode
         """
         return self._properties['emergency_address_sid']
+
+    @property
+    def emergency_address_status(self):
+        """
+        :returns: State of the emergency address configuration for the phone number
+        :rtype: IncomingPhoneNumberInstance.EmergencyAddressStatus
+        """
+        return self._properties['emergency_address_status']
 
     @property
     def bundle_sid(self):

@@ -12,6 +12,7 @@ from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.page import Page
+from twilio.rest.messaging.v1.brand_registration.brand_vetting import BrandVettingList
 
 
 class BrandRegistrationList(ListResource):
@@ -229,6 +230,9 @@ class BrandRegistrationContext(InstanceContext):
         self._solution = {'sid': sid, }
         self._uri = '/a2p/BrandRegistrations/{sid}'.format(**self._solution)
 
+        # Dependents
+        self._brand_vettings = None
+
     def fetch(self):
         """
         Fetch the BrandRegistrationInstance
@@ -239,6 +243,18 @@ class BrandRegistrationContext(InstanceContext):
         payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return BrandRegistrationInstance(self._version, payload, sid=self._solution['sid'], )
+
+    @property
+    def brand_vettings(self):
+        """
+        Access the brand_vettings
+
+        :returns: twilio.rest.messaging.v1.brand_registration.brand_vetting.BrandVettingList
+        :rtype: twilio.rest.messaging.v1.brand_registration.brand_vetting.BrandVettingList
+        """
+        if self._brand_vettings is None:
+            self._brand_vettings = BrandVettingList(self._version, brand_sid=self._solution['sid'], )
+        return self._brand_vettings
 
     def __repr__(self):
         """
@@ -266,6 +282,13 @@ class BrandRegistrationInstance(InstanceResource):
         VERIFIED = "VERIFIED"
         VETTED_VERIFIED = "VETTED_VERIFIED"
 
+    class BrandFeedback(object):
+        TAX_ID = "TAX_ID"
+        STOCK_SYMBOL = "STOCK_SYMBOL"
+        NONPROFIT = "NONPROFIT"
+        GOVERNMENT_ENTITY = "GOVERNMENT_ENTITY"
+        OTHERS = "OTHERS"
+
     def __init__(self, version, payload, sid=None):
         """
         Initialize the BrandRegistrationInstance
@@ -289,11 +312,13 @@ class BrandRegistrationInstance(InstanceResource):
             'failure_reason': payload.get('failure_reason'),
             'url': payload.get('url'),
             'brand_score': deserialize.integer(payload.get('brand_score')),
+            'brand_feedback': payload.get('brand_feedback'),
             'identity_status': payload.get('identity_status'),
             'russell_3000': payload.get('russell_3000'),
             'tax_exempt_status': payload.get('tax_exempt_status'),
             'skip_automatic_sec_vet': payload.get('skip_automatic_sec_vet'),
             'mock': payload.get('mock'),
+            'links': payload.get('links'),
         }
 
         # Context
@@ -410,6 +435,14 @@ class BrandRegistrationInstance(InstanceResource):
         return self._properties['brand_score']
 
     @property
+    def brand_feedback(self):
+        """
+        :returns: Brand feedback
+        :rtype: list[BrandRegistrationInstance.BrandFeedback]
+        """
+        return self._properties['brand_feedback']
+
+    @property
     def identity_status(self):
         """
         :returns: Identity Status
@@ -449,6 +482,14 @@ class BrandRegistrationInstance(InstanceResource):
         """
         return self._properties['mock']
 
+    @property
+    def links(self):
+        """
+        :returns: The links
+        :rtype: unicode
+        """
+        return self._properties['links']
+
     def fetch(self):
         """
         Fetch the BrandRegistrationInstance
@@ -457,6 +498,16 @@ class BrandRegistrationInstance(InstanceResource):
         :rtype: twilio.rest.messaging.v1.brand_registration.BrandRegistrationInstance
         """
         return self._proxy.fetch()
+
+    @property
+    def brand_vettings(self):
+        """
+        Access the brand_vettings
+
+        :returns: twilio.rest.messaging.v1.brand_registration.brand_vetting.BrandVettingList
+        :rtype: twilio.rest.messaging.v1.brand_registration.brand_vetting.BrandVettingList
+        """
+        return self._proxy.brand_vettings
 
     def __repr__(self):
         """

@@ -45,7 +45,7 @@ class ServiceList(ListResource):
                smart_encoding=values.unset, scan_message_content=values.unset,
                fallback_to_long_code=values.unset, area_code_geomatch=values.unset,
                validity_period=values.unset, synchronous_validation=values.unset,
-               use_inbound_webhook_on_number=values.unset):
+               usecase=values.unset, use_inbound_webhook_on_number=values.unset):
         """
         Create the ServiceInstance
 
@@ -63,6 +63,7 @@ class ServiceList(ListResource):
         :param bool area_code_geomatch: Whether to enable Area Code Geomatch on the Service Instance
         :param unicode validity_period: How long, in seconds, messages sent from the Service are valid
         :param bool synchronous_validation: Reserved
+        :param unicode usecase: A string describing the scenario in which the Messaging Service will be used
         :param bool use_inbound_webhook_on_number: If enabled, the webhook url configured on the phone number will be used and will override the `inbound_request_url`/`fallback_url` url called when an inbound message is received.
 
         :returns: The created ServiceInstance
@@ -83,6 +84,7 @@ class ServiceList(ListResource):
             'AreaCodeGeomatch': area_code_geomatch,
             'ValidityPeriod': validity_period,
             'SynchronousValidation': synchronous_validation,
+            'Usecase': usecase,
             'UseInboundWebhookOnNumber': use_inbound_webhook_on_number,
         })
 
@@ -273,7 +275,7 @@ class ServiceContext(InstanceContext):
                smart_encoding=values.unset, scan_message_content=values.unset,
                fallback_to_long_code=values.unset, area_code_geomatch=values.unset,
                validity_period=values.unset, synchronous_validation=values.unset,
-               use_inbound_webhook_on_number=values.unset):
+               usecase=values.unset, use_inbound_webhook_on_number=values.unset):
         """
         Update the ServiceInstance
 
@@ -291,6 +293,7 @@ class ServiceContext(InstanceContext):
         :param bool area_code_geomatch: Whether to enable Area Code Geomatch on the Service Instance
         :param unicode validity_period: How long, in seconds, messages sent from the Service are valid
         :param bool synchronous_validation: Reserved
+        :param unicode usecase: A string describing the scenario in which the Messaging Service will be used
         :param bool use_inbound_webhook_on_number: If enabled, the webhook url configured on the phone number will be used and will override the `inbound_request_url`/`fallback_url` url called when an inbound message is received.
 
         :returns: The updated ServiceInstance
@@ -311,6 +314,7 @@ class ServiceContext(InstanceContext):
             'AreaCodeGeomatch': area_code_geomatch,
             'ValidityPeriod': validity_period,
             'SynchronousValidation': synchronous_validation,
+            'Usecase': usecase,
             'UseInboundWebhookOnNumber': use_inbound_webhook_on_number,
         })
 
@@ -455,6 +459,8 @@ class ServiceInstance(InstanceResource):
             'validity_period': deserialize.integer(payload.get('validity_period')),
             'url': payload.get('url'),
             'links': payload.get('links'),
+            'usecase': payload.get('usecase'),
+            'us_app_to_person_registered': payload.get('us_app_to_person_registered'),
             'use_inbound_webhook_on_number': payload.get('use_inbound_webhook_on_number'),
         }
 
@@ -636,6 +642,22 @@ class ServiceInstance(InstanceResource):
         return self._properties['links']
 
     @property
+    def usecase(self):
+        """
+        :returns: A string describing the scenario in which the Messaging Service will be used
+        :rtype: unicode
+        """
+        return self._properties['usecase']
+
+    @property
+    def us_app_to_person_registered(self):
+        """
+        :returns: Whether US A2P campaign is registered for this Service.
+        :rtype: bool
+        """
+        return self._properties['us_app_to_person_registered']
+
+    @property
     def use_inbound_webhook_on_number(self):
         """
         :returns: If enabled, the webhook url configured on the phone number will be used and will override the `inbound_request_url`/`fallback_url` url called when an inbound message is received.
@@ -650,7 +672,7 @@ class ServiceInstance(InstanceResource):
                smart_encoding=values.unset, scan_message_content=values.unset,
                fallback_to_long_code=values.unset, area_code_geomatch=values.unset,
                validity_period=values.unset, synchronous_validation=values.unset,
-               use_inbound_webhook_on_number=values.unset):
+               usecase=values.unset, use_inbound_webhook_on_number=values.unset):
         """
         Update the ServiceInstance
 
@@ -668,6 +690,7 @@ class ServiceInstance(InstanceResource):
         :param bool area_code_geomatch: Whether to enable Area Code Geomatch on the Service Instance
         :param unicode validity_period: How long, in seconds, messages sent from the Service are valid
         :param bool synchronous_validation: Reserved
+        :param unicode usecase: A string describing the scenario in which the Messaging Service will be used
         :param bool use_inbound_webhook_on_number: If enabled, the webhook url configured on the phone number will be used and will override the `inbound_request_url`/`fallback_url` url called when an inbound message is received.
 
         :returns: The updated ServiceInstance
@@ -688,6 +711,7 @@ class ServiceInstance(InstanceResource):
             area_code_geomatch=area_code_geomatch,
             validity_period=validity_period,
             synchronous_validation=synchronous_validation,
+            usecase=usecase,
             use_inbound_webhook_on_number=use_inbound_webhook_on_number,
         )
 
