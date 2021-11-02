@@ -1,0 +1,22 @@
+twilio.rest.media.v1.player\_streamer package
+=============================================
+
+Submodules
+----------
+
+twilio.rest.media.v1.player\_streamer.playback\_grant module
+------------------------------------------------------------
+
+.. automodule:: twilio.rest.media.v1.player_streamer.playback_grant
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: twilio.rest.media.v1.player_streamer
+    :members:
+    :undoc-members:
+    :show-inheritance:

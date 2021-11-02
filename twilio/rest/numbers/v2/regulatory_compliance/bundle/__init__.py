@@ -12,8 +12,10 @@ from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.page import Page
+from twilio.rest.numbers.v2.regulatory_compliance.bundle.bundle_copy import BundleCopyList
 from twilio.rest.numbers.v2.regulatory_compliance.bundle.evaluation import EvaluationList
 from twilio.rest.numbers.v2.regulatory_compliance.bundle.item_assignment import ItemAssignmentList
+from twilio.rest.numbers.v2.regulatory_compliance.bundle.replace_items import ReplaceItemsList
 
 
 class BundleList(ListResource):
@@ -277,6 +279,8 @@ class BundleContext(InstanceContext):
         # Dependents
         self._evaluations = None
         self._item_assignments = None
+        self._bundle_copies = None
+        self._replace_items = None
 
     def fetch(self):
         """
@@ -345,6 +349,30 @@ class BundleContext(InstanceContext):
         if self._item_assignments is None:
             self._item_assignments = ItemAssignmentList(self._version, bundle_sid=self._solution['sid'], )
         return self._item_assignments
+
+    @property
+    def bundle_copies(self):
+        """
+        Access the bundle_copies
+
+        :returns: twilio.rest.numbers.v2.regulatory_compliance.bundle.bundle_copy.BundleCopyList
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.bundle_copy.BundleCopyList
+        """
+        if self._bundle_copies is None:
+            self._bundle_copies = BundleCopyList(self._version, bundle_sid=self._solution['sid'], )
+        return self._bundle_copies
+
+    @property
+    def replace_items(self):
+        """
+        Access the replace_items
+
+        :returns: twilio.rest.numbers.v2.regulatory_compliance.bundle.replace_items.ReplaceItemsList
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.replace_items.ReplaceItemsList
+        """
+        if self._replace_items is None:
+            self._replace_items = ReplaceItemsList(self._version, bundle_sid=self._solution['sid'], )
+        return self._replace_items
 
     def __repr__(self):
         """
@@ -566,6 +594,26 @@ class BundleInstance(InstanceResource):
         :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.item_assignment.ItemAssignmentList
         """
         return self._proxy.item_assignments
+
+    @property
+    def bundle_copies(self):
+        """
+        Access the bundle_copies
+
+        :returns: twilio.rest.numbers.v2.regulatory_compliance.bundle.bundle_copy.BundleCopyList
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.bundle_copy.BundleCopyList
+        """
+        return self._proxy.bundle_copies
+
+    @property
+    def replace_items(self):
+        """
+        Access the replace_items
+
+        :returns: twilio.rest.numbers.v2.regulatory_compliance.bundle.replace_items.ReplaceItemsList
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.replace_items.ReplaceItemsList
+        """
+        return self._proxy.replace_items
 
     def __repr__(self):
         """

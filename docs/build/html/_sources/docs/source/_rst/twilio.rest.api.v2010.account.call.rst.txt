@@ -52,6 +52,14 @@ twilio.rest.api.v2010.account.call.recording module
     :undoc-members:
     :show-inheritance:
 
+twilio.rest.api.v2010.account.call.siprec module
+------------------------------------------------
+
+.. automodule:: twilio.rest.api.v2010.account.call.siprec
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 
 Module contents
 ---------------

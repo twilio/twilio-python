@@ -127,7 +127,9 @@ class NotificationContext(InstanceContext):
                added_to_conversation_sound=values.unset,
                removed_from_conversation_enabled=values.unset,
                removed_from_conversation_template=values.unset,
-               removed_from_conversation_sound=values.unset):
+               removed_from_conversation_sound=values.unset,
+               new_message_with_media_enabled=values.unset,
+               new_message_with_media_template=values.unset):
         """
         Update the NotificationInstance
 
@@ -142,6 +144,8 @@ class NotificationContext(InstanceContext):
         :param bool removed_from_conversation_enabled: Whether to send a notification to a user when they are removed from a conversation.
         :param unicode removed_from_conversation_template: The template to use to create the notification text displayed to a user when they are removed.
         :param unicode removed_from_conversation_sound: The name of the sound to play to a user when they are removed from a conversation.
+        :param bool new_message_with_media_enabled: Whether to send a notification when a new message with media/file attachments is added to a conversation.
+        :param unicode new_message_with_media_template: The template to use to create the notification text displayed when a new message with media/file attachments is added to a conversation.
 
         :returns: The updated NotificationInstance
         :rtype: twilio.rest.conversations.v1.service.configuration.notification.NotificationInstance
@@ -158,6 +162,8 @@ class NotificationContext(InstanceContext):
             'RemovedFromConversation.Enabled': removed_from_conversation_enabled,
             'RemovedFromConversation.Template': removed_from_conversation_template,
             'RemovedFromConversation.Sound': removed_from_conversation_sound,
+            'NewMessage.WithMedia.Enabled': new_message_with_media_enabled,
+            'NewMessage.WithMedia.Template': new_message_with_media_template,
         })
 
         payload = self._version.update(method='POST', uri=self._uri, data=data, )
@@ -300,7 +306,9 @@ class NotificationInstance(InstanceResource):
                added_to_conversation_sound=values.unset,
                removed_from_conversation_enabled=values.unset,
                removed_from_conversation_template=values.unset,
-               removed_from_conversation_sound=values.unset):
+               removed_from_conversation_sound=values.unset,
+               new_message_with_media_enabled=values.unset,
+               new_message_with_media_template=values.unset):
         """
         Update the NotificationInstance
 
@@ -315,6 +323,8 @@ class NotificationInstance(InstanceResource):
         :param bool removed_from_conversation_enabled: Whether to send a notification to a user when they are removed from a conversation.
         :param unicode removed_from_conversation_template: The template to use to create the notification text displayed to a user when they are removed.
         :param unicode removed_from_conversation_sound: The name of the sound to play to a user when they are removed from a conversation.
+        :param bool new_message_with_media_enabled: Whether to send a notification when a new message with media/file attachments is added to a conversation.
+        :param unicode new_message_with_media_template: The template to use to create the notification text displayed when a new message with media/file attachments is added to a conversation.
 
         :returns: The updated NotificationInstance
         :rtype: twilio.rest.conversations.v1.service.configuration.notification.NotificationInstance
@@ -331,6 +341,8 @@ class NotificationInstance(InstanceResource):
             removed_from_conversation_enabled=removed_from_conversation_enabled,
             removed_from_conversation_template=removed_from_conversation_template,
             removed_from_conversation_sound=removed_from_conversation_sound,
+            new_message_with_media_enabled=new_message_with_media_enabled,
+            new_message_with_media_template=new_message_with_media_template,
         )
 
     def fetch(self):

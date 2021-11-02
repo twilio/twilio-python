@@ -1,0 +1,22 @@
+twilio.rest.messaging.v1.brand\_registration package
+====================================================
+
+Submodules
+----------
+
+twilio.rest.messaging.v1.brand\_registration.brand\_vetting module
+------------------------------------------------------------------
+
+.. automodule:: twilio.rest.messaging.v1.brand_registration.brand_vetting
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: twilio.rest.messaging.v1.brand_registration
+    :members:
+    :undoc-members:
+    :show-inheritance:

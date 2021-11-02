@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-MWRD6S');</script><!--End Google Tag Manager-->
 <meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<title>Upgrade Guide — twilio-python 6.62.1 documentation</title>
+<title>Upgrade Guide — twilio-python 7.2.0 documentation</title>
 <link href="_static/alabaster.css" rel="stylesheet" type="text/css"/>
 <link href="_static/pygments.css" rel="stylesheet" type="text/css"/>
 <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js" type="text/javascript"></script>
@@ -29,8 +29,64 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <div class="body" role="main">
 <div class="section" id="upgrade-guide">
 <h1>Upgrade Guide<a class="headerlink" href="#upgrade-guide" title="Permalink to this headline">¶</a></h1>
-<p><em>After <code class="docutils literal notranslate"><span class="pre">6.0.0</span></code> all <code class="docutils literal notranslate"><span class="pre">MINOR</span></code> and <code class="docutils literal notranslate"><span class="pre">MAJOR</span></code> version bumps will have upgrade notes
+<p><em><code class="docutils literal notranslate"><span class="pre">MAJOR</span></code> version bumps will have upgrade notes
 posted here.</em></p>
+<div class="section" id="x-x-to-7-x-x">
+<h2>[2021-09-22] 6.x.x to 7.x.x<a class="headerlink" href="#x-x-to-7-x-x" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="overview">
+<h3>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h3>
+<p>Version <code class="docutils literal notranslate"><span class="pre">7.x.x</span></code> is the first version that officially drops support for Python versions 2.7, 3.4, and 3.5.</p>
+<div class="section" id="removal-of-files-and-dependencies-that-were-added-to-support-python-2-7-3-4-and-3-5">
+<h4>Removal of files and dependencies that were added to support Python 2.7, 3.4, and 3.5:<a class="headerlink" href="#removal-of-files-and-dependencies-that-were-added-to-support-python-2-7-3-4-and-3-5" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/twilio/twilio-python/pull/560/files#diff-4d7c51b1efe9043e44439a949dfd92e5827321b34082903477fd04876edb7552L4">Six</a><ul>
+<li>Removed use of <code class="docutils literal notranslate"><span class="pre">u</span></code> a fake unicode literal</li>
+<li>Removed use of <code class="docutils literal notranslate"><span class="pre">b</span></code> a fake bytes literal</li>
+<li>Removed <code class="docutils literal notranslate"><span class="pre">PY3</span></code> a boolean indicating if the code is running on Python 3</li>
+<li><code class="docutils literal notranslate"><span class="pre">text_type</span></code> type for representing (Unicode) textual data –&gt; <code class="docutils literal notranslate"><span class="pre">str</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">iteritems</span></code> returns an iterator over dictionary’s items –&gt; <code class="docutils literal notranslate"><span class="pre">items</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">string_types</span></code> possible types for text data like basestring() in Python 2 and str in Python 3.–&gt; <code class="docutils literal notranslate"><span class="pre">str</span></code></li>
+</ul>
+</li>
+<li><a class="reference external" href="https://github.com/twilio/twilio-python/pull/560/files?file-filters%5B%5D=.md&amp;file-filters%5B%5D=.py&amp;file-filters%5B%5D=.toml&amp;file-filters%5B%5D=.txt&amp;file-filters%5B%5D=.yml&amp;file-filters%5B%5D=No+extension#diff-e327449701a8717c94e1a084cdfc7dbf334c634cddf3867058b8f991d2de52c1L1">twilio/compat.py</a><ul>
+<li><code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">twilio.compat</span> <span class="pre">import</span> <span class="pre">urlencode</span></code> –&gt; <code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">urllib.parse</span> <span class="pre">import</span> <span class="pre">urlencode</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">izip</span></code> –&gt; <code class="docutils literal notranslate"><span class="pre">zip</span></code></li>
+</ul>
+</li>
+<li><a class="reference external" href="https://github.com/twilio/twilio-python/pull/560/files?file-filters%5B%5D=.md&amp;file-filters%5B%5D=.py&amp;file-filters%5B%5D=.toml&amp;file-filters%5B%5D=.txt&amp;file-filters%5B%5D=.yml&amp;file-filters%5B%5D=No+extension#diff-03276a6bdd4ecdf37ab6bedf60032dd05f640e1b470e4353badc787d80ba73d5L1">twilio/jwt/compat.py</a><ul>
+<li>Removed <code class="docutils literal notranslate"><span class="pre">compat.compare_digest</span></code></li>
+</ul>
+</li>
+<li><a class="reference external" href="https://github.com/twilio/twilio-python/pull/560/files?file-filters%5B%5D=.ini&amp;file-filters%5B%5D=.py&amp;file-filters%5B%5D=.yml#diff-9152dd65476e69cc34a307781d5cef195070f48da5670ed0934fd34a9ac91150L12-L16">twilio/jwt/<strong>init</strong>.py</a><ul>
+<li>Removed import for <code class="docutils literal notranslate"><span class="pre">simplejson</span></code> and <code class="docutils literal notranslate"><span class="pre">json</span></code></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="updated-dependencies">
+<h4>Updated dependencies<a class="headerlink" href="#updated-dependencies" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/twilio/twilio-python/pull/560/files#diff-4d7c51b1efe9043e44439a949dfd92e5827321b34082903477fd04876edb7552L6">Updated PyJWT to &gt;=2.0.0</a></li>
+</ul>
+</div>
+</div>
+<div class="section" id="changed-remove-the-ability-to-override-the-algorithm-in-jwt-to-jwt">
+<h3>CHANGED - <a class="reference external" href="https://github.com/twilio/twilio-python/pull/560/commits/dab158f429015e0894217d6503f55b517c27c474">Remove the ability to override the <code class="docutils literal notranslate"><span class="pre">algorithm</span></code> in <code class="docutils literal notranslate"><span class="pre">Jwt.to_jwt()</span></code></a>.<a class="headerlink" href="#changed-remove-the-ability-to-override-the-algorithm-in-jwt-to-jwt" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="removed-the-ability-to-override-the-algorithm-while-using-a-jwt-access-token">
+<h4>Removed the ability to override the algorithm while using a jwt access token:<a class="headerlink" href="#removed-the-ability-to-override-the-algorithm-while-using-a-jwt-access-token" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="o">//</span> <span class="mf">6.</span><span class="n">x</span><span class="o">.</span><span class="n">x</span>
+<span class="kn">from</span> <span class="nn">twilio.jwt.access_token</span> <span class="kn">import</span> <span class="n">AccessToken</span>
+<span class="n">token</span><span class="o">.</span><span class="n">to_jwt</span><span class="p">(</span><span class="n">algorithm</span><span class="o">=</span><span class="s1">'HS512'</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="o">//</span> <span class="mf">7.</span><span class="n">x</span><span class="o">.</span><span class="n">x</span>
+<span class="kn">from</span> <span class="nn">twilio.jwt.access_token</span> <span class="kn">import</span> <span class="n">AccessToken</span>
+<span class="n">token</span><span class="o">.</span><span class="n">to_jwt</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
 <div class="section" id="x-to-6-7-x">
 <h2>[2017-09-28] 6.6.x to 6.7.x<a class="headerlink" href="#x-to-6-7-x" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="changed-body-parameter-on-chat-message-creation-is-no-longer-required">
@@ -77,6 +133,18 @@ posted here.</em></p>
 <h3><a href="index.html">Table of Contents</a></h3>
 <ul>
 <li><a class="reference internal" href="#">Upgrade Guide</a><ul>
+<li><a class="reference internal" href="#x-x-to-7-x-x">[2021-09-22] 6.x.x to 7.x.x</a><ul>
+<li><a class="reference internal" href="#overview">Overview</a><ul>
+<li><a class="reference internal" href="#removal-of-files-and-dependencies-that-were-added-to-support-python-2-7-3-4-and-3-5">Removal of files and dependencies that were added to support Python 2.7, 3.4, and 3.5:</a></li>
+<li><a class="reference internal" href="#updated-dependencies">Updated dependencies</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#changed-remove-the-ability-to-override-the-algorithm-in-jwt-to-jwt">CHANGED - Remove the ability to override the <code class="docutils literal notranslate"><span class="pre">algorithm</span></code> in <code class="docutils literal notranslate"><span class="pre">Jwt.to_jwt()</span></code>.</a><ul>
+<li><a class="reference internal" href="#removed-the-ability-to-override-the-algorithm-while-using-a-jwt-access-token">Removed the ability to override the algorithm while using a jwt access token:</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li><a class="reference internal" href="#x-to-6-7-x">[2017-09-28] 6.6.x to 6.7.x</a><ul>
 <li><a class="reference internal" href="#changed-body-parameter-on-chat-message-creation-is-no-longer-required">CHANGED - <code class="docutils literal notranslate"><span class="pre">Body</span></code> parameter on Chat <code class="docutils literal notranslate"><span class="pre">Message</span></code> creation is no longer required.</a><ul>
 <li><a class="reference internal" href="#rationale">Rationale</a></li>

@@ -328,6 +328,7 @@ class SinkInstance(InstanceResource):
     class SinkType(object):
         KINESIS = "kinesis"
         WEBHOOK = "webhook"
+        SEGMENT = "segment"
 
     def __init__(self, version, payload, sid=None):
         """

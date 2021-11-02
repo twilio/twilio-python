@@ -20,6 +20,9 @@ class AccessTokenGrant(object):
 
 class AccessToken(Jwt):
     """Access Token containing one or more AccessTokenGrants used to access Twilio Resources"""
+
+    ALGORITHM = 'HS256'
+
     def __init__(self, account_sid, signing_key_sid, secret, grants=None,
                  identity=None, nbf=Jwt.GENERATE, ttl=3600, valid_until=None, region=None):
         grants = grants or []
@@ -33,7 +36,7 @@ class AccessToken(Jwt):
         self.grants = grants
         super(AccessToken, self).__init__(
             secret_key=secret,
-            algorithm='HS256',
+            algorithm=self.ALGORITHM,
             issuer=signing_key_sid,
             subject=self.account_sid,
             nbf=nbf,

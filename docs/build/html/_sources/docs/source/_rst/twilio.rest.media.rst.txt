@@ -1,0 +1,17 @@
+twilio.rest.media package
+=========================
+
+Subpackages
+-----------
+
+.. toctree::
+
+    twilio.rest.media.v1
+
+Module contents
+---------------
+
+.. automodule:: twilio.rest.media
+    :members:
+    :undoc-members:
+    :show-inheritance:

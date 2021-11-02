@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-MWRD6S');</script><!--End Google Tag Manager-->
 <meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<title>twilio.rest.messaging.v1.brand_registration — twilio-python 6.62.1 documentation</title>
+<title>twilio.rest.messaging.v1.brand_registration — twilio-python 7.2.0 documentation</title>
 <link href="../../../../../_static/alabaster.css" rel="stylesheet" type="text/css"/>
 <link href="../../../../../_static/pygments.css" rel="stylesheet" type="text/css"/>
 <script data-url_root="../../../../../" id="documentation_options" src="../../../../../_static/documentation_options.js" type="text/javascript"></script>
@@ -42,9 +42,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <span class="kn">from</span> <span class="nn">twilio.base.instance_resource</span> <span class="kn">import</span> <span class="n">InstanceResource</span>
 <span class="kn">from</span> <span class="nn">twilio.base.list_resource</span> <span class="kn">import</span> <span class="n">ListResource</span>
 <span class="kn">from</span> <span class="nn">twilio.base.page</span> <span class="kn">import</span> <span class="n">Page</span>
+<span class="kn">from</span> <span class="nn">twilio.rest.messaging.v1.brand_registration.brand_vetting</span> <span class="kn">import</span> <span class="n">BrandVettingList</span>
 
 
-<div class="viewcode-block" id="BrandRegistrationList"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.messaging.v1.html#twilio.rest.messaging.v1.brand_registration.BrandRegistrationList">[docs]</a><span class="k">class</span> <span class="nc">BrandRegistrationList</span><span class="p">(</span><span class="n">ListResource</span><span class="p">):</span>
+<div class="viewcode-block" id="BrandRegistrationList"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.messaging.v1.brand_registration.html#twilio.rest.messaging.v1.brand_registration.BrandRegistrationList">[docs]</a><span class="k">class</span> <span class="nc">BrandRegistrationList</span><span class="p">(</span><span class="n">ListResource</span><span class="p">):</span>
     <span class="sd">""" PLEASE NOTE that this class contains beta products that are subject to</span>
 <span class="sd">    change. Use them with caution. """</span>
 
@@ -63,7 +64,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="bp">self</span><span class="o">.</span><span class="n">_solution</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_uri</span> <span class="o">=</span> <span class="s1">'/a2p/BrandRegistrations'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">_solution</span><span class="p">)</span>
 
-<div class="viewcode-block" id="BrandRegistrationList.stream"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.messaging.v1.html#twilio.rest.messaging.v1.brand_registration.BrandRegistrationList.stream">[docs]</a>    <span class="k">def</span> <span class="nf">stream</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">page_size</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="BrandRegistrationList.stream"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.messaging.v1.brand_registration.html#twilio.rest.messaging.v1.brand_registration.BrandRegistrationList.stream">[docs]</a>    <span class="k">def</span> <span class="nf">stream</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">page_size</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">"""</span>
 <span class="sd">        Streams BrandRegistrationInstance records from the API as a generator stream.</span>
 <span class="sd">        This operation lazily loads records as efficiently as possible until the limit</span>
@@ -86,7 +87,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_version</span><span class="o">.</span><span class="n">stream</span><span class="p">(</span><span class="n">page</span><span class="p">,</span> <span class="n">limits</span><span class="p">[</span><span class="s1">'limit'</span><span class="p">])</span></div>
 
-<div class="viewcode-block" id="BrandRegistrationList.list"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.messaging.v1.html#twilio.rest.messaging.v1.brand_registration.BrandRegistrationList.list">[docs]</a>    <span class="k">def</span> <span class="nf">list</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">page_size</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="BrandRegistrationList.list"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.messaging.v1.brand_registration.html#twilio.rest.messaging.v1.brand_registration.BrandRegistrationList.list">[docs]</a>    <span class="k">def</span> <span class="nf">list</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">page_size</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">"""</span>
 <span class="sd">        Lists BrandRegistrationInstance records from the API as a list.</span>
 <span class="sd">        Unlike stream(), this operation is eager and will load `limit` records into</span>
@@ -104,7 +105,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <span class="sd">        """</span>
         <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stream</span><span class="p">(</span><span class="n">limit</span><span class="o">=</span><span class="n">limit</span><span class="p">,</span> <span class="n">page_size</span><span class="o">=</span><span class="n">page_size</span><span class="p">,</span> <span class="p">))</span></div>
 
-<div class="viewcode-block" id="BrandRegistrationList.page"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.messaging.v1.html#twilio.rest.messaging.v1.brand_registration.BrandRegistrationList.page">[docs]</a>    <span class="k">def</span> <span class="nf">page</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">page_token</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">page_number</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
+<div class="viewcode-block" id="BrandRegistrationList.page"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.messaging.v1.brand_registration.html#twilio.rest.messaging.v1.brand_registration.BrandRegistrationList.page">[docs]</a>    <span class="k">def</span> <span class="nf">page</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">page_token</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">page_number</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
              <span class="n">page_size</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">):</span>
         <span class="sd">"""</span>
 <span class="sd">        Retrieve a single page of BrandRegistrationInstance records from the API.</span>
@@ -123,7 +124,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
         <span class="k">return</span> <span class="n">BrandRegistrationPage</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_version</span><span class="p">,</span> <span class="n">response</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_solution</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="BrandRegistrationList.get_page"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.messaging.v1.html#twilio.rest.messaging.v1.brand_registration.BrandRegistrationList.get_page">[docs]</a>    <span class="k">def</span> <span class="nf">get_page</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target_url</span><span class="p">):</span>
+<div class="viewcode-block" id="BrandRegistrationList.get_page"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.messaging.v1.brand_registration.html#twilio.rest.messaging.v1.brand_registration.BrandRegistrationList.get_page">[docs]</a>    <span class="k">def</span> <span class="nf">get_page</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target_url</span><span class="p">):</span>
         <span class="sd">"""</span>
 <span class="sd">        Retrieve a specific page of BrandRegistrationInstance records from the API.</span>
 <span class="sd">        Request is executed immediately</span>
@@ -140,12 +141,17 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
         <span class="k">return</span> <span class="n">BrandRegistrationPage</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_version</span><span class="p">,</span> <span class="n">response</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_solution</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="BrandRegistrationList.create"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.messaging.v1.html#twilio.rest.messaging.v1.brand_registration.BrandRegistrationList.create">[docs]</a>    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">customer_profile_bundle_sid</span><span class="p">,</span> <span class="n">a2p_profile_bundle_sid</span><span class="p">):</span>
+<div class="viewcode-block" id="BrandRegistrationList.create"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.messaging.v1.brand_registration.html#twilio.rest.messaging.v1.brand_registration.BrandRegistrationList.create">[docs]</a>    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">customer_profile_bundle_sid</span><span class="p">,</span> <span class="n">a2p_profile_bundle_sid</span><span class="p">,</span>
+               <span class="n">brand_type</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">mock</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
+               <span class="n">skip_automatic_sec_vet</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">):</span>
         <span class="sd">"""</span>
 <span class="sd">        Create the BrandRegistrationInstance</span>
 
 <span class="sd">        :param unicode customer_profile_bundle_sid: Customer Profile Bundle Sid</span>
 <span class="sd">        :param unicode a2p_profile_bundle_sid: A2P Messaging Profile Bundle Sid</span>
+<span class="sd">        :param unicode brand_type: Type of brand being created. One of: "STANDARD", "STARTER".</span>
+<span class="sd">        :param bool mock: A boolean that specifies whether brand should be a mock or not. If true, brand will be registered as a mock brand. Defaults to false if no value is provided.</span>
+<span class="sd">        :param bool skip_automatic_sec_vet: Skip Automatic Secondary Vetting</span>
 
 <span class="sd">        :returns: The created BrandRegistrationInstance</span>
 <span class="sd">        :rtype: twilio.rest.messaging.v1.brand_registration.BrandRegistrationInstance</span>
@@ -153,13 +159,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="n">data</span> <span class="o">=</span> <span class="n">values</span><span class="o">.</span><span class="n">of</span><span class="p">({</span>
             <span class="s1">'CustomerProfileBundleSid'</span><span class="p">:</span> <span class="n">customer_profile_bundle_sid</span><span class="p">,</span>
             <span class="s1">'A2PProfileBundleSid'</span><span class="p">:</span> <span class="n">a2p_profile_bundle_sid</span><span class="p">,</span>
+            <span class="s1">'BrandType'</span><span class="p">:</span> <span class="n">brand_type</span><span class="p">,</span>
+            <span class="s1">'Mock'</span><span class="p">:</span> <span class="n">mock</span><span class="p">,</span>
+            <span class="s1">'SkipAutomaticSecVet'</span><span class="p">:</span> <span class="n">skip_automatic_sec_vet</span><span class="p">,</span>
         <span class="p">})</span>
 
         <span class="n">payload</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_version</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">'POST'</span><span class="p">,</span> <span class="n">uri</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_uri</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="p">)</span>
 
         <span class="k">return</span> <span class="n">BrandRegistrationInstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_version</span><span class="p">,</span> <span class="n">payload</span><span class="p">,</span> <span class="p">)</span></div>
 
-<div class="viewcode-block" id="BrandRegistrationList.get"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.messaging.v1.html#twilio.rest.messaging.v1.brand_registration.BrandRegistrationList.get">[docs]</a>    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sid</span><span class="p">):</span>
+<div class="viewcode-block" id="BrandRegistrationList.get"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.messaging.v1.brand_registration.html#twilio.rest.messaging.v1.brand_registration.BrandRegistrationList.get">[docs]</a>    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sid</span><span class="p">):</span>
         <span class="sd">"""</span>
 <span class="sd">        Constructs a BrandRegistrationContext</span>
 
@@ -191,7 +200,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="k">return</span> <span class="s1">'&lt;Twilio.Messaging.V1.BrandRegistrationList&gt;'</span></div>
 
 
-<div class="viewcode-block" id="BrandRegistrationPage"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.messaging.v1.html#twilio.rest.messaging.v1.brand_registration.BrandRegistrationPage">[docs]</a><span class="k">class</span> <span class="nc">BrandRegistrationPage</span><span class="p">(</span><span class="n">Page</span><span class="p">):</span>
+<div class="viewcode-block" id="BrandRegistrationPage"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.messaging.v1.brand_registration.html#twilio.rest.messaging.v1.brand_registration.BrandRegistrationPage">[docs]</a><span class="k">class</span> <span class="nc">BrandRegistrationPage</span><span class="p">(</span><span class="n">Page</span><span class="p">):</span>
     <span class="sd">""" PLEASE NOTE that this class contains beta products that are subject to</span>
 <span class="sd">    change. Use them with caution. """</span>
 
@@ -210,7 +219,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="c1"># Path Solution</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_solution</span> <span class="o">=</span> <span class="n">solution</span>
 
-<div class="viewcode-block" id="BrandRegistrationPage.get_instance"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.messaging.v1.html#twilio.rest.messaging.v1.brand_registration.BrandRegistrationPage.get_instance">[docs]</a>    <span class="k">def</span> <span class="nf">get_instance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">payload</span><span class="p">):</span>
+<div class="viewcode-block" id="BrandRegistrationPage.get_instance"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.messaging.v1.brand_registration.html#twilio.rest.messaging.v1.brand_registration.BrandRegistrationPage.get_instance">[docs]</a>    <span class="k">def</span> <span class="nf">get_instance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">payload</span><span class="p">):</span>
         <span class="sd">"""</span>
 <span class="sd">        Build an instance of BrandRegistrationInstance</span>
 
@@ -231,7 +240,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="k">return</span> <span class="s1">'&lt;Twilio.Messaging.V1.BrandRegistrationPage&gt;'</span></div>
 
 
-<div class="viewcode-block" id="BrandRegistrationContext"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.messaging.v1.html#twilio.rest.messaging.v1.brand_registration.BrandRegistrationContext">[docs]</a><span class="k">class</span> <span class="nc">BrandRegistrationContext</span><span class="p">(</span><span class="n">InstanceContext</span><span class="p">):</span>
+<div class="viewcode-block" id="BrandRegistrationContext"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.messaging.v1.brand_registration.html#twilio.rest.messaging.v1.brand_registration.BrandRegistrationContext">[docs]</a><span class="k">class</span> <span class="nc">BrandRegistrationContext</span><span class="p">(</span><span class="n">InstanceContext</span><span class="p">):</span>
     <span class="sd">""" PLEASE NOTE that this class contains beta products that are subject to</span>
 <span class="sd">    change. Use them with caution. """</span>
 
@@ -251,7 +260,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="bp">self</span><span class="o">.</span><span class="n">_solution</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'sid'</span><span class="p">:</span> <span class="n">sid</span><span class="p">,</span> <span class="p">}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_uri</span> <span class="o">=</span> <span class="s1">'/a2p/BrandRegistrations/</span><span class="si">{sid}</span><span class="s1">'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">_solution</span><span class="p">)</span>
 
-<div class="viewcode-block" id="BrandRegistrationContext.fetch"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.messaging.v1.html#twilio.rest.messaging.v1.brand_registration.BrandRegistrationContext.fetch">[docs]</a>    <span class="k">def</span> <span class="nf">fetch</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># Dependents</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_brand_vettings</span> <span class="o">=</span> <span class="kc">None</span>
+
+<div class="viewcode-block" id="BrandRegistrationContext.fetch"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.messaging.v1.brand_registration.html#twilio.rest.messaging.v1.brand_registration.BrandRegistrationContext.fetch">[docs]</a>    <span class="k">def</span> <span class="nf">fetch</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">"""</span>
 <span class="sd">        Fetch the BrandRegistrationInstance</span>
 
@@ -261,6 +273,18 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="n">payload</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_version</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">'GET'</span><span class="p">,</span> <span class="n">uri</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_uri</span><span class="p">,</span> <span class="p">)</span>
 
         <span class="k">return</span> <span class="n">BrandRegistrationInstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_version</span><span class="p">,</span> <span class="n">payload</span><span class="p">,</span> <span class="n">sid</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_solution</span><span class="p">[</span><span class="s1">'sid'</span><span class="p">],</span> <span class="p">)</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">brand_vettings</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Access the brand_vettings</span>
+
+<span class="sd">        :returns: twilio.rest.messaging.v1.brand_registration.brand_vetting.BrandVettingList</span>
+<span class="sd">        :rtype: twilio.rest.messaging.v1.brand_registration.brand_vetting.BrandVettingList</span>
+<span class="sd">        """</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_brand_vettings</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_brand_vettings</span> <span class="o">=</span> <span class="n">BrandVettingList</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_version</span><span class="p">,</span> <span class="n">brand_sid</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_solution</span><span class="p">[</span><span class="s1">'sid'</span><span class="p">],</span> <span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_brand_vettings</span>
 
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">"""</span>
@@ -273,14 +297,27 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="k">return</span> <span class="s1">'&lt;Twilio.Messaging.V1.BrandRegistrationContext </span><span class="si">{}</span><span class="s1">&gt;'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">context</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="BrandRegistrationInstance"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.messaging.v1.html#twilio.rest.messaging.v1.brand_registration.BrandRegistrationInstance">[docs]</a><span class="k">class</span> <span class="nc">BrandRegistrationInstance</span><span class="p">(</span><span class="n">InstanceResource</span><span class="p">):</span>
+<div class="viewcode-block" id="BrandRegistrationInstance"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.messaging.v1.brand_registration.html#twilio.rest.messaging.v1.brand_registration.BrandRegistrationInstance">[docs]</a><span class="k">class</span> <span class="nc">BrandRegistrationInstance</span><span class="p">(</span><span class="n">InstanceResource</span><span class="p">):</span>
     <span class="sd">""" PLEASE NOTE that this class contains beta products that are subject to</span>
 <span class="sd">    change. Use them with caution. """</span>
 
-<div class="viewcode-block" id="BrandRegistrationInstance.Status"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.messaging.v1.html#twilio.rest.messaging.v1.brand_registration.BrandRegistrationInstance.Status">[docs]</a>    <span class="k">class</span> <span class="nc">Status</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="BrandRegistrationInstance.Status"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.messaging.v1.brand_registration.html#twilio.rest.messaging.v1.brand_registration.BrandRegistrationInstance.Status">[docs]</a>    <span class="k">class</span> <span class="nc">Status</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
         <span class="n">PENDING</span> <span class="o">=</span> <span class="s2">"PENDING"</span>
         <span class="n">APPROVED</span> <span class="o">=</span> <span class="s2">"APPROVED"</span>
         <span class="n">FAILED</span> <span class="o">=</span> <span class="s2">"FAILED"</span></div>
+
+<div class="viewcode-block" id="BrandRegistrationInstance.IdentityStatus"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.messaging.v1.brand_registration.html#twilio.rest.messaging.v1.brand_registration.BrandRegistrationInstance.IdentityStatus">[docs]</a>    <span class="k">class</span> <span class="nc">IdentityStatus</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+        <span class="n">SELF_DECLARED</span> <span class="o">=</span> <span class="s2">"SELF_DECLARED"</span>
+        <span class="n">UNVERIFIED</span> <span class="o">=</span> <span class="s2">"UNVERIFIED"</span>
+        <span class="n">VERIFIED</span> <span class="o">=</span> <span class="s2">"VERIFIED"</span>
+        <span class="n">VETTED_VERIFIED</span> <span class="o">=</span> <span class="s2">"VETTED_VERIFIED"</span></div>
+
+<div class="viewcode-block" id="BrandRegistrationInstance.BrandFeedback"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.messaging.v1.brand_registration.html#twilio.rest.messaging.v1.brand_registration.BrandRegistrationInstance.BrandFeedback">[docs]</a>    <span class="k">class</span> <span class="nc">BrandFeedback</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+        <span class="n">TAX_ID</span> <span class="o">=</span> <span class="s2">"TAX_ID"</span>
+        <span class="n">STOCK_SYMBOL</span> <span class="o">=</span> <span class="s2">"STOCK_SYMBOL"</span>
+        <span class="n">NONPROFIT</span> <span class="o">=</span> <span class="s2">"NONPROFIT"</span>
+        <span class="n">GOVERNMENT_ENTITY</span> <span class="o">=</span> <span class="s2">"GOVERNMENT_ENTITY"</span>
+        <span class="n">OTHERS</span> <span class="o">=</span> <span class="s2">"OTHERS"</span></div>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">version</span><span class="p">,</span> <span class="n">payload</span><span class="p">,</span> <span class="n">sid</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">"""</span>
@@ -299,11 +336,19 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
             <span class="s1">'a2p_profile_bundle_sid'</span><span class="p">:</span> <span class="n">payload</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'a2p_profile_bundle_sid'</span><span class="p">),</span>
             <span class="s1">'date_created'</span><span class="p">:</span> <span class="n">deserialize</span><span class="o">.</span><span class="n">iso8601_datetime</span><span class="p">(</span><span class="n">payload</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'date_created'</span><span class="p">)),</span>
             <span class="s1">'date_updated'</span><span class="p">:</span> <span class="n">deserialize</span><span class="o">.</span><span class="n">iso8601_datetime</span><span class="p">(</span><span class="n">payload</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'date_updated'</span><span class="p">)),</span>
+            <span class="s1">'brand_type'</span><span class="p">:</span> <span class="n">payload</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'brand_type'</span><span class="p">),</span>
             <span class="s1">'status'</span><span class="p">:</span> <span class="n">payload</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'status'</span><span class="p">),</span>
             <span class="s1">'tcr_id'</span><span class="p">:</span> <span class="n">payload</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'tcr_id'</span><span class="p">),</span>
             <span class="s1">'failure_reason'</span><span class="p">:</span> <span class="n">payload</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'failure_reason'</span><span class="p">),</span>
             <span class="s1">'url'</span><span class="p">:</span> <span class="n">payload</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'url'</span><span class="p">),</span>
             <span class="s1">'brand_score'</span><span class="p">:</span> <span class="n">deserialize</span><span class="o">.</span><span class="n">integer</span><span class="p">(</span><span class="n">payload</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'brand_score'</span><span class="p">)),</span>
+            <span class="s1">'brand_feedback'</span><span class="p">:</span> <span class="n">payload</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'brand_feedback'</span><span class="p">),</span>
+            <span class="s1">'identity_status'</span><span class="p">:</span> <span class="n">payload</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'identity_status'</span><span class="p">),</span>
+            <span class="s1">'russell_3000'</span><span class="p">:</span> <span class="n">payload</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'russell_3000'</span><span class="p">),</span>
+            <span class="s1">'tax_exempt_status'</span><span class="p">:</span> <span class="n">payload</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'tax_exempt_status'</span><span class="p">),</span>
+            <span class="s1">'skip_automatic_sec_vet'</span><span class="p">:</span> <span class="n">payload</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'skip_automatic_sec_vet'</span><span class="p">),</span>
+            <span class="s1">'mock'</span><span class="p">:</span> <span class="n">payload</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'mock'</span><span class="p">),</span>
+            <span class="s1">'links'</span><span class="p">:</span> <span class="n">payload</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'links'</span><span class="p">),</span>
         <span class="p">}</span>
 
         <span class="c1"># Context</span>
@@ -372,6 +417,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="p">[</span><span class="s1">'date_updated'</span><span class="p">]</span>
 
     <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">brand_type</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        :returns: Type of brand. One of: "STANDARD", "STARTER".</span>
+<span class="sd">        :rtype: unicode</span>
+<span class="sd">        """</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="p">[</span><span class="s1">'brand_type'</span><span class="p">]</span>
+
+    <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">status</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">"""</span>
 <span class="sd">        :returns: Brand Registration status</span>
@@ -411,7 +464,63 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="p">[</span><span class="s1">'brand_score'</span><span class="p">]</span>
 
-<div class="viewcode-block" id="BrandRegistrationInstance.fetch"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.messaging.v1.html#twilio.rest.messaging.v1.brand_registration.BrandRegistrationInstance.fetch">[docs]</a>    <span class="k">def</span> <span class="nf">fetch</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">brand_feedback</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        :returns: Brand feedback</span>
+<span class="sd">        :rtype: list[BrandRegistrationInstance.BrandFeedback]</span>
+<span class="sd">        """</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="p">[</span><span class="s1">'brand_feedback'</span><span class="p">]</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">identity_status</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        :returns: Identity Status</span>
+<span class="sd">        :rtype: BrandRegistrationInstance.IdentityStatus</span>
+<span class="sd">        """</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="p">[</span><span class="s1">'identity_status'</span><span class="p">]</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">russell_3000</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        :returns: Russell 3000</span>
+<span class="sd">        :rtype: bool</span>
+<span class="sd">        """</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="p">[</span><span class="s1">'russell_3000'</span><span class="p">]</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">tax_exempt_status</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        :returns: Tax Exempt Status</span>
+<span class="sd">        :rtype: unicode</span>
+<span class="sd">        """</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="p">[</span><span class="s1">'tax_exempt_status'</span><span class="p">]</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">skip_automatic_sec_vet</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        :returns: Skip Automatic Secondary Vetting</span>
+<span class="sd">        :rtype: bool</span>
+<span class="sd">        """</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="p">[</span><span class="s1">'skip_automatic_sec_vet'</span><span class="p">]</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">mock</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        :returns: A boolean that specifies whether brand should be a mock or not. If true, brand will be registered as a mock brand. Defaults to false if no value is provided.</span>
+<span class="sd">        :rtype: bool</span>
+<span class="sd">        """</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="p">[</span><span class="s1">'mock'</span><span class="p">]</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">links</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        :returns: The links</span>
+<span class="sd">        :rtype: unicode</span>
+<span class="sd">        """</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="p">[</span><span class="s1">'links'</span><span class="p">]</span>
+
+<div class="viewcode-block" id="BrandRegistrationInstance.fetch"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.messaging.v1.brand_registration.html#twilio.rest.messaging.v1.brand_registration.BrandRegistrationInstance.fetch">[docs]</a>    <span class="k">def</span> <span class="nf">fetch</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">"""</span>
 <span class="sd">        Fetch the BrandRegistrationInstance</span>
 
@@ -419,6 +528,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <span class="sd">        :rtype: twilio.rest.messaging.v1.brand_registration.BrandRegistrationInstance</span>
 <span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_proxy</span><span class="o">.</span><span class="n">fetch</span><span class="p">()</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">brand_vettings</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Access the brand_vettings</span>
+
+<span class="sd">        :returns: twilio.rest.messaging.v1.brand_registration.brand_vetting.BrandVettingList</span>
+<span class="sd">        :rtype: twilio.rest.messaging.v1.brand_registration.brand_vetting.BrandVettingList</span>
+<span class="sd">        """</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_proxy</span><span class="o">.</span><span class="n">brand_vettings</span>
 
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">"""</span>

@@ -8,6 +8,26 @@ Subpackages
 
     twilio.rest.pricing.v2.voice
 
+Submodules
+----------
+
+twilio.rest.pricing.v2.country module
+-------------------------------------
+
+.. automodule:: twilio.rest.pricing.v2.country
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+twilio.rest.pricing.v2.number module
+------------------------------------
+
+.. automodule:: twilio.rest.pricing.v2.number
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
 Module contents
 ---------------
 

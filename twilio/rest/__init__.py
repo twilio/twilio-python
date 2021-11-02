@@ -11,11 +11,11 @@ import platform
 from twilio import __version__
 from twilio.base.exceptions import TwilioException
 from twilio.base.obsolete import obsolete_client
-from twilio.compat import (
+from twilio.http.http_client import TwilioHttpClient
+from urllib.parse import (
     urlparse,
     urlunparse,
 )
-from twilio.http.http_client import TwilioHttpClient
 
 
 class Client(object):
@@ -71,6 +71,7 @@ class Client(object):
         self._insights = None
         self._ip_messaging = None
         self._lookups = None
+        self._media = None
         self._messaging = None
         self._monitor = None
         self._notify = None
@@ -328,6 +329,19 @@ class Client(object):
             from twilio.rest.lookups import Lookups
             self._lookups = Lookups(self)
         return self._lookups
+
+    @property
+    def media(self):
+        """
+        Access the Media Twilio Domain
+
+        :returns: Media Twilio Domain
+        :rtype: twilio.rest.media.Media
+        """
+        if self._media is None:
+            from twilio.rest.media import Media
+            self._media = Media(self)
+        return self._media
 
     @property
     def messaging(self):

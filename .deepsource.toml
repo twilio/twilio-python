@@ -2,14 +2,11 @@ version = 1
 
 exclude_patterns = [
   'examples/**',
-  
+
   # auto-generated files
   'twilio/rest/**',
   'twilio/twiml/**',
   'tests/integration/**',
-  
-  # compat files
-  'twilio/compat.py',
 ]
 
 test_patterns = [

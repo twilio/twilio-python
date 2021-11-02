@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-MWRD6S');</script><!--End Google Tag Manager-->
 <meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<title>twilio.jwt — twilio-python 6.62.1 documentation</title>
+<title>twilio.jwt — twilio-python 7.2.0 documentation</title>
 <link href="../../_static/alabaster.css" rel="stylesheet" type="text/css"/>
 <link href="../../_static/pygments.css" rel="stylesheet" type="text/css"/>
 <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js" type="text/javascript"></script>
@@ -28,22 +28,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <div class="bodywrapper">
 <div class="body" role="main">
 <h1>Source code for twilio.jwt</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">hmac</span>
-<span class="kn">import</span> <span class="nn">sys</span>
-
-<span class="kn">from</span> <span class="nn">twilio.jwt</span> <span class="kn">import</span> <span class="n">compat</span>
-
-<span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">3</span> <span class="ow">and</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
-    <span class="c1"># PyJWT expects hmac.compare_digest to exist even under python 3.2</span>
-    <span class="n">hmac</span><span class="o">.</span><span class="n">compare_digest</span> <span class="o">=</span> <span class="n">compat</span><span class="o">.</span><span class="n">compare_digest</span>
-
-<span class="kn">import</span> <span class="nn">jwt</span> <span class="k">as</span> <span class="nn">jwt_lib</span>
-
-<span class="k">try</span><span class="p">:</span>
-    <span class="kn">import</span> <span class="nn">json</span>
-<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
-    <span class="kn">import</span> <span class="nn">simplejson</span> <span class="k">as</span> <span class="nn">json</span>
-
+<span></span><span class="kn">import</span> <span class="nn">jwt</span> <span class="k">as</span> <span class="nn">jwt_lib</span>
 <span class="kn">import</span> <span class="nn">time</span>
 
 
@@ -57,8 +42,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <div class="viewcode-block" id="Jwt"><a class="viewcode-back" href="../../docs/source/_rst/twilio.jwt.html#twilio.jwt.Jwt">[docs]</a><span class="k">class</span> <span class="nc">Jwt</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">"""Base class for building a Json Web Token"""</span>
     <span class="n">GENERATE</span> <span class="o">=</span> <span class="nb">object</span><span class="p">()</span>
+    <span class="n">ALGORITHM</span> <span class="o">=</span> <span class="s1">'HS256'</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">secret_key</span><span class="p">,</span> <span class="n">issuer</span><span class="p">,</span> <span class="n">subject</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">algorithm</span><span class="o">=</span><span class="s1">'HS256'</span><span class="p">,</span> <span class="n">nbf</span><span class="o">=</span><span class="n">GENERATE</span><span class="p">,</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">secret_key</span><span class="p">,</span> <span class="n">issuer</span><span class="p">,</span> <span class="n">subject</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">algorithm</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">nbf</span><span class="o">=</span><span class="n">GENERATE</span><span class="p">,</span>
                  <span class="n">ttl</span><span class="o">=</span><span class="mi">3600</span><span class="p">,</span> <span class="n">valid_until</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">secret_key</span> <span class="o">=</span> <span class="n">secret_key</span>
         <span class="sd">""":type str: The secret used to encode the JWT"""</span>
@@ -66,7 +52,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="sd">""":type str: The issuer of this JWT"""</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">subject</span> <span class="o">=</span> <span class="n">subject</span>
         <span class="sd">""":type str: The subject of this JWT, omitted from payload by default"""</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">algorithm</span> <span class="o">=</span> <span class="n">algorithm</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">algorithm</span> <span class="o">=</span> <span class="n">algorithm</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">ALGORITHM</span>
         <span class="sd">""":type str: The algorithm used to encode the JWT, defaults to 'HS256'"""</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">nbf</span> <span class="o">=</span> <span class="n">nbf</span>
         <span class="sd">""":type int: Time in secs since epoch before which this JWT is invalid. Defaults to now."""</span>
@@ -135,10 +121,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="n">headers</span><span class="p">[</span><span class="s1">'alg'</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">algorithm</span>
         <span class="k">return</span> <span class="n">headers</span>
 
-<div class="viewcode-block" id="Jwt.to_jwt"><a class="viewcode-back" href="../../docs/source/_rst/twilio.jwt.html#twilio.jwt.Jwt.to_jwt">[docs]</a>    <span class="k">def</span> <span class="nf">to_jwt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">algorithm</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ttl</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="Jwt.to_jwt"><a class="viewcode-back" href="../../docs/source/_rst/twilio.jwt.html#twilio.jwt.Jwt.to_jwt">[docs]</a>    <span class="k">def</span> <span class="nf">to_jwt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ttl</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">"""</span>
 <span class="sd">        Encode this JWT object into a JWT string</span>
-<span class="sd">        :param str algorithm: override the algorithm used to encode the JWT</span>
 <span class="sd">        :param int ttl: override the ttl configured in the constructor</span>
 <span class="sd">        :rtype: str The JWT string</span>
 <span class="sd">        """</span>
@@ -147,15 +132,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">'JWT does not have a signing key configured.'</span><span class="p">)</span>
 
         <span class="n">headers</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">headers</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-        <span class="k">if</span> <span class="n">algorithm</span><span class="p">:</span>
-            <span class="n">headers</span><span class="p">[</span><span class="s1">'alg'</span><span class="p">]</span> <span class="o">=</span> <span class="n">algorithm</span>
-        <span class="n">algorithm</span> <span class="o">=</span> <span class="n">algorithm</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">algorithm</span>
 
         <span class="n">payload</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">payload</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
         <span class="k">if</span> <span class="n">ttl</span><span class="p">:</span>
             <span class="n">payload</span><span class="p">[</span><span class="s1">'exp'</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">())</span> <span class="o">+</span> <span class="n">ttl</span>
 
-        <span class="k">return</span> <span class="n">jwt_lib</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">payload</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">secret_key</span><span class="p">,</span> <span class="n">algorithm</span><span class="o">=</span><span class="n">algorithm</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="n">jwt_lib</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">payload</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">secret_key</span><span class="p">,</span> <span class="n">algorithm</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">algorithm</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Jwt.from_jwt"><a class="viewcode-back" href="../../docs/source/_rst/twilio.jwt.html#twilio.jwt.Jwt.from_jwt">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">from_jwt</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">jwt</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="s1">''</span><span class="p">):</span>
@@ -170,12 +152,18 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="n">verify</span> <span class="o">=</span> <span class="kc">True</span> <span class="k">if</span> <span class="n">key</span> <span class="k">else</span> <span class="kc">False</span>
 
         <span class="k">try</span><span class="p">:</span>
-            <span class="n">payload</span> <span class="o">=</span> <span class="n">jwt_lib</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="nb">bytes</span><span class="p">(</span><span class="n">jwt</span><span class="p">),</span> <span class="n">key</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="p">{</span>
+            <span class="n">headers</span> <span class="o">=</span> <span class="n">jwt_lib</span><span class="o">.</span><span class="n">get_unverified_header</span><span class="p">(</span><span class="n">jwt</span><span class="p">)</span>
+
+            <span class="n">alg</span> <span class="o">=</span> <span class="n">headers</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'alg'</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">alg</span> <span class="o">!=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">ALGORITHM</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Incorrect decoding algorithm </span><span class="si">{</span><span class="n">alg</span><span class="si">}</span><span class="s2">, "</span>
+                                 <span class="sa">f</span><span class="s2">"expecting </span><span class="si">{</span><span class="bp">cls</span><span class="o">.</span><span class="n">ALGORITHM</span><span class="si">}</span><span class="s2">."</span><span class="p">)</span>
+
+            <span class="n">payload</span> <span class="o">=</span> <span class="n">jwt_lib</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">jwt</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">algorithms</span><span class="o">=</span><span class="p">[</span><span class="bp">cls</span><span class="o">.</span><span class="n">ALGORITHM</span><span class="p">],</span> <span class="n">options</span><span class="o">=</span><span class="p">{</span>
                 <span class="s1">'verify_signature'</span><span class="p">:</span> <span class="n">verify</span><span class="p">,</span>
                 <span class="s1">'verify_exp'</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
                 <span class="s1">'verify_nbf'</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
             <span class="p">})</span>
-            <span class="n">headers</span> <span class="o">=</span> <span class="n">jwt_lib</span><span class="o">.</span><span class="n">get_unverified_header</span><span class="p">(</span><span class="n">jwt</span><span class="p">)</span>
         <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">JwtDecodeError</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="s1">'message'</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)))</span>
 

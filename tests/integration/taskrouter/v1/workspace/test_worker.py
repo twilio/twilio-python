@@ -206,11 +206,13 @@ class WorkerTestCase(IntegrationTestCase):
 
         with self.assertRaises(TwilioException):
             self.client.taskrouter.v1.workspaces("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                     .workers("WKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
+                                     .workers("WKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update(if_match="if_match")
 
+        headers = {'If-Match': "if_match", }
         self.holodeck.assert_has_request(Request(
             'post',
             'https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Workers/WKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+            headers=headers,
         ))
 
     def test_update_response(self):
@@ -255,11 +257,13 @@ class WorkerTestCase(IntegrationTestCase):
 
         with self.assertRaises(TwilioException):
             self.client.taskrouter.v1.workspaces("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                     .workers("WKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+                                     .workers("WKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete(if_match="if_match")
 
+        headers = {'If-Match': "if_match", }
         self.holodeck.assert_has_request(Request(
             'delete',
             'https://taskrouter.twilio.com/v1/Workspaces/WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Workers/WKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+            headers=headers,
         ))
 
     def test_delete_response(self):

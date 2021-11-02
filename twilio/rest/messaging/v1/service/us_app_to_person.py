@@ -317,6 +317,7 @@ class UsAppToPersonInstance(InstanceResource):
             'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
             'date_updated': deserialize.iso8601_datetime(payload.get('date_updated')),
             'url': payload.get('url'),
+            'mock': payload.get('mock'),
         }
 
         # Context
@@ -470,6 +471,14 @@ class UsAppToPersonInstance(InstanceResource):
         :rtype: unicode
         """
         return self._properties['url']
+
+    @property
+    def mock(self):
+        """
+        :returns: A boolean that specifies whether campaign is a mock or not.
+        :rtype: bool
+        """
+        return self._properties['mock']
 
     def delete(self):
         """

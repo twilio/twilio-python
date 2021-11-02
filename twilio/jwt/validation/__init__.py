@@ -1,5 +1,4 @@
 from hashlib import sha256
-from six import string_types
 
 from twilio.jwt import Jwt
 
@@ -7,6 +6,7 @@ from twilio.jwt import Jwt
 class ClientValidationJwt(Jwt):
     """A JWT included on requests so that Twilio can verify request authenticity"""
     __CTY = 'twilio-pkrv;v=1'
+    ALGORITHM = 'RS256'
 
     def __init__(self, account_sid, api_key_sid, credential_sid, private_key, validation_payload):
         """
@@ -22,7 +22,7 @@ class ClientValidationJwt(Jwt):
             secret_key=private_key,
             issuer=api_key_sid,
             subject=account_sid,
-            algorithm='RS256',
+            algorithm=self.ALGORITHM,
             ttl=300     # 5 minute ttl
         )
         self.credential_sid = credential_sid
@@ -73,7 +73,7 @@ class ClientValidationJwt(Jwt):
 
     @classmethod
     def _sort_and_join(cls, values, joiner):
-        if isinstance(values, string_types):
+        if isinstance(values, str):
             return values
         return joiner.join(sorted(values))
 

@@ -57,6 +57,13 @@ class Verify(Domain):
         """
         return self.v2.verification_attempts
 
+    @property
+    def templates(self):
+        """
+        :rtype: twilio.rest.verify.v2.template.TemplateList
+        """
+        return self.v2.templates
+
     def __repr__(self):
         """
         Provide a friendly representation

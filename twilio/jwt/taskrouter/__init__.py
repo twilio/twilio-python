@@ -5,6 +5,7 @@ class TaskRouterCapabilityToken(Jwt):
     VERSION = 'v1'
     DOMAIN = 'https://taskrouter.twilio.com'
     EVENTS_BASE_URL = 'https://event-bridge.twilio.com/v1/wschannels'
+    ALGORITHM = 'HS256'
 
     def __init__(self, account_sid, auth_token, workspace_sid, channel_id, **kwargs):
         """
@@ -28,7 +29,7 @@ class TaskRouterCapabilityToken(Jwt):
         super(TaskRouterCapabilityToken, self).__init__(
             secret_key=auth_token,
             issuer=account_sid,
-            algorithm='HS256',
+            algorithm=self.ALGORITHM,
             nbf=kwargs.get('nbf', Jwt.GENERATE),
             ttl=kwargs.get('ttl', 3600),
             valid_until=kwargs.get('valid_until', None),
@@ -131,4 +132,3 @@ class TaskRouterCapabilityToken(Jwt):
 
     def __str__(self):
         return '<TaskRouterCapabilityToken {}>'.format(self.to_jwt())
-

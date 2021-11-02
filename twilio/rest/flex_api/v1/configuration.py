@@ -218,6 +218,7 @@ class ConfigurationInstance(InstanceResource):
             'notifications': payload.get('notifications'),
             'markdown': payload.get('markdown'),
             'url': payload.get('url'),
+            'flex_insights_hr': payload.get('flex_insights_hr'),
         }
 
         # Context
@@ -548,6 +549,14 @@ class ConfigurationInstance(InstanceResource):
         :rtype: unicode
         """
         return self._properties['url']
+
+    @property
+    def flex_insights_hr(self):
+        """
+        :returns: Object that controls workspace reporting
+        :rtype: dict
+        """
+        return self._properties['flex_insights_hr']
 
     def fetch(self, ui_version=values.unset):
         """

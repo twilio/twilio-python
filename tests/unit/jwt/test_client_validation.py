@@ -266,7 +266,7 @@ class ClientValidationJwtTest(unittest.TestCase):
         private_key = private_key.private_bytes(Encoding.PEM, PrivateFormat.PKCS8, NoEncryption())
 
         jwt = ClientValidationJwt('AC123', 'SK123', 'CR123', private_key, vp)
-        decoded = Jwt.from_jwt(jwt.to_jwt(), public_key)
+        decoded = ClientValidationJwt.from_jwt(jwt.to_jwt(), public_key)
 
         self.assertDictContainsSubset({
             'hrh': 'authorization;host',
@@ -282,5 +282,3 @@ class ClientValidationJwtTest(unittest.TestCase):
             'cty': 'twilio-pkrv;v=1',
             'kid': 'CR123'
         }, decoded.headers)
-
-

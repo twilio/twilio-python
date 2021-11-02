@@ -181,7 +181,7 @@ class TollFreeList(ListResource):
         :param unicode voice_url: The URL we should call when the phone number receives a call
         :param unicode identity_sid: The SID of the Identity resource to associate with the new phone number
         :param unicode address_sid: The SID of the Address resource associated with the phone number
-        :param TollFreeInstance.EmergencyStatus emergency_status: Status determining whether the new phone number is enabled for emergency calling
+        :param TollFreeInstance.EmergencyStatus emergency_status: Displays if emergency calling is enabled for this number.
         :param unicode emergency_address_sid: The emergency address configuration to use for emergency calling
         :param unicode trunk_sid: SID of the trunk to handle calls to the new phone number
         :param TollFreeInstance.VoiceReceiveMode voice_receive_mode: Incoming call type: fax or voice
@@ -281,6 +281,14 @@ class TollFreeInstance(InstanceResource):
         ACTIVE = "Active"
         INACTIVE = "Inactive"
 
+    class EmergencyAddressStatus(object):
+        REGISTERED = "registered"
+        UNREGISTERED = "unregistered"
+        PENDING_REGISTRATION = "pending-registration"
+        REGISTRATION_FAILURE = "registration-failure"
+        PENDING_UNREGISTRATION = "pending-unregistration"
+        UNREGISTRATION_FAILURE = "unregistration-failure"
+
     class VoiceReceiveMode(object):
         VOICE = "voice"
         FAX = "fax"
@@ -327,6 +335,7 @@ class TollFreeInstance(InstanceResource):
             'voice_url': payload.get('voice_url'),
             'emergency_status': payload.get('emergency_status'),
             'emergency_address_sid': payload.get('emergency_address_sid'),
+            'emergency_address_status': payload.get('emergency_address_status'),
             'bundle_sid': payload.get('bundle_sid'),
             'status': payload.get('status'),
         }
@@ -570,7 +579,7 @@ class TollFreeInstance(InstanceResource):
     @property
     def emergency_status(self):
         """
-        :returns: Whether the phone number is enabled for emergency calling
+        :returns: Displays if emergency calling is enabled for this number.
         :rtype: TollFreeInstance.EmergencyStatus
         """
         return self._properties['emergency_status']
@@ -582,6 +591,14 @@ class TollFreeInstance(InstanceResource):
         :rtype: unicode
         """
         return self._properties['emergency_address_sid']
+
+    @property
+    def emergency_address_status(self):
+        """
+        :returns: State of the emergency address configuration for the phone number
+        :rtype: TollFreeInstance.EmergencyAddressStatus
+        """
+        return self._properties['emergency_address_status']
 
     @property
     def bundle_sid(self):

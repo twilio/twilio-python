@@ -346,7 +346,7 @@ class RecordingInstance(InstanceResource):
             'start_time': deserialize.rfc2822_datetime(payload.get('start_time')),
             'duration': payload.get('duration'),
             'sid': payload.get('sid'),
-            'price': deserialize.decimal(payload.get('price')),
+            'price': payload.get('price'),
             'price_unit': payload.get('price_unit'),
             'status': payload.get('status'),
             'channels': deserialize.integer(payload.get('channels')),

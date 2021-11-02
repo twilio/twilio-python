@@ -22,7 +22,7 @@ class CredentialListMappingList(ListResource):
 
         :param Version version: Version that contains the resource
         :param account_sid: The unique id of the Account that is responsible for this resource.
-        :param domain_sid: The unique string that identifies the resource
+        :param domain_sid: The unique string that identifies the SipDomain resource.
 
         :returns: twilio.rest.api.v2010.account.sip.domain.credential_list_mapping.CredentialListMappingList
         :rtype: twilio.rest.api.v2010.account.sip.domain.credential_list_mapping.CredentialListMappingList
@@ -181,7 +181,7 @@ class CredentialListMappingPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
         :param account_sid: The unique id of the Account that is responsible for this resource.
-        :param domain_sid: The unique string that identifies the resource
+        :param domain_sid: The unique string that identifies the SipDomain resource.
 
         :returns: twilio.rest.api.v2010.account.sip.domain.credential_list_mapping.CredentialListMappingPage
         :rtype: twilio.rest.api.v2010.account.sip.domain.credential_list_mapping.CredentialListMappingPage
@@ -290,10 +290,10 @@ class CredentialListMappingInstance(InstanceResource):
             'account_sid': payload.get('account_sid'),
             'date_created': deserialize.rfc2822_datetime(payload.get('date_created')),
             'date_updated': deserialize.rfc2822_datetime(payload.get('date_updated')),
+            'domain_sid': payload.get('domain_sid'),
             'friendly_name': payload.get('friendly_name'),
             'sid': payload.get('sid'),
             'uri': payload.get('uri'),
-            'subresource_uris': payload.get('subresource_uris'),
         }
 
         # Context
@@ -347,6 +347,14 @@ class CredentialListMappingInstance(InstanceResource):
         return self._properties['date_updated']
 
     @property
+    def domain_sid(self):
+        """
+        :returns: The unique string that identifies the SipDomain resource.
+        :rtype: unicode
+        """
+        return self._properties['domain_sid']
+
+    @property
     def friendly_name(self):
         """
         :returns: A human readable descriptive text for this resource, up to 64 characters long.
@@ -369,14 +377,6 @@ class CredentialListMappingInstance(InstanceResource):
         :rtype: unicode
         """
         return self._properties['uri']
-
-    @property
-    def subresource_uris(self):
-        """
-        :returns: The credentials associated with this resource.
-        :rtype: unicode
-        """
-        return self._properties['subresource_uris']
 
     def fetch(self):
         """

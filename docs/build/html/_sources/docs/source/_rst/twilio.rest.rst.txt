@@ -19,6 +19,7 @@ Subpackages
     twilio.rest.insights
     twilio.rest.ip_messaging
     twilio.rest.lookups
+    twilio.rest.media
     twilio.rest.messaging
     twilio.rest.monitor
     twilio.rest.notify

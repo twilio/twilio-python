@@ -39,7 +39,8 @@ class TrunkList(ListResource):
     def create(self, friendly_name=values.unset, domain_name=values.unset,
                disaster_recovery_url=values.unset,
                disaster_recovery_method=values.unset, transfer_mode=values.unset,
-               secure=values.unset, cnam_lookup_enabled=values.unset):
+               secure=values.unset, cnam_lookup_enabled=values.unset,
+               transfer_caller_id=values.unset):
         """
         Create the TrunkInstance
 
@@ -50,6 +51,7 @@ class TrunkList(ListResource):
         :param TrunkInstance.TransferSetting transfer_mode: The call transfer settings for the trunk
         :param bool secure: Whether Secure Trunking is enabled for the trunk
         :param bool cnam_lookup_enabled: Whether Caller ID Name (CNAM) lookup should be enabled for the trunk
+        :param TrunkInstance.TransferCallerId transfer_caller_id: Caller Id for transfer target
 
         :returns: The created TrunkInstance
         :rtype: twilio.rest.trunking.v1.trunk.TrunkInstance
@@ -62,6 +64,7 @@ class TrunkList(ListResource):
             'TransferMode': transfer_mode,
             'Secure': secure,
             'CnamLookupEnabled': cnam_lookup_enabled,
+            'TransferCallerId': transfer_caller_id,
         })
 
         payload = self._version.create(method='POST', uri=self._uri, data=data, )
@@ -263,7 +266,8 @@ class TrunkContext(InstanceContext):
     def update(self, friendly_name=values.unset, domain_name=values.unset,
                disaster_recovery_url=values.unset,
                disaster_recovery_method=values.unset, transfer_mode=values.unset,
-               secure=values.unset, cnam_lookup_enabled=values.unset):
+               secure=values.unset, cnam_lookup_enabled=values.unset,
+               transfer_caller_id=values.unset):
         """
         Update the TrunkInstance
 
@@ -274,6 +278,7 @@ class TrunkContext(InstanceContext):
         :param TrunkInstance.TransferSetting transfer_mode: The call transfer settings for the trunk
         :param bool secure: Whether Secure Trunking is enabled for the trunk
         :param bool cnam_lookup_enabled: Whether Caller ID Name (CNAM) lookup should be enabled for the trunk
+        :param TrunkInstance.TransferCallerId transfer_caller_id: Caller Id for transfer target
 
         :returns: The updated TrunkInstance
         :rtype: twilio.rest.trunking.v1.trunk.TrunkInstance
@@ -286,6 +291,7 @@ class TrunkContext(InstanceContext):
             'TransferMode': transfer_mode,
             'Secure': secure,
             'CnamLookupEnabled': cnam_lookup_enabled,
+            'TransferCallerId': transfer_caller_id,
         })
 
         payload = self._version.update(method='POST', uri=self._uri, data=data, )
@@ -373,6 +379,10 @@ class TrunkInstance(InstanceResource):
         ENABLE_ALL = "enable-all"
         SIP_ONLY = "sip-only"
 
+    class TransferCallerId(object):
+        FROM_TRANSFEREE = "from-transferee"
+        FROM_TRANSFEROR = "from-transferor"
+
     def __init__(self, version, payload, sid=None):
         """
         Initialize the TrunkInstance
@@ -392,6 +402,7 @@ class TrunkInstance(InstanceResource):
             'secure': payload.get('secure'),
             'recording': payload.get('recording'),
             'transfer_mode': payload.get('transfer_mode'),
+            'transfer_caller_id': payload.get('transfer_caller_id'),
             'cnam_lookup_enabled': payload.get('cnam_lookup_enabled'),
             'auth_type': payload.get('auth_type'),
             'auth_type_set': payload.get('auth_type_set'),
@@ -484,6 +495,14 @@ class TrunkInstance(InstanceResource):
         return self._properties['transfer_mode']
 
     @property
+    def transfer_caller_id(self):
+        """
+        :returns: Caller Id for transfer target
+        :rtype: TrunkInstance.TransferCallerId
+        """
+        return self._properties['transfer_caller_id']
+
+    @property
     def cnam_lookup_enabled(self):
         """
         :returns: Whether Caller ID Name (CNAM) lookup is enabled for the trunk
@@ -568,7 +587,8 @@ class TrunkInstance(InstanceResource):
     def update(self, friendly_name=values.unset, domain_name=values.unset,
                disaster_recovery_url=values.unset,
                disaster_recovery_method=values.unset, transfer_mode=values.unset,
-               secure=values.unset, cnam_lookup_enabled=values.unset):
+               secure=values.unset, cnam_lookup_enabled=values.unset,
+               transfer_caller_id=values.unset):
         """
         Update the TrunkInstance
 
@@ -579,6 +599,7 @@ class TrunkInstance(InstanceResource):
         :param TrunkInstance.TransferSetting transfer_mode: The call transfer settings for the trunk
         :param bool secure: Whether Secure Trunking is enabled for the trunk
         :param bool cnam_lookup_enabled: Whether Caller ID Name (CNAM) lookup should be enabled for the trunk
+        :param TrunkInstance.TransferCallerId transfer_caller_id: Caller Id for transfer target
 
         :returns: The updated TrunkInstance
         :rtype: twilio.rest.trunking.v1.trunk.TrunkInstance
@@ -591,6 +612,7 @@ class TrunkInstance(InstanceResource):
             transfer_mode=transfer_mode,
             secure=secure,
             cnam_lookup_enabled=cnam_lookup_enabled,
+            transfer_caller_id=transfer_caller_id,
         )
 
     @property

@@ -53,17 +53,7 @@ class NationalTestCase(IntegrationTestCase):
                         "region": null
                     }
                 ],
-                "end": 1,
-                "first_page_uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AvailablePhoneNumbers/US/National.json?PageSize=50&Page=0",
-                "last_page_uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AvailablePhoneNumbers/US/National.json?PageSize=50&Page=0",
-                "next_page_uri": null,
-                "num_pages": 1,
-                "page": 0,
-                "page_size": 50,
-                "previous_page_uri": null,
-                "start": 0,
-                "total": 1,
-                "uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AvailablePhoneNumbers/US/National.json?PageSize=1"
+                "uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AvailablePhoneNumbers/US/National.json"
             }
             '''
         ))
@@ -80,16 +70,7 @@ class NationalTestCase(IntegrationTestCase):
             '''
             {
                 "available_phone_numbers": [],
-                "first_page_uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AvailablePhoneNumbers/US/National.json?PageSize=50&Page=0",
-                "last_page_uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AvailablePhoneNumbers/US/National.json?PageSize=50&Page=0",
-                "next_page_uri": null,
-                "num_pages": 1,
-                "page": 0,
-                "page_size": 50,
-                "previous_page_uri": null,
-                "start": 0,
-                "total": 1,
-                "uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AvailablePhoneNumbers/US/National.json?PageSize=1"
+                "uri": "/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/AvailablePhoneNumbers/US/National.json"
             }
             '''
         ))
