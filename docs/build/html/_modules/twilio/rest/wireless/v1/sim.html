@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-MWRD6S');</script><!--End Google Tag Manager-->
 <meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<title>twilio.rest.wireless.v1.sim — twilio-python 7.2.0 documentation</title>
+<title>twilio.rest.wireless.v1.sim — twilio-python 7.3.0 documentation</title>
 <link href="../../../../../_static/alabaster.css" rel="stylesheet" type="text/css"/>
 <link href="../../../../../_static/pygments.css" rel="stylesheet" type="text/css"/>
 <script data-url_root="../../../../../" id="documentation_options" src="../../../../../_static/documentation_options.js" type="text/javascript"></script>
@@ -313,10 +313,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <span class="sd">        :param unicode sms_fallback_url: The URL we should call when an error occurs while retrieving or executing the TwiML requested from sms_url</span>
 <span class="sd">        :param unicode sms_method: The HTTP method we should use to call sms_url</span>
 <span class="sd">        :param unicode sms_url: The URL we should call when the SIM-connected device sends an SMS message that is not a Command</span>
-<span class="sd">        :param unicode voice_fallback_method: The HTTP method we should use to call voice_fallback_url</span>
-<span class="sd">        :param unicode voice_fallback_url: The URL we should call when an error occurs while retrieving or executing the TwiML requested from voice_url</span>
-<span class="sd">        :param unicode voice_method: The HTTP method we should use when we call voice_url</span>
-<span class="sd">        :param unicode voice_url: The URL we should call when the SIM-connected device makes a voice call</span>
+<span class="sd">        :param unicode voice_fallback_method: Deprecated</span>
+<span class="sd">        :param unicode voice_fallback_url: Deprecated</span>
+<span class="sd">        :param unicode voice_method: Deprecated</span>
+<span class="sd">        :param unicode voice_url: Deprecated</span>
 <span class="sd">        :param SimInstance.ResetStatus reset_status: Initiate a connectivity reset on a SIM</span>
 <span class="sd">        :param unicode account_sid: The SID of the Account to which the Sim resource should belong</span>
 
@@ -552,7 +552,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">sms_fallback_method</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">"""</span>
-<span class="sd">        :returns: The HTTP method we use to call sms_fallback_url</span>
+<span class="sd">        :returns: Deprecated. The HTTP method we use to call sms_fallback_url</span>
 <span class="sd">        :rtype: unicode</span>
 <span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="p">[</span><span class="s1">'sms_fallback_method'</span><span class="p">]</span>
@@ -560,7 +560,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">sms_fallback_url</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">"""</span>
-<span class="sd">        :returns: The URL we call when an error occurs while retrieving or executing the TwiML requested from the sms_url</span>
+<span class="sd">        :returns: Deprecated. The URL we call when an error occurs while retrieving or executing the TwiML requested from the sms_url</span>
 <span class="sd">        :rtype: unicode</span>
 <span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="p">[</span><span class="s1">'sms_fallback_url'</span><span class="p">]</span>
@@ -568,7 +568,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">sms_method</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">"""</span>
-<span class="sd">        :returns: The HTTP method we use to call sms_url</span>
+<span class="sd">        :returns: Deprecated. The HTTP method we use to call sms_url</span>
 <span class="sd">        :rtype: unicode</span>
 <span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="p">[</span><span class="s1">'sms_method'</span><span class="p">]</span>
@@ -576,7 +576,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">sms_url</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">"""</span>
-<span class="sd">        :returns: The URL we call when the SIM-connected device sends an SMS message that is not a Command</span>
+<span class="sd">        :returns: Deprecated. The URL we call when the SIM-connected device sends an SMS message that is not a Command</span>
 <span class="sd">        :rtype: unicode</span>
 <span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="p">[</span><span class="s1">'sms_url'</span><span class="p">]</span>
@@ -584,7 +584,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">voice_fallback_method</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">"""</span>
-<span class="sd">        :returns: The HTTP method we use to call voice_fallback_url</span>
+<span class="sd">        :returns: Deprecated. The HTTP method we use to call voice_fallback_url</span>
 <span class="sd">        :rtype: unicode</span>
 <span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="p">[</span><span class="s1">'voice_fallback_method'</span><span class="p">]</span>
@@ -592,7 +592,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">voice_fallback_url</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">"""</span>
-<span class="sd">        :returns: The URL we call when an error occurs while retrieving or executing the TwiML requested from voice_url</span>
+<span class="sd">        :returns: Deprecated. The URL we call when an error occurs while retrieving or executing the TwiML requested from voice_url</span>
 <span class="sd">        :rtype: unicode</span>
 <span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="p">[</span><span class="s1">'voice_fallback_url'</span><span class="p">]</span>
@@ -600,7 +600,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">voice_method</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">"""</span>
-<span class="sd">        :returns: The HTTP method we use to call voice_url</span>
+<span class="sd">        :returns: Deprecated. The HTTP method we use to call voice_url</span>
 <span class="sd">        :rtype: unicode</span>
 <span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="p">[</span><span class="s1">'voice_method'</span><span class="p">]</span>
@@ -608,7 +608,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">voice_url</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">"""</span>
-<span class="sd">        :returns: The URL we call when the SIM-connected device makes a voice call</span>
+<span class="sd">        :returns: Deprecated. The URL we call when the SIM-connected device makes a voice call</span>
 <span class="sd">        :rtype: unicode</span>
 <span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="p">[</span><span class="s1">'voice_url'</span><span class="p">]</span>
@@ -687,10 +687,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <span class="sd">        :param unicode sms_fallback_url: The URL we should call when an error occurs while retrieving or executing the TwiML requested from sms_url</span>
 <span class="sd">        :param unicode sms_method: The HTTP method we should use to call sms_url</span>
 <span class="sd">        :param unicode sms_url: The URL we should call when the SIM-connected device sends an SMS message that is not a Command</span>
-<span class="sd">        :param unicode voice_fallback_method: The HTTP method we should use to call voice_fallback_url</span>
-<span class="sd">        :param unicode voice_fallback_url: The URL we should call when an error occurs while retrieving or executing the TwiML requested from voice_url</span>
-<span class="sd">        :param unicode voice_method: The HTTP method we should use when we call voice_url</span>
-<span class="sd">        :param unicode voice_url: The URL we should call when the SIM-connected device makes a voice call</span>
+<span class="sd">        :param unicode voice_fallback_method: Deprecated</span>
+<span class="sd">        :param unicode voice_fallback_url: Deprecated</span>
+<span class="sd">        :param unicode voice_method: Deprecated</span>
+<span class="sd">        :param unicode voice_url: Deprecated</span>
 <span class="sd">        :param SimInstance.ResetStatus reset_status: Initiate a connectivity reset on a SIM</span>
 <span class="sd">        :param unicode account_sid: The SID of the Account to which the Sim resource should belong</span>
 
