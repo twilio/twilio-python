@@ -46,7 +46,7 @@ class ServiceList(ListResource):
                push_apn_credential_sid=values.unset,
                push_fcm_credential_sid=values.unset, totp_issuer=values.unset,
                totp_time_step=values.unset, totp_code_length=values.unset,
-               totp_skew=values.unset):
+               totp_skew=values.unset, default_template_sid=values.unset):
         """
         Create the ServiceInstance
 
@@ -66,6 +66,7 @@ class ServiceList(ListResource):
         :param unicode totp_time_step: Optional. How often, in seconds, are TOTP codes generated
         :param unicode totp_code_length: Optional. Number of digits for generated TOTP codes
         :param unicode totp_skew: Optional. The number of past and future time-steps valid at a given time
+        :param unicode default_template_sid: The verification template SMS messages.
 
         :returns: The created ServiceInstance
         :rtype: twilio.rest.verify.v2.service.ServiceInstance
@@ -87,6 +88,7 @@ class ServiceList(ListResource):
             'Totp.TimeStep': totp_time_step,
             'Totp.CodeLength': totp_code_length,
             'Totp.Skew': totp_skew,
+            'DefaultTemplateSid': default_template_sid,
         })
 
         payload = self._version.create(method='POST', uri=self._uri, data=data, )
@@ -295,7 +297,7 @@ class ServiceContext(InstanceContext):
                push_apn_credential_sid=values.unset,
                push_fcm_credential_sid=values.unset, totp_issuer=values.unset,
                totp_time_step=values.unset, totp_code_length=values.unset,
-               totp_skew=values.unset):
+               totp_skew=values.unset, default_template_sid=values.unset):
         """
         Update the ServiceInstance
 
@@ -315,6 +317,7 @@ class ServiceContext(InstanceContext):
         :param unicode totp_time_step: Optional. How often, in seconds, are TOTP codes generated
         :param unicode totp_code_length: Optional. Number of digits for generated TOTP codes
         :param unicode totp_skew: Optional. The number of past and future time-steps valid at a given time
+        :param unicode default_template_sid: The verification template SMS messages.
 
         :returns: The updated ServiceInstance
         :rtype: twilio.rest.verify.v2.service.ServiceInstance
@@ -336,6 +339,7 @@ class ServiceContext(InstanceContext):
             'Totp.TimeStep': totp_time_step,
             'Totp.CodeLength': totp_code_length,
             'Totp.Skew': totp_skew,
+            'DefaultTemplateSid': default_template_sid,
         })
 
         payload = self._version.update(method='POST', uri=self._uri, data=data, )
@@ -466,6 +470,7 @@ class ServiceInstance(InstanceResource):
             'custom_code_enabled': payload.get('custom_code_enabled'),
             'push': payload.get('push'),
             'totp': payload.get('totp'),
+            'default_template_sid': payload.get('default_template_sid'),
             'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
             'date_updated': deserialize.iso8601_datetime(payload.get('date_updated')),
             'url': payload.get('url'),
@@ -594,6 +599,14 @@ class ServiceInstance(InstanceResource):
         return self._properties['totp']
 
     @property
+    def default_template_sid(self):
+        """
+        :returns: The default_template_sid
+        :rtype: unicode
+        """
+        return self._properties['default_template_sid']
+
+    @property
     def date_created(self):
         """
         :returns: The RFC 2822 date and time in GMT when the resource was created
@@ -651,7 +664,7 @@ class ServiceInstance(InstanceResource):
                push_apn_credential_sid=values.unset,
                push_fcm_credential_sid=values.unset, totp_issuer=values.unset,
                totp_time_step=values.unset, totp_code_length=values.unset,
-               totp_skew=values.unset):
+               totp_skew=values.unset, default_template_sid=values.unset):
         """
         Update the ServiceInstance
 
@@ -671,6 +684,7 @@ class ServiceInstance(InstanceResource):
         :param unicode totp_time_step: Optional. How often, in seconds, are TOTP codes generated
         :param unicode totp_code_length: Optional. Number of digits for generated TOTP codes
         :param unicode totp_skew: Optional. The number of past and future time-steps valid at a given time
+        :param unicode default_template_sid: The verification template SMS messages.
 
         :returns: The updated ServiceInstance
         :rtype: twilio.rest.verify.v2.service.ServiceInstance
@@ -692,6 +706,7 @@ class ServiceInstance(InstanceResource):
             totp_time_step=totp_time_step,
             totp_code_length=totp_code_length,
             totp_skew=totp_skew,
+            default_template_sid=default_template_sid,
         )
 
     @property

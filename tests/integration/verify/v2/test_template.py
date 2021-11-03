@@ -34,14 +34,15 @@ class TemplateTestCase(IntegrationTestCase):
                     {
                         "sid": "HJaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                         "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                        "friendly_name": "Friendly Template",
+                        "friendly_name": "Base Verification Template 2 with do not share",
                         "translations": {
                             "en": {
-                                "text": "Hello, your code is {code}.",
-                                "locale": "en",
+                                "is_default_translation": true,
                                 "status": "approved",
-                                "date_created": "2021-07-26T22:30:13.003505841Z",
-                                "date_updated": "2021-07-26T22:31:08.750971289Z"
+                                "locale": "en",
+                                "text": "Your {{friendly_name}} verification code is: {{code}}. Do not share this code with anyone.",
+                                "date_updated": "2021-07-29T20:38:28.759979905Z",
+                                "date_created": "2021-07-29T20:38:28.165602325Z"
                             }
                         }
                     }

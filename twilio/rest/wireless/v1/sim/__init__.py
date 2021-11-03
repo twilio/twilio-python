@@ -283,10 +283,10 @@ class SimContext(InstanceContext):
         :param unicode sms_fallback_url: The URL we should call when an error occurs while retrieving or executing the TwiML requested from sms_url
         :param unicode sms_method: The HTTP method we should use to call sms_url
         :param unicode sms_url: The URL we should call when the SIM-connected device sends an SMS message that is not a Command
-        :param unicode voice_fallback_method: The HTTP method we should use to call voice_fallback_url
-        :param unicode voice_fallback_url: The URL we should call when an error occurs while retrieving or executing the TwiML requested from voice_url
-        :param unicode voice_method: The HTTP method we should use when we call voice_url
-        :param unicode voice_url: The URL we should call when the SIM-connected device makes a voice call
+        :param unicode voice_fallback_method: Deprecated
+        :param unicode voice_fallback_url: Deprecated
+        :param unicode voice_method: Deprecated
+        :param unicode voice_url: Deprecated
         :param SimInstance.ResetStatus reset_status: Initiate a connectivity reset on a SIM
         :param unicode account_sid: The SID of the Account to which the Sim resource should belong
 
@@ -522,7 +522,7 @@ class SimInstance(InstanceResource):
     @property
     def sms_fallback_method(self):
         """
-        :returns: The HTTP method we use to call sms_fallback_url
+        :returns: Deprecated. The HTTP method we use to call sms_fallback_url
         :rtype: unicode
         """
         return self._properties['sms_fallback_method']
@@ -530,7 +530,7 @@ class SimInstance(InstanceResource):
     @property
     def sms_fallback_url(self):
         """
-        :returns: The URL we call when an error occurs while retrieving or executing the TwiML requested from the sms_url
+        :returns: Deprecated. The URL we call when an error occurs while retrieving or executing the TwiML requested from the sms_url
         :rtype: unicode
         """
         return self._properties['sms_fallback_url']
@@ -538,7 +538,7 @@ class SimInstance(InstanceResource):
     @property
     def sms_method(self):
         """
-        :returns: The HTTP method we use to call sms_url
+        :returns: Deprecated. The HTTP method we use to call sms_url
         :rtype: unicode
         """
         return self._properties['sms_method']
@@ -546,7 +546,7 @@ class SimInstance(InstanceResource):
     @property
     def sms_url(self):
         """
-        :returns: The URL we call when the SIM-connected device sends an SMS message that is not a Command
+        :returns: Deprecated. The URL we call when the SIM-connected device sends an SMS message that is not a Command
         :rtype: unicode
         """
         return self._properties['sms_url']
@@ -554,7 +554,7 @@ class SimInstance(InstanceResource):
     @property
     def voice_fallback_method(self):
         """
-        :returns: The HTTP method we use to call voice_fallback_url
+        :returns: Deprecated. The HTTP method we use to call voice_fallback_url
         :rtype: unicode
         """
         return self._properties['voice_fallback_method']
@@ -562,7 +562,7 @@ class SimInstance(InstanceResource):
     @property
     def voice_fallback_url(self):
         """
-        :returns: The URL we call when an error occurs while retrieving or executing the TwiML requested from voice_url
+        :returns: Deprecated. The URL we call when an error occurs while retrieving or executing the TwiML requested from voice_url
         :rtype: unicode
         """
         return self._properties['voice_fallback_url']
@@ -570,7 +570,7 @@ class SimInstance(InstanceResource):
     @property
     def voice_method(self):
         """
-        :returns: The HTTP method we use to call voice_url
+        :returns: Deprecated. The HTTP method we use to call voice_url
         :rtype: unicode
         """
         return self._properties['voice_method']
@@ -578,7 +578,7 @@ class SimInstance(InstanceResource):
     @property
     def voice_url(self):
         """
-        :returns: The URL we call when the SIM-connected device makes a voice call
+        :returns: Deprecated. The URL we call when the SIM-connected device makes a voice call
         :rtype: unicode
         """
         return self._properties['voice_url']
@@ -657,10 +657,10 @@ class SimInstance(InstanceResource):
         :param unicode sms_fallback_url: The URL we should call when an error occurs while retrieving or executing the TwiML requested from sms_url
         :param unicode sms_method: The HTTP method we should use to call sms_url
         :param unicode sms_url: The URL we should call when the SIM-connected device sends an SMS message that is not a Command
-        :param unicode voice_fallback_method: The HTTP method we should use to call voice_fallback_url
-        :param unicode voice_fallback_url: The URL we should call when an error occurs while retrieving or executing the TwiML requested from voice_url
-        :param unicode voice_method: The HTTP method we should use when we call voice_url
-        :param unicode voice_url: The URL we should call when the SIM-connected device makes a voice call
+        :param unicode voice_fallback_method: Deprecated
+        :param unicode voice_fallback_url: Deprecated
+        :param unicode voice_method: Deprecated
+        :param unicode voice_url: Deprecated
         :param SimInstance.ResetStatus reset_status: Initiate a connectivity reset on a SIM
         :param unicode account_sid: The SID of the Account to which the Sim resource should belong
 

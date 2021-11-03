@@ -275,6 +275,8 @@ class BrandRegistrationInstance(InstanceResource):
         PENDING = "PENDING"
         APPROVED = "APPROVED"
         FAILED = "FAILED"
+        IN_REVIEW = "IN_REVIEW"
+        DELETED = "DELETED"
 
     class IdentityStatus(object):
         SELF_DECLARED = "SELF_DECLARED"
@@ -397,7 +399,7 @@ class BrandRegistrationInstance(InstanceResource):
     @property
     def status(self):
         """
-        :returns: Brand Registration status
+        :returns: Brand Registration status.
         :rtype: BrandRegistrationInstance.Status
         """
         return self._properties['status']

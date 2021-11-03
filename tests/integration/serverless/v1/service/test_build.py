@@ -102,7 +102,7 @@ class BuildTestCase(IntegrationTestCase):
                         "version": "1.0.1"
                     }
                 ],
-                "runtime": "node10",
+                "runtime": "node14",
                 "status": "building",
                 "date_created": "2018-11-10T20:00:00Z",
                 "date_updated": "2018-11-10T20:00:00Z",
@@ -194,7 +194,7 @@ class BuildTestCase(IntegrationTestCase):
                         "version": "1.0.1"
                     }
                 ],
-                "runtime": "node10",
+                "runtime": "node14",
                 "status": "building",
                 "date_created": "2018-11-10T20:00:00Z",
                 "date_updated": "2018-11-10T20:00:00Z",

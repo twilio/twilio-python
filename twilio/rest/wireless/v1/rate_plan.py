@@ -125,7 +125,7 @@ class RatePlanList(ListResource):
         :param unicode data_limit: The total data usage in Megabytes that the Network allows during one month on the home network
         :param unicode data_metering: The model used to meter data usage
         :param bool messaging_enabled: Whether SIMs can make, send, and receive SMS using Commands
-        :param bool voice_enabled: Whether SIMs can make and receive voice calls
+        :param bool voice_enabled: Deprecated
         :param bool national_roaming_enabled: Whether SIMs can roam on networks other than the home network in the United States
         :param list[unicode] international_roaming: The services that SIMs capable of using GPRS/3G/4G/LTE data connectivity can use outside of the United States
         :param unicode national_roaming_data_limit: The total data usage in Megabytes that the Network allows during one month on non-home networks in the United States
@@ -406,7 +406,7 @@ class RatePlanInstance(InstanceResource):
     @property
     def voice_enabled(self):
         """
-        :returns: Whether SIMs can make and receive voice calls
+        :returns: Deprecated. Whether SIMs can make and receive voice calls
         :rtype: bool
         """
         return self._properties['voice_enabled']

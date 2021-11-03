@@ -50,7 +50,7 @@ class NewFactorList(ListResource):
         :param unicode binding_public_key: The public key encoded in Base64
         :param unicode config_app_id: The ID that uniquely identifies your app in the Google or Apple store
         :param NewFactorInstance.NotificationPlatforms config_notification_platform: The transport technology used to generate the Notification Token
-        :param unicode config_notification_token: For APN, the device token. For FCM the registration token
+        :param unicode config_notification_token: For APN, the device token. For FCM, the registration token
         :param unicode config_sdk_version: The Verify Push SDK version used to configure the factor
         :param unicode binding_secret: The shared secret in Base32
         :param unicode config_time_step: How often, in seconds, are TOTP codes generated

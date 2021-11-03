@@ -259,7 +259,7 @@ class FactorContext(InstanceContext):
 
         :param unicode auth_payload: Optional payload to verify the Factor for the first time
         :param unicode friendly_name: The friendly name of this Factor
-        :param unicode config_notification_token: For APN, the device token. For FCM the registration token
+        :param unicode config_notification_token: For APN, the device token. For FCM, the registration token
         :param unicode config_sdk_version: The Verify Push SDK version used to configure the factor
         :param unicode config_time_step: How often, in seconds, are TOTP codes generated
         :param unicode config_skew: The number of past and future time-steps valid at a given time
@@ -497,7 +497,7 @@ class FactorInstance(InstanceResource):
 
         :param unicode auth_payload: Optional payload to verify the Factor for the first time
         :param unicode friendly_name: The friendly name of this Factor
-        :param unicode config_notification_token: For APN, the device token. For FCM the registration token
+        :param unicode config_notification_token: For APN, the device token. For FCM, the registration token
         :param unicode config_sdk_version: The Verify Push SDK version used to configure the factor
         :param unicode config_time_step: How often, in seconds, are TOTP codes generated
         :param unicode config_skew: The number of past and future time-steps valid at a given time

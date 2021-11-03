@@ -299,6 +299,7 @@ class BuildInstance(InstanceResource):
         NODE8 = "node8"
         NODE10 = "node10"
         NODE12 = "node12"
+        NODE14 = "node14"
 
     def __init__(self, version, payload, service_sid, sid=None):
         """
