@@ -111,27 +111,35 @@ class SchemaVersionList(ListResource):
 
         return SchemaVersionPage(self._version, response, self._solution)
 
-    def get(self, path_version):
+    def get(self, resource_version):
         """
         Constructs a SchemaVersionContext
 
-        :param path_version: The version of the schema
+        :param resource_version: The version of the schema
 
         :returns: twilio.rest.events.v1.schema.version.SchemaVersionContext
         :rtype: twilio.rest.events.v1.schema.version.SchemaVersionContext
         """
-        return SchemaVersionContext(self._version, id=self._solution['id'], path_version=path_version, )
+        return SchemaVersionContext(
+            self._version,
+            id=self._solution['id'],
+            resource_version=resource_version,
+        )
 
-    def __call__(self, path_version):
+    def __call__(self, resource_version):
         """
         Constructs a SchemaVersionContext
 
-        :param path_version: The version of the schema
+        :param resource_version: The version of the schema
 
         :returns: twilio.rest.events.v1.schema.version.SchemaVersionContext
         :rtype: twilio.rest.events.v1.schema.version.SchemaVersionContext
         """
-        return SchemaVersionContext(self._version, id=self._solution['id'], path_version=path_version, )
+        return SchemaVersionContext(
+            self._version,
+            id=self._solution['id'],
+            resource_version=resource_version,
+        )
 
     def __repr__(self):
         """
@@ -188,13 +196,13 @@ class SchemaVersionContext(InstanceContext):
     """ PLEASE NOTE that this class contains beta products that are subject to
     change. Use them with caution. """
 
-    def __init__(self, version, id, path_version):
+    def __init__(self, version, id, resource_version):
         """
         Initialize the SchemaVersionContext
 
         :param Version version: Version that contains the resource
         :param id: The unique identifier of the schema.
-        :param path_version: The version of the schema
+        :param resource_version: The version of the schema
 
         :returns: twilio.rest.events.v1.schema.version.SchemaVersionContext
         :rtype: twilio.rest.events.v1.schema.version.SchemaVersionContext
@@ -202,8 +210,8 @@ class SchemaVersionContext(InstanceContext):
         super(SchemaVersionContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {'id': id, 'path_version': path_version, }
-        self._uri = '/Schemas/{id}/Versions/{path_version}'.format(**self._solution)
+        self._solution = {'id': id, 'resource_version': resource_version, }
+        self._uri = '/Schemas/{id}/Versions/{resource_version}'.format(**self._solution)
 
     def fetch(self):
         """
@@ -218,7 +226,7 @@ class SchemaVersionContext(InstanceContext):
             self._version,
             payload,
             id=self._solution['id'],
-            path_version=self._solution['path_version'],
+            resource_version=self._solution['resource_version'],
         )
 
     def __repr__(self):
@@ -236,7 +244,7 @@ class SchemaVersionInstance(InstanceResource):
     """ PLEASE NOTE that this class contains beta products that are subject to
     change. Use them with caution. """
 
-    def __init__(self, version, payload, id, path_version=None):
+    def __init__(self, version, payload, id, resource_version=None):
         """
         Initialize the SchemaVersionInstance
 
@@ -256,7 +264,7 @@ class SchemaVersionInstance(InstanceResource):
 
         # Context
         self._context = None
-        self._solution = {'id': id, 'path_version': path_version or self._properties['version'], }
+        self._solution = {'id': id, 'resource_version': resource_version or self._properties['version'], }
 
     @property
     def _proxy(self):
@@ -271,7 +279,7 @@ class SchemaVersionInstance(InstanceResource):
             self._context = SchemaVersionContext(
                 self._version,
                 id=self._solution['id'],
-                path_version=self._solution['path_version'],
+                resource_version=self._solution['resource_version'],
             )
         return self._context
 
