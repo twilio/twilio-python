@@ -732,7 +732,7 @@ class Say(TwiML):
         """
         return self.break_(strength=strength, time=time, **kwargs)
 
-    def emphasis(self, words, level=None, **kwargs):
+    def emphasis(self, words=None, level=None, **kwargs):
         """
         Create a <Emphasis> element
 
@@ -742,10 +742,10 @@ class Say(TwiML):
 
         :returns: <Emphasis> element
         """
-        return self.nest(SsmlEmphasis(words, level=level, **kwargs))
+        return self.nest(SsmlEmphasis(words=words, level=level, **kwargs))
 
     @deprecated_method('emphasis')
-    def ssml_emphasis(self, words, level=None, **kwargs):
+    def ssml_emphasis(self, words=None, level=None, **kwargs):
         """
         Create a <Emphasis> element
 
@@ -755,9 +755,9 @@ class Say(TwiML):
 
         :returns: <Emphasis> element
         """
-        return self.emphasis(words, level=level, **kwargs)
+        return self.emphasis(words=words, level=level, **kwargs)
 
-    def lang(self, words, xml_lang=None, **kwargs):
+    def lang(self, words=None, xml_lang=None, **kwargs):
         """
         Create a <Lang> element
 
@@ -767,10 +767,10 @@ class Say(TwiML):
 
         :returns: <Lang> element
         """
-        return self.nest(SsmlLang(words, xml_lang=xml_lang, **kwargs))
+        return self.nest(SsmlLang(words=words, xml_lang=xml_lang, **kwargs))
 
     @deprecated_method('lang')
-    def ssml_lang(self, words, xml_lang=None, **kwargs):
+    def ssml_lang(self, words=None, xml_lang=None, **kwargs):
         """
         Create a <Lang> element
 
@@ -780,9 +780,9 @@ class Say(TwiML):
 
         :returns: <Lang> element
         """
-        return self.lang(words, xml_lang=xml_lang, **kwargs)
+        return self.lang(words=words, xml_lang=xml_lang, **kwargs)
 
-    def p(self, words, **kwargs):
+    def p(self, words=None, **kwargs):
         """
         Create a <P> element
 
@@ -791,10 +791,10 @@ class Say(TwiML):
 
         :returns: <P> element
         """
-        return self.nest(SsmlP(words, **kwargs))
+        return self.nest(SsmlP(words=words, **kwargs))
 
     @deprecated_method('p')
-    def ssml_p(self, words, **kwargs):
+    def ssml_p(self, words=None, **kwargs):
         """
         Create a <P> element
 
@@ -803,7 +803,7 @@ class Say(TwiML):
 
         :returns: <P> element
         """
-        return self.p(words, **kwargs)
+        return self.p(words=words, **kwargs)
 
     def phoneme(self, words, alphabet=None, ph=None, **kwargs):
         """
@@ -832,7 +832,7 @@ class Say(TwiML):
         """
         return self.phoneme(words, alphabet=alphabet, ph=ph, **kwargs)
 
-    def prosody(self, words, volume=None, rate=None, pitch=None, **kwargs):
+    def prosody(self, words=None, volume=None, rate=None, pitch=None, **kwargs):
         """
         Create a <Prosody> element
 
@@ -844,10 +844,11 @@ class Say(TwiML):
 
         :returns: <Prosody> element
         """
-        return self.nest(SsmlProsody(words, volume=volume, rate=rate, pitch=pitch, **kwargs))
+        return self.nest(SsmlProsody(words=words, volume=volume, rate=rate, pitch=pitch, **kwargs))
 
     @deprecated_method('prosody')
-    def ssml_prosody(self, words, volume=None, rate=None, pitch=None, **kwargs):
+    def ssml_prosody(self, words=None, volume=None, rate=None, pitch=None,
+                     **kwargs):
         """
         Create a <Prosody> element
 
@@ -859,9 +860,9 @@ class Say(TwiML):
 
         :returns: <Prosody> element
         """
-        return self.prosody(words, volume=volume, rate=rate, pitch=pitch, **kwargs)
+        return self.prosody(words=words, volume=volume, rate=rate, pitch=pitch, **kwargs)
 
-    def s(self, words, **kwargs):
+    def s(self, words=None, **kwargs):
         """
         Create a <S> element
 
@@ -870,10 +871,10 @@ class Say(TwiML):
 
         :returns: <S> element
         """
-        return self.nest(SsmlS(words, **kwargs))
+        return self.nest(SsmlS(words=words, **kwargs))
 
     @deprecated_method('s')
-    def ssml_s(self, words, **kwargs):
+    def ssml_s(self, words=None, **kwargs):
         """
         Create a <S> element
 
@@ -882,7 +883,7 @@ class Say(TwiML):
 
         :returns: <S> element
         """
-        return self.s(words, **kwargs)
+        return self.s(words=words, **kwargs)
 
     def say_as(self, words, interpret_as=None, role=None, **kwargs):
         """
@@ -936,7 +937,7 @@ class Say(TwiML):
         """
         return self.sub(words, alias=alias, **kwargs)
 
-    def w(self, words, role=None, **kwargs):
+    def w(self, words=None, role=None, **kwargs):
         """
         Create a <W> element
 
@@ -946,10 +947,10 @@ class Say(TwiML):
 
         :returns: <W> element
         """
-        return self.nest(SsmlW(words, role=role, **kwargs))
+        return self.nest(SsmlW(words=words, role=role, **kwargs))
 
     @deprecated_method('w')
-    def ssml_w(self, words, role=None, **kwargs):
+    def ssml_w(self, words=None, role=None, **kwargs):
         """
         Create a <W> element
 
@@ -959,16 +960,176 @@ class Say(TwiML):
 
         :returns: <W> element
         """
-        return self.w(words, role=role, **kwargs)
+        return self.w(words=words, role=role, **kwargs)
 
 
 class SsmlW(TwiML):
     """ Improving Pronunciation by Specifying Parts of Speech in <Say> """
 
-    def __init__(self, words, **kwargs):
+    def __init__(self, words=None, **kwargs):
         super(SsmlW, self).__init__(**kwargs)
         self.name = 'w'
-        self.value = words
+        if words:
+            self.value = words
+
+    def break_(self, strength=None, time=None, **kwargs):
+        """
+        Create a <Break> element
+
+        :param strength: Set a pause based on strength
+        :param time: Set a pause to a specific length of time in seconds or milliseconds, available values: [number]s, [number]ms
+        :param kwargs: additional attributes
+
+        :returns: <Break> element
+        """
+        return self.nest(SsmlBreak(strength=strength, time=time, **kwargs))
+
+    @deprecated_method('break_')
+    def ssml_break(self, strength=None, time=None, **kwargs):
+        """
+        Create a <Break> element
+
+        :param strength: Set a pause based on strength
+        :param time: Set a pause to a specific length of time in seconds or milliseconds, available values: [number]s, [number]ms
+        :param kwargs: additional attributes
+
+        :returns: <Break> element
+        """
+        return self.break_(strength=strength, time=time, **kwargs)
+
+    def emphasis(self, words=None, level=None, **kwargs):
+        """
+        Create a <Emphasis> element
+
+        :param words: Words to emphasize
+        :param level: Specify the degree of emphasis
+        :param kwargs: additional attributes
+
+        :returns: <Emphasis> element
+        """
+        return self.nest(SsmlEmphasis(words=words, level=level, **kwargs))
+
+    @deprecated_method('emphasis')
+    def ssml_emphasis(self, words=None, level=None, **kwargs):
+        """
+        Create a <Emphasis> element
+
+        :param words: Words to emphasize
+        :param level: Specify the degree of emphasis
+        :param kwargs: additional attributes
+
+        :returns: <Emphasis> element
+        """
+        return self.emphasis(words=words, level=level, **kwargs)
+
+    def phoneme(self, words, alphabet=None, ph=None, **kwargs):
+        """
+        Create a <Phoneme> element
+
+        :param words: Words to speak
+        :param alphabet: Specify the phonetic alphabet
+        :param ph: Specifiy the phonetic symbols for pronunciation
+        :param kwargs: additional attributes
+
+        :returns: <Phoneme> element
+        """
+        return self.nest(SsmlPhoneme(words, alphabet=alphabet, ph=ph, **kwargs))
+
+    @deprecated_method('phoneme')
+    def ssml_phoneme(self, words, alphabet=None, ph=None, **kwargs):
+        """
+        Create a <Phoneme> element
+
+        :param words: Words to speak
+        :param alphabet: Specify the phonetic alphabet
+        :param ph: Specifiy the phonetic symbols for pronunciation
+        :param kwargs: additional attributes
+
+        :returns: <Phoneme> element
+        """
+        return self.phoneme(words, alphabet=alphabet, ph=ph, **kwargs)
+
+    def prosody(self, words=None, volume=None, rate=None, pitch=None, **kwargs):
+        """
+        Create a <Prosody> element
+
+        :param words: Words to speak
+        :param volume: Specify the volume, available values: default, silent, x-soft, soft, medium, loud, x-loud, +ndB, -ndB
+        :param rate: Specify the rate, available values: x-slow, slow, medium, fast, x-fast, n%
+        :param pitch: Specify the pitch, available values: default, x-low, low, medium, high, x-high, +n%, -n%
+        :param kwargs: additional attributes
+
+        :returns: <Prosody> element
+        """
+        return self.nest(SsmlProsody(words=words, volume=volume, rate=rate, pitch=pitch, **kwargs))
+
+    @deprecated_method('prosody')
+    def ssml_prosody(self, words=None, volume=None, rate=None, pitch=None,
+                     **kwargs):
+        """
+        Create a <Prosody> element
+
+        :param words: Words to speak
+        :param volume: Specify the volume, available values: default, silent, x-soft, soft, medium, loud, x-loud, +ndB, -ndB
+        :param rate: Specify the rate, available values: x-slow, slow, medium, fast, x-fast, n%
+        :param pitch: Specify the pitch, available values: default, x-low, low, medium, high, x-high, +n%, -n%
+        :param kwargs: additional attributes
+
+        :returns: <Prosody> element
+        """
+        return self.prosody(words=words, volume=volume, rate=rate, pitch=pitch, **kwargs)
+
+    def say_as(self, words, interpret_as=None, role=None, **kwargs):
+        """
+        Create a <Say-As> element
+
+        :param words: Words to be interpreted
+        :param interpret-as: Specify the type of words are spoken
+        :param role: Specify the format of the date when interpret-as is set to date
+        :param kwargs: additional attributes
+
+        :returns: <Say-As> element
+        """
+        return self.nest(SsmlSayAs(words, interpret_as=interpret_as, role=role, **kwargs))
+
+    @deprecated_method('say_as')
+    def ssml_say_as(self, words, interpret_as=None, role=None, **kwargs):
+        """
+        Create a <Say-As> element
+
+        :param words: Words to be interpreted
+        :param interpret-as: Specify the type of words are spoken
+        :param role: Specify the format of the date when interpret-as is set to date
+        :param kwargs: additional attributes
+
+        :returns: <Say-As> element
+        """
+        return self.say_as(words, interpret_as=interpret_as, role=role, **kwargs)
+
+    def sub(self, words, alias=None, **kwargs):
+        """
+        Create a <Sub> element
+
+        :param words: Words to be substituted
+        :param alias: Substitute a different word (or pronunciation) for selected text such as an acronym or abbreviation
+        :param kwargs: additional attributes
+
+        :returns: <Sub> element
+        """
+        return self.nest(SsmlSub(words, alias=alias, **kwargs))
+
+    @deprecated_method('sub')
+    def ssml_sub(self, words, alias=None, **kwargs):
+        """
+        Create a <Sub> element
+
+        :param words: Words to be substituted
+        :param alias: Substitute a different word (or pronunciation) for selected text such as an acronym or abbreviation
+        :param kwargs: additional attributes
+
+        :returns: <Sub> element
+        """
+        return self.sub(words, alias=alias, **kwargs)
 
 
 class SsmlSub(TwiML):
@@ -989,22 +1150,488 @@ class SsmlSayAs(TwiML):
         self.value = words
 
 
-class SsmlS(TwiML):
-    """ Adding A Pause Between Sentences in <Say> """
-
-    def __init__(self, words, **kwargs):
-        super(SsmlS, self).__init__(**kwargs)
-        self.name = 's'
-        self.value = words
-
-
 class SsmlProsody(TwiML):
     """ Controling Volume, Speaking Rate, and Pitch in <Say> """
 
-    def __init__(self, words, **kwargs):
+    def __init__(self, words=None, **kwargs):
         super(SsmlProsody, self).__init__(**kwargs)
         self.name = 'prosody'
-        self.value = words
+        if words:
+            self.value = words
+
+    def break_(self, strength=None, time=None, **kwargs):
+        """
+        Create a <Break> element
+
+        :param strength: Set a pause based on strength
+        :param time: Set a pause to a specific length of time in seconds or milliseconds, available values: [number]s, [number]ms
+        :param kwargs: additional attributes
+
+        :returns: <Break> element
+        """
+        return self.nest(SsmlBreak(strength=strength, time=time, **kwargs))
+
+    @deprecated_method('break_')
+    def ssml_break(self, strength=None, time=None, **kwargs):
+        """
+        Create a <Break> element
+
+        :param strength: Set a pause based on strength
+        :param time: Set a pause to a specific length of time in seconds or milliseconds, available values: [number]s, [number]ms
+        :param kwargs: additional attributes
+
+        :returns: <Break> element
+        """
+        return self.break_(strength=strength, time=time, **kwargs)
+
+    def emphasis(self, words=None, level=None, **kwargs):
+        """
+        Create a <Emphasis> element
+
+        :param words: Words to emphasize
+        :param level: Specify the degree of emphasis
+        :param kwargs: additional attributes
+
+        :returns: <Emphasis> element
+        """
+        return self.nest(SsmlEmphasis(words=words, level=level, **kwargs))
+
+    @deprecated_method('emphasis')
+    def ssml_emphasis(self, words=None, level=None, **kwargs):
+        """
+        Create a <Emphasis> element
+
+        :param words: Words to emphasize
+        :param level: Specify the degree of emphasis
+        :param kwargs: additional attributes
+
+        :returns: <Emphasis> element
+        """
+        return self.emphasis(words=words, level=level, **kwargs)
+
+    def lang(self, words=None, xml_lang=None, **kwargs):
+        """
+        Create a <Lang> element
+
+        :param words: Words to speak
+        :param xml:lang: Specify the language
+        :param kwargs: additional attributes
+
+        :returns: <Lang> element
+        """
+        return self.nest(SsmlLang(words=words, xml_lang=xml_lang, **kwargs))
+
+    @deprecated_method('lang')
+    def ssml_lang(self, words=None, xml_lang=None, **kwargs):
+        """
+        Create a <Lang> element
+
+        :param words: Words to speak
+        :param xml:lang: Specify the language
+        :param kwargs: additional attributes
+
+        :returns: <Lang> element
+        """
+        return self.lang(words=words, xml_lang=xml_lang, **kwargs)
+
+    def p(self, words=None, **kwargs):
+        """
+        Create a <P> element
+
+        :param words: Words to speak
+        :param kwargs: additional attributes
+
+        :returns: <P> element
+        """
+        return self.nest(SsmlP(words=words, **kwargs))
+
+    @deprecated_method('p')
+    def ssml_p(self, words=None, **kwargs):
+        """
+        Create a <P> element
+
+        :param words: Words to speak
+        :param kwargs: additional attributes
+
+        :returns: <P> element
+        """
+        return self.p(words=words, **kwargs)
+
+    def phoneme(self, words, alphabet=None, ph=None, **kwargs):
+        """
+        Create a <Phoneme> element
+
+        :param words: Words to speak
+        :param alphabet: Specify the phonetic alphabet
+        :param ph: Specifiy the phonetic symbols for pronunciation
+        :param kwargs: additional attributes
+
+        :returns: <Phoneme> element
+        """
+        return self.nest(SsmlPhoneme(words, alphabet=alphabet, ph=ph, **kwargs))
+
+    @deprecated_method('phoneme')
+    def ssml_phoneme(self, words, alphabet=None, ph=None, **kwargs):
+        """
+        Create a <Phoneme> element
+
+        :param words: Words to speak
+        :param alphabet: Specify the phonetic alphabet
+        :param ph: Specifiy the phonetic symbols for pronunciation
+        :param kwargs: additional attributes
+
+        :returns: <Phoneme> element
+        """
+        return self.phoneme(words, alphabet=alphabet, ph=ph, **kwargs)
+
+    def prosody(self, words=None, volume=None, rate=None, pitch=None, **kwargs):
+        """
+        Create a <Prosody> element
+
+        :param words: Words to speak
+        :param volume: Specify the volume, available values: default, silent, x-soft, soft, medium, loud, x-loud, +ndB, -ndB
+        :param rate: Specify the rate, available values: x-slow, slow, medium, fast, x-fast, n%
+        :param pitch: Specify the pitch, available values: default, x-low, low, medium, high, x-high, +n%, -n%
+        :param kwargs: additional attributes
+
+        :returns: <Prosody> element
+        """
+        return self.nest(SsmlProsody(words=words, volume=volume, rate=rate, pitch=pitch, **kwargs))
+
+    @deprecated_method('prosody')
+    def ssml_prosody(self, words=None, volume=None, rate=None, pitch=None,
+                     **kwargs):
+        """
+        Create a <Prosody> element
+
+        :param words: Words to speak
+        :param volume: Specify the volume, available values: default, silent, x-soft, soft, medium, loud, x-loud, +ndB, -ndB
+        :param rate: Specify the rate, available values: x-slow, slow, medium, fast, x-fast, n%
+        :param pitch: Specify the pitch, available values: default, x-low, low, medium, high, x-high, +n%, -n%
+        :param kwargs: additional attributes
+
+        :returns: <Prosody> element
+        """
+        return self.prosody(words=words, volume=volume, rate=rate, pitch=pitch, **kwargs)
+
+    def s(self, words=None, **kwargs):
+        """
+        Create a <S> element
+
+        :param words: Words to speak
+        :param kwargs: additional attributes
+
+        :returns: <S> element
+        """
+        return self.nest(SsmlS(words=words, **kwargs))
+
+    @deprecated_method('s')
+    def ssml_s(self, words=None, **kwargs):
+        """
+        Create a <S> element
+
+        :param words: Words to speak
+        :param kwargs: additional attributes
+
+        :returns: <S> element
+        """
+        return self.s(words=words, **kwargs)
+
+    def say_as(self, words, interpret_as=None, role=None, **kwargs):
+        """
+        Create a <Say-As> element
+
+        :param words: Words to be interpreted
+        :param interpret-as: Specify the type of words are spoken
+        :param role: Specify the format of the date when interpret-as is set to date
+        :param kwargs: additional attributes
+
+        :returns: <Say-As> element
+        """
+        return self.nest(SsmlSayAs(words, interpret_as=interpret_as, role=role, **kwargs))
+
+    @deprecated_method('say_as')
+    def ssml_say_as(self, words, interpret_as=None, role=None, **kwargs):
+        """
+        Create a <Say-As> element
+
+        :param words: Words to be interpreted
+        :param interpret-as: Specify the type of words are spoken
+        :param role: Specify the format of the date when interpret-as is set to date
+        :param kwargs: additional attributes
+
+        :returns: <Say-As> element
+        """
+        return self.say_as(words, interpret_as=interpret_as, role=role, **kwargs)
+
+    def sub(self, words, alias=None, **kwargs):
+        """
+        Create a <Sub> element
+
+        :param words: Words to be substituted
+        :param alias: Substitute a different word (or pronunciation) for selected text such as an acronym or abbreviation
+        :param kwargs: additional attributes
+
+        :returns: <Sub> element
+        """
+        return self.nest(SsmlSub(words, alias=alias, **kwargs))
+
+    @deprecated_method('sub')
+    def ssml_sub(self, words, alias=None, **kwargs):
+        """
+        Create a <Sub> element
+
+        :param words: Words to be substituted
+        :param alias: Substitute a different word (or pronunciation) for selected text such as an acronym or abbreviation
+        :param kwargs: additional attributes
+
+        :returns: <Sub> element
+        """
+        return self.sub(words, alias=alias, **kwargs)
+
+    def w(self, words=None, role=None, **kwargs):
+        """
+        Create a <W> element
+
+        :param words: Words to speak
+        :param role: Customize the pronunciation of words by specifying the word’s part of speech or alternate meaning
+        :param kwargs: additional attributes
+
+        :returns: <W> element
+        """
+        return self.nest(SsmlW(words=words, role=role, **kwargs))
+
+    @deprecated_method('w')
+    def ssml_w(self, words=None, role=None, **kwargs):
+        """
+        Create a <W> element
+
+        :param words: Words to speak
+        :param role: Customize the pronunciation of words by specifying the word’s part of speech or alternate meaning
+        :param kwargs: additional attributes
+
+        :returns: <W> element
+        """
+        return self.w(words=words, role=role, **kwargs)
+
+
+class SsmlS(TwiML):
+    """ Adding A Pause Between Sentences in <Say> """
+
+    def __init__(self, words=None, **kwargs):
+        super(SsmlS, self).__init__(**kwargs)
+        self.name = 's'
+        if words:
+            self.value = words
+
+    def break_(self, strength=None, time=None, **kwargs):
+        """
+        Create a <Break> element
+
+        :param strength: Set a pause based on strength
+        :param time: Set a pause to a specific length of time in seconds or milliseconds, available values: [number]s, [number]ms
+        :param kwargs: additional attributes
+
+        :returns: <Break> element
+        """
+        return self.nest(SsmlBreak(strength=strength, time=time, **kwargs))
+
+    @deprecated_method('break_')
+    def ssml_break(self, strength=None, time=None, **kwargs):
+        """
+        Create a <Break> element
+
+        :param strength: Set a pause based on strength
+        :param time: Set a pause to a specific length of time in seconds or milliseconds, available values: [number]s, [number]ms
+        :param kwargs: additional attributes
+
+        :returns: <Break> element
+        """
+        return self.break_(strength=strength, time=time, **kwargs)
+
+    def emphasis(self, words=None, level=None, **kwargs):
+        """
+        Create a <Emphasis> element
+
+        :param words: Words to emphasize
+        :param level: Specify the degree of emphasis
+        :param kwargs: additional attributes
+
+        :returns: <Emphasis> element
+        """
+        return self.nest(SsmlEmphasis(words=words, level=level, **kwargs))
+
+    @deprecated_method('emphasis')
+    def ssml_emphasis(self, words=None, level=None, **kwargs):
+        """
+        Create a <Emphasis> element
+
+        :param words: Words to emphasize
+        :param level: Specify the degree of emphasis
+        :param kwargs: additional attributes
+
+        :returns: <Emphasis> element
+        """
+        return self.emphasis(words=words, level=level, **kwargs)
+
+    def lang(self, words=None, xml_lang=None, **kwargs):
+        """
+        Create a <Lang> element
+
+        :param words: Words to speak
+        :param xml:lang: Specify the language
+        :param kwargs: additional attributes
+
+        :returns: <Lang> element
+        """
+        return self.nest(SsmlLang(words=words, xml_lang=xml_lang, **kwargs))
+
+    @deprecated_method('lang')
+    def ssml_lang(self, words=None, xml_lang=None, **kwargs):
+        """
+        Create a <Lang> element
+
+        :param words: Words to speak
+        :param xml:lang: Specify the language
+        :param kwargs: additional attributes
+
+        :returns: <Lang> element
+        """
+        return self.lang(words=words, xml_lang=xml_lang, **kwargs)
+
+    def phoneme(self, words, alphabet=None, ph=None, **kwargs):
+        """
+        Create a <Phoneme> element
+
+        :param words: Words to speak
+        :param alphabet: Specify the phonetic alphabet
+        :param ph: Specifiy the phonetic symbols for pronunciation
+        :param kwargs: additional attributes
+
+        :returns: <Phoneme> element
+        """
+        return self.nest(SsmlPhoneme(words, alphabet=alphabet, ph=ph, **kwargs))
+
+    @deprecated_method('phoneme')
+    def ssml_phoneme(self, words, alphabet=None, ph=None, **kwargs):
+        """
+        Create a <Phoneme> element
+
+        :param words: Words to speak
+        :param alphabet: Specify the phonetic alphabet
+        :param ph: Specifiy the phonetic symbols for pronunciation
+        :param kwargs: additional attributes
+
+        :returns: <Phoneme> element
+        """
+        return self.phoneme(words, alphabet=alphabet, ph=ph, **kwargs)
+
+    def prosody(self, words=None, volume=None, rate=None, pitch=None, **kwargs):
+        """
+        Create a <Prosody> element
+
+        :param words: Words to speak
+        :param volume: Specify the volume, available values: default, silent, x-soft, soft, medium, loud, x-loud, +ndB, -ndB
+        :param rate: Specify the rate, available values: x-slow, slow, medium, fast, x-fast, n%
+        :param pitch: Specify the pitch, available values: default, x-low, low, medium, high, x-high, +n%, -n%
+        :param kwargs: additional attributes
+
+        :returns: <Prosody> element
+        """
+        return self.nest(SsmlProsody(words=words, volume=volume, rate=rate, pitch=pitch, **kwargs))
+
+    @deprecated_method('prosody')
+    def ssml_prosody(self, words=None, volume=None, rate=None, pitch=None,
+                     **kwargs):
+        """
+        Create a <Prosody> element
+
+        :param words: Words to speak
+        :param volume: Specify the volume, available values: default, silent, x-soft, soft, medium, loud, x-loud, +ndB, -ndB
+        :param rate: Specify the rate, available values: x-slow, slow, medium, fast, x-fast, n%
+        :param pitch: Specify the pitch, available values: default, x-low, low, medium, high, x-high, +n%, -n%
+        :param kwargs: additional attributes
+
+        :returns: <Prosody> element
+        """
+        return self.prosody(words=words, volume=volume, rate=rate, pitch=pitch, **kwargs)
+
+    def say_as(self, words, interpret_as=None, role=None, **kwargs):
+        """
+        Create a <Say-As> element
+
+        :param words: Words to be interpreted
+        :param interpret-as: Specify the type of words are spoken
+        :param role: Specify the format of the date when interpret-as is set to date
+        :param kwargs: additional attributes
+
+        :returns: <Say-As> element
+        """
+        return self.nest(SsmlSayAs(words, interpret_as=interpret_as, role=role, **kwargs))
+
+    @deprecated_method('say_as')
+    def ssml_say_as(self, words, interpret_as=None, role=None, **kwargs):
+        """
+        Create a <Say-As> element
+
+        :param words: Words to be interpreted
+        :param interpret-as: Specify the type of words are spoken
+        :param role: Specify the format of the date when interpret-as is set to date
+        :param kwargs: additional attributes
+
+        :returns: <Say-As> element
+        """
+        return self.say_as(words, interpret_as=interpret_as, role=role, **kwargs)
+
+    def sub(self, words, alias=None, **kwargs):
+        """
+        Create a <Sub> element
+
+        :param words: Words to be substituted
+        :param alias: Substitute a different word (or pronunciation) for selected text such as an acronym or abbreviation
+        :param kwargs: additional attributes
+
+        :returns: <Sub> element
+        """
+        return self.nest(SsmlSub(words, alias=alias, **kwargs))
+
+    @deprecated_method('sub')
+    def ssml_sub(self, words, alias=None, **kwargs):
+        """
+        Create a <Sub> element
+
+        :param words: Words to be substituted
+        :param alias: Substitute a different word (or pronunciation) for selected text such as an acronym or abbreviation
+        :param kwargs: additional attributes
+
+        :returns: <Sub> element
+        """
+        return self.sub(words, alias=alias, **kwargs)
+
+    def w(self, words=None, role=None, **kwargs):
+        """
+        Create a <W> element
+
+        :param words: Words to speak
+        :param role: Customize the pronunciation of words by specifying the word’s part of speech or alternate meaning
+        :param kwargs: additional attributes
+
+        :returns: <W> element
+        """
+        return self.nest(SsmlW(words=words, role=role, **kwargs))
+
+    @deprecated_method('w')
+    def ssml_w(self, words=None, role=None, **kwargs):
+        """
+        Create a <W> element
+
+        :param words: Words to speak
+        :param role: Customize the pronunciation of words by specifying the word’s part of speech or alternate meaning
+        :param kwargs: additional attributes
+
+        :returns: <W> element
+        """
+        return self.w(words=words, role=role, **kwargs)
 
 
 class SsmlPhoneme(TwiML):
@@ -1016,31 +1643,730 @@ class SsmlPhoneme(TwiML):
         self.value = words
 
 
-class SsmlP(TwiML):
-    """ Adding a Pause Between Paragraphs in <Say> """
-
-    def __init__(self, words, **kwargs):
-        super(SsmlP, self).__init__(**kwargs)
-        self.name = 'p'
-        self.value = words
-
-
 class SsmlLang(TwiML):
     """ Specifying Another Language for Specific Words in <Say> """
 
-    def __init__(self, words, **kwargs):
+    def __init__(self, words=None, **kwargs):
         super(SsmlLang, self).__init__(**kwargs)
         self.name = 'lang'
-        self.value = words
+        if words:
+            self.value = words
+
+    def break_(self, strength=None, time=None, **kwargs):
+        """
+        Create a <Break> element
+
+        :param strength: Set a pause based on strength
+        :param time: Set a pause to a specific length of time in seconds or milliseconds, available values: [number]s, [number]ms
+        :param kwargs: additional attributes
+
+        :returns: <Break> element
+        """
+        return self.nest(SsmlBreak(strength=strength, time=time, **kwargs))
+
+    @deprecated_method('break_')
+    def ssml_break(self, strength=None, time=None, **kwargs):
+        """
+        Create a <Break> element
+
+        :param strength: Set a pause based on strength
+        :param time: Set a pause to a specific length of time in seconds or milliseconds, available values: [number]s, [number]ms
+        :param kwargs: additional attributes
+
+        :returns: <Break> element
+        """
+        return self.break_(strength=strength, time=time, **kwargs)
+
+    def emphasis(self, words=None, level=None, **kwargs):
+        """
+        Create a <Emphasis> element
+
+        :param words: Words to emphasize
+        :param level: Specify the degree of emphasis
+        :param kwargs: additional attributes
+
+        :returns: <Emphasis> element
+        """
+        return self.nest(SsmlEmphasis(words=words, level=level, **kwargs))
+
+    @deprecated_method('emphasis')
+    def ssml_emphasis(self, words=None, level=None, **kwargs):
+        """
+        Create a <Emphasis> element
+
+        :param words: Words to emphasize
+        :param level: Specify the degree of emphasis
+        :param kwargs: additional attributes
+
+        :returns: <Emphasis> element
+        """
+        return self.emphasis(words=words, level=level, **kwargs)
+
+    def lang(self, words=None, xml_lang=None, **kwargs):
+        """
+        Create a <Lang> element
+
+        :param words: Words to speak
+        :param xml:lang: Specify the language
+        :param kwargs: additional attributes
+
+        :returns: <Lang> element
+        """
+        return self.nest(SsmlLang(words=words, xml_lang=xml_lang, **kwargs))
+
+    @deprecated_method('lang')
+    def ssml_lang(self, words=None, xml_lang=None, **kwargs):
+        """
+        Create a <Lang> element
+
+        :param words: Words to speak
+        :param xml:lang: Specify the language
+        :param kwargs: additional attributes
+
+        :returns: <Lang> element
+        """
+        return self.lang(words=words, xml_lang=xml_lang, **kwargs)
+
+    def p(self, words=None, **kwargs):
+        """
+        Create a <P> element
+
+        :param words: Words to speak
+        :param kwargs: additional attributes
+
+        :returns: <P> element
+        """
+        return self.nest(SsmlP(words=words, **kwargs))
+
+    @deprecated_method('p')
+    def ssml_p(self, words=None, **kwargs):
+        """
+        Create a <P> element
+
+        :param words: Words to speak
+        :param kwargs: additional attributes
+
+        :returns: <P> element
+        """
+        return self.p(words=words, **kwargs)
+
+    def phoneme(self, words, alphabet=None, ph=None, **kwargs):
+        """
+        Create a <Phoneme> element
+
+        :param words: Words to speak
+        :param alphabet: Specify the phonetic alphabet
+        :param ph: Specifiy the phonetic symbols for pronunciation
+        :param kwargs: additional attributes
+
+        :returns: <Phoneme> element
+        """
+        return self.nest(SsmlPhoneme(words, alphabet=alphabet, ph=ph, **kwargs))
+
+    @deprecated_method('phoneme')
+    def ssml_phoneme(self, words, alphabet=None, ph=None, **kwargs):
+        """
+        Create a <Phoneme> element
+
+        :param words: Words to speak
+        :param alphabet: Specify the phonetic alphabet
+        :param ph: Specifiy the phonetic symbols for pronunciation
+        :param kwargs: additional attributes
+
+        :returns: <Phoneme> element
+        """
+        return self.phoneme(words, alphabet=alphabet, ph=ph, **kwargs)
+
+    def prosody(self, words=None, volume=None, rate=None, pitch=None, **kwargs):
+        """
+        Create a <Prosody> element
+
+        :param words: Words to speak
+        :param volume: Specify the volume, available values: default, silent, x-soft, soft, medium, loud, x-loud, +ndB, -ndB
+        :param rate: Specify the rate, available values: x-slow, slow, medium, fast, x-fast, n%
+        :param pitch: Specify the pitch, available values: default, x-low, low, medium, high, x-high, +n%, -n%
+        :param kwargs: additional attributes
+
+        :returns: <Prosody> element
+        """
+        return self.nest(SsmlProsody(words=words, volume=volume, rate=rate, pitch=pitch, **kwargs))
+
+    @deprecated_method('prosody')
+    def ssml_prosody(self, words=None, volume=None, rate=None, pitch=None,
+                     **kwargs):
+        """
+        Create a <Prosody> element
+
+        :param words: Words to speak
+        :param volume: Specify the volume, available values: default, silent, x-soft, soft, medium, loud, x-loud, +ndB, -ndB
+        :param rate: Specify the rate, available values: x-slow, slow, medium, fast, x-fast, n%
+        :param pitch: Specify the pitch, available values: default, x-low, low, medium, high, x-high, +n%, -n%
+        :param kwargs: additional attributes
+
+        :returns: <Prosody> element
+        """
+        return self.prosody(words=words, volume=volume, rate=rate, pitch=pitch, **kwargs)
+
+    def s(self, words=None, **kwargs):
+        """
+        Create a <S> element
+
+        :param words: Words to speak
+        :param kwargs: additional attributes
+
+        :returns: <S> element
+        """
+        return self.nest(SsmlS(words=words, **kwargs))
+
+    @deprecated_method('s')
+    def ssml_s(self, words=None, **kwargs):
+        """
+        Create a <S> element
+
+        :param words: Words to speak
+        :param kwargs: additional attributes
+
+        :returns: <S> element
+        """
+        return self.s(words=words, **kwargs)
+
+    def say_as(self, words, interpret_as=None, role=None, **kwargs):
+        """
+        Create a <Say-As> element
+
+        :param words: Words to be interpreted
+        :param interpret-as: Specify the type of words are spoken
+        :param role: Specify the format of the date when interpret-as is set to date
+        :param kwargs: additional attributes
+
+        :returns: <Say-As> element
+        """
+        return self.nest(SsmlSayAs(words, interpret_as=interpret_as, role=role, **kwargs))
+
+    @deprecated_method('say_as')
+    def ssml_say_as(self, words, interpret_as=None, role=None, **kwargs):
+        """
+        Create a <Say-As> element
+
+        :param words: Words to be interpreted
+        :param interpret-as: Specify the type of words are spoken
+        :param role: Specify the format of the date when interpret-as is set to date
+        :param kwargs: additional attributes
+
+        :returns: <Say-As> element
+        """
+        return self.say_as(words, interpret_as=interpret_as, role=role, **kwargs)
+
+    def sub(self, words, alias=None, **kwargs):
+        """
+        Create a <Sub> element
+
+        :param words: Words to be substituted
+        :param alias: Substitute a different word (or pronunciation) for selected text such as an acronym or abbreviation
+        :param kwargs: additional attributes
+
+        :returns: <Sub> element
+        """
+        return self.nest(SsmlSub(words, alias=alias, **kwargs))
+
+    @deprecated_method('sub')
+    def ssml_sub(self, words, alias=None, **kwargs):
+        """
+        Create a <Sub> element
+
+        :param words: Words to be substituted
+        :param alias: Substitute a different word (or pronunciation) for selected text such as an acronym or abbreviation
+        :param kwargs: additional attributes
+
+        :returns: <Sub> element
+        """
+        return self.sub(words, alias=alias, **kwargs)
+
+    def w(self, words=None, role=None, **kwargs):
+        """
+        Create a <W> element
+
+        :param words: Words to speak
+        :param role: Customize the pronunciation of words by specifying the word’s part of speech or alternate meaning
+        :param kwargs: additional attributes
+
+        :returns: <W> element
+        """
+        return self.nest(SsmlW(words=words, role=role, **kwargs))
+
+    @deprecated_method('w')
+    def ssml_w(self, words=None, role=None, **kwargs):
+        """
+        Create a <W> element
+
+        :param words: Words to speak
+        :param role: Customize the pronunciation of words by specifying the word’s part of speech or alternate meaning
+        :param kwargs: additional attributes
+
+        :returns: <W> element
+        """
+        return self.w(words=words, role=role, **kwargs)
+
+
+class SsmlP(TwiML):
+    """ Adding a Pause Between Paragraphs in <Say> """
+
+    def __init__(self, words=None, **kwargs):
+        super(SsmlP, self).__init__(**kwargs)
+        self.name = 'p'
+        if words:
+            self.value = words
+
+    def break_(self, strength=None, time=None, **kwargs):
+        """
+        Create a <Break> element
+
+        :param strength: Set a pause based on strength
+        :param time: Set a pause to a specific length of time in seconds or milliseconds, available values: [number]s, [number]ms
+        :param kwargs: additional attributes
+
+        :returns: <Break> element
+        """
+        return self.nest(SsmlBreak(strength=strength, time=time, **kwargs))
+
+    @deprecated_method('break_')
+    def ssml_break(self, strength=None, time=None, **kwargs):
+        """
+        Create a <Break> element
+
+        :param strength: Set a pause based on strength
+        :param time: Set a pause to a specific length of time in seconds or milliseconds, available values: [number]s, [number]ms
+        :param kwargs: additional attributes
+
+        :returns: <Break> element
+        """
+        return self.break_(strength=strength, time=time, **kwargs)
+
+    def emphasis(self, words=None, level=None, **kwargs):
+        """
+        Create a <Emphasis> element
+
+        :param words: Words to emphasize
+        :param level: Specify the degree of emphasis
+        :param kwargs: additional attributes
+
+        :returns: <Emphasis> element
+        """
+        return self.nest(SsmlEmphasis(words=words, level=level, **kwargs))
+
+    @deprecated_method('emphasis')
+    def ssml_emphasis(self, words=None, level=None, **kwargs):
+        """
+        Create a <Emphasis> element
+
+        :param words: Words to emphasize
+        :param level: Specify the degree of emphasis
+        :param kwargs: additional attributes
+
+        :returns: <Emphasis> element
+        """
+        return self.emphasis(words=words, level=level, **kwargs)
+
+    def lang(self, words=None, xml_lang=None, **kwargs):
+        """
+        Create a <Lang> element
+
+        :param words: Words to speak
+        :param xml:lang: Specify the language
+        :param kwargs: additional attributes
+
+        :returns: <Lang> element
+        """
+        return self.nest(SsmlLang(words=words, xml_lang=xml_lang, **kwargs))
+
+    @deprecated_method('lang')
+    def ssml_lang(self, words=None, xml_lang=None, **kwargs):
+        """
+        Create a <Lang> element
+
+        :param words: Words to speak
+        :param xml:lang: Specify the language
+        :param kwargs: additional attributes
+
+        :returns: <Lang> element
+        """
+        return self.lang(words=words, xml_lang=xml_lang, **kwargs)
+
+    def phoneme(self, words, alphabet=None, ph=None, **kwargs):
+        """
+        Create a <Phoneme> element
+
+        :param words: Words to speak
+        :param alphabet: Specify the phonetic alphabet
+        :param ph: Specifiy the phonetic symbols for pronunciation
+        :param kwargs: additional attributes
+
+        :returns: <Phoneme> element
+        """
+        return self.nest(SsmlPhoneme(words, alphabet=alphabet, ph=ph, **kwargs))
+
+    @deprecated_method('phoneme')
+    def ssml_phoneme(self, words, alphabet=None, ph=None, **kwargs):
+        """
+        Create a <Phoneme> element
+
+        :param words: Words to speak
+        :param alphabet: Specify the phonetic alphabet
+        :param ph: Specifiy the phonetic symbols for pronunciation
+        :param kwargs: additional attributes
+
+        :returns: <Phoneme> element
+        """
+        return self.phoneme(words, alphabet=alphabet, ph=ph, **kwargs)
+
+    def prosody(self, words=None, volume=None, rate=None, pitch=None, **kwargs):
+        """
+        Create a <Prosody> element
+
+        :param words: Words to speak
+        :param volume: Specify the volume, available values: default, silent, x-soft, soft, medium, loud, x-loud, +ndB, -ndB
+        :param rate: Specify the rate, available values: x-slow, slow, medium, fast, x-fast, n%
+        :param pitch: Specify the pitch, available values: default, x-low, low, medium, high, x-high, +n%, -n%
+        :param kwargs: additional attributes
+
+        :returns: <Prosody> element
+        """
+        return self.nest(SsmlProsody(words=words, volume=volume, rate=rate, pitch=pitch, **kwargs))
+
+    @deprecated_method('prosody')
+    def ssml_prosody(self, words=None, volume=None, rate=None, pitch=None,
+                     **kwargs):
+        """
+        Create a <Prosody> element
+
+        :param words: Words to speak
+        :param volume: Specify the volume, available values: default, silent, x-soft, soft, medium, loud, x-loud, +ndB, -ndB
+        :param rate: Specify the rate, available values: x-slow, slow, medium, fast, x-fast, n%
+        :param pitch: Specify the pitch, available values: default, x-low, low, medium, high, x-high, +n%, -n%
+        :param kwargs: additional attributes
+
+        :returns: <Prosody> element
+        """
+        return self.prosody(words=words, volume=volume, rate=rate, pitch=pitch, **kwargs)
+
+    def s(self, words=None, **kwargs):
+        """
+        Create a <S> element
+
+        :param words: Words to speak
+        :param kwargs: additional attributes
+
+        :returns: <S> element
+        """
+        return self.nest(SsmlS(words=words, **kwargs))
+
+    @deprecated_method('s')
+    def ssml_s(self, words=None, **kwargs):
+        """
+        Create a <S> element
+
+        :param words: Words to speak
+        :param kwargs: additional attributes
+
+        :returns: <S> element
+        """
+        return self.s(words=words, **kwargs)
+
+    def say_as(self, words, interpret_as=None, role=None, **kwargs):
+        """
+        Create a <Say-As> element
+
+        :param words: Words to be interpreted
+        :param interpret-as: Specify the type of words are spoken
+        :param role: Specify the format of the date when interpret-as is set to date
+        :param kwargs: additional attributes
+
+        :returns: <Say-As> element
+        """
+        return self.nest(SsmlSayAs(words, interpret_as=interpret_as, role=role, **kwargs))
+
+    @deprecated_method('say_as')
+    def ssml_say_as(self, words, interpret_as=None, role=None, **kwargs):
+        """
+        Create a <Say-As> element
+
+        :param words: Words to be interpreted
+        :param interpret-as: Specify the type of words are spoken
+        :param role: Specify the format of the date when interpret-as is set to date
+        :param kwargs: additional attributes
+
+        :returns: <Say-As> element
+        """
+        return self.say_as(words, interpret_as=interpret_as, role=role, **kwargs)
+
+    def sub(self, words, alias=None, **kwargs):
+        """
+        Create a <Sub> element
+
+        :param words: Words to be substituted
+        :param alias: Substitute a different word (or pronunciation) for selected text such as an acronym or abbreviation
+        :param kwargs: additional attributes
+
+        :returns: <Sub> element
+        """
+        return self.nest(SsmlSub(words, alias=alias, **kwargs))
+
+    @deprecated_method('sub')
+    def ssml_sub(self, words, alias=None, **kwargs):
+        """
+        Create a <Sub> element
+
+        :param words: Words to be substituted
+        :param alias: Substitute a different word (or pronunciation) for selected text such as an acronym or abbreviation
+        :param kwargs: additional attributes
+
+        :returns: <Sub> element
+        """
+        return self.sub(words, alias=alias, **kwargs)
+
+    def w(self, words=None, role=None, **kwargs):
+        """
+        Create a <W> element
+
+        :param words: Words to speak
+        :param role: Customize the pronunciation of words by specifying the word’s part of speech or alternate meaning
+        :param kwargs: additional attributes
+
+        :returns: <W> element
+        """
+        return self.nest(SsmlW(words=words, role=role, **kwargs))
+
+    @deprecated_method('w')
+    def ssml_w(self, words=None, role=None, **kwargs):
+        """
+        Create a <W> element
+
+        :param words: Words to speak
+        :param role: Customize the pronunciation of words by specifying the word’s part of speech or alternate meaning
+        :param kwargs: additional attributes
+
+        :returns: <W> element
+        """
+        return self.w(words=words, role=role, **kwargs)
 
 
 class SsmlEmphasis(TwiML):
     """ Emphasizing Words in <Say> """
 
-    def __init__(self, words, **kwargs):
+    def __init__(self, words=None, **kwargs):
         super(SsmlEmphasis, self).__init__(**kwargs)
         self.name = 'emphasis'
-        self.value = words
+        if words:
+            self.value = words
+
+    def break_(self, strength=None, time=None, **kwargs):
+        """
+        Create a <Break> element
+
+        :param strength: Set a pause based on strength
+        :param time: Set a pause to a specific length of time in seconds or milliseconds, available values: [number]s, [number]ms
+        :param kwargs: additional attributes
+
+        :returns: <Break> element
+        """
+        return self.nest(SsmlBreak(strength=strength, time=time, **kwargs))
+
+    @deprecated_method('break_')
+    def ssml_break(self, strength=None, time=None, **kwargs):
+        """
+        Create a <Break> element
+
+        :param strength: Set a pause based on strength
+        :param time: Set a pause to a specific length of time in seconds or milliseconds, available values: [number]s, [number]ms
+        :param kwargs: additional attributes
+
+        :returns: <Break> element
+        """
+        return self.break_(strength=strength, time=time, **kwargs)
+
+    def emphasis(self, words=None, level=None, **kwargs):
+        """
+        Create a <Emphasis> element
+
+        :param words: Words to emphasize
+        :param level: Specify the degree of emphasis
+        :param kwargs: additional attributes
+
+        :returns: <Emphasis> element
+        """
+        return self.nest(SsmlEmphasis(words=words, level=level, **kwargs))
+
+    @deprecated_method('emphasis')
+    def ssml_emphasis(self, words=None, level=None, **kwargs):
+        """
+        Create a <Emphasis> element
+
+        :param words: Words to emphasize
+        :param level: Specify the degree of emphasis
+        :param kwargs: additional attributes
+
+        :returns: <Emphasis> element
+        """
+        return self.emphasis(words=words, level=level, **kwargs)
+
+    def lang(self, words=None, xml_lang=None, **kwargs):
+        """
+        Create a <Lang> element
+
+        :param words: Words to speak
+        :param xml:lang: Specify the language
+        :param kwargs: additional attributes
+
+        :returns: <Lang> element
+        """
+        return self.nest(SsmlLang(words=words, xml_lang=xml_lang, **kwargs))
+
+    @deprecated_method('lang')
+    def ssml_lang(self, words=None, xml_lang=None, **kwargs):
+        """
+        Create a <Lang> element
+
+        :param words: Words to speak
+        :param xml:lang: Specify the language
+        :param kwargs: additional attributes
+
+        :returns: <Lang> element
+        """
+        return self.lang(words=words, xml_lang=xml_lang, **kwargs)
+
+    def phoneme(self, words, alphabet=None, ph=None, **kwargs):
+        """
+        Create a <Phoneme> element
+
+        :param words: Words to speak
+        :param alphabet: Specify the phonetic alphabet
+        :param ph: Specifiy the phonetic symbols for pronunciation
+        :param kwargs: additional attributes
+
+        :returns: <Phoneme> element
+        """
+        return self.nest(SsmlPhoneme(words, alphabet=alphabet, ph=ph, **kwargs))
+
+    @deprecated_method('phoneme')
+    def ssml_phoneme(self, words, alphabet=None, ph=None, **kwargs):
+        """
+        Create a <Phoneme> element
+
+        :param words: Words to speak
+        :param alphabet: Specify the phonetic alphabet
+        :param ph: Specifiy the phonetic symbols for pronunciation
+        :param kwargs: additional attributes
+
+        :returns: <Phoneme> element
+        """
+        return self.phoneme(words, alphabet=alphabet, ph=ph, **kwargs)
+
+    def prosody(self, words=None, volume=None, rate=None, pitch=None, **kwargs):
+        """
+        Create a <Prosody> element
+
+        :param words: Words to speak
+        :param volume: Specify the volume, available values: default, silent, x-soft, soft, medium, loud, x-loud, +ndB, -ndB
+        :param rate: Specify the rate, available values: x-slow, slow, medium, fast, x-fast, n%
+        :param pitch: Specify the pitch, available values: default, x-low, low, medium, high, x-high, +n%, -n%
+        :param kwargs: additional attributes
+
+        :returns: <Prosody> element
+        """
+        return self.nest(SsmlProsody(words=words, volume=volume, rate=rate, pitch=pitch, **kwargs))
+
+    @deprecated_method('prosody')
+    def ssml_prosody(self, words=None, volume=None, rate=None, pitch=None,
+                     **kwargs):
+        """
+        Create a <Prosody> element
+
+        :param words: Words to speak
+        :param volume: Specify the volume, available values: default, silent, x-soft, soft, medium, loud, x-loud, +ndB, -ndB
+        :param rate: Specify the rate, available values: x-slow, slow, medium, fast, x-fast, n%
+        :param pitch: Specify the pitch, available values: default, x-low, low, medium, high, x-high, +n%, -n%
+        :param kwargs: additional attributes
+
+        :returns: <Prosody> element
+        """
+        return self.prosody(words=words, volume=volume, rate=rate, pitch=pitch, **kwargs)
+
+    def say_as(self, words, interpret_as=None, role=None, **kwargs):
+        """
+        Create a <Say-As> element
+
+        :param words: Words to be interpreted
+        :param interpret-as: Specify the type of words are spoken
+        :param role: Specify the format of the date when interpret-as is set to date
+        :param kwargs: additional attributes
+
+        :returns: <Say-As> element
+        """
+        return self.nest(SsmlSayAs(words, interpret_as=interpret_as, role=role, **kwargs))
+
+    @deprecated_method('say_as')
+    def ssml_say_as(self, words, interpret_as=None, role=None, **kwargs):
+        """
+        Create a <Say-As> element
+
+        :param words: Words to be interpreted
+        :param interpret-as: Specify the type of words are spoken
+        :param role: Specify the format of the date when interpret-as is set to date
+        :param kwargs: additional attributes
+
+        :returns: <Say-As> element
+        """
+        return self.say_as(words, interpret_as=interpret_as, role=role, **kwargs)
+
+    def sub(self, words, alias=None, **kwargs):
+        """
+        Create a <Sub> element
+
+        :param words: Words to be substituted
+        :param alias: Substitute a different word (or pronunciation) for selected text such as an acronym or abbreviation
+        :param kwargs: additional attributes
+
+        :returns: <Sub> element
+        """
+        return self.nest(SsmlSub(words, alias=alias, **kwargs))
+
+    @deprecated_method('sub')
+    def ssml_sub(self, words, alias=None, **kwargs):
+        """
+        Create a <Sub> element
+
+        :param words: Words to be substituted
+        :param alias: Substitute a different word (or pronunciation) for selected text such as an acronym or abbreviation
+        :param kwargs: additional attributes
+
+        :returns: <Sub> element
+        """
+        return self.sub(words, alias=alias, **kwargs)
+
+    def w(self, words=None, role=None, **kwargs):
+        """
+        Create a <W> element
+
+        :param words: Words to speak
+        :param role: Customize the pronunciation of words by specifying the word’s part of speech or alternate meaning
+        :param kwargs: additional attributes
+
+        :returns: <W> element
+        """
+        return self.nest(SsmlW(words=words, role=role, **kwargs))
+
+    @deprecated_method('w')
+    def ssml_w(self, words=None, role=None, **kwargs):
+        """
+        Create a <W> element
+
+        :param words: Words to speak
+        :param role: Customize the pronunciation of words by specifying the word’s part of speech or alternate meaning
+        :param kwargs: additional attributes
+
+        :returns: <W> element
+        """
+        return self.w(words=words, role=role, **kwargs)
 
 
 class SsmlBreak(TwiML):
