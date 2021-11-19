@@ -111,35 +111,27 @@ class SchemaVersionList(ListResource):
 
         return SchemaVersionPage(self._version, response, self._solution)
 
-    def get(self, resource_version):
+    def get(self, version):
         """
         Constructs a SchemaVersionContext
 
-        :param resource_version: The version of the schema
+        :param version: The version of the schema
 
         :returns: twilio.rest.events.v1.schema.version.SchemaVersionContext
         :rtype: twilio.rest.events.v1.schema.version.SchemaVersionContext
         """
-        return SchemaVersionContext(
-            self._version,
-            id=self._solution['id'],
-            resource_version=resource_version,
-        )
+        return SchemaVersionContext(self._version, id=self._solution['id'], resource_version=version, )
 
-    def __call__(self, resource_version):
+    def __call__(self, version):
         """
         Constructs a SchemaVersionContext
 
-        :param resource_version: The version of the schema
+        :param version: The version of the schema
 
         :returns: twilio.rest.events.v1.schema.version.SchemaVersionContext
         :rtype: twilio.rest.events.v1.schema.version.SchemaVersionContext
         """
-        return SchemaVersionContext(
-            self._version,
-            id=self._solution['id'],
-            resource_version=resource_version,
-        )
+        return SchemaVersionContext(self._version, id=self._solution['id'], resource_version=version, )
 
     def __repr__(self):
         """
@@ -210,8 +202,8 @@ class SchemaVersionContext(InstanceContext):
         super(SchemaVersionContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {'id': id, 'resource_version': resource_version, }
-        self._uri = '/Schemas/{id}/Versions/{resource_version}'.format(**self._solution)
+        self._solution = {'id': id, 'version': resource_version, }
+        self._uri = '/Schemas/{id}/Versions/{version}'.format(**self._solution)
 
     def fetch(self):
         """
@@ -226,7 +218,7 @@ class SchemaVersionContext(InstanceContext):
             self._version,
             payload,
             id=self._solution['id'],
-            resource_version=self._solution['resource_version'],
+            resource_version=self._solution['version'],
         )
 
     def __repr__(self):
@@ -264,7 +256,7 @@ class SchemaVersionInstance(InstanceResource):
 
         # Context
         self._context = None
-        self._solution = {'id': id, 'resource_version': resource_version or self._properties['version'], }
+        self._solution = {'id': id, 'version': resource_version or self._properties['version'], }
 
     @property
     def _proxy(self):
@@ -279,7 +271,7 @@ class SchemaVersionInstance(InstanceResource):
             self._context = SchemaVersionContext(
                 self._version,
                 id=self._solution['id'],
-                resource_version=self._solution['resource_version'],
+                resource_version=self._solution['version'],
             )
         return self._context
 
