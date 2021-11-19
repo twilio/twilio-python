@@ -158,6 +158,7 @@ class NewFactorInstance(InstanceResource):
     class NotificationPlatforms(object):
         APN = "apn"
         FCM = "fcm"
+        NONE = "none"
 
     class TotpAlgorithms(object):
         SHA1 = "sha1"

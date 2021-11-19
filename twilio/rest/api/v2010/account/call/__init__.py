@@ -96,7 +96,7 @@ class CallList(ListResource):
         :param unicode async_amd_status_callback_method: HTTP Method to use with async_amd_status_callback
         :param unicode byoc: BYOC trunk SID (Beta)
         :param unicode call_reason: Reason for the call (Branded Calls Beta)
-        :param unicode call_token: A token string needed to invoke a forwarded call with a caller-id recieved on a previous incoming call
+        :param unicode call_token: A token string needed to invoke a forwarded call with a CallerId recieved on a previous incoming call
         :param unicode recording_track: Which track(s) to record
         :param unicode time_limit: The maximum duration of the call in seconds.
         :param unicode url: The absolute URL that returns TwiML for this call

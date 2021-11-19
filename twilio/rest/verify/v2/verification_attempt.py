@@ -258,6 +258,7 @@ class VerificationAttemptInstance(InstanceResource):
         SMS = "sms"
         CALL = "call"
         EMAIL = "email"
+        WHATSAPP = "whatsapp"
 
     class ConversionStatus(object):
         CONVERTED = "converted"

@@ -3,6 +3,26 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2021-11-17] Version 7.3.1
+--------------------------
+**Library - Fix**
+- [PR #578](https://github.com/twilio/twilio-python/pull/578): git log retrieval issues. Thanks to [@shwetha-manvinkurke](https://github.com/shwetha-manvinkurke)!
+
+**Frontline**
+- Added `is_available` to User's resource
+
+**Messaging**
+- Added GET vetting API
+
+**Verify**
+- Add `WHATSAPP` to the attempts API.
+- Allow to update `config.notification_platform` from `none` to `apn` or `fcm` and viceversa for Verify Push
+- Add `none` as a valid `config.notification_platform` value for Verify Push
+
+**Twiml**
+- Add supported SSML children to `<emphasis>`, `<lang>`, `<p>`, `<prosody>`, `<s>`, and `<w>`.
+
+
 [2021-11-03] Version 7.3.0
 --------------------------
 **Library - Chore**

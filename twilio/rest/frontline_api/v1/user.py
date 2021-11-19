@@ -135,18 +135,24 @@ class UserContext(InstanceContext):
         return UserInstance(self._version, payload, sid=self._solution['sid'], )
 
     def update(self, friendly_name=values.unset, avatar=values.unset,
-               state=values.unset):
+               state=values.unset, is_available=values.unset):
         """
         Update the UserInstance
 
         :param unicode friendly_name: The string that you assigned to describe the User
         :param unicode avatar: The avatar URL which will be shown in Frontline application
         :param UserInstance.StateType state: Current state of this user
+        :param bool is_available: Whether the User is available for new conversations
 
         :returns: The updated UserInstance
         :rtype: twilio.rest.frontline_api.v1.user.UserInstance
         """
-        data = values.of({'FriendlyName': friendly_name, 'Avatar': avatar, 'State': state, })
+        data = values.of({
+            'FriendlyName': friendly_name,
+            'Avatar': avatar,
+            'State': state,
+            'IsAvailable': is_available,
+        })
 
         payload = self._version.update(method='POST', uri=self._uri, data=data, )
 
@@ -187,6 +193,7 @@ class UserInstance(InstanceResource):
             'friendly_name': payload.get('friendly_name'),
             'avatar': payload.get('avatar'),
             'state': payload.get('state'),
+            'is_available': payload.get('is_available'),
             'url': payload.get('url'),
         }
 
@@ -248,6 +255,14 @@ class UserInstance(InstanceResource):
         return self._properties['state']
 
     @property
+    def is_available(self):
+        """
+        :returns: Whether the User is available for new conversations
+        :rtype: bool
+        """
+        return self._properties['is_available']
+
+    @property
     def url(self):
         """
         :returns: An absolute URL for this user.
@@ -265,18 +280,24 @@ class UserInstance(InstanceResource):
         return self._proxy.fetch()
 
     def update(self, friendly_name=values.unset, avatar=values.unset,
-               state=values.unset):
+               state=values.unset, is_available=values.unset):
         """
         Update the UserInstance
 
         :param unicode friendly_name: The string that you assigned to describe the User
         :param unicode avatar: The avatar URL which will be shown in Frontline application
         :param UserInstance.StateType state: Current state of this user
+        :param bool is_available: Whether the User is available for new conversations
 
         :returns: The updated UserInstance
         :rtype: twilio.rest.frontline_api.v1.user.UserInstance
         """
-        return self._proxy.update(friendly_name=friendly_name, avatar=avatar, state=state, )
+        return self._proxy.update(
+            friendly_name=friendly_name,
+            avatar=avatar,
+            state=state,
+            is_available=is_available,
+        )
 
     def __repr__(self):
         """
