@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-MWRD6S');</script><!--End Google Tag Manager-->
 <meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<title>twilio.rest.video.v1.room — twilio-python 7.3.1 documentation</title>
+<title>twilio.rest.video.v1.room — twilio-python 7.3.2 documentation</title>
 <link href="../../../../../_static/alabaster.css" rel="stylesheet" type="text/css"/>
 <link href="../../../../../_static/pygments.css" rel="stylesheet" type="text/css"/>
 <script data-url_root="../../../../../" id="documentation_options" src="../../../../../_static/documentation_options.js" type="text/javascript"></script>
@@ -70,7 +70,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
                <span class="n">status_callback_method</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">max_participants</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
                <span class="n">record_participants_on_connect</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
                <span class="n">video_codecs</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">media_region</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
-               <span class="n">recording_rules</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">audio_only</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">):</span>
+               <span class="n">recording_rules</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">audio_only</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
+               <span class="n">max_participant_duration</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">):</span>
         <span class="sd">"""</span>
 <span class="sd">        Create the RoomInstance</span>
 
@@ -85,6 +86,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <span class="sd">        :param unicode media_region: The region for the media server in Group Rooms</span>
 <span class="sd">        :param dict recording_rules: A collection of Recording Rules</span>
 <span class="sd">        :param bool audio_only: Indicates whether the room will only contain audio track participants for group rooms.</span>
+<span class="sd">        :param unicode max_participant_duration: The maximum number of seconds a Participant can be connected to the room</span>
 
 <span class="sd">        :returns: The created RoomInstance</span>
 <span class="sd">        :rtype: twilio.rest.video.v1.room.RoomInstance</span>
@@ -101,6 +103,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
             <span class="s1">'MediaRegion'</span><span class="p">:</span> <span class="n">media_region</span><span class="p">,</span>
             <span class="s1">'RecordingRules'</span><span class="p">:</span> <span class="n">serialize</span><span class="o">.</span><span class="n">object</span><span class="p">(</span><span class="n">recording_rules</span><span class="p">),</span>
             <span class="s1">'AudioOnly'</span><span class="p">:</span> <span class="n">audio_only</span><span class="p">,</span>
+            <span class="s1">'MaxParticipantDuration'</span><span class="p">:</span> <span class="n">max_participant_duration</span><span class="p">,</span>
         <span class="p">})</span>
 
         <span class="n">payload</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_version</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">'POST'</span><span class="p">,</span> <span class="n">uri</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_uri</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="p">)</span>
@@ -430,6 +433,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
             <span class="s1">'duration'</span><span class="p">:</span> <span class="n">deserialize</span><span class="o">.</span><span class="n">integer</span><span class="p">(</span><span class="n">payload</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'duration'</span><span class="p">)),</span>
             <span class="s1">'type'</span><span class="p">:</span> <span class="n">payload</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'type'</span><span class="p">),</span>
             <span class="s1">'max_participants'</span><span class="p">:</span> <span class="n">deserialize</span><span class="o">.</span><span class="n">integer</span><span class="p">(</span><span class="n">payload</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'max_participants'</span><span class="p">)),</span>
+            <span class="s1">'max_participant_duration'</span><span class="p">:</span> <span class="n">deserialize</span><span class="o">.</span><span class="n">integer</span><span class="p">(</span><span class="n">payload</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'max_participant_duration'</span><span class="p">)),</span>
             <span class="s1">'max_concurrent_published_tracks'</span><span class="p">:</span> <span class="n">deserialize</span><span class="o">.</span><span class="n">integer</span><span class="p">(</span><span class="n">payload</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'max_concurrent_published_tracks'</span><span class="p">)),</span>
             <span class="s1">'record_participants_on_connect'</span><span class="p">:</span> <span class="n">payload</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'record_participants_on_connect'</span><span class="p">),</span>
             <span class="s1">'video_codecs'</span><span class="p">:</span> <span class="n">payload</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'video_codecs'</span><span class="p">),</span>
@@ -559,6 +563,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <span class="sd">        :rtype: unicode</span>
 <span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="p">[</span><span class="s1">'max_participants'</span><span class="p">]</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">max_participant_duration</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        :returns: The maximum number of seconds a Participant can be connected to the room</span>
+<span class="sd">        :rtype: unicode</span>
+<span class="sd">        """</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="p">[</span><span class="s1">'max_participant_duration'</span><span class="p">]</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">max_concurrent_published_tracks</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>

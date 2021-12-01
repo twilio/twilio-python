@@ -28,6 +28,14 @@ twilio.rest.supersim.v1.fleet module
     :undoc-members:
     :show-inheritance:
 
+twilio.rest.supersim.v1.ip\_command module
+------------------------------------------
+
+.. automodule:: twilio.rest.supersim.v1.ip_command
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 twilio.rest.supersim.v1.network module
 --------------------------------------
 

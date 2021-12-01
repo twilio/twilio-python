@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-MWRD6S');</script><!--End Google Tag Manager-->
 <meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<title>twilio.rest.supersim.v1 — twilio-python 7.3.1 documentation</title>
+<title>twilio.rest.supersim.v1 — twilio-python 7.3.2 documentation</title>
 <link href="../../../../_static/alabaster.css" rel="stylesheet" type="text/css"/>
 <link href="../../../../_static/pygments.css" rel="stylesheet" type="text/css"/>
 <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js" type="text/javascript"></script>
@@ -39,6 +39,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <span class="kn">from</span> <span class="nn">twilio.base.version</span> <span class="kn">import</span> <span class="n">Version</span>
 <span class="kn">from</span> <span class="nn">twilio.rest.supersim.v1.command</span> <span class="kn">import</span> <span class="n">CommandList</span>
 <span class="kn">from</span> <span class="nn">twilio.rest.supersim.v1.fleet</span> <span class="kn">import</span> <span class="n">FleetList</span>
+<span class="kn">from</span> <span class="nn">twilio.rest.supersim.v1.ip_command</span> <span class="kn">import</span> <span class="n">IpCommandList</span>
 <span class="kn">from</span> <span class="nn">twilio.rest.supersim.v1.network</span> <span class="kn">import</span> <span class="n">NetworkList</span>
 <span class="kn">from</span> <span class="nn">twilio.rest.supersim.v1.network_access_profile</span> <span class="kn">import</span> <span class="n">NetworkAccessProfileList</span>
 <span class="kn">from</span> <span class="nn">twilio.rest.supersim.v1.sim</span> <span class="kn">import</span> <span class="n">SimList</span>
@@ -59,6 +60,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="bp">self</span><span class="o">.</span><span class="n">version</span> <span class="o">=</span> <span class="s1">'v1'</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_commands</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_fleets</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ip_commands</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_networks</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_network_access_profiles</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_sims</span> <span class="o">=</span> <span class="kc">None</span>
@@ -82,6 +84,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fleets</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_fleets</span> <span class="o">=</span> <span class="n">FleetList</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fleets</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">ip_commands</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        :rtype: twilio.rest.supersim.v1.ip_command.IpCommandList</span>
+<span class="sd">        """</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ip_commands</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_ip_commands</span> <span class="o">=</span> <span class="n">IpCommandList</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ip_commands</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">networks</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
