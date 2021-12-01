@@ -12,6 +12,7 @@ from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.page import Page
 from twilio.rest.conversations.v1.service.configuration.notification import NotificationList
+from twilio.rest.conversations.v1.service.configuration.webhook import WebhookList
 
 
 class ConfigurationList(ListResource):
@@ -33,6 +34,7 @@ class ConfigurationList(ListResource):
 
         # Components
         self._notifications = None
+        self._webhooks = None
 
     @property
     def notifications(self):
@@ -48,6 +50,18 @@ class ConfigurationList(ListResource):
                 chat_service_sid=self._solution['chat_service_sid'],
             )
         return self._notifications
+
+    @property
+    def webhooks(self):
+        """
+        Access the webhooks
+
+        :returns: twilio.rest.conversations.v1.service.configuration.webhook.WebhookList
+        :rtype: twilio.rest.conversations.v1.service.configuration.webhook.WebhookList
+        """
+        if self._webhooks is None:
+            self._webhooks = WebhookList(self._version, chat_service_sid=self._solution['chat_service_sid'], )
+        return self._webhooks
 
     def get(self):
         """

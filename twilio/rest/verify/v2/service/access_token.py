@@ -32,17 +32,22 @@ class AccessTokenList(ListResource):
         self._solution = {'service_sid': service_sid, }
         self._uri = '/Services/{service_sid}/AccessTokens'.format(**self._solution)
 
-    def create(self, identity, factor_type):
+    def create(self, identity, factor_type, factor_friendly_name=values.unset):
         """
         Create the AccessTokenInstance
 
         :param unicode identity: Unique external identifier of the Entity
         :param AccessTokenInstance.FactorTypes factor_type: The Type of this Factor
+        :param unicode factor_friendly_name: The factor friendly name
 
         :returns: The created AccessTokenInstance
         :rtype: twilio.rest.verify.v2.service.access_token.AccessTokenInstance
         """
-        data = values.of({'Identity': identity, 'FactorType': factor_type, })
+        data = values.of({
+            'Identity': identity,
+            'FactorType': factor_type,
+            'FactorFriendlyName': factor_friendly_name,
+        })
 
         payload = self._version.create(method='POST', uri=self._uri, data=data, )
 

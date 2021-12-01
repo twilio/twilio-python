@@ -40,7 +40,8 @@ class RoomList(ListResource):
                status_callback_method=values.unset, max_participants=values.unset,
                record_participants_on_connect=values.unset,
                video_codecs=values.unset, media_region=values.unset,
-               recording_rules=values.unset, audio_only=values.unset):
+               recording_rules=values.unset, audio_only=values.unset,
+               max_participant_duration=values.unset):
         """
         Create the RoomInstance
 
@@ -55,6 +56,7 @@ class RoomList(ListResource):
         :param unicode media_region: The region for the media server in Group Rooms
         :param dict recording_rules: A collection of Recording Rules
         :param bool audio_only: Indicates whether the room will only contain audio track participants for group rooms.
+        :param unicode max_participant_duration: The maximum number of seconds a Participant can be connected to the room
 
         :returns: The created RoomInstance
         :rtype: twilio.rest.video.v1.room.RoomInstance
@@ -71,6 +73,7 @@ class RoomList(ListResource):
             'MediaRegion': media_region,
             'RecordingRules': serialize.object(recording_rules),
             'AudioOnly': audio_only,
+            'MaxParticipantDuration': max_participant_duration,
         })
 
         payload = self._version.create(method='POST', uri=self._uri, data=data, )
@@ -400,6 +403,7 @@ class RoomInstance(InstanceResource):
             'duration': deserialize.integer(payload.get('duration')),
             'type': payload.get('type'),
             'max_participants': deserialize.integer(payload.get('max_participants')),
+            'max_participant_duration': deserialize.integer(payload.get('max_participant_duration')),
             'max_concurrent_published_tracks': deserialize.integer(payload.get('max_concurrent_published_tracks')),
             'record_participants_on_connect': payload.get('record_participants_on_connect'),
             'video_codecs': payload.get('video_codecs'),
@@ -529,6 +533,14 @@ class RoomInstance(InstanceResource):
         :rtype: unicode
         """
         return self._properties['max_participants']
+
+    @property
+    def max_participant_duration(self):
+        """
+        :returns: The maximum number of seconds a Participant can be connected to the room
+        :rtype: unicode
+        """
+        return self._properties['max_participant_duration']
 
     @property
     def max_concurrent_published_tracks(self):
