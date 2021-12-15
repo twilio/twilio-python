@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-MWRD6S');</script><!--End Google Tag Manager-->
 <meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<title>twilio.rest.media.v1 package — twilio-python 7.3.2 documentation</title>
+<title>twilio.rest.media.v1 package — twilio-python 7.4.0 documentation</title>
 <link href="../../../_static/alabaster.css" rel="stylesheet" type="text/css"/>
 <link href="../../../_static/pygments.css" rel="stylesheet" type="text/css"/>
 <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js" type="text/javascript"></script>
@@ -237,6 +237,20 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 </table>
 </dd></dl>
 <dl class="attribute">
+<dt id="twilio.rest.media.v1.media_processor.MediaProcessorInstance.max_duration">
+<code class="descname">max_duration</code><a class="headerlink" href="#twilio.rest.media.v1.media_processor.MediaProcessorInstance.max_duration" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Maximum MediaProcessor duration in minutes</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">unicode</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+<dl class="attribute">
 <dt id="twilio.rest.media.v1.media_processor.MediaProcessorInstance.sid">
 <code class="descname">sid</code><a class="headerlink" href="#twilio.rest.media.v1.media_processor.MediaProcessorInstance.sid" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
@@ -330,7 +344,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <dd><p>Bases: <a class="reference internal" href="twilio.base.html#twilio.base.list_resource.ListResource" title="twilio.base.list_resource.ListResource"><code class="xref py py-class docutils literal notranslate"><span class="pre">twilio.base.list_resource.ListResource</span></code></a></p>
 <dl class="method">
 <dt id="twilio.rest.media.v1.media_processor.MediaProcessorList.create">
-<code class="descname">create</code><span class="sig-paren">(</span><em>extension</em>, <em>extension_context</em>, <em>extension_environment=&lt;object object&gt;</em>, <em>status_callback=&lt;object object&gt;</em>, <em>status_callback_method=&lt;object object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/media/v1/media_processor.html#MediaProcessorList.create"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.media.v1.media_processor.MediaProcessorList.create" title="Permalink to this definition">¶</a></dt>
+<code class="descname">create</code><span class="sig-paren">(</span><em>extension</em>, <em>extension_context</em>, <em>extension_environment=&lt;object object&gt;</em>, <em>status_callback=&lt;object object&gt;</em>, <em>status_callback_method=&lt;object object&gt;</em>, <em>max_duration=&lt;object object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/media/v1/media_processor.html#MediaProcessorList.create"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.media.v1.media_processor.MediaProcessorList.create" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create the MediaProcessorInstance</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name"/>
@@ -342,6 +356,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <li><strong>extension_environment</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a>) – The Media Extension environment</li>
 <li><strong>status_callback</strong> (<em>unicode</em>) – The URL to send MediaProcessor event updates to your application</li>
 <li><strong>status_callback_method</strong> (<em>unicode</em>) – The HTTP method Twilio should use to call the <cite>status_callback</cite> URL</li>
+<li><strong>max_duration</strong> (<em>unicode</em>) – Maximum MediaProcessor duration in minutes</li>
 </ul>
 </td>
 </tr>

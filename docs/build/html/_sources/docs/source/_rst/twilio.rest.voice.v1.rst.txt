@@ -12,6 +12,14 @@ Subpackages
 Submodules
 ----------
 
+twilio.rest.voice.v1.archived\_call module
+------------------------------------------
+
+.. automodule:: twilio.rest.voice.v1.archived_call
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 twilio.rest.voice.v1.byoc\_trunk module
 ---------------------------------------
 

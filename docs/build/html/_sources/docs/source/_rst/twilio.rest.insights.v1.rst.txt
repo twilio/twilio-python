@@ -20,6 +20,14 @@ twilio.rest.insights.v1.call\_summaries module
     :undoc-members:
     :show-inheritance:
 
+twilio.rest.insights.v1.setting module
+--------------------------------------
+
+.. automodule:: twilio.rest.insights.v1.setting
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 
 Module contents
 ---------------
