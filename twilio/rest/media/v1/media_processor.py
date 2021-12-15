@@ -34,7 +34,7 @@ class MediaProcessorList(ListResource):
 
     def create(self, extension, extension_context,
                extension_environment=values.unset, status_callback=values.unset,
-               status_callback_method=values.unset):
+               status_callback_method=values.unset, max_duration=values.unset):
         """
         Create the MediaProcessorInstance
 
@@ -43,6 +43,7 @@ class MediaProcessorList(ListResource):
         :param dict extension_environment: The Media Extension environment
         :param unicode status_callback: The URL to send MediaProcessor event updates to your application
         :param unicode status_callback_method: The HTTP method Twilio should use to call the `status_callback` URL
+        :param unicode max_duration: Maximum MediaProcessor duration in minutes
 
         :returns: The created MediaProcessorInstance
         :rtype: twilio.rest.media.v1.media_processor.MediaProcessorInstance
@@ -53,6 +54,7 @@ class MediaProcessorList(ListResource):
             'ExtensionEnvironment': serialize.object(extension_environment),
             'StatusCallback': status_callback,
             'StatusCallbackMethod': status_callback_method,
+            'MaxDuration': max_duration,
         })
 
         payload = self._version.create(method='POST', uri=self._uri, data=data, )
@@ -311,6 +313,7 @@ class MediaProcessorInstance(InstanceResource):
             'ended_reason': payload.get('ended_reason'),
             'status_callback': payload.get('status_callback'),
             'status_callback_method': payload.get('status_callback_method'),
+            'max_duration': deserialize.integer(payload.get('max_duration')),
         }
 
         # Context
@@ -417,6 +420,14 @@ class MediaProcessorInstance(InstanceResource):
         :rtype: unicode
         """
         return self._properties['status_callback_method']
+
+    @property
+    def max_duration(self):
+        """
+        :returns: Maximum MediaProcessor duration in minutes
+        :rtype: unicode
+        """
+        return self._properties['max_duration']
 
     def fetch(self):
         """

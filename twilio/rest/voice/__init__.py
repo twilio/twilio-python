@@ -37,6 +37,13 @@ class Voice(Domain):
         return self._v1
 
     @property
+    def archived_calls(self):
+        """
+        :rtype: twilio.rest.voice.v1.archived_call.ArchivedCallList
+        """
+        return self.v1.archived_calls
+
+    @property
     def byoc_trunks(self):
         """
         :rtype: twilio.rest.voice.v1.byoc_trunk.ByocTrunkList

@@ -10,6 +10,7 @@ from twilio.base.version import Version
 from twilio.rest.insights.v1.call import CallList
 from twilio.rest.insights.v1.call_summaries import CallSummariesList
 from twilio.rest.insights.v1.room import RoomList
+from twilio.rest.insights.v1.setting import SettingList
 
 
 class V1(Version):
@@ -23,9 +24,19 @@ class V1(Version):
         """
         super(V1, self).__init__(domain)
         self.version = 'v1'
+        self._settings = None
         self._calls = None
         self._call_summaries = None
         self._rooms = None
+
+    @property
+    def settings(self):
+        """
+        :rtype: twilio.rest.insights.v1.setting.SettingList
+        """
+        if self._settings is None:
+            self._settings = SettingList(self)
+        return self._settings
 
     @property
     def calls(self):

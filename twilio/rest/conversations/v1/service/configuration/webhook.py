@@ -105,7 +105,7 @@ class WebhookContext(InstanceContext):
         Initialize the WebhookContext
 
         :param Version version: Version that contains the resource
-        :param chat_service_sid: The unique ID of the Conversation Service this conversation belongs to.
+        :param chat_service_sid: The unique ID of the `Conversation Service <https://www.twilio.com/docs/conversations/api/service-resource>`_ this conversation belongs to.
 
         :returns: twilio.rest.conversations.v1.service.configuration.webhook.WebhookContext
         :rtype: twilio.rest.conversations.v1.service.configuration.webhook.WebhookContext
@@ -123,7 +123,7 @@ class WebhookContext(InstanceContext):
 
         :param unicode pre_webhook_url: The absolute url the pre-event webhook request should be sent to.
         :param unicode post_webhook_url: The absolute url the post-event webhook request should be sent to.
-        :param list[unicode] filters: The list of webhook event triggers that are enabled for this Service.
+        :param list[unicode] filters: The list of events that your configured webhook targets will receive. Events not configured here will not fire.
         :param unicode method: The HTTP method to be used when sending a webhook request
 
         :returns: The updated WebhookInstance
@@ -216,7 +216,7 @@ class WebhookInstance(InstanceResource):
     @property
     def chat_service_sid(self):
         """
-        :returns: The chat_service_sid
+        :returns: The unique ID of the `Conversation Service <https://www.twilio.com/docs/conversations/api/service-resource>`_ this conversation belongs to.
         :rtype: unicode
         """
         return self._properties['chat_service_sid']
@@ -240,7 +240,7 @@ class WebhookInstance(InstanceResource):
     @property
     def filters(self):
         """
-        :returns: The list of webhook event triggers that are enabled for this Service.
+        :returns: The list of events that your configured webhook targets will receive. Events not configured here will not fire.
         :rtype: list[unicode]
         """
         return self._properties['filters']
@@ -268,7 +268,7 @@ class WebhookInstance(InstanceResource):
 
         :param unicode pre_webhook_url: The absolute url the pre-event webhook request should be sent to.
         :param unicode post_webhook_url: The absolute url the post-event webhook request should be sent to.
-        :param list[unicode] filters: The list of webhook event triggers that are enabled for this Service.
+        :param list[unicode] filters: The list of events that your configured webhook targets will receive. Events not configured here will not fire.
         :param unicode method: The HTTP method to be used when sending a webhook request
 
         :returns: The updated WebhookInstance

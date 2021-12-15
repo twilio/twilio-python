@@ -50,6 +50,8 @@ class RoomTestCase(IntegrationTestCase):
                 ],
                 "audio_only": false,
                 "media_region": "us1",
+                "empty_room_timeout": 5,
+                "unused_room_timeout": 5,
                 "end_time": "2015-07-30T20:00:00Z",
                 "url": "https://video.twilio.com/v1/Rooms/RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "links": {
@@ -101,6 +103,8 @@ class RoomTestCase(IntegrationTestCase):
                 ],
                 "media_region": "us1",
                 "audio_only": false,
+                "empty_room_timeout": 5,
+                "unused_room_timeout": 5,
                 "end_time": "2015-07-30T20:00:00Z",
                 "url": "https://video.twilio.com/v1/Rooms/RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "links": {
@@ -141,6 +145,8 @@ class RoomTestCase(IntegrationTestCase):
                 ],
                 "media_region": "us1",
                 "audio_only": false,
+                "empty_room_timeout": 5,
+                "unused_room_timeout": 5,
                 "end_time": "2015-07-30T20:00:00Z",
                 "url": "https://video.twilio.com/v1/Rooms/RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "links": {
@@ -181,6 +187,8 @@ class RoomTestCase(IntegrationTestCase):
                 ],
                 "media_region": "us1",
                 "audio_only": false,
+                "empty_room_timeout": 5,
+                "unused_room_timeout": 5,
                 "end_time": "2015-07-30T20:00:00Z",
                 "url": "https://video.twilio.com/v1/Rooms/RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "links": {
@@ -219,6 +227,8 @@ class RoomTestCase(IntegrationTestCase):
                 "video_codecs": [],
                 "media_region": "us1",
                 "audio_only": true,
+                "empty_room_timeout": 5,
+                "unused_room_timeout": 5,
                 "end_time": "2015-07-30T20:00:00Z",
                 "url": "https://video.twilio.com/v1/Rooms/RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "links": {
@@ -259,6 +269,8 @@ class RoomTestCase(IntegrationTestCase):
                 ],
                 "media_region": "us1",
                 "audio_only": false,
+                "empty_room_timeout": 5,
+                "unused_room_timeout": 5,
                 "end_time": "2015-07-30T20:00:00Z",
                 "url": "https://video.twilio.com/v1/Rooms/RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "links": {
@@ -299,6 +311,8 @@ class RoomTestCase(IntegrationTestCase):
                 ],
                 "media_region": "us1",
                 "audio_only": false,
+                "empty_room_timeout": 5,
+                "unused_room_timeout": 5,
                 "end_time": "2015-07-30T20:00:00Z",
                 "url": "https://video.twilio.com/v1/Rooms/RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "links": {
@@ -337,6 +351,8 @@ class RoomTestCase(IntegrationTestCase):
                 "video_codecs": [],
                 "media_region": "us1",
                 "audio_only": true,
+                "empty_room_timeout": 5,
+                "unused_room_timeout": 5,
                 "end_time": "2015-07-30T20:00:00Z",
                 "url": "https://video.twilio.com/v1/Rooms/RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "links": {
@@ -414,6 +430,8 @@ class RoomTestCase(IntegrationTestCase):
                         ],
                         "media_region": "us1",
                         "audio_only": false,
+                        "empty_room_timeout": 5,
+                        "unused_room_timeout": 5,
                         "url": "https://video.twilio.com/v1/Rooms/RM4070b618362c1682b2385b1f9982833c",
                         "links": {
                             "participants": "https://video.twilio.com/v1/Rooms/RM4070b618362c1682b2385b1f9982833c/Participants",
@@ -477,6 +495,8 @@ class RoomTestCase(IntegrationTestCase):
                 ],
                 "media_region": "us1",
                 "audio_only": false,
+                "empty_room_timeout": 5,
+                "unused_room_timeout": 5,
                 "end_time": "2015-07-30T20:00:00Z",
                 "duration": 10,
                 "url": "https://video.twilio.com/v1/Rooms/RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",

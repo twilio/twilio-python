@@ -41,7 +41,8 @@ class RoomList(ListResource):
                record_participants_on_connect=values.unset,
                video_codecs=values.unset, media_region=values.unset,
                recording_rules=values.unset, audio_only=values.unset,
-               max_participant_duration=values.unset):
+               max_participant_duration=values.unset,
+               empty_room_timeout=values.unset, unused_room_timeout=values.unset):
         """
         Create the RoomInstance
 
@@ -57,6 +58,8 @@ class RoomList(ListResource):
         :param dict recording_rules: A collection of Recording Rules
         :param bool audio_only: Indicates whether the room will only contain audio track participants for group rooms.
         :param unicode max_participant_duration: The maximum number of seconds a Participant can be connected to the room
+        :param unicode empty_room_timeout: Configures the time a room will remain active after last participant leaves.
+        :param unicode unused_room_timeout: Configures the time a room will remain active when no one joins.
 
         :returns: The created RoomInstance
         :rtype: twilio.rest.video.v1.room.RoomInstance
@@ -74,6 +77,8 @@ class RoomList(ListResource):
             'RecordingRules': serialize.object(recording_rules),
             'AudioOnly': audio_only,
             'MaxParticipantDuration': max_participant_duration,
+            'EmptyRoomTimeout': empty_room_timeout,
+            'UnusedRoomTimeout': unused_room_timeout,
         })
 
         payload = self._version.create(method='POST', uri=self._uri, data=data, )
@@ -409,6 +414,8 @@ class RoomInstance(InstanceResource):
             'video_codecs': payload.get('video_codecs'),
             'media_region': payload.get('media_region'),
             'audio_only': payload.get('audio_only'),
+            'empty_room_timeout': deserialize.integer(payload.get('empty_room_timeout')),
+            'unused_room_timeout': deserialize.integer(payload.get('unused_room_timeout')),
             'url': payload.get('url'),
             'links': payload.get('links'),
         }
@@ -581,6 +588,22 @@ class RoomInstance(InstanceResource):
         :rtype: bool
         """
         return self._properties['audio_only']
+
+    @property
+    def empty_room_timeout(self):
+        """
+        :returns: The time a room will remain active after last participant leaves.
+        :rtype: unicode
+        """
+        return self._properties['empty_room_timeout']
+
+    @property
+    def unused_room_timeout(self):
+        """
+        :returns: The time a room will remain active when no one joins.
+        :rtype: unicode
+        """
+        return self._properties['unused_room_timeout']
 
     @property
     def url(self):

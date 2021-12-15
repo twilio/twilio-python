@@ -522,7 +522,7 @@ class SimInstance(InstanceResource):
     @property
     def sms_fallback_method(self):
         """
-        :returns: Deprecated. The HTTP method we use to call sms_fallback_url
+        :returns: Deprecated
         :rtype: unicode
         """
         return self._properties['sms_fallback_method']
@@ -530,7 +530,7 @@ class SimInstance(InstanceResource):
     @property
     def sms_fallback_url(self):
         """
-        :returns: Deprecated. The URL we call when an error occurs while retrieving or executing the TwiML requested from the sms_url
+        :returns: Deprecated
         :rtype: unicode
         """
         return self._properties['sms_fallback_url']
@@ -538,7 +538,7 @@ class SimInstance(InstanceResource):
     @property
     def sms_method(self):
         """
-        :returns: Deprecated. The HTTP method we use to call sms_url
+        :returns: Deprecated
         :rtype: unicode
         """
         return self._properties['sms_method']
@@ -546,7 +546,7 @@ class SimInstance(InstanceResource):
     @property
     def sms_url(self):
         """
-        :returns: Deprecated. The URL we call when the SIM-connected device sends an SMS message that is not a Command
+        :returns: Deprecated
         :rtype: unicode
         """
         return self._properties['sms_url']

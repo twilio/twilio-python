@@ -37,6 +37,13 @@ class Insights(Domain):
         return self._v1
 
     @property
+    def settings(self):
+        """
+        :rtype: twilio.rest.insights.v1.setting.SettingList
+        """
+        return self.v1.settings
+
+    @property
     def calls(self):
         """
         :rtype: twilio.rest.insights.v1.call.CallList
