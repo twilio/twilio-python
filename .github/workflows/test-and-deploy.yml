@@ -34,7 +34,15 @@ jobs:
           make test-install
 
       - name: Run the tests
-        run: make test
+        run: make test-with-coverage
+
+      # only send coverage for PRs and branch updates
+      - name: SonarCloud Scan
+        if: ${{ github.event_name == 'pull_request' || github.ref_type == 'branch' }}
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
   deploy:
     name: Deploy
