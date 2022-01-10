@@ -22,7 +22,7 @@ test: analysis
 	. venv/bin/activate; \
   find tests -type d | xargs nosetests
 
-cover:
+test-with-coverage:
 	. venv/bin/activate; \
   find tests -type d | xargs nosetests --with-coverage --cover-inclusive --cover-erase --cover-package=twilio; \
   coverage xml --omit 'twilio/rest/*' -o coverage.xml
