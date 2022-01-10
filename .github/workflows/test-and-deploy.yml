@@ -11,8 +11,8 @@ on:
   workflow_dispatch:
 
 jobs:
-  test:
-    name: Test
+  test_and_analyze:
+    name: Test and Analyze Code Coverage
     runs-on: ubuntu-latest
     timeout-minutes: 20
     strategy:
@@ -34,7 +34,7 @@ jobs:
           pip install virtualenv --upgrade
           make install
           make test-install
-      
+
       - name: Run the tests
         run: make test-with-coverage
 
