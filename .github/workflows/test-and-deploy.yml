@@ -49,7 +49,7 @@ jobs:
   deploy:
     name: Deploy
     if: success() && github.ref_type == 'tag'
-    needs: [ test ]
+    needs: [ test_and_analyze ]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout twilio-python
@@ -97,7 +97,7 @@ jobs:
   notify-on-failure:
     name: Slack notify on failure
     if: failure() && github.event_name != 'pull_request' && (github.ref == 'refs/heads/main' || github.ref_type == 'tag')
-    needs: [ test, deploy ]
+    needs: [ test_and_analyze, deploy ]
     runs-on: ubuntu-latest
     steps:
       - uses: rtCamp/action-slack-notify@v2
