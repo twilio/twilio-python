@@ -21,6 +21,8 @@ jobs:
     steps:
       - name: Checkout twilio-python
         uses: actions/checkout@v2
+        with:
+          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
 
       - name: Set up Python
         uses: actions/setup-python@v2
