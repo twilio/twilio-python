@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-MWRD6S');</script><!--End Google Tag Manager-->
 <meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<title>twilio.rest.api.v2010.account.message package — twilio-python 7.4.0 documentation</title>
+<title>twilio.rest.api.v2010.account.message package — twilio-python 7.5.0 documentation</title>
 <link href="../../../_static/alabaster.css" rel="stylesheet" type="text/css"/>
 <link href="../../../_static/pygments.css" rel="stylesheet" type="text/css"/>
 <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js" type="text/javascript"></script>
@@ -601,17 +601,23 @@ limit with the most efficient page size, i.e. min(limit, 1000)</li>
 </dd></dl>
 <dl class="method">
 <dt id="twilio.rest.api.v2010.account.message.MessageContext.update">
-<code class="descname">update</code><span class="sig-paren">(</span><em>body=&lt;object object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/api/v2010/account/message.html#MessageContext.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.api.v2010.account.message.MessageContext.update" title="Permalink to this definition">¶</a></dt>
+<code class="descname">update</code><span class="sig-paren">(</span><em>body=&lt;object object&gt;</em>, <em>status=&lt;object object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/api/v2010/account/message.html#MessageContext.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.api.v2010.account.message.MessageContext.update" title="Permalink to this definition">¶</a></dt>
 <dd><p>Update the MessageInstance</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>body</strong> (<em>unicode</em>) – The text of the message you want to send</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>body</strong> (<em>unicode</em>) – The text of the message you want to send</li>
+<li><strong>status</strong> (<a class="reference internal" href="#twilio.rest.api.v2010.account.message.MessageInstance.UpdateStatus" title="twilio.rest.api.v2010.account.message.MessageInstance.UpdateStatus"><em>MessageInstance.UpdateStatus</em></a>) – Set as <cite>canceled</cite> to cancel a message from being sent.</li>
+</ul>
+</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The updated MessageInstance</td>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The updated MessageInstance</p>
+</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#twilio.rest.api.v2010.account.message.MessageInstance" title="twilio.rest.api.v2010.account.message.MessageInstance">twilio.rest.api.v2010.account.message.MessageInstance</a></td>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#twilio.rest.api.v2010.account.message.MessageInstance" title="twilio.rest.api.v2010.account.message.MessageInstance">twilio.rest.api.v2010.account.message.MessageInstance</a></p>
+</td>
 </tr>
 </tbody>
 </table>
@@ -667,10 +673,6 @@ limit with the most efficient page size, i.e. min(limit, 1000)</li>
 <dl class="attribute">
 <dt id="twilio.rest.api.v2010.account.message.MessageInstance.ScheduleType.FIXED">
 <code class="descname">FIXED</code><em class="property"> = 'fixed'</em><a class="headerlink" href="#twilio.rest.api.v2010.account.message.MessageInstance.ScheduleType.FIXED" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-<dl class="attribute">
-<dt id="twilio.rest.api.v2010.account.message.MessageInstance.ScheduleType.OPTIMIZE">
-<code class="descname">OPTIMIZE</code><em class="property"> = 'optimize'</em><a class="headerlink" href="#twilio.rest.api.v2010.account.message.MessageInstance.ScheduleType.OPTIMIZE" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 </dd></dl>
 <dl class="class">
@@ -1076,17 +1078,23 @@ limit with the most efficient page size, i.e. min(limit, 1000)</li>
 </dd></dl>
 <dl class="method">
 <dt id="twilio.rest.api.v2010.account.message.MessageInstance.update">
-<code class="descname">update</code><span class="sig-paren">(</span><em>body=&lt;object object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/api/v2010/account/message.html#MessageInstance.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.api.v2010.account.message.MessageInstance.update" title="Permalink to this definition">¶</a></dt>
+<code class="descname">update</code><span class="sig-paren">(</span><em>body=&lt;object object&gt;</em>, <em>status=&lt;object object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/api/v2010/account/message.html#MessageInstance.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.api.v2010.account.message.MessageInstance.update" title="Permalink to this definition">¶</a></dt>
 <dd><p>Update the MessageInstance</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>body</strong> (<em>unicode</em>) – The text of the message you want to send</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>body</strong> (<em>unicode</em>) – The text of the message you want to send</li>
+<li><strong>status</strong> (<a class="reference internal" href="#twilio.rest.api.v2010.account.message.MessageInstance.UpdateStatus" title="twilio.rest.api.v2010.account.message.MessageInstance.UpdateStatus"><em>MessageInstance.UpdateStatus</em></a>) – Set as <cite>canceled</cite> to cancel a message from being sent.</li>
+</ul>
+</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The updated MessageInstance</td>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The updated MessageInstance</p>
+</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#twilio.rest.api.v2010.account.message.MessageInstance" title="twilio.rest.api.v2010.account.message.MessageInstance">twilio.rest.api.v2010.account.message.MessageInstance</a></td>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#twilio.rest.api.v2010.account.message.MessageInstance" title="twilio.rest.api.v2010.account.message.MessageInstance">twilio.rest.api.v2010.account.message.MessageInstance</a></p>
+</td>
 </tr>
 </tbody>
 </table>
@@ -1112,7 +1120,7 @@ limit with the most efficient page size, i.e. min(limit, 1000)</li>
 <dd><p>Bases: <a class="reference internal" href="twilio.base.html#twilio.base.list_resource.ListResource" title="twilio.base.list_resource.ListResource"><code class="xref py py-class docutils literal notranslate"><span class="pre">twilio.base.list_resource.ListResource</span></code></a></p>
 <dl class="method">
 <dt id="twilio.rest.api.v2010.account.message.MessageList.create">
-<code class="descname">create</code><span class="sig-paren">(</span><em>to</em>, <em>status_callback=&lt;object object&gt;</em>, <em>application_sid=&lt;object object&gt;</em>, <em>max_price=&lt;object object&gt;</em>, <em>provide_feedback=&lt;object object&gt;</em>, <em>attempt=&lt;object object&gt;</em>, <em>validity_period=&lt;object object&gt;</em>, <em>force_delivery=&lt;object object&gt;</em>, <em>content_retention=&lt;object object&gt;</em>, <em>address_retention=&lt;object object&gt;</em>, <em>smart_encoded=&lt;object object&gt;</em>, <em>persistent_action=&lt;object object&gt;</em>, <em>send_as_mms=&lt;object object&gt;</em>, <em>from_=&lt;object object&gt;</em>, <em>messaging_service_sid=&lt;object object&gt;</em>, <em>body=&lt;object object&gt;</em>, <em>media_url=&lt;object object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/api/v2010/account/message.html#MessageList.create"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.api.v2010.account.message.MessageList.create" title="Permalink to this definition">¶</a></dt>
+<code class="descname">create</code><span class="sig-paren">(</span><em>to</em>, <em>status_callback=&lt;object object&gt;</em>, <em>application_sid=&lt;object object&gt;</em>, <em>max_price=&lt;object object&gt;</em>, <em>provide_feedback=&lt;object object&gt;</em>, <em>attempt=&lt;object object&gt;</em>, <em>validity_period=&lt;object object&gt;</em>, <em>force_delivery=&lt;object object&gt;</em>, <em>content_retention=&lt;object object&gt;</em>, <em>address_retention=&lt;object object&gt;</em>, <em>smart_encoded=&lt;object object&gt;</em>, <em>persistent_action=&lt;object object&gt;</em>, <em>schedule_type=&lt;object object&gt;</em>, <em>send_at=&lt;object object&gt;</em>, <em>send_as_mms=&lt;object object&gt;</em>, <em>from_=&lt;object object&gt;</em>, <em>messaging_service_sid=&lt;object object&gt;</em>, <em>body=&lt;object object&gt;</em>, <em>media_url=&lt;object object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/api/v2010/account/message.html#MessageList.create"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.api.v2010.account.message.MessageList.create" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create the MessageInstance</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name"/>
@@ -1131,6 +1139,8 @@ limit with the most efficient page size, i.e. min(limit, 1000)</li>
 <li><strong>address_retention</strong> (<a class="reference internal" href="#twilio.rest.api.v2010.account.message.MessageInstance.AddressRetention" title="twilio.rest.api.v2010.account.message.MessageInstance.AddressRetention"><em>MessageInstance.AddressRetention</em></a>) – Determines if the address can be stored or obfuscated based on privacy settings</li>
 <li><strong>smart_encoded</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether to detect Unicode characters that have a similar GSM-7 character and replace them</li>
 <li><strong>persistent_action</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a><em>[</em><em>unicode</em><em>]</em>) – Rich actions for Channels Messages.</li>
+<li><strong>schedule_type</strong> (<a class="reference internal" href="#twilio.rest.api.v2010.account.message.MessageInstance.ScheduleType" title="twilio.rest.api.v2010.account.message.MessageInstance.ScheduleType"><em>MessageInstance.ScheduleType</em></a>) – Pass the value <cite>fixed</cite> to schedule a message at a fixed time.</li>
+<li><strong>send_at</strong> (<em>datetime</em>) – The time that Twilio will send the message. Must be in ISO 8601 format.</li>
 <li><strong>send_as_mms</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – If set to True, Twilio will deliver the message as a single MMS message, regardless of the presence of media</li>
 <li><strong>from</strong> (<em>unicode</em>) – The phone number that initiated the message</li>
 <li><strong>messaging_service_sid</strong> (<em>unicode</em>) – The SID of the Messaging Service you want to associate with the message.</li>

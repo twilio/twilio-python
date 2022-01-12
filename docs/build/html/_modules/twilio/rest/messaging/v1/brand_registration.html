@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-MWRD6S');</script><!--End Google Tag Manager-->
 <meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<title>twilio.rest.messaging.v1.brand_registration — twilio-python 7.4.0 documentation</title>
+<title>twilio.rest.messaging.v1.brand_registration — twilio-python 7.5.0 documentation</title>
 <link href="../../../../../_static/alabaster.css" rel="stylesheet" type="text/css"/>
 <link href="../../../../../_static/pygments.css" rel="stylesheet" type="text/css"/>
 <script data-url_root="../../../../../" id="documentation_options" src="../../../../../_static/documentation_options.js" type="text/javascript"></script>
@@ -274,6 +274,17 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
         <span class="k">return</span> <span class="n">BrandRegistrationInstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_version</span><span class="p">,</span> <span class="n">payload</span><span class="p">,</span> <span class="n">sid</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_solution</span><span class="p">[</span><span class="s1">'sid'</span><span class="p">],</span> <span class="p">)</span></div>
 
+<div class="viewcode-block" id="BrandRegistrationContext.update"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.messaging.v1.brand_registration.html#twilio.rest.messaging.v1.brand_registration.BrandRegistrationContext.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Update the BrandRegistrationInstance</span>
+
+<span class="sd">        :returns: The updated BrandRegistrationInstance</span>
+<span class="sd">        :rtype: twilio.rest.messaging.v1.brand_registration.BrandRegistrationInstance</span>
+<span class="sd">        """</span>
+        <span class="n">payload</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_version</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">'POST'</span><span class="p">,</span> <span class="n">uri</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_uri</span><span class="p">,</span> <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">BrandRegistrationInstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_version</span><span class="p">,</span> <span class="n">payload</span><span class="p">,</span> <span class="n">sid</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_solution</span><span class="p">[</span><span class="s1">'sid'</span><span class="p">],</span> <span class="p">)</span></div>
+
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">brand_vettings</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">"""</span>
@@ -530,6 +541,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <span class="sd">        :rtype: twilio.rest.messaging.v1.brand_registration.BrandRegistrationInstance</span>
 <span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_proxy</span><span class="o">.</span><span class="n">fetch</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="BrandRegistrationInstance.update"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.messaging.v1.brand_registration.html#twilio.rest.messaging.v1.brand_registration.BrandRegistrationInstance.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Update the BrandRegistrationInstance</span>
+
+<span class="sd">        :returns: The updated BrandRegistrationInstance</span>
+<span class="sd">        :rtype: twilio.rest.messaging.v1.brand_registration.BrandRegistrationInstance</span>
+<span class="sd">        """</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_proxy</span><span class="o">.</span><span class="n">update</span><span class="p">()</span></div>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">brand_vettings</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
