@@ -48,6 +48,83 @@ class BundleCopyList(ListResource):
 
         return BundleCopyInstance(self._version, payload, bundle_sid=self._solution['bundle_sid'], )
 
+    def stream(self, limit=None, page_size=None):
+        """
+        Streams BundleCopyInstance records from the API as a generator stream.
+        This operation lazily loads records as efficiently as possible until the limit
+        is reached.
+        The results are returned as a generator, so this operation is memory efficient.
+
+        :param int limit: Upper limit for the number of records to return. stream()
+                          guarantees to never return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, stream() will attempt to read the
+                              limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.numbers.v2.regulatory_compliance.bundle.bundle_copy.BundleCopyInstance]
+        """
+        limits = self._version.read_limits(limit, page_size)
+
+        page = self.page(page_size=limits['page_size'], )
+
+        return self._version.stream(page, limits['limit'])
+
+    def list(self, limit=None, page_size=None):
+        """
+        Lists BundleCopyInstance records from the API as a list.
+        Unlike stream(), this operation is eager and will load `limit` records into
+        memory before returning.
+
+        :param int limit: Upper limit for the number of records to return. list() guarantees
+                          never to return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, list() will attempt to read the limit
+                              with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.numbers.v2.regulatory_compliance.bundle.bundle_copy.BundleCopyInstance]
+        """
+        return list(self.stream(limit=limit, page_size=page_size, ))
+
+    def page(self, page_token=values.unset, page_number=values.unset,
+             page_size=values.unset):
+        """
+        Retrieve a single page of BundleCopyInstance records from the API.
+        Request is executed immediately
+
+        :param str page_token: PageToken provided by the API
+        :param int page_number: Page Number, this value is simply for client state
+        :param int page_size: Number of records to return, defaults to 50
+
+        :returns: Page of BundleCopyInstance
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.bundle_copy.BundleCopyPage
+        """
+        data = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
+
+        response = self._version.page(method='GET', uri=self._uri, params=data, )
+
+        return BundleCopyPage(self._version, response, self._solution)
+
+    def get_page(self, target_url):
+        """
+        Retrieve a specific page of BundleCopyInstance records from the API.
+        Request is executed immediately
+
+        :param str target_url: API-generated URL for the requested results page
+
+        :returns: Page of BundleCopyInstance
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.bundle_copy.BundleCopyPage
+        """
+        response = self._version.domain.twilio.request(
+            'GET',
+            target_url,
+        )
+
+        return BundleCopyPage(self._version, response, self._solution)
+
     def __repr__(self):
         """
         Provide a friendly representation

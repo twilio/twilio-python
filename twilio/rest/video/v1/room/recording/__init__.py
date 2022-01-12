@@ -323,6 +323,7 @@ class RoomRecordingInstance(InstanceResource):
             'grouping_sids': payload.get('grouping_sids'),
             'track_name': payload.get('track_name'),
             'offset': deserialize.integer(payload.get('offset')),
+            'media_external_location': payload.get('media_external_location'),
             'room_sid': payload.get('room_sid'),
             'links': payload.get('links'),
         }
@@ -459,6 +460,14 @@ class RoomRecordingInstance(InstanceResource):
         :rtype: unicode
         """
         return self._properties['offset']
+
+    @property
+    def media_external_location(self):
+        """
+        :returns: The URL of the media file associated with the recording when stored externally
+        :rtype: unicode
+        """
+        return self._properties['media_external_location']
 
     @property
     def room_sid(self):

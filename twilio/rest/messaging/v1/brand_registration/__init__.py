@@ -244,6 +244,17 @@ class BrandRegistrationContext(InstanceContext):
 
         return BrandRegistrationInstance(self._version, payload, sid=self._solution['sid'], )
 
+    def update(self):
+        """
+        Update the BrandRegistrationInstance
+
+        :returns: The updated BrandRegistrationInstance
+        :rtype: twilio.rest.messaging.v1.brand_registration.BrandRegistrationInstance
+        """
+        payload = self._version.update(method='POST', uri=self._uri, )
+
+        return BrandRegistrationInstance(self._version, payload, sid=self._solution['sid'], )
+
     @property
     def brand_vettings(self):
         """
@@ -500,6 +511,15 @@ class BrandRegistrationInstance(InstanceResource):
         :rtype: twilio.rest.messaging.v1.brand_registration.BrandRegistrationInstance
         """
         return self._proxy.fetch()
+
+    def update(self):
+        """
+        Update the BrandRegistrationInstance
+
+        :returns: The updated BrandRegistrationInstance
+        :rtype: twilio.rest.messaging.v1.brand_registration.BrandRegistrationInstance
+        """
+        return self._proxy.update()
 
     @property
     def brand_vettings(self):

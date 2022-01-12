@@ -176,3 +176,51 @@ class BrandRegistrationTestCase(IntegrationTestCase):
         actual = self.client.messaging.v1.brand_registrations.create(customer_profile_bundle_sid="BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", a2p_profile_bundle_sid="BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
 
         self.assertIsNotNone(actual)
+
+    def test_update_request(self):
+        self.holodeck.mock(Response(500, ''))
+
+        with self.assertRaises(TwilioException):
+            self.client.messaging.v1.brand_registrations("BNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
+
+        self.holodeck.assert_has_request(Request(
+            'post',
+            'https://messaging.twilio.com/v1/a2p/BrandRegistrations/BNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+        ))
+
+    def test_update_response(self):
+        self.holodeck.mock(Response(
+            200,
+            '''
+            {
+                "sid": "BNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "customer_profile_bundle_sid": "BU3344409f7e067e279523808d267e2d85",
+                "a2p_profile_bundle_sid": "BU3344409f7e067e279523808d267e2d85",
+                "date_created": "2021-01-27T14:18:35Z",
+                "date_updated": "2021-01-27T14:18:36Z",
+                "brand_type": "STANDARD",
+                "status": "PENDING",
+                "tcr_id": "BXXXXXX",
+                "failure_reason": "Registration error",
+                "url": "https://messaging.twilio.com/v1/a2p/BrandRegistrations/BNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "brand_score": 42,
+                "brand_feedback": [
+                    "TAX_ID",
+                    "NONPROFIT"
+                ],
+                "identity_status": "VERIFIED",
+                "russell_3000": false,
+                "tax_exempt_status": "501c3",
+                "skip_automatic_sec_vet": false,
+                "mock": false,
+                "links": {
+                    "brand_vettings": "https://messaging.twilio.com/v1/a2p/BrandRegistrations/BNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Vettings"
+                }
+            }
+            '''
+        ))
+
+        actual = self.client.messaging.v1.brand_registrations("BNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
+
+        self.assertIsNotNone(actual)

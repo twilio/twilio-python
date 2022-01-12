@@ -344,6 +344,7 @@ class CompositionInstance(InstanceResource):
             'bitrate': deserialize.integer(payload.get('bitrate')),
             'size': deserialize.integer(payload.get('size')),
             'duration': deserialize.integer(payload.get('duration')),
+            'media_external_location': payload.get('media_external_location'),
             'url': payload.get('url'),
             'links': payload.get('links'),
         }
@@ -492,6 +493,14 @@ class CompositionInstance(InstanceResource):
         :rtype: unicode
         """
         return self._properties['duration']
+
+    @property
+    def media_external_location(self):
+        """
+        :returns: The URL of the media file associated with the composition when stored externally
+        :rtype: unicode
+        """
+        return self._properties['media_external_location']
 
     @property
     def url(self):

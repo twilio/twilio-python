@@ -41,7 +41,6 @@ class PlayerStreamerTestCase(IntegrationTestCase):
                 "ended_reason": null,
                 "url": "https://media.twilio.com/v1/PlayerStreamers/VJcafebabecafebabecafebabecafebabe",
                 "links": {
-                    "access_token": "https://media.twilio.com/v1/PlayerStreamers/VJcafebabecafebabecafebabecafebabe/AccessToken",
                     "timed_metadata": "https://media.twilio.com/v1/PlayerStreamers/VJcafebabecafebabecafebabecafebabe/TimedMetadata",
                     "playback_grant": "https://media.twilio.com/v1/PlayerStreamers/VJcafebabecafebabecafebabecafebabe/PlaybackGrant"
                 }
@@ -80,7 +79,6 @@ class PlayerStreamerTestCase(IntegrationTestCase):
                 "ended_reason": null,
                 "url": "https://media.twilio.com/v1/PlayerStreamers/VJcafebabecafebabecafebabecafebabe",
                 "links": {
-                    "access_token": "https://media.twilio.com/v1/PlayerStreamers/VJcafebabecafebabecafebabecafebabe/AccessToken",
                     "timed_metadata": "https://media.twilio.com/v1/PlayerStreamers/VJcafebabecafebabecafebabecafebabe/TimedMetadata",
                     "playback_grant": "https://media.twilio.com/v1/PlayerStreamers/VJcafebabecafebabecafebabecafebabe/PlaybackGrant"
                 }
@@ -122,7 +120,6 @@ class PlayerStreamerTestCase(IntegrationTestCase):
                 "ended_reason": "ended-via-api",
                 "url": "https://media.twilio.com/v1/PlayerStreamers/VJcafebabecafebabecafebabecafebabe",
                 "links": {
-                    "access_token": "https://media.twilio.com/v1/PlayerStreamers/VJcafebabecafebabecafebabecafebabe/AccessToken",
                     "timed_metadata": "https://media.twilio.com/v1/PlayerStreamers/VJcafebabecafebabecafebabecafebabe/TimedMetadata",
                     "playback_grant": "https://media.twilio.com/v1/PlayerStreamers/VJcafebabecafebabecafebabecafebabe/PlaybackGrant"
                 }
@@ -195,7 +192,6 @@ class PlayerStreamerTestCase(IntegrationTestCase):
                         "ended_reason": "ended-via-api",
                         "url": "https://media.twilio.com/v1/PlayerStreamers/VJcafebabecafebabecafebabecafebabe",
                         "links": {
-                            "access_token": "https://media.twilio.com/v1/PlayerStreamers/VJcafebabecafebabecafebabecafebabe/AccessToken",
                             "timed_metadata": "https://media.twilio.com/v1/PlayerStreamers/VJcafebabecafebabecafebabecafebabe/TimedMetadata",
                             "playback_grant": "https://media.twilio.com/v1/PlayerStreamers/VJcafebabecafebabecafebabecafebabe/PlaybackGrant"
                         }
@@ -236,7 +232,6 @@ class PlayerStreamerTestCase(IntegrationTestCase):
                         "ended_reason": "ended-via-api",
                         "url": "https://media.twilio.com/v1/PlayerStreamers/VJcafebabecafebabecafebabecafebabe",
                         "links": {
-                            "access_token": "https://media.twilio.com/v1/PlayerStreamers/VJcafebabecafebabecafebabecafebabe/AccessToken",
                             "timed_metadata": "https://media.twilio.com/v1/PlayerStreamers/VJcafebabecafebabecafebabecafebabe/TimedMetadata",
                             "playback_grant": "https://media.twilio.com/v1/PlayerStreamers/VJcafebabecafebabecafebabecafebabe/PlaybackGrant"
                         }

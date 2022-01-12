@@ -51,3 +51,79 @@ class BundleCopyTestCase(IntegrationTestCase):
                                        .bundle_copies.create()
 
         self.assertIsNotNone(actual)
+
+    def test_list_request(self):
+        self.holodeck.mock(Response(500, ''))
+
+        with self.assertRaises(TwilioException):
+            self.client.numbers.v2.regulatory_compliance \
+                                  .bundles("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                  .bundle_copies.list()
+
+        self.holodeck.assert_has_request(Request(
+            'get',
+            'https://numbers.twilio.com/v2/RegulatoryCompliance/Bundles/BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Copies',
+        ))
+
+    def test_read_empty_response(self):
+        self.holodeck.mock(Response(
+            200,
+            '''
+            {
+                "results": [],
+                "meta": {
+                    "page": 0,
+                    "page_size": 50,
+                    "first_page_url": "https://numbers.twilio.com/v2/RegulatoryCompliance/Bundles/BUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Copies?PageSize=50&Page=0",
+                    "previous_page_url": null,
+                    "url": "https://numbers.twilio.com/v2/RegulatoryCompliance/Bundles/BUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Copies?PageSize=50&Page=0",
+                    "next_page_url": null,
+                    "key": "results"
+                }
+            }
+            '''
+        ))
+
+        actual = self.client.numbers.v2.regulatory_compliance \
+                                       .bundles("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                       .bundle_copies.list()
+
+        self.assertIsNotNone(actual)
+
+    def test_read_full_response(self):
+        self.holodeck.mock(Response(
+            200,
+            '''
+            {
+                "results": [
+                    {
+                        "sid": "BUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                        "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                        "regulation_sid": "RNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                        "friendly_name": "friendly_name",
+                        "status": "twilio-approved",
+                        "email": "email",
+                        "status_callback": "http://www.example.com",
+                        "valid_until": "2020-07-31T01:00:00Z",
+                        "date_created": "2019-07-30T22:29:24Z",
+                        "date_updated": "2019-07-31T01:09:00Z"
+                    }
+                ],
+                "meta": {
+                    "page": 0,
+                    "page_size": 50,
+                    "first_page_url": "https://numbers.twilio.com/v2/RegulatoryCompliance/Bundles/BUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Copies?PageSize=50&Page=0",
+                    "previous_page_url": null,
+                    "url": "https://numbers.twilio.com/v2/RegulatoryCompliance/Bundles/BUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Copies?PageSize=50&Page=0",
+                    "next_page_url": null,
+                    "key": "results"
+                }
+            }
+            '''
+        ))
+
+        actual = self.client.numbers.v2.regulatory_compliance \
+                                       .bundles("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                       .bundle_copies.list()
+
+        self.assertIsNotNone(actual)
