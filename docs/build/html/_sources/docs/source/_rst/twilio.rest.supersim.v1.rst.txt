@@ -20,6 +20,14 @@ twilio.rest.supersim.v1.command module
     :undoc-members:
     :show-inheritance:
 
+twilio.rest.supersim.v1.esim\_profile module
+--------------------------------------------
+
+.. automodule:: twilio.rest.supersim.v1.esim_profile
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 twilio.rest.supersim.v1.fleet module
 ------------------------------------
 

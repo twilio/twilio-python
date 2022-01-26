@@ -1,0 +1,22 @@
+twilio.rest.insights.v1.conference package
+==========================================
+
+Submodules
+----------
+
+twilio.rest.insights.v1.conference.conference\_participant module
+-----------------------------------------------------------------
+
+.. automodule:: twilio.rest.insights.v1.conference.conference_participant
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: twilio.rest.insights.v1.conference
+    :members:
+    :undoc-members:
+    :show-inheritance:
