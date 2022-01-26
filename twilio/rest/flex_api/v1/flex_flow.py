@@ -145,7 +145,7 @@ class FlexFlowList(ListResource):
         :param bool integration_creation_on_message: Whether to create a Task when the first message arrives
         :param bool long_lived: Reuse this chat channel for future interactions with a contact
         :param bool janitor_enabled: Remove active Proxy sessions if the corresponding Task is deleted
-        :param unicode integration_retry_count: The number of times to retry the webhook if the first attempt fails
+        :param unicode integration_retry_count: The number of times to retry the Studio Flow or webhook in case of failure
 
         :returns: The created FlexFlowInstance
         :rtype: twilio.rest.flex_api.v1.flex_flow.FlexFlowInstance
@@ -303,7 +303,7 @@ class FlexFlowContext(InstanceContext):
         :param bool integration_creation_on_message: Whether to create a Task when the first message arrives
         :param bool long_lived: Reuse this chat channel for future interactions with a contact
         :param bool janitor_enabled: Remove active Proxy sessions if the corresponding Task is deleted
-        :param unicode integration_retry_count: The number of times to retry the webhook if the first attempt fails
+        :param unicode integration_retry_count: The number of times to retry the Studio Flow or webhook in case of failure
 
         :returns: The updated FlexFlowInstance
         :rtype: twilio.rest.flex_api.v1.flex_flow.FlexFlowInstance
@@ -562,7 +562,7 @@ class FlexFlowInstance(InstanceResource):
         :param bool integration_creation_on_message: Whether to create a Task when the first message arrives
         :param bool long_lived: Reuse this chat channel for future interactions with a contact
         :param bool janitor_enabled: Remove active Proxy sessions if the corresponding Task is deleted
-        :param unicode integration_retry_count: The number of times to retry the webhook if the first attempt fails
+        :param unicode integration_retry_count: The number of times to retry the Studio Flow or webhook in case of failure
 
         :returns: The updated FlexFlowInstance
         :rtype: twilio.rest.flex_api.v1.flex_flow.FlexFlowInstance

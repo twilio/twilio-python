@@ -44,6 +44,13 @@ class Supersim(Domain):
         return self.v1.commands
 
     @property
+    def esim_profiles(self):
+        """
+        :rtype: twilio.rest.supersim.v1.esim_profile.EsimProfileList
+        """
+        return self.v1.esim_profiles
+
+    @property
     def fleets(self):
         """
         :rtype: twilio.rest.supersim.v1.fleet.FleetList

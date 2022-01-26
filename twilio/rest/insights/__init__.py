@@ -58,6 +58,13 @@ class Insights(Domain):
         return self.v1.call_summaries
 
     @property
+    def conferences(self):
+        """
+        :rtype: twilio.rest.insights.v1.conference.ConferenceList
+        """
+        return self.v1.conferences
+
+    @property
     def rooms(self):
         """
         :rtype: twilio.rest.insights.v1.room.RoomList

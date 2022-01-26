@@ -328,6 +328,7 @@ class BrandRegistrationInstance(InstanceResource):
             'brand_feedback': payload.get('brand_feedback'),
             'identity_status': payload.get('identity_status'),
             'russell_3000': payload.get('russell_3000'),
+            'government_entity': payload.get('government_entity'),
             'tax_exempt_status': payload.get('tax_exempt_status'),
             'skip_automatic_sec_vet': payload.get('skip_automatic_sec_vet'),
             'mock': payload.get('mock'),
@@ -470,6 +471,14 @@ class BrandRegistrationInstance(InstanceResource):
         :rtype: bool
         """
         return self._properties['russell_3000']
+
+    @property
+    def government_entity(self):
+        """
+        :returns: Government Entity
+        :rtype: bool
+        """
+        return self._properties['government_entity']
 
     @property
     def tax_exempt_status(self):
