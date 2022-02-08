@@ -1,8 +1,6 @@
 import time
 import unittest
-
 from datetime import datetime
-from nose.tools import assert_equal
 
 from twilio.jwt.access_token import AccessToken
 from twilio.jwt.access_token.grants import (
@@ -35,31 +33,31 @@ def assert_greater_equal(obj1, obj2):
 
 class AccessTokenTest(unittest.TestCase):
     def _validate_claims(self, payload):
-        assert_equal(SIGNING_KEY_SID, payload['iss'])
-        assert_equal(ACCOUNT_SID, payload['sub'])
+        assert SIGNING_KEY_SID == payload['iss']
+        assert ACCOUNT_SID == payload['sub']
 
-        assert_is_not_none(payload['exp'])
-        assert_is_not_none(payload['jti'])
-        assert_is_not_none(payload['grants'])
+        assert payload['exp'] is not None
+        assert payload['jti'] is not None
+        assert payload['grants'] is not None
 
-        assert_greater_equal(payload['exp'], int(time.time()))
+        assert payload['exp'] >= int(time.time())
 
-        assert_in(payload['iss'], payload['jti'])
+        assert payload['iss'] in payload['jti']
 
     def test_empty_grants(self):
         scat = AccessToken(ACCOUNT_SID, SIGNING_KEY_SID, 'secret')
         token = scat.to_jwt()
 
-        assert_is_not_none(token)
+        assert token is not None
         decoded_token = AccessToken.from_jwt(token, 'secret')
         self._validate_claims(decoded_token.payload)
-        assert_equal({}, decoded_token.payload['grants'])
+        assert {} == decoded_token.payload['grants']
 
     def test_region(self):
         scat = AccessToken(ACCOUNT_SID, SIGNING_KEY_SID, 'secret', region='foo')
         token = scat.to_jwt()
         decoded_token = AccessToken.from_jwt(token, 'secret')
-        assert_equal(decoded_token.headers['twr'], 'foo')
+        assert decoded_token.headers['twr'] == 'foo'
 
     def test_empty_region(self):
         scat = AccessToken(ACCOUNT_SID, SIGNING_KEY_SID, 'secret')
@@ -72,15 +70,15 @@ class AccessTokenTest(unittest.TestCase):
         scat = AccessToken(ACCOUNT_SID, SIGNING_KEY_SID, 'secret', nbf=now)
         token = scat.to_jwt()
 
-        assert_is_not_none(token)
+        assert token is not None
         decoded_token = AccessToken.from_jwt(token, 'secret')
         self._validate_claims(decoded_token.payload)
-        assert_equal(now, decoded_token.nbf)
+        assert now == decoded_token.nbf
 
     def test_headers(self):
         scat = AccessToken(ACCOUNT_SID, SIGNING_KEY_SID, 'secret')
         token = scat.to_jwt()
-        assert_is_not_none(token)
+        assert token is not None
         decoded_token = AccessToken.from_jwt(token, 'secret')
         self.assertEqual(decoded_token.headers['cty'], 'twilio-fpa;v=1')
 
@@ -88,66 +86,66 @@ class AccessTokenTest(unittest.TestCase):
         scat = AccessToken(ACCOUNT_SID, SIGNING_KEY_SID, 'secret', identity='test@twilio.com')
         token = scat.to_jwt()
 
-        assert_is_not_none(token)
+        assert token is not None
         decoded_token = AccessToken.from_jwt(token, 'secret')
         self._validate_claims(decoded_token.payload)
-        assert_equal({
-            'identity': 'test@twilio.com'
-        }, decoded_token.payload['grants'])
+        assert {
+                   'identity': 'test@twilio.com'
+               } == decoded_token.payload['grants']
 
     def test_conversations_grant(self):
         scat = AccessToken(ACCOUNT_SID, SIGNING_KEY_SID, 'secret')
         scat.add_grant(ConversationsGrant(configuration_profile_sid='CP123'))
 
         token = scat.to_jwt()
-        assert_is_not_none(token)
+        assert token is not None
         decoded_token = AccessToken.from_jwt(token, 'secret')
         self._validate_claims(decoded_token.payload)
-        assert_equal(1, len(decoded_token.payload['grants']))
-        assert_equal({
-            'configuration_profile_sid': 'CP123'
-        }, decoded_token.payload['grants']['rtc'])
+        assert 1 == len(decoded_token.payload['grants'])
+        assert {
+                   'configuration_profile_sid': 'CP123'
+               } == decoded_token.payload['grants']['rtc']
 
     def test_video_grant(self):
         scat = AccessToken(ACCOUNT_SID, SIGNING_KEY_SID, 'secret')
         scat.add_grant(VideoGrant(room='RM123'))
 
         token = scat.to_jwt()
-        assert_is_not_none(token)
+        assert token is not None
         decoded_token = AccessToken.from_jwt(token, 'secret')
         self._validate_claims(decoded_token.payload)
-        assert_equal(1, len(decoded_token.payload['grants']))
-        assert_equal({
-            'room': 'RM123'
-        }, decoded_token.payload['grants']['video'])
+        assert 1 == len(decoded_token.payload['grants'])
+        assert {
+                   'room': 'RM123'
+               } == decoded_token.payload['grants']['video']
 
     def test_ip_messaging_grant(self):
         scat = AccessToken(ACCOUNT_SID, SIGNING_KEY_SID, 'secret')
         scat.add_grant(IpMessagingGrant(service_sid='IS123', push_credential_sid='CR123'))
 
         token = scat.to_jwt()
-        assert_is_not_none(token)
+        assert token is not None
         decoded_token = AccessToken.from_jwt(token, 'secret')
         self._validate_claims(decoded_token.payload)
-        assert_equal(1, len(decoded_token.payload['grants']))
-        assert_equal({
-            'service_sid': 'IS123',
-            'push_credential_sid': 'CR123'
-        }, decoded_token.payload['grants']['ip_messaging'])
+        assert 1 == len(decoded_token.payload['grants'])
+        assert {
+                   'service_sid': 'IS123',
+                   'push_credential_sid': 'CR123'
+               } == decoded_token.payload['grants']['ip_messaging']
 
     def test_chat_grant(self):
         scat = AccessToken(ACCOUNT_SID, SIGNING_KEY_SID, 'secret')
         scat.add_grant(ChatGrant(service_sid='IS123', push_credential_sid='CR123'))
 
         token = scat.to_jwt()
-        assert_is_not_none(token)
+        assert token is not None
         decoded_token = AccessToken.from_jwt(token, 'secret')
         self._validate_claims(decoded_token.payload)
-        assert_equal(1, len(decoded_token.payload['grants']))
-        assert_equal({
-            'service_sid': 'IS123',
-            'push_credential_sid': 'CR123'
-        }, decoded_token.payload['grants']['chat'])
+        assert 1 == len(decoded_token.payload['grants'])
+        assert {
+                   'service_sid': 'IS123',
+                   'push_credential_sid': 'CR123'
+               } == decoded_token.payload['grants']['chat']
 
     def test_sync_grant(self):
         scat = AccessToken(ACCOUNT_SID, SIGNING_KEY_SID, 'secret')
@@ -155,15 +153,15 @@ class AccessTokenTest(unittest.TestCase):
         scat.add_grant(SyncGrant(service_sid='IS123', endpoint_id='blahblahendpoint'))
 
         token = scat.to_jwt()
-        assert_is_not_none(token)
+        assert token is not None
         decoded_token = AccessToken.from_jwt(token, 'secret')
         self._validate_claims(decoded_token.payload)
-        assert_equal(2, len(decoded_token.payload['grants']))
-        assert_equal("bender", decoded_token.payload['grants']['identity'])
-        assert_equal({
-            'service_sid': 'IS123',
-            'endpoint_id': 'blahblahendpoint'
-        }, decoded_token.payload['grants']['data_sync'])
+        assert 2 == len(decoded_token.payload['grants'])
+        assert "bender" == decoded_token.payload['grants']['identity']
+        assert {
+                   'service_sid': 'IS123',
+                   'endpoint_id': 'blahblahendpoint'
+               } == decoded_token.payload['grants']['data_sync']
 
     def test_grants(self):
         scat = AccessToken(ACCOUNT_SID, SIGNING_KEY_SID, 'secret')
@@ -171,12 +169,12 @@ class AccessTokenTest(unittest.TestCase):
         scat.add_grant(IpMessagingGrant())
 
         token = scat.to_jwt()
-        assert_is_not_none(token)
+        assert token is not None
         decoded_token = AccessToken.from_jwt(token, 'secret')
         self._validate_claims(decoded_token.payload)
-        assert_equal(2, len(decoded_token.payload['grants']))
-        assert_equal({}, decoded_token.payload['grants']['video'])
-        assert_equal({}, decoded_token.payload['grants']['ip_messaging'])
+        assert 2 == len(decoded_token.payload['grants'])
+        assert {} == decoded_token.payload['grants']['video']
+        assert {} == decoded_token.payload['grants']['ip_messaging']
 
     def test_programmable_voice_grant(self):
         grant = VoiceGrant(
@@ -190,18 +188,18 @@ class AccessTokenTest(unittest.TestCase):
         scat.add_grant(grant)
 
         token = scat.to_jwt()
-        assert_is_not_none(token)
+        assert token is not None
         decoded_token = AccessToken.from_jwt(token, 'secret')
         self._validate_claims(decoded_token.payload)
-        assert_equal(1, len(decoded_token.payload['grants']))
-        assert_equal({
-            'outgoing': {
-                'application_sid': 'AP123',
-                'params': {
-                    'foo': 'bar'
-                }
-            }
-        }, decoded_token.payload['grants']['voice'])
+        assert 1 == len(decoded_token.payload['grants'])
+        assert {
+                   'outgoing': {
+                       'application_sid': 'AP123',
+                       'params': {
+                           'foo': 'bar'
+                       }
+                   }
+               } == decoded_token.payload['grants']['voice']
 
     def test_programmable_voice_grant_incoming(self):
         grant = VoiceGrant(
@@ -212,15 +210,15 @@ class AccessTokenTest(unittest.TestCase):
         scat.add_grant(grant)
 
         token = scat.to_jwt()
-        assert_is_not_none(token)
+        assert token is not None
         decoded_token = AccessToken.from_jwt(token, 'secret')
         self._validate_claims(decoded_token.payload)
-        assert_equal(1, len(decoded_token.payload['grants']))
-        assert_equal({
-            'incoming': {
-                'allow': True
-            }
-        }, decoded_token.payload['grants']['voice'])
+        assert 1 == len(decoded_token.payload['grants'])
+        assert {
+                   'incoming': {
+                       'allow': True
+                   }
+               } == decoded_token.payload['grants']['voice']
 
     def test_task_router_grant(self):
         grant = TaskRouterGrant(
@@ -233,15 +231,15 @@ class AccessTokenTest(unittest.TestCase):
         scat.add_grant(grant)
 
         token = scat.to_jwt()
-        assert_is_not_none(token)
+        assert token is not None
         decoded_token = AccessToken.from_jwt(token, 'secret')
         self._validate_claims(decoded_token.payload)
-        assert_equal(1, len(decoded_token.payload['grants']))
-        assert_equal({
-            'workspace_sid': 'WS123',
-            'worker_sid': 'WK123',
-            'role': 'worker'
-        }, decoded_token.payload['grants']['task_router'])
+        assert 1 == len(decoded_token.payload['grants'])
+        assert {
+                   'workspace_sid': 'WS123',
+                   'worker_sid': 'WK123',
+                   'role': 'worker'
+               } == decoded_token.payload['grants']['task_router']
 
     def test_playback_grant(self):
         """Test that PlaybackGrants are created and decoded correctly."""
@@ -253,11 +251,11 @@ class AccessTokenTest(unittest.TestCase):
         scat = AccessToken(ACCOUNT_SID, SIGNING_KEY_SID, 'secret')
         scat.add_grant(PlaybackGrant(grant=grant))
         token = scat.to_jwt()
-        assert_is_not_none(token)
+        assert token is not None
         decoded_token = AccessToken.from_jwt(token, 'secret')
         self._validate_claims(decoded_token.payload)
-        assert_equal(1, len(decoded_token.payload['grants']))
-        assert_equal(grant, decoded_token.payload['grants']['player'])
+        assert 1 == len(decoded_token.payload['grants'])
+        assert grant == decoded_token.payload['grants']['player']
 
     def test_pass_grants_in_constructor(self):
         grants = [
@@ -267,13 +265,13 @@ class AccessTokenTest(unittest.TestCase):
         scat = AccessToken(ACCOUNT_SID, SIGNING_KEY_SID, 'secret', grants=grants)
 
         token = scat.to_jwt()
-        assert_is_not_none(token)
+        assert token is not None
 
         decoded_token = AccessToken.from_jwt(token, 'secret')
         self._validate_claims(decoded_token.payload)
-        assert_equal(2, len(decoded_token.payload['grants']))
-        assert_equal({}, decoded_token.payload['grants']['video'])
-        assert_equal({}, decoded_token.payload['grants']['ip_messaging'])
+        assert 2 == len(decoded_token.payload['grants'])
+        assert {} == decoded_token.payload['grants']['video']
+        assert {} == decoded_token.payload['grants']['ip_messaging']
 
     def test_constructor_validates_grants(self):
         grants = [VideoGrant, 'GrantMeAccessToEverything']
