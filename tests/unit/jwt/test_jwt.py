@@ -1,8 +1,7 @@
-import unittest
-import jwt as jwt_lib
 import time as real_time
+import unittest
 
-from nose.tools import assert_true
+import jwt as jwt_lib
 from mock import patch
 
 from twilio.jwt import Jwt, JwtDecodeError
@@ -38,7 +37,7 @@ class DummyJwt(Jwt):
 class JwtTest(unittest.TestCase):
     def assertIn(self, foo, bar, msg=None):
         """backport for 2.6"""
-        return assert_true(foo in bar, msg=(msg or "%s not found in %s" % (foo, bar)))
+        assert foo in bar, (msg or "%s not found in %s" % (foo, bar))
 
     def now(self):
         return int(real_time.time())

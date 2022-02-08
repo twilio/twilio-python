@@ -1,6 +1,6 @@
 import unittest
 
-from nose.tools import raises
+from pytest import raises
 
 from twilio.twiml import (
     format_language,
@@ -14,10 +14,10 @@ class TwilioTest(unittest.TestCase):
     def strip(self, xml):
         return str(xml)
 
-    @raises(TwiMLException)
     def test_append_fail(self):
-        t = TwiML()
-        t.append(12345)
+        with raises(TwiMLException):
+            t = TwiML()
+            t.append(12345)
 
     def test_format_language_none(self):
         language = None
@@ -31,9 +31,9 @@ class TwilioTest(unittest.TestCase):
         language = 'EN_us'
         self.assertEqual('en-US', format_language(language))
 
-    @raises(TwiMLException)
     def test_format_language_fail(self):
-        format_language('this is invalid')
+        with raises(TwiMLException):
+            format_language('this is invalid')
 
     def test_lower_camel_empty_string(self):
         self.assertEqual('', lower_camel(''))

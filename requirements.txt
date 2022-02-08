@@ -1,6 +1,5 @@
 flake8
 mock
-nose
 requests>=2.0.0
 PyJWT>=2.0.0, <3.0.0
 twine

@@ -1,7 +1,5 @@
-import unittest
-
 import time
-from nose.tools import assert_true, assert_equal
+import unittest
 
 from twilio.jwt import Jwt
 from twilio.jwt.client import ClientCapabilityToken, ScopeURI
@@ -11,23 +9,23 @@ class ClientCapabilityTokenTest(unittest.TestCase):
 
     def assertIn(self, foo, bar, msg=None):
         """backport for 2.6"""
-        return assert_true(foo in bar, msg=(msg or "%s not found in %s" % (foo, bar)))
+        assert foo in bar, (msg or "%s not found in %s" % (foo, bar))
 
     def now(self):
         return int(time.time())
 
     def test_no_permissions(self):
         token = ClientCapabilityToken("AC123", "XXXXX")
-        assert_equal(len(token._generate_payload()), 1)
-        assert_equal(token._generate_payload()["scope"], '')
+        assert len(token._generate_payload()) == 1
+        assert token._generate_payload()["scope"] == ''
 
     def test_inbound_permissions(self):
         token = ClientCapabilityToken("AC123", "XXXXX")
         token.allow_client_incoming("andy")
 
         eurl = "scope:client:incoming?clientName=andy"
-        assert_equal(len(token._generate_payload()), 1)
-        assert_equal(token._generate_payload()['scope'], eurl)
+        assert len(token._generate_payload()) == 1
+        assert token._generate_payload()['scope'] == eurl
 
     def test_outbound_permissions(self):
         token = ClientCapabilityToken("AC123", "XXXXX")
@@ -35,7 +33,7 @@ class ClientCapabilityTokenTest(unittest.TestCase):
 
         eurl = "scope:client:outgoing?appSid=AP123"
 
-        assert_equal(len(token._generate_payload()), 1)
+        assert len(token._generate_payload()) == 1
         self.assertIn(eurl, token._generate_payload()['scope'])
 
     def test_outbound_permissions_params(self):
@@ -43,21 +41,21 @@ class ClientCapabilityTokenTest(unittest.TestCase):
         token.allow_client_outgoing("AP123", foobar=3)
 
         eurl = "scope:client:outgoing?appParams=foobar%3D3&appSid=AP123"
-        assert_equal(token.payload["scope"], eurl)
+        assert token.payload["scope"] == eurl
 
     def test_events(self):
         token = ClientCapabilityToken("AC123", "XXXXX")
         token.allow_event_stream()
 
         event_uri = "scope:stream:subscribe?path=%2F2010-04-01%2FEvents"
-        assert_equal(token.payload["scope"], event_uri)
+        assert token.payload["scope"] == event_uri
 
     def test_events_with_filters(self):
         token = ClientCapabilityToken("AC123", "XXXXX")
         token.allow_event_stream(foobar="hey")
 
         event_uri = "scope:stream:subscribe?params=foobar%3Dhey&path=%2F2010-04-01%2FEvents"
-        assert_equal(token.payload["scope"], event_uri)
+        assert token.payload["scope"] == event_uri
 
     def test_decode(self):
         token = ClientCapabilityToken("AC123", "XXXXX")

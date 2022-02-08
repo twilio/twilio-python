@@ -19,12 +19,11 @@ analysis:
 	. venv/bin/activate; flake8 --ignore=E402,F401,W391,W291,W293 twilio --max-line-length=300
 
 test: analysis
-	. venv/bin/activate; \
-  find tests -type d | xargs nosetests
+	. venv/bin/activate; pytest tests
 
 test-with-coverage:
 	. venv/bin/activate; \
-  find tests -type d | xargs nosetests --with-coverage --cover-inclusive --cover-erase --cover-package=twilio; \
+  pytest --cov=twilio tests; \
   coverage xml --omit 'twilio/rest/*' -o coverage.xml
 
 docs-install:
