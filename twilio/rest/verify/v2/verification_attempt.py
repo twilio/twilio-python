@@ -34,16 +34,23 @@ class VerificationAttemptList(ListResource):
 
     def stream(self, date_created_after=values.unset,
                date_created_before=values.unset, channel_data_to=values.unset,
-               limit=None, page_size=None):
+               country=values.unset, channel=values.unset,
+               verify_service_sid=values.unset, verification_sid=values.unset,
+               status=values.unset, limit=None, page_size=None):
         """
         Streams VerificationAttemptInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param datetime date_created_after: Filter verification attempts after this date
-        :param datetime date_created_before: Filter verification attempts befor this date
-        :param unicode channel_data_to: Destination of a verification
+        :param datetime date_created_after: Filter verification attempts after this date.
+        :param datetime date_created_before: Filter verification attempts before this date.
+        :param unicode channel_data_to: Filters by destination of the verification attempt.
+        :param unicode country: Filter verification attempts by destination country.
+        :param VerificationAttemptInstance.Channels channel: Filter verification attempts by communication channel.
+        :param unicode verify_service_sid: Filter verification attempts by verify service.
+        :param unicode verification_sid: Filter attempts by verification.
+        :param VerificationAttemptInstance.ConversionStatus status: Filter verification attempts by conversion status.
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -60,6 +67,11 @@ class VerificationAttemptList(ListResource):
             date_created_after=date_created_after,
             date_created_before=date_created_before,
             channel_data_to=channel_data_to,
+            country=country,
+            channel=channel,
+            verify_service_sid=verify_service_sid,
+            verification_sid=verification_sid,
+            status=status,
             page_size=limits['page_size'],
         )
 
@@ -67,15 +79,22 @@ class VerificationAttemptList(ListResource):
 
     def list(self, date_created_after=values.unset,
              date_created_before=values.unset, channel_data_to=values.unset,
-             limit=None, page_size=None):
+             country=values.unset, channel=values.unset,
+             verify_service_sid=values.unset, verification_sid=values.unset,
+             status=values.unset, limit=None, page_size=None):
         """
         Lists VerificationAttemptInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param datetime date_created_after: Filter verification attempts after this date
-        :param datetime date_created_before: Filter verification attempts befor this date
-        :param unicode channel_data_to: Destination of a verification
+        :param datetime date_created_after: Filter verification attempts after this date.
+        :param datetime date_created_before: Filter verification attempts before this date.
+        :param unicode channel_data_to: Filters by destination of the verification attempt.
+        :param unicode country: Filter verification attempts by destination country.
+        :param VerificationAttemptInstance.Channels channel: Filter verification attempts by communication channel.
+        :param unicode verify_service_sid: Filter verification attempts by verify service.
+        :param unicode verification_sid: Filter attempts by verification.
+        :param VerificationAttemptInstance.ConversionStatus status: Filter verification attempts by conversion status.
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -90,21 +109,33 @@ class VerificationAttemptList(ListResource):
             date_created_after=date_created_after,
             date_created_before=date_created_before,
             channel_data_to=channel_data_to,
+            country=country,
+            channel=channel,
+            verify_service_sid=verify_service_sid,
+            verification_sid=verification_sid,
+            status=status,
             limit=limit,
             page_size=page_size,
         ))
 
     def page(self, date_created_after=values.unset,
              date_created_before=values.unset, channel_data_to=values.unset,
-             page_token=values.unset, page_number=values.unset,
+             country=values.unset, channel=values.unset,
+             verify_service_sid=values.unset, verification_sid=values.unset,
+             status=values.unset, page_token=values.unset, page_number=values.unset,
              page_size=values.unset):
         """
         Retrieve a single page of VerificationAttemptInstance records from the API.
         Request is executed immediately
 
-        :param datetime date_created_after: Filter verification attempts after this date
-        :param datetime date_created_before: Filter verification attempts befor this date
-        :param unicode channel_data_to: Destination of a verification
+        :param datetime date_created_after: Filter verification attempts after this date.
+        :param datetime date_created_before: Filter verification attempts before this date.
+        :param unicode channel_data_to: Filters by destination of the verification attempt.
+        :param unicode country: Filter verification attempts by destination country.
+        :param VerificationAttemptInstance.Channels channel: Filter verification attempts by communication channel.
+        :param unicode verify_service_sid: Filter verification attempts by verify service.
+        :param unicode verification_sid: Filter attempts by verification.
+        :param VerificationAttemptInstance.ConversionStatus status: Filter verification attempts by conversion status.
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -116,6 +147,11 @@ class VerificationAttemptList(ListResource):
             'DateCreatedAfter': serialize.iso8601_datetime(date_created_after),
             'DateCreatedBefore': serialize.iso8601_datetime(date_created_before),
             'ChannelData.To': channel_data_to,
+            'Country': country,
+            'Channel': channel,
+            'VerifyServiceSid': verify_service_sid,
+            'VerificationSid': verification_sid,
+            'Status': status,
             'PageToken': page_token,
             'Page': page_number,
             'PageSize': page_size,
@@ -260,9 +296,39 @@ class VerificationAttemptInstance(InstanceResource):
         EMAIL = "email"
         WHATSAPP = "whatsapp"
 
+    class CallStatus(object):
+        QUEUED = "queued"
+        IN_PROGRESS = "in-progress"
+        COMPLETED = "completed"
+        BUSY = "busy"
+        FAILED = "failed"
+        NO_ANSWER = "no-answer"
+        RINGING = "ringing"
+        CANCELED = "canceled"
+
+    class MessageStatus(object):
+        QUEUED = "queued"
+        SENDING = "sending"
+        SENT = "sent"
+        FAILED = "failed"
+        DELIVERED = "delivered"
+        UNDELIVERED = "undelivered"
+        RECEIVING = "receiving"
+        RECEIVED = "received"
+        ACCEPTED = "accepted"
+        SCHEDULED = "scheduled"
+        READ = "read"
+        PARTIALLY_DELIVERED = "partially_delivered"
+        CANCELED = "canceled"
+
     class ConversionStatus(object):
         CONVERTED = "converted"
         UNCONVERTED = "unconverted"
+
+    class AttemptStatus(object):
+        CONFIRMED = "confirmed"
+        UNCONFIRMED = "unconfirmed"
+        EXPIRED = "expired"
 
     def __init__(self, version, payload, sid=None):
         """
@@ -278,10 +344,12 @@ class VerificationAttemptInstance(InstanceResource):
             'sid': payload.get('sid'),
             'account_sid': payload.get('account_sid'),
             'service_sid': payload.get('service_sid'),
+            'verification_sid': payload.get('verification_sid'),
             'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
             'date_updated': deserialize.iso8601_datetime(payload.get('date_updated')),
             'conversion_status': payload.get('conversion_status'),
             'channel': payload.get('channel'),
+            'price': payload.get('price'),
             'channel_data': payload.get('channel_data'),
             'url': payload.get('url'),
         }
@@ -306,7 +374,7 @@ class VerificationAttemptInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: A string that uniquely identifies this Verification Attempt
+        :returns: The SID that uniquely identifies the verification attempt.
         :rtype: unicode
         """
         return self._properties['sid']
@@ -314,7 +382,7 @@ class VerificationAttemptInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: Account Sid
+        :returns: The SID of the Account that created the verification.
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -322,10 +390,18 @@ class VerificationAttemptInstance(InstanceResource):
     @property
     def service_sid(self):
         """
-        :returns: The service_sid
+        :returns: The SID of the verify service that generated this attempt.
         :rtype: unicode
         """
         return self._properties['service_sid']
+
+    @property
+    def verification_sid(self):
+        """
+        :returns: The SID of the verification that generated this attempt.
+        :rtype: unicode
+        """
+        return self._properties['verification_sid']
 
     @property
     def date_created(self):
@@ -346,7 +422,7 @@ class VerificationAttemptInstance(InstanceResource):
     @property
     def conversion_status(self):
         """
-        :returns: Status of a conversion
+        :returns: Status of the conversion for the verification.
         :rtype: VerificationAttemptInstance.ConversionStatus
         """
         return self._properties['conversion_status']
@@ -354,15 +430,23 @@ class VerificationAttemptInstance(InstanceResource):
     @property
     def channel(self):
         """
-        :returns: Channel used for the attempt
+        :returns: Communication channel used for the attempt.
         :rtype: VerificationAttemptInstance.Channels
         """
         return self._properties['channel']
 
     @property
+    def price(self):
+        """
+        :returns: An object containing the charge for this verification attempt.
+        :rtype: dict
+        """
+        return self._properties['price']
+
+    @property
     def channel_data(self):
         """
-        :returns: Object with the channel information for an attempt
+        :returns: An object containing the channel specific information for an attempt.
         :rtype: dict
         """
         return self._properties['channel_data']

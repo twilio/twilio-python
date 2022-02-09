@@ -20,6 +20,7 @@ from twilio.rest.api.v2010.account.call.notification import NotificationList
 from twilio.rest.api.v2010.account.call.payment import PaymentList
 from twilio.rest.api.v2010.account.call.recording import RecordingList
 from twilio.rest.api.v2010.account.call.siprec import SiprecList
+from twilio.rest.api.v2010.account.call.stream import StreamList
 
 
 class CallList(ListResource):
@@ -421,6 +422,7 @@ class CallContext(InstanceContext):
         self._events = None
         self._payments = None
         self._siprec = None
+        self._streams = None
 
     def delete(self):
         """
@@ -583,6 +585,22 @@ class CallContext(InstanceContext):
                 call_sid=self._solution['sid'],
             )
         return self._siprec
+
+    @property
+    def streams(self):
+        """
+        Access the streams
+
+        :returns: twilio.rest.api.v2010.account.call.stream.StreamList
+        :rtype: twilio.rest.api.v2010.account.call.stream.StreamList
+        """
+        if self._streams is None:
+            self._streams = StreamList(
+                self._version,
+                account_sid=self._solution['account_sid'],
+                call_sid=self._solution['sid'],
+            )
+        return self._streams
 
     def __repr__(self):
         """
@@ -1003,6 +1021,16 @@ class CallInstance(InstanceResource):
         :rtype: twilio.rest.api.v2010.account.call.siprec.SiprecList
         """
         return self._proxy.siprec
+
+    @property
+    def streams(self):
+        """
+        Access the streams
+
+        :returns: twilio.rest.api.v2010.account.call.stream.StreamList
+        :rtype: twilio.rest.api.v2010.account.call.stream.StreamList
+        """
+        return self._proxy.streams
 
     def __repr__(self):
         """

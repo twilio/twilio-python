@@ -36,7 +36,8 @@ class FleetList(ListResource):
     def create(self, network_access_profile, unique_name=values.unset,
                data_enabled=values.unset, data_limit=values.unset,
                commands_enabled=values.unset, commands_url=values.unset,
-               commands_method=values.unset, sms_commands_enabled=values.unset,
+               commands_method=values.unset, ip_commands_url=values.unset,
+               ip_commands_method=values.unset, sms_commands_enabled=values.unset,
                sms_commands_url=values.unset, sms_commands_method=values.unset):
         """
         Create the FleetInstance
@@ -45,9 +46,11 @@ class FleetList(ListResource):
         :param unicode unique_name: An application-defined string that uniquely identifies the resource
         :param bool data_enabled: Defines whether SIMs in the Fleet are capable of using data connectivity
         :param unicode data_limit: The total data usage (download and upload combined) in Megabytes that each Sim resource assigned to the Fleet resource can consume
-        :param bool commands_enabled: Defines whether SIMs in the Fleet are capable of sending and receiving machine-to-machine SMS via Commands
-        :param unicode commands_url: The URL that will receive a webhook when a Super SIM in the Fleet is used to send an SMS from your device to the Commands number
-        :param unicode commands_method: A string representing the HTTP method to use when making a request to `commands_url`
+        :param bool commands_enabled: Deprecated
+        :param unicode commands_url: Deprecated
+        :param unicode commands_method: Deprecated
+        :param unicode ip_commands_url: The URL that will receive a webhook when a Super SIM in the Fleet is used to send an IP Command from your device
+        :param unicode ip_commands_method: A string representing the HTTP method to use when making a request to `ip_commands_url`
         :param bool sms_commands_enabled: Defines whether SIMs in the Fleet are capable of sending and receiving machine-to-machine SMS via Commands
         :param unicode sms_commands_url: The URL that will receive a webhook when a Super SIM in the Fleet is used to send an SMS from your device to the SMS Commands number
         :param unicode sms_commands_method: A string representing the HTTP method to use when making a request to `sms_commands_url`
@@ -63,6 +66,8 @@ class FleetList(ListResource):
             'CommandsEnabled': commands_enabled,
             'CommandsUrl': commands_url,
             'CommandsMethod': commands_method,
+            'IpCommandsUrl': ip_commands_url,
+            'IpCommandsMethod': ip_commands_method,
             'SmsCommandsEnabled': sms_commands_enabled,
             'SmsCommandsUrl': sms_commands_url,
             'SmsCommandsMethod': sms_commands_method,
@@ -267,14 +272,17 @@ class FleetContext(InstanceContext):
 
     def update(self, unique_name=values.unset, network_access_profile=values.unset,
                commands_url=values.unset, commands_method=values.unset,
+               ip_commands_url=values.unset, ip_commands_method=values.unset,
                sms_commands_url=values.unset, sms_commands_method=values.unset):
         """
         Update the FleetInstance
 
         :param unicode unique_name: An application-defined string that uniquely identifies the resource
         :param unicode network_access_profile: The SID or unique name of the Network Access Profile of the Fleet
-        :param unicode commands_url: The URL that will receive a webhook when a Super SIM in the Fleet is used to send an SMS from your device to the Commands number
-        :param unicode commands_method: A string representing the HTTP method to use when making a request to `commands_url`
+        :param unicode commands_url: Deprecated
+        :param unicode commands_method: Deprecated
+        :param unicode ip_commands_url: The URL that will receive a webhook when a Super SIM in the Fleet is used to send an IP Command from your device
+        :param unicode ip_commands_method: A string representing the HTTP method to use when making a request to `ip_commands_url`
         :param unicode sms_commands_url: The URL that will receive a webhook when a Super SIM in the Fleet is used to send an SMS from your device to the SMS Commands number
         :param unicode sms_commands_method: A string representing the HTTP method to use when making a request to `sms_commands_url`
 
@@ -286,6 +294,8 @@ class FleetContext(InstanceContext):
             'NetworkAccessProfile': network_access_profile,
             'CommandsUrl': commands_url,
             'CommandsMethod': commands_method,
+            'IpCommandsUrl': ip_commands_url,
+            'IpCommandsMethod': ip_commands_method,
             'SmsCommandsUrl': sms_commands_url,
             'SmsCommandsMethod': sms_commands_method,
         })
@@ -339,6 +349,8 @@ class FleetInstance(InstanceResource):
             'sms_commands_url': payload.get('sms_commands_url'),
             'sms_commands_method': payload.get('sms_commands_method'),
             'network_access_profile_sid': payload.get('network_access_profile_sid'),
+            'ip_commands_url': payload.get('ip_commands_url'),
+            'ip_commands_method': payload.get('ip_commands_method'),
         }
 
         # Context
@@ -433,7 +445,7 @@ class FleetInstance(InstanceResource):
     @property
     def commands_enabled(self):
         """
-        :returns: Defines whether SIMs in the Fleet are capable of sending and receiving machine-to-machine SMS via Commands
+        :returns: Deprecated
         :rtype: bool
         """
         return self._properties['commands_enabled']
@@ -441,7 +453,7 @@ class FleetInstance(InstanceResource):
     @property
     def commands_url(self):
         """
-        :returns: The URL that will receive a webhook when a Super SIM in the Fleet is used to send an SMS from your device to the Commands number
+        :returns: Deprecated
         :rtype: unicode
         """
         return self._properties['commands_url']
@@ -449,7 +461,7 @@ class FleetInstance(InstanceResource):
     @property
     def commands_method(self):
         """
-        :returns: A string representing the HTTP method to use when making a request to `commands_url`
+        :returns: Deprecated
         :rtype: unicode
         """
         return self._properties['commands_method']
@@ -486,6 +498,22 @@ class FleetInstance(InstanceResource):
         """
         return self._properties['network_access_profile_sid']
 
+    @property
+    def ip_commands_url(self):
+        """
+        :returns: The URL that will receive a webhook when a Super SIM in the Fleet is used to send an IP Command from your device
+        :rtype: unicode
+        """
+        return self._properties['ip_commands_url']
+
+    @property
+    def ip_commands_method(self):
+        """
+        :returns: A string representing the HTTP method to use when making a request to `ip_commands_url`
+        :rtype: unicode
+        """
+        return self._properties['ip_commands_method']
+
     def fetch(self):
         """
         Fetch the FleetInstance
@@ -497,14 +525,17 @@ class FleetInstance(InstanceResource):
 
     def update(self, unique_name=values.unset, network_access_profile=values.unset,
                commands_url=values.unset, commands_method=values.unset,
+               ip_commands_url=values.unset, ip_commands_method=values.unset,
                sms_commands_url=values.unset, sms_commands_method=values.unset):
         """
         Update the FleetInstance
 
         :param unicode unique_name: An application-defined string that uniquely identifies the resource
         :param unicode network_access_profile: The SID or unique name of the Network Access Profile of the Fleet
-        :param unicode commands_url: The URL that will receive a webhook when a Super SIM in the Fleet is used to send an SMS from your device to the Commands number
-        :param unicode commands_method: A string representing the HTTP method to use when making a request to `commands_url`
+        :param unicode commands_url: Deprecated
+        :param unicode commands_method: Deprecated
+        :param unicode ip_commands_url: The URL that will receive a webhook when a Super SIM in the Fleet is used to send an IP Command from your device
+        :param unicode ip_commands_method: A string representing the HTTP method to use when making a request to `ip_commands_url`
         :param unicode sms_commands_url: The URL that will receive a webhook when a Super SIM in the Fleet is used to send an SMS from your device to the SMS Commands number
         :param unicode sms_commands_method: A string representing the HTTP method to use when making a request to `sms_commands_url`
 
@@ -516,6 +547,8 @@ class FleetInstance(InstanceResource):
             network_access_profile=network_access_profile,
             commands_url=commands_url,
             commands_method=commands_method,
+            ip_commands_url=ip_commands_url,
+            ip_commands_method=ip_commands_method,
             sms_commands_url=sms_commands_url,
             sms_commands_method=sms_commands_method,
         )

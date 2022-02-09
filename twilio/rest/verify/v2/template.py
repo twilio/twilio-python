@@ -212,7 +212,7 @@ class TemplateInstance(InstanceResource):
     @property
     def translations(self):
         """
-        :returns: Ojbect with the template translations.
+        :returns: Object with the template translations.
         :rtype: dict
         """
         return self._properties['translations']

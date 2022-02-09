@@ -44,16 +44,16 @@ class ConferenceList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param unicode conference_sid: The conference_sid
-        :param unicode friendly_name: The friendly_name
-        :param unicode status: The status
-        :param unicode created_after: The created_after
-        :param unicode created_before: The created_before
-        :param unicode mixer_region: The mixer_region
-        :param unicode tags: The tags
-        :param unicode subaccount: The subaccount
-        :param unicode detected_issues: The detected_issues
-        :param unicode end_reason: The end_reason
+        :param unicode conference_sid: The SID of the conference.
+        :param unicode friendly_name: Custom label for the conference.
+        :param unicode status: Conference status.
+        :param unicode created_after: Conferences created after timestamp.
+        :param unicode created_before: Conferences created before timestamp.
+        :param unicode mixer_region: Region where the conference was mixed.
+        :param unicode tags: Tags applied by Twilio for common issues.
+        :param unicode subaccount: Account SID for the subaccount.
+        :param unicode detected_issues: Potential issues detected during the conference.
+        :param unicode end_reason: Conference end reason.
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -93,16 +93,16 @@ class ConferenceList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param unicode conference_sid: The conference_sid
-        :param unicode friendly_name: The friendly_name
-        :param unicode status: The status
-        :param unicode created_after: The created_after
-        :param unicode created_before: The created_before
-        :param unicode mixer_region: The mixer_region
-        :param unicode tags: The tags
-        :param unicode subaccount: The subaccount
-        :param unicode detected_issues: The detected_issues
-        :param unicode end_reason: The end_reason
+        :param unicode conference_sid: The SID of the conference.
+        :param unicode friendly_name: Custom label for the conference.
+        :param unicode status: Conference status.
+        :param unicode created_after: Conferences created after timestamp.
+        :param unicode created_before: Conferences created before timestamp.
+        :param unicode mixer_region: Region where the conference was mixed.
+        :param unicode tags: Tags applied by Twilio for common issues.
+        :param unicode subaccount: Account SID for the subaccount.
+        :param unicode detected_issues: Potential issues detected during the conference.
+        :param unicode end_reason: Conference end reason.
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -139,16 +139,16 @@ class ConferenceList(ListResource):
         Retrieve a single page of ConferenceInstance records from the API.
         Request is executed immediately
 
-        :param unicode conference_sid: The conference_sid
-        :param unicode friendly_name: The friendly_name
-        :param unicode status: The status
-        :param unicode created_after: The created_after
-        :param unicode created_before: The created_before
-        :param unicode mixer_region: The mixer_region
-        :param unicode tags: The tags
-        :param unicode subaccount: The subaccount
-        :param unicode detected_issues: The detected_issues
-        :param unicode end_reason: The end_reason
+        :param unicode conference_sid: The SID of the conference.
+        :param unicode friendly_name: Custom label for the conference.
+        :param unicode status: Conference status.
+        :param unicode created_after: Conferences created after timestamp.
+        :param unicode created_before: Conferences created before timestamp.
+        :param unicode mixer_region: Region where the conference was mixed.
+        :param unicode tags: Tags applied by Twilio for common issues.
+        :param unicode subaccount: Account SID for the subaccount.
+        :param unicode detected_issues: Potential issues detected during the conference.
+        :param unicode end_reason: Conference end reason.
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -197,7 +197,7 @@ class ConferenceList(ListResource):
         """
         Constructs a ConferenceContext
 
-        :param conference_sid: The conference_sid
+        :param conference_sid: Conference SID.
 
         :returns: twilio.rest.insights.v1.conference.ConferenceContext
         :rtype: twilio.rest.insights.v1.conference.ConferenceContext
@@ -208,7 +208,7 @@ class ConferenceList(ListResource):
         """
         Constructs a ConferenceContext
 
-        :param conference_sid: The conference_sid
+        :param conference_sid: Conference SID.
 
         :returns: twilio.rest.insights.v1.conference.ConferenceContext
         :rtype: twilio.rest.insights.v1.conference.ConferenceContext
@@ -270,7 +270,7 @@ class ConferenceContext(InstanceContext):
         Initialize the ConferenceContext
 
         :param Version version: Version that contains the resource
-        :param conference_sid: The conference_sid
+        :param conference_sid: Conference SID.
 
         :returns: twilio.rest.insights.v1.conference.ConferenceContext
         :rtype: twilio.rest.insights.v1.conference.ConferenceContext
@@ -358,6 +358,11 @@ class ConferenceInstance(InstanceResource):
         LOW_MOS = "low_mos"
         DETECTED_SILENCE = "detected_silence"
 
+    class ProcessingState(object):
+        COMPLETE = "complete"
+        IN_PROGRESS = "in_progress"
+        TIMEOUT = "timeout"
+
     def __init__(self, version, payload, conference_sid=None):
         """
         Initialize the ConferenceInstance
@@ -389,6 +394,7 @@ class ConferenceInstance(InstanceResource):
             'detected_issues': payload.get('detected_issues'),
             'tags': payload.get('tags'),
             'tag_info': payload.get('tag_info'),
+            'processing_state': payload.get('processing_state'),
             'url': payload.get('url'),
             'links': payload.get('links'),
         }
@@ -413,7 +419,7 @@ class ConferenceInstance(InstanceResource):
     @property
     def conference_sid(self):
         """
-        :returns: The conference_sid
+        :returns: Conference SID.
         :rtype: unicode
         """
         return self._properties['conference_sid']
@@ -421,7 +427,7 @@ class ConferenceInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The account_sid
+        :returns: Account SID.
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -429,7 +435,7 @@ class ConferenceInstance(InstanceResource):
     @property
     def friendly_name(self):
         """
-        :returns: The friendly_name
+        :returns: Custom label for the conference.
         :rtype: unicode
         """
         return self._properties['friendly_name']
@@ -437,7 +443,7 @@ class ConferenceInstance(InstanceResource):
     @property
     def create_time(self):
         """
-        :returns: The create_time
+        :returns: Conference creation date/time.
         :rtype: datetime
         """
         return self._properties['create_time']
@@ -445,7 +451,7 @@ class ConferenceInstance(InstanceResource):
     @property
     def start_time(self):
         """
-        :returns: The start_time
+        :returns: Timestamp in ISO 8601 format when the conference started.
         :rtype: datetime
         """
         return self._properties['start_time']
@@ -453,7 +459,7 @@ class ConferenceInstance(InstanceResource):
     @property
     def end_time(self):
         """
-        :returns: The end_time
+        :returns: Conference end date/time.
         :rtype: datetime
         """
         return self._properties['end_time']
@@ -461,7 +467,7 @@ class ConferenceInstance(InstanceResource):
     @property
     def duration_seconds(self):
         """
-        :returns: The duration_seconds
+        :returns: Conference duration in seconds.
         :rtype: unicode
         """
         return self._properties['duration_seconds']
@@ -469,7 +475,7 @@ class ConferenceInstance(InstanceResource):
     @property
     def connect_duration_seconds(self):
         """
-        :returns: The connect_duration_seconds
+        :returns: Duration of the conference in seconds.
         :rtype: unicode
         """
         return self._properties['connect_duration_seconds']
@@ -477,7 +483,7 @@ class ConferenceInstance(InstanceResource):
     @property
     def status(self):
         """
-        :returns: The status
+        :returns: Status of conference
         :rtype: ConferenceInstance.ConferenceStatus
         """
         return self._properties['status']
@@ -485,7 +491,7 @@ class ConferenceInstance(InstanceResource):
     @property
     def max_participants(self):
         """
-        :returns: The max_participants
+        :returns: Max participants specified in config.
         :rtype: unicode
         """
         return self._properties['max_participants']
@@ -493,7 +499,7 @@ class ConferenceInstance(InstanceResource):
     @property
     def max_concurrent_participants(self):
         """
-        :returns: The max_concurrent_participants
+        :returns: Actual maximum concurrent participants.
         :rtype: unicode
         """
         return self._properties['max_concurrent_participants']
@@ -501,7 +507,7 @@ class ConferenceInstance(InstanceResource):
     @property
     def unique_participants(self):
         """
-        :returns: The unique_participants
+        :returns: Unique conference participants.
         :rtype: unicode
         """
         return self._properties['unique_participants']
@@ -509,7 +515,7 @@ class ConferenceInstance(InstanceResource):
     @property
     def end_reason(self):
         """
-        :returns: The end_reason
+        :returns: Conference end reason.
         :rtype: ConferenceInstance.ConferenceEndReason
         """
         return self._properties['end_reason']
@@ -517,7 +523,7 @@ class ConferenceInstance(InstanceResource):
     @property
     def ended_by(self):
         """
-        :returns: The ended_by
+        :returns: Call SID that ended the conference.
         :rtype: unicode
         """
         return self._properties['ended_by']
@@ -525,7 +531,7 @@ class ConferenceInstance(InstanceResource):
     @property
     def mixer_region(self):
         """
-        :returns: The mixer_region
+        :returns: Region where the conference was mixed.
         :rtype: ConferenceInstance.Region
         """
         return self._properties['mixer_region']
@@ -533,7 +539,7 @@ class ConferenceInstance(InstanceResource):
     @property
     def mixer_region_requested(self):
         """
-        :returns: The mixer_region_requested
+        :returns: Configuration-requested conference mixer region.
         :rtype: ConferenceInstance.Region
         """
         return self._properties['mixer_region_requested']
@@ -541,7 +547,7 @@ class ConferenceInstance(InstanceResource):
     @property
     def recording_enabled(self):
         """
-        :returns: The recording_enabled
+        :returns: Boolean. Indicates whether recording was enabled.
         :rtype: bool
         """
         return self._properties['recording_enabled']
@@ -549,7 +555,7 @@ class ConferenceInstance(InstanceResource):
     @property
     def detected_issues(self):
         """
-        :returns: The detected_issues
+        :returns: Potential issues detected during the conference.
         :rtype: dict
         """
         return self._properties['detected_issues']
@@ -557,7 +563,7 @@ class ConferenceInstance(InstanceResource):
     @property
     def tags(self):
         """
-        :returns: The tags
+        :returns: Tags for detected conference conditions and participant behaviors.
         :rtype: list[ConferenceInstance.Tag]
         """
         return self._properties['tags']
@@ -565,15 +571,23 @@ class ConferenceInstance(InstanceResource):
     @property
     def tag_info(self):
         """
-        :returns: The tag_info
+        :returns: Object. Contains details about conference tags.
         :rtype: dict
         """
         return self._properties['tag_info']
 
     @property
+    def processing_state(self):
+        """
+        :returns: Processing state for the Conference Summary resource.
+        :rtype: ConferenceInstance.ProcessingState
+        """
+        return self._properties['processing_state']
+
+    @property
     def url(self):
         """
-        :returns: The url
+        :returns: The URL of this resource.
         :rtype: unicode
         """
         return self._properties['url']
@@ -581,7 +595,7 @@ class ConferenceInstance(InstanceResource):
     @property
     def links(self):
         """
-        :returns: The links
+        :returns: Nested resource URLs.
         :rtype: unicode
         """
         return self._properties['links']

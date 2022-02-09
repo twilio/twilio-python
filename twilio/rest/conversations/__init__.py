@@ -44,6 +44,13 @@ class Conversations(Domain):
         return self.v1.configuration
 
     @property
+    def address_configurations(self):
+        """
+        :rtype: twilio.rest.conversations.v1.address_configuration.AddressConfigurationList
+        """
+        return self.v1.address_configurations
+
+    @property
     def conversations(self):
         """
         :rtype: twilio.rest.conversations.v1.conversation.ConversationList

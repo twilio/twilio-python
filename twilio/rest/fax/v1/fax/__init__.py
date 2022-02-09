@@ -151,42 +151,6 @@ class FaxList(ListResource):
 
         return FaxPage(self._version, response, self._solution)
 
-    def create(self, to, media_url, quality=values.unset,
-               status_callback=values.unset, from_=values.unset,
-               sip_auth_username=values.unset, sip_auth_password=values.unset,
-               store_media=values.unset, ttl=values.unset):
-        """
-        Create the FaxInstance
-
-        :param unicode to: The phone number to receive the fax
-        :param unicode media_url: The URL of the PDF that contains the fax
-        :param FaxInstance.Quality quality: The quality of this fax
-        :param unicode status_callback: The URL we should call to send status information to your application
-        :param unicode from_: The number the fax was sent from
-        :param unicode sip_auth_username: The username for SIP authentication
-        :param unicode sip_auth_password: The password for SIP authentication
-        :param bool store_media: Whether to store a copy of the sent media
-        :param unicode ttl: How long in minutes to try to send the fax
-
-        :returns: The created FaxInstance
-        :rtype: twilio.rest.fax.v1.fax.FaxInstance
-        """
-        data = values.of({
-            'To': to,
-            'MediaUrl': media_url,
-            'Quality': quality,
-            'StatusCallback': status_callback,
-            'From': from_,
-            'SipAuthUsername': sip_auth_username,
-            'SipAuthPassword': sip_auth_password,
-            'StoreMedia': store_media,
-            'Ttl': ttl,
-        })
-
-        payload = self._version.create(method='POST', uri=self._uri, data=data, )
-
-        return FaxInstance(self._version, payload, )
-
     def get(self, sid):
         """
         Constructs a FaxContext
@@ -290,21 +254,6 @@ class FaxContext(InstanceContext):
         :rtype: twilio.rest.fax.v1.fax.FaxInstance
         """
         payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return FaxInstance(self._version, payload, sid=self._solution['sid'], )
-
-    def update(self, status=values.unset):
-        """
-        Update the FaxInstance
-
-        :param FaxInstance.UpdateStatus status: The new status of the resource
-
-        :returns: The updated FaxInstance
-        :rtype: twilio.rest.fax.v1.fax.FaxInstance
-        """
-        data = values.of({'Status': status, })
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data, )
 
         return FaxInstance(self._version, payload, sid=self._solution['sid'], )
 
@@ -568,17 +517,6 @@ class FaxInstance(InstanceResource):
         :rtype: twilio.rest.fax.v1.fax.FaxInstance
         """
         return self._proxy.fetch()
-
-    def update(self, status=values.unset):
-        """
-        Update the FaxInstance
-
-        :param FaxInstance.UpdateStatus status: The new status of the resource
-
-        :returns: The updated FaxInstance
-        :rtype: twilio.rest.fax.v1.fax.FaxInstance
-        """
-        return self._proxy.update(status=status, )
 
     def delete(self):
         """

@@ -18,9 +18,9 @@ class SmsCommandTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.supersim.v1.sms_commands.create(sim="HSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", payload="payload")
+            self.client.supersim.v1.sms_commands.create(sim="sim", payload="payload")
 
-        values = {'Sim': "HSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", 'Payload': "payload", }
+        values = {'Sim': "sim", 'Payload': "payload", }
 
         self.holodeck.assert_has_request(Request(
             'post',
@@ -46,7 +46,7 @@ class SmsCommandTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.supersim.v1.sms_commands.create(sim="HSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", payload="payload")
+        actual = self.client.supersim.v1.sms_commands.create(sim="sim", payload="payload")
 
         self.assertIsNotNone(actual)
 
@@ -68,7 +68,7 @@ class SmsCommandTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.supersim.v1.sms_commands.create(sim="HSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", payload="payload")
+        actual = self.client.supersim.v1.sms_commands.create(sim="sim", payload="payload")
 
         self.assertIsNotNone(actual)
 
