@@ -60,6 +60,14 @@ twilio.rest.api.v2010.account.call.siprec module
     :undoc-members:
     :show-inheritance:
 
+twilio.rest.api.v2010.account.call.stream module
+------------------------------------------------
+
+.. automodule:: twilio.rest.api.v2010.account.call.stream
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 
 Module contents
 ---------------

@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-MWRD6S');</script><!--End Google Tag Manager-->
 <meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<title>twilio.rest.numbers.v2.regulatory_compliance.bundle — twilio-python 7.5.1 documentation</title>
+<title>twilio.rest.numbers.v2.regulatory_compliance.bundle — twilio-python 7.6.0 documentation</title>
 <link href="../../../../../../_static/alabaster.css" rel="stylesheet" type="text/css"/>
 <link href="../../../../../../_static/pygments.css" rel="stylesheet" type="text/css"/>
 <script data-url_root="../../../../../../" id="documentation_options" src="../../../../../../_static/documentation_options.js" type="text/javascript"></script>
@@ -37,6 +37,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <span class="sd">"""</span>
 
 <span class="kn">from</span> <span class="nn">twilio.base</span> <span class="kn">import</span> <span class="n">deserialize</span>
+<span class="kn">from</span> <span class="nn">twilio.base</span> <span class="kn">import</span> <span class="n">serialize</span>
 <span class="kn">from</span> <span class="nn">twilio.base</span> <span class="kn">import</span> <span class="n">values</span>
 <span class="kn">from</span> <span class="nn">twilio.base.instance_context</span> <span class="kn">import</span> <span class="n">InstanceContext</span>
 <span class="kn">from</span> <span class="nn">twilio.base.instance_resource</span> <span class="kn">import</span> <span class="n">InstanceResource</span>
@@ -98,7 +99,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
 <div class="viewcode-block" id="BundleList.stream"><a class="viewcode-back" href="../../../../../../docs/source/_rst/twilio.rest.numbers.v2.regulatory_compliance.bundle.html#twilio.rest.numbers.v2.regulatory_compliance.bundle.BundleList.stream">[docs]</a>    <span class="k">def</span> <span class="nf">stream</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">friendly_name</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
                <span class="n">regulation_sid</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">iso_country</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
-               <span class="n">number_type</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">page_size</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+               <span class="n">number_type</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">has_valid_until_date</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
+               <span class="n">sort_by</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">sort_direction</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
+               <span class="n">valid_until_date_before</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">valid_until_date</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
+               <span class="n">valid_until_date_after</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">page_size</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">"""</span>
 <span class="sd">        Streams BundleInstance records from the API as a generator stream.</span>
 <span class="sd">        This operation lazily loads records as efficiently as possible until the limit</span>
@@ -110,6 +114,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <span class="sd">        :param unicode regulation_sid: The unique string of a regulation.</span>
 <span class="sd">        :param unicode iso_country: The ISO country code of the country</span>
 <span class="sd">        :param unicode number_type: The type of phone number</span>
+<span class="sd">        :param bool has_valid_until_date: Indicates that the Bundle is a valid Bundle until a specified expiration date.</span>
+<span class="sd">        :param BundleInstance.SortBy sort_by: Can be `ValidUntilDate` or `DateUpdated`. Defaults to `DateCreated`</span>
+<span class="sd">        :param BundleInstance.SortDirection sort_direction: Default is `DESC`. Can be `ASC` or `DESC`.</span>
+<span class="sd">        :param datetime valid_until_date_before: Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate&gt;=` or `ValidUntilDate&lt;=`. Both can be used in conjunction as well.</span>
+<span class="sd">        :param datetime valid_until_date: Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate&gt;=` or `ValidUntilDate&lt;=`. Both can be used in conjunction as well.</span>
+<span class="sd">        :param datetime valid_until_date_after: Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate&gt;=` or `ValidUntilDate&lt;=`. Both can be used in conjunction as well.</span>
 <span class="sd">        :param int limit: Upper limit for the number of records to return. stream()</span>
 <span class="sd">                          guarantees to never return more than limit.  Default is no limit</span>
 <span class="sd">        :param int page_size: Number of records to fetch per request, when not set will use</span>
@@ -128,6 +138,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
             <span class="n">regulation_sid</span><span class="o">=</span><span class="n">regulation_sid</span><span class="p">,</span>
             <span class="n">iso_country</span><span class="o">=</span><span class="n">iso_country</span><span class="p">,</span>
             <span class="n">number_type</span><span class="o">=</span><span class="n">number_type</span><span class="p">,</span>
+            <span class="n">has_valid_until_date</span><span class="o">=</span><span class="n">has_valid_until_date</span><span class="p">,</span>
+            <span class="n">sort_by</span><span class="o">=</span><span class="n">sort_by</span><span class="p">,</span>
+            <span class="n">sort_direction</span><span class="o">=</span><span class="n">sort_direction</span><span class="p">,</span>
+            <span class="n">valid_until_date_before</span><span class="o">=</span><span class="n">valid_until_date_before</span><span class="p">,</span>
+            <span class="n">valid_until_date</span><span class="o">=</span><span class="n">valid_until_date</span><span class="p">,</span>
+            <span class="n">valid_until_date_after</span><span class="o">=</span><span class="n">valid_until_date_after</span><span class="p">,</span>
             <span class="n">page_size</span><span class="o">=</span><span class="n">limits</span><span class="p">[</span><span class="s1">'page_size'</span><span class="p">],</span>
         <span class="p">)</span>
 
@@ -135,7 +151,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
 <div class="viewcode-block" id="BundleList.list"><a class="viewcode-back" href="../../../../../../docs/source/_rst/twilio.rest.numbers.v2.regulatory_compliance.bundle.html#twilio.rest.numbers.v2.regulatory_compliance.bundle.BundleList.list">[docs]</a>    <span class="k">def</span> <span class="nf">list</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">friendly_name</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
              <span class="n">regulation_sid</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">iso_country</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
-             <span class="n">number_type</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">page_size</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+             <span class="n">number_type</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">has_valid_until_date</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
+             <span class="n">sort_by</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">sort_direction</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
+             <span class="n">valid_until_date_before</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">valid_until_date</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
+             <span class="n">valid_until_date_after</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">page_size</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">"""</span>
 <span class="sd">        Lists BundleInstance records from the API as a list.</span>
 <span class="sd">        Unlike stream(), this operation is eager and will load `limit` records into</span>
@@ -146,6 +165,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <span class="sd">        :param unicode regulation_sid: The unique string of a regulation.</span>
 <span class="sd">        :param unicode iso_country: The ISO country code of the country</span>
 <span class="sd">        :param unicode number_type: The type of phone number</span>
+<span class="sd">        :param bool has_valid_until_date: Indicates that the Bundle is a valid Bundle until a specified expiration date.</span>
+<span class="sd">        :param BundleInstance.SortBy sort_by: Can be `ValidUntilDate` or `DateUpdated`. Defaults to `DateCreated`</span>
+<span class="sd">        :param BundleInstance.SortDirection sort_direction: Default is `DESC`. Can be `ASC` or `DESC`.</span>
+<span class="sd">        :param datetime valid_until_date_before: Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate&gt;=` or `ValidUntilDate&lt;=`. Both can be used in conjunction as well.</span>
+<span class="sd">        :param datetime valid_until_date: Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate&gt;=` or `ValidUntilDate&lt;=`. Both can be used in conjunction as well.</span>
+<span class="sd">        :param datetime valid_until_date_after: Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate&gt;=` or `ValidUntilDate&lt;=`. Both can be used in conjunction as well.</span>
 <span class="sd">        :param int limit: Upper limit for the number of records to return. list() guarantees</span>
 <span class="sd">                          never to return more than limit.  Default is no limit</span>
 <span class="sd">        :param int page_size: Number of records to fetch per request, when not set will use</span>
@@ -162,13 +187,22 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
             <span class="n">regulation_sid</span><span class="o">=</span><span class="n">regulation_sid</span><span class="p">,</span>
             <span class="n">iso_country</span><span class="o">=</span><span class="n">iso_country</span><span class="p">,</span>
             <span class="n">number_type</span><span class="o">=</span><span class="n">number_type</span><span class="p">,</span>
+            <span class="n">has_valid_until_date</span><span class="o">=</span><span class="n">has_valid_until_date</span><span class="p">,</span>
+            <span class="n">sort_by</span><span class="o">=</span><span class="n">sort_by</span><span class="p">,</span>
+            <span class="n">sort_direction</span><span class="o">=</span><span class="n">sort_direction</span><span class="p">,</span>
+            <span class="n">valid_until_date_before</span><span class="o">=</span><span class="n">valid_until_date_before</span><span class="p">,</span>
+            <span class="n">valid_until_date</span><span class="o">=</span><span class="n">valid_until_date</span><span class="p">,</span>
+            <span class="n">valid_until_date_after</span><span class="o">=</span><span class="n">valid_until_date_after</span><span class="p">,</span>
             <span class="n">limit</span><span class="o">=</span><span class="n">limit</span><span class="p">,</span>
             <span class="n">page_size</span><span class="o">=</span><span class="n">page_size</span><span class="p">,</span>
         <span class="p">))</span></div>
 
 <div class="viewcode-block" id="BundleList.page"><a class="viewcode-back" href="../../../../../../docs/source/_rst/twilio.rest.numbers.v2.regulatory_compliance.bundle.html#twilio.rest.numbers.v2.regulatory_compliance.bundle.BundleList.page">[docs]</a>    <span class="k">def</span> <span class="nf">page</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">friendly_name</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
              <span class="n">regulation_sid</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">iso_country</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
-             <span class="n">number_type</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">page_token</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
+             <span class="n">number_type</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">has_valid_until_date</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
+             <span class="n">sort_by</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">sort_direction</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
+             <span class="n">valid_until_date_before</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">valid_until_date</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
+             <span class="n">valid_until_date_after</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">page_token</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
              <span class="n">page_number</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">page_size</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">):</span>
         <span class="sd">"""</span>
 <span class="sd">        Retrieve a single page of BundleInstance records from the API.</span>
@@ -179,6 +213,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <span class="sd">        :param unicode regulation_sid: The unique string of a regulation.</span>
 <span class="sd">        :param unicode iso_country: The ISO country code of the country</span>
 <span class="sd">        :param unicode number_type: The type of phone number</span>
+<span class="sd">        :param bool has_valid_until_date: Indicates that the Bundle is a valid Bundle until a specified expiration date.</span>
+<span class="sd">        :param BundleInstance.SortBy sort_by: Can be `ValidUntilDate` or `DateUpdated`. Defaults to `DateCreated`</span>
+<span class="sd">        :param BundleInstance.SortDirection sort_direction: Default is `DESC`. Can be `ASC` or `DESC`.</span>
+<span class="sd">        :param datetime valid_until_date_before: Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate&gt;=` or `ValidUntilDate&lt;=`. Both can be used in conjunction as well.</span>
+<span class="sd">        :param datetime valid_until_date: Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate&gt;=` or `ValidUntilDate&lt;=`. Both can be used in conjunction as well.</span>
+<span class="sd">        :param datetime valid_until_date_after: Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate&gt;=` or `ValidUntilDate&lt;=`. Both can be used in conjunction as well.</span>
 <span class="sd">        :param str page_token: PageToken provided by the API</span>
 <span class="sd">        :param int page_number: Page Number, this value is simply for client state</span>
 <span class="sd">        :param int page_size: Number of records to return, defaults to 50</span>
@@ -192,6 +232,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
             <span class="s1">'RegulationSid'</span><span class="p">:</span> <span class="n">regulation_sid</span><span class="p">,</span>
             <span class="s1">'IsoCountry'</span><span class="p">:</span> <span class="n">iso_country</span><span class="p">,</span>
             <span class="s1">'NumberType'</span><span class="p">:</span> <span class="n">number_type</span><span class="p">,</span>
+            <span class="s1">'HasValidUntilDate'</span><span class="p">:</span> <span class="n">has_valid_until_date</span><span class="p">,</span>
+            <span class="s1">'SortBy'</span><span class="p">:</span> <span class="n">sort_by</span><span class="p">,</span>
+            <span class="s1">'SortDirection'</span><span class="p">:</span> <span class="n">sort_direction</span><span class="p">,</span>
+            <span class="s1">'ValidUntilDate&lt;'</span><span class="p">:</span> <span class="n">serialize</span><span class="o">.</span><span class="n">iso8601_datetime</span><span class="p">(</span><span class="n">valid_until_date_before</span><span class="p">),</span>
+            <span class="s1">'ValidUntilDate'</span><span class="p">:</span> <span class="n">serialize</span><span class="o">.</span><span class="n">iso8601_datetime</span><span class="p">(</span><span class="n">valid_until_date</span><span class="p">),</span>
+            <span class="s1">'ValidUntilDate&gt;'</span><span class="p">:</span> <span class="n">serialize</span><span class="o">.</span><span class="n">iso8601_datetime</span><span class="p">(</span><span class="n">valid_until_date_after</span><span class="p">),</span>
             <span class="s1">'PageToken'</span><span class="p">:</span> <span class="n">page_token</span><span class="p">,</span>
             <span class="s1">'Page'</span><span class="p">:</span> <span class="n">page_number</span><span class="p">,</span>
             <span class="s1">'PageSize'</span><span class="p">:</span> <span class="n">page_size</span><span class="p">,</span>
@@ -428,6 +474,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <div class="viewcode-block" id="BundleInstance.EndUserType"><a class="viewcode-back" href="../../../../../../docs/source/_rst/twilio.rest.numbers.v2.regulatory_compliance.bundle.html#twilio.rest.numbers.v2.regulatory_compliance.bundle.BundleInstance.EndUserType">[docs]</a>    <span class="k">class</span> <span class="nc">EndUserType</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
         <span class="n">INDIVIDUAL</span> <span class="o">=</span> <span class="s2">"individual"</span>
         <span class="n">BUSINESS</span> <span class="o">=</span> <span class="s2">"business"</span></div>
+
+<div class="viewcode-block" id="BundleInstance.SortBy"><a class="viewcode-back" href="../../../../../../docs/source/_rst/twilio.rest.numbers.v2.regulatory_compliance.bundle.html#twilio.rest.numbers.v2.regulatory_compliance.bundle.BundleInstance.SortBy">[docs]</a>    <span class="k">class</span> <span class="nc">SortBy</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+        <span class="n">ASC</span> <span class="o">=</span> <span class="s2">"ASC"</span>
+        <span class="n">DESC</span> <span class="o">=</span> <span class="s2">"DESC"</span></div>
+
+<div class="viewcode-block" id="BundleInstance.SortDirection"><a class="viewcode-back" href="../../../../../../docs/source/_rst/twilio.rest.numbers.v2.regulatory_compliance.bundle.html#twilio.rest.numbers.v2.regulatory_compliance.bundle.BundleInstance.SortDirection">[docs]</a>    <span class="k">class</span> <span class="nc">SortDirection</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+        <span class="n">VALID_UNTIL_DATE</span> <span class="o">=</span> <span class="s2">"valid_until_date"</span>
+        <span class="n">DATE_UPDATED</span> <span class="o">=</span> <span class="s2">"date_updated"</span></div>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">version</span><span class="p">,</span> <span class="n">payload</span><span class="p">,</span> <span class="n">sid</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">"""</span>

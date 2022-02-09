@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-MWRD6S');</script><!--End Google Tag Manager-->
 <meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<title>twilio.rest.verify.v2.verification_attempt — twilio-python 7.5.1 documentation</title>
+<title>twilio.rest.verify.v2.verification_attempt — twilio-python 7.6.0 documentation</title>
 <link href="../../../../../_static/alabaster.css" rel="stylesheet" type="text/css"/>
 <link href="../../../../../_static/pygments.css" rel="stylesheet" type="text/css"/>
 <script data-url_root="../../../../../" id="documentation_options" src="../../../../../_static/documentation_options.js" type="text/javascript"></script>
@@ -64,16 +64,23 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
 <div class="viewcode-block" id="VerificationAttemptList.stream"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.verify.v2.html#twilio.rest.verify.v2.verification_attempt.VerificationAttemptList.stream">[docs]</a>    <span class="k">def</span> <span class="nf">stream</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">date_created_after</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
                <span class="n">date_created_before</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">channel_data_to</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
-               <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">page_size</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+               <span class="n">country</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">channel</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
+               <span class="n">verify_service_sid</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">verification_sid</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
+               <span class="n">status</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">page_size</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">"""</span>
 <span class="sd">        Streams VerificationAttemptInstance records from the API as a generator stream.</span>
 <span class="sd">        This operation lazily loads records as efficiently as possible until the limit</span>
 <span class="sd">        is reached.</span>
 <span class="sd">        The results are returned as a generator, so this operation is memory efficient.</span>
 
-<span class="sd">        :param datetime date_created_after: Filter verification attempts after this date</span>
-<span class="sd">        :param datetime date_created_before: Filter verification attempts befor this date</span>
-<span class="sd">        :param unicode channel_data_to: Destination of a verification</span>
+<span class="sd">        :param datetime date_created_after: Filter verification attempts after this date.</span>
+<span class="sd">        :param datetime date_created_before: Filter verification attempts before this date.</span>
+<span class="sd">        :param unicode channel_data_to: Filters by destination of the verification attempt.</span>
+<span class="sd">        :param unicode country: Filter verification attempts by destination country.</span>
+<span class="sd">        :param VerificationAttemptInstance.Channels channel: Filter verification attempts by communication channel.</span>
+<span class="sd">        :param unicode verify_service_sid: Filter verification attempts by verify service.</span>
+<span class="sd">        :param unicode verification_sid: Filter attempts by verification.</span>
+<span class="sd">        :param VerificationAttemptInstance.ConversionStatus status: Filter verification attempts by conversion status.</span>
 <span class="sd">        :param int limit: Upper limit for the number of records to return. stream()</span>
 <span class="sd">                          guarantees to never return more than limit.  Default is no limit</span>
 <span class="sd">        :param int page_size: Number of records to fetch per request, when not set will use</span>
@@ -90,6 +97,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
             <span class="n">date_created_after</span><span class="o">=</span><span class="n">date_created_after</span><span class="p">,</span>
             <span class="n">date_created_before</span><span class="o">=</span><span class="n">date_created_before</span><span class="p">,</span>
             <span class="n">channel_data_to</span><span class="o">=</span><span class="n">channel_data_to</span><span class="p">,</span>
+            <span class="n">country</span><span class="o">=</span><span class="n">country</span><span class="p">,</span>
+            <span class="n">channel</span><span class="o">=</span><span class="n">channel</span><span class="p">,</span>
+            <span class="n">verify_service_sid</span><span class="o">=</span><span class="n">verify_service_sid</span><span class="p">,</span>
+            <span class="n">verification_sid</span><span class="o">=</span><span class="n">verification_sid</span><span class="p">,</span>
+            <span class="n">status</span><span class="o">=</span><span class="n">status</span><span class="p">,</span>
             <span class="n">page_size</span><span class="o">=</span><span class="n">limits</span><span class="p">[</span><span class="s1">'page_size'</span><span class="p">],</span>
         <span class="p">)</span>
 
@@ -97,15 +109,22 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
 <div class="viewcode-block" id="VerificationAttemptList.list"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.verify.v2.html#twilio.rest.verify.v2.verification_attempt.VerificationAttemptList.list">[docs]</a>    <span class="k">def</span> <span class="nf">list</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">date_created_after</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
              <span class="n">date_created_before</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">channel_data_to</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
-             <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">page_size</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+             <span class="n">country</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">channel</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
+             <span class="n">verify_service_sid</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">verification_sid</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
+             <span class="n">status</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">page_size</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">"""</span>
 <span class="sd">        Lists VerificationAttemptInstance records from the API as a list.</span>
 <span class="sd">        Unlike stream(), this operation is eager and will load `limit` records into</span>
 <span class="sd">        memory before returning.</span>
 
-<span class="sd">        :param datetime date_created_after: Filter verification attempts after this date</span>
-<span class="sd">        :param datetime date_created_before: Filter verification attempts befor this date</span>
-<span class="sd">        :param unicode channel_data_to: Destination of a verification</span>
+<span class="sd">        :param datetime date_created_after: Filter verification attempts after this date.</span>
+<span class="sd">        :param datetime date_created_before: Filter verification attempts before this date.</span>
+<span class="sd">        :param unicode channel_data_to: Filters by destination of the verification attempt.</span>
+<span class="sd">        :param unicode country: Filter verification attempts by destination country.</span>
+<span class="sd">        :param VerificationAttemptInstance.Channels channel: Filter verification attempts by communication channel.</span>
+<span class="sd">        :param unicode verify_service_sid: Filter verification attempts by verify service.</span>
+<span class="sd">        :param unicode verification_sid: Filter attempts by verification.</span>
+<span class="sd">        :param VerificationAttemptInstance.ConversionStatus status: Filter verification attempts by conversion status.</span>
 <span class="sd">        :param int limit: Upper limit for the number of records to return. list() guarantees</span>
 <span class="sd">                          never to return more than limit.  Default is no limit</span>
 <span class="sd">        :param int page_size: Number of records to fetch per request, when not set will use</span>
@@ -120,21 +139,33 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
             <span class="n">date_created_after</span><span class="o">=</span><span class="n">date_created_after</span><span class="p">,</span>
             <span class="n">date_created_before</span><span class="o">=</span><span class="n">date_created_before</span><span class="p">,</span>
             <span class="n">channel_data_to</span><span class="o">=</span><span class="n">channel_data_to</span><span class="p">,</span>
+            <span class="n">country</span><span class="o">=</span><span class="n">country</span><span class="p">,</span>
+            <span class="n">channel</span><span class="o">=</span><span class="n">channel</span><span class="p">,</span>
+            <span class="n">verify_service_sid</span><span class="o">=</span><span class="n">verify_service_sid</span><span class="p">,</span>
+            <span class="n">verification_sid</span><span class="o">=</span><span class="n">verification_sid</span><span class="p">,</span>
+            <span class="n">status</span><span class="o">=</span><span class="n">status</span><span class="p">,</span>
             <span class="n">limit</span><span class="o">=</span><span class="n">limit</span><span class="p">,</span>
             <span class="n">page_size</span><span class="o">=</span><span class="n">page_size</span><span class="p">,</span>
         <span class="p">))</span></div>
 
 <div class="viewcode-block" id="VerificationAttemptList.page"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.verify.v2.html#twilio.rest.verify.v2.verification_attempt.VerificationAttemptList.page">[docs]</a>    <span class="k">def</span> <span class="nf">page</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">date_created_after</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
              <span class="n">date_created_before</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">channel_data_to</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
-             <span class="n">page_token</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">page_number</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
+             <span class="n">country</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">channel</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
+             <span class="n">verify_service_sid</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">verification_sid</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
+             <span class="n">status</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">page_token</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">page_number</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
              <span class="n">page_size</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">):</span>
         <span class="sd">"""</span>
 <span class="sd">        Retrieve a single page of VerificationAttemptInstance records from the API.</span>
 <span class="sd">        Request is executed immediately</span>
 
-<span class="sd">        :param datetime date_created_after: Filter verification attempts after this date</span>
-<span class="sd">        :param datetime date_created_before: Filter verification attempts befor this date</span>
-<span class="sd">        :param unicode channel_data_to: Destination of a verification</span>
+<span class="sd">        :param datetime date_created_after: Filter verification attempts after this date.</span>
+<span class="sd">        :param datetime date_created_before: Filter verification attempts before this date.</span>
+<span class="sd">        :param unicode channel_data_to: Filters by destination of the verification attempt.</span>
+<span class="sd">        :param unicode country: Filter verification attempts by destination country.</span>
+<span class="sd">        :param VerificationAttemptInstance.Channels channel: Filter verification attempts by communication channel.</span>
+<span class="sd">        :param unicode verify_service_sid: Filter verification attempts by verify service.</span>
+<span class="sd">        :param unicode verification_sid: Filter attempts by verification.</span>
+<span class="sd">        :param VerificationAttemptInstance.ConversionStatus status: Filter verification attempts by conversion status.</span>
 <span class="sd">        :param str page_token: PageToken provided by the API</span>
 <span class="sd">        :param int page_number: Page Number, this value is simply for client state</span>
 <span class="sd">        :param int page_size: Number of records to return, defaults to 50</span>
@@ -146,6 +177,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
             <span class="s1">'DateCreatedAfter'</span><span class="p">:</span> <span class="n">serialize</span><span class="o">.</span><span class="n">iso8601_datetime</span><span class="p">(</span><span class="n">date_created_after</span><span class="p">),</span>
             <span class="s1">'DateCreatedBefore'</span><span class="p">:</span> <span class="n">serialize</span><span class="o">.</span><span class="n">iso8601_datetime</span><span class="p">(</span><span class="n">date_created_before</span><span class="p">),</span>
             <span class="s1">'ChannelData.To'</span><span class="p">:</span> <span class="n">channel_data_to</span><span class="p">,</span>
+            <span class="s1">'Country'</span><span class="p">:</span> <span class="n">country</span><span class="p">,</span>
+            <span class="s1">'Channel'</span><span class="p">:</span> <span class="n">channel</span><span class="p">,</span>
+            <span class="s1">'VerifyServiceSid'</span><span class="p">:</span> <span class="n">verify_service_sid</span><span class="p">,</span>
+            <span class="s1">'VerificationSid'</span><span class="p">:</span> <span class="n">verification_sid</span><span class="p">,</span>
+            <span class="s1">'Status'</span><span class="p">:</span> <span class="n">status</span><span class="p">,</span>
             <span class="s1">'PageToken'</span><span class="p">:</span> <span class="n">page_token</span><span class="p">,</span>
             <span class="s1">'Page'</span><span class="p">:</span> <span class="n">page_number</span><span class="p">,</span>
             <span class="s1">'PageSize'</span><span class="p">:</span> <span class="n">page_size</span><span class="p">,</span>
@@ -290,9 +326,39 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="n">EMAIL</span> <span class="o">=</span> <span class="s2">"email"</span>
         <span class="n">WHATSAPP</span> <span class="o">=</span> <span class="s2">"whatsapp"</span></div>
 
+<div class="viewcode-block" id="VerificationAttemptInstance.CallStatus"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.verify.v2.html#twilio.rest.verify.v2.verification_attempt.VerificationAttemptInstance.CallStatus">[docs]</a>    <span class="k">class</span> <span class="nc">CallStatus</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+        <span class="n">QUEUED</span> <span class="o">=</span> <span class="s2">"queued"</span>
+        <span class="n">IN_PROGRESS</span> <span class="o">=</span> <span class="s2">"in-progress"</span>
+        <span class="n">COMPLETED</span> <span class="o">=</span> <span class="s2">"completed"</span>
+        <span class="n">BUSY</span> <span class="o">=</span> <span class="s2">"busy"</span>
+        <span class="n">FAILED</span> <span class="o">=</span> <span class="s2">"failed"</span>
+        <span class="n">NO_ANSWER</span> <span class="o">=</span> <span class="s2">"no-answer"</span>
+        <span class="n">RINGING</span> <span class="o">=</span> <span class="s2">"ringing"</span>
+        <span class="n">CANCELED</span> <span class="o">=</span> <span class="s2">"canceled"</span></div>
+
+<div class="viewcode-block" id="VerificationAttemptInstance.MessageStatus"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.verify.v2.html#twilio.rest.verify.v2.verification_attempt.VerificationAttemptInstance.MessageStatus">[docs]</a>    <span class="k">class</span> <span class="nc">MessageStatus</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+        <span class="n">QUEUED</span> <span class="o">=</span> <span class="s2">"queued"</span>
+        <span class="n">SENDING</span> <span class="o">=</span> <span class="s2">"sending"</span>
+        <span class="n">SENT</span> <span class="o">=</span> <span class="s2">"sent"</span>
+        <span class="n">FAILED</span> <span class="o">=</span> <span class="s2">"failed"</span>
+        <span class="n">DELIVERED</span> <span class="o">=</span> <span class="s2">"delivered"</span>
+        <span class="n">UNDELIVERED</span> <span class="o">=</span> <span class="s2">"undelivered"</span>
+        <span class="n">RECEIVING</span> <span class="o">=</span> <span class="s2">"receiving"</span>
+        <span class="n">RECEIVED</span> <span class="o">=</span> <span class="s2">"received"</span>
+        <span class="n">ACCEPTED</span> <span class="o">=</span> <span class="s2">"accepted"</span>
+        <span class="n">SCHEDULED</span> <span class="o">=</span> <span class="s2">"scheduled"</span>
+        <span class="n">READ</span> <span class="o">=</span> <span class="s2">"read"</span>
+        <span class="n">PARTIALLY_DELIVERED</span> <span class="o">=</span> <span class="s2">"partially_delivered"</span>
+        <span class="n">CANCELED</span> <span class="o">=</span> <span class="s2">"canceled"</span></div>
+
 <div class="viewcode-block" id="VerificationAttemptInstance.ConversionStatus"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.verify.v2.html#twilio.rest.verify.v2.verification_attempt.VerificationAttemptInstance.ConversionStatus">[docs]</a>    <span class="k">class</span> <span class="nc">ConversionStatus</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
         <span class="n">CONVERTED</span> <span class="o">=</span> <span class="s2">"converted"</span>
         <span class="n">UNCONVERTED</span> <span class="o">=</span> <span class="s2">"unconverted"</span></div>
+
+<div class="viewcode-block" id="VerificationAttemptInstance.AttemptStatus"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.verify.v2.html#twilio.rest.verify.v2.verification_attempt.VerificationAttemptInstance.AttemptStatus">[docs]</a>    <span class="k">class</span> <span class="nc">AttemptStatus</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+        <span class="n">CONFIRMED</span> <span class="o">=</span> <span class="s2">"confirmed"</span>
+        <span class="n">UNCONFIRMED</span> <span class="o">=</span> <span class="s2">"unconfirmed"</span>
+        <span class="n">EXPIRED</span> <span class="o">=</span> <span class="s2">"expired"</span></div>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">version</span><span class="p">,</span> <span class="n">payload</span><span class="p">,</span> <span class="n">sid</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">"""</span>
@@ -308,10 +374,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
             <span class="s1">'sid'</span><span class="p">:</span> <span class="n">payload</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'sid'</span><span class="p">),</span>
             <span class="s1">'account_sid'</span><span class="p">:</span> <span class="n">payload</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'account_sid'</span><span class="p">),</span>
             <span class="s1">'service_sid'</span><span class="p">:</span> <span class="n">payload</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'service_sid'</span><span class="p">),</span>
+            <span class="s1">'verification_sid'</span><span class="p">:</span> <span class="n">payload</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'verification_sid'</span><span class="p">),</span>
             <span class="s1">'date_created'</span><span class="p">:</span> <span class="n">deserialize</span><span class="o">.</span><span class="n">iso8601_datetime</span><span class="p">(</span><span class="n">payload</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'date_created'</span><span class="p">)),</span>
             <span class="s1">'date_updated'</span><span class="p">:</span> <span class="n">deserialize</span><span class="o">.</span><span class="n">iso8601_datetime</span><span class="p">(</span><span class="n">payload</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'date_updated'</span><span class="p">)),</span>
             <span class="s1">'conversion_status'</span><span class="p">:</span> <span class="n">payload</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'conversion_status'</span><span class="p">),</span>
             <span class="s1">'channel'</span><span class="p">:</span> <span class="n">payload</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'channel'</span><span class="p">),</span>
+            <span class="s1">'price'</span><span class="p">:</span> <span class="n">payload</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'price'</span><span class="p">),</span>
             <span class="s1">'channel_data'</span><span class="p">:</span> <span class="n">payload</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'channel_data'</span><span class="p">),</span>
             <span class="s1">'url'</span><span class="p">:</span> <span class="n">payload</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'url'</span><span class="p">),</span>
         <span class="p">}</span>
@@ -336,7 +404,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">sid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">"""</span>
-<span class="sd">        :returns: A string that uniquely identifies this Verification Attempt</span>
+<span class="sd">        :returns: The SID that uniquely identifies the verification attempt.</span>
 <span class="sd">        :rtype: unicode</span>
 <span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="p">[</span><span class="s1">'sid'</span><span class="p">]</span>
@@ -344,7 +412,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">account_sid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">"""</span>
-<span class="sd">        :returns: Account Sid</span>
+<span class="sd">        :returns: The SID of the Account that created the verification.</span>
 <span class="sd">        :rtype: unicode</span>
 <span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="p">[</span><span class="s1">'account_sid'</span><span class="p">]</span>
@@ -352,10 +420,18 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">service_sid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">"""</span>
-<span class="sd">        :returns: The service_sid</span>
+<span class="sd">        :returns: The SID of the verify service that generated this attempt.</span>
 <span class="sd">        :rtype: unicode</span>
 <span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="p">[</span><span class="s1">'service_sid'</span><span class="p">]</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">verification_sid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        :returns: The SID of the verification that generated this attempt.</span>
+<span class="sd">        :rtype: unicode</span>
+<span class="sd">        """</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="p">[</span><span class="s1">'verification_sid'</span><span class="p">]</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">date_created</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -376,7 +452,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">conversion_status</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">"""</span>
-<span class="sd">        :returns: Status of a conversion</span>
+<span class="sd">        :returns: Status of the conversion for the verification.</span>
 <span class="sd">        :rtype: VerificationAttemptInstance.ConversionStatus</span>
 <span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="p">[</span><span class="s1">'conversion_status'</span><span class="p">]</span>
@@ -384,15 +460,23 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">channel</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">"""</span>
-<span class="sd">        :returns: Channel used for the attempt</span>
+<span class="sd">        :returns: Communication channel used for the attempt.</span>
 <span class="sd">        :rtype: VerificationAttemptInstance.Channels</span>
 <span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="p">[</span><span class="s1">'channel'</span><span class="p">]</span>
 
     <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">price</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        :returns: An object containing the charge for this verification attempt.</span>
+<span class="sd">        :rtype: dict</span>
+<span class="sd">        """</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="p">[</span><span class="s1">'price'</span><span class="p">]</span>
+
+    <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">channel_data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">"""</span>
-<span class="sd">        :returns: Object with the channel information for an attempt</span>
+<span class="sd">        :returns: An object containing the channel specific information for an attempt.</span>
 <span class="sd">        :rtype: dict</span>
 <span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="p">[</span><span class="s1">'channel_data'</span><span class="p">]</span>

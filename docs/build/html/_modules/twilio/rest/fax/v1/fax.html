@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-MWRD6S');</script><!--End Google Tag Manager-->
 <meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<title>twilio.rest.fax.v1.fax — twilio-python 7.5.1 documentation</title>
+<title>twilio.rest.fax.v1.fax — twilio-python 7.6.0 documentation</title>
 <link href="../../../../../_static/alabaster.css" rel="stylesheet" type="text/css"/>
 <link href="../../../../../_static/pygments.css" rel="stylesheet" type="text/css"/>
 <script data-url_root="../../../../../" id="documentation_options" src="../../../../../_static/documentation_options.js" type="text/javascript"></script>
@@ -181,42 +181,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
         <span class="k">return</span> <span class="n">FaxPage</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_version</span><span class="p">,</span> <span class="n">response</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_solution</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="FaxList.create"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.fax.v1.fax.html#twilio.rest.fax.v1.fax.FaxList.create">[docs]</a>    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">to</span><span class="p">,</span> <span class="n">media_url</span><span class="p">,</span> <span class="n">quality</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
-               <span class="n">status_callback</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">from_</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
-               <span class="n">sip_auth_username</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">sip_auth_password</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
-               <span class="n">store_media</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">ttl</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">):</span>
-        <span class="sd">"""</span>
-<span class="sd">        Create the FaxInstance</span>
-
-<span class="sd">        :param unicode to: The phone number to receive the fax</span>
-<span class="sd">        :param unicode media_url: The URL of the PDF that contains the fax</span>
-<span class="sd">        :param FaxInstance.Quality quality: The quality of this fax</span>
-<span class="sd">        :param unicode status_callback: The URL we should call to send status information to your application</span>
-<span class="sd">        :param unicode from_: The number the fax was sent from</span>
-<span class="sd">        :param unicode sip_auth_username: The username for SIP authentication</span>
-<span class="sd">        :param unicode sip_auth_password: The password for SIP authentication</span>
-<span class="sd">        :param bool store_media: Whether to store a copy of the sent media</span>
-<span class="sd">        :param unicode ttl: How long in minutes to try to send the fax</span>
-
-<span class="sd">        :returns: The created FaxInstance</span>
-<span class="sd">        :rtype: twilio.rest.fax.v1.fax.FaxInstance</span>
-<span class="sd">        """</span>
-        <span class="n">data</span> <span class="o">=</span> <span class="n">values</span><span class="o">.</span><span class="n">of</span><span class="p">({</span>
-            <span class="s1">'To'</span><span class="p">:</span> <span class="n">to</span><span class="p">,</span>
-            <span class="s1">'MediaUrl'</span><span class="p">:</span> <span class="n">media_url</span><span class="p">,</span>
-            <span class="s1">'Quality'</span><span class="p">:</span> <span class="n">quality</span><span class="p">,</span>
-            <span class="s1">'StatusCallback'</span><span class="p">:</span> <span class="n">status_callback</span><span class="p">,</span>
-            <span class="s1">'From'</span><span class="p">:</span> <span class="n">from_</span><span class="p">,</span>
-            <span class="s1">'SipAuthUsername'</span><span class="p">:</span> <span class="n">sip_auth_username</span><span class="p">,</span>
-            <span class="s1">'SipAuthPassword'</span><span class="p">:</span> <span class="n">sip_auth_password</span><span class="p">,</span>
-            <span class="s1">'StoreMedia'</span><span class="p">:</span> <span class="n">store_media</span><span class="p">,</span>
-            <span class="s1">'Ttl'</span><span class="p">:</span> <span class="n">ttl</span><span class="p">,</span>
-        <span class="p">})</span>
-
-        <span class="n">payload</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_version</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">'POST'</span><span class="p">,</span> <span class="n">uri</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_uri</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="p">)</span>
-
-        <span class="k">return</span> <span class="n">FaxInstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_version</span><span class="p">,</span> <span class="n">payload</span><span class="p">,</span> <span class="p">)</span></div>
-
 <div class="viewcode-block" id="FaxList.get"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.fax.v1.fax.html#twilio.rest.fax.v1.fax.FaxList.get">[docs]</a>    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sid</span><span class="p">):</span>
         <span class="sd">"""</span>
 <span class="sd">        Constructs a FaxContext</span>
@@ -320,21 +284,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <span class="sd">        :rtype: twilio.rest.fax.v1.fax.FaxInstance</span>
 <span class="sd">        """</span>
         <span class="n">payload</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_version</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">'GET'</span><span class="p">,</span> <span class="n">uri</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_uri</span><span class="p">,</span> <span class="p">)</span>
-
-        <span class="k">return</span> <span class="n">FaxInstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_version</span><span class="p">,</span> <span class="n">payload</span><span class="p">,</span> <span class="n">sid</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_solution</span><span class="p">[</span><span class="s1">'sid'</span><span class="p">],</span> <span class="p">)</span></div>
-
-<div class="viewcode-block" id="FaxContext.update"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.fax.v1.fax.html#twilio.rest.fax.v1.fax.FaxContext.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">):</span>
-        <span class="sd">"""</span>
-<span class="sd">        Update the FaxInstance</span>
-
-<span class="sd">        :param FaxInstance.UpdateStatus status: The new status of the resource</span>
-
-<span class="sd">        :returns: The updated FaxInstance</span>
-<span class="sd">        :rtype: twilio.rest.fax.v1.fax.FaxInstance</span>
-<span class="sd">        """</span>
-        <span class="n">data</span> <span class="o">=</span> <span class="n">values</span><span class="o">.</span><span class="n">of</span><span class="p">({</span><span class="s1">'Status'</span><span class="p">:</span> <span class="n">status</span><span class="p">,</span> <span class="p">})</span>
-
-        <span class="n">payload</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_version</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">'POST'</span><span class="p">,</span> <span class="n">uri</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_uri</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="p">)</span>
 
         <span class="k">return</span> <span class="n">FaxInstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_version</span><span class="p">,</span> <span class="n">payload</span><span class="p">,</span> <span class="n">sid</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_solution</span><span class="p">[</span><span class="s1">'sid'</span><span class="p">],</span> <span class="p">)</span></div>
 
@@ -598,17 +547,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <span class="sd">        :rtype: twilio.rest.fax.v1.fax.FaxInstance</span>
 <span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_proxy</span><span class="o">.</span><span class="n">fetch</span><span class="p">()</span></div>
-
-<div class="viewcode-block" id="FaxInstance.update"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.fax.v1.fax.html#twilio.rest.fax.v1.fax.FaxInstance.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">):</span>
-        <span class="sd">"""</span>
-<span class="sd">        Update the FaxInstance</span>
-
-<span class="sd">        :param FaxInstance.UpdateStatus status: The new status of the resource</span>
-
-<span class="sd">        :returns: The updated FaxInstance</span>
-<span class="sd">        :rtype: twilio.rest.fax.v1.fax.FaxInstance</span>
-<span class="sd">        """</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_proxy</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">status</span><span class="o">=</span><span class="n">status</span><span class="p">,</span> <span class="p">)</span></div>
 
 <div class="viewcode-block" id="FaxInstance.delete"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.fax.v1.fax.html#twilio.rest.fax.v1.fax.FaxInstance.delete">[docs]</a>    <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">"""</span>

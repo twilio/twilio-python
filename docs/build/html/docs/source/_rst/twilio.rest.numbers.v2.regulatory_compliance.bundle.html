@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-MWRD6S');</script><!--End Google Tag Manager-->
 <meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<title>twilio.rest.numbers.v2.regulatory_compliance.bundle package — twilio-python 7.5.1 documentation</title>
+<title>twilio.rest.numbers.v2.regulatory_compliance.bundle package — twilio-python 7.6.0 documentation</title>
 <link href="../../../_static/alabaster.css" rel="stylesheet" type="text/css"/>
 <link href="../../../_static/pygments.css" rel="stylesheet" type="text/css"/>
 <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js" type="text/javascript"></script>
@@ -1445,6 +1445,32 @@ change. Use them with caution.</p>
 <dd></dd></dl>
 </dd></dl>
 <dl class="class">
+<dt id="twilio.rest.numbers.v2.regulatory_compliance.bundle.BundleInstance.SortBy">
+<em class="property">class </em><code class="descname">SortBy</code><a class="reference internal" href="../../../_modules/twilio/rest/numbers/v2/regulatory_compliance/bundle.html#BundleInstance.SortBy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.numbers.v2.regulatory_compliance.bundle.BundleInstance.SortBy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dl class="attribute">
+<dt id="twilio.rest.numbers.v2.regulatory_compliance.bundle.BundleInstance.SortBy.ASC">
+<code class="descname">ASC</code><em class="property"> = 'ASC'</em><a class="headerlink" href="#twilio.rest.numbers.v2.regulatory_compliance.bundle.BundleInstance.SortBy.ASC" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="attribute">
+<dt id="twilio.rest.numbers.v2.regulatory_compliance.bundle.BundleInstance.SortBy.DESC">
+<code class="descname">DESC</code><em class="property"> = 'DESC'</em><a class="headerlink" href="#twilio.rest.numbers.v2.regulatory_compliance.bundle.BundleInstance.SortBy.DESC" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+</dd></dl>
+<dl class="class">
+<dt id="twilio.rest.numbers.v2.regulatory_compliance.bundle.BundleInstance.SortDirection">
+<em class="property">class </em><code class="descname">SortDirection</code><a class="reference internal" href="../../../_modules/twilio/rest/numbers/v2/regulatory_compliance/bundle.html#BundleInstance.SortDirection"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.numbers.v2.regulatory_compliance.bundle.BundleInstance.SortDirection" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dl class="attribute">
+<dt id="twilio.rest.numbers.v2.regulatory_compliance.bundle.BundleInstance.SortDirection.DATE_UPDATED">
+<code class="descname">DATE_UPDATED</code><em class="property"> = 'date_updated'</em><a class="headerlink" href="#twilio.rest.numbers.v2.regulatory_compliance.bundle.BundleInstance.SortDirection.DATE_UPDATED" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="attribute">
+<dt id="twilio.rest.numbers.v2.regulatory_compliance.bundle.BundleInstance.SortDirection.VALID_UNTIL_DATE">
+<code class="descname">VALID_UNTIL_DATE</code><em class="property"> = 'valid_until_date'</em><a class="headerlink" href="#twilio.rest.numbers.v2.regulatory_compliance.bundle.BundleInstance.SortDirection.VALID_UNTIL_DATE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+</dd></dl>
+<dl class="class">
 <dt id="twilio.rest.numbers.v2.regulatory_compliance.bundle.BundleInstance.Status">
 <em class="property">class </em><code class="descname">Status</code><a class="reference internal" href="../../../_modules/twilio/rest/numbers/v2/regulatory_compliance/bundle.html#BundleInstance.Status"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.numbers.v2.regulatory_compliance.bundle.BundleInstance.Status" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
@@ -1826,7 +1852,7 @@ Request is executed immediately</p>
 </dd></dl>
 <dl class="method">
 <dt id="twilio.rest.numbers.v2.regulatory_compliance.bundle.BundleList.list">
-<code class="descname">list</code><span class="sig-paren">(</span><em>status=&lt;object object&gt;</em>, <em>friendly_name=&lt;object object&gt;</em>, <em>regulation_sid=&lt;object object&gt;</em>, <em>iso_country=&lt;object object&gt;</em>, <em>number_type=&lt;object object&gt;</em>, <em>limit=None</em>, <em>page_size=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/numbers/v2/regulatory_compliance/bundle.html#BundleList.list"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.numbers.v2.regulatory_compliance.bundle.BundleList.list" title="Permalink to this definition">¶</a></dt>
+<code class="descname">list</code><span class="sig-paren">(</span><em>status=&lt;object object&gt;</em>, <em>friendly_name=&lt;object object&gt;</em>, <em>regulation_sid=&lt;object object&gt;</em>, <em>iso_country=&lt;object object&gt;</em>, <em>number_type=&lt;object object&gt;</em>, <em>has_valid_until_date=&lt;object object&gt;</em>, <em>sort_by=&lt;object object&gt;</em>, <em>sort_direction=&lt;object object&gt;</em>, <em>valid_until_date_before=&lt;object object&gt;</em>, <em>valid_until_date=&lt;object object&gt;</em>, <em>valid_until_date_after=&lt;object object&gt;</em>, <em>limit=None</em>, <em>page_size=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/numbers/v2/regulatory_compliance/bundle.html#BundleList.list"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.numbers.v2.regulatory_compliance.bundle.BundleList.list" title="Permalink to this definition">¶</a></dt>
 <dd><p>Lists BundleInstance records from the API as a list.
 Unlike stream(), this operation is eager and will load <cite>limit</cite> records into
 memory before returning.</p>
@@ -1840,6 +1866,12 @@ memory before returning.</p>
 <li><strong>regulation_sid</strong> (<em>unicode</em>) – The unique string of a regulation.</li>
 <li><strong>iso_country</strong> (<em>unicode</em>) – The ISO country code of the country</li>
 <li><strong>number_type</strong> (<em>unicode</em>) – The type of phone number</li>
+<li><strong>has_valid_until_date</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Indicates that the Bundle is a valid Bundle until a specified expiration date.</li>
+<li><strong>sort_by</strong> (<a class="reference internal" href="#twilio.rest.numbers.v2.regulatory_compliance.bundle.BundleInstance.SortBy" title="twilio.rest.numbers.v2.regulatory_compliance.bundle.BundleInstance.SortBy"><em>BundleInstance.SortBy</em></a>) – Can be <cite>ValidUntilDate</cite> or <cite>DateUpdated</cite>. Defaults to <cite>DateCreated</cite></li>
+<li><strong>sort_direction</strong> (<a class="reference internal" href="#twilio.rest.numbers.v2.regulatory_compliance.bundle.BundleInstance.SortDirection" title="twilio.rest.numbers.v2.regulatory_compliance.bundle.BundleInstance.SortDirection"><em>BundleInstance.SortDirection</em></a>) – Default is <cite>DESC</cite>. Can be <cite>ASC</cite> or <cite>DESC</cite>.</li>
+<li><strong>valid_until_date_before</strong> (<em>datetime</em>) – Date to filter Bundles having their <cite>valid_until_date</cite> before or after the specified date. Can be <cite>ValidUntilDate&gt;=</cite> or <cite>ValidUntilDate&lt;=</cite>. Both can be used in conjunction as well.</li>
+<li><strong>valid_until_date</strong> (<em>datetime</em>) – Date to filter Bundles having their <cite>valid_until_date</cite> before or after the specified date. Can be <cite>ValidUntilDate&gt;=</cite> or <cite>ValidUntilDate&lt;=</cite>. Both can be used in conjunction as well.</li>
+<li><strong>valid_until_date_after</strong> (<em>datetime</em>) – Date to filter Bundles having their <cite>valid_until_date</cite> before or after the specified date. Can be <cite>ValidUntilDate&gt;=</cite> or <cite>ValidUntilDate&lt;=</cite>. Both can be used in conjunction as well.</li>
 <li><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Upper limit for the number of records to return. list() guarantees
 never to return more than limit.  Default is no limit</li>
 <li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Number of records to fetch per request, when not set will use
@@ -1860,7 +1892,7 @@ with the most efficient page size, i.e. min(limit, 1000)</li>
 </dd></dl>
 <dl class="method">
 <dt id="twilio.rest.numbers.v2.regulatory_compliance.bundle.BundleList.page">
-<code class="descname">page</code><span class="sig-paren">(</span><em>status=&lt;object object&gt;</em>, <em>friendly_name=&lt;object object&gt;</em>, <em>regulation_sid=&lt;object object&gt;</em>, <em>iso_country=&lt;object object&gt;</em>, <em>number_type=&lt;object object&gt;</em>, <em>page_token=&lt;object object&gt;</em>, <em>page_number=&lt;object object&gt;</em>, <em>page_size=&lt;object object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/numbers/v2/regulatory_compliance/bundle.html#BundleList.page"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.numbers.v2.regulatory_compliance.bundle.BundleList.page" title="Permalink to this definition">¶</a></dt>
+<code class="descname">page</code><span class="sig-paren">(</span><em>status=&lt;object object&gt;</em>, <em>friendly_name=&lt;object object&gt;</em>, <em>regulation_sid=&lt;object object&gt;</em>, <em>iso_country=&lt;object object&gt;</em>, <em>number_type=&lt;object object&gt;</em>, <em>has_valid_until_date=&lt;object object&gt;</em>, <em>sort_by=&lt;object object&gt;</em>, <em>sort_direction=&lt;object object&gt;</em>, <em>valid_until_date_before=&lt;object object&gt;</em>, <em>valid_until_date=&lt;object object&gt;</em>, <em>valid_until_date_after=&lt;object object&gt;</em>, <em>page_token=&lt;object object&gt;</em>, <em>page_number=&lt;object object&gt;</em>, <em>page_size=&lt;object object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/numbers/v2/regulatory_compliance/bundle.html#BundleList.page"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.numbers.v2.regulatory_compliance.bundle.BundleList.page" title="Permalink to this definition">¶</a></dt>
 <dd><p>Retrieve a single page of BundleInstance records from the API.
 Request is executed immediately</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -1873,6 +1905,12 @@ Request is executed immediately</p>
 <li><strong>regulation_sid</strong> (<em>unicode</em>) – The unique string of a regulation.</li>
 <li><strong>iso_country</strong> (<em>unicode</em>) – The ISO country code of the country</li>
 <li><strong>number_type</strong> (<em>unicode</em>) – The type of phone number</li>
+<li><strong>has_valid_until_date</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Indicates that the Bundle is a valid Bundle until a specified expiration date.</li>
+<li><strong>sort_by</strong> (<a class="reference internal" href="#twilio.rest.numbers.v2.regulatory_compliance.bundle.BundleInstance.SortBy" title="twilio.rest.numbers.v2.regulatory_compliance.bundle.BundleInstance.SortBy"><em>BundleInstance.SortBy</em></a>) – Can be <cite>ValidUntilDate</cite> or <cite>DateUpdated</cite>. Defaults to <cite>DateCreated</cite></li>
+<li><strong>sort_direction</strong> (<a class="reference internal" href="#twilio.rest.numbers.v2.regulatory_compliance.bundle.BundleInstance.SortDirection" title="twilio.rest.numbers.v2.regulatory_compliance.bundle.BundleInstance.SortDirection"><em>BundleInstance.SortDirection</em></a>) – Default is <cite>DESC</cite>. Can be <cite>ASC</cite> or <cite>DESC</cite>.</li>
+<li><strong>valid_until_date_before</strong> (<em>datetime</em>) – Date to filter Bundles having their <cite>valid_until_date</cite> before or after the specified date. Can be <cite>ValidUntilDate&gt;=</cite> or <cite>ValidUntilDate&lt;=</cite>. Both can be used in conjunction as well.</li>
+<li><strong>valid_until_date</strong> (<em>datetime</em>) – Date to filter Bundles having their <cite>valid_until_date</cite> before or after the specified date. Can be <cite>ValidUntilDate&gt;=</cite> or <cite>ValidUntilDate&lt;=</cite>. Both can be used in conjunction as well.</li>
+<li><strong>valid_until_date_after</strong> (<em>datetime</em>) – Date to filter Bundles having their <cite>valid_until_date</cite> before or after the specified date. Can be <cite>ValidUntilDate&gt;=</cite> or <cite>ValidUntilDate&lt;=</cite>. Both can be used in conjunction as well.</li>
 <li><strong>page_token</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – PageToken provided by the API</li>
 <li><strong>page_number</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Page Number, this value is simply for client state</li>
 <li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Number of records to return, defaults to 50</li>
@@ -1890,7 +1928,7 @@ Request is executed immediately</p>
 </dd></dl>
 <dl class="method">
 <dt id="twilio.rest.numbers.v2.regulatory_compliance.bundle.BundleList.stream">
-<code class="descname">stream</code><span class="sig-paren">(</span><em>status=&lt;object object&gt;</em>, <em>friendly_name=&lt;object object&gt;</em>, <em>regulation_sid=&lt;object object&gt;</em>, <em>iso_country=&lt;object object&gt;</em>, <em>number_type=&lt;object object&gt;</em>, <em>limit=None</em>, <em>page_size=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/numbers/v2/regulatory_compliance/bundle.html#BundleList.stream"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.numbers.v2.regulatory_compliance.bundle.BundleList.stream" title="Permalink to this definition">¶</a></dt>
+<code class="descname">stream</code><span class="sig-paren">(</span><em>status=&lt;object object&gt;</em>, <em>friendly_name=&lt;object object&gt;</em>, <em>regulation_sid=&lt;object object&gt;</em>, <em>iso_country=&lt;object object&gt;</em>, <em>number_type=&lt;object object&gt;</em>, <em>has_valid_until_date=&lt;object object&gt;</em>, <em>sort_by=&lt;object object&gt;</em>, <em>sort_direction=&lt;object object&gt;</em>, <em>valid_until_date_before=&lt;object object&gt;</em>, <em>valid_until_date=&lt;object object&gt;</em>, <em>valid_until_date_after=&lt;object object&gt;</em>, <em>limit=None</em>, <em>page_size=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/numbers/v2/regulatory_compliance/bundle.html#BundleList.stream"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.numbers.v2.regulatory_compliance.bundle.BundleList.stream" title="Permalink to this definition">¶</a></dt>
 <dd><p>Streams BundleInstance records from the API as a generator stream.
 This operation lazily loads records as efficiently as possible until the limit
 is reached.
@@ -1905,6 +1943,12 @@ The results are returned as a generator, so this operation is memory efficient.<
 <li><strong>regulation_sid</strong> (<em>unicode</em>) – The unique string of a regulation.</li>
 <li><strong>iso_country</strong> (<em>unicode</em>) – The ISO country code of the country</li>
 <li><strong>number_type</strong> (<em>unicode</em>) – The type of phone number</li>
+<li><strong>has_valid_until_date</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Indicates that the Bundle is a valid Bundle until a specified expiration date.</li>
+<li><strong>sort_by</strong> (<a class="reference internal" href="#twilio.rest.numbers.v2.regulatory_compliance.bundle.BundleInstance.SortBy" title="twilio.rest.numbers.v2.regulatory_compliance.bundle.BundleInstance.SortBy"><em>BundleInstance.SortBy</em></a>) – Can be <cite>ValidUntilDate</cite> or <cite>DateUpdated</cite>. Defaults to <cite>DateCreated</cite></li>
+<li><strong>sort_direction</strong> (<a class="reference internal" href="#twilio.rest.numbers.v2.regulatory_compliance.bundle.BundleInstance.SortDirection" title="twilio.rest.numbers.v2.regulatory_compliance.bundle.BundleInstance.SortDirection"><em>BundleInstance.SortDirection</em></a>) – Default is <cite>DESC</cite>. Can be <cite>ASC</cite> or <cite>DESC</cite>.</li>
+<li><strong>valid_until_date_before</strong> (<em>datetime</em>) – Date to filter Bundles having their <cite>valid_until_date</cite> before or after the specified date. Can be <cite>ValidUntilDate&gt;=</cite> or <cite>ValidUntilDate&lt;=</cite>. Both can be used in conjunction as well.</li>
+<li><strong>valid_until_date</strong> (<em>datetime</em>) – Date to filter Bundles having their <cite>valid_until_date</cite> before or after the specified date. Can be <cite>ValidUntilDate&gt;=</cite> or <cite>ValidUntilDate&lt;=</cite>. Both can be used in conjunction as well.</li>
+<li><strong>valid_until_date_after</strong> (<em>datetime</em>) – Date to filter Bundles having their <cite>valid_until_date</cite> before or after the specified date. Can be <cite>ValidUntilDate&gt;=</cite> or <cite>ValidUntilDate&lt;=</cite>. Both can be used in conjunction as well.</li>
 <li><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Upper limit for the number of records to return. stream()
 guarantees to never return more than limit.  Default is no limit</li>
 <li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Number of records to fetch per request, when not set will use

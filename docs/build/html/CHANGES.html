@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-MWRD6S');</script><!--End Google Tag Manager-->
 <meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<title>twilio-python Changelog — twilio-python 7.5.1 documentation</title>
+<title>twilio-python Changelog — twilio-python 7.6.0 documentation</title>
 <link href="_static/alabaster.css" rel="stylesheet" type="text/css"/>
 <link href="_static/pygments.css" rel="stylesheet" type="text/css"/>
 <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js" type="text/javascript"></script>
@@ -30,6 +30,49 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <div class="section" id="twilio-python-changelog">
 <h1>twilio-python Changelog<a class="headerlink" href="#twilio-python-changelog" title="Permalink to this headline">¶</a></h1>
 <p>Here you can see the full list of changes between each twilio-python release.</p>
+<div class="section" id="version-7-6-0">
+<h2>[2022-02-09] Version 7.6.0<a class="headerlink" href="#version-7-6-0" title="Permalink to this headline">¶</a></h2>
+<p><strong>Library - Chore</strong></p>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/twilio/twilio-python/pull/589">PR #589</a>: upgrade supported language versions. Thanks to <a class="reference external" href="https://github.com/childish-sambino">@childish-sambino</a>!</li>
+</ul>
+<p><strong>Library - Test</strong></p>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/twilio/twilio-python/pull/588">PR #588</a>: migrate to pytest for python 3.10 compatibility. Thanks to <a class="reference external" href="https://github.com/childish-sambino">@childish-sambino</a>!</li>
+</ul>
+<p><strong>Api</strong></p>
+<ul class="simple">
+<li>Add <code class="docutils literal notranslate"><span class="pre">stream</span></code> resource</li>
+</ul>
+<p><strong>Conversations</strong></p>
+<ul class="simple">
+<li>Fixed DELETE request to accept “sid_like” params in Address Configuration resources <strong>(breaking change)</strong></li>
+<li>Expose Address Configuration resource for <code class="docutils literal notranslate"><span class="pre">sms</span></code> and <code class="docutils literal notranslate"><span class="pre">whatsapp</span></code></li>
+</ul>
+<p><strong>Fax</strong></p>
+<ul class="simple">
+<li>Removed deprecated Programmable Fax Create and Update methods <strong>(breaking change)</strong></li>
+</ul>
+<p><strong>Insights</strong></p>
+<ul class="simple">
+<li>Rename <code class="docutils literal notranslate"><span class="pre">call_state</span></code> to <code class="docutils literal notranslate"><span class="pre">call_status</span></code> and remove <code class="docutils literal notranslate"><span class="pre">whisper</span></code> in conference participant summary <strong>(breaking change)</strong></li>
+</ul>
+<p><strong>Numbers</strong></p>
+<ul class="simple">
+<li>Expose valid_until filters as part of provisionally-approved compliance feature on the List Bundles resource</li>
+</ul>
+<p><strong>Supersim</strong></p>
+<ul class="simple">
+<li>Fix typo in Fleet resource docs</li>
+<li>Updated documentation for the Fleet resource indicating that fields related to commands have been deprecated and to use sms_command fields instead.</li>
+<li>Add support for setting and reading <code class="docutils literal notranslate"><span class="pre">ip_commands_url</span></code> and <code class="docutils literal notranslate"><span class="pre">ip_commands_method</span></code> on Fleets resource for helper libraries</li>
+<li>Changed <code class="docutils literal notranslate"><span class="pre">sim</span></code> property in requests to create an SMS Command made to the /SmsCommands to accept SIM UniqueNames in addition to SIDs</li>
+</ul>
+<p><strong>Verify</strong></p>
+<ul class="simple">
+<li>Update list attempts API to include new filters and response fields.</li>
+</ul>
+</div>
 <div class="section" id="version-7-5-1">
 <h2>[2022-01-26] Version 7.5.1<a class="headerlink" href="#version-7-5-1" title="Permalink to this headline">¶</a></h2>
 <p><strong>Insights</strong></p>
@@ -3466,6 +3509,7 @@ querying list resources</li>
 <h3><a href="index.html">Table of Contents</a></h3>
 <ul>
 <li><a class="reference internal" href="#">twilio-python Changelog</a><ul>
+<li><a class="reference internal" href="#version-7-6-0">[2022-02-09] Version 7.6.0</a></li>
 <li><a class="reference internal" href="#version-7-5-1">[2022-01-26] Version 7.5.1</a></li>
 <li><a class="reference internal" href="#version-7-5-0">[2022-01-12] Version 7.5.0</a></li>
 <li><a class="reference internal" href="#version-7-4-0">[2021-12-15] Version 7.4.0</a></li>

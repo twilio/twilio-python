@@ -14,6 +14,14 @@ Subpackages
 Submodules
 ----------
 
+twilio.rest.conversations.v1.address\_configuration module
+----------------------------------------------------------
+
+.. automodule:: twilio.rest.conversations.v1.address_configuration
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 twilio.rest.conversations.v1.credential module
 ----------------------------------------------
 
