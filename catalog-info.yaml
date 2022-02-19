@@ -1,0 +1,10 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: twilio-python
+  annotations:
+    github.com/project-slug: marvin-corea-cvshealth/twilio-python
+spec:
+  type: other
+  lifecycle: unknown
+  owner: devsecops
