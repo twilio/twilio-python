@@ -129,7 +129,7 @@ class AddressConfigurationList(ListResource):
         :param unicode auto_creation_webhook_url: For type `webhook`, the url for the webhook request.
         :param AddressConfigurationInstance.Method auto_creation_webhook_method: For type `webhook`, the HTTP method to be used when sending a webhook request.
         :param list[unicode] auto_creation_webhook_filters: The list of events, firing webhook event for this Conversation.
-        :param unicode auto_creation_studio_flow_sid: For type `studio`, the studio flow SID, where the webhook should be sent to.
+        :param unicode auto_creation_studio_flow_sid: For type `studio`, the studio flow SID where the webhook should be sent to.
         :param unicode auto_creation_studio_retry_count: For type `studio`, number of times to retry the webhook request
 
         :returns: The created AddressConfigurationInstance
@@ -270,7 +270,7 @@ class AddressConfigurationContext(InstanceContext):
         :param unicode auto_creation_webhook_url: For type `webhook`, the url for the webhook request.
         :param AddressConfigurationInstance.Method auto_creation_webhook_method: For type `webhook`, the HTTP method to be used when sending a webhook request.
         :param list[unicode] auto_creation_webhook_filters: The list of events, firing webhook event for this Conversation.
-        :param unicode auto_creation_studio_flow_sid: For type `studio`, the studio flow SID, where the webhook should be sent to.
+        :param unicode auto_creation_studio_flow_sid: For type `studio`, the studio flow SID where the webhook should be sent to.
         :param unicode auto_creation_studio_retry_count: For type `studio`, number of times to retry the webhook request
 
         :returns: The updated AddressConfigurationInstance
@@ -318,6 +318,7 @@ class AddressConfigurationInstance(InstanceResource):
         SMS = "sms"
         WHATSAPP = "whatsapp"
         MESSENGER = "messenger"
+        GBM = "gbm"
 
     class AutoCreationType(object):
         WEBHOOK = "webhook"
@@ -386,7 +387,7 @@ class AddressConfigurationInstance(InstanceResource):
     @property
     def type(self):
         """
-        :returns: Type of Address, value can be `whatsapp` or `sms`.
+        :returns: Type of Address.
         :rtype: unicode
         """
         return self._properties['type']
@@ -466,7 +467,7 @@ class AddressConfigurationInstance(InstanceResource):
         :param unicode auto_creation_webhook_url: For type `webhook`, the url for the webhook request.
         :param AddressConfigurationInstance.Method auto_creation_webhook_method: For type `webhook`, the HTTP method to be used when sending a webhook request.
         :param list[unicode] auto_creation_webhook_filters: The list of events, firing webhook event for this Conversation.
-        :param unicode auto_creation_studio_flow_sid: For type `studio`, the studio flow SID, where the webhook should be sent to.
+        :param unicode auto_creation_studio_flow_sid: For type `studio`, the studio flow SID where the webhook should be sent to.
         :param unicode auto_creation_studio_retry_count: For type `studio`, number of times to retry the webhook request
 
         :returns: The updated AddressConfigurationInstance

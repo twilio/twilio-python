@@ -730,6 +730,7 @@ class SiprecInstance(InstanceResource):
             'name': payload.get('name'),
             'status': payload.get('status'),
             'date_updated': deserialize.rfc2822_datetime(payload.get('date_updated')),
+            'uri': payload.get('uri'),
         }
 
         # Context
@@ -805,6 +806,14 @@ class SiprecInstance(InstanceResource):
         :rtype: datetime
         """
         return self._properties['date_updated']
+
+    @property
+    def uri(self):
+        """
+        :returns: The URI of the resource, relative to `https://api.twilio.com`
+        :rtype: unicode
+        """
+        return self._properties['uri']
 
     def update(self, status):
         """

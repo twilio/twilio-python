@@ -73,6 +73,9 @@ class FactorTestCase(IntegrationTestCase):
                     "notification_platform": "fcm",
                     "notification_token": "test_token"
                 },
+                "metadata": {
+                    "os": "Android"
+                },
                 "url": "https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Factors/YFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
             '''
@@ -105,6 +108,7 @@ class FactorTestCase(IntegrationTestCase):
                     "code_length": 6,
                     "time_step": 30
                 },
+                "metadata": null,
                 "url": "https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Factors/YFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
             '''
@@ -177,6 +181,9 @@ class FactorTestCase(IntegrationTestCase):
                             "notification_platform": "fcm",
                             "notification_token": "test_token"
                         },
+                        "metadata": {
+                            "os": "Android"
+                        },
                         "url": "https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Factors/YFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
                     }
                 ],
@@ -222,6 +229,7 @@ class FactorTestCase(IntegrationTestCase):
                             "code_length": 6,
                             "time_step": 30
                         },
+                        "metadata": null,
                         "url": "https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Factors/YFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
                     }
                 ],
@@ -278,6 +286,9 @@ class FactorTestCase(IntegrationTestCase):
                     "notification_platform": "fcm",
                     "notification_token": "test_token"
                 },
+                "metadata": {
+                    "os": "Android"
+                },
                 "url": "https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Factors/YFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
             '''
@@ -310,6 +321,7 @@ class FactorTestCase(IntegrationTestCase):
                     "code_length": 6,
                     "time_step": 30
                 },
+                "metadata": null,
                 "url": "https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Factors/YFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
             '''

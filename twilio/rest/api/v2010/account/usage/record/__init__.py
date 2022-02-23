@@ -314,6 +314,7 @@ class RecordPage(Page):
 class RecordInstance(InstanceResource):
 
     class Category(object):
+        A2P_REGISTRATION_FEES = "a2p-registration-fees"
         AGENT_CONFERENCE = "agent-conference"
         ANSWERING_MACHINE_DETECTION = "answering-machine-detection"
         AUTHY_AUTHENTICATIONS = "authy-authentications"

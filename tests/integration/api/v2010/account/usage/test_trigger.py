@@ -133,12 +133,12 @@ class TriggerTestCase(IntegrationTestCase):
         with self.assertRaises(TwilioException):
             self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                  .usage \
-                                 .triggers.create(callback_url="https://example.com", trigger_value="trigger_value", usage_category="agent-conference")
+                                 .triggers.create(callback_url="https://example.com", trigger_value="trigger_value", usage_category="a2p-registration-fees")
 
         values = {
             'CallbackUrl': "https://example.com",
             'TriggerValue': "trigger_value",
-            'UsageCategory': "agent-conference",
+            'UsageCategory': "a2p-registration-fees",
         }
 
         self.holodeck.assert_has_request(Request(
@@ -174,7 +174,7 @@ class TriggerTestCase(IntegrationTestCase):
 
         actual = self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                       .usage \
-                                      .triggers.create(callback_url="https://example.com", trigger_value="trigger_value", usage_category="agent-conference")
+                                      .triggers.create(callback_url="https://example.com", trigger_value="trigger_value", usage_category="a2p-registration-fees")
 
         self.assertIsNotNone(actual)
 

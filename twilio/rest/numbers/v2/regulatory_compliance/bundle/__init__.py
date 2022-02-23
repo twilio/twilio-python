@@ -85,7 +85,7 @@ class BundleList(ListResource):
         :param unicode iso_country: The ISO country code of the country
         :param unicode number_type: The type of phone number
         :param bool has_valid_until_date: Indicates that the Bundle is a valid Bundle until a specified expiration date.
-        :param BundleInstance.SortBy sort_by: Can be `ValidUntilDate` or `DateUpdated`. Defaults to `DateCreated`
+        :param BundleInstance.SortBy sort_by: Can be `valid-until` or `date-updated`. Defaults to `date-created`.
         :param BundleInstance.SortDirection sort_direction: Default is `DESC`. Can be `ASC` or `DESC`.
         :param datetime valid_until_date_before: Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well.
         :param datetime valid_until_date: Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well.
@@ -136,7 +136,7 @@ class BundleList(ListResource):
         :param unicode iso_country: The ISO country code of the country
         :param unicode number_type: The type of phone number
         :param bool has_valid_until_date: Indicates that the Bundle is a valid Bundle until a specified expiration date.
-        :param BundleInstance.SortBy sort_by: Can be `ValidUntilDate` or `DateUpdated`. Defaults to `DateCreated`
+        :param BundleInstance.SortBy sort_by: Can be `valid-until` or `date-updated`. Defaults to `date-created`.
         :param BundleInstance.SortDirection sort_direction: Default is `DESC`. Can be `ASC` or `DESC`.
         :param datetime valid_until_date_before: Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well.
         :param datetime valid_until_date: Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well.
@@ -184,7 +184,7 @@ class BundleList(ListResource):
         :param unicode iso_country: The ISO country code of the country
         :param unicode number_type: The type of phone number
         :param bool has_valid_until_date: Indicates that the Bundle is a valid Bundle until a specified expiration date.
-        :param BundleInstance.SortBy sort_by: Can be `ValidUntilDate` or `DateUpdated`. Defaults to `DateCreated`
+        :param BundleInstance.SortBy sort_by: Can be `valid-until` or `date-updated`. Defaults to `date-created`.
         :param BundleInstance.SortDirection sort_direction: Default is `DESC`. Can be `ASC` or `DESC`.
         :param datetime valid_until_date_before: Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well.
         :param datetime valid_until_date: Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well.
@@ -446,12 +446,12 @@ class BundleInstance(InstanceResource):
         BUSINESS = "business"
 
     class SortBy(object):
-        ASC = "ASC"
-        DESC = "DESC"
+        VALID_UNTIL = "valid-until"
+        DATE_UPDATED = "date-updated"
 
     class SortDirection(object):
-        VALID_UNTIL_DATE = "valid_until_date"
-        DATE_UPDATED = "date_updated"
+        ASC = "ASC"
+        DESC = "DESC"
 
     def __init__(self, version, payload, sid=None):
         """

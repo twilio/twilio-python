@@ -347,6 +347,7 @@ class FactorInstance(InstanceResource):
             'status': payload.get('status'),
             'factor_type': payload.get('factor_type'),
             'config': payload.get('config'),
+            'metadata': payload.get('metadata'),
             'url': payload.get('url'),
         }
 
@@ -463,6 +464,14 @@ class FactorInstance(InstanceResource):
         :rtype: dict
         """
         return self._properties['config']
+
+    @property
+    def metadata(self):
+        """
+        :returns: Metadata of the factor.
+        :rtype: dict
+        """
+        return self._properties['metadata']
 
     @property
     def url(self):

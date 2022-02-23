@@ -326,6 +326,7 @@ class TriggerContext(InstanceContext):
 class TriggerInstance(InstanceResource):
 
     class UsageCategory(object):
+        A2P_REGISTRATION_FEES = "a2p-registration-fees"
         AGENT_CONFERENCE = "agent-conference"
         ANSWERING_MACHINE_DETECTION = "answering-machine-detection"
         AUTHY_AUTHENTICATIONS = "authy-authentications"
