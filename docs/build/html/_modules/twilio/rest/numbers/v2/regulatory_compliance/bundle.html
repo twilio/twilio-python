@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-MWRD6S');</script><!--End Google Tag Manager-->
 <meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<title>twilio.rest.numbers.v2.regulatory_compliance.bundle — twilio-python 7.6.0 documentation</title>
+<title>twilio.rest.numbers.v2.regulatory_compliance.bundle — twilio-python 7.7.0 documentation</title>
 <link href="../../../../../../_static/alabaster.css" rel="stylesheet" type="text/css"/>
 <link href="../../../../../../_static/pygments.css" rel="stylesheet" type="text/css"/>
 <script data-url_root="../../../../../../" id="documentation_options" src="../../../../../../_static/documentation_options.js" type="text/javascript"></script>
@@ -115,7 +115,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <span class="sd">        :param unicode iso_country: The ISO country code of the country</span>
 <span class="sd">        :param unicode number_type: The type of phone number</span>
 <span class="sd">        :param bool has_valid_until_date: Indicates that the Bundle is a valid Bundle until a specified expiration date.</span>
-<span class="sd">        :param BundleInstance.SortBy sort_by: Can be `ValidUntilDate` or `DateUpdated`. Defaults to `DateCreated`</span>
+<span class="sd">        :param BundleInstance.SortBy sort_by: Can be `valid-until` or `date-updated`. Defaults to `date-created`.</span>
 <span class="sd">        :param BundleInstance.SortDirection sort_direction: Default is `DESC`. Can be `ASC` or `DESC`.</span>
 <span class="sd">        :param datetime valid_until_date_before: Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate&gt;=` or `ValidUntilDate&lt;=`. Both can be used in conjunction as well.</span>
 <span class="sd">        :param datetime valid_until_date: Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate&gt;=` or `ValidUntilDate&lt;=`. Both can be used in conjunction as well.</span>
@@ -166,7 +166,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <span class="sd">        :param unicode iso_country: The ISO country code of the country</span>
 <span class="sd">        :param unicode number_type: The type of phone number</span>
 <span class="sd">        :param bool has_valid_until_date: Indicates that the Bundle is a valid Bundle until a specified expiration date.</span>
-<span class="sd">        :param BundleInstance.SortBy sort_by: Can be `ValidUntilDate` or `DateUpdated`. Defaults to `DateCreated`</span>
+<span class="sd">        :param BundleInstance.SortBy sort_by: Can be `valid-until` or `date-updated`. Defaults to `date-created`.</span>
 <span class="sd">        :param BundleInstance.SortDirection sort_direction: Default is `DESC`. Can be `ASC` or `DESC`.</span>
 <span class="sd">        :param datetime valid_until_date_before: Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate&gt;=` or `ValidUntilDate&lt;=`. Both can be used in conjunction as well.</span>
 <span class="sd">        :param datetime valid_until_date: Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate&gt;=` or `ValidUntilDate&lt;=`. Both can be used in conjunction as well.</span>
@@ -214,7 +214,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <span class="sd">        :param unicode iso_country: The ISO country code of the country</span>
 <span class="sd">        :param unicode number_type: The type of phone number</span>
 <span class="sd">        :param bool has_valid_until_date: Indicates that the Bundle is a valid Bundle until a specified expiration date.</span>
-<span class="sd">        :param BundleInstance.SortBy sort_by: Can be `ValidUntilDate` or `DateUpdated`. Defaults to `DateCreated`</span>
+<span class="sd">        :param BundleInstance.SortBy sort_by: Can be `valid-until` or `date-updated`. Defaults to `date-created`.</span>
 <span class="sd">        :param BundleInstance.SortDirection sort_direction: Default is `DESC`. Can be `ASC` or `DESC`.</span>
 <span class="sd">        :param datetime valid_until_date_before: Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate&gt;=` or `ValidUntilDate&lt;=`. Both can be used in conjunction as well.</span>
 <span class="sd">        :param datetime valid_until_date: Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate&gt;=` or `ValidUntilDate&lt;=`. Both can be used in conjunction as well.</span>
@@ -476,12 +476,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="n">BUSINESS</span> <span class="o">=</span> <span class="s2">"business"</span></div>
 
 <div class="viewcode-block" id="BundleInstance.SortBy"><a class="viewcode-back" href="../../../../../../docs/source/_rst/twilio.rest.numbers.v2.regulatory_compliance.bundle.html#twilio.rest.numbers.v2.regulatory_compliance.bundle.BundleInstance.SortBy">[docs]</a>    <span class="k">class</span> <span class="nc">SortBy</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-        <span class="n">ASC</span> <span class="o">=</span> <span class="s2">"ASC"</span>
-        <span class="n">DESC</span> <span class="o">=</span> <span class="s2">"DESC"</span></div>
+        <span class="n">VALID_UNTIL</span> <span class="o">=</span> <span class="s2">"valid-until"</span>
+        <span class="n">DATE_UPDATED</span> <span class="o">=</span> <span class="s2">"date-updated"</span></div>
 
 <div class="viewcode-block" id="BundleInstance.SortDirection"><a class="viewcode-back" href="../../../../../../docs/source/_rst/twilio.rest.numbers.v2.regulatory_compliance.bundle.html#twilio.rest.numbers.v2.regulatory_compliance.bundle.BundleInstance.SortDirection">[docs]</a>    <span class="k">class</span> <span class="nc">SortDirection</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-        <span class="n">VALID_UNTIL_DATE</span> <span class="o">=</span> <span class="s2">"valid_until_date"</span>
-        <span class="n">DATE_UPDATED</span> <span class="o">=</span> <span class="s2">"date_updated"</span></div>
+        <span class="n">ASC</span> <span class="o">=</span> <span class="s2">"ASC"</span>
+        <span class="n">DESC</span> <span class="o">=</span> <span class="s2">"DESC"</span></div>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">version</span><span class="p">,</span> <span class="n">payload</span><span class="p">,</span> <span class="n">sid</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">"""</span>

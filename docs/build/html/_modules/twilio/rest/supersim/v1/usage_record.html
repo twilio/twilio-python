@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-MWRD6S');</script><!--End Google Tag Manager-->
 <meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<title>twilio.rest.supersim.v1.usage_record — twilio-python 7.6.0 documentation</title>
+<title>twilio.rest.supersim.v1.usage_record — twilio-python 7.7.0 documentation</title>
 <link href="../../../../../_static/alabaster.css" rel="stylesheet" type="text/css"/>
 <link href="../../../../../_static/pygments.css" rel="stylesheet" type="text/css"/>
 <script data-url_root="../../../../../" id="documentation_options" src="../../../../../_static/documentation_options.js" type="text/javascript"></script>
@@ -80,7 +80,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <span class="sd">        :param UsageRecordInstance.Group group: Dimension over which to aggregate usage records.</span>
 <span class="sd">        :param UsageRecordInstance.Granularity granularity: Time-based grouping that UsageRecords should be aggregated by. Can be: `hour`, `day`, or `all`. Default is `all`.</span>
 <span class="sd">        :param datetime start_time: Only include usage that occurred at or after this time.</span>
-<span class="sd">        :param datetime end_time: Only include usage that occurred before this time.</span>
+<span class="sd">        :param datetime end_time: Only include usage that occurred before this time (exclusive).</span>
 <span class="sd">        :param int limit: Upper limit for the number of records to return. stream()</span>
 <span class="sd">                          guarantees to never return more than limit.  Default is no limit</span>
 <span class="sd">        :param int page_size: Number of records to fetch per request, when not set will use</span>
@@ -123,7 +123,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <span class="sd">        :param UsageRecordInstance.Group group: Dimension over which to aggregate usage records.</span>
 <span class="sd">        :param UsageRecordInstance.Granularity granularity: Time-based grouping that UsageRecords should be aggregated by. Can be: `hour`, `day`, or `all`. Default is `all`.</span>
 <span class="sd">        :param datetime start_time: Only include usage that occurred at or after this time.</span>
-<span class="sd">        :param datetime end_time: Only include usage that occurred before this time.</span>
+<span class="sd">        :param datetime end_time: Only include usage that occurred before this time (exclusive).</span>
 <span class="sd">        :param int limit: Upper limit for the number of records to return. list() guarantees</span>
 <span class="sd">                          never to return more than limit.  Default is no limit</span>
 <span class="sd">        :param int page_size: Number of records to fetch per request, when not set will use</span>
@@ -163,7 +163,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <span class="sd">        :param UsageRecordInstance.Group group: Dimension over which to aggregate usage records.</span>
 <span class="sd">        :param UsageRecordInstance.Granularity granularity: Time-based grouping that UsageRecords should be aggregated by. Can be: `hour`, `day`, or `all`. Default is `all`.</span>
 <span class="sd">        :param datetime start_time: Only include usage that occurred at or after this time.</span>
-<span class="sd">        :param datetime end_time: Only include usage that occurred before this time.</span>
+<span class="sd">        :param datetime end_time: Only include usage that occurred before this time (exclusive).</span>
 <span class="sd">        :param str page_token: PageToken provided by the API</span>
 <span class="sd">        :param int page_number: Page Number, this value is simply for client state</span>
 <span class="sd">        :param int page_size: Number of records to return, defaults to 50</span>

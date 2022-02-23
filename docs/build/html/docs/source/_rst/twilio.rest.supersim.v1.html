@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-MWRD6S');</script><!--End Google Tag Manager-->
 <meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<title>twilio.rest.supersim.v1 package — twilio-python 7.6.0 documentation</title>
+<title>twilio.rest.supersim.v1 package — twilio-python 7.7.0 documentation</title>
 <link href="../../../_static/alabaster.css" rel="stylesheet" type="text/css"/>
 <link href="../../../_static/pygments.css" rel="stylesheet" type="text/css"/>
 <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js" type="text/javascript"></script>
@@ -2843,7 +2843,7 @@ memory before returning.</p>
 <li><strong>group</strong> (<a class="reference internal" href="#twilio.rest.supersim.v1.usage_record.UsageRecordInstance.Group" title="twilio.rest.supersim.v1.usage_record.UsageRecordInstance.Group"><em>UsageRecordInstance.Group</em></a>) – Dimension over which to aggregate usage records.</li>
 <li><strong>granularity</strong> (<a class="reference internal" href="#twilio.rest.supersim.v1.usage_record.UsageRecordInstance.Granularity" title="twilio.rest.supersim.v1.usage_record.UsageRecordInstance.Granularity"><em>UsageRecordInstance.Granularity</em></a>) – Time-based grouping that UsageRecords should be aggregated by. Can be: <cite>hour</cite>, <cite>day</cite>, or <cite>all</cite>. Default is <cite>all</cite>.</li>
 <li><strong>start_time</strong> (<em>datetime</em>) – Only include usage that occurred at or after this time.</li>
-<li><strong>end_time</strong> (<em>datetime</em>) – Only include usage that occurred before this time.</li>
+<li><strong>end_time</strong> (<em>datetime</em>) – Only include usage that occurred before this time (exclusive).</li>
 <li><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Upper limit for the number of records to return. list() guarantees
 never to return more than limit.  Default is no limit</li>
 <li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Number of records to fetch per request, when not set will use
@@ -2879,7 +2879,7 @@ Request is executed immediately</p>
 <li><strong>group</strong> (<a class="reference internal" href="#twilio.rest.supersim.v1.usage_record.UsageRecordInstance.Group" title="twilio.rest.supersim.v1.usage_record.UsageRecordInstance.Group"><em>UsageRecordInstance.Group</em></a>) – Dimension over which to aggregate usage records.</li>
 <li><strong>granularity</strong> (<a class="reference internal" href="#twilio.rest.supersim.v1.usage_record.UsageRecordInstance.Granularity" title="twilio.rest.supersim.v1.usage_record.UsageRecordInstance.Granularity"><em>UsageRecordInstance.Granularity</em></a>) – Time-based grouping that UsageRecords should be aggregated by. Can be: <cite>hour</cite>, <cite>day</cite>, or <cite>all</cite>. Default is <cite>all</cite>.</li>
 <li><strong>start_time</strong> (<em>datetime</em>) – Only include usage that occurred at or after this time.</li>
-<li><strong>end_time</strong> (<em>datetime</em>) – Only include usage that occurred before this time.</li>
+<li><strong>end_time</strong> (<em>datetime</em>) – Only include usage that occurred before this time (exclusive).</li>
 <li><strong>page_token</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – PageToken provided by the API</li>
 <li><strong>page_number</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Page Number, this value is simply for client state</li>
 <li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Number of records to return, defaults to 50</li>
@@ -2914,7 +2914,7 @@ The results are returned as a generator, so this operation is memory efficient.<
 <li><strong>group</strong> (<a class="reference internal" href="#twilio.rest.supersim.v1.usage_record.UsageRecordInstance.Group" title="twilio.rest.supersim.v1.usage_record.UsageRecordInstance.Group"><em>UsageRecordInstance.Group</em></a>) – Dimension over which to aggregate usage records.</li>
 <li><strong>granularity</strong> (<a class="reference internal" href="#twilio.rest.supersim.v1.usage_record.UsageRecordInstance.Granularity" title="twilio.rest.supersim.v1.usage_record.UsageRecordInstance.Granularity"><em>UsageRecordInstance.Granularity</em></a>) – Time-based grouping that UsageRecords should be aggregated by. Can be: <cite>hour</cite>, <cite>day</cite>, or <cite>all</cite>. Default is <cite>all</cite>.</li>
 <li><strong>start_time</strong> (<em>datetime</em>) – Only include usage that occurred at or after this time.</li>
-<li><strong>end_time</strong> (<em>datetime</em>) – Only include usage that occurred before this time.</li>
+<li><strong>end_time</strong> (<em>datetime</em>) – Only include usage that occurred before this time (exclusive).</li>
 <li><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Upper limit for the number of records to return. stream()
 guarantees to never return more than limit.  Default is no limit</li>
 <li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Number of records to fetch per request, when not set will use

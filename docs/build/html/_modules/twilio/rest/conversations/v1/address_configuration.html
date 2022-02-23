@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-MWRD6S');</script><!--End Google Tag Manager-->
 <meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<title>twilio.rest.conversations.v1.address_configuration — twilio-python 7.6.0 documentation</title>
+<title>twilio.rest.conversations.v1.address_configuration — twilio-python 7.7.0 documentation</title>
 <link href="../../../../../_static/alabaster.css" rel="stylesheet" type="text/css"/>
 <link href="../../../../../_static/pygments.css" rel="stylesheet" type="text/css"/>
 <script data-url_root="../../../../../" id="documentation_options" src="../../../../../_static/documentation_options.js" type="text/javascript"></script>
@@ -159,7 +159,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <span class="sd">        :param unicode auto_creation_webhook_url: For type `webhook`, the url for the webhook request.</span>
 <span class="sd">        :param AddressConfigurationInstance.Method auto_creation_webhook_method: For type `webhook`, the HTTP method to be used when sending a webhook request.</span>
 <span class="sd">        :param list[unicode] auto_creation_webhook_filters: The list of events, firing webhook event for this Conversation.</span>
-<span class="sd">        :param unicode auto_creation_studio_flow_sid: For type `studio`, the studio flow SID, where the webhook should be sent to.</span>
+<span class="sd">        :param unicode auto_creation_studio_flow_sid: For type `studio`, the studio flow SID where the webhook should be sent to.</span>
 <span class="sd">        :param unicode auto_creation_studio_retry_count: For type `studio`, number of times to retry the webhook request</span>
 
 <span class="sd">        :returns: The created AddressConfigurationInstance</span>
@@ -300,7 +300,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <span class="sd">        :param unicode auto_creation_webhook_url: For type `webhook`, the url for the webhook request.</span>
 <span class="sd">        :param AddressConfigurationInstance.Method auto_creation_webhook_method: For type `webhook`, the HTTP method to be used when sending a webhook request.</span>
 <span class="sd">        :param list[unicode] auto_creation_webhook_filters: The list of events, firing webhook event for this Conversation.</span>
-<span class="sd">        :param unicode auto_creation_studio_flow_sid: For type `studio`, the studio flow SID, where the webhook should be sent to.</span>
+<span class="sd">        :param unicode auto_creation_studio_flow_sid: For type `studio`, the studio flow SID where the webhook should be sent to.</span>
 <span class="sd">        :param unicode auto_creation_studio_retry_count: For type `studio`, number of times to retry the webhook request</span>
 
 <span class="sd">        :returns: The updated AddressConfigurationInstance</span>
@@ -347,7 +347,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <div class="viewcode-block" id="AddressConfigurationInstance.Type"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.conversations.v1.html#twilio.rest.conversations.v1.address_configuration.AddressConfigurationInstance.Type">[docs]</a>    <span class="k">class</span> <span class="nc">Type</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
         <span class="n">SMS</span> <span class="o">=</span> <span class="s2">"sms"</span>
         <span class="n">WHATSAPP</span> <span class="o">=</span> <span class="s2">"whatsapp"</span>
-        <span class="n">MESSENGER</span> <span class="o">=</span> <span class="s2">"messenger"</span></div>
+        <span class="n">MESSENGER</span> <span class="o">=</span> <span class="s2">"messenger"</span>
+        <span class="n">GBM</span> <span class="o">=</span> <span class="s2">"gbm"</span></div>
 
 <div class="viewcode-block" id="AddressConfigurationInstance.AutoCreationType"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.conversations.v1.html#twilio.rest.conversations.v1.address_configuration.AddressConfigurationInstance.AutoCreationType">[docs]</a>    <span class="k">class</span> <span class="nc">AutoCreationType</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
         <span class="n">WEBHOOK</span> <span class="o">=</span> <span class="s2">"webhook"</span>
@@ -416,7 +417,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">type</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">"""</span>
-<span class="sd">        :returns: Type of Address, value can be `whatsapp` or `sms`.</span>
+<span class="sd">        :returns: Type of Address.</span>
 <span class="sd">        :rtype: unicode</span>
 <span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="p">[</span><span class="s1">'type'</span><span class="p">]</span>
@@ -496,7 +497,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <span class="sd">        :param unicode auto_creation_webhook_url: For type `webhook`, the url for the webhook request.</span>
 <span class="sd">        :param AddressConfigurationInstance.Method auto_creation_webhook_method: For type `webhook`, the HTTP method to be used when sending a webhook request.</span>
 <span class="sd">        :param list[unicode] auto_creation_webhook_filters: The list of events, firing webhook event for this Conversation.</span>
-<span class="sd">        :param unicode auto_creation_studio_flow_sid: For type `studio`, the studio flow SID, where the webhook should be sent to.</span>
+<span class="sd">        :param unicode auto_creation_studio_flow_sid: For type `studio`, the studio flow SID where the webhook should be sent to.</span>
 <span class="sd">        :param unicode auto_creation_studio_retry_count: For type `studio`, number of times to retry the webhook request</span>
 
 <span class="sd">        :returns: The updated AddressConfigurationInstance</span>
