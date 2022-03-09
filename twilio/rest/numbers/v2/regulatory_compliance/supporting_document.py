@@ -291,6 +291,7 @@ class SupportingDocumentInstance(InstanceResource):
             'friendly_name': payload.get('friendly_name'),
             'mime_type': payload.get('mime_type'),
             'status': payload.get('status'),
+            'failure_reason': payload.get('failure_reason'),
             'type': payload.get('type'),
             'attributes': payload.get('attributes'),
             'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
@@ -354,6 +355,14 @@ class SupportingDocumentInstance(InstanceResource):
         :rtype: SupportingDocumentInstance.Status
         """
         return self._properties['status']
+
+    @property
+    def failure_reason(self):
+        """
+        :returns: The failure reason of the Supporting Document Resource.
+        :rtype: unicode
+        """
+        return self._properties['failure_reason']
 
     @property
     def type(self):

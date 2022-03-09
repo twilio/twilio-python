@@ -39,6 +39,7 @@ class SupportingDocumentTestCase(IntegrationTestCase):
                 "friendly_name": "friendly_name",
                 "mime_type": "mime_type",
                 "status": "draft",
+                "failure_reason": null,
                 "type": "type",
                 "attributes": {
                     "first_name": "foo",
@@ -104,6 +105,48 @@ class SupportingDocumentTestCase(IntegrationTestCase):
                         "friendly_name": "friendly_name",
                         "mime_type": "mime_type",
                         "status": "draft",
+                        "failure_reason": null,
+                        "type": "type",
+                        "attributes": {
+                            "first_name": "foo",
+                            "last_name": "bar"
+                        },
+                        "date_created": "2019-07-31T02:11:52Z",
+                        "date_updated": "2019-07-31T02:11:52Z",
+                        "url": "https://numbers.twilio.com/v2/RegulatoryCompliance/SupportingDocuments/RDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+                    }
+                ],
+                "meta": {
+                    "page": 0,
+                    "page_size": 50,
+                    "first_page_url": "https://numbers.twilio.com/v2/RegulatoryCompliance/SupportingDocuments?PageSize=50&Page=0",
+                    "previous_page_url": null,
+                    "url": "https://numbers.twilio.com/v2/RegulatoryCompliance/SupportingDocuments?PageSize=50&Page=0",
+                    "next_page_url": null,
+                    "key": "results"
+                }
+            }
+            '''
+        ))
+
+        actual = self.client.numbers.v2.regulatory_compliance \
+                                       .supporting_documents.list()
+
+        self.assertIsNotNone(actual)
+
+    def test_read_rejected_document_response(self):
+        self.holodeck.mock(Response(
+            200,
+            '''
+            {
+                "results": [
+                    {
+                        "sid": "RDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                        "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                        "friendly_name": "friendly_name",
+                        "mime_type": "mime_type",
+                        "status": "twilio-rejected",
+                        "failure_reason": "Some failure reason.",
                         "type": "type",
                         "attributes": {
                             "first_name": "foo",
@@ -154,6 +197,7 @@ class SupportingDocumentTestCase(IntegrationTestCase):
                 "friendly_name": "friendly_name",
                 "mime_type": "mime_type",
                 "status": "draft",
+                "failure_reason": null,
                 "type": "type",
                 "attributes": {
                     "first_name": "foo",
@@ -193,6 +237,7 @@ class SupportingDocumentTestCase(IntegrationTestCase):
                 "friendly_name": "friendly_name",
                 "mime_type": "mime_type",
                 "status": "draft",
+                "failure_reason": null,
                 "type": "type",
                 "attributes": {
                     "first_name": "foo",

@@ -304,16 +304,17 @@ class ChallengeContext(InstanceContext):
             sid=self._solution['sid'],
         )
 
-    def update(self, auth_payload=values.unset):
+    def update(self, auth_payload=values.unset, metadata=values.unset):
         """
         Update the ChallengeInstance
 
         :param unicode auth_payload: Optional payload to verify the Challenge
+        :param dict metadata: Metadata of the challenge.
 
         :returns: The updated ChallengeInstance
         :rtype: twilio.rest.verify.v2.service.entity.challenge.ChallengeInstance
         """
-        data = values.of({'AuthPayload': auth_payload, })
+        data = values.of({'AuthPayload': auth_payload, 'Metadata': serialize.object(metadata), })
 
         payload = self._version.update(method='POST', uri=self._uri, data=data, )
 
@@ -401,6 +402,7 @@ class ChallengeInstance(InstanceResource):
             'responded_reason': payload.get('responded_reason'),
             'details': payload.get('details'),
             'hidden_details': payload.get('hidden_details'),
+            'metadata': payload.get('metadata'),
             'factor_type': payload.get('factor_type'),
             'url': payload.get('url'),
             'links': payload.get('links'),
@@ -545,6 +547,14 @@ class ChallengeInstance(InstanceResource):
         return self._properties['hidden_details']
 
     @property
+    def metadata(self):
+        """
+        :returns: Metadata of the challenge.
+        :rtype: dict
+        """
+        return self._properties['metadata']
+
+    @property
     def factor_type(self):
         """
         :returns: The Factor Type of this Challenge
@@ -577,16 +587,17 @@ class ChallengeInstance(InstanceResource):
         """
         return self._proxy.fetch()
 
-    def update(self, auth_payload=values.unset):
+    def update(self, auth_payload=values.unset, metadata=values.unset):
         """
         Update the ChallengeInstance
 
         :param unicode auth_payload: Optional payload to verify the Challenge
+        :param dict metadata: Metadata of the challenge.
 
         :returns: The updated ChallengeInstance
         :rtype: twilio.rest.verify.v2.service.entity.challenge.ChallengeInstance
         """
-        return self._proxy.update(auth_payload=auth_payload, )
+        return self._proxy.update(auth_payload=auth_payload, metadata=metadata, )
 
     @property
     def notifications(self):

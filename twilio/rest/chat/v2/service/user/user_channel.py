@@ -235,14 +235,18 @@ class UserChannelContext(InstanceContext):
             channel_sid=self._solution['channel_sid'],
         )
 
-    def delete(self):
+    def delete(self, x_twilio_webhook_enabled=values.unset):
         """
         Deletes the UserChannelInstance
+
+        :param UserChannelInstance.WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri, )
+        headers = values.of({'X-Twilio-Webhook-Enabled': x_twilio_webhook_enabled, })
+
+        return self._version.delete(method='DELETE', uri=self._uri, headers=headers, )
 
     def update(self, notification_level=values.unset,
                last_consumed_message_index=values.unset,
@@ -294,6 +298,10 @@ class UserChannelInstance(InstanceResource):
     class NotificationLevel(object):
         DEFAULT = "default"
         MUTED = "muted"
+
+    class WebhookEnabledType(object):
+        TRUE = "true"
+        FALSE = "false"
 
     def __init__(self, version, payload, service_sid, user_sid, channel_sid=None):
         """
@@ -442,14 +450,16 @@ class UserChannelInstance(InstanceResource):
         """
         return self._proxy.fetch()
 
-    def delete(self):
+    def delete(self, x_twilio_webhook_enabled=values.unset):
         """
         Deletes the UserChannelInstance
+
+        :param UserChannelInstance.WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._proxy.delete()
+        return self._proxy.delete(x_twilio_webhook_enabled=x_twilio_webhook_enabled, )
 
     def update(self, notification_level=values.unset,
                last_consumed_message_index=values.unset,

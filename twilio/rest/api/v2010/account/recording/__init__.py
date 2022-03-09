@@ -37,7 +37,8 @@ class RecordingList(ListResource):
 
     def stream(self, date_created_before=values.unset, date_created=values.unset,
                date_created_after=values.unset, call_sid=values.unset,
-               conference_sid=values.unset, limit=None, page_size=None):
+               conference_sid=values.unset, include_soft_deleted=values.unset,
+               limit=None, page_size=None):
         """
         Streams RecordingInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -49,6 +50,7 @@ class RecordingList(ListResource):
         :param datetime date_created_after: Only include recordings that were created on this date
         :param unicode call_sid: The Call SID of the resources to read
         :param unicode conference_sid: Read by unique Conference SID for the recording
+        :param bool include_soft_deleted: A boolean parameter indicating whether to retrieve soft deleted recordings or not.
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -67,6 +69,7 @@ class RecordingList(ListResource):
             date_created_after=date_created_after,
             call_sid=call_sid,
             conference_sid=conference_sid,
+            include_soft_deleted=include_soft_deleted,
             page_size=limits['page_size'],
         )
 
@@ -74,7 +77,8 @@ class RecordingList(ListResource):
 
     def list(self, date_created_before=values.unset, date_created=values.unset,
              date_created_after=values.unset, call_sid=values.unset,
-             conference_sid=values.unset, limit=None, page_size=None):
+             conference_sid=values.unset, include_soft_deleted=values.unset,
+             limit=None, page_size=None):
         """
         Lists RecordingInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -85,6 +89,7 @@ class RecordingList(ListResource):
         :param datetime date_created_after: Only include recordings that were created on this date
         :param unicode call_sid: The Call SID of the resources to read
         :param unicode conference_sid: Read by unique Conference SID for the recording
+        :param bool include_soft_deleted: A boolean parameter indicating whether to retrieve soft deleted recordings or not.
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -101,14 +106,16 @@ class RecordingList(ListResource):
             date_created_after=date_created_after,
             call_sid=call_sid,
             conference_sid=conference_sid,
+            include_soft_deleted=include_soft_deleted,
             limit=limit,
             page_size=page_size,
         ))
 
     def page(self, date_created_before=values.unset, date_created=values.unset,
              date_created_after=values.unset, call_sid=values.unset,
-             conference_sid=values.unset, page_token=values.unset,
-             page_number=values.unset, page_size=values.unset):
+             conference_sid=values.unset, include_soft_deleted=values.unset,
+             page_token=values.unset, page_number=values.unset,
+             page_size=values.unset):
         """
         Retrieve a single page of RecordingInstance records from the API.
         Request is executed immediately
@@ -118,6 +125,7 @@ class RecordingList(ListResource):
         :param datetime date_created_after: Only include recordings that were created on this date
         :param unicode call_sid: The Call SID of the resources to read
         :param unicode conference_sid: Read by unique Conference SID for the recording
+        :param bool include_soft_deleted: A boolean parameter indicating whether to retrieve soft deleted recordings or not.
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -131,6 +139,7 @@ class RecordingList(ListResource):
             'DateCreated>': serialize.iso8601_datetime(date_created_after),
             'CallSid': call_sid,
             'ConferenceSid': conference_sid,
+            'IncludeSoftDeleted': include_soft_deleted,
             'PageToken': page_token,
             'Page': page_number,
             'PageSize': page_size,
@@ -251,14 +260,18 @@ class RecordingContext(InstanceContext):
         self._transcriptions = None
         self._add_on_results = None
 
-    def fetch(self):
+    def fetch(self, include_soft_deleted=values.unset):
         """
         Fetch the RecordingInstance
+
+        :param bool include_soft_deleted: A boolean parameter indicating whether to retrieve soft deleted recordings or not.
 
         :returns: The fetched RecordingInstance
         :rtype: twilio.rest.api.v2010.account.recording.RecordingInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri, )
+        data = values.of({'IncludeSoftDeleted': include_soft_deleted, })
+
+        payload = self._version.fetch(method='GET', uri=self._uri, params=data, )
 
         return RecordingInstance(
             self._version,
@@ -328,6 +341,7 @@ class RecordingInstance(InstanceResource):
         PROCESSING = "processing"
         COMPLETED = "completed"
         ABSENT = "absent"
+        DELETED = "deleted"
 
     class Source(object):
         DIALVERB = "DialVerb"
@@ -534,14 +548,16 @@ class RecordingInstance(InstanceResource):
         """
         return self._properties['subresource_uris']
 
-    def fetch(self):
+    def fetch(self, include_soft_deleted=values.unset):
         """
         Fetch the RecordingInstance
+
+        :param bool include_soft_deleted: A boolean parameter indicating whether to retrieve soft deleted recordings or not.
 
         :returns: The fetched RecordingInstance
         :rtype: twilio.rest.api.v2010.account.recording.RecordingInstance
         """
-        return self._proxy.fetch()
+        return self._proxy.fetch(include_soft_deleted=include_soft_deleted, )
 
     def delete(self):
         """

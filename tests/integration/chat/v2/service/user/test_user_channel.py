@@ -142,11 +142,13 @@ class UserChannelTestCase(IntegrationTestCase):
         with self.assertRaises(TwilioException):
             self.client.chat.v2.services("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                .users("USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                               .user_channels("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete()
+                               .user_channels("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete(x_twilio_webhook_enabled="true")
 
+        headers = {'X-Twilio-Webhook-Enabled': "true", }
         self.holodeck.assert_has_request(Request(
             'delete',
             'https://chat.twilio.com/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Users/USXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Channels/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+            headers=headers,
         ))
 
     def test_delete_response(self):

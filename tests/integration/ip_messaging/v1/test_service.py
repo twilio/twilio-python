@@ -39,11 +39,14 @@ class ServiceTestCase(IntegrationTestCase):
                 "default_service_role_sid": "RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "friendly_name": "friendly_name",
                 "limits": {
-                    "actions_per_second": 20,
                     "channel_members": 100,
                     "user_channels": 250
                 },
-                "links": {},
+                "links": {
+                    "channels": "https://ip-messaging.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels",
+                    "users": "https://ip-messaging.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users",
+                    "roles": "https://ip-messaging.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Roles"
+                },
                 "notifications": {},
                 "post_webhook_url": "post_webhook_url",
                 "pre_webhook_url": "pre_webhook_url",
@@ -51,7 +54,7 @@ class ServiceTestCase(IntegrationTestCase):
                 "read_status_enabled": false,
                 "sid": "ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "typing_indicator_timeout": 100,
-                "url": "http://www.example.com",
+                "url": "https://ip-messaging.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "webhook_filters": [
                     "webhook_filters"
                 ],
@@ -114,11 +117,14 @@ class ServiceTestCase(IntegrationTestCase):
                 "default_service_role_sid": "RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "friendly_name": "friendly_name",
                 "limits": {
-                    "actions_per_second": 20,
                     "channel_members": 100,
                     "user_channels": 250
                 },
-                "links": {},
+                "links": {
+                    "channels": "https://ip-messaging.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels",
+                    "users": "https://ip-messaging.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users",
+                    "roles": "https://ip-messaging.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Roles"
+                },
                 "notifications": {},
                 "post_webhook_url": "post_webhook_url",
                 "pre_webhook_url": "pre_webhook_url",
@@ -126,7 +132,7 @@ class ServiceTestCase(IntegrationTestCase):
                 "read_status_enabled": false,
                 "sid": "ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "typing_indicator_timeout": 100,
-                "url": "http://www.example.com",
+                "url": "https://ip-messaging.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "webhook_filters": [
                     "webhook_filters"
                 ],
@@ -157,13 +163,13 @@ class ServiceTestCase(IntegrationTestCase):
             '''
             {
                 "meta": {
-                    "first_page_url": "https://ip-messaging.twilio.com/v1/Services?Page=0&PageSize=50",
+                    "first_page_url": "https://ip-messaging.twilio.com/v1/Services?PageSize=50&Page=0",
                     "key": "services",
                     "next_page_url": null,
                     "page": 0,
-                    "page_size": 0,
+                    "page_size": 50,
                     "previous_page_url": null,
-                    "url": "https://ip-messaging.twilio.com/v1/Services"
+                    "url": "https://ip-messaging.twilio.com/v1/Services?PageSize=50&Page=0"
                 },
                 "services": []
             }
@@ -180,13 +186,13 @@ class ServiceTestCase(IntegrationTestCase):
             '''
             {
                 "meta": {
-                    "first_page_url": "https://ip-messaging.twilio.com/v1/Services?Page=0&PageSize=50",
+                    "first_page_url": "https://ip-messaging.twilio.com/v1/Services?PageSize=50&Page=0",
                     "key": "services",
                     "next_page_url": null,
                     "page": 0,
-                    "page_size": 1,
+                    "page_size": 50,
                     "previous_page_url": null,
-                    "url": "https://ip-messaging.twilio.com/v1/Services"
+                    "url": "https://ip-messaging.twilio.com/v1/Services?PageSize=50&Page=0"
                 },
                 "services": [
                     {
@@ -199,11 +205,14 @@ class ServiceTestCase(IntegrationTestCase):
                         "default_service_role_sid": "RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                         "friendly_name": "friendly_name",
                         "limits": {
-                            "actions_per_second": 20,
                             "channel_members": 100,
                             "user_channels": 250
                         },
-                        "links": {},
+                        "links": {
+                            "channels": "https://ip-messaging.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels",
+                            "users": "https://ip-messaging.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users",
+                            "roles": "https://ip-messaging.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Roles"
+                        },
                         "notifications": {},
                         "post_webhook_url": "post_webhook_url",
                         "pre_webhook_url": "pre_webhook_url",
@@ -211,7 +220,7 @@ class ServiceTestCase(IntegrationTestCase):
                         "read_status_enabled": false,
                         "sid": "ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                         "typing_indicator_timeout": 100,
-                        "url": "http://www.example.com",
+                        "url": "https://ip-messaging.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                         "webhook_filters": [
                             "webhook_filters"
                         ],
@@ -252,24 +261,125 @@ class ServiceTestCase(IntegrationTestCase):
                 "default_service_role_sid": "RLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "friendly_name": "friendly_name",
                 "limits": {
-                    "actions_per_second": 20,
                     "channel_members": 500,
                     "user_channels": 600
                 },
-                "links": {},
-                "notifications": {},
+                "links": {
+                    "channels": "https://ip-messaging.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels",
+                    "users": "https://ip-messaging.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Users",
+                    "roles": "https://ip-messaging.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Roles"
+                },
+                "notifications": {
+                    "added_to_channel": {
+                        "enabled": false,
+                        "template": "notifications.added_to_channel.template"
+                    },
+                    "invited_to_channel": {
+                        "enabled": false,
+                        "template": "notifications.invited_to_channel.template"
+                    },
+                    "new_message": {
+                        "enabled": false,
+                        "template": "notifications.new_message.template"
+                    },
+                    "removed_from_channel": {
+                        "enabled": false,
+                        "template": "notifications.removed_from_channel.template"
+                    }
+                },
                 "post_webhook_url": "post_webhook_url",
                 "pre_webhook_url": "pre_webhook_url",
                 "reachability_enabled": false,
                 "read_status_enabled": false,
                 "sid": "ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "typing_indicator_timeout": 100,
-                "url": "http://www.example.com",
+                "url": "https://ip-messaging.twilio.com/v1/Services/ISaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "webhook_filters": [
                     "webhook_filters"
                 ],
                 "webhook_method": "webhook_method",
-                "webhooks": {}
+                "webhooks": {
+                    "on_channel_add": {
+                        "format": "webhooks.on_channel_add.format",
+                        "method": "webhooks.on_channel_add.method",
+                        "url": "webhooks.on_channel_add.url"
+                    },
+                    "on_channel_added": {
+                        "format": "webhooks.on_channel_added.format",
+                        "method": "webhooks.on_channel_added.method",
+                        "url": "webhooks.on_channel_added.url"
+                    },
+                    "on_channel_destroy": {
+                        "format": "webhooks.on_channel_destroy.format",
+                        "method": "webhooks.on_channel_destroy.method",
+                        "url": "webhooks.on_channel_destroy.url"
+                    },
+                    "on_channel_destroyed": {
+                        "format": "webhooks.on_channel_destroyed.format",
+                        "method": "webhooks.on_channel_destroyed.method",
+                        "url": "webhooks.on_channel_destroyed.url"
+                    },
+                    "on_channel_update": {
+                        "format": "webhooks.on_channel_update.format",
+                        "method": "webhooks.on_channel_update.method",
+                        "url": "webhooks.on_channel_update.url"
+                    },
+                    "on_channel_updated": {
+                        "format": "webhooks.on_channel_updated.format",
+                        "method": "webhooks.on_channel_updated.method",
+                        "url": "webhooks.on_channel_updated.url"
+                    },
+                    "on_member_add": {
+                        "format": "webhooks.on_member_add.format",
+                        "method": "webhooks.on_member_add.method",
+                        "url": "webhooks.on_member_add.url"
+                    },
+                    "on_member_added": {
+                        "format": "webhooks.on_member_added.format",
+                        "method": "webhooks.on_member_added.method",
+                        "url": "webhooks.on_member_added.url"
+                    },
+                    "on_member_remove": {
+                        "format": "webhooks.on_member_remove.format",
+                        "method": "webhooks.on_member_remove.method",
+                        "url": "webhooks.on_member_remove.url"
+                    },
+                    "on_member_removed": {
+                        "format": "webhooks.on_member_removed.format",
+                        "method": "webhooks.on_member_removed.method",
+                        "url": "webhooks.on_member_removed.url"
+                    },
+                    "on_message_remove": {
+                        "format": "webhooks.on_message_remove.format",
+                        "method": "webhooks.on_message_remove.method",
+                        "url": "webhooks.on_message_remove.url"
+                    },
+                    "on_message_removed": {
+                        "format": "webhooks.on_message_removed.format",
+                        "method": "webhooks.on_message_removed.method",
+                        "url": "webhooks.on_message_removed.url"
+                    },
+                    "on_message_send": {
+                        "format": "webhooks.on_message_send.format",
+                        "method": "webhooks.on_message_send.method",
+                        "url": "webhooks.on_message_send.url"
+                    },
+                    "on_message_sent": {
+                        "format": "webhooks.on_message_sent.format",
+                        "method": "webhooks.on_message_sent.method",
+                        "url": "webhooks.on_message_sent.url"
+                    },
+                    "on_message_update": {
+                        "format": "webhooks.on_message_update.format",
+                        "method": "webhooks.on_message_update.method",
+                        "url": "webhooks.on_message_update.url"
+                    },
+                    "on_message_updated": {
+                        "format": "webhooks.on_message_updated.format",
+                        "method": "webhooks.on_message_updated.method",
+                        "url": "webhooks.on_message_updated.url"
+                    }
+                }
             }
             '''
         ))

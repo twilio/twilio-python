@@ -44,6 +44,13 @@ class Media(Domain):
         return self.v1.media_processor
 
     @property
+    def media_recording(self):
+        """
+        :rtype: twilio.rest.media.v1.media_recording.MediaRecordingList
+        """
+        return self.v1.media_recording
+
+    @property
     def player_streamer(self):
         """
         :rtype: twilio.rest.media.v1.player_streamer.PlayerStreamerList
