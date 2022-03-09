@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-MWRD6S');</script><!--End Google Tag Manager-->
 <meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<title>twilio.rest.chat.v2.service.user package — twilio-python 7.7.0 documentation</title>
+<title>twilio.rest.chat.v2.service.user package — twilio-python 7.7.1 documentation</title>
 <link href="../../../_static/alabaster.css" rel="stylesheet" type="text/css"/>
 <link href="../../../_static/pygments.css" rel="stylesheet" type="text/css"/>
 <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js" type="text/javascript"></script>
@@ -465,15 +465,17 @@ limit with the most efficient page size, i.e. min(limit, 1000)</li>
 <dd><p>Bases: <a class="reference internal" href="twilio.base.html#twilio.base.instance_context.InstanceContext" title="twilio.base.instance_context.InstanceContext"><code class="xref py py-class docutils literal notranslate"><span class="pre">twilio.base.instance_context.InstanceContext</span></code></a></p>
 <dl class="method">
 <dt id="twilio.rest.chat.v2.service.user.user_channel.UserChannelContext.delete">
-<code class="descname">delete</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/chat/v2/service/user/user_channel.html#UserChannelContext.delete"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.chat.v2.service.user.user_channel.UserChannelContext.delete" title="Permalink to this definition">¶</a></dt>
+<code class="descname">delete</code><span class="sig-paren">(</span><em>x_twilio_webhook_enabled=&lt;object object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/chat/v2/service/user/user_channel.html#UserChannelContext.delete"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.chat.v2.service.user.user_channel.UserChannelContext.delete" title="Permalink to this definition">¶</a></dt>
 <dd><p>Deletes the UserChannelInstance</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">True if delete succeeds, False otherwise</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>x_twilio_webhook_enabled</strong> (<a class="reference internal" href="#twilio.rest.chat.v2.service.user.user_channel.UserChannelInstance.WebhookEnabledType" title="twilio.rest.chat.v2.service.user.user_channel.UserChannelInstance.WebhookEnabledType"><em>UserChannelInstance.WebhookEnabledType</em></a>) – The X-Twilio-Webhook-Enabled HTTP request header</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)">bool</a></td>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">True if delete succeeds, False otherwise</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)">bool</a></td>
 </tr>
 </tbody>
 </table>
@@ -552,6 +554,19 @@ limit with the most efficient page size, i.e. min(limit, 1000)</li>
 <code class="descname">MUTED</code><em class="property"> = 'muted'</em><a class="headerlink" href="#twilio.rest.chat.v2.service.user.user_channel.UserChannelInstance.NotificationLevel.MUTED" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 </dd></dl>
+<dl class="class">
+<dt id="twilio.rest.chat.v2.service.user.user_channel.UserChannelInstance.WebhookEnabledType">
+<em class="property">class </em><code class="descname">WebhookEnabledType</code><a class="reference internal" href="../../../_modules/twilio/rest/chat/v2/service/user/user_channel.html#UserChannelInstance.WebhookEnabledType"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.chat.v2.service.user.user_channel.UserChannelInstance.WebhookEnabledType" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dl class="attribute">
+<dt id="twilio.rest.chat.v2.service.user.user_channel.UserChannelInstance.WebhookEnabledType.FALSE">
+<code class="descname">FALSE</code><em class="property"> = 'false'</em><a class="headerlink" href="#twilio.rest.chat.v2.service.user.user_channel.UserChannelInstance.WebhookEnabledType.FALSE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="attribute">
+<dt id="twilio.rest.chat.v2.service.user.user_channel.UserChannelInstance.WebhookEnabledType.TRUE">
+<code class="descname">TRUE</code><em class="property"> = 'true'</em><a class="headerlink" href="#twilio.rest.chat.v2.service.user.user_channel.UserChannelInstance.WebhookEnabledType.TRUE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+</dd></dl>
 <dl class="attribute">
 <dt id="twilio.rest.chat.v2.service.user.user_channel.UserChannelInstance.account_sid">
 <code class="descname">account_sid</code><a class="headerlink" href="#twilio.rest.chat.v2.service.user.user_channel.UserChannelInstance.account_sid" title="Permalink to this definition">¶</a></dt>
@@ -582,15 +597,17 @@ limit with the most efficient page size, i.e. min(limit, 1000)</li>
 </dd></dl>
 <dl class="method">
 <dt id="twilio.rest.chat.v2.service.user.user_channel.UserChannelInstance.delete">
-<code class="descname">delete</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/chat/v2/service/user/user_channel.html#UserChannelInstance.delete"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.chat.v2.service.user.user_channel.UserChannelInstance.delete" title="Permalink to this definition">¶</a></dt>
+<code class="descname">delete</code><span class="sig-paren">(</span><em>x_twilio_webhook_enabled=&lt;object object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/chat/v2/service/user/user_channel.html#UserChannelInstance.delete"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.chat.v2.service.user.user_channel.UserChannelInstance.delete" title="Permalink to this definition">¶</a></dt>
 <dd><p>Deletes the UserChannelInstance</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">True if delete succeeds, False otherwise</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>x_twilio_webhook_enabled</strong> (<a class="reference internal" href="#twilio.rest.chat.v2.service.user.user_channel.UserChannelInstance.WebhookEnabledType" title="twilio.rest.chat.v2.service.user.user_channel.UserChannelInstance.WebhookEnabledType"><em>UserChannelInstance.WebhookEnabledType</em></a>) – The X-Twilio-Webhook-Enabled HTTP request header</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)">bool</a></td>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">True if delete succeeds, False otherwise</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)">bool</a></td>
 </tr>
 </tbody>
 </table>

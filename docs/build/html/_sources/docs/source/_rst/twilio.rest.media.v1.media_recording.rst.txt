@@ -1,0 +1,10 @@
+twilio.rest.media.v1.media\_recording package
+=============================================
+
+Module contents
+---------------
+
+.. automodule:: twilio.rest.media.v1.media_recording
+    :members:
+    :undoc-members:
+    :show-inheritance:

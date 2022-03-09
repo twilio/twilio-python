@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-MWRD6S');</script><!--End Google Tag Manager-->
 <meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<title>twilio.rest.verify.v2.service.entity.challenge package — twilio-python 7.7.0 documentation</title>
+<title>twilio.rest.verify.v2.service.entity.challenge package — twilio-python 7.7.1 documentation</title>
 <link href="../../../_static/alabaster.css" rel="stylesheet" type="text/css"/>
 <link href="../../../_static/pygments.css" rel="stylesheet" type="text/css"/>
 <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js" type="text/javascript"></script>
@@ -274,17 +274,23 @@ change. Use them with caution.</p>
 </dd></dl>
 <dl class="method">
 <dt id="twilio.rest.verify.v2.service.entity.challenge.ChallengeContext.update">
-<code class="descname">update</code><span class="sig-paren">(</span><em>auth_payload=&lt;object object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/verify/v2/service/entity/challenge.html#ChallengeContext.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.verify.v2.service.entity.challenge.ChallengeContext.update" title="Permalink to this definition">¶</a></dt>
+<code class="descname">update</code><span class="sig-paren">(</span><em>auth_payload=&lt;object object&gt;</em>, <em>metadata=&lt;object object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/verify/v2/service/entity/challenge.html#ChallengeContext.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.verify.v2.service.entity.challenge.ChallengeContext.update" title="Permalink to this definition">¶</a></dt>
 <dd><p>Update the ChallengeInstance</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>auth_payload</strong> (<em>unicode</em>) – Optional payload to verify the Challenge</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>auth_payload</strong> (<em>unicode</em>) – Optional payload to verify the Challenge</li>
+<li><strong>metadata</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a>) – Metadata of the challenge.</li>
+</ul>
+</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The updated ChallengeInstance</td>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The updated ChallengeInstance</p>
+</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#twilio.rest.verify.v2.service.entity.challenge.ChallengeInstance" title="twilio.rest.verify.v2.service.entity.challenge.ChallengeInstance">twilio.rest.verify.v2.service.entity.challenge.ChallengeInstance</a></td>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#twilio.rest.verify.v2.service.entity.challenge.ChallengeInstance" title="twilio.rest.verify.v2.service.entity.challenge.ChallengeInstance">twilio.rest.verify.v2.service.entity.challenge.ChallengeInstance</a></p>
+</td>
 </tr>
 </tbody>
 </table>
@@ -544,6 +550,20 @@ change. Use them with caution.</p>
 </table>
 </dd></dl>
 <dl class="attribute">
+<dt id="twilio.rest.verify.v2.service.entity.challenge.ChallengeInstance.metadata">
+<code class="descname">metadata</code><a class="headerlink" href="#twilio.rest.verify.v2.service.entity.challenge.ChallengeInstance.metadata" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Metadata of the challenge.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)">dict</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+<dl class="attribute">
 <dt id="twilio.rest.verify.v2.service.entity.challenge.ChallengeInstance.notifications">
 <code class="descname">notifications</code><a class="headerlink" href="#twilio.rest.verify.v2.service.entity.challenge.ChallengeInstance.notifications" title="Permalink to this definition">¶</a></dt>
 <dd><p>Access the notifications</p>
@@ -616,17 +636,23 @@ change. Use them with caution.</p>
 </dd></dl>
 <dl class="method">
 <dt id="twilio.rest.verify.v2.service.entity.challenge.ChallengeInstance.update">
-<code class="descname">update</code><span class="sig-paren">(</span><em>auth_payload=&lt;object object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/verify/v2/service/entity/challenge.html#ChallengeInstance.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.verify.v2.service.entity.challenge.ChallengeInstance.update" title="Permalink to this definition">¶</a></dt>
+<code class="descname">update</code><span class="sig-paren">(</span><em>auth_payload=&lt;object object&gt;</em>, <em>metadata=&lt;object object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/verify/v2/service/entity/challenge.html#ChallengeInstance.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.verify.v2.service.entity.challenge.ChallengeInstance.update" title="Permalink to this definition">¶</a></dt>
 <dd><p>Update the ChallengeInstance</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>auth_payload</strong> (<em>unicode</em>) – Optional payload to verify the Challenge</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>auth_payload</strong> (<em>unicode</em>) – Optional payload to verify the Challenge</li>
+<li><strong>metadata</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a>) – Metadata of the challenge.</li>
+</ul>
+</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The updated ChallengeInstance</td>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The updated ChallengeInstance</p>
+</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#twilio.rest.verify.v2.service.entity.challenge.ChallengeInstance" title="twilio.rest.verify.v2.service.entity.challenge.ChallengeInstance">twilio.rest.verify.v2.service.entity.challenge.ChallengeInstance</a></td>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#twilio.rest.verify.v2.service.entity.challenge.ChallengeInstance" title="twilio.rest.verify.v2.service.entity.challenge.ChallengeInstance">twilio.rest.verify.v2.service.entity.challenge.ChallengeInstance</a></p>
+</td>
 </tr>
 </tbody>
 </table>

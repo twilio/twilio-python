@@ -6,6 +6,7 @@ Subpackages
 
 .. toctree::
 
+    twilio.rest.media.v1.media_recording
     twilio.rest.media.v1.player_streamer
 
 Submodules
