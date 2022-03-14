@@ -39,7 +39,7 @@ class TwilioHttpClient(HttpClient):
         if timeout is not None and timeout <= 0:
             raise ValueError(timeout)
         self.timeout = timeout
-        self.proxy = proxy
+        self.proxy = proxy if proxy else {}
 
     def request(self, method, url, params=None, data=None, headers=None, auth=None, timeout=None,
                 allow_redirects=False):
@@ -76,17 +76,17 @@ class TwilioHttpClient(HttpClient):
 
         self.last_response = None
         session = self.session or Session()
-        if self.proxy:
-            session.proxies = self.proxy
         request = Request(**kwargs)
         self.last_request = TwilioRequest(**kwargs)
 
         prepped_request = session.prepare_request(request)
-        response = session.send(
-            prepped_request,
-            allow_redirects=allow_redirects,
-            timeout=timeout if timeout is not None else self.timeout,
-        )
+
+        settings = session.merge_environment_settings(prepped_request.url, self.proxy, None, None, None)
+
+        settings['allow_redirects'] = allow_redirects
+        settings['timeout'] = timeout if timeout is not None else self.timeout
+
+        response = session.send(prepped_request, **settings)
 
         self._log_response(response)
 
