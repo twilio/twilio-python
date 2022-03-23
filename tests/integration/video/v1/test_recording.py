@@ -45,6 +45,8 @@ class RecordingTestCase(IntegrationTestCase):
                 "codec": "OPUS",
                 "track_name": "A name",
                 "offset": 10,
+                "status_callback": "https://mycallbackurl.com",
+                "status_callback_method": "POST",
                 "grouping_sids": {
                     "room_sid": "RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
                 },
@@ -116,6 +118,8 @@ class RecordingTestCase(IntegrationTestCase):
                         "codec": "OPUS",
                         "track_name": "A name",
                         "offset": 10,
+                        "status_callback": "https://mycallbackurl.com",
+                        "status_callback_method": "POST",
                         "grouping_sids": {
                             "room_sid": "RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                             "participant_sid": "PAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"

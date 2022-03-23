@@ -221,6 +221,7 @@ class ConfigurationInstance(InstanceResource):
             'flex_insights_hr': payload.get('flex_insights_hr'),
             'flex_insights_drilldown': payload.get('flex_insights_drilldown'),
             'flex_url': payload.get('flex_url'),
+            'channel_configs': payload.get('channel_configs'),
         }
 
         # Context
@@ -575,6 +576,14 @@ class ConfigurationInstance(InstanceResource):
         :rtype: unicode
         """
         return self._properties['flex_url']
+
+    @property
+    def channel_configs(self):
+        """
+        :returns: Flex Conversations channels' attachments configurations
+        :rtype: list[dict]
+        """
+        return self._properties['channel_configs']
 
     def fetch(self, ui_version=values.unset):
         """

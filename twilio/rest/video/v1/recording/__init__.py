@@ -331,6 +331,8 @@ class RecordingInstance(InstanceResource):
             'track_name': payload.get('track_name'),
             'offset': deserialize.integer(payload.get('offset')),
             'media_external_location': payload.get('media_external_location'),
+            'status_callback': payload.get('status_callback'),
+            'status_callback_method': payload.get('status_callback_method'),
             'links': payload.get('links'),
         }
 
@@ -470,6 +472,22 @@ class RecordingInstance(InstanceResource):
         :rtype: unicode
         """
         return self._properties['media_external_location']
+
+    @property
+    def status_callback(self):
+        """
+        :returns: The URL called to send status information on every recording event.
+        :rtype: unicode
+        """
+        return self._properties['status_callback']
+
+    @property
+    def status_callback_method(self):
+        """
+        :returns: The HTTP method used to call `status_callback`
+        :rtype: unicode
+        """
+        return self._properties['status_callback_method']
 
     @property
     def links(self):

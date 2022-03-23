@@ -424,7 +424,7 @@ class MediaProcessorInstance(InstanceResource):
     @property
     def max_duration(self):
         """
-        :returns: Maximum MediaProcessor duration in minutes
+        :returns: Maximum MediaProcessor duration in seconds
         :rtype: unicode
         """
         return self._properties['max_duration']

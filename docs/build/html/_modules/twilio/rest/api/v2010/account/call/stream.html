@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-MWRD6S');</script><!--End Google Tag Manager-->
 <meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<title>twilio.rest.api.v2010.account.call.stream — twilio-python 7.7.1 documentation</title>
+<title>twilio.rest.api.v2010.account.call.stream — twilio-python 7.8.0 documentation</title>
 <link href="../../../../../../../_static/alabaster.css" rel="stylesheet" type="text/css"/>
 <link href="../../../../../../../_static/pygments.css" rel="stylesheet" type="text/css"/>
 <script data-url_root="../../../../../../../" id="documentation_options" src="../../../../../../../_static/documentation_options.js" type="text/javascript"></script>
@@ -63,7 +63,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="bp">self</span><span class="o">.</span><span class="n">_solution</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'account_sid'</span><span class="p">:</span> <span class="n">account_sid</span><span class="p">,</span> <span class="s1">'call_sid'</span><span class="p">:</span> <span class="n">call_sid</span><span class="p">,</span> <span class="p">}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_uri</span> <span class="o">=</span> <span class="s1">'/Accounts/</span><span class="si">{account_sid}</span><span class="s1">/Calls/</span><span class="si">{call_sid}</span><span class="s1">/Streams.json'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">_solution</span><span class="p">)</span>
 
-<div class="viewcode-block" id="StreamList.create"><a class="viewcode-back" href="../../../../../../../docs/source/_rst/twilio.rest.api.v2010.account.call.html#twilio.rest.api.v2010.account.call.stream.StreamList.create">[docs]</a>    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">track</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
+<div class="viewcode-block" id="StreamList.create"><a class="viewcode-back" href="../../../../../../../docs/source/_rst/twilio.rest.api.v2010.account.call.html#twilio.rest.api.v2010.account.call.stream.StreamList.create">[docs]</a>    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">track</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
                <span class="n">status_callback</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">status_callback_method</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
                <span class="n">parameter1_name</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">parameter1_value</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
                <span class="n">parameter2_name</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">parameter2_value</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
@@ -167,8 +167,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="sd">"""</span>
 <span class="sd">        Create the StreamInstance</span>
 
-<span class="sd">        :param unicode name: The name of this resource</span>
 <span class="sd">        :param unicode url: Url where WebSocket connection will be established.</span>
+<span class="sd">        :param unicode name: The name of this resource</span>
 <span class="sd">        :param StreamInstance.Track track: One of `inbound_track`, `outbound_track`, `both_tracks`.</span>
 <span class="sd">        :param unicode status_callback: Absolute URL of the status callback.</span>
 <span class="sd">        :param unicode status_callback_method: The http method for the status_callback.</span>
@@ -375,8 +375,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <span class="sd">        :rtype: twilio.rest.api.v2010.account.call.stream.StreamInstance</span>
 <span class="sd">        """</span>
         <span class="n">data</span> <span class="o">=</span> <span class="n">values</span><span class="o">.</span><span class="n">of</span><span class="p">({</span>
-            <span class="s1">'Name'</span><span class="p">:</span> <span class="n">name</span><span class="p">,</span>
             <span class="s1">'Url'</span><span class="p">:</span> <span class="n">url</span><span class="p">,</span>
+            <span class="s1">'Name'</span><span class="p">:</span> <span class="n">name</span><span class="p">,</span>
             <span class="s1">'Track'</span><span class="p">:</span> <span class="n">track</span><span class="p">,</span>
             <span class="s1">'StatusCallback'</span><span class="p">:</span> <span class="n">status_callback</span><span class="p">,</span>
             <span class="s1">'StatusCallbackMethod'</span><span class="p">:</span> <span class="n">status_callback_method</span><span class="p">,</span>

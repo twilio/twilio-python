@@ -394,6 +394,8 @@ class YesterdayInstance(InstanceResource):
         TURNMEGABYTES_USWEST = "turnmegabytes-uswest"
         TWILIO_INTERCONNECT = "twilio-interconnect"
         VERIFY_PUSH = "verify-push"
+        VERIFY_TOTP = "verify-totp"
+        VERIFY_WHATSAPP_CONVERSATIONS_BUSINESS_INITIATED = "verify-whatsapp-conversations-business-initiated"
         VIDEO_RECORDINGS = "video-recordings"
         VOICE_INSIGHTS = "voice-insights"
         VOICE_INSIGHTS_CLIENT_INSIGHTS_ON_DEMAND_MINUTE = "voice-insights-client-insights-on-demand-minute"

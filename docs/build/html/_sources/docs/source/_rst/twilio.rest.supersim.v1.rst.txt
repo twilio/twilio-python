@@ -12,14 +12,6 @@ Subpackages
 Submodules
 ----------
 
-twilio.rest.supersim.v1.command module
---------------------------------------
-
-.. automodule:: twilio.rest.supersim.v1.command
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
 twilio.rest.supersim.v1.esim\_profile module
 --------------------------------------------
 

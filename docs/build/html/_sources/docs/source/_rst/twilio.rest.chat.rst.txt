@@ -8,6 +8,7 @@ Subpackages
 
     twilio.rest.chat.v1
     twilio.rest.chat.v2
+    twilio.rest.chat.v3
 
 Module contents
 ---------------

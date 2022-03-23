@@ -20,11 +20,14 @@ class StreamTestCase(IntegrationTestCase):
         with self.assertRaises(TwilioException):
             self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                  .calls("CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .streams.create()
+                                 .streams.create(url="https://example.com")
+
+        values = {'Url': "https://example.com", }
 
         self.holodeck.assert_has_request(Request(
             'post',
             'https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Calls/CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Streams.json',
+            data=values,
         ))
 
     def test_create_no_args_response(self):
@@ -45,7 +48,7 @@ class StreamTestCase(IntegrationTestCase):
 
         actual = self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                       .calls("CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .streams.create()
+                                      .streams.create(url="https://example.com")
 
         self.assertIsNotNone(actual)
 
@@ -67,7 +70,7 @@ class StreamTestCase(IntegrationTestCase):
 
         actual = self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                       .calls("CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .streams.create()
+                                      .streams.create(url="https://example.com")
 
         self.assertIsNotNone(actual)
 
