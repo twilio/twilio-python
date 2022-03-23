@@ -33,7 +33,7 @@ class StreamList(ListResource):
         self._solution = {'account_sid': account_sid, 'call_sid': call_sid, }
         self._uri = '/Accounts/{account_sid}/Calls/{call_sid}/Streams.json'.format(**self._solution)
 
-    def create(self, name=values.unset, url=values.unset, track=values.unset,
+    def create(self, url, name=values.unset, track=values.unset,
                status_callback=values.unset, status_callback_method=values.unset,
                parameter1_name=values.unset, parameter1_value=values.unset,
                parameter2_name=values.unset, parameter2_value=values.unset,
@@ -137,8 +137,8 @@ class StreamList(ListResource):
         """
         Create the StreamInstance
 
-        :param unicode name: The name of this resource
         :param unicode url: Url where WebSocket connection will be established.
+        :param unicode name: The name of this resource
         :param StreamInstance.Track track: One of `inbound_track`, `outbound_track`, `both_tracks`.
         :param unicode status_callback: Absolute URL of the status callback.
         :param unicode status_callback_method: The http method for the status_callback.
@@ -345,8 +345,8 @@ class StreamList(ListResource):
         :rtype: twilio.rest.api.v2010.account.call.stream.StreamInstance
         """
         data = values.of({
-            'Name': name,
             'Url': url,
+            'Name': name,
             'Track': track,
             'StatusCallback': status_callback,
             'StatusCallbackMethod': status_callback_method,

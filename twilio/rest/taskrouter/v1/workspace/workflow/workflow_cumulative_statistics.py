@@ -143,7 +143,7 @@ class WorkflowCumulativeStatisticsContext(InstanceContext):
         :param unicode minutes: Only calculate statistics since this many minutes in the past
         :param datetime start_date: Only calculate statistics from on or after this date
         :param unicode task_channel: Only calculate cumulative statistics on this TaskChannel
-        :param unicode split_by_wait_time: A comma separated list of values that describes the thresholds to calculate statistics on
+        :param unicode split_by_wait_time: A comma separated list of values that describes the thresholds, in seconds, to calculate statistics on
 
         :returns: The fetched WorkflowCumulativeStatisticsInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.workflow.workflow_cumulative_statistics.WorkflowCumulativeStatisticsInstance
@@ -420,7 +420,7 @@ class WorkflowCumulativeStatisticsInstance(InstanceResource):
         :param unicode minutes: Only calculate statistics since this many minutes in the past
         :param datetime start_date: Only calculate statistics from on or after this date
         :param unicode task_channel: Only calculate cumulative statistics on this TaskChannel
-        :param unicode split_by_wait_time: A comma separated list of values that describes the thresholds to calculate statistics on
+        :param unicode split_by_wait_time: A comma separated list of values that describes the thresholds, in seconds, to calculate statistics on
 
         :returns: The fetched WorkflowCumulativeStatisticsInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.workflow.workflow_cumulative_statistics.WorkflowCumulativeStatisticsInstance

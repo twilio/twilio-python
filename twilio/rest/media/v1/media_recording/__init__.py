@@ -34,7 +34,8 @@ class MediaRecordingList(ListResource):
         self._solution = {}
         self._uri = '/MediaRecordings'.format(**self._solution)
 
-    def stream(self, order=values.unset, status=values.unset, limit=None,
+    def stream(self, order=values.unset, status=values.unset,
+               processor_sid=values.unset, source_sid=values.unset, limit=None,
                page_size=None):
         """
         Streams MediaRecordingInstance records from the API as a generator stream.
@@ -44,6 +45,8 @@ class MediaRecordingList(ListResource):
 
         :param MediaRecordingInstance.Order order: The sort order of the list
         :param MediaRecordingInstance.Status status: Status to filter by
+        :param unicode processor_sid: MediaProcessor to filter by
+        :param unicode source_sid: Source SID to filter by
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -56,11 +59,18 @@ class MediaRecordingList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
 
-        page = self.page(order=order, status=status, page_size=limits['page_size'], )
+        page = self.page(
+            order=order,
+            status=status,
+            processor_sid=processor_sid,
+            source_sid=source_sid,
+            page_size=limits['page_size'],
+        )
 
         return self._version.stream(page, limits['limit'])
 
-    def list(self, order=values.unset, status=values.unset, limit=None,
+    def list(self, order=values.unset, status=values.unset,
+             processor_sid=values.unset, source_sid=values.unset, limit=None,
              page_size=None):
         """
         Lists MediaRecordingInstance records from the API as a list.
@@ -69,6 +79,8 @@ class MediaRecordingList(ListResource):
 
         :param MediaRecordingInstance.Order order: The sort order of the list
         :param MediaRecordingInstance.Status status: Status to filter by
+        :param unicode processor_sid: MediaProcessor to filter by
+        :param unicode source_sid: Source SID to filter by
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -79,16 +91,27 @@ class MediaRecordingList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.media.v1.media_recording.MediaRecordingInstance]
         """
-        return list(self.stream(order=order, status=status, limit=limit, page_size=page_size, ))
+        return list(self.stream(
+            order=order,
+            status=status,
+            processor_sid=processor_sid,
+            source_sid=source_sid,
+            limit=limit,
+            page_size=page_size,
+        ))
 
-    def page(self, order=values.unset, status=values.unset, page_token=values.unset,
-             page_number=values.unset, page_size=values.unset):
+    def page(self, order=values.unset, status=values.unset,
+             processor_sid=values.unset, source_sid=values.unset,
+             page_token=values.unset, page_number=values.unset,
+             page_size=values.unset):
         """
         Retrieve a single page of MediaRecordingInstance records from the API.
         Request is executed immediately
 
         :param MediaRecordingInstance.Order order: The sort order of the list
         :param MediaRecordingInstance.Status status: Status to filter by
+        :param unicode processor_sid: MediaProcessor to filter by
+        :param unicode source_sid: Source SID to filter by
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -99,6 +122,8 @@ class MediaRecordingList(ListResource):
         data = values.of({
             'Order': order,
             'Status': status,
+            'ProcessorSid': processor_sid,
+            'SourceSid': source_sid,
             'PageToken': page_token,
             'Page': page_number,
             'PageSize': page_size,

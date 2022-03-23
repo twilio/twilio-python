@@ -33,13 +33,14 @@ class PlayerStreamerList(ListResource):
         self._uri = '/PlayerStreamers'.format(**self._solution)
 
     def create(self, video=values.unset, status_callback=values.unset,
-               status_callback_method=values.unset):
+               status_callback_method=values.unset, max_duration=values.unset):
         """
         Create the PlayerStreamerInstance
 
         :param bool video: Whether the PlayerStreamer is configured to stream video
         :param unicode status_callback: The URL to which Twilio will send PlayerStreamer event updates
         :param unicode status_callback_method: The HTTP method Twilio should use to call the `status_callback` URL
+        :param unicode max_duration: Maximum PlayerStreamer duration in seconds
 
         :returns: The created PlayerStreamerInstance
         :rtype: twilio.rest.media.v1.player_streamer.PlayerStreamerInstance
@@ -48,6 +49,7 @@ class PlayerStreamerList(ListResource):
             'Video': video,
             'StatusCallback': status_callback,
             'StatusCallbackMethod': status_callback_method,
+            'MaxDuration': max_duration,
         })
 
         payload = self._version.create(method='POST', uri=self._uri, data=data, )
@@ -328,6 +330,7 @@ class PlayerStreamerInstance(InstanceResource):
             'status_callback': payload.get('status_callback'),
             'status_callback_method': payload.get('status_callback_method'),
             'ended_reason': payload.get('ended_reason'),
+            'max_duration': deserialize.integer(payload.get('max_duration')),
         }
 
         # Context
@@ -434,6 +437,14 @@ class PlayerStreamerInstance(InstanceResource):
         :rtype: PlayerStreamerInstance.EndedReason
         """
         return self._properties['ended_reason']
+
+    @property
+    def max_duration(self):
+        """
+        :returns: Maximum PlayerStreamer duration in seconds
+        :rtype: unicode
+        """
+        return self._properties['max_duration']
 
     def fetch(self):
         """

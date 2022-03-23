@@ -10,6 +10,7 @@ from twilio.base.version import Version
 from twilio.rest.flex_api.v1.channel import ChannelList
 from twilio.rest.flex_api.v1.configuration import ConfigurationList
 from twilio.rest.flex_api.v1.flex_flow import FlexFlowList
+from twilio.rest.flex_api.v1.interaction import InteractionList
 from twilio.rest.flex_api.v1.web_channel import WebChannelList
 
 
@@ -27,6 +28,7 @@ class V1(Version):
         self._channel = None
         self._configuration = None
         self._flex_flow = None
+        self._interaction = None
         self._web_channel = None
 
     @property
@@ -55,6 +57,15 @@ class V1(Version):
         if self._flex_flow is None:
             self._flex_flow = FlexFlowList(self)
         return self._flex_flow
+
+    @property
+    def interaction(self):
+        """
+        :rtype: twilio.rest.flex_api.v1.interaction.InteractionList
+        """
+        if self._interaction is None:
+            self._interaction = InteractionList(self)
+        return self._interaction
 
     @property
     def web_channel(self):

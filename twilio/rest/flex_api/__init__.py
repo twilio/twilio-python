@@ -58,6 +58,13 @@ class FlexApi(Domain):
         return self.v1.flex_flow
 
     @property
+    def interaction(self):
+        """
+        :rtype: twilio.rest.flex_api.v1.interaction.InteractionList
+        """
+        return self.v1.interaction
+
+    @property
     def web_channel(self):
         """
         :rtype: twilio.rest.flex_api.v1.web_channel.WebChannelList

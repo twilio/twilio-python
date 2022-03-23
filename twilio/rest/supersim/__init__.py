@@ -37,13 +37,6 @@ class Supersim(Domain):
         return self._v1
 
     @property
-    def commands(self):
-        """
-        :rtype: twilio.rest.supersim.v1.command.CommandList
-        """
-        return self.v1.commands
-
-    @property
     def esim_profiles(self):
         """
         :rtype: twilio.rest.supersim.v1.esim_profile.EsimProfileList

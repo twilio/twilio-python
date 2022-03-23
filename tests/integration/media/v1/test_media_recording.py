@@ -97,9 +97,9 @@ class MediaRecordingTestCase(IntegrationTestCase):
                 "meta": {
                     "page": 0,
                     "page_size": 10,
-                    "first_page_url": "https://media.twilio.com/v1/MediaRecordings?Status=processing&Order=asc&PageSize=10&Page=0",
+                    "first_page_url": "https://media.twilio.com/v1/MediaRecordings?Status=processing&SourceSid=RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&ProcessorSid=ZXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&Order=asc&PageSize=10&Page=0",
                     "previous_page_url": null,
-                    "url": "https://media.twilio.com/v1/MediaRecordings?Status=processing&Order=asc&PageSize=10&Page=0",
+                    "url": "https://media.twilio.com/v1/MediaRecordings?Status=processing&SourceSid=RMaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&ProcessorSid=ZXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&Order=asc&PageSize=10&Page=0",
                     "next_page_url": null,
                     "key": "media_recordings"
                 },
@@ -120,9 +120,9 @@ class MediaRecordingTestCase(IntegrationTestCase):
                 "meta": {
                     "page": 0,
                     "page_size": 10,
-                    "first_page_url": "https://media.twilio.com/v1/MediaRecordings?Status=completed&Order=desc&PageSize=10&Page=0",
+                    "first_page_url": "https://media.twilio.com/v1/MediaRecordings?Status=completed&SourceSid=RMcafebabecafebabecafebabecafebabe&ProcessorSid=ZXcafebabecafebabecafebabecafebabe&Order=desc&PageSize=10&Page=0",
                     "previous_page_url": null,
-                    "url": "https://media.twilio.com/v1/MediaRecordings?Status=completed&Order=desc&PageSize=10&Page=0",
+                    "url": "https://media.twilio.com/v1/MediaRecordings?Status=completed&SourceSid=RMcafebabecafebabecafebabecafebabe&ProcessorSid=ZXcafebabecafebabecafebabecafebabe&Order=desc&PageSize=10&Page=0",
                     "next_page_url": null,
                     "key": "media_recordings"
                 },

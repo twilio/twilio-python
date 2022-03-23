@@ -345,6 +345,8 @@ class CompositionInstance(InstanceResource):
             'size': deserialize.integer(payload.get('size')),
             'duration': deserialize.integer(payload.get('duration')),
             'media_external_location': payload.get('media_external_location'),
+            'status_callback': payload.get('status_callback'),
+            'status_callback_method': payload.get('status_callback_method'),
             'url': payload.get('url'),
             'links': payload.get('links'),
         }
@@ -501,6 +503,22 @@ class CompositionInstance(InstanceResource):
         :rtype: unicode
         """
         return self._properties['media_external_location']
+
+    @property
+    def status_callback(self):
+        """
+        :returns: The URL called to send status information on every composition event.
+        :rtype: unicode
+        """
+        return self._properties['status_callback']
+
+    @property
+    def status_callback_method(self):
+        """
+        :returns: The HTTP method used to call `status_callback`
+        :rtype: unicode
+        """
+        return self._properties['status_callback_method']
 
     @property
     def url(self):
