@@ -1,6 +1,13 @@
 twilio.rest.flex\_api.v1 package
 ================================
 
+Subpackages
+-----------
+
+.. toctree::
+
+    twilio.rest.flex_api.v1.interaction
+
 Submodules
 ----------
 
