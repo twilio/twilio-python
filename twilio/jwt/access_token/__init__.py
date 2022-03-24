@@ -15,7 +15,7 @@ class AccessTokenGrant(object):
         raise NotImplementedError('Grant must implement to_payload.')
 
     def __str__(self):
-        '<{} {}>'.format(self.__class__.__name__, self.to_payload())
+        return '<{} {}>'.format(self.__class__.__name__, self.to_payload())
 
 
 class AccessToken(Jwt):
@@ -69,4 +69,4 @@ class AccessToken(Jwt):
         return payload
 
     def __str__(self):
-        return '<AccessToken {}>'.format(self.to_jwt())
+        return '<{} {}>'.format(self.__class__.__name__, self.to_jwt())
