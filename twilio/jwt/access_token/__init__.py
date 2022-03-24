@@ -69,4 +69,4 @@ class AccessToken(Jwt):
         return payload
 
     def __str__(self):
-        return '<AccessToken {}>'.format(self.to_jwt())
+        return '<{} {}>'.format(self.__class__.__name__, self.to_jwt())
