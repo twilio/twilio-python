@@ -101,7 +101,6 @@ class TestRegionEdgeClients(unittest.TestCase):
 
 
 class TestUserAgentClients(unittest.TestCase):
-
     def setUp(self):
         self.client = Client('username', 'password')
 
