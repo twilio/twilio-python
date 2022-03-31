@@ -22,7 +22,8 @@ class Client(object):
     """ A client for accessing the Twilio API. """
 
     def __init__(self, username=None, password=None, account_sid=None, region=None,
-                 http_client=None, environment=None, edge=None):
+                 http_client=None, environment=None, edge=None,
+                 user_agent_extensions=None):
         """
         Initializes the Twilio Client
 
@@ -33,6 +34,7 @@ class Client(object):
         :param HttpClient http_client: HttpClient, defaults to TwilioHttpClient
         :param dict environment: Environment to look for auth details, defaults to os.environ
         :param str edge: Twilio Edge to make requests to, defaults to None
+        :param list[str] user_agent_extensions: Additions to the user agent string
 
         :returns: Twilio Client
         :rtype: twilio.rest.Client
@@ -49,6 +51,8 @@ class Client(object):
         """ :type : str """
         self.region = region or environment.get('TWILIO_REGION')
         """ :type : str """
+        self.user_agent_extensions = user_agent_extensions or []
+        """ :type : list[str] """
 
         if not self.username or not self.password:
             raise TwilioException("Credentials are required to create a TwilioClient")
@@ -113,10 +117,18 @@ class Client(object):
         auth = auth or self.auth
         headers = headers or {}
 
-        headers['User-Agent'] = 'twilio-python/{} (Python {})'.format(
-            __version__,
-            platform.python_version(),
+        pkg_version = __version__
+        os_name = platform.system()
+        os_arch = platform.machine()
+        python_version = platform.python_version()
+        headers['User-Agent'] = 'twilio-python/{} ({} {}) Python/{}'.format(
+            pkg_version,
+            os_name,
+            os_arch,
+            python_version,
         )
+        for extension in self.user_agent_extensions:
+            headers['User-Agent'] += ' {}'.format(extension)
         headers['X-Twilio-Client'] = 'python-{}'.format(__version__)
         headers['Accept-Charset'] = 'utf-8'
 

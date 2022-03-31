@@ -28,8 +28,10 @@ class Holodeck(HttpClient):
 
     def add_standard_headers(self, request):
         standard_headers = {
-            'User-Agent': 'twilio-python/{} (Python {})'.format(
+            'User-Agent': 'twilio-python/{} ({} {}) Python/{}'.format(
                 __version__,
+                platform.system(),
+                platform.machine(),
                 platform.python_version()),
             'X-Twilio-Client': 'python-{}'.format(__version__),
             'Accept': 'application/json',
