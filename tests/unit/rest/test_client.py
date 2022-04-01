@@ -1,5 +1,7 @@
 import unittest
+import platform
 
+from twilio import __version__
 from twilio.rest import (
     Client,
     TwilioClient,
@@ -97,3 +99,36 @@ class TestRegionEdgeClients(unittest.TestCase):
         self.assertEqual(self.client.get_hostname('https://api.twilio.com/path/to/something.json?foo=12.34'),
                          'https://api.edge.region.twilio.com/path/to/something.json?foo=12.34')
 
+
+class TestUserAgentClients(unittest.TestCase):
+    def setUp(self):
+        self.client = Client('username', 'password')
+
+    def tearDown(self):
+        self.client.http_client.session.close()
+
+    def test_set_default_user_agent(self):
+        self.client.request('GET', 'https://api.twilio.com/')
+        request_header = self.client.http_client.last_request.headers['User-Agent']
+        expected_user_agent = 'twilio-python/{} ({} {}) Python/{}'.format(
+            __version__,
+            platform.system(),
+            platform.machine(),
+            platform.python_version(),
+        )
+        self.assertEqual(request_header, expected_user_agent)
+
+    def test_set_user_agent_extensions(self):
+        user_agent_extensions = ['twilio-run/2.0.0-test', 'flex-plugin/3.4.0']
+        self.client.user_agent_extensions = user_agent_extensions
+        self.client.request('GET', 'https://api.twilio.com/')
+        request_header = self.client.http_client.last_request.headers['User-Agent']
+        expected_user_agent = 'twilio-python/{} ({} {}) Python/{} {} {}'.format(
+            __version__,
+            platform.system(),
+            platform.machine(),
+            platform.python_version(),
+            user_agent_extensions[0],
+            user_agent_extensions[1]
+        )
+        self.assertEqual(request_header, expected_user_agent)
