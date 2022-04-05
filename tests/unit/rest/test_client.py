@@ -110,25 +110,12 @@ class TestUserAgentClients(unittest.TestCase):
     def test_set_default_user_agent(self):
         self.client.request('GET', 'https://api.twilio.com/')
         request_header = self.client.http_client.last_request.headers['User-Agent']
-        expected_user_agent = 'twilio-python/{} ({} {}) Python/{}'.format(
-            __version__,
-            platform.system(),
-            platform.machine(),
-            platform.python_version(),
-        )
-        self.assertEqual(request_header, expected_user_agent)
+        self.assertRegex(request_header, r'^twilio-python\/[0-9.]+\s\(\w+\s\w+\)\sPython\/[^\s]+$')
 
     def test_set_user_agent_extensions(self):
-        user_agent_extensions = ['twilio-run/2.0.0-test', 'flex-plugin/3.4.0']
-        self.client.user_agent_extensions = user_agent_extensions
+        expected_user_agent_extensions = ['twilio-run/2.0.0-test', 'flex-plugin/3.4.0']
+        self.client.user_agent_extensions = expected_user_agent_extensions
         self.client.request('GET', 'https://api.twilio.com/')
-        request_header = self.client.http_client.last_request.headers['User-Agent']
-        expected_user_agent = 'twilio-python/{} ({} {}) Python/{} {} {}'.format(
-            __version__,
-            platform.system(),
-            platform.machine(),
-            platform.python_version(),
-            user_agent_extensions[0],
-            user_agent_extensions[1]
-        )
-        self.assertEqual(request_header, expected_user_agent)
+        user_agent_headers = self.client.http_client.last_request.headers['User-Agent']
+        user_agent_extensions = user_agent_headers.split(" ")[-len(expected_user_agent_extensions):]
+        self.assertEqual(user_agent_extensions, expected_user_agent_extensions)
