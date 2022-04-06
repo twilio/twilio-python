@@ -72,7 +72,7 @@ class TwilioHttpClient(HttpClient):
             'hooks': self.request_hooks
         }
 
-        self._log_request(method, params, kwargs, url, headers)
+        self._log_request(kwargs)
 
         self.last_response = None
         session = self.session or Session()
@@ -94,18 +94,18 @@ class TwilioHttpClient(HttpClient):
 
         return self.last_response
 
-    def _log_request(self, method, params, kwargs, url, headers):
+    def _log_request(self, kwargs):
         self.logger.info('-- BEGIN Twilio API Request --')
 
-        if params:
-            self.logger.info('{method} Request: {url}?{query}'.format(query=urlencode(params), **kwargs))
-            self.logger.info('Query Params: {params}'.format(**kwargs))
+        if kwargs['params']:
+            self.logger.info('{} Request: {}?{}').format(kwargs['method'], kwargs['url'], urlencode(kwargs['params']))
+            self.logger.info('Query Params: {}'.format(kwargs['params']))
         else:
-            self.logger.info('{method} Request: {url}'.format(**kwargs))
+            self.logger.info('{} Request: {}'.format(kwargs['method'], kwargs['url']))
 
-        if headers:
+        if kwargs['headers']:
             self.logger.info('Headers:')
-            for key, value in headers.items():
+            for key, value in kwargs['headers'].items():
                 # Do not log authorization headers
                 if 'authorization' not in key.lower():
                     self.logger.info('{} : {}'.format(key, value))
