@@ -98,7 +98,7 @@ class TwilioHttpClient(HttpClient):
         self.logger.info('-- BEGIN Twilio API Request --')
 
         if kwargs['params']:
-            self.logger.info('{} Request: {}?{}').format(kwargs['method'], kwargs['url'], urlencode(kwargs['params']))
+            self.logger.info('{} Request: {}?{}'.format(kwargs['method'], kwargs['url'], urlencode(kwargs['params'])))
             self.logger.info('Query Params: {}'.format(kwargs['params']))
         else:
             self.logger.info('{} Request: {}'.format(kwargs['method'], kwargs['url']))
