@@ -54,7 +54,7 @@ You may need to run the above commands with `sudo`.
 ## Getting Started
 
 Getting started with the Twilio API couldn't be easier. Create a
-`Client` and you're ready to go.
+`Client` and you're ready to go. Yes
 
 ### API Credentials
 
