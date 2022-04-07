@@ -664,7 +664,6 @@ class CallInstance(InstanceResource):
             'price_unit': payload.get('price_unit'),
             'direction': payload.get('direction'),
             'answered_by': payload.get('answered_by'),
-            'annotation': payload.get('annotation'),
             'api_version': payload.get('api_version'),
             'forwarded_from': payload.get('forwarded_from'),
             'group_sid': payload.get('group_sid'),
@@ -839,14 +838,6 @@ class CallInstance(InstanceResource):
         :rtype: unicode
         """
         return self._properties['answered_by']
-
-    @property
-    def annotation(self):
-        """
-        :returns: The annotation provided for the call
-        :rtype: unicode
-        """
-        return self._properties['annotation']
 
     @property
     def api_version(self):

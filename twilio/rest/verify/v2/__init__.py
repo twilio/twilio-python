@@ -11,6 +11,7 @@ from twilio.rest.verify.v2.form import FormList
 from twilio.rest.verify.v2.service import ServiceList
 from twilio.rest.verify.v2.template import TemplateList
 from twilio.rest.verify.v2.verification_attempt import VerificationAttemptList
+from twilio.rest.verify.v2.verification_attempts_summary import VerificationAttemptsSummaryList
 
 
 class V2(Version):
@@ -27,6 +28,7 @@ class V2(Version):
         self._forms = None
         self._services = None
         self._verification_attempts = None
+        self._verification_attempts_summary = None
         self._templates = None
 
     @property
@@ -55,6 +57,15 @@ class V2(Version):
         if self._verification_attempts is None:
             self._verification_attempts = VerificationAttemptList(self)
         return self._verification_attempts
+
+    @property
+    def verification_attempts_summary(self):
+        """
+        :rtype: twilio.rest.verify.v2.verification_attempts_summary.VerificationAttemptsSummaryList
+        """
+        if self._verification_attempts_summary is None:
+            self._verification_attempts_summary = VerificationAttemptsSummaryList(self)
+        return self._verification_attempts_summary
 
     @property
     def templates(self):

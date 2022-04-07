@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-MWRD6S');</script><!--End Google Tag Manager-->
 <meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<title>twilio.rest package — twilio-python 7.8.0 documentation</title>
+<title>twilio.rest package — twilio-python 7.8.1 documentation</title>
 <link href="../../../_static/alabaster.css" rel="stylesheet" type="text/css"/>
 <link href="../../../_static/pygments.css" rel="stylesheet" type="text/css"/>
 <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js" type="text/javascript"></script>
@@ -1501,6 +1501,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <li class="toctree-l4"><a class="reference internal" href="twilio.rest.verify.v2.html#module-twilio.rest.verify.v2.form">twilio.rest.verify.v2.form module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="twilio.rest.verify.v2.html#module-twilio.rest.verify.v2.template">twilio.rest.verify.v2.template module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="twilio.rest.verify.v2.html#module-twilio.rest.verify.v2.verification_attempt">twilio.rest.verify.v2.verification_attempt module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="twilio.rest.verify.v2.html#module-twilio.rest.verify.v2.verification_attempts_summary">twilio.rest.verify.v2.verification_attempts_summary module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="twilio.rest.verify.v2.html#module-twilio.rest.verify.v2">Module contents</a></li>
 </ul>
 </li>
@@ -1637,7 +1638,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 </div></blockquote>
 <dl class="class">
 <dt id="twilio.rest.Client">
-<em class="property">class </em><code class="descclassname">twilio.rest.</code><code class="descname">Client</code><span class="sig-paren">(</span><em>username=None</em>, <em>password=None</em>, <em>account_sid=None</em>, <em>region=None</em>, <em>http_client=None</em>, <em>environment=None</em>, <em>edge=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest.html#Client"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.Client" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">twilio.rest.</code><code class="descname">Client</code><span class="sig-paren">(</span><em>username=None</em>, <em>password=None</em>, <em>account_sid=None</em>, <em>region=None</em>, <em>http_client=None</em>, <em>environment=None</em>, <em>edge=None</em>, <em>user_agent_extensions=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest.html#Client"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.Client" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>A client for accessing the Twilio API.</p>
 <dl class="attribute">
@@ -2413,6 +2414,11 @@ Authentication information is automatically added if none is provided</p>
 </tr>
 </tbody>
 </table>
+</dd></dl>
+<dl class="attribute">
+<dt id="twilio.rest.Client.user_agent_extensions">
+<code class="descname">user_agent_extensions</code><em class="property"> = None</em><a class="headerlink" href="#twilio.rest.Client.user_agent_extensions" title="Permalink to this definition">¶</a></dt>
+<dd><p>:type : list[str]</p>
 </dd></dl>
 <dl class="attribute">
 <dt id="twilio.rest.Client.username">

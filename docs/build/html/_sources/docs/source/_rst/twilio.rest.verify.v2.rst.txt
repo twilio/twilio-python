@@ -35,6 +35,14 @@ twilio.rest.verify.v2.verification\_attempt module
     :undoc-members:
     :show-inheritance:
 
+twilio.rest.verify.v2.verification\_attempts\_summary module
+------------------------------------------------------------
+
+.. automodule:: twilio.rest.verify.v2.verification_attempts_summary
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 
 Module contents
 ---------------

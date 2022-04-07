@@ -3,6 +3,27 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2022-04-06] Version 7.8.1
+--------------------------
+**Library - Chore**
+- [PR #600](https://github.com/twilio/twilio-python/pull/600): add jinja2 for make docs. Thanks to [@JenniferMah](https://github.com/JenniferMah)!
+- [PR #599](https://github.com/twilio/twilio-python/pull/599): DI-1565 test case. Thanks to [@claudiachua](https://github.com/claudiachua)!
+- [PR #597](https://github.com/twilio/twilio-python/pull/597): update user-agent string to standardize format. Thanks to [@claudiachua](https://github.com/claudiachua)!
+
+**Library - Fix**
+- [PR #593](https://github.com/twilio/twilio-python/pull/593): revise malformed __str__(self) function. Thanks to [@twilio-aiss](https://github.com/twilio-aiss)!
+
+**Api**
+- Updated `provider_sid` visibility to private
+
+**Verify**
+- Verify List Attempts API summary endpoint added.
+- Update PII documentation for `AccessTokens` `factor_friendly_name` property.
+
+**Voice**
+- make annotation parameter from /Calls API private
+
+
 [2022-03-23] Version 7.8.0
 --------------------------
 **Api**

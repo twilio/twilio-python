@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-MWRD6S');</script><!--End Google Tag Manager-->
 <meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<title>twilio-python Changelog — twilio-python 7.8.0 documentation</title>
+<title>twilio-python Changelog — twilio-python 7.8.1 documentation</title>
 <link href="_static/alabaster.css" rel="stylesheet" type="text/css"/>
 <link href="_static/pygments.css" rel="stylesheet" type="text/css"/>
 <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js" type="text/javascript"></script>
@@ -30,6 +30,32 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <div class="section" id="twilio-python-changelog">
 <h1>twilio-python Changelog<a class="headerlink" href="#twilio-python-changelog" title="Permalink to this headline">¶</a></h1>
 <p>Here you can see the full list of changes between each twilio-python release.</p>
+<div class="section" id="version-7-8-1">
+<h2>[2022-04-06] Version 7.8.1<a class="headerlink" href="#version-7-8-1" title="Permalink to this headline">¶</a></h2>
+<p><strong>Library - Chore</strong></p>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/twilio/twilio-python/pull/600">PR #600</a>: add jinja2 for make docs. Thanks to <a class="reference external" href="https://github.com/JenniferMah">@JenniferMah</a>!</li>
+<li><a class="reference external" href="https://github.com/twilio/twilio-python/pull/599">PR #599</a>: DI-1565 test case. Thanks to <a class="reference external" href="https://github.com/claudiachua">@claudiachua</a>!</li>
+<li><a class="reference external" href="https://github.com/twilio/twilio-python/pull/597">PR #597</a>: update user-agent string to standardize format. Thanks to <a class="reference external" href="https://github.com/claudiachua">@claudiachua</a>!</li>
+</ul>
+<p><strong>Library - Fix</strong></p>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/twilio/twilio-python/pull/593">PR #593</a>: revise malformed <strong>str</strong>(self) function. Thanks to <a class="reference external" href="https://github.com/twilio-aiss">@twilio-aiss</a>!</li>
+</ul>
+<p><strong>Api</strong></p>
+<ul class="simple">
+<li>Updated <code class="docutils literal notranslate"><span class="pre">provider_sid</span></code> visibility to private</li>
+</ul>
+<p><strong>Verify</strong></p>
+<ul class="simple">
+<li>Verify List Attempts API summary endpoint added.</li>
+<li>Update PII documentation for <code class="docutils literal notranslate"><span class="pre">AccessTokens</span></code> <code class="docutils literal notranslate"><span class="pre">factor_friendly_name</span></code> property.</li>
+</ul>
+<p><strong>Voice</strong></p>
+<ul class="simple">
+<li>make annotation parameter from /Calls API private</li>
+</ul>
+</div>
 <div class="section" id="version-7-8-0">
 <h2>[2022-03-23] Version 7.8.0<a class="headerlink" href="#version-7-8-0" title="Permalink to this headline">¶</a></h2>
 <p><strong>Api</strong></p>
@@ -3602,6 +3628,7 @@ querying list resources</li>
 <h3><a href="index.html">Table of Contents</a></h3>
 <ul>
 <li><a class="reference internal" href="#">twilio-python Changelog</a><ul>
+<li><a class="reference internal" href="#version-7-8-1">[2022-04-06] Version 7.8.1</a></li>
 <li><a class="reference internal" href="#version-7-8-0">[2022-03-23] Version 7.8.0</a></li>
 <li><a class="reference internal" href="#version-7-7-1">[2022-03-09] Version 7.7.1</a></li>
 <li><a class="reference internal" href="#version-7-7-0">[2022-02-23] Version 7.7.0</a></li>
