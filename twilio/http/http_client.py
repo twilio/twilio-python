@@ -72,13 +72,7 @@ class TwilioHttpClient(HttpClient):
             'hooks': self.request_hooks
         }
 
-        if params:
-            self.logger.info('{method} Request: {url}?{query}'.format(query=urlencode(params), **kwargs))
-            self.logger.info('PARAMS: {params}'.format(**kwargs))
-        else:
-            self.logger.info('{method} Request: {url}'.format(**kwargs))
-        if data:
-            self.logger.info('PAYLOAD: {data}'.format(**kwargs))
+        self._log_request(kwargs)
 
         self.last_response = None
         session = self.session or Session()
@@ -94,10 +88,30 @@ class TwilioHttpClient(HttpClient):
             timeout=timeout if timeout is not None else self.timeout,
         )
 
-        self.logger.info('{method} Response: {status} {text}'.format(
-            method=method, status=response.status_code, text=response.text)
-        )
+        self._log_response(response)
 
         self.last_response = Response(int(response.status_code), response.text, response.headers)
 
         return self.last_response
+
+    def _log_request(self, kwargs):
+        self.logger.info('-- BEGIN Twilio API Request --')
+
+        if kwargs['params']:
+            self.logger.info('{} Request: {}?{}'.format(kwargs['method'], kwargs['url'], urlencode(kwargs['params'])))
+            self.logger.info('Query Params: {}'.format(kwargs['params']))
+        else:
+            self.logger.info('{} Request: {}'.format(kwargs['method'], kwargs['url']))
+
+        if kwargs['headers']:
+            self.logger.info('Headers:')
+            for key, value in kwargs['headers'].items():
+                # Do not log authorization headers
+                if 'authorization' not in key.lower():
+                    self.logger.info('{} : {}'.format(key, value))
+
+        self.logger.info('-- END Twilio API Request --')
+
+    def _log_response(self, response):
+        self.logger.info('Response Status Code: {}'.format(response.status_code))
+        self.logger.info('Response Headers: {}'.format(response.headers))
