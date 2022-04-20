@@ -3,6 +3,12 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2022-04-20] Version 7.8.2
+--------------------------
+**Library - Fix**
+- [PR #601](https://github.com/twilio/twilio-python/pull/601): Fixing logging of http request and response. Thanks to [@rakatyal](https://github.com/rakatyal)!
+
+
 [2022-04-06] Version 7.8.1
 --------------------------
 **Library - Chore**
