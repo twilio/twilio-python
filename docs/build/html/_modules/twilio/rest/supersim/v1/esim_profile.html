@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-MWRD6S');</script><!--End Google Tag Manager-->
 <meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<title>twilio.rest.supersim.v1.esim_profile — twilio-python 7.8.2 documentation</title>
+<title>twilio.rest.supersim.v1.esim_profile — twilio-python 7.9.0 documentation</title>
 <link href="../../../../../_static/alabaster.css" rel="stylesheet" type="text/css"/>
 <link href="../../../../../_static/pygments.css" rel="stylesheet" type="text/css"/>
 <script data-url_root="../../../../../" id="documentation_options" src="../../../../../_static/documentation_options.js" type="text/javascript"></script>
@@ -63,18 +63,19 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="bp">self</span><span class="o">.</span><span class="n">_solution</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_uri</span> <span class="o">=</span> <span class="s1">'/ESimProfiles'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">_solution</span><span class="p">)</span>
 
-<div class="viewcode-block" id="EsimProfileList.create"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.supersim.v1.html#twilio.rest.supersim.v1.esim_profile.EsimProfileList.create">[docs]</a>    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">eid</span><span class="p">,</span> <span class="n">callback_url</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">callback_method</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">):</span>
+<div class="viewcode-block" id="EsimProfileList.create"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.supersim.v1.html#twilio.rest.supersim.v1.esim_profile.EsimProfileList.create">[docs]</a>    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">callback_url</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">callback_method</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
+               <span class="n">eid</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">):</span>
         <span class="sd">"""</span>
 <span class="sd">        Create the EsimProfileInstance</span>
 
-<span class="sd">        :param unicode eid: Identifier of the eUICC that will claim the eSIM Profile</span>
 <span class="sd">        :param unicode callback_url: The URL we should call after we have sent when the status of the eSIM Profile changes</span>
 <span class="sd">        :param unicode callback_method: The HTTP method we should use to call callback_url</span>
+<span class="sd">        :param unicode eid: Identifier of the eUICC that will claim the eSIM Profile</span>
 
 <span class="sd">        :returns: The created EsimProfileInstance</span>
 <span class="sd">        :rtype: twilio.rest.supersim.v1.esim_profile.EsimProfileInstance</span>
 <span class="sd">        """</span>
-        <span class="n">data</span> <span class="o">=</span> <span class="n">values</span><span class="o">.</span><span class="n">of</span><span class="p">({</span><span class="s1">'Eid'</span><span class="p">:</span> <span class="n">eid</span><span class="p">,</span> <span class="s1">'CallbackUrl'</span><span class="p">:</span> <span class="n">callback_url</span><span class="p">,</span> <span class="s1">'CallbackMethod'</span><span class="p">:</span> <span class="n">callback_method</span><span class="p">,</span> <span class="p">})</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">values</span><span class="o">.</span><span class="n">of</span><span class="p">({</span><span class="s1">'CallbackUrl'</span><span class="p">:</span> <span class="n">callback_url</span><span class="p">,</span> <span class="s1">'CallbackMethod'</span><span class="p">:</span> <span class="n">callback_method</span><span class="p">,</span> <span class="s1">'Eid'</span><span class="p">:</span> <span class="n">eid</span><span class="p">,</span> <span class="p">})</span>
 
         <span class="n">payload</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_version</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">'POST'</span><span class="p">,</span> <span class="n">uri</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_uri</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="p">)</span>
 

@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-MWRD6S');</script><!--End Google Tag Manager-->
 <meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<title>twilio.rest.conversations.v1 package — twilio-python 7.8.2 documentation</title>
+<title>twilio.rest.conversations.v1 package — twilio-python 7.9.0 documentation</title>
 <link href="../../../_static/alabaster.css" rel="stylesheet" type="text/css"/>
 <link href="../../../_static/pygments.css" rel="stylesheet" type="text/css"/>
 <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js" type="text/javascript"></script>
@@ -499,7 +499,7 @@ Request is executed immediately</p>
 </dd></dl>
 <dl class="method">
 <dt id="twilio.rest.conversations.v1.address_configuration.AddressConfigurationList.list">
-<code class="descname">list</code><span class="sig-paren">(</span><em>limit=None</em>, <em>page_size=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/conversations/v1/address_configuration.html#AddressConfigurationList.list"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.conversations.v1.address_configuration.AddressConfigurationList.list" title="Permalink to this definition">¶</a></dt>
+<code class="descname">list</code><span class="sig-paren">(</span><em>type=&lt;object object&gt;</em>, <em>limit=None</em>, <em>page_size=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/conversations/v1/address_configuration.html#AddressConfigurationList.list"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.conversations.v1.address_configuration.AddressConfigurationList.list" title="Permalink to this definition">¶</a></dt>
 <dd><p>Lists AddressConfigurationInstance records from the API as a list.
 Unlike stream(), this operation is eager and will load <cite>limit</cite> records into
 memory before returning.</p>
@@ -508,6 +508,7 @@ memory before returning.</p>
 <col class="field-body"/>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>type</strong> (<em>unicode</em>) – The type of address configuration.</li>
 <li><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Upper limit for the number of records to return. list() guarantees
 never to return more than limit.  Default is no limit</li>
 <li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Number of records to fetch per request, when not set will use
@@ -528,7 +529,7 @@ with the most efficient page size, i.e. min(limit, 1000)</li>
 </dd></dl>
 <dl class="method">
 <dt id="twilio.rest.conversations.v1.address_configuration.AddressConfigurationList.page">
-<code class="descname">page</code><span class="sig-paren">(</span><em>page_token=&lt;object object&gt;</em>, <em>page_number=&lt;object object&gt;</em>, <em>page_size=&lt;object object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/conversations/v1/address_configuration.html#AddressConfigurationList.page"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.conversations.v1.address_configuration.AddressConfigurationList.page" title="Permalink to this definition">¶</a></dt>
+<code class="descname">page</code><span class="sig-paren">(</span><em>type=&lt;object object&gt;</em>, <em>page_token=&lt;object object&gt;</em>, <em>page_number=&lt;object object&gt;</em>, <em>page_size=&lt;object object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/conversations/v1/address_configuration.html#AddressConfigurationList.page"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.conversations.v1.address_configuration.AddressConfigurationList.page" title="Permalink to this definition">¶</a></dt>
 <dd><p>Retrieve a single page of AddressConfigurationInstance records from the API.
 Request is executed immediately</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -536,6 +537,7 @@ Request is executed immediately</p>
 <col class="field-body"/>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>type</strong> (<em>unicode</em>) – The type of address configuration.</li>
 <li><strong>page_token</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – PageToken provided by the API</li>
 <li><strong>page_number</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Page Number, this value is simply for client state</li>
 <li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Number of records to return, defaults to 50</li>
@@ -553,7 +555,7 @@ Request is executed immediately</p>
 </dd></dl>
 <dl class="method">
 <dt id="twilio.rest.conversations.v1.address_configuration.AddressConfigurationList.stream">
-<code class="descname">stream</code><span class="sig-paren">(</span><em>limit=None</em>, <em>page_size=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/conversations/v1/address_configuration.html#AddressConfigurationList.stream"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.conversations.v1.address_configuration.AddressConfigurationList.stream" title="Permalink to this definition">¶</a></dt>
+<code class="descname">stream</code><span class="sig-paren">(</span><em>type=&lt;object object&gt;</em>, <em>limit=None</em>, <em>page_size=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/conversations/v1/address_configuration.html#AddressConfigurationList.stream"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.conversations.v1.address_configuration.AddressConfigurationList.stream" title="Permalink to this definition">¶</a></dt>
 <dd><p>Streams AddressConfigurationInstance records from the API as a generator stream.
 This operation lazily loads records as efficiently as possible until the limit
 is reached.
@@ -563,6 +565,7 @@ The results are returned as a generator, so this operation is memory efficient.<
 <col class="field-body"/>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>type</strong> (<em>unicode</em>) – The type of address configuration.</li>
 <li><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Upper limit for the number of records to return. stream()
 guarantees to never return more than limit.  Default is no limit</li>
 <li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Number of records to fetch per request, when not set will use
