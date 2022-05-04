@@ -59,7 +59,7 @@ class ServiceList(ListResource):
         :param bool psd2_enabled: Whether to pass PSD2 transaction parameters when starting a verification
         :param bool do_not_share_warning_enabled: Whether to add a security warning at the end of an SMS.
         :param bool custom_code_enabled: Whether to allow sending verifications with a custom code.
-        :param bool push_include_date: Optional. Include the date in the Challenge's reponse. Default: true
+        :param bool push_include_date: Optional. Include the date in the Challenge's response. Default: false. **Deprecated** do not use this parameter.
         :param unicode push_apn_credential_sid: Optional. Set APN Credential for this service.
         :param unicode push_fcm_credential_sid: Optional. Set FCM Credential for this service.
         :param unicode totp_issuer: Optional. Set TOTP Issuer for this service.
@@ -310,7 +310,7 @@ class ServiceContext(InstanceContext):
         :param bool psd2_enabled: Whether to pass PSD2 transaction parameters when starting a verification
         :param bool do_not_share_warning_enabled: Whether to add a privacy warning at the end of an SMS.
         :param bool custom_code_enabled: Whether to allow sending verifications with a custom code.
-        :param bool push_include_date: Optional. Include the date in the Challenge's reponse. Default: true
+        :param bool push_include_date: Optional. Include the date in the Challenge's response. Default: false. **Deprecated** do not use this parameter.
         :param unicode push_apn_credential_sid: Optional. Set APN Credential for this service.
         :param unicode push_fcm_credential_sid: Optional. Set FCM Credential for this service.
         :param unicode totp_issuer: Optional. Set TOTP Issuer for this service.
@@ -677,7 +677,7 @@ class ServiceInstance(InstanceResource):
         :param bool psd2_enabled: Whether to pass PSD2 transaction parameters when starting a verification
         :param bool do_not_share_warning_enabled: Whether to add a privacy warning at the end of an SMS.
         :param bool custom_code_enabled: Whether to allow sending verifications with a custom code.
-        :param bool push_include_date: Optional. Include the date in the Challenge's reponse. Default: true
+        :param bool push_include_date: Optional. Include the date in the Challenge's response. Default: false. **Deprecated** do not use this parameter.
         :param unicode push_apn_credential_sid: Optional. Set APN Credential for this service.
         :param unicode push_fcm_credential_sid: Optional. Set FCM Credential for this service.
         :param unicode totp_issuer: Optional. Set TOTP Issuer for this service.

@@ -264,6 +264,8 @@ class UsageRecordInstance(InstanceResource):
             'data_upload': deserialize.integer(payload.get('data_upload')),
             'data_download': deserialize.integer(payload.get('data_download')),
             'data_total': deserialize.integer(payload.get('data_total')),
+            'data_total_billed': deserialize.decimal(payload.get('data_total_billed')),
+            'billed_unit': payload.get('billed_unit'),
         }
 
         # Context
@@ -341,6 +343,22 @@ class UsageRecordInstance(InstanceResource):
         :rtype: unicode
         """
         return self._properties['data_total']
+
+    @property
+    def data_total_billed(self):
+        """
+        :returns: Total amount in the `billed_unit` that was charged for the data uploaded or downloaded.
+        :rtype: unicode
+        """
+        return self._properties['data_total_billed']
+
+    @property
+    def billed_unit(self):
+        """
+        :returns: The currency in which the billed amounts are measured, specified in the 3 letter ISO 4127 format (e.g. `USD`, `EUR`, `JPY`).
+        :rtype: unicode
+        """
+        return self._properties['billed_unit']
 
     def __repr__(self):
         """

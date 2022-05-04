@@ -61,7 +61,7 @@ class MessageList(ListResource):
         :param list[unicode] persistent_action: Rich actions for Channels Messages.
         :param MessageInstance.ScheduleType schedule_type: Pass the value `fixed` to schedule a message at a fixed time.
         :param datetime send_at: The time that Twilio will send the message. Must be in ISO 8601 format.
-        :param bool send_as_mms: If set to True, Twilio will deliver the message as a single MMS message, regardless of the presence of media
+        :param bool send_as_mms: If set to True, Twilio will deliver the message as a single MMS message, regardless of the presence of media.
         :param unicode from_: The phone number that initiated the message
         :param unicode messaging_service_sid: The SID of the Messaging Service you want to associate with the message.
         :param unicode body: The text of the message you want to send. Can be up to 1,600 characters in length.

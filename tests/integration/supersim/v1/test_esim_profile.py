@@ -18,14 +18,11 @@ class EsimProfileTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.supersim.v1.esim_profiles.create(eid="eid")
-
-        values = {'Eid': "eid", }
+            self.client.supersim.v1.esim_profiles.create()
 
         self.holodeck.assert_has_request(Request(
             'post',
             'https://supersim.twilio.com/v1/ESimProfiles',
-            data=values,
         ))
 
     def test_create_default_smdp_response(self):
@@ -37,9 +34,11 @@ class EsimProfileTestCase(IntegrationTestCase):
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "iccid": null,
                 "sim_sid": null,
-                "status": "reserving",
+                "status": "new",
                 "eid": "89049032005008882600033489aaaaaa",
                 "smdp_plus_address": null,
+                "matching_id": null,
+                "activation_code": null,
                 "error_code": null,
                 "error_message": null,
                 "date_created": "2020-09-01T20:00:00Z",
@@ -49,7 +48,34 @@ class EsimProfileTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.supersim.v1.esim_profiles.create(eid="eid")
+        actual = self.client.supersim.v1.esim_profiles.create()
+
+        self.assertIsNotNone(actual)
+
+    def test_create_activation_code_response(self):
+        self.holodeck.mock(Response(
+            201,
+            '''
+            {
+                "sid": "HPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "iccid": null,
+                "sim_sid": null,
+                "status": "new",
+                "eid": null,
+                "smdp_plus_address": null,
+                "matching_id": null,
+                "activation_code": null,
+                "error_code": null,
+                "error_message": null,
+                "date_created": "2020-09-01T20:00:00Z",
+                "date_updated": "2020-09-01T20:00:00Z",
+                "url": "https://supersim.twilio.com/v1/ESimProfiles/HPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            }
+            '''
+        ))
+
+        actual = self.client.supersim.v1.esim_profiles.create()
 
         self.assertIsNotNone(actual)
 
@@ -65,6 +91,8 @@ class EsimProfileTestCase(IntegrationTestCase):
                 "status": "reserving",
                 "eid": "89049032005008882600033489aaaaaa",
                 "smdp_plus_address": null,
+                "matching_id": null,
+                "activation_code": null,
                 "error_code": null,
                 "error_message": null,
                 "date_created": "2020-09-01T20:00:00Z",
@@ -74,7 +102,7 @@ class EsimProfileTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.supersim.v1.esim_profiles.create(eid="eid")
+        actual = self.client.supersim.v1.esim_profiles.create()
 
         self.assertIsNotNone(actual)
 
@@ -89,7 +117,7 @@ class EsimProfileTestCase(IntegrationTestCase):
             'https://supersim.twilio.com/v1/ESimProfiles/HPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
         ))
 
-    def test_fetch_response(self):
+    def test_fetch_default_smdp_response(self):
         self.holodeck.mock(Response(
             200,
             '''
@@ -100,7 +128,36 @@ class EsimProfileTestCase(IntegrationTestCase):
                 "sim_sid": "HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "status": "available",
                 "eid": "89049032005008882600033489aaaaaa",
-                "smdp_plus_address": "https://sm-dp-plus.twilio.com",
+                "smdp_plus_address": "sm-dp-plus.twilio.com",
+                "matching_id": null,
+                "activation_code": null,
+                "error_code": null,
+                "error_message": null,
+                "date_created": "2020-09-01T20:00:00Z",
+                "date_updated": "2020-09-01T20:00:00Z",
+                "url": "https://supersim.twilio.com/v1/ESimProfiles/HPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            }
+            '''
+        ))
+
+        actual = self.client.supersim.v1.esim_profiles("HPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+
+        self.assertIsNotNone(actual)
+
+    def test_fetch_activation_code_response(self):
+        self.holodeck.mock(Response(
+            200,
+            '''
+            {
+                "sid": "HPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "iccid": "8988307aaaaaaaaaaaaa",
+                "sim_sid": "HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "status": "available",
+                "eid": null,
+                "smdp_plus_address": "sm-dp-plus.twilio.com",
+                "matching_id": "AAAAA-BBBBB-CCCCC-DDDDD-EEEEE",
+                "activation_code": "1$SM-DP-PLUS.TWILIO.COM$AAAAA-BBBBB-CCCCC-DDDDD-EEEEE",
                 "error_code": null,
                 "error_message": null,
                 "date_created": "2020-09-01T20:00:00Z",
@@ -138,7 +195,9 @@ class EsimProfileTestCase(IntegrationTestCase):
                         "sim_sid": "HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                         "status": "available",
                         "eid": "89049032005008882600033489aaaaaa",
-                        "smdp_plus_address": "https://sm-dp-plus.twilio.com",
+                        "smdp_plus_address": "sm-dp-plus.twilio.com",
+                        "matching_id": null,
+                        "activation_code": null,
                         "error_code": null,
                         "error_message": null,
                         "date_created": "2020-09-01T20:00:00Z",
@@ -176,7 +235,9 @@ class EsimProfileTestCase(IntegrationTestCase):
                         "sim_sid": "HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                         "status": "available",
                         "eid": "89049032005008882600033489aaaaaa",
-                        "smdp_plus_address": "https://sm-dp-plus.twilio.com",
+                        "smdp_plus_address": "sm-dp-plus.twilio.com",
+                        "matching_id": null,
+                        "activation_code": null,
                         "error_code": null,
                         "error_message": null,
                         "date_created": "2020-09-01T20:00:00Z",
@@ -214,7 +275,9 @@ class EsimProfileTestCase(IntegrationTestCase):
                         "sim_sid": "HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                         "status": "available",
                         "eid": "89049032005008882600033489aaaaaa",
-                        "smdp_plus_address": "https://sm-dp-plus.twilio.com",
+                        "smdp_plus_address": "sm-dp-plus.twilio.com",
+                        "matching_id": null,
+                        "activation_code": null,
                         "error_code": null,
                         "error_message": null,
                         "date_created": "2020-09-01T20:00:00Z",
@@ -252,7 +315,9 @@ class EsimProfileTestCase(IntegrationTestCase):
                         "sim_sid": "HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                         "status": "downloaded",
                         "eid": "89049032005008882600033489aaaaaa",
-                        "smdp_plus_address": "https://sm-dp-plus.twilio.com",
+                        "smdp_plus_address": "sm-dp-plus.twilio.com",
+                        "matching_id": null,
+                        "activation_code": null,
                         "error_code": null,
                         "error_message": null,
                         "date_created": "2020-09-01T20:00:00Z",

@@ -46,7 +46,7 @@ class ServiceTestCase(IntegrationTestCase):
                 "do_not_share_warning_enabled": false,
                 "custom_code_enabled": true,
                 "push": {
-                    "include_date": true,
+                    "include_date": false,
                     "apn_credential_sid": "CRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                     "fcm_credential_sid": null
                 },
@@ -106,7 +106,7 @@ class ServiceTestCase(IntegrationTestCase):
                 "do_not_share_warning_enabled": false,
                 "custom_code_enabled": true,
                 "push": {
-                    "include_date": true,
+                    "include_date": false,
                     "apn_credential_sid": null,
                     "fcm_credential_sid": null
                 },
@@ -198,7 +198,7 @@ class ServiceTestCase(IntegrationTestCase):
                         "do_not_share_warning_enabled": false,
                         "custom_code_enabled": true,
                         "push": {
-                            "include_date": true,
+                            "include_date": false,
                             "apn_credential_sid": null,
                             "fcm_credential_sid": null
                         },
@@ -260,7 +260,7 @@ class ServiceTestCase(IntegrationTestCase):
                 "do_not_share_warning_enabled": false,
                 "custom_code_enabled": true,
                 "push": {
-                    "include_date": true,
+                    "include_date": false,
                     "apn_credential_sid": null,
                     "fcm_credential_sid": "CRbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
                 },

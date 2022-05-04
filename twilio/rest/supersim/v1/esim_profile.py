@@ -33,18 +33,19 @@ class EsimProfileList(ListResource):
         self._solution = {}
         self._uri = '/ESimProfiles'.format(**self._solution)
 
-    def create(self, eid, callback_url=values.unset, callback_method=values.unset):
+    def create(self, callback_url=values.unset, callback_method=values.unset,
+               eid=values.unset):
         """
         Create the EsimProfileInstance
 
-        :param unicode eid: Identifier of the eUICC that will claim the eSIM Profile
         :param unicode callback_url: The URL we should call after we have sent when the status of the eSIM Profile changes
         :param unicode callback_method: The HTTP method we should use to call callback_url
+        :param unicode eid: Identifier of the eUICC that will claim the eSIM Profile
 
         :returns: The created EsimProfileInstance
         :rtype: twilio.rest.supersim.v1.esim_profile.EsimProfileInstance
         """
-        data = values.of({'Eid': eid, 'CallbackUrl': callback_url, 'CallbackMethod': callback_method, })
+        data = values.of({'CallbackUrl': callback_url, 'CallbackMethod': callback_method, 'Eid': eid, })
 
         payload = self._version.create(method='POST', uri=self._uri, data=data, )
 

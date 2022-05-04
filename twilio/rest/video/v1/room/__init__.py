@@ -42,7 +42,8 @@ class RoomList(ListResource):
                video_codecs=values.unset, media_region=values.unset,
                recording_rules=values.unset, audio_only=values.unset,
                max_participant_duration=values.unset,
-               empty_room_timeout=values.unset, unused_room_timeout=values.unset):
+               empty_room_timeout=values.unset, unused_room_timeout=values.unset,
+               large_room=values.unset):
         """
         Create the RoomInstance
 
@@ -60,6 +61,7 @@ class RoomList(ListResource):
         :param unicode max_participant_duration: The maximum number of seconds a Participant can be connected to the room
         :param unicode empty_room_timeout: Configures the time a room will remain active after last participant leaves.
         :param unicode unused_room_timeout: Configures the time a room will remain active when no one joins.
+        :param bool large_room: Indicates whether this is a large room.
 
         :returns: The created RoomInstance
         :rtype: twilio.rest.video.v1.room.RoomInstance
@@ -79,6 +81,7 @@ class RoomList(ListResource):
             'MaxParticipantDuration': max_participant_duration,
             'EmptyRoomTimeout': empty_room_timeout,
             'UnusedRoomTimeout': unused_room_timeout,
+            'LargeRoom': large_room,
         })
 
         payload = self._version.create(method='POST', uri=self._uri, data=data, )
@@ -416,6 +419,7 @@ class RoomInstance(InstanceResource):
             'audio_only': payload.get('audio_only'),
             'empty_room_timeout': deserialize.integer(payload.get('empty_room_timeout')),
             'unused_room_timeout': deserialize.integer(payload.get('unused_room_timeout')),
+            'large_room': payload.get('large_room'),
             'url': payload.get('url'),
             'links': payload.get('links'),
         }
@@ -604,6 +608,14 @@ class RoomInstance(InstanceResource):
         :rtype: unicode
         """
         return self._properties['unused_room_timeout']
+
+    @property
+    def large_room(self):
+        """
+        :returns: Indicates if this is a large room.
+        :rtype: bool
+        """
+        return self._properties['large_room']
 
     @property
     def url(self):
