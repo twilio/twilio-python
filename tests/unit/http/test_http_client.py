@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 import unittest
+import os
+from collections import OrderedDict
 
 from mock import patch, Mock
 from requests import Session
@@ -137,17 +139,37 @@ class TestHttpClientRequest(unittest.TestCase):
             self.assertIsNone(self.client.last_response)
 
     def test_request_behind_proxy(self):
-        proxies = {
-            'http': 'http://proxy.twilio.com',
-            'https': 'https://proxy.twilio.com',
-        }
+        self.request_mock.url = 'https://api.twilio.com/'
+        proxies = OrderedDict([
+            ('http', 'http://proxy.twilio.com'),
+            ('https', 'https://proxy.twilio.com'),
+        ])
         self.client = TwilioHttpClient(proxy=proxies)
         self.client.request('doesnt matter', 'doesnt matter')
-        self.assertEqual(proxies, self.session_mock.proxies)
+        self.session_mock.send.assert_called_once_with(
+            self.request_mock, verify=True, proxies=proxies, stream=False,
+            cert=None, allow_redirects=False, timeout=None
+        )
+
+    @patch.dict(os.environ, {
+        "HTTP_PROXY": "http://proxy.twilio.com",
+        "HTTPS_PROXY": "https://proxy.twilio.com"
+    })
+    def test_request_behind_proxy_from_environment(self):
+        self.request_mock.url = 'https://api.twilio.com/'
+        self.client = TwilioHttpClient()
+        self.client.request('doesnt matter', 'doesnt matter')
+        self.session_mock.send.assert_called_once_with(
+            self.request_mock, verify=True, proxies=OrderedDict([
+                ('http', 'http://proxy.twilio.com'),
+                ('https', 'https://proxy.twilio.com'),
+            ]), stream=False, cert=None, allow_redirects=False, timeout=None
+        )
 
     def test_exception_with_details(self):
+        self.request_mock.url = 'https://api.twilio.com/'
         v1 = MyVersion(self.client)
-        error_text = """{   
+        error_text = """{
             "code": 20001,
             "message": "Bad request",
             "more_info": "https://www.twilio.com/docs/errors/20001",
@@ -179,7 +201,7 @@ class TestHttpClientSession(unittest.TestCase):
 
     def _setup_session_response(self, value):
         session_mock = Mock(wraps=Session())
-        request_mock = Mock()
+        request_mock = Mock(url='https://api.twilio.com/')
 
         session_mock.prepare_request.return_value = request_mock
         session_mock.send.return_value = Response(200, value)
