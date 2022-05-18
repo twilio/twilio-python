@@ -381,6 +381,7 @@ class RecordingInstance(InstanceResource):
             'uri': payload.get('uri'),
             'encryption_details': payload.get('encryption_details'),
             'subresource_uris': payload.get('subresource_uris'),
+            'media_url': payload.get('media_url'),
         }
 
         # Context
@@ -547,6 +548,14 @@ class RecordingInstance(InstanceResource):
         :rtype: unicode
         """
         return self._properties['subresource_uris']
+
+    @property
+    def media_url(self):
+        """
+        :returns: The URL of the media file.
+        :rtype: unicode
+        """
+        return self._properties['media_url']
 
     def fetch(self, include_soft_deleted=values.unset):
         """

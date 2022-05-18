@@ -226,6 +226,7 @@ class VerificationInstance(InstanceResource):
         CALL = "call"
         EMAIL = "email"
         WHATSAPP = "whatsapp"
+        SILENT = "silent"
 
     class Status(object):
         CANCELED = "canceled"

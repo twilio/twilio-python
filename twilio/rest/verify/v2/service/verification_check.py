@@ -113,6 +113,7 @@ class VerificationCheckInstance(InstanceResource):
         CALL = "call"
         EMAIL = "email"
         WHATSAPP = "whatsapp"
+        SILENT = "silent"
 
     def __init__(self, version, payload, service_sid):
         """

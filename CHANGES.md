@@ -3,6 +3,18 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2022-05-18] Version 7.9.1
+--------------------------
+**Library - Fix**
+- [PR #592](https://github.com/twilio/twilio-python/pull/592): Respect HTTPS_PROXY and other settings from env vars. Thanks to [@AlanCoding](https://github.com/AlanCoding)!
+
+**Api**
+- Add property `media_url` to the recording resources
+
+**Verify**
+- Include `silent` as a channel type in the verifications API.
+
+
 [2022-05-04] Version 7.9.0
 --------------------------
 **Conversations**
