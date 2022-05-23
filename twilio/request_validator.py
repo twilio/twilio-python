@@ -113,6 +113,7 @@ class RequestValidator(object):
             valid_body_hash = compare(self.compute_hash(params), query["bodySHA256"][0])
             params = {}
 
+
         #  check signature of uri with and without port,
         #  since sig generation on back end is inconsistent
         valid_signature = compare(self.compute_signature(uri_without_port, params), signature)
