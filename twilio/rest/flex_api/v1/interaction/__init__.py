@@ -234,7 +234,7 @@ class InteractionInstance(InstanceResource):
     @property
     def routing(self):
         """
-        :returns: The Interaction's routing logic
+        :returns: A JSON Object representing the routing rules for the Interaction Channel
         :rtype: dict
         """
         return self._properties['routing']

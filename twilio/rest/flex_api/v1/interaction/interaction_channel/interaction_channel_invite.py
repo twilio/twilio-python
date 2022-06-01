@@ -20,8 +20,8 @@ class InteractionChannelInviteList(ListResource):
         Initialize the InteractionChannelInviteList
 
         :param Version version: Version that contains the resource
-        :param interaction_sid: The interaction_sid
-        :param channel_sid: The channel_sid
+        :param interaction_sid: The Interaction SID for this Channel
+        :param channel_sid: The Channel SID for this Invite
 
         :returns: twilio.rest.flex_api.v1.interaction.interaction_channel.interaction_channel_invite.InteractionChannelInviteList
         :rtype: twilio.rest.flex_api.v1.interaction.interaction_channel.interaction_channel_invite.InteractionChannelInviteList
@@ -36,7 +36,7 @@ class InteractionChannelInviteList(ListResource):
         """
         Create the InteractionChannelInviteInstance
 
-        :param dict routing: The routing
+        :param dict routing: The Interaction's routing logic
 
         :returns: The created InteractionChannelInviteInstance
         :rtype: twilio.rest.flex_api.v1.interaction.interaction_channel.interaction_channel_invite.InteractionChannelInviteInstance
@@ -147,8 +147,8 @@ class InteractionChannelInvitePage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param interaction_sid: The interaction_sid
-        :param channel_sid: The channel_sid
+        :param interaction_sid: The Interaction SID for this Channel
+        :param channel_sid: The Channel SID for this Invite
 
         :returns: twilio.rest.flex_api.v1.interaction.interaction_channel.interaction_channel_invite.InteractionChannelInvitePage
         :rtype: twilio.rest.flex_api.v1.interaction.interaction_channel.interaction_channel_invite.InteractionChannelInvitePage
@@ -218,7 +218,7 @@ class InteractionChannelInviteInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: The sid
+        :returns: The unique string that identifies the resource
         :rtype: unicode
         """
         return self._properties['sid']
@@ -226,7 +226,7 @@ class InteractionChannelInviteInstance(InstanceResource):
     @property
     def interaction_sid(self):
         """
-        :returns: The interaction_sid
+        :returns: The Interaction SID for this Channel
         :rtype: unicode
         """
         return self._properties['interaction_sid']
@@ -234,7 +234,7 @@ class InteractionChannelInviteInstance(InstanceResource):
     @property
     def channel_sid(self):
         """
-        :returns: The channel_sid
+        :returns: The Channel SID for this Invite
         :rtype: unicode
         """
         return self._properties['channel_sid']
@@ -242,7 +242,7 @@ class InteractionChannelInviteInstance(InstanceResource):
     @property
     def routing(self):
         """
-        :returns: The routing
+        :returns: A JSON object representing the routing rules for the Interaction Channel
         :rtype: dict
         """
         return self._properties['routing']

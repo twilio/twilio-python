@@ -23,7 +23,7 @@ class InteractionChannelList(ListResource):
         Initialize the InteractionChannelList
 
         :param Version version: Version that contains the resource
-        :param interaction_sid: The Interaction Sid for this channel.
+        :param interaction_sid: The unique string that identifies the resource
 
         :returns: twilio.rest.flex_api.v1.interaction.interaction_channel.InteractionChannelList
         :rtype: twilio.rest.flex_api.v1.interaction.interaction_channel.InteractionChannelList
@@ -115,7 +115,7 @@ class InteractionChannelList(ListResource):
         """
         Constructs a InteractionChannelContext
 
-        :param sid: The Channel Sid for this Participant.
+        :param sid: The unique string that identifies the resource
 
         :returns: twilio.rest.flex_api.v1.interaction.interaction_channel.InteractionChannelContext
         :rtype: twilio.rest.flex_api.v1.interaction.interaction_channel.InteractionChannelContext
@@ -130,7 +130,7 @@ class InteractionChannelList(ListResource):
         """
         Constructs a InteractionChannelContext
 
-        :param sid: The Channel Sid for this Participant.
+        :param sid: The unique string that identifies the resource
 
         :returns: twilio.rest.flex_api.v1.interaction.interaction_channel.InteractionChannelContext
         :rtype: twilio.rest.flex_api.v1.interaction.interaction_channel.InteractionChannelContext
@@ -159,7 +159,7 @@ class InteractionChannelPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param interaction_sid: The Interaction Sid for this channel.
+        :param interaction_sid: The unique string that identifies the resource
 
         :returns: twilio.rest.flex_api.v1.interaction.interaction_channel.InteractionChannelPage
         :rtype: twilio.rest.flex_api.v1.interaction.interaction_channel.InteractionChannelPage
@@ -201,8 +201,8 @@ class InteractionChannelContext(InstanceContext):
         Initialize the InteractionChannelContext
 
         :param Version version: Version that contains the resource
-        :param interaction_sid: The Interaction Sid for this channel.
-        :param sid: The Channel Sid for this Participant.
+        :param interaction_sid: The unique string that identifies the resource
+        :param sid: The unique string that identifies the resource
 
         :returns: twilio.rest.flex_api.v1.interaction.interaction_channel.InteractionChannelContext
         :rtype: twilio.rest.flex_api.v1.interaction.interaction_channel.InteractionChannelContext
@@ -237,8 +237,8 @@ class InteractionChannelContext(InstanceContext):
         """
         Update the InteractionChannelInstance
 
-        :param InteractionChannelInstance.Status status: The Interaction Channels's status
-        :param dict routing: The Interaction Channels's optional routing parameters
+        :param InteractionChannelInstance.Status status: Required. The Interaction channels's status
+        :param dict routing: Optional. The state of associated tasks.
 
         :returns: The updated InteractionChannelInstance
         :rtype: twilio.rest.flex_api.v1.interaction.interaction_channel.InteractionChannelInstance
@@ -362,7 +362,7 @@ class InteractionChannelInstance(InstanceResource):
     @property
     def interaction_sid(self):
         """
-        :returns: The Interaction Sid for this channel.
+        :returns: The unique string that identifies the resource
         :rtype: unicode
         """
         return self._properties['interaction_sid']
@@ -404,8 +404,8 @@ class InteractionChannelInstance(InstanceResource):
         """
         Update the InteractionChannelInstance
 
-        :param InteractionChannelInstance.Status status: The Interaction Channels's status
-        :param dict routing: The Interaction Channels's optional routing parameters
+        :param InteractionChannelInstance.Status status: Required. The Interaction channels's status
+        :param dict routing: Optional. The state of associated tasks.
 
         :returns: The updated InteractionChannelInstance
         :rtype: twilio.rest.flex_api.v1.interaction.interaction_channel.InteractionChannelInstance

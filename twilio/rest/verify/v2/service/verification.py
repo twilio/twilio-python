@@ -226,7 +226,7 @@ class VerificationInstance(InstanceResource):
         CALL = "call"
         EMAIL = "email"
         WHATSAPP = "whatsapp"
-        SILENT = "silent"
+        SNA = "sna"
 
     class Status(object):
         CANCELED = "canceled"
@@ -256,6 +256,7 @@ class VerificationInstance(InstanceResource):
             'send_code_attempts': payload.get('send_code_attempts'),
             'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
             'date_updated': deserialize.iso8601_datetime(payload.get('date_updated')),
+            'sna': payload.get('sna'),
             'url': payload.get('url'),
         }
 
@@ -383,6 +384,14 @@ class VerificationInstance(InstanceResource):
         :rtype: datetime
         """
         return self._properties['date_updated']
+
+    @property
+    def sna(self):
+        """
+        :returns: The set of fields used for a silent network auth (`sna`) verification
+        :rtype: dict
+        """
+        return self._properties['sna']
 
     @property
     def url(self):

@@ -53,6 +53,7 @@ class VerificationTestCase(IntegrationTestCase):
                         "attempt_sid": "VLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
                     }
                 ],
+                "sna": null,
                 "url": "https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Verifications/VEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
             '''
@@ -87,6 +88,7 @@ class VerificationTestCase(IntegrationTestCase):
                         "attempt_sid": "VLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
                     }
                 ],
+                "sna": null,
                 "url": "https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Verifications/VEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
             '''
@@ -121,6 +123,7 @@ class VerificationTestCase(IntegrationTestCase):
                         "attempt_sid": "VLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
                     }
                 ],
+                "sna": null,
                 "url": "https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Verifications/VEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
             '''
@@ -155,6 +158,7 @@ class VerificationTestCase(IntegrationTestCase):
                         "attempt_sid": "VLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
                     }
                 ],
+                "sna": null,
                 "url": "https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Verifications/VEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
             '''
@@ -204,6 +208,7 @@ class VerificationTestCase(IntegrationTestCase):
                         "attempt_sid": "VLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
                     }
                 ],
+                "sna": null,
                 "url": "https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Verifications/VEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
             '''
@@ -238,6 +243,7 @@ class VerificationTestCase(IntegrationTestCase):
                         "attempt_sid": "VLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
                     }
                 ],
+                "sna": null,
                 "url": "https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Verifications/VEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
             '''
@@ -284,6 +290,7 @@ class VerificationTestCase(IntegrationTestCase):
                         "attempt_sid": "VLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
                     }
                 ],
+                "sna": null,
                 "url": "https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Verifications/VEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
             '''

@@ -69,7 +69,6 @@ class Client(object):
         self._chat = None
         self._conversations = None
         self._events = None
-        self._fax = None
         self._flex_api = None
         self._frontline_api = None
         self._insights = None
@@ -263,19 +262,6 @@ class Client(object):
             from twilio.rest.events import Events
             self._events = Events(self)
         return self._events
-
-    @property
-    def fax(self):
-        """
-        Access the Fax Twilio Domain
-
-        :returns: Fax Twilio Domain
-        :rtype: twilio.rest.fax.Fax
-        """
-        if self._fax is None:
-            from twilio.rest.fax import Fax
-            self._fax = Fax(self)
-        return self._fax
 
     @property
     def flex_api(self):

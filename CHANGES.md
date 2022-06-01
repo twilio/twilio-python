@@ -3,6 +3,12 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2022-06-01] Version 7.9.2
+--------------------------
+**Library - Chore**
+- [PR #608](https://github.com/twilio/twilio-python/pull/608): use Docker 'rc' tag for release candidate images. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+
+
 [2022-05-18] Version 7.9.1
 --------------------------
 **Library - Fix**
