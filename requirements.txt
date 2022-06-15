@@ -3,3 +3,4 @@ mock
 requests>=2.0.0
 PyJWT>=2.0.0, <3.0.0
 twine
+pygments>=2.7.4 # not directly required, pinned by Snyk to avoid a vulnerability
