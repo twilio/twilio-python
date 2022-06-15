@@ -57,7 +57,7 @@ class PaymentList(ListResource):
         :param unicode input: A list of inputs that should be accepted. Currently only `dtmf` is supported.
         :param unicode min_postal_code_length: A positive integer that is used to validate the length of the `PostalCode` inputted by the user.
         :param dict parameter: A single-level JSON object used to pass custom parameters to payment processors. (Required for ACH payments)
-        :param unicode payment_connector: This is the unique name corresponding to the Payment Gateway Connector installed in the Twilio Add-ons.
+        :param unicode payment_connector: This is the unique name corresponding to the Pay Connector installed in the Twilio Add-ons.
         :param PaymentInstance.PaymentMethod payment_method: Type of payment being captured.
         :param bool postal_code: Indicates whether the credit card PostalCode (zip code) is a required piece of payment information that must be provided by the caller.
         :param bool security_code: Indicates whether the credit card security code is a required piece of payment information that must be provided by the caller.

@@ -313,7 +313,7 @@ class VoiceResponse(TwiML):
         :param message: Message to say
         :param voice: Voice to use
         :param loop: Times to loop message
-        :param language: Message langauge
+        :param language: Message language
         :param kwargs: additional attributes
 
         :returns: <Say> element
@@ -648,7 +648,7 @@ class Prompt(TwiML):
         :param message: Message to say
         :param voice: Voice to use
         :param loop: Times to loop message
-        :param language: Message langauge
+        :param language: Message language
         :param kwargs: additional attributes
 
         :returns: <Say> element
@@ -2491,7 +2491,7 @@ class Gather(TwiML):
         :param message: Message to say
         :param voice: Voice to use
         :param loop: Times to loop message
-        :param language: Message langauge
+        :param language: Message language
         :param kwargs: additional attributes
 
         :returns: <Say> element
@@ -2889,7 +2889,8 @@ class Connect(TwiML):
         ))
 
     def virtual_agent(self, connector_name=None, language=None,
-                      sentiment_analysis=None, status_callback=None, **kwargs):
+                      sentiment_analysis=None, status_callback=None,
+                      status_callback_method=None, **kwargs):
         """
         Create a <VirtualAgent> element
 
@@ -2897,6 +2898,7 @@ class Connect(TwiML):
         :param language: Language to be used by Dialogflow to transcribe speech
         :param sentiment_analysis: Whether sentiment analysis needs to be enabled or not
         :param status_callback: URL to post status callbacks from Twilio
+        :param status_callback_method: HTTP method to use when requesting the status callback URL
         :param kwargs: additional attributes
 
         :returns: <VirtualAgent> element
@@ -2906,8 +2908,59 @@ class Connect(TwiML):
             language=language,
             sentiment_analysis=sentiment_analysis,
             status_callback=status_callback,
+            status_callback_method=status_callback_method,
             **kwargs
         ))
+
+    def conversation(self, service_instance_sid=None, inbound_autocreation=None,
+                     routing_assignment_timeout=None, inbound_timeout=None,
+                     record=None, trim=None, recording_status_callback=None,
+                     recording_status_callback_method=None,
+                     recording_status_callback_event=None, status_callback=None,
+                     status_callback_method=None, status_callback_event=None,
+                     **kwargs):
+        """
+        Create a <Conversation> element
+
+        :param service_instance_sid: Service instance Sid
+        :param inbound_autocreation: Inbound autocreation
+        :param routing_assignment_timeout: Routing assignment timeout
+        :param inbound_timeout: Inbound timeout
+        :param record: Record
+        :param trim: Trim
+        :param recording_status_callback: Recording status callback URL
+        :param recording_status_callback_method: Recording status callback URL method
+        :param recording_status_callback_event: Recording status callback events
+        :param status_callback: Status callback URL
+        :param status_callback_method: Status callback URL method
+        :param status_callback_event: Events to call status callback URL
+        :param kwargs: additional attributes
+
+        :returns: <Conversation> element
+        """
+        return self.nest(Conversation(
+            service_instance_sid=service_instance_sid,
+            inbound_autocreation=inbound_autocreation,
+            routing_assignment_timeout=routing_assignment_timeout,
+            inbound_timeout=inbound_timeout,
+            record=record,
+            trim=trim,
+            recording_status_callback=recording_status_callback,
+            recording_status_callback_method=recording_status_callback_method,
+            recording_status_callback_event=recording_status_callback_event,
+            status_callback=status_callback,
+            status_callback_method=status_callback_method,
+            status_callback_event=status_callback_event,
+            **kwargs
+        ))
+
+
+class Conversation(TwiML):
+    """ <Conversation> TwiML Noun """
+
+    def __init__(self, **kwargs):
+        super(Conversation, self).__init__(**kwargs)
+        self.name = 'Conversation'
 
 
 class VirtualAgent(TwiML):
@@ -2916,6 +2969,38 @@ class VirtualAgent(TwiML):
     def __init__(self, **kwargs):
         super(VirtualAgent, self).__init__(**kwargs)
         self.name = 'VirtualAgent'
+
+    def config(self, name=None, value=None, **kwargs):
+        """
+        Create a <Config> element
+
+        :param name: The name of the custom config
+        :param value: The value of the custom config
+        :param kwargs: additional attributes
+
+        :returns: <Config> element
+        """
+        return self.nest(Config(name=name, value=value, **kwargs))
+
+    def parameter(self, name=None, value=None, **kwargs):
+        """
+        Create a <Parameter> element
+
+        :param name: The name of the custom parameter
+        :param value: The value of the custom parameter
+        :param kwargs: additional attributes
+
+        :returns: <Parameter> element
+        """
+        return self.nest(Parameter(name=name, value=value, **kwargs))
+
+
+class Config(TwiML):
+    """ <Config> TwiML Noun """
+
+    def __init__(self, **kwargs):
+        super(Config, self).__init__(**kwargs)
+        self.name = 'Config'
 
 
 class Autopilot(TwiML):

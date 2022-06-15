@@ -3,6 +3,20 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2022-06-15] Version 7.9.3
+--------------------------
+**Lookups**
+- Adding support for Lookup V2 API
+
+**Studio**
+- Corrected PII labels to be 30 days and added context to be PII
+
+**Twiml**
+- Add `statusCallbackMethod` attribute, nested `<Config` and `<Parameter>` elements to `<VirtualAgent>` noun.
+- Add support for new Amazon Polly voices (Q2 2022) for `Say` verb
+- Add support for `<Conversation>` noun
+
+
 [2022-06-01] Version 7.9.2
 --------------------------
 **Library - Chore**

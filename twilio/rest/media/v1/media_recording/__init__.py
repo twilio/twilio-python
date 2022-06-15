@@ -316,7 +316,7 @@ class MediaRecordingInstance(InstanceResource):
             'resolution': payload.get('resolution'),
             'source_sid': payload.get('source_sid'),
             'sid': payload.get('sid'),
-            'size': deserialize.integer(payload.get('size')),
+            'media_size': deserialize.integer(payload.get('media_size')),
             'status': payload.get('status'),
             'status_callback': payload.get('status_callback'),
             'status_callback_method': payload.get('status_callback_method'),
@@ -429,12 +429,12 @@ class MediaRecordingInstance(InstanceResource):
         return self._properties['sid']
 
     @property
-    def size(self):
+    def media_size(self):
         """
-        :returns: The size of the recording
+        :returns: The size of the recording media
         :rtype: unicode
         """
-        return self._properties['size']
+        return self._properties['media_size']
 
     @property
     def status(self):
