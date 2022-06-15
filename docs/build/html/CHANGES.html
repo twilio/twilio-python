@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-MWRD6S');</script><!--End Google Tag Manager-->
 <meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<title>twilio-python Changelog — twilio-python 7.9.2 documentation</title>
+<title>twilio-python Changelog — twilio-python 7.9.3 documentation</title>
 <link href="_static/alabaster.css" rel="stylesheet" type="text/css"/>
 <link href="_static/pygments.css" rel="stylesheet" type="text/css"/>
 <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js" type="text/javascript"></script>
@@ -30,6 +30,23 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <div class="section" id="twilio-python-changelog">
 <h1>twilio-python Changelog<a class="headerlink" href="#twilio-python-changelog" title="Permalink to this headline">¶</a></h1>
 <p>Here you can see the full list of changes between each twilio-python release.</p>
+<div class="section" id="version-7-9-3">
+<h2>[2022-06-15] Version 7.9.3<a class="headerlink" href="#version-7-9-3" title="Permalink to this headline">¶</a></h2>
+<p><strong>Lookups</strong></p>
+<ul class="simple">
+<li>Adding support for Lookup V2 API</li>
+</ul>
+<p><strong>Studio</strong></p>
+<ul class="simple">
+<li>Corrected PII labels to be 30 days and added context to be PII</li>
+</ul>
+<p><strong>Twiml</strong></p>
+<ul class="simple">
+<li>Add <code class="docutils literal notranslate"><span class="pre">statusCallbackMethod</span></code> attribute, nested <code class="docutils literal notranslate"><span class="pre">&lt;Config</span></code> and <code class="docutils literal notranslate"><span class="pre">&lt;Parameter&gt;</span></code> elements to <code class="docutils literal notranslate"><span class="pre">&lt;VirtualAgent&gt;</span></code> noun.</li>
+<li>Add support for new Amazon Polly voices (Q2 2022) for <code class="docutils literal notranslate"><span class="pre">Say</span></code> verb</li>
+<li>Add support for <code class="docutils literal notranslate"><span class="pre">&lt;Conversation&gt;</span></code> noun</li>
+</ul>
+</div>
 <div class="section" id="version-7-9-2">
 <h2>[2022-06-01] Version 7.9.2<a class="headerlink" href="#version-7-9-2" title="Permalink to this headline">¶</a></h2>
 <p><strong>Library - Chore</strong></p>
@@ -3673,6 +3690,7 @@ querying list resources</li>
 <h3><a href="index.html">Table of Contents</a></h3>
 <ul>
 <li><a class="reference internal" href="#">twilio-python Changelog</a><ul>
+<li><a class="reference internal" href="#version-7-9-3">[2022-06-15] Version 7.9.3</a></li>
 <li><a class="reference internal" href="#version-7-9-2">[2022-06-01] Version 7.9.2</a></li>
 <li><a class="reference internal" href="#version-7-9-1">[2022-05-18] Version 7.9.1</a></li>
 <li><a class="reference internal" href="#version-7-9-0">[2022-05-04] Version 7.9.0</a></li>

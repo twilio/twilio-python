@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-MWRD6S');</script><!--End Google Tag Manager-->
 <meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<title>twilio.twiml.voice_response — twilio-python 7.9.2 documentation</title>
+<title>twilio.twiml.voice_response — twilio-python 7.9.3 documentation</title>
 <link href="../../../_static/alabaster.css" rel="stylesheet" type="text/css"/>
 <link href="../../../_static/pygments.css" rel="stylesheet" type="text/css"/>
 <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js" type="text/javascript"></script>
@@ -343,7 +343,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <span class="sd">        :param message: Message to say</span>
 <span class="sd">        :param voice: Voice to use</span>
 <span class="sd">        :param loop: Times to loop message</span>
-<span class="sd">        :param language: Message langauge</span>
+<span class="sd">        :param language: Message language</span>
 <span class="sd">        :param kwargs: additional attributes</span>
 
 <span class="sd">        :returns: &lt;Say&gt; element</span>
@@ -678,7 +678,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <span class="sd">        :param message: Message to say</span>
 <span class="sd">        :param voice: Voice to use</span>
 <span class="sd">        :param loop: Times to loop message</span>
-<span class="sd">        :param language: Message langauge</span>
+<span class="sd">        :param language: Message language</span>
 <span class="sd">        :param kwargs: additional attributes</span>
 
 <span class="sd">        :returns: &lt;Say&gt; element</span>
@@ -2521,7 +2521,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <span class="sd">        :param message: Message to say</span>
 <span class="sd">        :param voice: Voice to use</span>
 <span class="sd">        :param loop: Times to loop message</span>
-<span class="sd">        :param language: Message langauge</span>
+<span class="sd">        :param language: Message language</span>
 <span class="sd">        :param kwargs: additional attributes</span>
 
 <span class="sd">        :returns: &lt;Say&gt; element</span>
@@ -2919,7 +2919,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="p">))</span></div>
 
 <div class="viewcode-block" id="Connect.virtual_agent"><a class="viewcode-back" href="../../../docs/source/_rst/twilio.twiml.html#twilio.twiml.voice_response.Connect.virtual_agent">[docs]</a>    <span class="k">def</span> <span class="nf">virtual_agent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">connector_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">language</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                      <span class="n">sentiment_analysis</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">status_callback</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+                      <span class="n">sentiment_analysis</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">status_callback</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                      <span class="n">status_callback_method</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">"""</span>
 <span class="sd">        Create a &lt;VirtualAgent&gt; element</span>
 
@@ -2927,6 +2928,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <span class="sd">        :param language: Language to be used by Dialogflow to transcribe speech</span>
 <span class="sd">        :param sentiment_analysis: Whether sentiment analysis needs to be enabled or not</span>
 <span class="sd">        :param status_callback: URL to post status callbacks from Twilio</span>
+<span class="sd">        :param status_callback_method: HTTP method to use when requesting the status callback URL</span>
 <span class="sd">        :param kwargs: additional attributes</span>
 
 <span class="sd">        :returns: &lt;VirtualAgent&gt; element</span>
@@ -2936,8 +2938,59 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
             <span class="n">language</span><span class="o">=</span><span class="n">language</span><span class="p">,</span>
             <span class="n">sentiment_analysis</span><span class="o">=</span><span class="n">sentiment_analysis</span><span class="p">,</span>
             <span class="n">status_callback</span><span class="o">=</span><span class="n">status_callback</span><span class="p">,</span>
+            <span class="n">status_callback_method</span><span class="o">=</span><span class="n">status_callback_method</span><span class="p">,</span>
+            <span class="o">**</span><span class="n">kwargs</span>
+        <span class="p">))</span></div>
+
+<div class="viewcode-block" id="Connect.conversation"><a class="viewcode-back" href="../../../docs/source/_rst/twilio.twiml.html#twilio.twiml.voice_response.Connect.conversation">[docs]</a>    <span class="k">def</span> <span class="nf">conversation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">service_instance_sid</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">inbound_autocreation</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                     <span class="n">routing_assignment_timeout</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">inbound_timeout</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                     <span class="n">record</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">trim</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">recording_status_callback</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                     <span class="n">recording_status_callback_method</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                     <span class="n">recording_status_callback_event</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">status_callback</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                     <span class="n">status_callback_method</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">status_callback_event</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                     <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Create a &lt;Conversation&gt; element</span>
+
+<span class="sd">        :param service_instance_sid: Service instance Sid</span>
+<span class="sd">        :param inbound_autocreation: Inbound autocreation</span>
+<span class="sd">        :param routing_assignment_timeout: Routing assignment timeout</span>
+<span class="sd">        :param inbound_timeout: Inbound timeout</span>
+<span class="sd">        :param record: Record</span>
+<span class="sd">        :param trim: Trim</span>
+<span class="sd">        :param recording_status_callback: Recording status callback URL</span>
+<span class="sd">        :param recording_status_callback_method: Recording status callback URL method</span>
+<span class="sd">        :param recording_status_callback_event: Recording status callback events</span>
+<span class="sd">        :param status_callback: Status callback URL</span>
+<span class="sd">        :param status_callback_method: Status callback URL method</span>
+<span class="sd">        :param status_callback_event: Events to call status callback URL</span>
+<span class="sd">        :param kwargs: additional attributes</span>
+
+<span class="sd">        :returns: &lt;Conversation&gt; element</span>
+<span class="sd">        """</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">nest</span><span class="p">(</span><span class="n">Conversation</span><span class="p">(</span>
+            <span class="n">service_instance_sid</span><span class="o">=</span><span class="n">service_instance_sid</span><span class="p">,</span>
+            <span class="n">inbound_autocreation</span><span class="o">=</span><span class="n">inbound_autocreation</span><span class="p">,</span>
+            <span class="n">routing_assignment_timeout</span><span class="o">=</span><span class="n">routing_assignment_timeout</span><span class="p">,</span>
+            <span class="n">inbound_timeout</span><span class="o">=</span><span class="n">inbound_timeout</span><span class="p">,</span>
+            <span class="n">record</span><span class="o">=</span><span class="n">record</span><span class="p">,</span>
+            <span class="n">trim</span><span class="o">=</span><span class="n">trim</span><span class="p">,</span>
+            <span class="n">recording_status_callback</span><span class="o">=</span><span class="n">recording_status_callback</span><span class="p">,</span>
+            <span class="n">recording_status_callback_method</span><span class="o">=</span><span class="n">recording_status_callback_method</span><span class="p">,</span>
+            <span class="n">recording_status_callback_event</span><span class="o">=</span><span class="n">recording_status_callback_event</span><span class="p">,</span>
+            <span class="n">status_callback</span><span class="o">=</span><span class="n">status_callback</span><span class="p">,</span>
+            <span class="n">status_callback_method</span><span class="o">=</span><span class="n">status_callback_method</span><span class="p">,</span>
+            <span class="n">status_callback_event</span><span class="o">=</span><span class="n">status_callback_event</span><span class="p">,</span>
             <span class="o">**</span><span class="n">kwargs</span>
         <span class="p">))</span></div></div>
+
+
+<div class="viewcode-block" id="Conversation"><a class="viewcode-back" href="../../../docs/source/_rst/twilio.twiml.html#twilio.twiml.voice_response.Conversation">[docs]</a><span class="k">class</span> <span class="nc">Conversation</span><span class="p">(</span><span class="n">TwiML</span><span class="p">):</span>
+    <span class="sd">""" &lt;Conversation&gt; TwiML Noun """</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Conversation</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">'Conversation'</span></div>
 
 
 <div class="viewcode-block" id="VirtualAgent"><a class="viewcode-back" href="../../../docs/source/_rst/twilio.twiml.html#twilio.twiml.voice_response.VirtualAgent">[docs]</a><span class="k">class</span> <span class="nc">VirtualAgent</span><span class="p">(</span><span class="n">TwiML</span><span class="p">):</span>
@@ -2945,7 +2998,39 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">VirtualAgent</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">'VirtualAgent'</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">'VirtualAgent'</span>
+
+<div class="viewcode-block" id="VirtualAgent.config"><a class="viewcode-back" href="../../../docs/source/_rst/twilio.twiml.html#twilio.twiml.voice_response.VirtualAgent.config">[docs]</a>    <span class="k">def</span> <span class="nf">config</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Create a &lt;Config&gt; element</span>
+
+<span class="sd">        :param name: The name of the custom config</span>
+<span class="sd">        :param value: The value of the custom config</span>
+<span class="sd">        :param kwargs: additional attributes</span>
+
+<span class="sd">        :returns: &lt;Config&gt; element</span>
+<span class="sd">        """</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">nest</span><span class="p">(</span><span class="n">Config</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="n">value</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="VirtualAgent.parameter"><a class="viewcode-back" href="../../../docs/source/_rst/twilio.twiml.html#twilio.twiml.voice_response.VirtualAgent.parameter">[docs]</a>    <span class="k">def</span> <span class="nf">parameter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Create a &lt;Parameter&gt; element</span>
+
+<span class="sd">        :param name: The name of the custom parameter</span>
+<span class="sd">        :param value: The value of the custom parameter</span>
+<span class="sd">        :param kwargs: additional attributes</span>
+
+<span class="sd">        :returns: &lt;Parameter&gt; element</span>
+<span class="sd">        """</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">nest</span><span class="p">(</span><span class="n">Parameter</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="n">value</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">))</span></div></div>
+
+
+<div class="viewcode-block" id="Config"><a class="viewcode-back" href="../../../docs/source/_rst/twilio.twiml.html#twilio.twiml.voice_response.Config">[docs]</a><span class="k">class</span> <span class="nc">Config</span><span class="p">(</span><span class="n">TwiML</span><span class="p">):</span>
+    <span class="sd">""" &lt;Config&gt; TwiML Noun """</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Config</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">'Config'</span></div>
 
 
 <div class="viewcode-block" id="Autopilot"><a class="viewcode-back" href="../../../docs/source/_rst/twilio.twiml.html#twilio.twiml.voice_response.Autopilot">[docs]</a><span class="k">class</span> <span class="nc">Autopilot</span><span class="p">(</span><span class="n">TwiML</span><span class="p">):</span>

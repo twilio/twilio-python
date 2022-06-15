@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-MWRD6S');</script><!--End Google Tag Manager-->
 <meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<title>twilio.twiml package — twilio-python 7.9.2 documentation</title>
+<title>twilio.twiml package — twilio-python 7.9.3 documentation</title>
 <link href="../../../_static/alabaster.css" rel="stylesheet" type="text/css"/>
 <link href="../../../_static/pygments.css" rel="stylesheet" type="text/css"/>
 <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js" type="text/javascript"></script>
@@ -277,6 +277,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <p>&lt;Conference&gt; TwiML Noun</p>
 </dd></dl>
 <dl class="class">
+<dt id="twilio.twiml.voice_response.Config">
+<em class="property">class </em><code class="descclassname">twilio.twiml.voice_response.</code><code class="descname">Config</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/twiml/voice_response.html#Config"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.twiml.voice_response.Config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#twilio.twiml.TwiML" title="twilio.twiml.TwiML"><code class="xref py py-class docutils literal notranslate"><span class="pre">twilio.twiml.TwiML</span></code></a></p>
+<p>&lt;Config&gt; TwiML Noun</p>
+</dd></dl>
+<dl class="class">
 <dt id="twilio.twiml.voice_response.Connect">
 <em class="property">class </em><code class="descclassname">twilio.twiml.voice_response.</code><code class="descname">Connect</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/twiml/voice_response.html#Connect"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.twiml.voice_response.Connect" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#twilio.twiml.TwiML" title="twilio.twiml.TwiML"><code class="xref py py-class docutils literal notranslate"><span class="pre">twilio.twiml.TwiML</span></code></a></p>
@@ -296,6 +302,37 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">&lt;Autopilot&gt; element</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+<dl class="method">
+<dt id="twilio.twiml.voice_response.Connect.conversation">
+<code class="descname">conversation</code><span class="sig-paren">(</span><em>service_instance_sid=None</em>, <em>inbound_autocreation=None</em>, <em>routing_assignment_timeout=None</em>, <em>inbound_timeout=None</em>, <em>record=None</em>, <em>trim=None</em>, <em>recording_status_callback=None</em>, <em>recording_status_callback_method=None</em>, <em>recording_status_callback_event=None</em>, <em>status_callback=None</em>, <em>status_callback_method=None</em>, <em>status_callback_event=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/twiml/voice_response.html#Connect.conversation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.twiml.voice_response.Connect.conversation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a &lt;Conversation&gt; element</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>service_instance_sid</strong> – Service instance Sid</li>
+<li><strong>inbound_autocreation</strong> – Inbound autocreation</li>
+<li><strong>routing_assignment_timeout</strong> – Routing assignment timeout</li>
+<li><strong>inbound_timeout</strong> – Inbound timeout</li>
+<li><strong>record</strong> – Record</li>
+<li><strong>trim</strong> – Trim</li>
+<li><strong>recording_status_callback</strong> – Recording status callback URL</li>
+<li><strong>recording_status_callback_method</strong> – Recording status callback URL method</li>
+<li><strong>recording_status_callback_event</strong> – Recording status callback events</li>
+<li><strong>status_callback</strong> – Status callback URL</li>
+<li><strong>status_callback_method</strong> – Status callback URL method</li>
+<li><strong>status_callback_event</strong> – Events to call status callback URL</li>
+<li><strong>kwargs</strong> – additional attributes</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">&lt;Conversation&gt; element</p>
 </td>
 </tr>
 </tbody>
@@ -349,7 +386,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 </dd></dl>
 <dl class="method">
 <dt id="twilio.twiml.voice_response.Connect.virtual_agent">
-<code class="descname">virtual_agent</code><span class="sig-paren">(</span><em>connector_name=None</em>, <em>language=None</em>, <em>sentiment_analysis=None</em>, <em>status_callback=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/twiml/voice_response.html#Connect.virtual_agent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.twiml.voice_response.Connect.virtual_agent" title="Permalink to this definition">¶</a></dt>
+<code class="descname">virtual_agent</code><span class="sig-paren">(</span><em>connector_name=None</em>, <em>language=None</em>, <em>sentiment_analysis=None</em>, <em>status_callback=None</em>, <em>status_callback_method=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/twiml/voice_response.html#Connect.virtual_agent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.twiml.voice_response.Connect.virtual_agent" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create a &lt;VirtualAgent&gt; element</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name"/>
@@ -360,6 +397,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <li><strong>language</strong> – Language to be used by Dialogflow to transcribe speech</li>
 <li><strong>sentiment_analysis</strong> – Whether sentiment analysis needs to be enabled or not</li>
 <li><strong>status_callback</strong> – URL to post status callbacks from Twilio</li>
+<li><strong>status_callback_method</strong> – HTTP method to use when requesting the status callback URL</li>
 <li><strong>kwargs</strong> – additional attributes</li>
 </ul>
 </td>
@@ -370,6 +408,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 </tbody>
 </table>
 </dd></dl>
+</dd></dl>
+<dl class="class">
+<dt id="twilio.twiml.voice_response.Conversation">
+<em class="property">class </em><code class="descclassname">twilio.twiml.voice_response.</code><code class="descname">Conversation</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/twiml/voice_response.html#Conversation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.twiml.voice_response.Conversation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#twilio.twiml.TwiML" title="twilio.twiml.TwiML"><code class="xref py py-class docutils literal notranslate"><span class="pre">twilio.twiml.TwiML</span></code></a></p>
+<p>&lt;Conversation&gt; TwiML Noun</p>
 </dd></dl>
 <dl class="class">
 <dt id="twilio.twiml.voice_response.Dial">
@@ -633,7 +677,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <li><strong>message</strong> – Message to say</li>
 <li><strong>voice</strong> – Voice to use</li>
 <li><strong>loop</strong> – Times to loop message</li>
-<li><strong>language</strong> – Message langauge</li>
+<li><strong>language</strong> – Message language</li>
 <li><strong>kwargs</strong> – additional attributes</li>
 </ul>
 </td>
@@ -796,7 +840,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <li><strong>message</strong> – Message to say</li>
 <li><strong>voice</strong> – Voice to use</li>
 <li><strong>loop</strong> – Times to loop message</li>
-<li><strong>language</strong> – Message langauge</li>
+<li><strong>language</strong> – Message language</li>
 <li><strong>kwargs</strong> – additional attributes</li>
 </ul>
 </td>
@@ -3749,6 +3793,48 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <em class="property">class </em><code class="descclassname">twilio.twiml.voice_response.</code><code class="descname">VirtualAgent</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/twiml/voice_response.html#VirtualAgent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.twiml.voice_response.VirtualAgent" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#twilio.twiml.TwiML" title="twilio.twiml.TwiML"><code class="xref py py-class docutils literal notranslate"><span class="pre">twilio.twiml.TwiML</span></code></a></p>
 <p>&lt;VirtualAgent&gt; TwiML Noun</p>
+<dl class="method">
+<dt id="twilio.twiml.voice_response.VirtualAgent.config">
+<code class="descname">config</code><span class="sig-paren">(</span><em>name=None</em>, <em>value=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/twiml/voice_response.html#VirtualAgent.config"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.twiml.voice_response.VirtualAgent.config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a &lt;Config&gt; element</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>name</strong> – The name of the custom config</li>
+<li><strong>value</strong> – The value of the custom config</li>
+<li><strong>kwargs</strong> – additional attributes</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">&lt;Config&gt; element</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+<dl class="method">
+<dt id="twilio.twiml.voice_response.VirtualAgent.parameter">
+<code class="descname">parameter</code><span class="sig-paren">(</span><em>name=None</em>, <em>value=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/twiml/voice_response.html#VirtualAgent.parameter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.twiml.voice_response.VirtualAgent.parameter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a &lt;Parameter&gt; element</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>name</strong> – The name of the custom parameter</li>
+<li><strong>value</strong> – The value of the custom parameter</li>
+<li><strong>kwargs</strong> – additional attributes</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">&lt;Parameter&gt; element</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 </dd></dl>
 <dl class="class">
 <dt id="twilio.twiml.voice_response.VoiceResponse">
@@ -4151,7 +4237,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <li><strong>message</strong> – Message to say</li>
 <li><strong>voice</strong> – Voice to use</li>
 <li><strong>loop</strong> – Times to loop message</li>
-<li><strong>language</strong> – Message langauge</li>
+<li><strong>language</strong> – Message language</li>
 <li><strong>kwargs</strong> – additional attributes</li>
 </ul>
 </td>
