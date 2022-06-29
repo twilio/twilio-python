@@ -4,6 +4,14 @@ twilio.rest.insights.v1.call package
 Submodules
 ----------
 
+twilio.rest.insights.v1.call.annotation module
+----------------------------------------------
+
+.. automodule:: twilio.rest.insights.v1.call.annotation
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 twilio.rest.insights.v1.call.event module
 -----------------------------------------
 

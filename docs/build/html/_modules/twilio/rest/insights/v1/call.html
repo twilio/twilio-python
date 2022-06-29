@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-MWRD6S');</script><!--End Google Tag Manager-->
 <meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<title>twilio.rest.insights.v1.call — twilio-python 7.9.3 documentation</title>
+<title>twilio.rest.insights.v1.call — twilio-python 7.10.0 documentation</title>
 <link href="../../../../../_static/alabaster.css" rel="stylesheet" type="text/css"/>
 <link href="../../../../../_static/pygments.css" rel="stylesheet" type="text/css"/>
 <script data-url_root="../../../../../" id="documentation_options" src="../../../../../_static/documentation_options.js" type="text/javascript"></script>
@@ -41,15 +41,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <span class="kn">from</span> <span class="nn">twilio.base.instance_resource</span> <span class="kn">import</span> <span class="n">InstanceResource</span>
 <span class="kn">from</span> <span class="nn">twilio.base.list_resource</span> <span class="kn">import</span> <span class="n">ListResource</span>
 <span class="kn">from</span> <span class="nn">twilio.base.page</span> <span class="kn">import</span> <span class="n">Page</span>
+<span class="kn">from</span> <span class="nn">twilio.rest.insights.v1.call.annotation</span> <span class="kn">import</span> <span class="n">AnnotationList</span>
 <span class="kn">from</span> <span class="nn">twilio.rest.insights.v1.call.event</span> <span class="kn">import</span> <span class="n">EventList</span>
 <span class="kn">from</span> <span class="nn">twilio.rest.insights.v1.call.metric</span> <span class="kn">import</span> <span class="n">MetricList</span>
 <span class="kn">from</span> <span class="nn">twilio.rest.insights.v1.call.summary</span> <span class="kn">import</span> <span class="n">CallSummaryList</span>
 
 
 <div class="viewcode-block" id="CallList"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.insights.v1.call.html#twilio.rest.insights.v1.call.CallList">[docs]</a><span class="k">class</span> <span class="nc">CallList</span><span class="p">(</span><span class="n">ListResource</span><span class="p">):</span>
-    <span class="sd">""" PLEASE NOTE that this class contains preview products that are subject</span>
-<span class="sd">    to change. Use them with caution. If you currently do not have developer</span>
-<span class="sd">    preview access, please contact help@twilio.com. """</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">version</span><span class="p">):</span>
         <span class="sd">"""</span>
@@ -98,9 +96,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
 
 <div class="viewcode-block" id="CallPage"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.insights.v1.call.html#twilio.rest.insights.v1.call.CallPage">[docs]</a><span class="k">class</span> <span class="nc">CallPage</span><span class="p">(</span><span class="n">Page</span><span class="p">):</span>
-    <span class="sd">""" PLEASE NOTE that this class contains preview products that are subject</span>
-<span class="sd">    to change. Use them with caution. If you currently do not have developer</span>
-<span class="sd">    preview access, please contact help@twilio.com. """</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">version</span><span class="p">,</span> <span class="n">response</span><span class="p">,</span> <span class="n">solution</span><span class="p">):</span>
         <span class="sd">"""</span>
@@ -139,9 +134,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
 
 <div class="viewcode-block" id="CallContext"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.insights.v1.call.html#twilio.rest.insights.v1.call.CallContext">[docs]</a><span class="k">class</span> <span class="nc">CallContext</span><span class="p">(</span><span class="n">InstanceContext</span><span class="p">):</span>
-    <span class="sd">""" PLEASE NOTE that this class contains preview products that are subject</span>
-<span class="sd">    to change. Use them with caution. If you currently do not have developer</span>
-<span class="sd">    preview access, please contact help@twilio.com. """</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">version</span><span class="p">,</span> <span class="n">sid</span><span class="p">):</span>
         <span class="sd">"""</span>
@@ -163,6 +155,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="bp">self</span><span class="o">.</span><span class="n">_events</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_metrics</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_summary</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_annotation</span> <span class="o">=</span> <span class="kc">None</span>
 
 <div class="viewcode-block" id="CallContext.fetch"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.insights.v1.call.html#twilio.rest.insights.v1.call.CallContext.fetch">[docs]</a>    <span class="k">def</span> <span class="nf">fetch</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">"""</span>
@@ -211,6 +204,18 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
             <span class="bp">self</span><span class="o">.</span><span class="n">_summary</span> <span class="o">=</span> <span class="n">CallSummaryList</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_version</span><span class="p">,</span> <span class="n">call_sid</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_solution</span><span class="p">[</span><span class="s1">'sid'</span><span class="p">],</span> <span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_summary</span>
 
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">annotation</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Access the annotation</span>
+
+<span class="sd">        :returns: twilio.rest.insights.v1.call.annotation.AnnotationList</span>
+<span class="sd">        :rtype: twilio.rest.insights.v1.call.annotation.AnnotationList</span>
+<span class="sd">        """</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_annotation</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_annotation</span> <span class="o">=</span> <span class="n">AnnotationList</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_version</span><span class="p">,</span> <span class="n">call_sid</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_solution</span><span class="p">[</span><span class="s1">'sid'</span><span class="p">],</span> <span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_annotation</span>
+
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">"""</span>
 <span class="sd">        Provide a friendly representation</span>
@@ -223,9 +228,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
 
 <div class="viewcode-block" id="CallInstance"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.insights.v1.call.html#twilio.rest.insights.v1.call.CallInstance">[docs]</a><span class="k">class</span> <span class="nc">CallInstance</span><span class="p">(</span><span class="n">InstanceResource</span><span class="p">):</span>
-    <span class="sd">""" PLEASE NOTE that this class contains preview products that are subject</span>
-<span class="sd">    to change. Use them with caution. If you currently do not have developer</span>
-<span class="sd">    preview access, please contact help@twilio.com. """</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">version</span><span class="p">,</span> <span class="n">payload</span><span class="p">,</span> <span class="n">sid</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">"""</span>
@@ -322,6 +324,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <span class="sd">        :rtype: twilio.rest.insights.v1.call.summary.CallSummaryList</span>
 <span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_proxy</span><span class="o">.</span><span class="n">summary</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">annotation</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Access the annotation</span>
+
+<span class="sd">        :returns: twilio.rest.insights.v1.call.annotation.AnnotationList</span>
+<span class="sd">        :rtype: twilio.rest.insights.v1.call.annotation.AnnotationList</span>
+<span class="sd">        """</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_proxy</span><span class="o">.</span><span class="n">annotation</span>
 
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">"""</span>

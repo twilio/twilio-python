@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-MWRD6S');</script><!--End Google Tag Manager-->
 <meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<title>twilio.twiml.voice_response — twilio-python 7.9.3 documentation</title>
+<title>twilio.twiml.voice_response — twilio-python 7.10.0 documentation</title>
 <link href="../../../_static/alabaster.css" rel="stylesheet" type="text/css"/>
 <link href="../../../_static/pygments.css" rel="stylesheet" type="text/css"/>
 <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js" type="text/javascript"></script>
@@ -127,13 +127,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">nest</span><span class="p">(</span><span class="n">Echo</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">))</span></div>
 
-<div class="viewcode-block" id="VoiceResponse.enqueue"><a class="viewcode-back" href="../../../docs/source/_rst/twilio.twiml.html#twilio.twiml.voice_response.VoiceResponse.enqueue">[docs]</a>    <span class="k">def</span> <span class="nf">enqueue</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">wait_url</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                <span class="n">wait_url_method</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">workflow_sid</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="VoiceResponse.enqueue"><a class="viewcode-back" href="../../../docs/source/_rst/twilio.twiml.html#twilio.twiml.voice_response.VoiceResponse.enqueue">[docs]</a>    <span class="k">def</span> <span class="nf">enqueue</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">max_queue_size</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                <span class="n">wait_url</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">wait_url_method</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">workflow_sid</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">"""</span>
 <span class="sd">        Create a &lt;Enqueue&gt; element</span>
 
 <span class="sd">        :param name: Friendly name</span>
 <span class="sd">        :param action: Action URL</span>
+<span class="sd">        :param max_queue_size: Maximum size of queue</span>
 <span class="sd">        :param method: Action URL method</span>
 <span class="sd">        :param wait_url: Wait URL</span>
 <span class="sd">        :param wait_url_method: Wait URL method</span>
@@ -145,6 +146,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">nest</span><span class="p">(</span><span class="n">Enqueue</span><span class="p">(</span>
             <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
             <span class="n">action</span><span class="o">=</span><span class="n">action</span><span class="p">,</span>
+            <span class="n">max_queue_size</span><span class="o">=</span><span class="n">max_queue_size</span><span class="p">,</span>
             <span class="n">method</span><span class="o">=</span><span class="n">method</span><span class="p">,</span>
             <span class="n">wait_url</span><span class="o">=</span><span class="n">wait_url</span><span class="p">,</span>
             <span class="n">wait_url_method</span><span class="o">=</span><span class="n">wait_url_method</span><span class="p">,</span>

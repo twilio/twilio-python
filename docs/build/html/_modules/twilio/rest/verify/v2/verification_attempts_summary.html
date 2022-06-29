@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-MWRD6S');</script><!--End Google Tag Manager-->
 <meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<title>twilio.rest.verify.v2.verification_attempts_summary — twilio-python 7.9.3 documentation</title>
+<title>twilio.rest.verify.v2.verification_attempts_summary — twilio-python 7.10.0 documentation</title>
 <link href="../../../../../_static/alabaster.css" rel="stylesheet" type="text/css"/>
 <link href="../../../../../_static/pygments.css" rel="stylesheet" type="text/css"/>
 <script data-url_root="../../../../../" id="documentation_options" src="../../../../../_static/documentation_options.js" type="text/javascript"></script>
@@ -144,14 +144,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="bp">self</span><span class="o">.</span><span class="n">_solution</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_uri</span> <span class="o">=</span> <span class="s1">'/Attempts/Summary'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">_solution</span><span class="p">)</span>
 
-<div class="viewcode-block" id="VerificationAttemptsSummaryContext.fetch"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.verify.v2.html#twilio.rest.verify.v2.verification_attempts_summary.VerificationAttemptsSummaryContext.fetch">[docs]</a>    <span class="k">def</span> <span class="nf">fetch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">verify_service_sid</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
-              <span class="n">date_created_after</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">date_created_before</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
-              <span class="n">country</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">channel</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
-              <span class="n">destination_prefix</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">):</span>
+<div class="viewcode-block" id="VerificationAttemptsSummaryContext.fetch"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.verify.v2.html#twilio.rest.verify.v2.verification_attempts_summary.VerificationAttemptsSummaryContext.fetch">[docs]</a>    <span class="k">def</span> <span class="nf">fetch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">service_sid</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">date_created_after</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
+              <span class="n">date_created_before</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">country</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
+              <span class="n">channel</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">destination_prefix</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">):</span>
         <span class="sd">"""</span>
 <span class="sd">        Fetch the VerificationAttemptsSummaryInstance</span>
 
-<span class="sd">        :param unicode verify_service_sid: Filter the verification attempts considered on the summary by verify service.</span>
+<span class="sd">        :param unicode service_sid: Filter the verification attempts considered on the summary by verify service.</span>
 <span class="sd">        :param datetime date_created_after: Consider verification attempts create after this date on the summary.</span>
 <span class="sd">        :param datetime date_created_before: Consider verification attempts created before this date on the summary.</span>
 <span class="sd">        :param unicode country: Filter verification attempts considered on the summary by destination country.</span>
@@ -162,7 +161,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <span class="sd">        :rtype: twilio.rest.verify.v2.verification_attempts_summary.VerificationAttemptsSummaryInstance</span>
 <span class="sd">        """</span>
         <span class="n">data</span> <span class="o">=</span> <span class="n">values</span><span class="o">.</span><span class="n">of</span><span class="p">({</span>
-            <span class="s1">'VerifyServiceSid'</span><span class="p">:</span> <span class="n">verify_service_sid</span><span class="p">,</span>
+            <span class="s1">'ServiceSid'</span><span class="p">:</span> <span class="n">service_sid</span><span class="p">,</span>
             <span class="s1">'DateCreatedAfter'</span><span class="p">:</span> <span class="n">serialize</span><span class="o">.</span><span class="n">iso8601_datetime</span><span class="p">(</span><span class="n">date_created_after</span><span class="p">),</span>
             <span class="s1">'DateCreatedBefore'</span><span class="p">:</span> <span class="n">serialize</span><span class="o">.</span><span class="n">iso8601_datetime</span><span class="p">(</span><span class="n">date_created_before</span><span class="p">),</span>
             <span class="s1">'Country'</span><span class="p">:</span> <span class="n">country</span><span class="p">,</span>
@@ -268,14 +267,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="p">[</span><span class="s1">'url'</span><span class="p">]</span>
 
-<div class="viewcode-block" id="VerificationAttemptsSummaryInstance.fetch"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.verify.v2.html#twilio.rest.verify.v2.verification_attempts_summary.VerificationAttemptsSummaryInstance.fetch">[docs]</a>    <span class="k">def</span> <span class="nf">fetch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">verify_service_sid</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
-              <span class="n">date_created_after</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">date_created_before</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
-              <span class="n">country</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">channel</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
-              <span class="n">destination_prefix</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">):</span>
+<div class="viewcode-block" id="VerificationAttemptsSummaryInstance.fetch"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.verify.v2.html#twilio.rest.verify.v2.verification_attempts_summary.VerificationAttemptsSummaryInstance.fetch">[docs]</a>    <span class="k">def</span> <span class="nf">fetch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">service_sid</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">date_created_after</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
+              <span class="n">date_created_before</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">country</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
+              <span class="n">channel</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">destination_prefix</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">):</span>
         <span class="sd">"""</span>
 <span class="sd">        Fetch the VerificationAttemptsSummaryInstance</span>
 
-<span class="sd">        :param unicode verify_service_sid: Filter the verification attempts considered on the summary by verify service.</span>
+<span class="sd">        :param unicode service_sid: Filter the verification attempts considered on the summary by verify service.</span>
 <span class="sd">        :param datetime date_created_after: Consider verification attempts create after this date on the summary.</span>
 <span class="sd">        :param datetime date_created_before: Consider verification attempts created before this date on the summary.</span>
 <span class="sd">        :param unicode country: Filter verification attempts considered on the summary by destination country.</span>
@@ -286,7 +284,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <span class="sd">        :rtype: twilio.rest.verify.v2.verification_attempts_summary.VerificationAttemptsSummaryInstance</span>
 <span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_proxy</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span>
-            <span class="n">verify_service_sid</span><span class="o">=</span><span class="n">verify_service_sid</span><span class="p">,</span>
+            <span class="n">service_sid</span><span class="o">=</span><span class="n">service_sid</span><span class="p">,</span>
             <span class="n">date_created_after</span><span class="o">=</span><span class="n">date_created_after</span><span class="p">,</span>
             <span class="n">date_created_before</span><span class="o">=</span><span class="n">date_created_before</span><span class="p">,</span>
             <span class="n">country</span><span class="o">=</span><span class="n">country</span><span class="p">,</span>

@@ -3,6 +3,23 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2022-06-29] Version 7.10.0
+---------------------------
+**Api**
+- Added `amazon-polly` to `usage_record` API.
+
+**Insights**
+- Added `annotation` field in call summary
+- Added new endpoint to fetch/create/update Call Annotations
+
+**Verify**
+- Remove `api.verify.totp` beta flag and set maturity to `beta` for Verify TOTP properties and parameters. **(breaking change)**
+- Changed summary param `verify_service_sid` to `service_sid` to be consistent with list attempts API **(breaking change)**
+
+**Twiml**
+- Add `maxQueueSize` to `Enqueue`
+
+
 [2022-06-15] Version 7.9.3
 --------------------------
 **Lookups**
