@@ -196,6 +196,7 @@ class CallSummaryInstance(InstanceResource):
             'attributes': payload.get('attributes'),
             'properties': payload.get('properties'),
             'trust': payload.get('trust'),
+            'annotation': payload.get('annotation'),
         }
 
         # Context
@@ -382,6 +383,14 @@ class CallSummaryInstance(InstanceResource):
         :rtype: dict
         """
         return self._properties['trust']
+
+    @property
+    def annotation(self):
+        """
+        :returns: The annotation
+        :rtype: dict
+        """
+        return self._properties['annotation']
 
     def fetch(self, processing_state=values.unset):
         """

@@ -15,42 +15,41 @@ from twilio.base.page import Page
 
 
 class AnnotationList(ListResource):
+    """ PLEASE NOTE that this class contains beta products that are subject to
+    change. Use them with caution. """
 
-    def __init__(self, version):
+    def __init__(self, version, call_sid):
         """
         Initialize the AnnotationList
 
         :param Version version: Version that contains the resource
+        :param call_sid: Call SID.
 
-        :returns: twilio.rest.insights.v1.annotation.AnnotationList
-        :rtype: twilio.rest.insights.v1.annotation.AnnotationList
+        :returns: twilio.rest.insights.v1.call.annotation.AnnotationList
+        :rtype: twilio.rest.insights.v1.call.annotation.AnnotationList
         """
         super(AnnotationList, self).__init__(version)
 
         # Path Solution
-        self._solution = {}
+        self._solution = {'call_sid': call_sid, }
 
-    def get(self, call_sid):
+    def get(self):
         """
         Constructs a AnnotationContext
 
-        :param call_sid: The call_sid
-
-        :returns: twilio.rest.insights.v1.annotation.AnnotationContext
-        :rtype: twilio.rest.insights.v1.annotation.AnnotationContext
+        :returns: twilio.rest.insights.v1.call.annotation.AnnotationContext
+        :rtype: twilio.rest.insights.v1.call.annotation.AnnotationContext
         """
-        return AnnotationContext(self._version, call_sid=call_sid, )
+        return AnnotationContext(self._version, call_sid=self._solution['call_sid'], )
 
-    def __call__(self, call_sid):
+    def __call__(self):
         """
         Constructs a AnnotationContext
 
-        :param call_sid: The call_sid
-
-        :returns: twilio.rest.insights.v1.annotation.AnnotationContext
-        :rtype: twilio.rest.insights.v1.annotation.AnnotationContext
+        :returns: twilio.rest.insights.v1.call.annotation.AnnotationContext
+        :rtype: twilio.rest.insights.v1.call.annotation.AnnotationContext
         """
-        return AnnotationContext(self._version, call_sid=call_sid, )
+        return AnnotationContext(self._version, call_sid=self._solution['call_sid'], )
 
     def __repr__(self):
         """
@@ -63,6 +62,8 @@ class AnnotationList(ListResource):
 
 
 class AnnotationPage(Page):
+    """ PLEASE NOTE that this class contains beta products that are subject to
+    change. Use them with caution. """
 
     def __init__(self, version, response, solution):
         """
@@ -70,9 +71,10 @@ class AnnotationPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
+        :param call_sid: Call SID.
 
-        :returns: twilio.rest.insights.v1.annotation.AnnotationPage
-        :rtype: twilio.rest.insights.v1.annotation.AnnotationPage
+        :returns: twilio.rest.insights.v1.call.annotation.AnnotationPage
+        :rtype: twilio.rest.insights.v1.call.annotation.AnnotationPage
         """
         super(AnnotationPage, self).__init__(version, response)
 
@@ -85,10 +87,10 @@ class AnnotationPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.insights.v1.annotation.AnnotationInstance
-        :rtype: twilio.rest.insights.v1.annotation.AnnotationInstance
+        :returns: twilio.rest.insights.v1.call.annotation.AnnotationInstance
+        :rtype: twilio.rest.insights.v1.call.annotation.AnnotationInstance
         """
-        return AnnotationInstance(self._version, payload, )
+        return AnnotationInstance(self._version, payload, call_sid=self._solution['call_sid'], )
 
     def __repr__(self):
         """
@@ -101,16 +103,18 @@ class AnnotationPage(Page):
 
 
 class AnnotationContext(InstanceContext):
+    """ PLEASE NOTE that this class contains beta products that are subject to
+    change. Use them with caution. """
 
     def __init__(self, version, call_sid):
         """
         Initialize the AnnotationContext
 
         :param Version version: Version that contains the resource
-        :param call_sid: The call_sid
+        :param call_sid: Call SID.
 
-        :returns: twilio.rest.insights.v1.annotation.AnnotationContext
-        :rtype: twilio.rest.insights.v1.annotation.AnnotationContext
+        :returns: twilio.rest.insights.v1.call.annotation.AnnotationContext
+        :rtype: twilio.rest.insights.v1.call.annotation.AnnotationContext
         """
         super(AnnotationContext, self).__init__(version)
 
@@ -125,16 +129,16 @@ class AnnotationContext(InstanceContext):
         """
         Update the AnnotationInstance
 
-        :param AnnotationInstance.AnsweredBy answered_by: The answered_by
-        :param AnnotationInstance.ConnectivityIssue connectivity_issue: The connectivity_issue
-        :param unicode quality_issues: The quality_issues
-        :param bool spam: The spam
-        :param unicode call_score: The call_score
-        :param unicode comment: The comment
-        :param unicode incident: The incident
+        :param AnnotationInstance.AnsweredBy answered_by: Indicates the answering entity as determined by Answering Machine Detection.
+        :param AnnotationInstance.ConnectivityIssue connectivity_issue: Indicates if the call had any connectivity issue
+        :param unicode quality_issues: Indicates if the call had audio quality issues.
+        :param bool spam: Call spam indicator
+        :param unicode call_score: Call Score
+        :param unicode comment: User comments
+        :param unicode incident: Call tag for incidents or support ticket
 
         :returns: The updated AnnotationInstance
-        :rtype: twilio.rest.insights.v1.annotation.AnnotationInstance
+        :rtype: twilio.rest.insights.v1.call.annotation.AnnotationInstance
         """
         data = values.of({
             'AnsweredBy': answered_by,
@@ -155,7 +159,7 @@ class AnnotationContext(InstanceContext):
         Fetch the AnnotationInstance
 
         :returns: The fetched AnnotationInstance
-        :rtype: twilio.rest.insights.v1.annotation.AnnotationInstance
+        :rtype: twilio.rest.insights.v1.call.annotation.AnnotationInstance
         """
         payload = self._version.fetch(method='GET', uri=self._uri, )
 
@@ -173,6 +177,8 @@ class AnnotationContext(InstanceContext):
 
 
 class AnnotationInstance(InstanceResource):
+    """ PLEASE NOTE that this class contains beta products that are subject to
+    change. Use them with caution. """
 
     class AnsweredBy(object):
         UNKNOWN_ANSWERED_BY = "unknown_answered_by"
@@ -198,12 +204,12 @@ class AnnotationInstance(InstanceResource):
         OWA = "owa"
         STATIC_NOISE = "static_noise"
 
-    def __init__(self, version, payload, call_sid=None):
+    def __init__(self, version, payload, call_sid):
         """
         Initialize the AnnotationInstance
 
-        :returns: twilio.rest.insights.v1.annotation.AnnotationInstance
-        :rtype: twilio.rest.insights.v1.annotation.AnnotationInstance
+        :returns: twilio.rest.insights.v1.call.annotation.AnnotationInstance
+        :rtype: twilio.rest.insights.v1.call.annotation.AnnotationInstance
         """
         super(AnnotationInstance, self).__init__(version)
 
@@ -223,7 +229,7 @@ class AnnotationInstance(InstanceResource):
 
         # Context
         self._context = None
-        self._solution = {'call_sid': call_sid or self._properties['call_sid'], }
+        self._solution = {'call_sid': call_sid, }
 
     @property
     def _proxy(self):
@@ -232,7 +238,7 @@ class AnnotationInstance(InstanceResource):
         performing various actions.  All instance actions are proxied to the context
 
         :returns: AnnotationContext for this AnnotationInstance
-        :rtype: twilio.rest.insights.v1.annotation.AnnotationContext
+        :rtype: twilio.rest.insights.v1.call.annotation.AnnotationContext
         """
         if self._context is None:
             self._context = AnnotationContext(self._version, call_sid=self._solution['call_sid'], )
@@ -241,7 +247,7 @@ class AnnotationInstance(InstanceResource):
     @property
     def call_sid(self):
         """
-        :returns: The call_sid
+        :returns: Call SID.
         :rtype: unicode
         """
         return self._properties['call_sid']
@@ -249,7 +255,7 @@ class AnnotationInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: The account_sid
+        :returns: Account SID.
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -257,7 +263,7 @@ class AnnotationInstance(InstanceResource):
     @property
     def answered_by(self):
         """
-        :returns: The answered_by
+        :returns: Indicates the answering entity as determined by Answering Machine Detection.
         :rtype: AnnotationInstance.AnsweredBy
         """
         return self._properties['answered_by']
@@ -265,7 +271,7 @@ class AnnotationInstance(InstanceResource):
     @property
     def connectivity_issue(self):
         """
-        :returns: The connectivity_issue
+        :returns: Indicates if the call had any connectivity issue
         :rtype: AnnotationInstance.ConnectivityIssue
         """
         return self._properties['connectivity_issue']
@@ -273,7 +279,7 @@ class AnnotationInstance(InstanceResource):
     @property
     def quality_issues(self):
         """
-        :returns: The quality_issues
+        :returns: Indicates if the call had audio quality issues.
         :rtype: list[unicode]
         """
         return self._properties['quality_issues']
@@ -281,7 +287,7 @@ class AnnotationInstance(InstanceResource):
     @property
     def spam(self):
         """
-        :returns: The spam
+        :returns: Call spam indicator
         :rtype: bool
         """
         return self._properties['spam']
@@ -289,7 +295,7 @@ class AnnotationInstance(InstanceResource):
     @property
     def call_score(self):
         """
-        :returns: The call_score
+        :returns: Call Score
         :rtype: unicode
         """
         return self._properties['call_score']
@@ -297,7 +303,7 @@ class AnnotationInstance(InstanceResource):
     @property
     def comment(self):
         """
-        :returns: The comment
+        :returns: User comments
         :rtype: unicode
         """
         return self._properties['comment']
@@ -305,7 +311,7 @@ class AnnotationInstance(InstanceResource):
     @property
     def incident(self):
         """
-        :returns: The incident
+        :returns: Call tag for incidents or support ticket
         :rtype: unicode
         """
         return self._properties['incident']
@@ -313,7 +319,7 @@ class AnnotationInstance(InstanceResource):
     @property
     def url(self):
         """
-        :returns: The url
+        :returns: The URL of this resource.
         :rtype: unicode
         """
         return self._properties['url']
@@ -325,16 +331,16 @@ class AnnotationInstance(InstanceResource):
         """
         Update the AnnotationInstance
 
-        :param AnnotationInstance.AnsweredBy answered_by: The answered_by
-        :param AnnotationInstance.ConnectivityIssue connectivity_issue: The connectivity_issue
-        :param unicode quality_issues: The quality_issues
-        :param bool spam: The spam
-        :param unicode call_score: The call_score
-        :param unicode comment: The comment
-        :param unicode incident: The incident
+        :param AnnotationInstance.AnsweredBy answered_by: Indicates the answering entity as determined by Answering Machine Detection.
+        :param AnnotationInstance.ConnectivityIssue connectivity_issue: Indicates if the call had any connectivity issue
+        :param unicode quality_issues: Indicates if the call had audio quality issues.
+        :param bool spam: Call spam indicator
+        :param unicode call_score: Call Score
+        :param unicode comment: User comments
+        :param unicode incident: Call tag for incidents or support ticket
 
         :returns: The updated AnnotationInstance
-        :rtype: twilio.rest.insights.v1.annotation.AnnotationInstance
+        :rtype: twilio.rest.insights.v1.call.annotation.AnnotationInstance
         """
         return self._proxy.update(
             answered_by=answered_by,
@@ -351,7 +357,7 @@ class AnnotationInstance(InstanceResource):
         Fetch the AnnotationInstance
 
         :returns: The fetched AnnotationInstance
-        :rtype: twilio.rest.insights.v1.annotation.AnnotationInstance
+        :rtype: twilio.rest.insights.v1.call.annotation.AnnotationInstance
         """
         return self._proxy.fetch()
 

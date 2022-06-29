@@ -114,14 +114,13 @@ class VerificationAttemptsSummaryContext(InstanceContext):
         self._solution = {}
         self._uri = '/Attempts/Summary'.format(**self._solution)
 
-    def fetch(self, verify_service_sid=values.unset,
-              date_created_after=values.unset, date_created_before=values.unset,
-              country=values.unset, channel=values.unset,
-              destination_prefix=values.unset):
+    def fetch(self, service_sid=values.unset, date_created_after=values.unset,
+              date_created_before=values.unset, country=values.unset,
+              channel=values.unset, destination_prefix=values.unset):
         """
         Fetch the VerificationAttemptsSummaryInstance
 
-        :param unicode verify_service_sid: Filter the verification attempts considered on the summary by verify service.
+        :param unicode service_sid: Filter the verification attempts considered on the summary by verify service.
         :param datetime date_created_after: Consider verification attempts create after this date on the summary.
         :param datetime date_created_before: Consider verification attempts created before this date on the summary.
         :param unicode country: Filter verification attempts considered on the summary by destination country.
@@ -132,7 +131,7 @@ class VerificationAttemptsSummaryContext(InstanceContext):
         :rtype: twilio.rest.verify.v2.verification_attempts_summary.VerificationAttemptsSummaryInstance
         """
         data = values.of({
-            'VerifyServiceSid': verify_service_sid,
+            'ServiceSid': service_sid,
             'DateCreatedAfter': serialize.iso8601_datetime(date_created_after),
             'DateCreatedBefore': serialize.iso8601_datetime(date_created_before),
             'Country': country,
@@ -238,14 +237,13 @@ class VerificationAttemptsSummaryInstance(InstanceResource):
         """
         return self._properties['url']
 
-    def fetch(self, verify_service_sid=values.unset,
-              date_created_after=values.unset, date_created_before=values.unset,
-              country=values.unset, channel=values.unset,
-              destination_prefix=values.unset):
+    def fetch(self, service_sid=values.unset, date_created_after=values.unset,
+              date_created_before=values.unset, country=values.unset,
+              channel=values.unset, destination_prefix=values.unset):
         """
         Fetch the VerificationAttemptsSummaryInstance
 
-        :param unicode verify_service_sid: Filter the verification attempts considered on the summary by verify service.
+        :param unicode service_sid: Filter the verification attempts considered on the summary by verify service.
         :param datetime date_created_after: Consider verification attempts create after this date on the summary.
         :param datetime date_created_before: Consider verification attempts created before this date on the summary.
         :param unicode country: Filter verification attempts considered on the summary by destination country.
@@ -256,7 +254,7 @@ class VerificationAttemptsSummaryInstance(InstanceResource):
         :rtype: twilio.rest.verify.v2.verification_attempts_summary.VerificationAttemptsSummaryInstance
         """
         return self._proxy.fetch(
-            verify_service_sid=verify_service_sid,
+            service_sid=service_sid,
             date_created_after=date_created_after,
             date_created_before=date_created_before,
             country=country,

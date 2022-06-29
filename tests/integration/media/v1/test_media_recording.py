@@ -52,7 +52,6 @@ class MediaRecordingTestCase(IntegrationTestCase):
             '''
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                "bitrate": 1000,
                 "date_created": "2015-07-30T20:00:00Z",
                 "date_updated": "2015-07-30T20:00:00Z",
                 "duration": 2147483647,
@@ -129,7 +128,6 @@ class MediaRecordingTestCase(IntegrationTestCase):
                 "media_recordings": [
                     {
                         "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                        "bitrate": 1000,
                         "date_created": "2015-07-30T20:00:00Z",
                         "date_updated": "2015-07-30T20:00:00Z",
                         "duration": 1000,

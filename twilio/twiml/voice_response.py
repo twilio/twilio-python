@@ -97,13 +97,14 @@ class VoiceResponse(TwiML):
         """
         return self.nest(Echo(**kwargs))
 
-    def enqueue(self, name=None, action=None, method=None, wait_url=None,
-                wait_url_method=None, workflow_sid=None, **kwargs):
+    def enqueue(self, name=None, action=None, max_queue_size=None, method=None,
+                wait_url=None, wait_url_method=None, workflow_sid=None, **kwargs):
         """
         Create a <Enqueue> element
 
         :param name: Friendly name
         :param action: Action URL
+        :param max_queue_size: Maximum size of queue
         :param method: Action URL method
         :param wait_url: Wait URL
         :param wait_url_method: Wait URL method
@@ -115,6 +116,7 @@ class VoiceResponse(TwiML):
         return self.nest(Enqueue(
             name=name,
             action=action,
+            max_queue_size=max_queue_size,
             method=method,
             wait_url=wait_url,
             wait_url_method=wait_url_method,

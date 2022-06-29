@@ -18,7 +18,8 @@ class AnnotationTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.insights.v1.annotation("CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
+            self.client.insights.v1.calls("CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                   .annotation().update()
 
         self.holodeck.assert_has_request(Request(
             'post',
@@ -35,7 +36,8 @@ class AnnotationTestCase(IntegrationTestCase):
                 "answered_by": "human",
                 "connectivity_issue": "invalid_number",
                 "quality_issues": [
-                    "low_volume"
+                    "low_volume",
+                    "choppy_robotic"
                 ],
                 "spam": true,
                 "call_score": 2,
@@ -46,7 +48,8 @@ class AnnotationTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.insights.v1.annotation("CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update()
+        actual = self.client.insights.v1.calls("CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                        .annotation().update()
 
         self.assertIsNotNone(actual)
 
@@ -54,7 +57,8 @@ class AnnotationTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.insights.v1.annotation("CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+            self.client.insights.v1.calls("CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                   .annotation().fetch()
 
         self.holodeck.assert_has_request(Request(
             'get',
@@ -82,6 +86,7 @@ class AnnotationTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.insights.v1.annotation("CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch()
+        actual = self.client.insights.v1.calls("CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                        .annotation().fetch()
 
         self.assertIsNotNone(actual)
