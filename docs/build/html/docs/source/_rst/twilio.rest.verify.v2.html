@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-MWRD6S');</script><!--End Google Tag Manager-->
 <meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<title>twilio.rest.verify.v2 package — twilio-python 7.10.0 documentation</title>
+<title>twilio.rest.verify.v2 package — twilio-python 7.11.0 documentation</title>
 <link href="../../../_static/alabaster.css" rel="stylesheet" type="text/css"/>
 <link href="../../../_static/pygments.css" rel="stylesheet" type="text/css"/>
 <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js" type="text/javascript"></script>
@@ -984,14 +984,14 @@ limit with the most efficient page size, i.e. min(limit, 1000)</li>
 <dd><p>Bases: <a class="reference internal" href="twilio.base.html#twilio.base.instance_context.InstanceContext" title="twilio.base.instance_context.InstanceContext"><code class="xref py py-class docutils literal notranslate"><span class="pre">twilio.base.instance_context.InstanceContext</span></code></a></p>
 <dl class="method">
 <dt id="twilio.rest.verify.v2.verification_attempts_summary.VerificationAttemptsSummaryContext.fetch">
-<code class="descname">fetch</code><span class="sig-paren">(</span><em>service_sid=&lt;object object&gt;</em>, <em>date_created_after=&lt;object object&gt;</em>, <em>date_created_before=&lt;object object&gt;</em>, <em>country=&lt;object object&gt;</em>, <em>channel=&lt;object object&gt;</em>, <em>destination_prefix=&lt;object object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/verify/v2/verification_attempts_summary.html#VerificationAttemptsSummaryContext.fetch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.verify.v2.verification_attempts_summary.VerificationAttemptsSummaryContext.fetch" title="Permalink to this definition">¶</a></dt>
+<code class="descname">fetch</code><span class="sig-paren">(</span><em>verify_service_sid=&lt;object object&gt;</em>, <em>date_created_after=&lt;object object&gt;</em>, <em>date_created_before=&lt;object object&gt;</em>, <em>country=&lt;object object&gt;</em>, <em>channel=&lt;object object&gt;</em>, <em>destination_prefix=&lt;object object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/verify/v2/verification_attempts_summary.html#VerificationAttemptsSummaryContext.fetch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.verify.v2.verification_attempts_summary.VerificationAttemptsSummaryContext.fetch" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fetch the VerificationAttemptsSummaryInstance</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>service_sid</strong> (<em>unicode</em>) – Filter the verification attempts considered on the summary by verify service.</li>
+<li><strong>verify_service_sid</strong> (<em>unicode</em>) – Filter the verification attempts considered on the summary by verify service.</li>
 <li><strong>date_created_after</strong> (<em>datetime</em>) – Consider verification attempts create after this date on the summary.</li>
 <li><strong>date_created_before</strong> (<em>datetime</em>) – Consider verification attempts created before this date on the summary.</li>
 <li><strong>country</strong> (<em>unicode</em>) – Filter verification attempts considered on the summary by destination country.</li>
@@ -1051,14 +1051,14 @@ limit with the most efficient page size, i.e. min(limit, 1000)</li>
 </dd></dl>
 <dl class="method">
 <dt id="twilio.rest.verify.v2.verification_attempts_summary.VerificationAttemptsSummaryInstance.fetch">
-<code class="descname">fetch</code><span class="sig-paren">(</span><em>service_sid=&lt;object object&gt;</em>, <em>date_created_after=&lt;object object&gt;</em>, <em>date_created_before=&lt;object object&gt;</em>, <em>country=&lt;object object&gt;</em>, <em>channel=&lt;object object&gt;</em>, <em>destination_prefix=&lt;object object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/verify/v2/verification_attempts_summary.html#VerificationAttemptsSummaryInstance.fetch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.verify.v2.verification_attempts_summary.VerificationAttemptsSummaryInstance.fetch" title="Permalink to this definition">¶</a></dt>
+<code class="descname">fetch</code><span class="sig-paren">(</span><em>verify_service_sid=&lt;object object&gt;</em>, <em>date_created_after=&lt;object object&gt;</em>, <em>date_created_before=&lt;object object&gt;</em>, <em>country=&lt;object object&gt;</em>, <em>channel=&lt;object object&gt;</em>, <em>destination_prefix=&lt;object object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/verify/v2/verification_attempts_summary.html#VerificationAttemptsSummaryInstance.fetch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.verify.v2.verification_attempts_summary.VerificationAttemptsSummaryInstance.fetch" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fetch the VerificationAttemptsSummaryInstance</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>service_sid</strong> (<em>unicode</em>) – Filter the verification attempts considered on the summary by verify service.</li>
+<li><strong>verify_service_sid</strong> (<em>unicode</em>) – Filter the verification attempts considered on the summary by verify service.</li>
 <li><strong>date_created_after</strong> (<em>datetime</em>) – Consider verification attempts create after this date on the summary.</li>
 <li><strong>date_created_before</strong> (<em>datetime</em>) – Consider verification attempts created before this date on the summary.</li>
 <li><strong>country</strong> (<em>unicode</em>) – Filter verification attempts considered on the summary by destination country.</li>

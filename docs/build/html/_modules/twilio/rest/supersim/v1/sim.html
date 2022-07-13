@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-MWRD6S');</script><!--End Google Tag Manager-->
 <meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<title>twilio.rest.supersim.v1.sim — twilio-python 7.10.0 documentation</title>
+<title>twilio.rest.supersim.v1.sim — twilio-python 7.11.0 documentation</title>
 <link href="../../../../../_static/alabaster.css" rel="stylesheet" type="text/css"/>
 <link href="../../../../../_static/pygments.css" rel="stylesheet" type="text/css"/>
 <script data-url_root="../../../../../" id="documentation_options" src="../../../../../_static/documentation_options.js" type="text/javascript"></script>
@@ -43,6 +43,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <span class="kn">from</span> <span class="nn">twilio.base.list_resource</span> <span class="kn">import</span> <span class="n">ListResource</span>
 <span class="kn">from</span> <span class="nn">twilio.base.page</span> <span class="kn">import</span> <span class="n">Page</span>
 <span class="kn">from</span> <span class="nn">twilio.rest.supersim.v1.sim.billing_period</span> <span class="kn">import</span> <span class="n">BillingPeriodList</span>
+<span class="kn">from</span> <span class="nn">twilio.rest.supersim.v1.sim.sim_ip_address</span> <span class="kn">import</span> <span class="n">SimIpAddressList</span>
 
 
 <div class="viewcode-block" id="SimList"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.supersim.v1.sim.html#twilio.rest.supersim.v1.sim.SimList">[docs]</a><span class="k">class</span> <span class="nc">SimList</span><span class="p">(</span><span class="n">ListResource</span><span class="p">):</span>
@@ -270,6 +271,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
         <span class="c1"># Dependents</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_billing_periods</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_sim_ip_addresses</span> <span class="o">=</span> <span class="kc">None</span>
 
 <div class="viewcode-block" id="SimContext.fetch"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.supersim.v1.sim.html#twilio.rest.supersim.v1.sim.SimContext.fetch">[docs]</a>    <span class="k">def</span> <span class="nf">fetch</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">"""</span>
@@ -322,6 +324,18 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_billing_periods</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_billing_periods</span> <span class="o">=</span> <span class="n">BillingPeriodList</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_version</span><span class="p">,</span> <span class="n">sim_sid</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_solution</span><span class="p">[</span><span class="s1">'sid'</span><span class="p">],</span> <span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_billing_periods</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">sim_ip_addresses</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Access the sim_ip_addresses</span>
+
+<span class="sd">        :returns: twilio.rest.supersim.v1.sim.sim_ip_address.SimIpAddressList</span>
+<span class="sd">        :rtype: twilio.rest.supersim.v1.sim.sim_ip_address.SimIpAddressList</span>
+<span class="sd">        """</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sim_ip_addresses</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_sim_ip_addresses</span> <span class="o">=</span> <span class="n">SimIpAddressList</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_version</span><span class="p">,</span> <span class="n">sim_sid</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_solution</span><span class="p">[</span><span class="s1">'sid'</span><span class="p">],</span> <span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sim_ip_addresses</span>
 
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">"""</span>
@@ -513,6 +527,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <span class="sd">        :rtype: twilio.rest.supersim.v1.sim.billing_period.BillingPeriodList</span>
 <span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_proxy</span><span class="o">.</span><span class="n">billing_periods</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">sim_ip_addresses</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Access the sim_ip_addresses</span>
+
+<span class="sd">        :returns: twilio.rest.supersim.v1.sim.sim_ip_address.SimIpAddressList</span>
+<span class="sd">        :rtype: twilio.rest.supersim.v1.sim.sim_ip_address.SimIpAddressList</span>
+<span class="sd">        """</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_proxy</span><span class="o">.</span><span class="n">sim_ip_addresses</span>
 
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">"""</span>
