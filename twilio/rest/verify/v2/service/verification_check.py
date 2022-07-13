@@ -31,26 +31,26 @@ class VerificationCheckList(ListResource):
         self._solution = {'service_sid': service_sid, }
         self._uri = '/Services/{service_sid}/VerificationCheck'.format(**self._solution)
 
-    def create(self, code, to=values.unset, verification_sid=values.unset,
-               amount=values.unset, payee=values.unset):
+    def create(self, to=values.unset, verification_sid=values.unset,
+               amount=values.unset, payee=values.unset, code=values.unset):
         """
         Create the VerificationCheckInstance
 
-        :param unicode code: The verification string
         :param unicode to: The phone number or email to verify
         :param unicode verification_sid: A SID that uniquely identifies the Verification Check
         :param unicode amount: The amount of the associated PSD2 compliant transaction.
         :param unicode payee: The payee of the associated PSD2 compliant transaction
+        :param unicode code: The verification string
 
         :returns: The created VerificationCheckInstance
         :rtype: twilio.rest.verify.v2.service.verification_check.VerificationCheckInstance
         """
         data = values.of({
-            'Code': code,
             'To': to,
             'VerificationSid': verification_sid,
             'Amount': amount,
             'Payee': payee,
+            'Code': code,
         })
 
         payload = self._version.create(method='POST', uri=self._uri, data=data, )

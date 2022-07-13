@@ -40,7 +40,6 @@ class PhoneNumberTestCase(IntegrationTestCase):
                 "sim_swap": null,
                 "call_forwarding": null,
                 "live_activity": null,
-                "enhanced_line_type": null,
                 "line_type_intelligence": null,
                 "url": "https://lookups.twilio.com/v2/PhoneNumbers/+14159929960"
             }
@@ -68,7 +67,6 @@ class PhoneNumberTestCase(IntegrationTestCase):
                 "sim_swap": null,
                 "call_forwarding": null,
                 "live_activity": null,
-                "enhanced_line_type": null,
                 "line_type_intelligence": null,
                 "url": "https://lookups.twilio.com/v2/PhoneNumbers/+141599299600"
             }
@@ -98,7 +96,6 @@ class PhoneNumberTestCase(IntegrationTestCase):
                 "sim_swap": null,
                 "call_forwarding": null,
                 "live_activity": null,
-                "enhanced_line_type": null,
                 "line_type_intelligence": null,
                 "url": "https://lookups.twilio.com/v2/PhoneNumbers/+14159929960"
             }
@@ -134,7 +131,6 @@ class PhoneNumberTestCase(IntegrationTestCase):
                 },
                 "call_forwarding": null,
                 "live_activity": null,
-                "enhanced_line_type": null,
                 "line_type_intelligence": null,
                 "url": "https://lookups.twilio.com/v2/PhoneNumbers/+447772000001"
             }
@@ -170,7 +166,6 @@ class PhoneNumberTestCase(IntegrationTestCase):
                 },
                 "call_forwarding": null,
                 "live_activity": null,
-                "enhanced_line_type": null,
                 "line_type_intelligence": null,
                 "url": "https://lookups.twilio.com/v2/PhoneNumbers/+447772000001"
             }
@@ -206,7 +201,6 @@ class PhoneNumberTestCase(IntegrationTestCase):
                 },
                 "call_forwarding": null,
                 "live_activity": null,
-                "enhanced_line_type": null,
                 "line_type_intelligence": null,
                 "url": "https://lookups.twilio.com/v2/PhoneNumbers/+447772000001"
             }
@@ -238,7 +232,6 @@ class PhoneNumberTestCase(IntegrationTestCase):
                     "error_code": null
                 },
                 "live_activity": null,
-                "enhanced_line_type": null,
                 "line_type_intelligence": null,
                 "url": "https://lookups.twilio.com/v2/PhoneNumbers/+447772000001"
             }
@@ -280,7 +273,6 @@ class PhoneNumberTestCase(IntegrationTestCase):
                     "error_code": null
                 },
                 "live_activity": null,
-                "enhanced_line_type": null,
                 "line_type_intelligence": null,
                 "url": "https://lookups.twilio.com/v2/PhoneNumbers/+447772000001"
             }
@@ -318,7 +310,6 @@ class PhoneNumberTestCase(IntegrationTestCase):
                     "roaming_carrier": null,
                     "error_code": null
                 },
-                "enhanced_line_type": null,
                 "line_type_intelligence": null,
                 "url": "https://lookups.twilio.com/v2/PhoneNumbers/+447772000001"
             }
@@ -360,7 +351,6 @@ class PhoneNumberTestCase(IntegrationTestCase):
                     "roaming_carrier": null,
                     "error_code": null
                 },
-                "enhanced_line_type": null,
                 "line_type_intelligence": null,
                 "url": "https://lookups.twilio.com/v2/PhoneNumbers/+447772000001"
             }
@@ -403,47 +393,8 @@ class PhoneNumberTestCase(IntegrationTestCase):
                     },
                     "error_code": null
                 },
-                "enhanced_line_type": null,
                 "line_type_intelligence": null,
                 "url": "https://lookups.twilio.com/v2/PhoneNumbers/+447772000001"
-            }
-            '''
-        ))
-
-        actual = self.client.lookups.v2.phone_numbers("phone_number").fetch()
-
-        self.assertIsNotNone(actual)
-
-    def test_fetch_enhanced_line_type_response(self):
-        self.holodeck.mock(Response(
-            200,
-            '''
-            {
-                "calling_country_code": "1",
-                "country_code": "US",
-                "phone_number": "+14159929960",
-                "national_format": "(415) 992-9960",
-                "valid": true,
-                "validation_errors": null,
-                "caller_name": null,
-                "sim_swap": null,
-                "call_forwarding": null,
-                "live_activity": null,
-                "enhanced_line_type": {
-                    "error_code": null,
-                    "mobile_country_code": "240",
-                    "mobile_network_code": "38",
-                    "carrier_name": "Twilio - SMS/MMS-SVR",
-                    "type": "nonFixedVoip"
-                },
-                "line_type_intelligence": {
-                    "error_code": null,
-                    "mobile_country_code": "240",
-                    "mobile_network_code": "38",
-                    "carrier_name": "Twilio - SMS/MMS-SVR",
-                    "type": "nonFixedVoip"
-                },
-                "url": "https://lookups.twilio.com/v2/PhoneNumbers/+14159929960"
             }
             '''
         ))
@@ -467,13 +418,6 @@ class PhoneNumberTestCase(IntegrationTestCase):
                 "sim_swap": null,
                 "call_forwarding": null,
                 "live_activity": null,
-                "enhanced_line_type": {
-                    "error_code": null,
-                    "mobile_country_code": "240",
-                    "mobile_network_code": "38",
-                    "carrier_name": "Twilio - SMS/MMS-SVR",
-                    "type": "nonFixedVoip"
-                },
                 "line_type_intelligence": {
                     "error_code": null,
                     "mobile_country_code": "240",

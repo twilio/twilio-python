@@ -53,7 +53,19 @@ class CallSummaryTestCase(IntegrationTestCase):
                 "attributes": {},
                 "properties": {},
                 "trust": {},
-                "annotation": {},
+                "annotation": {
+                    "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                    "call_sid": "CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                    "answered_by": "human",
+                    "connectivity_issue": "invalid_number",
+                    "quality_issues": [
+                        "low_volume"
+                    ],
+                    "spam": true,
+                    "call_score": 2,
+                    "comment": "this is a call",
+                    "incident": "https://twilio.zendesk.com/support/tickets/17353089"
+                },
                 "url": "https://insights.twilio.com/v1/Voice/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Summary"
             }
             '''

@@ -188,7 +188,6 @@ class PhoneNumberInstance(InstanceResource):
             'sim_swap': payload.get('sim_swap'),
             'call_forwarding': payload.get('call_forwarding'),
             'live_activity': payload.get('live_activity'),
-            'enhanced_line_type': payload.get('enhanced_line_type'),
             'line_type_intelligence': payload.get('line_type_intelligence'),
             'url': payload.get('url'),
         }
@@ -289,14 +288,6 @@ class PhoneNumberInstance(InstanceResource):
         :rtype: dict
         """
         return self._properties['live_activity']
-
-    @property
-    def enhanced_line_type(self):
-        """
-        :returns: An object that contains line type information
-        :rtype: dict
-        """
-        return self._properties['enhanced_line_type']
 
     @property
     def line_type_intelligence(self):
