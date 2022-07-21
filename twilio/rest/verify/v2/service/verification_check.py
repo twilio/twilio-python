@@ -31,26 +31,27 @@ class VerificationCheckList(ListResource):
         self._solution = {'service_sid': service_sid, }
         self._uri = '/Services/{service_sid}/VerificationCheck'.format(**self._solution)
 
-    def create(self, to=values.unset, verification_sid=values.unset,
-               amount=values.unset, payee=values.unset, code=values.unset):
+    def create(self, code=values.unset, to=values.unset,
+               verification_sid=values.unset, amount=values.unset,
+               payee=values.unset):
         """
         Create the VerificationCheckInstance
 
+        :param unicode code: The verification string
         :param unicode to: The phone number or email to verify
         :param unicode verification_sid: A SID that uniquely identifies the Verification Check
         :param unicode amount: The amount of the associated PSD2 compliant transaction.
         :param unicode payee: The payee of the associated PSD2 compliant transaction
-        :param unicode code: The verification string
 
         :returns: The created VerificationCheckInstance
         :rtype: twilio.rest.verify.v2.service.verification_check.VerificationCheckInstance
         """
         data = values.of({
+            'Code': code,
             'To': to,
             'VerificationSid': verification_sid,
             'Amount': amount,
             'Payee': payee,
-            'Code': code,
         })
 
         payload = self._version.create(method='POST', uri=self._uri, data=data, )
@@ -137,6 +138,7 @@ class VerificationCheckInstance(InstanceResource):
             'payee': payload.get('payee'),
             'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
             'date_updated': deserialize.iso8601_datetime(payload.get('date_updated')),
+            'sna_attempts_error_codes': payload.get('sna_attempts_error_codes'),
         }
 
         # Context
@@ -230,6 +232,14 @@ class VerificationCheckInstance(InstanceResource):
         :rtype: datetime
         """
         return self._properties['date_updated']
+
+    @property
+    def sna_attempts_error_codes(self):
+        """
+        :returns: List of error codes as a result of attempting a verification using the `sna` channel.
+        :rtype: list[dict]
+        """
+        return self._properties['sna_attempts_error_codes']
 
     def __repr__(self):
         """
