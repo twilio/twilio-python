@@ -43,7 +43,8 @@ class MessageList(ListResource):
                persistent_action=values.unset, schedule_type=values.unset,
                send_at=values.unset, send_as_mms=values.unset, from_=values.unset,
                messaging_service_sid=values.unset, body=values.unset,
-               media_url=values.unset):
+               media_url=values.unset, content_sid=values.unset,
+               content_variables=values.unset):
         """
         Create the MessageInstance
 
@@ -66,6 +67,8 @@ class MessageList(ListResource):
         :param unicode messaging_service_sid: The SID of the Messaging Service you want to associate with the message.
         :param unicode body: The text of the message you want to send. Can be up to 1,600 characters in length.
         :param list[unicode] media_url: The URL of the media to send with the message
+        :param unicode content_sid: The SID of the content to send.
+        :param dict[unicode] content_variables: Object containing the variables required to fill the content from `content_sid`.
 
         :returns: The created MessageInstance
         :rtype: twilio.rest.api.v2010.account.message.MessageInstance
@@ -90,6 +93,8 @@ class MessageList(ListResource):
             'ScheduleType': schedule_type,
             'SendAt': serialize.iso8601_datetime(send_at),
             'SendAsMms': send_as_mms,
+            'ContentSid': content_sid,
+            'ContentVariables': serialize.object(content_variables),
         })
 
         payload = self._version.create(method='POST', uri=self._uri, data=data, )
@@ -470,6 +475,8 @@ class MessageInstance(InstanceResource):
             'price_unit': payload.get('price_unit'),
             'api_version': payload.get('api_version'),
             'subresource_uris': payload.get('subresource_uris'),
+            'content_sid': payload.get('content_sid'),
+            'content_variables': payload.get('content_variables'),
         }
 
         # Context
