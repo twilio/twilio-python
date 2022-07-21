@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-MWRD6S');</script><!--End Google Tag Manager-->
 <meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<title>twilio.rest.flex_api.v1.interaction.interaction_channel package — twilio-python 7.11.0 documentation</title>
+<title>twilio.rest.flex_api.v1.interaction.interaction_channel package — twilio-python 7.12.0 documentation</title>
 <link href="../../../_static/alabaster.css" rel="stylesheet" type="text/css"/>
 <link href="../../../_static/pygments.css" rel="stylesheet" type="text/css"/>
 <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js" type="text/javascript"></script>
@@ -712,6 +712,27 @@ limit with the most efficient page size, i.e. min(limit, 1000)</li>
 <em class="property">class </em><code class="descclassname">twilio.rest.flex_api.v1.interaction.interaction_channel.</code><code class="descname">InteractionChannelInstance</code><span class="sig-paren">(</span><em>version</em>, <em>payload</em>, <em>interaction_sid</em>, <em>sid=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/flex_api/v1/interaction/interaction_channel.html#InteractionChannelInstance"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.flex_api.v1.interaction.interaction_channel.InteractionChannelInstance" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="twilio.base.html#twilio.base.instance_resource.InstanceResource" title="twilio.base.instance_resource.InstanceResource"><code class="xref py py-class docutils literal notranslate"><span class="pre">twilio.base.instance_resource.InstanceResource</span></code></a></p>
 <dl class="class">
+<dt id="twilio.rest.flex_api.v1.interaction.interaction_channel.InteractionChannelInstance.ChannelStatus">
+<em class="property">class </em><code class="descname">ChannelStatus</code><a class="reference internal" href="../../../_modules/twilio/rest/flex_api/v1/interaction/interaction_channel.html#InteractionChannelInstance.ChannelStatus"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.flex_api.v1.interaction.interaction_channel.InteractionChannelInstance.ChannelStatus" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dl class="attribute">
+<dt id="twilio.rest.flex_api.v1.interaction.interaction_channel.InteractionChannelInstance.ChannelStatus.ACTIVE">
+<code class="descname">ACTIVE</code><em class="property"> = 'active'</em><a class="headerlink" href="#twilio.rest.flex_api.v1.interaction.interaction_channel.InteractionChannelInstance.ChannelStatus.ACTIVE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="attribute">
+<dt id="twilio.rest.flex_api.v1.interaction.interaction_channel.InteractionChannelInstance.ChannelStatus.CLOSED">
+<code class="descname">CLOSED</code><em class="property"> = 'closed'</em><a class="headerlink" href="#twilio.rest.flex_api.v1.interaction.interaction_channel.InteractionChannelInstance.ChannelStatus.CLOSED" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="attribute">
+<dt id="twilio.rest.flex_api.v1.interaction.interaction_channel.InteractionChannelInstance.ChannelStatus.FAILED">
+<code class="descname">FAILED</code><em class="property"> = 'failed'</em><a class="headerlink" href="#twilio.rest.flex_api.v1.interaction.interaction_channel.InteractionChannelInstance.ChannelStatus.FAILED" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="attribute">
+<dt id="twilio.rest.flex_api.v1.interaction.interaction_channel.InteractionChannelInstance.ChannelStatus.SETUP">
+<code class="descname">SETUP</code><em class="property"> = 'setup'</em><a class="headerlink" href="#twilio.rest.flex_api.v1.interaction.interaction_channel.InteractionChannelInstance.ChannelStatus.SETUP" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+</dd></dl>
+<dl class="class">
 <dt id="twilio.rest.flex_api.v1.interaction.interaction_channel.InteractionChannelInstance.Status">
 <em class="property">class </em><code class="descname">Status</code><a class="reference internal" href="../../../_modules/twilio/rest/flex_api/v1/interaction/interaction_channel.html#InteractionChannelInstance.Status"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.flex_api.v1.interaction.interaction_channel.InteractionChannelInstance.Status" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
@@ -741,6 +762,14 @@ limit with the most efficient page size, i.e. min(limit, 1000)</li>
 <code class="descname">EMAIL</code><em class="property"> = 'email'</em><a class="headerlink" href="#twilio.rest.flex_api.v1.interaction.interaction_channel.InteractionChannelInstance.Type.EMAIL" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 <dl class="attribute">
+<dt id="twilio.rest.flex_api.v1.interaction.interaction_channel.InteractionChannelInstance.Type.GBM">
+<code class="descname">GBM</code><em class="property"> = 'gbm'</em><a class="headerlink" href="#twilio.rest.flex_api.v1.interaction.interaction_channel.InteractionChannelInstance.Type.GBM" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="attribute">
+<dt id="twilio.rest.flex_api.v1.interaction.interaction_channel.InteractionChannelInstance.Type.MESSENGER">
+<code class="descname">MESSENGER</code><em class="property"> = 'messenger'</em><a class="headerlink" href="#twilio.rest.flex_api.v1.interaction.interaction_channel.InteractionChannelInstance.Type.MESSENGER" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="attribute">
 <dt id="twilio.rest.flex_api.v1.interaction.interaction_channel.InteractionChannelInstance.Type.SMS">
 <code class="descname">SMS</code><em class="property"> = 'sms'</em><a class="headerlink" href="#twilio.rest.flex_api.v1.interaction.interaction_channel.InteractionChannelInstance.Type.SMS" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -756,6 +785,34 @@ limit with the most efficient page size, i.e. min(limit, 1000)</li>
 <dt id="twilio.rest.flex_api.v1.interaction.interaction_channel.InteractionChannelInstance.Type.WHATSAPP">
 <code class="descname">WHATSAPP</code><em class="property"> = 'whatsapp'</em><a class="headerlink" href="#twilio.rest.flex_api.v1.interaction.interaction_channel.InteractionChannelInstance.Type.WHATSAPP" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
+</dd></dl>
+<dl class="attribute">
+<dt id="twilio.rest.flex_api.v1.interaction.interaction_channel.InteractionChannelInstance.error_code">
+<code class="descname">error_code</code><a class="headerlink" href="#twilio.rest.flex_api.v1.interaction.interaction_channel.InteractionChannelInstance.error_code" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The Twilio error code for a failed channel.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">unicode</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+<dl class="attribute">
+<dt id="twilio.rest.flex_api.v1.interaction.interaction_channel.InteractionChannelInstance.error_message">
+<code class="descname">error_message</code><a class="headerlink" href="#twilio.rest.flex_api.v1.interaction.interaction_channel.InteractionChannelInstance.error_message" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The error message for a failed channel.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">unicode</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 <dl class="method">
 <dt id="twilio.rest.flex_api.v1.interaction.interaction_channel.InteractionChannelInstance.fetch">
@@ -779,7 +836,7 @@ limit with the most efficient page size, i.e. min(limit, 1000)</li>
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The unique string that identifies the resource</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The unique string that identifies the resource.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">unicode</td>
 </tr>
@@ -840,6 +897,20 @@ limit with the most efficient page size, i.e. min(limit, 1000)</li>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The unique string that identifies the resource</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">unicode</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+<dl class="attribute">
+<dt id="twilio.rest.flex_api.v1.interaction.interaction_channel.InteractionChannelInstance.status">
+<code class="descname">status</code><a class="headerlink" href="#twilio.rest.flex_api.v1.interaction.interaction_channel.InteractionChannelInstance.status" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The status of this channel.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#twilio.rest.flex_api.v1.interaction.interaction_channel.InteractionChannelInstance.ChannelStatus" title="twilio.rest.flex_api.v1.interaction.interaction_channel.InteractionChannelInstance.ChannelStatus">InteractionChannelInstance.ChannelStatus</a></td>
 </tr>
 </tbody>
 </table>

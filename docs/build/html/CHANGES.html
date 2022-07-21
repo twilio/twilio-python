@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-MWRD6S');</script><!--End Google Tag Manager-->
 <meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<title>twilio-python Changelog — twilio-python 7.11.0 documentation</title>
+<title>twilio-python Changelog — twilio-python 7.12.0 documentation</title>
 <link href="_static/alabaster.css" rel="stylesheet" type="text/css"/>
 <link href="_static/pygments.css" rel="stylesheet" type="text/css"/>
 <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js" type="text/javascript"></script>
@@ -30,6 +30,23 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <div class="section" id="twilio-python-changelog">
 <h1>twilio-python Changelog<a class="headerlink" href="#twilio-python-changelog" title="Permalink to this headline">¶</a></h1>
 <p>Here you can see the full list of changes between each twilio-python release.</p>
+<div class="section" id="version-7-12-0">
+<h2>[2022-07-21] Version 7.12.0<a class="headerlink" href="#version-7-12-0" title="Permalink to this headline">¶</a></h2>
+<p><strong>Flex</strong></p>
+<ul class="simple">
+<li>Add <code class="docutils literal notranslate"><span class="pre">status</span></code>, <code class="docutils literal notranslate"><span class="pre">error_code</span></code>, and <code class="docutils literal notranslate"><span class="pre">error_message</span></code> fields to Interaction <code class="docutils literal notranslate"><span class="pre">Channel</span></code></li>
+<li>Adding <code class="docutils literal notranslate"><span class="pre">messenger</span></code> and <code class="docutils literal notranslate"><span class="pre">gbm</span></code> as supported channels for Interactions API</li>
+</ul>
+<p><strong>Messaging</strong></p>
+<ul class="simple">
+<li>Update alpha_sender docs with new valid characters</li>
+</ul>
+<p><strong>Verify</strong></p>
+<ul class="simple">
+<li>Reorder Verification Check parameters so <code class="docutils literal notranslate"><span class="pre">code</span></code> stays as the first parameter <strong>(breaking change)</strong></li>
+<li>Rollback List Attempts API V2 back to pilot stage.</li>
+</ul>
+</div>
 <div class="section" id="version-7-11-0">
 <h2>[2022-07-13] Version 7.11.0<a class="headerlink" href="#version-7-11-0" title="Permalink to this headline">¶</a></h2>
 <p><strong>Library - Fix</strong></p>
@@ -55,7 +72,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <p><strong>Verify</strong></p>
 <ul class="simple">
 <li>Changed summary param <code class="docutils literal notranslate"><span class="pre">service_sid</span></code> to <code class="docutils literal notranslate"><span class="pre">verify_service_sid</span></code> to be consistent with list attempts API <strong>(breaking change)</strong></li>
-<li>Make <code class="docutils literal notranslate"><span class="pre">code</span></code> optional on Verification check to support <code class="docutils literal notranslate"><span class="pre">sna</span></code> attempts.</li>
+<li>Make <code class="docutils literal notranslate"><span class="pre">code</span></code> optional on Verification check to support <code class="docutils literal notranslate"><span class="pre">sna</span></code> attempts. <strong>(breaking change)</strong></li>
 </ul>
 </div>
 <div class="section" id="version-7-10-0">
@@ -3739,6 +3756,7 @@ querying list resources</li>
 <h3><a href="index.html">Table of Contents</a></h3>
 <ul>
 <li><a class="reference internal" href="#">twilio-python Changelog</a><ul>
+<li><a class="reference internal" href="#version-7-12-0">[2022-07-21] Version 7.12.0</a></li>
 <li><a class="reference internal" href="#version-7-11-0">[2022-07-13] Version 7.11.0</a></li>
 <li><a class="reference internal" href="#version-7-10-0">[2022-06-29] Version 7.10.0</a></li>
 <li><a class="reference internal" href="#version-7-9-3">[2022-06-15] Version 7.9.3</a></li>
