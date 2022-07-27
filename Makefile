@@ -51,7 +51,7 @@ nopyc:
 	find . -name \*.pyc -delete
 
 API_DEFINITIONS_SHA=$(shell git log --oneline | grep Regenerated | head -n1 | cut -d ' ' -f 5)
-CURRENT_TAG=$(shell [[ "${GITHUB_TAG}" == *"-rc"* ]] && echo "rc" || echo "latest")
+CURRENT_TAG=$(shell expr "${GITHUB_TAG}" : ".*-rc.*" >/dev/null && echo "rc" || echo "latest")
 docker-build:
 	docker build -t twilio/twilio-python .
 	docker tag twilio/twilio-python twilio/twilio-python:${GITHUB_TAG}
