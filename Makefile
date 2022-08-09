@@ -1,4 +1,4 @@
-.PHONY: clean install analysis test test-install develop docs docs-install
+.PHONY: clean install analysis test test-install test-docker develop docs docs-install
 
 venv:
 	@python --version || (echo "Python is not installed, Python 3.6+"; exit 1);
@@ -9,6 +9,10 @@ install: venv
 
 test-install: install
 	. venv/bin/activate; pip install -r tests/requirements.txt
+
+test-docker:
+	docker build -t twilio/twilio-python .
+	docker run twilio/twilio-python pytest tests
 
 develop: venv
 	. venv/bin/activate; pip install -e . --use-mirrors

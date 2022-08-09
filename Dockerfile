@@ -9,5 +9,7 @@ COPY setup.py .
 COPY requirements.txt .
 COPY README.md .
 COPY twilio ./twilio
+COPY tests ./tests
 
 RUN pip install .
+RUN pip install -r tests/requirements.txt
