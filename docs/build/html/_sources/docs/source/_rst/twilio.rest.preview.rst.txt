@@ -6,7 +6,6 @@ Subpackages
 
 .. toctree::
 
-    twilio.rest.preview.bulk_exports
     twilio.rest.preview.deployed_devices
     twilio.rest.preview.hosted_numbers
     twilio.rest.preview.marketplace
