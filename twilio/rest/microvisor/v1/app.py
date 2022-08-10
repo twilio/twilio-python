@@ -14,30 +14,29 @@ from twilio.base.list_resource import ListResource
 from twilio.base.page import Page
 
 
-class DayList(ListResource):
+class AppList(ListResource):
     """ PLEASE NOTE that this class contains preview products that are subject
     to change. Use them with caution. If you currently do not have developer
     preview access, please contact help@twilio.com. """
 
-    def __init__(self, version, resource_type):
+    def __init__(self, version):
         """
-        Initialize the DayList
+        Initialize the AppList
 
         :param Version version: Version that contains the resource
-        :param resource_type: The type of communication – Messages, Calls, Conferences, and Participants
 
-        :returns: twilio.rest.preview.bulk_exports.export.day.DayList
-        :rtype: twilio.rest.preview.bulk_exports.export.day.DayList
+        :returns: twilio.rest.microvisor.v1.app.AppList
+        :rtype: twilio.rest.microvisor.v1.app.AppList
         """
-        super(DayList, self).__init__(version)
+        super(AppList, self).__init__(version)
 
         # Path Solution
-        self._solution = {'resource_type': resource_type, }
-        self._uri = '/Exports/{resource_type}/Days'.format(**self._solution)
+        self._solution = {}
+        self._uri = '/Apps'.format(**self._solution)
 
     def stream(self, limit=None, page_size=None):
         """
-        Streams DayInstance records from the API as a generator stream.
+        Streams AppInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
@@ -50,7 +49,7 @@ class DayList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.preview.bulk_exports.export.day.DayInstance]
+        :rtype: list[twilio.rest.microvisor.v1.app.AppInstance]
         """
         limits = self._version.read_limits(limit, page_size)
 
@@ -60,7 +59,7 @@ class DayList(ListResource):
 
     def list(self, limit=None, page_size=None):
         """
-        Lists DayInstance records from the API as a list.
+        Lists AppInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
@@ -72,67 +71,67 @@ class DayList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.preview.bulk_exports.export.day.DayInstance]
+        :rtype: list[twilio.rest.microvisor.v1.app.AppInstance]
         """
         return list(self.stream(limit=limit, page_size=page_size, ))
 
     def page(self, page_token=values.unset, page_number=values.unset,
              page_size=values.unset):
         """
-        Retrieve a single page of DayInstance records from the API.
+        Retrieve a single page of AppInstance records from the API.
         Request is executed immediately
 
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
 
-        :returns: Page of DayInstance
-        :rtype: twilio.rest.preview.bulk_exports.export.day.DayPage
+        :returns: Page of AppInstance
+        :rtype: twilio.rest.microvisor.v1.app.AppPage
         """
         data = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
 
         response = self._version.page(method='GET', uri=self._uri, params=data, )
 
-        return DayPage(self._version, response, self._solution)
+        return AppPage(self._version, response, self._solution)
 
     def get_page(self, target_url):
         """
-        Retrieve a specific page of DayInstance records from the API.
+        Retrieve a specific page of AppInstance records from the API.
         Request is executed immediately
 
         :param str target_url: API-generated URL for the requested results page
 
-        :returns: Page of DayInstance
-        :rtype: twilio.rest.preview.bulk_exports.export.day.DayPage
+        :returns: Page of AppInstance
+        :rtype: twilio.rest.microvisor.v1.app.AppPage
         """
         response = self._version.domain.twilio.request(
             'GET',
             target_url,
         )
 
-        return DayPage(self._version, response, self._solution)
+        return AppPage(self._version, response, self._solution)
 
-    def get(self, day):
+    def get(self, sid):
         """
-        Constructs a DayContext
+        Constructs a AppContext
 
-        :param day: The date of the data in the file
+        :param sid: A string that uniquely identifies this App.
 
-        :returns: twilio.rest.preview.bulk_exports.export.day.DayContext
-        :rtype: twilio.rest.preview.bulk_exports.export.day.DayContext
+        :returns: twilio.rest.microvisor.v1.app.AppContext
+        :rtype: twilio.rest.microvisor.v1.app.AppContext
         """
-        return DayContext(self._version, resource_type=self._solution['resource_type'], day=day, )
+        return AppContext(self._version, sid=sid, )
 
-    def __call__(self, day):
+    def __call__(self, sid):
         """
-        Constructs a DayContext
+        Constructs a AppContext
 
-        :param day: The date of the data in the file
+        :param sid: A string that uniquely identifies this App.
 
-        :returns: twilio.rest.preview.bulk_exports.export.day.DayContext
-        :rtype: twilio.rest.preview.bulk_exports.export.day.DayContext
+        :returns: twilio.rest.microvisor.v1.app.AppContext
+        :rtype: twilio.rest.microvisor.v1.app.AppContext
         """
-        return DayContext(self._version, resource_type=self._solution['resource_type'], day=day, )
+        return AppContext(self._version, sid=sid, )
 
     def __repr__(self):
         """
@@ -141,40 +140,39 @@ class DayList(ListResource):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Preview.BulkExports.DayList>'
+        return '<Twilio.Microvisor.V1.AppList>'
 
 
-class DayPage(Page):
+class AppPage(Page):
     """ PLEASE NOTE that this class contains preview products that are subject
     to change. Use them with caution. If you currently do not have developer
     preview access, please contact help@twilio.com. """
 
     def __init__(self, version, response, solution):
         """
-        Initialize the DayPage
+        Initialize the AppPage
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param resource_type: The type of communication – Messages, Calls, Conferences, and Participants
 
-        :returns: twilio.rest.preview.bulk_exports.export.day.DayPage
-        :rtype: twilio.rest.preview.bulk_exports.export.day.DayPage
+        :returns: twilio.rest.microvisor.v1.app.AppPage
+        :rtype: twilio.rest.microvisor.v1.app.AppPage
         """
-        super(DayPage, self).__init__(version, response)
+        super(AppPage, self).__init__(version, response)
 
         # Path Solution
         self._solution = solution
 
     def get_instance(self, payload):
         """
-        Build an instance of DayInstance
+        Build an instance of AppInstance
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.preview.bulk_exports.export.day.DayInstance
-        :rtype: twilio.rest.preview.bulk_exports.export.day.DayInstance
+        :returns: twilio.rest.microvisor.v1.app.AppInstance
+        :rtype: twilio.rest.microvisor.v1.app.AppInstance
         """
-        return DayInstance(self._version, payload, resource_type=self._solution['resource_type'], )
+        return AppInstance(self._version, payload, )
 
     def __repr__(self):
         """
@@ -183,46 +181,49 @@ class DayPage(Page):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Preview.BulkExports.DayPage>'
+        return '<Twilio.Microvisor.V1.AppPage>'
 
 
-class DayContext(InstanceContext):
+class AppContext(InstanceContext):
     """ PLEASE NOTE that this class contains preview products that are subject
     to change. Use them with caution. If you currently do not have developer
     preview access, please contact help@twilio.com. """
 
-    def __init__(self, version, resource_type, day):
+    def __init__(self, version, sid):
         """
-        Initialize the DayContext
+        Initialize the AppContext
 
         :param Version version: Version that contains the resource
-        :param resource_type: The type of communication – Messages, Calls, Conferences, and Participants
-        :param day: The date of the data in the file
+        :param sid: A string that uniquely identifies this App.
 
-        :returns: twilio.rest.preview.bulk_exports.export.day.DayContext
-        :rtype: twilio.rest.preview.bulk_exports.export.day.DayContext
+        :returns: twilio.rest.microvisor.v1.app.AppContext
+        :rtype: twilio.rest.microvisor.v1.app.AppContext
         """
-        super(DayContext, self).__init__(version)
+        super(AppContext, self).__init__(version)
 
         # Path Solution
-        self._solution = {'resource_type': resource_type, 'day': day, }
-        self._uri = '/Exports/{resource_type}/Days/{day}'.format(**self._solution)
+        self._solution = {'sid': sid, }
+        self._uri = '/Apps/{sid}'.format(**self._solution)
 
     def fetch(self):
         """
-        Fetch the DayInstance
+        Fetch the AppInstance
 
-        :returns: The fetched DayInstance
-        :rtype: twilio.rest.preview.bulk_exports.export.day.DayInstance
+        :returns: The fetched AppInstance
+        :rtype: twilio.rest.microvisor.v1.app.AppInstance
         """
         payload = self._version.fetch(method='GET', uri=self._uri, )
 
-        return DayInstance(
-            self._version,
-            payload,
-            resource_type=self._solution['resource_type'],
-            day=self._solution['day'],
-        )
+        return AppInstance(self._version, payload, sid=self._solution['sid'], )
+
+    def delete(self):
+        """
+        Deletes the AppInstance
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(method='DELETE', uri=self._uri, )
 
     def __repr__(self):
         """
@@ -232,36 +233,37 @@ class DayContext(InstanceContext):
         :rtype: str
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Preview.BulkExports.DayContext {}>'.format(context)
+        return '<Twilio.Microvisor.V1.AppContext {}>'.format(context)
 
 
-class DayInstance(InstanceResource):
+class AppInstance(InstanceResource):
     """ PLEASE NOTE that this class contains preview products that are subject
     to change. Use them with caution. If you currently do not have developer
     preview access, please contact help@twilio.com. """
 
-    def __init__(self, version, payload, resource_type, day=None):
+    def __init__(self, version, payload, sid=None):
         """
-        Initialize the DayInstance
+        Initialize the AppInstance
 
-        :returns: twilio.rest.preview.bulk_exports.export.day.DayInstance
-        :rtype: twilio.rest.preview.bulk_exports.export.day.DayInstance
+        :returns: twilio.rest.microvisor.v1.app.AppInstance
+        :rtype: twilio.rest.microvisor.v1.app.AppInstance
         """
-        super(DayInstance, self).__init__(version)
+        super(AppInstance, self).__init__(version)
 
         # Marshaled Properties
         self._properties = {
-            'redirect_to': payload.get('redirect_to'),
-            'day': payload.get('day'),
-            'size': deserialize.integer(payload.get('size')),
-            'create_date': payload.get('create_date'),
-            'friendly_name': payload.get('friendly_name'),
-            'resource_type': payload.get('resource_type'),
+            'sid': payload.get('sid'),
+            'account_sid': payload.get('account_sid'),
+            'hash': payload.get('hash'),
+            'unique_name': payload.get('unique_name'),
+            'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
+            'date_updated': deserialize.iso8601_datetime(payload.get('date_updated')),
+            'url': payload.get('url'),
         }
 
         # Context
         self._context = None
-        self._solution = {'resource_type': resource_type, 'day': day or self._properties['day'], }
+        self._solution = {'sid': sid or self._properties['sid'], }
 
     @property
     def _proxy(self):
@@ -269,73 +271,86 @@ class DayInstance(InstanceResource):
         Generate an instance context for the instance, the context is capable of
         performing various actions.  All instance actions are proxied to the context
 
-        :returns: DayContext for this DayInstance
-        :rtype: twilio.rest.preview.bulk_exports.export.day.DayContext
+        :returns: AppContext for this AppInstance
+        :rtype: twilio.rest.microvisor.v1.app.AppContext
         """
         if self._context is None:
-            self._context = DayContext(
-                self._version,
-                resource_type=self._solution['resource_type'],
-                day=self._solution['day'],
-            )
+            self._context = AppContext(self._version, sid=self._solution['sid'], )
         return self._context
 
     @property
-    def redirect_to(self):
+    def sid(self):
         """
-        :returns: The redirect_to
+        :returns: A string that uniquely identifies this App.
         :rtype: unicode
         """
-        return self._properties['redirect_to']
+        return self._properties['sid']
 
     @property
-    def day(self):
+    def account_sid(self):
         """
-        :returns: The date of the data in the file
+        :returns: The Account SID.
         :rtype: unicode
         """
-        return self._properties['day']
+        return self._properties['account_sid']
 
     @property
-    def size(self):
+    def hash(self):
         """
-        :returns: Size of the file in bytes
+        :returns: App manifest hash represented as hash_algorithm:hash_value.
         :rtype: unicode
         """
-        return self._properties['size']
+        return self._properties['hash']
 
     @property
-    def create_date(self):
+    def unique_name(self):
         """
-        :returns: The date when resource is created
+        :returns: An developer-defined string that uniquely identifies the App.
         :rtype: unicode
         """
-        return self._properties['create_date']
+        return self._properties['unique_name']
 
     @property
-    def friendly_name(self):
+    def date_created(self):
         """
-        :returns: The friendly name specified when creating the job
-        :rtype: unicode
+        :returns: The date that this App was created.
+        :rtype: datetime
         """
-        return self._properties['friendly_name']
+        return self._properties['date_created']
 
     @property
-    def resource_type(self):
+    def date_updated(self):
         """
-        :returns: The type of communication – Messages, Calls, Conferences, and Participants
+        :returns: The date that this App was last updated.
+        :rtype: datetime
+        """
+        return self._properties['date_updated']
+
+    @property
+    def url(self):
+        """
+        :returns: The URL of this resource.
         :rtype: unicode
         """
-        return self._properties['resource_type']
+        return self._properties['url']
 
     def fetch(self):
         """
-        Fetch the DayInstance
+        Fetch the AppInstance
 
-        :returns: The fetched DayInstance
-        :rtype: twilio.rest.preview.bulk_exports.export.day.DayInstance
+        :returns: The fetched AppInstance
+        :rtype: twilio.rest.microvisor.v1.app.AppInstance
         """
         return self._proxy.fetch()
+
+    def delete(self):
+        """
+        Deletes the AppInstance
+
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._proxy.delete()
 
     def __repr__(self):
         """
@@ -345,4 +360,4 @@ class DayInstance(InstanceResource):
         :rtype: str
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Preview.BulkExports.DayInstance {}>'.format(context)
+        return '<Twilio.Microvisor.V1.AppInstance {}>'.format(context)
