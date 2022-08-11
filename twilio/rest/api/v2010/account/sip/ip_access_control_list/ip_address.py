@@ -117,7 +117,7 @@ class IpAddressList(ListResource):
         """
         Create the IpAddressInstance
 
-        :param unicode friendly_name: A human readable descriptive text for this resource, up to 64 characters long.
+        :param unicode friendly_name: A human readable descriptive text for this resource, up to 255 characters long.
         :param unicode ip_address: An IP address in dotted decimal notation from which you want to accept traffic. Any SIP requests from this IP address will be allowed by Twilio. IPv4 only supported today.
         :param unicode cidr_prefix_length: An integer representing the length of the CIDR prefix to use with this IP address when accepting traffic. By default the entire IP address is used.
 
@@ -273,7 +273,7 @@ class IpAddressContext(InstanceContext):
         Update the IpAddressInstance
 
         :param unicode ip_address: An IP address in dotted decimal notation from which you want to accept traffic. Any SIP requests from this IP address will be allowed by Twilio. IPv4 only supported today.
-        :param unicode friendly_name: A human readable descriptive text for this resource, up to 64 characters long.
+        :param unicode friendly_name: A human readable descriptive text for this resource, up to 255 characters long.
         :param unicode cidr_prefix_length: An integer representing the length of the CIDR prefix to use with this IP address when accepting traffic. By default the entire IP address is used.
 
         :returns: The updated IpAddressInstance
@@ -385,7 +385,7 @@ class IpAddressInstance(InstanceResource):
     @property
     def friendly_name(self):
         """
-        :returns: A human readable descriptive text for this resource, up to 64 characters long.
+        :returns: A human readable descriptive text for this resource, up to 255 characters long.
         :rtype: unicode
         """
         return self._properties['friendly_name']
@@ -453,7 +453,7 @@ class IpAddressInstance(InstanceResource):
         Update the IpAddressInstance
 
         :param unicode ip_address: An IP address in dotted decimal notation from which you want to accept traffic. Any SIP requests from this IP address will be allowed by Twilio. IPv4 only supported today.
-        :param unicode friendly_name: A human readable descriptive text for this resource, up to 64 characters long.
+        :param unicode friendly_name: A human readable descriptive text for this resource, up to 255 characters long.
         :param unicode cidr_prefix_length: An integer representing the length of the CIDR prefix to use with this IP address when accepting traffic. By default the entire IP address is used.
 
         :returns: The updated IpAddressInstance

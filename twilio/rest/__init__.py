@@ -82,6 +82,7 @@ class Client(object):
         self._preview = None
         self._pricing = None
         self._proxy = None
+        self._routes = None
         self._serverless = None
         self._studio = None
         self._sync = None
@@ -94,6 +95,7 @@ class Client(object):
         self._wireless = None
         self._supersim = None
         self._bulkexports = None
+        self._microvisor = None
 
     def request(self, method, uri, params=None, data=None, headers=None, auth=None,
                 timeout=None, allow_redirects=False):
@@ -433,6 +435,19 @@ class Client(object):
         return self._proxy
 
     @property
+    def routes(self):
+        """
+        Access the Routes Twilio Domain
+
+        :returns: Routes Twilio Domain
+        :rtype: twilio.rest.routes.Routes
+        """
+        if self._routes is None:
+            from twilio.rest.routes import Routes
+            self._routes = Routes(self)
+        return self._routes
+
+    @property
     def serverless(self):
         """
         Access the Serverless Twilio Domain
@@ -587,6 +602,19 @@ class Client(object):
             from twilio.rest.bulkexports import Bulkexports
             self._bulkexports = Bulkexports(self)
         return self._bulkexports
+
+    @property
+    def microvisor(self):
+        """
+        Access the Microvisor Twilio Domain
+
+        :returns: Microvisor Twilio Domain
+        :rtype: twilio.rest.microvisor.Microvisor
+        """
+        if self._microvisor is None:
+            from twilio.rest.microvisor import Microvisor
+            self._microvisor = Microvisor(self)
+        return self._microvisor
 
     @property
     def addresses(self):

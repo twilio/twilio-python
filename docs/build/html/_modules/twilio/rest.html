@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-MWRD6S');</script><!--End Google Tag Manager-->
 <meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<title>twilio.rest — twilio-python 7.12.0 documentation</title>
+<title>twilio.rest — twilio-python 7.12.1 documentation</title>
 <link href="../../_static/alabaster.css" rel="stylesheet" type="text/css"/>
 <link href="../../_static/pygments.css" rel="stylesheet" type="text/css"/>
 <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js" type="text/javascript"></script>
@@ -112,6 +112,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="bp">self</span><span class="o">.</span><span class="n">_preview</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_pricing</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_proxy</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_routes</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_serverless</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_studio</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_sync</span> <span class="o">=</span> <span class="kc">None</span>
@@ -124,6 +125,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="bp">self</span><span class="o">.</span><span class="n">_wireless</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_supersim</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_bulkexports</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_microvisor</span> <span class="o">=</span> <span class="kc">None</span>
 
 <div class="viewcode-block" id="Client.request"><a class="viewcode-back" href="../../docs/source/_rst/twilio.rest.html#twilio.rest.Client.request">[docs]</a>    <span class="k">def</span> <span class="nf">request</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">method</span><span class="p">,</span> <span class="n">uri</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">auth</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                 <span class="n">timeout</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">allow_redirects</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
@@ -463,6 +465,19 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_proxy</span>
 
     <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">routes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Access the Routes Twilio Domain</span>
+
+<span class="sd">        :returns: Routes Twilio Domain</span>
+<span class="sd">        :rtype: twilio.rest.routes.Routes</span>
+<span class="sd">        """</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_routes</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="kn">from</span> <span class="nn">twilio.rest.routes</span> <span class="kn">import</span> <span class="n">Routes</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_routes</span> <span class="o">=</span> <span class="n">Routes</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_routes</span>
+
+    <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">serverless</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">"""</span>
 <span class="sd">        Access the Serverless Twilio Domain</span>
@@ -617,6 +632,19 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
             <span class="kn">from</span> <span class="nn">twilio.rest.bulkexports</span> <span class="kn">import</span> <span class="n">Bulkexports</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_bulkexports</span> <span class="o">=</span> <span class="n">Bulkexports</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bulkexports</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">microvisor</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Access the Microvisor Twilio Domain</span>
+
+<span class="sd">        :returns: Microvisor Twilio Domain</span>
+<span class="sd">        :rtype: twilio.rest.microvisor.Microvisor</span>
+<span class="sd">        """</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_microvisor</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="kn">from</span> <span class="nn">twilio.rest.microvisor</span> <span class="kn">import</span> <span class="n">Microvisor</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_microvisor</span> <span class="o">=</span> <span class="n">Microvisor</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_microvisor</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">addresses</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>

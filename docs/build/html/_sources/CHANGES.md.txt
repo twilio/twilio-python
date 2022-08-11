@@ -3,6 +3,15 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2022-08-10] Version 7.12.1
+---------------------------
+**Routes**
+- Inbound Proccessing Region API - Public GA
+
+**Supersim**
+- Allow updating `DataLimit` on a Fleet
+
+
 [2022-07-21] Version 7.12.0
 ---------------------------
 **Flex**

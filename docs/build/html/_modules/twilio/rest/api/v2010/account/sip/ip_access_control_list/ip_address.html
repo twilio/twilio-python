@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-MWRD6S');</script><!--End Google Tag Manager-->
 <meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<title>twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address — twilio-python 7.12.0 documentation</title>
+<title>twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address — twilio-python 7.12.1 documentation</title>
 <link href="../../../../../../../../_static/alabaster.css" rel="stylesheet" type="text/css"/>
 <link href="../../../../../../../../_static/pygments.css" rel="stylesheet" type="text/css"/>
 <script data-url_root="../../../../../../../../" id="documentation_options" src="../../../../../../../../_static/documentation_options.js" type="text/javascript"></script>
@@ -147,7 +147,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="sd">"""</span>
 <span class="sd">        Create the IpAddressInstance</span>
 
-<span class="sd">        :param unicode friendly_name: A human readable descriptive text for this resource, up to 64 characters long.</span>
+<span class="sd">        :param unicode friendly_name: A human readable descriptive text for this resource, up to 255 characters long.</span>
 <span class="sd">        :param unicode ip_address: An IP address in dotted decimal notation from which you want to accept traffic. Any SIP requests from this IP address will be allowed by Twilio. IPv4 only supported today.</span>
 <span class="sd">        :param unicode cidr_prefix_length: An integer representing the length of the CIDR prefix to use with this IP address when accepting traffic. By default the entire IP address is used.</span>
 
@@ -303,7 +303,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <span class="sd">        Update the IpAddressInstance</span>
 
 <span class="sd">        :param unicode ip_address: An IP address in dotted decimal notation from which you want to accept traffic. Any SIP requests from this IP address will be allowed by Twilio. IPv4 only supported today.</span>
-<span class="sd">        :param unicode friendly_name: A human readable descriptive text for this resource, up to 64 characters long.</span>
+<span class="sd">        :param unicode friendly_name: A human readable descriptive text for this resource, up to 255 characters long.</span>
 <span class="sd">        :param unicode cidr_prefix_length: An integer representing the length of the CIDR prefix to use with this IP address when accepting traffic. By default the entire IP address is used.</span>
 
 <span class="sd">        :returns: The updated IpAddressInstance</span>
@@ -415,7 +415,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">friendly_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">"""</span>
-<span class="sd">        :returns: A human readable descriptive text for this resource, up to 64 characters long.</span>
+<span class="sd">        :returns: A human readable descriptive text for this resource, up to 255 characters long.</span>
 <span class="sd">        :rtype: unicode</span>
 <span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="p">[</span><span class="s1">'friendly_name'</span><span class="p">]</span>
@@ -483,7 +483,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <span class="sd">        Update the IpAddressInstance</span>
 
 <span class="sd">        :param unicode ip_address: An IP address in dotted decimal notation from which you want to accept traffic. Any SIP requests from this IP address will be allowed by Twilio. IPv4 only supported today.</span>
-<span class="sd">        :param unicode friendly_name: A human readable descriptive text for this resource, up to 64 characters long.</span>
+<span class="sd">        :param unicode friendly_name: A human readable descriptive text for this resource, up to 255 characters long.</span>
 <span class="sd">        :param unicode cidr_prefix_length: An integer representing the length of the CIDR prefix to use with this IP address when accepting traffic. By default the entire IP address is used.</span>
 
 <span class="sd">        :returns: The updated IpAddressInstance</span>
