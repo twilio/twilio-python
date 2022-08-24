@@ -118,23 +118,7 @@ class PhoneNumberContext(InstanceContext):
         self._solution = {'phone_number': phone_number, }
         self._uri = '/PhoneNumbers/{phone_number}'.format(**self._solution)
 
-    def create(self, voice_region=values.unset, friendly_name=values.unset):
-        """
-        Create the PhoneNumberInstance
-
-        :param unicode voice_region: The Inbound Processing Region used for this phone number for voice
-        :param unicode friendly_name: A human readable description of this resource.
-
-        :returns: The created PhoneNumberInstance
-        :rtype: twilio.rest.routes.v2.phone_number.PhoneNumberInstance
-        """
-        data = values.of({'VoiceRegion': voice_region, 'FriendlyName': friendly_name, })
-
-        payload = self._version.create(method='POST', uri=self._uri, data=data, )
-
-        return PhoneNumberInstance(self._version, payload, phone_number=self._solution['phone_number'], )
-
-    def update(self, voice_region, friendly_name):
+    def update(self, voice_region=values.unset, friendly_name=values.unset):
         """
         Update the PhoneNumberInstance
 
@@ -276,19 +260,7 @@ class PhoneNumberInstance(InstanceResource):
         """
         return self._properties['date_updated']
 
-    def create(self, voice_region=values.unset, friendly_name=values.unset):
-        """
-        Create the PhoneNumberInstance
-
-        :param unicode voice_region: The Inbound Processing Region used for this phone number for voice
-        :param unicode friendly_name: A human readable description of this resource.
-
-        :returns: The created PhoneNumberInstance
-        :rtype: twilio.rest.routes.v2.phone_number.PhoneNumberInstance
-        """
-        return self._proxy.create(voice_region=voice_region, friendly_name=friendly_name, )
-
-    def update(self, voice_region, friendly_name):
+    def update(self, voice_region=values.unset, friendly_name=values.unset):
         """
         Update the PhoneNumberInstance
 
@@ -298,7 +270,7 @@ class PhoneNumberInstance(InstanceResource):
         :returns: The updated PhoneNumberInstance
         :rtype: twilio.rest.routes.v2.phone_number.PhoneNumberInstance
         """
-        return self._proxy.update(voice_region, friendly_name, )
+        return self._proxy.update(voice_region=voice_region, friendly_name=friendly_name, )
 
     def fetch(self):
         """

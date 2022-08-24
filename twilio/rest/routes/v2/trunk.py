@@ -118,22 +118,6 @@ class TrunkContext(InstanceContext):
         self._solution = {'sip_trunk_domain': sip_trunk_domain, }
         self._uri = '/Trunks/{sip_trunk_domain}'.format(**self._solution)
 
-    def create(self, voice_region=values.unset, friendly_name=values.unset):
-        """
-        Create the TrunkInstance
-
-        :param unicode voice_region: The Inbound Processing Region used for this SIP Trunk for voice
-        :param unicode friendly_name: A human readable description of this resource.
-
-        :returns: The created TrunkInstance
-        :rtype: twilio.rest.routes.v2.trunk.TrunkInstance
-        """
-        data = values.of({'VoiceRegion': voice_region, 'FriendlyName': friendly_name, })
-
-        payload = self._version.create(method='POST', uri=self._uri, data=data, )
-
-        return TrunkInstance(self._version, payload, sip_trunk_domain=self._solution['sip_trunk_domain'], )
-
     def update(self, voice_region=values.unset, friendly_name=values.unset):
         """
         Update the TrunkInstance
@@ -275,18 +259,6 @@ class TrunkInstance(InstanceResource):
         :rtype: datetime
         """
         return self._properties['date_updated']
-
-    def create(self, voice_region=values.unset, friendly_name=values.unset):
-        """
-        Create the TrunkInstance
-
-        :param unicode voice_region: The Inbound Processing Region used for this SIP Trunk for voice
-        :param unicode friendly_name: A human readable description of this resource.
-
-        :returns: The created TrunkInstance
-        :rtype: twilio.rest.routes.v2.trunk.TrunkInstance
-        """
-        return self._proxy.create(voice_region=voice_region, friendly_name=friendly_name, )
 
     def update(self, voice_region=values.unset, friendly_name=values.unset):
         """

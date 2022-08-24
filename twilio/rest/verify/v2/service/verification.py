@@ -48,7 +48,7 @@ class VerificationList(ListResource):
         :param unicode custom_friendly_name: A custom user defined friendly name
         :param unicode custom_message: The text of a custom message to use for the verification
         :param unicode send_digits: The digits to send after a phone call is answered
-        :param unicode locale: The locale to use for the verification SMS, WhatsApp or call
+        :param unicode locale: The override locale to use for the verification SMS, WhatsApp or call
         :param unicode custom_code: A pre-generated code
         :param unicode amount: The amount of the associated PSD2 compliant transaction.
         :param unicode payee: The payee of the associated PSD2 compliant transaction

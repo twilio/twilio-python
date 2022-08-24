@@ -118,22 +118,6 @@ class SipDomainContext(InstanceContext):
         self._solution = {'sip_domain': sip_domain, }
         self._uri = '/SipDomains/{sip_domain}'.format(**self._solution)
 
-    def create(self, voice_region=values.unset, friendly_name=values.unset):
-        """
-        Create the SipDomainInstance
-
-        :param unicode voice_region: The voice_region
-        :param unicode friendly_name: The friendly_name
-
-        :returns: The created SipDomainInstance
-        :rtype: twilio.rest.routes.v2.sip_domain.SipDomainInstance
-        """
-        data = values.of({'VoiceRegion': voice_region, 'FriendlyName': friendly_name, })
-
-        payload = self._version.create(method='POST', uri=self._uri, data=data, )
-
-        return SipDomainInstance(self._version, payload, sip_domain=self._solution['sip_domain'], )
-
     def update(self, voice_region=values.unset, friendly_name=values.unset):
         """
         Update the SipDomainInstance
@@ -275,18 +259,6 @@ class SipDomainInstance(InstanceResource):
         :rtype: datetime
         """
         return self._properties['date_updated']
-
-    def create(self, voice_region=values.unset, friendly_name=values.unset):
-        """
-        Create the SipDomainInstance
-
-        :param unicode voice_region: The voice_region
-        :param unicode friendly_name: The friendly_name
-
-        :returns: The created SipDomainInstance
-        :rtype: twilio.rest.routes.v2.sip_domain.SipDomainInstance
-        """
-        return self._proxy.create(voice_region=voice_region, friendly_name=friendly_name, )
 
     def update(self, voice_region=values.unset, friendly_name=values.unset):
         """

@@ -14,38 +14,6 @@ from twilio.http.response import Response
 
 class TrunkTestCase(IntegrationTestCase):
 
-    def test_create_request(self):
-        self.holodeck.mock(Response(500, ''))
-
-        with self.assertRaises(TwilioException):
-            self.client.routes.v2.trunks("sip_trunk_domain").create()
-
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://routes.twilio.com/v2/Trunks/sip_trunk_domain',
-        ))
-
-    def test_create_response(self):
-        self.holodeck.mock(Response(
-            201,
-            '''
-            {
-                "sip_trunk_domain": "test.pstn.twilio.com",
-                "url": "https://routes.twilio.com/v2/Trunks/test.pstn.twilio.com",
-                "sid": "QQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                "friendly_name": "friendly_name",
-                "voice_region": "au1",
-                "date_created": "2020-08-07T22:29:24Z",
-                "date_updated": "2020-08-07T22:29:24Z"
-            }
-            '''
-        ))
-
-        actual = self.client.routes.v2.trunks("sip_trunk_domain").create()
-
-        self.assertIsNotNone(actual)
-
     def test_update_request(self):
         self.holodeck.mock(Response(500, ''))
 
