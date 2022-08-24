@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-MWRD6S');</script><!--End Google Tag Manager-->
 <meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<title>twilio.rest.routes.v2.phone_number — twilio-python 7.12.1 documentation</title>
+<title>twilio.rest.routes.v2.phone_number — twilio-python 7.13.0 documentation</title>
 <link href="../../../../../_static/alabaster.css" rel="stylesheet" type="text/css"/>
 <link href="../../../../../_static/pygments.css" rel="stylesheet" type="text/css"/>
 <script data-url_root="../../../../../" id="documentation_options" src="../../../../../_static/documentation_options.js" type="text/javascript"></script>
@@ -148,23 +148,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="bp">self</span><span class="o">.</span><span class="n">_solution</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'phone_number'</span><span class="p">:</span> <span class="n">phone_number</span><span class="p">,</span> <span class="p">}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_uri</span> <span class="o">=</span> <span class="s1">'/PhoneNumbers/</span><span class="si">{phone_number}</span><span class="s1">'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">_solution</span><span class="p">)</span>
 
-<div class="viewcode-block" id="PhoneNumberContext.create"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.routes.v2.html#twilio.rest.routes.v2.phone_number.PhoneNumberContext.create">[docs]</a>    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">voice_region</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">friendly_name</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">):</span>
-        <span class="sd">"""</span>
-<span class="sd">        Create the PhoneNumberInstance</span>
-
-<span class="sd">        :param unicode voice_region: The Inbound Processing Region used for this phone number for voice</span>
-<span class="sd">        :param unicode friendly_name: A human readable description of this resource.</span>
-
-<span class="sd">        :returns: The created PhoneNumberInstance</span>
-<span class="sd">        :rtype: twilio.rest.routes.v2.phone_number.PhoneNumberInstance</span>
-<span class="sd">        """</span>
-        <span class="n">data</span> <span class="o">=</span> <span class="n">values</span><span class="o">.</span><span class="n">of</span><span class="p">({</span><span class="s1">'VoiceRegion'</span><span class="p">:</span> <span class="n">voice_region</span><span class="p">,</span> <span class="s1">'FriendlyName'</span><span class="p">:</span> <span class="n">friendly_name</span><span class="p">,</span> <span class="p">})</span>
-
-        <span class="n">payload</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_version</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">'POST'</span><span class="p">,</span> <span class="n">uri</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_uri</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="p">)</span>
-
-        <span class="k">return</span> <span class="n">PhoneNumberInstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_version</span><span class="p">,</span> <span class="n">payload</span><span class="p">,</span> <span class="n">phone_number</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_solution</span><span class="p">[</span><span class="s1">'phone_number'</span><span class="p">],</span> <span class="p">)</span></div>
-
-<div class="viewcode-block" id="PhoneNumberContext.update"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.routes.v2.html#twilio.rest.routes.v2.phone_number.PhoneNumberContext.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">voice_region</span><span class="p">,</span> <span class="n">friendly_name</span><span class="p">):</span>
+<div class="viewcode-block" id="PhoneNumberContext.update"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.routes.v2.html#twilio.rest.routes.v2.phone_number.PhoneNumberContext.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">voice_region</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">friendly_name</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">):</span>
         <span class="sd">"""</span>
 <span class="sd">        Update the PhoneNumberInstance</span>
 
@@ -306,19 +290,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="p">[</span><span class="s1">'date_updated'</span><span class="p">]</span>
 
-<div class="viewcode-block" id="PhoneNumberInstance.create"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.routes.v2.html#twilio.rest.routes.v2.phone_number.PhoneNumberInstance.create">[docs]</a>    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">voice_region</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">friendly_name</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">):</span>
-        <span class="sd">"""</span>
-<span class="sd">        Create the PhoneNumberInstance</span>
-
-<span class="sd">        :param unicode voice_region: The Inbound Processing Region used for this phone number for voice</span>
-<span class="sd">        :param unicode friendly_name: A human readable description of this resource.</span>
-
-<span class="sd">        :returns: The created PhoneNumberInstance</span>
-<span class="sd">        :rtype: twilio.rest.routes.v2.phone_number.PhoneNumberInstance</span>
-<span class="sd">        """</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_proxy</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">voice_region</span><span class="o">=</span><span class="n">voice_region</span><span class="p">,</span> <span class="n">friendly_name</span><span class="o">=</span><span class="n">friendly_name</span><span class="p">,</span> <span class="p">)</span></div>
-
-<div class="viewcode-block" id="PhoneNumberInstance.update"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.routes.v2.html#twilio.rest.routes.v2.phone_number.PhoneNumberInstance.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">voice_region</span><span class="p">,</span> <span class="n">friendly_name</span><span class="p">):</span>
+<div class="viewcode-block" id="PhoneNumberInstance.update"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.routes.v2.html#twilio.rest.routes.v2.phone_number.PhoneNumberInstance.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">voice_region</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">friendly_name</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">):</span>
         <span class="sd">"""</span>
 <span class="sd">        Update the PhoneNumberInstance</span>
 
@@ -328,7 +300,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <span class="sd">        :returns: The updated PhoneNumberInstance</span>
 <span class="sd">        :rtype: twilio.rest.routes.v2.phone_number.PhoneNumberInstance</span>
 <span class="sd">        """</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_proxy</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">voice_region</span><span class="p">,</span> <span class="n">friendly_name</span><span class="p">,</span> <span class="p">)</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_proxy</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">voice_region</span><span class="o">=</span><span class="n">voice_region</span><span class="p">,</span> <span class="n">friendly_name</span><span class="o">=</span><span class="n">friendly_name</span><span class="p">,</span> <span class="p">)</span></div>
 
 <div class="viewcode-block" id="PhoneNumberInstance.fetch"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.routes.v2.html#twilio.rest.routes.v2.phone_number.PhoneNumberInstance.fetch">[docs]</a>    <span class="k">def</span> <span class="nf">fetch</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">"""</span>

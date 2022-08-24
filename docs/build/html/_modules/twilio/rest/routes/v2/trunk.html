@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-MWRD6S');</script><!--End Google Tag Manager-->
 <meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<title>twilio.rest.routes.v2.trunk — twilio-python 7.12.1 documentation</title>
+<title>twilio.rest.routes.v2.trunk — twilio-python 7.13.0 documentation</title>
 <link href="../../../../../_static/alabaster.css" rel="stylesheet" type="text/css"/>
 <link href="../../../../../_static/pygments.css" rel="stylesheet" type="text/css"/>
 <script data-url_root="../../../../../" id="documentation_options" src="../../../../../_static/documentation_options.js" type="text/javascript"></script>
@@ -147,22 +147,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="c1"># Path Solution</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_solution</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'sip_trunk_domain'</span><span class="p">:</span> <span class="n">sip_trunk_domain</span><span class="p">,</span> <span class="p">}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_uri</span> <span class="o">=</span> <span class="s1">'/Trunks/</span><span class="si">{sip_trunk_domain}</span><span class="s1">'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">_solution</span><span class="p">)</span>
-
-<div class="viewcode-block" id="TrunkContext.create"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.routes.v2.html#twilio.rest.routes.v2.trunk.TrunkContext.create">[docs]</a>    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">voice_region</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">friendly_name</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">):</span>
-        <span class="sd">"""</span>
-<span class="sd">        Create the TrunkInstance</span>
-
-<span class="sd">        :param unicode voice_region: The Inbound Processing Region used for this SIP Trunk for voice</span>
-<span class="sd">        :param unicode friendly_name: A human readable description of this resource.</span>
-
-<span class="sd">        :returns: The created TrunkInstance</span>
-<span class="sd">        :rtype: twilio.rest.routes.v2.trunk.TrunkInstance</span>
-<span class="sd">        """</span>
-        <span class="n">data</span> <span class="o">=</span> <span class="n">values</span><span class="o">.</span><span class="n">of</span><span class="p">({</span><span class="s1">'VoiceRegion'</span><span class="p">:</span> <span class="n">voice_region</span><span class="p">,</span> <span class="s1">'FriendlyName'</span><span class="p">:</span> <span class="n">friendly_name</span><span class="p">,</span> <span class="p">})</span>
-
-        <span class="n">payload</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_version</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">'POST'</span><span class="p">,</span> <span class="n">uri</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_uri</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="p">)</span>
-
-        <span class="k">return</span> <span class="n">TrunkInstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_version</span><span class="p">,</span> <span class="n">payload</span><span class="p">,</span> <span class="n">sip_trunk_domain</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_solution</span><span class="p">[</span><span class="s1">'sip_trunk_domain'</span><span class="p">],</span> <span class="p">)</span></div>
 
 <div class="viewcode-block" id="TrunkContext.update"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.routes.v2.html#twilio.rest.routes.v2.trunk.TrunkContext.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">voice_region</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">friendly_name</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">):</span>
         <span class="sd">"""</span>
@@ -305,18 +289,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <span class="sd">        :rtype: datetime</span>
 <span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="p">[</span><span class="s1">'date_updated'</span><span class="p">]</span>
-
-<div class="viewcode-block" id="TrunkInstance.create"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.routes.v2.html#twilio.rest.routes.v2.trunk.TrunkInstance.create">[docs]</a>    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">voice_region</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">friendly_name</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">):</span>
-        <span class="sd">"""</span>
-<span class="sd">        Create the TrunkInstance</span>
-
-<span class="sd">        :param unicode voice_region: The Inbound Processing Region used for this SIP Trunk for voice</span>
-<span class="sd">        :param unicode friendly_name: A human readable description of this resource.</span>
-
-<span class="sd">        :returns: The created TrunkInstance</span>
-<span class="sd">        :rtype: twilio.rest.routes.v2.trunk.TrunkInstance</span>
-<span class="sd">        """</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_proxy</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">voice_region</span><span class="o">=</span><span class="n">voice_region</span><span class="p">,</span> <span class="n">friendly_name</span><span class="o">=</span><span class="n">friendly_name</span><span class="p">,</span> <span class="p">)</span></div>
 
 <div class="viewcode-block" id="TrunkInstance.update"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.routes.v2.html#twilio.rest.routes.v2.trunk.TrunkInstance.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">voice_region</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">friendly_name</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">):</span>
         <span class="sd">"""</span>
