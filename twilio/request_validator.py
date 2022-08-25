@@ -74,7 +74,7 @@ class RequestValidator(object):
         s = uri
         if params:
             joined_params = []
-            for param_name in set(params):
+            for param_name in sorted(set(params)):
                 try:
                     # Support MultiDict used by Flask.
                     value_list = params.getall(param_name)
@@ -86,10 +86,10 @@ class RequestValidator(object):
                         # Fallback to a standard dict.
                         value_list = [params[param_name]]
 
-                for value in value_list:
+                for value in sorted(value_list):
                     joined_params.append(param_name + value)
 
-            for param in sorted(joined_params):
+            for param in joined_params:
                 s += param
 
         # compute signature and compare signatures

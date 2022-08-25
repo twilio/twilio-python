@@ -29,7 +29,7 @@ class ValidationTest(unittest.TestCase):
         self.body = "{\"property\": \"value\", \"boolean\": true}"
         self.bodyHash = "0a1ff7634d9ab3b95db5c9a2dfe9416e41502b283a80c7cf19632632f96e6620"
         self.uriWithBody = self.uri + "&bodySHA256=" + self.bodyHash
-        self.duplicate_expected = 'xvxzJ7dFxZg6CzvevjfwbPcNNjM='
+        self.duplicate_expected = 'IK+Dwps556ElfBT0I3Rgjkr1wJU='
 
     def test_compute_signature(self):
         expected = self.expected
@@ -45,7 +45,8 @@ class ValidationTest(unittest.TestCase):
     def test_compute_signature_duplicate_multi_dict(self):
         expected = self.duplicate_expected
         params = MultiDict([
-            ("CallSid", "CA1234567890ABCDE"),
+            ("Sid", "CA123"),
+            ("SidAccount", "AC123"),
             ("Digits", "1234"),
             ("Digits", "5678"),
         ])
@@ -54,7 +55,7 @@ class ValidationTest(unittest.TestCase):
 
     def test_compute_signature_duplicate_query_dict(self):
         expected = self.duplicate_expected
-        params = QueryDict('CallSid=CA1234567890ABCDE&Digits=1234&Digits=5678', encoding='utf-8')
+        params = QueryDict('Sid=CA123&SidAccount=AC123&Digits=1234&Digits=5678', encoding='utf-8')
         signature = self.validator.compute_signature(self.uri, params)
         assert signature == expected
 
