@@ -1,12 +1,19 @@
 # -*- coding: utf-8 -*-
 import unittest
 
+from django.conf import settings
+from django.http import QueryDict
+from multidict import MultiDict
+
 from twilio.request_validator import RequestValidator
 
 
 class ValidationTest(unittest.TestCase):
 
     def setUp(self):
+        if not settings.configured:
+            settings.configure()
+
         token = "12345"
         self.validator = RequestValidator(token)
 
@@ -22,9 +29,10 @@ class ValidationTest(unittest.TestCase):
         self.body = "{\"property\": \"value\", \"boolean\": true}"
         self.bodyHash = "0a1ff7634d9ab3b95db5c9a2dfe9416e41502b283a80c7cf19632632f96e6620"
         self.uriWithBody = self.uri + "&bodySHA256=" + self.bodyHash
+        self.duplicate_expected = 'xvxzJ7dFxZg6CzvevjfwbPcNNjM='
 
     def test_compute_signature(self):
-        expected = (self.expected)
+        expected = self.expected
         signature = self.validator.compute_signature(self.uri, self.params)
         assert signature == expected
 
@@ -33,6 +41,22 @@ class ValidationTest(unittest.TestCase):
         body_hash = self.validator.compute_hash(self.body)
 
         assert expected == body_hash
+
+    def test_compute_signature_duplicate_multi_dict(self):
+        expected = self.duplicate_expected
+        params = MultiDict([
+            ("CallSid", "CA1234567890ABCDE"),
+            ("Digits", "1234"),
+            ("Digits", "5678"),
+        ])
+        signature = self.validator.compute_signature(self.uri, params)
+        assert signature == expected
+
+    def test_compute_signature_duplicate_query_dict(self):
+        expected = self.duplicate_expected
+        params = QueryDict('CallSid=CA1234567890ABCDE&Digits=1234&Digits=5678', encoding='utf-8')
+        signature = self.validator.compute_signature(self.uri, params)
+        assert signature == expected
 
     def test_validation(self):
         assert self.validator.validate(self.uri, self.params, self.expected)

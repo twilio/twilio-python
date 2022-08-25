@@ -73,8 +73,24 @@ class RequestValidator(object):
         """
         s = uri
         if params:
-            for k, v in sorted(params.items()):
-                s += k + v
+            joined_params = []
+            for param_name in set(params):
+                try:
+                    # Support MultiDict used by Flask.
+                    value_list = params.getall(param_name)
+                except AttributeError:
+                    try:
+                        # Support QueryDict used by Django.
+                        value_list = params.getlist(param_name)
+                    except AttributeError:
+                        # Fallback to a standard dict.
+                        value_list = [params[param_name]]
+
+                for value in value_list:
+                    joined_params.append(param_name + value)
+
+            for param in sorted(joined_params):
+                s += param
 
         # compute signature and compare signatures
         mac = hmac.new(self.token, s.encode("utf-8"), sha1)
@@ -104,8 +120,6 @@ class RequestValidator(object):
         uri_with_port = add_port(parsed_uri)
         uri_without_port = remove_port(parsed_uri)
 
-        valid_signature = False  # Default fail
-        valid_signature_with_port = False
         valid_body_hash = True  # May not receive body hash, so default succeed
 
         query = parse_qs(parsed_uri.query)
