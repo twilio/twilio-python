@@ -73,24 +73,11 @@ class RequestValidator(object):
         """
         s = uri
         if params:
-            joined_params = []
             for param_name in sorted(set(params)):
-                try:
-                    # Support MultiDict used by Flask.
-                    value_list = params.getall(param_name)
-                except AttributeError:
-                    try:
-                        # Support QueryDict used by Django.
-                        value_list = params.getlist(param_name)
-                    except AttributeError:
-                        # Fallback to a standard dict.
-                        value_list = [params[param_name]]
+                values = self.get_values(params, param_name)
 
-                for value in sorted(value_list):
-                    joined_params.append(param_name + value)
-
-            for param in joined_params:
-                s += param
+                for value in sorted(values):
+                    s += param_name + value
 
         # compute signature and compare signatures
         mac = hmac.new(self.token, s.encode("utf-8"), sha1)
@@ -98,6 +85,18 @@ class RequestValidator(object):
         computed = computed.decode('utf-8')
 
         return computed.strip()
+
+    def get_values(self, param_dict, param_name):
+        try:
+            # Support MultiDict used by Flask.
+            return param_dict.getall(param_name)
+        except AttributeError:
+            try:
+                # Support QueryDict used by Django.
+                return param_dict.getlist(param_name)
+            except AttributeError:
+                # Fallback to a standard dict.
+                return [param_dict[param_name]]
 
     def compute_hash(self, body):
         computed = sha256(body.encode("utf-8")).hexdigest()
