@@ -47,15 +47,15 @@ class ValidationTest(unittest.TestCase):
         params = MultiDict([
             ("Sid", "CA123"),
             ("SidAccount", "AC123"),
-            ("Digits", "1234"),
             ("Digits", "5678"),
+            ("Digits", "1234"),
         ])
         signature = self.validator.compute_signature(self.uri, params)
         assert signature == expected
 
     def test_compute_signature_duplicate_query_dict(self):
         expected = self.duplicate_expected
-        params = QueryDict('Sid=CA123&SidAccount=AC123&Digits=1234&Digits=5678', encoding='utf-8')
+        params = QueryDict('Sid=CA123&SidAccount=AC123&Digits=5678&Digits=1234', encoding='utf-8')
         signature = self.validator.compute_signature(self.uri, params)
         assert signature == expected
 
