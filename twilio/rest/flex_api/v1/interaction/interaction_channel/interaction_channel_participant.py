@@ -273,7 +273,6 @@ class InteractionChannelParticipantContext(InstanceContext):
 class InteractionChannelParticipantInstance(InstanceResource):
 
     class Status(object):
-        CLOSE = "close"
         CLOSED = "closed"
         WRAPUP = "wrapup"
 

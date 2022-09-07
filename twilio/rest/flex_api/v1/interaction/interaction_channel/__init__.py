@@ -301,7 +301,6 @@ class InteractionChannelContext(InstanceContext):
 class InteractionChannelInstance(InstanceResource):
 
     class Status(object):
-        CLOSE = "close"
         CLOSED = "closed"
         WRAPUP = "wrapup"
 

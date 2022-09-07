@@ -158,9 +158,9 @@ class InteractionChannelTestCase(IntegrationTestCase):
 
         with self.assertRaises(TwilioException):
             self.client.flex_api.v1.interaction("KDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                   .channels("UOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update(status="close")
+                                   .channels("UOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update(status="closed")
 
-        values = {'Status': "close", }
+        values = {'Status': "closed", }
 
         self.holodeck.assert_has_request(Request(
             'post',
@@ -189,7 +189,7 @@ class InteractionChannelTestCase(IntegrationTestCase):
         ))
 
         actual = self.client.flex_api.v1.interaction("KDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                        .channels("UOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update(status="close")
+                                        .channels("UOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update(status="closed")
 
         self.assertIsNotNone(actual)
 
@@ -214,6 +214,6 @@ class InteractionChannelTestCase(IntegrationTestCase):
         ))
 
         actual = self.client.flex_api.v1.interaction("KDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                        .channels("UOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update(status="close")
+                                        .channels("UOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update(status="closed")
 
         self.assertIsNotNone(actual)

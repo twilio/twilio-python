@@ -44,6 +44,13 @@ class Verify(Domain):
         return self.v2.forms
 
     @property
+    def safelist(self):
+        """
+        :rtype: twilio.rest.verify.v2.safelist.SafelistList
+        """
+        return self.v2.safelist
+
+    @property
     def services(self):
         """
         :rtype: twilio.rest.verify.v2.service.ServiceList
