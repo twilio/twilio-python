@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-MWRD6S');</script><!--End Google Tag Manager-->
 <meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<title>twilio.rest.video.v1.room.room_participant — twilio-python 7.13.0 documentation</title>
+<title>twilio.rest.video.v1.room.room_participant — twilio-python 7.14.0 documentation</title>
 <link href="../../../../../../_static/alabaster.css" rel="stylesheet" type="text/css"/>
 <link href="../../../../../../_static/pygments.css" rel="stylesheet" type="text/css"/>
 <script data-url_root="../../../../../../" id="documentation_options" src="../../../../../../_static/documentation_options.js" type="text/javascript"></script>
@@ -43,6 +43,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <span class="kn">from</span> <span class="nn">twilio.base.instance_resource</span> <span class="kn">import</span> <span class="n">InstanceResource</span>
 <span class="kn">from</span> <span class="nn">twilio.base.list_resource</span> <span class="kn">import</span> <span class="n">ListResource</span>
 <span class="kn">from</span> <span class="nn">twilio.base.page</span> <span class="kn">import</span> <span class="n">Page</span>
+<span class="kn">from</span> <span class="nn">twilio.rest.video.v1.room.room_participant.room_participant_anonymize</span> <span class="kn">import</span> <span class="n">AnonymizeList</span>
 <span class="kn">from</span> <span class="nn">twilio.rest.video.v1.room.room_participant.room_participant_published_track</span> <span class="kn">import</span> <span class="n">PublishedTrackList</span>
 <span class="kn">from</span> <span class="nn">twilio.rest.video.v1.room.room_participant.room_participant_subscribe_rule</span> <span class="kn">import</span> <span class="n">SubscribeRulesList</span>
 <span class="kn">from</span> <span class="nn">twilio.rest.video.v1.room.room_participant.room_participant_subscribed_track</span> <span class="kn">import</span> <span class="n">SubscribedTrackList</span>
@@ -276,6 +277,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="bp">self</span><span class="o">.</span><span class="n">_published_tracks</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_subscribed_tracks</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_subscribe_rules</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_anonymize</span> <span class="o">=</span> <span class="kc">None</span>
 
 <div class="viewcode-block" id="ParticipantContext.fetch"><a class="viewcode-back" href="../../../../../../docs/source/_rst/twilio.rest.video.v1.room.room_participant.html#twilio.rest.video.v1.room.room_participant.ParticipantContext.fetch">[docs]</a>    <span class="k">def</span> <span class="nf">fetch</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">"""</span>
@@ -360,6 +362,22 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
                 <span class="n">participant_sid</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_solution</span><span class="p">[</span><span class="s1">'sid'</span><span class="p">],</span>
             <span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_subscribe_rules</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">anonymize</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Access the anonymize</span>
+
+<span class="sd">        :returns: twilio.rest.video.v1.room.room_participant.room_participant_anonymize.AnonymizeList</span>
+<span class="sd">        :rtype: twilio.rest.video.v1.room.room_participant.room_participant_anonymize.AnonymizeList</span>
+<span class="sd">        """</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_anonymize</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_anonymize</span> <span class="o">=</span> <span class="n">AnonymizeList</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_version</span><span class="p">,</span>
+                <span class="n">room_sid</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_solution</span><span class="p">[</span><span class="s1">'room_sid'</span><span class="p">],</span>
+                <span class="n">sid</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_solution</span><span class="p">[</span><span class="s1">'sid'</span><span class="p">],</span>
+            <span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_anonymize</span>
 
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">"""</span>
@@ -569,6 +587,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <span class="sd">        :rtype: twilio.rest.video.v1.room.room_participant.room_participant_subscribe_rule.SubscribeRulesList</span>
 <span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_proxy</span><span class="o">.</span><span class="n">subscribe_rules</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">anonymize</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Access the anonymize</span>
+
+<span class="sd">        :returns: twilio.rest.video.v1.room.room_participant.room_participant_anonymize.AnonymizeList</span>
+<span class="sd">        :rtype: twilio.rest.video.v1.room.room_participant.room_participant_anonymize.AnonymizeList</span>
+<span class="sd">        """</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_proxy</span><span class="o">.</span><span class="n">anonymize</span>
 
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">"""</span>

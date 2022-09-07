@@ -3,6 +3,28 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2022-09-07] Version 7.14.0
+---------------------------
+**Library - Fix**
+- [PR #615](https://github.com/twilio/twilio-python/pull/615): support duplicate query param values. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+
+**Flex**
+- Removed redundant `close` status from Flex Interactions flow **(breaking change)**
+- Adding `debugger_integration` and `flex_ui_status_report` to Flex Configuration
+
+**Messaging**
+- Add create, list and get tollfree verification API
+
+**Verify**
+- Verify SafeList API endpoints added.
+
+**Video**
+- Add `Anonymize` API
+
+**Twiml**
+- Update `event` value `call-in-progress` to `call-answered`
+
+
 [2022-08-24] Version 7.13.0
 ---------------------------
 **Library - Test**
