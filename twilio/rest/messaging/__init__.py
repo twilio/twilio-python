@@ -65,6 +65,13 @@ class Messaging(Domain):
         return self.v1.services
 
     @property
+    def tollfree_verifications(self):
+        """
+        :rtype: twilio.rest.messaging.v1.tollfree_verification.TollfreeVerificationList
+        """
+        return self.v1.tollfree_verifications
+
+    @property
     def usecases(self):
         """
         :rtype: twilio.rest.messaging.v1.usecase.UsecaseList

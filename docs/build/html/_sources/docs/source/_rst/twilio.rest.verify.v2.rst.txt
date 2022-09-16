@@ -19,6 +19,14 @@ twilio.rest.verify.v2.form module
     :undoc-members:
     :show-inheritance:
 
+twilio.rest.verify.v2.safelist module
+-------------------------------------
+
+.. automodule:: twilio.rest.verify.v2.safelist
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 twilio.rest.verify.v2.template module
 -------------------------------------
 

@@ -175,11 +175,6 @@ class InteractionContext(InstanceContext):
 
 class InteractionInstance(InstanceResource):
 
-    class Status(object):
-        CLOSE = "close"
-        CLOSED = "closed"
-        WRAPUP = "wrapup"
-
     def __init__(self, version, payload, sid=None):
         """
         Initialize the InteractionInstance

@@ -11,6 +11,7 @@ from twilio.rest.messaging.v1.brand_registration import BrandRegistrationList
 from twilio.rest.messaging.v1.deactivation import DeactivationsList
 from twilio.rest.messaging.v1.external_campaign import ExternalCampaignList
 from twilio.rest.messaging.v1.service import ServiceList
+from twilio.rest.messaging.v1.tollfree_verification import TollfreeVerificationList
 from twilio.rest.messaging.v1.usecase import UsecaseList
 
 
@@ -29,6 +30,7 @@ class V1(Version):
         self._deactivations = None
         self._external_campaign = None
         self._services = None
+        self._tollfree_verifications = None
         self._usecases = None
 
     @property
@@ -66,6 +68,15 @@ class V1(Version):
         if self._services is None:
             self._services = ServiceList(self)
         return self._services
+
+    @property
+    def tollfree_verifications(self):
+        """
+        :rtype: twilio.rest.messaging.v1.tollfree_verification.TollfreeVerificationList
+        """
+        if self._tollfree_verifications is None:
+            self._tollfree_verifications = TollfreeVerificationList(self)
+        return self._tollfree_verifications
 
     @property
     def usecases(self):

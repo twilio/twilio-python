@@ -28,6 +28,14 @@ twilio.rest.messaging.v1.external\_campaign module
     :undoc-members:
     :show-inheritance:
 
+twilio.rest.messaging.v1.tollfree\_verification module
+------------------------------------------------------
+
+.. automodule:: twilio.rest.messaging.v1.tollfree_verification
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 twilio.rest.messaging.v1.usecase module
 ---------------------------------------
 

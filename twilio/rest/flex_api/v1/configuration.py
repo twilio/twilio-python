@@ -222,6 +222,8 @@ class ConfigurationInstance(InstanceResource):
             'flex_insights_drilldown': payload.get('flex_insights_drilldown'),
             'flex_url': payload.get('flex_url'),
             'channel_configs': payload.get('channel_configs'),
+            'debugger_integration': payload.get('debugger_integration'),
+            'flex_ui_status_report': payload.get('flex_ui_status_report'),
         }
 
         # Context
@@ -584,6 +586,22 @@ class ConfigurationInstance(InstanceResource):
         :rtype: list[dict]
         """
         return self._properties['channel_configs']
+
+    @property
+    def debugger_integration(self):
+        """
+        :returns: Configurable parameters for Debugger Integration
+        :rtype: dict
+        """
+        return self._properties['debugger_integration']
+
+    @property
+    def flex_ui_status_report(self):
+        """
+        :returns: Configurable parameters for Flex UI Status report
+        :rtype: dict
+        """
+        return self._properties['flex_ui_status_report']
 
     def fetch(self, ui_version=values.unset):
         """

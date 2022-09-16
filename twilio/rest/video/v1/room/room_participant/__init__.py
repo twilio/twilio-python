@@ -13,6 +13,7 @@ from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.page import Page
+from twilio.rest.video.v1.room.room_participant.room_participant_anonymize import AnonymizeList
 from twilio.rest.video.v1.room.room_participant.room_participant_published_track import PublishedTrackList
 from twilio.rest.video.v1.room.room_participant.room_participant_subscribe_rule import SubscribeRulesList
 from twilio.rest.video.v1.room.room_participant.room_participant_subscribed_track import SubscribedTrackList
@@ -246,6 +247,7 @@ class ParticipantContext(InstanceContext):
         self._published_tracks = None
         self._subscribed_tracks = None
         self._subscribe_rules = None
+        self._anonymize = None
 
     def fetch(self):
         """
@@ -330,6 +332,22 @@ class ParticipantContext(InstanceContext):
                 participant_sid=self._solution['sid'],
             )
         return self._subscribe_rules
+
+    @property
+    def anonymize(self):
+        """
+        Access the anonymize
+
+        :returns: twilio.rest.video.v1.room.room_participant.room_participant_anonymize.AnonymizeList
+        :rtype: twilio.rest.video.v1.room.room_participant.room_participant_anonymize.AnonymizeList
+        """
+        if self._anonymize is None:
+            self._anonymize = AnonymizeList(
+                self._version,
+                room_sid=self._solution['room_sid'],
+                sid=self._solution['sid'],
+            )
+        return self._anonymize
 
     def __repr__(self):
         """
@@ -539,6 +557,16 @@ class ParticipantInstance(InstanceResource):
         :rtype: twilio.rest.video.v1.room.room_participant.room_participant_subscribe_rule.SubscribeRulesList
         """
         return self._proxy.subscribe_rules
+
+    @property
+    def anonymize(self):
+        """
+        Access the anonymize
+
+        :returns: twilio.rest.video.v1.room.room_participant.room_participant_anonymize.AnonymizeList
+        :rtype: twilio.rest.video.v1.room.room_participant.room_participant_anonymize.AnonymizeList
+        """
+        return self._proxy.anonymize
 
     def __repr__(self):
         """
