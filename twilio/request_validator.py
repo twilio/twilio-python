@@ -76,7 +76,7 @@ class RequestValidator(object):
             for param_name in sorted(set(params)):
                 values = self.get_values(params, param_name)
 
-                for value in sorted(values):
+                for value in sorted(set(values)):
                     s += param_name + value
 
         # compute signature and compare signatures
