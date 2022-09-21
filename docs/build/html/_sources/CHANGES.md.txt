@@ -3,6 +3,12 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2022-09-21] Version 7.14.1
+---------------------------
+**Library - Fix**
+- [PR #617](https://github.com/twilio/twilio-python/pull/617): support duplicated query param values. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+
+
 [2022-09-07] Version 7.14.0
 ---------------------------
 **Library - Fix**
