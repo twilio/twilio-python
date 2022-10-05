@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-MWRD6S');</script><!--End Google Tag Manager-->
 <meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<title>twilio.twiml.voice_response — twilio-python 7.14.1 documentation</title>
+<title>twilio.twiml.voice_response — twilio-python 7.14.2 documentation</title>
 <link href="../../../_static/alabaster.css" rel="stylesheet" type="text/css"/>
 <link href="../../../_static/pygments.css" rel="stylesheet" type="text/css"/>
 <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js" type="text/javascript"></script>
@@ -2694,7 +2694,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
 <div class="viewcode-block" id="Dial.number"><a class="viewcode-back" href="../../../docs/source/_rst/twilio.twiml.html#twilio.twiml.voice_response.Dial.number">[docs]</a>    <span class="k">def</span> <span class="nf">number</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">phone_number</span><span class="p">,</span> <span class="n">send_digits</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                <span class="n">status_callback_event</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">status_callback</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-               <span class="n">status_callback_method</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">byoc</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+               <span class="n">status_callback_method</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">byoc</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">machine_detection</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+               <span class="n">amd_status_callback_method</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">amd_status_callback</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+               <span class="n">machine_detection_timeout</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+               <span class="n">machine_detection_speech_threshold</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+               <span class="n">machine_detection_speech_end_threshold</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+               <span class="n">machine_detection_silence_timeout</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">"""</span>
 <span class="sd">        Create a &lt;Number&gt; element</span>
 
@@ -2706,6 +2711,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <span class="sd">        :param status_callback: Status callback URL</span>
 <span class="sd">        :param status_callback_method: Status callback URL method</span>
 <span class="sd">        :param byoc: BYOC trunk SID (Beta)</span>
+<span class="sd">        :param machine_detection: Enable machine detection or end of greeting detection</span>
+<span class="sd">        :param amd_status_callback_method: HTTP Method to use with amd_status_callback</span>
+<span class="sd">        :param amd_status_callback: The URL we should call to send amd status information to your application</span>
+<span class="sd">        :param machine_detection_timeout: Number of seconds to wait for machine detection</span>
+<span class="sd">        :param machine_detection_speech_threshold: Number of milliseconds for measuring stick for the length of the speech activity</span>
+<span class="sd">        :param machine_detection_speech_end_threshold: Number of milliseconds of silence after speech activity</span>
+<span class="sd">        :param machine_detection_silence_timeout: Number of milliseconds of initial silence</span>
 <span class="sd">        :param kwargs: additional attributes</span>
 
 <span class="sd">        :returns: &lt;Number&gt; element</span>
@@ -2719,6 +2731,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
             <span class="n">status_callback</span><span class="o">=</span><span class="n">status_callback</span><span class="p">,</span>
             <span class="n">status_callback_method</span><span class="o">=</span><span class="n">status_callback_method</span><span class="p">,</span>
             <span class="n">byoc</span><span class="o">=</span><span class="n">byoc</span><span class="p">,</span>
+            <span class="n">machine_detection</span><span class="o">=</span><span class="n">machine_detection</span><span class="p">,</span>
+            <span class="n">amd_status_callback_method</span><span class="o">=</span><span class="n">amd_status_callback_method</span><span class="p">,</span>
+            <span class="n">amd_status_callback</span><span class="o">=</span><span class="n">amd_status_callback</span><span class="p">,</span>
+            <span class="n">machine_detection_timeout</span><span class="o">=</span><span class="n">machine_detection_timeout</span><span class="p">,</span>
+            <span class="n">machine_detection_speech_threshold</span><span class="o">=</span><span class="n">machine_detection_speech_threshold</span><span class="p">,</span>
+            <span class="n">machine_detection_speech_end_threshold</span><span class="o">=</span><span class="n">machine_detection_speech_end_threshold</span><span class="p">,</span>
+            <span class="n">machine_detection_silence_timeout</span><span class="o">=</span><span class="n">machine_detection_silence_timeout</span><span class="p">,</span>
             <span class="o">**</span><span class="n">kwargs</span>
         <span class="p">))</span></div>
 
@@ -2758,7 +2777,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
 <div class="viewcode-block" id="Dial.sip"><a class="viewcode-back" href="../../../docs/source/_rst/twilio.twiml.html#twilio.twiml.voice_response.Dial.sip">[docs]</a>    <span class="k">def</span> <span class="nf">sip</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sip_url</span><span class="p">,</span> <span class="n">username</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">password</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
             <span class="n">status_callback_event</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">status_callback</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-            <span class="n">status_callback_method</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+            <span class="n">status_callback_method</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">machine_detection</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">amd_status_callback_method</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">amd_status_callback</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">machine_detection_timeout</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">machine_detection_speech_threshold</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">machine_detection_speech_end_threshold</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">machine_detection_silence_timeout</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">"""</span>
 <span class="sd">        Create a &lt;Sip&gt; element</span>
 
@@ -2770,6 +2793,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <span class="sd">        :param status_callback_event: Status callback events</span>
 <span class="sd">        :param status_callback: Status callback URL</span>
 <span class="sd">        :param status_callback_method: Status callback URL method</span>
+<span class="sd">        :param machine_detection: Enable machine detection or end of greeting detection</span>
+<span class="sd">        :param amd_status_callback_method: HTTP Method to use with amd_status_callback</span>
+<span class="sd">        :param amd_status_callback: The URL we should call to send amd status information to your application</span>
+<span class="sd">        :param machine_detection_timeout: Number of seconds to wait for machine detection</span>
+<span class="sd">        :param machine_detection_speech_threshold: Number of milliseconds for measuring stick for the length of the speech activity</span>
+<span class="sd">        :param machine_detection_speech_end_threshold: Number of milliseconds of silence after speech activity</span>
+<span class="sd">        :param machine_detection_silence_timeout: Number of milliseconds of initial silence</span>
 <span class="sd">        :param kwargs: additional attributes</span>
 
 <span class="sd">        :returns: &lt;Sip&gt; element</span>
@@ -2783,6 +2813,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
             <span class="n">status_callback_event</span><span class="o">=</span><span class="n">status_callback_event</span><span class="p">,</span>
             <span class="n">status_callback</span><span class="o">=</span><span class="n">status_callback</span><span class="p">,</span>
             <span class="n">status_callback_method</span><span class="o">=</span><span class="n">status_callback_method</span><span class="p">,</span>
+            <span class="n">machine_detection</span><span class="o">=</span><span class="n">machine_detection</span><span class="p">,</span>
+            <span class="n">amd_status_callback_method</span><span class="o">=</span><span class="n">amd_status_callback_method</span><span class="p">,</span>
+            <span class="n">amd_status_callback</span><span class="o">=</span><span class="n">amd_status_callback</span><span class="p">,</span>
+            <span class="n">machine_detection_timeout</span><span class="o">=</span><span class="n">machine_detection_timeout</span><span class="p">,</span>
+            <span class="n">machine_detection_speech_threshold</span><span class="o">=</span><span class="n">machine_detection_speech_threshold</span><span class="p">,</span>
+            <span class="n">machine_detection_speech_end_threshold</span><span class="o">=</span><span class="n">machine_detection_speech_end_threshold</span><span class="p">,</span>
+            <span class="n">machine_detection_silence_timeout</span><span class="o">=</span><span class="n">machine_detection_silence_timeout</span><span class="p">,</span>
             <span class="o">**</span><span class="n">kwargs</span>
         <span class="p">))</span></div></div>
 
