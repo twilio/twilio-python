@@ -2664,7 +2664,12 @@ class Dial(TwiML):
 
     def number(self, phone_number, send_digits=None, url=None, method=None,
                status_callback_event=None, status_callback=None,
-               status_callback_method=None, byoc=None, **kwargs):
+               status_callback_method=None, byoc=None, machine_detection=None,
+               amd_status_callback_method=None, amd_status_callback=None,
+               machine_detection_timeout=None,
+               machine_detection_speech_threshold=None,
+               machine_detection_speech_end_threshold=None,
+               machine_detection_silence_timeout=None, **kwargs):
         """
         Create a <Number> element
 
@@ -2676,6 +2681,13 @@ class Dial(TwiML):
         :param status_callback: Status callback URL
         :param status_callback_method: Status callback URL method
         :param byoc: BYOC trunk SID (Beta)
+        :param machine_detection: Enable machine detection or end of greeting detection
+        :param amd_status_callback_method: HTTP Method to use with amd_status_callback
+        :param amd_status_callback: The URL we should call to send amd status information to your application
+        :param machine_detection_timeout: Number of seconds to wait for machine detection
+        :param machine_detection_speech_threshold: Number of milliseconds for measuring stick for the length of the speech activity
+        :param machine_detection_speech_end_threshold: Number of milliseconds of silence after speech activity
+        :param machine_detection_silence_timeout: Number of milliseconds of initial silence
         :param kwargs: additional attributes
 
         :returns: <Number> element
@@ -2689,6 +2701,13 @@ class Dial(TwiML):
             status_callback=status_callback,
             status_callback_method=status_callback_method,
             byoc=byoc,
+            machine_detection=machine_detection,
+            amd_status_callback_method=amd_status_callback_method,
+            amd_status_callback=amd_status_callback,
+            machine_detection_timeout=machine_detection_timeout,
+            machine_detection_speech_threshold=machine_detection_speech_threshold,
+            machine_detection_speech_end_threshold=machine_detection_speech_end_threshold,
+            machine_detection_silence_timeout=machine_detection_silence_timeout,
             **kwargs
         ))
 
@@ -2728,7 +2747,11 @@ class Dial(TwiML):
 
     def sip(self, sip_url, username=None, password=None, url=None, method=None,
             status_callback_event=None, status_callback=None,
-            status_callback_method=None, **kwargs):
+            status_callback_method=None, machine_detection=None,
+            amd_status_callback_method=None, amd_status_callback=None,
+            machine_detection_timeout=None, machine_detection_speech_threshold=None,
+            machine_detection_speech_end_threshold=None,
+            machine_detection_silence_timeout=None, **kwargs):
         """
         Create a <Sip> element
 
@@ -2740,6 +2763,13 @@ class Dial(TwiML):
         :param status_callback_event: Status callback events
         :param status_callback: Status callback URL
         :param status_callback_method: Status callback URL method
+        :param machine_detection: Enable machine detection or end of greeting detection
+        :param amd_status_callback_method: HTTP Method to use with amd_status_callback
+        :param amd_status_callback: The URL we should call to send amd status information to your application
+        :param machine_detection_timeout: Number of seconds to wait for machine detection
+        :param machine_detection_speech_threshold: Number of milliseconds for measuring stick for the length of the speech activity
+        :param machine_detection_speech_end_threshold: Number of milliseconds of silence after speech activity
+        :param machine_detection_silence_timeout: Number of milliseconds of initial silence
         :param kwargs: additional attributes
 
         :returns: <Sip> element
@@ -2753,6 +2783,13 @@ class Dial(TwiML):
             status_callback_event=status_callback_event,
             status_callback=status_callback,
             status_callback_method=status_callback_method,
+            machine_detection=machine_detection,
+            amd_status_callback_method=amd_status_callback_method,
+            amd_status_callback=amd_status_callback,
+            machine_detection_timeout=machine_detection_timeout,
+            machine_detection_speech_threshold=machine_detection_speech_threshold,
+            machine_detection_speech_end_threshold=machine_detection_speech_end_threshold,
+            machine_detection_silence_timeout=machine_detection_silence_timeout,
             **kwargs
         ))
 

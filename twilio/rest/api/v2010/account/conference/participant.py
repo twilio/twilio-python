@@ -58,7 +58,14 @@ class ParticipantList(ListResource):
                coaching=values.unset, call_sid_to_coach=values.unset,
                jitter_buffer_size=values.unset, byoc=values.unset,
                caller_id=values.unset, call_reason=values.unset,
-               recording_track=values.unset, time_limit=values.unset):
+               recording_track=values.unset, time_limit=values.unset,
+               machine_detection=values.unset,
+               machine_detection_timeout=values.unset,
+               machine_detection_speech_threshold=values.unset,
+               machine_detection_speech_end_threshold=values.unset,
+               machine_detection_silence_timeout=values.unset,
+               amd_status_callback=values.unset,
+               amd_status_callback_method=values.unset):
         """
         Create the ParticipantInstance
 
@@ -101,6 +108,13 @@ class ParticipantList(ListResource):
         :param unicode call_reason: Reason for the call (Branded Calls Beta)
         :param unicode recording_track: The track(s) to record
         :param unicode time_limit: The maximum duration of the call in seconds.
+        :param unicode machine_detection: Enable machine detection or end of greeting detection
+        :param unicode machine_detection_timeout: Number of seconds to wait for machine detection
+        :param unicode machine_detection_speech_threshold: Number of milliseconds for measuring stick for the length of the speech activity
+        :param unicode machine_detection_speech_end_threshold: Number of milliseconds of silence after speech activity
+        :param unicode machine_detection_silence_timeout: Number of milliseconds of initial silence
+        :param unicode amd_status_callback: The URL we should call to send amd status information to your application
+        :param unicode amd_status_callback_method: HTTP Method to use with amd_status_callback
 
         :returns: The created ParticipantInstance
         :rtype: twilio.rest.api.v2010.account.conference.participant.ParticipantInstance
@@ -145,6 +159,13 @@ class ParticipantList(ListResource):
             'CallReason': call_reason,
             'RecordingTrack': recording_track,
             'TimeLimit': time_limit,
+            'MachineDetection': machine_detection,
+            'MachineDetectionTimeout': machine_detection_timeout,
+            'MachineDetectionSpeechThreshold': machine_detection_speech_threshold,
+            'MachineDetectionSpeechEndThreshold': machine_detection_speech_end_threshold,
+            'MachineDetectionSilenceTimeout': machine_detection_silence_timeout,
+            'AmdStatusCallback': amd_status_callback,
+            'AmdStatusCallbackMethod': amd_status_callback_method,
         })
 
         payload = self._version.create(method='POST', uri=self._uri, data=data, )
