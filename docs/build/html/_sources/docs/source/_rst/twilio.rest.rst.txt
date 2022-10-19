@@ -24,6 +24,7 @@ Subpackages
     twilio.rest.monitor
     twilio.rest.notify
     twilio.rest.numbers
+    twilio.rest.oauth
     twilio.rest.preview
     twilio.rest.pricing
     twilio.rest.proxy

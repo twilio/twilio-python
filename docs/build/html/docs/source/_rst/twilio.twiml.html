@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-MWRD6S');</script><!--End Google Tag Manager-->
 <meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<title>twilio.twiml package — twilio-python 7.14.2 documentation</title>
+<title>twilio.twiml package — twilio-python 7.15.0 documentation</title>
 <link href="../../../_static/alabaster.css" rel="stylesheet" type="text/css"/>
 <link href="../../../_static/pygments.css" rel="stylesheet" type="text/css"/>
 <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js" type="text/javascript"></script>
@@ -767,7 +767,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 </dd></dl>
 <dl class="method">
 <dt id="twilio.twiml.voice_response.Pay.prompt">
-<code class="descname">prompt</code><span class="sig-paren">(</span><em>for_=None</em>, <em>error_type=None</em>, <em>card_type=None</em>, <em>attempt=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/twiml/voice_response.html#Pay.prompt"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.twiml.voice_response.Pay.prompt" title="Permalink to this definition">¶</a></dt>
+<code class="descname">prompt</code><span class="sig-paren">(</span><em>for_=None</em>, <em>error_type=None</em>, <em>card_type=None</em>, <em>attempt=None</em>, <em>require_matching_inputs=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/twiml/voice_response.html#Pay.prompt"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.twiml.voice_response.Pay.prompt" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create a &lt;Prompt&gt; element</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name"/>
@@ -778,6 +778,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <li><strong>error_type</strong> – Type of error</li>
 <li><strong>card_type</strong> – Type of the credit card</li>
 <li><strong>attempt</strong> – Current attempt count</li>
+<li><strong>require_matching_inputs</strong> – Require customer to input requested information twice and verify matching.</li>
 <li><strong>kwargs</strong> – additional attributes</li>
 </ul>
 </td>
@@ -4102,7 +4103,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 </dd></dl>
 <dl class="method">
 <dt id="twilio.twiml.voice_response.VoiceResponse.prompt">
-<code class="descname">prompt</code><span class="sig-paren">(</span><em>for_=None</em>, <em>error_type=None</em>, <em>card_type=None</em>, <em>attempt=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/twiml/voice_response.html#VoiceResponse.prompt"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.twiml.voice_response.VoiceResponse.prompt" title="Permalink to this definition">¶</a></dt>
+<code class="descname">prompt</code><span class="sig-paren">(</span><em>for_=None</em>, <em>error_type=None</em>, <em>card_type=None</em>, <em>attempt=None</em>, <em>require_matching_inputs=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/twiml/voice_response.html#VoiceResponse.prompt"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.twiml.voice_response.VoiceResponse.prompt" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create a &lt;Prompt&gt; element</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name"/>
@@ -4113,6 +4114,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <li><strong>error_type</strong> – Type of error</li>
 <li><strong>card_type</strong> – Type of the credit card</li>
 <li><strong>attempt</strong> – Current attempt count</li>
+<li><strong>require_matching_inputs</strong> – Require customer to input requested information twice and verify matching.</li>
 <li><strong>kwargs</strong> – additional attributes</li>
 </ul>
 </td>

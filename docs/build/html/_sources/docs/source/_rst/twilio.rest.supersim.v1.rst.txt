@@ -44,6 +44,14 @@ twilio.rest.supersim.v1.network module
     :undoc-members:
     :show-inheritance:
 
+twilio.rest.supersim.v1.settings\_update module
+-----------------------------------------------
+
+.. automodule:: twilio.rest.supersim.v1.settings_update
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 twilio.rest.supersim.v1.sms\_command module
 -------------------------------------------
 

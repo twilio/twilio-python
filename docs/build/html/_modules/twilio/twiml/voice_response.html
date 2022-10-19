@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-MWRD6S');</script><!--End Google Tag Manager-->
 <meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<title>twilio.twiml.voice_response — twilio-python 7.14.2 documentation</title>
+<title>twilio.twiml.voice_response — twilio-python 7.15.0 documentation</title>
 <link href="../../../_static/alabaster.css" rel="stylesheet" type="text/css"/>
 <link href="../../../_static/pygments.css" rel="stylesheet" type="text/css"/>
 <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js" type="text/javascript"></script>
@@ -431,7 +431,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="p">))</span></div>
 
 <div class="viewcode-block" id="VoiceResponse.prompt"><a class="viewcode-back" href="../../../docs/source/_rst/twilio.twiml.html#twilio.twiml.voice_response.VoiceResponse.prompt">[docs]</a>    <span class="k">def</span> <span class="nf">prompt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">for_</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">error_type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">card_type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">attempt</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-               <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+               <span class="n">require_matching_inputs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">"""</span>
 <span class="sd">        Create a &lt;Prompt&gt; element</span>
 
@@ -439,6 +439,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <span class="sd">        :param error_type: Type of error</span>
 <span class="sd">        :param card_type: Type of the credit card</span>
 <span class="sd">        :param attempt: Current attempt count</span>
+<span class="sd">        :param require_matching_inputs: Require customer to input requested information twice and verify matching.</span>
 <span class="sd">        :param kwargs: additional attributes</span>
 
 <span class="sd">        :returns: &lt;Prompt&gt; element</span>
@@ -448,6 +449,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
             <span class="n">error_type</span><span class="o">=</span><span class="n">error_type</span><span class="p">,</span>
             <span class="n">card_type</span><span class="o">=</span><span class="n">card_type</span><span class="p">,</span>
             <span class="n">attempt</span><span class="o">=</span><span class="n">attempt</span><span class="p">,</span>
+            <span class="n">require_matching_inputs</span><span class="o">=</span><span class="n">require_matching_inputs</span><span class="p">,</span>
             <span class="o">**</span><span class="n">kwargs</span>
         <span class="p">))</span></div>
 
@@ -2417,7 +2419,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">'Pay'</span>
 
 <div class="viewcode-block" id="Pay.prompt"><a class="viewcode-back" href="../../../docs/source/_rst/twilio.twiml.html#twilio.twiml.voice_response.Pay.prompt">[docs]</a>    <span class="k">def</span> <span class="nf">prompt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">for_</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">error_type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">card_type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">attempt</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-               <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+               <span class="n">require_matching_inputs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">"""</span>
 <span class="sd">        Create a &lt;Prompt&gt; element</span>
 
@@ -2425,6 +2427,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <span class="sd">        :param error_type: Type of error</span>
 <span class="sd">        :param card_type: Type of the credit card</span>
 <span class="sd">        :param attempt: Current attempt count</span>
+<span class="sd">        :param require_matching_inputs: Require customer to input requested information twice and verify matching.</span>
 <span class="sd">        :param kwargs: additional attributes</span>
 
 <span class="sd">        :returns: &lt;Prompt&gt; element</span>
@@ -2434,6 +2437,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
             <span class="n">error_type</span><span class="o">=</span><span class="n">error_type</span><span class="p">,</span>
             <span class="n">card_type</span><span class="o">=</span><span class="n">card_type</span><span class="p">,</span>
             <span class="n">attempt</span><span class="o">=</span><span class="n">attempt</span><span class="p">,</span>
+            <span class="n">require_matching_inputs</span><span class="o">=</span><span class="n">require_matching_inputs</span><span class="p">,</span>
             <span class="o">**</span><span class="n">kwargs</span>
         <span class="p">))</span></div>
 
