@@ -15,8 +15,6 @@ from twilio.base.page import Page
 
 
 class NewFactorList(ListResource):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
 
     def __init__(self, version, service_sid, identity):
         """
@@ -101,8 +99,6 @@ class NewFactorList(ListResource):
 
 
 class NewFactorPage(Page):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
 
     def __init__(self, version, response, solution):
         """
@@ -148,8 +144,6 @@ class NewFactorPage(Page):
 
 
 class NewFactorInstance(InstanceResource):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
 
     class FactorStatuses(object):
         UNVERIFIED = "unverified"

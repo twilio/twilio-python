@@ -418,11 +418,11 @@ class ParticipantContext(InstanceContext):
 
         :param bool muted: Whether the participant should be muted
         :param bool hold: Whether the participant should be on hold
-        :param unicode hold_url: The URL we call using the `hold_method` for  music that plays when the participant is on hold
+        :param unicode hold_url: The URL we call using the `hold_method` for music that plays when the participant is on hold
         :param unicode hold_method: The HTTP method we should use to call hold_url
         :param unicode announce_url: The URL we call using the `announce_method` for an announcement to the participant
         :param unicode announce_method: The HTTP method we should use to call announce_url
-        :param unicode wait_url: URL that hosts pre-conference hold music
+        :param unicode wait_url: The URL we call using the `wait_method` for the music to play while participants are waiting for the conference to start
         :param unicode wait_method: The HTTP method we should use to call `wait_url`
         :param bool beep_on_exit: Whether to play a notification beep to the conference when the participant exit
         :param bool end_conference_on_exit: Whether to end the conference when the participant leaves
@@ -673,11 +673,11 @@ class ParticipantInstance(InstanceResource):
 
         :param bool muted: Whether the participant should be muted
         :param bool hold: Whether the participant should be on hold
-        :param unicode hold_url: The URL we call using the `hold_method` for  music that plays when the participant is on hold
+        :param unicode hold_url: The URL we call using the `hold_method` for music that plays when the participant is on hold
         :param unicode hold_method: The HTTP method we should use to call hold_url
         :param unicode announce_url: The URL we call using the `announce_method` for an announcement to the participant
         :param unicode announce_method: The HTTP method we should use to call announce_url
-        :param unicode wait_url: URL that hosts pre-conference hold music
+        :param unicode wait_url: The URL we call using the `wait_method` for the music to play while participants are waiting for the conference to start
         :param unicode wait_method: The HTTP method we should use to call `wait_url`
         :param bool beep_on_exit: Whether to play a notification beep to the conference when the participant exit
         :param bool end_conference_on_exit: Whether to end the conference when the participant leaves

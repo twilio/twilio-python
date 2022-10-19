@@ -18,8 +18,6 @@ from twilio.rest.verify.v2.service.entity.new_factor import NewFactorList
 
 
 class EntityList(ListResource):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
 
     def __init__(self, version, service_sid):
         """
@@ -162,8 +160,6 @@ class EntityList(ListResource):
 
 
 class EntityPage(Page):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
 
     def __init__(self, version, response, solution):
         """
@@ -203,8 +199,6 @@ class EntityPage(Page):
 
 
 class EntityContext(InstanceContext):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
 
     def __init__(self, version, service_sid, identity):
         """
@@ -313,8 +307,6 @@ class EntityContext(InstanceContext):
 
 
 class EntityInstance(InstanceResource):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
 
     def __init__(self, version, payload, service_sid, identity=None):
         """

@@ -35,6 +35,9 @@ class TemplateTestCase(IntegrationTestCase):
                         "sid": "HJaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                         "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                         "friendly_name": "Base Verification Template 2 with do not share",
+                        "channels": [
+                            "sms"
+                        ],
                         "translations": {
                             "en": {
                                 "is_default_translation": true,

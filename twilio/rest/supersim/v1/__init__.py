@@ -12,6 +12,7 @@ from twilio.rest.supersim.v1.fleet import FleetList
 from twilio.rest.supersim.v1.ip_command import IpCommandList
 from twilio.rest.supersim.v1.network import NetworkList
 from twilio.rest.supersim.v1.network_access_profile import NetworkAccessProfileList
+from twilio.rest.supersim.v1.settings_update import SettingsUpdateList
 from twilio.rest.supersim.v1.sim import SimList
 from twilio.rest.supersim.v1.sms_command import SmsCommandList
 from twilio.rest.supersim.v1.usage_record import UsageRecordList
@@ -33,6 +34,7 @@ class V1(Version):
         self._ip_commands = None
         self._networks = None
         self._network_access_profiles = None
+        self._settings_updates = None
         self._sims = None
         self._sms_commands = None
         self._usage_records = None
@@ -81,6 +83,15 @@ class V1(Version):
         if self._network_access_profiles is None:
             self._network_access_profiles = NetworkAccessProfileList(self)
         return self._network_access_profiles
+
+    @property
+    def settings_updates(self):
+        """
+        :rtype: twilio.rest.supersim.v1.settings_update.SettingsUpdateList
+        """
+        if self._settings_updates is None:
+            self._settings_updates = SettingsUpdateList(self)
+        return self._settings_updates
 
     @property
     def sims(self):

@@ -40,8 +40,9 @@ class MessageList(ListResource):
                attempt=values.unset, validity_period=values.unset,
                force_delivery=values.unset, content_retention=values.unset,
                address_retention=values.unset, smart_encoded=values.unset,
-               persistent_action=values.unset, schedule_type=values.unset,
-               send_at=values.unset, send_as_mms=values.unset, from_=values.unset,
+               persistent_action=values.unset, shorten_urls=values.unset,
+               schedule_type=values.unset, send_at=values.unset,
+               send_as_mms=values.unset, from_=values.unset,
                messaging_service_sid=values.unset, body=values.unset,
                media_url=values.unset):
         """
@@ -59,6 +60,7 @@ class MessageList(ListResource):
         :param MessageInstance.AddressRetention address_retention: Determines if the address can be stored or obfuscated based on privacy settings
         :param bool smart_encoded: Whether to detect Unicode characters that have a similar GSM-7 character and replace them
         :param list[unicode] persistent_action: Rich actions for Channels Messages.
+        :param bool shorten_urls: Sets whether to shorten and track links included in the body of this message.
         :param MessageInstance.ScheduleType schedule_type: Pass the value `fixed` to schedule a message at a fixed time.
         :param datetime send_at: The time that Twilio will send the message. Must be in ISO 8601 format.
         :param bool send_as_mms: If set to True, Twilio will deliver the message as a single MMS message, regardless of the presence of media.
@@ -87,6 +89,7 @@ class MessageList(ListResource):
             'AddressRetention': address_retention,
             'SmartEncoded': smart_encoded,
             'PersistentAction': serialize.map(persistent_action, lambda e: e),
+            'ShortenUrls': shorten_urls,
             'ScheduleType': schedule_type,
             'SendAt': serialize.iso8601_datetime(send_at),
             'SendAsMms': send_as_mms,

@@ -401,7 +401,7 @@ class VoiceResponse(TwiML):
         ))
 
     def prompt(self, for_=None, error_type=None, card_type=None, attempt=None,
-               **kwargs):
+               require_matching_inputs=None, **kwargs):
         """
         Create a <Prompt> element
 
@@ -409,6 +409,7 @@ class VoiceResponse(TwiML):
         :param error_type: Type of error
         :param card_type: Type of the credit card
         :param attempt: Current attempt count
+        :param require_matching_inputs: Require customer to input requested information twice and verify matching.
         :param kwargs: additional attributes
 
         :returns: <Prompt> element
@@ -418,6 +419,7 @@ class VoiceResponse(TwiML):
             error_type=error_type,
             card_type=card_type,
             attempt=attempt,
+            require_matching_inputs=require_matching_inputs,
             **kwargs
         ))
 
@@ -2387,7 +2389,7 @@ class Pay(TwiML):
         self.name = 'Pay'
 
     def prompt(self, for_=None, error_type=None, card_type=None, attempt=None,
-               **kwargs):
+               require_matching_inputs=None, **kwargs):
         """
         Create a <Prompt> element
 
@@ -2395,6 +2397,7 @@ class Pay(TwiML):
         :param error_type: Type of error
         :param card_type: Type of the credit card
         :param attempt: Current attempt count
+        :param require_matching_inputs: Require customer to input requested information twice and verify matching.
         :param kwargs: additional attributes
 
         :returns: <Prompt> element
@@ -2404,6 +2407,7 @@ class Pay(TwiML):
             error_type=error_type,
             card_type=card_type,
             attempt=attempt,
+            require_matching_inputs=require_matching_inputs,
             **kwargs
         ))
 

@@ -79,6 +79,7 @@ class Client(object):
         self._monitor = None
         self._notify = None
         self._numbers = None
+        self._oauth = None
         self._preview = None
         self._pricing = None
         self._proxy = None
@@ -394,6 +395,19 @@ class Client(object):
             from twilio.rest.numbers import Numbers
             self._numbers = Numbers(self)
         return self._numbers
+
+    @property
+    def oauth(self):
+        """
+        Access the Oauth Twilio Domain
+
+        :returns: Oauth Twilio Domain
+        :rtype: twilio.rest.oauth.Oauth
+        """
+        if self._oauth is None:
+            from twilio.rest.oauth import Oauth
+            self._oauth = Oauth(self)
+        return self._oauth
 
     @property
     def preview(self):

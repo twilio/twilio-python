@@ -72,6 +72,13 @@ class Supersim(Domain):
         return self.v1.network_access_profiles
 
     @property
+    def settings_updates(self):
+        """
+        :rtype: twilio.rest.supersim.v1.settings_update.SettingsUpdateList
+        """
+        return self.v1.settings_updates
+
+    @property
     def sims(self):
         """
         :rtype: twilio.rest.supersim.v1.sim.SimList
