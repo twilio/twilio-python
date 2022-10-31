@@ -55,7 +55,7 @@ class VerificationList(ListResource):
         :param dict rate_limits: The custom key-value pairs of Programmable Rate Limits.
         :param dict channel_configuration: Channel specific configuration in json format.
         :param unicode app_hash: Your App Hash to be appended at the end of an SMS.
-        :param unicode template_sid: The verification template SMS messages.
+        :param unicode template_sid: The verification template SMS or Voice message.
         :param unicode template_custom_substitutions: The values of the special variables declared on the message template.
 
         :returns: The created VerificationInstance

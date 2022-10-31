@@ -2957,7 +2957,8 @@ class Connect(TwiML):
 
     def conversation(self, service_instance_sid=None, inbound_autocreation=None,
                      routing_assignment_timeout=None, inbound_timeout=None,
-                     record=None, trim=None, recording_status_callback=None,
+                     url=None, method=None, record=None, trim=None,
+                     recording_status_callback=None,
                      recording_status_callback_method=None,
                      recording_status_callback_event=None, status_callback=None,
                      status_callback_method=None, status_callback_event=None,
@@ -2969,6 +2970,8 @@ class Connect(TwiML):
         :param inbound_autocreation: Inbound autocreation
         :param routing_assignment_timeout: Routing assignment timeout
         :param inbound_timeout: Inbound timeout
+        :param url: TwiML URL
+        :param method: TwiML URL method
         :param record: Record
         :param trim: Trim
         :param recording_status_callback: Recording status callback URL
@@ -2986,6 +2989,8 @@ class Connect(TwiML):
             inbound_autocreation=inbound_autocreation,
             routing_assignment_timeout=routing_assignment_timeout,
             inbound_timeout=inbound_timeout,
+            url=url,
+            method=method,
             record=record,
             trim=trim,
             recording_status_callback=recording_status_callback,

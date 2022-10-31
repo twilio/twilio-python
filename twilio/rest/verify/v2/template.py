@@ -213,7 +213,7 @@ class TemplateInstance(InstanceResource):
     @property
     def channels(self):
         """
-        :returns: The channels
+        :returns: A list of channels that support the Template
         :rtype: list[unicode]
         """
         return self._properties['channels']

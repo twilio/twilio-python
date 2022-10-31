@@ -41,7 +41,7 @@ class TaskQueueList(ListResource):
 
     def stream(self, friendly_name=values.unset,
                evaluate_worker_attributes=values.unset, worker_sid=values.unset,
-               limit=None, page_size=None):
+               ordering=values.unset, limit=None, page_size=None):
         """
         Streams TaskQueueInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -51,6 +51,7 @@ class TaskQueueList(ListResource):
         :param unicode friendly_name: The friendly_name of the TaskQueue resources to read
         :param unicode evaluate_worker_attributes: The attributes of the Workers to read
         :param unicode worker_sid: The SID of the Worker with the TaskQueue resources to read
+        :param unicode ordering: Sorting parameter for TaskQueues
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -67,6 +68,7 @@ class TaskQueueList(ListResource):
             friendly_name=friendly_name,
             evaluate_worker_attributes=evaluate_worker_attributes,
             worker_sid=worker_sid,
+            ordering=ordering,
             page_size=limits['page_size'],
         )
 
@@ -74,7 +76,7 @@ class TaskQueueList(ListResource):
 
     def list(self, friendly_name=values.unset,
              evaluate_worker_attributes=values.unset, worker_sid=values.unset,
-             limit=None, page_size=None):
+             ordering=values.unset, limit=None, page_size=None):
         """
         Lists TaskQueueInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -83,6 +85,7 @@ class TaskQueueList(ListResource):
         :param unicode friendly_name: The friendly_name of the TaskQueue resources to read
         :param unicode evaluate_worker_attributes: The attributes of the Workers to read
         :param unicode worker_sid: The SID of the Worker with the TaskQueue resources to read
+        :param unicode ordering: Sorting parameter for TaskQueues
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -97,14 +100,15 @@ class TaskQueueList(ListResource):
             friendly_name=friendly_name,
             evaluate_worker_attributes=evaluate_worker_attributes,
             worker_sid=worker_sid,
+            ordering=ordering,
             limit=limit,
             page_size=page_size,
         ))
 
     def page(self, friendly_name=values.unset,
              evaluate_worker_attributes=values.unset, worker_sid=values.unset,
-             page_token=values.unset, page_number=values.unset,
-             page_size=values.unset):
+             ordering=values.unset, page_token=values.unset,
+             page_number=values.unset, page_size=values.unset):
         """
         Retrieve a single page of TaskQueueInstance records from the API.
         Request is executed immediately
@@ -112,6 +116,7 @@ class TaskQueueList(ListResource):
         :param unicode friendly_name: The friendly_name of the TaskQueue resources to read
         :param unicode evaluate_worker_attributes: The attributes of the Workers to read
         :param unicode worker_sid: The SID of the Worker with the TaskQueue resources to read
+        :param unicode ordering: Sorting parameter for TaskQueues
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -123,6 +128,7 @@ class TaskQueueList(ListResource):
             'FriendlyName': friendly_name,
             'EvaluateWorkerAttributes': evaluate_worker_attributes,
             'WorkerSid': worker_sid,
+            'Ordering': ordering,
             'PageToken': page_token,
             'Page': page_number,
             'PageSize': page_size,

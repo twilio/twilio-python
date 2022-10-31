@@ -116,8 +116,7 @@ class SessionList(ListResource):
 
     def create(self, unique_name=values.unset, date_expiry=values.unset,
                ttl=values.unset, mode=values.unset, status=values.unset,
-               participants=values.unset,
-               fail_on_participant_conflict=values.unset):
+               participants=values.unset):
         """
         Create the SessionInstance
 
@@ -127,7 +126,6 @@ class SessionList(ListResource):
         :param SessionInstance.Mode mode: The Mode of the Session
         :param SessionInstance.Status status: Session status
         :param list[dict] participants: The Participant objects to include in the new session
-        :param bool fail_on_participant_conflict: An experimental parameter to override the ProxyAllowParticipantConflict account flag on a per-request basis.
 
         :returns: The created SessionInstance
         :rtype: twilio.rest.proxy.v1.service.session.SessionInstance
@@ -139,7 +137,6 @@ class SessionList(ListResource):
             'Mode': mode,
             'Status': status,
             'Participants': serialize.map(participants, lambda e: serialize.object(e)),
-            'FailOnParticipantConflict': fail_on_participant_conflict,
         })
 
         payload = self._version.create(method='POST', uri=self._uri, data=data, )
@@ -270,14 +267,13 @@ class SessionContext(InstanceContext):
         return self._version.delete(method='DELETE', uri=self._uri, )
 
     def update(self, date_expiry=values.unset, ttl=values.unset,
-               status=values.unset, fail_on_participant_conflict=values.unset):
+               status=values.unset):
         """
         Update the SessionInstance
 
         :param datetime date_expiry: The ISO 8601 date when the Session should expire
         :param unicode ttl: When the session will expire
         :param SessionInstance.Status status: The new status of the resource
-        :param bool fail_on_participant_conflict: An experimental parameter to override the ProxyAllowParticipantConflict account flag on a per-request basis.
 
         :returns: The updated SessionInstance
         :rtype: twilio.rest.proxy.v1.service.session.SessionInstance
@@ -286,7 +282,6 @@ class SessionContext(InstanceContext):
             'DateExpiry': serialize.iso8601_datetime(date_expiry),
             'Ttl': ttl,
             'Status': status,
-            'FailOnParticipantConflict': fail_on_participant_conflict,
         })
 
         payload = self._version.update(method='POST', uri=self._uri, data=data, )
@@ -554,24 +549,18 @@ class SessionInstance(InstanceResource):
         return self._proxy.delete()
 
     def update(self, date_expiry=values.unset, ttl=values.unset,
-               status=values.unset, fail_on_participant_conflict=values.unset):
+               status=values.unset):
         """
         Update the SessionInstance
 
         :param datetime date_expiry: The ISO 8601 date when the Session should expire
         :param unicode ttl: When the session will expire
         :param SessionInstance.Status status: The new status of the resource
-        :param bool fail_on_participant_conflict: An experimental parameter to override the ProxyAllowParticipantConflict account flag on a per-request basis.
 
         :returns: The updated SessionInstance
         :rtype: twilio.rest.proxy.v1.service.session.SessionInstance
         """
-        return self._proxy.update(
-            date_expiry=date_expiry,
-            ttl=ttl,
-            status=status,
-            fail_on_participant_conflict=fail_on_participant_conflict,
-        )
+        return self._proxy.update(date_expiry=date_expiry, ttl=ttl, status=status, )
 
     @property
     def interactions(self):

@@ -42,7 +42,8 @@ class MessageList(ListResource):
                address_retention=values.unset, smart_encoded=values.unset,
                persistent_action=values.unset, shorten_urls=values.unset,
                schedule_type=values.unset, send_at=values.unset,
-               send_as_mms=values.unset, from_=values.unset,
+               send_as_mms=values.unset, content_sid=values.unset,
+               content_variables=values.unset, from_=values.unset,
                messaging_service_sid=values.unset, body=values.unset,
                media_url=values.unset):
         """
@@ -64,6 +65,8 @@ class MessageList(ListResource):
         :param MessageInstance.ScheduleType schedule_type: Pass the value `fixed` to schedule a message at a fixed time.
         :param datetime send_at: The time that Twilio will send the message. Must be in ISO 8601 format.
         :param bool send_as_mms: If set to True, Twilio will deliver the message as a single MMS message, regardless of the presence of media.
+        :param unicode content_sid: The SID of the preconfigured Content object you want to associate with the message.
+        :param unicode content_variables: Key-value pairs of variable names to substitution values, used alongside a content_sid.
         :param unicode from_: The phone number that initiated the message
         :param unicode messaging_service_sid: The SID of the Messaging Service you want to associate with the message.
         :param unicode body: The text of the message you want to send. Can be up to 1,600 characters in length.
@@ -93,6 +96,8 @@ class MessageList(ListResource):
             'ScheduleType': schedule_type,
             'SendAt': serialize.iso8601_datetime(send_at),
             'SendAsMms': send_as_mms,
+            'ContentSid': content_sid,
+            'ContentVariables': content_variables,
         })
 
         payload = self._version.create(method='POST', uri=self._uri, data=data, )

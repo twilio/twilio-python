@@ -61,7 +61,6 @@ class SettingsUpdateTestCase(IntegrationTestCase):
                         "status": "scheduled",
                         "packages": [
                             {
-                                "sid": "OVaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                                 "name": "base-settings",
                                 "version": "1.0.0",
                                 "more_info": "https://twilio.com/docs/iot/supersim/settings-packages/base-settings"
