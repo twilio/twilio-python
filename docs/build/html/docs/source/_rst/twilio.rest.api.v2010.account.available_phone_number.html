@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-MWRD6S');</script><!--End Google Tag Manager-->
 <meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<title>twilio.rest.api.v2010.account.available_phone_number package — twilio-python 7.15.0 documentation</title>
+<title>twilio.rest.api.v2010.account.available_phone_number package — twilio-python 7.15.1 documentation</title>
 <link href="../../../_static/alabaster.css" rel="stylesheet" type="text/css"/>
 <link href="../../../_static/pygments.css" rel="stylesheet" type="text/css"/>
 <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js" type="text/javascript"></script>
@@ -71,7 +71,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Whether the phone number is new to the Twilio platform</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)">bool</a></td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)">bool</a></td>
 </tr>
 </tbody>
 </table>
@@ -244,7 +244,7 @@ Request is executed immediately</p>
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>target_url</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – API-generated URL for the requested results page</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>target_url</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – API-generated URL for the requested results page</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Page of LocalInstance</td>
 </tr>
@@ -266,13 +266,13 @@ memory before returning.</p>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>area_code</strong> (<em>unicode</em>) – The area code of the phone numbers to read</li>
 <li><strong>contains</strong> (<em>unicode</em>) – The pattern on which to match phone numbers</li>
-<li><strong>sms_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether the phone numbers can receive text messages</li>
-<li><strong>mms_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether the phone numbers can receive MMS messages</li>
-<li><strong>voice_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether the phone numbers can receive calls.</li>
-<li><strong>exclude_all_address_required</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether to exclude phone numbers that require an Address</li>
-<li><strong>exclude_local_address_required</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether to exclude phone numbers that require a local address</li>
-<li><strong>exclude_foreign_address_required</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether to exclude phone numbers that require a foreign address</li>
-<li><strong>beta</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether to read phone numbers new to the Twilio platform</li>
+<li><strong>sms_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether the phone numbers can receive text messages</li>
+<li><strong>mms_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether the phone numbers can receive MMS messages</li>
+<li><strong>voice_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether the phone numbers can receive calls.</li>
+<li><strong>exclude_all_address_required</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether to exclude phone numbers that require an Address</li>
+<li><strong>exclude_local_address_required</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether to exclude phone numbers that require a local address</li>
+<li><strong>exclude_foreign_address_required</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether to exclude phone numbers that require a foreign address</li>
+<li><strong>beta</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether to read phone numbers new to the Twilio platform</li>
 <li><strong>near_number</strong> (<em>unicode</em>) – Given a phone number, find a geographically close number within distance miles. (US/Canada only)</li>
 <li><strong>near_lat_long</strong> (<em>unicode</em>) – Given a latitude/longitude pair lat,long find geographically close numbers within distance miles. (US/Canada only)</li>
 <li><strong>distance</strong> (<em>unicode</em>) – The search radius, in miles, for a <a href="#system-message-9"><span class="problematic" id="problematic-9">near_</span></a> query. (US/Canada only)</li>
@@ -281,10 +281,10 @@ memory before returning.</p>
 <li><strong>in_rate_center</strong> (<em>unicode</em>) – Limit results to a specific rate center, or given a phone number search within the same rate center as that number. (US/Canada only)</li>
 <li><strong>in_lata</strong> (<em>unicode</em>) – Limit results to a specific local access and transport area. (US/Canada only)</li>
 <li><strong>in_locality</strong> (<em>unicode</em>) – Limit results to a particular locality</li>
-<li><strong>fax_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether the phone numbers can receive faxes</li>
-<li><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Upper limit for the number of records to return. list() guarantees
+<li><strong>fax_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether the phone numbers can receive faxes</li>
+<li><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Upper limit for the number of records to return. list() guarantees
 never to return more than limit.  Default is no limit</li>
-<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Number of records to fetch per request, when not set will use
+<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Number of records to fetch per request, when not set will use
 the default value of 50 records.  If no page_size is defined
 but a limit is defined, list() will attempt to read the limit
 with the most efficient page size, i.e. min(limit, 1000)</li>
@@ -294,7 +294,7 @@ with the most efficient page size, i.e. min(limit, 1000)</li>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Generator that will yield up to limit results</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)">list</a>[<a class="reference internal" href="#twilio.rest.api.v2010.account.available_phone_number.local.LocalInstance" title="twilio.rest.api.v2010.account.available_phone_number.local.LocalInstance">twilio.rest.api.v2010.account.available_phone_number.local.LocalInstance</a>]</p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)">list</a>[<a class="reference internal" href="#twilio.rest.api.v2010.account.available_phone_number.local.LocalInstance" title="twilio.rest.api.v2010.account.available_phone_number.local.LocalInstance">twilio.rest.api.v2010.account.available_phone_number.local.LocalInstance</a>]</p>
 </td>
 </tr>
 </tbody>
@@ -312,13 +312,13 @@ Request is executed immediately</p>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>area_code</strong> (<em>unicode</em>) – The area code of the phone numbers to read</li>
 <li><strong>contains</strong> (<em>unicode</em>) – The pattern on which to match phone numbers</li>
-<li><strong>sms_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether the phone numbers can receive text messages</li>
-<li><strong>mms_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether the phone numbers can receive MMS messages</li>
-<li><strong>voice_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether the phone numbers can receive calls.</li>
-<li><strong>exclude_all_address_required</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether to exclude phone numbers that require an Address</li>
-<li><strong>exclude_local_address_required</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether to exclude phone numbers that require a local address</li>
-<li><strong>exclude_foreign_address_required</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether to exclude phone numbers that require a foreign address</li>
-<li><strong>beta</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether to read phone numbers new to the Twilio platform</li>
+<li><strong>sms_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether the phone numbers can receive text messages</li>
+<li><strong>mms_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether the phone numbers can receive MMS messages</li>
+<li><strong>voice_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether the phone numbers can receive calls.</li>
+<li><strong>exclude_all_address_required</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether to exclude phone numbers that require an Address</li>
+<li><strong>exclude_local_address_required</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether to exclude phone numbers that require a local address</li>
+<li><strong>exclude_foreign_address_required</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether to exclude phone numbers that require a foreign address</li>
+<li><strong>beta</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether to read phone numbers new to the Twilio platform</li>
 <li><strong>near_number</strong> (<em>unicode</em>) – Given a phone number, find a geographically close number within distance miles. (US/Canada only)</li>
 <li><strong>near_lat_long</strong> (<em>unicode</em>) – Given a latitude/longitude pair lat,long find geographically close numbers within distance miles. (US/Canada only)</li>
 <li><strong>distance</strong> (<em>unicode</em>) – The search radius, in miles, for a <a href="#system-message-10"><span class="problematic" id="problematic-10">near_</span></a> query. (US/Canada only)</li>
@@ -327,10 +327,10 @@ Request is executed immediately</p>
 <li><strong>in_rate_center</strong> (<em>unicode</em>) – Limit results to a specific rate center, or given a phone number search within the same rate center as that number. (US/Canada only)</li>
 <li><strong>in_lata</strong> (<em>unicode</em>) – Limit results to a specific local access and transport area. (US/Canada only)</li>
 <li><strong>in_locality</strong> (<em>unicode</em>) – Limit results to a particular locality</li>
-<li><strong>fax_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether the phone numbers can receive faxes</li>
-<li><strong>page_token</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – PageToken provided by the API</li>
-<li><strong>page_number</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Page Number, this value is simply for client state</li>
-<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Number of records to return, defaults to 50</li>
+<li><strong>fax_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether the phone numbers can receive faxes</li>
+<li><strong>page_token</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – PageToken provided by the API</li>
+<li><strong>page_number</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Page Number, this value is simply for client state</li>
+<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Number of records to return, defaults to 50</li>
 </ul>
 </td>
 </tr>
@@ -357,13 +357,13 @@ The results are returned as a generator, so this operation is memory efficient.<
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>area_code</strong> (<em>unicode</em>) – The area code of the phone numbers to read</li>
 <li><strong>contains</strong> (<em>unicode</em>) – The pattern on which to match phone numbers</li>
-<li><strong>sms_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether the phone numbers can receive text messages</li>
-<li><strong>mms_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether the phone numbers can receive MMS messages</li>
-<li><strong>voice_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether the phone numbers can receive calls.</li>
-<li><strong>exclude_all_address_required</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether to exclude phone numbers that require an Address</li>
-<li><strong>exclude_local_address_required</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether to exclude phone numbers that require a local address</li>
-<li><strong>exclude_foreign_address_required</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether to exclude phone numbers that require a foreign address</li>
-<li><strong>beta</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether to read phone numbers new to the Twilio platform</li>
+<li><strong>sms_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether the phone numbers can receive text messages</li>
+<li><strong>mms_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether the phone numbers can receive MMS messages</li>
+<li><strong>voice_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether the phone numbers can receive calls.</li>
+<li><strong>exclude_all_address_required</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether to exclude phone numbers that require an Address</li>
+<li><strong>exclude_local_address_required</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether to exclude phone numbers that require a local address</li>
+<li><strong>exclude_foreign_address_required</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether to exclude phone numbers that require a foreign address</li>
+<li><strong>beta</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether to read phone numbers new to the Twilio platform</li>
 <li><strong>near_number</strong> (<em>unicode</em>) – Given a phone number, find a geographically close number within distance miles. (US/Canada only)</li>
 <li><strong>near_lat_long</strong> (<em>unicode</em>) – Given a latitude/longitude pair lat,long find geographically close numbers within distance miles. (US/Canada only)</li>
 <li><strong>distance</strong> (<em>unicode</em>) – The search radius, in miles, for a <a href="#system-message-11"><span class="problematic" id="problematic-11">near_</span></a> query. (US/Canada only)</li>
@@ -372,10 +372,10 @@ The results are returned as a generator, so this operation is memory efficient.<
 <li><strong>in_rate_center</strong> (<em>unicode</em>) – Limit results to a specific rate center, or given a phone number search within the same rate center as that number. (US/Canada only)</li>
 <li><strong>in_lata</strong> (<em>unicode</em>) – Limit results to a specific local access and transport area. (US/Canada only)</li>
 <li><strong>in_locality</strong> (<em>unicode</em>) – Limit results to a particular locality</li>
-<li><strong>fax_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether the phone numbers can receive faxes</li>
-<li><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Upper limit for the number of records to return. stream()
+<li><strong>fax_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether the phone numbers can receive faxes</li>
+<li><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Upper limit for the number of records to return. stream()
 guarantees to never return more than limit.  Default is no limit</li>
-<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Number of records to fetch per request, when not set will use
+<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Number of records to fetch per request, when not set will use
 the default value of 50 records.  If no page_size is defined
 but a limit is defined, stream() will attempt to read the
 limit with the most efficient page size, i.e. min(limit, 1000)</li>
@@ -385,7 +385,7 @@ limit with the most efficient page size, i.e. min(limit, 1000)</li>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Generator that will yield up to limit results</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)">list</a>[<a class="reference internal" href="#twilio.rest.api.v2010.account.available_phone_number.local.LocalInstance" title="twilio.rest.api.v2010.account.available_phone_number.local.LocalInstance">twilio.rest.api.v2010.account.available_phone_number.local.LocalInstance</a>]</p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)">list</a>[<a class="reference internal" href="#twilio.rest.api.v2010.account.available_phone_number.local.LocalInstance" title="twilio.rest.api.v2010.account.available_phone_number.local.LocalInstance">twilio.rest.api.v2010.account.available_phone_number.local.LocalInstance</a>]</p>
 </td>
 </tr>
 </tbody>
@@ -404,7 +404,7 @@ limit with the most efficient page size, i.e. min(limit, 1000)</li>
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>payload</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a>) – Payload response from the API</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>payload</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)"><em>dict</em></a>) – Payload response from the API</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">twilio.rest.api.v2010.account.available_phone_number.local.LocalInstance</td>
 </tr>
@@ -452,7 +452,7 @@ limit with the most efficient page size, i.e. min(limit, 1000)</li>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Whether the phone number is new to the Twilio platform</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)">bool</a></td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)">bool</a></td>
 </tr>
 </tbody>
 </table>
@@ -625,7 +625,7 @@ Request is executed immediately</p>
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>target_url</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – API-generated URL for the requested results page</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>target_url</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – API-generated URL for the requested results page</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Page of MachineToMachineInstance</td>
 </tr>
@@ -647,13 +647,13 @@ memory before returning.</p>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>area_code</strong> (<em>unicode</em>) – The area code of the phone numbers to read</li>
 <li><strong>contains</strong> (<em>unicode</em>) – The pattern on which to match phone numbers</li>
-<li><strong>sms_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether the phone numbers can receive text messages</li>
-<li><strong>mms_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether the phone numbers can receive MMS messages</li>
-<li><strong>voice_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether the phone numbers can receive calls.</li>
-<li><strong>exclude_all_address_required</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether to exclude phone numbers that require an Address</li>
-<li><strong>exclude_local_address_required</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether to exclude phone numbers that require a local address</li>
-<li><strong>exclude_foreign_address_required</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether to exclude phone numbers that require a foreign address</li>
-<li><strong>beta</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether to read phone numbers new to the Twilio platform</li>
+<li><strong>sms_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether the phone numbers can receive text messages</li>
+<li><strong>mms_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether the phone numbers can receive MMS messages</li>
+<li><strong>voice_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether the phone numbers can receive calls.</li>
+<li><strong>exclude_all_address_required</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether to exclude phone numbers that require an Address</li>
+<li><strong>exclude_local_address_required</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether to exclude phone numbers that require a local address</li>
+<li><strong>exclude_foreign_address_required</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether to exclude phone numbers that require a foreign address</li>
+<li><strong>beta</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether to read phone numbers new to the Twilio platform</li>
 <li><strong>near_number</strong> (<em>unicode</em>) – Given a phone number, find a geographically close number within distance miles. (US/Canada only)</li>
 <li><strong>near_lat_long</strong> (<em>unicode</em>) – Given a latitude/longitude pair lat,long find geographically close numbers within distance miles. (US/Canada only)</li>
 <li><strong>distance</strong> (<em>unicode</em>) – The search radius, in miles, for a <a href="#system-message-12"><span class="problematic" id="problematic-12">near_</span></a> query. (US/Canada only)</li>
@@ -662,10 +662,10 @@ memory before returning.</p>
 <li><strong>in_rate_center</strong> (<em>unicode</em>) – Limit results to a specific rate center, or given a phone number search within the same rate center as that number. (US/Canada only)</li>
 <li><strong>in_lata</strong> (<em>unicode</em>) – Limit results to a specific local access and transport area. (US/Canada only)</li>
 <li><strong>in_locality</strong> (<em>unicode</em>) – Limit results to a particular locality</li>
-<li><strong>fax_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether the phone numbers can receive faxes</li>
-<li><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Upper limit for the number of records to return. list() guarantees
+<li><strong>fax_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether the phone numbers can receive faxes</li>
+<li><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Upper limit for the number of records to return. list() guarantees
 never to return more than limit.  Default is no limit</li>
-<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Number of records to fetch per request, when not set will use
+<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Number of records to fetch per request, when not set will use
 the default value of 50 records.  If no page_size is defined
 but a limit is defined, list() will attempt to read the limit
 with the most efficient page size, i.e. min(limit, 1000)</li>
@@ -675,7 +675,7 @@ with the most efficient page size, i.e. min(limit, 1000)</li>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Generator that will yield up to limit results</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)">list</a>[<a class="reference internal" href="#twilio.rest.api.v2010.account.available_phone_number.machine_to_machine.MachineToMachineInstance" title="twilio.rest.api.v2010.account.available_phone_number.machine_to_machine.MachineToMachineInstance">twilio.rest.api.v2010.account.available_phone_number.machine_to_machine.MachineToMachineInstance</a>]</p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)">list</a>[<a class="reference internal" href="#twilio.rest.api.v2010.account.available_phone_number.machine_to_machine.MachineToMachineInstance" title="twilio.rest.api.v2010.account.available_phone_number.machine_to_machine.MachineToMachineInstance">twilio.rest.api.v2010.account.available_phone_number.machine_to_machine.MachineToMachineInstance</a>]</p>
 </td>
 </tr>
 </tbody>
@@ -693,13 +693,13 @@ Request is executed immediately</p>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>area_code</strong> (<em>unicode</em>) – The area code of the phone numbers to read</li>
 <li><strong>contains</strong> (<em>unicode</em>) – The pattern on which to match phone numbers</li>
-<li><strong>sms_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether the phone numbers can receive text messages</li>
-<li><strong>mms_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether the phone numbers can receive MMS messages</li>
-<li><strong>voice_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether the phone numbers can receive calls.</li>
-<li><strong>exclude_all_address_required</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether to exclude phone numbers that require an Address</li>
-<li><strong>exclude_local_address_required</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether to exclude phone numbers that require a local address</li>
-<li><strong>exclude_foreign_address_required</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether to exclude phone numbers that require a foreign address</li>
-<li><strong>beta</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether to read phone numbers new to the Twilio platform</li>
+<li><strong>sms_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether the phone numbers can receive text messages</li>
+<li><strong>mms_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether the phone numbers can receive MMS messages</li>
+<li><strong>voice_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether the phone numbers can receive calls.</li>
+<li><strong>exclude_all_address_required</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether to exclude phone numbers that require an Address</li>
+<li><strong>exclude_local_address_required</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether to exclude phone numbers that require a local address</li>
+<li><strong>exclude_foreign_address_required</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether to exclude phone numbers that require a foreign address</li>
+<li><strong>beta</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether to read phone numbers new to the Twilio platform</li>
 <li><strong>near_number</strong> (<em>unicode</em>) – Given a phone number, find a geographically close number within distance miles. (US/Canada only)</li>
 <li><strong>near_lat_long</strong> (<em>unicode</em>) – Given a latitude/longitude pair lat,long find geographically close numbers within distance miles. (US/Canada only)</li>
 <li><strong>distance</strong> (<em>unicode</em>) – The search radius, in miles, for a <a href="#system-message-13"><span class="problematic" id="problematic-13">near_</span></a> query. (US/Canada only)</li>
@@ -708,10 +708,10 @@ Request is executed immediately</p>
 <li><strong>in_rate_center</strong> (<em>unicode</em>) – Limit results to a specific rate center, or given a phone number search within the same rate center as that number. (US/Canada only)</li>
 <li><strong>in_lata</strong> (<em>unicode</em>) – Limit results to a specific local access and transport area. (US/Canada only)</li>
 <li><strong>in_locality</strong> (<em>unicode</em>) – Limit results to a particular locality</li>
-<li><strong>fax_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether the phone numbers can receive faxes</li>
-<li><strong>page_token</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – PageToken provided by the API</li>
-<li><strong>page_number</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Page Number, this value is simply for client state</li>
-<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Number of records to return, defaults to 50</li>
+<li><strong>fax_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether the phone numbers can receive faxes</li>
+<li><strong>page_token</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – PageToken provided by the API</li>
+<li><strong>page_number</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Page Number, this value is simply for client state</li>
+<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Number of records to return, defaults to 50</li>
 </ul>
 </td>
 </tr>
@@ -738,13 +738,13 @@ The results are returned as a generator, so this operation is memory efficient.<
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>area_code</strong> (<em>unicode</em>) – The area code of the phone numbers to read</li>
 <li><strong>contains</strong> (<em>unicode</em>) – The pattern on which to match phone numbers</li>
-<li><strong>sms_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether the phone numbers can receive text messages</li>
-<li><strong>mms_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether the phone numbers can receive MMS messages</li>
-<li><strong>voice_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether the phone numbers can receive calls.</li>
-<li><strong>exclude_all_address_required</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether to exclude phone numbers that require an Address</li>
-<li><strong>exclude_local_address_required</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether to exclude phone numbers that require a local address</li>
-<li><strong>exclude_foreign_address_required</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether to exclude phone numbers that require a foreign address</li>
-<li><strong>beta</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether to read phone numbers new to the Twilio platform</li>
+<li><strong>sms_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether the phone numbers can receive text messages</li>
+<li><strong>mms_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether the phone numbers can receive MMS messages</li>
+<li><strong>voice_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether the phone numbers can receive calls.</li>
+<li><strong>exclude_all_address_required</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether to exclude phone numbers that require an Address</li>
+<li><strong>exclude_local_address_required</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether to exclude phone numbers that require a local address</li>
+<li><strong>exclude_foreign_address_required</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether to exclude phone numbers that require a foreign address</li>
+<li><strong>beta</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether to read phone numbers new to the Twilio platform</li>
 <li><strong>near_number</strong> (<em>unicode</em>) – Given a phone number, find a geographically close number within distance miles. (US/Canada only)</li>
 <li><strong>near_lat_long</strong> (<em>unicode</em>) – Given a latitude/longitude pair lat,long find geographically close numbers within distance miles. (US/Canada only)</li>
 <li><strong>distance</strong> (<em>unicode</em>) – The search radius, in miles, for a <a href="#system-message-14"><span class="problematic" id="problematic-14">near_</span></a> query. (US/Canada only)</li>
@@ -753,10 +753,10 @@ The results are returned as a generator, so this operation is memory efficient.<
 <li><strong>in_rate_center</strong> (<em>unicode</em>) – Limit results to a specific rate center, or given a phone number search within the same rate center as that number. (US/Canada only)</li>
 <li><strong>in_lata</strong> (<em>unicode</em>) – Limit results to a specific local access and transport area. (US/Canada only)</li>
 <li><strong>in_locality</strong> (<em>unicode</em>) – Limit results to a particular locality</li>
-<li><strong>fax_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether the phone numbers can receive faxes</li>
-<li><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Upper limit for the number of records to return. stream()
+<li><strong>fax_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether the phone numbers can receive faxes</li>
+<li><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Upper limit for the number of records to return. stream()
 guarantees to never return more than limit.  Default is no limit</li>
-<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Number of records to fetch per request, when not set will use
+<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Number of records to fetch per request, when not set will use
 the default value of 50 records.  If no page_size is defined
 but a limit is defined, stream() will attempt to read the
 limit with the most efficient page size, i.e. min(limit, 1000)</li>
@@ -766,7 +766,7 @@ limit with the most efficient page size, i.e. min(limit, 1000)</li>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Generator that will yield up to limit results</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)">list</a>[<a class="reference internal" href="#twilio.rest.api.v2010.account.available_phone_number.machine_to_machine.MachineToMachineInstance" title="twilio.rest.api.v2010.account.available_phone_number.machine_to_machine.MachineToMachineInstance">twilio.rest.api.v2010.account.available_phone_number.machine_to_machine.MachineToMachineInstance</a>]</p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)">list</a>[<a class="reference internal" href="#twilio.rest.api.v2010.account.available_phone_number.machine_to_machine.MachineToMachineInstance" title="twilio.rest.api.v2010.account.available_phone_number.machine_to_machine.MachineToMachineInstance">twilio.rest.api.v2010.account.available_phone_number.machine_to_machine.MachineToMachineInstance</a>]</p>
 </td>
 </tr>
 </tbody>
@@ -785,7 +785,7 @@ limit with the most efficient page size, i.e. min(limit, 1000)</li>
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>payload</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a>) – Payload response from the API</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>payload</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)"><em>dict</em></a>) – Payload response from the API</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">twilio.rest.api.v2010.account.available_phone_number.machine_to_machine.MachineToMachineInstance</td>
 </tr>
@@ -833,7 +833,7 @@ limit with the most efficient page size, i.e. min(limit, 1000)</li>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Whether the phone number is new to the Twilio platform</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)">bool</a></td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)">bool</a></td>
 </tr>
 </tbody>
 </table>
@@ -1006,7 +1006,7 @@ Request is executed immediately</p>
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>target_url</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – API-generated URL for the requested results page</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>target_url</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – API-generated URL for the requested results page</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Page of MobileInstance</td>
 </tr>
@@ -1028,13 +1028,13 @@ memory before returning.</p>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>area_code</strong> (<em>unicode</em>) – The area code of the phone numbers to read</li>
 <li><strong>contains</strong> (<em>unicode</em>) – The pattern on which to match phone numbers</li>
-<li><strong>sms_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether the phone numbers can receive text messages</li>
-<li><strong>mms_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether the phone numbers can receive MMS messages</li>
-<li><strong>voice_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether the phone numbers can receive calls.</li>
-<li><strong>exclude_all_address_required</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether to exclude phone numbers that require an Address</li>
-<li><strong>exclude_local_address_required</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether to exclude phone numbers that require a local address</li>
-<li><strong>exclude_foreign_address_required</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether to exclude phone numbers that require a foreign address</li>
-<li><strong>beta</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether to read phone numbers new to the Twilio platform</li>
+<li><strong>sms_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether the phone numbers can receive text messages</li>
+<li><strong>mms_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether the phone numbers can receive MMS messages</li>
+<li><strong>voice_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether the phone numbers can receive calls.</li>
+<li><strong>exclude_all_address_required</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether to exclude phone numbers that require an Address</li>
+<li><strong>exclude_local_address_required</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether to exclude phone numbers that require a local address</li>
+<li><strong>exclude_foreign_address_required</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether to exclude phone numbers that require a foreign address</li>
+<li><strong>beta</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether to read phone numbers new to the Twilio platform</li>
 <li><strong>near_number</strong> (<em>unicode</em>) – Given a phone number, find a geographically close number within distance miles. (US/Canada only)</li>
 <li><strong>near_lat_long</strong> (<em>unicode</em>) – Given a latitude/longitude pair lat,long find geographically close numbers within distance miles. (US/Canada only)</li>
 <li><strong>distance</strong> (<em>unicode</em>) – The search radius, in miles, for a <a href="#system-message-15"><span class="problematic" id="problematic-15">near_</span></a> query. (US/Canada only)</li>
@@ -1043,10 +1043,10 @@ memory before returning.</p>
 <li><strong>in_rate_center</strong> (<em>unicode</em>) – Limit results to a specific rate center, or given a phone number search within the same rate center as that number. (US/Canada only)</li>
 <li><strong>in_lata</strong> (<em>unicode</em>) – Limit results to a specific local access and transport area. (US/Canada only)</li>
 <li><strong>in_locality</strong> (<em>unicode</em>) – Limit results to a particular locality</li>
-<li><strong>fax_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether the phone numbers can receive faxes</li>
-<li><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Upper limit for the number of records to return. list() guarantees
+<li><strong>fax_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether the phone numbers can receive faxes</li>
+<li><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Upper limit for the number of records to return. list() guarantees
 never to return more than limit.  Default is no limit</li>
-<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Number of records to fetch per request, when not set will use
+<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Number of records to fetch per request, when not set will use
 the default value of 50 records.  If no page_size is defined
 but a limit is defined, list() will attempt to read the limit
 with the most efficient page size, i.e. min(limit, 1000)</li>
@@ -1056,7 +1056,7 @@ with the most efficient page size, i.e. min(limit, 1000)</li>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Generator that will yield up to limit results</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)">list</a>[<a class="reference internal" href="#twilio.rest.api.v2010.account.available_phone_number.mobile.MobileInstance" title="twilio.rest.api.v2010.account.available_phone_number.mobile.MobileInstance">twilio.rest.api.v2010.account.available_phone_number.mobile.MobileInstance</a>]</p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)">list</a>[<a class="reference internal" href="#twilio.rest.api.v2010.account.available_phone_number.mobile.MobileInstance" title="twilio.rest.api.v2010.account.available_phone_number.mobile.MobileInstance">twilio.rest.api.v2010.account.available_phone_number.mobile.MobileInstance</a>]</p>
 </td>
 </tr>
 </tbody>
@@ -1074,13 +1074,13 @@ Request is executed immediately</p>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>area_code</strong> (<em>unicode</em>) – The area code of the phone numbers to read</li>
 <li><strong>contains</strong> (<em>unicode</em>) – The pattern on which to match phone numbers</li>
-<li><strong>sms_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether the phone numbers can receive text messages</li>
-<li><strong>mms_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether the phone numbers can receive MMS messages</li>
-<li><strong>voice_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether the phone numbers can receive calls.</li>
-<li><strong>exclude_all_address_required</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether to exclude phone numbers that require an Address</li>
-<li><strong>exclude_local_address_required</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether to exclude phone numbers that require a local address</li>
-<li><strong>exclude_foreign_address_required</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether to exclude phone numbers that require a foreign address</li>
-<li><strong>beta</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether to read phone numbers new to the Twilio platform</li>
+<li><strong>sms_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether the phone numbers can receive text messages</li>
+<li><strong>mms_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether the phone numbers can receive MMS messages</li>
+<li><strong>voice_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether the phone numbers can receive calls.</li>
+<li><strong>exclude_all_address_required</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether to exclude phone numbers that require an Address</li>
+<li><strong>exclude_local_address_required</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether to exclude phone numbers that require a local address</li>
+<li><strong>exclude_foreign_address_required</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether to exclude phone numbers that require a foreign address</li>
+<li><strong>beta</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether to read phone numbers new to the Twilio platform</li>
 <li><strong>near_number</strong> (<em>unicode</em>) – Given a phone number, find a geographically close number within distance miles. (US/Canada only)</li>
 <li><strong>near_lat_long</strong> (<em>unicode</em>) – Given a latitude/longitude pair lat,long find geographically close numbers within distance miles. (US/Canada only)</li>
 <li><strong>distance</strong> (<em>unicode</em>) – The search radius, in miles, for a <a href="#system-message-16"><span class="problematic" id="problematic-16">near_</span></a> query. (US/Canada only)</li>
@@ -1089,10 +1089,10 @@ Request is executed immediately</p>
 <li><strong>in_rate_center</strong> (<em>unicode</em>) – Limit results to a specific rate center, or given a phone number search within the same rate center as that number. (US/Canada only)</li>
 <li><strong>in_lata</strong> (<em>unicode</em>) – Limit results to a specific local access and transport area. (US/Canada only)</li>
 <li><strong>in_locality</strong> (<em>unicode</em>) – Limit results to a particular locality</li>
-<li><strong>fax_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether the phone numbers can receive faxes</li>
-<li><strong>page_token</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – PageToken provided by the API</li>
-<li><strong>page_number</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Page Number, this value is simply for client state</li>
-<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Number of records to return, defaults to 50</li>
+<li><strong>fax_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether the phone numbers can receive faxes</li>
+<li><strong>page_token</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – PageToken provided by the API</li>
+<li><strong>page_number</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Page Number, this value is simply for client state</li>
+<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Number of records to return, defaults to 50</li>
 </ul>
 </td>
 </tr>
@@ -1119,13 +1119,13 @@ The results are returned as a generator, so this operation is memory efficient.<
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>area_code</strong> (<em>unicode</em>) – The area code of the phone numbers to read</li>
 <li><strong>contains</strong> (<em>unicode</em>) – The pattern on which to match phone numbers</li>
-<li><strong>sms_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether the phone numbers can receive text messages</li>
-<li><strong>mms_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether the phone numbers can receive MMS messages</li>
-<li><strong>voice_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether the phone numbers can receive calls.</li>
-<li><strong>exclude_all_address_required</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether to exclude phone numbers that require an Address</li>
-<li><strong>exclude_local_address_required</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether to exclude phone numbers that require a local address</li>
-<li><strong>exclude_foreign_address_required</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether to exclude phone numbers that require a foreign address</li>
-<li><strong>beta</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether to read phone numbers new to the Twilio platform</li>
+<li><strong>sms_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether the phone numbers can receive text messages</li>
+<li><strong>mms_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether the phone numbers can receive MMS messages</li>
+<li><strong>voice_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether the phone numbers can receive calls.</li>
+<li><strong>exclude_all_address_required</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether to exclude phone numbers that require an Address</li>
+<li><strong>exclude_local_address_required</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether to exclude phone numbers that require a local address</li>
+<li><strong>exclude_foreign_address_required</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether to exclude phone numbers that require a foreign address</li>
+<li><strong>beta</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether to read phone numbers new to the Twilio platform</li>
 <li><strong>near_number</strong> (<em>unicode</em>) – Given a phone number, find a geographically close number within distance miles. (US/Canada only)</li>
 <li><strong>near_lat_long</strong> (<em>unicode</em>) – Given a latitude/longitude pair lat,long find geographically close numbers within distance miles. (US/Canada only)</li>
 <li><strong>distance</strong> (<em>unicode</em>) – The search radius, in miles, for a <a href="#system-message-17"><span class="problematic" id="problematic-17">near_</span></a> query. (US/Canada only)</li>
@@ -1134,10 +1134,10 @@ The results are returned as a generator, so this operation is memory efficient.<
 <li><strong>in_rate_center</strong> (<em>unicode</em>) – Limit results to a specific rate center, or given a phone number search within the same rate center as that number. (US/Canada only)</li>
 <li><strong>in_lata</strong> (<em>unicode</em>) – Limit results to a specific local access and transport area. (US/Canada only)</li>
 <li><strong>in_locality</strong> (<em>unicode</em>) – Limit results to a particular locality</li>
-<li><strong>fax_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether the phone numbers can receive faxes</li>
-<li><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Upper limit for the number of records to return. stream()
+<li><strong>fax_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether the phone numbers can receive faxes</li>
+<li><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Upper limit for the number of records to return. stream()
 guarantees to never return more than limit.  Default is no limit</li>
-<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Number of records to fetch per request, when not set will use
+<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Number of records to fetch per request, when not set will use
 the default value of 50 records.  If no page_size is defined
 but a limit is defined, stream() will attempt to read the
 limit with the most efficient page size, i.e. min(limit, 1000)</li>
@@ -1147,7 +1147,7 @@ limit with the most efficient page size, i.e. min(limit, 1000)</li>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Generator that will yield up to limit results</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)">list</a>[<a class="reference internal" href="#twilio.rest.api.v2010.account.available_phone_number.mobile.MobileInstance" title="twilio.rest.api.v2010.account.available_phone_number.mobile.MobileInstance">twilio.rest.api.v2010.account.available_phone_number.mobile.MobileInstance</a>]</p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)">list</a>[<a class="reference internal" href="#twilio.rest.api.v2010.account.available_phone_number.mobile.MobileInstance" title="twilio.rest.api.v2010.account.available_phone_number.mobile.MobileInstance">twilio.rest.api.v2010.account.available_phone_number.mobile.MobileInstance</a>]</p>
 </td>
 </tr>
 </tbody>
@@ -1166,7 +1166,7 @@ limit with the most efficient page size, i.e. min(limit, 1000)</li>
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>payload</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a>) – Payload response from the API</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>payload</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)"><em>dict</em></a>) – Payload response from the API</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">twilio.rest.api.v2010.account.available_phone_number.mobile.MobileInstance</td>
 </tr>
@@ -1214,7 +1214,7 @@ limit with the most efficient page size, i.e. min(limit, 1000)</li>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Whether the phone number is new to the Twilio platform</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)">bool</a></td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)">bool</a></td>
 </tr>
 </tbody>
 </table>
@@ -1387,7 +1387,7 @@ Request is executed immediately</p>
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>target_url</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – API-generated URL for the requested results page</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>target_url</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – API-generated URL for the requested results page</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Page of NationalInstance</td>
 </tr>
@@ -1409,13 +1409,13 @@ memory before returning.</p>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>area_code</strong> (<em>unicode</em>) – The area code of the phone numbers to read</li>
 <li><strong>contains</strong> (<em>unicode</em>) – The pattern on which to match phone numbers</li>
-<li><strong>sms_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether the phone numbers can receive text messages</li>
-<li><strong>mms_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether the phone numbers can receive MMS messages</li>
-<li><strong>voice_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether the phone numbers can receive calls.</li>
-<li><strong>exclude_all_address_required</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether to exclude phone numbers that require an Address</li>
-<li><strong>exclude_local_address_required</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether to exclude phone numbers that require a local address</li>
-<li><strong>exclude_foreign_address_required</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether to exclude phone numbers that require a foreign address</li>
-<li><strong>beta</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether to read phone numbers new to the Twilio platform</li>
+<li><strong>sms_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether the phone numbers can receive text messages</li>
+<li><strong>mms_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether the phone numbers can receive MMS messages</li>
+<li><strong>voice_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether the phone numbers can receive calls.</li>
+<li><strong>exclude_all_address_required</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether to exclude phone numbers that require an Address</li>
+<li><strong>exclude_local_address_required</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether to exclude phone numbers that require a local address</li>
+<li><strong>exclude_foreign_address_required</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether to exclude phone numbers that require a foreign address</li>
+<li><strong>beta</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether to read phone numbers new to the Twilio platform</li>
 <li><strong>near_number</strong> (<em>unicode</em>) – Given a phone number, find a geographically close number within distance miles. (US/Canada only)</li>
 <li><strong>near_lat_long</strong> (<em>unicode</em>) – Given a latitude/longitude pair lat,long find geographically close numbers within distance miles. (US/Canada only)</li>
 <li><strong>distance</strong> (<em>unicode</em>) – The search radius, in miles, for a <a href="#system-message-18"><span class="problematic" id="problematic-18">near_</span></a> query. (US/Canada only)</li>
@@ -1424,10 +1424,10 @@ memory before returning.</p>
 <li><strong>in_rate_center</strong> (<em>unicode</em>) – Limit results to a specific rate center, or given a phone number search within the same rate center as that number. (US/Canada only)</li>
 <li><strong>in_lata</strong> (<em>unicode</em>) – Limit results to a specific local access and transport area. (US/Canada only)</li>
 <li><strong>in_locality</strong> (<em>unicode</em>) – Limit results to a particular locality</li>
-<li><strong>fax_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether the phone numbers can receive faxes</li>
-<li><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Upper limit for the number of records to return. list() guarantees
+<li><strong>fax_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether the phone numbers can receive faxes</li>
+<li><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Upper limit for the number of records to return. list() guarantees
 never to return more than limit.  Default is no limit</li>
-<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Number of records to fetch per request, when not set will use
+<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Number of records to fetch per request, when not set will use
 the default value of 50 records.  If no page_size is defined
 but a limit is defined, list() will attempt to read the limit
 with the most efficient page size, i.e. min(limit, 1000)</li>
@@ -1437,7 +1437,7 @@ with the most efficient page size, i.e. min(limit, 1000)</li>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Generator that will yield up to limit results</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)">list</a>[<a class="reference internal" href="#twilio.rest.api.v2010.account.available_phone_number.national.NationalInstance" title="twilio.rest.api.v2010.account.available_phone_number.national.NationalInstance">twilio.rest.api.v2010.account.available_phone_number.national.NationalInstance</a>]</p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)">list</a>[<a class="reference internal" href="#twilio.rest.api.v2010.account.available_phone_number.national.NationalInstance" title="twilio.rest.api.v2010.account.available_phone_number.national.NationalInstance">twilio.rest.api.v2010.account.available_phone_number.national.NationalInstance</a>]</p>
 </td>
 </tr>
 </tbody>
@@ -1455,13 +1455,13 @@ Request is executed immediately</p>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>area_code</strong> (<em>unicode</em>) – The area code of the phone numbers to read</li>
 <li><strong>contains</strong> (<em>unicode</em>) – The pattern on which to match phone numbers</li>
-<li><strong>sms_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether the phone numbers can receive text messages</li>
-<li><strong>mms_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether the phone numbers can receive MMS messages</li>
-<li><strong>voice_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether the phone numbers can receive calls.</li>
-<li><strong>exclude_all_address_required</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether to exclude phone numbers that require an Address</li>
-<li><strong>exclude_local_address_required</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether to exclude phone numbers that require a local address</li>
-<li><strong>exclude_foreign_address_required</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether to exclude phone numbers that require a foreign address</li>
-<li><strong>beta</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether to read phone numbers new to the Twilio platform</li>
+<li><strong>sms_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether the phone numbers can receive text messages</li>
+<li><strong>mms_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether the phone numbers can receive MMS messages</li>
+<li><strong>voice_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether the phone numbers can receive calls.</li>
+<li><strong>exclude_all_address_required</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether to exclude phone numbers that require an Address</li>
+<li><strong>exclude_local_address_required</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether to exclude phone numbers that require a local address</li>
+<li><strong>exclude_foreign_address_required</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether to exclude phone numbers that require a foreign address</li>
+<li><strong>beta</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether to read phone numbers new to the Twilio platform</li>
 <li><strong>near_number</strong> (<em>unicode</em>) – Given a phone number, find a geographically close number within distance miles. (US/Canada only)</li>
 <li><strong>near_lat_long</strong> (<em>unicode</em>) – Given a latitude/longitude pair lat,long find geographically close numbers within distance miles. (US/Canada only)</li>
 <li><strong>distance</strong> (<em>unicode</em>) – The search radius, in miles, for a <a href="#system-message-19"><span class="problematic" id="problematic-19">near_</span></a> query. (US/Canada only)</li>
@@ -1470,10 +1470,10 @@ Request is executed immediately</p>
 <li><strong>in_rate_center</strong> (<em>unicode</em>) – Limit results to a specific rate center, or given a phone number search within the same rate center as that number. (US/Canada only)</li>
 <li><strong>in_lata</strong> (<em>unicode</em>) – Limit results to a specific local access and transport area. (US/Canada only)</li>
 <li><strong>in_locality</strong> (<em>unicode</em>) – Limit results to a particular locality</li>
-<li><strong>fax_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether the phone numbers can receive faxes</li>
-<li><strong>page_token</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – PageToken provided by the API</li>
-<li><strong>page_number</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Page Number, this value is simply for client state</li>
-<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Number of records to return, defaults to 50</li>
+<li><strong>fax_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether the phone numbers can receive faxes</li>
+<li><strong>page_token</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – PageToken provided by the API</li>
+<li><strong>page_number</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Page Number, this value is simply for client state</li>
+<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Number of records to return, defaults to 50</li>
 </ul>
 </td>
 </tr>
@@ -1500,13 +1500,13 @@ The results are returned as a generator, so this operation is memory efficient.<
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>area_code</strong> (<em>unicode</em>) – The area code of the phone numbers to read</li>
 <li><strong>contains</strong> (<em>unicode</em>) – The pattern on which to match phone numbers</li>
-<li><strong>sms_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether the phone numbers can receive text messages</li>
-<li><strong>mms_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether the phone numbers can receive MMS messages</li>
-<li><strong>voice_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether the phone numbers can receive calls.</li>
-<li><strong>exclude_all_address_required</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether to exclude phone numbers that require an Address</li>
-<li><strong>exclude_local_address_required</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether to exclude phone numbers that require a local address</li>
-<li><strong>exclude_foreign_address_required</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether to exclude phone numbers that require a foreign address</li>
-<li><strong>beta</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether to read phone numbers new to the Twilio platform</li>
+<li><strong>sms_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether the phone numbers can receive text messages</li>
+<li><strong>mms_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether the phone numbers can receive MMS messages</li>
+<li><strong>voice_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether the phone numbers can receive calls.</li>
+<li><strong>exclude_all_address_required</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether to exclude phone numbers that require an Address</li>
+<li><strong>exclude_local_address_required</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether to exclude phone numbers that require a local address</li>
+<li><strong>exclude_foreign_address_required</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether to exclude phone numbers that require a foreign address</li>
+<li><strong>beta</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether to read phone numbers new to the Twilio platform</li>
 <li><strong>near_number</strong> (<em>unicode</em>) – Given a phone number, find a geographically close number within distance miles. (US/Canada only)</li>
 <li><strong>near_lat_long</strong> (<em>unicode</em>) – Given a latitude/longitude pair lat,long find geographically close numbers within distance miles. (US/Canada only)</li>
 <li><strong>distance</strong> (<em>unicode</em>) – The search radius, in miles, for a <a href="#system-message-20"><span class="problematic" id="problematic-20">near_</span></a> query. (US/Canada only)</li>
@@ -1515,10 +1515,10 @@ The results are returned as a generator, so this operation is memory efficient.<
 <li><strong>in_rate_center</strong> (<em>unicode</em>) – Limit results to a specific rate center, or given a phone number search within the same rate center as that number. (US/Canada only)</li>
 <li><strong>in_lata</strong> (<em>unicode</em>) – Limit results to a specific local access and transport area. (US/Canada only)</li>
 <li><strong>in_locality</strong> (<em>unicode</em>) – Limit results to a particular locality</li>
-<li><strong>fax_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether the phone numbers can receive faxes</li>
-<li><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Upper limit for the number of records to return. stream()
+<li><strong>fax_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether the phone numbers can receive faxes</li>
+<li><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Upper limit for the number of records to return. stream()
 guarantees to never return more than limit.  Default is no limit</li>
-<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Number of records to fetch per request, when not set will use
+<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Number of records to fetch per request, when not set will use
 the default value of 50 records.  If no page_size is defined
 but a limit is defined, stream() will attempt to read the
 limit with the most efficient page size, i.e. min(limit, 1000)</li>
@@ -1528,7 +1528,7 @@ limit with the most efficient page size, i.e. min(limit, 1000)</li>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Generator that will yield up to limit results</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)">list</a>[<a class="reference internal" href="#twilio.rest.api.v2010.account.available_phone_number.national.NationalInstance" title="twilio.rest.api.v2010.account.available_phone_number.national.NationalInstance">twilio.rest.api.v2010.account.available_phone_number.national.NationalInstance</a>]</p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)">list</a>[<a class="reference internal" href="#twilio.rest.api.v2010.account.available_phone_number.national.NationalInstance" title="twilio.rest.api.v2010.account.available_phone_number.national.NationalInstance">twilio.rest.api.v2010.account.available_phone_number.national.NationalInstance</a>]</p>
 </td>
 </tr>
 </tbody>
@@ -1547,7 +1547,7 @@ limit with the most efficient page size, i.e. min(limit, 1000)</li>
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>payload</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a>) – Payload response from the API</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>payload</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)"><em>dict</em></a>) – Payload response from the API</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">twilio.rest.api.v2010.account.available_phone_number.national.NationalInstance</td>
 </tr>
@@ -1595,7 +1595,7 @@ limit with the most efficient page size, i.e. min(limit, 1000)</li>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Whether the phone number is new to the Twilio platform</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)">bool</a></td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)">bool</a></td>
 </tr>
 </tbody>
 </table>
@@ -1768,7 +1768,7 @@ Request is executed immediately</p>
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>target_url</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – API-generated URL for the requested results page</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>target_url</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – API-generated URL for the requested results page</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Page of SharedCostInstance</td>
 </tr>
@@ -1790,13 +1790,13 @@ memory before returning.</p>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>area_code</strong> (<em>unicode</em>) – The area code of the phone numbers to read</li>
 <li><strong>contains</strong> (<em>unicode</em>) – The pattern on which to match phone numbers</li>
-<li><strong>sms_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether the phone numbers can receive text messages</li>
-<li><strong>mms_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether the phone numbers can receive MMS messages</li>
-<li><strong>voice_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether the phone numbers can receive calls.</li>
-<li><strong>exclude_all_address_required</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether to exclude phone numbers that require an Address</li>
-<li><strong>exclude_local_address_required</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether to exclude phone numbers that require a local address</li>
-<li><strong>exclude_foreign_address_required</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether to exclude phone numbers that require a foreign address</li>
-<li><strong>beta</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether to read phone numbers new to the Twilio platform</li>
+<li><strong>sms_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether the phone numbers can receive text messages</li>
+<li><strong>mms_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether the phone numbers can receive MMS messages</li>
+<li><strong>voice_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether the phone numbers can receive calls.</li>
+<li><strong>exclude_all_address_required</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether to exclude phone numbers that require an Address</li>
+<li><strong>exclude_local_address_required</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether to exclude phone numbers that require a local address</li>
+<li><strong>exclude_foreign_address_required</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether to exclude phone numbers that require a foreign address</li>
+<li><strong>beta</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether to read phone numbers new to the Twilio platform</li>
 <li><strong>near_number</strong> (<em>unicode</em>) – Given a phone number, find a geographically close number within distance miles. (US/Canada only)</li>
 <li><strong>near_lat_long</strong> (<em>unicode</em>) – Given a latitude/longitude pair lat,long find geographically close numbers within distance miles. (US/Canada only)</li>
 <li><strong>distance</strong> (<em>unicode</em>) – The search radius, in miles, for a <a href="#system-message-21"><span class="problematic" id="problematic-21">near_</span></a> query. (US/Canada only)</li>
@@ -1805,10 +1805,10 @@ memory before returning.</p>
 <li><strong>in_rate_center</strong> (<em>unicode</em>) – Limit results to a specific rate center, or given a phone number search within the same rate center as that number. (US/Canada only)</li>
 <li><strong>in_lata</strong> (<em>unicode</em>) – Limit results to a specific local access and transport area. (US/Canada only)</li>
 <li><strong>in_locality</strong> (<em>unicode</em>) – Limit results to a particular locality</li>
-<li><strong>fax_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether the phone numbers can receive faxes</li>
-<li><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Upper limit for the number of records to return. list() guarantees
+<li><strong>fax_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether the phone numbers can receive faxes</li>
+<li><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Upper limit for the number of records to return. list() guarantees
 never to return more than limit.  Default is no limit</li>
-<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Number of records to fetch per request, when not set will use
+<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Number of records to fetch per request, when not set will use
 the default value of 50 records.  If no page_size is defined
 but a limit is defined, list() will attempt to read the limit
 with the most efficient page size, i.e. min(limit, 1000)</li>
@@ -1818,7 +1818,7 @@ with the most efficient page size, i.e. min(limit, 1000)</li>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Generator that will yield up to limit results</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)">list</a>[<a class="reference internal" href="#twilio.rest.api.v2010.account.available_phone_number.shared_cost.SharedCostInstance" title="twilio.rest.api.v2010.account.available_phone_number.shared_cost.SharedCostInstance">twilio.rest.api.v2010.account.available_phone_number.shared_cost.SharedCostInstance</a>]</p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)">list</a>[<a class="reference internal" href="#twilio.rest.api.v2010.account.available_phone_number.shared_cost.SharedCostInstance" title="twilio.rest.api.v2010.account.available_phone_number.shared_cost.SharedCostInstance">twilio.rest.api.v2010.account.available_phone_number.shared_cost.SharedCostInstance</a>]</p>
 </td>
 </tr>
 </tbody>
@@ -1836,13 +1836,13 @@ Request is executed immediately</p>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>area_code</strong> (<em>unicode</em>) – The area code of the phone numbers to read</li>
 <li><strong>contains</strong> (<em>unicode</em>) – The pattern on which to match phone numbers</li>
-<li><strong>sms_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether the phone numbers can receive text messages</li>
-<li><strong>mms_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether the phone numbers can receive MMS messages</li>
-<li><strong>voice_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether the phone numbers can receive calls.</li>
-<li><strong>exclude_all_address_required</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether to exclude phone numbers that require an Address</li>
-<li><strong>exclude_local_address_required</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether to exclude phone numbers that require a local address</li>
-<li><strong>exclude_foreign_address_required</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether to exclude phone numbers that require a foreign address</li>
-<li><strong>beta</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether to read phone numbers new to the Twilio platform</li>
+<li><strong>sms_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether the phone numbers can receive text messages</li>
+<li><strong>mms_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether the phone numbers can receive MMS messages</li>
+<li><strong>voice_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether the phone numbers can receive calls.</li>
+<li><strong>exclude_all_address_required</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether to exclude phone numbers that require an Address</li>
+<li><strong>exclude_local_address_required</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether to exclude phone numbers that require a local address</li>
+<li><strong>exclude_foreign_address_required</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether to exclude phone numbers that require a foreign address</li>
+<li><strong>beta</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether to read phone numbers new to the Twilio platform</li>
 <li><strong>near_number</strong> (<em>unicode</em>) – Given a phone number, find a geographically close number within distance miles. (US/Canada only)</li>
 <li><strong>near_lat_long</strong> (<em>unicode</em>) – Given a latitude/longitude pair lat,long find geographically close numbers within distance miles. (US/Canada only)</li>
 <li><strong>distance</strong> (<em>unicode</em>) – The search radius, in miles, for a <a href="#system-message-22"><span class="problematic" id="problematic-22">near_</span></a> query. (US/Canada only)</li>
@@ -1851,10 +1851,10 @@ Request is executed immediately</p>
 <li><strong>in_rate_center</strong> (<em>unicode</em>) – Limit results to a specific rate center, or given a phone number search within the same rate center as that number. (US/Canada only)</li>
 <li><strong>in_lata</strong> (<em>unicode</em>) – Limit results to a specific local access and transport area. (US/Canada only)</li>
 <li><strong>in_locality</strong> (<em>unicode</em>) – Limit results to a particular locality</li>
-<li><strong>fax_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether the phone numbers can receive faxes</li>
-<li><strong>page_token</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – PageToken provided by the API</li>
-<li><strong>page_number</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Page Number, this value is simply for client state</li>
-<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Number of records to return, defaults to 50</li>
+<li><strong>fax_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether the phone numbers can receive faxes</li>
+<li><strong>page_token</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – PageToken provided by the API</li>
+<li><strong>page_number</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Page Number, this value is simply for client state</li>
+<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Number of records to return, defaults to 50</li>
 </ul>
 </td>
 </tr>
@@ -1881,13 +1881,13 @@ The results are returned as a generator, so this operation is memory efficient.<
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>area_code</strong> (<em>unicode</em>) – The area code of the phone numbers to read</li>
 <li><strong>contains</strong> (<em>unicode</em>) – The pattern on which to match phone numbers</li>
-<li><strong>sms_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether the phone numbers can receive text messages</li>
-<li><strong>mms_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether the phone numbers can receive MMS messages</li>
-<li><strong>voice_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether the phone numbers can receive calls.</li>
-<li><strong>exclude_all_address_required</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether to exclude phone numbers that require an Address</li>
-<li><strong>exclude_local_address_required</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether to exclude phone numbers that require a local address</li>
-<li><strong>exclude_foreign_address_required</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether to exclude phone numbers that require a foreign address</li>
-<li><strong>beta</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether to read phone numbers new to the Twilio platform</li>
+<li><strong>sms_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether the phone numbers can receive text messages</li>
+<li><strong>mms_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether the phone numbers can receive MMS messages</li>
+<li><strong>voice_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether the phone numbers can receive calls.</li>
+<li><strong>exclude_all_address_required</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether to exclude phone numbers that require an Address</li>
+<li><strong>exclude_local_address_required</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether to exclude phone numbers that require a local address</li>
+<li><strong>exclude_foreign_address_required</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether to exclude phone numbers that require a foreign address</li>
+<li><strong>beta</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether to read phone numbers new to the Twilio platform</li>
 <li><strong>near_number</strong> (<em>unicode</em>) – Given a phone number, find a geographically close number within distance miles. (US/Canada only)</li>
 <li><strong>near_lat_long</strong> (<em>unicode</em>) – Given a latitude/longitude pair lat,long find geographically close numbers within distance miles. (US/Canada only)</li>
 <li><strong>distance</strong> (<em>unicode</em>) – The search radius, in miles, for a <a href="#system-message-23"><span class="problematic" id="problematic-23">near_</span></a> query. (US/Canada only)</li>
@@ -1896,10 +1896,10 @@ The results are returned as a generator, so this operation is memory efficient.<
 <li><strong>in_rate_center</strong> (<em>unicode</em>) – Limit results to a specific rate center, or given a phone number search within the same rate center as that number. (US/Canada only)</li>
 <li><strong>in_lata</strong> (<em>unicode</em>) – Limit results to a specific local access and transport area. (US/Canada only)</li>
 <li><strong>in_locality</strong> (<em>unicode</em>) – Limit results to a particular locality</li>
-<li><strong>fax_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether the phone numbers can receive faxes</li>
-<li><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Upper limit for the number of records to return. stream()
+<li><strong>fax_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether the phone numbers can receive faxes</li>
+<li><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Upper limit for the number of records to return. stream()
 guarantees to never return more than limit.  Default is no limit</li>
-<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Number of records to fetch per request, when not set will use
+<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Number of records to fetch per request, when not set will use
 the default value of 50 records.  If no page_size is defined
 but a limit is defined, stream() will attempt to read the
 limit with the most efficient page size, i.e. min(limit, 1000)</li>
@@ -1909,7 +1909,7 @@ limit with the most efficient page size, i.e. min(limit, 1000)</li>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Generator that will yield up to limit results</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)">list</a>[<a class="reference internal" href="#twilio.rest.api.v2010.account.available_phone_number.shared_cost.SharedCostInstance" title="twilio.rest.api.v2010.account.available_phone_number.shared_cost.SharedCostInstance">twilio.rest.api.v2010.account.available_phone_number.shared_cost.SharedCostInstance</a>]</p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)">list</a>[<a class="reference internal" href="#twilio.rest.api.v2010.account.available_phone_number.shared_cost.SharedCostInstance" title="twilio.rest.api.v2010.account.available_phone_number.shared_cost.SharedCostInstance">twilio.rest.api.v2010.account.available_phone_number.shared_cost.SharedCostInstance</a>]</p>
 </td>
 </tr>
 </tbody>
@@ -1928,7 +1928,7 @@ limit with the most efficient page size, i.e. min(limit, 1000)</li>
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>payload</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a>) – Payload response from the API</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>payload</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)"><em>dict</em></a>) – Payload response from the API</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">twilio.rest.api.v2010.account.available_phone_number.shared_cost.SharedCostInstance</td>
 </tr>
@@ -1976,7 +1976,7 @@ limit with the most efficient page size, i.e. min(limit, 1000)</li>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Whether the phone number is new to the Twilio platform</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)">bool</a></td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)">bool</a></td>
 </tr>
 </tbody>
 </table>
@@ -2149,7 +2149,7 @@ Request is executed immediately</p>
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>target_url</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – API-generated URL for the requested results page</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>target_url</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – API-generated URL for the requested results page</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Page of TollFreeInstance</td>
 </tr>
@@ -2171,13 +2171,13 @@ memory before returning.</p>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>area_code</strong> (<em>unicode</em>) – The area code of the phone numbers to read</li>
 <li><strong>contains</strong> (<em>unicode</em>) – The pattern on which to match phone numbers</li>
-<li><strong>sms_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether the phone numbers can receive text messages</li>
-<li><strong>mms_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether the phone numbers can receive MMS messages</li>
-<li><strong>voice_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether the phone numbers can receive calls.</li>
-<li><strong>exclude_all_address_required</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether to exclude phone numbers that require an Address</li>
-<li><strong>exclude_local_address_required</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether to exclude phone numbers that require a local address</li>
-<li><strong>exclude_foreign_address_required</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether to exclude phone numbers that require a foreign address</li>
-<li><strong>beta</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether to read phone numbers new to the Twilio platform</li>
+<li><strong>sms_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether the phone numbers can receive text messages</li>
+<li><strong>mms_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether the phone numbers can receive MMS messages</li>
+<li><strong>voice_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether the phone numbers can receive calls.</li>
+<li><strong>exclude_all_address_required</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether to exclude phone numbers that require an Address</li>
+<li><strong>exclude_local_address_required</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether to exclude phone numbers that require a local address</li>
+<li><strong>exclude_foreign_address_required</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether to exclude phone numbers that require a foreign address</li>
+<li><strong>beta</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether to read phone numbers new to the Twilio platform</li>
 <li><strong>near_number</strong> (<em>unicode</em>) – Given a phone number, find a geographically close number within distance miles. (US/Canada only)</li>
 <li><strong>near_lat_long</strong> (<em>unicode</em>) – Given a latitude/longitude pair lat,long find geographically close numbers within distance miles. (US/Canada only)</li>
 <li><strong>distance</strong> (<em>unicode</em>) – The search radius, in miles, for a <a href="#system-message-24"><span class="problematic" id="problematic-24">near_</span></a> query. (US/Canada only)</li>
@@ -2186,10 +2186,10 @@ memory before returning.</p>
 <li><strong>in_rate_center</strong> (<em>unicode</em>) – Limit results to a specific rate center, or given a phone number search within the same rate center as that number. (US/Canada only)</li>
 <li><strong>in_lata</strong> (<em>unicode</em>) – Limit results to a specific local access and transport area. (US/Canada only)</li>
 <li><strong>in_locality</strong> (<em>unicode</em>) – Limit results to a particular locality</li>
-<li><strong>fax_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether the phone numbers can receive faxes</li>
-<li><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Upper limit for the number of records to return. list() guarantees
+<li><strong>fax_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether the phone numbers can receive faxes</li>
+<li><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Upper limit for the number of records to return. list() guarantees
 never to return more than limit.  Default is no limit</li>
-<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Number of records to fetch per request, when not set will use
+<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Number of records to fetch per request, when not set will use
 the default value of 50 records.  If no page_size is defined
 but a limit is defined, list() will attempt to read the limit
 with the most efficient page size, i.e. min(limit, 1000)</li>
@@ -2199,7 +2199,7 @@ with the most efficient page size, i.e. min(limit, 1000)</li>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Generator that will yield up to limit results</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)">list</a>[<a class="reference internal" href="#twilio.rest.api.v2010.account.available_phone_number.toll_free.TollFreeInstance" title="twilio.rest.api.v2010.account.available_phone_number.toll_free.TollFreeInstance">twilio.rest.api.v2010.account.available_phone_number.toll_free.TollFreeInstance</a>]</p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)">list</a>[<a class="reference internal" href="#twilio.rest.api.v2010.account.available_phone_number.toll_free.TollFreeInstance" title="twilio.rest.api.v2010.account.available_phone_number.toll_free.TollFreeInstance">twilio.rest.api.v2010.account.available_phone_number.toll_free.TollFreeInstance</a>]</p>
 </td>
 </tr>
 </tbody>
@@ -2217,13 +2217,13 @@ Request is executed immediately</p>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>area_code</strong> (<em>unicode</em>) – The area code of the phone numbers to read</li>
 <li><strong>contains</strong> (<em>unicode</em>) – The pattern on which to match phone numbers</li>
-<li><strong>sms_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether the phone numbers can receive text messages</li>
-<li><strong>mms_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether the phone numbers can receive MMS messages</li>
-<li><strong>voice_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether the phone numbers can receive calls.</li>
-<li><strong>exclude_all_address_required</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether to exclude phone numbers that require an Address</li>
-<li><strong>exclude_local_address_required</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether to exclude phone numbers that require a local address</li>
-<li><strong>exclude_foreign_address_required</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether to exclude phone numbers that require a foreign address</li>
-<li><strong>beta</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether to read phone numbers new to the Twilio platform</li>
+<li><strong>sms_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether the phone numbers can receive text messages</li>
+<li><strong>mms_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether the phone numbers can receive MMS messages</li>
+<li><strong>voice_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether the phone numbers can receive calls.</li>
+<li><strong>exclude_all_address_required</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether to exclude phone numbers that require an Address</li>
+<li><strong>exclude_local_address_required</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether to exclude phone numbers that require a local address</li>
+<li><strong>exclude_foreign_address_required</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether to exclude phone numbers that require a foreign address</li>
+<li><strong>beta</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether to read phone numbers new to the Twilio platform</li>
 <li><strong>near_number</strong> (<em>unicode</em>) – Given a phone number, find a geographically close number within distance miles. (US/Canada only)</li>
 <li><strong>near_lat_long</strong> (<em>unicode</em>) – Given a latitude/longitude pair lat,long find geographically close numbers within distance miles. (US/Canada only)</li>
 <li><strong>distance</strong> (<em>unicode</em>) – The search radius, in miles, for a <a href="#system-message-25"><span class="problematic" id="problematic-25">near_</span></a> query. (US/Canada only)</li>
@@ -2232,10 +2232,10 @@ Request is executed immediately</p>
 <li><strong>in_rate_center</strong> (<em>unicode</em>) – Limit results to a specific rate center, or given a phone number search within the same rate center as that number. (US/Canada only)</li>
 <li><strong>in_lata</strong> (<em>unicode</em>) – Limit results to a specific local access and transport area. (US/Canada only)</li>
 <li><strong>in_locality</strong> (<em>unicode</em>) – Limit results to a particular locality</li>
-<li><strong>fax_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether the phone numbers can receive faxes</li>
-<li><strong>page_token</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – PageToken provided by the API</li>
-<li><strong>page_number</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Page Number, this value is simply for client state</li>
-<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Number of records to return, defaults to 50</li>
+<li><strong>fax_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether the phone numbers can receive faxes</li>
+<li><strong>page_token</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – PageToken provided by the API</li>
+<li><strong>page_number</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Page Number, this value is simply for client state</li>
+<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Number of records to return, defaults to 50</li>
 </ul>
 </td>
 </tr>
@@ -2262,13 +2262,13 @@ The results are returned as a generator, so this operation is memory efficient.<
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>area_code</strong> (<em>unicode</em>) – The area code of the phone numbers to read</li>
 <li><strong>contains</strong> (<em>unicode</em>) – The pattern on which to match phone numbers</li>
-<li><strong>sms_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether the phone numbers can receive text messages</li>
-<li><strong>mms_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether the phone numbers can receive MMS messages</li>
-<li><strong>voice_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether the phone numbers can receive calls.</li>
-<li><strong>exclude_all_address_required</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether to exclude phone numbers that require an Address</li>
-<li><strong>exclude_local_address_required</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether to exclude phone numbers that require a local address</li>
-<li><strong>exclude_foreign_address_required</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether to exclude phone numbers that require a foreign address</li>
-<li><strong>beta</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether to read phone numbers new to the Twilio platform</li>
+<li><strong>sms_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether the phone numbers can receive text messages</li>
+<li><strong>mms_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether the phone numbers can receive MMS messages</li>
+<li><strong>voice_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether the phone numbers can receive calls.</li>
+<li><strong>exclude_all_address_required</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether to exclude phone numbers that require an Address</li>
+<li><strong>exclude_local_address_required</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether to exclude phone numbers that require a local address</li>
+<li><strong>exclude_foreign_address_required</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether to exclude phone numbers that require a foreign address</li>
+<li><strong>beta</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether to read phone numbers new to the Twilio platform</li>
 <li><strong>near_number</strong> (<em>unicode</em>) – Given a phone number, find a geographically close number within distance miles. (US/Canada only)</li>
 <li><strong>near_lat_long</strong> (<em>unicode</em>) – Given a latitude/longitude pair lat,long find geographically close numbers within distance miles. (US/Canada only)</li>
 <li><strong>distance</strong> (<em>unicode</em>) – The search radius, in miles, for a <a href="#system-message-26"><span class="problematic" id="problematic-26">near_</span></a> query. (US/Canada only)</li>
@@ -2277,10 +2277,10 @@ The results are returned as a generator, so this operation is memory efficient.<
 <li><strong>in_rate_center</strong> (<em>unicode</em>) – Limit results to a specific rate center, or given a phone number search within the same rate center as that number. (US/Canada only)</li>
 <li><strong>in_lata</strong> (<em>unicode</em>) – Limit results to a specific local access and transport area. (US/Canada only)</li>
 <li><strong>in_locality</strong> (<em>unicode</em>) – Limit results to a particular locality</li>
-<li><strong>fax_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether the phone numbers can receive faxes</li>
-<li><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Upper limit for the number of records to return. stream()
+<li><strong>fax_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether the phone numbers can receive faxes</li>
+<li><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Upper limit for the number of records to return. stream()
 guarantees to never return more than limit.  Default is no limit</li>
-<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Number of records to fetch per request, when not set will use
+<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Number of records to fetch per request, when not set will use
 the default value of 50 records.  If no page_size is defined
 but a limit is defined, stream() will attempt to read the
 limit with the most efficient page size, i.e. min(limit, 1000)</li>
@@ -2290,7 +2290,7 @@ limit with the most efficient page size, i.e. min(limit, 1000)</li>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Generator that will yield up to limit results</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)">list</a>[<a class="reference internal" href="#twilio.rest.api.v2010.account.available_phone_number.toll_free.TollFreeInstance" title="twilio.rest.api.v2010.account.available_phone_number.toll_free.TollFreeInstance">twilio.rest.api.v2010.account.available_phone_number.toll_free.TollFreeInstance</a>]</p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)">list</a>[<a class="reference internal" href="#twilio.rest.api.v2010.account.available_phone_number.toll_free.TollFreeInstance" title="twilio.rest.api.v2010.account.available_phone_number.toll_free.TollFreeInstance">twilio.rest.api.v2010.account.available_phone_number.toll_free.TollFreeInstance</a>]</p>
 </td>
 </tr>
 </tbody>
@@ -2309,7 +2309,7 @@ limit with the most efficient page size, i.e. min(limit, 1000)</li>
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>payload</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a>) – Payload response from the API</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>payload</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)"><em>dict</em></a>) – Payload response from the API</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">twilio.rest.api.v2010.account.available_phone_number.toll_free.TollFreeInstance</td>
 </tr>
@@ -2357,7 +2357,7 @@ limit with the most efficient page size, i.e. min(limit, 1000)</li>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Whether the phone number is new to the Twilio platform</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)">bool</a></td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)">bool</a></td>
 </tr>
 </tbody>
 </table>
@@ -2530,7 +2530,7 @@ Request is executed immediately</p>
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>target_url</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – API-generated URL for the requested results page</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>target_url</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – API-generated URL for the requested results page</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Page of VoipInstance</td>
 </tr>
@@ -2552,13 +2552,13 @@ memory before returning.</p>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>area_code</strong> (<em>unicode</em>) – The area code of the phone numbers to read</li>
 <li><strong>contains</strong> (<em>unicode</em>) – The pattern on which to match phone numbers</li>
-<li><strong>sms_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether the phone numbers can receive text messages</li>
-<li><strong>mms_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether the phone numbers can receive MMS messages</li>
-<li><strong>voice_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether the phone numbers can receive calls.</li>
-<li><strong>exclude_all_address_required</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether to exclude phone numbers that require an Address</li>
-<li><strong>exclude_local_address_required</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether to exclude phone numbers that require a local address</li>
-<li><strong>exclude_foreign_address_required</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether to exclude phone numbers that require a foreign address</li>
-<li><strong>beta</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether to read phone numbers new to the Twilio platform</li>
+<li><strong>sms_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether the phone numbers can receive text messages</li>
+<li><strong>mms_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether the phone numbers can receive MMS messages</li>
+<li><strong>voice_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether the phone numbers can receive calls.</li>
+<li><strong>exclude_all_address_required</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether to exclude phone numbers that require an Address</li>
+<li><strong>exclude_local_address_required</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether to exclude phone numbers that require a local address</li>
+<li><strong>exclude_foreign_address_required</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether to exclude phone numbers that require a foreign address</li>
+<li><strong>beta</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether to read phone numbers new to the Twilio platform</li>
 <li><strong>near_number</strong> (<em>unicode</em>) – Given a phone number, find a geographically close number within distance miles. (US/Canada only)</li>
 <li><strong>near_lat_long</strong> (<em>unicode</em>) – Given a latitude/longitude pair lat,long find geographically close numbers within distance miles. (US/Canada only)</li>
 <li><strong>distance</strong> (<em>unicode</em>) – The search radius, in miles, for a <a href="#system-message-27"><span class="problematic" id="problematic-27">near_</span></a> query. (US/Canada only)</li>
@@ -2567,10 +2567,10 @@ memory before returning.</p>
 <li><strong>in_rate_center</strong> (<em>unicode</em>) – Limit results to a specific rate center, or given a phone number search within the same rate center as that number. (US/Canada only)</li>
 <li><strong>in_lata</strong> (<em>unicode</em>) – Limit results to a specific local access and transport area. (US/Canada only)</li>
 <li><strong>in_locality</strong> (<em>unicode</em>) – Limit results to a particular locality</li>
-<li><strong>fax_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether the phone numbers can receive faxes</li>
-<li><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Upper limit for the number of records to return. list() guarantees
+<li><strong>fax_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether the phone numbers can receive faxes</li>
+<li><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Upper limit for the number of records to return. list() guarantees
 never to return more than limit.  Default is no limit</li>
-<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Number of records to fetch per request, when not set will use
+<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Number of records to fetch per request, when not set will use
 the default value of 50 records.  If no page_size is defined
 but a limit is defined, list() will attempt to read the limit
 with the most efficient page size, i.e. min(limit, 1000)</li>
@@ -2580,7 +2580,7 @@ with the most efficient page size, i.e. min(limit, 1000)</li>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Generator that will yield up to limit results</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)">list</a>[<a class="reference internal" href="#twilio.rest.api.v2010.account.available_phone_number.voip.VoipInstance" title="twilio.rest.api.v2010.account.available_phone_number.voip.VoipInstance">twilio.rest.api.v2010.account.available_phone_number.voip.VoipInstance</a>]</p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)">list</a>[<a class="reference internal" href="#twilio.rest.api.v2010.account.available_phone_number.voip.VoipInstance" title="twilio.rest.api.v2010.account.available_phone_number.voip.VoipInstance">twilio.rest.api.v2010.account.available_phone_number.voip.VoipInstance</a>]</p>
 </td>
 </tr>
 </tbody>
@@ -2598,13 +2598,13 @@ Request is executed immediately</p>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>area_code</strong> (<em>unicode</em>) – The area code of the phone numbers to read</li>
 <li><strong>contains</strong> (<em>unicode</em>) – The pattern on which to match phone numbers</li>
-<li><strong>sms_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether the phone numbers can receive text messages</li>
-<li><strong>mms_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether the phone numbers can receive MMS messages</li>
-<li><strong>voice_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether the phone numbers can receive calls.</li>
-<li><strong>exclude_all_address_required</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether to exclude phone numbers that require an Address</li>
-<li><strong>exclude_local_address_required</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether to exclude phone numbers that require a local address</li>
-<li><strong>exclude_foreign_address_required</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether to exclude phone numbers that require a foreign address</li>
-<li><strong>beta</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether to read phone numbers new to the Twilio platform</li>
+<li><strong>sms_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether the phone numbers can receive text messages</li>
+<li><strong>mms_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether the phone numbers can receive MMS messages</li>
+<li><strong>voice_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether the phone numbers can receive calls.</li>
+<li><strong>exclude_all_address_required</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether to exclude phone numbers that require an Address</li>
+<li><strong>exclude_local_address_required</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether to exclude phone numbers that require a local address</li>
+<li><strong>exclude_foreign_address_required</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether to exclude phone numbers that require a foreign address</li>
+<li><strong>beta</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether to read phone numbers new to the Twilio platform</li>
 <li><strong>near_number</strong> (<em>unicode</em>) – Given a phone number, find a geographically close number within distance miles. (US/Canada only)</li>
 <li><strong>near_lat_long</strong> (<em>unicode</em>) – Given a latitude/longitude pair lat,long find geographically close numbers within distance miles. (US/Canada only)</li>
 <li><strong>distance</strong> (<em>unicode</em>) – The search radius, in miles, for a <a href="#system-message-28"><span class="problematic" id="problematic-28">near_</span></a> query. (US/Canada only)</li>
@@ -2613,10 +2613,10 @@ Request is executed immediately</p>
 <li><strong>in_rate_center</strong> (<em>unicode</em>) – Limit results to a specific rate center, or given a phone number search within the same rate center as that number. (US/Canada only)</li>
 <li><strong>in_lata</strong> (<em>unicode</em>) – Limit results to a specific local access and transport area. (US/Canada only)</li>
 <li><strong>in_locality</strong> (<em>unicode</em>) – Limit results to a particular locality</li>
-<li><strong>fax_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether the phone numbers can receive faxes</li>
-<li><strong>page_token</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – PageToken provided by the API</li>
-<li><strong>page_number</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Page Number, this value is simply for client state</li>
-<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Number of records to return, defaults to 50</li>
+<li><strong>fax_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether the phone numbers can receive faxes</li>
+<li><strong>page_token</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – PageToken provided by the API</li>
+<li><strong>page_number</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Page Number, this value is simply for client state</li>
+<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Number of records to return, defaults to 50</li>
 </ul>
 </td>
 </tr>
@@ -2643,13 +2643,13 @@ The results are returned as a generator, so this operation is memory efficient.<
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>area_code</strong> (<em>unicode</em>) – The area code of the phone numbers to read</li>
 <li><strong>contains</strong> (<em>unicode</em>) – The pattern on which to match phone numbers</li>
-<li><strong>sms_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether the phone numbers can receive text messages</li>
-<li><strong>mms_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether the phone numbers can receive MMS messages</li>
-<li><strong>voice_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether the phone numbers can receive calls.</li>
-<li><strong>exclude_all_address_required</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether to exclude phone numbers that require an Address</li>
-<li><strong>exclude_local_address_required</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether to exclude phone numbers that require a local address</li>
-<li><strong>exclude_foreign_address_required</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether to exclude phone numbers that require a foreign address</li>
-<li><strong>beta</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether to read phone numbers new to the Twilio platform</li>
+<li><strong>sms_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether the phone numbers can receive text messages</li>
+<li><strong>mms_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether the phone numbers can receive MMS messages</li>
+<li><strong>voice_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether the phone numbers can receive calls.</li>
+<li><strong>exclude_all_address_required</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether to exclude phone numbers that require an Address</li>
+<li><strong>exclude_local_address_required</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether to exclude phone numbers that require a local address</li>
+<li><strong>exclude_foreign_address_required</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether to exclude phone numbers that require a foreign address</li>
+<li><strong>beta</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether to read phone numbers new to the Twilio platform</li>
 <li><strong>near_number</strong> (<em>unicode</em>) – Given a phone number, find a geographically close number within distance miles. (US/Canada only)</li>
 <li><strong>near_lat_long</strong> (<em>unicode</em>) – Given a latitude/longitude pair lat,long find geographically close numbers within distance miles. (US/Canada only)</li>
 <li><strong>distance</strong> (<em>unicode</em>) – The search radius, in miles, for a <a href="#system-message-29"><span class="problematic" id="problematic-29">near_</span></a> query. (US/Canada only)</li>
@@ -2658,10 +2658,10 @@ The results are returned as a generator, so this operation is memory efficient.<
 <li><strong>in_rate_center</strong> (<em>unicode</em>) – Limit results to a specific rate center, or given a phone number search within the same rate center as that number. (US/Canada only)</li>
 <li><strong>in_lata</strong> (<em>unicode</em>) – Limit results to a specific local access and transport area. (US/Canada only)</li>
 <li><strong>in_locality</strong> (<em>unicode</em>) – Limit results to a particular locality</li>
-<li><strong>fax_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether the phone numbers can receive faxes</li>
-<li><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Upper limit for the number of records to return. stream()
+<li><strong>fax_enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether the phone numbers can receive faxes</li>
+<li><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Upper limit for the number of records to return. stream()
 guarantees to never return more than limit.  Default is no limit</li>
-<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Number of records to fetch per request, when not set will use
+<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Number of records to fetch per request, when not set will use
 the default value of 50 records.  If no page_size is defined
 but a limit is defined, stream() will attempt to read the
 limit with the most efficient page size, i.e. min(limit, 1000)</li>
@@ -2671,7 +2671,7 @@ limit with the most efficient page size, i.e. min(limit, 1000)</li>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Generator that will yield up to limit results</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)">list</a>[<a class="reference internal" href="#twilio.rest.api.v2010.account.available_phone_number.voip.VoipInstance" title="twilio.rest.api.v2010.account.available_phone_number.voip.VoipInstance">twilio.rest.api.v2010.account.available_phone_number.voip.VoipInstance</a>]</p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)">list</a>[<a class="reference internal" href="#twilio.rest.api.v2010.account.available_phone_number.voip.VoipInstance" title="twilio.rest.api.v2010.account.available_phone_number.voip.VoipInstance">twilio.rest.api.v2010.account.available_phone_number.voip.VoipInstance</a>]</p>
 </td>
 </tr>
 </tbody>
@@ -2690,7 +2690,7 @@ limit with the most efficient page size, i.e. min(limit, 1000)</li>
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>payload</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a>) – Payload response from the API</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>payload</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)"><em>dict</em></a>) – Payload response from the API</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">twilio.rest.api.v2010.account.available_phone_number.voip.VoipInstance</td>
 </tr>
@@ -2849,7 +2849,7 @@ limit with the most efficient page size, i.e. min(limit, 1000)</li>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Whether all phone numbers available in the country are new to the Twilio platform.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)">bool</a></td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)">bool</a></td>
 </tr>
 </tbody>
 </table>
@@ -3061,7 +3061,7 @@ Request is executed immediately</p>
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>target_url</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – API-generated URL for the requested results page</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>target_url</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – API-generated URL for the requested results page</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Page of AvailablePhoneNumberCountryInstance</td>
 </tr>
@@ -3081,9 +3081,9 @@ memory before returning.</p>
 <col class="field-body"/>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Upper limit for the number of records to return. list() guarantees
+<li><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Upper limit for the number of records to return. list() guarantees
 never to return more than limit.  Default is no limit</li>
-<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Number of records to fetch per request, when not set will use
+<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Number of records to fetch per request, when not set will use
 the default value of 50 records.  If no page_size is defined
 but a limit is defined, list() will attempt to read the limit
 with the most efficient page size, i.e. min(limit, 1000)</li>
@@ -3093,7 +3093,7 @@ with the most efficient page size, i.e. min(limit, 1000)</li>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Generator that will yield up to limit results</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)">list</a>[<a class="reference internal" href="#twilio.rest.api.v2010.account.available_phone_number.AvailablePhoneNumberCountryInstance" title="twilio.rest.api.v2010.account.available_phone_number.AvailablePhoneNumberCountryInstance">twilio.rest.api.v2010.account.available_phone_number.AvailablePhoneNumberCountryInstance</a>]</p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)">list</a>[<a class="reference internal" href="#twilio.rest.api.v2010.account.available_phone_number.AvailablePhoneNumberCountryInstance" title="twilio.rest.api.v2010.account.available_phone_number.AvailablePhoneNumberCountryInstance">twilio.rest.api.v2010.account.available_phone_number.AvailablePhoneNumberCountryInstance</a>]</p>
 </td>
 </tr>
 </tbody>
@@ -3109,9 +3109,9 @@ Request is executed immediately</p>
 <col class="field-body"/>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>page_token</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – PageToken provided by the API</li>
-<li><strong>page_number</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Page Number, this value is simply for client state</li>
-<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Number of records to return, defaults to 50</li>
+<li><strong>page_token</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – PageToken provided by the API</li>
+<li><strong>page_number</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Page Number, this value is simply for client state</li>
+<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Number of records to return, defaults to 50</li>
 </ul>
 </td>
 </tr>
@@ -3136,9 +3136,9 @@ The results are returned as a generator, so this operation is memory efficient.<
 <col class="field-body"/>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Upper limit for the number of records to return. stream()
+<li><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Upper limit for the number of records to return. stream()
 guarantees to never return more than limit.  Default is no limit</li>
-<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Number of records to fetch per request, when not set will use
+<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Number of records to fetch per request, when not set will use
 the default value of 50 records.  If no page_size is defined
 but a limit is defined, stream() will attempt to read the
 limit with the most efficient page size, i.e. min(limit, 1000)</li>
@@ -3148,7 +3148,7 @@ limit with the most efficient page size, i.e. min(limit, 1000)</li>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Generator that will yield up to limit results</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)">list</a>[<a class="reference internal" href="#twilio.rest.api.v2010.account.available_phone_number.AvailablePhoneNumberCountryInstance" title="twilio.rest.api.v2010.account.available_phone_number.AvailablePhoneNumberCountryInstance">twilio.rest.api.v2010.account.available_phone_number.AvailablePhoneNumberCountryInstance</a>]</p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)">list</a>[<a class="reference internal" href="#twilio.rest.api.v2010.account.available_phone_number.AvailablePhoneNumberCountryInstance" title="twilio.rest.api.v2010.account.available_phone_number.AvailablePhoneNumberCountryInstance">twilio.rest.api.v2010.account.available_phone_number.AvailablePhoneNumberCountryInstance</a>]</p>
 </td>
 </tr>
 </tbody>
@@ -3167,7 +3167,7 @@ limit with the most efficient page size, i.e. min(limit, 1000)</li>
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>payload</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a>) – Payload response from the API</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>payload</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)"><em>dict</em></a>) – Payload response from the API</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">twilio.rest.api.v2010.account.available_phone_number.AvailablePhoneNumberCountryInstance</td>
 </tr>

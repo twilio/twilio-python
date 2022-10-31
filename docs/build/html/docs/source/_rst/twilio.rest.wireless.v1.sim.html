@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-MWRD6S');</script><!--End Google Tag Manager-->
 <meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<title>twilio.rest.wireless.v1.sim package — twilio-python 7.15.0 documentation</title>
+<title>twilio.rest.wireless.v1.sim package — twilio-python 7.15.1 documentation</title>
 <link href="../../../_static/alabaster.css" rel="stylesheet" type="text/css"/>
 <link href="../../../_static/pygments.css" rel="stylesheet" type="text/css"/>
 <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js" type="text/javascript"></script>
@@ -85,7 +85,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">An object with the estimated location where the device’s Data Session took place</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)">dict</a></td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)">dict</a></td>
 </tr>
 </tbody>
 </table>
@@ -286,7 +286,7 @@ Request is executed immediately</p>
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>target_url</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – API-generated URL for the requested results page</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>target_url</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – API-generated URL for the requested results page</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Page of DataSessionInstance</td>
 </tr>
@@ -306,9 +306,9 @@ memory before returning.</p>
 <col class="field-body"/>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Upper limit for the number of records to return. list() guarantees
+<li><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Upper limit for the number of records to return. list() guarantees
 never to return more than limit.  Default is no limit</li>
-<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Number of records to fetch per request, when not set will use
+<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Number of records to fetch per request, when not set will use
 the default value of 50 records.  If no page_size is defined
 but a limit is defined, list() will attempt to read the limit
 with the most efficient page size, i.e. min(limit, 1000)</li>
@@ -318,7 +318,7 @@ with the most efficient page size, i.e. min(limit, 1000)</li>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Generator that will yield up to limit results</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)">list</a>[<a class="reference internal" href="#twilio.rest.wireless.v1.sim.data_session.DataSessionInstance" title="twilio.rest.wireless.v1.sim.data_session.DataSessionInstance">twilio.rest.wireless.v1.sim.data_session.DataSessionInstance</a>]</p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)">list</a>[<a class="reference internal" href="#twilio.rest.wireless.v1.sim.data_session.DataSessionInstance" title="twilio.rest.wireless.v1.sim.data_session.DataSessionInstance">twilio.rest.wireless.v1.sim.data_session.DataSessionInstance</a>]</p>
 </td>
 </tr>
 </tbody>
@@ -334,9 +334,9 @@ Request is executed immediately</p>
 <col class="field-body"/>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>page_token</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – PageToken provided by the API</li>
-<li><strong>page_number</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Page Number, this value is simply for client state</li>
-<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Number of records to return, defaults to 50</li>
+<li><strong>page_token</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – PageToken provided by the API</li>
+<li><strong>page_number</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Page Number, this value is simply for client state</li>
+<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Number of records to return, defaults to 50</li>
 </ul>
 </td>
 </tr>
@@ -361,9 +361,9 @@ The results are returned as a generator, so this operation is memory efficient.<
 <col class="field-body"/>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Upper limit for the number of records to return. stream()
+<li><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Upper limit for the number of records to return. stream()
 guarantees to never return more than limit.  Default is no limit</li>
-<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Number of records to fetch per request, when not set will use
+<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Number of records to fetch per request, when not set will use
 the default value of 50 records.  If no page_size is defined
 but a limit is defined, stream() will attempt to read the
 limit with the most efficient page size, i.e. min(limit, 1000)</li>
@@ -373,7 +373,7 @@ limit with the most efficient page size, i.e. min(limit, 1000)</li>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Generator that will yield up to limit results</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)">list</a>[<a class="reference internal" href="#twilio.rest.wireless.v1.sim.data_session.DataSessionInstance" title="twilio.rest.wireless.v1.sim.data_session.DataSessionInstance">twilio.rest.wireless.v1.sim.data_session.DataSessionInstance</a>]</p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)">list</a>[<a class="reference internal" href="#twilio.rest.wireless.v1.sim.data_session.DataSessionInstance" title="twilio.rest.wireless.v1.sim.data_session.DataSessionInstance">twilio.rest.wireless.v1.sim.data_session.DataSessionInstance</a>]</p>
 </td>
 </tr>
 </tbody>
@@ -392,7 +392,7 @@ limit with the most efficient page size, i.e. min(limit, 1000)</li>
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>payload</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a>) – Payload response from the API</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>payload</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)"><em>dict</em></a>) – Payload response from the API</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">twilio.rest.wireless.v1.sim.data_session.DataSessionInstance</td>
 </tr>
@@ -420,7 +420,7 @@ limit with the most efficient page size, i.e. min(limit, 1000)</li>
 <dl class="class">
 <dt id="twilio.rest.wireless.v1.sim.usage_record.UsageRecordInstance.Granularity">
 <em class="property">class </em><code class="descname">Granularity</code><a class="reference internal" href="../../../_modules/twilio/rest/wireless/v1/sim/usage_record.html#UsageRecordInstance.Granularity"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.wireless.v1.sim.usage_record.UsageRecordInstance.Granularity" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <dl class="attribute">
 <dt id="twilio.rest.wireless.v1.sim.usage_record.UsageRecordInstance.Granularity.ALL">
 <code class="descname">ALL</code><em class="property"> = 'all'</em><a class="headerlink" href="#twilio.rest.wireless.v1.sim.usage_record.UsageRecordInstance.Granularity.ALL" title="Permalink to this definition">¶</a></dt>
@@ -457,7 +457,7 @@ limit with the most efficient page size, i.e. min(limit, 1000)</li>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">An object that describes the SIM’s usage of Commands during the specified period</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)">dict</a></td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)">dict</a></td>
 </tr>
 </tbody>
 </table>
@@ -471,7 +471,7 @@ limit with the most efficient page size, i.e. min(limit, 1000)</li>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">An object that describes the SIM’s data usage during the specified period</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)">dict</a></td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)">dict</a></td>
 </tr>
 </tbody>
 </table>
@@ -485,7 +485,7 @@ limit with the most efficient page size, i.e. min(limit, 1000)</li>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The time period for which the usage is reported</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)">dict</a></td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)">dict</a></td>
 </tr>
 </tbody>
 </table>
@@ -518,7 +518,7 @@ Request is executed immediately</p>
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>target_url</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – API-generated URL for the requested results page</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>target_url</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – API-generated URL for the requested results page</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Page of UsageRecordInstance</td>
 </tr>
@@ -541,9 +541,9 @@ memory before returning.</p>
 <li><strong>end</strong> (<em>datetime</em>) – Only include usage that occurred on or before this date</li>
 <li><strong>start</strong> (<em>datetime</em>) – Only include usage that has occurred on or after this date</li>
 <li><strong>granularity</strong> (<a class="reference internal" href="twilio.rest.supersim.v1.html#twilio.rest.supersim.v1.usage_record.UsageRecordInstance.Granularity" title="twilio.rest.supersim.v1.usage_record.UsageRecordInstance.Granularity"><em>UsageRecordInstance.Granularity</em></a>) – The time-based grouping that results are aggregated by</li>
-<li><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Upper limit for the number of records to return. list() guarantees
+<li><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Upper limit for the number of records to return. list() guarantees
 never to return more than limit.  Default is no limit</li>
-<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Number of records to fetch per request, when not set will use
+<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Number of records to fetch per request, when not set will use
 the default value of 50 records.  If no page_size is defined
 but a limit is defined, list() will attempt to read the limit
 with the most efficient page size, i.e. min(limit, 1000)</li>
@@ -553,7 +553,7 @@ with the most efficient page size, i.e. min(limit, 1000)</li>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Generator that will yield up to limit results</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)">list</a>[<a class="reference internal" href="#twilio.rest.wireless.v1.sim.usage_record.UsageRecordInstance" title="twilio.rest.wireless.v1.sim.usage_record.UsageRecordInstance">twilio.rest.wireless.v1.sim.usage_record.UsageRecordInstance</a>]</p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)">list</a>[<a class="reference internal" href="#twilio.rest.wireless.v1.sim.usage_record.UsageRecordInstance" title="twilio.rest.wireless.v1.sim.usage_record.UsageRecordInstance">twilio.rest.wireless.v1.sim.usage_record.UsageRecordInstance</a>]</p>
 </td>
 </tr>
 </tbody>
@@ -572,9 +572,9 @@ Request is executed immediately</p>
 <li><strong>end</strong> (<em>datetime</em>) – Only include usage that occurred on or before this date</li>
 <li><strong>start</strong> (<em>datetime</em>) – Only include usage that has occurred on or after this date</li>
 <li><strong>granularity</strong> (<a class="reference internal" href="twilio.rest.supersim.v1.html#twilio.rest.supersim.v1.usage_record.UsageRecordInstance.Granularity" title="twilio.rest.supersim.v1.usage_record.UsageRecordInstance.Granularity"><em>UsageRecordInstance.Granularity</em></a>) – The time-based grouping that results are aggregated by</li>
-<li><strong>page_token</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – PageToken provided by the API</li>
-<li><strong>page_number</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Page Number, this value is simply for client state</li>
-<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Number of records to return, defaults to 50</li>
+<li><strong>page_token</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – PageToken provided by the API</li>
+<li><strong>page_number</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Page Number, this value is simply for client state</li>
+<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Number of records to return, defaults to 50</li>
 </ul>
 </td>
 </tr>
@@ -602,9 +602,9 @@ The results are returned as a generator, so this operation is memory efficient.<
 <li><strong>end</strong> (<em>datetime</em>) – Only include usage that occurred on or before this date</li>
 <li><strong>start</strong> (<em>datetime</em>) – Only include usage that has occurred on or after this date</li>
 <li><strong>granularity</strong> (<a class="reference internal" href="twilio.rest.supersim.v1.html#twilio.rest.supersim.v1.usage_record.UsageRecordInstance.Granularity" title="twilio.rest.supersim.v1.usage_record.UsageRecordInstance.Granularity"><em>UsageRecordInstance.Granularity</em></a>) – The time-based grouping that results are aggregated by</li>
-<li><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Upper limit for the number of records to return. stream()
+<li><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Upper limit for the number of records to return. stream()
 guarantees to never return more than limit.  Default is no limit</li>
-<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Number of records to fetch per request, when not set will use
+<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Number of records to fetch per request, when not set will use
 the default value of 50 records.  If no page_size is defined
 but a limit is defined, stream() will attempt to read the
 limit with the most efficient page size, i.e. min(limit, 1000)</li>
@@ -614,7 +614,7 @@ limit with the most efficient page size, i.e. min(limit, 1000)</li>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Generator that will yield up to limit results</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)">list</a>[<a class="reference internal" href="#twilio.rest.wireless.v1.sim.usage_record.UsageRecordInstance" title="twilio.rest.wireless.v1.sim.usage_record.UsageRecordInstance">twilio.rest.wireless.v1.sim.usage_record.UsageRecordInstance</a>]</p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)">list</a>[<a class="reference internal" href="#twilio.rest.wireless.v1.sim.usage_record.UsageRecordInstance" title="twilio.rest.wireless.v1.sim.usage_record.UsageRecordInstance">twilio.rest.wireless.v1.sim.usage_record.UsageRecordInstance</a>]</p>
 </td>
 </tr>
 </tbody>
@@ -633,7 +633,7 @@ limit with the most efficient page size, i.e. min(limit, 1000)</li>
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>payload</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a>) – Payload response from the API</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>payload</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)"><em>dict</em></a>) – Payload response from the API</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">twilio.rest.wireless.v1.sim.usage_record.UsageRecordInstance</td>
 </tr>
@@ -683,7 +683,7 @@ limit with the most efficient page size, i.e. min(limit, 1000)</li>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">True if delete succeeds, False otherwise</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)">bool</a></td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)">bool</a></td>
 </tr>
 </tbody>
 </table>
@@ -765,7 +765,7 @@ limit with the most efficient page size, i.e. min(limit, 1000)</li>
 <dl class="class">
 <dt id="twilio.rest.wireless.v1.sim.SimInstance.ResetStatus">
 <em class="property">class </em><code class="descname">ResetStatus</code><a class="reference internal" href="../../../_modules/twilio/rest/wireless/v1/sim.html#SimInstance.ResetStatus"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.wireless.v1.sim.SimInstance.ResetStatus" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <dl class="attribute">
 <dt id="twilio.rest.wireless.v1.sim.SimInstance.ResetStatus.RESETTING">
 <code class="descname">RESETTING</code><em class="property"> = 'resetting'</em><a class="headerlink" href="#twilio.rest.wireless.v1.sim.SimInstance.ResetStatus.RESETTING" title="Permalink to this definition">¶</a></dt>
@@ -774,7 +774,7 @@ limit with the most efficient page size, i.e. min(limit, 1000)</li>
 <dl class="class">
 <dt id="twilio.rest.wireless.v1.sim.SimInstance.Status">
 <em class="property">class </em><code class="descname">Status</code><a class="reference internal" href="../../../_modules/twilio/rest/wireless/v1/sim.html#SimInstance.Status"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.wireless.v1.sim.SimInstance.Status" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <dl class="attribute">
 <dt id="twilio.rest.wireless.v1.sim.SimInstance.Status.ACTIVE">
 <code class="descname">ACTIVE</code><em class="property"> = 'active'</em><a class="headerlink" href="#twilio.rest.wireless.v1.sim.SimInstance.Status.ACTIVE" title="Permalink to this definition">¶</a></dt>
@@ -903,7 +903,7 @@ limit with the most efficient page size, i.e. min(limit, 1000)</li>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">True if delete succeeds, False otherwise</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)">bool</a></td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)">bool</a></td>
 </tr>
 </tbody>
 </table>
@@ -1274,7 +1274,7 @@ Request is executed immediately</p>
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>target_url</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – API-generated URL for the requested results page</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>target_url</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – API-generated URL for the requested results page</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Page of SimInstance</td>
 </tr>
@@ -1299,9 +1299,9 @@ memory before returning.</p>
 <li><strong>rate_plan</strong> (<em>unicode</em>) – Only return Sim resources assigned to this RatePlan resource</li>
 <li><strong>e_id</strong> (<em>unicode</em>) – Deprecated</li>
 <li><strong>sim_registration_code</strong> (<em>unicode</em>) – Only return Sim resources with this registration code</li>
-<li><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Upper limit for the number of records to return. list() guarantees
+<li><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Upper limit for the number of records to return. list() guarantees
 never to return more than limit.  Default is no limit</li>
-<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Number of records to fetch per request, when not set will use
+<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Number of records to fetch per request, when not set will use
 the default value of 50 records.  If no page_size is defined
 but a limit is defined, list() will attempt to read the limit
 with the most efficient page size, i.e. min(limit, 1000)</li>
@@ -1311,7 +1311,7 @@ with the most efficient page size, i.e. min(limit, 1000)</li>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Generator that will yield up to limit results</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)">list</a>[<a class="reference internal" href="#twilio.rest.wireless.v1.sim.SimInstance" title="twilio.rest.wireless.v1.sim.SimInstance">twilio.rest.wireless.v1.sim.SimInstance</a>]</p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)">list</a>[<a class="reference internal" href="#twilio.rest.wireless.v1.sim.SimInstance" title="twilio.rest.wireless.v1.sim.SimInstance">twilio.rest.wireless.v1.sim.SimInstance</a>]</p>
 </td>
 </tr>
 </tbody>
@@ -1332,9 +1332,9 @@ Request is executed immediately</p>
 <li><strong>rate_plan</strong> (<em>unicode</em>) – Only return Sim resources assigned to this RatePlan resource</li>
 <li><strong>e_id</strong> (<em>unicode</em>) – Deprecated</li>
 <li><strong>sim_registration_code</strong> (<em>unicode</em>) – Only return Sim resources with this registration code</li>
-<li><strong>page_token</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – PageToken provided by the API</li>
-<li><strong>page_number</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Page Number, this value is simply for client state</li>
-<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Number of records to return, defaults to 50</li>
+<li><strong>page_token</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – PageToken provided by the API</li>
+<li><strong>page_number</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Page Number, this value is simply for client state</li>
+<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Number of records to return, defaults to 50</li>
 </ul>
 </td>
 </tr>
@@ -1364,9 +1364,9 @@ The results are returned as a generator, so this operation is memory efficient.<
 <li><strong>rate_plan</strong> (<em>unicode</em>) – Only return Sim resources assigned to this RatePlan resource</li>
 <li><strong>e_id</strong> (<em>unicode</em>) – Deprecated</li>
 <li><strong>sim_registration_code</strong> (<em>unicode</em>) – Only return Sim resources with this registration code</li>
-<li><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Upper limit for the number of records to return. stream()
+<li><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Upper limit for the number of records to return. stream()
 guarantees to never return more than limit.  Default is no limit</li>
-<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Number of records to fetch per request, when not set will use
+<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Number of records to fetch per request, when not set will use
 the default value of 50 records.  If no page_size is defined
 but a limit is defined, stream() will attempt to read the
 limit with the most efficient page size, i.e. min(limit, 1000)</li>
@@ -1376,7 +1376,7 @@ limit with the most efficient page size, i.e. min(limit, 1000)</li>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Generator that will yield up to limit results</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)">list</a>[<a class="reference internal" href="#twilio.rest.wireless.v1.sim.SimInstance" title="twilio.rest.wireless.v1.sim.SimInstance">twilio.rest.wireless.v1.sim.SimInstance</a>]</p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)">list</a>[<a class="reference internal" href="#twilio.rest.wireless.v1.sim.SimInstance" title="twilio.rest.wireless.v1.sim.SimInstance">twilio.rest.wireless.v1.sim.SimInstance</a>]</p>
 </td>
 </tr>
 </tbody>
@@ -1395,7 +1395,7 @@ limit with the most efficient page size, i.e. min(limit, 1000)</li>
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>payload</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a>) – Payload response from the API</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>payload</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)"><em>dict</em></a>) – Payload response from the API</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">twilio.rest.wireless.v1.sim.SimInstance</td>
 </tr>

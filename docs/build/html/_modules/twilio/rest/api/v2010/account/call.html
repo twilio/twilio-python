@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-MWRD6S');</script><!--End Google Tag Manager-->
 <meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<title>twilio.rest.api.v2010.account.call — twilio-python 7.15.0 documentation</title>
+<title>twilio.rest.api.v2010.account.call — twilio-python 7.15.1 documentation</title>
 <link href="../../../../../../_static/alabaster.css" rel="stylesheet" type="text/css"/>
 <link href="../../../../../../_static/pygments.css" rel="stylesheet" type="text/css"/>
 <script data-url_root="../../../../../../" id="documentation_options" src="../../../../../../_static/documentation_options.js" type="text/javascript"></script>
@@ -51,6 +51,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <span class="kn">from</span> <span class="nn">twilio.rest.api.v2010.account.call.recording</span> <span class="kn">import</span> <span class="n">RecordingList</span>
 <span class="kn">from</span> <span class="nn">twilio.rest.api.v2010.account.call.siprec</span> <span class="kn">import</span> <span class="n">SiprecList</span>
 <span class="kn">from</span> <span class="nn">twilio.rest.api.v2010.account.call.stream</span> <span class="kn">import</span> <span class="n">StreamList</span>
+<span class="kn">from</span> <span class="nn">twilio.rest.api.v2010.account.call.user_defined_message</span> <span class="kn">import</span> <span class="n">UserDefinedMessageList</span>
+<span class="kn">from</span> <span class="nn">twilio.rest.api.v2010.account.call.user_defined_message_subscription</span> <span class="kn">import</span> <span class="n">UserDefinedMessageSubscriptionList</span>
 
 
 <div class="viewcode-block" id="CallList"><a class="viewcode-back" href="../../../../../../docs/source/_rst/twilio.rest.api.v2010.account.call.html#twilio.rest.api.v2010.account.call.CallList">[docs]</a><span class="k">class</span> <span class="nc">CallList</span><span class="p">(</span><span class="n">ListResource</span><span class="p">):</span>
@@ -453,6 +455,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="bp">self</span><span class="o">.</span><span class="n">_payments</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_siprec</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_streams</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_user_defined_message_subscriptions</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_user_defined_messages</span> <span class="o">=</span> <span class="kc">None</span>
 
 <div class="viewcode-block" id="CallContext.delete"><a class="viewcode-back" href="../../../../../../docs/source/_rst/twilio.rest.api.v2010.account.call.html#twilio.rest.api.v2010.account.call.CallContext.delete">[docs]</a>    <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">"""</span>
@@ -631,6 +635,38 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
                 <span class="n">call_sid</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_solution</span><span class="p">[</span><span class="s1">'sid'</span><span class="p">],</span>
             <span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_streams</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">user_defined_message_subscriptions</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Access the user_defined_message_subscriptions</span>
+
+<span class="sd">        :returns: twilio.rest.api.v2010.account.call.user_defined_message_subscription.UserDefinedMessageSubscriptionList</span>
+<span class="sd">        :rtype: twilio.rest.api.v2010.account.call.user_defined_message_subscription.UserDefinedMessageSubscriptionList</span>
+<span class="sd">        """</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_user_defined_message_subscriptions</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_user_defined_message_subscriptions</span> <span class="o">=</span> <span class="n">UserDefinedMessageSubscriptionList</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_version</span><span class="p">,</span>
+                <span class="n">account_sid</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_solution</span><span class="p">[</span><span class="s1">'account_sid'</span><span class="p">],</span>
+                <span class="n">call_sid</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_solution</span><span class="p">[</span><span class="s1">'sid'</span><span class="p">],</span>
+            <span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_user_defined_message_subscriptions</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">user_defined_messages</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Access the user_defined_messages</span>
+
+<span class="sd">        :returns: twilio.rest.api.v2010.account.call.user_defined_message.UserDefinedMessageList</span>
+<span class="sd">        :rtype: twilio.rest.api.v2010.account.call.user_defined_message.UserDefinedMessageList</span>
+<span class="sd">        """</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_user_defined_messages</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_user_defined_messages</span> <span class="o">=</span> <span class="n">UserDefinedMessageList</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_version</span><span class="p">,</span>
+                <span class="n">account_sid</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_solution</span><span class="p">[</span><span class="s1">'account_sid'</span><span class="p">],</span>
+                <span class="n">call_sid</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_solution</span><span class="p">[</span><span class="s1">'sid'</span><span class="p">],</span>
+            <span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_user_defined_messages</span>
 
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">"""</span>
@@ -1052,6 +1088,26 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <span class="sd">        :rtype: twilio.rest.api.v2010.account.call.stream.StreamList</span>
 <span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_proxy</span><span class="o">.</span><span class="n">streams</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">user_defined_message_subscriptions</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Access the user_defined_message_subscriptions</span>
+
+<span class="sd">        :returns: twilio.rest.api.v2010.account.call.user_defined_message_subscription.UserDefinedMessageSubscriptionList</span>
+<span class="sd">        :rtype: twilio.rest.api.v2010.account.call.user_defined_message_subscription.UserDefinedMessageSubscriptionList</span>
+<span class="sd">        """</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_proxy</span><span class="o">.</span><span class="n">user_defined_message_subscriptions</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">user_defined_messages</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Access the user_defined_messages</span>
+
+<span class="sd">        :returns: twilio.rest.api.v2010.account.call.user_defined_message.UserDefinedMessageList</span>
+<span class="sd">        :rtype: twilio.rest.api.v2010.account.call.user_defined_message.UserDefinedMessageList</span>
+<span class="sd">        """</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_proxy</span><span class="o">.</span><span class="n">user_defined_messages</span>
 
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">"""</span>
