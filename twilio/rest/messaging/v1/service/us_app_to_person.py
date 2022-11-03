@@ -36,7 +36,9 @@ class UsAppToPersonList(ListResource):
         self._uri = '/Services/{messaging_service_sid}/Compliance/Usa2p'.format(**self._solution)
 
     def create(self, brand_registration_sid, description, message_samples,
-               us_app_to_person_usecase, has_embedded_links, has_embedded_phone):
+               us_app_to_person_usecase, has_embedded_links, has_embedded_phone, message_flow,
+               opt_in_keywords=None, opt_in_message=None, opt_out_keywords=None,
+               opt_out_message=None, help_keywords=None, help_message=None):
         """
         Create the UsAppToPersonInstance
 
@@ -46,7 +48,30 @@ class UsAppToPersonList(ListResource):
         :param unicode us_app_to_person_usecase: A2P Campaign Use Case.
         :param bool has_embedded_links: Indicates that this SMS campaign will send messages that contain links
         :param bool has_embedded_phone: Indicates that this SMS campaign will send messages that contain phone numbers
-
+        :param unicode message_flow: Customers need to provide details around how a consumer opts-in to their campaign,
+                                     therefore giving consent to receive their messages. If multiple opt-in methods
+                                     can be used for the same campaign, they must all be listed.
+        :param list[unicode] opt_in_keywords: If end users can text in a keyword to start receiving messages from this
+                                              campaign, those keywords must be provided
+        :param unicode opt_in_message: If end users can text in a keyword to start receiving messages from this
+                                       campaign, the auto-reply messages sent to the end users must be provided.
+                                       The opt-in response should include the Brand name, confirmation of opt-in
+                                       enrollment to a recurring message campaign, how to get help, and clear
+                                       description of how to opt-out.
+        :param list[unicode] opt_out_keywords: End users should be able to text in a keyword to stop receiving messages
+                                               from this campaign. Those keywords must be provided as part of the
+                                               campaign registration request.
+        :param unicode opt_out_message: Upon receiving the opt-out keywords from the end users, Twilio customers are
+                                        expected to send back an auto-generated response, which must provide
+                                        acknowledgment of the opt-out request and confirmation that no further messages
+                                        will be sent. It is also recommended that these opt-out messages include the
+                                        brand name.
+        :param list[unicode] help_keywords: End users should be able to text in a keyword to receive help. Those
+                                            keywords must be provided as part of the campaign registration request.
+        :param unicode help_message: When customers receive the help keywords from their end users, Twilio customers
+                                     are expected to send back an auto-generated response; this may include the brand
+                                     name and additional support contact information.
+        
         :returns: The created UsAppToPersonInstance
         :rtype: twilio.rest.messaging.v1.service.us_app_to_person.UsAppToPersonInstance
         """
@@ -57,7 +82,26 @@ class UsAppToPersonList(ListResource):
             'UsAppToPersonUsecase': us_app_to_person_usecase,
             'HasEmbeddedLinks': has_embedded_links,
             'HasEmbeddedPhone': has_embedded_phone,
+            'MessageFlow': message_flow,
         })
+       
+        if opt_in_keywords is not None:
+            data['OptInKeywords'] = serialize.map(opt_in_keywords, lambda e: e),
+          
+        if opt_in_message is not None:
+            data['OptInMessage'] = opt_in_message
+          
+        if opt_out_keywords is not None:
+            data['OptOutKeywords'] = serialize.map(opt_out_keywords, lambda e: e),
+          
+        if opt_out_message is not None:
+            data['OptOutMessage'] = opt_out_message
+          
+        if help_keywords is not None:
+            data['HelpKeywords'] = serialize.map(help_keywords, lambda e: e),
+          
+        if help_message is not None:
+            data['HelpMessage'] = help_message
 
         payload = self._version.create(method='POST', uri=self._uri, data=data, )
 
