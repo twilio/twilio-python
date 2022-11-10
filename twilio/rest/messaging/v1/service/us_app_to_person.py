@@ -36,7 +36,11 @@ class UsAppToPersonList(ListResource):
         self._uri = '/Services/{messaging_service_sid}/Compliance/Usa2p'.format(**self._solution)
 
     def create(self, brand_registration_sid, description, message_samples,
-               us_app_to_person_usecase, has_embedded_links, has_embedded_phone):
+               us_app_to_person_usecase, has_embedded_links, has_embedded_phone,
+               message_flow=values.unset, opt_in_message=values.unset,
+               opt_out_message=values.unset, help_message=values.unset,
+               opt_in_keywords=values.unset, opt_out_keywords=values.unset,
+               help_keywords=values.unset):
         """
         Create the UsAppToPersonInstance
 
@@ -46,6 +50,13 @@ class UsAppToPersonList(ListResource):
         :param unicode us_app_to_person_usecase: A2P Campaign Use Case.
         :param bool has_embedded_links: Indicates that this SMS campaign will send messages that contain links
         :param bool has_embedded_phone: Indicates that this SMS campaign will send messages that contain phone numbers
+        :param unicode message_flow: The message flow of the campaign
+        :param unicode opt_in_message: Opt In Message
+        :param unicode opt_out_message: Opt Out Message
+        :param unicode help_message: Help Message
+        :param list[unicode] opt_in_keywords: Opt In Keywords
+        :param list[unicode] opt_out_keywords: Opt Out Keywords
+        :param list[unicode] help_keywords: Help Keywords
 
         :returns: The created UsAppToPersonInstance
         :rtype: twilio.rest.messaging.v1.service.us_app_to_person.UsAppToPersonInstance
@@ -57,6 +68,13 @@ class UsAppToPersonList(ListResource):
             'UsAppToPersonUsecase': us_app_to_person_usecase,
             'HasEmbeddedLinks': has_embedded_links,
             'HasEmbeddedPhone': has_embedded_phone,
+            'MessageFlow': message_flow,
+            'OptInMessage': opt_in_message,
+            'OptOutMessage': opt_out_message,
+            'HelpMessage': help_message,
+            'OptInKeywords': serialize.map(opt_in_keywords, lambda e: e),
+            'OptOutKeywords': serialize.map(opt_out_keywords, lambda e: e),
+            'HelpKeywords': serialize.map(help_keywords, lambda e: e),
         })
 
         payload = self._version.create(method='POST', uri=self._uri, data=data, )
@@ -314,6 +332,13 @@ class UsAppToPersonInstance(InstanceResource):
             'campaign_id': payload.get('campaign_id'),
             'is_externally_registered': payload.get('is_externally_registered'),
             'rate_limits': payload.get('rate_limits'),
+            'message_flow': payload.get('message_flow'),
+            'opt_in_message': payload.get('opt_in_message'),
+            'opt_out_message': payload.get('opt_out_message'),
+            'help_message': payload.get('help_message'),
+            'opt_in_keywords': payload.get('opt_in_keywords'),
+            'opt_out_keywords': payload.get('opt_out_keywords'),
+            'help_keywords': payload.get('help_keywords'),
             'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
             'date_updated': deserialize.iso8601_datetime(payload.get('date_updated')),
             'url': payload.get('url'),
@@ -447,6 +472,62 @@ class UsAppToPersonInstance(InstanceResource):
         :rtype: dict
         """
         return self._properties['rate_limits']
+
+    @property
+    def message_flow(self):
+        """
+        :returns: Consumer opt-in flow
+        :rtype: unicode
+        """
+        return self._properties['message_flow']
+
+    @property
+    def opt_in_message(self):
+        """
+        :returns: Opt In Message
+        :rtype: unicode
+        """
+        return self._properties['opt_in_message']
+
+    @property
+    def opt_out_message(self):
+        """
+        :returns: Opt Out Message
+        :rtype: unicode
+        """
+        return self._properties['opt_out_message']
+
+    @property
+    def help_message(self):
+        """
+        :returns: Help Message
+        :rtype: unicode
+        """
+        return self._properties['help_message']
+
+    @property
+    def opt_in_keywords(self):
+        """
+        :returns: Opt In Keywords
+        :rtype: list[unicode]
+        """
+        return self._properties['opt_in_keywords']
+
+    @property
+    def opt_out_keywords(self):
+        """
+        :returns: Opt Out Keywords
+        :rtype: list[unicode]
+        """
+        return self._properties['opt_out_keywords']
+
+    @property
+    def help_keywords(self):
+        """
+        :returns: Help Keywords
+        :rtype: list[unicode]
+        """
+        return self._properties['help_keywords']
 
     @property
     def date_created(self):

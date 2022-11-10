@@ -21,8 +21,8 @@ class UserDefinedMessageSubscriptionList(ListResource):
         Initialize the UserDefinedMessageSubscriptionList
 
         :param Version version: Version that contains the resource
-        :param account_sid: Account Sid.
-        :param call_sid: Call Sid.
+        :param account_sid: Account SID.
+        :param call_sid: Call SID.
 
         :returns: twilio.rest.api.v2010.account.call.user_defined_message_subscription.UserDefinedMessageSubscriptionList
         :rtype: twilio.rest.api.v2010.account.call.user_defined_message_subscription.UserDefinedMessageSubscriptionList
@@ -59,7 +59,7 @@ class UserDefinedMessageSubscriptionList(ListResource):
         """
         Constructs a UserDefinedMessageSubscriptionContext
 
-        :param sid: User Defined Message Subscription Sid
+        :param sid: User Defined Message Subscription SID.
 
         :returns: twilio.rest.api.v2010.account.call.user_defined_message_subscription.UserDefinedMessageSubscriptionContext
         :rtype: twilio.rest.api.v2010.account.call.user_defined_message_subscription.UserDefinedMessageSubscriptionContext
@@ -75,7 +75,7 @@ class UserDefinedMessageSubscriptionList(ListResource):
         """
         Constructs a UserDefinedMessageSubscriptionContext
 
-        :param sid: User Defined Message Subscription Sid
+        :param sid: User Defined Message Subscription SID.
 
         :returns: twilio.rest.api.v2010.account.call.user_defined_message_subscription.UserDefinedMessageSubscriptionContext
         :rtype: twilio.rest.api.v2010.account.call.user_defined_message_subscription.UserDefinedMessageSubscriptionContext
@@ -105,8 +105,8 @@ class UserDefinedMessageSubscriptionPage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param account_sid: Account Sid.
-        :param call_sid: Call Sid.
+        :param account_sid: Account SID.
+        :param call_sid: Call SID.
 
         :returns: twilio.rest.api.v2010.account.call.user_defined_message_subscription.UserDefinedMessageSubscriptionPage
         :rtype: twilio.rest.api.v2010.account.call.user_defined_message_subscription.UserDefinedMessageSubscriptionPage
@@ -149,9 +149,9 @@ class UserDefinedMessageSubscriptionContext(InstanceContext):
         Initialize the UserDefinedMessageSubscriptionContext
 
         :param Version version: Version that contains the resource
-        :param account_sid: Account Sid.
-        :param call_sid: Call Sid.
-        :param sid: User Defined Message Subscription Sid
+        :param account_sid: Account SID.
+        :param call_sid: Call SID.
+        :param sid: User Defined Message Subscription SID.
 
         :returns: twilio.rest.api.v2010.account.call.user_defined_message_subscription.UserDefinedMessageSubscriptionContext
         :rtype: twilio.rest.api.v2010.account.call.user_defined_message_subscription.UserDefinedMessageSubscriptionContext
@@ -231,7 +231,7 @@ class UserDefinedMessageSubscriptionInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: Account Sid.
+        :returns: Account SID.
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -239,7 +239,7 @@ class UserDefinedMessageSubscriptionInstance(InstanceResource):
     @property
     def call_sid(self):
         """
-        :returns: Call Sid.
+        :returns: Call SID.
         :rtype: unicode
         """
         return self._properties['call_sid']
@@ -247,7 +247,7 @@ class UserDefinedMessageSubscriptionInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: User Defined Message Subscription Sid
+        :returns: User Defined Message Subscription SID.
         :rtype: unicode
         """
         return self._properties['sid']
@@ -255,7 +255,7 @@ class UserDefinedMessageSubscriptionInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The date this User Defined Message Subscription was created
+        :returns: The date this User Defined Message Subscription was created.
         :rtype: datetime
         """
         return self._properties['date_created']
@@ -263,7 +263,7 @@ class UserDefinedMessageSubscriptionInstance(InstanceResource):
     @property
     def uri(self):
         """
-        :returns: The URI of the resource, relative to `https://api.twilio.com`.
+        :returns: The URI of the User Defined Message Subscription Resource, relative to `https://api.twilio.com`.
         :rtype: unicode
         """
         return self._properties['uri']

@@ -10,7 +10,9 @@ from twilio.base.version import Version
 from twilio.rest.flex_api.v1.channel import ChannelList
 from twilio.rest.flex_api.v1.configuration import ConfigurationList
 from twilio.rest.flex_api.v1.flex_flow import FlexFlowList
+from twilio.rest.flex_api.v1.good_data import GoodDataList
 from twilio.rest.flex_api.v1.interaction import InteractionList
+from twilio.rest.flex_api.v1.user_roles import UserRolesList
 from twilio.rest.flex_api.v1.web_channel import WebChannelList
 
 
@@ -28,7 +30,9 @@ class V1(Version):
         self._channel = None
         self._configuration = None
         self._flex_flow = None
+        self._good_data = None
         self._interaction = None
+        self._user_roles = None
         self._web_channel = None
 
     @property
@@ -59,6 +63,15 @@ class V1(Version):
         return self._flex_flow
 
     @property
+    def good_data(self):
+        """
+        :rtype: twilio.rest.flex_api.v1.good_data.GoodDataList
+        """
+        if self._good_data is None:
+            self._good_data = GoodDataList(self)
+        return self._good_data
+
+    @property
     def interaction(self):
         """
         :rtype: twilio.rest.flex_api.v1.interaction.InteractionList
@@ -66,6 +79,15 @@ class V1(Version):
         if self._interaction is None:
             self._interaction = InteractionList(self)
         return self._interaction
+
+    @property
+    def user_roles(self):
+        """
+        :rtype: twilio.rest.flex_api.v1.user_roles.UserRolesList
+        """
+        if self._user_roles is None:
+            self._user_roles = UserRolesList(self)
+        return self._user_roles
 
     @property
     def web_channel(self):

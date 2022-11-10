@@ -20,8 +20,8 @@ class UserDefinedMessageList(ListResource):
         Initialize the UserDefinedMessageList
 
         :param Version version: Version that contains the resource
-        :param account_sid: Account Sid.
-        :param call_sid: Call Sid.
+        :param account_sid: Account SID.
+        :param call_sid: Call SID.
 
         :returns: twilio.rest.api.v2010.account.call.user_defined_message.UserDefinedMessageList
         :rtype: twilio.rest.api.v2010.account.call.user_defined_message.UserDefinedMessageList
@@ -36,7 +36,7 @@ class UserDefinedMessageList(ListResource):
         """
         Create the UserDefinedMessageInstance
 
-        :param unicode content: A unique string value to identify API call. This should be a unique string value per API call and can be a randomly generated.
+        :param unicode content: The User Defined Message in the form of URL-encoded JSON string.
         :param unicode idempotency_key: A unique string value to identify API call. This should be a unique string value per API call and can be a randomly generated.
 
         :returns: The created UserDefinedMessageInstance
@@ -71,8 +71,8 @@ class UserDefinedMessagePage(Page):
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
-        :param account_sid: Account Sid.
-        :param call_sid: Call Sid.
+        :param account_sid: Account SID.
+        :param call_sid: Call SID.
 
         :returns: twilio.rest.api.v2010.account.call.user_defined_message.UserDefinedMessagePage
         :rtype: twilio.rest.api.v2010.account.call.user_defined_message.UserDefinedMessagePage
@@ -134,7 +134,7 @@ class UserDefinedMessageInstance(InstanceResource):
     @property
     def account_sid(self):
         """
-        :returns: Account Sid.
+        :returns: Account SID.
         :rtype: unicode
         """
         return self._properties['account_sid']
@@ -142,7 +142,7 @@ class UserDefinedMessageInstance(InstanceResource):
     @property
     def call_sid(self):
         """
-        :returns: Call Sid.
+        :returns: Call SID.
         :rtype: unicode
         """
         return self._properties['call_sid']
@@ -150,7 +150,7 @@ class UserDefinedMessageInstance(InstanceResource):
     @property
     def sid(self):
         """
-        :returns: A string that uniquely identifies this User Defined Message.
+        :returns: User Defined Message SID.
         :rtype: unicode
         """
         return self._properties['sid']
@@ -158,7 +158,7 @@ class UserDefinedMessageInstance(InstanceResource):
     @property
     def date_created(self):
         """
-        :returns: The date this User Defined Message was created
+        :returns: The date this User Defined Message was created.
         :rtype: datetime
         """
         return self._properties['date_created']
