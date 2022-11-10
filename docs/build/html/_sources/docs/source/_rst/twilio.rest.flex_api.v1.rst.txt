@@ -35,6 +35,22 @@ twilio.rest.flex\_api.v1.flex\_flow module
     :undoc-members:
     :show-inheritance:
 
+twilio.rest.flex\_api.v1.good\_data module
+------------------------------------------
+
+.. automodule:: twilio.rest.flex_api.v1.good_data
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+twilio.rest.flex\_api.v1.user\_roles module
+-------------------------------------------
+
+.. automodule:: twilio.rest.flex_api.v1.user_roles
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 twilio.rest.flex\_api.v1.web\_channel module
 --------------------------------------------
 

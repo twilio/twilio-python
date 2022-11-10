@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-MWRD6S');</script><!--End Google Tag Manager-->
 <meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<title>twilio.rest.api.v2010.account.call.user_defined_message — twilio-python 7.15.1 documentation</title>
+<title>twilio.rest.api.v2010.account.call.user_defined_message — twilio-python 7.15.2 documentation</title>
 <link href="../../../../../../../_static/alabaster.css" rel="stylesheet" type="text/css"/>
 <link href="../../../../../../../_static/pygments.css" rel="stylesheet" type="text/css"/>
 <script data-url_root="../../../../../../../" id="documentation_options" src="../../../../../../../_static/documentation_options.js" type="text/javascript"></script>
@@ -50,8 +50,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <span class="sd">        Initialize the UserDefinedMessageList</span>
 
 <span class="sd">        :param Version version: Version that contains the resource</span>
-<span class="sd">        :param account_sid: Account Sid.</span>
-<span class="sd">        :param call_sid: Call Sid.</span>
+<span class="sd">        :param account_sid: Account SID.</span>
+<span class="sd">        :param call_sid: Call SID.</span>
 
 <span class="sd">        :returns: twilio.rest.api.v2010.account.call.user_defined_message.UserDefinedMessageList</span>
 <span class="sd">        :rtype: twilio.rest.api.v2010.account.call.user_defined_message.UserDefinedMessageList</span>
@@ -66,7 +66,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="sd">"""</span>
 <span class="sd">        Create the UserDefinedMessageInstance</span>
 
-<span class="sd">        :param unicode content: A unique string value to identify API call. This should be a unique string value per API call and can be a randomly generated.</span>
+<span class="sd">        :param unicode content: The User Defined Message in the form of URL-encoded JSON string.</span>
 <span class="sd">        :param unicode idempotency_key: A unique string value to identify API call. This should be a unique string value per API call and can be a randomly generated.</span>
 
 <span class="sd">        :returns: The created UserDefinedMessageInstance</span>
@@ -101,8 +101,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
 <span class="sd">        :param Version version: Version that contains the resource</span>
 <span class="sd">        :param Response response: Response from the API</span>
-<span class="sd">        :param account_sid: Account Sid.</span>
-<span class="sd">        :param call_sid: Call Sid.</span>
+<span class="sd">        :param account_sid: Account SID.</span>
+<span class="sd">        :param call_sid: Call SID.</span>
 
 <span class="sd">        :returns: twilio.rest.api.v2010.account.call.user_defined_message.UserDefinedMessagePage</span>
 <span class="sd">        :rtype: twilio.rest.api.v2010.account.call.user_defined_message.UserDefinedMessagePage</span>
@@ -164,7 +164,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">account_sid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">"""</span>
-<span class="sd">        :returns: Account Sid.</span>
+<span class="sd">        :returns: Account SID.</span>
 <span class="sd">        :rtype: unicode</span>
 <span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="p">[</span><span class="s1">'account_sid'</span><span class="p">]</span>
@@ -172,7 +172,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">call_sid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">"""</span>
-<span class="sd">        :returns: Call Sid.</span>
+<span class="sd">        :returns: Call SID.</span>
 <span class="sd">        :rtype: unicode</span>
 <span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="p">[</span><span class="s1">'call_sid'</span><span class="p">]</span>
@@ -180,7 +180,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">sid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">"""</span>
-<span class="sd">        :returns: A string that uniquely identifies this User Defined Message.</span>
+<span class="sd">        :returns: User Defined Message SID.</span>
 <span class="sd">        :rtype: unicode</span>
 <span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="p">[</span><span class="s1">'sid'</span><span class="p">]</span>
@@ -188,7 +188,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">date_created</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">"""</span>
-<span class="sd">        :returns: The date this User Defined Message was created</span>
+<span class="sd">        :returns: The date this User Defined Message was created.</span>
 <span class="sd">        :rtype: datetime</span>
 <span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="p">[</span><span class="s1">'date_created'</span><span class="p">]</span>
