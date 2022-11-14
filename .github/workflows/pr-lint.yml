@@ -8,8 +8,14 @@ jobs:
     name: Validate title
     runs-on: ubuntu-latest
     steps:
-      - uses: amannn/action-semantic-pull-request@v4
+      - uses: amannn/action-semantic-pull-request@v5
         with:
-          types: chore docs fix feat test misc
+          types: |
+            chore
+            docs
+            fix
+            feat
+            misc
+            test
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
