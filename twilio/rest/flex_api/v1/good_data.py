@@ -154,6 +154,7 @@ class GoodDataInstance(InstanceResource):
             'workspace_id': payload.get('workspace_id'),
             'session_expiry': payload.get('session_expiry'),
             'session_id': payload.get('session_id'),
+            'gd_base_url': payload.get('gd_base_url'),
             'url': payload.get('url'),
         }
 
@@ -197,6 +198,14 @@ class GoodDataInstance(InstanceResource):
         :rtype: unicode
         """
         return self._properties['session_id']
+
+    @property
+    def gd_base_url(self):
+        """
+        :returns: GoodData login base URL
+        :rtype: unicode
+        """
+        return self._properties['gd_base_url']
 
     @property
     def url(self):

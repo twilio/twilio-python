@@ -35,6 +35,7 @@ class GoodDataTestCase(IntegrationTestCase):
                 "session_expiry": "2022-09-27T09:28:01Z",
                 "workspace_id": "clbi1eelh1x8z4.......ijpnyu",
                 "session_id": "-----BEGIN PGP MESSAGE-----\\n\\nwcBMA11tX1FL13rp\\u2026\\u2026kHXd\\n=vOBk\\n-----END PGP MESSAGE-----\\n",
+                "gd_base_url": "https://analytics.ytica.com/",
                 "url": "https://flex-api.twilio.com/v1/Accounts/GoodData"
             }
             '''

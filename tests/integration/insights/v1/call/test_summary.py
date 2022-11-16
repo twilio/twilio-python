@@ -35,6 +35,7 @@ class CallSummaryTestCase(IntegrationTestCase):
                 "call_sid": "CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "call_type": "carrier",
                 "call_state": "ringing",
+                "answered_by": "machine_start",
                 "processing_state": "complete",
                 "created_time": "2015-07-30T20:00:00Z",
                 "start_time": "2015-07-30T20:00:00Z",

@@ -144,6 +144,15 @@ class CallSummaryContext(InstanceContext):
 
 class CallSummaryInstance(InstanceResource):
 
+    class AnsweredBy(object):
+        UNKNOWN = "unknown"
+        MACHINE_START = "machine_start"
+        MACHINE_END_BEEP = "machine_end_beep"
+        MACHINE_END_SILENCE = "machine_end_silence"
+        MACHINE_END_OTHER = "machine_end_other"
+        HUMAN = "human"
+        FAX = "fax"
+
     class CallType(object):
         CARRIER = "carrier"
         SIP = "sip"
@@ -179,6 +188,7 @@ class CallSummaryInstance(InstanceResource):
             'call_sid': payload.get('call_sid'),
             'call_type': payload.get('call_type'),
             'call_state': payload.get('call_state'),
+            'answered_by': payload.get('answered_by'),
             'processing_state': payload.get('processing_state'),
             'created_time': deserialize.iso8601_datetime(payload.get('created_time')),
             'start_time': deserialize.iso8601_datetime(payload.get('start_time')),
@@ -247,6 +257,14 @@ class CallSummaryInstance(InstanceResource):
         :rtype: CallSummaryInstance.CallState
         """
         return self._properties['call_state']
+
+    @property
+    def answered_by(self):
+        """
+        :returns: The answered_by
+        :rtype: CallSummaryInstance.AnsweredBy
+        """
+        return self._properties['answered_by']
 
     @property
     def processing_state(self):
