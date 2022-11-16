@@ -3,6 +3,22 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2022-11-16] Version 7.15.3
+---------------------------
+**Library - Chore**
+- [PR #624](https://github.com/twilio/twilio-python/pull/624): upgrade GitHub Actions dependencies. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+
+**Api**
+- Set the Content resource to have public visibility as Preview
+
+**Flex**
+- Adding new parameter `base_url` to 'gooddata' response in version `v1`
+
+**Insights**
+- Added `answered_by` field in List Call Summary
+- Added `answered_by` field in call summary
+
+
 [2022-11-10] Version 7.15.2
 ---------------------------
 **Flex**

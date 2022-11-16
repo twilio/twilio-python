@@ -11,6 +11,7 @@ Subpackages
     twilio.rest.autopilot
     twilio.rest.bulkexports
     twilio.rest.chat
+    twilio.rest.content
     twilio.rest.conversations
     twilio.rest.events
     twilio.rest.flex_api
