@@ -37,6 +37,13 @@ class FlexApi(Domain):
         return self._v1
 
     @property
+    def assessments(self):
+        """
+        :rtype: twilio.rest.flex_api.v1.assessments.AssessmentsList
+        """
+        return self.v1.assessments
+
+    @property
     def channel(self):
         """
         :rtype: twilio.rest.flex_api.v1.channel.ChannelList

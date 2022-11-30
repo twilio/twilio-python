@@ -273,6 +273,7 @@ class DeviceInstance(InstanceResource):
             'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
             'date_updated': deserialize.iso8601_datetime(payload.get('date_updated')),
             'url': payload.get('url'),
+            'links': payload.get('links'),
         }
 
         # Context
@@ -355,6 +356,14 @@ class DeviceInstance(InstanceResource):
         :rtype: unicode
         """
         return self._properties['url']
+
+    @property
+    def links(self):
+        """
+        :returns: The absolute URLs of related resources
+        :rtype: unicode
+        """
+        return self._properties['links']
 
     def fetch(self):
         """

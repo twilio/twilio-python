@@ -123,17 +123,45 @@ class PhoneNumberContext(InstanceContext):
         self._solution = {'phone_number': phone_number, }
         self._uri = '/PhoneNumbers/{phone_number}'.format(**self._solution)
 
-    def fetch(self, fields=values.unset, country_code=values.unset):
+    def fetch(self, fields=values.unset, country_code=values.unset,
+              first_name=values.unset, last_name=values.unset,
+              address_line_1=values.unset, address_line_2=values.unset,
+              city=values.unset, state=values.unset, postal_code=values.unset,
+              address_country_code=values.unset, national_id=values.unset,
+              date_of_birth=values.unset):
         """
         Fetch the PhoneNumberInstance
 
         :param unicode fields: Fields to return
         :param unicode country_code: Country code for national phone number lookups
+        :param unicode first_name: User’s first name.
+        :param unicode last_name: User’s last name.
+        :param unicode address_line_1: User’s first address line.
+        :param unicode address_line_2: User’s second address line.
+        :param unicode city: User’s city.
+        :param unicode state: User’s country subdivision, such as state, province, or locality.
+        :param unicode postal_code: User’s postal zip code.
+        :param unicode address_country_code: User’s country, up to two characters.
+        :param unicode national_id: User’s national ID, such as SSN or Passport ID.
+        :param unicode date_of_birth: User’s date of birth, in YYYYMMDD format.
 
         :returns: The fetched PhoneNumberInstance
         :rtype: twilio.rest.lookups.v2.phone_number.PhoneNumberInstance
         """
-        data = values.of({'Fields': fields, 'CountryCode': country_code, })
+        data = values.of({
+            'Fields': fields,
+            'CountryCode': country_code,
+            'FirstName': first_name,
+            'LastName': last_name,
+            'AddressLine1': address_line_1,
+            'AddressLine2': address_line_2,
+            'City': city,
+            'State': state,
+            'PostalCode': postal_code,
+            'AddressCountryCode': address_country_code,
+            'NationalId': national_id,
+            'DateOfBirth': date_of_birth,
+        })
 
         payload = self._version.fetch(method='GET', uri=self._uri, params=data, )
 
@@ -189,6 +217,7 @@ class PhoneNumberInstance(InstanceResource):
             'call_forwarding': payload.get('call_forwarding'),
             'live_activity': payload.get('live_activity'),
             'line_type_intelligence': payload.get('line_type_intelligence'),
+            'identity_match': payload.get('identity_match'),
             'url': payload.get('url'),
         }
 
@@ -298,6 +327,14 @@ class PhoneNumberInstance(InstanceResource):
         return self._properties['line_type_intelligence']
 
     @property
+    def identity_match(self):
+        """
+        :returns: An object that contains identity match information
+        :rtype: dict
+        """
+        return self._properties['identity_match']
+
+    @property
     def url(self):
         """
         :returns: The absolute URL of the resource
@@ -305,17 +342,45 @@ class PhoneNumberInstance(InstanceResource):
         """
         return self._properties['url']
 
-    def fetch(self, fields=values.unset, country_code=values.unset):
+    def fetch(self, fields=values.unset, country_code=values.unset,
+              first_name=values.unset, last_name=values.unset,
+              address_line_1=values.unset, address_line_2=values.unset,
+              city=values.unset, state=values.unset, postal_code=values.unset,
+              address_country_code=values.unset, national_id=values.unset,
+              date_of_birth=values.unset):
         """
         Fetch the PhoneNumberInstance
 
         :param unicode fields: Fields to return
         :param unicode country_code: Country code for national phone number lookups
+        :param unicode first_name: User’s first name.
+        :param unicode last_name: User’s last name.
+        :param unicode address_line_1: User’s first address line.
+        :param unicode address_line_2: User’s second address line.
+        :param unicode city: User’s city.
+        :param unicode state: User’s country subdivision, such as state, province, or locality.
+        :param unicode postal_code: User’s postal zip code.
+        :param unicode address_country_code: User’s country, up to two characters.
+        :param unicode national_id: User’s national ID, such as SSN or Passport ID.
+        :param unicode date_of_birth: User’s date of birth, in YYYYMMDD format.
 
         :returns: The fetched PhoneNumberInstance
         :rtype: twilio.rest.lookups.v2.phone_number.PhoneNumberInstance
         """
-        return self._proxy.fetch(fields=fields, country_code=country_code, )
+        return self._proxy.fetch(
+            fields=fields,
+            country_code=country_code,
+            first_name=first_name,
+            last_name=last_name,
+            address_line_1=address_line_1,
+            address_line_2=address_line_2,
+            city=city,
+            state=state,
+            postal_code=postal_code,
+            address_country_code=address_country_code,
+            national_id=national_id,
+            date_of_birth=date_of_birth,
+        )
 
     def __repr__(self):
         """

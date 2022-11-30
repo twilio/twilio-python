@@ -62,54 +62,6 @@ class ContentTestCase(IntegrationTestCase):
 
         self.assertIsNotNone(actual)
 
-    def test_create_request(self):
-        self.holodeck.mock(Response(500, ''))
-
-        with self.assertRaises(TwilioException):
-            self.client.content.v1.contents.create()
-
-        self.holodeck.assert_has_request(Request(
-            'post',
-            'https://content.twilio.com/v1/Content',
-        ))
-
-    def test_create_response(self):
-        self.holodeck.mock(Response(
-            201,
-            '''
-            {
-                "sid": "HXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                "friendly_name": "",
-                "language": "en",
-                "variables": {
-                    "name": "foo"
-                },
-                "types": {
-                    "twilio/text": {
-                        "body": "Foo Bar Co is located at 39.7392, 104.9903"
-                    },
-                    "twilio/location": {
-                        "longitude": 104.9903,
-                        "latitude": 39.7392,
-                        "label": "Foo Bar Co"
-                    }
-                },
-                "url": "https://content.twilio.com/v1/Content/HXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                "date_created": "2015-07-30T19:00:00Z",
-                "date_updated": "2015-07-30T19:00:00Z",
-                "links": {
-                    "approval_create": "https://content.twilio.com/v1/Content/HXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/ApprovalRequests/whatsapp",
-                    "approval_fetch": "https://content.twilio.com/v1/Content/HXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/ApprovalRequests"
-                }
-            }
-            '''
-        ))
-
-        actual = self.client.content.v1.contents.create()
-
-        self.assertIsNotNone(actual)
-
     def test_delete_request(self):
         self.holodeck.mock(Response(500, ''))
 

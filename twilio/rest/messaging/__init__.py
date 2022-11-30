@@ -51,6 +51,20 @@ class Messaging(Domain):
         return self.v1.deactivations
 
     @property
+    def domain_certs(self):
+        """
+        :rtype: twilio.rest.messaging.v1.domain_cert.DomainCertsList
+        """
+        return self.v1.domain_certs
+
+    @property
+    def domain_config(self):
+        """
+        :rtype: twilio.rest.messaging.v1.domain_config.DomainConfigList
+        """
+        return self.v1.domain_config
+
+    @property
     def external_campaign(self):
         """
         :rtype: twilio.rest.messaging.v1.external_campaign.ExternalCampaignList

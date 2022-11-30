@@ -12,6 +12,7 @@ from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.page import Page
+from twilio.rest.content.v1.content.approval_fetch import ApprovalFetchList
 
 
 class ContentList(ListResource):
@@ -33,17 +34,6 @@ class ContentList(ListResource):
         # Path Solution
         self._solution = {}
         self._uri = '/Content'.format(**self._solution)
-
-    def create(self):
-        """
-        Create the ContentInstance
-
-        :returns: The created ContentInstance
-        :rtype: twilio.rest.content.v1.content.ContentInstance
-        """
-        payload = self._version.create(method='POST', uri=self._uri, )
-
-        return ContentInstance(self._version, payload, )
 
     def stream(self, limit=None, page_size=None):
         """
@@ -216,6 +206,9 @@ class ContentContext(InstanceContext):
         self._solution = {'sid': sid, }
         self._uri = '/Content/{sid}'.format(**self._solution)
 
+        # Dependents
+        self._approval_fetch = None
+
     def fetch(self):
         """
         Fetch the ContentInstance
@@ -235,6 +228,18 @@ class ContentContext(InstanceContext):
         :rtype: bool
         """
         return self._version.delete(method='DELETE', uri=self._uri, )
+
+    @property
+    def approval_fetch(self):
+        """
+        Access the approval_fetch
+
+        :returns: twilio.rest.content.v1.content.approval_fetch.ApprovalFetchList
+        :rtype: twilio.rest.content.v1.content.approval_fetch.ApprovalFetchList
+        """
+        if self._approval_fetch is None:
+            self._approval_fetch = ApprovalFetchList(self._version, sid=self._solution['sid'], )
+        return self._approval_fetch
 
     def __repr__(self):
         """
@@ -389,6 +394,16 @@ class ContentInstance(InstanceResource):
         :rtype: bool
         """
         return self._proxy.delete()
+
+    @property
+    def approval_fetch(self):
+        """
+        Access the approval_fetch
+
+        :returns: twilio.rest.content.v1.content.approval_fetch.ApprovalFetchList
+        :rtype: twilio.rest.content.v1.content.approval_fetch.ApprovalFetchList
+        """
+        return self._proxy.approval_fetch
 
     def __repr__(self):
         """
