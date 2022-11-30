@@ -10,7 +10,6 @@ Subpackages
     twilio.rest.preview.hosted_numbers
     twilio.rest.preview.marketplace
     twilio.rest.preview.sync
-    twilio.rest.preview.trusted_comms
     twilio.rest.preview.understand
     twilio.rest.preview.wireless
 

@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-MWRD6S');</script><!--End Google Tag Manager-->
 <meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<title>twilio.rest.lookups.v2.phone_number — twilio-python 7.15.3 documentation</title>
+<title>twilio.rest.lookups.v2.phone_number — twilio-python 7.15.4 documentation</title>
 <link href="../../../../../_static/alabaster.css" rel="stylesheet" type="text/css"/>
 <link href="../../../../../_static/pygments.css" rel="stylesheet" type="text/css"/>
 <script data-url_root="../../../../../" id="documentation_options" src="../../../../../_static/documentation_options.js" type="text/javascript"></script>
@@ -153,17 +153,45 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="bp">self</span><span class="o">.</span><span class="n">_solution</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'phone_number'</span><span class="p">:</span> <span class="n">phone_number</span><span class="p">,</span> <span class="p">}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_uri</span> <span class="o">=</span> <span class="s1">'/PhoneNumbers/</span><span class="si">{phone_number}</span><span class="s1">'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">_solution</span><span class="p">)</span>
 
-<div class="viewcode-block" id="PhoneNumberContext.fetch"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.lookups.v2.html#twilio.rest.lookups.v2.phone_number.PhoneNumberContext.fetch">[docs]</a>    <span class="k">def</span> <span class="nf">fetch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fields</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">country_code</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">):</span>
+<div class="viewcode-block" id="PhoneNumberContext.fetch"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.lookups.v2.html#twilio.rest.lookups.v2.phone_number.PhoneNumberContext.fetch">[docs]</a>    <span class="k">def</span> <span class="nf">fetch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fields</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">country_code</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
+              <span class="n">first_name</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">last_name</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
+              <span class="n">address_line_1</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">address_line_2</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
+              <span class="n">city</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">state</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">postal_code</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
+              <span class="n">address_country_code</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">national_id</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
+              <span class="n">date_of_birth</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">):</span>
         <span class="sd">"""</span>
 <span class="sd">        Fetch the PhoneNumberInstance</span>
 
 <span class="sd">        :param unicode fields: Fields to return</span>
 <span class="sd">        :param unicode country_code: Country code for national phone number lookups</span>
+<span class="sd">        :param unicode first_name: User’s first name.</span>
+<span class="sd">        :param unicode last_name: User’s last name.</span>
+<span class="sd">        :param unicode address_line_1: User’s first address line.</span>
+<span class="sd">        :param unicode address_line_2: User’s second address line.</span>
+<span class="sd">        :param unicode city: User’s city.</span>
+<span class="sd">        :param unicode state: User’s country subdivision, such as state, province, or locality.</span>
+<span class="sd">        :param unicode postal_code: User’s postal zip code.</span>
+<span class="sd">        :param unicode address_country_code: User’s country, up to two characters.</span>
+<span class="sd">        :param unicode national_id: User’s national ID, such as SSN or Passport ID.</span>
+<span class="sd">        :param unicode date_of_birth: User’s date of birth, in YYYYMMDD format.</span>
 
 <span class="sd">        :returns: The fetched PhoneNumberInstance</span>
 <span class="sd">        :rtype: twilio.rest.lookups.v2.phone_number.PhoneNumberInstance</span>
 <span class="sd">        """</span>
-        <span class="n">data</span> <span class="o">=</span> <span class="n">values</span><span class="o">.</span><span class="n">of</span><span class="p">({</span><span class="s1">'Fields'</span><span class="p">:</span> <span class="n">fields</span><span class="p">,</span> <span class="s1">'CountryCode'</span><span class="p">:</span> <span class="n">country_code</span><span class="p">,</span> <span class="p">})</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">values</span><span class="o">.</span><span class="n">of</span><span class="p">({</span>
+            <span class="s1">'Fields'</span><span class="p">:</span> <span class="n">fields</span><span class="p">,</span>
+            <span class="s1">'CountryCode'</span><span class="p">:</span> <span class="n">country_code</span><span class="p">,</span>
+            <span class="s1">'FirstName'</span><span class="p">:</span> <span class="n">first_name</span><span class="p">,</span>
+            <span class="s1">'LastName'</span><span class="p">:</span> <span class="n">last_name</span><span class="p">,</span>
+            <span class="s1">'AddressLine1'</span><span class="p">:</span> <span class="n">address_line_1</span><span class="p">,</span>
+            <span class="s1">'AddressLine2'</span><span class="p">:</span> <span class="n">address_line_2</span><span class="p">,</span>
+            <span class="s1">'City'</span><span class="p">:</span> <span class="n">city</span><span class="p">,</span>
+            <span class="s1">'State'</span><span class="p">:</span> <span class="n">state</span><span class="p">,</span>
+            <span class="s1">'PostalCode'</span><span class="p">:</span> <span class="n">postal_code</span><span class="p">,</span>
+            <span class="s1">'AddressCountryCode'</span><span class="p">:</span> <span class="n">address_country_code</span><span class="p">,</span>
+            <span class="s1">'NationalId'</span><span class="p">:</span> <span class="n">national_id</span><span class="p">,</span>
+            <span class="s1">'DateOfBirth'</span><span class="p">:</span> <span class="n">date_of_birth</span><span class="p">,</span>
+        <span class="p">})</span>
 
         <span class="n">payload</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_version</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">'GET'</span><span class="p">,</span> <span class="n">uri</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_uri</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="p">)</span>
 
@@ -219,6 +247,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
             <span class="s1">'call_forwarding'</span><span class="p">:</span> <span class="n">payload</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'call_forwarding'</span><span class="p">),</span>
             <span class="s1">'live_activity'</span><span class="p">:</span> <span class="n">payload</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'live_activity'</span><span class="p">),</span>
             <span class="s1">'line_type_intelligence'</span><span class="p">:</span> <span class="n">payload</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'line_type_intelligence'</span><span class="p">),</span>
+            <span class="s1">'identity_match'</span><span class="p">:</span> <span class="n">payload</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'identity_match'</span><span class="p">),</span>
             <span class="s1">'url'</span><span class="p">:</span> <span class="n">payload</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'url'</span><span class="p">),</span>
         <span class="p">}</span>
 
@@ -328,6 +357,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="p">[</span><span class="s1">'line_type_intelligence'</span><span class="p">]</span>
 
     <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">identity_match</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        :returns: An object that contains identity match information</span>
+<span class="sd">        :rtype: dict</span>
+<span class="sd">        """</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="p">[</span><span class="s1">'identity_match'</span><span class="p">]</span>
+
+    <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">url</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">"""</span>
 <span class="sd">        :returns: The absolute URL of the resource</span>
@@ -335,17 +372,45 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="p">[</span><span class="s1">'url'</span><span class="p">]</span>
 
-<div class="viewcode-block" id="PhoneNumberInstance.fetch"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.lookups.v2.html#twilio.rest.lookups.v2.phone_number.PhoneNumberInstance.fetch">[docs]</a>    <span class="k">def</span> <span class="nf">fetch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fields</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">country_code</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">):</span>
+<div class="viewcode-block" id="PhoneNumberInstance.fetch"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.lookups.v2.html#twilio.rest.lookups.v2.phone_number.PhoneNumberInstance.fetch">[docs]</a>    <span class="k">def</span> <span class="nf">fetch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fields</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">country_code</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
+              <span class="n">first_name</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">last_name</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
+              <span class="n">address_line_1</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">address_line_2</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
+              <span class="n">city</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">state</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">postal_code</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
+              <span class="n">address_country_code</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">national_id</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
+              <span class="n">date_of_birth</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">):</span>
         <span class="sd">"""</span>
 <span class="sd">        Fetch the PhoneNumberInstance</span>
 
 <span class="sd">        :param unicode fields: Fields to return</span>
 <span class="sd">        :param unicode country_code: Country code for national phone number lookups</span>
+<span class="sd">        :param unicode first_name: User’s first name.</span>
+<span class="sd">        :param unicode last_name: User’s last name.</span>
+<span class="sd">        :param unicode address_line_1: User’s first address line.</span>
+<span class="sd">        :param unicode address_line_2: User’s second address line.</span>
+<span class="sd">        :param unicode city: User’s city.</span>
+<span class="sd">        :param unicode state: User’s country subdivision, such as state, province, or locality.</span>
+<span class="sd">        :param unicode postal_code: User’s postal zip code.</span>
+<span class="sd">        :param unicode address_country_code: User’s country, up to two characters.</span>
+<span class="sd">        :param unicode national_id: User’s national ID, such as SSN or Passport ID.</span>
+<span class="sd">        :param unicode date_of_birth: User’s date of birth, in YYYYMMDD format.</span>
 
 <span class="sd">        :returns: The fetched PhoneNumberInstance</span>
 <span class="sd">        :rtype: twilio.rest.lookups.v2.phone_number.PhoneNumberInstance</span>
 <span class="sd">        """</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_proxy</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="n">fields</span><span class="o">=</span><span class="n">fields</span><span class="p">,</span> <span class="n">country_code</span><span class="o">=</span><span class="n">country_code</span><span class="p">,</span> <span class="p">)</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_proxy</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span>
+            <span class="n">fields</span><span class="o">=</span><span class="n">fields</span><span class="p">,</span>
+            <span class="n">country_code</span><span class="o">=</span><span class="n">country_code</span><span class="p">,</span>
+            <span class="n">first_name</span><span class="o">=</span><span class="n">first_name</span><span class="p">,</span>
+            <span class="n">last_name</span><span class="o">=</span><span class="n">last_name</span><span class="p">,</span>
+            <span class="n">address_line_1</span><span class="o">=</span><span class="n">address_line_1</span><span class="p">,</span>
+            <span class="n">address_line_2</span><span class="o">=</span><span class="n">address_line_2</span><span class="p">,</span>
+            <span class="n">city</span><span class="o">=</span><span class="n">city</span><span class="p">,</span>
+            <span class="n">state</span><span class="o">=</span><span class="n">state</span><span class="p">,</span>
+            <span class="n">postal_code</span><span class="o">=</span><span class="n">postal_code</span><span class="p">,</span>
+            <span class="n">address_country_code</span><span class="o">=</span><span class="n">address_country_code</span><span class="p">,</span>
+            <span class="n">national_id</span><span class="o">=</span><span class="n">national_id</span><span class="p">,</span>
+            <span class="n">date_of_birth</span><span class="o">=</span><span class="n">date_of_birth</span><span class="p">,</span>
+        <span class="p">)</span></div>
 
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">"""</span>

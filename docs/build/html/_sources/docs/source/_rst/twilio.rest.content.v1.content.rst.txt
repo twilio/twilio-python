@@ -1,6 +1,18 @@
 twilio.rest.content.v1.content package
 ======================================
 
+Submodules
+----------
+
+twilio.rest.content.v1.content.approval\_fetch module
+-----------------------------------------------------
+
+.. automodule:: twilio.rest.content.v1.content.approval_fetch
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
 Module contents
 ---------------
 

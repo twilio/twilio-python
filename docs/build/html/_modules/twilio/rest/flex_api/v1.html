@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-MWRD6S');</script><!--End Google Tag Manager-->
 <meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<title>twilio.rest.flex_api.v1 — twilio-python 7.15.3 documentation</title>
+<title>twilio.rest.flex_api.v1 — twilio-python 7.15.4 documentation</title>
 <link href="../../../../_static/alabaster.css" rel="stylesheet" type="text/css"/>
 <link href="../../../../_static/pygments.css" rel="stylesheet" type="text/css"/>
 <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js" type="text/javascript"></script>
@@ -37,6 +37,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <span class="sd">"""</span>
 
 <span class="kn">from</span> <span class="nn">twilio.base.version</span> <span class="kn">import</span> <span class="n">Version</span>
+<span class="kn">from</span> <span class="nn">twilio.rest.flex_api.v1.assessments</span> <span class="kn">import</span> <span class="n">AssessmentsList</span>
 <span class="kn">from</span> <span class="nn">twilio.rest.flex_api.v1.channel</span> <span class="kn">import</span> <span class="n">ChannelList</span>
 <span class="kn">from</span> <span class="nn">twilio.rest.flex_api.v1.configuration</span> <span class="kn">import</span> <span class="n">ConfigurationList</span>
 <span class="kn">from</span> <span class="nn">twilio.rest.flex_api.v1.flex_flow</span> <span class="kn">import</span> <span class="n">FlexFlowList</span>
@@ -57,6 +58,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <span class="sd">        """</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">V1</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">domain</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">version</span> <span class="o">=</span> <span class="s1">'v1'</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_assessments</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_channel</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_configuration</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_flex_flow</span> <span class="o">=</span> <span class="kc">None</span>
@@ -64,6 +66,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="bp">self</span><span class="o">.</span><span class="n">_interaction</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_user_roles</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_web_channel</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">assessments</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        :rtype: twilio.rest.flex_api.v1.assessments.AssessmentsList</span>
+<span class="sd">        """</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_assessments</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_assessments</span> <span class="o">=</span> <span class="n">AssessmentsList</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_assessments</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">channel</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>

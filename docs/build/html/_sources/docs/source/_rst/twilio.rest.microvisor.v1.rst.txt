@@ -1,6 +1,13 @@
 twilio.rest.microvisor.v1 package
 =================================
 
+Subpackages
+-----------
+
+.. toctree::
+
+    twilio.rest.microvisor.v1.device
+
 Submodules
 ----------
 
@@ -8,14 +15,6 @@ twilio.rest.microvisor.v1.app module
 ------------------------------------
 
 .. automodule:: twilio.rest.microvisor.v1.app
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-twilio.rest.microvisor.v1.device module
----------------------------------------
-
-.. automodule:: twilio.rest.microvisor.v1.device
     :members:
     :undoc-members:
     :show-inheritance:

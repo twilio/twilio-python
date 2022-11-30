@@ -20,6 +20,22 @@ twilio.rest.messaging.v1.deactivation module
     :undoc-members:
     :show-inheritance:
 
+twilio.rest.messaging.v1.domain\_cert module
+--------------------------------------------
+
+.. automodule:: twilio.rest.messaging.v1.domain_cert
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+twilio.rest.messaging.v1.domain\_config module
+----------------------------------------------
+
+.. automodule:: twilio.rest.messaging.v1.domain_config
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 twilio.rest.messaging.v1.external\_campaign module
 --------------------------------------------------
 

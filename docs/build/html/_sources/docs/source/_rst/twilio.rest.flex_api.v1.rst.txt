@@ -11,6 +11,14 @@ Subpackages
 Submodules
 ----------
 
+twilio.rest.flex\_api.v1.assessments module
+-------------------------------------------
+
+.. automodule:: twilio.rest.flex_api.v1.assessments
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 twilio.rest.flex\_api.v1.channel module
 ---------------------------------------
 

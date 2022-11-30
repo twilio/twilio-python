@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-MWRD6S');</script><!--End Google Tag Manager-->
 <meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<title>twilio.rest.microvisor.v1.device — twilio-python 7.15.3 documentation</title>
+<title>twilio.rest.microvisor.v1.device — twilio-python 7.15.4 documentation</title>
 <link href="../../../../../_static/alabaster.css" rel="stylesheet" type="text/css"/>
 <link href="../../../../../_static/pygments.css" rel="stylesheet" type="text/css"/>
 <script data-url_root="../../../../../" id="documentation_options" src="../../../../../_static/documentation_options.js" type="text/javascript"></script>
@@ -44,7 +44,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <span class="kn">from</span> <span class="nn">twilio.base.page</span> <span class="kn">import</span> <span class="n">Page</span>
 
 
-<div class="viewcode-block" id="DeviceList"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.microvisor.v1.html#twilio.rest.microvisor.v1.device.DeviceList">[docs]</a><span class="k">class</span> <span class="nc">DeviceList</span><span class="p">(</span><span class="n">ListResource</span><span class="p">):</span>
+<div class="viewcode-block" id="DeviceList"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.microvisor.v1.device.html#twilio.rest.microvisor.v1.device.DeviceList">[docs]</a><span class="k">class</span> <span class="nc">DeviceList</span><span class="p">(</span><span class="n">ListResource</span><span class="p">):</span>
     <span class="sd">""" PLEASE NOTE that this class contains preview products that are subject</span>
 <span class="sd">    to change. Use them with caution. If you currently do not have developer</span>
 <span class="sd">    preview access, please contact help@twilio.com. """</span>
@@ -64,7 +64,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="bp">self</span><span class="o">.</span><span class="n">_solution</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_uri</span> <span class="o">=</span> <span class="s1">'/Devices'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">_solution</span><span class="p">)</span>
 
-<div class="viewcode-block" id="DeviceList.stream"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.microvisor.v1.html#twilio.rest.microvisor.v1.device.DeviceList.stream">[docs]</a>    <span class="k">def</span> <span class="nf">stream</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">page_size</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="DeviceList.stream"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.microvisor.v1.device.html#twilio.rest.microvisor.v1.device.DeviceList.stream">[docs]</a>    <span class="k">def</span> <span class="nf">stream</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">page_size</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">"""</span>
 <span class="sd">        Streams DeviceInstance records from the API as a generator stream.</span>
 <span class="sd">        This operation lazily loads records as efficiently as possible until the limit</span>
@@ -87,7 +87,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_version</span><span class="o">.</span><span class="n">stream</span><span class="p">(</span><span class="n">page</span><span class="p">,</span> <span class="n">limits</span><span class="p">[</span><span class="s1">'limit'</span><span class="p">])</span></div>
 
-<div class="viewcode-block" id="DeviceList.list"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.microvisor.v1.html#twilio.rest.microvisor.v1.device.DeviceList.list">[docs]</a>    <span class="k">def</span> <span class="nf">list</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">page_size</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="DeviceList.list"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.microvisor.v1.device.html#twilio.rest.microvisor.v1.device.DeviceList.list">[docs]</a>    <span class="k">def</span> <span class="nf">list</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">page_size</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">"""</span>
 <span class="sd">        Lists DeviceInstance records from the API as a list.</span>
 <span class="sd">        Unlike stream(), this operation is eager and will load `limit` records into</span>
@@ -105,7 +105,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <span class="sd">        """</span>
         <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stream</span><span class="p">(</span><span class="n">limit</span><span class="o">=</span><span class="n">limit</span><span class="p">,</span> <span class="n">page_size</span><span class="o">=</span><span class="n">page_size</span><span class="p">,</span> <span class="p">))</span></div>
 
-<div class="viewcode-block" id="DeviceList.page"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.microvisor.v1.html#twilio.rest.microvisor.v1.device.DeviceList.page">[docs]</a>    <span class="k">def</span> <span class="nf">page</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">page_token</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">page_number</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
+<div class="viewcode-block" id="DeviceList.page"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.microvisor.v1.device.html#twilio.rest.microvisor.v1.device.DeviceList.page">[docs]</a>    <span class="k">def</span> <span class="nf">page</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">page_token</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">page_number</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
              <span class="n">page_size</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">):</span>
         <span class="sd">"""</span>
 <span class="sd">        Retrieve a single page of DeviceInstance records from the API.</span>
@@ -124,7 +124,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
         <span class="k">return</span> <span class="n">DevicePage</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_version</span><span class="p">,</span> <span class="n">response</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_solution</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="DeviceList.get_page"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.microvisor.v1.html#twilio.rest.microvisor.v1.device.DeviceList.get_page">[docs]</a>    <span class="k">def</span> <span class="nf">get_page</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target_url</span><span class="p">):</span>
+<div class="viewcode-block" id="DeviceList.get_page"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.microvisor.v1.device.html#twilio.rest.microvisor.v1.device.DeviceList.get_page">[docs]</a>    <span class="k">def</span> <span class="nf">get_page</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target_url</span><span class="p">):</span>
         <span class="sd">"""</span>
 <span class="sd">        Retrieve a specific page of DeviceInstance records from the API.</span>
 <span class="sd">        Request is executed immediately</span>
@@ -141,7 +141,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
         <span class="k">return</span> <span class="n">DevicePage</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_version</span><span class="p">,</span> <span class="n">response</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_solution</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="DeviceList.get"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.microvisor.v1.html#twilio.rest.microvisor.v1.device.DeviceList.get">[docs]</a>    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sid</span><span class="p">):</span>
+<div class="viewcode-block" id="DeviceList.get"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.microvisor.v1.device.html#twilio.rest.microvisor.v1.device.DeviceList.get">[docs]</a>    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sid</span><span class="p">):</span>
         <span class="sd">"""</span>
 <span class="sd">        Constructs a DeviceContext</span>
 
@@ -173,7 +173,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="k">return</span> <span class="s1">'&lt;Twilio.Microvisor.V1.DeviceList&gt;'</span></div>
 
 
-<div class="viewcode-block" id="DevicePage"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.microvisor.v1.html#twilio.rest.microvisor.v1.device.DevicePage">[docs]</a><span class="k">class</span> <span class="nc">DevicePage</span><span class="p">(</span><span class="n">Page</span><span class="p">):</span>
+<div class="viewcode-block" id="DevicePage"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.microvisor.v1.device.html#twilio.rest.microvisor.v1.device.DevicePage">[docs]</a><span class="k">class</span> <span class="nc">DevicePage</span><span class="p">(</span><span class="n">Page</span><span class="p">):</span>
     <span class="sd">""" PLEASE NOTE that this class contains preview products that are subject</span>
 <span class="sd">    to change. Use them with caution. If you currently do not have developer</span>
 <span class="sd">    preview access, please contact help@twilio.com. """</span>
@@ -193,7 +193,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="c1"># Path Solution</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_solution</span> <span class="o">=</span> <span class="n">solution</span>
 
-<div class="viewcode-block" id="DevicePage.get_instance"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.microvisor.v1.html#twilio.rest.microvisor.v1.device.DevicePage.get_instance">[docs]</a>    <span class="k">def</span> <span class="nf">get_instance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">payload</span><span class="p">):</span>
+<div class="viewcode-block" id="DevicePage.get_instance"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.microvisor.v1.device.html#twilio.rest.microvisor.v1.device.DevicePage.get_instance">[docs]</a>    <span class="k">def</span> <span class="nf">get_instance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">payload</span><span class="p">):</span>
         <span class="sd">"""</span>
 <span class="sd">        Build an instance of DeviceInstance</span>
 
@@ -214,7 +214,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="k">return</span> <span class="s1">'&lt;Twilio.Microvisor.V1.DevicePage&gt;'</span></div>
 
 
-<div class="viewcode-block" id="DeviceContext"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.microvisor.v1.html#twilio.rest.microvisor.v1.device.DeviceContext">[docs]</a><span class="k">class</span> <span class="nc">DeviceContext</span><span class="p">(</span><span class="n">InstanceContext</span><span class="p">):</span>
+<div class="viewcode-block" id="DeviceContext"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.microvisor.v1.device.html#twilio.rest.microvisor.v1.device.DeviceContext">[docs]</a><span class="k">class</span> <span class="nc">DeviceContext</span><span class="p">(</span><span class="n">InstanceContext</span><span class="p">):</span>
     <span class="sd">""" PLEASE NOTE that this class contains preview products that are subject</span>
 <span class="sd">    to change. Use them with caution. If you currently do not have developer</span>
 <span class="sd">    preview access, please contact help@twilio.com. """</span>
@@ -235,7 +235,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="bp">self</span><span class="o">.</span><span class="n">_solution</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'sid'</span><span class="p">:</span> <span class="n">sid</span><span class="p">,</span> <span class="p">}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_uri</span> <span class="o">=</span> <span class="s1">'/Devices/</span><span class="si">{sid}</span><span class="s1">'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">_solution</span><span class="p">)</span>
 
-<div class="viewcode-block" id="DeviceContext.fetch"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.microvisor.v1.html#twilio.rest.microvisor.v1.device.DeviceContext.fetch">[docs]</a>    <span class="k">def</span> <span class="nf">fetch</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="DeviceContext.fetch"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.microvisor.v1.device.html#twilio.rest.microvisor.v1.device.DeviceContext.fetch">[docs]</a>    <span class="k">def</span> <span class="nf">fetch</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">"""</span>
 <span class="sd">        Fetch the DeviceInstance</span>
 
@@ -246,7 +246,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
         <span class="k">return</span> <span class="n">DeviceInstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_version</span><span class="p">,</span> <span class="n">payload</span><span class="p">,</span> <span class="n">sid</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_solution</span><span class="p">[</span><span class="s1">'sid'</span><span class="p">],</span> <span class="p">)</span></div>
 
-<div class="viewcode-block" id="DeviceContext.update"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.microvisor.v1.html#twilio.rest.microvisor.v1.device.DeviceContext.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">unique_name</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">target_app</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
+<div class="viewcode-block" id="DeviceContext.update"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.microvisor.v1.device.html#twilio.rest.microvisor.v1.device.DeviceContext.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">unique_name</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">target_app</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
                <span class="n">logging_enabled</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">):</span>
         <span class="sd">"""</span>
 <span class="sd">        Update the DeviceInstance</span>
@@ -279,7 +279,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="k">return</span> <span class="s1">'&lt;Twilio.Microvisor.V1.DeviceContext </span><span class="si">{}</span><span class="s1">&gt;'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">context</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="DeviceInstance"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.microvisor.v1.html#twilio.rest.microvisor.v1.device.DeviceInstance">[docs]</a><span class="k">class</span> <span class="nc">DeviceInstance</span><span class="p">(</span><span class="n">InstanceResource</span><span class="p">):</span>
+<div class="viewcode-block" id="DeviceInstance"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.microvisor.v1.device.html#twilio.rest.microvisor.v1.device.DeviceInstance">[docs]</a><span class="k">class</span> <span class="nc">DeviceInstance</span><span class="p">(</span><span class="n">InstanceResource</span><span class="p">):</span>
     <span class="sd">""" PLEASE NOTE that this class contains preview products that are subject</span>
 <span class="sd">    to change. Use them with caution. If you currently do not have developer</span>
 <span class="sd">    preview access, please contact help@twilio.com. """</span>
@@ -303,6 +303,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
             <span class="s1">'date_created'</span><span class="p">:</span> <span class="n">deserialize</span><span class="o">.</span><span class="n">iso8601_datetime</span><span class="p">(</span><span class="n">payload</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'date_created'</span><span class="p">)),</span>
             <span class="s1">'date_updated'</span><span class="p">:</span> <span class="n">deserialize</span><span class="o">.</span><span class="n">iso8601_datetime</span><span class="p">(</span><span class="n">payload</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'date_updated'</span><span class="p">)),</span>
             <span class="s1">'url'</span><span class="p">:</span> <span class="n">payload</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'url'</span><span class="p">),</span>
+            <span class="s1">'links'</span><span class="p">:</span> <span class="n">payload</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'links'</span><span class="p">),</span>
         <span class="p">}</span>
 
         <span class="c1"># Context</span>
@@ -386,7 +387,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="p">[</span><span class="s1">'url'</span><span class="p">]</span>
 
-<div class="viewcode-block" id="DeviceInstance.fetch"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.microvisor.v1.html#twilio.rest.microvisor.v1.device.DeviceInstance.fetch">[docs]</a>    <span class="k">def</span> <span class="nf">fetch</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">links</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        :returns: The absolute URLs of related resources</span>
+<span class="sd">        :rtype: unicode</span>
+<span class="sd">        """</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="p">[</span><span class="s1">'links'</span><span class="p">]</span>
+
+<div class="viewcode-block" id="DeviceInstance.fetch"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.microvisor.v1.device.html#twilio.rest.microvisor.v1.device.DeviceInstance.fetch">[docs]</a>    <span class="k">def</span> <span class="nf">fetch</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">"""</span>
 <span class="sd">        Fetch the DeviceInstance</span>
 
@@ -395,7 +404,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_proxy</span><span class="o">.</span><span class="n">fetch</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="DeviceInstance.update"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.microvisor.v1.html#twilio.rest.microvisor.v1.device.DeviceInstance.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">unique_name</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">target_app</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
+<div class="viewcode-block" id="DeviceInstance.update"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.microvisor.v1.device.html#twilio.rest.microvisor.v1.device.DeviceInstance.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">unique_name</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">target_app</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
                <span class="n">logging_enabled</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">):</span>
         <span class="sd">"""</span>
 <span class="sd">        Update the DeviceInstance</span>
