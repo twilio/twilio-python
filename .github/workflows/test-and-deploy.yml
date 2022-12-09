@@ -16,7 +16,7 @@ jobs:
     timeout-minutes: 20
     strategy:
       matrix:
-        python-version: [ '3.7', '3.8', '3.9', '3.10' ]
+        python-version: [ '3.7', '3.8', '3.9', '3.10', '3.11' ]
         os: [ubuntu-latest]
         # Need to pin ubuntu version for python 3.6 (see https://github.com/actions/setup-python/issues/544#issuecomment-1332535877)
         # Change this to use ubuntu-latest for all python versions after deprecating python 3.6
