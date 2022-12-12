@@ -4,6 +4,7 @@ class Domain(object):
 
     Like, `api.twilio.com` or `lookups.twilio.com'.
     """
+
     def __init__(self, twilio):
         """
         :param Twilio twilio:
