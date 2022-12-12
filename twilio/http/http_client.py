@@ -22,8 +22,8 @@ class TwilioHttpClient(HttpClient):
 
         :param bool pool_connections
         :param request_hooks
-        :param int timeout: Timeout for the requests.
-                            Timeout should never be zero (0) or less.
+        :param float timeout: Timeout for the requests.
+                              Timeout should never be zero (0) or less.
         :param logger
         :param dict proxy: Http proxy for the requests session
         :param int max_retries: Maximum number of retries each request should attempt
