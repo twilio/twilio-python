@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-MWRD6S');</script><!--End Google Tag Manager-->
 <meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<title>twilio-python Changelog — twilio-python 7.15.4 documentation</title>
+<title>twilio-python Changelog — twilio-python 7.16.0 documentation</title>
 <link href="_static/alabaster.css" rel="stylesheet" type="text/css"/>
 <link href="_static/pygments.css" rel="stylesheet" type="text/css"/>
 <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js" type="text/javascript"></script>
@@ -30,6 +30,58 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <div class="section" id="twilio-python-changelog">
 <h1>twilio-python Changelog<a class="headerlink" href="#twilio-python-changelog" title="Permalink to this headline">¶</a></h1>
 <p>Here you can see the full list of changes between each twilio-python release.</p>
+<div class="section" id="version-7-16-0">
+<h2>[2022-12-14] Version 7.16.0<a class="headerlink" href="#version-7-16-0" title="Permalink to this headline">¶</a></h2>
+<p><strong>Library - Docs</strong></p>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/twilio/twilio-python/pull/631">PR #631</a>: Updated docstrings for timeout to be float instead of int. Thanks to <a class="reference external" href="https://github.com/byarmis">@byarmis</a>!</li>
+</ul>
+<p><strong>Library - Chore</strong></p>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/twilio/twilio-python/pull/627">PR #627</a>: add support for python 3.11. Thanks to <a class="reference external" href="https://github.com/JenniferMah">@JenniferMah</a>!</li>
+</ul>
+<p><strong>Library - Test</strong></p>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/twilio/twilio-python/pull/628">PR #628</a>: Pinning ubuntu version for python 3.6 test runs. Thanks to <a class="reference external" href="https://github.com/rakatyal">@rakatyal</a>!</li>
+</ul>
+<p><strong>Api</strong></p>
+<ul class="simple">
+<li>Add <code class="docutils literal notranslate"><span class="pre">street_secondary</span></code> param to address create and update</li>
+<li>Make <code class="docutils literal notranslate"><span class="pre">method</span></code> optional for user defined message subscription <strong>(breaking change)</strong></li>
+</ul>
+<p><strong>Flex</strong></p>
+<ul class="simple">
+<li>Flex Conversations is now Generally Available</li>
+<li>Adding the ie1 mapping for authorization api, updating service base uri and base url response attribute <strong>(breaking change)</strong></li>
+<li>Change web channels to GA and library visibility to public</li>
+<li>Changing the uri for authorization api from using Accounts to Insights <strong>(breaking change)</strong></li>
+</ul>
+<p><strong>Media</strong></p>
+<ul class="simple">
+<li>Gate Twilio Live endpoints behind beta_feature for EOS</li>
+</ul>
+<p><strong>Messaging</strong></p>
+<ul class="simple">
+<li>Mark <code class="docutils literal notranslate"><span class="pre">MessageFlow</span></code> as a required field for Campaign Creation <strong>(breaking change)</strong></li>
+</ul>
+<p><strong>Oauth</strong></p>
+<ul class="simple">
+<li>updated openid discovery endpoint uri <strong>(breaking change)</strong></li>
+<li>Added device code authorization endpoint</li>
+</ul>
+<p><strong>Supersim</strong></p>
+<ul class="simple">
+<li>Allow filtering the SettingsUpdates resource by <code class="docutils literal notranslate"><span class="pre">status</span></code></li>
+</ul>
+<p><strong>Twiml</strong></p>
+<ul class="simple">
+<li>Add new Polly Neural voices</li>
+<li>Add tr-TR, ar-AE, yue-CN, fi-FI languages to SSML <code class="docutils literal notranslate"><span class="pre">&lt;lang&gt;</span></code> element.</li>
+<li>Add x-amazon-jyutping, x-amazon-pinyin, x-amazon-pron-kana, x-amazon-yomigana alphabets to SSML <code class="docutils literal notranslate"><span class="pre">&lt;phoneme&gt;</span></code> element.</li>
+<li>Rename <code class="docutils literal notranslate"><span class="pre">character</span></code> value for SSML <code class="docutils literal notranslate"><span class="pre">&lt;say-as&gt;</span></code> <code class="docutils literal notranslate"><span class="pre">interpret-as</span></code> attribute to <code class="docutils literal notranslate"><span class="pre">characters</span></code>. <strong>(breaking change)</strong></li>
+<li>Rename <code class="docutils literal notranslate"><span class="pre">role</span></code> attribute to <code class="docutils literal notranslate"><span class="pre">format</span></code> in SSML <code class="docutils literal notranslate"><span class="pre">&lt;say-as&gt;</span></code> element. <strong>(breaking change)</strong></li>
+</ul>
+</div>
 <div class="section" id="version-7-15-4">
 <h2>[2022-11-30] Version 7.15.4<a class="headerlink" href="#version-7-15-4" title="Permalink to this headline">¶</a></h2>
 <p><strong>Flex</strong></p>
@@ -3941,6 +3993,7 @@ querying list resources</li>
 <h3><a href="index.html">Table of Contents</a></h3>
 <ul>
 <li><a class="reference internal" href="#">twilio-python Changelog</a><ul>
+<li><a class="reference internal" href="#version-7-16-0">[2022-12-14] Version 7.16.0</a></li>
 <li><a class="reference internal" href="#version-7-15-4">[2022-11-30] Version 7.15.4</a></li>
 <li><a class="reference internal" href="#version-7-15-3">[2022-11-16] Version 7.15.3</a></li>
 <li><a class="reference internal" href="#version-7-15-2">[2022-11-10] Version 7.15.2</a></li>

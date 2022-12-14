@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-MWRD6S');</script><!--End Google Tag Manager-->
 <meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<title>twilio.rest.messaging.v1.service package — twilio-python 7.15.4 documentation</title>
+<title>twilio.rest.messaging.v1.service package — twilio-python 7.16.0 documentation</title>
 <link href="../../../_static/alabaster.css" rel="stylesheet" type="text/css"/>
 <link href="../../../_static/pygments.css" rel="stylesheet" type="text/css"/>
 <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js" type="text/javascript"></script>
@@ -1582,7 +1582,7 @@ change. Use them with caution.</p>
 change. Use them with caution.</p>
 <dl class="method">
 <dt id="twilio.rest.messaging.v1.service.us_app_to_person.UsAppToPersonList.create">
-<code class="descname">create</code><span class="sig-paren">(</span><em>brand_registration_sid</em>, <em>description</em>, <em>message_samples</em>, <em>us_app_to_person_usecase</em>, <em>has_embedded_links</em>, <em>has_embedded_phone</em>, <em>message_flow=&lt;object object&gt;</em>, <em>opt_in_message=&lt;object object&gt;</em>, <em>opt_out_message=&lt;object object&gt;</em>, <em>help_message=&lt;object object&gt;</em>, <em>opt_in_keywords=&lt;object object&gt;</em>, <em>opt_out_keywords=&lt;object object&gt;</em>, <em>help_keywords=&lt;object object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/messaging/v1/service/us_app_to_person.html#UsAppToPersonList.create"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.messaging.v1.service.us_app_to_person.UsAppToPersonList.create" title="Permalink to this definition">¶</a></dt>
+<code class="descname">create</code><span class="sig-paren">(</span><em>brand_registration_sid</em>, <em>description</em>, <em>message_flow</em>, <em>message_samples</em>, <em>us_app_to_person_usecase</em>, <em>has_embedded_links</em>, <em>has_embedded_phone</em>, <em>opt_in_message=&lt;object object&gt;</em>, <em>opt_out_message=&lt;object object&gt;</em>, <em>help_message=&lt;object object&gt;</em>, <em>opt_in_keywords=&lt;object object&gt;</em>, <em>opt_out_keywords=&lt;object object&gt;</em>, <em>help_keywords=&lt;object object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/messaging/v1/service/us_app_to_person.html#UsAppToPersonList.create"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.messaging.v1.service.us_app_to_person.UsAppToPersonList.create" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create the UsAppToPersonInstance</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name"/>
@@ -1591,11 +1591,11 @@ change. Use them with caution.</p>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>brand_registration_sid</strong> (<em>unicode</em>) – A2P Brand Registration SID</li>
 <li><strong>description</strong> (<em>unicode</em>) – A short description of what this SMS campaign does</li>
+<li><strong>message_flow</strong> (<em>unicode</em>) – The message flow of the campaign</li>
 <li><strong>message_samples</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><em>list</em></a><em>[</em><em>unicode</em><em>]</em>) – Message samples</li>
 <li><strong>us_app_to_person_usecase</strong> (<em>unicode</em>) – A2P Campaign Use Case.</li>
 <li><strong>has_embedded_links</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Indicates that this SMS campaign will send messages that contain links</li>
 <li><strong>has_embedded_phone</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Indicates that this SMS campaign will send messages that contain phone numbers</li>
-<li><strong>message_flow</strong> (<em>unicode</em>) – The message flow of the campaign</li>
 <li><strong>opt_in_message</strong> (<em>unicode</em>) – Opt In Message</li>
 <li><strong>opt_out_message</strong> (<em>unicode</em>) – Opt Out Message</li>
 <li><strong>help_message</strong> (<em>unicode</em>) – Help Message</li>

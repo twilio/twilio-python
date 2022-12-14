@@ -4,6 +4,14 @@ twilio.rest.oauth.v1 package
 Submodules
 ----------
 
+twilio.rest.oauth.v1.device\_code module
+----------------------------------------
+
+.. automodule:: twilio.rest.oauth.v1.device_code
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 twilio.rest.oauth.v1.oauth module
 ---------------------------------
 

@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-MWRD6S');</script><!--End Google Tag Manager-->
 <meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<title>twilio.rest.api.v2010.account.call.user_defined_message_subscription — twilio-python 7.15.4 documentation</title>
+<title>twilio.rest.api.v2010.account.call.user_defined_message_subscription — twilio-python 7.16.0 documentation</title>
 <link href="../../../../../../../_static/alabaster.css" rel="stylesheet" type="text/css"/>
 <link href="../../../../../../../_static/pygments.css" rel="stylesheet" type="text/css"/>
 <script data-url_root="../../../../../../../" id="documentation_options" src="../../../../../../../_static/documentation_options.js" type="text/javascript"></script>
@@ -63,18 +63,18 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="bp">self</span><span class="o">.</span><span class="n">_solution</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'account_sid'</span><span class="p">:</span> <span class="n">account_sid</span><span class="p">,</span> <span class="s1">'call_sid'</span><span class="p">:</span> <span class="n">call_sid</span><span class="p">,</span> <span class="p">}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_uri</span> <span class="o">=</span> <span class="s1">'/Accounts/</span><span class="si">{account_sid}</span><span class="s1">/Calls/</span><span class="si">{call_sid}</span><span class="s1">/UserDefinedMessageSubscriptions.json'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">_solution</span><span class="p">)</span>
 
-<div class="viewcode-block" id="UserDefinedMessageSubscriptionList.create"><a class="viewcode-back" href="../../../../../../../docs/source/_rst/twilio.rest.api.v2010.account.call.html#twilio.rest.api.v2010.account.call.user_defined_message_subscription.UserDefinedMessageSubscriptionList.create">[docs]</a>    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">callback</span><span class="p">,</span> <span class="n">method</span><span class="p">,</span> <span class="n">idempotency_key</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">):</span>
+<div class="viewcode-block" id="UserDefinedMessageSubscriptionList.create"><a class="viewcode-back" href="../../../../../../../docs/source/_rst/twilio.rest.api.v2010.account.call.html#twilio.rest.api.v2010.account.call.user_defined_message_subscription.UserDefinedMessageSubscriptionList.create">[docs]</a>    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">callback</span><span class="p">,</span> <span class="n">idempotency_key</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">):</span>
         <span class="sd">"""</span>
 <span class="sd">        Create the UserDefinedMessageSubscriptionInstance</span>
 
 <span class="sd">        :param unicode callback: The URL we should call to send user defined messages.</span>
-<span class="sd">        :param unicode method: HTTP method used with the callback.</span>
 <span class="sd">        :param unicode idempotency_key: A unique string value to identify API call. This should be a unique string value per API call and can be a randomly generated.</span>
+<span class="sd">        :param unicode method: HTTP method used with the callback.</span>
 
 <span class="sd">        :returns: The created UserDefinedMessageSubscriptionInstance</span>
 <span class="sd">        :rtype: twilio.rest.api.v2010.account.call.user_defined_message_subscription.UserDefinedMessageSubscriptionInstance</span>
 <span class="sd">        """</span>
-        <span class="n">data</span> <span class="o">=</span> <span class="n">values</span><span class="o">.</span><span class="n">of</span><span class="p">({</span><span class="s1">'Callback'</span><span class="p">:</span> <span class="n">callback</span><span class="p">,</span> <span class="s1">'Method'</span><span class="p">:</span> <span class="n">method</span><span class="p">,</span> <span class="s1">'IdempotencyKey'</span><span class="p">:</span> <span class="n">idempotency_key</span><span class="p">,</span> <span class="p">})</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">values</span><span class="o">.</span><span class="n">of</span><span class="p">({</span><span class="s1">'Callback'</span><span class="p">:</span> <span class="n">callback</span><span class="p">,</span> <span class="s1">'IdempotencyKey'</span><span class="p">:</span> <span class="n">idempotency_key</span><span class="p">,</span> <span class="s1">'Method'</span><span class="p">:</span> <span class="n">method</span><span class="p">,</span> <span class="p">})</span>
 
         <span class="n">payload</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_version</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">'POST'</span><span class="p">,</span> <span class="n">uri</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_uri</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="p">)</span>
 

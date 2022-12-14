@@ -1,0 +1,22 @@
+twilio.rest.flex\_api.v2 package
+================================
+
+Submodules
+----------
+
+twilio.rest.flex\_api.v2.web\_channels module
+---------------------------------------------
+
+.. automodule:: twilio.rest.flex_api.v2.web_channels
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: twilio.rest.flex_api.v2
+    :members:
+    :undoc-members:
+    :show-inheritance:

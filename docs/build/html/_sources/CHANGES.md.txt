@@ -3,6 +3,48 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2022-12-14] Version 7.16.0
+---------------------------
+**Library - Docs**
+- [PR #631](https://github.com/twilio/twilio-python/pull/631): Updated docstrings for timeout to be float instead of int. Thanks to [@byarmis](https://github.com/byarmis)!
+
+**Library - Chore**
+- [PR #627](https://github.com/twilio/twilio-python/pull/627): add support for python 3.11. Thanks to [@JenniferMah](https://github.com/JenniferMah)!
+
+**Library - Test**
+- [PR #628](https://github.com/twilio/twilio-python/pull/628): Pinning ubuntu version for python 3.6 test runs. Thanks to [@rakatyal](https://github.com/rakatyal)!
+
+**Api**
+- Add `street_secondary` param to address create and update
+- Make `method` optional for user defined message subscription **(breaking change)**
+
+**Flex**
+- Flex Conversations is now Generally Available
+- Adding the ie1 mapping for authorization api, updating service base uri and base url response attribute **(breaking change)**
+- Change web channels to GA and library visibility to public
+- Changing the uri for authorization api from using Accounts to Insights **(breaking change)**
+
+**Media**
+- Gate Twilio Live endpoints behind beta_feature for EOS
+
+**Messaging**
+- Mark `MessageFlow` as a required field for Campaign Creation **(breaking change)**
+
+**Oauth**
+- updated openid discovery endpoint uri **(breaking change)**
+- Added device code authorization endpoint
+
+**Supersim**
+- Allow filtering the SettingsUpdates resource by `status`
+
+**Twiml**
+- Add new Polly Neural voices
+- Add tr-TR, ar-AE, yue-CN, fi-FI languages to SSML `<lang>` element.
+- Add x-amazon-jyutping, x-amazon-pinyin, x-amazon-pron-kana, x-amazon-yomigana alphabets to SSML `<phoneme>` element.
+- Rename `character` value for SSML `<say-as>` `interpret-as` attribute to `characters`. **(breaking change)**
+- Rename `role` attribute to `format` in SSML `<say-as>` element. **(breaking change)**
+
+
 [2022-11-30] Version 7.15.4
 ---------------------------
 **Flex**
