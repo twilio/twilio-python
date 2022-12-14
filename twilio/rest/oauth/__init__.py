@@ -44,6 +44,13 @@ class Oauth(Domain):
         return self.v1.oauth
 
     @property
+    def device_code(self):
+        """
+        :rtype: twilio.rest.oauth.v1.device_code.DeviceCodeList
+        """
+        return self.v1.device_code
+
+    @property
     def openid_discovery(self):
         """
         :rtype: twilio.rest.oauth.v1.openid_discovery.OpenidDiscoveryList

@@ -20,11 +20,12 @@ class UsAppToPersonTestCase(IntegrationTestCase):
 
         with self.assertRaises(TwilioException):
             self.client.messaging.v1.services("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                    .us_app_to_person.create(brand_registration_sid="BNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", description="description", message_samples=['message_samples'], us_app_to_person_usecase="us_app_to_person_usecase", has_embedded_links=True, has_embedded_phone=True)
+                                    .us_app_to_person.create(brand_registration_sid="BNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", description="description", message_flow="message_flow", message_samples=['message_samples'], us_app_to_person_usecase="us_app_to_person_usecase", has_embedded_links=True, has_embedded_phone=True)
 
         values = {
             'BrandRegistrationSid': "BNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
             'Description': "description",
+            'MessageFlow': "message_flow",
             'MessageSamples': serialize.map(['message_samples'], lambda e: e),
             'UsAppToPersonUsecase': "us_app_to_person_usecase",
             'HasEmbeddedLinks': True,
@@ -88,7 +89,7 @@ class UsAppToPersonTestCase(IntegrationTestCase):
         ))
 
         actual = self.client.messaging.v1.services("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                         .us_app_to_person.create(brand_registration_sid="BNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", description="description", message_samples=['message_samples'], us_app_to_person_usecase="us_app_to_person_usecase", has_embedded_links=True, has_embedded_phone=True)
+                                         .us_app_to_person.create(brand_registration_sid="BNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", description="description", message_flow="message_flow", message_samples=['message_samples'], us_app_to_person_usecase="us_app_to_person_usecase", has_embedded_links=True, has_embedded_phone=True)
 
         self.assertIsNotNone(actual)
 
@@ -149,7 +150,7 @@ class UsAppToPersonTestCase(IntegrationTestCase):
         ))
 
         actual = self.client.messaging.v1.services("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                         .us_app_to_person.create(brand_registration_sid="BNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", description="description", message_samples=['message_samples'], us_app_to_person_usecase="us_app_to_person_usecase", has_embedded_links=True, has_embedded_phone=True)
+                                         .us_app_to_person.create(brand_registration_sid="BNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", description="description", message_flow="message_flow", message_samples=['message_samples'], us_app_to_person_usecase="us_app_to_person_usecase", has_embedded_links=True, has_embedded_phone=True)
 
         self.assertIsNotNone(actual)
 

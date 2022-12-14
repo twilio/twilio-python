@@ -889,32 +889,32 @@ class Say(TwiML):
         """
         return self.s(words=words, **kwargs)
 
-    def say_as(self, words, interpret_as=None, role=None, **kwargs):
+    def say_as(self, words, interpret_as=None, format=None, **kwargs):
         """
         Create a <Say-As> element
 
         :param words: Words to be interpreted
         :param interpret-as: Specify the type of words are spoken
-        :param role: Specify the format of the date when interpret-as is set to date
+        :param format: Specify the format of the date when interpret-as is set to date
         :param kwargs: additional attributes
 
         :returns: <Say-As> element
         """
-        return self.nest(SsmlSayAs(words, interpret_as=interpret_as, role=role, **kwargs))
+        return self.nest(SsmlSayAs(words, interpret_as=interpret_as, format=format, **kwargs))
 
     @deprecated_method('say_as')
-    def ssml_say_as(self, words, interpret_as=None, role=None, **kwargs):
+    def ssml_say_as(self, words, interpret_as=None, format=None, **kwargs):
         """
         Create a <Say-As> element
 
         :param words: Words to be interpreted
         :param interpret-as: Specify the type of words are spoken
-        :param role: Specify the format of the date when interpret-as is set to date
+        :param format: Specify the format of the date when interpret-as is set to date
         :param kwargs: additional attributes
 
         :returns: <Say-As> element
         """
-        return self.say_as(words, interpret_as=interpret_as, role=role, **kwargs)
+        return self.say_as(words, interpret_as=interpret_as, format=format, **kwargs)
 
     def sub(self, words, alias=None, **kwargs):
         """
@@ -1083,32 +1083,32 @@ class SsmlW(TwiML):
         """
         return self.prosody(words=words, volume=volume, rate=rate, pitch=pitch, **kwargs)
 
-    def say_as(self, words, interpret_as=None, role=None, **kwargs):
+    def say_as(self, words, interpret_as=None, format=None, **kwargs):
         """
         Create a <Say-As> element
 
         :param words: Words to be interpreted
         :param interpret-as: Specify the type of words are spoken
-        :param role: Specify the format of the date when interpret-as is set to date
+        :param format: Specify the format of the date when interpret-as is set to date
         :param kwargs: additional attributes
 
         :returns: <Say-As> element
         """
-        return self.nest(SsmlSayAs(words, interpret_as=interpret_as, role=role, **kwargs))
+        return self.nest(SsmlSayAs(words, interpret_as=interpret_as, format=format, **kwargs))
 
     @deprecated_method('say_as')
-    def ssml_say_as(self, words, interpret_as=None, role=None, **kwargs):
+    def ssml_say_as(self, words, interpret_as=None, format=None, **kwargs):
         """
         Create a <Say-As> element
 
         :param words: Words to be interpreted
         :param interpret-as: Specify the type of words are spoken
-        :param role: Specify the format of the date when interpret-as is set to date
+        :param format: Specify the format of the date when interpret-as is set to date
         :param kwargs: additional attributes
 
         :returns: <Say-As> element
         """
-        return self.say_as(words, interpret_as=interpret_as, role=role, **kwargs)
+        return self.say_as(words, interpret_as=interpret_as, format=format, **kwargs)
 
     def sub(self, words, alias=None, **kwargs):
         """
@@ -1341,32 +1341,32 @@ class SsmlProsody(TwiML):
         """
         return self.s(words=words, **kwargs)
 
-    def say_as(self, words, interpret_as=None, role=None, **kwargs):
+    def say_as(self, words, interpret_as=None, format=None, **kwargs):
         """
         Create a <Say-As> element
 
         :param words: Words to be interpreted
         :param interpret-as: Specify the type of words are spoken
-        :param role: Specify the format of the date when interpret-as is set to date
+        :param format: Specify the format of the date when interpret-as is set to date
         :param kwargs: additional attributes
 
         :returns: <Say-As> element
         """
-        return self.nest(SsmlSayAs(words, interpret_as=interpret_as, role=role, **kwargs))
+        return self.nest(SsmlSayAs(words, interpret_as=interpret_as, format=format, **kwargs))
 
     @deprecated_method('say_as')
-    def ssml_say_as(self, words, interpret_as=None, role=None, **kwargs):
+    def ssml_say_as(self, words, interpret_as=None, format=None, **kwargs):
         """
         Create a <Say-As> element
 
         :param words: Words to be interpreted
         :param interpret-as: Specify the type of words are spoken
-        :param role: Specify the format of the date when interpret-as is set to date
+        :param format: Specify the format of the date when interpret-as is set to date
         :param kwargs: additional attributes
 
         :returns: <Say-As> element
         """
-        return self.say_as(words, interpret_as=interpret_as, role=role, **kwargs)
+        return self.say_as(words, interpret_as=interpret_as, format=format, **kwargs)
 
     def sub(self, words, alias=None, **kwargs):
         """
@@ -1560,32 +1560,32 @@ class SsmlS(TwiML):
         """
         return self.prosody(words=words, volume=volume, rate=rate, pitch=pitch, **kwargs)
 
-    def say_as(self, words, interpret_as=None, role=None, **kwargs):
+    def say_as(self, words, interpret_as=None, format=None, **kwargs):
         """
         Create a <Say-As> element
 
         :param words: Words to be interpreted
         :param interpret-as: Specify the type of words are spoken
-        :param role: Specify the format of the date when interpret-as is set to date
+        :param format: Specify the format of the date when interpret-as is set to date
         :param kwargs: additional attributes
 
         :returns: <Say-As> element
         """
-        return self.nest(SsmlSayAs(words, interpret_as=interpret_as, role=role, **kwargs))
+        return self.nest(SsmlSayAs(words, interpret_as=interpret_as, format=format, **kwargs))
 
     @deprecated_method('say_as')
-    def ssml_say_as(self, words, interpret_as=None, role=None, **kwargs):
+    def ssml_say_as(self, words, interpret_as=None, format=None, **kwargs):
         """
         Create a <Say-As> element
 
         :param words: Words to be interpreted
         :param interpret-as: Specify the type of words are spoken
-        :param role: Specify the format of the date when interpret-as is set to date
+        :param format: Specify the format of the date when interpret-as is set to date
         :param kwargs: additional attributes
 
         :returns: <Say-As> element
         """
-        return self.say_as(words, interpret_as=interpret_as, role=role, **kwargs)
+        return self.say_as(words, interpret_as=interpret_as, format=format, **kwargs)
 
     def sub(self, words, alias=None, **kwargs):
         """
@@ -1834,32 +1834,32 @@ class SsmlLang(TwiML):
         """
         return self.s(words=words, **kwargs)
 
-    def say_as(self, words, interpret_as=None, role=None, **kwargs):
+    def say_as(self, words, interpret_as=None, format=None, **kwargs):
         """
         Create a <Say-As> element
 
         :param words: Words to be interpreted
         :param interpret-as: Specify the type of words are spoken
-        :param role: Specify the format of the date when interpret-as is set to date
+        :param format: Specify the format of the date when interpret-as is set to date
         :param kwargs: additional attributes
 
         :returns: <Say-As> element
         """
-        return self.nest(SsmlSayAs(words, interpret_as=interpret_as, role=role, **kwargs))
+        return self.nest(SsmlSayAs(words, interpret_as=interpret_as, format=format, **kwargs))
 
     @deprecated_method('say_as')
-    def ssml_say_as(self, words, interpret_as=None, role=None, **kwargs):
+    def ssml_say_as(self, words, interpret_as=None, format=None, **kwargs):
         """
         Create a <Say-As> element
 
         :param words: Words to be interpreted
         :param interpret-as: Specify the type of words are spoken
-        :param role: Specify the format of the date when interpret-as is set to date
+        :param format: Specify the format of the date when interpret-as is set to date
         :param kwargs: additional attributes
 
         :returns: <Say-As> element
         """
-        return self.say_as(words, interpret_as=interpret_as, role=role, **kwargs)
+        return self.say_as(words, interpret_as=interpret_as, format=format, **kwargs)
 
     def sub(self, words, alias=None, **kwargs):
         """
@@ -2076,32 +2076,32 @@ class SsmlP(TwiML):
         """
         return self.s(words=words, **kwargs)
 
-    def say_as(self, words, interpret_as=None, role=None, **kwargs):
+    def say_as(self, words, interpret_as=None, format=None, **kwargs):
         """
         Create a <Say-As> element
 
         :param words: Words to be interpreted
         :param interpret-as: Specify the type of words are spoken
-        :param role: Specify the format of the date when interpret-as is set to date
+        :param format: Specify the format of the date when interpret-as is set to date
         :param kwargs: additional attributes
 
         :returns: <Say-As> element
         """
-        return self.nest(SsmlSayAs(words, interpret_as=interpret_as, role=role, **kwargs))
+        return self.nest(SsmlSayAs(words, interpret_as=interpret_as, format=format, **kwargs))
 
     @deprecated_method('say_as')
-    def ssml_say_as(self, words, interpret_as=None, role=None, **kwargs):
+    def ssml_say_as(self, words, interpret_as=None, format=None, **kwargs):
         """
         Create a <Say-As> element
 
         :param words: Words to be interpreted
         :param interpret-as: Specify the type of words are spoken
-        :param role: Specify the format of the date when interpret-as is set to date
+        :param format: Specify the format of the date when interpret-as is set to date
         :param kwargs: additional attributes
 
         :returns: <Say-As> element
         """
-        return self.say_as(words, interpret_as=interpret_as, role=role, **kwargs)
+        return self.say_as(words, interpret_as=interpret_as, format=format, **kwargs)
 
     def sub(self, words, alias=None, **kwargs):
         """
@@ -2295,32 +2295,32 @@ class SsmlEmphasis(TwiML):
         """
         return self.prosody(words=words, volume=volume, rate=rate, pitch=pitch, **kwargs)
 
-    def say_as(self, words, interpret_as=None, role=None, **kwargs):
+    def say_as(self, words, interpret_as=None, format=None, **kwargs):
         """
         Create a <Say-As> element
 
         :param words: Words to be interpreted
         :param interpret-as: Specify the type of words are spoken
-        :param role: Specify the format of the date when interpret-as is set to date
+        :param format: Specify the format of the date when interpret-as is set to date
         :param kwargs: additional attributes
 
         :returns: <Say-As> element
         """
-        return self.nest(SsmlSayAs(words, interpret_as=interpret_as, role=role, **kwargs))
+        return self.nest(SsmlSayAs(words, interpret_as=interpret_as, format=format, **kwargs))
 
     @deprecated_method('say_as')
-    def ssml_say_as(self, words, interpret_as=None, role=None, **kwargs):
+    def ssml_say_as(self, words, interpret_as=None, format=None, **kwargs):
         """
         Create a <Say-As> element
 
         :param words: Words to be interpreted
         :param interpret-as: Specify the type of words are spoken
-        :param role: Specify the format of the date when interpret-as is set to date
+        :param format: Specify the format of the date when interpret-as is set to date
         :param kwargs: additional attributes
 
         :returns: <Say-As> element
         """
-        return self.say_as(words, interpret_as=interpret_as, role=role, **kwargs)
+        return self.say_as(words, interpret_as=interpret_as, format=format, **kwargs)
 
     def sub(self, words, alias=None, **kwargs):
         """

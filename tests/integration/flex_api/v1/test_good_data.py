@@ -23,7 +23,7 @@ class GoodDataTestCase(IntegrationTestCase):
         headers = {'Token': "token", }
         self.holodeck.assert_has_request(Request(
             'post',
-            'https://flex-api.twilio.com/v1/Accounts/GoodData',
+            'https://flex-api.twilio.com/v1/Insights/Session',
             headers=headers,
         ))
 
@@ -35,8 +35,8 @@ class GoodDataTestCase(IntegrationTestCase):
                 "session_expiry": "2022-09-27T09:28:01Z",
                 "workspace_id": "clbi1eelh1x8z4.......ijpnyu",
                 "session_id": "-----BEGIN PGP MESSAGE-----\\n\\nwcBMA11tX1FL13rp\\u2026\\u2026kHXd\\n=vOBk\\n-----END PGP MESSAGE-----\\n",
-                "gd_base_url": "https://analytics.ytica.com/",
-                "url": "https://flex-api.twilio.com/v1/Accounts/GoodData"
+                "base_url": "https://analytics.ytica.com/",
+                "url": "https://flex-api.twilio.com/v1/Insights/Session"
             }
             '''
         ))

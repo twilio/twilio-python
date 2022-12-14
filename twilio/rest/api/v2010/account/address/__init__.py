@@ -35,7 +35,7 @@ class AddressList(ListResource):
 
     def create(self, customer_name, street, city, region, postal_code, iso_country,
                friendly_name=values.unset, emergency_enabled=values.unset,
-               auto_correct_address=values.unset):
+               auto_correct_address=values.unset, street_secondary=values.unset):
         """
         Create the AddressInstance
 
@@ -48,6 +48,7 @@ class AddressList(ListResource):
         :param unicode friendly_name: A string to describe the new resource
         :param bool emergency_enabled: Whether to enable emergency calling on the new address
         :param bool auto_correct_address: Whether we should automatically correct the address
+        :param unicode street_secondary: The additional number and street address of the address
 
         :returns: The created AddressInstance
         :rtype: twilio.rest.api.v2010.account.address.AddressInstance
@@ -62,6 +63,7 @@ class AddressList(ListResource):
             'FriendlyName': friendly_name,
             'EmergencyEnabled': emergency_enabled,
             'AutoCorrectAddress': auto_correct_address,
+            'StreetSecondary': street_secondary,
         })
 
         payload = self._version.create(method='POST', uri=self._uri, data=data, )
@@ -296,7 +298,7 @@ class AddressContext(InstanceContext):
     def update(self, friendly_name=values.unset, customer_name=values.unset,
                street=values.unset, city=values.unset, region=values.unset,
                postal_code=values.unset, emergency_enabled=values.unset,
-               auto_correct_address=values.unset):
+               auto_correct_address=values.unset, street_secondary=values.unset):
         """
         Update the AddressInstance
 
@@ -308,6 +310,7 @@ class AddressContext(InstanceContext):
         :param unicode postal_code: The postal code of the address
         :param bool emergency_enabled: Whether to enable emergency calling on the address
         :param bool auto_correct_address: Whether we should automatically correct the address
+        :param unicode street_secondary: The additional number and street address of the address
 
         :returns: The updated AddressInstance
         :rtype: twilio.rest.api.v2010.account.address.AddressInstance
@@ -321,6 +324,7 @@ class AddressContext(InstanceContext):
             'PostalCode': postal_code,
             'EmergencyEnabled': emergency_enabled,
             'AutoCorrectAddress': auto_correct_address,
+            'StreetSecondary': street_secondary,
         })
 
         payload = self._version.update(method='POST', uri=self._uri, data=data, )
@@ -387,6 +391,7 @@ class AddressInstance(InstanceResource):
             'emergency_enabled': payload.get('emergency_enabled'),
             'validated': payload.get('validated'),
             'verified': payload.get('verified'),
+            'street_secondary': payload.get('street_secondary'),
         }
 
         # Context
@@ -530,6 +535,14 @@ class AddressInstance(InstanceResource):
         """
         return self._properties['verified']
 
+    @property
+    def street_secondary(self):
+        """
+        :returns: The additional number and street address of the address
+        :rtype: unicode
+        """
+        return self._properties['street_secondary']
+
     def delete(self):
         """
         Deletes the AddressInstance
@@ -551,7 +564,7 @@ class AddressInstance(InstanceResource):
     def update(self, friendly_name=values.unset, customer_name=values.unset,
                street=values.unset, city=values.unset, region=values.unset,
                postal_code=values.unset, emergency_enabled=values.unset,
-               auto_correct_address=values.unset):
+               auto_correct_address=values.unset, street_secondary=values.unset):
         """
         Update the AddressInstance
 
@@ -563,6 +576,7 @@ class AddressInstance(InstanceResource):
         :param unicode postal_code: The postal code of the address
         :param bool emergency_enabled: Whether to enable emergency calling on the address
         :param bool auto_correct_address: Whether we should automatically correct the address
+        :param unicode street_secondary: The additional number and street address of the address
 
         :returns: The updated AddressInstance
         :rtype: twilio.rest.api.v2010.account.address.AddressInstance
@@ -576,6 +590,7 @@ class AddressInstance(InstanceResource):
             postal_code=postal_code,
             emergency_enabled=emergency_enabled,
             auto_correct_address=auto_correct_address,
+            street_secondary=street_secondary,
         )
 
     @property

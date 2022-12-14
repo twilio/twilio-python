@@ -110,7 +110,7 @@ class UserRolesContext(InstanceContext):
 
         # Path Solution
         self._solution = {}
-        self._uri = '/Accounts/UserRoles'.format(**self._solution)
+        self._uri = '/Insights/UserRoles'.format(**self._solution)
 
     def fetch(self, token=values.unset):
         """

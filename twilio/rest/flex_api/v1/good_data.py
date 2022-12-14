@@ -110,7 +110,7 @@ class GoodDataContext(InstanceContext):
 
         # Path Solution
         self._solution = {}
-        self._uri = '/Accounts/GoodData'.format(**self._solution)
+        self._uri = '/Insights/Session'.format(**self._solution)
 
     def create(self, token=values.unset):
         """
@@ -154,7 +154,7 @@ class GoodDataInstance(InstanceResource):
             'workspace_id': payload.get('workspace_id'),
             'session_expiry': payload.get('session_expiry'),
             'session_id': payload.get('session_id'),
-            'gd_base_url': payload.get('gd_base_url'),
+            'base_url': payload.get('base_url'),
             'url': payload.get('url'),
         }
 
@@ -178,7 +178,7 @@ class GoodDataInstance(InstanceResource):
     @property
     def workspace_id(self):
         """
-        :returns: Unique workspace ID in gooddata
+        :returns: Unique ID to identify the user's workspace
         :rtype: unicode
         """
         return self._properties['workspace_id']
@@ -200,12 +200,12 @@ class GoodDataInstance(InstanceResource):
         return self._properties['session_id']
 
     @property
-    def gd_base_url(self):
+    def base_url(self):
         """
-        :returns: GoodData login base URL
+        :returns: Base URL to fetch reports and dashboards
         :rtype: unicode
         """
-        return self._properties['gd_base_url']
+        return self._properties['base_url']
 
     @property
     def url(self):

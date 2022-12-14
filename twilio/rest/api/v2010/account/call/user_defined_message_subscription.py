@@ -33,18 +33,18 @@ class UserDefinedMessageSubscriptionList(ListResource):
         self._solution = {'account_sid': account_sid, 'call_sid': call_sid, }
         self._uri = '/Accounts/{account_sid}/Calls/{call_sid}/UserDefinedMessageSubscriptions.json'.format(**self._solution)
 
-    def create(self, callback, method, idempotency_key=values.unset):
+    def create(self, callback, idempotency_key=values.unset, method=values.unset):
         """
         Create the UserDefinedMessageSubscriptionInstance
 
         :param unicode callback: The URL we should call to send user defined messages.
-        :param unicode method: HTTP method used with the callback.
         :param unicode idempotency_key: A unique string value to identify API call. This should be a unique string value per API call and can be a randomly generated.
+        :param unicode method: HTTP method used with the callback.
 
         :returns: The created UserDefinedMessageSubscriptionInstance
         :rtype: twilio.rest.api.v2010.account.call.user_defined_message_subscription.UserDefinedMessageSubscriptionInstance
         """
-        data = values.of({'Callback': callback, 'Method': method, 'IdempotencyKey': idempotency_key, })
+        data = values.of({'Callback': callback, 'IdempotencyKey': idempotency_key, 'Method': method, })
 
         payload = self._version.create(method='POST', uri=self._uri, data=data, )
 

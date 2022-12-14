@@ -20,9 +20,9 @@ class UserDefinedMessageSubscriptionTestCase(IntegrationTestCase):
         with self.assertRaises(TwilioException):
             self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                  .calls("CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .user_defined_message_subscriptions.create(callback="https://example.com", method="GET")
+                                 .user_defined_message_subscriptions.create(callback="https://example.com")
 
-        values = {'Callback': "https://example.com", 'Method': "GET", }
+        values = {'Callback': "https://example.com", }
 
         self.holodeck.assert_has_request(Request(
             'post',
@@ -46,7 +46,7 @@ class UserDefinedMessageSubscriptionTestCase(IntegrationTestCase):
 
         actual = self.client.api.v2010.accounts("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
                                       .calls("CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .user_defined_message_subscriptions.create(callback="https://example.com", method="GET")
+                                      .user_defined_message_subscriptions.create(callback="https://example.com")
 
         self.assertIsNotNone(actual)
 

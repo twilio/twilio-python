@@ -22,7 +22,7 @@ class OpenidDiscoveryTestCase(IntegrationTestCase):
 
         self.holodeck.assert_has_request(Request(
             'get',
-            'https://oauth.twilio.com/v1/well-known/openid-configuration',
+            'https://oauth.twilio.com/v1/.well-known/openid-configuration',
         ))
 
     def test_fetch_response(self):
@@ -67,7 +67,7 @@ class OpenidDiscoveryTestCase(IntegrationTestCase):
                     "scp",
                     "sub"
                 ],
-                "url": "https://oauth.twilio.com/v1/well-known/openid-configuration"
+                "url": "https://oauth.twilio.com/v1/.well-known/openid-configuration"
             }
             '''
         ))

@@ -110,7 +110,7 @@ class OpenidDiscoveryContext(InstanceContext):
 
         # Path Solution
         self._solution = {}
-        self._uri = '/well-known/openid-configuration'.format(**self._solution)
+        self._uri = '/.well-known/openid-configuration'.format(**self._solution)
 
     def fetch(self):
         """

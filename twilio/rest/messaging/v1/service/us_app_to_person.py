@@ -35,9 +35,9 @@ class UsAppToPersonList(ListResource):
         self._solution = {'messaging_service_sid': messaging_service_sid, }
         self._uri = '/Services/{messaging_service_sid}/Compliance/Usa2p'.format(**self._solution)
 
-    def create(self, brand_registration_sid, description, message_samples,
-               us_app_to_person_usecase, has_embedded_links, has_embedded_phone,
-               message_flow=values.unset, opt_in_message=values.unset,
+    def create(self, brand_registration_sid, description, message_flow,
+               message_samples, us_app_to_person_usecase, has_embedded_links,
+               has_embedded_phone, opt_in_message=values.unset,
                opt_out_message=values.unset, help_message=values.unset,
                opt_in_keywords=values.unset, opt_out_keywords=values.unset,
                help_keywords=values.unset):
@@ -46,11 +46,11 @@ class UsAppToPersonList(ListResource):
 
         :param unicode brand_registration_sid: A2P Brand Registration SID
         :param unicode description: A short description of what this SMS campaign does
+        :param unicode message_flow: The message flow of the campaign
         :param list[unicode] message_samples: Message samples
         :param unicode us_app_to_person_usecase: A2P Campaign Use Case.
         :param bool has_embedded_links: Indicates that this SMS campaign will send messages that contain links
         :param bool has_embedded_phone: Indicates that this SMS campaign will send messages that contain phone numbers
-        :param unicode message_flow: The message flow of the campaign
         :param unicode opt_in_message: Opt In Message
         :param unicode opt_out_message: Opt Out Message
         :param unicode help_message: Help Message
@@ -64,11 +64,11 @@ class UsAppToPersonList(ListResource):
         data = values.of({
             'BrandRegistrationSid': brand_registration_sid,
             'Description': description,
+            'MessageFlow': message_flow,
             'MessageSamples': serialize.map(message_samples, lambda e: e),
             'UsAppToPersonUsecase': us_app_to_person_usecase,
             'HasEmbeddedLinks': has_embedded_links,
             'HasEmbeddedPhone': has_embedded_phone,
-            'MessageFlow': message_flow,
             'OptInMessage': opt_in_message,
             'OptOutMessage': opt_out_message,
             'HelpMessage': help_message,

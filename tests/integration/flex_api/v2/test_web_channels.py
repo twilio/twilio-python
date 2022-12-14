@@ -12,34 +12,33 @@ from twilio.base.exceptions import TwilioException
 from twilio.http.response import Response
 
 
-class UserRolesTestCase(IntegrationTestCase):
+class WebChannelsTestCase(IntegrationTestCase):
 
-    def test_fetch_request(self):
+    def test_create_request(self):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.flex_api.v1.user_roles().fetch(token="token")
+            self.client.flex_api.v2.web_channels.create(address_sid="address_sid")
 
-        headers = {'Token': "token", }
+        values = {'AddressSid': "address_sid", }
+
         self.holodeck.assert_has_request(Request(
-            'get',
-            'https://flex-api.twilio.com/v1/Insights/UserRoles',
-            headers=headers,
+            'post',
+            'https://flex-api.twilio.com/v2/WebChats',
+            data=values,
         ))
 
-    def test_fetch_response(self):
+    def test_create_response(self):
         self.holodeck.mock(Response(
-            200,
+            201,
             '''
             {
-                "roles": [
-                    "wfo.full_access"
-                ],
-                "url": "https://flex-api.twilio.com/v1/Insights/UserRoles"
+                "conversation_sid": "CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "identity": "seinfeld"
             }
             '''
         ))
 
-        actual = self.client.flex_api.v1.user_roles().fetch()
+        actual = self.client.flex_api.v2.web_channels.create(address_sid="address_sid")
 
         self.assertIsNotNone(actual)

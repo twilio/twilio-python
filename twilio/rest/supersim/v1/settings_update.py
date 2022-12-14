@@ -32,7 +32,8 @@ class SettingsUpdateList(ListResource):
         self._solution = {}
         self._uri = '/SettingsUpdates'.format(**self._solution)
 
-    def stream(self, sim=values.unset, limit=None, page_size=None):
+    def stream(self, sim=values.unset, status=values.unset, limit=None,
+               page_size=None):
         """
         Streams SettingsUpdateInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -40,6 +41,7 @@ class SettingsUpdateList(ListResource):
         The results are returned as a generator, so this operation is memory efficient.
 
         :param unicode sim: Filter the Settings Updates by Super SIM
+        :param SettingsUpdateInstance.Status status: Filter the Settings Updates by status
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -52,17 +54,19 @@ class SettingsUpdateList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
 
-        page = self.page(sim=sim, page_size=limits['page_size'], )
+        page = self.page(sim=sim, status=status, page_size=limits['page_size'], )
 
         return self._version.stream(page, limits['limit'])
 
-    def list(self, sim=values.unset, limit=None, page_size=None):
+    def list(self, sim=values.unset, status=values.unset, limit=None,
+             page_size=None):
         """
         Lists SettingsUpdateInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
         :param unicode sim: Filter the Settings Updates by Super SIM
+        :param SettingsUpdateInstance.Status status: Filter the Settings Updates by status
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -73,15 +77,16 @@ class SettingsUpdateList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.supersim.v1.settings_update.SettingsUpdateInstance]
         """
-        return list(self.stream(sim=sim, limit=limit, page_size=page_size, ))
+        return list(self.stream(sim=sim, status=status, limit=limit, page_size=page_size, ))
 
-    def page(self, sim=values.unset, page_token=values.unset,
+    def page(self, sim=values.unset, status=values.unset, page_token=values.unset,
              page_number=values.unset, page_size=values.unset):
         """
         Retrieve a single page of SettingsUpdateInstance records from the API.
         Request is executed immediately
 
         :param unicode sim: Filter the Settings Updates by Super SIM
+        :param SettingsUpdateInstance.Status status: Filter the Settings Updates by status
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -89,7 +94,13 @@ class SettingsUpdateList(ListResource):
         :returns: Page of SettingsUpdateInstance
         :rtype: twilio.rest.supersim.v1.settings_update.SettingsUpdatePage
         """
-        data = values.of({'Sim': sim, 'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
+        data = values.of({
+            'Sim': sim,
+            'Status': status,
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
+        })
 
         response = self._version.page(method='GET', uri=self._uri, params=data, )
 
