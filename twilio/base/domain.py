@@ -4,6 +4,7 @@ class Domain(object):
 
     Like, `api.twilio.com` or `lookups.twilio.com'.
     """
+
     def __init__(self, twilio):
         """
         :param Twilio twilio:
@@ -30,7 +31,7 @@ class Domain(object):
         :param object data: The request body.
         :param dict headers: The HTTP headers.
         :param tuple auth: Basic auth tuple of (username, password)
-        :param int timeout: The request timeout.
+        :param float timeout: The request timeout.
         :param bool allow_redirects: True if the client should follow HTTP
         redirects.
         """
