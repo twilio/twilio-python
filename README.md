@@ -23,7 +23,6 @@ Please consult the [official migration guide](https://www.twilio.com/docs/librar
 
 This library supports the following Python implementations:
 
-* Python 3.6
 * Python 3.7
 * Python 3.8
 * Python 3.9
