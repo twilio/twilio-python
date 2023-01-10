@@ -1,0 +1,5 @@
+.openapi-generator-ignore
+DeployedDevices.py
+Understand.py
+deployed_devices/fleet.py
+understand/assistant.py

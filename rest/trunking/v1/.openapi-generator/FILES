@@ -1,0 +1,13 @@
+../__init__.py
+../__init__.py
+../__init__.py
+../__init__.py
+../__init__.py
+../__init__.py
+.openapi-generator-ignore
+trunk.py
+trunk/credential_list.py
+trunk/ip_access_control_list.py
+trunk/origination_url.py
+trunk/phone_number.py
+trunk/recording.py
