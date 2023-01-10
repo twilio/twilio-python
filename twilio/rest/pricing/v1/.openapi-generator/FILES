@@ -1,0 +1,15 @@
+../__init__.py
+../__init__.py
+../__init__.py
+../__init__.py
+../__init__.py
+../__init__.py
+../__init__.py
+.openapi-generator-ignore
+messaging.py
+messaging/country.py
+phone_number.py
+phone_number/country.py
+voice.py
+voice/country.py
+voice/number.py
