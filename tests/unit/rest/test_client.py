@@ -1,9 +1,6 @@
 import unittest
-import platform
 
-from twilio import __version__
-from twilio.rest import (
-    Client,
+from twilio.base import (
     TwilioClient,
     TwilioRestClient,
     TwilioIpMessagingClient,
@@ -14,6 +11,9 @@ from twilio.rest import (
     TwilioTrunkingClient,
 )
 from twilio.base.obsolete import ObsoleteException
+from twilio.rest import (
+    Client
+)
 
 
 class TestDummyClients(unittest.TestCase):
