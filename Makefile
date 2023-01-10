@@ -1,7 +1,7 @@
 .PHONY: clean install analysis test test-install test-docker develop docs docs-install
 
 venv:
-	@python --version || (echo "Python is not installed, Python 3.6+"; exit 1);
+	@python --version || (echo "Python is not installed, Python 3.7+"; exit 1);
 	virtualenv --python=python venv
 
 install: venv
