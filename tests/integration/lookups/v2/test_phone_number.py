@@ -468,7 +468,7 @@ class PhoneNumberTestCase(IntegrationTestCase):
                     "address_lines_match": "no_match",
                     "city_match": "no_match",
                     "state_match": "high_partial_match",
-                    "postal_code_match": "no_data",
+                    "postal_code_match": "no_data_available",
                     "address_country_match": "exact_match",
                     "national_id_match": "exact_match",
                     "date_of_birth_match": "exact_match",
