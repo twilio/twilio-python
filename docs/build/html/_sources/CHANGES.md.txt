@@ -3,6 +3,18 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2023-01-11] Version 7.16.1
+---------------------------
+**Conversations**
+- Add support for creating Multi-Channel Rich Content Messages
+
+**Lookups**
+- Changed the no data message for match postal code from `no_data` to `data_not_available` in identity match package
+
+**Messaging**
+- Add update/edit tollfree verification API
+
+
 [2022-12-14] Version 7.16.0
 ---------------------------
 **Library - Docs**

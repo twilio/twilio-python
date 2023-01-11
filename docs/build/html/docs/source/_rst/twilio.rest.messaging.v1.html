@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-MWRD6S');</script><!--End Google Tag Manager-->
 <meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<title>twilio.rest.messaging.v1 package — twilio-python 7.16.0 documentation</title>
+<title>twilio.rest.messaging.v1 package — twilio-python 7.16.1 documentation</title>
 <link href="../../../_static/alabaster.css" rel="stylesheet" type="text/css"/>
 <link href="../../../_static/pygments.css" rel="stylesheet" type="text/css"/>
 <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js" type="text/javascript"></script>
@@ -885,6 +885,47 @@ change. Use them with caution.</p>
 </tbody>
 </table>
 </dd></dl>
+<dl class="method">
+<dt id="twilio.rest.messaging.v1.tollfree_verification.TollfreeVerificationContext.update">
+<code class="descname">update</code><span class="sig-paren">(</span><em>business_name=&lt;object object&gt;</em>, <em>business_website=&lt;object object&gt;</em>, <em>notification_email=&lt;object object&gt;</em>, <em>use_case_categories=&lt;object object&gt;</em>, <em>use_case_summary=&lt;object object&gt;</em>, <em>production_message_sample=&lt;object object&gt;</em>, <em>opt_in_image_urls=&lt;object object&gt;</em>, <em>opt_in_type=&lt;object object&gt;</em>, <em>message_volume=&lt;object object&gt;</em>, <em>business_street_address=&lt;object object&gt;</em>, <em>business_street_address2=&lt;object object&gt;</em>, <em>business_city=&lt;object object&gt;</em>, <em>business_state_province_region=&lt;object object&gt;</em>, <em>business_postal_code=&lt;object object&gt;</em>, <em>business_country=&lt;object object&gt;</em>, <em>additional_information=&lt;object object&gt;</em>, <em>business_contact_first_name=&lt;object object&gt;</em>, <em>business_contact_last_name=&lt;object object&gt;</em>, <em>business_contact_email=&lt;object object&gt;</em>, <em>business_contact_phone=&lt;object object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/messaging/v1/tollfree_verification.html#TollfreeVerificationContext.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.messaging.v1.tollfree_verification.TollfreeVerificationContext.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update the TollfreeVerificationInstance</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>business_name</strong> (<em>unicode</em>) – The name of the business or organization using the Tollfree number</li>
+<li><strong>business_website</strong> (<em>unicode</em>) – The website of the business or organization using the Tollfree number</li>
+<li><strong>notification_email</strong> (<em>unicode</em>) – The email address to receive the notification about the verification result.</li>
+<li><strong>use_case_categories</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><em>list</em></a><em>[</em><em>unicode</em><em>]</em>) – The category of the use case for the Tollfree Number. List as many are applicable.</li>
+<li><strong>use_case_summary</strong> (<em>unicode</em>) – Further explaination on how messaging is used by the business or organization</li>
+<li><strong>production_message_sample</strong> (<em>unicode</em>) – An example of message content, i.e. a sample message</li>
+<li><strong>opt_in_image_urls</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><em>list</em></a><em>[</em><em>unicode</em><em>]</em>) – Link to an image that shows the opt-in workflow. Multiple images allowed and must be a publicly hosted URL</li>
+<li><strong>opt_in_type</strong> (<a class="reference internal" href="#twilio.rest.messaging.v1.tollfree_verification.TollfreeVerificationInstance.OptInType" title="twilio.rest.messaging.v1.tollfree_verification.TollfreeVerificationInstance.OptInType"><em>TollfreeVerificationInstance.OptInType</em></a>) – Describe how a user opts-in to text messages</li>
+<li><strong>message_volume</strong> (<em>unicode</em>) – Estimate monthly volume of messages from the Tollfree Number</li>
+<li><strong>business_street_address</strong> (<em>unicode</em>) – The address of the business or organization using the Tollfree number</li>
+<li><strong>business_street_address2</strong> (<em>unicode</em>) – The address of the business or organization using the Tollfree number</li>
+<li><strong>business_city</strong> (<em>unicode</em>) – The city of the business or organization using the Tollfree number</li>
+<li><strong>business_state_province_region</strong> (<em>unicode</em>) – The state/province/region of the business or organization using the Tollfree number</li>
+<li><strong>business_postal_code</strong> (<em>unicode</em>) – The postal code of the business or organization using the Tollfree number</li>
+<li><strong>business_country</strong> (<em>unicode</em>) – The country of the business or organization using the Tollfree number</li>
+<li><strong>additional_information</strong> (<em>unicode</em>) – Additional information to be provided for verification</li>
+<li><strong>business_contact_first_name</strong> (<em>unicode</em>) – The first name of the contact for the business or organization using the Tollfree number</li>
+<li><strong>business_contact_last_name</strong> (<em>unicode</em>) – The last name of the contact for the business or organization using the Tollfree number</li>
+<li><strong>business_contact_email</strong> (<em>unicode</em>) – The email address of the contact for the business or organization using the Tollfree number</li>
+<li><strong>business_contact_phone</strong> (<em>unicode</em>) – The phone number of the contact for the business or organization using the Tollfree number</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The updated TollfreeVerificationInstance</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#twilio.rest.messaging.v1.tollfree_verification.TollfreeVerificationInstance" title="twilio.rest.messaging.v1.tollfree_verification.TollfreeVerificationInstance">twilio.rest.messaging.v1.tollfree_verification.TollfreeVerificationInstance</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 </dd></dl>
 <dl class="class">
 <dt id="twilio.rest.messaging.v1.tollfree_verification.TollfreeVerificationInstance">
@@ -1341,6 +1382,47 @@ change. Use them with caution.</p>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Tollfree TrustProduct Bundle BundleSid</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">unicode</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+<dl class="method">
+<dt id="twilio.rest.messaging.v1.tollfree_verification.TollfreeVerificationInstance.update">
+<code class="descname">update</code><span class="sig-paren">(</span><em>business_name=&lt;object object&gt;</em>, <em>business_website=&lt;object object&gt;</em>, <em>notification_email=&lt;object object&gt;</em>, <em>use_case_categories=&lt;object object&gt;</em>, <em>use_case_summary=&lt;object object&gt;</em>, <em>production_message_sample=&lt;object object&gt;</em>, <em>opt_in_image_urls=&lt;object object&gt;</em>, <em>opt_in_type=&lt;object object&gt;</em>, <em>message_volume=&lt;object object&gt;</em>, <em>business_street_address=&lt;object object&gt;</em>, <em>business_street_address2=&lt;object object&gt;</em>, <em>business_city=&lt;object object&gt;</em>, <em>business_state_province_region=&lt;object object&gt;</em>, <em>business_postal_code=&lt;object object&gt;</em>, <em>business_country=&lt;object object&gt;</em>, <em>additional_information=&lt;object object&gt;</em>, <em>business_contact_first_name=&lt;object object&gt;</em>, <em>business_contact_last_name=&lt;object object&gt;</em>, <em>business_contact_email=&lt;object object&gt;</em>, <em>business_contact_phone=&lt;object object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/twilio/rest/messaging/v1/tollfree_verification.html#TollfreeVerificationInstance.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.messaging.v1.tollfree_verification.TollfreeVerificationInstance.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update the TollfreeVerificationInstance</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"/>
+<col class="field-body"/>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>business_name</strong> (<em>unicode</em>) – The name of the business or organization using the Tollfree number</li>
+<li><strong>business_website</strong> (<em>unicode</em>) – The website of the business or organization using the Tollfree number</li>
+<li><strong>notification_email</strong> (<em>unicode</em>) – The email address to receive the notification about the verification result.</li>
+<li><strong>use_case_categories</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><em>list</em></a><em>[</em><em>unicode</em><em>]</em>) – The category of the use case for the Tollfree Number. List as many are applicable.</li>
+<li><strong>use_case_summary</strong> (<em>unicode</em>) – Further explaination on how messaging is used by the business or organization</li>
+<li><strong>production_message_sample</strong> (<em>unicode</em>) – An example of message content, i.e. a sample message</li>
+<li><strong>opt_in_image_urls</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><em>list</em></a><em>[</em><em>unicode</em><em>]</em>) – Link to an image that shows the opt-in workflow. Multiple images allowed and must be a publicly hosted URL</li>
+<li><strong>opt_in_type</strong> (<a class="reference internal" href="#twilio.rest.messaging.v1.tollfree_verification.TollfreeVerificationInstance.OptInType" title="twilio.rest.messaging.v1.tollfree_verification.TollfreeVerificationInstance.OptInType"><em>TollfreeVerificationInstance.OptInType</em></a>) – Describe how a user opts-in to text messages</li>
+<li><strong>message_volume</strong> (<em>unicode</em>) – Estimate monthly volume of messages from the Tollfree Number</li>
+<li><strong>business_street_address</strong> (<em>unicode</em>) – The address of the business or organization using the Tollfree number</li>
+<li><strong>business_street_address2</strong> (<em>unicode</em>) – The address of the business or organization using the Tollfree number</li>
+<li><strong>business_city</strong> (<em>unicode</em>) – The city of the business or organization using the Tollfree number</li>
+<li><strong>business_state_province_region</strong> (<em>unicode</em>) – The state/province/region of the business or organization using the Tollfree number</li>
+<li><strong>business_postal_code</strong> (<em>unicode</em>) – The postal code of the business or organization using the Tollfree number</li>
+<li><strong>business_country</strong> (<em>unicode</em>) – The country of the business or organization using the Tollfree number</li>
+<li><strong>additional_information</strong> (<em>unicode</em>) – Additional information to be provided for verification</li>
+<li><strong>business_contact_first_name</strong> (<em>unicode</em>) – The first name of the contact for the business or organization using the Tollfree number</li>
+<li><strong>business_contact_last_name</strong> (<em>unicode</em>) – The last name of the contact for the business or organization using the Tollfree number</li>
+<li><strong>business_contact_email</strong> (<em>unicode</em>) – The email address of the contact for the business or organization using the Tollfree number</li>
+<li><strong>business_contact_phone</strong> (<em>unicode</em>) – The phone number of the contact for the business or organization using the Tollfree number</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The updated TollfreeVerificationInstance</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#twilio.rest.messaging.v1.tollfree_verification.TollfreeVerificationInstance" title="twilio.rest.messaging.v1.tollfree_verification.TollfreeVerificationInstance">twilio.rest.messaging.v1.tollfree_verification.TollfreeVerificationInstance</a></p>
+</td>
 </tr>
 </tbody>
 </table>

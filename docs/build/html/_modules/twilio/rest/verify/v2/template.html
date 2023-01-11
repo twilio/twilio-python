@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-MWRD6S');</script><!--End Google Tag Manager-->
 <meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<title>twilio.rest.verify.v2.template — twilio-python 7.16.0 documentation</title>
+<title>twilio.rest.verify.v2.template — twilio-python 7.16.1 documentation</title>
 <link href="../../../../../_static/alabaster.css" rel="stylesheet" type="text/css"/>
 <link href="../../../../../_static/pygments.css" rel="stylesheet" type="text/css"/>
 <script data-url_root="../../../../../" id="documentation_options" src="../../../../../_static/documentation_options.js" type="text/javascript"></script>
@@ -45,7 +45,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <div class="viewcode-block" id="TemplateList"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.verify.v2.html#twilio.rest.verify.v2.template.TemplateList">[docs]</a><span class="k">class</span> <span class="nc">TemplateList</span><span class="p">(</span><span class="n">ListResource</span><span class="p">):</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">version</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Initialize the TemplateList</span>
 
 <span class="sd">        :param Version version: Version that contains the resource</span>
@@ -60,7 +60,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="bp">self</span><span class="o">.</span><span class="n">_uri</span> <span class="o">=</span> <span class="s1">'/Templates'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">_solution</span><span class="p">)</span>
 
 <div class="viewcode-block" id="TemplateList.stream"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.verify.v2.html#twilio.rest.verify.v2.template.TemplateList.stream">[docs]</a>    <span class="k">def</span> <span class="nf">stream</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">friendly_name</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">page_size</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Streams TemplateInstance records from the API as a generator stream.</span>
 <span class="sd">        This operation lazily loads records as efficiently as possible until the limit</span>
 <span class="sd">        is reached.</span>
@@ -84,7 +84,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_version</span><span class="o">.</span><span class="n">stream</span><span class="p">(</span><span class="n">page</span><span class="p">,</span> <span class="n">limits</span><span class="p">[</span><span class="s1">'limit'</span><span class="p">])</span></div>
 
 <div class="viewcode-block" id="TemplateList.list"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.verify.v2.html#twilio.rest.verify.v2.template.TemplateList.list">[docs]</a>    <span class="k">def</span> <span class="nf">list</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">friendly_name</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">page_size</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Lists TemplateInstance records from the API as a list.</span>
 <span class="sd">        Unlike stream(), this operation is eager and will load `limit` records into</span>
 <span class="sd">        memory before returning.</span>
@@ -104,7 +104,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
 <div class="viewcode-block" id="TemplateList.page"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.verify.v2.html#twilio.rest.verify.v2.template.TemplateList.page">[docs]</a>    <span class="k">def</span> <span class="nf">page</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">friendly_name</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">page_token</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
              <span class="n">page_number</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">page_size</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Retrieve a single page of TemplateInstance records from the API.</span>
 <span class="sd">        Request is executed immediately</span>
 
@@ -128,7 +128,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="k">return</span> <span class="n">TemplatePage</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_version</span><span class="p">,</span> <span class="n">response</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_solution</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="TemplateList.get_page"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.verify.v2.html#twilio.rest.verify.v2.template.TemplateList.get_page">[docs]</a>    <span class="k">def</span> <span class="nf">get_page</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target_url</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Retrieve a specific page of TemplateInstance records from the API.</span>
 <span class="sd">        Request is executed immediately</span>
 
@@ -145,7 +145,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="k">return</span> <span class="n">TemplatePage</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_version</span><span class="p">,</span> <span class="n">response</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_solution</span><span class="p">)</span></div>
 
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Provide a friendly representation</span>
 
 <span class="sd">        :returns: Machine friendly representation</span>
@@ -157,7 +157,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <div class="viewcode-block" id="TemplatePage"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.verify.v2.html#twilio.rest.verify.v2.template.TemplatePage">[docs]</a><span class="k">class</span> <span class="nc">TemplatePage</span><span class="p">(</span><span class="n">Page</span><span class="p">):</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">version</span><span class="p">,</span> <span class="n">response</span><span class="p">,</span> <span class="n">solution</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Initialize the TemplatePage</span>
 
 <span class="sd">        :param Version version: Version that contains the resource</span>
@@ -172,7 +172,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="bp">self</span><span class="o">.</span><span class="n">_solution</span> <span class="o">=</span> <span class="n">solution</span>
 
 <div class="viewcode-block" id="TemplatePage.get_instance"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.verify.v2.html#twilio.rest.verify.v2.template.TemplatePage.get_instance">[docs]</a>    <span class="k">def</span> <span class="nf">get_instance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">payload</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Build an instance of TemplateInstance</span>
 
 <span class="sd">        :param dict payload: Payload response from the API</span>
@@ -183,7 +183,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="k">return</span> <span class="n">TemplateInstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_version</span><span class="p">,</span> <span class="n">payload</span><span class="p">,</span> <span class="p">)</span></div>
 
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Provide a friendly representation</span>
 
 <span class="sd">        :returns: Machine friendly representation</span>
@@ -195,7 +195,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <div class="viewcode-block" id="TemplateInstance"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.verify.v2.html#twilio.rest.verify.v2.template.TemplateInstance">[docs]</a><span class="k">class</span> <span class="nc">TemplateInstance</span><span class="p">(</span><span class="n">InstanceResource</span><span class="p">):</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">version</span><span class="p">,</span> <span class="n">payload</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Initialize the TemplateInstance</span>
 
 <span class="sd">        :returns: twilio.rest.verify.v2.template.TemplateInstance</span>
@@ -218,7 +218,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">sid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        :returns: A string that uniquely identifies this Template</span>
 <span class="sd">        :rtype: unicode</span>
 <span class="sd">        """</span>
@@ -226,7 +226,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">account_sid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        :returns: Account Sid</span>
 <span class="sd">        :rtype: unicode</span>
 <span class="sd">        """</span>
@@ -234,7 +234,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">friendly_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        :returns: A string to describe the verification template</span>
 <span class="sd">        :rtype: unicode</span>
 <span class="sd">        """</span>
@@ -242,7 +242,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">channels</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        :returns: A list of channels that support the Template</span>
 <span class="sd">        :rtype: list[unicode]</span>
 <span class="sd">        """</span>
@@ -250,14 +250,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">translations</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        :returns: Object with the template translations.</span>
 <span class="sd">        :rtype: dict</span>
 <span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="p">[</span><span class="s1">'translations'</span><span class="p">]</span>
 
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Provide a friendly representation</span>
 
 <span class="sd">        :returns: Machine friendly representation</span>

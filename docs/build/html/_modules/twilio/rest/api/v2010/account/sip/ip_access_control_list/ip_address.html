@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-MWRD6S');</script><!--End Google Tag Manager-->
 <meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<title>twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address — twilio-python 7.16.0 documentation</title>
+<title>twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address — twilio-python 7.16.1 documentation</title>
 <link href="../../../../../../../../_static/alabaster.css" rel="stylesheet" type="text/css"/>
 <link href="../../../../../../../../_static/pygments.css" rel="stylesheet" type="text/css"/>
 <script data-url_root="../../../../../../../../" id="documentation_options" src="../../../../../../../../_static/documentation_options.js" type="text/javascript"></script>
@@ -47,7 +47,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <div class="viewcode-block" id="IpAddressList"><a class="viewcode-back" href="../../../../../../../../docs/source/_rst/twilio.rest.api.v2010.account.sip.ip_access_control_list.html#twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address.IpAddressList">[docs]</a><span class="k">class</span> <span class="nc">IpAddressList</span><span class="p">(</span><span class="n">ListResource</span><span class="p">):</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">version</span><span class="p">,</span> <span class="n">account_sid</span><span class="p">,</span> <span class="n">ip_access_control_list_sid</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Initialize the IpAddressList</span>
 
 <span class="sd">        :param Version version: Version that contains the resource</span>
@@ -67,7 +67,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="bp">self</span><span class="o">.</span><span class="n">_uri</span> <span class="o">=</span> <span class="s1">'/Accounts/</span><span class="si">{account_sid}</span><span class="s1">/SIP/IpAccessControlLists/</span><span class="si">{ip_access_control_list_sid}</span><span class="s1">/IpAddresses.json'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">_solution</span><span class="p">)</span>
 
 <div class="viewcode-block" id="IpAddressList.stream"><a class="viewcode-back" href="../../../../../../../../docs/source/_rst/twilio.rest.api.v2010.account.sip.ip_access_control_list.html#twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address.IpAddressList.stream">[docs]</a>    <span class="k">def</span> <span class="nf">stream</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">page_size</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Streams IpAddressInstance records from the API as a generator stream.</span>
 <span class="sd">        This operation lazily loads records as efficiently as possible until the limit</span>
 <span class="sd">        is reached.</span>
@@ -90,7 +90,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_version</span><span class="o">.</span><span class="n">stream</span><span class="p">(</span><span class="n">page</span><span class="p">,</span> <span class="n">limits</span><span class="p">[</span><span class="s1">'limit'</span><span class="p">])</span></div>
 
 <div class="viewcode-block" id="IpAddressList.list"><a class="viewcode-back" href="../../../../../../../../docs/source/_rst/twilio.rest.api.v2010.account.sip.ip_access_control_list.html#twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address.IpAddressList.list">[docs]</a>    <span class="k">def</span> <span class="nf">list</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">page_size</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Lists IpAddressInstance records from the API as a list.</span>
 <span class="sd">        Unlike stream(), this operation is eager and will load `limit` records into</span>
 <span class="sd">        memory before returning.</span>
@@ -109,7 +109,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
 <div class="viewcode-block" id="IpAddressList.page"><a class="viewcode-back" href="../../../../../../../../docs/source/_rst/twilio.rest.api.v2010.account.sip.ip_access_control_list.html#twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address.IpAddressList.page">[docs]</a>    <span class="k">def</span> <span class="nf">page</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">page_token</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">page_number</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
              <span class="n">page_size</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Retrieve a single page of IpAddressInstance records from the API.</span>
 <span class="sd">        Request is executed immediately</span>
 
@@ -127,7 +127,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="k">return</span> <span class="n">IpAddressPage</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_version</span><span class="p">,</span> <span class="n">response</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_solution</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="IpAddressList.get_page"><a class="viewcode-back" href="../../../../../../../../docs/source/_rst/twilio.rest.api.v2010.account.sip.ip_access_control_list.html#twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address.IpAddressList.get_page">[docs]</a>    <span class="k">def</span> <span class="nf">get_page</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target_url</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Retrieve a specific page of IpAddressInstance records from the API.</span>
 <span class="sd">        Request is executed immediately</span>
 
@@ -144,7 +144,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="k">return</span> <span class="n">IpAddressPage</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_version</span><span class="p">,</span> <span class="n">response</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_solution</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="IpAddressList.create"><a class="viewcode-back" href="../../../../../../../../docs/source/_rst/twilio.rest.api.v2010.account.sip.ip_access_control_list.html#twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address.IpAddressList.create">[docs]</a>    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">friendly_name</span><span class="p">,</span> <span class="n">ip_address</span><span class="p">,</span> <span class="n">cidr_prefix_length</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Create the IpAddressInstance</span>
 
 <span class="sd">        :param unicode friendly_name: A human readable descriptive text for this resource, up to 255 characters long.</span>
@@ -170,7 +170,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="IpAddressList.get"><a class="viewcode-back" href="../../../../../../../../docs/source/_rst/twilio.rest.api.v2010.account.sip.ip_access_control_list.html#twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address.IpAddressList.get">[docs]</a>    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sid</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Constructs a IpAddressContext</span>
 
 <span class="sd">        :param sid: A string that identifies the IpAddress resource to fetch</span>
@@ -186,7 +186,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="p">)</span></div>
 
     <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sid</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Constructs a IpAddressContext</span>
 
 <span class="sd">        :param sid: A string that identifies the IpAddress resource to fetch</span>
@@ -202,7 +202,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="p">)</span>
 
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Provide a friendly representation</span>
 
 <span class="sd">        :returns: Machine friendly representation</span>
@@ -214,7 +214,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <div class="viewcode-block" id="IpAddressPage"><a class="viewcode-back" href="../../../../../../../../docs/source/_rst/twilio.rest.api.v2010.account.sip.ip_access_control_list.html#twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address.IpAddressPage">[docs]</a><span class="k">class</span> <span class="nc">IpAddressPage</span><span class="p">(</span><span class="n">Page</span><span class="p">):</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">version</span><span class="p">,</span> <span class="n">response</span><span class="p">,</span> <span class="n">solution</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Initialize the IpAddressPage</span>
 
 <span class="sd">        :param Version version: Version that contains the resource</span>
@@ -231,7 +231,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="bp">self</span><span class="o">.</span><span class="n">_solution</span> <span class="o">=</span> <span class="n">solution</span>
 
 <div class="viewcode-block" id="IpAddressPage.get_instance"><a class="viewcode-back" href="../../../../../../../../docs/source/_rst/twilio.rest.api.v2010.account.sip.ip_access_control_list.html#twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address.IpAddressPage.get_instance">[docs]</a>    <span class="k">def</span> <span class="nf">get_instance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">payload</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Build an instance of IpAddressInstance</span>
 
 <span class="sd">        :param dict payload: Payload response from the API</span>
@@ -247,7 +247,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="p">)</span></div>
 
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Provide a friendly representation</span>
 
 <span class="sd">        :returns: Machine friendly representation</span>
@@ -259,7 +259,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <div class="viewcode-block" id="IpAddressContext"><a class="viewcode-back" href="../../../../../../../../docs/source/_rst/twilio.rest.api.v2010.account.sip.ip_access_control_list.html#twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address.IpAddressContext">[docs]</a><span class="k">class</span> <span class="nc">IpAddressContext</span><span class="p">(</span><span class="n">InstanceContext</span><span class="p">):</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">version</span><span class="p">,</span> <span class="n">account_sid</span><span class="p">,</span> <span class="n">ip_access_control_list_sid</span><span class="p">,</span> <span class="n">sid</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Initialize the IpAddressContext</span>
 
 <span class="sd">        :param Version version: Version that contains the resource</span>
@@ -281,7 +281,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="bp">self</span><span class="o">.</span><span class="n">_uri</span> <span class="o">=</span> <span class="s1">'/Accounts/</span><span class="si">{account_sid}</span><span class="s1">/SIP/IpAccessControlLists/</span><span class="si">{ip_access_control_list_sid}</span><span class="s1">/IpAddresses/</span><span class="si">{sid}</span><span class="s1">.json'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">_solution</span><span class="p">)</span>
 
 <div class="viewcode-block" id="IpAddressContext.fetch"><a class="viewcode-back" href="../../../../../../../../docs/source/_rst/twilio.rest.api.v2010.account.sip.ip_access_control_list.html#twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address.IpAddressContext.fetch">[docs]</a>    <span class="k">def</span> <span class="nf">fetch</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Fetch the IpAddressInstance</span>
 
 <span class="sd">        :returns: The fetched IpAddressInstance</span>
@@ -299,7 +299,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
 <div class="viewcode-block" id="IpAddressContext.update"><a class="viewcode-back" href="../../../../../../../../docs/source/_rst/twilio.rest.api.v2010.account.sip.ip_access_control_list.html#twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address.IpAddressContext.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ip_address</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">friendly_name</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
                <span class="n">cidr_prefix_length</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Update the IpAddressInstance</span>
 
 <span class="sd">        :param unicode ip_address: An IP address in dotted decimal notation from which you want to accept traffic. Any SIP requests from this IP address will be allowed by Twilio. IPv4 only supported today.</span>
@@ -326,7 +326,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="IpAddressContext.delete"><a class="viewcode-back" href="../../../../../../../../docs/source/_rst/twilio.rest.api.v2010.account.sip.ip_access_control_list.html#twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address.IpAddressContext.delete">[docs]</a>    <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Deletes the IpAddressInstance</span>
 
 <span class="sd">        :returns: True if delete succeeds, False otherwise</span>
@@ -335,7 +335,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_version</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">'DELETE'</span><span class="p">,</span> <span class="n">uri</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_uri</span><span class="p">,</span> <span class="p">)</span></div>
 
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Provide a friendly representation</span>
 
 <span class="sd">        :returns: Machine friendly representation</span>
@@ -349,7 +349,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">version</span><span class="p">,</span> <span class="n">payload</span><span class="p">,</span> <span class="n">account_sid</span><span class="p">,</span> <span class="n">ip_access_control_list_sid</span><span class="p">,</span>
                  <span class="n">sid</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Initialize the IpAddressInstance</span>
 
 <span class="sd">        :returns: twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address.IpAddressInstance</span>
@@ -380,7 +380,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">_proxy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Generate an instance context for the instance, the context is capable of</span>
 <span class="sd">        performing various actions.  All instance actions are proxied to the context</span>
 
@@ -398,7 +398,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">sid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        :returns: A 34 character string that uniquely identifies this resource.</span>
 <span class="sd">        :rtype: unicode</span>
 <span class="sd">        """</span>
@@ -406,7 +406,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">account_sid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        :returns: The unique id of the Account that is responsible for this resource.</span>
 <span class="sd">        :rtype: unicode</span>
 <span class="sd">        """</span>
@@ -414,7 +414,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">friendly_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        :returns: A human readable descriptive text for this resource, up to 255 characters long.</span>
 <span class="sd">        :rtype: unicode</span>
 <span class="sd">        """</span>
@@ -422,7 +422,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">ip_address</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        :returns: An IP address in dotted decimal notation from which you want to accept traffic. Any SIP requests from this IP address will be allowed by Twilio. IPv4 only supported today.</span>
 <span class="sd">        :rtype: unicode</span>
 <span class="sd">        """</span>
@@ -430,7 +430,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">cidr_prefix_length</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        :returns: An integer representing the length of the CIDR prefix to use with this IP address when accepting traffic. By default the entire IP address is used.</span>
 <span class="sd">        :rtype: unicode</span>
 <span class="sd">        """</span>
@@ -438,7 +438,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">ip_access_control_list_sid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        :returns: The unique id of the IpAccessControlList resource that includes this resource.</span>
 <span class="sd">        :rtype: unicode</span>
 <span class="sd">        """</span>
@@ -446,7 +446,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">date_created</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        :returns: The date that this resource was created, given as GMT in RFC 2822 format.</span>
 <span class="sd">        :rtype: datetime</span>
 <span class="sd">        """</span>
@@ -454,7 +454,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">date_updated</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        :returns: The date that this resource was last updated, given as GMT in RFC 2822 format.</span>
 <span class="sd">        :rtype: datetime</span>
 <span class="sd">        """</span>
@@ -462,14 +462,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">uri</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        :returns: The URI for this resource, relative to https://api.twilio.com</span>
 <span class="sd">        :rtype: unicode</span>
 <span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="p">[</span><span class="s1">'uri'</span><span class="p">]</span>
 
 <div class="viewcode-block" id="IpAddressInstance.fetch"><a class="viewcode-back" href="../../../../../../../../docs/source/_rst/twilio.rest.api.v2010.account.sip.ip_access_control_list.html#twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address.IpAddressInstance.fetch">[docs]</a>    <span class="k">def</span> <span class="nf">fetch</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Fetch the IpAddressInstance</span>
 
 <span class="sd">        :returns: The fetched IpAddressInstance</span>
@@ -479,7 +479,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
 <div class="viewcode-block" id="IpAddressInstance.update"><a class="viewcode-back" href="../../../../../../../../docs/source/_rst/twilio.rest.api.v2010.account.sip.ip_access_control_list.html#twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address.IpAddressInstance.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ip_address</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">friendly_name</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
                <span class="n">cidr_prefix_length</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Update the IpAddressInstance</span>
 
 <span class="sd">        :param unicode ip_address: An IP address in dotted decimal notation from which you want to accept traffic. Any SIP requests from this IP address will be allowed by Twilio. IPv4 only supported today.</span>
@@ -496,7 +496,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="IpAddressInstance.delete"><a class="viewcode-back" href="../../../../../../../../docs/source/_rst/twilio.rest.api.v2010.account.sip.ip_access_control_list.html#twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address.IpAddressInstance.delete">[docs]</a>    <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Deletes the IpAddressInstance</span>
 
 <span class="sd">        :returns: True if delete succeeds, False otherwise</span>
@@ -505,7 +505,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_proxy</span><span class="o">.</span><span class="n">delete</span><span class="p">()</span></div>
 
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Provide a friendly representation</span>
 
 <span class="sd">        :returns: Machine friendly representation</span>

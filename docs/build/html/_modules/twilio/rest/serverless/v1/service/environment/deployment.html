@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-MWRD6S');</script><!--End Google Tag Manager-->
 <meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<title>twilio.rest.serverless.v1.service.environment.deployment — twilio-python 7.16.0 documentation</title>
+<title>twilio.rest.serverless.v1.service.environment.deployment — twilio-python 7.16.1 documentation</title>
 <link href="../../../../../../../_static/alabaster.css" rel="stylesheet" type="text/css"/>
 <link href="../../../../../../../_static/pygments.css" rel="stylesheet" type="text/css"/>
 <script data-url_root="../../../../../../../" id="documentation_options" src="../../../../../../../_static/documentation_options.js" type="text/javascript"></script>
@@ -45,11 +45,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
 
 <div class="viewcode-block" id="DeploymentList"><a class="viewcode-back" href="../../../../../../../docs/source/_rst/twilio.rest.serverless.v1.service.environment.html#twilio.rest.serverless.v1.service.environment.deployment.DeploymentList">[docs]</a><span class="k">class</span> <span class="nc">DeploymentList</span><span class="p">(</span><span class="n">ListResource</span><span class="p">):</span>
-    <span class="sd">""" PLEASE NOTE that this class contains beta products that are subject to</span>
+<span class="w">    </span><span class="sd">""" PLEASE NOTE that this class contains beta products that are subject to</span>
 <span class="sd">    change. Use them with caution. """</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">version</span><span class="p">,</span> <span class="n">service_sid</span><span class="p">,</span> <span class="n">environment_sid</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Initialize the DeploymentList</span>
 
 <span class="sd">        :param Version version: Version that contains the resource</span>
@@ -66,7 +66,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="bp">self</span><span class="o">.</span><span class="n">_uri</span> <span class="o">=</span> <span class="s1">'/Services/</span><span class="si">{service_sid}</span><span class="s1">/Environments/</span><span class="si">{environment_sid}</span><span class="s1">/Deployments'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">_solution</span><span class="p">)</span>
 
 <div class="viewcode-block" id="DeploymentList.stream"><a class="viewcode-back" href="../../../../../../../docs/source/_rst/twilio.rest.serverless.v1.service.environment.html#twilio.rest.serverless.v1.service.environment.deployment.DeploymentList.stream">[docs]</a>    <span class="k">def</span> <span class="nf">stream</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">page_size</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Streams DeploymentInstance records from the API as a generator stream.</span>
 <span class="sd">        This operation lazily loads records as efficiently as possible until the limit</span>
 <span class="sd">        is reached.</span>
@@ -89,7 +89,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_version</span><span class="o">.</span><span class="n">stream</span><span class="p">(</span><span class="n">page</span><span class="p">,</span> <span class="n">limits</span><span class="p">[</span><span class="s1">'limit'</span><span class="p">])</span></div>
 
 <div class="viewcode-block" id="DeploymentList.list"><a class="viewcode-back" href="../../../../../../../docs/source/_rst/twilio.rest.serverless.v1.service.environment.html#twilio.rest.serverless.v1.service.environment.deployment.DeploymentList.list">[docs]</a>    <span class="k">def</span> <span class="nf">list</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">page_size</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Lists DeploymentInstance records from the API as a list.</span>
 <span class="sd">        Unlike stream(), this operation is eager and will load `limit` records into</span>
 <span class="sd">        memory before returning.</span>
@@ -108,7 +108,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
 <div class="viewcode-block" id="DeploymentList.page"><a class="viewcode-back" href="../../../../../../../docs/source/_rst/twilio.rest.serverless.v1.service.environment.html#twilio.rest.serverless.v1.service.environment.deployment.DeploymentList.page">[docs]</a>    <span class="k">def</span> <span class="nf">page</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">page_token</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">page_number</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
              <span class="n">page_size</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Retrieve a single page of DeploymentInstance records from the API.</span>
 <span class="sd">        Request is executed immediately</span>
 
@@ -126,7 +126,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="k">return</span> <span class="n">DeploymentPage</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_version</span><span class="p">,</span> <span class="n">response</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_solution</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="DeploymentList.get_page"><a class="viewcode-back" href="../../../../../../../docs/source/_rst/twilio.rest.serverless.v1.service.environment.html#twilio.rest.serverless.v1.service.environment.deployment.DeploymentList.get_page">[docs]</a>    <span class="k">def</span> <span class="nf">get_page</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target_url</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Retrieve a specific page of DeploymentInstance records from the API.</span>
 <span class="sd">        Request is executed immediately</span>
 
@@ -143,7 +143,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="k">return</span> <span class="n">DeploymentPage</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_version</span><span class="p">,</span> <span class="n">response</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_solution</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="DeploymentList.create"><a class="viewcode-back" href="../../../../../../../docs/source/_rst/twilio.rest.serverless.v1.service.environment.html#twilio.rest.serverless.v1.service.environment.deployment.DeploymentList.create">[docs]</a>    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">build_sid</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Create the DeploymentInstance</span>
 
 <span class="sd">        :param unicode build_sid: The SID of the Build for the Deployment</span>
@@ -163,7 +163,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="DeploymentList.get"><a class="viewcode-back" href="../../../../../../../docs/source/_rst/twilio.rest.serverless.v1.service.environment.html#twilio.rest.serverless.v1.service.environment.deployment.DeploymentList.get">[docs]</a>    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sid</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Constructs a DeploymentContext</span>
 
 <span class="sd">        :param sid: The SID that identifies the Deployment resource to fetch</span>
@@ -179,7 +179,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="p">)</span></div>
 
     <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sid</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Constructs a DeploymentContext</span>
 
 <span class="sd">        :param sid: The SID that identifies the Deployment resource to fetch</span>
@@ -195,7 +195,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="p">)</span>
 
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Provide a friendly representation</span>
 
 <span class="sd">        :returns: Machine friendly representation</span>
@@ -205,11 +205,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
 
 <div class="viewcode-block" id="DeploymentPage"><a class="viewcode-back" href="../../../../../../../docs/source/_rst/twilio.rest.serverless.v1.service.environment.html#twilio.rest.serverless.v1.service.environment.deployment.DeploymentPage">[docs]</a><span class="k">class</span> <span class="nc">DeploymentPage</span><span class="p">(</span><span class="n">Page</span><span class="p">):</span>
-    <span class="sd">""" PLEASE NOTE that this class contains beta products that are subject to</span>
+<span class="w">    </span><span class="sd">""" PLEASE NOTE that this class contains beta products that are subject to</span>
 <span class="sd">    change. Use them with caution. """</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">version</span><span class="p">,</span> <span class="n">response</span><span class="p">,</span> <span class="n">solution</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Initialize the DeploymentPage</span>
 
 <span class="sd">        :param Version version: Version that contains the resource</span>
@@ -226,7 +226,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="bp">self</span><span class="o">.</span><span class="n">_solution</span> <span class="o">=</span> <span class="n">solution</span>
 
 <div class="viewcode-block" id="DeploymentPage.get_instance"><a class="viewcode-back" href="../../../../../../../docs/source/_rst/twilio.rest.serverless.v1.service.environment.html#twilio.rest.serverless.v1.service.environment.deployment.DeploymentPage.get_instance">[docs]</a>    <span class="k">def</span> <span class="nf">get_instance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">payload</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Build an instance of DeploymentInstance</span>
 
 <span class="sd">        :param dict payload: Payload response from the API</span>
@@ -242,7 +242,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="p">)</span></div>
 
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Provide a friendly representation</span>
 
 <span class="sd">        :returns: Machine friendly representation</span>
@@ -252,11 +252,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
 
 <div class="viewcode-block" id="DeploymentContext"><a class="viewcode-back" href="../../../../../../../docs/source/_rst/twilio.rest.serverless.v1.service.environment.html#twilio.rest.serverless.v1.service.environment.deployment.DeploymentContext">[docs]</a><span class="k">class</span> <span class="nc">DeploymentContext</span><span class="p">(</span><span class="n">InstanceContext</span><span class="p">):</span>
-    <span class="sd">""" PLEASE NOTE that this class contains beta products that are subject to</span>
+<span class="w">    </span><span class="sd">""" PLEASE NOTE that this class contains beta products that are subject to</span>
 <span class="sd">    change. Use them with caution. """</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">version</span><span class="p">,</span> <span class="n">service_sid</span><span class="p">,</span> <span class="n">environment_sid</span><span class="p">,</span> <span class="n">sid</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Initialize the DeploymentContext</span>
 
 <span class="sd">        :param Version version: Version that contains the resource</span>
@@ -274,7 +274,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="bp">self</span><span class="o">.</span><span class="n">_uri</span> <span class="o">=</span> <span class="s1">'/Services/</span><span class="si">{service_sid}</span><span class="s1">/Environments/</span><span class="si">{environment_sid}</span><span class="s1">/Deployments/</span><span class="si">{sid}</span><span class="s1">'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">_solution</span><span class="p">)</span>
 
 <div class="viewcode-block" id="DeploymentContext.fetch"><a class="viewcode-back" href="../../../../../../../docs/source/_rst/twilio.rest.serverless.v1.service.environment.html#twilio.rest.serverless.v1.service.environment.deployment.DeploymentContext.fetch">[docs]</a>    <span class="k">def</span> <span class="nf">fetch</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Fetch the DeploymentInstance</span>
 
 <span class="sd">        :returns: The fetched DeploymentInstance</span>
@@ -291,7 +291,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="p">)</span></div>
 
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Provide a friendly representation</span>
 
 <span class="sd">        :returns: Machine friendly representation</span>
@@ -302,11 +302,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
 
 <div class="viewcode-block" id="DeploymentInstance"><a class="viewcode-back" href="../../../../../../../docs/source/_rst/twilio.rest.serverless.v1.service.environment.html#twilio.rest.serverless.v1.service.environment.deployment.DeploymentInstance">[docs]</a><span class="k">class</span> <span class="nc">DeploymentInstance</span><span class="p">(</span><span class="n">InstanceResource</span><span class="p">):</span>
-    <span class="sd">""" PLEASE NOTE that this class contains beta products that are subject to</span>
+<span class="w">    </span><span class="sd">""" PLEASE NOTE that this class contains beta products that are subject to</span>
 <span class="sd">    change. Use them with caution. """</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">version</span><span class="p">,</span> <span class="n">payload</span><span class="p">,</span> <span class="n">service_sid</span><span class="p">,</span> <span class="n">environment_sid</span><span class="p">,</span> <span class="n">sid</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Initialize the DeploymentInstance</span>
 
 <span class="sd">        :returns: twilio.rest.serverless.v1.service.environment.deployment.DeploymentInstance</span>
@@ -336,7 +336,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">_proxy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Generate an instance context for the instance, the context is capable of</span>
 <span class="sd">        performing various actions.  All instance actions are proxied to the context</span>
 
@@ -354,7 +354,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">sid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        :returns: The unique string that identifies the Deployment resource</span>
 <span class="sd">        :rtype: unicode</span>
 <span class="sd">        """</span>
@@ -362,7 +362,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">account_sid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        :returns: The SID of the Account that created the Deployment resource</span>
 <span class="sd">        :rtype: unicode</span>
 <span class="sd">        """</span>
@@ -370,7 +370,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">service_sid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        :returns: The SID of the Service that the Deployment resource is associated with</span>
 <span class="sd">        :rtype: unicode</span>
 <span class="sd">        """</span>
@@ -378,7 +378,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">environment_sid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        :returns: The SID of the Environment for the Deployment</span>
 <span class="sd">        :rtype: unicode</span>
 <span class="sd">        """</span>
@@ -386,7 +386,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">build_sid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        :returns: The SID of the Build for the deployment</span>
 <span class="sd">        :rtype: unicode</span>
 <span class="sd">        """</span>
@@ -394,7 +394,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">date_created</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        :returns: The ISO 8601 date and time in GMT when the Deployment resource was created</span>
 <span class="sd">        :rtype: datetime</span>
 <span class="sd">        """</span>
@@ -402,7 +402,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">date_updated</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        :returns: The ISO 8601 date and time in GMT when the Deployment resource was last updated</span>
 <span class="sd">        :rtype: datetime</span>
 <span class="sd">        """</span>
@@ -410,14 +410,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">url</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        :returns: The absolute URL of the Deployment resource</span>
 <span class="sd">        :rtype: unicode</span>
 <span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="p">[</span><span class="s1">'url'</span><span class="p">]</span>
 
 <div class="viewcode-block" id="DeploymentInstance.fetch"><a class="viewcode-back" href="../../../../../../../docs/source/_rst/twilio.rest.serverless.v1.service.environment.html#twilio.rest.serverless.v1.service.environment.deployment.DeploymentInstance.fetch">[docs]</a>    <span class="k">def</span> <span class="nf">fetch</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Fetch the DeploymentInstance</span>
 
 <span class="sd">        :returns: The fetched DeploymentInstance</span>
@@ -426,7 +426,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_proxy</span><span class="o">.</span><span class="n">fetch</span><span class="p">()</span></div>
 
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Provide a friendly representation</span>
 
 <span class="sd">        :returns: Machine friendly representation</span>

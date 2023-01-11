@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-MWRD6S');</script><!--End Google Tag Manager-->
 <meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<title>twilio.rest.proxy.v1.service.session.participant — twilio-python 7.16.0 documentation</title>
+<title>twilio.rest.proxy.v1.service.session.participant — twilio-python 7.16.1 documentation</title>
 <link href="../../../../../../../_static/alabaster.css" rel="stylesheet" type="text/css"/>
 <link href="../../../../../../../_static/pygments.css" rel="stylesheet" type="text/css"/>
 <script data-url_root="../../../../../../../" id="documentation_options" src="../../../../../../../_static/documentation_options.js" type="text/javascript"></script>
@@ -46,11 +46,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
 
 <div class="viewcode-block" id="ParticipantList"><a class="viewcode-back" href="../../../../../../../docs/source/_rst/twilio.rest.proxy.v1.service.session.participant.html#twilio.rest.proxy.v1.service.session.participant.ParticipantList">[docs]</a><span class="k">class</span> <span class="nc">ParticipantList</span><span class="p">(</span><span class="n">ListResource</span><span class="p">):</span>
-    <span class="sd">""" PLEASE NOTE that this class contains beta products that are subject to</span>
+<span class="w">    </span><span class="sd">""" PLEASE NOTE that this class contains beta products that are subject to</span>
 <span class="sd">    change. Use them with caution. """</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">version</span><span class="p">,</span> <span class="n">service_sid</span><span class="p">,</span> <span class="n">session_sid</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Initialize the ParticipantList</span>
 
 <span class="sd">        :param Version version: Version that contains the resource</span>
@@ -67,7 +67,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="bp">self</span><span class="o">.</span><span class="n">_uri</span> <span class="o">=</span> <span class="s1">'/Services/</span><span class="si">{service_sid}</span><span class="s1">/Sessions/</span><span class="si">{session_sid}</span><span class="s1">/Participants'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">_solution</span><span class="p">)</span>
 
 <div class="viewcode-block" id="ParticipantList.stream"><a class="viewcode-back" href="../../../../../../../docs/source/_rst/twilio.rest.proxy.v1.service.session.participant.html#twilio.rest.proxy.v1.service.session.participant.ParticipantList.stream">[docs]</a>    <span class="k">def</span> <span class="nf">stream</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">page_size</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Streams ParticipantInstance records from the API as a generator stream.</span>
 <span class="sd">        This operation lazily loads records as efficiently as possible until the limit</span>
 <span class="sd">        is reached.</span>
@@ -90,7 +90,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_version</span><span class="o">.</span><span class="n">stream</span><span class="p">(</span><span class="n">page</span><span class="p">,</span> <span class="n">limits</span><span class="p">[</span><span class="s1">'limit'</span><span class="p">])</span></div>
 
 <div class="viewcode-block" id="ParticipantList.list"><a class="viewcode-back" href="../../../../../../../docs/source/_rst/twilio.rest.proxy.v1.service.session.participant.html#twilio.rest.proxy.v1.service.session.participant.ParticipantList.list">[docs]</a>    <span class="k">def</span> <span class="nf">list</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">page_size</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Lists ParticipantInstance records from the API as a list.</span>
 <span class="sd">        Unlike stream(), this operation is eager and will load `limit` records into</span>
 <span class="sd">        memory before returning.</span>
@@ -109,7 +109,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
 <div class="viewcode-block" id="ParticipantList.page"><a class="viewcode-back" href="../../../../../../../docs/source/_rst/twilio.rest.proxy.v1.service.session.participant.html#twilio.rest.proxy.v1.service.session.participant.ParticipantList.page">[docs]</a>    <span class="k">def</span> <span class="nf">page</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">page_token</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">page_number</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
              <span class="n">page_size</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Retrieve a single page of ParticipantInstance records from the API.</span>
 <span class="sd">        Request is executed immediately</span>
 
@@ -127,7 +127,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="k">return</span> <span class="n">ParticipantPage</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_version</span><span class="p">,</span> <span class="n">response</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_solution</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="ParticipantList.get_page"><a class="viewcode-back" href="../../../../../../../docs/source/_rst/twilio.rest.proxy.v1.service.session.participant.html#twilio.rest.proxy.v1.service.session.participant.ParticipantList.get_page">[docs]</a>    <span class="k">def</span> <span class="nf">get_page</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target_url</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Retrieve a specific page of ParticipantInstance records from the API.</span>
 <span class="sd">        Request is executed immediately</span>
 
@@ -145,7 +145,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
 <div class="viewcode-block" id="ParticipantList.create"><a class="viewcode-back" href="../../../../../../../docs/source/_rst/twilio.rest.proxy.v1.service.session.participant.html#twilio.rest.proxy.v1.service.session.participant.ParticipantList.create">[docs]</a>    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">identifier</span><span class="p">,</span> <span class="n">friendly_name</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
                <span class="n">proxy_identifier</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">proxy_identifier_sid</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Create the ParticipantInstance</span>
 
 <span class="sd">        :param unicode identifier: The phone number of the Participant</span>
@@ -173,7 +173,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="ParticipantList.get"><a class="viewcode-back" href="../../../../../../../docs/source/_rst/twilio.rest.proxy.v1.service.session.participant.html#twilio.rest.proxy.v1.service.session.participant.ParticipantList.get">[docs]</a>    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sid</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Constructs a ParticipantContext</span>
 
 <span class="sd">        :param sid: The unique string that identifies the resource</span>
@@ -189,7 +189,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="p">)</span></div>
 
     <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sid</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Constructs a ParticipantContext</span>
 
 <span class="sd">        :param sid: The unique string that identifies the resource</span>
@@ -205,7 +205,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="p">)</span>
 
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Provide a friendly representation</span>
 
 <span class="sd">        :returns: Machine friendly representation</span>
@@ -215,11 +215,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
 
 <div class="viewcode-block" id="ParticipantPage"><a class="viewcode-back" href="../../../../../../../docs/source/_rst/twilio.rest.proxy.v1.service.session.participant.html#twilio.rest.proxy.v1.service.session.participant.ParticipantPage">[docs]</a><span class="k">class</span> <span class="nc">ParticipantPage</span><span class="p">(</span><span class="n">Page</span><span class="p">):</span>
-    <span class="sd">""" PLEASE NOTE that this class contains beta products that are subject to</span>
+<span class="w">    </span><span class="sd">""" PLEASE NOTE that this class contains beta products that are subject to</span>
 <span class="sd">    change. Use them with caution. """</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">version</span><span class="p">,</span> <span class="n">response</span><span class="p">,</span> <span class="n">solution</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Initialize the ParticipantPage</span>
 
 <span class="sd">        :param Version version: Version that contains the resource</span>
@@ -236,7 +236,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="bp">self</span><span class="o">.</span><span class="n">_solution</span> <span class="o">=</span> <span class="n">solution</span>
 
 <div class="viewcode-block" id="ParticipantPage.get_instance"><a class="viewcode-back" href="../../../../../../../docs/source/_rst/twilio.rest.proxy.v1.service.session.participant.html#twilio.rest.proxy.v1.service.session.participant.ParticipantPage.get_instance">[docs]</a>    <span class="k">def</span> <span class="nf">get_instance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">payload</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Build an instance of ParticipantInstance</span>
 
 <span class="sd">        :param dict payload: Payload response from the API</span>
@@ -252,7 +252,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="p">)</span></div>
 
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Provide a friendly representation</span>
 
 <span class="sd">        :returns: Machine friendly representation</span>
@@ -262,11 +262,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
 
 <div class="viewcode-block" id="ParticipantContext"><a class="viewcode-back" href="../../../../../../../docs/source/_rst/twilio.rest.proxy.v1.service.session.participant.html#twilio.rest.proxy.v1.service.session.participant.ParticipantContext">[docs]</a><span class="k">class</span> <span class="nc">ParticipantContext</span><span class="p">(</span><span class="n">InstanceContext</span><span class="p">):</span>
-    <span class="sd">""" PLEASE NOTE that this class contains beta products that are subject to</span>
+<span class="w">    </span><span class="sd">""" PLEASE NOTE that this class contains beta products that are subject to</span>
 <span class="sd">    change. Use them with caution. """</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">version</span><span class="p">,</span> <span class="n">service_sid</span><span class="p">,</span> <span class="n">session_sid</span><span class="p">,</span> <span class="n">sid</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Initialize the ParticipantContext</span>
 
 <span class="sd">        :param Version version: Version that contains the resource</span>
@@ -287,7 +287,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="bp">self</span><span class="o">.</span><span class="n">_message_interactions</span> <span class="o">=</span> <span class="kc">None</span>
 
 <div class="viewcode-block" id="ParticipantContext.fetch"><a class="viewcode-back" href="../../../../../../../docs/source/_rst/twilio.rest.proxy.v1.service.session.participant.html#twilio.rest.proxy.v1.service.session.participant.ParticipantContext.fetch">[docs]</a>    <span class="k">def</span> <span class="nf">fetch</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Fetch the ParticipantInstance</span>
 
 <span class="sd">        :returns: The fetched ParticipantInstance</span>
@@ -304,7 +304,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="ParticipantContext.delete"><a class="viewcode-back" href="../../../../../../../docs/source/_rst/twilio.rest.proxy.v1.service.session.participant.html#twilio.rest.proxy.v1.service.session.participant.ParticipantContext.delete">[docs]</a>    <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Deletes the ParticipantInstance</span>
 
 <span class="sd">        :returns: True if delete succeeds, False otherwise</span>
@@ -314,7 +314,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">message_interactions</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Access the message_interactions</span>
 
 <span class="sd">        :returns: twilio.rest.proxy.v1.service.session.participant.message_interaction.MessageInteractionList</span>
@@ -330,7 +330,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_message_interactions</span>
 
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Provide a friendly representation</span>
 
 <span class="sd">        :returns: Machine friendly representation</span>
@@ -341,11 +341,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
 
 <div class="viewcode-block" id="ParticipantInstance"><a class="viewcode-back" href="../../../../../../../docs/source/_rst/twilio.rest.proxy.v1.service.session.participant.html#twilio.rest.proxy.v1.service.session.participant.ParticipantInstance">[docs]</a><span class="k">class</span> <span class="nc">ParticipantInstance</span><span class="p">(</span><span class="n">InstanceResource</span><span class="p">):</span>
-    <span class="sd">""" PLEASE NOTE that this class contains beta products that are subject to</span>
+<span class="w">    </span><span class="sd">""" PLEASE NOTE that this class contains beta products that are subject to</span>
 <span class="sd">    change. Use them with caution. """</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">version</span><span class="p">,</span> <span class="n">payload</span><span class="p">,</span> <span class="n">service_sid</span><span class="p">,</span> <span class="n">session_sid</span><span class="p">,</span> <span class="n">sid</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Initialize the ParticipantInstance</span>
 
 <span class="sd">        :returns: twilio.rest.proxy.v1.service.session.participant.ParticipantInstance</span>
@@ -380,7 +380,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">_proxy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Generate an instance context for the instance, the context is capable of</span>
 <span class="sd">        performing various actions.  All instance actions are proxied to the context</span>
 
@@ -398,7 +398,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">sid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        :returns: The unique string that identifies the resource</span>
 <span class="sd">        :rtype: unicode</span>
 <span class="sd">        """</span>
@@ -406,7 +406,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">session_sid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        :returns: The SID of the resource's parent Session</span>
 <span class="sd">        :rtype: unicode</span>
 <span class="sd">        """</span>
@@ -414,7 +414,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">service_sid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        :returns: The SID of the resource's parent Service</span>
 <span class="sd">        :rtype: unicode</span>
 <span class="sd">        """</span>
@@ -422,7 +422,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">account_sid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        :returns: The SID of the Account that created the resource</span>
 <span class="sd">        :rtype: unicode</span>
 <span class="sd">        """</span>
@@ -430,7 +430,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">friendly_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        :returns: The string that you assigned to describe the participant</span>
 <span class="sd">        :rtype: unicode</span>
 <span class="sd">        """</span>
@@ -438,7 +438,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">identifier</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        :returns: The phone number or channel identifier of the Participant</span>
 <span class="sd">        :rtype: unicode</span>
 <span class="sd">        """</span>
@@ -446,7 +446,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">proxy_identifier</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        :returns: The phone number or short code of the participant's partner</span>
 <span class="sd">        :rtype: unicode</span>
 <span class="sd">        """</span>
@@ -454,7 +454,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">proxy_identifier_sid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        :returns: The SID of the Proxy Identifier assigned to the Participant</span>
 <span class="sd">        :rtype: unicode</span>
 <span class="sd">        """</span>
@@ -462,7 +462,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">date_deleted</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        :returns: The ISO 8601 date the Participant was removed</span>
 <span class="sd">        :rtype: datetime</span>
 <span class="sd">        """</span>
@@ -470,7 +470,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">date_created</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        :returns: The ISO 8601 date and time in GMT when the resource was created</span>
 <span class="sd">        :rtype: datetime</span>
 <span class="sd">        """</span>
@@ -478,7 +478,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">date_updated</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        :returns: The ISO 8601 date and time in GMT when the resource was last updated</span>
 <span class="sd">        :rtype: datetime</span>
 <span class="sd">        """</span>
@@ -486,7 +486,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">url</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        :returns: The absolute URL of the Participant resource</span>
 <span class="sd">        :rtype: unicode</span>
 <span class="sd">        """</span>
@@ -494,14 +494,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">links</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        :returns: The URLs to resources related the participant</span>
 <span class="sd">        :rtype: unicode</span>
 <span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="p">[</span><span class="s1">'links'</span><span class="p">]</span>
 
 <div class="viewcode-block" id="ParticipantInstance.fetch"><a class="viewcode-back" href="../../../../../../../docs/source/_rst/twilio.rest.proxy.v1.service.session.participant.html#twilio.rest.proxy.v1.service.session.participant.ParticipantInstance.fetch">[docs]</a>    <span class="k">def</span> <span class="nf">fetch</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Fetch the ParticipantInstance</span>
 
 <span class="sd">        :returns: The fetched ParticipantInstance</span>
@@ -510,7 +510,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_proxy</span><span class="o">.</span><span class="n">fetch</span><span class="p">()</span></div>
 
 <div class="viewcode-block" id="ParticipantInstance.delete"><a class="viewcode-back" href="../../../../../../../docs/source/_rst/twilio.rest.proxy.v1.service.session.participant.html#twilio.rest.proxy.v1.service.session.participant.ParticipantInstance.delete">[docs]</a>    <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Deletes the ParticipantInstance</span>
 
 <span class="sd">        :returns: True if delete succeeds, False otherwise</span>
@@ -520,7 +520,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">message_interactions</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Access the message_interactions</span>
 
 <span class="sd">        :returns: twilio.rest.proxy.v1.service.session.participant.message_interaction.MessageInteractionList</span>
@@ -529,7 +529,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_proxy</span><span class="o">.</span><span class="n">message_interactions</span>
 
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Provide a friendly representation</span>
 
 <span class="sd">        :returns: Machine friendly representation</span>

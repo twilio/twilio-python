@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-MWRD6S');</script><!--End Google Tag Manager-->
 <meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<title>twilio.rest.oauth.v1.device_code — twilio-python 7.16.0 documentation</title>
+<title>twilio.rest.oauth.v1.device_code — twilio-python 7.16.1 documentation</title>
 <link href="../../../../../_static/alabaster.css" rel="stylesheet" type="text/css"/>
 <link href="../../../../../_static/pygments.css" rel="stylesheet" type="text/css"/>
 <script data-url_root="../../../../../" id="documentation_options" src="../../../../../_static/documentation_options.js" type="text/javascript"></script>
@@ -47,7 +47,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <div class="viewcode-block" id="DeviceCodeList"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.oauth.v1.html#twilio.rest.oauth.v1.device_code.DeviceCodeList">[docs]</a><span class="k">class</span> <span class="nc">DeviceCodeList</span><span class="p">(</span><span class="n">ListResource</span><span class="p">):</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">version</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Initialize the DeviceCodeList</span>
 
 <span class="sd">        :param Version version: Version that contains the resource</span>
@@ -62,7 +62,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="bp">self</span><span class="o">.</span><span class="n">_uri</span> <span class="o">=</span> <span class="s1">'/device/code'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">_solution</span><span class="p">)</span>
 
 <div class="viewcode-block" id="DeviceCodeList.create"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.oauth.v1.html#twilio.rest.oauth.v1.device_code.DeviceCodeList.create">[docs]</a>    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">client_sid</span><span class="p">,</span> <span class="n">scopes</span><span class="p">,</span> <span class="n">audiences</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Create the DeviceCodeInstance</span>
 
 <span class="sd">        :param unicode client_sid: A string that uniquely identifies this oauth app</span>
@@ -83,7 +83,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="k">return</span> <span class="n">DeviceCodeInstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_version</span><span class="p">,</span> <span class="n">payload</span><span class="p">,</span> <span class="p">)</span></div>
 
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Provide a friendly representation</span>
 
 <span class="sd">        :returns: Machine friendly representation</span>
@@ -95,7 +95,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <div class="viewcode-block" id="DeviceCodePage"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.oauth.v1.html#twilio.rest.oauth.v1.device_code.DeviceCodePage">[docs]</a><span class="k">class</span> <span class="nc">DeviceCodePage</span><span class="p">(</span><span class="n">Page</span><span class="p">):</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">version</span><span class="p">,</span> <span class="n">response</span><span class="p">,</span> <span class="n">solution</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Initialize the DeviceCodePage</span>
 
 <span class="sd">        :param Version version: Version that contains the resource</span>
@@ -110,7 +110,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="bp">self</span><span class="o">.</span><span class="n">_solution</span> <span class="o">=</span> <span class="n">solution</span>
 
 <div class="viewcode-block" id="DeviceCodePage.get_instance"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.oauth.v1.html#twilio.rest.oauth.v1.device_code.DeviceCodePage.get_instance">[docs]</a>    <span class="k">def</span> <span class="nf">get_instance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">payload</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Build an instance of DeviceCodeInstance</span>
 
 <span class="sd">        :param dict payload: Payload response from the API</span>
@@ -121,7 +121,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="k">return</span> <span class="n">DeviceCodeInstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_version</span><span class="p">,</span> <span class="n">payload</span><span class="p">,</span> <span class="p">)</span></div>
 
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Provide a friendly representation</span>
 
 <span class="sd">        :returns: Machine friendly representation</span>
@@ -133,7 +133,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <div class="viewcode-block" id="DeviceCodeInstance"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.oauth.v1.html#twilio.rest.oauth.v1.device_code.DeviceCodeInstance">[docs]</a><span class="k">class</span> <span class="nc">DeviceCodeInstance</span><span class="p">(</span><span class="n">InstanceResource</span><span class="p">):</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">version</span><span class="p">,</span> <span class="n">payload</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Initialize the DeviceCodeInstance</span>
 
 <span class="sd">        :returns: twilio.rest.oauth.v1.device_code.DeviceCodeInstance</span>
@@ -157,7 +157,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">device_code</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        :returns: The device verification code</span>
 <span class="sd">        :rtype: unicode</span>
 <span class="sd">        """</span>
@@ -165,7 +165,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">user_code</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        :returns: The verification code for the end user</span>
 <span class="sd">        :rtype: unicode</span>
 <span class="sd">        """</span>
@@ -173,7 +173,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">verification_uri</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        :returns: The URI that the end user visits to verify request</span>
 <span class="sd">        :rtype: unicode</span>
 <span class="sd">        """</span>
@@ -181,7 +181,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">verification_uri_complete</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        :returns: he URI with user_code that the end-user alternatively visits to verify request</span>
 <span class="sd">        :rtype: unicode</span>
 <span class="sd">        """</span>
@@ -189,7 +189,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">expires_in</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        :returns: The expiration time of the device_code and user_code in seconds</span>
 <span class="sd">        :rtype: unicode</span>
 <span class="sd">        """</span>
@@ -197,14 +197,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">interval</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        :returns: The minimum amount of time in seconds that the client should wait between polling requests to the token endpoint</span>
 <span class="sd">        :rtype: unicode</span>
 <span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="p">[</span><span class="s1">'interval'</span><span class="p">]</span>
 
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Provide a friendly representation</span>
 
 <span class="sd">        :returns: Machine friendly representation</span>

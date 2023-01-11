@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-MWRD6S');</script><!--End Google Tag Manager-->
 <meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<title>twilio.rest.api.v2010.account.queue.member — twilio-python 7.16.0 documentation</title>
+<title>twilio.rest.api.v2010.account.queue.member — twilio-python 7.16.1 documentation</title>
 <link href="../../../../../../../_static/alabaster.css" rel="stylesheet" type="text/css"/>
 <link href="../../../../../../../_static/pygments.css" rel="stylesheet" type="text/css"/>
 <script data-url_root="../../../../../../../" id="documentation_options" src="../../../../../../../_static/documentation_options.js" type="text/javascript"></script>
@@ -47,7 +47,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <div class="viewcode-block" id="MemberList"><a class="viewcode-back" href="../../../../../../../docs/source/_rst/twilio.rest.api.v2010.account.queue.html#twilio.rest.api.v2010.account.queue.member.MemberList">[docs]</a><span class="k">class</span> <span class="nc">MemberList</span><span class="p">(</span><span class="n">ListResource</span><span class="p">):</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">version</span><span class="p">,</span> <span class="n">account_sid</span><span class="p">,</span> <span class="n">queue_sid</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Initialize the MemberList</span>
 
 <span class="sd">        :param Version version: Version that contains the resource</span>
@@ -64,7 +64,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="bp">self</span><span class="o">.</span><span class="n">_uri</span> <span class="o">=</span> <span class="s1">'/Accounts/</span><span class="si">{account_sid}</span><span class="s1">/Queues/</span><span class="si">{queue_sid}</span><span class="s1">/Members.json'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">_solution</span><span class="p">)</span>
 
 <div class="viewcode-block" id="MemberList.stream"><a class="viewcode-back" href="../../../../../../../docs/source/_rst/twilio.rest.api.v2010.account.queue.html#twilio.rest.api.v2010.account.queue.member.MemberList.stream">[docs]</a>    <span class="k">def</span> <span class="nf">stream</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">page_size</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Streams MemberInstance records from the API as a generator stream.</span>
 <span class="sd">        This operation lazily loads records as efficiently as possible until the limit</span>
 <span class="sd">        is reached.</span>
@@ -87,7 +87,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_version</span><span class="o">.</span><span class="n">stream</span><span class="p">(</span><span class="n">page</span><span class="p">,</span> <span class="n">limits</span><span class="p">[</span><span class="s1">'limit'</span><span class="p">])</span></div>
 
 <div class="viewcode-block" id="MemberList.list"><a class="viewcode-back" href="../../../../../../../docs/source/_rst/twilio.rest.api.v2010.account.queue.html#twilio.rest.api.v2010.account.queue.member.MemberList.list">[docs]</a>    <span class="k">def</span> <span class="nf">list</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">page_size</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Lists MemberInstance records from the API as a list.</span>
 <span class="sd">        Unlike stream(), this operation is eager and will load `limit` records into</span>
 <span class="sd">        memory before returning.</span>
@@ -106,7 +106,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
 <div class="viewcode-block" id="MemberList.page"><a class="viewcode-back" href="../../../../../../../docs/source/_rst/twilio.rest.api.v2010.account.queue.html#twilio.rest.api.v2010.account.queue.member.MemberList.page">[docs]</a>    <span class="k">def</span> <span class="nf">page</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">page_token</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">page_number</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
              <span class="n">page_size</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Retrieve a single page of MemberInstance records from the API.</span>
 <span class="sd">        Request is executed immediately</span>
 
@@ -124,7 +124,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="k">return</span> <span class="n">MemberPage</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_version</span><span class="p">,</span> <span class="n">response</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_solution</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="MemberList.get_page"><a class="viewcode-back" href="../../../../../../../docs/source/_rst/twilio.rest.api.v2010.account.queue.html#twilio.rest.api.v2010.account.queue.member.MemberList.get_page">[docs]</a>    <span class="k">def</span> <span class="nf">get_page</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target_url</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Retrieve a specific page of MemberInstance records from the API.</span>
 <span class="sd">        Request is executed immediately</span>
 
@@ -141,7 +141,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="k">return</span> <span class="n">MemberPage</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_version</span><span class="p">,</span> <span class="n">response</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_solution</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="MemberList.get"><a class="viewcode-back" href="../../../../../../../docs/source/_rst/twilio.rest.api.v2010.account.queue.html#twilio.rest.api.v2010.account.queue.member.MemberList.get">[docs]</a>    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">call_sid</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Constructs a MemberContext</span>
 
 <span class="sd">        :param call_sid: The Call SID of the resource(s) to fetch</span>
@@ -157,7 +157,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="p">)</span></div>
 
     <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">call_sid</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Constructs a MemberContext</span>
 
 <span class="sd">        :param call_sid: The Call SID of the resource(s) to fetch</span>
@@ -173,7 +173,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="p">)</span>
 
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Provide a friendly representation</span>
 
 <span class="sd">        :returns: Machine friendly representation</span>
@@ -185,7 +185,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <div class="viewcode-block" id="MemberPage"><a class="viewcode-back" href="../../../../../../../docs/source/_rst/twilio.rest.api.v2010.account.queue.html#twilio.rest.api.v2010.account.queue.member.MemberPage">[docs]</a><span class="k">class</span> <span class="nc">MemberPage</span><span class="p">(</span><span class="n">Page</span><span class="p">):</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">version</span><span class="p">,</span> <span class="n">response</span><span class="p">,</span> <span class="n">solution</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Initialize the MemberPage</span>
 
 <span class="sd">        :param Version version: Version that contains the resource</span>
@@ -202,7 +202,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="bp">self</span><span class="o">.</span><span class="n">_solution</span> <span class="o">=</span> <span class="n">solution</span>
 
 <div class="viewcode-block" id="MemberPage.get_instance"><a class="viewcode-back" href="../../../../../../../docs/source/_rst/twilio.rest.api.v2010.account.queue.html#twilio.rest.api.v2010.account.queue.member.MemberPage.get_instance">[docs]</a>    <span class="k">def</span> <span class="nf">get_instance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">payload</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Build an instance of MemberInstance</span>
 
 <span class="sd">        :param dict payload: Payload response from the API</span>
@@ -218,7 +218,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="p">)</span></div>
 
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Provide a friendly representation</span>
 
 <span class="sd">        :returns: Machine friendly representation</span>
@@ -230,7 +230,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <div class="viewcode-block" id="MemberContext"><a class="viewcode-back" href="../../../../../../../docs/source/_rst/twilio.rest.api.v2010.account.queue.html#twilio.rest.api.v2010.account.queue.member.MemberContext">[docs]</a><span class="k">class</span> <span class="nc">MemberContext</span><span class="p">(</span><span class="n">InstanceContext</span><span class="p">):</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">version</span><span class="p">,</span> <span class="n">account_sid</span><span class="p">,</span> <span class="n">queue_sid</span><span class="p">,</span> <span class="n">call_sid</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Initialize the MemberContext</span>
 
 <span class="sd">        :param Version version: Version that contains the resource</span>
@@ -248,7 +248,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="bp">self</span><span class="o">.</span><span class="n">_uri</span> <span class="o">=</span> <span class="s1">'/Accounts/</span><span class="si">{account_sid}</span><span class="s1">/Queues/</span><span class="si">{queue_sid}</span><span class="s1">/Members/</span><span class="si">{call_sid}</span><span class="s1">.json'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">_solution</span><span class="p">)</span>
 
 <div class="viewcode-block" id="MemberContext.fetch"><a class="viewcode-back" href="../../../../../../../docs/source/_rst/twilio.rest.api.v2010.account.queue.html#twilio.rest.api.v2010.account.queue.member.MemberContext.fetch">[docs]</a>    <span class="k">def</span> <span class="nf">fetch</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Fetch the MemberInstance</span>
 
 <span class="sd">        :returns: The fetched MemberInstance</span>
@@ -265,7 +265,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="MemberContext.update"><a class="viewcode-back" href="../../../../../../../docs/source/_rst/twilio.rest.api.v2010.account.queue.html#twilio.rest.api.v2010.account.queue.member.MemberContext.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Update the MemberInstance</span>
 
 <span class="sd">        :param unicode url: The absolute URL of the Queue resource</span>
@@ -287,7 +287,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="p">)</span></div>
 
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Provide a friendly representation</span>
 
 <span class="sd">        :returns: Machine friendly representation</span>
@@ -300,7 +300,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <div class="viewcode-block" id="MemberInstance"><a class="viewcode-back" href="../../../../../../../docs/source/_rst/twilio.rest.api.v2010.account.queue.html#twilio.rest.api.v2010.account.queue.member.MemberInstance">[docs]</a><span class="k">class</span> <span class="nc">MemberInstance</span><span class="p">(</span><span class="n">InstanceResource</span><span class="p">):</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">version</span><span class="p">,</span> <span class="n">payload</span><span class="p">,</span> <span class="n">account_sid</span><span class="p">,</span> <span class="n">queue_sid</span><span class="p">,</span> <span class="n">call_sid</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Initialize the MemberInstance</span>
 
 <span class="sd">        :returns: twilio.rest.api.v2010.account.queue.member.MemberInstance</span>
@@ -328,7 +328,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">_proxy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Generate an instance context for the instance, the context is capable of</span>
 <span class="sd">        performing various actions.  All instance actions are proxied to the context</span>
 
@@ -346,7 +346,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">call_sid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        :returns: The SID of the Call the resource is associated with</span>
 <span class="sd">        :rtype: unicode</span>
 <span class="sd">        """</span>
@@ -354,7 +354,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">date_enqueued</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        :returns: The date the member was enqueued</span>
 <span class="sd">        :rtype: datetime</span>
 <span class="sd">        """</span>
@@ -362,7 +362,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">position</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        :returns: This member's current position in the queue.</span>
 <span class="sd">        :rtype: unicode</span>
 <span class="sd">        """</span>
@@ -370,7 +370,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">uri</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        :returns: The URI of the resource, relative to `https://api.twilio.com`</span>
 <span class="sd">        :rtype: unicode</span>
 <span class="sd">        """</span>
@@ -378,7 +378,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">wait_time</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        :returns: The number of seconds the member has been in the queue.</span>
 <span class="sd">        :rtype: unicode</span>
 <span class="sd">        """</span>
@@ -386,14 +386,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">queue_sid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        :returns: The SID of the Queue the member is in</span>
 <span class="sd">        :rtype: unicode</span>
 <span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="p">[</span><span class="s1">'queue_sid'</span><span class="p">]</span>
 
 <div class="viewcode-block" id="MemberInstance.fetch"><a class="viewcode-back" href="../../../../../../../docs/source/_rst/twilio.rest.api.v2010.account.queue.html#twilio.rest.api.v2010.account.queue.member.MemberInstance.fetch">[docs]</a>    <span class="k">def</span> <span class="nf">fetch</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Fetch the MemberInstance</span>
 
 <span class="sd">        :returns: The fetched MemberInstance</span>
@@ -402,7 +402,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_proxy</span><span class="o">.</span><span class="n">fetch</span><span class="p">()</span></div>
 
 <div class="viewcode-block" id="MemberInstance.update"><a class="viewcode-back" href="../../../../../../../docs/source/_rst/twilio.rest.api.v2010.account.queue.html#twilio.rest.api.v2010.account.queue.member.MemberInstance.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Update the MemberInstance</span>
 
 <span class="sd">        :param unicode url: The absolute URL of the Queue resource</span>
@@ -414,7 +414,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_proxy</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="n">method</span><span class="p">,</span> <span class="p">)</span></div>
 
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Provide a friendly representation</span>
 
 <span class="sd">        :returns: Machine friendly representation</span>

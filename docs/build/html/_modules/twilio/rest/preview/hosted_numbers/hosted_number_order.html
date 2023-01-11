@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-MWRD6S');</script><!--End Google Tag Manager-->
 <meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<title>twilio.rest.preview.hosted_numbers.hosted_number_order — twilio-python 7.16.0 documentation</title>
+<title>twilio.rest.preview.hosted_numbers.hosted_number_order — twilio-python 7.16.1 documentation</title>
 <link href="../../../../../_static/alabaster.css" rel="stylesheet" type="text/css"/>
 <link href="../../../../../_static/pygments.css" rel="stylesheet" type="text/css"/>
 <script data-url_root="../../../../../" id="documentation_options" src="../../../../../_static/documentation_options.js" type="text/javascript"></script>
@@ -46,12 +46,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
 
 <div class="viewcode-block" id="HostedNumberOrderList"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.preview.hosted_numbers.html#twilio.rest.preview.hosted_numbers.hosted_number_order.HostedNumberOrderList">[docs]</a><span class="k">class</span> <span class="nc">HostedNumberOrderList</span><span class="p">(</span><span class="n">ListResource</span><span class="p">):</span>
-    <span class="sd">""" PLEASE NOTE that this class contains preview products that are subject</span>
+<span class="w">    </span><span class="sd">""" PLEASE NOTE that this class contains preview products that are subject</span>
 <span class="sd">    to change. Use them with caution. If you currently do not have developer</span>
 <span class="sd">    preview access, please contact help@twilio.com. """</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">version</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Initialize the HostedNumberOrderList</span>
 
 <span class="sd">        :param Version version: Version that contains the resource</span>
@@ -68,7 +68,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <div class="viewcode-block" id="HostedNumberOrderList.stream"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.preview.hosted_numbers.html#twilio.rest.preview.hosted_numbers.hosted_number_order.HostedNumberOrderList.stream">[docs]</a>    <span class="k">def</span> <span class="nf">stream</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">phone_number</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
                <span class="n">incoming_phone_number_sid</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">friendly_name</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
                <span class="n">unique_name</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">page_size</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Streams HostedNumberOrderInstance records from the API as a generator stream.</span>
 <span class="sd">        This operation lazily loads records as efficiently as possible until the limit</span>
 <span class="sd">        is reached.</span>
@@ -105,7 +105,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <div class="viewcode-block" id="HostedNumberOrderList.list"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.preview.hosted_numbers.html#twilio.rest.preview.hosted_numbers.hosted_number_order.HostedNumberOrderList.list">[docs]</a>    <span class="k">def</span> <span class="nf">list</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">phone_number</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
              <span class="n">incoming_phone_number_sid</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">friendly_name</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
              <span class="n">unique_name</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">page_size</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Lists HostedNumberOrderInstance records from the API as a list.</span>
 <span class="sd">        Unlike stream(), this operation is eager and will load `limit` records into</span>
 <span class="sd">        memory before returning.</span>
@@ -139,7 +139,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
              <span class="n">incoming_phone_number_sid</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">friendly_name</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
              <span class="n">unique_name</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">page_token</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
              <span class="n">page_number</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">page_size</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Retrieve a single page of HostedNumberOrderInstance records from the API.</span>
 <span class="sd">        Request is executed immediately</span>
 
@@ -171,7 +171,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="k">return</span> <span class="n">HostedNumberOrderPage</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_version</span><span class="p">,</span> <span class="n">response</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_solution</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="HostedNumberOrderList.get_page"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.preview.hosted_numbers.html#twilio.rest.preview.hosted_numbers.hosted_number_order.HostedNumberOrderList.get_page">[docs]</a>    <span class="k">def</span> <span class="nf">get_page</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target_url</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Retrieve a specific page of HostedNumberOrderInstance records from the API.</span>
 <span class="sd">        Request is executed immediately</span>
 
@@ -196,7 +196,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
                <span class="n">sms_application_sid</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">address_sid</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
                <span class="n">email</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">verification_type</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
                <span class="n">verification_document_sid</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Create the HostedNumberOrderInstance</span>
 
 <span class="sd">        :param unicode phone_number: An E164 formatted phone number.</span>
@@ -245,7 +245,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="k">return</span> <span class="n">HostedNumberOrderInstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_version</span><span class="p">,</span> <span class="n">payload</span><span class="p">,</span> <span class="p">)</span></div>
 
 <div class="viewcode-block" id="HostedNumberOrderList.get"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.preview.hosted_numbers.html#twilio.rest.preview.hosted_numbers.hosted_number_order.HostedNumberOrderList.get">[docs]</a>    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sid</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Constructs a HostedNumberOrderContext</span>
 
 <span class="sd">        :param sid: HostedNumberOrder sid.</span>
@@ -256,7 +256,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="k">return</span> <span class="n">HostedNumberOrderContext</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_version</span><span class="p">,</span> <span class="n">sid</span><span class="o">=</span><span class="n">sid</span><span class="p">,</span> <span class="p">)</span></div>
 
     <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sid</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Constructs a HostedNumberOrderContext</span>
 
 <span class="sd">        :param sid: HostedNumberOrder sid.</span>
@@ -267,7 +267,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="k">return</span> <span class="n">HostedNumberOrderContext</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_version</span><span class="p">,</span> <span class="n">sid</span><span class="o">=</span><span class="n">sid</span><span class="p">,</span> <span class="p">)</span>
 
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Provide a friendly representation</span>
 
 <span class="sd">        :returns: Machine friendly representation</span>
@@ -277,12 +277,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
 
 <div class="viewcode-block" id="HostedNumberOrderPage"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.preview.hosted_numbers.html#twilio.rest.preview.hosted_numbers.hosted_number_order.HostedNumberOrderPage">[docs]</a><span class="k">class</span> <span class="nc">HostedNumberOrderPage</span><span class="p">(</span><span class="n">Page</span><span class="p">):</span>
-    <span class="sd">""" PLEASE NOTE that this class contains preview products that are subject</span>
+<span class="w">    </span><span class="sd">""" PLEASE NOTE that this class contains preview products that are subject</span>
 <span class="sd">    to change. Use them with caution. If you currently do not have developer</span>
 <span class="sd">    preview access, please contact help@twilio.com. """</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">version</span><span class="p">,</span> <span class="n">response</span><span class="p">,</span> <span class="n">solution</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Initialize the HostedNumberOrderPage</span>
 
 <span class="sd">        :param Version version: Version that contains the resource</span>
@@ -297,7 +297,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="bp">self</span><span class="o">.</span><span class="n">_solution</span> <span class="o">=</span> <span class="n">solution</span>
 
 <div class="viewcode-block" id="HostedNumberOrderPage.get_instance"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.preview.hosted_numbers.html#twilio.rest.preview.hosted_numbers.hosted_number_order.HostedNumberOrderPage.get_instance">[docs]</a>    <span class="k">def</span> <span class="nf">get_instance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">payload</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Build an instance of HostedNumberOrderInstance</span>
 
 <span class="sd">        :param dict payload: Payload response from the API</span>
@@ -308,7 +308,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="k">return</span> <span class="n">HostedNumberOrderInstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_version</span><span class="p">,</span> <span class="n">payload</span><span class="p">,</span> <span class="p">)</span></div>
 
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Provide a friendly representation</span>
 
 <span class="sd">        :returns: Machine friendly representation</span>
@@ -318,12 +318,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
 
 <div class="viewcode-block" id="HostedNumberOrderContext"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.preview.hosted_numbers.html#twilio.rest.preview.hosted_numbers.hosted_number_order.HostedNumberOrderContext">[docs]</a><span class="k">class</span> <span class="nc">HostedNumberOrderContext</span><span class="p">(</span><span class="n">InstanceContext</span><span class="p">):</span>
-    <span class="sd">""" PLEASE NOTE that this class contains preview products that are subject</span>
+<span class="w">    </span><span class="sd">""" PLEASE NOTE that this class contains preview products that are subject</span>
 <span class="sd">    to change. Use them with caution. If you currently do not have developer</span>
 <span class="sd">    preview access, please contact help@twilio.com. """</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">version</span><span class="p">,</span> <span class="n">sid</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Initialize the HostedNumberOrderContext</span>
 
 <span class="sd">        :param Version version: Version that contains the resource</span>
@@ -339,7 +339,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="bp">self</span><span class="o">.</span><span class="n">_uri</span> <span class="o">=</span> <span class="s1">'/HostedNumberOrders/</span><span class="si">{sid}</span><span class="s1">'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">_solution</span><span class="p">)</span>
 
 <div class="viewcode-block" id="HostedNumberOrderContext.fetch"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.preview.hosted_numbers.html#twilio.rest.preview.hosted_numbers.hosted_number_order.HostedNumberOrderContext.fetch">[docs]</a>    <span class="k">def</span> <span class="nf">fetch</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Fetch the HostedNumberOrderInstance</span>
 
 <span class="sd">        :returns: The fetched HostedNumberOrderInstance</span>
@@ -350,7 +350,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="k">return</span> <span class="n">HostedNumberOrderInstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_version</span><span class="p">,</span> <span class="n">payload</span><span class="p">,</span> <span class="n">sid</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_solution</span><span class="p">[</span><span class="s1">'sid'</span><span class="p">],</span> <span class="p">)</span></div>
 
 <div class="viewcode-block" id="HostedNumberOrderContext.delete"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.preview.hosted_numbers.html#twilio.rest.preview.hosted_numbers.hosted_number_order.HostedNumberOrderContext.delete">[docs]</a>    <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Deletes the HostedNumberOrderInstance</span>
 
 <span class="sd">        :returns: True if delete succeeds, False otherwise</span>
@@ -363,7 +363,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
                <span class="n">verification_code</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">verification_type</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
                <span class="n">verification_document_sid</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">extension</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
                <span class="n">call_delay</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Update the HostedNumberOrderInstance</span>
 
 <span class="sd">        :param unicode friendly_name: A human readable description of this resource.</span>
@@ -398,7 +398,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="k">return</span> <span class="n">HostedNumberOrderInstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_version</span><span class="p">,</span> <span class="n">payload</span><span class="p">,</span> <span class="n">sid</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_solution</span><span class="p">[</span><span class="s1">'sid'</span><span class="p">],</span> <span class="p">)</span></div>
 
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Provide a friendly representation</span>
 
 <span class="sd">        :returns: Machine friendly representation</span>
@@ -409,7 +409,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
 
 <div class="viewcode-block" id="HostedNumberOrderInstance"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.preview.hosted_numbers.html#twilio.rest.preview.hosted_numbers.hosted_number_order.HostedNumberOrderInstance">[docs]</a><span class="k">class</span> <span class="nc">HostedNumberOrderInstance</span><span class="p">(</span><span class="n">InstanceResource</span><span class="p">):</span>
-    <span class="sd">""" PLEASE NOTE that this class contains preview products that are subject</span>
+<span class="w">    </span><span class="sd">""" PLEASE NOTE that this class contains preview products that are subject</span>
 <span class="sd">    to change. Use them with caution. If you currently do not have developer</span>
 <span class="sd">    preview access, please contact help@twilio.com. """</span>
 
@@ -429,7 +429,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="n">PHONE_BILL</span> <span class="o">=</span> <span class="s2">"phone-bill"</span></div>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">version</span><span class="p">,</span> <span class="n">payload</span><span class="p">,</span> <span class="n">sid</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Initialize the HostedNumberOrderInstance</span>
 
 <span class="sd">        :returns: twilio.rest.preview.hosted_numbers.hosted_number_order.HostedNumberOrderInstance</span>
@@ -470,7 +470,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">_proxy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Generate an instance context for the instance, the context is capable of</span>
 <span class="sd">        performing various actions.  All instance actions are proxied to the context</span>
 
@@ -483,7 +483,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">sid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        :returns: HostedNumberOrder sid.</span>
 <span class="sd">        :rtype: unicode</span>
 <span class="sd">        """</span>
@@ -491,7 +491,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">account_sid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        :returns: Account Sid.</span>
 <span class="sd">        :rtype: unicode</span>
 <span class="sd">        """</span>
@@ -499,7 +499,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">incoming_phone_number_sid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        :returns: IncomingPhoneNumber sid.</span>
 <span class="sd">        :rtype: unicode</span>
 <span class="sd">        """</span>
@@ -507,7 +507,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">address_sid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        :returns: Address sid.</span>
 <span class="sd">        :rtype: unicode</span>
 <span class="sd">        """</span>
@@ -515,7 +515,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">signing_document_sid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        :returns: LOA document sid.</span>
 <span class="sd">        :rtype: unicode</span>
 <span class="sd">        """</span>
@@ -523,7 +523,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">phone_number</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        :returns: An E164 formatted phone number.</span>
 <span class="sd">        :rtype: unicode</span>
 <span class="sd">        """</span>
@@ -531,7 +531,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">capabilities</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        :returns: A mapping of phone number capabilities.</span>
 <span class="sd">        :rtype: unicode</span>
 <span class="sd">        """</span>
@@ -539,7 +539,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">friendly_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        :returns: A human readable description of this resource.</span>
 <span class="sd">        :rtype: unicode</span>
 <span class="sd">        """</span>
@@ -547,7 +547,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">unique_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        :returns: A unique, developer assigned name of this HostedNumberOrder.</span>
 <span class="sd">        :rtype: unicode</span>
 <span class="sd">        """</span>
@@ -555,7 +555,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">status</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        :returns: The Status of this HostedNumberOrder.</span>
 <span class="sd">        :rtype: HostedNumberOrderInstance.Status</span>
 <span class="sd">        """</span>
@@ -563,7 +563,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">failure_reason</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        :returns: Why a hosted_number_order reached status "action-required"</span>
 <span class="sd">        :rtype: unicode</span>
 <span class="sd">        """</span>
@@ -571,7 +571,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">date_created</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        :returns: The date this HostedNumberOrder was created.</span>
 <span class="sd">        :rtype: datetime</span>
 <span class="sd">        """</span>
@@ -579,7 +579,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">date_updated</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        :returns: The date this HostedNumberOrder was updated.</span>
 <span class="sd">        :rtype: datetime</span>
 <span class="sd">        """</span>
@@ -587,7 +587,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">verification_attempts</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        :returns: The number of attempts made to verify ownership of the phone number.</span>
 <span class="sd">        :rtype: unicode</span>
 <span class="sd">        """</span>
@@ -595,7 +595,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">email</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        :returns: Email.</span>
 <span class="sd">        :rtype: unicode</span>
 <span class="sd">        """</span>
@@ -603,7 +603,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">cc_emails</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        :returns: A list of emails.</span>
 <span class="sd">        :rtype: list[unicode]</span>
 <span class="sd">        """</span>
@@ -611,7 +611,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">url</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        :returns: The URL of this HostedNumberOrder.</span>
 <span class="sd">        :rtype: unicode</span>
 <span class="sd">        """</span>
@@ -619,7 +619,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">verification_type</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        :returns: The method used for verifying ownership of the number to be hosted.</span>
 <span class="sd">        :rtype: HostedNumberOrderInstance.VerificationType</span>
 <span class="sd">        """</span>
@@ -627,7 +627,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">verification_document_sid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        :returns: Verification Document Sid.</span>
 <span class="sd">        :rtype: unicode</span>
 <span class="sd">        """</span>
@@ -635,7 +635,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">extension</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        :returns: Phone extension to use for ownership verification call.</span>
 <span class="sd">        :rtype: unicode</span>
 <span class="sd">        """</span>
@@ -643,7 +643,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">call_delay</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        :returns: Seconds (0-30) to delay ownership verification call by.</span>
 <span class="sd">        :rtype: unicode</span>
 <span class="sd">        """</span>
@@ -651,7 +651,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">verification_code</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        :returns: The digits passed during the ownership verification call.</span>
 <span class="sd">        :rtype: unicode</span>
 <span class="sd">        """</span>
@@ -659,14 +659,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">verification_call_sids</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        :returns: List of IDs for ownership verification calls.</span>
 <span class="sd">        :rtype: list[unicode]</span>
 <span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="p">[</span><span class="s1">'verification_call_sids'</span><span class="p">]</span>
 
 <div class="viewcode-block" id="HostedNumberOrderInstance.fetch"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.preview.hosted_numbers.html#twilio.rest.preview.hosted_numbers.hosted_number_order.HostedNumberOrderInstance.fetch">[docs]</a>    <span class="k">def</span> <span class="nf">fetch</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Fetch the HostedNumberOrderInstance</span>
 
 <span class="sd">        :returns: The fetched HostedNumberOrderInstance</span>
@@ -675,7 +675,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_proxy</span><span class="o">.</span><span class="n">fetch</span><span class="p">()</span></div>
 
 <div class="viewcode-block" id="HostedNumberOrderInstance.delete"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.preview.hosted_numbers.html#twilio.rest.preview.hosted_numbers.hosted_number_order.HostedNumberOrderInstance.delete">[docs]</a>    <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Deletes the HostedNumberOrderInstance</span>
 
 <span class="sd">        :returns: True if delete succeeds, False otherwise</span>
@@ -688,7 +688,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
                <span class="n">verification_code</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">verification_type</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
                <span class="n">verification_document_sid</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">extension</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
                <span class="n">call_delay</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Update the HostedNumberOrderInstance</span>
 
 <span class="sd">        :param unicode friendly_name: A human readable description of this resource.</span>
@@ -719,7 +719,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="p">)</span></div>
 
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Provide a friendly representation</span>
 
 <span class="sd">        :returns: Machine friendly representation</span>

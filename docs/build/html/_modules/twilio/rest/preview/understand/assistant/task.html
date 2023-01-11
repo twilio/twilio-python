@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-MWRD6S');</script><!--End Google Tag Manager-->
 <meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<title>twilio.rest.preview.understand.assistant.task — twilio-python 7.16.0 documentation</title>
+<title>twilio.rest.preview.understand.assistant.task — twilio-python 7.16.1 documentation</title>
 <link href="../../../../../../_static/alabaster.css" rel="stylesheet" type="text/css"/>
 <link href="../../../../../../_static/pygments.css" rel="stylesheet" type="text/css"/>
 <script data-url_root="../../../../../../" id="documentation_options" src="../../../../../../_static/documentation_options.js" type="text/javascript"></script>
@@ -50,12 +50,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
 
 <div class="viewcode-block" id="TaskList"><a class="viewcode-back" href="../../../../../../docs/source/_rst/twilio.rest.preview.understand.assistant.task.html#twilio.rest.preview.understand.assistant.task.TaskList">[docs]</a><span class="k">class</span> <span class="nc">TaskList</span><span class="p">(</span><span class="n">ListResource</span><span class="p">):</span>
-    <span class="sd">""" PLEASE NOTE that this class contains preview products that are subject</span>
+<span class="w">    </span><span class="sd">""" PLEASE NOTE that this class contains preview products that are subject</span>
 <span class="sd">    to change. Use them with caution. If you currently do not have developer</span>
 <span class="sd">    preview access, please contact help@twilio.com. """</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">version</span><span class="p">,</span> <span class="n">assistant_sid</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Initialize the TaskList</span>
 
 <span class="sd">        :param Version version: Version that contains the resource</span>
@@ -71,7 +71,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="bp">self</span><span class="o">.</span><span class="n">_uri</span> <span class="o">=</span> <span class="s1">'/Assistants/</span><span class="si">{assistant_sid}</span><span class="s1">/Tasks'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">_solution</span><span class="p">)</span>
 
 <div class="viewcode-block" id="TaskList.stream"><a class="viewcode-back" href="../../../../../../docs/source/_rst/twilio.rest.preview.understand.assistant.task.html#twilio.rest.preview.understand.assistant.task.TaskList.stream">[docs]</a>    <span class="k">def</span> <span class="nf">stream</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">page_size</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Streams TaskInstance records from the API as a generator stream.</span>
 <span class="sd">        This operation lazily loads records as efficiently as possible until the limit</span>
 <span class="sd">        is reached.</span>
@@ -94,7 +94,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_version</span><span class="o">.</span><span class="n">stream</span><span class="p">(</span><span class="n">page</span><span class="p">,</span> <span class="n">limits</span><span class="p">[</span><span class="s1">'limit'</span><span class="p">])</span></div>
 
 <div class="viewcode-block" id="TaskList.list"><a class="viewcode-back" href="../../../../../../docs/source/_rst/twilio.rest.preview.understand.assistant.task.html#twilio.rest.preview.understand.assistant.task.TaskList.list">[docs]</a>    <span class="k">def</span> <span class="nf">list</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">page_size</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Lists TaskInstance records from the API as a list.</span>
 <span class="sd">        Unlike stream(), this operation is eager and will load `limit` records into</span>
 <span class="sd">        memory before returning.</span>
@@ -113,7 +113,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
 <div class="viewcode-block" id="TaskList.page"><a class="viewcode-back" href="../../../../../../docs/source/_rst/twilio.rest.preview.understand.assistant.task.html#twilio.rest.preview.understand.assistant.task.TaskList.page">[docs]</a>    <span class="k">def</span> <span class="nf">page</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">page_token</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">page_number</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
              <span class="n">page_size</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Retrieve a single page of TaskInstance records from the API.</span>
 <span class="sd">        Request is executed immediately</span>
 
@@ -131,7 +131,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="k">return</span> <span class="n">TaskPage</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_version</span><span class="p">,</span> <span class="n">response</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_solution</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="TaskList.get_page"><a class="viewcode-back" href="../../../../../../docs/source/_rst/twilio.rest.preview.understand.assistant.task.html#twilio.rest.preview.understand.assistant.task.TaskList.get_page">[docs]</a>    <span class="k">def</span> <span class="nf">get_page</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target_url</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Retrieve a specific page of TaskInstance records from the API.</span>
 <span class="sd">        Request is executed immediately</span>
 
@@ -149,7 +149,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
 <div class="viewcode-block" id="TaskList.create"><a class="viewcode-back" href="../../../../../../docs/source/_rst/twilio.rest.preview.understand.assistant.task.html#twilio.rest.preview.understand.assistant.task.TaskList.create">[docs]</a>    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">unique_name</span><span class="p">,</span> <span class="n">friendly_name</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">actions</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
                <span class="n">actions_url</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Create the TaskInstance</span>
 
 <span class="sd">        :param unicode unique_name: A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.</span>
@@ -172,7 +172,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="k">return</span> <span class="n">TaskInstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_version</span><span class="p">,</span> <span class="n">payload</span><span class="p">,</span> <span class="n">assistant_sid</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_solution</span><span class="p">[</span><span class="s1">'assistant_sid'</span><span class="p">],</span> <span class="p">)</span></div>
 
 <div class="viewcode-block" id="TaskList.get"><a class="viewcode-back" href="../../../../../../docs/source/_rst/twilio.rest.preview.understand.assistant.task.html#twilio.rest.preview.understand.assistant.task.TaskList.get">[docs]</a>    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sid</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Constructs a TaskContext</span>
 
 <span class="sd">        :param sid: A 34 character string that uniquely identifies this resource.</span>
@@ -183,7 +183,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="k">return</span> <span class="n">TaskContext</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_version</span><span class="p">,</span> <span class="n">assistant_sid</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_solution</span><span class="p">[</span><span class="s1">'assistant_sid'</span><span class="p">],</span> <span class="n">sid</span><span class="o">=</span><span class="n">sid</span><span class="p">,</span> <span class="p">)</span></div>
 
     <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sid</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Constructs a TaskContext</span>
 
 <span class="sd">        :param sid: A 34 character string that uniquely identifies this resource.</span>
@@ -194,7 +194,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="k">return</span> <span class="n">TaskContext</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_version</span><span class="p">,</span> <span class="n">assistant_sid</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_solution</span><span class="p">[</span><span class="s1">'assistant_sid'</span><span class="p">],</span> <span class="n">sid</span><span class="o">=</span><span class="n">sid</span><span class="p">,</span> <span class="p">)</span>
 
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Provide a friendly representation</span>
 
 <span class="sd">        :returns: Machine friendly representation</span>
@@ -204,12 +204,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
 
 <div class="viewcode-block" id="TaskPage"><a class="viewcode-back" href="../../../../../../docs/source/_rst/twilio.rest.preview.understand.assistant.task.html#twilio.rest.preview.understand.assistant.task.TaskPage">[docs]</a><span class="k">class</span> <span class="nc">TaskPage</span><span class="p">(</span><span class="n">Page</span><span class="p">):</span>
-    <span class="sd">""" PLEASE NOTE that this class contains preview products that are subject</span>
+<span class="w">    </span><span class="sd">""" PLEASE NOTE that this class contains preview products that are subject</span>
 <span class="sd">    to change. Use them with caution. If you currently do not have developer</span>
 <span class="sd">    preview access, please contact help@twilio.com. """</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">version</span><span class="p">,</span> <span class="n">response</span><span class="p">,</span> <span class="n">solution</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Initialize the TaskPage</span>
 
 <span class="sd">        :param Version version: Version that contains the resource</span>
@@ -225,7 +225,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="bp">self</span><span class="o">.</span><span class="n">_solution</span> <span class="o">=</span> <span class="n">solution</span>
 
 <div class="viewcode-block" id="TaskPage.get_instance"><a class="viewcode-back" href="../../../../../../docs/source/_rst/twilio.rest.preview.understand.assistant.task.html#twilio.rest.preview.understand.assistant.task.TaskPage.get_instance">[docs]</a>    <span class="k">def</span> <span class="nf">get_instance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">payload</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Build an instance of TaskInstance</span>
 
 <span class="sd">        :param dict payload: Payload response from the API</span>
@@ -236,7 +236,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="k">return</span> <span class="n">TaskInstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_version</span><span class="p">,</span> <span class="n">payload</span><span class="p">,</span> <span class="n">assistant_sid</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_solution</span><span class="p">[</span><span class="s1">'assistant_sid'</span><span class="p">],</span> <span class="p">)</span></div>
 
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Provide a friendly representation</span>
 
 <span class="sd">        :returns: Machine friendly representation</span>
@@ -246,12 +246,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
 
 <div class="viewcode-block" id="TaskContext"><a class="viewcode-back" href="../../../../../../docs/source/_rst/twilio.rest.preview.understand.assistant.task.html#twilio.rest.preview.understand.assistant.task.TaskContext">[docs]</a><span class="k">class</span> <span class="nc">TaskContext</span><span class="p">(</span><span class="n">InstanceContext</span><span class="p">):</span>
-    <span class="sd">""" PLEASE NOTE that this class contains preview products that are subject</span>
+<span class="w">    </span><span class="sd">""" PLEASE NOTE that this class contains preview products that are subject</span>
 <span class="sd">    to change. Use them with caution. If you currently do not have developer</span>
 <span class="sd">    preview access, please contact help@twilio.com. """</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">version</span><span class="p">,</span> <span class="n">assistant_sid</span><span class="p">,</span> <span class="n">sid</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Initialize the TaskContext</span>
 
 <span class="sd">        :param Version version: Version that contains the resource</span>
@@ -274,7 +274,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="bp">self</span><span class="o">.</span><span class="n">_statistics</span> <span class="o">=</span> <span class="kc">None</span>
 
 <div class="viewcode-block" id="TaskContext.fetch"><a class="viewcode-back" href="../../../../../../docs/source/_rst/twilio.rest.preview.understand.assistant.task.html#twilio.rest.preview.understand.assistant.task.TaskContext.fetch">[docs]</a>    <span class="k">def</span> <span class="nf">fetch</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Fetch the TaskInstance</span>
 
 <span class="sd">        :returns: The fetched TaskInstance</span>
@@ -291,7 +291,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
 <div class="viewcode-block" id="TaskContext.update"><a class="viewcode-back" href="../../../../../../docs/source/_rst/twilio.rest.preview.understand.assistant.task.html#twilio.rest.preview.understand.assistant.task.TaskContext.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">friendly_name</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">unique_name</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
                <span class="n">actions</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">actions_url</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Update the TaskInstance</span>
 
 <span class="sd">        :param unicode friendly_name: A user-provided string that identifies this resource. It is non-unique and can up to 255 characters long.</span>
@@ -319,7 +319,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="TaskContext.delete"><a class="viewcode-back" href="../../../../../../docs/source/_rst/twilio.rest.preview.understand.assistant.task.html#twilio.rest.preview.understand.assistant.task.TaskContext.delete">[docs]</a>    <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Deletes the TaskInstance</span>
 
 <span class="sd">        :returns: True if delete succeeds, False otherwise</span>
@@ -329,7 +329,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">fields</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Access the fields</span>
 
 <span class="sd">        :returns: twilio.rest.preview.understand.assistant.task.field.FieldList</span>
@@ -345,7 +345,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">samples</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Access the samples</span>
 
 <span class="sd">        :returns: twilio.rest.preview.understand.assistant.task.sample.SampleList</span>
@@ -361,7 +361,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">task_actions</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Access the task_actions</span>
 
 <span class="sd">        :returns: twilio.rest.preview.understand.assistant.task.task_actions.TaskActionsList</span>
@@ -377,7 +377,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">statistics</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Access the statistics</span>
 
 <span class="sd">        :returns: twilio.rest.preview.understand.assistant.task.task_statistics.TaskStatisticsList</span>
@@ -392,7 +392,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_statistics</span>
 
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Provide a friendly representation</span>
 
 <span class="sd">        :returns: Machine friendly representation</span>
@@ -403,12 +403,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
 
 <div class="viewcode-block" id="TaskInstance"><a class="viewcode-back" href="../../../../../../docs/source/_rst/twilio.rest.preview.understand.assistant.task.html#twilio.rest.preview.understand.assistant.task.TaskInstance">[docs]</a><span class="k">class</span> <span class="nc">TaskInstance</span><span class="p">(</span><span class="n">InstanceResource</span><span class="p">):</span>
-    <span class="sd">""" PLEASE NOTE that this class contains preview products that are subject</span>
+<span class="w">    </span><span class="sd">""" PLEASE NOTE that this class contains preview products that are subject</span>
 <span class="sd">    to change. Use them with caution. If you currently do not have developer</span>
 <span class="sd">    preview access, please contact help@twilio.com. """</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">version</span><span class="p">,</span> <span class="n">payload</span><span class="p">,</span> <span class="n">assistant_sid</span><span class="p">,</span> <span class="n">sid</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Initialize the TaskInstance</span>
 
 <span class="sd">        :returns: twilio.rest.preview.understand.assistant.task.TaskInstance</span>
@@ -436,7 +436,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">_proxy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Generate an instance context for the instance, the context is capable of</span>
 <span class="sd">        performing various actions.  All instance actions are proxied to the context</span>
 
@@ -453,7 +453,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">account_sid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        :returns: The unique ID of the Account that created this Task.</span>
 <span class="sd">        :rtype: unicode</span>
 <span class="sd">        """</span>
@@ -461,7 +461,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">date_created</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        :returns: The date that this resource was created</span>
 <span class="sd">        :rtype: datetime</span>
 <span class="sd">        """</span>
@@ -469,7 +469,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">date_updated</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        :returns: The date that this resource was last updated</span>
 <span class="sd">        :rtype: datetime</span>
 <span class="sd">        """</span>
@@ -477,7 +477,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">friendly_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        :returns: A user-provided string that identifies this resource. It is non-unique and can up to 255 characters long.</span>
 <span class="sd">        :rtype: unicode</span>
 <span class="sd">        """</span>
@@ -485,7 +485,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">links</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        :returns: The links</span>
 <span class="sd">        :rtype: unicode</span>
 <span class="sd">        """</span>
@@ -493,7 +493,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">assistant_sid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        :returns: The unique ID of the Assistant.</span>
 <span class="sd">        :rtype: unicode</span>
 <span class="sd">        """</span>
@@ -501,7 +501,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">sid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        :returns: A 34 character string that uniquely identifies this resource.</span>
 <span class="sd">        :rtype: unicode</span>
 <span class="sd">        """</span>
@@ -509,7 +509,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">unique_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        :returns: A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.</span>
 <span class="sd">        :rtype: unicode</span>
 <span class="sd">        """</span>
@@ -517,7 +517,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">actions_url</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        :returns: User-provided HTTP endpoint where from the assistant fetches actions</span>
 <span class="sd">        :rtype: unicode</span>
 <span class="sd">        """</span>
@@ -525,14 +525,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">url</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        :returns: The url</span>
 <span class="sd">        :rtype: unicode</span>
 <span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="p">[</span><span class="s1">'url'</span><span class="p">]</span>
 
 <div class="viewcode-block" id="TaskInstance.fetch"><a class="viewcode-back" href="../../../../../../docs/source/_rst/twilio.rest.preview.understand.assistant.task.html#twilio.rest.preview.understand.assistant.task.TaskInstance.fetch">[docs]</a>    <span class="k">def</span> <span class="nf">fetch</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Fetch the TaskInstance</span>
 
 <span class="sd">        :returns: The fetched TaskInstance</span>
@@ -542,7 +542,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
 <div class="viewcode-block" id="TaskInstance.update"><a class="viewcode-back" href="../../../../../../docs/source/_rst/twilio.rest.preview.understand.assistant.task.html#twilio.rest.preview.understand.assistant.task.TaskInstance.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">friendly_name</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">unique_name</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
                <span class="n">actions</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">actions_url</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Update the TaskInstance</span>
 
 <span class="sd">        :param unicode friendly_name: A user-provided string that identifies this resource. It is non-unique and can up to 255 characters long.</span>
@@ -561,7 +561,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="TaskInstance.delete"><a class="viewcode-back" href="../../../../../../docs/source/_rst/twilio.rest.preview.understand.assistant.task.html#twilio.rest.preview.understand.assistant.task.TaskInstance.delete">[docs]</a>    <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Deletes the TaskInstance</span>
 
 <span class="sd">        :returns: True if delete succeeds, False otherwise</span>
@@ -571,7 +571,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">fields</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Access the fields</span>
 
 <span class="sd">        :returns: twilio.rest.preview.understand.assistant.task.field.FieldList</span>
@@ -581,7 +581,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">samples</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Access the samples</span>
 
 <span class="sd">        :returns: twilio.rest.preview.understand.assistant.task.sample.SampleList</span>
@@ -591,7 +591,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">task_actions</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Access the task_actions</span>
 
 <span class="sd">        :returns: twilio.rest.preview.understand.assistant.task.task_actions.TaskActionsList</span>
@@ -601,7 +601,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">statistics</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Access the statistics</span>
 
 <span class="sd">        :returns: twilio.rest.preview.understand.assistant.task.task_statistics.TaskStatisticsList</span>
@@ -610,7 +610,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_proxy</span><span class="o">.</span><span class="n">statistics</span>
 
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Provide a friendly representation</span>
 
 <span class="sd">        :returns: Machine friendly representation</span>

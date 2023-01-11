@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-MWRD6S');</script><!--End Google Tag Manager-->
 <meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<title>twilio.rest.messaging.v1.tollfree_verification — twilio-python 7.16.0 documentation</title>
+<title>twilio.rest.messaging.v1.tollfree_verification — twilio-python 7.16.1 documentation</title>
 <link href="../../../../../_static/alabaster.css" rel="stylesheet" type="text/css"/>
 <link href="../../../../../_static/pygments.css" rel="stylesheet" type="text/css"/>
 <script data-url_root="../../../../../" id="documentation_options" src="../../../../../_static/documentation_options.js" type="text/javascript"></script>
@@ -46,11 +46,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
 
 <div class="viewcode-block" id="TollfreeVerificationList"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.messaging.v1.html#twilio.rest.messaging.v1.tollfree_verification.TollfreeVerificationList">[docs]</a><span class="k">class</span> <span class="nc">TollfreeVerificationList</span><span class="p">(</span><span class="n">ListResource</span><span class="p">):</span>
-    <span class="sd">""" PLEASE NOTE that this class contains beta products that are subject to</span>
+<span class="w">    </span><span class="sd">""" PLEASE NOTE that this class contains beta products that are subject to</span>
 <span class="sd">    change. Use them with caution. """</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">version</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Initialize the TollfreeVerificationList</span>
 
 <span class="sd">        :param Version version: Version that contains the resource</span>
@@ -66,7 +66,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
 <div class="viewcode-block" id="TollfreeVerificationList.stream"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.messaging.v1.html#twilio.rest.messaging.v1.tollfree_verification.TollfreeVerificationList.stream">[docs]</a>    <span class="k">def</span> <span class="nf">stream</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tollfree_phone_number_sid</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
                <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">page_size</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Streams TollfreeVerificationInstance records from the API as a generator stream.</span>
 <span class="sd">        This operation lazily loads records as efficiently as possible until the limit</span>
 <span class="sd">        is reached.</span>
@@ -96,7 +96,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
 <div class="viewcode-block" id="TollfreeVerificationList.list"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.messaging.v1.html#twilio.rest.messaging.v1.tollfree_verification.TollfreeVerificationList.list">[docs]</a>    <span class="k">def</span> <span class="nf">list</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tollfree_phone_number_sid</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
              <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">page_size</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Lists TollfreeVerificationInstance records from the API as a list.</span>
 <span class="sd">        Unlike stream(), this operation is eager and will load `limit` records into</span>
 <span class="sd">        memory before returning.</span>
@@ -123,7 +123,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <div class="viewcode-block" id="TollfreeVerificationList.page"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.messaging.v1.html#twilio.rest.messaging.v1.tollfree_verification.TollfreeVerificationList.page">[docs]</a>    <span class="k">def</span> <span class="nf">page</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tollfree_phone_number_sid</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
              <span class="n">page_token</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">page_number</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
              <span class="n">page_size</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Retrieve a single page of TollfreeVerificationInstance records from the API.</span>
 <span class="sd">        Request is executed immediately</span>
 
@@ -149,7 +149,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="k">return</span> <span class="n">TollfreeVerificationPage</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_version</span><span class="p">,</span> <span class="n">response</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_solution</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="TollfreeVerificationList.get_page"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.messaging.v1.html#twilio.rest.messaging.v1.tollfree_verification.TollfreeVerificationList.get_page">[docs]</a>    <span class="k">def</span> <span class="nf">get_page</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target_url</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Retrieve a specific page of TollfreeVerificationInstance records from the API.</span>
 <span class="sd">        Request is executed immediately</span>
 
@@ -178,7 +178,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
                <span class="n">business_contact_last_name</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
                <span class="n">business_contact_email</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
                <span class="n">business_contact_phone</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Create the TollfreeVerificationInstance</span>
 
 <span class="sd">        :param unicode business_name: The name of the business or organization using the Tollfree number</span>
@@ -237,7 +237,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="k">return</span> <span class="n">TollfreeVerificationInstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_version</span><span class="p">,</span> <span class="n">payload</span><span class="p">,</span> <span class="p">)</span></div>
 
 <div class="viewcode-block" id="TollfreeVerificationList.get"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.messaging.v1.html#twilio.rest.messaging.v1.tollfree_verification.TollfreeVerificationList.get">[docs]</a>    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sid</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Constructs a TollfreeVerificationContext</span>
 
 <span class="sd">        :param sid: Tollfree Verification Sid</span>
@@ -248,7 +248,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="k">return</span> <span class="n">TollfreeVerificationContext</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_version</span><span class="p">,</span> <span class="n">sid</span><span class="o">=</span><span class="n">sid</span><span class="p">,</span> <span class="p">)</span></div>
 
     <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sid</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Constructs a TollfreeVerificationContext</span>
 
 <span class="sd">        :param sid: Tollfree Verification Sid</span>
@@ -259,7 +259,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="k">return</span> <span class="n">TollfreeVerificationContext</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_version</span><span class="p">,</span> <span class="n">sid</span><span class="o">=</span><span class="n">sid</span><span class="p">,</span> <span class="p">)</span>
 
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Provide a friendly representation</span>
 
 <span class="sd">        :returns: Machine friendly representation</span>
@@ -269,11 +269,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
 
 <div class="viewcode-block" id="TollfreeVerificationPage"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.messaging.v1.html#twilio.rest.messaging.v1.tollfree_verification.TollfreeVerificationPage">[docs]</a><span class="k">class</span> <span class="nc">TollfreeVerificationPage</span><span class="p">(</span><span class="n">Page</span><span class="p">):</span>
-    <span class="sd">""" PLEASE NOTE that this class contains beta products that are subject to</span>
+<span class="w">    </span><span class="sd">""" PLEASE NOTE that this class contains beta products that are subject to</span>
 <span class="sd">    change. Use them with caution. """</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">version</span><span class="p">,</span> <span class="n">response</span><span class="p">,</span> <span class="n">solution</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Initialize the TollfreeVerificationPage</span>
 
 <span class="sd">        :param Version version: Version that contains the resource</span>
@@ -288,7 +288,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="bp">self</span><span class="o">.</span><span class="n">_solution</span> <span class="o">=</span> <span class="n">solution</span>
 
 <div class="viewcode-block" id="TollfreeVerificationPage.get_instance"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.messaging.v1.html#twilio.rest.messaging.v1.tollfree_verification.TollfreeVerificationPage.get_instance">[docs]</a>    <span class="k">def</span> <span class="nf">get_instance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">payload</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Build an instance of TollfreeVerificationInstance</span>
 
 <span class="sd">        :param dict payload: Payload response from the API</span>
@@ -299,7 +299,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="k">return</span> <span class="n">TollfreeVerificationInstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_version</span><span class="p">,</span> <span class="n">payload</span><span class="p">,</span> <span class="p">)</span></div>
 
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Provide a friendly representation</span>
 
 <span class="sd">        :returns: Machine friendly representation</span>
@@ -309,11 +309,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
 
 <div class="viewcode-block" id="TollfreeVerificationContext"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.messaging.v1.html#twilio.rest.messaging.v1.tollfree_verification.TollfreeVerificationContext">[docs]</a><span class="k">class</span> <span class="nc">TollfreeVerificationContext</span><span class="p">(</span><span class="n">InstanceContext</span><span class="p">):</span>
-    <span class="sd">""" PLEASE NOTE that this class contains beta products that are subject to</span>
+<span class="w">    </span><span class="sd">""" PLEASE NOTE that this class contains beta products that are subject to</span>
 <span class="sd">    change. Use them with caution. """</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">version</span><span class="p">,</span> <span class="n">sid</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Initialize the TollfreeVerificationContext</span>
 
 <span class="sd">        :param Version version: Version that contains the resource</span>
@@ -329,7 +329,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="bp">self</span><span class="o">.</span><span class="n">_uri</span> <span class="o">=</span> <span class="s1">'/Tollfree/Verifications/</span><span class="si">{sid}</span><span class="s1">'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">_solution</span><span class="p">)</span>
 
 <div class="viewcode-block" id="TollfreeVerificationContext.fetch"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.messaging.v1.html#twilio.rest.messaging.v1.tollfree_verification.TollfreeVerificationContext.fetch">[docs]</a>    <span class="k">def</span> <span class="nf">fetch</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Fetch the TollfreeVerificationInstance</span>
 
 <span class="sd">        :returns: The fetched TollfreeVerificationInstance</span>
@@ -339,8 +339,76 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
         <span class="k">return</span> <span class="n">TollfreeVerificationInstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_version</span><span class="p">,</span> <span class="n">payload</span><span class="p">,</span> <span class="n">sid</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_solution</span><span class="p">[</span><span class="s1">'sid'</span><span class="p">],</span> <span class="p">)</span></div>
 
+<div class="viewcode-block" id="TollfreeVerificationContext.update"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.messaging.v1.html#twilio.rest.messaging.v1.tollfree_verification.TollfreeVerificationContext.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">business_name</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">business_website</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
+               <span class="n">notification_email</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">use_case_categories</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
+               <span class="n">use_case_summary</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
+               <span class="n">production_message_sample</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
+               <span class="n">opt_in_image_urls</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">opt_in_type</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
+               <span class="n">message_volume</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">business_street_address</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
+               <span class="n">business_street_address2</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">business_city</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
+               <span class="n">business_state_province_region</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
+               <span class="n">business_postal_code</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">business_country</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
+               <span class="n">additional_information</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
+               <span class="n">business_contact_first_name</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
+               <span class="n">business_contact_last_name</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
+               <span class="n">business_contact_email</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
+               <span class="n">business_contact_phone</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Update the TollfreeVerificationInstance</span>
+
+<span class="sd">        :param unicode business_name: The name of the business or organization using the Tollfree number</span>
+<span class="sd">        :param unicode business_website: The website of the business or organization using the Tollfree number</span>
+<span class="sd">        :param unicode notification_email: The email address to receive the notification about the verification result.</span>
+<span class="sd">        :param list[unicode] use_case_categories: The category of the use case for the Tollfree Number. List as many are applicable.</span>
+<span class="sd">        :param unicode use_case_summary: Further explaination on how messaging is used by the business or organization</span>
+<span class="sd">        :param unicode production_message_sample: An example of message content, i.e. a sample message</span>
+<span class="sd">        :param list[unicode] opt_in_image_urls: Link to an image that shows the opt-in workflow. Multiple images allowed and must be a publicly hosted URL</span>
+<span class="sd">        :param TollfreeVerificationInstance.OptInType opt_in_type: Describe how a user opts-in to text messages</span>
+<span class="sd">        :param unicode message_volume: Estimate monthly volume of messages from the Tollfree Number</span>
+<span class="sd">        :param unicode business_street_address: The address of the business or organization using the Tollfree number</span>
+<span class="sd">        :param unicode business_street_address2: The address of the business or organization using the Tollfree number</span>
+<span class="sd">        :param unicode business_city: The city of the business or organization using the Tollfree number</span>
+<span class="sd">        :param unicode business_state_province_region: The state/province/region of the business or organization using the Tollfree number</span>
+<span class="sd">        :param unicode business_postal_code: The postal code of the business or organization using the Tollfree number</span>
+<span class="sd">        :param unicode business_country: The country of the business or organization using the Tollfree number</span>
+<span class="sd">        :param unicode additional_information: Additional information to be provided for verification</span>
+<span class="sd">        :param unicode business_contact_first_name: The first name of the contact for the business or organization using the Tollfree number</span>
+<span class="sd">        :param unicode business_contact_last_name: The last name of the contact for the business or organization using the Tollfree number</span>
+<span class="sd">        :param unicode business_contact_email: The email address of the contact for the business or organization using the Tollfree number</span>
+<span class="sd">        :param unicode business_contact_phone: The phone number of the contact for the business or organization using the Tollfree number</span>
+
+<span class="sd">        :returns: The updated TollfreeVerificationInstance</span>
+<span class="sd">        :rtype: twilio.rest.messaging.v1.tollfree_verification.TollfreeVerificationInstance</span>
+<span class="sd">        """</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">values</span><span class="o">.</span><span class="n">of</span><span class="p">({</span>
+            <span class="s1">'BusinessName'</span><span class="p">:</span> <span class="n">business_name</span><span class="p">,</span>
+            <span class="s1">'BusinessWebsite'</span><span class="p">:</span> <span class="n">business_website</span><span class="p">,</span>
+            <span class="s1">'NotificationEmail'</span><span class="p">:</span> <span class="n">notification_email</span><span class="p">,</span>
+            <span class="s1">'UseCaseCategories'</span><span class="p">:</span> <span class="n">serialize</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">use_case_categories</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">e</span><span class="p">:</span> <span class="n">e</span><span class="p">),</span>
+            <span class="s1">'UseCaseSummary'</span><span class="p">:</span> <span class="n">use_case_summary</span><span class="p">,</span>
+            <span class="s1">'ProductionMessageSample'</span><span class="p">:</span> <span class="n">production_message_sample</span><span class="p">,</span>
+            <span class="s1">'OptInImageUrls'</span><span class="p">:</span> <span class="n">serialize</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">opt_in_image_urls</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">e</span><span class="p">:</span> <span class="n">e</span><span class="p">),</span>
+            <span class="s1">'OptInType'</span><span class="p">:</span> <span class="n">opt_in_type</span><span class="p">,</span>
+            <span class="s1">'MessageVolume'</span><span class="p">:</span> <span class="n">message_volume</span><span class="p">,</span>
+            <span class="s1">'BusinessStreetAddress'</span><span class="p">:</span> <span class="n">business_street_address</span><span class="p">,</span>
+            <span class="s1">'BusinessStreetAddress2'</span><span class="p">:</span> <span class="n">business_street_address2</span><span class="p">,</span>
+            <span class="s1">'BusinessCity'</span><span class="p">:</span> <span class="n">business_city</span><span class="p">,</span>
+            <span class="s1">'BusinessStateProvinceRegion'</span><span class="p">:</span> <span class="n">business_state_province_region</span><span class="p">,</span>
+            <span class="s1">'BusinessPostalCode'</span><span class="p">:</span> <span class="n">business_postal_code</span><span class="p">,</span>
+            <span class="s1">'BusinessCountry'</span><span class="p">:</span> <span class="n">business_country</span><span class="p">,</span>
+            <span class="s1">'AdditionalInformation'</span><span class="p">:</span> <span class="n">additional_information</span><span class="p">,</span>
+            <span class="s1">'BusinessContactFirstName'</span><span class="p">:</span> <span class="n">business_contact_first_name</span><span class="p">,</span>
+            <span class="s1">'BusinessContactLastName'</span><span class="p">:</span> <span class="n">business_contact_last_name</span><span class="p">,</span>
+            <span class="s1">'BusinessContactEmail'</span><span class="p">:</span> <span class="n">business_contact_email</span><span class="p">,</span>
+            <span class="s1">'BusinessContactPhone'</span><span class="p">:</span> <span class="n">business_contact_phone</span><span class="p">,</span>
+        <span class="p">})</span>
+
+        <span class="n">payload</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_version</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">'POST'</span><span class="p">,</span> <span class="n">uri</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_uri</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">TollfreeVerificationInstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_version</span><span class="p">,</span> <span class="n">payload</span><span class="p">,</span> <span class="n">sid</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_solution</span><span class="p">[</span><span class="s1">'sid'</span><span class="p">],</span> <span class="p">)</span></div>
+
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Provide a friendly representation</span>
 
 <span class="sd">        :returns: Machine friendly representation</span>
@@ -351,7 +419,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
 
 <div class="viewcode-block" id="TollfreeVerificationInstance"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.messaging.v1.html#twilio.rest.messaging.v1.tollfree_verification.TollfreeVerificationInstance">[docs]</a><span class="k">class</span> <span class="nc">TollfreeVerificationInstance</span><span class="p">(</span><span class="n">InstanceResource</span><span class="p">):</span>
-    <span class="sd">""" PLEASE NOTE that this class contains beta products that are subject to</span>
+<span class="w">    </span><span class="sd">""" PLEASE NOTE that this class contains beta products that are subject to</span>
 <span class="sd">    change. Use them with caution. """</span>
 
 <div class="viewcode-block" id="TollfreeVerificationInstance.Status"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.messaging.v1.html#twilio.rest.messaging.v1.tollfree_verification.TollfreeVerificationInstance.Status">[docs]</a>    <span class="k">class</span> <span class="nc">Status</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
@@ -368,7 +436,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="n">MOBILE_QR_CODE</span> <span class="o">=</span> <span class="s2">"MOBILE_QR_CODE"</span></div>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">version</span><span class="p">,</span> <span class="n">payload</span><span class="p">,</span> <span class="n">sid</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Initialize the TollfreeVerificationInstance</span>
 
 <span class="sd">        :returns: twilio.rest.messaging.v1.tollfree_verification.TollfreeVerificationInstance</span>
@@ -417,7 +485,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">_proxy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Generate an instance context for the instance, the context is capable of</span>
 <span class="sd">        performing various actions.  All instance actions are proxied to the context</span>
 
@@ -430,7 +498,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">sid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        :returns: Tollfree Verification Sid</span>
 <span class="sd">        :rtype: unicode</span>
 <span class="sd">        """</span>
@@ -438,7 +506,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">account_sid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        :returns: The SID of the Account that created the resource</span>
 <span class="sd">        :rtype: unicode</span>
 <span class="sd">        """</span>
@@ -446,7 +514,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">customer_profile_sid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        :returns: Customer's Profile Bundle BundleSid</span>
 <span class="sd">        :rtype: unicode</span>
 <span class="sd">        """</span>
@@ -454,7 +522,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">trust_product_sid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        :returns: Tollfree TrustProduct Bundle BundleSid</span>
 <span class="sd">        :rtype: unicode</span>
 <span class="sd">        """</span>
@@ -462,7 +530,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">date_created</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        :returns: The ISO 8601 date and time in GMT when the resource was created</span>
 <span class="sd">        :rtype: datetime</span>
 <span class="sd">        """</span>
@@ -470,7 +538,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">date_updated</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        :returns: The ISO 8601 date and time in GMT when the resource was last updated</span>
 <span class="sd">        :rtype: datetime</span>
 <span class="sd">        """</span>
@@ -478,7 +546,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">regulated_item_sid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        :returns: The SID of the Regulated Item</span>
 <span class="sd">        :rtype: unicode</span>
 <span class="sd">        """</span>
@@ -486,7 +554,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">business_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        :returns: The name of the business or organization using the Tollfree number</span>
 <span class="sd">        :rtype: unicode</span>
 <span class="sd">        """</span>
@@ -494,7 +562,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">business_street_address</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        :returns: The address of the business or organization using the Tollfree number</span>
 <span class="sd">        :rtype: unicode</span>
 <span class="sd">        """</span>
@@ -502,7 +570,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">business_street_address2</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        :returns: The address of the business or organization using the Tollfree number</span>
 <span class="sd">        :rtype: unicode</span>
 <span class="sd">        """</span>
@@ -510,7 +578,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">business_city</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        :returns: The city of the business or organization using the Tollfree number</span>
 <span class="sd">        :rtype: unicode</span>
 <span class="sd">        """</span>
@@ -518,7 +586,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">business_state_province_region</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        :returns: The state/province/region of the business or organization using the Tollfree number</span>
 <span class="sd">        :rtype: unicode</span>
 <span class="sd">        """</span>
@@ -526,7 +594,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">business_postal_code</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        :returns: The postal code of the business or organization using the Tollfree number</span>
 <span class="sd">        :rtype: unicode</span>
 <span class="sd">        """</span>
@@ -534,7 +602,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">business_country</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        :returns: The country of the business or organization using the Tollfree number</span>
 <span class="sd">        :rtype: unicode</span>
 <span class="sd">        """</span>
@@ -542,7 +610,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">business_website</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        :returns: The website of the business or organization using the Tollfree number</span>
 <span class="sd">        :rtype: unicode</span>
 <span class="sd">        """</span>
@@ -550,7 +618,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">business_contact_first_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        :returns: The first name of the contact for the business or organization using the Tollfree number</span>
 <span class="sd">        :rtype: unicode</span>
 <span class="sd">        """</span>
@@ -558,7 +626,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">business_contact_last_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        :returns: The last name of the contact for the business or organization using the Tollfree number</span>
 <span class="sd">        :rtype: unicode</span>
 <span class="sd">        """</span>
@@ -566,7 +634,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">business_contact_email</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        :returns: The email address of the contact for the business or organization using the Tollfree number</span>
 <span class="sd">        :rtype: unicode</span>
 <span class="sd">        """</span>
@@ -574,7 +642,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">business_contact_phone</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        :returns: The phone number of the contact for the business or organization using the Tollfree number</span>
 <span class="sd">        :rtype: unicode</span>
 <span class="sd">        """</span>
@@ -582,7 +650,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">notification_email</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        :returns: The email address to receive the notification about the verification result.</span>
 <span class="sd">        :rtype: unicode</span>
 <span class="sd">        """</span>
@@ -590,7 +658,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">use_case_categories</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        :returns: The category of the use case for the Tollfree Number. List as many are applicable.</span>
 <span class="sd">        :rtype: list[unicode]</span>
 <span class="sd">        """</span>
@@ -598,7 +666,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">use_case_summary</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        :returns: Further explaination on how messaging is used by the business or organization</span>
 <span class="sd">        :rtype: unicode</span>
 <span class="sd">        """</span>
@@ -606,7 +674,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">production_message_sample</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        :returns: An example of message content, i.e. a sample message</span>
 <span class="sd">        :rtype: unicode</span>
 <span class="sd">        """</span>
@@ -614,7 +682,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">opt_in_image_urls</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        :returns: Link to an image that shows the opt-in workflow. Multiple images allowed and must be a publicly hosted URL</span>
 <span class="sd">        :rtype: list[unicode]</span>
 <span class="sd">        """</span>
@@ -622,7 +690,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">opt_in_type</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        :returns: Describe how a user opts-in to text messages</span>
 <span class="sd">        :rtype: TollfreeVerificationInstance.OptInType</span>
 <span class="sd">        """</span>
@@ -630,7 +698,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">message_volume</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        :returns: Estimate monthly volume of messages from the Tollfree Number</span>
 <span class="sd">        :rtype: unicode</span>
 <span class="sd">        """</span>
@@ -638,7 +706,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">additional_information</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        :returns: Additional information to be provided for verification</span>
 <span class="sd">        :rtype: unicode</span>
 <span class="sd">        """</span>
@@ -646,7 +714,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">tollfree_phone_number_sid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        :returns: The SID of the Phone Number associated with the Tollfree Verification</span>
 <span class="sd">        :rtype: unicode</span>
 <span class="sd">        """</span>
@@ -654,7 +722,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">status</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        :returns: The compliance status of the Tollfree Verification record.</span>
 <span class="sd">        :rtype: TollfreeVerificationInstance.Status</span>
 <span class="sd">        """</span>
@@ -662,7 +730,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">url</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        :returns: The absolute URL of the Tollfree Verification</span>
 <span class="sd">        :rtype: unicode</span>
 <span class="sd">        """</span>
@@ -670,14 +738,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">resource_links</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        :returns: The URLs of the documents associated with the Tollfree Verification resource</span>
 <span class="sd">        :rtype: dict</span>
 <span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="p">[</span><span class="s1">'resource_links'</span><span class="p">]</span>
 
 <div class="viewcode-block" id="TollfreeVerificationInstance.fetch"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.messaging.v1.html#twilio.rest.messaging.v1.tollfree_verification.TollfreeVerificationInstance.fetch">[docs]</a>    <span class="k">def</span> <span class="nf">fetch</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Fetch the TollfreeVerificationInstance</span>
 
 <span class="sd">        :returns: The fetched TollfreeVerificationInstance</span>
@@ -685,8 +753,72 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_proxy</span><span class="o">.</span><span class="n">fetch</span><span class="p">()</span></div>
 
+<div class="viewcode-block" id="TollfreeVerificationInstance.update"><a class="viewcode-back" href="../../../../../docs/source/_rst/twilio.rest.messaging.v1.html#twilio.rest.messaging.v1.tollfree_verification.TollfreeVerificationInstance.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">business_name</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">business_website</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
+               <span class="n">notification_email</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">use_case_categories</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
+               <span class="n">use_case_summary</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
+               <span class="n">production_message_sample</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
+               <span class="n">opt_in_image_urls</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">opt_in_type</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
+               <span class="n">message_volume</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">business_street_address</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
+               <span class="n">business_street_address2</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">business_city</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
+               <span class="n">business_state_province_region</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
+               <span class="n">business_postal_code</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">business_country</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
+               <span class="n">additional_information</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
+               <span class="n">business_contact_first_name</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
+               <span class="n">business_contact_last_name</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
+               <span class="n">business_contact_email</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
+               <span class="n">business_contact_phone</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Update the TollfreeVerificationInstance</span>
+
+<span class="sd">        :param unicode business_name: The name of the business or organization using the Tollfree number</span>
+<span class="sd">        :param unicode business_website: The website of the business or organization using the Tollfree number</span>
+<span class="sd">        :param unicode notification_email: The email address to receive the notification about the verification result.</span>
+<span class="sd">        :param list[unicode] use_case_categories: The category of the use case for the Tollfree Number. List as many are applicable.</span>
+<span class="sd">        :param unicode use_case_summary: Further explaination on how messaging is used by the business or organization</span>
+<span class="sd">        :param unicode production_message_sample: An example of message content, i.e. a sample message</span>
+<span class="sd">        :param list[unicode] opt_in_image_urls: Link to an image that shows the opt-in workflow. Multiple images allowed and must be a publicly hosted URL</span>
+<span class="sd">        :param TollfreeVerificationInstance.OptInType opt_in_type: Describe how a user opts-in to text messages</span>
+<span class="sd">        :param unicode message_volume: Estimate monthly volume of messages from the Tollfree Number</span>
+<span class="sd">        :param unicode business_street_address: The address of the business or organization using the Tollfree number</span>
+<span class="sd">        :param unicode business_street_address2: The address of the business or organization using the Tollfree number</span>
+<span class="sd">        :param unicode business_city: The city of the business or organization using the Tollfree number</span>
+<span class="sd">        :param unicode business_state_province_region: The state/province/region of the business or organization using the Tollfree number</span>
+<span class="sd">        :param unicode business_postal_code: The postal code of the business or organization using the Tollfree number</span>
+<span class="sd">        :param unicode business_country: The country of the business or organization using the Tollfree number</span>
+<span class="sd">        :param unicode additional_information: Additional information to be provided for verification</span>
+<span class="sd">        :param unicode business_contact_first_name: The first name of the contact for the business or organization using the Tollfree number</span>
+<span class="sd">        :param unicode business_contact_last_name: The last name of the contact for the business or organization using the Tollfree number</span>
+<span class="sd">        :param unicode business_contact_email: The email address of the contact for the business or organization using the Tollfree number</span>
+<span class="sd">        :param unicode business_contact_phone: The phone number of the contact for the business or organization using the Tollfree number</span>
+
+<span class="sd">        :returns: The updated TollfreeVerificationInstance</span>
+<span class="sd">        :rtype: twilio.rest.messaging.v1.tollfree_verification.TollfreeVerificationInstance</span>
+<span class="sd">        """</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_proxy</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
+            <span class="n">business_name</span><span class="o">=</span><span class="n">business_name</span><span class="p">,</span>
+            <span class="n">business_website</span><span class="o">=</span><span class="n">business_website</span><span class="p">,</span>
+            <span class="n">notification_email</span><span class="o">=</span><span class="n">notification_email</span><span class="p">,</span>
+            <span class="n">use_case_categories</span><span class="o">=</span><span class="n">use_case_categories</span><span class="p">,</span>
+            <span class="n">use_case_summary</span><span class="o">=</span><span class="n">use_case_summary</span><span class="p">,</span>
+            <span class="n">production_message_sample</span><span class="o">=</span><span class="n">production_message_sample</span><span class="p">,</span>
+            <span class="n">opt_in_image_urls</span><span class="o">=</span><span class="n">opt_in_image_urls</span><span class="p">,</span>
+            <span class="n">opt_in_type</span><span class="o">=</span><span class="n">opt_in_type</span><span class="p">,</span>
+            <span class="n">message_volume</span><span class="o">=</span><span class="n">message_volume</span><span class="p">,</span>
+            <span class="n">business_street_address</span><span class="o">=</span><span class="n">business_street_address</span><span class="p">,</span>
+            <span class="n">business_street_address2</span><span class="o">=</span><span class="n">business_street_address2</span><span class="p">,</span>
+            <span class="n">business_city</span><span class="o">=</span><span class="n">business_city</span><span class="p">,</span>
+            <span class="n">business_state_province_region</span><span class="o">=</span><span class="n">business_state_province_region</span><span class="p">,</span>
+            <span class="n">business_postal_code</span><span class="o">=</span><span class="n">business_postal_code</span><span class="p">,</span>
+            <span class="n">business_country</span><span class="o">=</span><span class="n">business_country</span><span class="p">,</span>
+            <span class="n">additional_information</span><span class="o">=</span><span class="n">additional_information</span><span class="p">,</span>
+            <span class="n">business_contact_first_name</span><span class="o">=</span><span class="n">business_contact_first_name</span><span class="p">,</span>
+            <span class="n">business_contact_last_name</span><span class="o">=</span><span class="n">business_contact_last_name</span><span class="p">,</span>
+            <span class="n">business_contact_email</span><span class="o">=</span><span class="n">business_contact_email</span><span class="p">,</span>
+            <span class="n">business_contact_phone</span><span class="o">=</span><span class="n">business_contact_phone</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Provide a friendly representation</span>
 
 <span class="sd">        :returns: Machine friendly representation</span>

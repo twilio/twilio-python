@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-MWRD6S');</script><!--End Google Tag Manager-->
 <meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<title>twilio.http.validation_client — twilio-python 7.16.0 documentation</title>
+<title>twilio.http.validation_client — twilio-python 7.16.1 documentation</title>
 <link href="../../../_static/alabaster.css" rel="stylesheet" type="text/css"/>
 <link href="../../../_static/pygments.css" rel="stylesheet" type="text/css"/>
 <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js" type="text/javascript"></script>
@@ -47,7 +47,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
     <span class="n">__SIGNED_HEADERS</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'authorization'</span><span class="p">,</span> <span class="s1">'host'</span><span class="p">]</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">account_sid</span><span class="p">,</span> <span class="n">api_key_sid</span><span class="p">,</span> <span class="n">credential_sid</span><span class="p">,</span> <span class="n">private_key</span><span class="p">,</span> <span class="n">pool_connections</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Build a ValidationClient which signs requests with private_key and allows Twilio to</span>
 <span class="sd">        validate request has not been tampered with.</span>
 
@@ -65,7 +65,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
 <div class="viewcode-block" id="ValidationClient.request"><a class="viewcode-back" href="../../../docs/source/_rst/twilio.http.html#twilio.http.validation_client.ValidationClient.request">[docs]</a>    <span class="k">def</span> <span class="nf">request</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">method</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">auth</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                 <span class="n">allow_redirects</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Make a signed HTTP Request</span>
 
 <span class="sd">        :param str method: The HTTP method to use</span>
@@ -102,7 +102,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="k">return</span> <span class="n">Response</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">status_code</span><span class="p">),</span> <span class="n">response</span><span class="o">.</span><span class="n">text</span><span class="p">)</span></div>
 
     <span class="k">def</span> <span class="nf">_build_validation_payload</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Extract relevant information from request to build a ClientValidationJWT</span>
 <span class="sd">        :param PreparedRequest request: request we will extract information from.</span>
 <span class="sd">        :return: ValidationPayload</span>
@@ -121,12 +121,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_get_host</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
-        <span class="sd">"""Pull the Host out of the request"""</span>
+<span class="w">        </span><span class="sd">"""Pull the Host out of the request"""</span>
         <span class="n">parsed</span> <span class="o">=</span> <span class="n">urlparse</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">url</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">parsed</span><span class="o">.</span><span class="n">netloc</span>
 
 <div class="viewcode-block" id="ValidationClient.validate_ssl_certificate"><a class="viewcode-back" href="../../../docs/source/_rst/twilio.http.html#twilio.http.validation_client.ValidationClient.validate_ssl_certificate">[docs]</a>    <span class="k">def</span> <span class="nf">validate_ssl_certificate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">client</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Validate that a request to the new SSL certificate is successful</span>
 <span class="sd">        :return: null on success, raise TwilioRestException if the request fails</span>
 <span class="sd">        """</span>

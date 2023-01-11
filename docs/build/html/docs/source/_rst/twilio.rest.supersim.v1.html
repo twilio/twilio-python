@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-MWRD6S');</script><!--End Google Tag Manager-->
 <meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<title>twilio.rest.supersim.v1 package — twilio-python 7.16.0 documentation</title>
+<title>twilio.rest.supersim.v1 package — twilio-python 7.16.1 documentation</title>
 <link href="../../../_static/alabaster.css" rel="stylesheet" type="text/css"/>
 <link href="../../../_static/pygments.css" rel="stylesheet" type="text/css"/>
 <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js" type="text/javascript"></script>
@@ -1301,7 +1301,7 @@ change. Use them with caution.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>sim</strong> (<em>unicode</em>) – The sid or unique_name of the Super SIM to send the IP Command to</li>
-<li><strong>payload</strong> (<em>unicode</em>) – The payload to be delivered to the device</li>
+<li><strong>payload</strong> (<em>unicode</em>) – The data to be delivered to the device. If payload_type has been specified as binary, payload should be encoded using base64 encoding. Twilio will decode the the binary payload before sending to the device.</li>
 <li><strong>device_port</strong> (<em>unicode</em>) – The device port to which the IP Command will be sent</li>
 <li><strong>payload_type</strong> (<a class="reference internal" href="#twilio.rest.supersim.v1.ip_command.IpCommandInstance.PayloadType" title="twilio.rest.supersim.v1.ip_command.IpCommandInstance.PayloadType"><em>IpCommandInstance.PayloadType</em></a>) – Indicates how the payload is encoded</li>
 <li><strong>callback_url</strong> (<em>unicode</em>) – The URL we should call after we have sent the IP Command</li>
