@@ -38,3 +38,6 @@ docs/source/_rst
 .python-version
 
 README.md.bak
+
+**/.openapi-generator*
+

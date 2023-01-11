@@ -1,0 +1,1 @@
+{"buildTargets":[".PHONY","analysis","build","clean","develop","docker-build","docker-push","docs","docs-install","install","make","nopyc","release","test","test-install","test-with-coverage","venv"],"launchTargets":[],"customConfigurationProvider":{"workspaceBrowse":{"browsePath":[],"compilerArgs":[]},"fileIndex":[]}}
