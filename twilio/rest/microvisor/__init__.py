@@ -13,7 +13,7 @@
 """
 
 from twilio.base.domain import Domain
-from twilio.rest.Microvisor.v1 import V1
+from twilio.rest.microvisor.v1 import V1
 
 class Microvisor(Domain):
     def __init__(self, twilio):
