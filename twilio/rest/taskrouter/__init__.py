@@ -13,7 +13,7 @@
 """
 
 from twilio.base.domain import Domain
-from twilio.rest.Taskrouter.v1 import V1
+from twilio.rest.taskrouter.v1 import V1
 
 class Taskrouter(Domain):
     def __init__(self, twilio):

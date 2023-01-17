@@ -13,7 +13,7 @@
 """
 
 from twilio.base.domain import Domain
-from twilio.rest.Messaging.v1 import V1
+from twilio.rest.messaging.v1 import V1
 
 class Messaging(Domain):
     def __init__(self, twilio):

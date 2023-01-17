@@ -13,7 +13,7 @@
 """
 
 from twilio.base.domain import Domain
-from twilio.rest.Preview.wireless import Wireless
+from twilio.rest.preview.wireless import Wireless
 
 class Preview(Domain):
     def __init__(self, twilio):
