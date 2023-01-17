@@ -13,7 +13,7 @@
 """
 
 from twilio.base.domain import Domain
-from twilio.rest.preview.sync import Sync
+from twilio.rest.Preview.sync import Sync
 
 class Preview(Domain):
     def __init__(self, twilio):

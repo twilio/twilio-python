@@ -13,7 +13,7 @@
 """
 
 from twilio.base.domain import Domain
-from twilio.rest.events.v1 import V1
+from twilio.rest.Events.v1 import V1
 
 class Events(Domain):
     def __init__(self, twilio):

@@ -13,7 +13,7 @@
 """
 
 from twilio.base.domain import Domain
-from twilio.rest.chat.v3 import V3
+from twilio.rest.Chat.v3 import V3
 
 class Chat(Domain):
     def __init__(self, twilio):

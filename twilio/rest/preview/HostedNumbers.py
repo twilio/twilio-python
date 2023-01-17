@@ -13,7 +13,7 @@
 """
 
 from twilio.base.domain import Domain
-from twilio.rest.preview.hosted_numbers import HostedNumbers
+from twilio.rest.Preview.hosted_numbers import HostedNumbers
 
 class Preview(Domain):
     def __init__(self, twilio):

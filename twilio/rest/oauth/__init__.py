@@ -13,7 +13,7 @@
 """
 
 from twilio.base.domain import Domain
-from twilio.rest.oauth.v1 import V1
+from twilio.rest.Oauth.v1 import V1
 
 class Oauth(Domain):
     def __init__(self, twilio):

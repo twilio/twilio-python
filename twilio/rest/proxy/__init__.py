@@ -13,7 +13,7 @@
 """
 
 from twilio.base.domain import Domain
-from twilio.rest.proxy.v1 import V1
+from twilio.rest.Proxy.v1 import V1
 
 class Proxy(Domain):
     def __init__(self, twilio):

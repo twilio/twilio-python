@@ -13,7 +13,7 @@
 """
 
 from twilio.base.domain import Domain
-from twilio.rest.routes.v2 import V2
+from twilio.rest.Routes.v2 import V2
 
 class Routes(Domain):
     def __init__(self, twilio):

@@ -13,7 +13,7 @@
 """
 
 from twilio.base.domain import Domain
-from twilio.rest.video.v1 import V1
+from twilio.rest.Video.v1 import V1
 
 class Video(Domain):
     def __init__(self, twilio):

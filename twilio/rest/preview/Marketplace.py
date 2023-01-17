@@ -13,7 +13,7 @@
 """
 
 from twilio.base.domain import Domain
-from twilio.rest.preview.marketplace import Marketplace
+from twilio.rest.Preview.marketplace import Marketplace
 
 class Preview(Domain):
     def __init__(self, twilio):

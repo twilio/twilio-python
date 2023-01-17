@@ -13,7 +13,7 @@
 """
 
 from twilio.base.domain import Domain
-from twilio.rest.trunking.v1 import V1
+from twilio.rest.Trunking.v1 import V1
 
 class Trunking(Domain):
     def __init__(self, twilio):
