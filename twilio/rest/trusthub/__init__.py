@@ -13,7 +13,7 @@
 """
 
 from twilio.base.domain import Domain
-from twilio.rest.Trusthub.v1 import V1
+from twilio.rest.trusthub.v1 import V1
 
 class Trusthub(Domain):
     def __init__(self, twilio):

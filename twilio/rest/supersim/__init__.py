@@ -13,7 +13,7 @@
 """
 
 from twilio.base.domain import Domain
-from twilio.rest.Supersim.v1 import V1
+from twilio.rest.supersim.v1 import V1
 
 class Supersim(Domain):
     def __init__(self, twilio):

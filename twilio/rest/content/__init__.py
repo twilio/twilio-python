@@ -13,7 +13,7 @@
 """
 
 from twilio.base.domain import Domain
-from twilio.rest.Content.v1 import V1
+from twilio.rest.content.v1 import V1
 
 class Content(Domain):
     def __init__(self, twilio):
