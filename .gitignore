@@ -24,8 +24,9 @@ coverage.xml
 
 .DS_Store
 
-# sphinx build
-docs
+# sphinx build and rst folder
+docs/build
+docs/source/_rst
 
 # PyCharm/IntelliJ
 .idea
