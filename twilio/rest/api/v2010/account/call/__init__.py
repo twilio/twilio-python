@@ -21,6 +21,8 @@ from twilio.rest.api.v2010.account.call.payment import PaymentList
 from twilio.rest.api.v2010.account.call.recording import RecordingList
 from twilio.rest.api.v2010.account.call.siprec import SiprecList
 from twilio.rest.api.v2010.account.call.stream import StreamList
+from twilio.rest.api.v2010.account.call.user_defined_message import UserDefinedMessageList
+from twilio.rest.api.v2010.account.call.user_defined_message_subscription import UserDefinedMessageSubscriptionList
 
 
 class CallList(ListResource):
@@ -423,6 +425,8 @@ class CallContext(InstanceContext):
         self._payments = None
         self._siprec = None
         self._streams = None
+        self._user_defined_message_subscriptions = None
+        self._user_defined_messages = None
 
     def delete(self):
         """
@@ -601,6 +605,38 @@ class CallContext(InstanceContext):
                 call_sid=self._solution['sid'],
             )
         return self._streams
+
+    @property
+    def user_defined_message_subscriptions(self):
+        """
+        Access the user_defined_message_subscriptions
+
+        :returns: twilio.rest.api.v2010.account.call.user_defined_message_subscription.UserDefinedMessageSubscriptionList
+        :rtype: twilio.rest.api.v2010.account.call.user_defined_message_subscription.UserDefinedMessageSubscriptionList
+        """
+        if self._user_defined_message_subscriptions is None:
+            self._user_defined_message_subscriptions = UserDefinedMessageSubscriptionList(
+                self._version,
+                account_sid=self._solution['account_sid'],
+                call_sid=self._solution['sid'],
+            )
+        return self._user_defined_message_subscriptions
+
+    @property
+    def user_defined_messages(self):
+        """
+        Access the user_defined_messages
+
+        :returns: twilio.rest.api.v2010.account.call.user_defined_message.UserDefinedMessageList
+        :rtype: twilio.rest.api.v2010.account.call.user_defined_message.UserDefinedMessageList
+        """
+        if self._user_defined_messages is None:
+            self._user_defined_messages = UserDefinedMessageList(
+                self._version,
+                account_sid=self._solution['account_sid'],
+                call_sid=self._solution['sid'],
+            )
+        return self._user_defined_messages
 
     def __repr__(self):
         """
@@ -1022,6 +1058,26 @@ class CallInstance(InstanceResource):
         :rtype: twilio.rest.api.v2010.account.call.stream.StreamList
         """
         return self._proxy.streams
+
+    @property
+    def user_defined_message_subscriptions(self):
+        """
+        Access the user_defined_message_subscriptions
+
+        :returns: twilio.rest.api.v2010.account.call.user_defined_message_subscription.UserDefinedMessageSubscriptionList
+        :rtype: twilio.rest.api.v2010.account.call.user_defined_message_subscription.UserDefinedMessageSubscriptionList
+        """
+        return self._proxy.user_defined_message_subscriptions
+
+    @property
+    def user_defined_messages(self):
+        """
+        Access the user_defined_messages
+
+        :returns: twilio.rest.api.v2010.account.call.user_defined_message.UserDefinedMessageList
+        :rtype: twilio.rest.api.v2010.account.call.user_defined_message.UserDefinedMessageList
+        """
+        return self._proxy.user_defined_messages
 
     def __repr__(self):
         """

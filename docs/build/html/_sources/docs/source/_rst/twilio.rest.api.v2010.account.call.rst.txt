@@ -68,6 +68,22 @@ twilio.rest.api.v2010.account.call.stream module
     :undoc-members:
     :show-inheritance:
 
+twilio.rest.api.v2010.account.call.user\_defined\_message module
+----------------------------------------------------------------
+
+.. automodule:: twilio.rest.api.v2010.account.call.user_defined_message
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+twilio.rest.api.v2010.account.call.user\_defined\_message\_subscription module
+------------------------------------------------------------------------------
+
+.. automodule:: twilio.rest.api.v2010.account.call.user_defined_message_subscription
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 
 Module contents
 ---------------

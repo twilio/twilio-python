@@ -110,7 +110,7 @@ class TestUserAgentClients(unittest.TestCase):
     def test_set_default_user_agent(self):
         self.client.request('GET', 'https://api.twilio.com/')
         request_header = self.client.http_client.last_request.headers['User-Agent']
-        self.assertRegex(request_header, r'^twilio-python\/[0-9.]+\s\(\w+\s\w+\)\sPython\/[^\s]+$')
+        self.assertRegex(request_header, r'^twilio-python\/[0-9.]+(-rc\.[0-9]+)?\s\(\w+\s\w+\)\sPython\/[^\s]+$')
 
     def test_set_user_agent_extensions(self):
         expected_user_agent_extensions = ['twilio-run/2.0.0-test', 'flex-plugin/3.4.0']

@@ -44,13 +44,6 @@ class Insights(Domain):
         return self.v1.settings
 
     @property
-    def annotation(self):
-        """
-        :rtype: twilio.rest.insights.v1.annotation.AnnotationList
-        """
-        return self.v1.annotation
-
-    @property
     def calls(self):
         """
         :rtype: twilio.rest.insights.v1.call.CallList

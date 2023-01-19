@@ -13,27 +13,32 @@ on:
 jobs:
   test:
     name: Test
-    runs-on: ubuntu-latest
     timeout-minutes: 20
     strategy:
       matrix:
-        python-version: [ '3.6', '3.7', '3.8', '3.9', '3.10' ]
+        python-version: [ '3.7', '3.8', '3.9', '3.10', '3.11' ]
+        os: [ubuntu-latest]
+        # Need to pin ubuntu version for python 3.6 (see https://github.com/actions/setup-python/issues/544#issuecomment-1332535877)
+        # Change this to use ubuntu-latest for all python versions after deprecating python 3.6
+        include:
+          - python-version: '3.6'
+            os: 'ubuntu-20.04'
+    runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout twilio-python
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
 
       - name: Set up Python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python-version }}
 
       - name: Install Dependencies
         run: |
           pip install virtualenv --upgrade
-          make install
-          make test-install
+          make install test-install
 
       - name: Run the tests
         run: make test-with-coverage
@@ -53,12 +58,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout twilio-python
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           fetch-depth: 0
 
       - name: Set up Python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v4
         with:
           python-version: '3.10'
 
@@ -71,7 +76,7 @@ jobs:
         run: python -m build
 
       - name: Login to Docker Hub
-        uses: docker/login-action@v1
+        uses: docker/login-action@v2
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_AUTH_TOKEN }}

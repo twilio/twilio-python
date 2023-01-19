@@ -44,7 +44,7 @@ class FleetList(ListResource):
         :param unicode network_access_profile: The SID or unique name of the Network Access Profile of the Fleet
         :param unicode unique_name: An application-defined string that uniquely identifies the resource
         :param bool data_enabled: Defines whether SIMs in the Fleet are capable of using data connectivity
-        :param unicode data_limit: The total data usage (download and upload combined) in Megabytes that each Sim resource assigned to the Fleet resource can consume
+        :param unicode data_limit: The total data usage (download and upload combined) in Megabytes that each Super SIM resource assigned to the Fleet can consume
         :param unicode ip_commands_url: The URL that will receive a webhook when a Super SIM in the Fleet is used to send an IP Command from your device
         :param unicode ip_commands_method: A string representing the HTTP method to use when making a request to `ip_commands_url`
         :param bool sms_commands_enabled: Defines whether SIMs in the Fleet are capable of sending and receiving machine-to-machine SMS via Commands
@@ -265,7 +265,8 @@ class FleetContext(InstanceContext):
 
     def update(self, unique_name=values.unset, network_access_profile=values.unset,
                ip_commands_url=values.unset, ip_commands_method=values.unset,
-               sms_commands_url=values.unset, sms_commands_method=values.unset):
+               sms_commands_url=values.unset, sms_commands_method=values.unset,
+               data_limit=values.unset):
         """
         Update the FleetInstance
 
@@ -275,6 +276,7 @@ class FleetContext(InstanceContext):
         :param unicode ip_commands_method: A string representing the HTTP method to use when making a request to `ip_commands_url`
         :param unicode sms_commands_url: The URL that will receive a webhook when a Super SIM in the Fleet is used to send an SMS from your device to the SMS Commands number
         :param unicode sms_commands_method: A string representing the HTTP method to use when making a request to `sms_commands_url`
+        :param unicode data_limit: The total data usage (download and upload combined) in Megabytes that each Super SIM assigned to the Fleet can consume
 
         :returns: The updated FleetInstance
         :rtype: twilio.rest.supersim.v1.fleet.FleetInstance
@@ -286,6 +288,7 @@ class FleetContext(InstanceContext):
             'IpCommandsMethod': ip_commands_method,
             'SmsCommandsUrl': sms_commands_url,
             'SmsCommandsMethod': sms_commands_method,
+            'DataLimit': data_limit,
         })
 
         payload = self._version.update(method='POST', uri=self._uri, data=data, )
@@ -414,7 +417,7 @@ class FleetInstance(InstanceResource):
     @property
     def data_limit(self):
         """
-        :returns: The total data usage (download and upload combined) in Megabytes that each Sim resource assigned to the Fleet resource can consume
+        :returns: The total data usage (download and upload combined) in Megabytes that each Super SIM assigned to the Fleet can consume
         :rtype: unicode
         """
         return self._properties['data_limit']
@@ -486,7 +489,8 @@ class FleetInstance(InstanceResource):
 
     def update(self, unique_name=values.unset, network_access_profile=values.unset,
                ip_commands_url=values.unset, ip_commands_method=values.unset,
-               sms_commands_url=values.unset, sms_commands_method=values.unset):
+               sms_commands_url=values.unset, sms_commands_method=values.unset,
+               data_limit=values.unset):
         """
         Update the FleetInstance
 
@@ -496,6 +500,7 @@ class FleetInstance(InstanceResource):
         :param unicode ip_commands_method: A string representing the HTTP method to use when making a request to `ip_commands_url`
         :param unicode sms_commands_url: The URL that will receive a webhook when a Super SIM in the Fleet is used to send an SMS from your device to the SMS Commands number
         :param unicode sms_commands_method: A string representing the HTTP method to use when making a request to `sms_commands_url`
+        :param unicode data_limit: The total data usage (download and upload combined) in Megabytes that each Super SIM assigned to the Fleet can consume
 
         :returns: The updated FleetInstance
         :rtype: twilio.rest.supersim.v1.fleet.FleetInstance
@@ -507,6 +512,7 @@ class FleetInstance(InstanceResource):
             ip_commands_method=ip_commands_method,
             sms_commands_url=sms_commands_url,
             sms_commands_method=sms_commands_method,
+            data_limit=data_limit,
         )
 
     def __repr__(self):

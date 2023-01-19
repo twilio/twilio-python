@@ -53,6 +53,7 @@ class WorkerTestCase(IntegrationTestCase):
                         "date_created": "2017-05-30T23:05:29Z",
                         "date_updated": "2017-05-30T23:05:29Z",
                         "date_status_changed": "2017-05-30T23:05:29Z",
+                        "operating_unit_sid": "OUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                         "url": "https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workers/WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                         "links": {
                             "channels": "https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workers/WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels",
@@ -131,6 +132,7 @@ class WorkerTestCase(IntegrationTestCase):
                 "date_created": "2017-05-30T23:19:38Z",
                 "date_updated": "2017-05-30T23:19:38Z",
                 "date_status_changed": "2017-05-30T23:19:38Z",
+                "operating_unit_sid": "OUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "url": "https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workers/WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "links": {
                     "channels": "https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workers/WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels",
@@ -179,6 +181,7 @@ class WorkerTestCase(IntegrationTestCase):
                 "date_updated": "2017-05-30T23:32:39Z",
                 "friendly_name": "NewWorker3",
                 "sid": "WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "operating_unit_sid": "OUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "url": "https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workers/WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "workspace_sid": "WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "links": {
@@ -231,6 +234,7 @@ class WorkerTestCase(IntegrationTestCase):
                 "date_created": "2017-05-30T23:32:22Z",
                 "date_updated": "2017-05-31T00:05:57Z",
                 "date_status_changed": "2017-05-30T23:32:22Z",
+                "operating_unit_sid": "OUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "url": "https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workers/WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "links": {
                     "channels": "https://taskrouter.twilio.com/v1/Workspaces/WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Workers/WKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels",

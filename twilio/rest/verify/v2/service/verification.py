@@ -48,14 +48,14 @@ class VerificationList(ListResource):
         :param unicode custom_friendly_name: A custom user defined friendly name
         :param unicode custom_message: The text of a custom message to use for the verification
         :param unicode send_digits: The digits to send after a phone call is answered
-        :param unicode locale: The locale to use for the verification SMS, WhatsApp or call
+        :param unicode locale: The override locale to use for the verification SMS, WhatsApp or call
         :param unicode custom_code: A pre-generated code
         :param unicode amount: The amount of the associated PSD2 compliant transaction.
         :param unicode payee: The payee of the associated PSD2 compliant transaction
         :param dict rate_limits: The custom key-value pairs of Programmable Rate Limits.
         :param dict channel_configuration: Channel specific configuration in json format.
         :param unicode app_hash: Your App Hash to be appended at the end of an SMS.
-        :param unicode template_sid: The verification template SMS messages.
+        :param unicode template_sid: The verification template SMS or Voice message.
         :param unicode template_custom_substitutions: The values of the special variables declared on the message template.
 
         :returns: The created VerificationInstance

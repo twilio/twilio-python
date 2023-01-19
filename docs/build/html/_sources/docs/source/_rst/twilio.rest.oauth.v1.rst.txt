@@ -1,0 +1,54 @@
+twilio.rest.oauth.v1 package
+============================
+
+Submodules
+----------
+
+twilio.rest.oauth.v1.device\_code module
+----------------------------------------
+
+.. automodule:: twilio.rest.oauth.v1.device_code
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+twilio.rest.oauth.v1.oauth module
+---------------------------------
+
+.. automodule:: twilio.rest.oauth.v1.oauth
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+twilio.rest.oauth.v1.openid\_discovery module
+---------------------------------------------
+
+.. automodule:: twilio.rest.oauth.v1.openid_discovery
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+twilio.rest.oauth.v1.token module
+---------------------------------
+
+.. automodule:: twilio.rest.oauth.v1.token
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+twilio.rest.oauth.v1.user\_info module
+--------------------------------------
+
+.. automodule:: twilio.rest.oauth.v1.user_info
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: twilio.rest.oauth.v1
+    :members:
+    :undoc-members:
+    :show-inheritance:

@@ -13,7 +13,7 @@ with open('README.md') as f:
 
 setup(
     name="twilio",
-    version="7.9.3",
+    version="7.16.1",
     description="Twilio API client and TwiML generator",
     author="Twilio",
     author_email="help@twilio.com",
@@ -38,6 +38,7 @@ setup(
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.10",
+        "Programming Language :: Python :: 3.11",
         "Programming Language :: Python :: Implementation :: CPython",
         "Topic :: Software Development :: Libraries :: Python Modules",
         "Topic :: Communications :: Telephony",

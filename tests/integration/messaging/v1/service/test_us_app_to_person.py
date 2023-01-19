@@ -20,11 +20,12 @@ class UsAppToPersonTestCase(IntegrationTestCase):
 
         with self.assertRaises(TwilioException):
             self.client.messaging.v1.services("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                    .us_app_to_person.create(brand_registration_sid="BNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", description="description", message_samples=['message_samples'], us_app_to_person_usecase="us_app_to_person_usecase", has_embedded_links=True, has_embedded_phone=True)
+                                    .us_app_to_person.create(brand_registration_sid="BNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", description="description", message_flow="message_flow", message_samples=['message_samples'], us_app_to_person_usecase="us_app_to_person_usecase", has_embedded_links=True, has_embedded_phone=True)
 
         values = {
             'BrandRegistrationSid': "BNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
             'Description': "description",
+            'MessageFlow': "message_flow",
             'MessageSamples': serialize.map(['message_samples'], lambda e: e),
             'UsAppToPersonUsecase': "us_app_to_person_usecase",
             'HasEmbeddedLinks': True,
@@ -66,6 +67,19 @@ class UsAppToPersonTestCase(IntegrationTestCase):
                         "brand_tier": "TOP"
                     }
                 },
+                "message_flow": "End users opt-in by visiting www.example.com and adding their phone number. They then check a box agreeing to receive text messages from Example Brand. Additionally, end users can also opt-in by texting START to (111) 222-3333 to opt in.",
+                "opt_in_message": "Acme Corporation: You are now opted-in. For help, reply HELP. To opt-out, reply STOP",
+                "opt_out_message": "You have successfully been unsubscribed from Acme Corporation. You will not receive any more messages from this number.",
+                "help_message": "Acme Corporation: Please visit www.example.com to get support. To opt-out, reply STOP.",
+                "opt_in_keywords": [
+                    "START"
+                ],
+                "opt_out_keywords": [
+                    "STOP"
+                ],
+                "help_keywords": [
+                    "HELP"
+                ],
                 "date_created": "2021-02-18T14:48:52Z",
                 "date_updated": "2021-02-18T14:48:52Z",
                 "url": "https://messaging.twilio.com/v1/Services/MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Compliance/Usa2p/QE2c6890da8086d771620e9b13fadeba0b",
@@ -75,7 +89,68 @@ class UsAppToPersonTestCase(IntegrationTestCase):
         ))
 
         actual = self.client.messaging.v1.services("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                         .us_app_to_person.create(brand_registration_sid="BNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", description="description", message_samples=['message_samples'], us_app_to_person_usecase="us_app_to_person_usecase", has_embedded_links=True, has_embedded_phone=True)
+                                         .us_app_to_person.create(brand_registration_sid="BNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", description="description", message_flow="message_flow", message_samples=['message_samples'], us_app_to_person_usecase="us_app_to_person_usecase", has_embedded_links=True, has_embedded_phone=True)
+
+        self.assertIsNotNone(actual)
+
+    def test_create_with_defaults_response(self):
+        self.holodeck.mock(Response(
+            201,
+            '''
+            {
+                "sid": "QE2c6890da8086d771620e9b13fadeba0b",
+                "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "brand_registration_sid": "BNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "messaging_service_sid": "MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "description": "Send marketing messages about sales to opted in customers.",
+                "message_samples": [
+                    "EXPRESS: Denim Days Event is ON",
+                    "LAST CHANCE: Book your next flight for just 1 (ONE) EUR"
+                ],
+                "us_app_to_person_usecase": "MARKETING",
+                "has_embedded_links": true,
+                "has_embedded_phone": false,
+                "campaign_status": "PENDING",
+                "campaign_id": "CXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "is_externally_registered": false,
+                "rate_limits": {
+                    "att": {
+                        "mps": 600,
+                        "msg_class": "A"
+                    },
+                    "tmobile": {
+                        "brand_tier": "TOP"
+                    }
+                },
+                "message_flow": "End users opt-in by visiting www.example.com and adding their phone number. They then check a box agreeing to receive text messages from Example Brand. Additionally, end users can also opt-in by texting START to (111) 222-3333 to opt in.",
+                "opt_in_message": "Acme Corporation: You are now opted-in. For help, reply HELP. To opt-out, reply STOP",
+                "opt_out_message": "You have successfully been unsubscribed. You will not receive any more messages from this number. Reply START to resubscribe.",
+                "help_message": "Reply STOP to unsubscribe. Msg&Data Rates May Apply.",
+                "opt_in_keywords": [
+                    "START"
+                ],
+                "opt_out_keywords": [
+                    "STOP",
+                    "STOPALL",
+                    "UNSUBSCRIBE",
+                    "CANCEL",
+                    "END",
+                    "QUIT"
+                ],
+                "help_keywords": [
+                    "HELP",
+                    "INFO"
+                ],
+                "date_created": "2021-02-18T14:48:52Z",
+                "date_updated": "2021-02-18T14:48:52Z",
+                "url": "https://messaging.twilio.com/v1/Services/MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Compliance/Usa2p/QE2c6890da8086d771620e9b13fadeba0b",
+                "mock": false
+            }
+            '''
+        ))
+
+        actual = self.client.messaging.v1.services("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                         .us_app_to_person.create(brand_registration_sid="BNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", description="description", message_flow="message_flow", message_samples=['message_samples'], us_app_to_person_usecase="us_app_to_person_usecase", has_embedded_links=True, has_embedded_phone=True)
 
         self.assertIsNotNone(actual)
 
@@ -145,6 +220,19 @@ class UsAppToPersonTestCase(IntegrationTestCase):
                                 "brand_tier": "TOP"
                             }
                         },
+                        "message_flow": "End users opt-in by visiting www.example.com and adding their phone number. They then check a box agreeing to receive text messages from Example Brand. Additionally, end users can also opt-in by texting START to (111) 222-3333 to opt in.",
+                        "opt_in_message": "Acme Corporation: You are now opted-in. For help, reply HELP. To opt-out, reply STOP",
+                        "opt_out_message": "You have successfully been unsubscribed from Acme Corporation. You will not receive any more messages from this number.",
+                        "help_message": "Acme Corporation: Please visit www.example.com to get support. To opt-out, reply STOP.",
+                        "opt_in_keywords": [
+                            "START"
+                        ],
+                        "opt_out_keywords": [
+                            "STOP"
+                        ],
+                        "help_keywords": [
+                            "HELP"
+                        ],
                         "date_created": "2021-02-18T14:48:52Z",
                         "date_updated": "2021-02-18T14:48:52Z",
                         "url": "https://messaging.twilio.com/v1/Services/MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Compliance/Usa2p/QE2c6890da8086d771620e9b13fadeba0b",
@@ -210,6 +298,19 @@ class UsAppToPersonTestCase(IntegrationTestCase):
                         "brand_tier": "TOP"
                     }
                 },
+                "message_flow": "End users opt-in by visiting www.example.com and adding their phone number. They then check a box agreeing to receive text messages from Example Brand. Additionally, end users can also opt-in by texting START to (111) 222-3333 to opt in.",
+                "opt_in_message": "Acme Corporation: You are now opted-in. For help, reply HELP. To opt-out, reply STOP",
+                "opt_out_message": "You have successfully been unsubscribed from Acme Corporation. You will not receive any more messages from this number.",
+                "help_message": "Acme Corporation: Please visit www.example.com to get support. To opt-out, reply STOP.",
+                "opt_in_keywords": [
+                    "START"
+                ],
+                "opt_out_keywords": [
+                    "STOP"
+                ],
+                "help_keywords": [
+                    "HELP"
+                ],
                 "date_created": "2021-02-18T14:48:52Z",
                 "date_updated": "2021-02-18T14:48:52Z",
                 "url": "https://messaging.twilio.com/v1/Services/MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Compliance/Usa2p/QE2c6890da8086d771620e9b13fadeba0b",

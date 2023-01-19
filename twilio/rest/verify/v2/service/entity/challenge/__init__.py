@@ -17,8 +17,6 @@ from twilio.rest.verify.v2.service.entity.challenge.notification import Notifica
 
 
 class ChallengeList(ListResource):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
 
     def __init__(self, version, service_sid, identity):
         """
@@ -216,8 +214,6 @@ class ChallengeList(ListResource):
 
 
 class ChallengePage(Page):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
 
     def __init__(self, version, response, solution):
         """
@@ -263,8 +259,6 @@ class ChallengePage(Page):
 
 
 class ChallengeContext(InstanceContext):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
 
     def __init__(self, version, service_sid, identity, sid):
         """
@@ -355,8 +349,6 @@ class ChallengeContext(InstanceContext):
 
 
 class ChallengeInstance(InstanceResource):
-    """ PLEASE NOTE that this class contains beta products that are subject to
-    change. Use them with caution. """
 
     class ChallengeStatuses(object):
         PENDING = "pending"

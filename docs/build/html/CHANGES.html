@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-MWRD6S');</script><!--End Google Tag Manager-->
 <meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<title>twilio-python Changelog — twilio-python 7.9.3 documentation</title>
+<title>twilio-python Changelog — twilio-python 7.16.1 documentation</title>
 <link href="_static/alabaster.css" rel="stylesheet" type="text/css"/>
 <link href="_static/pygments.css" rel="stylesheet" type="text/css"/>
 <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js" type="text/javascript"></script>
@@ -30,6 +30,324 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <div class="section" id="twilio-python-changelog">
 <h1>twilio-python Changelog<a class="headerlink" href="#twilio-python-changelog" title="Permalink to this headline">¶</a></h1>
 <p>Here you can see the full list of changes between each twilio-python release.</p>
+<div class="section" id="version-7-16-1">
+<h2>[2023-01-11] Version 7.16.1<a class="headerlink" href="#version-7-16-1" title="Permalink to this headline">¶</a></h2>
+<p><strong>Conversations</strong></p>
+<ul class="simple">
+<li>Add support for creating Multi-Channel Rich Content Messages</li>
+</ul>
+<p><strong>Lookups</strong></p>
+<ul class="simple">
+<li>Changed the no data message for match postal code from <code class="docutils literal notranslate"><span class="pre">no_data</span></code> to <code class="docutils literal notranslate"><span class="pre">data_not_available</span></code> in identity match package</li>
+</ul>
+<p><strong>Messaging</strong></p>
+<ul class="simple">
+<li>Add update/edit tollfree verification API</li>
+</ul>
+</div>
+<div class="section" id="version-7-16-0">
+<h2>[2022-12-14] Version 7.16.0<a class="headerlink" href="#version-7-16-0" title="Permalink to this headline">¶</a></h2>
+<p><strong>Library - Docs</strong></p>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/twilio/twilio-python/pull/631">PR #631</a>: Updated docstrings for timeout to be float instead of int. Thanks to <a class="reference external" href="https://github.com/byarmis">@byarmis</a>!</li>
+</ul>
+<p><strong>Library - Chore</strong></p>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/twilio/twilio-python/pull/627">PR #627</a>: add support for python 3.11. Thanks to <a class="reference external" href="https://github.com/JenniferMah">@JenniferMah</a>!</li>
+</ul>
+<p><strong>Library - Test</strong></p>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/twilio/twilio-python/pull/628">PR #628</a>: Pinning ubuntu version for python 3.6 test runs. Thanks to <a class="reference external" href="https://github.com/rakatyal">@rakatyal</a>!</li>
+</ul>
+<p><strong>Api</strong></p>
+<ul class="simple">
+<li>Add <code class="docutils literal notranslate"><span class="pre">street_secondary</span></code> param to address create and update</li>
+<li>Make <code class="docutils literal notranslate"><span class="pre">method</span></code> optional for user defined message subscription <strong>(breaking change)</strong></li>
+</ul>
+<p><strong>Flex</strong></p>
+<ul class="simple">
+<li>Flex Conversations is now Generally Available</li>
+<li>Adding the ie1 mapping for authorization api, updating service base uri and base url response attribute <strong>(breaking change)</strong></li>
+<li>Change web channels to GA and library visibility to public</li>
+<li>Changing the uri for authorization api from using Accounts to Insights <strong>(breaking change)</strong></li>
+</ul>
+<p><strong>Media</strong></p>
+<ul class="simple">
+<li>Gate Twilio Live endpoints behind beta_feature for EOS</li>
+</ul>
+<p><strong>Messaging</strong></p>
+<ul class="simple">
+<li>Mark <code class="docutils literal notranslate"><span class="pre">MessageFlow</span></code> as a required field for Campaign Creation <strong>(breaking change)</strong></li>
+</ul>
+<p><strong>Oauth</strong></p>
+<ul class="simple">
+<li>updated openid discovery endpoint uri <strong>(breaking change)</strong></li>
+<li>Added device code authorization endpoint</li>
+</ul>
+<p><strong>Supersim</strong></p>
+<ul class="simple">
+<li>Allow filtering the SettingsUpdates resource by <code class="docutils literal notranslate"><span class="pre">status</span></code></li>
+</ul>
+<p><strong>Twiml</strong></p>
+<ul class="simple">
+<li>Add new Polly Neural voices</li>
+<li>Add tr-TR, ar-AE, yue-CN, fi-FI languages to SSML <code class="docutils literal notranslate"><span class="pre">&lt;lang&gt;</span></code> element.</li>
+<li>Add x-amazon-jyutping, x-amazon-pinyin, x-amazon-pron-kana, x-amazon-yomigana alphabets to SSML <code class="docutils literal notranslate"><span class="pre">&lt;phoneme&gt;</span></code> element.</li>
+<li>Rename <code class="docutils literal notranslate"><span class="pre">character</span></code> value for SSML <code class="docutils literal notranslate"><span class="pre">&lt;say-as&gt;</span></code> <code class="docutils literal notranslate"><span class="pre">interpret-as</span></code> attribute to <code class="docutils literal notranslate"><span class="pre">characters</span></code>. <strong>(breaking change)</strong></li>
+<li>Rename <code class="docutils literal notranslate"><span class="pre">role</span></code> attribute to <code class="docutils literal notranslate"><span class="pre">format</span></code> in SSML <code class="docutils literal notranslate"><span class="pre">&lt;say-as&gt;</span></code> element. <strong>(breaking change)</strong></li>
+</ul>
+</div>
+<div class="section" id="version-7-15-4">
+<h2>[2022-11-30] Version 7.15.4<a class="headerlink" href="#version-7-15-4" title="Permalink to this headline">¶</a></h2>
+<p><strong>Flex</strong></p>
+<ul class="simple">
+<li>Adding new <code class="docutils literal notranslate"><span class="pre">assessments</span></code> api in version <code class="docutils literal notranslate"><span class="pre">v1</span></code></li>
+</ul>
+<p><strong>Lookups</strong></p>
+<ul class="simple">
+<li>Add <code class="docutils literal notranslate"><span class="pre">identity_match</span></code> package to the lookup response</li>
+</ul>
+<p><strong>Messaging</strong></p>
+<ul class="simple">
+<li>Added <code class="docutils literal notranslate"><span class="pre">validated</span></code> parameter to Link Shortening API</li>
+</ul>
+<p><strong>Serverless</strong></p>
+<ul class="simple">
+<li>Add node16 as a valid Build runtime</li>
+<li>Add ie1 and au1 as supported regions for all endpoints.</li>
+</ul>
+</div>
+<div class="section" id="version-7-15-3">
+<h2>[2022-11-16] Version 7.15.3<a class="headerlink" href="#version-7-15-3" title="Permalink to this headline">¶</a></h2>
+<p><strong>Library - Chore</strong></p>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/twilio/twilio-python/pull/624">PR #624</a>: upgrade GitHub Actions dependencies. Thanks to <a class="reference external" href="https://github.com/childish-sambino">@childish-sambino</a>!</li>
+</ul>
+<p><strong>Api</strong></p>
+<ul class="simple">
+<li>Set the Content resource to have public visibility as Preview</li>
+</ul>
+<p><strong>Flex</strong></p>
+<ul class="simple">
+<li>Adding new parameter <code class="docutils literal notranslate"><span class="pre">base_url</span></code> to ‘gooddata’ response in version <code class="docutils literal notranslate"><span class="pre">v1</span></code></li>
+</ul>
+<p><strong>Insights</strong></p>
+<ul class="simple">
+<li>Added <code class="docutils literal notranslate"><span class="pre">answered_by</span></code> field in List Call Summary</li>
+<li>Added <code class="docutils literal notranslate"><span class="pre">answered_by</span></code> field in call summary</li>
+</ul>
+</div>
+<div class="section" id="version-7-15-2">
+<h2>[2022-11-10] Version 7.15.2<a class="headerlink" href="#version-7-15-2" title="Permalink to this headline">¶</a></h2>
+<p><strong>Flex</strong></p>
+<ul class="simple">
+<li>Adding two new authorization API ‘user_roles’ and ‘gooddata’ in version <code class="docutils literal notranslate"><span class="pre">v1</span></code></li>
+</ul>
+<p><strong>Messaging</strong></p>
+<ul class="simple">
+<li>Add new Campaign properties (MessageFlow, OptInMessage, OptInKeywords, OptOutMessage, OptOutKeywords, HelpMessage, HelpKeywords)</li>
+</ul>
+<p><strong>Twiml</strong></p>
+<ul class="simple">
+<li>Add new speech models to <code class="docutils literal notranslate"><span class="pre">Gather</span></code>.</li>
+</ul>
+</div>
+<div class="section" id="version-7-15-1">
+<h2>[2022-10-31] Version 7.15.1<a class="headerlink" href="#version-7-15-1" title="Permalink to this headline">¶</a></h2>
+<p><strong>Api</strong></p>
+<ul class="simple">
+<li>Added <code class="docutils literal notranslate"><span class="pre">contentSid</span></code> and <code class="docutils literal notranslate"><span class="pre">contentVariables</span></code> to Message resource with public visibility as Beta</li>
+<li>Add <code class="docutils literal notranslate"><span class="pre">UserDefinedMessageSubscription</span></code> and <code class="docutils literal notranslate"><span class="pre">UserDefinedMessage</span></code> resource</li>
+</ul>
+<p><strong>Proxy</strong></p>
+<ul class="simple">
+<li>Remove FailOnParticipantConflict param from Proxy Session create and update and Proxy Participant create</li>
+</ul>
+<p><strong>Supersim</strong></p>
+<ul class="simple">
+<li>Update SettingsUpdates resource to remove PackageSid</li>
+</ul>
+<p><strong>Taskrouter</strong></p>
+<ul class="simple">
+<li>Add <code class="docutils literal notranslate"><span class="pre">Ordering</span></code> query parameter to Workers and TaskQueues for sorting by</li>
+<li>Add <code class="docutils literal notranslate"><span class="pre">worker_sid</span></code> query param for list reservations endpoint</li>
+</ul>
+<p><strong>Twiml</strong></p>
+<ul class="simple">
+<li>Add <code class="docutils literal notranslate"><span class="pre">url</span></code> and <code class="docutils literal notranslate"><span class="pre">method</span></code> attributes to <code class="docutils literal notranslate"><span class="pre">&lt;Conversation&gt;</span></code></li>
+</ul>
+</div>
+<div class="section" id="version-7-15-0">
+<h2>[2022-10-19] Version 7.15.0<a class="headerlink" href="#version-7-15-0" title="Permalink to this headline">¶</a></h2>
+<p><strong>Api</strong></p>
+<ul class="simple">
+<li>Make link shortening parameters public <strong>(breaking change)</strong></li>
+</ul>
+<p><strong>Oauth</strong></p>
+<ul class="simple">
+<li>added oauth JWKS endpoint</li>
+<li>Get userinfo resource</li>
+<li>OpenID discovery resource</li>
+<li>Add new API for token endpoint</li>
+</ul>
+<p><strong>Supersim</strong></p>
+<ul class="simple">
+<li>Add SettingsUpdates resource</li>
+</ul>
+<p><strong>Verify</strong></p>
+<ul class="simple">
+<li>Update Verify Push endpoints to <code class="docutils literal notranslate"><span class="pre">ga</span></code> maturity</li>
+<li>Verify BYOT add Channels property to the Get Templates response</li>
+</ul>
+<p><strong>Twiml</strong></p>
+<ul class="simple">
+<li>Add <code class="docutils literal notranslate"><span class="pre">requireMatchingInputs</span></code> attribute and <code class="docutils literal notranslate"><span class="pre">input-matching-failed</span></code> errorType to <code class="docutils literal notranslate"><span class="pre">&lt;Prompt&gt;</span></code></li>
+</ul>
+</div>
+<div class="section" id="version-7-14-2">
+<h2>[2022-10-05] Version 7.14.2<a class="headerlink" href="#version-7-14-2" title="Permalink to this headline">¶</a></h2>
+<p><strong>Api</strong></p>
+<ul class="simple">
+<li>Added <code class="docutils literal notranslate"><span class="pre">virtual-agent</span></code> to <code class="docutils literal notranslate"><span class="pre">usage_record</span></code> API.</li>
+<li>Add AMD attributes to participant create request</li>
+</ul>
+<p><strong>Twiml</strong></p>
+<ul class="simple">
+<li>Add AMD attributes to <code class="docutils literal notranslate"><span class="pre">Number</span></code> and <code class="docutils literal notranslate"><span class="pre">Sip</span></code></li>
+</ul>
+</div>
+<div class="section" id="version-7-14-1">
+<h2>[2022-09-21] Version 7.14.1<a class="headerlink" href="#version-7-14-1" title="Permalink to this headline">¶</a></h2>
+<p><strong>Library - Fix</strong></p>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/twilio/twilio-python/pull/617">PR #617</a>: support duplicated query param values. Thanks to <a class="reference external" href="https://github.com/childish-sambino">@childish-sambino</a>!</li>
+</ul>
+</div>
+<div class="section" id="version-7-14-0">
+<h2>[2022-09-07] Version 7.14.0<a class="headerlink" href="#version-7-14-0" title="Permalink to this headline">¶</a></h2>
+<p><strong>Library - Fix</strong></p>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/twilio/twilio-python/pull/615">PR #615</a>: support duplicate query param values. Thanks to <a class="reference external" href="https://github.com/childish-sambino">@childish-sambino</a>!</li>
+</ul>
+<p><strong>Flex</strong></p>
+<ul class="simple">
+<li>Removed redundant <code class="docutils literal notranslate"><span class="pre">close</span></code> status from Flex Interactions flow <strong>(breaking change)</strong></li>
+<li>Adding <code class="docutils literal notranslate"><span class="pre">debugger_integration</span></code> and <code class="docutils literal notranslate"><span class="pre">flex_ui_status_report</span></code> to Flex Configuration</li>
+</ul>
+<p><strong>Messaging</strong></p>
+<ul class="simple">
+<li>Add create, list and get tollfree verification API</li>
+</ul>
+<p><strong>Verify</strong></p>
+<ul class="simple">
+<li>Verify SafeList API endpoints added.</li>
+</ul>
+<p><strong>Video</strong></p>
+<ul class="simple">
+<li>Add <code class="docutils literal notranslate"><span class="pre">Anonymize</span></code> API</li>
+</ul>
+<p><strong>Twiml</strong></p>
+<ul class="simple">
+<li>Update <code class="docutils literal notranslate"><span class="pre">event</span></code> value <code class="docutils literal notranslate"><span class="pre">call-in-progress</span></code> to <code class="docutils literal notranslate"><span class="pre">call-answered</span></code></li>
+</ul>
+</div>
+<div class="section" id="version-7-13-0">
+<h2>[2022-08-24] Version 7.13.0<a class="headerlink" href="#version-7-13-0" title="Permalink to this headline">¶</a></h2>
+<p><strong>Library - Test</strong></p>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/twilio/twilio-python/pull/614">PR #614</a>: add test-docker rule. Thanks to <a class="reference external" href="https://github.com/beebzz">@beebzz</a>!</li>
+</ul>
+<p><strong>Api</strong></p>
+<ul class="simple">
+<li>Remove <code class="docutils literal notranslate"><span class="pre">beta</span> <span class="pre">feature</span></code> from scheduling params and remove optimize parameters. <strong>(breaking change)</strong></li>
+</ul>
+<p><strong>Routes</strong></p>
+<ul class="simple">
+<li>Remove Duplicate Create Method - Update Method will work even if Inbound Processing Region is currently empty/404. <strong>(breaking change)</strong></li>
+</ul>
+<p><strong>Twiml</strong></p>
+<ul class="simple">
+<li>Add new Polly Neural voices</li>
+<li>Add new languages to SSML <code class="docutils literal notranslate"><span class="pre">&lt;lang&gt;</span></code>.</li>
+</ul>
+</div>
+<div class="section" id="version-7-12-1">
+<h2>[2022-08-10] Version 7.12.1<a class="headerlink" href="#version-7-12-1" title="Permalink to this headline">¶</a></h2>
+<p><strong>Routes</strong></p>
+<ul class="simple">
+<li>Inbound Proccessing Region API - Public GA</li>
+</ul>
+<p><strong>Supersim</strong></p>
+<ul class="simple">
+<li>Allow updating <code class="docutils literal notranslate"><span class="pre">DataLimit</span></code> on a Fleet</li>
+</ul>
+</div>
+<div class="section" id="version-7-12-0">
+<h2>[2022-07-21] Version 7.12.0<a class="headerlink" href="#version-7-12-0" title="Permalink to this headline">¶</a></h2>
+<p><strong>Flex</strong></p>
+<ul class="simple">
+<li>Add <code class="docutils literal notranslate"><span class="pre">status</span></code>, <code class="docutils literal notranslate"><span class="pre">error_code</span></code>, and <code class="docutils literal notranslate"><span class="pre">error_message</span></code> fields to Interaction <code class="docutils literal notranslate"><span class="pre">Channel</span></code></li>
+<li>Adding <code class="docutils literal notranslate"><span class="pre">messenger</span></code> and <code class="docutils literal notranslate"><span class="pre">gbm</span></code> as supported channels for Interactions API</li>
+</ul>
+<p><strong>Messaging</strong></p>
+<ul class="simple">
+<li>Update alpha_sender docs with new valid characters</li>
+</ul>
+<p><strong>Verify</strong></p>
+<ul class="simple">
+<li>Reorder Verification Check parameters so <code class="docutils literal notranslate"><span class="pre">code</span></code> stays as the first parameter <strong>(breaking change)</strong></li>
+<li>Rollback List Attempts API V2 back to pilot stage.</li>
+</ul>
+</div>
+<div class="section" id="version-7-11-0">
+<h2>[2022-07-13] Version 7.11.0<a class="headerlink" href="#version-7-11-0" title="Permalink to this headline">¶</a></h2>
+<p><strong>Library - Fix</strong></p>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/twilio/twilio-python/pull/611">PR #611</a>: useragent regrex unit test for RC branch. Thanks to <a class="reference external" href="https://github.com/claudiachua">@claudiachua</a>!</li>
+</ul>
+<p><strong>Library - Test</strong></p>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/twilio/twilio-python/pull/610">PR #610</a>: Adding misc as PR type. Thanks to <a class="reference external" href="https://github.com/rakatyal">@rakatyal</a>!</li>
+</ul>
+<p><strong>Conversations</strong></p>
+<ul class="simple">
+<li>Allowed to use <code class="docutils literal notranslate"><span class="pre">identity</span></code> as part of Participant’s resource <strong>(breaking change)</strong></li>
+</ul>
+<p><strong>Lookups</strong></p>
+<ul class="simple">
+<li>Remove <code class="docutils literal notranslate"><span class="pre">enhanced_line_type</span></code> from the lookup response <strong>(breaking change)</strong></li>
+</ul>
+<p><strong>Supersim</strong></p>
+<ul class="simple">
+<li>Add support for <code class="docutils literal notranslate"><span class="pre">sim_ip_addresses</span></code> resource to helper libraries</li>
+</ul>
+<p><strong>Verify</strong></p>
+<ul class="simple">
+<li>Changed summary param <code class="docutils literal notranslate"><span class="pre">service_sid</span></code> to <code class="docutils literal notranslate"><span class="pre">verify_service_sid</span></code> to be consistent with list attempts API <strong>(breaking change)</strong></li>
+<li>Make <code class="docutils literal notranslate"><span class="pre">code</span></code> optional on Verification check to support <code class="docutils literal notranslate"><span class="pre">sna</span></code> attempts. <strong>(breaking change)</strong></li>
+</ul>
+</div>
+<div class="section" id="version-7-10-0">
+<h2>[2022-06-29] Version 7.10.0<a class="headerlink" href="#version-7-10-0" title="Permalink to this headline">¶</a></h2>
+<p><strong>Api</strong></p>
+<ul class="simple">
+<li>Added <code class="docutils literal notranslate"><span class="pre">amazon-polly</span></code> to <code class="docutils literal notranslate"><span class="pre">usage_record</span></code> API.</li>
+</ul>
+<p><strong>Insights</strong></p>
+<ul class="simple">
+<li>Added <code class="docutils literal notranslate"><span class="pre">annotation</span></code> field in call summary</li>
+<li>Added new endpoint to fetch/create/update Call Annotations</li>
+</ul>
+<p><strong>Verify</strong></p>
+<ul class="simple">
+<li>Remove <code class="docutils literal notranslate"><span class="pre">api.verify.totp</span></code> beta flag and set maturity to <code class="docutils literal notranslate"><span class="pre">beta</span></code> for Verify TOTP properties and parameters. <strong>(breaking change)</strong></li>
+<li>Changed summary param <code class="docutils literal notranslate"><span class="pre">verify_service_sid</span></code> to <code class="docutils literal notranslate"><span class="pre">service_sid</span></code> to be consistent with list attempts API <strong>(breaking change)</strong></li>
+</ul>
+<p><strong>Twiml</strong></p>
+<ul class="simple">
+<li>Add <code class="docutils literal notranslate"><span class="pre">maxQueueSize</span></code> to <code class="docutils literal notranslate"><span class="pre">Enqueue</span></code></li>
+</ul>
+</div>
 <div class="section" id="version-7-9-3">
 <h2>[2022-06-15] Version 7.9.3<a class="headerlink" href="#version-7-9-3" title="Permalink to this headline">¶</a></h2>
 <p><strong>Lookups</strong></p>
@@ -3690,6 +4008,21 @@ querying list resources</li>
 <h3><a href="index.html">Table of Contents</a></h3>
 <ul>
 <li><a class="reference internal" href="#">twilio-python Changelog</a><ul>
+<li><a class="reference internal" href="#version-7-16-1">[2023-01-11] Version 7.16.1</a></li>
+<li><a class="reference internal" href="#version-7-16-0">[2022-12-14] Version 7.16.0</a></li>
+<li><a class="reference internal" href="#version-7-15-4">[2022-11-30] Version 7.15.4</a></li>
+<li><a class="reference internal" href="#version-7-15-3">[2022-11-16] Version 7.15.3</a></li>
+<li><a class="reference internal" href="#version-7-15-2">[2022-11-10] Version 7.15.2</a></li>
+<li><a class="reference internal" href="#version-7-15-1">[2022-10-31] Version 7.15.1</a></li>
+<li><a class="reference internal" href="#version-7-15-0">[2022-10-19] Version 7.15.0</a></li>
+<li><a class="reference internal" href="#version-7-14-2">[2022-10-05] Version 7.14.2</a></li>
+<li><a class="reference internal" href="#version-7-14-1">[2022-09-21] Version 7.14.1</a></li>
+<li><a class="reference internal" href="#version-7-14-0">[2022-09-07] Version 7.14.0</a></li>
+<li><a class="reference internal" href="#version-7-13-0">[2022-08-24] Version 7.13.0</a></li>
+<li><a class="reference internal" href="#version-7-12-1">[2022-08-10] Version 7.12.1</a></li>
+<li><a class="reference internal" href="#version-7-12-0">[2022-07-21] Version 7.12.0</a></li>
+<li><a class="reference internal" href="#version-7-11-0">[2022-07-13] Version 7.11.0</a></li>
+<li><a class="reference internal" href="#version-7-10-0">[2022-06-29] Version 7.10.0</a></li>
 <li><a class="reference internal" href="#version-7-9-3">[2022-06-15] Version 7.9.3</a></li>
 <li><a class="reference internal" href="#version-7-9-2">[2022-06-01] Version 7.9.2</a></li>
 <li><a class="reference internal" href="#version-7-9-1">[2022-05-18] Version 7.9.1</a></li>

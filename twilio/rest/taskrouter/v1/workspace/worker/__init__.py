@@ -44,7 +44,8 @@ class WorkerList(ListResource):
     def stream(self, activity_name=values.unset, activity_sid=values.unset,
                available=values.unset, friendly_name=values.unset,
                target_workers_expression=values.unset, task_queue_name=values.unset,
-               task_queue_sid=values.unset, limit=None, page_size=None):
+               task_queue_sid=values.unset, ordering=values.unset, limit=None,
+               page_size=None):
         """
         Streams WorkerInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -58,6 +59,7 @@ class WorkerList(ListResource):
         :param unicode target_workers_expression: Filter by Workers that would match an expression on a TaskQueue
         :param unicode task_queue_name: The friendly_name of the TaskQueue that the Workers to read are eligible for
         :param unicode task_queue_sid: The SID of the TaskQueue that the Workers to read are eligible for
+        :param unicode ordering: Sorting parameter for Workers
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -78,6 +80,7 @@ class WorkerList(ListResource):
             target_workers_expression=target_workers_expression,
             task_queue_name=task_queue_name,
             task_queue_sid=task_queue_sid,
+            ordering=ordering,
             page_size=limits['page_size'],
         )
 
@@ -86,7 +89,8 @@ class WorkerList(ListResource):
     def list(self, activity_name=values.unset, activity_sid=values.unset,
              available=values.unset, friendly_name=values.unset,
              target_workers_expression=values.unset, task_queue_name=values.unset,
-             task_queue_sid=values.unset, limit=None, page_size=None):
+             task_queue_sid=values.unset, ordering=values.unset, limit=None,
+             page_size=None):
         """
         Lists WorkerInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
@@ -99,6 +103,7 @@ class WorkerList(ListResource):
         :param unicode target_workers_expression: Filter by Workers that would match an expression on a TaskQueue
         :param unicode task_queue_name: The friendly_name of the TaskQueue that the Workers to read are eligible for
         :param unicode task_queue_sid: The SID of the TaskQueue that the Workers to read are eligible for
+        :param unicode ordering: Sorting parameter for Workers
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -117,6 +122,7 @@ class WorkerList(ListResource):
             target_workers_expression=target_workers_expression,
             task_queue_name=task_queue_name,
             task_queue_sid=task_queue_sid,
+            ordering=ordering,
             limit=limit,
             page_size=page_size,
         ))
@@ -124,8 +130,9 @@ class WorkerList(ListResource):
     def page(self, activity_name=values.unset, activity_sid=values.unset,
              available=values.unset, friendly_name=values.unset,
              target_workers_expression=values.unset, task_queue_name=values.unset,
-             task_queue_sid=values.unset, page_token=values.unset,
-             page_number=values.unset, page_size=values.unset):
+             task_queue_sid=values.unset, ordering=values.unset,
+             page_token=values.unset, page_number=values.unset,
+             page_size=values.unset):
         """
         Retrieve a single page of WorkerInstance records from the API.
         Request is executed immediately
@@ -137,6 +144,7 @@ class WorkerList(ListResource):
         :param unicode target_workers_expression: Filter by Workers that would match an expression on a TaskQueue
         :param unicode task_queue_name: The friendly_name of the TaskQueue that the Workers to read are eligible for
         :param unicode task_queue_sid: The SID of the TaskQueue that the Workers to read are eligible for
+        :param unicode ordering: Sorting parameter for Workers
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -152,6 +160,7 @@ class WorkerList(ListResource):
             'TargetWorkersExpression': target_workers_expression,
             'TaskQueueName': task_queue_name,
             'TaskQueueSid': task_queue_sid,
+            'Ordering': ordering,
             'PageToken': page_token,
             'Page': page_number,
             'PageSize': page_size,

@@ -19,14 +19,11 @@ class VerificationCheckTestCase(IntegrationTestCase):
 
         with self.assertRaises(TwilioException):
             self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                 .verification_checks.create(code="code")
-
-        values = {'Code': "code", }
+                                 .verification_checks.create()
 
         self.holodeck.assert_has_request(Request(
             'post',
             'https://verify.twilio.com/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/VerificationCheck',
-            data=values,
         ))
 
     def test_verification_checks_response(self):
@@ -43,6 +40,7 @@ class VerificationCheckTestCase(IntegrationTestCase):
                 "valid": true,
                 "amount": null,
                 "payee": null,
+                "sna_attempts_error_codes": [],
                 "date_created": "2015-07-30T20:00:00Z",
                 "date_updated": "2015-07-30T20:00:00Z"
             }
@@ -50,7 +48,7 @@ class VerificationCheckTestCase(IntegrationTestCase):
         ))
 
         actual = self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .verification_checks.create(code="code")
+                                      .verification_checks.create()
 
         self.assertIsNotNone(actual)
 
@@ -68,6 +66,7 @@ class VerificationCheckTestCase(IntegrationTestCase):
                 "valid": true,
                 "amount": null,
                 "payee": null,
+                "sna_attempts_error_codes": [],
                 "date_created": "2020-01-30T20:00:00Z",
                 "date_updated": "2020-01-30T20:00:00Z"
             }
@@ -75,6 +74,37 @@ class VerificationCheckTestCase(IntegrationTestCase):
         ))
 
         actual = self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
-                                      .verification_checks.create(code="code")
+                                      .verification_checks.create()
+
+        self.assertIsNotNone(actual)
+
+    def test_sna_verification_checks_response(self):
+        self.holodeck.mock(Response(
+            201,
+            '''
+            {
+                "sid": "VEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "service_sid": "VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "to": "+15017122661",
+                "channel": "sna",
+                "status": "approved",
+                "valid": true,
+                "amount": null,
+                "payee": null,
+                "sna_attempts_error_codes": [
+                    {
+                        "attempt_sid": "VLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                        "code": 60001
+                    }
+                ],
+                "date_created": "2015-07-30T20:00:00Z",
+                "date_updated": "2015-07-30T20:00:00Z"
+            }
+            '''
+        ))
+
+        actual = self.client.verify.v2.services("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                      .verification_checks.create()
 
         self.assertIsNotNone(actual)

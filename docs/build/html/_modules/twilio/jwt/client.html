@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-MWRD6S');</script><!--End Google Tag Manager-->
 <meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<title>twilio.jwt.client — twilio-python 7.9.3 documentation</title>
+<title>twilio.jwt.client — twilio-python 7.16.1 documentation</title>
 <link href="../../../_static/alabaster.css" rel="stylesheet" type="text/css"/>
 <link href="../../../_static/pygments.css" rel="stylesheet" type="text/css"/>
 <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js" type="text/javascript"></script>
@@ -34,13 +34,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
 
 <div class="viewcode-block" id="ClientCapabilityToken"><a class="viewcode-back" href="../../../docs/source/_rst/twilio.jwt.client.html#twilio.jwt.client.ClientCapabilityToken">[docs]</a><span class="k">class</span> <span class="nc">ClientCapabilityToken</span><span class="p">(</span><span class="n">Jwt</span><span class="p">):</span>
-    <span class="sd">"""A token to control permissions with Twilio Client"""</span>
+<span class="w">    </span><span class="sd">"""A token to control permissions with Twilio Client"""</span>
 
     <span class="n">ALGORITHM</span> <span class="o">=</span> <span class="s1">'HS256'</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">account_sid</span><span class="p">,</span> <span class="n">auth_token</span><span class="p">,</span> <span class="n">nbf</span><span class="o">=</span><span class="n">Jwt</span><span class="o">.</span><span class="n">GENERATE</span><span class="p">,</span> <span class="n">ttl</span><span class="o">=</span><span class="mi">3600</span><span class="p">,</span> <span class="n">valid_until</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                  <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        :param str account_sid: The account sid to which this token is granted access.</span>
 <span class="sd">        :param str auth_token: The secret key used to sign the token. Note, this auth token is not</span>
 <span class="sd">                               visible to the user of the token.</span>
@@ -73,7 +73,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
             <span class="bp">self</span><span class="o">.</span><span class="n">allow_event_stream</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">[</span><span class="s1">'allow_event_stream'</span><span class="p">])</span>
 
 <div class="viewcode-block" id="ClientCapabilityToken.allow_client_outgoing"><a class="viewcode-back" href="../../../docs/source/_rst/twilio.jwt.client.html#twilio.jwt.client.ClientCapabilityToken.allow_client_outgoing">[docs]</a>    <span class="k">def</span> <span class="nf">allow_client_outgoing</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">application_sid</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Allow the user of this token to make outgoing connections. Keyword arguments are passed</span>
 <span class="sd">        to the application.</span>
 
@@ -86,7 +86,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="bp">self</span><span class="o">.</span><span class="n">capabilities</span><span class="p">[</span><span class="s1">'outgoing'</span><span class="p">]</span> <span class="o">=</span> <span class="n">scope</span></div>
 
 <div class="viewcode-block" id="ClientCapabilityToken.allow_client_incoming"><a class="viewcode-back" href="../../../docs/source/_rst/twilio.jwt.client.html#twilio.jwt.client.ClientCapabilityToken.allow_client_incoming">[docs]</a>    <span class="k">def</span> <span class="nf">allow_client_incoming</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">client_name</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Allow the user of this token to accept incoming connections.</span>
 
 <span class="sd">        :param str client_name: Client name to accept calls from</span>
@@ -95,7 +95,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="bp">self</span><span class="o">.</span><span class="n">capabilities</span><span class="p">[</span><span class="s1">'incoming'</span><span class="p">]</span> <span class="o">=</span> <span class="n">ScopeURI</span><span class="p">(</span><span class="s1">'client'</span><span class="p">,</span> <span class="s1">'incoming'</span><span class="p">,</span> <span class="p">{</span><span class="s1">'clientName'</span><span class="p">:</span> <span class="n">client_name</span><span class="p">})</span></div>
 
 <div class="viewcode-block" id="ClientCapabilityToken.allow_event_stream"><a class="viewcode-back" href="../../../docs/source/_rst/twilio.jwt.client.html#twilio.jwt.client.ClientCapabilityToken.allow_event_stream">[docs]</a>    <span class="k">def</span> <span class="nf">allow_event_stream</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Allow the user of this token to access their event stream.</span>
 <span class="sd">        """</span>
         <span class="n">scope</span> <span class="o">=</span> <span class="n">ScopeURI</span><span class="p">(</span><span class="s1">'stream'</span><span class="p">,</span> <span class="s1">'subscribe'</span><span class="p">,</span> <span class="p">{</span><span class="s1">'path'</span><span class="p">:</span> <span class="s1">'/2010-04-01/Events'</span><span class="p">})</span>
@@ -113,7 +113,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
 
 <div class="viewcode-block" id="ScopeURI"><a class="viewcode-back" href="../../../docs/source/_rst/twilio.jwt.client.html#twilio.jwt.client.ScopeURI">[docs]</a><span class="k">class</span> <span class="nc">ScopeURI</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="sd">"""A single capability granted to Twilio Client and scoped to a service"""</span>
+<span class="w">    </span><span class="sd">"""A single capability granted to Twilio Client and scoped to a service"""</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">service</span><span class="p">,</span> <span class="n">privilege</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">service</span> <span class="o">=</span> <span class="n">service</span>

@@ -36,7 +36,7 @@ class FleetTestCase(IntegrationTestCase):
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "unique_name": "unique_name",
                 "data_enabled": true,
-                "data_limit": 1000,
+                "data_limit": 500,
                 "data_metering": "payg",
                 "date_created": "2019-07-30T20:00:00Z",
                 "date_updated": "2019-07-30T20:00:00Z",
@@ -181,15 +181,15 @@ class FleetTestCase(IntegrationTestCase):
             'https://supersim.twilio.com/v1/Fleets/HFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
         ))
 
-    def test_update_unique_name_response(self):
+    def test_update_unique_name_and_data_limit_response(self):
         self.holodeck.mock(Response(
             200,
             '''
             {
                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                "unique_name": "unique_name",
+                "unique_name": "GPS Trackers Fleet 5GB",
                 "data_enabled": true,
-                "data_limit": 1000,
+                "data_limit": 5000,
                 "data_metering": "payg",
                 "date_created": "2019-10-15T20:00:00Z",
                 "date_updated": "2019-10-15T20:00:00Z",

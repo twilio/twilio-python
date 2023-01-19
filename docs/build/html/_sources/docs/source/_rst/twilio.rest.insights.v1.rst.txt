@@ -13,14 +13,6 @@ Subpackages
 Submodules
 ----------
 
-twilio.rest.insights.v1.annotation module
------------------------------------------
-
-.. automodule:: twilio.rest.insights.v1.annotation
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
 twilio.rest.insights.v1.call\_summaries module
 ----------------------------------------------
 

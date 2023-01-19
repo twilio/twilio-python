@@ -1,0 +1,17 @@
+twilio.rest.oauth package
+=========================
+
+Subpackages
+-----------
+
+.. toctree::
+
+    twilio.rest.oauth.v1
+
+Module contents
+---------------
+
+.. automodule:: twilio.rest.oauth
+    :members:
+    :undoc-members:
+    :show-inheritance:

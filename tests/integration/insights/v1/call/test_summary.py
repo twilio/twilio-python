@@ -35,6 +35,7 @@ class CallSummaryTestCase(IntegrationTestCase):
                 "call_sid": "CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "call_type": "carrier",
                 "call_state": "ringing",
+                "answered_by": "machine_start",
                 "processing_state": "complete",
                 "created_time": "2015-07-30T20:00:00Z",
                 "start_time": "2015-07-30T20:00:00Z",
@@ -53,6 +54,19 @@ class CallSummaryTestCase(IntegrationTestCase):
                 "attributes": {},
                 "properties": {},
                 "trust": {},
+                "annotation": {
+                    "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                    "call_sid": "CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                    "answered_by": "human",
+                    "connectivity_issue": "invalid_number",
+                    "quality_issues": [
+                        "low_volume"
+                    ],
+                    "spam": true,
+                    "call_score": 2,
+                    "comment": "this is a call",
+                    "incident": "https://twilio.zendesk.com/support/tickets/17353089"
+                },
                 "url": "https://insights.twilio.com/v1/Voice/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Summary"
             }
             '''

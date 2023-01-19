@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-MWRD6S');</script><!--End Google Tag Manager-->
 <meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<title>twilio.rest.api.v2010.account.available_phone_number — twilio-python 7.9.3 documentation</title>
+<title>twilio.rest.api.v2010.account.available_phone_number — twilio-python 7.16.1 documentation</title>
 <link href="../../../../../../_static/alabaster.css" rel="stylesheet" type="text/css"/>
 <link href="../../../../../../_static/pygments.css" rel="stylesheet" type="text/css"/>
 <script data-url_root="../../../../../../" id="documentation_options" src="../../../../../../_static/documentation_options.js" type="text/javascript"></script>
@@ -53,7 +53,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <div class="viewcode-block" id="AvailablePhoneNumberCountryList"><a class="viewcode-back" href="../../../../../../docs/source/_rst/twilio.rest.api.v2010.account.available_phone_number.html#twilio.rest.api.v2010.account.available_phone_number.AvailablePhoneNumberCountryList">[docs]</a><span class="k">class</span> <span class="nc">AvailablePhoneNumberCountryList</span><span class="p">(</span><span class="n">ListResource</span><span class="p">):</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">version</span><span class="p">,</span> <span class="n">account_sid</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Initialize the AvailablePhoneNumberCountryList</span>
 
 <span class="sd">        :param Version version: Version that contains the resource</span>
@@ -69,7 +69,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="bp">self</span><span class="o">.</span><span class="n">_uri</span> <span class="o">=</span> <span class="s1">'/Accounts/</span><span class="si">{account_sid}</span><span class="s1">/AvailablePhoneNumbers.json'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">_solution</span><span class="p">)</span>
 
 <div class="viewcode-block" id="AvailablePhoneNumberCountryList.stream"><a class="viewcode-back" href="../../../../../../docs/source/_rst/twilio.rest.api.v2010.account.available_phone_number.html#twilio.rest.api.v2010.account.available_phone_number.AvailablePhoneNumberCountryList.stream">[docs]</a>    <span class="k">def</span> <span class="nf">stream</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">page_size</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Streams AvailablePhoneNumberCountryInstance records from the API as a generator stream.</span>
 <span class="sd">        This operation lazily loads records as efficiently as possible until the limit</span>
 <span class="sd">        is reached.</span>
@@ -92,7 +92,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_version</span><span class="o">.</span><span class="n">stream</span><span class="p">(</span><span class="n">page</span><span class="p">,</span> <span class="n">limits</span><span class="p">[</span><span class="s1">'limit'</span><span class="p">])</span></div>
 
 <div class="viewcode-block" id="AvailablePhoneNumberCountryList.list"><a class="viewcode-back" href="../../../../../../docs/source/_rst/twilio.rest.api.v2010.account.available_phone_number.html#twilio.rest.api.v2010.account.available_phone_number.AvailablePhoneNumberCountryList.list">[docs]</a>    <span class="k">def</span> <span class="nf">list</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">page_size</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Lists AvailablePhoneNumberCountryInstance records from the API as a list.</span>
 <span class="sd">        Unlike stream(), this operation is eager and will load `limit` records into</span>
 <span class="sd">        memory before returning.</span>
@@ -111,7 +111,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
 <div class="viewcode-block" id="AvailablePhoneNumberCountryList.page"><a class="viewcode-back" href="../../../../../../docs/source/_rst/twilio.rest.api.v2010.account.available_phone_number.html#twilio.rest.api.v2010.account.available_phone_number.AvailablePhoneNumberCountryList.page">[docs]</a>    <span class="k">def</span> <span class="nf">page</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">page_token</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span> <span class="n">page_number</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">,</span>
              <span class="n">page_size</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">unset</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Retrieve a single page of AvailablePhoneNumberCountryInstance records from the API.</span>
 <span class="sd">        Request is executed immediately</span>
 
@@ -129,7 +129,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="k">return</span> <span class="n">AvailablePhoneNumberCountryPage</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_version</span><span class="p">,</span> <span class="n">response</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_solution</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="AvailablePhoneNumberCountryList.get_page"><a class="viewcode-back" href="../../../../../../docs/source/_rst/twilio.rest.api.v2010.account.available_phone_number.html#twilio.rest.api.v2010.account.available_phone_number.AvailablePhoneNumberCountryList.get_page">[docs]</a>    <span class="k">def</span> <span class="nf">get_page</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target_url</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Retrieve a specific page of AvailablePhoneNumberCountryInstance records from the API.</span>
 <span class="sd">        Request is executed immediately</span>
 
@@ -146,7 +146,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="k">return</span> <span class="n">AvailablePhoneNumberCountryPage</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_version</span><span class="p">,</span> <span class="n">response</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_solution</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="AvailablePhoneNumberCountryList.get"><a class="viewcode-back" href="../../../../../../docs/source/_rst/twilio.rest.api.v2010.account.available_phone_number.html#twilio.rest.api.v2010.account.available_phone_number.AvailablePhoneNumberCountryList.get">[docs]</a>    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">country_code</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Constructs a AvailablePhoneNumberCountryContext</span>
 
 <span class="sd">        :param country_code: The ISO country code of the country to fetch available phone number information about</span>
@@ -161,7 +161,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="p">)</span></div>
 
     <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">country_code</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Constructs a AvailablePhoneNumberCountryContext</span>
 
 <span class="sd">        :param country_code: The ISO country code of the country to fetch available phone number information about</span>
@@ -176,7 +176,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="p">)</span>
 
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Provide a friendly representation</span>
 
 <span class="sd">        :returns: Machine friendly representation</span>
@@ -188,7 +188,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <div class="viewcode-block" id="AvailablePhoneNumberCountryPage"><a class="viewcode-back" href="../../../../../../docs/source/_rst/twilio.rest.api.v2010.account.available_phone_number.html#twilio.rest.api.v2010.account.available_phone_number.AvailablePhoneNumberCountryPage">[docs]</a><span class="k">class</span> <span class="nc">AvailablePhoneNumberCountryPage</span><span class="p">(</span><span class="n">Page</span><span class="p">):</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">version</span><span class="p">,</span> <span class="n">response</span><span class="p">,</span> <span class="n">solution</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Initialize the AvailablePhoneNumberCountryPage</span>
 
 <span class="sd">        :param Version version: Version that contains the resource</span>
@@ -204,7 +204,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="bp">self</span><span class="o">.</span><span class="n">_solution</span> <span class="o">=</span> <span class="n">solution</span>
 
 <div class="viewcode-block" id="AvailablePhoneNumberCountryPage.get_instance"><a class="viewcode-back" href="../../../../../../docs/source/_rst/twilio.rest.api.v2010.account.available_phone_number.html#twilio.rest.api.v2010.account.available_phone_number.AvailablePhoneNumberCountryPage.get_instance">[docs]</a>    <span class="k">def</span> <span class="nf">get_instance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">payload</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Build an instance of AvailablePhoneNumberCountryInstance</span>
 
 <span class="sd">        :param dict payload: Payload response from the API</span>
@@ -219,7 +219,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="p">)</span></div>
 
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Provide a friendly representation</span>
 
 <span class="sd">        :returns: Machine friendly representation</span>
@@ -231,7 +231,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <div class="viewcode-block" id="AvailablePhoneNumberCountryContext"><a class="viewcode-back" href="../../../../../../docs/source/_rst/twilio.rest.api.v2010.account.available_phone_number.html#twilio.rest.api.v2010.account.available_phone_number.AvailablePhoneNumberCountryContext">[docs]</a><span class="k">class</span> <span class="nc">AvailablePhoneNumberCountryContext</span><span class="p">(</span><span class="n">InstanceContext</span><span class="p">):</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">version</span><span class="p">,</span> <span class="n">account_sid</span><span class="p">,</span> <span class="n">country_code</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Initialize the AvailablePhoneNumberCountryContext</span>
 
 <span class="sd">        :param Version version: Version that contains the resource</span>
@@ -257,7 +257,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="bp">self</span><span class="o">.</span><span class="n">_machine_to_machine</span> <span class="o">=</span> <span class="kc">None</span>
 
 <div class="viewcode-block" id="AvailablePhoneNumberCountryContext.fetch"><a class="viewcode-back" href="../../../../../../docs/source/_rst/twilio.rest.api.v2010.account.available_phone_number.html#twilio.rest.api.v2010.account.available_phone_number.AvailablePhoneNumberCountryContext.fetch">[docs]</a>    <span class="k">def</span> <span class="nf">fetch</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Fetch the AvailablePhoneNumberCountryInstance</span>
 
 <span class="sd">        :returns: The fetched AvailablePhoneNumberCountryInstance</span>
@@ -274,7 +274,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">local</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Access the local</span>
 
 <span class="sd">        :returns: twilio.rest.api.v2010.account.available_phone_number.local.LocalList</span>
@@ -290,7 +290,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">toll_free</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Access the toll_free</span>
 
 <span class="sd">        :returns: twilio.rest.api.v2010.account.available_phone_number.toll_free.TollFreeList</span>
@@ -306,7 +306,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">mobile</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Access the mobile</span>
 
 <span class="sd">        :returns: twilio.rest.api.v2010.account.available_phone_number.mobile.MobileList</span>
@@ -322,7 +322,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">national</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Access the national</span>
 
 <span class="sd">        :returns: twilio.rest.api.v2010.account.available_phone_number.national.NationalList</span>
@@ -338,7 +338,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">voip</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Access the voip</span>
 
 <span class="sd">        :returns: twilio.rest.api.v2010.account.available_phone_number.voip.VoipList</span>
@@ -354,7 +354,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">shared_cost</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Access the shared_cost</span>
 
 <span class="sd">        :returns: twilio.rest.api.v2010.account.available_phone_number.shared_cost.SharedCostList</span>
@@ -370,7 +370,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">machine_to_machine</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Access the machine_to_machine</span>
 
 <span class="sd">        :returns: twilio.rest.api.v2010.account.available_phone_number.machine_to_machine.MachineToMachineList</span>
@@ -385,7 +385,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_machine_to_machine</span>
 
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Provide a friendly representation</span>
 
 <span class="sd">        :returns: Machine friendly representation</span>
@@ -398,7 +398,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <div class="viewcode-block" id="AvailablePhoneNumberCountryInstance"><a class="viewcode-back" href="../../../../../../docs/source/_rst/twilio.rest.api.v2010.account.available_phone_number.html#twilio.rest.api.v2010.account.available_phone_number.AvailablePhoneNumberCountryInstance">[docs]</a><span class="k">class</span> <span class="nc">AvailablePhoneNumberCountryInstance</span><span class="p">(</span><span class="n">InstanceResource</span><span class="p">):</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">version</span><span class="p">,</span> <span class="n">payload</span><span class="p">,</span> <span class="n">account_sid</span><span class="p">,</span> <span class="n">country_code</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Initialize the AvailablePhoneNumberCountryInstance</span>
 
 <span class="sd">        :returns: twilio.rest.api.v2010.account.available_phone_number.AvailablePhoneNumberCountryInstance</span>
@@ -424,7 +424,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">_proxy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Generate an instance context for the instance, the context is capable of</span>
 <span class="sd">        performing various actions.  All instance actions are proxied to the context</span>
 
@@ -441,7 +441,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">country_code</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        :returns: The ISO-3166-1 country code of the country.</span>
 <span class="sd">        :rtype: unicode</span>
 <span class="sd">        """</span>
@@ -449,7 +449,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">country</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        :returns: The name of the country</span>
 <span class="sd">        :rtype: unicode</span>
 <span class="sd">        """</span>
@@ -457,7 +457,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">uri</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        :returns: The URI of the Country resource, relative to `https://api.twilio.com`</span>
 <span class="sd">        :rtype: unicode</span>
 <span class="sd">        """</span>
@@ -465,7 +465,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">beta</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        :returns: Whether all phone numbers available in the country are new to the Twilio platform.</span>
 <span class="sd">        :rtype: bool</span>
 <span class="sd">        """</span>
@@ -473,14 +473,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">subresource_uris</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        :returns: A list of related resources identified by their relative URIs</span>
 <span class="sd">        :rtype: unicode</span>
 <span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="p">[</span><span class="s1">'subresource_uris'</span><span class="p">]</span>
 
 <div class="viewcode-block" id="AvailablePhoneNumberCountryInstance.fetch"><a class="viewcode-back" href="../../../../../../docs/source/_rst/twilio.rest.api.v2010.account.available_phone_number.html#twilio.rest.api.v2010.account.available_phone_number.AvailablePhoneNumberCountryInstance.fetch">[docs]</a>    <span class="k">def</span> <span class="nf">fetch</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Fetch the AvailablePhoneNumberCountryInstance</span>
 
 <span class="sd">        :returns: The fetched AvailablePhoneNumberCountryInstance</span>
@@ -490,7 +490,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">local</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Access the local</span>
 
 <span class="sd">        :returns: twilio.rest.api.v2010.account.available_phone_number.local.LocalList</span>
@@ -500,7 +500,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">toll_free</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Access the toll_free</span>
 
 <span class="sd">        :returns: twilio.rest.api.v2010.account.available_phone_number.toll_free.TollFreeList</span>
@@ -510,7 +510,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">mobile</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Access the mobile</span>
 
 <span class="sd">        :returns: twilio.rest.api.v2010.account.available_phone_number.mobile.MobileList</span>
@@ -520,7 +520,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">national</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Access the national</span>
 
 <span class="sd">        :returns: twilio.rest.api.v2010.account.available_phone_number.national.NationalList</span>
@@ -530,7 +530,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">voip</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Access the voip</span>
 
 <span class="sd">        :returns: twilio.rest.api.v2010.account.available_phone_number.voip.VoipList</span>
@@ -540,7 +540,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">shared_cost</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Access the shared_cost</span>
 
 <span class="sd">        :returns: twilio.rest.api.v2010.account.available_phone_number.shared_cost.SharedCostList</span>
@@ -550,7 +550,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">machine_to_machine</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Access the machine_to_machine</span>
 
 <span class="sd">        :returns: twilio.rest.api.v2010.account.available_phone_number.machine_to_machine.MachineToMachineList</span>
@@ -559,7 +559,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_proxy</span><span class="o">.</span><span class="n">machine_to_machine</span>
 
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Provide a friendly representation</span>
 
 <span class="sd">        :returns: Machine friendly representation</span>

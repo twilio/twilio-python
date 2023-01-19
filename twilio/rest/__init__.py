@@ -67,6 +67,7 @@ class Client(object):
         self._api = None
         self._autopilot = None
         self._chat = None
+        self._content = None
         self._conversations = None
         self._events = None
         self._flex_api = None
@@ -79,9 +80,11 @@ class Client(object):
         self._monitor = None
         self._notify = None
         self._numbers = None
+        self._oauth = None
         self._preview = None
         self._pricing = None
         self._proxy = None
+        self._routes = None
         self._serverless = None
         self._studio = None
         self._sync = None
@@ -94,6 +97,7 @@ class Client(object):
         self._wireless = None
         self._supersim = None
         self._bulkexports = None
+        self._microvisor = None
 
     def request(self, method, uri, params=None, data=None, headers=None, auth=None,
                 timeout=None, allow_redirects=False):
@@ -236,6 +240,19 @@ class Client(object):
             from twilio.rest.chat import Chat
             self._chat = Chat(self)
         return self._chat
+
+    @property
+    def content(self):
+        """
+        Access the Content Twilio Domain
+
+        :returns: Content Twilio Domain
+        :rtype: twilio.rest.content.Content
+        """
+        if self._content is None:
+            from twilio.rest.content import Content
+            self._content = Content(self)
+        return self._content
 
     @property
     def conversations(self):
@@ -394,6 +411,19 @@ class Client(object):
         return self._numbers
 
     @property
+    def oauth(self):
+        """
+        Access the Oauth Twilio Domain
+
+        :returns: Oauth Twilio Domain
+        :rtype: twilio.rest.oauth.Oauth
+        """
+        if self._oauth is None:
+            from twilio.rest.oauth import Oauth
+            self._oauth = Oauth(self)
+        return self._oauth
+
+    @property
     def preview(self):
         """
         Access the Preview Twilio Domain
@@ -431,6 +461,19 @@ class Client(object):
             from twilio.rest.proxy import Proxy
             self._proxy = Proxy(self)
         return self._proxy
+
+    @property
+    def routes(self):
+        """
+        Access the Routes Twilio Domain
+
+        :returns: Routes Twilio Domain
+        :rtype: twilio.rest.routes.Routes
+        """
+        if self._routes is None:
+            from twilio.rest.routes import Routes
+            self._routes = Routes(self)
+        return self._routes
 
     @property
     def serverless(self):
@@ -587,6 +630,19 @@ class Client(object):
             from twilio.rest.bulkexports import Bulkexports
             self._bulkexports = Bulkexports(self)
         return self._bulkexports
+
+    @property
+    def microvisor(self):
+        """
+        Access the Microvisor Twilio Domain
+
+        :returns: Microvisor Twilio Domain
+        :rtype: twilio.rest.microvisor.Microvisor
+        """
+        if self._microvisor is None:
+            from twilio.rest.microvisor import Microvisor
+            self._microvisor = Microvisor(self)
+        return self._microvisor
 
     @property
     def addresses(self):

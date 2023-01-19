@@ -1,0 +1,10 @@
+twilio.rest.microvisor.v1.device package
+========================================
+
+Module contents
+---------------
+
+.. automodule:: twilio.rest.microvisor.v1.device
+    :members:
+    :undoc-members:
+    :show-inheritance:

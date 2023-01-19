@@ -245,7 +245,13 @@ class ConfigurationTestCase(IntegrationTestCase):
                             ]
                         }
                     }
-                ]
+                ],
+                "debugger_integration": {
+                    "enabled": false
+                },
+                "flex_ui_status_report": {
+                    "enabled": false
+                }
             }
             '''
         ))
@@ -452,7 +458,13 @@ class ConfigurationTestCase(IntegrationTestCase):
                             ]
                         }
                     }
-                ]
+                ],
+                "debugger_integration": {
+                    "enabled": false
+                },
+                "flex_ui_status_report": {
+                    "enabled": false
+                }
             }
             '''
         ))
@@ -672,7 +684,13 @@ class ConfigurationTestCase(IntegrationTestCase):
                             ]
                         }
                     }
-                ]
+                ],
+                "debugger_integration": {
+                    "enabled": false
+                },
+                "flex_ui_status_report": {
+                    "enabled": false
+                }
             }
             '''
         ))

@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-MWRD6S');</script><!--End Google Tag Manager-->
 <meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<title>twilio.rest.api.v2010.account.usage.record package — twilio-python 7.9.3 documentation</title>
+<title>twilio.rest.api.v2010.account.usage.record package — twilio-python 7.16.1 documentation</title>
 <link href="../../../_static/alabaster.css" rel="stylesheet" type="text/css"/>
 <link href="../../../_static/pygments.css" rel="stylesheet" type="text/css"/>
 <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js" type="text/javascript"></script>
@@ -51,7 +51,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <dl class="class">
 <dt id="twilio.rest.api.v2010.account.usage.record.all_time.AllTimeInstance.Category">
 <em class="property">class </em><code class="descname">Category</code><a class="reference internal" href="../../../_modules/twilio/rest/api/v2010/account/usage/record/all_time.html#AllTimeInstance.Category"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.api.v2010.account.usage.record.all_time.AllTimeInstance.Category" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <dl class="attribute">
 <dt id="twilio.rest.api.v2010.account.usage.record.all_time.AllTimeInstance.Category.A2P_REGISTRATION_FEES">
 <code class="descname">A2P_REGISTRATION_FEES</code><em class="property"> = 'a2p-registration-fees'</em><a class="headerlink" href="#twilio.rest.api.v2010.account.usage.record.all_time.AllTimeInstance.Category.A2P_REGISTRATION_FEES" title="Permalink to this definition">¶</a></dt>
@@ -59,6 +59,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <dl class="attribute">
 <dt id="twilio.rest.api.v2010.account.usage.record.all_time.AllTimeInstance.Category.AGENT_CONFERENCE">
 <code class="descname">AGENT_CONFERENCE</code><em class="property"> = 'agent-conference'</em><a class="headerlink" href="#twilio.rest.api.v2010.account.usage.record.all_time.AllTimeInstance.Category.AGENT_CONFERENCE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="attribute">
+<dt id="twilio.rest.api.v2010.account.usage.record.all_time.AllTimeInstance.Category.AMAZON_POLLY">
+<code class="descname">AMAZON_POLLY</code><em class="property"> = 'amazon-polly'</em><a class="headerlink" href="#twilio.rest.api.v2010.account.usage.record.all_time.AllTimeInstance.Category.AMAZON_POLLY" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 <dl class="attribute">
 <dt id="twilio.rest.api.v2010.account.usage.record.all_time.AllTimeInstance.Category.ANSWERING_MACHINE_DETECTION">
@@ -841,6 +845,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <code class="descname">VIDEO_RECORDINGS</code><em class="property"> = 'video-recordings'</em><a class="headerlink" href="#twilio.rest.api.v2010.account.usage.record.all_time.AllTimeInstance.Category.VIDEO_RECORDINGS" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 <dl class="attribute">
+<dt id="twilio.rest.api.v2010.account.usage.record.all_time.AllTimeInstance.Category.VIRTUAL_AGENT">
+<code class="descname">VIRTUAL_AGENT</code><em class="property"> = 'virtual-agent'</em><a class="headerlink" href="#twilio.rest.api.v2010.account.usage.record.all_time.AllTimeInstance.Category.VIRTUAL_AGENT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="attribute">
 <dt id="twilio.rest.api.v2010.account.usage.record.all_time.AllTimeInstance.Category.VOICE_INSIGHTS">
 <code class="descname">VOICE_INSIGHTS</code><em class="property"> = 'voice-insights'</em><a class="headerlink" href="#twilio.rest.api.v2010.account.usage.record.all_time.AllTimeInstance.Category.VOICE_INSIGHTS" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -1249,7 +1257,7 @@ Request is executed immediately</p>
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>target_url</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – API-generated URL for the requested results page</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>target_url</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – API-generated URL for the requested results page</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Page of AllTimeInstance</td>
 </tr>
@@ -1272,10 +1280,10 @@ memory before returning.</p>
 <li><strong>category</strong> (<a class="reference internal" href="#twilio.rest.api.v2010.account.usage.record.all_time.AllTimeInstance.Category" title="twilio.rest.api.v2010.account.usage.record.all_time.AllTimeInstance.Category"><em>AllTimeInstance.Category</em></a>) – The usage category of the UsageRecord resources to read</li>
 <li><strong>start_date</strong> (<em>date</em>) – Only include usage that has occurred on or after this date</li>
 <li><strong>end_date</strong> (<em>date</em>) – Only include usage that occurred on or before this date</li>
-<li><strong>include_subaccounts</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether to include usage from the master account and all its subaccounts</li>
-<li><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Upper limit for the number of records to return. list() guarantees
+<li><strong>include_subaccounts</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether to include usage from the master account and all its subaccounts</li>
+<li><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Upper limit for the number of records to return. list() guarantees
 never to return more than limit.  Default is no limit</li>
-<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Number of records to fetch per request, when not set will use
+<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Number of records to fetch per request, when not set will use
 the default value of 50 records.  If no page_size is defined
 but a limit is defined, list() will attempt to read the limit
 with the most efficient page size, i.e. min(limit, 1000)</li>
@@ -1285,7 +1293,7 @@ with the most efficient page size, i.e. min(limit, 1000)</li>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Generator that will yield up to limit results</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)">list</a>[<a class="reference internal" href="#twilio.rest.api.v2010.account.usage.record.all_time.AllTimeInstance" title="twilio.rest.api.v2010.account.usage.record.all_time.AllTimeInstance">twilio.rest.api.v2010.account.usage.record.all_time.AllTimeInstance</a>]</p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)">list</a>[<a class="reference internal" href="#twilio.rest.api.v2010.account.usage.record.all_time.AllTimeInstance" title="twilio.rest.api.v2010.account.usage.record.all_time.AllTimeInstance">twilio.rest.api.v2010.account.usage.record.all_time.AllTimeInstance</a>]</p>
 </td>
 </tr>
 </tbody>
@@ -1304,10 +1312,10 @@ Request is executed immediately</p>
 <li><strong>category</strong> (<a class="reference internal" href="#twilio.rest.api.v2010.account.usage.record.all_time.AllTimeInstance.Category" title="twilio.rest.api.v2010.account.usage.record.all_time.AllTimeInstance.Category"><em>AllTimeInstance.Category</em></a>) – The usage category of the UsageRecord resources to read</li>
 <li><strong>start_date</strong> (<em>date</em>) – Only include usage that has occurred on or after this date</li>
 <li><strong>end_date</strong> (<em>date</em>) – Only include usage that occurred on or before this date</li>
-<li><strong>include_subaccounts</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether to include usage from the master account and all its subaccounts</li>
-<li><strong>page_token</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – PageToken provided by the API</li>
-<li><strong>page_number</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Page Number, this value is simply for client state</li>
-<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Number of records to return, defaults to 50</li>
+<li><strong>include_subaccounts</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether to include usage from the master account and all its subaccounts</li>
+<li><strong>page_token</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – PageToken provided by the API</li>
+<li><strong>page_number</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Page Number, this value is simply for client state</li>
+<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Number of records to return, defaults to 50</li>
 </ul>
 </td>
 </tr>
@@ -1335,10 +1343,10 @@ The results are returned as a generator, so this operation is memory efficient.<
 <li><strong>category</strong> (<a class="reference internal" href="#twilio.rest.api.v2010.account.usage.record.all_time.AllTimeInstance.Category" title="twilio.rest.api.v2010.account.usage.record.all_time.AllTimeInstance.Category"><em>AllTimeInstance.Category</em></a>) – The usage category of the UsageRecord resources to read</li>
 <li><strong>start_date</strong> (<em>date</em>) – Only include usage that has occurred on or after this date</li>
 <li><strong>end_date</strong> (<em>date</em>) – Only include usage that occurred on or before this date</li>
-<li><strong>include_subaccounts</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether to include usage from the master account and all its subaccounts</li>
-<li><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Upper limit for the number of records to return. stream()
+<li><strong>include_subaccounts</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether to include usage from the master account and all its subaccounts</li>
+<li><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Upper limit for the number of records to return. stream()
 guarantees to never return more than limit.  Default is no limit</li>
-<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Number of records to fetch per request, when not set will use
+<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Number of records to fetch per request, when not set will use
 the default value of 50 records.  If no page_size is defined
 but a limit is defined, stream() will attempt to read the
 limit with the most efficient page size, i.e. min(limit, 1000)</li>
@@ -1348,7 +1356,7 @@ limit with the most efficient page size, i.e. min(limit, 1000)</li>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Generator that will yield up to limit results</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)">list</a>[<a class="reference internal" href="#twilio.rest.api.v2010.account.usage.record.all_time.AllTimeInstance" title="twilio.rest.api.v2010.account.usage.record.all_time.AllTimeInstance">twilio.rest.api.v2010.account.usage.record.all_time.AllTimeInstance</a>]</p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)">list</a>[<a class="reference internal" href="#twilio.rest.api.v2010.account.usage.record.all_time.AllTimeInstance" title="twilio.rest.api.v2010.account.usage.record.all_time.AllTimeInstance">twilio.rest.api.v2010.account.usage.record.all_time.AllTimeInstance</a>]</p>
 </td>
 </tr>
 </tbody>
@@ -1367,7 +1375,7 @@ limit with the most efficient page size, i.e. min(limit, 1000)</li>
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>payload</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a>) – Payload response from the API</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>payload</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)"><em>dict</em></a>) – Payload response from the API</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">twilio.rest.api.v2010.account.usage.record.all_time.AllTimeInstance</td>
 </tr>
@@ -1395,7 +1403,7 @@ limit with the most efficient page size, i.e. min(limit, 1000)</li>
 <dl class="class">
 <dt id="twilio.rest.api.v2010.account.usage.record.daily.DailyInstance.Category">
 <em class="property">class </em><code class="descname">Category</code><a class="reference internal" href="../../../_modules/twilio/rest/api/v2010/account/usage/record/daily.html#DailyInstance.Category"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.api.v2010.account.usage.record.daily.DailyInstance.Category" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <dl class="attribute">
 <dt id="twilio.rest.api.v2010.account.usage.record.daily.DailyInstance.Category.A2P_REGISTRATION_FEES">
 <code class="descname">A2P_REGISTRATION_FEES</code><em class="property"> = 'a2p-registration-fees'</em><a class="headerlink" href="#twilio.rest.api.v2010.account.usage.record.daily.DailyInstance.Category.A2P_REGISTRATION_FEES" title="Permalink to this definition">¶</a></dt>
@@ -1403,6 +1411,10 @@ limit with the most efficient page size, i.e. min(limit, 1000)</li>
 <dl class="attribute">
 <dt id="twilio.rest.api.v2010.account.usage.record.daily.DailyInstance.Category.AGENT_CONFERENCE">
 <code class="descname">AGENT_CONFERENCE</code><em class="property"> = 'agent-conference'</em><a class="headerlink" href="#twilio.rest.api.v2010.account.usage.record.daily.DailyInstance.Category.AGENT_CONFERENCE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="attribute">
+<dt id="twilio.rest.api.v2010.account.usage.record.daily.DailyInstance.Category.AMAZON_POLLY">
+<code class="descname">AMAZON_POLLY</code><em class="property"> = 'amazon-polly'</em><a class="headerlink" href="#twilio.rest.api.v2010.account.usage.record.daily.DailyInstance.Category.AMAZON_POLLY" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 <dl class="attribute">
 <dt id="twilio.rest.api.v2010.account.usage.record.daily.DailyInstance.Category.ANSWERING_MACHINE_DETECTION">
@@ -2185,6 +2197,10 @@ limit with the most efficient page size, i.e. min(limit, 1000)</li>
 <code class="descname">VIDEO_RECORDINGS</code><em class="property"> = 'video-recordings'</em><a class="headerlink" href="#twilio.rest.api.v2010.account.usage.record.daily.DailyInstance.Category.VIDEO_RECORDINGS" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 <dl class="attribute">
+<dt id="twilio.rest.api.v2010.account.usage.record.daily.DailyInstance.Category.VIRTUAL_AGENT">
+<code class="descname">VIRTUAL_AGENT</code><em class="property"> = 'virtual-agent'</em><a class="headerlink" href="#twilio.rest.api.v2010.account.usage.record.daily.DailyInstance.Category.VIRTUAL_AGENT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="attribute">
 <dt id="twilio.rest.api.v2010.account.usage.record.daily.DailyInstance.Category.VOICE_INSIGHTS">
 <code class="descname">VOICE_INSIGHTS</code><em class="property"> = 'voice-insights'</em><a class="headerlink" href="#twilio.rest.api.v2010.account.usage.record.daily.DailyInstance.Category.VOICE_INSIGHTS" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -2593,7 +2609,7 @@ Request is executed immediately</p>
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>target_url</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – API-generated URL for the requested results page</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>target_url</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – API-generated URL for the requested results page</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Page of DailyInstance</td>
 </tr>
@@ -2616,10 +2632,10 @@ memory before returning.</p>
 <li><strong>category</strong> (<a class="reference internal" href="#twilio.rest.api.v2010.account.usage.record.daily.DailyInstance.Category" title="twilio.rest.api.v2010.account.usage.record.daily.DailyInstance.Category"><em>DailyInstance.Category</em></a>) – The usage category of the UsageRecord resources to read</li>
 <li><strong>start_date</strong> (<em>date</em>) – Only include usage that has occurred on or after this date</li>
 <li><strong>end_date</strong> (<em>date</em>) – Only include usage that occurred on or before this date</li>
-<li><strong>include_subaccounts</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether to include usage from the master account and all its subaccounts</li>
-<li><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Upper limit for the number of records to return. list() guarantees
+<li><strong>include_subaccounts</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether to include usage from the master account and all its subaccounts</li>
+<li><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Upper limit for the number of records to return. list() guarantees
 never to return more than limit.  Default is no limit</li>
-<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Number of records to fetch per request, when not set will use
+<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Number of records to fetch per request, when not set will use
 the default value of 50 records.  If no page_size is defined
 but a limit is defined, list() will attempt to read the limit
 with the most efficient page size, i.e. min(limit, 1000)</li>
@@ -2629,7 +2645,7 @@ with the most efficient page size, i.e. min(limit, 1000)</li>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Generator that will yield up to limit results</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)">list</a>[<a class="reference internal" href="#twilio.rest.api.v2010.account.usage.record.daily.DailyInstance" title="twilio.rest.api.v2010.account.usage.record.daily.DailyInstance">twilio.rest.api.v2010.account.usage.record.daily.DailyInstance</a>]</p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)">list</a>[<a class="reference internal" href="#twilio.rest.api.v2010.account.usage.record.daily.DailyInstance" title="twilio.rest.api.v2010.account.usage.record.daily.DailyInstance">twilio.rest.api.v2010.account.usage.record.daily.DailyInstance</a>]</p>
 </td>
 </tr>
 </tbody>
@@ -2648,10 +2664,10 @@ Request is executed immediately</p>
 <li><strong>category</strong> (<a class="reference internal" href="#twilio.rest.api.v2010.account.usage.record.daily.DailyInstance.Category" title="twilio.rest.api.v2010.account.usage.record.daily.DailyInstance.Category"><em>DailyInstance.Category</em></a>) – The usage category of the UsageRecord resources to read</li>
 <li><strong>start_date</strong> (<em>date</em>) – Only include usage that has occurred on or after this date</li>
 <li><strong>end_date</strong> (<em>date</em>) – Only include usage that occurred on or before this date</li>
-<li><strong>include_subaccounts</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether to include usage from the master account and all its subaccounts</li>
-<li><strong>page_token</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – PageToken provided by the API</li>
-<li><strong>page_number</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Page Number, this value is simply for client state</li>
-<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Number of records to return, defaults to 50</li>
+<li><strong>include_subaccounts</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether to include usage from the master account and all its subaccounts</li>
+<li><strong>page_token</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – PageToken provided by the API</li>
+<li><strong>page_number</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Page Number, this value is simply for client state</li>
+<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Number of records to return, defaults to 50</li>
 </ul>
 </td>
 </tr>
@@ -2679,10 +2695,10 @@ The results are returned as a generator, so this operation is memory efficient.<
 <li><strong>category</strong> (<a class="reference internal" href="#twilio.rest.api.v2010.account.usage.record.daily.DailyInstance.Category" title="twilio.rest.api.v2010.account.usage.record.daily.DailyInstance.Category"><em>DailyInstance.Category</em></a>) – The usage category of the UsageRecord resources to read</li>
 <li><strong>start_date</strong> (<em>date</em>) – Only include usage that has occurred on or after this date</li>
 <li><strong>end_date</strong> (<em>date</em>) – Only include usage that occurred on or before this date</li>
-<li><strong>include_subaccounts</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether to include usage from the master account and all its subaccounts</li>
-<li><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Upper limit for the number of records to return. stream()
+<li><strong>include_subaccounts</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether to include usage from the master account and all its subaccounts</li>
+<li><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Upper limit for the number of records to return. stream()
 guarantees to never return more than limit.  Default is no limit</li>
-<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Number of records to fetch per request, when not set will use
+<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Number of records to fetch per request, when not set will use
 the default value of 50 records.  If no page_size is defined
 but a limit is defined, stream() will attempt to read the
 limit with the most efficient page size, i.e. min(limit, 1000)</li>
@@ -2692,7 +2708,7 @@ limit with the most efficient page size, i.e. min(limit, 1000)</li>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Generator that will yield up to limit results</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)">list</a>[<a class="reference internal" href="#twilio.rest.api.v2010.account.usage.record.daily.DailyInstance" title="twilio.rest.api.v2010.account.usage.record.daily.DailyInstance">twilio.rest.api.v2010.account.usage.record.daily.DailyInstance</a>]</p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)">list</a>[<a class="reference internal" href="#twilio.rest.api.v2010.account.usage.record.daily.DailyInstance" title="twilio.rest.api.v2010.account.usage.record.daily.DailyInstance">twilio.rest.api.v2010.account.usage.record.daily.DailyInstance</a>]</p>
 </td>
 </tr>
 </tbody>
@@ -2711,7 +2727,7 @@ limit with the most efficient page size, i.e. min(limit, 1000)</li>
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>payload</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a>) – Payload response from the API</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>payload</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)"><em>dict</em></a>) – Payload response from the API</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">twilio.rest.api.v2010.account.usage.record.daily.DailyInstance</td>
 </tr>
@@ -2739,7 +2755,7 @@ limit with the most efficient page size, i.e. min(limit, 1000)</li>
 <dl class="class">
 <dt id="twilio.rest.api.v2010.account.usage.record.last_month.LastMonthInstance.Category">
 <em class="property">class </em><code class="descname">Category</code><a class="reference internal" href="../../../_modules/twilio/rest/api/v2010/account/usage/record/last_month.html#LastMonthInstance.Category"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.api.v2010.account.usage.record.last_month.LastMonthInstance.Category" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <dl class="attribute">
 <dt id="twilio.rest.api.v2010.account.usage.record.last_month.LastMonthInstance.Category.A2P_REGISTRATION_FEES">
 <code class="descname">A2P_REGISTRATION_FEES</code><em class="property"> = 'a2p-registration-fees'</em><a class="headerlink" href="#twilio.rest.api.v2010.account.usage.record.last_month.LastMonthInstance.Category.A2P_REGISTRATION_FEES" title="Permalink to this definition">¶</a></dt>
@@ -2747,6 +2763,10 @@ limit with the most efficient page size, i.e. min(limit, 1000)</li>
 <dl class="attribute">
 <dt id="twilio.rest.api.v2010.account.usage.record.last_month.LastMonthInstance.Category.AGENT_CONFERENCE">
 <code class="descname">AGENT_CONFERENCE</code><em class="property"> = 'agent-conference'</em><a class="headerlink" href="#twilio.rest.api.v2010.account.usage.record.last_month.LastMonthInstance.Category.AGENT_CONFERENCE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="attribute">
+<dt id="twilio.rest.api.v2010.account.usage.record.last_month.LastMonthInstance.Category.AMAZON_POLLY">
+<code class="descname">AMAZON_POLLY</code><em class="property"> = 'amazon-polly'</em><a class="headerlink" href="#twilio.rest.api.v2010.account.usage.record.last_month.LastMonthInstance.Category.AMAZON_POLLY" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 <dl class="attribute">
 <dt id="twilio.rest.api.v2010.account.usage.record.last_month.LastMonthInstance.Category.ANSWERING_MACHINE_DETECTION">
@@ -3529,6 +3549,10 @@ limit with the most efficient page size, i.e. min(limit, 1000)</li>
 <code class="descname">VIDEO_RECORDINGS</code><em class="property"> = 'video-recordings'</em><a class="headerlink" href="#twilio.rest.api.v2010.account.usage.record.last_month.LastMonthInstance.Category.VIDEO_RECORDINGS" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 <dl class="attribute">
+<dt id="twilio.rest.api.v2010.account.usage.record.last_month.LastMonthInstance.Category.VIRTUAL_AGENT">
+<code class="descname">VIRTUAL_AGENT</code><em class="property"> = 'virtual-agent'</em><a class="headerlink" href="#twilio.rest.api.v2010.account.usage.record.last_month.LastMonthInstance.Category.VIRTUAL_AGENT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="attribute">
 <dt id="twilio.rest.api.v2010.account.usage.record.last_month.LastMonthInstance.Category.VOICE_INSIGHTS">
 <code class="descname">VOICE_INSIGHTS</code><em class="property"> = 'voice-insights'</em><a class="headerlink" href="#twilio.rest.api.v2010.account.usage.record.last_month.LastMonthInstance.Category.VOICE_INSIGHTS" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -3937,7 +3961,7 @@ Request is executed immediately</p>
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>target_url</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – API-generated URL for the requested results page</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>target_url</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – API-generated URL for the requested results page</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Page of LastMonthInstance</td>
 </tr>
@@ -3960,10 +3984,10 @@ memory before returning.</p>
 <li><strong>category</strong> (<a class="reference internal" href="#twilio.rest.api.v2010.account.usage.record.last_month.LastMonthInstance.Category" title="twilio.rest.api.v2010.account.usage.record.last_month.LastMonthInstance.Category"><em>LastMonthInstance.Category</em></a>) – The usage category of the UsageRecord resources to read</li>
 <li><strong>start_date</strong> (<em>date</em>) – Only include usage that has occurred on or after this date</li>
 <li><strong>end_date</strong> (<em>date</em>) – Only include usage that occurred on or before this date</li>
-<li><strong>include_subaccounts</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether to include usage from the master account and all its subaccounts</li>
-<li><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Upper limit for the number of records to return. list() guarantees
+<li><strong>include_subaccounts</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether to include usage from the master account and all its subaccounts</li>
+<li><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Upper limit for the number of records to return. list() guarantees
 never to return more than limit.  Default is no limit</li>
-<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Number of records to fetch per request, when not set will use
+<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Number of records to fetch per request, when not set will use
 the default value of 50 records.  If no page_size is defined
 but a limit is defined, list() will attempt to read the limit
 with the most efficient page size, i.e. min(limit, 1000)</li>
@@ -3973,7 +3997,7 @@ with the most efficient page size, i.e. min(limit, 1000)</li>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Generator that will yield up to limit results</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)">list</a>[<a class="reference internal" href="#twilio.rest.api.v2010.account.usage.record.last_month.LastMonthInstance" title="twilio.rest.api.v2010.account.usage.record.last_month.LastMonthInstance">twilio.rest.api.v2010.account.usage.record.last_month.LastMonthInstance</a>]</p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)">list</a>[<a class="reference internal" href="#twilio.rest.api.v2010.account.usage.record.last_month.LastMonthInstance" title="twilio.rest.api.v2010.account.usage.record.last_month.LastMonthInstance">twilio.rest.api.v2010.account.usage.record.last_month.LastMonthInstance</a>]</p>
 </td>
 </tr>
 </tbody>
@@ -3992,10 +4016,10 @@ Request is executed immediately</p>
 <li><strong>category</strong> (<a class="reference internal" href="#twilio.rest.api.v2010.account.usage.record.last_month.LastMonthInstance.Category" title="twilio.rest.api.v2010.account.usage.record.last_month.LastMonthInstance.Category"><em>LastMonthInstance.Category</em></a>) – The usage category of the UsageRecord resources to read</li>
 <li><strong>start_date</strong> (<em>date</em>) – Only include usage that has occurred on or after this date</li>
 <li><strong>end_date</strong> (<em>date</em>) – Only include usage that occurred on or before this date</li>
-<li><strong>include_subaccounts</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether to include usage from the master account and all its subaccounts</li>
-<li><strong>page_token</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – PageToken provided by the API</li>
-<li><strong>page_number</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Page Number, this value is simply for client state</li>
-<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Number of records to return, defaults to 50</li>
+<li><strong>include_subaccounts</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether to include usage from the master account and all its subaccounts</li>
+<li><strong>page_token</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – PageToken provided by the API</li>
+<li><strong>page_number</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Page Number, this value is simply for client state</li>
+<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Number of records to return, defaults to 50</li>
 </ul>
 </td>
 </tr>
@@ -4023,10 +4047,10 @@ The results are returned as a generator, so this operation is memory efficient.<
 <li><strong>category</strong> (<a class="reference internal" href="#twilio.rest.api.v2010.account.usage.record.last_month.LastMonthInstance.Category" title="twilio.rest.api.v2010.account.usage.record.last_month.LastMonthInstance.Category"><em>LastMonthInstance.Category</em></a>) – The usage category of the UsageRecord resources to read</li>
 <li><strong>start_date</strong> (<em>date</em>) – Only include usage that has occurred on or after this date</li>
 <li><strong>end_date</strong> (<em>date</em>) – Only include usage that occurred on or before this date</li>
-<li><strong>include_subaccounts</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether to include usage from the master account and all its subaccounts</li>
-<li><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Upper limit for the number of records to return. stream()
+<li><strong>include_subaccounts</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether to include usage from the master account and all its subaccounts</li>
+<li><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Upper limit for the number of records to return. stream()
 guarantees to never return more than limit.  Default is no limit</li>
-<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Number of records to fetch per request, when not set will use
+<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Number of records to fetch per request, when not set will use
 the default value of 50 records.  If no page_size is defined
 but a limit is defined, stream() will attempt to read the
 limit with the most efficient page size, i.e. min(limit, 1000)</li>
@@ -4036,7 +4060,7 @@ limit with the most efficient page size, i.e. min(limit, 1000)</li>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Generator that will yield up to limit results</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)">list</a>[<a class="reference internal" href="#twilio.rest.api.v2010.account.usage.record.last_month.LastMonthInstance" title="twilio.rest.api.v2010.account.usage.record.last_month.LastMonthInstance">twilio.rest.api.v2010.account.usage.record.last_month.LastMonthInstance</a>]</p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)">list</a>[<a class="reference internal" href="#twilio.rest.api.v2010.account.usage.record.last_month.LastMonthInstance" title="twilio.rest.api.v2010.account.usage.record.last_month.LastMonthInstance">twilio.rest.api.v2010.account.usage.record.last_month.LastMonthInstance</a>]</p>
 </td>
 </tr>
 </tbody>
@@ -4055,7 +4079,7 @@ limit with the most efficient page size, i.e. min(limit, 1000)</li>
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>payload</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a>) – Payload response from the API</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>payload</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)"><em>dict</em></a>) – Payload response from the API</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">twilio.rest.api.v2010.account.usage.record.last_month.LastMonthInstance</td>
 </tr>
@@ -4083,7 +4107,7 @@ limit with the most efficient page size, i.e. min(limit, 1000)</li>
 <dl class="class">
 <dt id="twilio.rest.api.v2010.account.usage.record.monthly.MonthlyInstance.Category">
 <em class="property">class </em><code class="descname">Category</code><a class="reference internal" href="../../../_modules/twilio/rest/api/v2010/account/usage/record/monthly.html#MonthlyInstance.Category"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.api.v2010.account.usage.record.monthly.MonthlyInstance.Category" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <dl class="attribute">
 <dt id="twilio.rest.api.v2010.account.usage.record.monthly.MonthlyInstance.Category.A2P_REGISTRATION_FEES">
 <code class="descname">A2P_REGISTRATION_FEES</code><em class="property"> = 'a2p-registration-fees'</em><a class="headerlink" href="#twilio.rest.api.v2010.account.usage.record.monthly.MonthlyInstance.Category.A2P_REGISTRATION_FEES" title="Permalink to this definition">¶</a></dt>
@@ -4091,6 +4115,10 @@ limit with the most efficient page size, i.e. min(limit, 1000)</li>
 <dl class="attribute">
 <dt id="twilio.rest.api.v2010.account.usage.record.monthly.MonthlyInstance.Category.AGENT_CONFERENCE">
 <code class="descname">AGENT_CONFERENCE</code><em class="property"> = 'agent-conference'</em><a class="headerlink" href="#twilio.rest.api.v2010.account.usage.record.monthly.MonthlyInstance.Category.AGENT_CONFERENCE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="attribute">
+<dt id="twilio.rest.api.v2010.account.usage.record.monthly.MonthlyInstance.Category.AMAZON_POLLY">
+<code class="descname">AMAZON_POLLY</code><em class="property"> = 'amazon-polly'</em><a class="headerlink" href="#twilio.rest.api.v2010.account.usage.record.monthly.MonthlyInstance.Category.AMAZON_POLLY" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 <dl class="attribute">
 <dt id="twilio.rest.api.v2010.account.usage.record.monthly.MonthlyInstance.Category.ANSWERING_MACHINE_DETECTION">
@@ -4873,6 +4901,10 @@ limit with the most efficient page size, i.e. min(limit, 1000)</li>
 <code class="descname">VIDEO_RECORDINGS</code><em class="property"> = 'video-recordings'</em><a class="headerlink" href="#twilio.rest.api.v2010.account.usage.record.monthly.MonthlyInstance.Category.VIDEO_RECORDINGS" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 <dl class="attribute">
+<dt id="twilio.rest.api.v2010.account.usage.record.monthly.MonthlyInstance.Category.VIRTUAL_AGENT">
+<code class="descname">VIRTUAL_AGENT</code><em class="property"> = 'virtual-agent'</em><a class="headerlink" href="#twilio.rest.api.v2010.account.usage.record.monthly.MonthlyInstance.Category.VIRTUAL_AGENT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="attribute">
 <dt id="twilio.rest.api.v2010.account.usage.record.monthly.MonthlyInstance.Category.VOICE_INSIGHTS">
 <code class="descname">VOICE_INSIGHTS</code><em class="property"> = 'voice-insights'</em><a class="headerlink" href="#twilio.rest.api.v2010.account.usage.record.monthly.MonthlyInstance.Category.VOICE_INSIGHTS" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -5281,7 +5313,7 @@ Request is executed immediately</p>
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>target_url</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – API-generated URL for the requested results page</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>target_url</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – API-generated URL for the requested results page</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Page of MonthlyInstance</td>
 </tr>
@@ -5304,10 +5336,10 @@ memory before returning.</p>
 <li><strong>category</strong> (<a class="reference internal" href="#twilio.rest.api.v2010.account.usage.record.monthly.MonthlyInstance.Category" title="twilio.rest.api.v2010.account.usage.record.monthly.MonthlyInstance.Category"><em>MonthlyInstance.Category</em></a>) – The usage category of the UsageRecord resources to read</li>
 <li><strong>start_date</strong> (<em>date</em>) – Only include usage that has occurred on or after this date</li>
 <li><strong>end_date</strong> (<em>date</em>) – Only include usage that occurred on or before this date</li>
-<li><strong>include_subaccounts</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether to include usage from the master account and all its subaccounts</li>
-<li><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Upper limit for the number of records to return. list() guarantees
+<li><strong>include_subaccounts</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether to include usage from the master account and all its subaccounts</li>
+<li><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Upper limit for the number of records to return. list() guarantees
 never to return more than limit.  Default is no limit</li>
-<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Number of records to fetch per request, when not set will use
+<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Number of records to fetch per request, when not set will use
 the default value of 50 records.  If no page_size is defined
 but a limit is defined, list() will attempt to read the limit
 with the most efficient page size, i.e. min(limit, 1000)</li>
@@ -5317,7 +5349,7 @@ with the most efficient page size, i.e. min(limit, 1000)</li>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Generator that will yield up to limit results</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)">list</a>[<a class="reference internal" href="#twilio.rest.api.v2010.account.usage.record.monthly.MonthlyInstance" title="twilio.rest.api.v2010.account.usage.record.monthly.MonthlyInstance">twilio.rest.api.v2010.account.usage.record.monthly.MonthlyInstance</a>]</p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)">list</a>[<a class="reference internal" href="#twilio.rest.api.v2010.account.usage.record.monthly.MonthlyInstance" title="twilio.rest.api.v2010.account.usage.record.monthly.MonthlyInstance">twilio.rest.api.v2010.account.usage.record.monthly.MonthlyInstance</a>]</p>
 </td>
 </tr>
 </tbody>
@@ -5336,10 +5368,10 @@ Request is executed immediately</p>
 <li><strong>category</strong> (<a class="reference internal" href="#twilio.rest.api.v2010.account.usage.record.monthly.MonthlyInstance.Category" title="twilio.rest.api.v2010.account.usage.record.monthly.MonthlyInstance.Category"><em>MonthlyInstance.Category</em></a>) – The usage category of the UsageRecord resources to read</li>
 <li><strong>start_date</strong> (<em>date</em>) – Only include usage that has occurred on or after this date</li>
 <li><strong>end_date</strong> (<em>date</em>) – Only include usage that occurred on or before this date</li>
-<li><strong>include_subaccounts</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether to include usage from the master account and all its subaccounts</li>
-<li><strong>page_token</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – PageToken provided by the API</li>
-<li><strong>page_number</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Page Number, this value is simply for client state</li>
-<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Number of records to return, defaults to 50</li>
+<li><strong>include_subaccounts</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether to include usage from the master account and all its subaccounts</li>
+<li><strong>page_token</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – PageToken provided by the API</li>
+<li><strong>page_number</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Page Number, this value is simply for client state</li>
+<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Number of records to return, defaults to 50</li>
 </ul>
 </td>
 </tr>
@@ -5367,10 +5399,10 @@ The results are returned as a generator, so this operation is memory efficient.<
 <li><strong>category</strong> (<a class="reference internal" href="#twilio.rest.api.v2010.account.usage.record.monthly.MonthlyInstance.Category" title="twilio.rest.api.v2010.account.usage.record.monthly.MonthlyInstance.Category"><em>MonthlyInstance.Category</em></a>) – The usage category of the UsageRecord resources to read</li>
 <li><strong>start_date</strong> (<em>date</em>) – Only include usage that has occurred on or after this date</li>
 <li><strong>end_date</strong> (<em>date</em>) – Only include usage that occurred on or before this date</li>
-<li><strong>include_subaccounts</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether to include usage from the master account and all its subaccounts</li>
-<li><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Upper limit for the number of records to return. stream()
+<li><strong>include_subaccounts</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether to include usage from the master account and all its subaccounts</li>
+<li><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Upper limit for the number of records to return. stream()
 guarantees to never return more than limit.  Default is no limit</li>
-<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Number of records to fetch per request, when not set will use
+<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Number of records to fetch per request, when not set will use
 the default value of 50 records.  If no page_size is defined
 but a limit is defined, stream() will attempt to read the
 limit with the most efficient page size, i.e. min(limit, 1000)</li>
@@ -5380,7 +5412,7 @@ limit with the most efficient page size, i.e. min(limit, 1000)</li>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Generator that will yield up to limit results</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)">list</a>[<a class="reference internal" href="#twilio.rest.api.v2010.account.usage.record.monthly.MonthlyInstance" title="twilio.rest.api.v2010.account.usage.record.monthly.MonthlyInstance">twilio.rest.api.v2010.account.usage.record.monthly.MonthlyInstance</a>]</p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)">list</a>[<a class="reference internal" href="#twilio.rest.api.v2010.account.usage.record.monthly.MonthlyInstance" title="twilio.rest.api.v2010.account.usage.record.monthly.MonthlyInstance">twilio.rest.api.v2010.account.usage.record.monthly.MonthlyInstance</a>]</p>
 </td>
 </tr>
 </tbody>
@@ -5399,7 +5431,7 @@ limit with the most efficient page size, i.e. min(limit, 1000)</li>
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>payload</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a>) – Payload response from the API</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>payload</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)"><em>dict</em></a>) – Payload response from the API</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">twilio.rest.api.v2010.account.usage.record.monthly.MonthlyInstance</td>
 </tr>
@@ -5427,7 +5459,7 @@ limit with the most efficient page size, i.e. min(limit, 1000)</li>
 <dl class="class">
 <dt id="twilio.rest.api.v2010.account.usage.record.this_month.ThisMonthInstance.Category">
 <em class="property">class </em><code class="descname">Category</code><a class="reference internal" href="../../../_modules/twilio/rest/api/v2010/account/usage/record/this_month.html#ThisMonthInstance.Category"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.api.v2010.account.usage.record.this_month.ThisMonthInstance.Category" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <dl class="attribute">
 <dt id="twilio.rest.api.v2010.account.usage.record.this_month.ThisMonthInstance.Category.A2P_REGISTRATION_FEES">
 <code class="descname">A2P_REGISTRATION_FEES</code><em class="property"> = 'a2p-registration-fees'</em><a class="headerlink" href="#twilio.rest.api.v2010.account.usage.record.this_month.ThisMonthInstance.Category.A2P_REGISTRATION_FEES" title="Permalink to this definition">¶</a></dt>
@@ -5435,6 +5467,10 @@ limit with the most efficient page size, i.e. min(limit, 1000)</li>
 <dl class="attribute">
 <dt id="twilio.rest.api.v2010.account.usage.record.this_month.ThisMonthInstance.Category.AGENT_CONFERENCE">
 <code class="descname">AGENT_CONFERENCE</code><em class="property"> = 'agent-conference'</em><a class="headerlink" href="#twilio.rest.api.v2010.account.usage.record.this_month.ThisMonthInstance.Category.AGENT_CONFERENCE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="attribute">
+<dt id="twilio.rest.api.v2010.account.usage.record.this_month.ThisMonthInstance.Category.AMAZON_POLLY">
+<code class="descname">AMAZON_POLLY</code><em class="property"> = 'amazon-polly'</em><a class="headerlink" href="#twilio.rest.api.v2010.account.usage.record.this_month.ThisMonthInstance.Category.AMAZON_POLLY" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 <dl class="attribute">
 <dt id="twilio.rest.api.v2010.account.usage.record.this_month.ThisMonthInstance.Category.ANSWERING_MACHINE_DETECTION">
@@ -6217,6 +6253,10 @@ limit with the most efficient page size, i.e. min(limit, 1000)</li>
 <code class="descname">VIDEO_RECORDINGS</code><em class="property"> = 'video-recordings'</em><a class="headerlink" href="#twilio.rest.api.v2010.account.usage.record.this_month.ThisMonthInstance.Category.VIDEO_RECORDINGS" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 <dl class="attribute">
+<dt id="twilio.rest.api.v2010.account.usage.record.this_month.ThisMonthInstance.Category.VIRTUAL_AGENT">
+<code class="descname">VIRTUAL_AGENT</code><em class="property"> = 'virtual-agent'</em><a class="headerlink" href="#twilio.rest.api.v2010.account.usage.record.this_month.ThisMonthInstance.Category.VIRTUAL_AGENT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="attribute">
 <dt id="twilio.rest.api.v2010.account.usage.record.this_month.ThisMonthInstance.Category.VOICE_INSIGHTS">
 <code class="descname">VOICE_INSIGHTS</code><em class="property"> = 'voice-insights'</em><a class="headerlink" href="#twilio.rest.api.v2010.account.usage.record.this_month.ThisMonthInstance.Category.VOICE_INSIGHTS" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -6625,7 +6665,7 @@ Request is executed immediately</p>
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>target_url</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – API-generated URL for the requested results page</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>target_url</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – API-generated URL for the requested results page</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Page of ThisMonthInstance</td>
 </tr>
@@ -6648,10 +6688,10 @@ memory before returning.</p>
 <li><strong>category</strong> (<a class="reference internal" href="#twilio.rest.api.v2010.account.usage.record.this_month.ThisMonthInstance.Category" title="twilio.rest.api.v2010.account.usage.record.this_month.ThisMonthInstance.Category"><em>ThisMonthInstance.Category</em></a>) – The usage category of the UsageRecord resources to read</li>
 <li><strong>start_date</strong> (<em>date</em>) – Only include usage that has occurred on or after this date</li>
 <li><strong>end_date</strong> (<em>date</em>) – Only include usage that occurred on or before this date</li>
-<li><strong>include_subaccounts</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether to include usage from the master account and all its subaccounts</li>
-<li><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Upper limit for the number of records to return. list() guarantees
+<li><strong>include_subaccounts</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether to include usage from the master account and all its subaccounts</li>
+<li><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Upper limit for the number of records to return. list() guarantees
 never to return more than limit.  Default is no limit</li>
-<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Number of records to fetch per request, when not set will use
+<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Number of records to fetch per request, when not set will use
 the default value of 50 records.  If no page_size is defined
 but a limit is defined, list() will attempt to read the limit
 with the most efficient page size, i.e. min(limit, 1000)</li>
@@ -6661,7 +6701,7 @@ with the most efficient page size, i.e. min(limit, 1000)</li>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Generator that will yield up to limit results</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)">list</a>[<a class="reference internal" href="#twilio.rest.api.v2010.account.usage.record.this_month.ThisMonthInstance" title="twilio.rest.api.v2010.account.usage.record.this_month.ThisMonthInstance">twilio.rest.api.v2010.account.usage.record.this_month.ThisMonthInstance</a>]</p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)">list</a>[<a class="reference internal" href="#twilio.rest.api.v2010.account.usage.record.this_month.ThisMonthInstance" title="twilio.rest.api.v2010.account.usage.record.this_month.ThisMonthInstance">twilio.rest.api.v2010.account.usage.record.this_month.ThisMonthInstance</a>]</p>
 </td>
 </tr>
 </tbody>
@@ -6680,10 +6720,10 @@ Request is executed immediately</p>
 <li><strong>category</strong> (<a class="reference internal" href="#twilio.rest.api.v2010.account.usage.record.this_month.ThisMonthInstance.Category" title="twilio.rest.api.v2010.account.usage.record.this_month.ThisMonthInstance.Category"><em>ThisMonthInstance.Category</em></a>) – The usage category of the UsageRecord resources to read</li>
 <li><strong>start_date</strong> (<em>date</em>) – Only include usage that has occurred on or after this date</li>
 <li><strong>end_date</strong> (<em>date</em>) – Only include usage that occurred on or before this date</li>
-<li><strong>include_subaccounts</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether to include usage from the master account and all its subaccounts</li>
-<li><strong>page_token</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – PageToken provided by the API</li>
-<li><strong>page_number</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Page Number, this value is simply for client state</li>
-<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Number of records to return, defaults to 50</li>
+<li><strong>include_subaccounts</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether to include usage from the master account and all its subaccounts</li>
+<li><strong>page_token</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – PageToken provided by the API</li>
+<li><strong>page_number</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Page Number, this value is simply for client state</li>
+<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Number of records to return, defaults to 50</li>
 </ul>
 </td>
 </tr>
@@ -6711,10 +6751,10 @@ The results are returned as a generator, so this operation is memory efficient.<
 <li><strong>category</strong> (<a class="reference internal" href="#twilio.rest.api.v2010.account.usage.record.this_month.ThisMonthInstance.Category" title="twilio.rest.api.v2010.account.usage.record.this_month.ThisMonthInstance.Category"><em>ThisMonthInstance.Category</em></a>) – The usage category of the UsageRecord resources to read</li>
 <li><strong>start_date</strong> (<em>date</em>) – Only include usage that has occurred on or after this date</li>
 <li><strong>end_date</strong> (<em>date</em>) – Only include usage that occurred on or before this date</li>
-<li><strong>include_subaccounts</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether to include usage from the master account and all its subaccounts</li>
-<li><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Upper limit for the number of records to return. stream()
+<li><strong>include_subaccounts</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether to include usage from the master account and all its subaccounts</li>
+<li><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Upper limit for the number of records to return. stream()
 guarantees to never return more than limit.  Default is no limit</li>
-<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Number of records to fetch per request, when not set will use
+<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Number of records to fetch per request, when not set will use
 the default value of 50 records.  If no page_size is defined
 but a limit is defined, stream() will attempt to read the
 limit with the most efficient page size, i.e. min(limit, 1000)</li>
@@ -6724,7 +6764,7 @@ limit with the most efficient page size, i.e. min(limit, 1000)</li>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Generator that will yield up to limit results</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)">list</a>[<a class="reference internal" href="#twilio.rest.api.v2010.account.usage.record.this_month.ThisMonthInstance" title="twilio.rest.api.v2010.account.usage.record.this_month.ThisMonthInstance">twilio.rest.api.v2010.account.usage.record.this_month.ThisMonthInstance</a>]</p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)">list</a>[<a class="reference internal" href="#twilio.rest.api.v2010.account.usage.record.this_month.ThisMonthInstance" title="twilio.rest.api.v2010.account.usage.record.this_month.ThisMonthInstance">twilio.rest.api.v2010.account.usage.record.this_month.ThisMonthInstance</a>]</p>
 </td>
 </tr>
 </tbody>
@@ -6743,7 +6783,7 @@ limit with the most efficient page size, i.e. min(limit, 1000)</li>
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>payload</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a>) – Payload response from the API</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>payload</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)"><em>dict</em></a>) – Payload response from the API</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">twilio.rest.api.v2010.account.usage.record.this_month.ThisMonthInstance</td>
 </tr>
@@ -6771,7 +6811,7 @@ limit with the most efficient page size, i.e. min(limit, 1000)</li>
 <dl class="class">
 <dt id="twilio.rest.api.v2010.account.usage.record.today.TodayInstance.Category">
 <em class="property">class </em><code class="descname">Category</code><a class="reference internal" href="../../../_modules/twilio/rest/api/v2010/account/usage/record/today.html#TodayInstance.Category"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.api.v2010.account.usage.record.today.TodayInstance.Category" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <dl class="attribute">
 <dt id="twilio.rest.api.v2010.account.usage.record.today.TodayInstance.Category.A2P_REGISTRATION_FEES">
 <code class="descname">A2P_REGISTRATION_FEES</code><em class="property"> = 'a2p-registration-fees'</em><a class="headerlink" href="#twilio.rest.api.v2010.account.usage.record.today.TodayInstance.Category.A2P_REGISTRATION_FEES" title="Permalink to this definition">¶</a></dt>
@@ -6779,6 +6819,10 @@ limit with the most efficient page size, i.e. min(limit, 1000)</li>
 <dl class="attribute">
 <dt id="twilio.rest.api.v2010.account.usage.record.today.TodayInstance.Category.AGENT_CONFERENCE">
 <code class="descname">AGENT_CONFERENCE</code><em class="property"> = 'agent-conference'</em><a class="headerlink" href="#twilio.rest.api.v2010.account.usage.record.today.TodayInstance.Category.AGENT_CONFERENCE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="attribute">
+<dt id="twilio.rest.api.v2010.account.usage.record.today.TodayInstance.Category.AMAZON_POLLY">
+<code class="descname">AMAZON_POLLY</code><em class="property"> = 'amazon-polly'</em><a class="headerlink" href="#twilio.rest.api.v2010.account.usage.record.today.TodayInstance.Category.AMAZON_POLLY" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 <dl class="attribute">
 <dt id="twilio.rest.api.v2010.account.usage.record.today.TodayInstance.Category.ANSWERING_MACHINE_DETECTION">
@@ -7561,6 +7605,10 @@ limit with the most efficient page size, i.e. min(limit, 1000)</li>
 <code class="descname">VIDEO_RECORDINGS</code><em class="property"> = 'video-recordings'</em><a class="headerlink" href="#twilio.rest.api.v2010.account.usage.record.today.TodayInstance.Category.VIDEO_RECORDINGS" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 <dl class="attribute">
+<dt id="twilio.rest.api.v2010.account.usage.record.today.TodayInstance.Category.VIRTUAL_AGENT">
+<code class="descname">VIRTUAL_AGENT</code><em class="property"> = 'virtual-agent'</em><a class="headerlink" href="#twilio.rest.api.v2010.account.usage.record.today.TodayInstance.Category.VIRTUAL_AGENT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="attribute">
 <dt id="twilio.rest.api.v2010.account.usage.record.today.TodayInstance.Category.VOICE_INSIGHTS">
 <code class="descname">VOICE_INSIGHTS</code><em class="property"> = 'voice-insights'</em><a class="headerlink" href="#twilio.rest.api.v2010.account.usage.record.today.TodayInstance.Category.VOICE_INSIGHTS" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -7969,7 +8017,7 @@ Request is executed immediately</p>
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>target_url</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – API-generated URL for the requested results page</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>target_url</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – API-generated URL for the requested results page</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Page of TodayInstance</td>
 </tr>
@@ -7992,10 +8040,10 @@ memory before returning.</p>
 <li><strong>category</strong> (<a class="reference internal" href="#twilio.rest.api.v2010.account.usage.record.today.TodayInstance.Category" title="twilio.rest.api.v2010.account.usage.record.today.TodayInstance.Category"><em>TodayInstance.Category</em></a>) – The usage category of the UsageRecord resources to read</li>
 <li><strong>start_date</strong> (<em>date</em>) – Only include usage that has occurred on or after this date</li>
 <li><strong>end_date</strong> (<em>date</em>) – Only include usage that occurred on or before this date</li>
-<li><strong>include_subaccounts</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether to include usage from the master account and all its subaccounts</li>
-<li><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Upper limit for the number of records to return. list() guarantees
+<li><strong>include_subaccounts</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether to include usage from the master account and all its subaccounts</li>
+<li><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Upper limit for the number of records to return. list() guarantees
 never to return more than limit.  Default is no limit</li>
-<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Number of records to fetch per request, when not set will use
+<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Number of records to fetch per request, when not set will use
 the default value of 50 records.  If no page_size is defined
 but a limit is defined, list() will attempt to read the limit
 with the most efficient page size, i.e. min(limit, 1000)</li>
@@ -8005,7 +8053,7 @@ with the most efficient page size, i.e. min(limit, 1000)</li>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Generator that will yield up to limit results</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)">list</a>[<a class="reference internal" href="#twilio.rest.api.v2010.account.usage.record.today.TodayInstance" title="twilio.rest.api.v2010.account.usage.record.today.TodayInstance">twilio.rest.api.v2010.account.usage.record.today.TodayInstance</a>]</p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)">list</a>[<a class="reference internal" href="#twilio.rest.api.v2010.account.usage.record.today.TodayInstance" title="twilio.rest.api.v2010.account.usage.record.today.TodayInstance">twilio.rest.api.v2010.account.usage.record.today.TodayInstance</a>]</p>
 </td>
 </tr>
 </tbody>
@@ -8024,10 +8072,10 @@ Request is executed immediately</p>
 <li><strong>category</strong> (<a class="reference internal" href="#twilio.rest.api.v2010.account.usage.record.today.TodayInstance.Category" title="twilio.rest.api.v2010.account.usage.record.today.TodayInstance.Category"><em>TodayInstance.Category</em></a>) – The usage category of the UsageRecord resources to read</li>
 <li><strong>start_date</strong> (<em>date</em>) – Only include usage that has occurred on or after this date</li>
 <li><strong>end_date</strong> (<em>date</em>) – Only include usage that occurred on or before this date</li>
-<li><strong>include_subaccounts</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether to include usage from the master account and all its subaccounts</li>
-<li><strong>page_token</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – PageToken provided by the API</li>
-<li><strong>page_number</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Page Number, this value is simply for client state</li>
-<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Number of records to return, defaults to 50</li>
+<li><strong>include_subaccounts</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether to include usage from the master account and all its subaccounts</li>
+<li><strong>page_token</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – PageToken provided by the API</li>
+<li><strong>page_number</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Page Number, this value is simply for client state</li>
+<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Number of records to return, defaults to 50</li>
 </ul>
 </td>
 </tr>
@@ -8055,10 +8103,10 @@ The results are returned as a generator, so this operation is memory efficient.<
 <li><strong>category</strong> (<a class="reference internal" href="#twilio.rest.api.v2010.account.usage.record.today.TodayInstance.Category" title="twilio.rest.api.v2010.account.usage.record.today.TodayInstance.Category"><em>TodayInstance.Category</em></a>) – The usage category of the UsageRecord resources to read</li>
 <li><strong>start_date</strong> (<em>date</em>) – Only include usage that has occurred on or after this date</li>
 <li><strong>end_date</strong> (<em>date</em>) – Only include usage that occurred on or before this date</li>
-<li><strong>include_subaccounts</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether to include usage from the master account and all its subaccounts</li>
-<li><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Upper limit for the number of records to return. stream()
+<li><strong>include_subaccounts</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether to include usage from the master account and all its subaccounts</li>
+<li><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Upper limit for the number of records to return. stream()
 guarantees to never return more than limit.  Default is no limit</li>
-<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Number of records to fetch per request, when not set will use
+<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Number of records to fetch per request, when not set will use
 the default value of 50 records.  If no page_size is defined
 but a limit is defined, stream() will attempt to read the
 limit with the most efficient page size, i.e. min(limit, 1000)</li>
@@ -8068,7 +8116,7 @@ limit with the most efficient page size, i.e. min(limit, 1000)</li>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Generator that will yield up to limit results</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)">list</a>[<a class="reference internal" href="#twilio.rest.api.v2010.account.usage.record.today.TodayInstance" title="twilio.rest.api.v2010.account.usage.record.today.TodayInstance">twilio.rest.api.v2010.account.usage.record.today.TodayInstance</a>]</p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)">list</a>[<a class="reference internal" href="#twilio.rest.api.v2010.account.usage.record.today.TodayInstance" title="twilio.rest.api.v2010.account.usage.record.today.TodayInstance">twilio.rest.api.v2010.account.usage.record.today.TodayInstance</a>]</p>
 </td>
 </tr>
 </tbody>
@@ -8087,7 +8135,7 @@ limit with the most efficient page size, i.e. min(limit, 1000)</li>
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>payload</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a>) – Payload response from the API</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>payload</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)"><em>dict</em></a>) – Payload response from the API</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">twilio.rest.api.v2010.account.usage.record.today.TodayInstance</td>
 </tr>
@@ -8115,7 +8163,7 @@ limit with the most efficient page size, i.e. min(limit, 1000)</li>
 <dl class="class">
 <dt id="twilio.rest.api.v2010.account.usage.record.yearly.YearlyInstance.Category">
 <em class="property">class </em><code class="descname">Category</code><a class="reference internal" href="../../../_modules/twilio/rest/api/v2010/account/usage/record/yearly.html#YearlyInstance.Category"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.api.v2010.account.usage.record.yearly.YearlyInstance.Category" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <dl class="attribute">
 <dt id="twilio.rest.api.v2010.account.usage.record.yearly.YearlyInstance.Category.A2P_REGISTRATION_FEES">
 <code class="descname">A2P_REGISTRATION_FEES</code><em class="property"> = 'a2p-registration-fees'</em><a class="headerlink" href="#twilio.rest.api.v2010.account.usage.record.yearly.YearlyInstance.Category.A2P_REGISTRATION_FEES" title="Permalink to this definition">¶</a></dt>
@@ -8123,6 +8171,10 @@ limit with the most efficient page size, i.e. min(limit, 1000)</li>
 <dl class="attribute">
 <dt id="twilio.rest.api.v2010.account.usage.record.yearly.YearlyInstance.Category.AGENT_CONFERENCE">
 <code class="descname">AGENT_CONFERENCE</code><em class="property"> = 'agent-conference'</em><a class="headerlink" href="#twilio.rest.api.v2010.account.usage.record.yearly.YearlyInstance.Category.AGENT_CONFERENCE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="attribute">
+<dt id="twilio.rest.api.v2010.account.usage.record.yearly.YearlyInstance.Category.AMAZON_POLLY">
+<code class="descname">AMAZON_POLLY</code><em class="property"> = 'amazon-polly'</em><a class="headerlink" href="#twilio.rest.api.v2010.account.usage.record.yearly.YearlyInstance.Category.AMAZON_POLLY" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 <dl class="attribute">
 <dt id="twilio.rest.api.v2010.account.usage.record.yearly.YearlyInstance.Category.ANSWERING_MACHINE_DETECTION">
@@ -8905,6 +8957,10 @@ limit with the most efficient page size, i.e. min(limit, 1000)</li>
 <code class="descname">VIDEO_RECORDINGS</code><em class="property"> = 'video-recordings'</em><a class="headerlink" href="#twilio.rest.api.v2010.account.usage.record.yearly.YearlyInstance.Category.VIDEO_RECORDINGS" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 <dl class="attribute">
+<dt id="twilio.rest.api.v2010.account.usage.record.yearly.YearlyInstance.Category.VIRTUAL_AGENT">
+<code class="descname">VIRTUAL_AGENT</code><em class="property"> = 'virtual-agent'</em><a class="headerlink" href="#twilio.rest.api.v2010.account.usage.record.yearly.YearlyInstance.Category.VIRTUAL_AGENT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="attribute">
 <dt id="twilio.rest.api.v2010.account.usage.record.yearly.YearlyInstance.Category.VOICE_INSIGHTS">
 <code class="descname">VOICE_INSIGHTS</code><em class="property"> = 'voice-insights'</em><a class="headerlink" href="#twilio.rest.api.v2010.account.usage.record.yearly.YearlyInstance.Category.VOICE_INSIGHTS" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -9313,7 +9369,7 @@ Request is executed immediately</p>
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>target_url</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – API-generated URL for the requested results page</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>target_url</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – API-generated URL for the requested results page</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Page of YearlyInstance</td>
 </tr>
@@ -9336,10 +9392,10 @@ memory before returning.</p>
 <li><strong>category</strong> (<a class="reference internal" href="#twilio.rest.api.v2010.account.usage.record.yearly.YearlyInstance.Category" title="twilio.rest.api.v2010.account.usage.record.yearly.YearlyInstance.Category"><em>YearlyInstance.Category</em></a>) – The usage category of the UsageRecord resources to read</li>
 <li><strong>start_date</strong> (<em>date</em>) – Only include usage that has occurred on or after this date</li>
 <li><strong>end_date</strong> (<em>date</em>) – Only include usage that occurred on or before this date</li>
-<li><strong>include_subaccounts</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether to include usage from the master account and all its subaccounts</li>
-<li><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Upper limit for the number of records to return. list() guarantees
+<li><strong>include_subaccounts</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether to include usage from the master account and all its subaccounts</li>
+<li><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Upper limit for the number of records to return. list() guarantees
 never to return more than limit.  Default is no limit</li>
-<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Number of records to fetch per request, when not set will use
+<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Number of records to fetch per request, when not set will use
 the default value of 50 records.  If no page_size is defined
 but a limit is defined, list() will attempt to read the limit
 with the most efficient page size, i.e. min(limit, 1000)</li>
@@ -9349,7 +9405,7 @@ with the most efficient page size, i.e. min(limit, 1000)</li>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Generator that will yield up to limit results</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)">list</a>[<a class="reference internal" href="#twilio.rest.api.v2010.account.usage.record.yearly.YearlyInstance" title="twilio.rest.api.v2010.account.usage.record.yearly.YearlyInstance">twilio.rest.api.v2010.account.usage.record.yearly.YearlyInstance</a>]</p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)">list</a>[<a class="reference internal" href="#twilio.rest.api.v2010.account.usage.record.yearly.YearlyInstance" title="twilio.rest.api.v2010.account.usage.record.yearly.YearlyInstance">twilio.rest.api.v2010.account.usage.record.yearly.YearlyInstance</a>]</p>
 </td>
 </tr>
 </tbody>
@@ -9368,10 +9424,10 @@ Request is executed immediately</p>
 <li><strong>category</strong> (<a class="reference internal" href="#twilio.rest.api.v2010.account.usage.record.yearly.YearlyInstance.Category" title="twilio.rest.api.v2010.account.usage.record.yearly.YearlyInstance.Category"><em>YearlyInstance.Category</em></a>) – The usage category of the UsageRecord resources to read</li>
 <li><strong>start_date</strong> (<em>date</em>) – Only include usage that has occurred on or after this date</li>
 <li><strong>end_date</strong> (<em>date</em>) – Only include usage that occurred on or before this date</li>
-<li><strong>include_subaccounts</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether to include usage from the master account and all its subaccounts</li>
-<li><strong>page_token</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – PageToken provided by the API</li>
-<li><strong>page_number</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Page Number, this value is simply for client state</li>
-<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Number of records to return, defaults to 50</li>
+<li><strong>include_subaccounts</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether to include usage from the master account and all its subaccounts</li>
+<li><strong>page_token</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – PageToken provided by the API</li>
+<li><strong>page_number</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Page Number, this value is simply for client state</li>
+<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Number of records to return, defaults to 50</li>
 </ul>
 </td>
 </tr>
@@ -9399,10 +9455,10 @@ The results are returned as a generator, so this operation is memory efficient.<
 <li><strong>category</strong> (<a class="reference internal" href="#twilio.rest.api.v2010.account.usage.record.yearly.YearlyInstance.Category" title="twilio.rest.api.v2010.account.usage.record.yearly.YearlyInstance.Category"><em>YearlyInstance.Category</em></a>) – The usage category of the UsageRecord resources to read</li>
 <li><strong>start_date</strong> (<em>date</em>) – Only include usage that has occurred on or after this date</li>
 <li><strong>end_date</strong> (<em>date</em>) – Only include usage that occurred on or before this date</li>
-<li><strong>include_subaccounts</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether to include usage from the master account and all its subaccounts</li>
-<li><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Upper limit for the number of records to return. stream()
+<li><strong>include_subaccounts</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether to include usage from the master account and all its subaccounts</li>
+<li><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Upper limit for the number of records to return. stream()
 guarantees to never return more than limit.  Default is no limit</li>
-<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Number of records to fetch per request, when not set will use
+<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Number of records to fetch per request, when not set will use
 the default value of 50 records.  If no page_size is defined
 but a limit is defined, stream() will attempt to read the
 limit with the most efficient page size, i.e. min(limit, 1000)</li>
@@ -9412,7 +9468,7 @@ limit with the most efficient page size, i.e. min(limit, 1000)</li>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Generator that will yield up to limit results</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)">list</a>[<a class="reference internal" href="#twilio.rest.api.v2010.account.usage.record.yearly.YearlyInstance" title="twilio.rest.api.v2010.account.usage.record.yearly.YearlyInstance">twilio.rest.api.v2010.account.usage.record.yearly.YearlyInstance</a>]</p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)">list</a>[<a class="reference internal" href="#twilio.rest.api.v2010.account.usage.record.yearly.YearlyInstance" title="twilio.rest.api.v2010.account.usage.record.yearly.YearlyInstance">twilio.rest.api.v2010.account.usage.record.yearly.YearlyInstance</a>]</p>
 </td>
 </tr>
 </tbody>
@@ -9431,7 +9487,7 @@ limit with the most efficient page size, i.e. min(limit, 1000)</li>
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>payload</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a>) – Payload response from the API</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>payload</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)"><em>dict</em></a>) – Payload response from the API</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">twilio.rest.api.v2010.account.usage.record.yearly.YearlyInstance</td>
 </tr>
@@ -9459,7 +9515,7 @@ limit with the most efficient page size, i.e. min(limit, 1000)</li>
 <dl class="class">
 <dt id="twilio.rest.api.v2010.account.usage.record.yesterday.YesterdayInstance.Category">
 <em class="property">class </em><code class="descname">Category</code><a class="reference internal" href="../../../_modules/twilio/rest/api/v2010/account/usage/record/yesterday.html#YesterdayInstance.Category"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.api.v2010.account.usage.record.yesterday.YesterdayInstance.Category" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <dl class="attribute">
 <dt id="twilio.rest.api.v2010.account.usage.record.yesterday.YesterdayInstance.Category.A2P_REGISTRATION_FEES">
 <code class="descname">A2P_REGISTRATION_FEES</code><em class="property"> = 'a2p-registration-fees'</em><a class="headerlink" href="#twilio.rest.api.v2010.account.usage.record.yesterday.YesterdayInstance.Category.A2P_REGISTRATION_FEES" title="Permalink to this definition">¶</a></dt>
@@ -9467,6 +9523,10 @@ limit with the most efficient page size, i.e. min(limit, 1000)</li>
 <dl class="attribute">
 <dt id="twilio.rest.api.v2010.account.usage.record.yesterday.YesterdayInstance.Category.AGENT_CONFERENCE">
 <code class="descname">AGENT_CONFERENCE</code><em class="property"> = 'agent-conference'</em><a class="headerlink" href="#twilio.rest.api.v2010.account.usage.record.yesterday.YesterdayInstance.Category.AGENT_CONFERENCE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="attribute">
+<dt id="twilio.rest.api.v2010.account.usage.record.yesterday.YesterdayInstance.Category.AMAZON_POLLY">
+<code class="descname">AMAZON_POLLY</code><em class="property"> = 'amazon-polly'</em><a class="headerlink" href="#twilio.rest.api.v2010.account.usage.record.yesterday.YesterdayInstance.Category.AMAZON_POLLY" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 <dl class="attribute">
 <dt id="twilio.rest.api.v2010.account.usage.record.yesterday.YesterdayInstance.Category.ANSWERING_MACHINE_DETECTION">
@@ -10249,6 +10309,10 @@ limit with the most efficient page size, i.e. min(limit, 1000)</li>
 <code class="descname">VIDEO_RECORDINGS</code><em class="property"> = 'video-recordings'</em><a class="headerlink" href="#twilio.rest.api.v2010.account.usage.record.yesterday.YesterdayInstance.Category.VIDEO_RECORDINGS" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 <dl class="attribute">
+<dt id="twilio.rest.api.v2010.account.usage.record.yesterday.YesterdayInstance.Category.VIRTUAL_AGENT">
+<code class="descname">VIRTUAL_AGENT</code><em class="property"> = 'virtual-agent'</em><a class="headerlink" href="#twilio.rest.api.v2010.account.usage.record.yesterday.YesterdayInstance.Category.VIRTUAL_AGENT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="attribute">
 <dt id="twilio.rest.api.v2010.account.usage.record.yesterday.YesterdayInstance.Category.VOICE_INSIGHTS">
 <code class="descname">VOICE_INSIGHTS</code><em class="property"> = 'voice-insights'</em><a class="headerlink" href="#twilio.rest.api.v2010.account.usage.record.yesterday.YesterdayInstance.Category.VOICE_INSIGHTS" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -10657,7 +10721,7 @@ Request is executed immediately</p>
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>target_url</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – API-generated URL for the requested results page</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>target_url</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – API-generated URL for the requested results page</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Page of YesterdayInstance</td>
 </tr>
@@ -10680,10 +10744,10 @@ memory before returning.</p>
 <li><strong>category</strong> (<a class="reference internal" href="#twilio.rest.api.v2010.account.usage.record.yesterday.YesterdayInstance.Category" title="twilio.rest.api.v2010.account.usage.record.yesterday.YesterdayInstance.Category"><em>YesterdayInstance.Category</em></a>) – The usage category of the UsageRecord resources to read</li>
 <li><strong>start_date</strong> (<em>date</em>) – Only include usage that has occurred on or after this date</li>
 <li><strong>end_date</strong> (<em>date</em>) – Only include usage that occurred on or before this date</li>
-<li><strong>include_subaccounts</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether to include usage from the master account and all its subaccounts</li>
-<li><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Upper limit for the number of records to return. list() guarantees
+<li><strong>include_subaccounts</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether to include usage from the master account and all its subaccounts</li>
+<li><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Upper limit for the number of records to return. list() guarantees
 never to return more than limit.  Default is no limit</li>
-<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Number of records to fetch per request, when not set will use
+<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Number of records to fetch per request, when not set will use
 the default value of 50 records.  If no page_size is defined
 but a limit is defined, list() will attempt to read the limit
 with the most efficient page size, i.e. min(limit, 1000)</li>
@@ -10693,7 +10757,7 @@ with the most efficient page size, i.e. min(limit, 1000)</li>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Generator that will yield up to limit results</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)">list</a>[<a class="reference internal" href="#twilio.rest.api.v2010.account.usage.record.yesterday.YesterdayInstance" title="twilio.rest.api.v2010.account.usage.record.yesterday.YesterdayInstance">twilio.rest.api.v2010.account.usage.record.yesterday.YesterdayInstance</a>]</p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)">list</a>[<a class="reference internal" href="#twilio.rest.api.v2010.account.usage.record.yesterday.YesterdayInstance" title="twilio.rest.api.v2010.account.usage.record.yesterday.YesterdayInstance">twilio.rest.api.v2010.account.usage.record.yesterday.YesterdayInstance</a>]</p>
 </td>
 </tr>
 </tbody>
@@ -10712,10 +10776,10 @@ Request is executed immediately</p>
 <li><strong>category</strong> (<a class="reference internal" href="#twilio.rest.api.v2010.account.usage.record.yesterday.YesterdayInstance.Category" title="twilio.rest.api.v2010.account.usage.record.yesterday.YesterdayInstance.Category"><em>YesterdayInstance.Category</em></a>) – The usage category of the UsageRecord resources to read</li>
 <li><strong>start_date</strong> (<em>date</em>) – Only include usage that has occurred on or after this date</li>
 <li><strong>end_date</strong> (<em>date</em>) – Only include usage that occurred on or before this date</li>
-<li><strong>include_subaccounts</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether to include usage from the master account and all its subaccounts</li>
-<li><strong>page_token</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – PageToken provided by the API</li>
-<li><strong>page_number</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Page Number, this value is simply for client state</li>
-<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Number of records to return, defaults to 50</li>
+<li><strong>include_subaccounts</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether to include usage from the master account and all its subaccounts</li>
+<li><strong>page_token</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – PageToken provided by the API</li>
+<li><strong>page_number</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Page Number, this value is simply for client state</li>
+<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Number of records to return, defaults to 50</li>
 </ul>
 </td>
 </tr>
@@ -10743,10 +10807,10 @@ The results are returned as a generator, so this operation is memory efficient.<
 <li><strong>category</strong> (<a class="reference internal" href="#twilio.rest.api.v2010.account.usage.record.yesterday.YesterdayInstance.Category" title="twilio.rest.api.v2010.account.usage.record.yesterday.YesterdayInstance.Category"><em>YesterdayInstance.Category</em></a>) – The usage category of the UsageRecord resources to read</li>
 <li><strong>start_date</strong> (<em>date</em>) – Only include usage that has occurred on or after this date</li>
 <li><strong>end_date</strong> (<em>date</em>) – Only include usage that occurred on or before this date</li>
-<li><strong>include_subaccounts</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether to include usage from the master account and all its subaccounts</li>
-<li><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Upper limit for the number of records to return. stream()
+<li><strong>include_subaccounts</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether to include usage from the master account and all its subaccounts</li>
+<li><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Upper limit for the number of records to return. stream()
 guarantees to never return more than limit.  Default is no limit</li>
-<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Number of records to fetch per request, when not set will use
+<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Number of records to fetch per request, when not set will use
 the default value of 50 records.  If no page_size is defined
 but a limit is defined, stream() will attempt to read the
 limit with the most efficient page size, i.e. min(limit, 1000)</li>
@@ -10756,7 +10820,7 @@ limit with the most efficient page size, i.e. min(limit, 1000)</li>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Generator that will yield up to limit results</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)">list</a>[<a class="reference internal" href="#twilio.rest.api.v2010.account.usage.record.yesterday.YesterdayInstance" title="twilio.rest.api.v2010.account.usage.record.yesterday.YesterdayInstance">twilio.rest.api.v2010.account.usage.record.yesterday.YesterdayInstance</a>]</p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)">list</a>[<a class="reference internal" href="#twilio.rest.api.v2010.account.usage.record.yesterday.YesterdayInstance" title="twilio.rest.api.v2010.account.usage.record.yesterday.YesterdayInstance">twilio.rest.api.v2010.account.usage.record.yesterday.YesterdayInstance</a>]</p>
 </td>
 </tr>
 </tbody>
@@ -10775,7 +10839,7 @@ limit with the most efficient page size, i.e. min(limit, 1000)</li>
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>payload</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a>) – Payload response from the API</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>payload</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)"><em>dict</em></a>) – Payload response from the API</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">twilio.rest.api.v2010.account.usage.record.yesterday.YesterdayInstance</td>
 </tr>
@@ -10803,7 +10867,7 @@ limit with the most efficient page size, i.e. min(limit, 1000)</li>
 <dl class="class">
 <dt id="twilio.rest.api.v2010.account.usage.record.RecordInstance.Category">
 <em class="property">class </em><code class="descname">Category</code><a class="reference internal" href="../../../_modules/twilio/rest/api/v2010/account/usage/record.html#RecordInstance.Category"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#twilio.rest.api.v2010.account.usage.record.RecordInstance.Category" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <dl class="attribute">
 <dt id="twilio.rest.api.v2010.account.usage.record.RecordInstance.Category.A2P_REGISTRATION_FEES">
 <code class="descname">A2P_REGISTRATION_FEES</code><em class="property"> = 'a2p-registration-fees'</em><a class="headerlink" href="#twilio.rest.api.v2010.account.usage.record.RecordInstance.Category.A2P_REGISTRATION_FEES" title="Permalink to this definition">¶</a></dt>
@@ -10811,6 +10875,10 @@ limit with the most efficient page size, i.e. min(limit, 1000)</li>
 <dl class="attribute">
 <dt id="twilio.rest.api.v2010.account.usage.record.RecordInstance.Category.AGENT_CONFERENCE">
 <code class="descname">AGENT_CONFERENCE</code><em class="property"> = 'agent-conference'</em><a class="headerlink" href="#twilio.rest.api.v2010.account.usage.record.RecordInstance.Category.AGENT_CONFERENCE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="attribute">
+<dt id="twilio.rest.api.v2010.account.usage.record.RecordInstance.Category.AMAZON_POLLY">
+<code class="descname">AMAZON_POLLY</code><em class="property"> = 'amazon-polly'</em><a class="headerlink" href="#twilio.rest.api.v2010.account.usage.record.RecordInstance.Category.AMAZON_POLLY" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 <dl class="attribute">
 <dt id="twilio.rest.api.v2010.account.usage.record.RecordInstance.Category.ANSWERING_MACHINE_DETECTION">
@@ -11593,6 +11661,10 @@ limit with the most efficient page size, i.e. min(limit, 1000)</li>
 <code class="descname">VIDEO_RECORDINGS</code><em class="property"> = 'video-recordings'</em><a class="headerlink" href="#twilio.rest.api.v2010.account.usage.record.RecordInstance.Category.VIDEO_RECORDINGS" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 <dl class="attribute">
+<dt id="twilio.rest.api.v2010.account.usage.record.RecordInstance.Category.VIRTUAL_AGENT">
+<code class="descname">VIRTUAL_AGENT</code><em class="property"> = 'virtual-agent'</em><a class="headerlink" href="#twilio.rest.api.v2010.account.usage.record.RecordInstance.Category.VIRTUAL_AGENT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="attribute">
 <dt id="twilio.rest.api.v2010.account.usage.record.RecordInstance.Category.VOICE_INSIGHTS">
 <code class="descname">VOICE_INSIGHTS</code><em class="property"> = 'voice-insights'</em><a class="headerlink" href="#twilio.rest.api.v2010.account.usage.record.RecordInstance.Category.VOICE_INSIGHTS" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -12031,7 +12103,7 @@ Request is executed immediately</p>
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>target_url</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – API-generated URL for the requested results page</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>target_url</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – API-generated URL for the requested results page</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Page of RecordInstance</td>
 </tr>
@@ -12069,10 +12141,10 @@ memory before returning.</p>
 <li><strong>category</strong> (<a class="reference internal" href="#twilio.rest.api.v2010.account.usage.record.RecordInstance.Category" title="twilio.rest.api.v2010.account.usage.record.RecordInstance.Category"><em>RecordInstance.Category</em></a>) – The usage category of the UsageRecord resources to read</li>
 <li><strong>start_date</strong> (<em>date</em>) – Only include usage that has occurred on or after this date</li>
 <li><strong>end_date</strong> (<em>date</em>) – Only include usage that occurred on or before this date</li>
-<li><strong>include_subaccounts</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether to include usage from the master account and all its subaccounts</li>
-<li><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Upper limit for the number of records to return. list() guarantees
+<li><strong>include_subaccounts</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether to include usage from the master account and all its subaccounts</li>
+<li><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Upper limit for the number of records to return. list() guarantees
 never to return more than limit.  Default is no limit</li>
-<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Number of records to fetch per request, when not set will use
+<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Number of records to fetch per request, when not set will use
 the default value of 50 records.  If no page_size is defined
 but a limit is defined, list() will attempt to read the limit
 with the most efficient page size, i.e. min(limit, 1000)</li>
@@ -12082,7 +12154,7 @@ with the most efficient page size, i.e. min(limit, 1000)</li>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Generator that will yield up to limit results</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)">list</a>[<a class="reference internal" href="#twilio.rest.api.v2010.account.usage.record.RecordInstance" title="twilio.rest.api.v2010.account.usage.record.RecordInstance">twilio.rest.api.v2010.account.usage.record.RecordInstance</a>]</p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)">list</a>[<a class="reference internal" href="#twilio.rest.api.v2010.account.usage.record.RecordInstance" title="twilio.rest.api.v2010.account.usage.record.RecordInstance">twilio.rest.api.v2010.account.usage.record.RecordInstance</a>]</p>
 </td>
 </tr>
 </tbody>
@@ -12116,10 +12188,10 @@ Request is executed immediately</p>
 <li><strong>category</strong> (<a class="reference internal" href="#twilio.rest.api.v2010.account.usage.record.RecordInstance.Category" title="twilio.rest.api.v2010.account.usage.record.RecordInstance.Category"><em>RecordInstance.Category</em></a>) – The usage category of the UsageRecord resources to read</li>
 <li><strong>start_date</strong> (<em>date</em>) – Only include usage that has occurred on or after this date</li>
 <li><strong>end_date</strong> (<em>date</em>) – Only include usage that occurred on or before this date</li>
-<li><strong>include_subaccounts</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether to include usage from the master account and all its subaccounts</li>
-<li><strong>page_token</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – PageToken provided by the API</li>
-<li><strong>page_number</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Page Number, this value is simply for client state</li>
-<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Number of records to return, defaults to 50</li>
+<li><strong>include_subaccounts</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether to include usage from the master account and all its subaccounts</li>
+<li><strong>page_token</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – PageToken provided by the API</li>
+<li><strong>page_number</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Page Number, this value is simply for client state</li>
+<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Number of records to return, defaults to 50</li>
 </ul>
 </td>
 </tr>
@@ -12147,10 +12219,10 @@ The results are returned as a generator, so this operation is memory efficient.<
 <li><strong>category</strong> (<a class="reference internal" href="#twilio.rest.api.v2010.account.usage.record.RecordInstance.Category" title="twilio.rest.api.v2010.account.usage.record.RecordInstance.Category"><em>RecordInstance.Category</em></a>) – The usage category of the UsageRecord resources to read</li>
 <li><strong>start_date</strong> (<em>date</em>) – Only include usage that has occurred on or after this date</li>
 <li><strong>end_date</strong> (<em>date</em>) – Only include usage that occurred on or before this date</li>
-<li><strong>include_subaccounts</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether to include usage from the master account and all its subaccounts</li>
-<li><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Upper limit for the number of records to return. stream()
+<li><strong>include_subaccounts</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether to include usage from the master account and all its subaccounts</li>
+<li><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Upper limit for the number of records to return. stream()
 guarantees to never return more than limit.  Default is no limit</li>
-<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Number of records to fetch per request, when not set will use
+<li><strong>page_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Number of records to fetch per request, when not set will use
 the default value of 50 records.  If no page_size is defined
 but a limit is defined, stream() will attempt to read the
 limit with the most efficient page size, i.e. min(limit, 1000)</li>
@@ -12160,7 +12232,7 @@ limit with the most efficient page size, i.e. min(limit, 1000)</li>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Generator that will yield up to limit results</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)">list</a>[<a class="reference internal" href="#twilio.rest.api.v2010.account.usage.record.RecordInstance" title="twilio.rest.api.v2010.account.usage.record.RecordInstance">twilio.rest.api.v2010.account.usage.record.RecordInstance</a>]</p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)">list</a>[<a class="reference internal" href="#twilio.rest.api.v2010.account.usage.record.RecordInstance" title="twilio.rest.api.v2010.account.usage.record.RecordInstance">twilio.rest.api.v2010.account.usage.record.RecordInstance</a>]</p>
 </td>
 </tr>
 </tbody>
@@ -12239,7 +12311,7 @@ limit with the most efficient page size, i.e. min(limit, 1000)</li>
 <col class="field-name"/>
 <col class="field-body"/>
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>payload</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a>) – Payload response from the API</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>payload</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)"><em>dict</em></a>) – Payload response from the API</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">twilio.rest.api.v2010.account.usage.record.RecordInstance</td>
 </tr>

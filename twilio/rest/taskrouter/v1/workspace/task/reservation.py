@@ -34,7 +34,8 @@ class ReservationList(ListResource):
         self._solution = {'workspace_sid': workspace_sid, 'task_sid': task_sid, }
         self._uri = '/Workspaces/{workspace_sid}/Tasks/{task_sid}/Reservations'.format(**self._solution)
 
-    def stream(self, reservation_status=values.unset, limit=None, page_size=None):
+    def stream(self, reservation_status=values.unset, worker_sid=values.unset,
+               limit=None, page_size=None):
         """
         Streams ReservationInstance records from the API as a generator stream.
         This operation lazily loads records as efficiently as possible until the limit
@@ -42,6 +43,7 @@ class ReservationList(ListResource):
         The results are returned as a generator, so this operation is memory efficient.
 
         :param ReservationInstance.Status reservation_status: Returns the list of reservations for a task with a specified ReservationStatus
+        :param unicode worker_sid: The SID of the reserved Worker resource to read
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -54,17 +56,23 @@ class ReservationList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
 
-        page = self.page(reservation_status=reservation_status, page_size=limits['page_size'], )
+        page = self.page(
+            reservation_status=reservation_status,
+            worker_sid=worker_sid,
+            page_size=limits['page_size'],
+        )
 
         return self._version.stream(page, limits['limit'])
 
-    def list(self, reservation_status=values.unset, limit=None, page_size=None):
+    def list(self, reservation_status=values.unset, worker_sid=values.unset,
+             limit=None, page_size=None):
         """
         Lists ReservationInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
         :param ReservationInstance.Status reservation_status: Returns the list of reservations for a task with a specified ReservationStatus
+        :param unicode worker_sid: The SID of the reserved Worker resource to read
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -75,15 +83,22 @@ class ReservationList(ListResource):
         :returns: Generator that will yield up to limit results
         :rtype: list[twilio.rest.taskrouter.v1.workspace.task.reservation.ReservationInstance]
         """
-        return list(self.stream(reservation_status=reservation_status, limit=limit, page_size=page_size, ))
+        return list(self.stream(
+            reservation_status=reservation_status,
+            worker_sid=worker_sid,
+            limit=limit,
+            page_size=page_size,
+        ))
 
-    def page(self, reservation_status=values.unset, page_token=values.unset,
-             page_number=values.unset, page_size=values.unset):
+    def page(self, reservation_status=values.unset, worker_sid=values.unset,
+             page_token=values.unset, page_number=values.unset,
+             page_size=values.unset):
         """
         Retrieve a single page of ReservationInstance records from the API.
         Request is executed immediately
 
         :param ReservationInstance.Status reservation_status: Returns the list of reservations for a task with a specified ReservationStatus
+        :param unicode worker_sid: The SID of the reserved Worker resource to read
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -93,6 +108,7 @@ class ReservationList(ListResource):
         """
         data = values.of({
             'ReservationStatus': reservation_status,
+            'WorkerSid': worker_sid,
             'PageToken': page_token,
             'Page': page_number,
             'PageSize': page_size,

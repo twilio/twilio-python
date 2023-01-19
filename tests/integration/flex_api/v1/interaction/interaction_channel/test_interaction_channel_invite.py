@@ -37,16 +37,17 @@ class InteractionChannelInviteTestCase(IntegrationTestCase):
             '''
             {
                 "sid": "KGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                "channel_sid": "UOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa1",
+                "channel_sid": "UOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "interaction_sid": "KDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                 "routing": {
+                    "reservation": null,
                     "properties": {
                         "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                         "workspace_sid": "WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                         "sid": "WTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                         "date_created": 1634845217,
                         "date_updated": 1634845217,
-                        "attributes": "{\\"customerAddress\\":\\"customer email address\\",\\"conversationSid\\":\\"UOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa1\\",\\"customerName\\":\\"customer name\\"}",
+                        "attributes": "{\\"customerAddress\\":\\"customer phone address\\",\\"flexChannelInviteSid\\":\\"KGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\\",\\"conversationSid\\":\\"CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\\",\\"channelType\\":\\"sms\\",\\"customers\\":{\\"phone\\":\\"customer phone address\\",\\"name\\":\\"customer name\\"},\\"conversations\\":{\\"conversation_id\\":\\"KDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\\",\\"media\\":[{\\"type\\":\\"ChatTranscript\\",\\"sid\\":\\"CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\\"}]},\\"customerName\\":\\"customer name\\",\\"flexInteractionChannelSid\\":\\"UOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\\",\\"flexInteractionSid\\":\\"KDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\\"}",
                         "assignment_status": "pending",
                         "workflow_sid": "WWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                         "workflow_name": "Default Fifo Workflow",
@@ -54,7 +55,7 @@ class InteractionChannelInviteTestCase(IntegrationTestCase):
                         "queue_name": "Sample Queue",
                         "priority": 0,
                         "age": 0,
-                        "reason": null,
+                        "reason": "",
                         "timeout": 86400,
                         "assignmentCounter": 0,
                         "task_channel_sid": "TCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -65,7 +66,7 @@ class InteractionChannelInviteTestCase(IntegrationTestCase):
                         "addons": "{}"
                     }
                 },
-                "url": "https://flex-api.twilio.com/v1/Interactions/KDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/UOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa1/Invites/KGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+                "url": "https://flex-api.twilio.com/v1/Interactions/KDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/UOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Invites/KGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             }
             '''
         ))
@@ -97,16 +98,17 @@ class InteractionChannelInviteTestCase(IntegrationTestCase):
                 "invites": [
                     {
                         "sid": "KGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa1",
-                        "channel_sid": "UOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa1",
+                        "channel_sid": "UOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                         "interaction_sid": "KDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                         "routing": {
+                            "reservation": null,
                             "properties": {
                                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                                 "workspace_sid": "WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                                 "sid": "WTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                                 "date_created": 1634845217,
                                 "date_updated": 1634845217,
-                                "attributes": "{\\"customerAddress\\":\\"customer email address\\",\\"conversationSid\\":\\"UOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa1\\",\\"customerName\\":\\"customer name\\"}",
+                                "attributes": "{\\"customerAddress\\":\\"customer phone address\\",\\"flexChannelInviteSid\\":\\"KGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\\",\\"conversationSid\\":\\"CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\\",\\"channelType\\":\\"sms\\",\\"customers\\":{\\"phone\\":\\"customer phone address\\",\\"name\\":\\"customer name\\"},\\"conversations\\":{\\"conversation_id\\":\\"KDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\\",\\"media\\":[{\\"type\\":\\"ChatTranscript\\",\\"sid\\":\\"CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\\"}]},\\"customerName\\":\\"customer name\\",\\"flexInteractionChannelSid\\":\\"UOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\\",\\"flexInteractionSid\\":\\"KDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\\"}",
                                 "assignment_status": "pending",
                                 "workflow_sid": "WWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                                 "workflow_name": "Default Fifo Workflow",
@@ -114,7 +116,7 @@ class InteractionChannelInviteTestCase(IntegrationTestCase):
                                 "queue_name": "Sample Queue",
                                 "priority": 0,
                                 "age": 0,
-                                "reason": null,
+                                "reason": "",
                                 "timeout": 86400,
                                 "assignmentCounter": 0,
                                 "task_channel_sid": "TCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -125,20 +127,21 @@ class InteractionChannelInviteTestCase(IntegrationTestCase):
                                 "addons": "{}"
                             }
                         },
-                        "url": "https://flex-api.twilio.com/v1/Interactions/KDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/UOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa1/Invites/KGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa1"
+                        "url": "https://flex-api.twilio.com/v1/Interactions/KDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/UOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Invites/KGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa1"
                     },
                     {
                         "sid": "KGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa2",
-                        "channel_sid": "UOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa1",
+                        "channel_sid": "UOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                         "interaction_sid": "KDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                         "routing": {
+                            "reservation": null,
                             "properties": {
                                 "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                                 "workspace_sid": "WSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                                 "sid": "WTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                                 "date_created": 1634845217,
                                 "date_updated": 1634845217,
-                                "attributes": "{\\"customerAddress\\":\\"customer email address\\",\\"conversationSid\\":\\"UOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa1\\",\\"customerName\\":\\"customer name\\"}",
+                                "attributes": "{\\"customerAddress\\":\\"customer phone address\\",\\"flexChannelInviteSid\\":\\"KGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\\",\\"conversationSid\\":\\"CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\\",\\"channelType\\":\\"sms\\",\\"customers\\":{\\"phone\\":\\"customer phone address\\",\\"name\\":\\"customer name\\"},\\"conversations\\":{\\"conversation_id\\":\\"KDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\\",\\"media\\":[{\\"type\\":\\"ChatTranscript\\",\\"sid\\":\\"CHaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\\"}]},\\"customerName\\":\\"customer name\\",\\"flexInteractionChannelSid\\":\\"UOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\\",\\"flexInteractionSid\\":\\"KDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\\"}",
                                 "assignment_status": "pending",
                                 "workflow_sid": "WWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
                                 "workflow_name": "Default Fifo Workflow",
@@ -146,7 +149,7 @@ class InteractionChannelInviteTestCase(IntegrationTestCase):
                                 "queue_name": "Sample Queue",
                                 "priority": 0,
                                 "age": 0,
-                                "reason": null,
+                                "reason": "",
                                 "timeout": 86400,
                                 "assignmentCounter": 0,
                                 "task_channel_sid": "TCaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -157,15 +160,15 @@ class InteractionChannelInviteTestCase(IntegrationTestCase):
                                 "addons": "{}"
                             }
                         },
-                        "url": "https://flex-api.twilio.com/v1/Interactions/KDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/UOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa1/Invites/KGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa2"
+                        "url": "https://flex-api.twilio.com/v1/Interactions/KDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/UOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Invites/KGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa2"
                     }
                 ],
                 "meta": {
                     "page": 0,
                     "page_size": 50,
-                    "first_page_url": "https://flex-api.twilio.com/v1/Interactions/KDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/UOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa1/Invites?PageSize=50&Page=0",
+                    "first_page_url": "https://flex-api.twilio.com/v1/Interactions/KDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/UOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Invites?PageSize=50&Page=0",
                     "previous_page_url": null,
-                    "url": "https://flex-api.twilio.com/v1/Interactions/KDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/UOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa1/Invites?PageSize=50&Page=0",
+                    "url": "https://flex-api.twilio.com/v1/Interactions/KDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels/UOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Invites?PageSize=50&Page=0",
                     "next_page_url": null,
                     "key": "invites"
                 }

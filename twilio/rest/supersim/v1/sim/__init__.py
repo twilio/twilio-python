@@ -13,6 +13,7 @@ from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.page import Page
 from twilio.rest.supersim.v1.sim.billing_period import BillingPeriodList
+from twilio.rest.supersim.v1.sim.sim_ip_address import SimIpAddressList
 
 
 class SimList(ListResource):
@@ -240,6 +241,7 @@ class SimContext(InstanceContext):
 
         # Dependents
         self._billing_periods = None
+        self._sim_ip_addresses = None
 
     def fetch(self):
         """
@@ -292,6 +294,18 @@ class SimContext(InstanceContext):
         if self._billing_periods is None:
             self._billing_periods = BillingPeriodList(self._version, sim_sid=self._solution['sid'], )
         return self._billing_periods
+
+    @property
+    def sim_ip_addresses(self):
+        """
+        Access the sim_ip_addresses
+
+        :returns: twilio.rest.supersim.v1.sim.sim_ip_address.SimIpAddressList
+        :rtype: twilio.rest.supersim.v1.sim.sim_ip_address.SimIpAddressList
+        """
+        if self._sim_ip_addresses is None:
+            self._sim_ip_addresses = SimIpAddressList(self._version, sim_sid=self._solution['sid'], )
+        return self._sim_ip_addresses
 
     def __repr__(self):
         """
@@ -483,6 +497,16 @@ class SimInstance(InstanceResource):
         :rtype: twilio.rest.supersim.v1.sim.billing_period.BillingPeriodList
         """
         return self._proxy.billing_periods
+
+    @property
+    def sim_ip_addresses(self):
+        """
+        Access the sim_ip_addresses
+
+        :returns: twilio.rest.supersim.v1.sim.sim_ip_address.SimIpAddressList
+        :rtype: twilio.rest.supersim.v1.sim.sim_ip_address.SimIpAddressList
+        """
+        return self._proxy.sim_ip_addresses
 
     def __repr__(self):
         """

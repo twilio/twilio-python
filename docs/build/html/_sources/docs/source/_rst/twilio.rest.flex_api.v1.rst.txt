@@ -11,6 +11,14 @@ Subpackages
 Submodules
 ----------
 
+twilio.rest.flex\_api.v1.assessments module
+-------------------------------------------
+
+.. automodule:: twilio.rest.flex_api.v1.assessments
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 twilio.rest.flex\_api.v1.channel module
 ---------------------------------------
 
@@ -31,6 +39,22 @@ twilio.rest.flex\_api.v1.flex\_flow module
 ------------------------------------------
 
 .. automodule:: twilio.rest.flex_api.v1.flex_flow
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+twilio.rest.flex\_api.v1.good\_data module
+------------------------------------------
+
+.. automodule:: twilio.rest.flex_api.v1.good_data
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+twilio.rest.flex\_api.v1.user\_roles module
+-------------------------------------------
+
+.. automodule:: twilio.rest.flex_api.v1.user_roles
     :members:
     :undoc-members:
     :show-inheritance:

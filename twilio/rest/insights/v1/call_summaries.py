@@ -298,6 +298,15 @@ class CallSummariesPage(Page):
 
 class CallSummariesInstance(InstanceResource):
 
+    class AnsweredBy(object):
+        UNKNOWN = "unknown"
+        MACHINE_START = "machine_start"
+        MACHINE_END_BEEP = "machine_end_beep"
+        MACHINE_END_SILENCE = "machine_end_silence"
+        MACHINE_END_OTHER = "machine_end_other"
+        HUMAN = "human"
+        FAX = "fax"
+
     class CallType(object):
         CARRIER = "carrier"
         SIP = "sip"
@@ -348,6 +357,7 @@ class CallSummariesInstance(InstanceResource):
         self._properties = {
             'account_sid': payload.get('account_sid'),
             'call_sid': payload.get('call_sid'),
+            'answered_by': payload.get('answered_by'),
             'call_type': payload.get('call_type'),
             'call_state': payload.get('call_state'),
             'processing_state': payload.get('processing_state'),
@@ -388,6 +398,14 @@ class CallSummariesInstance(InstanceResource):
         :rtype: unicode
         """
         return self._properties['call_sid']
+
+    @property
+    def answered_by(self):
+        """
+        :returns: The answered_by
+        :rtype: CallSummariesInstance.AnsweredBy
+        """
+        return self._properties['answered_by']
 
     @property
     def call_type(self):

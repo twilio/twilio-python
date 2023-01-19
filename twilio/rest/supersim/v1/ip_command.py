@@ -39,7 +39,7 @@ class IpCommandList(ListResource):
         Create the IpCommandInstance
 
         :param unicode sim: The sid or unique_name of the Super SIM to send the IP Command to
-        :param unicode payload: The payload to be delivered to the device
+        :param unicode payload: The data to be delivered to the device. If payload_type has been specified as binary, payload should be encoded using base64 encoding. Twilio will decode the the binary payload before sending to the device.
         :param unicode device_port: The device port to which the IP Command will be sent
         :param IpCommandInstance.PayloadType payload_type: Indicates how the payload is encoded
         :param unicode callback_url: The URL we should call after we have sent the IP Command

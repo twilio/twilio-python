@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-MWRD6S');</script><!--End Google Tag Manager-->
 <meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<title>twilio.request_validator — twilio-python 7.9.3 documentation</title>
+<title>twilio.request_validator — twilio-python 7.16.1 documentation</title>
 <link href="../../_static/alabaster.css" rel="stylesheet" type="text/css"/>
 <link href="../../_static/pygments.css" rel="stylesheet" type="text/css"/>
 <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js" type="text/javascript"></script>
@@ -36,7 +36,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
 
 <div class="viewcode-block" id="compare"><a class="viewcode-back" href="../../docs/source/_rst/twilio.html#twilio.request_validator.compare">[docs]</a><span class="k">def</span> <span class="nf">compare</span><span class="p">(</span><span class="n">string1</span><span class="p">,</span> <span class="n">string2</span><span class="p">):</span>
-    <span class="sd">"""Compare two strings while protecting against timing attacks</span>
+<span class="w">    </span><span class="sd">"""Compare two strings while protecting against timing attacks</span>
 
 <span class="sd">    :param str string1: the first string</span>
 <span class="sd">    :param str string2: the second string</span>
@@ -54,7 +54,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
 
 <div class="viewcode-block" id="remove_port"><a class="viewcode-back" href="../../docs/source/_rst/twilio.html#twilio.request_validator.remove_port">[docs]</a><span class="k">def</span> <span class="nf">remove_port</span><span class="p">(</span><span class="n">uri</span><span class="p">):</span>
-    <span class="sd">"""Remove the port number from a URI</span>
+<span class="w">    </span><span class="sd">"""Remove the port number from a URI</span>
 
 <span class="sd">    :param uri: parsed URI that Twilio requested on your server</span>
 
@@ -71,7 +71,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
 
 <div class="viewcode-block" id="add_port"><a class="viewcode-back" href="../../docs/source/_rst/twilio.html#twilio.request_validator.add_port">[docs]</a><span class="k">def</span> <span class="nf">add_port</span><span class="p">(</span><span class="n">uri</span><span class="p">):</span>
-    <span class="sd">"""Add the port number to a URI</span>
+<span class="w">    </span><span class="sd">"""Add the port number to a URI</span>
 
 <span class="sd">    :param uri: parsed URI that Twilio requested on your server</span>
 
@@ -94,7 +94,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="bp">self</span><span class="o">.</span><span class="n">token</span> <span class="o">=</span> <span class="n">token</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">"utf-8"</span><span class="p">)</span>
 
 <div class="viewcode-block" id="RequestValidator.compute_signature"><a class="viewcode-back" href="../../docs/source/_rst/twilio.html#twilio.request_validator.RequestValidator.compute_signature">[docs]</a>    <span class="k">def</span> <span class="nf">compute_signature</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">uri</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
-        <span class="sd">"""Compute the signature for a given request</span>
+<span class="w">        </span><span class="sd">"""Compute the signature for a given request</span>
 
 <span class="sd">        :param uri: full URI that Twilio requested on your server</span>
 <span class="sd">        :param params: post vars that Twilio sent with the request</span>
@@ -103,8 +103,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <span class="sd">        """</span>
         <span class="n">s</span> <span class="o">=</span> <span class="n">uri</span>
         <span class="k">if</span> <span class="n">params</span><span class="p">:</span>
-            <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">params</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
-                <span class="n">s</span> <span class="o">+=</span> <span class="n">k</span> <span class="o">+</span> <span class="n">v</span>
+            <span class="k">for</span> <span class="n">param_name</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">params</span><span class="p">)):</span>
+                <span class="n">values</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_values</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">param_name</span><span class="p">)</span>
+
+                <span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">values</span><span class="p">)):</span>
+                    <span class="n">s</span> <span class="o">+=</span> <span class="n">param_name</span> <span class="o">+</span> <span class="n">value</span>
 
         <span class="c1"># compute signature and compare signatures</span>
         <span class="n">mac</span> <span class="o">=</span> <span class="n">hmac</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">token</span><span class="p">,</span> <span class="n">s</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">"utf-8"</span><span class="p">),</span> <span class="n">sha1</span><span class="p">)</span>
@@ -113,13 +116,25 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
         <span class="k">return</span> <span class="n">computed</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span></div>
 
+<div class="viewcode-block" id="RequestValidator.get_values"><a class="viewcode-back" href="../../docs/source/_rst/twilio.html#twilio.request_validator.RequestValidator.get_values">[docs]</a>    <span class="k">def</span> <span class="nf">get_values</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">param_dict</span><span class="p">,</span> <span class="n">param_name</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="c1"># Support MultiDict used by Flask.</span>
+            <span class="k">return</span> <span class="n">param_dict</span><span class="o">.</span><span class="n">getall</span><span class="p">(</span><span class="n">param_name</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="c1"># Support QueryDict used by Django.</span>
+                <span class="k">return</span> <span class="n">param_dict</span><span class="o">.</span><span class="n">getlist</span><span class="p">(</span><span class="n">param_name</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+                <span class="c1"># Fallback to a standard dict.</span>
+                <span class="k">return</span> <span class="p">[</span><span class="n">param_dict</span><span class="p">[</span><span class="n">param_name</span><span class="p">]]</span></div>
+
 <div class="viewcode-block" id="RequestValidator.compute_hash"><a class="viewcode-back" href="../../docs/source/_rst/twilio.html#twilio.request_validator.RequestValidator.compute_hash">[docs]</a>    <span class="k">def</span> <span class="nf">compute_hash</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">body</span><span class="p">):</span>
         <span class="n">computed</span> <span class="o">=</span> <span class="n">sha256</span><span class="p">(</span><span class="n">body</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">"utf-8"</span><span class="p">))</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">()</span>
 
         <span class="k">return</span> <span class="n">computed</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span></div>
 
 <div class="viewcode-block" id="RequestValidator.validate"><a class="viewcode-back" href="../../docs/source/_rst/twilio.html#twilio.request_validator.RequestValidator.validate">[docs]</a>    <span class="k">def</span> <span class="nf">validate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">uri</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">signature</span><span class="p">):</span>
-        <span class="sd">"""Validate a request from Twilio</span>
+<span class="w">        </span><span class="sd">"""Validate a request from Twilio</span>
 
 <span class="sd">        :param uri: full URI that Twilio requested on your server</span>
 <span class="sd">        :param params: dictionary of POST variables or string of POST body for JSON requests</span>
@@ -134,8 +149,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="n">uri_with_port</span> <span class="o">=</span> <span class="n">add_port</span><span class="p">(</span><span class="n">parsed_uri</span><span class="p">)</span>
         <span class="n">uri_without_port</span> <span class="o">=</span> <span class="n">remove_port</span><span class="p">(</span><span class="n">parsed_uri</span><span class="p">)</span>
 
-        <span class="n">valid_signature</span> <span class="o">=</span> <span class="kc">False</span>  <span class="c1"># Default fail</span>
-        <span class="n">valid_signature_with_port</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="n">valid_body_hash</span> <span class="o">=</span> <span class="kc">True</span>  <span class="c1"># May not receive body hash, so default succeed</span>
 
         <span class="n">query</span> <span class="o">=</span> <span class="n">parse_qs</span><span class="p">(</span><span class="n">parsed_uri</span><span class="o">.</span><span class="n">query</span><span class="p">)</span>

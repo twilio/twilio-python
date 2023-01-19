@@ -12,6 +12,14 @@ twilio.rest.supersim.v1.sim.billing\_period module
     :undoc-members:
     :show-inheritance:
 
+twilio.rest.supersim.v1.sim.sim\_ip\_address module
+---------------------------------------------------
+
+.. automodule:: twilio.rest.supersim.v1.sim.sim_ip_address
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 
 Module contents
 ---------------

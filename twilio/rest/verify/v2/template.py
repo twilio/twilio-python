@@ -178,6 +178,7 @@ class TemplateInstance(InstanceResource):
             'sid': payload.get('sid'),
             'account_sid': payload.get('account_sid'),
             'friendly_name': payload.get('friendly_name'),
+            'channels': payload.get('channels'),
             'translations': payload.get('translations'),
         }
 
@@ -208,6 +209,14 @@ class TemplateInstance(InstanceResource):
         :rtype: unicode
         """
         return self._properties['friendly_name']
+
+    @property
+    def channels(self):
+        """
+        :returns: A list of channels that support the Template
+        :rtype: list[unicode]
+        """
+        return self._properties['channels']
 
     @property
     def translations(self):

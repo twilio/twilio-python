@@ -11,6 +11,7 @@ Subpackages
     twilio.rest.autopilot
     twilio.rest.bulkexports
     twilio.rest.chat
+    twilio.rest.content
     twilio.rest.conversations
     twilio.rest.events
     twilio.rest.flex_api
@@ -20,12 +21,15 @@ Subpackages
     twilio.rest.lookups
     twilio.rest.media
     twilio.rest.messaging
+    twilio.rest.microvisor
     twilio.rest.monitor
     twilio.rest.notify
     twilio.rest.numbers
+    twilio.rest.oauth
     twilio.rest.preview
     twilio.rest.pricing
     twilio.rest.proxy
+    twilio.rest.routes
     twilio.rest.serverless
     twilio.rest.studio
     twilio.rest.supersim

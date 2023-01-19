@@ -38,6 +38,7 @@ class MessageList(ListResource):
     def create(self, author=values.unset, body=values.unset,
                date_created=values.unset, date_updated=values.unset,
                attributes=values.unset, media_sid=values.unset,
+               content_sid=values.unset, content_variables=values.unset,
                x_twilio_webhook_enabled=values.unset):
         """
         Create the MessageInstance
@@ -48,6 +49,8 @@ class MessageList(ListResource):
         :param datetime date_updated: The date that this resource was last updated.
         :param unicode attributes: A string metadata field you can use to store any data you wish.
         :param unicode media_sid: The Media SID to be attached to the new Message.
+        :param unicode content_sid: The unique ID of the multi-channel Rich Content template.
+        :param unicode content_variables: A structurally valid JSON string that contains values to resolve Rich Content template variables.
         :param MessageInstance.WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
 
         :returns: The created MessageInstance
@@ -60,6 +63,8 @@ class MessageList(ListResource):
             'DateUpdated': serialize.iso8601_datetime(date_updated),
             'Attributes': attributes,
             'MediaSid': media_sid,
+            'ContentSid': content_sid,
+            'ContentVariables': content_variables,
         })
         headers = values.of({'X-Twilio-Webhook-Enabled': x_twilio_webhook_enabled, })
 
@@ -401,6 +406,7 @@ class MessageInstance(InstanceResource):
             'delivery': payload.get('delivery'),
             'url': payload.get('url'),
             'links': payload.get('links'),
+            'content_sid': payload.get('content_sid'),
         }
 
         # Context
@@ -548,6 +554,14 @@ class MessageInstance(InstanceResource):
         :rtype: unicode
         """
         return self._properties['links']
+
+    @property
+    def content_sid(self):
+        """
+        :returns: The unique ID of the multi-channel Rich Content template.
+        :rtype: unicode
+        """
+        return self._properties['content_sid']
 
     def update(self, author=values.unset, body=values.unset,
                date_created=values.unset, date_updated=values.unset,

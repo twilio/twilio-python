@@ -11,15 +11,13 @@ from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.page import Page
+from twilio.rest.insights.v1.call.annotation import AnnotationList
 from twilio.rest.insights.v1.call.event import EventList
 from twilio.rest.insights.v1.call.metric import MetricList
 from twilio.rest.insights.v1.call.summary import CallSummaryList
 
 
 class CallList(ListResource):
-    """ PLEASE NOTE that this class contains preview products that are subject
-    to change. Use them with caution. If you currently do not have developer
-    preview access, please contact help@twilio.com. """
 
     def __init__(self, version):
         """
@@ -68,9 +66,6 @@ class CallList(ListResource):
 
 
 class CallPage(Page):
-    """ PLEASE NOTE that this class contains preview products that are subject
-    to change. Use them with caution. If you currently do not have developer
-    preview access, please contact help@twilio.com. """
 
     def __init__(self, version, response, solution):
         """
@@ -109,9 +104,6 @@ class CallPage(Page):
 
 
 class CallContext(InstanceContext):
-    """ PLEASE NOTE that this class contains preview products that are subject
-    to change. Use them with caution. If you currently do not have developer
-    preview access, please contact help@twilio.com. """
 
     def __init__(self, version, sid):
         """
@@ -133,6 +125,7 @@ class CallContext(InstanceContext):
         self._events = None
         self._metrics = None
         self._summary = None
+        self._annotation = None
 
     def fetch(self):
         """
@@ -181,6 +174,18 @@ class CallContext(InstanceContext):
             self._summary = CallSummaryList(self._version, call_sid=self._solution['sid'], )
         return self._summary
 
+    @property
+    def annotation(self):
+        """
+        Access the annotation
+
+        :returns: twilio.rest.insights.v1.call.annotation.AnnotationList
+        :rtype: twilio.rest.insights.v1.call.annotation.AnnotationList
+        """
+        if self._annotation is None:
+            self._annotation = AnnotationList(self._version, call_sid=self._solution['sid'], )
+        return self._annotation
+
     def __repr__(self):
         """
         Provide a friendly representation
@@ -193,9 +198,6 @@ class CallContext(InstanceContext):
 
 
 class CallInstance(InstanceResource):
-    """ PLEASE NOTE that this class contains preview products that are subject
-    to change. Use them with caution. If you currently do not have developer
-    preview access, please contact help@twilio.com. """
 
     def __init__(self, version, payload, sid=None):
         """
@@ -292,6 +294,16 @@ class CallInstance(InstanceResource):
         :rtype: twilio.rest.insights.v1.call.summary.CallSummaryList
         """
         return self._proxy.summary
+
+    @property
+    def annotation(self):
+        """
+        Access the annotation
+
+        :returns: twilio.rest.insights.v1.call.annotation.AnnotationList
+        :rtype: twilio.rest.insights.v1.call.annotation.AnnotationList
+        """
+        return self._proxy.annotation
 
     def __repr__(self):
         """

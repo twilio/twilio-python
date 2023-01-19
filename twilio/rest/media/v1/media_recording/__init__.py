@@ -306,7 +306,6 @@ class MediaRecordingInstance(InstanceResource):
         # Marshaled Properties
         self._properties = {
             'account_sid': payload.get('account_sid'),
-            'bitrate': deserialize.integer(payload.get('bitrate')),
             'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
             'date_updated': deserialize.iso8601_datetime(payload.get('date_updated')),
             'duration': deserialize.integer(payload.get('duration')),
@@ -347,14 +346,6 @@ class MediaRecordingInstance(InstanceResource):
         :rtype: unicode
         """
         return self._properties['account_sid']
-
-    @property
-    def bitrate(self):
-        """
-        :returns: The bitrate of the media
-        :rtype: unicode
-        """
-        return self._properties['bitrate']
 
     @property
     def date_created(self):

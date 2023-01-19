@@ -1,4 +1,4 @@
-.PHONY: clean install analysis test test-install develop docs docs-install
+.PHONY: clean install analysis test test-install test-docker develop docs docs-install
 
 venv:
 	@python --version || (echo "Python is not installed, Python 3.6+"; exit 1);
@@ -9,6 +9,10 @@ install: venv
 
 test-install: install
 	. venv/bin/activate; pip install -r tests/requirements.txt
+
+test-docker:
+	docker build -t twilio/twilio-python .
+	docker run twilio/twilio-python pytest tests
 
 develop: venv
 	. venv/bin/activate; pip install -e . --use-mirrors
@@ -51,7 +55,7 @@ nopyc:
 	find . -name \*.pyc -delete
 
 API_DEFINITIONS_SHA=$(shell git log --oneline | grep Regenerated | head -n1 | cut -d ' ' -f 5)
-CURRENT_TAG=$(shell [[ "${GITHUB_TAG}" == *"-rc"* ]] && echo "rc" || echo "latest")
+CURRENT_TAG=$(shell expr "${GITHUB_TAG}" : ".*-rc.*" >/dev/null && echo "rc" || echo "latest")
 docker-build:
 	docker build -t twilio/twilio-python .
 	docker tag twilio/twilio-python twilio/twilio-python:${GITHUB_TAG}

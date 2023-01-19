@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-MWRD6S');</script><!--End Google Tag Manager-->
 <meta content="IE=Edge" http-equiv="X-UA-Compatible"/>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<title>twilio.rest.supersim.v1 — twilio-python 7.9.3 documentation</title>
+<title>twilio.rest.supersim.v1 — twilio-python 7.16.1 documentation</title>
 <link href="../../../../_static/alabaster.css" rel="stylesheet" type="text/css"/>
 <link href="../../../../_static/pygments.css" rel="stylesheet" type="text/css"/>
 <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js" type="text/javascript"></script>
@@ -42,6 +42,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <span class="kn">from</span> <span class="nn">twilio.rest.supersim.v1.ip_command</span> <span class="kn">import</span> <span class="n">IpCommandList</span>
 <span class="kn">from</span> <span class="nn">twilio.rest.supersim.v1.network</span> <span class="kn">import</span> <span class="n">NetworkList</span>
 <span class="kn">from</span> <span class="nn">twilio.rest.supersim.v1.network_access_profile</span> <span class="kn">import</span> <span class="n">NetworkAccessProfileList</span>
+<span class="kn">from</span> <span class="nn">twilio.rest.supersim.v1.settings_update</span> <span class="kn">import</span> <span class="n">SettingsUpdateList</span>
 <span class="kn">from</span> <span class="nn">twilio.rest.supersim.v1.sim</span> <span class="kn">import</span> <span class="n">SimList</span>
 <span class="kn">from</span> <span class="nn">twilio.rest.supersim.v1.sms_command</span> <span class="kn">import</span> <span class="n">SmsCommandList</span>
 <span class="kn">from</span> <span class="nn">twilio.rest.supersim.v1.usage_record</span> <span class="kn">import</span> <span class="n">UsageRecordList</span>
@@ -50,7 +51,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 <div class="viewcode-block" id="V1"><a class="viewcode-back" href="../../../../docs/source/_rst/twilio.rest.supersim.v1.html#twilio.rest.supersim.v1.V1">[docs]</a><span class="k">class</span> <span class="nc">V1</span><span class="p">(</span><span class="n">Version</span><span class="p">):</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">domain</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Initialize the V1 version of Supersim</span>
 
 <span class="sd">        :returns: V1 version of Supersim</span>
@@ -63,13 +64,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="bp">self</span><span class="o">.</span><span class="n">_ip_commands</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_networks</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_network_access_profiles</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_settings_updates</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_sims</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_sms_commands</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_usage_records</span> <span class="o">=</span> <span class="kc">None</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">esim_profiles</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        :rtype: twilio.rest.supersim.v1.esim_profile.EsimProfileList</span>
 <span class="sd">        """</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_esim_profiles</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -78,7 +80,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">fleets</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        :rtype: twilio.rest.supersim.v1.fleet.FleetList</span>
 <span class="sd">        """</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fleets</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -87,7 +89,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">ip_commands</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        :rtype: twilio.rest.supersim.v1.ip_command.IpCommandList</span>
 <span class="sd">        """</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ip_commands</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -96,7 +98,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">networks</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        :rtype: twilio.rest.supersim.v1.network.NetworkList</span>
 <span class="sd">        """</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_networks</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -105,7 +107,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">network_access_profiles</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        :rtype: twilio.rest.supersim.v1.network_access_profile.NetworkAccessProfileList</span>
 <span class="sd">        """</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_network_access_profiles</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -113,8 +115,17 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_network_access_profiles</span>
 
     <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">settings_updates</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        :rtype: twilio.rest.supersim.v1.settings_update.SettingsUpdateList</span>
+<span class="sd">        """</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_settings_updates</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_settings_updates</span> <span class="o">=</span> <span class="n">SettingsUpdateList</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_settings_updates</span>
+
+    <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">sims</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        :rtype: twilio.rest.supersim.v1.sim.SimList</span>
 <span class="sd">        """</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sims</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -123,7 +134,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">sms_commands</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        :rtype: twilio.rest.supersim.v1.sms_command.SmsCommandList</span>
 <span class="sd">        """</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sms_commands</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -132,7 +143,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">usage_records</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        :rtype: twilio.rest.supersim.v1.usage_record.UsageRecordList</span>
 <span class="sd">        """</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_usage_records</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -140,7 +151,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'%26l='+l:'';j.async=true;j.src=
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_usage_records</span>
 
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">"""</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Provide a friendly representation</span>
 
 <span class="sd">        :returns: Machine friendly representation</span>

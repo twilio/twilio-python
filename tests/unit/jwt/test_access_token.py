@@ -8,7 +8,6 @@ from twilio.jwt.access_token.grants import (
     SyncGrant,
     VoiceGrant,
     VideoGrant,
-    ConversationsGrant,
     TaskRouterGrant,
     ChatGrant,
     PlaybackGrant,
@@ -95,7 +94,7 @@ class AccessTokenTest(unittest.TestCase):
 
     def test_conversations_grant(self):
         scat = AccessToken(ACCOUNT_SID, SIGNING_KEY_SID, 'secret')
-        scat.add_grant(ConversationsGrant(configuration_profile_sid='CP123'))
+        scat.add_grant(VoiceGrant(outgoing_application_sid='CP123'))
 
         token = scat.to_jwt()
         assert token is not None
@@ -103,8 +102,10 @@ class AccessTokenTest(unittest.TestCase):
         self._validate_claims(decoded_token.payload)
         assert 1 == len(decoded_token.payload['grants'])
         assert {
-                   'configuration_profile_sid': 'CP123'
-               } == decoded_token.payload['grants']['rtc']
+                   'outgoing': {
+                       'application_sid': 'CP123'
+                   }
+               } == decoded_token.payload['grants']['voice']
 
     def test_video_grant(self):
         scat = AccessToken(ACCOUNT_SID, SIGNING_KEY_SID, 'secret')

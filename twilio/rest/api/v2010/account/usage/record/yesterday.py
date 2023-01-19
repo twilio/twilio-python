@@ -202,6 +202,7 @@ class YesterdayInstance(InstanceResource):
     class Category(object):
         A2P_REGISTRATION_FEES = "a2p-registration-fees"
         AGENT_CONFERENCE = "agent-conference"
+        AMAZON_POLLY = "amazon-polly"
         ANSWERING_MACHINE_DETECTION = "answering-machine-detection"
         AUTHY_AUTHENTICATIONS = "authy-authentications"
         AUTHY_CALLS_OUTBOUND = "authy-calls-outbound"
@@ -397,6 +398,7 @@ class YesterdayInstance(InstanceResource):
         VERIFY_TOTP = "verify-totp"
         VERIFY_WHATSAPP_CONVERSATIONS_BUSINESS_INITIATED = "verify-whatsapp-conversations-business-initiated"
         VIDEO_RECORDINGS = "video-recordings"
+        VIRTUAL_AGENT = "virtual-agent"
         VOICE_INSIGHTS = "voice-insights"
         VOICE_INSIGHTS_CLIENT_INSIGHTS_ON_DEMAND_MINUTE = "voice-insights-client-insights-on-demand-minute"
         VOICE_INSIGHTS_PTSN_INSIGHTS_ON_DEMAND_MINUTE = "voice-insights-ptsn-insights-on-demand-minute"

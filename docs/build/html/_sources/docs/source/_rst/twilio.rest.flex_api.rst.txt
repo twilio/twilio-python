@@ -7,6 +7,7 @@ Subpackages
 .. toctree::
 
     twilio.rest.flex_api.v1
+    twilio.rest.flex_api.v2
 
 Module contents
 ---------------
