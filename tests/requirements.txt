@@ -1,14 +1,11 @@
-Sphinx==1.8.0
-jinja2==3.0.0
-mock==0.8.0
+Sphinx>=1.8.0
+mock
 pytest
 pytest-cov
 coverage
 flake8
-mccabe
 wheel>=0.22.0
 cryptography
-twine
 recommonmark
 django
 multidict
