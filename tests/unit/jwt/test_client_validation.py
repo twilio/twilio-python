@@ -1,5 +1,5 @@
-import unittest
 import time
+import unittest
 
 from cryptography.hazmat.backends import default_backend
 from cryptography.hazmat.primitives.asymmetric import rsa
@@ -11,7 +11,6 @@ from cryptography.hazmat.primitives.serialization import (
 )
 
 from twilio.http.validation_client import ValidationPayload
-from twilio.jwt import Jwt
 from twilio.jwt.validation import ClientValidationJwt
 
 
@@ -231,12 +230,12 @@ class ClientValidationJwtTest(unittest.TestCase):
 
         jwt = ClientValidationJwt('AC123', 'SK123', 'CR123', 'secret', vp)
 
-        self.assertDictContainsSubset({
+        self.assertEqual(jwt.payload, {**jwt.payload, **{
             'hrh': 'authorization;host',
             'rqh': expected_hash,
             'iss': 'SK123',
             'sub': 'AC123',
-        }, jwt.payload)
+        }})
         self.assertGreaterEqual(jwt.payload['exp'], time.time(), 'JWT exp is before now')
         self.assertLessEqual(jwt.payload['exp'], time.time() + 301, 'JWT exp is after now + 5mins')
         self.assertDictEqual({
@@ -268,12 +267,12 @@ class ClientValidationJwtTest(unittest.TestCase):
         jwt = ClientValidationJwt('AC123', 'SK123', 'CR123', private_key, vp)
         decoded = ClientValidationJwt.from_jwt(jwt.to_jwt(), public_key)
 
-        self.assertDictContainsSubset({
+        self.assertEqual(decoded.payload, {**decoded.payload, **{
             'hrh': 'authorization;host',
             'rqh': expected_hash,
             'iss': 'SK123',
             'sub': 'AC123',
-        }, decoded.payload)
+        }})
         self.assertGreaterEqual(decoded.payload['exp'], time.time(), 'JWT exp is before now')
         self.assertLessEqual(decoded.payload['exp'], time.time() + 501, 'JWT exp is after now + 5m')
         self.assertDictEqual({
