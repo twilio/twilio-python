@@ -203,11 +203,11 @@ class JwtTest(unittest.TestCase):
         self.assertEqual(decoded_jwt.subject, 'hey')
 
         self.assertEqual(decoded_jwt.headers, {'typ': 'JWT', 'alg': 'HS256'})
-        self.assertDictContainsSubset({
+        self.assertEqual(decoded_jwt.payload, {**decoded_jwt.payload, **{
             'iss': 'issuer',
             'sub': 'hey',
             'sick': 'sick',
-        }, decoded_jwt.payload)
+        }})
 
     def test_encode_decode_mismatched_algorithms(self):
         jwt = DummyJwt('secret_key', 'issuer', algorithm='HS512', subject='hey', payload={'sick': 'sick'})
