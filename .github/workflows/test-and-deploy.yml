@@ -43,6 +43,9 @@ jobs:
       - name: Run the tests
         run: make test-with-coverage
 
+      - name: Verify docs generation
+        run: make docs
+
       # only send coverage for PRs and branch updates
       - name: SonarCloud Scan
         if: (github.event_name == 'pull_request' || github.ref_type == 'branch') && !github.event.pull_request.head.repo.fork && matrix.python-version == '3.10'
