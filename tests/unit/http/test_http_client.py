@@ -38,8 +38,8 @@ class TestHttpClientRequest(unittest.TestCase):
         self.client.request('doesnt matter', 'doesnt matter')
 
         self.assertEqual('other.twilio.com', self.request_mock.headers['Host'])
-        self.assertIsNotNone(self.client.last_request)
-        self.assertIsNotNone(self.client.last_response)
+        self.assertIsNotNone(self.client._test_only_last_request)
+        self.assertIsNotNone(self.client._test_only_last_response)
 
     def test_request_with_timeout(self):
         self.request_mock.url = 'https://api.twilio.com/'
@@ -117,17 +117,17 @@ class TestHttpClientRequest(unittest.TestCase):
                             {'headers-value': 'headers-key'},
                             ['a', 'b'])
 
-        self.assertIsNotNone(self.client.last_request)
-        self.assertEqual('doesnt-matter-url', self.client.last_request.url)
-        self.assertEqual('DOESNT-MATTER-METHOD', self.client.last_request.method)
-        self.assertEqual({'params-value': 'params-key'}, self.client.last_request.params)
-        self.assertEqual({'data-value': 'data-key'}, self.client.last_request.data)
-        self.assertEqual({'headers-value': 'headers-key'}, self.client.last_request.headers)
-        self.assertEqual(['a', 'b'], self.client.last_request.auth)
+        self.assertIsNotNone(self.client._test_only_last_request)
+        self.assertEqual('doesnt-matter-url', self.client._test_only_last_request.url)
+        self.assertEqual('DOESNT-MATTER-METHOD', self.client._test_only_last_request.method)
+        self.assertEqual({'params-value': 'params-key'}, self.client._test_only_last_request.params)
+        self.assertEqual({'data-value': 'data-key'}, self.client._test_only_last_request.data)
+        self.assertEqual({'headers-value': 'headers-key'}, self.client._test_only_last_request.headers)
+        self.assertEqual(['a', 'b'], self.client._test_only_last_request.auth)
 
-        self.assertIsNotNone(self.client.last_response)
-        self.assertEqual(200, self.client.last_response.status_code)
-        self.assertEqual('testing-unicode: Ω≈ç√, 💩', self.client.last_response.text)
+        self.assertIsNotNone(self.client._test_only_last_response)
+        self.assertEqual(200, self.client._test_only_last_response.status_code)
+        self.assertEqual('testing-unicode: Ω≈ç√, 💩', self.client._test_only_last_response.text)
 
     def test_last_response_empty_on_error(self):
         self.session_mock.send.side_effect = Exception('voltron')
@@ -135,8 +135,8 @@ class TestHttpClientRequest(unittest.TestCase):
         with self.assertRaises(Exception):
             self.client.request('doesnt-matter', 'doesnt-matter')
 
-            self.assertIsNotNone(self.client.last_request)
-            self.assertIsNone(self.client.last_response)
+            self.assertIsNotNone(self.client._test_only_last_request)
+            self.assertIsNone(self.client._test_only_last_response)
 
     def test_request_behind_proxy(self):
         self.request_mock.url = 'https://api.twilio.com/'
