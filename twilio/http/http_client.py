@@ -31,8 +31,8 @@ class TwilioHttpClient(HttpClient):
         self.session = Session() if pool_connections else None
         if self.session and max_retries is not None:
             self.session.mount('https://', HTTPAdapter(max_retries=max_retries))
-        self.last_request = None
-        self.last_response = None
+        self._test_only_last_request = None
+        self._test_only_last_response = None
         self.logger = logger
         self.request_hooks = request_hooks or hooks.default_hooks()
 
@@ -74,10 +74,10 @@ class TwilioHttpClient(HttpClient):
 
         self._log_request(kwargs)
 
-        self.last_response = None
+        self._test_only_last_response = None
         session = self.session or Session()
         request = Request(**kwargs)
-        self.last_request = TwilioRequest(**kwargs)
+        self._test_only_last_request = TwilioRequest(**kwargs)
 
         prepped_request = session.prepare_request(request)
 
@@ -90,9 +90,9 @@ class TwilioHttpClient(HttpClient):
 
         self._log_response(response)
 
-        self.last_response = Response(int(response.status_code), response.text, response.headers)
+        self._test_only_last_response = Response(int(response.status_code), response.text, response.headers)
 
-        return self.last_response
+        return self._test_only_last_response
 
     def _log_request(self, kwargs):
         self.logger.info('-- BEGIN Twilio API Request --')
