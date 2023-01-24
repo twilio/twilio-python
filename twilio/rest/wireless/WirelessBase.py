@@ -43,4 +43,3 @@ class WirelessBase(Domain):
         :rtype: str
         """
         return '<Twilio.Wireless>'
-

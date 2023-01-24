@@ -43,4 +43,3 @@ class VideoBase(Domain):
         :rtype: str
         """
         return '<Twilio.Video>'
-

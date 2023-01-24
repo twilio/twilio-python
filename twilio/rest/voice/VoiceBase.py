@@ -43,4 +43,3 @@ class VoiceBase(Domain):
         :rtype: str
         """
         return '<Twilio.Voice>'
-

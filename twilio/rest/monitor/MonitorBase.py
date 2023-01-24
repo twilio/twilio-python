@@ -43,4 +43,3 @@ class MonitorBase(Domain):
         :rtype: str
         """
         return '<Twilio.Monitor>'
-

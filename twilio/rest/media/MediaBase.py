@@ -43,4 +43,3 @@ class MediaBase(Domain):
         :rtype: str
         """
         return '<Twilio.Media>'
-

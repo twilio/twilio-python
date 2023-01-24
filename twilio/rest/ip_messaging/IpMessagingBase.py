@@ -55,4 +55,3 @@ class IpMessagingBase(Domain):
         :rtype: str
         """
         return '<Twilio.IpMessaging>'
-

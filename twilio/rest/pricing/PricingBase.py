@@ -55,4 +55,3 @@ class PricingBase(Domain):
         :rtype: str
         """
         return '<Twilio.Pricing>'
-

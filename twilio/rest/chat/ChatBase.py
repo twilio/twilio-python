@@ -67,4 +67,3 @@ class ChatBase(Domain):
         :rtype: str
         """
         return '<Twilio.Chat>'
-

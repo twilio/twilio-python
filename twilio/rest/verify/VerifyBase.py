@@ -43,4 +43,3 @@ class VerifyBase(Domain):
         :rtype: str
         """
         return '<Twilio.Verify>'
-

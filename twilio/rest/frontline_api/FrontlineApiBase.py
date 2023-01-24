@@ -43,4 +43,3 @@ class FrontlineApiBase(Domain):
         :rtype: str
         """
         return '<Twilio.FrontlineApi>'
-

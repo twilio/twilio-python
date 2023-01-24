@@ -43,4 +43,3 @@ class EventsBase(Domain):
         :rtype: str
         """
         return '<Twilio.Events>'
-

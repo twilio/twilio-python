@@ -43,4 +43,3 @@ class TrunkingBase(Domain):
         :rtype: str
         """
         return '<Twilio.Trunking>'
-

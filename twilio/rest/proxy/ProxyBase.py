@@ -43,4 +43,3 @@ class ProxyBase(Domain):
         :rtype: str
         """
         return '<Twilio.Proxy>'
-

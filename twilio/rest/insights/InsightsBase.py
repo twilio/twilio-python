@@ -43,4 +43,3 @@ class InsightsBase(Domain):
         :rtype: str
         """
         return '<Twilio.Insights>'
-

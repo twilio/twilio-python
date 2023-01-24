@@ -43,4 +43,3 @@ class SyncBase(Domain):
         :rtype: str
         """
         return '<Twilio.Sync>'
-

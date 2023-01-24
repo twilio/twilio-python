@@ -43,4 +43,3 @@ class TrusthubBase(Domain):
         :rtype: str
         """
         return '<Twilio.Trusthub>'
-
