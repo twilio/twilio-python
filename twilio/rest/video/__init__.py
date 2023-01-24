@@ -33,6 +33,3 @@ class Video(VideoBase):
     def rooms(self):
         warn('rooms() is deprecated. Use v1.rooms() instead.', DeprecationWarning, stacklevel=2)
         return self.v1.rooms
-
-
-

@@ -33,6 +33,3 @@ class Verify(VerifyBase):
     def templates(self):
         warn('templates() is deprecated. Use v2.templates() instead.', DeprecationWarning, stacklevel=2)
         return self.v2.templates
-
-
-

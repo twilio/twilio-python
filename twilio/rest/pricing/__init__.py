@@ -28,6 +28,3 @@ class Pricing(PricingBase):
     def numbers(self):
         warn('numbers() is deprecated. Use v2.numbers() instead.', DeprecationWarning, stacklevel=2)
         return self.v2.numbers
-
-
-

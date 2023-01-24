@@ -13,6 +13,3 @@ class IpMessaging(IpMessagingBase):
     def services(self):
         warn('services() is deprecated. Use v2.services() instead.', DeprecationWarning, stacklevel=2)
         return self.v2.services
-
-
-

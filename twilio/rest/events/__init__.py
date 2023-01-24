@@ -23,6 +23,3 @@ class Events(EventsBase):
     def subscriptions(self):
         warn('subscriptions() is deprecated. Use v1.subscriptions() instead.', DeprecationWarning, stacklevel=2)
         return self.v1.subscriptions
-
-
-

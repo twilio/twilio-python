@@ -48,6 +48,3 @@ class Supersim(SupersimBase):
     def usage_records(self):
         warn('usage_records() is deprecated. Use v1.usage_records() instead.', DeprecationWarning, stacklevel=2)
         return self.v1.usage_records
-
-
-

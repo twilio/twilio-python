@@ -48,4 +48,3 @@ class FlexApi(FlexApiBase):
     def web_channels(self):
         warn('web_channels() is deprecated. Use v2.web_channels() instead.', DeprecationWarning, stacklevel=2)
         return self.v2.web_channels
-

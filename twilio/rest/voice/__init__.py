@@ -33,6 +33,3 @@ class Voice(VoiceBase):
     def source_ip_mappings(self):
         warn('source_ip_mappings() is deprecated. Use v1.source_ip_mappings() instead.', DeprecationWarning, stacklevel=2)
         return self.v1.source_ip_mappings
-
-
-

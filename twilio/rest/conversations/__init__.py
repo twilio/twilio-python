@@ -43,6 +43,3 @@ class Conversations(ConversationsBase):
     def users(self):
         warn('users() is deprecated. Use v1.users() instead.', DeprecationWarning, stacklevel=2)
         return self.v1.users
-
-
-

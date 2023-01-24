@@ -13,6 +13,3 @@ class Bulkexports(BulkexportsBase):
     def export_configuration(self):
         warn('export_configuration() is deprecated. Use v1.export_configuration() instead.', DeprecationWarning, stacklevel=2)
         return self.v1.export_configuration
-
-
-

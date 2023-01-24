@@ -13,6 +13,3 @@ class Monitor(MonitorBase):
     def events(self):
         warn('events() is deprecated. Use v1.events() instead.', DeprecationWarning, stacklevel=2)
         return self.v1.events
-
-
-

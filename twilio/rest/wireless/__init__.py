@@ -23,6 +23,3 @@ class Wireless(WirelessBase):
     def sims(self):
         warn('sims() is deprecated. Use v1.sims() instead.', DeprecationWarning, stacklevel=2)
         return self.v1.sims
-
-
-

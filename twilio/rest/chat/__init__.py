@@ -18,6 +18,3 @@ class Chat(ChatBase):
     def channels(self):
         warn('channels() is deprecated. Use v3.channels() instead.', DeprecationWarning, stacklevel=2)
         return self.v3.channels
-
-
-

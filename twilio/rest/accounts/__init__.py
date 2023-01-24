@@ -18,6 +18,3 @@ class Accounts(AccountsBase):
     def secondary_auth_token(self):
         warn('secondary_auth_token() is deprecated. Use v1.secondary_auth_token() instead.', DeprecationWarning, stacklevel=2)
         return self.v1.secondary_auth_token
-
-
-

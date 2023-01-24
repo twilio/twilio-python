@@ -8,6 +8,3 @@ class Content(ContentBase):
     def contents(self):
         warn('contents() is deprecated. Use v1.contents() instead.', DeprecationWarning, stacklevel=2)
         return self.v1.contents
-
-
-

@@ -18,6 +18,3 @@ class Media(MediaBase):
     def player_streamer(self):
         warn('player_streamer() is deprecated. Use v1.player_streamer() instead.', DeprecationWarning, stacklevel=2)
         return self.v1.player_streamer
-
-
-

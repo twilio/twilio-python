@@ -13,6 +13,3 @@ class Microvisor(MicrovisorBase):
     def devices(self):
         warn('devices() is deprecated. Use v1.devices() instead.', DeprecationWarning, stacklevel=2)
         return self.v1.devices
-
-
-

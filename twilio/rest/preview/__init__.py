@@ -53,6 +53,3 @@ class Preview(PreviewBase):
     def sims(self):
         warn('sims() is deprecated. Use wireless.sims() instead.', DeprecationWarning, stacklevel=2)
         return self.wireless.sims
-
-
-
