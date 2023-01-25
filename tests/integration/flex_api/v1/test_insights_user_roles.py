@@ -12,13 +12,13 @@ from twilio.base.exceptions import TwilioException
 from twilio.http.response import Response
 
 
-class UserRolesTestCase(IntegrationTestCase):
+class InsightsUserRolesTestCase(IntegrationTestCase):
 
     def test_fetch_request(self):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.flex_api.v1.user_roles().fetch(token="token")
+            self.client.flex_api.v1.insights_user_roles().fetch(token="token")
 
         headers = {'Token': "token", }
         self.holodeck.assert_has_request(Request(
@@ -40,6 +40,6 @@ class UserRolesTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.flex_api.v1.user_roles().fetch()
+        actual = self.client.flex_api.v1.insights_user_roles().fetch()
 
         self.assertIsNotNone(actual)

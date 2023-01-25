@@ -39,7 +39,8 @@ class ApplicationList(ListResource):
                voice_caller_id_lookup=values.unset, sms_url=values.unset,
                sms_method=values.unset, sms_fallback_url=values.unset,
                sms_fallback_method=values.unset, sms_status_callback=values.unset,
-               message_status_callback=values.unset, friendly_name=values.unset):
+               message_status_callback=values.unset, friendly_name=values.unset,
+               public_application_connect_enabled=values.unset):
         """
         Create the ApplicationInstance
 
@@ -58,6 +59,7 @@ class ApplicationList(ListResource):
         :param unicode sms_status_callback: The URL to send status information to your application
         :param unicode message_status_callback: The URL to send message status information to your application
         :param unicode friendly_name: A string to describe the new resource
+        :param bool public_application_connect_enabled: Whether to allow other Twilio accounts to dial this application
 
         :returns: The created ApplicationInstance
         :rtype: twilio.rest.api.v2010.account.application.ApplicationInstance
@@ -78,6 +80,7 @@ class ApplicationList(ListResource):
             'SmsStatusCallback': sms_status_callback,
             'MessageStatusCallback': message_status_callback,
             'FriendlyName': friendly_name,
+            'PublicApplicationConnectEnabled': public_application_connect_enabled,
         })
 
         payload = self._version.create(method='POST', uri=self._uri, data=data, )
@@ -291,7 +294,8 @@ class ApplicationContext(InstanceContext):
                voice_caller_id_lookup=values.unset, sms_url=values.unset,
                sms_method=values.unset, sms_fallback_url=values.unset,
                sms_fallback_method=values.unset, sms_status_callback=values.unset,
-               message_status_callback=values.unset):
+               message_status_callback=values.unset,
+               public_application_connect_enabled=values.unset):
         """
         Update the ApplicationInstance
 
@@ -310,6 +314,7 @@ class ApplicationContext(InstanceContext):
         :param unicode sms_fallback_method: The HTTP method to use with sms_fallback_url
         :param unicode sms_status_callback: Same as message_status_callback. Deprecated, included for backwards compatibility.
         :param unicode message_status_callback: The URL to send message status information to your application
+        :param bool public_application_connect_enabled: Whether to allow other Twilio accounts to dial this application
 
         :returns: The updated ApplicationInstance
         :rtype: twilio.rest.api.v2010.account.application.ApplicationInstance
@@ -330,6 +335,7 @@ class ApplicationContext(InstanceContext):
             'SmsFallbackMethod': sms_fallback_method,
             'SmsStatusCallback': sms_status_callback,
             'MessageStatusCallback': message_status_callback,
+            'PublicApplicationConnectEnabled': public_application_connect_enabled,
         })
 
         payload = self._version.update(method='POST', uri=self._uri, data=data, )
@@ -385,6 +391,7 @@ class ApplicationInstance(InstanceResource):
             'voice_fallback_url': payload.get('voice_fallback_url'),
             'voice_method': payload.get('voice_method'),
             'voice_url': payload.get('voice_url'),
+            'public_application_connect_enabled': payload.get('public_application_connect_enabled'),
         }
 
         # Context
@@ -568,6 +575,14 @@ class ApplicationInstance(InstanceResource):
         """
         return self._properties['voice_url']
 
+    @property
+    def public_application_connect_enabled(self):
+        """
+        :returns: Whether to allow other Twilio accounts to dial this application
+        :rtype: bool
+        """
+        return self._properties['public_application_connect_enabled']
+
     def delete(self):
         """
         Deletes the ApplicationInstance
@@ -593,7 +608,8 @@ class ApplicationInstance(InstanceResource):
                voice_caller_id_lookup=values.unset, sms_url=values.unset,
                sms_method=values.unset, sms_fallback_url=values.unset,
                sms_fallback_method=values.unset, sms_status_callback=values.unset,
-               message_status_callback=values.unset):
+               message_status_callback=values.unset,
+               public_application_connect_enabled=values.unset):
         """
         Update the ApplicationInstance
 
@@ -612,6 +628,7 @@ class ApplicationInstance(InstanceResource):
         :param unicode sms_fallback_method: The HTTP method to use with sms_fallback_url
         :param unicode sms_status_callback: Same as message_status_callback. Deprecated, included for backwards compatibility.
         :param unicode message_status_callback: The URL to send message status information to your application
+        :param bool public_application_connect_enabled: Whether to allow other Twilio accounts to dial this application
 
         :returns: The updated ApplicationInstance
         :rtype: twilio.rest.api.v2010.account.application.ApplicationInstance
@@ -632,6 +649,7 @@ class ApplicationInstance(InstanceResource):
             sms_fallback_method=sms_fallback_method,
             sms_status_callback=sms_status_callback,
             message_status_callback=message_status_callback,
+            public_application_connect_enabled=public_application_connect_enabled,
         )
 
     def __repr__(self):

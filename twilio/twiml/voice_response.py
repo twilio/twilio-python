@@ -2440,6 +2440,18 @@ class Reject(TwiML):
         super(Reject, self).__init__(**kwargs)
         self.name = 'Reject'
 
+    def parameter(self, name=None, value=None, **kwargs):
+        """
+        Create a <Parameter> element
+
+        :param name: The name of the custom parameter
+        :param value: The value of the custom parameter
+        :param kwargs: additional attributes
+
+        :returns: <Parameter> element
+        """
+        return self.nest(Parameter(name=name, value=value, **kwargs))
+
 
 class Redirect(TwiML):
     """ <Redirect> TwiML Verb """
@@ -2481,6 +2493,18 @@ class Hangup(TwiML):
     def __init__(self, **kwargs):
         super(Hangup, self).__init__(**kwargs)
         self.name = 'Hangup'
+
+    def parameter(self, name=None, value=None, **kwargs):
+        """
+        Create a <Parameter> element
+
+        :param name: The name of the custom parameter
+        :param value: The value of the custom parameter
+        :param kwargs: additional attributes
+
+        :returns: <Parameter> element
+        """
+        return self.nest(Parameter(name=name, value=value, **kwargs))
 
 
 class Gather(TwiML):
@@ -2796,6 +2820,79 @@ class Dial(TwiML):
             machine_detection_silence_timeout=machine_detection_silence_timeout,
             **kwargs
         ))
+
+    def application(self, application_sid=None, url=None, method=None,
+                    status_callback_event=None, status_callback=None,
+                    status_callback_method=None, customer_id=None,
+                    copy_parent_to=None, **kwargs):
+        """
+        Create a <Application> element
+
+        :param application_sid: Application sid
+        :param url: TwiML URL
+        :param method: TwiML URL Method
+        :param status_callback_event: Events to trigger status callback
+        :param status_callback: Status Callback URL
+        :param status_callback_method: Status Callback URL Method
+        :param customer_id: Identity of the customer calling application
+        :param copy_parent_to: Copy parent call To field to called application side, otherwise use the application sid as To field
+        :param kwargs: additional attributes
+
+        :returns: <Application> element
+        """
+        return self.nest(Application(
+            application_sid=application_sid,
+            url=url,
+            method=method,
+            status_callback_event=status_callback_event,
+            status_callback=status_callback,
+            status_callback_method=status_callback_method,
+            customer_id=customer_id,
+            copy_parent_to=copy_parent_to,
+            **kwargs
+        ))
+
+
+class Application(TwiML):
+    """ <Application> TwiML Noun """
+
+    def __init__(self, application_sid=None, **kwargs):
+        super(Application, self).__init__(**kwargs)
+        self.name = 'Application'
+        if application_sid:
+            self.value = application_sid
+
+    def application_sid(self, sid, **kwargs):
+        """
+        Create a <ApplicationSid> element
+
+        :param sid: Application sid to dial
+        :param kwargs: additional attributes
+
+        :returns: <ApplicationSid> element
+        """
+        return self.nest(ApplicationSid(sid, **kwargs))
+
+    def parameter(self, name=None, value=None, **kwargs):
+        """
+        Create a <Parameter> element
+
+        :param name: The name of the custom parameter
+        :param value: The value of the custom parameter
+        :param kwargs: additional attributes
+
+        :returns: <Parameter> element
+        """
+        return self.nest(Parameter(name=name, value=value, **kwargs))
+
+
+class ApplicationSid(TwiML):
+    """ <ApplicationSid> TwiML Noun """
+
+    def __init__(self, sid, **kwargs):
+        super(ApplicationSid, self).__init__(**kwargs)
+        self.name = 'ApplicationSid'
+        self.value = sid
 
 
 class Sip(TwiML):

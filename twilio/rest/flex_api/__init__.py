@@ -49,13 +49,6 @@ class FlexApi(Domain):
         return self._v2
 
     @property
-    def assessments(self):
-        """
-        :rtype: twilio.rest.flex_api.v1.assessments.AssessmentsList
-        """
-        return self.v1.assessments
-
-    @property
     def channel(self):
         """
         :rtype: twilio.rest.flex_api.v1.channel.ChannelList
@@ -77,11 +70,53 @@ class FlexApi(Domain):
         return self.v1.flex_flow
 
     @property
-    def good_data(self):
+    def assessments(self):
         """
-        :rtype: twilio.rest.flex_api.v1.good_data.GoodDataList
+        :rtype: twilio.rest.flex_api.v1.assessments.AssessmentsList
         """
-        return self.v1.good_data
+        return self.v1.assessments
+
+    @property
+    def insights_questionnaires_category(self):
+        """
+        :rtype: twilio.rest.flex_api.v1.insights_questionnaires_category.InsightsQuestionnairesCategoryList
+        """
+        return self.v1.insights_questionnaires_category
+
+    @property
+    def insights_questionnaires_question(self):
+        """
+        :rtype: twilio.rest.flex_api.v1.insights_questionnaires_question.InsightsQuestionnairesQuestionList
+        """
+        return self.v1.insights_questionnaires_question
+
+    @property
+    def insights_session(self):
+        """
+        :rtype: twilio.rest.flex_api.v1.insights_session.InsightsSessionList
+        """
+        return self.v1.insights_session
+
+    @property
+    def insights_settings_answer_sets(self):
+        """
+        :rtype: twilio.rest.flex_api.v1.insights_settings_answersets.InsightsSettingsAnswerSetsList
+        """
+        return self.v1.insights_settings_answer_sets
+
+    @property
+    def insights_settings_comment(self):
+        """
+        :rtype: twilio.rest.flex_api.v1.insights_settings_comment.InsightsSettingsCommentList
+        """
+        return self.v1.insights_settings_comment
+
+    @property
+    def insights_user_roles(self):
+        """
+        :rtype: twilio.rest.flex_api.v1.insights_user_roles.InsightsUserRolesList
+        """
+        return self.v1.insights_user_roles
 
     @property
     def interaction(self):
@@ -89,13 +124,6 @@ class FlexApi(Domain):
         :rtype: twilio.rest.flex_api.v1.interaction.InteractionList
         """
         return self.v1.interaction
-
-    @property
-    def user_roles(self):
-        """
-        :rtype: twilio.rest.flex_api.v1.user_roles.UserRolesList
-        """
-        return self.v1.user_roles
 
     @property
     def web_channel(self):

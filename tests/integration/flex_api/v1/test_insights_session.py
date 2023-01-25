@@ -12,13 +12,13 @@ from twilio.base.exceptions import TwilioException
 from twilio.http.response import Response
 
 
-class GoodDataTestCase(IntegrationTestCase):
+class InsightsSessionTestCase(IntegrationTestCase):
 
     def test_create_request(self):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.flex_api.v1.good_data().create(token="token")
+            self.client.flex_api.v1.insights_session().create(token="token")
 
         headers = {'Token': "token", }
         self.holodeck.assert_has_request(Request(
@@ -41,6 +41,6 @@ class GoodDataTestCase(IntegrationTestCase):
             '''
         ))
 
-        actual = self.client.flex_api.v1.good_data().create()
+        actual = self.client.flex_api.v1.insights_session().create()
 
         self.assertIsNotNone(actual)

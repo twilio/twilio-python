@@ -3,6 +3,31 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2023-01-25] Version 7.16.2
+---------------------------
+**Library - Chore**
+- [PR #638](https://github.com/twilio/twilio-python/pull/638): relax test dependencies and remove unused dependencies. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+- [PR #609](https://github.com/twilio/twilio-python/pull/609): Security upgrade pygments from 2.5.2 to 2.7.4. Thanks to [@twilio-product-security](https://github.com/twilio-product-security)!
+
+**Library - Docs**
+- [PR #637](https://github.com/twilio/twilio-python/pull/637): remove docs output from repo. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+
+**Library - Test**
+- [PR #636](https://github.com/twilio/twilio-python/pull/636): update tox config and replace deprecated test functions. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+
+**Api**
+- Add `public_application_connect_enabled` param to Application resource
+
+**Messaging**
+- Add new tollfree verification API property (ExternalReferenceId)]
+
+**Verify**
+- Add `device_ip` parameter and channel `auto` for sna/sms orchestration
+
+**Twiml**
+- Add support for `<Application>` noun and `<ApplicationSid>` noun, nested `<Parameter>` to `<Hangup>` and `<Leave>` verb
+
+
 [2023-01-11] Version 7.16.1
 ---------------------------
 **Conversations**

@@ -147,7 +147,8 @@ class TollfreeVerificationList(ListResource):
                business_contact_first_name=values.unset,
                business_contact_last_name=values.unset,
                business_contact_email=values.unset,
-               business_contact_phone=values.unset):
+               business_contact_phone=values.unset,
+               external_reference_id=values.unset):
         """
         Create the TollfreeVerificationInstance
 
@@ -173,6 +174,7 @@ class TollfreeVerificationList(ListResource):
         :param unicode business_contact_last_name: The last name of the contact for the business or organization using the Tollfree number
         :param unicode business_contact_email: The email address of the contact for the business or organization using the Tollfree number
         :param unicode business_contact_phone: The phone number of the contact for the business or organization using the Tollfree number
+        :param unicode external_reference_id: An optional external reference ID supplied by customer and echoed back on status retrieval
 
         :returns: The created TollfreeVerificationInstance
         :rtype: twilio.rest.messaging.v1.tollfree_verification.TollfreeVerificationInstance
@@ -200,6 +202,7 @@ class TollfreeVerificationList(ListResource):
             'BusinessContactLastName': business_contact_last_name,
             'BusinessContactEmail': business_contact_email,
             'BusinessContactPhone': business_contact_phone,
+            'ExternalReferenceId': external_reference_id,
         })
 
         payload = self._version.create(method='POST', uri=self._uri, data=data, )
@@ -447,6 +450,7 @@ class TollfreeVerificationInstance(InstanceResource):
             'status': payload.get('status'),
             'url': payload.get('url'),
             'resource_links': payload.get('resource_links'),
+            'external_reference_id': payload.get('external_reference_id'),
         }
 
         # Context
@@ -713,6 +717,14 @@ class TollfreeVerificationInstance(InstanceResource):
         :rtype: dict
         """
         return self._properties['resource_links']
+
+    @property
+    def external_reference_id(self):
+        """
+        :returns: An optional external reference ID supplied by customer and echoed back on status retrieval
+        :rtype: unicode
+        """
+        return self._properties['external_reference_id']
 
     def fetch(self):
         """

@@ -13,39 +13,39 @@ from twilio.base.list_resource import ListResource
 from twilio.base.page import Page
 
 
-class GoodDataList(ListResource):
+class InsightsSessionList(ListResource):
 
     def __init__(self, version):
         """
-        Initialize the GoodDataList
+        Initialize the InsightsSessionList
 
         :param Version version: Version that contains the resource
 
-        :returns: twilio.rest.flex_api.v1.good_data.GoodDataList
-        :rtype: twilio.rest.flex_api.v1.good_data.GoodDataList
+        :returns: twilio.rest.flex_api.v1.insights_session.InsightsSessionList
+        :rtype: twilio.rest.flex_api.v1.insights_session.InsightsSessionList
         """
-        super(GoodDataList, self).__init__(version)
+        super(InsightsSessionList, self).__init__(version)
 
         # Path Solution
         self._solution = {}
 
     def get(self):
         """
-        Constructs a GoodDataContext
+        Constructs a InsightsSessionContext
 
-        :returns: twilio.rest.flex_api.v1.good_data.GoodDataContext
-        :rtype: twilio.rest.flex_api.v1.good_data.GoodDataContext
+        :returns: twilio.rest.flex_api.v1.insights_session.InsightsSessionContext
+        :rtype: twilio.rest.flex_api.v1.insights_session.InsightsSessionContext
         """
-        return GoodDataContext(self._version, )
+        return InsightsSessionContext(self._version, )
 
     def __call__(self):
         """
-        Constructs a GoodDataContext
+        Constructs a InsightsSessionContext
 
-        :returns: twilio.rest.flex_api.v1.good_data.GoodDataContext
-        :rtype: twilio.rest.flex_api.v1.good_data.GoodDataContext
+        :returns: twilio.rest.flex_api.v1.insights_session.InsightsSessionContext
+        :rtype: twilio.rest.flex_api.v1.insights_session.InsightsSessionContext
         """
-        return GoodDataContext(self._version, )
+        return InsightsSessionContext(self._version, )
 
     def __repr__(self):
         """
@@ -54,36 +54,36 @@ class GoodDataList(ListResource):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.FlexApi.V1.GoodDataList>'
+        return '<Twilio.FlexApi.V1.InsightsSessionList>'
 
 
-class GoodDataPage(Page):
+class InsightsSessionPage(Page):
 
     def __init__(self, version, response, solution):
         """
-        Initialize the GoodDataPage
+        Initialize the InsightsSessionPage
 
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.flex_api.v1.good_data.GoodDataPage
-        :rtype: twilio.rest.flex_api.v1.good_data.GoodDataPage
+        :returns: twilio.rest.flex_api.v1.insights_session.InsightsSessionPage
+        :rtype: twilio.rest.flex_api.v1.insights_session.InsightsSessionPage
         """
-        super(GoodDataPage, self).__init__(version, response)
+        super(InsightsSessionPage, self).__init__(version, response)
 
         # Path Solution
         self._solution = solution
 
     def get_instance(self, payload):
         """
-        Build an instance of GoodDataInstance
+        Build an instance of InsightsSessionInstance
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.flex_api.v1.good_data.GoodDataInstance
-        :rtype: twilio.rest.flex_api.v1.good_data.GoodDataInstance
+        :returns: twilio.rest.flex_api.v1.insights_session.InsightsSessionInstance
+        :rtype: twilio.rest.flex_api.v1.insights_session.InsightsSessionInstance
         """
-        return GoodDataInstance(self._version, payload, )
+        return InsightsSessionInstance(self._version, payload, )
 
     def __repr__(self):
         """
@@ -92,21 +92,21 @@ class GoodDataPage(Page):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.FlexApi.V1.GoodDataPage>'
+        return '<Twilio.FlexApi.V1.InsightsSessionPage>'
 
 
-class GoodDataContext(InstanceContext):
+class InsightsSessionContext(InstanceContext):
 
     def __init__(self, version):
         """
-        Initialize the GoodDataContext
+        Initialize the InsightsSessionContext
 
         :param Version version: Version that contains the resource
 
-        :returns: twilio.rest.flex_api.v1.good_data.GoodDataContext
-        :rtype: twilio.rest.flex_api.v1.good_data.GoodDataContext
+        :returns: twilio.rest.flex_api.v1.insights_session.InsightsSessionContext
+        :rtype: twilio.rest.flex_api.v1.insights_session.InsightsSessionContext
         """
-        super(GoodDataContext, self).__init__(version)
+        super(InsightsSessionContext, self).__init__(version)
 
         # Path Solution
         self._solution = {}
@@ -114,18 +114,18 @@ class GoodDataContext(InstanceContext):
 
     def create(self, token=values.unset):
         """
-        Create the GoodDataInstance
+        Create the InsightsSessionInstance
 
         :param unicode token: The Token HTTP request header
 
-        :returns: The created GoodDataInstance
-        :rtype: twilio.rest.flex_api.v1.good_data.GoodDataInstance
+        :returns: The created InsightsSessionInstance
+        :rtype: twilio.rest.flex_api.v1.insights_session.InsightsSessionInstance
         """
         headers = values.of({'Token': token, })
 
         payload = self._version.create(method='POST', uri=self._uri, headers=headers, )
 
-        return GoodDataInstance(self._version, payload, )
+        return InsightsSessionInstance(self._version, payload, )
 
     def __repr__(self):
         """
@@ -135,19 +135,19 @@ class GoodDataContext(InstanceContext):
         :rtype: str
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.FlexApi.V1.GoodDataContext {}>'.format(context)
+        return '<Twilio.FlexApi.V1.InsightsSessionContext {}>'.format(context)
 
 
-class GoodDataInstance(InstanceResource):
+class InsightsSessionInstance(InstanceResource):
 
     def __init__(self, version, payload):
         """
-        Initialize the GoodDataInstance
+        Initialize the InsightsSessionInstance
 
-        :returns: twilio.rest.flex_api.v1.good_data.GoodDataInstance
-        :rtype: twilio.rest.flex_api.v1.good_data.GoodDataInstance
+        :returns: twilio.rest.flex_api.v1.insights_session.InsightsSessionInstance
+        :rtype: twilio.rest.flex_api.v1.insights_session.InsightsSessionInstance
         """
-        super(GoodDataInstance, self).__init__(version)
+        super(InsightsSessionInstance, self).__init__(version)
 
         # Marshaled Properties
         self._properties = {
@@ -168,11 +168,11 @@ class GoodDataInstance(InstanceResource):
         Generate an instance context for the instance, the context is capable of
         performing various actions.  All instance actions are proxied to the context
 
-        :returns: GoodDataContext for this GoodDataInstance
-        :rtype: twilio.rest.flex_api.v1.good_data.GoodDataContext
+        :returns: InsightsSessionContext for this InsightsSessionInstance
+        :rtype: twilio.rest.flex_api.v1.insights_session.InsightsSessionContext
         """
         if self._context is None:
-            self._context = GoodDataContext(self._version, )
+            self._context = InsightsSessionContext(self._version, )
         return self._context
 
     @property
@@ -217,12 +217,12 @@ class GoodDataInstance(InstanceResource):
 
     def create(self, token=values.unset):
         """
-        Create the GoodDataInstance
+        Create the InsightsSessionInstance
 
         :param unicode token: The Token HTTP request header
 
-        :returns: The created GoodDataInstance
-        :rtype: twilio.rest.flex_api.v1.good_data.GoodDataInstance
+        :returns: The created InsightsSessionInstance
+        :rtype: twilio.rest.flex_api.v1.insights_session.InsightsSessionInstance
         """
         return self._proxy.create(token=token, )
 
@@ -234,4 +234,4 @@ class GoodDataInstance(InstanceResource):
         :rtype: str
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.FlexApi.V1.GoodDataInstance {}>'.format(context)
+        return '<Twilio.FlexApi.V1.InsightsSessionInstance {}>'.format(context)

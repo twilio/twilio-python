@@ -39,7 +39,7 @@ class VerificationList(ListResource):
                payee=values.unset, rate_limits=values.unset,
                channel_configuration=values.unset, app_hash=values.unset,
                template_sid=values.unset,
-               template_custom_substitutions=values.unset):
+               template_custom_substitutions=values.unset, device_ip=values.unset):
         """
         Create the VerificationInstance
 
@@ -57,6 +57,7 @@ class VerificationList(ListResource):
         :param unicode app_hash: Your App Hash to be appended at the end of an SMS.
         :param unicode template_sid: The verification template SMS or Voice message.
         :param unicode template_custom_substitutions: The values of the special variables declared on the message template.
+        :param unicode device_ip: The IP address of the client's device.
 
         :returns: The created VerificationInstance
         :rtype: twilio.rest.verify.v2.service.verification.VerificationInstance
@@ -76,6 +77,7 @@ class VerificationList(ListResource):
             'AppHash': app_hash,
             'TemplateSid': template_sid,
             'TemplateCustomSubstitutions': template_custom_substitutions,
+            'DeviceIp': device_ip,
         })
 
         payload = self._version.create(method='POST', uri=self._uri, data=data, )
