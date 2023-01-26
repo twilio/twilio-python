@@ -4,7 +4,6 @@ from datetime import datetime
 
 from twilio.jwt.access_token import AccessToken
 from twilio.jwt.access_token.grants import (
-    IpMessagingGrant,
     SyncGrant,
     VoiceGrant,
     VideoGrant,
@@ -120,20 +119,6 @@ class AccessTokenTest(unittest.TestCase):
                    'room': 'RM123'
                } == decoded_token.payload['grants']['video']
 
-    def test_ip_messaging_grant(self):
-        scat = AccessToken(ACCOUNT_SID, SIGNING_KEY_SID, 'secret')
-        scat.add_grant(IpMessagingGrant(service_sid='IS123', push_credential_sid='CR123'))
-
-        token = scat.to_jwt()
-        assert token is not None
-        decoded_token = AccessToken.from_jwt(token, 'secret')
-        self._validate_claims(decoded_token.payload)
-        assert 1 == len(decoded_token.payload['grants'])
-        assert {
-                   'service_sid': 'IS123',
-                   'push_credential_sid': 'CR123'
-               } == decoded_token.payload['grants']['ip_messaging']
-
     def test_chat_grant(self):
         scat = AccessToken(ACCOUNT_SID, SIGNING_KEY_SID, 'secret')
         scat.add_grant(ChatGrant(service_sid='IS123', push_credential_sid='CR123'))
@@ -167,7 +152,7 @@ class AccessTokenTest(unittest.TestCase):
     def test_grants(self):
         scat = AccessToken(ACCOUNT_SID, SIGNING_KEY_SID, 'secret')
         scat.add_grant(VideoGrant())
-        scat.add_grant(IpMessagingGrant())
+        scat.add_grant(ChatGrant())
 
         token = scat.to_jwt()
         assert token is not None
@@ -175,7 +160,7 @@ class AccessTokenTest(unittest.TestCase):
         self._validate_claims(decoded_token.payload)
         assert 2 == len(decoded_token.payload['grants'])
         assert {} == decoded_token.payload['grants']['video']
-        assert {} == decoded_token.payload['grants']['ip_messaging']
+        assert {} == decoded_token.payload['grants']['chat']
 
     def test_programmable_voice_grant(self):
         grant = VoiceGrant(
@@ -261,7 +246,7 @@ class AccessTokenTest(unittest.TestCase):
     def test_pass_grants_in_constructor(self):
         grants = [
             VideoGrant(),
-            IpMessagingGrant()
+            ChatGrant()
         ]
         scat = AccessToken(ACCOUNT_SID, SIGNING_KEY_SID, 'secret', grants=grants)
 
@@ -272,7 +257,7 @@ class AccessTokenTest(unittest.TestCase):
         self._validate_claims(decoded_token.payload)
         assert 2 == len(decoded_token.payload['grants'])
         assert {} == decoded_token.payload['grants']['video']
-        assert {} == decoded_token.payload['grants']['ip_messaging']
+        assert {} == decoded_token.payload['grants']['chat']
 
     def test_constructor_validates_grants(self):
         grants = [VideoGrant, 'GrantMeAccessToEverything']
