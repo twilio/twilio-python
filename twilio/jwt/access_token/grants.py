@@ -11,7 +11,8 @@ def deprecated(func):
     @functools.wraps(func)
     def new_func(*args, **kwargs):
         warnings.simplefilter('always', DeprecationWarning)
-        warnings.warn("Call to deprecated function {}.".format(func.__name__), category=DeprecationWarning, stacklevel=2)
+        warnings.warn("Call to deprecated function {}.".format(func.__name__), category=DeprecationWarning,
+                      stacklevel=2)
         warnings.simplefilter('default', DeprecationWarning)
         return func(*args, **kwargs)
 
@@ -46,37 +47,9 @@ class ChatGrant(AccessTokenGrant):
         return grant
 
 
-class IpMessagingGrant(AccessTokenGrant):
-    """Grant to access Twilio IP Messaging"""
-
-    @deprecated
-    def __init__(self, service_sid=None, endpoint_id=None,
-                 deployment_role_sid=None, push_credential_sid=None):
-        self.service_sid = service_sid
-        self.endpoint_id = endpoint_id
-        self.deployment_role_sid = deployment_role_sid
-        self.push_credential_sid = push_credential_sid
-
-    @property
-    def key(self):
-        return "ip_messaging"
-
-    def to_payload(self):
-        grant = {}
-        if self.service_sid:
-            grant['service_sid'] = self.service_sid
-        if self.endpoint_id:
-            grant['endpoint_id'] = self.endpoint_id
-        if self.deployment_role_sid:
-            grant['deployment_role_sid'] = self.deployment_role_sid
-        if self.push_credential_sid:
-            grant['push_credential_sid'] = self.push_credential_sid
-
-        return grant
-
-
 class SyncGrant(AccessTokenGrant):
     """Grant to access Twilio Sync"""
+
     def __init__(self, service_sid=None, endpoint_id=None):
         self.service_sid = service_sid
         self.endpoint_id = endpoint_id
@@ -97,6 +70,7 @@ class SyncGrant(AccessTokenGrant):
 
 class VoiceGrant(AccessTokenGrant):
     """Grant to access Twilio Programmable Voice"""
+
     def __init__(self,
                  incoming_allow=None,
                  outgoing_application_sid=None,
@@ -139,27 +113,9 @@ class VoiceGrant(AccessTokenGrant):
 
         return grant
 
-
-class ConversationsGrant(AccessTokenGrant):
-    """Grant to access Twilio Conversations"""
-    @deprecated
-    def __init__(self, configuration_profile_sid=None):
-        self.configuration_profile_sid = configuration_profile_sid
-
-    @property
-    def key(self):
-        return "rtc"
-
-    def to_payload(self):
-        grant = {}
-        if self.configuration_profile_sid:
-            grant['configuration_profile_sid'] = self.configuration_profile_sid
-
-        return grant
-
-
 class VideoGrant(AccessTokenGrant):
     """Grant to access Twilio Video"""
+
     def __init__(self, room=None):
         self.room = room
 
@@ -177,6 +133,7 @@ class VideoGrant(AccessTokenGrant):
 
 class TaskRouterGrant(AccessTokenGrant):
     """Grant to access Twilio TaskRouter"""
+
     def __init__(self, workspace_sid=None, worker_sid=None, role=None):
         self.workspace_sid = workspace_sid
         self.worker_sid = worker_sid
