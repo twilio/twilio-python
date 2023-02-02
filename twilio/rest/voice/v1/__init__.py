@@ -14,12 +14,12 @@
 
 from twilio.base.version import Version
 from twilio.base.domain import Domain
-from twilio.rest.voice.v1.archived_call import ArchivedCallListInstance
-from twilio.rest.voice.v1.byoc_trunk import ByocTrunkListInstance
-from twilio.rest.voice.v1.connection_policy import ConnectionPolicyListInstance
-from twilio.rest.voice.v1.dialing_permissions import DialingPermissionsListInstance
-from twilio.rest.voice.v1.ip_record import IpRecordListInstance
-from twilio.rest.voice.v1.source_ip_mapping import SourceIpMappingListInstance
+from twilio.rest.voice.v1.archived_call import ArchivedCallList
+from twilio.rest.voice.v1.byoc_trunk import ByocTrunkList
+from twilio.rest.voice.v1.connection_policy import ConnectionPolicyList
+from twilio.rest.voice.v1.dialing_permissions import DialingPermissionsList
+from twilio.rest.voice.v1.ip_record import IpRecordList
+from twilio.rest.voice.v1.source_ip_mapping import SourceIpMappingList
 
 
 class V1(Version):
@@ -40,39 +40,39 @@ class V1(Version):
         self._source_ip_mappings = None
         
     @property
-    def archived_calls(self) -> ArchivedCallListInstance:
+    def archived_calls(self) -> ArchivedCallList:
         if self._archived_calls is None:
-            self._archived_calls = ArchivedCallListInstance(self)
+            self._archived_calls = ArchivedCallList(self)
         return self._archived_calls
 
     @property
-    def byoc_trunks(self) -> ByocTrunkListInstance:
+    def byoc_trunks(self) -> ByocTrunkList:
         if self._byoc_trunks is None:
-            self._byoc_trunks = ByocTrunkListInstance(self)
+            self._byoc_trunks = ByocTrunkList(self)
         return self._byoc_trunks
 
     @property
-    def connection_policies(self) -> ConnectionPolicyListInstance:
+    def connection_policies(self) -> ConnectionPolicyList:
         if self._connection_policies is None:
-            self._connection_policies = ConnectionPolicyListInstance(self)
+            self._connection_policies = ConnectionPolicyList(self)
         return self._connection_policies
 
     @property
-    def dialing_permissions(self) -> DialingPermissionsListInstance:
+    def dialing_permissions(self) -> DialingPermissionsList:
         if self._dialing_permissions is None:
-            self._dialing_permissions = DialingPermissionsListInstance(self)
+            self._dialing_permissions = DialingPermissionsList(self)
         return self._dialing_permissions
 
     @property
-    def ip_records(self) -> IpRecordListInstance:
+    def ip_records(self) -> IpRecordList:
         if self._ip_records is None:
-            self._ip_records = IpRecordListInstance(self)
+            self._ip_records = IpRecordList(self)
         return self._ip_records
 
     @property
-    def source_ip_mappings(self) -> SourceIpMappingListInstance:
+    def source_ip_mappings(self) -> SourceIpMappingList:
         if self._source_ip_mappings is None:
-            self._source_ip_mappings = SourceIpMappingListInstance(self)
+            self._source_ip_mappings = SourceIpMappingList(self)
         return self._source_ip_mappings
 
     def __repr__(self) -> str:

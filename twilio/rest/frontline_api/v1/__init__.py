@@ -14,7 +14,7 @@
 
 from twilio.base.version import Version
 from twilio.base.domain import Domain
-from twilio.rest.frontline_api.v1.user import UserListInstance
+from twilio.rest.frontline_api.v1.user import UserList
 
 
 class V1(Version):
@@ -30,9 +30,9 @@ class V1(Version):
         self._users = None
         
     @property
-    def users(self) -> UserListInstance:
+    def users(self) -> UserList:
         if self._users is None:
-            self._users = UserListInstance(self)
+            self._users = UserList(self)
         return self._users
 
     def __repr__(self) -> str:

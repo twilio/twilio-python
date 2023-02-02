@@ -14,9 +14,9 @@
 
 from twilio.base.version import Version
 from twilio.base.domain import Domain
-from twilio.rest.routes.v2.phone_number import PhoneNumberListInstance
-from twilio.rest.routes.v2.sip_domain import SipDomainListInstance
-from twilio.rest.routes.v2.trunk import TrunkListInstance
+from twilio.rest.routes.v2.phone_number import PhoneNumberList
+from twilio.rest.routes.v2.sip_domain import SipDomainList
+from twilio.rest.routes.v2.trunk import TrunkList
 
 
 class V2(Version):
@@ -34,21 +34,21 @@ class V2(Version):
         self._trunks = None
         
     @property
-    def phone_numbers(self) -> PhoneNumberListInstance:
+    def phone_numbers(self) -> PhoneNumberList:
         if self._phone_numbers is None:
-            self._phone_numbers = PhoneNumberListInstance(self)
+            self._phone_numbers = PhoneNumberList(self)
         return self._phone_numbers
 
     @property
-    def sip_domains(self) -> SipDomainListInstance:
+    def sip_domains(self) -> SipDomainList:
         if self._sip_domains is None:
-            self._sip_domains = SipDomainListInstance(self)
+            self._sip_domains = SipDomainList(self)
         return self._sip_domains
 
     @property
-    def trunks(self) -> TrunkListInstance:
+    def trunks(self) -> TrunkList:
         if self._trunks is None:
-            self._trunks = TrunkListInstance(self)
+            self._trunks = TrunkList(self)
         return self._trunks
 
     def __repr__(self) -> str:

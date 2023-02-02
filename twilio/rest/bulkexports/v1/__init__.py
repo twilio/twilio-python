@@ -14,8 +14,8 @@
 
 from twilio.base.version import Version
 from twilio.base.domain import Domain
-from twilio.rest.bulkexports.v1.export import ExportListInstance
-from twilio.rest.bulkexports.v1.export_configuration import ExportConfigurationListInstance
+from twilio.rest.bulkexports.v1.export import ExportList
+from twilio.rest.bulkexports.v1.export_configuration import ExportConfigurationList
 
 
 class V1(Version):
@@ -32,15 +32,15 @@ class V1(Version):
         self._export_configuration = None
         
     @property
-    def exports(self) -> ExportListInstance:
+    def exports(self) -> ExportList:
         if self._exports is None:
-            self._exports = ExportListInstance(self)
+            self._exports = ExportList(self)
         return self._exports
 
     @property
-    def export_configuration(self) -> ExportConfigurationListInstance:
+    def export_configuration(self) -> ExportConfigurationList:
         if self._export_configuration is None:
-            self._export_configuration = ExportConfigurationListInstance(self)
+            self._export_configuration = ExportConfigurationList(self)
         return self._export_configuration
 
     def __repr__(self) -> str:

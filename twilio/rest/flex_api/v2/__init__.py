@@ -14,7 +14,7 @@
 
 from twilio.base.version import Version
 from twilio.base.domain import Domain
-from twilio.rest.flex_api.v2.web_channels import WebChannelsListInstance
+from twilio.rest.flex_api.v2.web_channels import WebChannelsList
 
 
 class V2(Version):
@@ -30,9 +30,9 @@ class V2(Version):
         self._web_channels = None
         
     @property
-    def web_channels(self) -> WebChannelsListInstance:
+    def web_channels(self) -> WebChannelsList:
         if self._web_channels is None:
-            self._web_channels = WebChannelsListInstance(self)
+            self._web_channels = WebChannelsList(self)
         return self._web_channels
 
     def __repr__(self) -> str:

@@ -14,7 +14,7 @@
 
 from twilio.base.version import Version
 from twilio.base.domain import Domain
-from twilio.rest.content.v1.content import ContentListInstance
+from twilio.rest.content.v1.content import ContentList
 
 
 class V1(Version):
@@ -30,9 +30,9 @@ class V1(Version):
         self._contents = None
         
     @property
-    def contents(self) -> ContentListInstance:
+    def contents(self) -> ContentList:
         if self._contents is None:
-            self._contents = ContentListInstance(self)
+            self._contents = ContentList(self)
         return self._contents
 
     def __repr__(self) -> str:

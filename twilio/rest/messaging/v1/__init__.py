@@ -14,14 +14,14 @@
 
 from twilio.base.version import Version
 from twilio.base.domain import Domain
-from twilio.rest.messaging.v1.brand_registration import BrandRegistrationListInstance
-from twilio.rest.messaging.v1.deactivations import DeactivationsListInstance
-from twilio.rest.messaging.v1.domain_certs import DomainCertsListInstance
-from twilio.rest.messaging.v1.domain_config import DomainConfigListInstance
-from twilio.rest.messaging.v1.external_campaign import ExternalCampaignListInstance
-from twilio.rest.messaging.v1.service import ServiceListInstance
-from twilio.rest.messaging.v1.tollfree_verification import TollfreeVerificationListInstance
-from twilio.rest.messaging.v1.usecase import UsecaseListInstance
+from twilio.rest.messaging.v1.brand_registration import BrandRegistrationList
+from twilio.rest.messaging.v1.deactivations import DeactivationsList
+from twilio.rest.messaging.v1.domain_certs import DomainCertsList
+from twilio.rest.messaging.v1.domain_config import DomainConfigList
+from twilio.rest.messaging.v1.external_campaign import ExternalCampaignList
+from twilio.rest.messaging.v1.service import ServiceList
+from twilio.rest.messaging.v1.tollfree_verification import TollfreeVerificationList
+from twilio.rest.messaging.v1.usecase import UsecaseList
 
 
 class V1(Version):
@@ -44,51 +44,51 @@ class V1(Version):
         self._usecases = None
         
     @property
-    def brand_registrations(self) -> BrandRegistrationListInstance:
+    def brand_registrations(self) -> BrandRegistrationList:
         if self._brand_registrations is None:
-            self._brand_registrations = BrandRegistrationListInstance(self)
+            self._brand_registrations = BrandRegistrationList(self)
         return self._brand_registrations
 
     @property
-    def deactivations(self) -> DeactivationsListInstance:
+    def deactivations(self) -> DeactivationsList:
         if self._deactivations is None:
-            self._deactivations = DeactivationsListInstance(self)
+            self._deactivations = DeactivationsList(self)
         return self._deactivations
 
     @property
-    def domain_certs(self) -> DomainCertsListInstance:
+    def domain_certs(self) -> DomainCertsList:
         if self._domain_certs is None:
-            self._domain_certs = DomainCertsListInstance(self)
+            self._domain_certs = DomainCertsList(self)
         return self._domain_certs
 
     @property
-    def domain_config(self) -> DomainConfigListInstance:
+    def domain_config(self) -> DomainConfigList:
         if self._domain_config is None:
-            self._domain_config = DomainConfigListInstance(self)
+            self._domain_config = DomainConfigList(self)
         return self._domain_config
 
     @property
-    def external_campaign(self) -> ExternalCampaignListInstance:
+    def external_campaign(self) -> ExternalCampaignList:
         if self._external_campaign is None:
-            self._external_campaign = ExternalCampaignListInstance(self)
+            self._external_campaign = ExternalCampaignList(self)
         return self._external_campaign
 
     @property
-    def services(self) -> ServiceListInstance:
+    def services(self) -> ServiceList:
         if self._services is None:
-            self._services = ServiceListInstance(self)
+            self._services = ServiceList(self)
         return self._services
 
     @property
-    def tollfree_verifications(self) -> TollfreeVerificationListInstance:
+    def tollfree_verifications(self) -> TollfreeVerificationList:
         if self._tollfree_verifications is None:
-            self._tollfree_verifications = TollfreeVerificationListInstance(self)
+            self._tollfree_verifications = TollfreeVerificationList(self)
         return self._tollfree_verifications
 
     @property
-    def usecases(self) -> UsecaseListInstance:
+    def usecases(self) -> UsecaseList:
         if self._usecases is None:
-            self._usecases = UsecaseListInstance(self)
+            self._usecases = UsecaseList(self)
         return self._usecases
 
     def __repr__(self) -> str:

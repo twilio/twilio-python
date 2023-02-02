@@ -14,7 +14,7 @@
 
 from twilio.base.version import Version
 from twilio.base.domain import Domain
-from twilio.rest.lookups.v1.phone_number import PhoneNumberListInstance
+from twilio.rest.lookups.v1.phone_number import PhoneNumberList
 
 
 class V1(Version):
@@ -30,9 +30,9 @@ class V1(Version):
         self._phone_numbers = None
         
     @property
-    def phone_numbers(self) -> PhoneNumberListInstance:
+    def phone_numbers(self) -> PhoneNumberList:
         if self._phone_numbers is None:
-            self._phone_numbers = PhoneNumberListInstance(self)
+            self._phone_numbers = PhoneNumberList(self)
         return self._phone_numbers
 
     def __repr__(self) -> str:

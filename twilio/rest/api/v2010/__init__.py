@@ -14,7 +14,7 @@
 
 from twilio.base.version import Version
 from twilio.base.domain import Domain
-from twilio.rest.api.v2010.account import AccountListInstance
+from twilio.rest.api.v2010.account import AccountList
 from twilio.rest.api.v2010.account import AccountContext
 
 
@@ -32,9 +32,9 @@ class V2010(Version):
         self._account = None
         
     @property
-    def accounts(self) -> AccountListInstance:
+    def accounts(self) -> AccountList:
         if self._accounts is None:
-            self._accounts = AccountListInstance(self)
+            self._accounts = AccountList(self)
         return self._accounts
 
     @property

@@ -14,10 +14,10 @@
 
 from twilio.base.version import Version
 from twilio.base.domain import Domain
-from twilio.rest.events.v1.event_type import EventTypeListInstance
-from twilio.rest.events.v1.schema import SchemaListInstance
-from twilio.rest.events.v1.sink import SinkListInstance
-from twilio.rest.events.v1.subscription import SubscriptionListInstance
+from twilio.rest.events.v1.event_type import EventTypeList
+from twilio.rest.events.v1.schema import SchemaList
+from twilio.rest.events.v1.sink import SinkList
+from twilio.rest.events.v1.subscription import SubscriptionList
 
 
 class V1(Version):
@@ -36,27 +36,27 @@ class V1(Version):
         self._subscriptions = None
         
     @property
-    def event_types(self) -> EventTypeListInstance:
+    def event_types(self) -> EventTypeList:
         if self._event_types is None:
-            self._event_types = EventTypeListInstance(self)
+            self._event_types = EventTypeList(self)
         return self._event_types
 
     @property
-    def schemas(self) -> SchemaListInstance:
+    def schemas(self) -> SchemaList:
         if self._schemas is None:
-            self._schemas = SchemaListInstance(self)
+            self._schemas = SchemaList(self)
         return self._schemas
 
     @property
-    def sinks(self) -> SinkListInstance:
+    def sinks(self) -> SinkList:
         if self._sinks is None:
-            self._sinks = SinkListInstance(self)
+            self._sinks = SinkList(self)
         return self._sinks
 
     @property
-    def subscriptions(self) -> SubscriptionListInstance:
+    def subscriptions(self) -> SubscriptionList:
         if self._subscriptions is None:
-            self._subscriptions = SubscriptionListInstance(self)
+            self._subscriptions = SubscriptionList(self)
         return self._subscriptions
 
     def __repr__(self) -> str:

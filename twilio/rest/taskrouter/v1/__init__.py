@@ -14,7 +14,7 @@
 
 from twilio.base.version import Version
 from twilio.base.domain import Domain
-from twilio.rest.taskrouter.v1.workspace import WorkspaceListInstance
+from twilio.rest.taskrouter.v1.workspace import WorkspaceList
 
 
 class V1(Version):
@@ -30,9 +30,9 @@ class V1(Version):
         self._workspaces = None
         
     @property
-    def workspaces(self) -> WorkspaceListInstance:
+    def workspaces(self) -> WorkspaceList:
         if self._workspaces is None:
-            self._workspaces = WorkspaceListInstance(self)
+            self._workspaces = WorkspaceList(self)
         return self._workspaces
 
     def __repr__(self) -> str:

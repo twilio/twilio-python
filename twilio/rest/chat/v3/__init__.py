@@ -14,7 +14,7 @@
 
 from twilio.base.version import Version
 from twilio.base.domain import Domain
-from twilio.rest.chat.v3.channel import ChannelListInstance
+from twilio.rest.chat.v3.channel import ChannelList
 
 
 class V3(Version):
@@ -30,9 +30,9 @@ class V3(Version):
         self._channels = None
         
     @property
-    def channels(self) -> ChannelListInstance:
+    def channels(self) -> ChannelList:
         if self._channels is None:
-            self._channels = ChannelListInstance(self)
+            self._channels = ChannelList(self)
         return self._channels
 
     def __repr__(self) -> str:

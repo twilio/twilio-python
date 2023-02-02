@@ -14,15 +14,15 @@
 
 from twilio.base.version import Version
 from twilio.base.domain import Domain
-from twilio.rest.supersim.v1.esim_profile import EsimProfileListInstance
-from twilio.rest.supersim.v1.fleet import FleetListInstance
-from twilio.rest.supersim.v1.ip_command import IpCommandListInstance
-from twilio.rest.supersim.v1.network import NetworkListInstance
-from twilio.rest.supersim.v1.network_access_profile import NetworkAccessProfileListInstance
-from twilio.rest.supersim.v1.settings_update import SettingsUpdateListInstance
-from twilio.rest.supersim.v1.sim import SimListInstance
-from twilio.rest.supersim.v1.sms_command import SmsCommandListInstance
-from twilio.rest.supersim.v1.usage_record import UsageRecordListInstance
+from twilio.rest.supersim.v1.esim_profile import EsimProfileList
+from twilio.rest.supersim.v1.fleet import FleetList
+from twilio.rest.supersim.v1.ip_command import IpCommandList
+from twilio.rest.supersim.v1.network import NetworkList
+from twilio.rest.supersim.v1.network_access_profile import NetworkAccessProfileList
+from twilio.rest.supersim.v1.settings_update import SettingsUpdateList
+from twilio.rest.supersim.v1.sim import SimList
+from twilio.rest.supersim.v1.sms_command import SmsCommandList
+from twilio.rest.supersim.v1.usage_record import UsageRecordList
 
 
 class V1(Version):
@@ -46,57 +46,57 @@ class V1(Version):
         self._usage_records = None
         
     @property
-    def esim_profiles(self) -> EsimProfileListInstance:
+    def esim_profiles(self) -> EsimProfileList:
         if self._esim_profiles is None:
-            self._esim_profiles = EsimProfileListInstance(self)
+            self._esim_profiles = EsimProfileList(self)
         return self._esim_profiles
 
     @property
-    def fleets(self) -> FleetListInstance:
+    def fleets(self) -> FleetList:
         if self._fleets is None:
-            self._fleets = FleetListInstance(self)
+            self._fleets = FleetList(self)
         return self._fleets
 
     @property
-    def ip_commands(self) -> IpCommandListInstance:
+    def ip_commands(self) -> IpCommandList:
         if self._ip_commands is None:
-            self._ip_commands = IpCommandListInstance(self)
+            self._ip_commands = IpCommandList(self)
         return self._ip_commands
 
     @property
-    def networks(self) -> NetworkListInstance:
+    def networks(self) -> NetworkList:
         if self._networks is None:
-            self._networks = NetworkListInstance(self)
+            self._networks = NetworkList(self)
         return self._networks
 
     @property
-    def network_access_profiles(self) -> NetworkAccessProfileListInstance:
+    def network_access_profiles(self) -> NetworkAccessProfileList:
         if self._network_access_profiles is None:
-            self._network_access_profiles = NetworkAccessProfileListInstance(self)
+            self._network_access_profiles = NetworkAccessProfileList(self)
         return self._network_access_profiles
 
     @property
-    def settings_updates(self) -> SettingsUpdateListInstance:
+    def settings_updates(self) -> SettingsUpdateList:
         if self._settings_updates is None:
-            self._settings_updates = SettingsUpdateListInstance(self)
+            self._settings_updates = SettingsUpdateList(self)
         return self._settings_updates
 
     @property
-    def sims(self) -> SimListInstance:
+    def sims(self) -> SimList:
         if self._sims is None:
-            self._sims = SimListInstance(self)
+            self._sims = SimList(self)
         return self._sims
 
     @property
-    def sms_commands(self) -> SmsCommandListInstance:
+    def sms_commands(self) -> SmsCommandList:
         if self._sms_commands is None:
-            self._sms_commands = SmsCommandListInstance(self)
+            self._sms_commands = SmsCommandList(self)
         return self._sms_commands
 
     @property
-    def usage_records(self) -> UsageRecordListInstance:
+    def usage_records(self) -> UsageRecordList:
         if self._usage_records is None:
-            self._usage_records = UsageRecordListInstance(self)
+            self._usage_records = UsageRecordList(self)
         return self._usage_records
 
     def __repr__(self) -> str:

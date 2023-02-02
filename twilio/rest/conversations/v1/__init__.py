@@ -14,14 +14,14 @@
 
 from twilio.base.version import Version
 from twilio.base.domain import Domain
-from twilio.rest.conversations.v1.address_configuration import AddressConfigurationListInstance
-from twilio.rest.conversations.v1.configuration import ConfigurationListInstance
-from twilio.rest.conversations.v1.conversation import ConversationListInstance
-from twilio.rest.conversations.v1.credential import CredentialListInstance
-from twilio.rest.conversations.v1.participant_conversation import ParticipantConversationListInstance
-from twilio.rest.conversations.v1.role import RoleListInstance
-from twilio.rest.conversations.v1.service import ServiceListInstance
-from twilio.rest.conversations.v1.user import UserListInstance
+from twilio.rest.conversations.v1.address_configuration import AddressConfigurationList
+from twilio.rest.conversations.v1.configuration import ConfigurationList
+from twilio.rest.conversations.v1.conversation import ConversationList
+from twilio.rest.conversations.v1.credential import CredentialList
+from twilio.rest.conversations.v1.participant_conversation import ParticipantConversationList
+from twilio.rest.conversations.v1.role import RoleList
+from twilio.rest.conversations.v1.service import ServiceList
+from twilio.rest.conversations.v1.user import UserList
 
 
 class V1(Version):
@@ -44,51 +44,51 @@ class V1(Version):
         self._users = None
         
     @property
-    def address_configurations(self) -> AddressConfigurationListInstance:
+    def address_configurations(self) -> AddressConfigurationList:
         if self._address_configurations is None:
-            self._address_configurations = AddressConfigurationListInstance(self)
+            self._address_configurations = AddressConfigurationList(self)
         return self._address_configurations
 
     @property
-    def configuration(self) -> ConfigurationListInstance:
+    def configuration(self) -> ConfigurationList:
         if self._configuration is None:
-            self._configuration = ConfigurationListInstance(self)
+            self._configuration = ConfigurationList(self)
         return self._configuration
 
     @property
-    def conversations(self) -> ConversationListInstance:
+    def conversations(self) -> ConversationList:
         if self._conversations is None:
-            self._conversations = ConversationListInstance(self)
+            self._conversations = ConversationList(self)
         return self._conversations
 
     @property
-    def credentials(self) -> CredentialListInstance:
+    def credentials(self) -> CredentialList:
         if self._credentials is None:
-            self._credentials = CredentialListInstance(self)
+            self._credentials = CredentialList(self)
         return self._credentials
 
     @property
-    def participant_conversations(self) -> ParticipantConversationListInstance:
+    def participant_conversations(self) -> ParticipantConversationList:
         if self._participant_conversations is None:
-            self._participant_conversations = ParticipantConversationListInstance(self)
+            self._participant_conversations = ParticipantConversationList(self)
         return self._participant_conversations
 
     @property
-    def roles(self) -> RoleListInstance:
+    def roles(self) -> RoleList:
         if self._roles is None:
-            self._roles = RoleListInstance(self)
+            self._roles = RoleList(self)
         return self._roles
 
     @property
-    def services(self) -> ServiceListInstance:
+    def services(self) -> ServiceList:
         if self._services is None:
-            self._services = ServiceListInstance(self)
+            self._services = ServiceList(self)
         return self._services
 
     @property
-    def users(self) -> UserListInstance:
+    def users(self) -> UserList:
         if self._users is None:
-            self._users = UserListInstance(self)
+            self._users = UserList(self)
         return self._users
 
     def __repr__(self) -> str:

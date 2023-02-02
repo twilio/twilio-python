@@ -14,13 +14,13 @@
 
 from twilio.base.version import Version
 from twilio.base.domain import Domain
-from twilio.rest.trusthub.v1.customer_profiles import CustomerProfilesListInstance
-from twilio.rest.trusthub.v1.end_user import EndUserListInstance
-from twilio.rest.trusthub.v1.end_user_type import EndUserTypeListInstance
-from twilio.rest.trusthub.v1.policies import PoliciesListInstance
-from twilio.rest.trusthub.v1.supporting_document import SupportingDocumentListInstance
-from twilio.rest.trusthub.v1.supporting_document_type import SupportingDocumentTypeListInstance
-from twilio.rest.trusthub.v1.trust_products import TrustProductsListInstance
+from twilio.rest.trusthub.v1.customer_profiles import CustomerProfilesList
+from twilio.rest.trusthub.v1.end_user import EndUserList
+from twilio.rest.trusthub.v1.end_user_type import EndUserTypeList
+from twilio.rest.trusthub.v1.policies import PoliciesList
+from twilio.rest.trusthub.v1.supporting_document import SupportingDocumentList
+from twilio.rest.trusthub.v1.supporting_document_type import SupportingDocumentTypeList
+from twilio.rest.trusthub.v1.trust_products import TrustProductsList
 
 
 class V1(Version):
@@ -42,45 +42,45 @@ class V1(Version):
         self._trust_products = None
         
     @property
-    def customer_profiles(self) -> CustomerProfilesListInstance:
+    def customer_profiles(self) -> CustomerProfilesList:
         if self._customer_profiles is None:
-            self._customer_profiles = CustomerProfilesListInstance(self)
+            self._customer_profiles = CustomerProfilesList(self)
         return self._customer_profiles
 
     @property
-    def end_users(self) -> EndUserListInstance:
+    def end_users(self) -> EndUserList:
         if self._end_users is None:
-            self._end_users = EndUserListInstance(self)
+            self._end_users = EndUserList(self)
         return self._end_users
 
     @property
-    def end_user_types(self) -> EndUserTypeListInstance:
+    def end_user_types(self) -> EndUserTypeList:
         if self._end_user_types is None:
-            self._end_user_types = EndUserTypeListInstance(self)
+            self._end_user_types = EndUserTypeList(self)
         return self._end_user_types
 
     @property
-    def policies(self) -> PoliciesListInstance:
+    def policies(self) -> PoliciesList:
         if self._policies is None:
-            self._policies = PoliciesListInstance(self)
+            self._policies = PoliciesList(self)
         return self._policies
 
     @property
-    def supporting_documents(self) -> SupportingDocumentListInstance:
+    def supporting_documents(self) -> SupportingDocumentList:
         if self._supporting_documents is None:
-            self._supporting_documents = SupportingDocumentListInstance(self)
+            self._supporting_documents = SupportingDocumentList(self)
         return self._supporting_documents
 
     @property
-    def supporting_document_types(self) -> SupportingDocumentTypeListInstance:
+    def supporting_document_types(self) -> SupportingDocumentTypeList:
         if self._supporting_document_types is None:
-            self._supporting_document_types = SupportingDocumentTypeListInstance(self)
+            self._supporting_document_types = SupportingDocumentTypeList(self)
         return self._supporting_document_types
 
     @property
-    def trust_products(self) -> TrustProductsListInstance:
+    def trust_products(self) -> TrustProductsList:
         if self._trust_products is None:
-            self._trust_products = TrustProductsListInstance(self)
+            self._trust_products = TrustProductsList(self)
         return self._trust_products
 
     def __repr__(self) -> str:

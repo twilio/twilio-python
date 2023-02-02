@@ -14,8 +14,8 @@
 
 from twilio.base.version import Version
 from twilio.base.domain import Domain
-from twilio.rest.autopilot.v1.assistant import AssistantListInstance
-from twilio.rest.autopilot.v1.restore_assistant import RestoreAssistantListInstance
+from twilio.rest.autopilot.v1.assistant import AssistantList
+from twilio.rest.autopilot.v1.restore_assistant import RestoreAssistantList
 
 
 class V1(Version):
@@ -32,15 +32,15 @@ class V1(Version):
         self._restore_assistant = None
         
     @property
-    def assistants(self) -> AssistantListInstance:
+    def assistants(self) -> AssistantList:
         if self._assistants is None:
-            self._assistants = AssistantListInstance(self)
+            self._assistants = AssistantList(self)
         return self._assistants
 
     @property
-    def restore_assistant(self) -> RestoreAssistantListInstance:
+    def restore_assistant(self) -> RestoreAssistantList:
         if self._restore_assistant is None:
-            self._restore_assistant = RestoreAssistantListInstance(self)
+            self._restore_assistant = RestoreAssistantList(self)
         return self._restore_assistant
 
     def __repr__(self) -> str:

@@ -14,18 +14,18 @@
 
 from twilio.base.version import Version
 from twilio.base.domain import Domain
-from twilio.rest.flex_api.v1.assessments import AssessmentsListInstance
-from twilio.rest.flex_api.v1.channel import ChannelListInstance
-from twilio.rest.flex_api.v1.configuration import ConfigurationListInstance
-from twilio.rest.flex_api.v1.flex_flow import FlexFlowListInstance
-from twilio.rest.flex_api.v1.insights_questionnaires_category import InsightsQuestionnairesCategoryListInstance
-from twilio.rest.flex_api.v1.insights_questionnaires_question import InsightsQuestionnairesQuestionListInstance
-from twilio.rest.flex_api.v1.insights_session import InsightsSessionListInstance
-from twilio.rest.flex_api.v1.insights_settings_answer_sets import InsightsSettingsAnswerSetsListInstance
-from twilio.rest.flex_api.v1.insights_settings_comment import InsightsSettingsCommentListInstance
-from twilio.rest.flex_api.v1.insights_user_roles import InsightsUserRolesListInstance
-from twilio.rest.flex_api.v1.interaction import InteractionListInstance
-from twilio.rest.flex_api.v1.web_channel import WebChannelListInstance
+from twilio.rest.flex_api.v1.assessments import AssessmentsList
+from twilio.rest.flex_api.v1.channel import ChannelList
+from twilio.rest.flex_api.v1.configuration import ConfigurationList
+from twilio.rest.flex_api.v1.flex_flow import FlexFlowList
+from twilio.rest.flex_api.v1.insights_questionnaires_category import InsightsQuestionnairesCategoryList
+from twilio.rest.flex_api.v1.insights_questionnaires_question import InsightsQuestionnairesQuestionList
+from twilio.rest.flex_api.v1.insights_session import InsightsSessionList
+from twilio.rest.flex_api.v1.insights_settings_answer_sets import InsightsSettingsAnswerSetsList
+from twilio.rest.flex_api.v1.insights_settings_comment import InsightsSettingsCommentList
+from twilio.rest.flex_api.v1.insights_user_roles import InsightsUserRolesList
+from twilio.rest.flex_api.v1.interaction import InteractionList
+from twilio.rest.flex_api.v1.web_channel import WebChannelList
 
 
 class V1(Version):
@@ -52,75 +52,75 @@ class V1(Version):
         self._web_channel = None
         
     @property
-    def assessments(self) -> AssessmentsListInstance:
+    def assessments(self) -> AssessmentsList:
         if self._assessments is None:
-            self._assessments = AssessmentsListInstance(self)
+            self._assessments = AssessmentsList(self)
         return self._assessments
 
     @property
-    def channel(self) -> ChannelListInstance:
+    def channel(self) -> ChannelList:
         if self._channel is None:
-            self._channel = ChannelListInstance(self)
+            self._channel = ChannelList(self)
         return self._channel
 
     @property
-    def configuration(self) -> ConfigurationListInstance:
+    def configuration(self) -> ConfigurationList:
         if self._configuration is None:
-            self._configuration = ConfigurationListInstance(self)
+            self._configuration = ConfigurationList(self)
         return self._configuration
 
     @property
-    def flex_flow(self) -> FlexFlowListInstance:
+    def flex_flow(self) -> FlexFlowList:
         if self._flex_flow is None:
-            self._flex_flow = FlexFlowListInstance(self)
+            self._flex_flow = FlexFlowList(self)
         return self._flex_flow
 
     @property
-    def insights_questionnaires_category(self) -> InsightsQuestionnairesCategoryListInstance:
+    def insights_questionnaires_category(self) -> InsightsQuestionnairesCategoryList:
         if self._insights_questionnaires_category is None:
-            self._insights_questionnaires_category = InsightsQuestionnairesCategoryListInstance(self)
+            self._insights_questionnaires_category = InsightsQuestionnairesCategoryList(self)
         return self._insights_questionnaires_category
 
     @property
-    def insights_questionnaires_question(self) -> InsightsQuestionnairesQuestionListInstance:
+    def insights_questionnaires_question(self) -> InsightsQuestionnairesQuestionList:
         if self._insights_questionnaires_question is None:
-            self._insights_questionnaires_question = InsightsQuestionnairesQuestionListInstance(self)
+            self._insights_questionnaires_question = InsightsQuestionnairesQuestionList(self)
         return self._insights_questionnaires_question
 
     @property
-    def insights_session(self) -> InsightsSessionListInstance:
+    def insights_session(self) -> InsightsSessionList:
         if self._insights_session is None:
-            self._insights_session = InsightsSessionListInstance(self)
+            self._insights_session = InsightsSessionList(self)
         return self._insights_session
 
     @property
-    def insights_settings_answer_sets(self) -> InsightsSettingsAnswerSetsListInstance:
+    def insights_settings_answer_sets(self) -> InsightsSettingsAnswerSetsList:
         if self._insights_settings_answer_sets is None:
-            self._insights_settings_answer_sets = InsightsSettingsAnswerSetsListInstance(self)
+            self._insights_settings_answer_sets = InsightsSettingsAnswerSetsList(self)
         return self._insights_settings_answer_sets
 
     @property
-    def insights_settings_comment(self) -> InsightsSettingsCommentListInstance:
+    def insights_settings_comment(self) -> InsightsSettingsCommentList:
         if self._insights_settings_comment is None:
-            self._insights_settings_comment = InsightsSettingsCommentListInstance(self)
+            self._insights_settings_comment = InsightsSettingsCommentList(self)
         return self._insights_settings_comment
 
     @property
-    def insights_user_roles(self) -> InsightsUserRolesListInstance:
+    def insights_user_roles(self) -> InsightsUserRolesList:
         if self._insights_user_roles is None:
-            self._insights_user_roles = InsightsUserRolesListInstance(self)
+            self._insights_user_roles = InsightsUserRolesList(self)
         return self._insights_user_roles
 
     @property
-    def interaction(self) -> InteractionListInstance:
+    def interaction(self) -> InteractionList:
         if self._interaction is None:
-            self._interaction = InteractionListInstance(self)
+            self._interaction = InteractionList(self)
         return self._interaction
 
     @property
-    def web_channel(self) -> WebChannelListInstance:
+    def web_channel(self) -> WebChannelList:
         if self._web_channel is None:
-            self._web_channel = WebChannelListInstance(self)
+            self._web_channel = WebChannelList(self)
         return self._web_channel
 
     def __repr__(self) -> str:

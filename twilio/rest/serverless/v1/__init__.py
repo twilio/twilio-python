@@ -14,7 +14,7 @@
 
 from twilio.base.version import Version
 from twilio.base.domain import Domain
-from twilio.rest.serverless.v1.service import ServiceListInstance
+from twilio.rest.serverless.v1.service import ServiceList
 
 
 class V1(Version):
@@ -30,9 +30,9 @@ class V1(Version):
         self._services = None
         
     @property
-    def services(self) -> ServiceListInstance:
+    def services(self) -> ServiceList:
         if self._services is None:
-            self._services = ServiceListInstance(self)
+            self._services = ServiceList(self)
         return self._services
 
     def __repr__(self) -> str:

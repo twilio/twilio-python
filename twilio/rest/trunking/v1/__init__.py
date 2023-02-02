@@ -14,7 +14,7 @@
 
 from twilio.base.version import Version
 from twilio.base.domain import Domain
-from twilio.rest.trunking.v1.trunk import TrunkListInstance
+from twilio.rest.trunking.v1.trunk import TrunkList
 
 
 class V1(Version):
@@ -30,9 +30,9 @@ class V1(Version):
         self._trunks = None
         
     @property
-    def trunks(self) -> TrunkListInstance:
+    def trunks(self) -> TrunkList:
         if self._trunks is None:
-            self._trunks = TrunkListInstance(self)
+            self._trunks = TrunkList(self)
         return self._trunks
 
     def __repr__(self) -> str:

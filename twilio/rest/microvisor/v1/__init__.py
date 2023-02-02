@@ -14,8 +14,8 @@
 
 from twilio.base.version import Version
 from twilio.base.domain import Domain
-from twilio.rest.microvisor.v1.app import AppListInstance
-from twilio.rest.microvisor.v1.device import DeviceListInstance
+from twilio.rest.microvisor.v1.app import AppList
+from twilio.rest.microvisor.v1.device import DeviceList
 
 
 class V1(Version):
@@ -32,15 +32,15 @@ class V1(Version):
         self._devices = None
         
     @property
-    def apps(self) -> AppListInstance:
+    def apps(self) -> AppList:
         if self._apps is None:
-            self._apps = AppListInstance(self)
+            self._apps = AppList(self)
         return self._apps
 
     @property
-    def devices(self) -> DeviceListInstance:
+    def devices(self) -> DeviceList:
         if self._devices is None:
-            self._devices = DeviceListInstance(self)
+            self._devices = DeviceList(self)
         return self._devices
 
     def __repr__(self) -> str:

@@ -14,8 +14,8 @@
 
 from twilio.base.version import Version
 from twilio.base.domain import Domain
-from twilio.rest.studio.v2.flow import FlowListInstance
-from twilio.rest.studio.v2.flow_validate import FlowValidateListInstance
+from twilio.rest.studio.v2.flow import FlowList
+from twilio.rest.studio.v2.flow_validate import FlowValidateList
 
 
 class V2(Version):
@@ -32,15 +32,15 @@ class V2(Version):
         self._flow_validate = None
         
     @property
-    def flows(self) -> FlowListInstance:
+    def flows(self) -> FlowList:
         if self._flows is None:
-            self._flows = FlowListInstance(self)
+            self._flows = FlowList(self)
         return self._flows
 
     @property
-    def flow_validate(self) -> FlowValidateListInstance:
+    def flow_validate(self) -> FlowValidateList:
         if self._flow_validate is None:
-            self._flow_validate = FlowValidateListInstance(self)
+            self._flow_validate = FlowValidateList(self)
         return self._flow_validate
 
     def __repr__(self) -> str:

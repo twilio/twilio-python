@@ -14,8 +14,8 @@
 
 from twilio.base.version import Version
 from twilio.base.domain import Domain
-from twilio.rest.chat.v1.credential import CredentialListInstance
-from twilio.rest.chat.v1.service import ServiceListInstance
+from twilio.rest.chat.v1.credential import CredentialList
+from twilio.rest.chat.v1.service import ServiceList
 
 
 class V1(Version):
@@ -32,15 +32,15 @@ class V1(Version):
         self._services = None
         
     @property
-    def credentials(self) -> CredentialListInstance:
+    def credentials(self) -> CredentialList:
         if self._credentials is None:
-            self._credentials = CredentialListInstance(self)
+            self._credentials = CredentialList(self)
         return self._credentials
 
     @property
-    def services(self) -> ServiceListInstance:
+    def services(self) -> ServiceList:
         if self._services is None:
-            self._services = ServiceListInstance(self)
+            self._services = ServiceList(self)
         return self._services
 
     def __repr__(self) -> str:
