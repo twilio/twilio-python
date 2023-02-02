@@ -41,4 +41,4 @@ class V1(Version):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.frontline_api.V1>'
+        return '<Twilio.FrontlineApi.V1>'

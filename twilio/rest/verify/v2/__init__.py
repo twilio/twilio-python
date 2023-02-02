@@ -81,4 +81,4 @@ class V2(Version):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.verify.V2>'
+        return '<Twilio.Verify.V2>'

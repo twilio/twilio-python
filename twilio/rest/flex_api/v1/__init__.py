@@ -129,4 +129,4 @@ class V1(Version):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.flex_api.V1>'
+        return '<Twilio.FlexApi.V1>'

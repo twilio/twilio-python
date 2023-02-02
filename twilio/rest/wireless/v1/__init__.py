@@ -65,4 +65,4 @@ class V1(Version):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.wireless.V1>'
+        return '<Twilio.Wireless.V1>'

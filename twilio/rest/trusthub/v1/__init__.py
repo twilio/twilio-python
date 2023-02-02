@@ -89,4 +89,4 @@ class V1(Version):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.trusthub.V1>'
+        return '<Twilio.Trusthub.V1>'

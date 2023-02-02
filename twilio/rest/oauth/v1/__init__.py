@@ -73,4 +73,4 @@ class V1(Version):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.oauth.V1>'
+        return '<Twilio.Oauth.V1>'

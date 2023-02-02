@@ -41,4 +41,4 @@ class V1(Version):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.taskrouter.V1>'
+        return '<Twilio.Taskrouter.V1>'

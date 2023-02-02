@@ -97,4 +97,4 @@ class V1(Version):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.messaging.V1>'
+        return '<Twilio.Messaging.V1>'

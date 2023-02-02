@@ -73,4 +73,4 @@ class V1(Version):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.insights.V1>'
+        return '<Twilio.Insights.V1>'

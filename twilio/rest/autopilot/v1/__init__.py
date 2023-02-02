@@ -49,4 +49,4 @@ class V1(Version):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.autopilot.V1>'
+        return '<Twilio.Autopilot.V1>'

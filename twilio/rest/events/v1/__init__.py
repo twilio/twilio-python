@@ -65,4 +65,4 @@ class V1(Version):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.events.V1>'
+        return '<Twilio.Events.V1>'

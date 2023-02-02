@@ -81,4 +81,4 @@ class V1(Version):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.video.V1>'
+        return '<Twilio.Video.V1>'

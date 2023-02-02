@@ -49,4 +49,4 @@ class V1(Version):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.bulkexports.V1>'
+        return '<Twilio.Bulkexports.V1>'

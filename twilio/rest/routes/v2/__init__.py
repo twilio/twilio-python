@@ -57,4 +57,4 @@ class V2(Version):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.routes.V2>'
+        return '<Twilio.Routes.V2>'

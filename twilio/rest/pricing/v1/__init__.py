@@ -57,4 +57,4 @@ class V1(Version):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.pricing.V1>'
+        return '<Twilio.Pricing.V1>'

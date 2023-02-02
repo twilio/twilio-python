@@ -49,4 +49,4 @@ class V2(Version):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.studio.V2>'
+        return '<Twilio.Studio.V2>'

@@ -49,4 +49,4 @@ class V1(Version):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.notify.V1>'
+        return '<Twilio.Notify.V1>'

@@ -41,4 +41,4 @@ class V2(Version):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.lookups.V2>'
+        return '<Twilio.Lookups.V2>'

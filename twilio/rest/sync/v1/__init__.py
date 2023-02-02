@@ -41,4 +41,4 @@ class V1(Version):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.sync.V1>'
+        return '<Twilio.Sync.V1>'

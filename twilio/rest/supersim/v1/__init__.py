@@ -105,4 +105,4 @@ class V1(Version):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.supersim.V1>'
+        return '<Twilio.Supersim.V1>'

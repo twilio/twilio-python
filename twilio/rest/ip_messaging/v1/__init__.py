@@ -49,4 +49,4 @@ class V1(Version):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.ip_messaging.V1>'
+        return '<Twilio.IpMessaging.V1>'

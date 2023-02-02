@@ -57,4 +57,4 @@ class V1(Version):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.media.V1>'
+        return '<Twilio.Media.V1>'
