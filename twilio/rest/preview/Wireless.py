@@ -12,60 +12,49 @@
     Do not edit the class manually.
 """
 
+from twilio.base.version import Version
 from twilio.base.domain import Domain
-from twilio.rest.preview.wireless import Wireless
+from twilio.rest.preview.wireless.command import CommandListInstance
+from twilio.rest.preview.wireless.rate_plan import RatePlanListInstance
+from twilio.rest.preview.wireless.sim import SimListInstance
 
-class Preview(Domain):
-    def __init__(self, twilio):
-        """
-        Initialize the Preview Domain
 
-        :returns: Domain for Preview
-        :rtype: twilio.rest.wireless.Preview
+class Wireless(Version):
+
+    def __init__(self, domain: Domain):
         """
-        super(Preview, self).__init__(twilio)
-        self.base_url = 'https://Preview.twilio.com'
-        self._Wireless = None
+        Initialize the Wireless version of preview
+
+        :param domain: The Twilio.preview domain
+        """
+        super().__init__(domain)
+        self.version = 'wireless'
+        self._commands = None
+        self._rate_plans = None
+        self._sims = None
+        
+    @property
+    def commands(self) -> CommandListInstance:
+        if self._commands is None:
+            self._commands = CommandListInstance(self)
+        return self._commands
 
     @property
-    def Wireless(self):
-        """
-        :returns: Versions wireless of Preview
-        :rtype: twilio.rest.Preview.wireless
-        """
-        if self._Wireless is None:
-            self._Wireless = Wireless(self)
-        return self._Wireless
-    
+    def rate_plans(self) -> RatePlanListInstance:
+        if self._rate_plans is None:
+            self._rate_plans = RatePlanListInstance(self)
+        return self._rate_plans
 
     @property
-    def commands(self):
-        """
-        :rtype: twilio.rest.wireless.commands
-        """
-        return self.wireless.commands
-    
+    def sims(self) -> SimListInstance:
+        if self._sims is None:
+            self._sims = SimListInstance(self)
+        return self._sims
 
-    @property
-    def rate_plans(self):
-        """
-        :rtype: twilio.rest.wireless.rate_plans
-        """
-        return self.wireless.rate_plans
-    
-
-    @property
-    def sims(self):
-        """
-        :rtype: twilio.rest.wireless.sims
-        """
-        return self.wireless.sims
-    
-
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Preview>'
+        return '<Twilio.preview.Wireless>'

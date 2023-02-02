@@ -12,52 +12,41 @@
     Do not edit the class manually.
 """
 
+from twilio.base.version import Version
 from twilio.base.domain import Domain
-from twilio.rest.preview.hosted_numbers import HostedNumbers
+from twilio.rest.preview.hosted_numbers.authorization_document import AuthorizationDocumentListInstance
+from twilio.rest.preview.hosted_numbers.hosted_number_order import HostedNumberOrderListInstance
 
-class Preview(Domain):
-    def __init__(self, twilio):
-        """
-        Initialize the Preview Domain
 
-        :returns: Domain for Preview
-        :rtype: twilio.rest.hosted_numbers.Preview
+class HostedNumbers(Version):
+
+    def __init__(self, domain: Domain):
         """
-        super(Preview, self).__init__(twilio)
-        self.base_url = 'https://Preview.twilio.com'
-        self._HostedNumbers = None
+        Initialize the HostedNumbers version of preview
+
+        :param domain: The Twilio.preview domain
+        """
+        super().__init__(domain)
+        self.version = 'HostedNumbers'
+        self._authorization_documents = None
+        self._hosted_number_orders = None
+        
+    @property
+    def authorization_documents(self) -> AuthorizationDocumentListInstance:
+        if self._authorization_documents is None:
+            self._authorization_documents = AuthorizationDocumentListInstance(self)
+        return self._authorization_documents
 
     @property
-    def HostedNumbers(self):
-        """
-        :returns: Versions hosted_numbers of Preview
-        :rtype: twilio.rest.Preview.hosted_numbers
-        """
-        if self._HostedNumbers is None:
-            self._HostedNumbers = HostedNumbers(self)
-        return self._HostedNumbers
-    
+    def hosted_number_orders(self) -> HostedNumberOrderListInstance:
+        if self._hosted_number_orders is None:
+            self._hosted_number_orders = HostedNumberOrderListInstance(self)
+        return self._hosted_number_orders
 
-    @property
-    def authorization_documents(self):
-        """
-        :rtype: twilio.rest.hosted_numbers.authorization_documents
-        """
-        return self.hosted_numbers.authorization_documents
-    
-
-    @property
-    def hosted_number_orders(self):
-        """
-        :rtype: twilio.rest.hosted_numbers.hosted_number_orders
-        """
-        return self.hosted_numbers.hosted_number_orders
-    
-
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Preview>'
+        return '<Twilio.preview.HostedNumbers>'

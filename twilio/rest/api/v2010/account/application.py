@@ -111,6 +111,7 @@ class ApplicationInstance(InstanceResource):
             'voice_fallback_url' : payload.get('voice_fallback_url'),
             'voice_method' : payload.get('voice_method'),
             'voice_url' : payload.get('voice_url'),
+            'public_application_connect_enabled' : payload.get('public_application_connect_enabled'),
         }
 
         self._context = None
