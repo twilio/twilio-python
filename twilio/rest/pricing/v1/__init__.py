@@ -34,21 +34,21 @@ class V1(Version):
         self._voice = None
         
     @property
-    def messaging(self) -> MessagingListInstance:
+    def messaging(self) -> MessagingList:
         if self._messaging is None:
-            self._messaging = MessagingListInstance(self)
+            self._messaging = MessagingList(self)
         return self._messaging
 
     @property
-    def phone_numbers(self) -> PhoneNumberListInstance:
+    def phone_numbers(self) -> PhoneNumberList:
         if self._phone_numbers is None:
-            self._phone_numbers = PhoneNumberListInstance(self)
+            self._phone_numbers = PhoneNumberList(self)
         return self._phone_numbers
 
     @property
-    def voice(self) -> VoiceListInstance:
+    def voice(self) -> VoiceList:
         if self._voice is None:
-            self._voice = VoiceListInstance(self)
+            self._voice = VoiceList(self)
         return self._voice
 
     def __repr__(self) -> str:

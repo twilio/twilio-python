@@ -30,9 +30,9 @@ class V2(Version):
         self._web_channels = None
         
     @property
-    def web_channels(self) -> WebChannelsListInstance:
+    def web_channels(self) -> WebChannelsList:
         if self._web_channels is None:
-            self._web_channels = WebChannelsListInstance(self)
+            self._web_channels = WebChannelsList(self)
         return self._web_channels
 
     def __repr__(self) -> str:

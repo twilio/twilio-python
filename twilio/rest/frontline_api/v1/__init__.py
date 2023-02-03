@@ -30,9 +30,9 @@ class V1(Version):
         self._users = None
         
     @property
-    def users(self) -> UserListInstance:
+    def users(self) -> UserList:
         if self._users is None:
-            self._users = UserListInstance(self)
+            self._users = UserList(self)
         return self._users
 
     def __repr__(self) -> str:

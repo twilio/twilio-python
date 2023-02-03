@@ -40,39 +40,39 @@ class V2(Version):
         self._verification_attempts_summary = None
         
     @property
-    def forms(self) -> FormListInstance:
+    def forms(self) -> FormList:
         if self._forms is None:
-            self._forms = FormListInstance(self)
+            self._forms = FormList(self)
         return self._forms
 
     @property
-    def safelist(self) -> SafelistListInstance:
+    def safelist(self) -> SafelistList:
         if self._safelist is None:
-            self._safelist = SafelistListInstance(self)
+            self._safelist = SafelistList(self)
         return self._safelist
 
     @property
-    def services(self) -> ServiceListInstance:
+    def services(self) -> ServiceList:
         if self._services is None:
-            self._services = ServiceListInstance(self)
+            self._services = ServiceList(self)
         return self._services
 
     @property
-    def templates(self) -> TemplateListInstance:
+    def templates(self) -> TemplateList:
         if self._templates is None:
-            self._templates = TemplateListInstance(self)
+            self._templates = TemplateList(self)
         return self._templates
 
     @property
-    def verification_attempts(self) -> VerificationAttemptListInstance:
+    def verification_attempts(self) -> VerificationAttemptList:
         if self._verification_attempts is None:
-            self._verification_attempts = VerificationAttemptListInstance(self)
+            self._verification_attempts = VerificationAttemptList(self)
         return self._verification_attempts
 
     @property
-    def verification_attempts_summary(self) -> VerificationAttemptsSummaryListInstance:
+    def verification_attempts_summary(self) -> VerificationAttemptsSummaryList:
         if self._verification_attempts_summary is None:
-            self._verification_attempts_summary = VerificationAttemptsSummaryListInstance(self)
+            self._verification_attempts_summary = VerificationAttemptsSummaryList(self)
         return self._verification_attempts_summary
 
     def __repr__(self) -> str:

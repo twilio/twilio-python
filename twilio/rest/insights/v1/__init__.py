@@ -38,33 +38,33 @@ class V1(Version):
         self._settings = None
         
     @property
-    def calls(self) -> CallListInstance:
+    def calls(self) -> CallList:
         if self._calls is None:
-            self._calls = CallListInstance(self)
+            self._calls = CallList(self)
         return self._calls
 
     @property
-    def call_summaries(self) -> CallSummariesListInstance:
+    def call_summaries(self) -> CallSummariesList:
         if self._call_summaries is None:
-            self._call_summaries = CallSummariesListInstance(self)
+            self._call_summaries = CallSummariesList(self)
         return self._call_summaries
 
     @property
-    def conferences(self) -> ConferenceListInstance:
+    def conferences(self) -> ConferenceList:
         if self._conferences is None:
-            self._conferences = ConferenceListInstance(self)
+            self._conferences = ConferenceList(self)
         return self._conferences
 
     @property
-    def rooms(self) -> RoomListInstance:
+    def rooms(self) -> RoomList:
         if self._rooms is None:
-            self._rooms = RoomListInstance(self)
+            self._rooms = RoomList(self)
         return self._rooms
 
     @property
-    def settings(self) -> SettingListInstance:
+    def settings(self) -> SettingList:
         if self._settings is None:
-            self._settings = SettingListInstance(self)
+            self._settings = SettingList(self)
         return self._settings
 
     def __repr__(self) -> str:

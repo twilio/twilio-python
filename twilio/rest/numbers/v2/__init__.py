@@ -30,9 +30,9 @@ class V2(Version):
         self._regulatory_compliance = None
         
     @property
-    def regulatory_compliance(self) -> RegulatoryComplianceListInstance:
+    def regulatory_compliance(self) -> RegulatoryComplianceList:
         if self._regulatory_compliance is None:
-            self._regulatory_compliance = RegulatoryComplianceListInstance(self)
+            self._regulatory_compliance = RegulatoryComplianceList(self)
         return self._regulatory_compliance
 
     def __repr__(self) -> str:

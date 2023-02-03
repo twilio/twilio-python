@@ -34,21 +34,21 @@ class V1(Version):
         self._secondary_auth_token = None
         
     @property
-    def auth_token_promotion(self) -> AuthTokenPromotionListInstance:
+    def auth_token_promotion(self) -> AuthTokenPromotionList:
         if self._auth_token_promotion is None:
-            self._auth_token_promotion = AuthTokenPromotionListInstance(self)
+            self._auth_token_promotion = AuthTokenPromotionList(self)
         return self._auth_token_promotion
 
     @property
-    def credentials(self) -> CredentialListInstance:
+    def credentials(self) -> CredentialList:
         if self._credentials is None:
-            self._credentials = CredentialListInstance(self)
+            self._credentials = CredentialList(self)
         return self._credentials
 
     @property
-    def secondary_auth_token(self) -> SecondaryAuthTokenListInstance:
+    def secondary_auth_token(self) -> SecondaryAuthTokenList:
         if self._secondary_auth_token is None:
-            self._secondary_auth_token = SecondaryAuthTokenListInstance(self)
+            self._secondary_auth_token = SecondaryAuthTokenList(self)
         return self._secondary_auth_token
 
     def __repr__(self) -> str:

@@ -40,39 +40,39 @@ class V1(Version):
         self._rooms = None
         
     @property
-    def compositions(self) -> CompositionListInstance:
+    def compositions(self) -> CompositionList:
         if self._compositions is None:
-            self._compositions = CompositionListInstance(self)
+            self._compositions = CompositionList(self)
         return self._compositions
 
     @property
-    def composition_hooks(self) -> CompositionHookListInstance:
+    def composition_hooks(self) -> CompositionHookList:
         if self._composition_hooks is None:
-            self._composition_hooks = CompositionHookListInstance(self)
+            self._composition_hooks = CompositionHookList(self)
         return self._composition_hooks
 
     @property
-    def composition_settings(self) -> CompositionSettingsListInstance:
+    def composition_settings(self) -> CompositionSettingsList:
         if self._composition_settings is None:
-            self._composition_settings = CompositionSettingsListInstance(self)
+            self._composition_settings = CompositionSettingsList(self)
         return self._composition_settings
 
     @property
-    def recordings(self) -> RecordingListInstance:
+    def recordings(self) -> RecordingList:
         if self._recordings is None:
-            self._recordings = RecordingListInstance(self)
+            self._recordings = RecordingList(self)
         return self._recordings
 
     @property
-    def recording_settings(self) -> RecordingSettingsListInstance:
+    def recording_settings(self) -> RecordingSettingsList:
         if self._recording_settings is None:
-            self._recording_settings = RecordingSettingsListInstance(self)
+            self._recording_settings = RecordingSettingsList(self)
         return self._recording_settings
 
     @property
-    def rooms(self) -> RoomListInstance:
+    def rooms(self) -> RoomList:
         if self._rooms is None:
-            self._rooms = RoomListInstance(self)
+            self._rooms = RoomList(self)
         return self._rooms
 
     def __repr__(self) -> str:

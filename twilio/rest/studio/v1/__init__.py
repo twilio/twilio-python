@@ -30,9 +30,9 @@ class V1(Version):
         self._flows = None
         
     @property
-    def flows(self) -> FlowListInstance:
+    def flows(self) -> FlowList:
         if self._flows is None:
-            self._flows = FlowListInstance(self)
+            self._flows = FlowList(self)
         return self._flows
 
     def __repr__(self) -> str:

@@ -30,9 +30,9 @@ class V1(Version):
         self._workspaces = None
         
     @property
-    def workspaces(self) -> WorkspaceListInstance:
+    def workspaces(self) -> WorkspaceList:
         if self._workspaces is None:
-            self._workspaces = WorkspaceListInstance(self)
+            self._workspaces = WorkspaceList(self)
         return self._workspaces
 
     def __repr__(self) -> str:

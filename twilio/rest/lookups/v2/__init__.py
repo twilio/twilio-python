@@ -30,9 +30,9 @@ class V2(Version):
         self._phone_numbers = None
         
     @property
-    def phone_numbers(self) -> PhoneNumberListInstance:
+    def phone_numbers(self) -> PhoneNumberList:
         if self._phone_numbers is None:
-            self._phone_numbers = PhoneNumberListInstance(self)
+            self._phone_numbers = PhoneNumberList(self)
         return self._phone_numbers
 
     def __repr__(self) -> str:

@@ -32,15 +32,15 @@ class V1(Version):
         self._events = None
         
     @property
-    def alerts(self) -> AlertListInstance:
+    def alerts(self) -> AlertList:
         if self._alerts is None:
-            self._alerts = AlertListInstance(self)
+            self._alerts = AlertList(self)
         return self._alerts
 
     @property
-    def events(self) -> EventListInstance:
+    def events(self) -> EventList:
         if self._events is None:
-            self._events = EventListInstance(self)
+            self._events = EventList(self)
         return self._events
 
     def __repr__(self) -> str:

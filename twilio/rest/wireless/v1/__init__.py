@@ -36,27 +36,27 @@ class V1(Version):
         self._usage_records = None
         
     @property
-    def commands(self) -> CommandListInstance:
+    def commands(self) -> CommandList:
         if self._commands is None:
-            self._commands = CommandListInstance(self)
+            self._commands = CommandList(self)
         return self._commands
 
     @property
-    def rate_plans(self) -> RatePlanListInstance:
+    def rate_plans(self) -> RatePlanList:
         if self._rate_plans is None:
-            self._rate_plans = RatePlanListInstance(self)
+            self._rate_plans = RatePlanList(self)
         return self._rate_plans
 
     @property
-    def sims(self) -> SimListInstance:
+    def sims(self) -> SimList:
         if self._sims is None:
-            self._sims = SimListInstance(self)
+            self._sims = SimList(self)
         return self._sims
 
     @property
-    def usage_records(self) -> UsageRecordListInstance:
+    def usage_records(self) -> UsageRecordList:
         if self._usage_records is None:
-            self._usage_records = UsageRecordListInstance(self)
+            self._usage_records = UsageRecordList(self)
         return self._usage_records
 
     def __repr__(self) -> str:

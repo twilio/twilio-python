@@ -30,9 +30,9 @@ class V1(Version):
         self._trunks = None
         
     @property
-    def trunks(self) -> TrunkListInstance:
+    def trunks(self) -> TrunkList:
         if self._trunks is None:
-            self._trunks = TrunkListInstance(self)
+            self._trunks = TrunkList(self)
         return self._trunks
 
     def __repr__(self) -> str:

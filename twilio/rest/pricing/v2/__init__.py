@@ -34,21 +34,21 @@ class V2(Version):
         self._voice = None
         
     @property
-    def countries(self) -> CountryListInstance:
+    def countries(self) -> CountryList:
         if self._countries is None:
-            self._countries = CountryListInstance(self)
+            self._countries = CountryList(self)
         return self._countries
 
     @property
-    def numbers(self) -> NumberListInstance:
+    def numbers(self) -> NumberList:
         if self._numbers is None:
-            self._numbers = NumberListInstance(self)
+            self._numbers = NumberList(self)
         return self._numbers
 
     @property
-    def voice(self) -> VoiceListInstance:
+    def voice(self) -> VoiceList:
         if self._voice is None:
-            self._voice = VoiceListInstance(self)
+            self._voice = VoiceList(self)
         return self._voice
 
     def __repr__(self) -> str:
