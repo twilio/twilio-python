@@ -12,44 +12,33 @@
     Do not edit the class manually.
 """
 
+from twilio.base.version import Version
 from twilio.base.domain import Domain
-from twilio.rest.preview.sync import Sync
+from twilio.rest.preview.sync.service import ServiceListInstance
 
-class Preview(Domain):
-    def __init__(self, twilio):
+
+class Sync(Version):
+
+    def __init__(self, domain: Domain):
         """
-        Initialize the Preview Domain
+        Initialize the Sync version of preview
 
-        :returns: Domain for Preview
-        :rtype: twilio.rest.sync.Preview
+        :param domain: The Twilio.preview domain
         """
-        super(Preview, self).__init__(twilio)
-        self.base_url = 'https://Preview.twilio.com'
-        self._Sync = None
-
+        super().__init__(domain)
+        self.version = 'Sync'
+        self._services = None
+        
     @property
-    def Sync(self):
-        """
-        :returns: Versions sync of Preview
-        :rtype: twilio.rest.Preview.sync
-        """
-        if self._Sync is None:
-            self._Sync = Sync(self)
-        return self._Sync
-    
+    def services(self) -> ServiceListInstance:
+        if self._services is None:
+            self._services = ServiceListInstance(self)
+        return self._services
 
-    @property
-    def services(self):
-        """
-        :rtype: twilio.rest.sync.services
-        """
-        return self.sync.services
-    
-
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Preview>'
+        return '<Twilio.preview.Sync>'

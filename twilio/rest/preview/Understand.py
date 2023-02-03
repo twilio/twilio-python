@@ -12,44 +12,33 @@
     Do not edit the class manually.
 """
 
+from twilio.base.version import Version
 from twilio.base.domain import Domain
-from twilio.rest.preview.understand import Understand
+from twilio.rest.preview.understand.assistant import AssistantListInstance
 
-class Preview(Domain):
-    def __init__(self, twilio):
+
+class Understand(Version):
+
+    def __init__(self, domain: Domain):
         """
-        Initialize the Preview Domain
+        Initialize the Understand version of preview
 
-        :returns: Domain for Preview
-        :rtype: twilio.rest.understand.Preview
+        :param domain: The Twilio.preview domain
         """
-        super(Preview, self).__init__(twilio)
-        self.base_url = 'https://Preview.twilio.com'
-        self._Understand = None
-
+        super().__init__(domain)
+        self.version = 'understand'
+        self._assistants = None
+        
     @property
-    def Understand(self):
-        """
-        :returns: Versions understand of Preview
-        :rtype: twilio.rest.Preview.understand
-        """
-        if self._Understand is None:
-            self._Understand = Understand(self)
-        return self._Understand
-    
+    def assistants(self) -> AssistantListInstance:
+        if self._assistants is None:
+            self._assistants = AssistantListInstance(self)
+        return self._assistants
 
-    @property
-    def assistants(self):
-        """
-        :rtype: twilio.rest.understand.assistants
-        """
-        return self.understand.assistants
-    
-
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Preview>'
+        return '<Twilio.preview.Understand>'

@@ -12,44 +12,33 @@
     Do not edit the class manually.
 """
 
+from twilio.base.version import Version
 from twilio.base.domain import Domain
-from twilio.rest.preview.deployed_devices import DeployedDevices
+from twilio.rest.preview.deployed_devices.fleet import FleetListInstance
 
-class Preview(Domain):
-    def __init__(self, twilio):
+
+class DeployedDevices(Version):
+
+    def __init__(self, domain: Domain):
         """
-        Initialize the Preview Domain
+        Initialize the DeployedDevices version of preview
 
-        :returns: Domain for Preview
-        :rtype: twilio.rest.deployed_devices.Preview
+        :param domain: The Twilio.preview domain
         """
-        super(Preview, self).__init__(twilio)
-        self.base_url = 'https://Preview.twilio.com'
-        self._DeployedDevices = None
-
+        super().__init__(domain)
+        self.version = 'DeployedDevices'
+        self._fleets = None
+        
     @property
-    def DeployedDevices(self):
-        """
-        :returns: Versions deployed_devices of Preview
-        :rtype: twilio.rest.Preview.deployed_devices
-        """
-        if self._DeployedDevices is None:
-            self._DeployedDevices = DeployedDevices(self)
-        return self._DeployedDevices
-    
+    def fleets(self) -> FleetListInstance:
+        if self._fleets is None:
+            self._fleets = FleetListInstance(self)
+        return self._fleets
 
-    @property
-    def fleets(self):
-        """
-        :rtype: twilio.rest.deployed_devices.fleets
-        """
-        return self.deployed_devices.fleets
-    
-
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Preview>'
+        return '<Twilio.preview.DeployedDevices>'

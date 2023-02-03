@@ -21,7 +21,7 @@ from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 
-# 
+#
 
 
 class UserRolesContext(InstanceContext):
@@ -32,10 +32,10 @@ class UserRolesContext(InstanceContext):
         # Path Solution
         self._solution = {  }
         self._uri = '/Insights/UserRoles'
-        
-    
+
+
     def fetch(self, token):
-        
+
         """
         Fetch the UserRolesInstance
 
@@ -45,10 +45,10 @@ class UserRolesContext(InstanceContext):
         payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return UserRolesInstance(self._version, payload, )
-        
 
-        
-    
+
+
+
 
     def __repr__(self):
         """
@@ -63,14 +63,14 @@ class UserRolesContext(InstanceContext):
 class UserRolesInstance(InstanceResource):
     def __init__(self, version, payload):
         super().__init__(version)
-        self._properties = { 
+        self._properties = {
             'roles' : payload.get('roles'),
             'url' : payload.get('url'),
         }
 
         self._context = None
         self._solution = {
-            
+
         }
 
     @property
@@ -78,11 +78,11 @@ class UserRolesInstance(InstanceResource):
         if self._context is None:
             self._context = UserRolesContext(
                 self._version,
-                
+
             )
         return self._context
 
-    
+
 
     def __repr__(self):
         """
@@ -103,8 +103,8 @@ class UserRolesListInstance(ListResource):
         # Path Solution
         self._solution = {  }
         self._uri = ''
-        
-    
+
+
 
     def __repr__(self):
         """

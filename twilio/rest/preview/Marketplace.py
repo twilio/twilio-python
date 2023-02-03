@@ -12,52 +12,41 @@
     Do not edit the class manually.
 """
 
+from twilio.base.version import Version
 from twilio.base.domain import Domain
-from twilio.rest.preview.marketplace import Marketplace
+from twilio.rest.preview.marketplace.available_add_on import AvailableAddOnListInstance
+from twilio.rest.preview.marketplace.installed_add_on import InstalledAddOnListInstance
 
-class Preview(Domain):
-    def __init__(self, twilio):
-        """
-        Initialize the Preview Domain
 
-        :returns: Domain for Preview
-        :rtype: twilio.rest.marketplace.Preview
+class Marketplace(Version):
+
+    def __init__(self, domain: Domain):
         """
-        super(Preview, self).__init__(twilio)
-        self.base_url = 'https://Preview.twilio.com'
-        self._Marketplace = None
+        Initialize the Marketplace version of preview
+
+        :param domain: The Twilio.preview domain
+        """
+        super().__init__(domain)
+        self.version = 'marketplace'
+        self._available_add_ons = None
+        self._installed_add_ons = None
+        
+    @property
+    def available_add_ons(self) -> AvailableAddOnListInstance:
+        if self._available_add_ons is None:
+            self._available_add_ons = AvailableAddOnListInstance(self)
+        return self._available_add_ons
 
     @property
-    def Marketplace(self):
-        """
-        :returns: Versions marketplace of Preview
-        :rtype: twilio.rest.Preview.marketplace
-        """
-        if self._Marketplace is None:
-            self._Marketplace = Marketplace(self)
-        return self._Marketplace
-    
+    def installed_add_ons(self) -> InstalledAddOnListInstance:
+        if self._installed_add_ons is None:
+            self._installed_add_ons = InstalledAddOnListInstance(self)
+        return self._installed_add_ons
 
-    @property
-    def available_add_ons(self):
-        """
-        :rtype: twilio.rest.marketplace.available_add_ons
-        """
-        return self.marketplace.available_add_ons
-    
-
-    @property
-    def installed_add_ons(self):
-        """
-        :rtype: twilio.rest.marketplace.installed_add_ons
-        """
-        return self.marketplace.installed_add_ons
-    
-
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Provide a friendly representation
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Preview>'
+        return '<Twilio.preview.Marketplace>'
