@@ -24,7 +24,7 @@ class V1(Version):
 
     def __init__(self, domain: Domain):
         """
-        Initialize the V1 version of events
+        Initialize the V1 version of Events
 
         :param domain: The Twilio.events domain
         """
@@ -36,27 +36,27 @@ class V1(Version):
         self._subscriptions = None
         
     @property
-    def event_types(self) -> EventTypeList:
+    def event_types(self) -> EventTypeListInstance:
         if self._event_types is None:
-            self._event_types = EventTypeList(self)
+            self._event_types = EventTypeListInstance(self)
         return self._event_types
 
     @property
-    def schemas(self) -> SchemaList:
+    def schemas(self) -> SchemaListInstance:
         if self._schemas is None:
-            self._schemas = SchemaList(self)
+            self._schemas = SchemaListInstance(self)
         return self._schemas
 
     @property
-    def sinks(self) -> SinkList:
+    def sinks(self) -> SinkListInstance:
         if self._sinks is None:
-            self._sinks = SinkList(self)
+            self._sinks = SinkListInstance(self)
         return self._sinks
 
     @property
-    def subscriptions(self) -> SubscriptionList:
+    def subscriptions(self) -> SubscriptionListInstance:
         if self._subscriptions is None:
-            self._subscriptions = SubscriptionList(self)
+            self._subscriptions = SubscriptionListInstance(self)
         return self._subscriptions
 
     def __repr__(self) -> str:

@@ -27,7 +27,7 @@ class V1(Version):
 
     def __init__(self, domain: Domain):
         """
-        Initialize the V1 version of trusthub
+        Initialize the V1 version of Trusthub
 
         :param domain: The Twilio.trusthub domain
         """
@@ -42,45 +42,45 @@ class V1(Version):
         self._trust_products = None
         
     @property
-    def customer_profiles(self) -> CustomerProfilesList:
+    def customer_profiles(self) -> CustomerProfilesListInstance:
         if self._customer_profiles is None:
-            self._customer_profiles = CustomerProfilesList(self)
+            self._customer_profiles = CustomerProfilesListInstance(self)
         return self._customer_profiles
 
     @property
-    def end_users(self) -> EndUserList:
+    def end_users(self) -> EndUserListInstance:
         if self._end_users is None:
-            self._end_users = EndUserList(self)
+            self._end_users = EndUserListInstance(self)
         return self._end_users
 
     @property
-    def end_user_types(self) -> EndUserTypeList:
+    def end_user_types(self) -> EndUserTypeListInstance:
         if self._end_user_types is None:
-            self._end_user_types = EndUserTypeList(self)
+            self._end_user_types = EndUserTypeListInstance(self)
         return self._end_user_types
 
     @property
-    def policies(self) -> PoliciesList:
+    def policies(self) -> PoliciesListInstance:
         if self._policies is None:
-            self._policies = PoliciesList(self)
+            self._policies = PoliciesListInstance(self)
         return self._policies
 
     @property
-    def supporting_documents(self) -> SupportingDocumentList:
+    def supporting_documents(self) -> SupportingDocumentListInstance:
         if self._supporting_documents is None:
-            self._supporting_documents = SupportingDocumentList(self)
+            self._supporting_documents = SupportingDocumentListInstance(self)
         return self._supporting_documents
 
     @property
-    def supporting_document_types(self) -> SupportingDocumentTypeList:
+    def supporting_document_types(self) -> SupportingDocumentTypeListInstance:
         if self._supporting_document_types is None:
-            self._supporting_document_types = SupportingDocumentTypeList(self)
+            self._supporting_document_types = SupportingDocumentTypeListInstance(self)
         return self._supporting_document_types
 
     @property
-    def trust_products(self) -> TrustProductsList:
+    def trust_products(self) -> TrustProductsListInstance:
         if self._trust_products is None:
-            self._trust_products = TrustProductsList(self)
+            self._trust_products = TrustProductsListInstance(self)
         return self._trust_products
 
     def __repr__(self) -> str:

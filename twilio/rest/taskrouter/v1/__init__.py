@@ -21,7 +21,7 @@ class V1(Version):
 
     def __init__(self, domain: Domain):
         """
-        Initialize the V1 version of taskrouter
+        Initialize the V1 version of Taskrouter
 
         :param domain: The Twilio.taskrouter domain
         """
@@ -30,9 +30,9 @@ class V1(Version):
         self._workspaces = None
         
     @property
-    def workspaces(self) -> WorkspaceList:
+    def workspaces(self) -> WorkspaceListInstance:
         if self._workspaces is None:
-            self._workspaces = WorkspaceList(self)
+            self._workspaces = WorkspaceListInstance(self)
         return self._workspaces
 
     def __repr__(self) -> str:

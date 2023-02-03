@@ -22,7 +22,7 @@ class V2010(Version):
 
     def __init__(self, domain: Domain):
         """
-        Initialize the V2010 version of api
+        Initialize the V2010 version of Api
 
         :param domain: The Twilio.api domain
         """
@@ -32,9 +32,9 @@ class V2010(Version):
         self._account = None
         
     @property
-    def accounts(self) -> AccountList:
+    def accounts(self) -> AccountListInstance:
         if self._accounts is None:
-            self._accounts = AccountList(self)
+            self._accounts = AccountListInstance(self)
         return self._accounts
 
     @property

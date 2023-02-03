@@ -21,7 +21,7 @@ class V1(Version):
 
     def __init__(self, domain: Domain):
         """
-        Initialize the V1 version of proxy
+        Initialize the V1 version of Proxy
 
         :param domain: The Twilio.proxy domain
         """
@@ -30,9 +30,9 @@ class V1(Version):
         self._services = None
         
     @property
-    def services(self) -> ServiceList:
+    def services(self) -> ServiceListInstance:
         if self._services is None:
-            self._services = ServiceList(self)
+            self._services = ServiceListInstance(self)
         return self._services
 
     def __repr__(self) -> str:

@@ -22,7 +22,7 @@ class V1(Version):
 
     def __init__(self, domain: Domain):
         """
-        Initialize the V1 version of microvisor
+        Initialize the V1 version of Microvisor
 
         :param domain: The Twilio.microvisor domain
         """
@@ -32,15 +32,15 @@ class V1(Version):
         self._devices = None
         
     @property
-    def apps(self) -> AppList:
+    def apps(self) -> AppListInstance:
         if self._apps is None:
-            self._apps = AppList(self)
+            self._apps = AppListInstance(self)
         return self._apps
 
     @property
-    def devices(self) -> DeviceList:
+    def devices(self) -> DeviceListInstance:
         if self._devices is None:
-            self._devices = DeviceList(self)
+            self._devices = DeviceListInstance(self)
         return self._devices
 
     def __repr__(self) -> str:

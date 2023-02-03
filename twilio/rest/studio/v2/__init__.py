@@ -22,7 +22,7 @@ class V2(Version):
 
     def __init__(self, domain: Domain):
         """
-        Initialize the V2 version of studio
+        Initialize the V2 version of Studio
 
         :param domain: The Twilio.studio domain
         """
@@ -32,15 +32,15 @@ class V2(Version):
         self._flow_validate = None
         
     @property
-    def flows(self) -> FlowList:
+    def flows(self) -> FlowListInstance:
         if self._flows is None:
-            self._flows = FlowList(self)
+            self._flows = FlowListInstance(self)
         return self._flows
 
     @property
-    def flow_validate(self) -> FlowValidateList:
+    def flow_validate(self) -> FlowValidateListInstance:
         if self._flow_validate is None:
-            self._flow_validate = FlowValidateList(self)
+            self._flow_validate = FlowValidateListInstance(self)
         return self._flow_validate
 
     def __repr__(self) -> str:

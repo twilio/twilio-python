@@ -23,7 +23,7 @@ class V1(Version):
 
     def __init__(self, domain: Domain):
         """
-        Initialize the V1 version of pricing
+        Initialize the V1 version of Pricing
 
         :param domain: The Twilio.pricing domain
         """
@@ -34,21 +34,21 @@ class V1(Version):
         self._voice = None
         
     @property
-    def messaging(self) -> MessagingList:
+    def messaging(self) -> MessagingListInstance:
         if self._messaging is None:
-            self._messaging = MessagingList(self)
+            self._messaging = MessagingListInstance(self)
         return self._messaging
 
     @property
-    def phone_numbers(self) -> PhoneNumberList:
+    def phone_numbers(self) -> PhoneNumberListInstance:
         if self._phone_numbers is None:
-            self._phone_numbers = PhoneNumberList(self)
+            self._phone_numbers = PhoneNumberListInstance(self)
         return self._phone_numbers
 
     @property
-    def voice(self) -> VoiceList:
+    def voice(self) -> VoiceListInstance:
         if self._voice is None:
-            self._voice = VoiceList(self)
+            self._voice = VoiceListInstance(self)
         return self._voice
 
     def __repr__(self) -> str:

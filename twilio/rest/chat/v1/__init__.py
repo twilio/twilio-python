@@ -22,7 +22,7 @@ class V1(Version):
 
     def __init__(self, domain: Domain):
         """
-        Initialize the V1 version of chat
+        Initialize the V1 version of Chat
 
         :param domain: The Twilio.chat domain
         """
@@ -32,15 +32,15 @@ class V1(Version):
         self._services = None
         
     @property
-    def credentials(self) -> CredentialList:
+    def credentials(self) -> CredentialListInstance:
         if self._credentials is None:
-            self._credentials = CredentialList(self)
+            self._credentials = CredentialListInstance(self)
         return self._credentials
 
     @property
-    def services(self) -> ServiceList:
+    def services(self) -> ServiceListInstance:
         if self._services is None:
-            self._services = ServiceList(self)
+            self._services = ServiceListInstance(self)
         return self._services
 
     def __repr__(self) -> str:

@@ -22,7 +22,7 @@ class V1(Version):
 
     def __init__(self, domain: Domain):
         """
-        Initialize the V1 version of monitor
+        Initialize the V1 version of Monitor
 
         :param domain: The Twilio.monitor domain
         """
@@ -32,15 +32,15 @@ class V1(Version):
         self._events = None
         
     @property
-    def alerts(self) -> AlertList:
+    def alerts(self) -> AlertListInstance:
         if self._alerts is None:
-            self._alerts = AlertList(self)
+            self._alerts = AlertListInstance(self)
         return self._alerts
 
     @property
-    def events(self) -> EventList:
+    def events(self) -> EventListInstance:
         if self._events is None:
-            self._events = EventList(self)
+            self._events = EventListInstance(self)
         return self._events
 
     def __repr__(self) -> str:

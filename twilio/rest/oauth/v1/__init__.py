@@ -25,7 +25,7 @@ class V1(Version):
 
     def __init__(self, domain: Domain):
         """
-        Initialize the V1 version of oauth
+        Initialize the V1 version of Oauth
 
         :param domain: The Twilio.oauth domain
         """
@@ -38,33 +38,33 @@ class V1(Version):
         self._user_info = None
         
     @property
-    def device_code(self) -> DeviceCodeList:
+    def device_code(self) -> DeviceCodeListInstance:
         if self._device_code is None:
-            self._device_code = DeviceCodeList(self)
+            self._device_code = DeviceCodeListInstance(self)
         return self._device_code
 
     @property
-    def oauth(self) -> OauthList:
+    def oauth(self) -> OauthListInstance:
         if self._oauth is None:
-            self._oauth = OauthList(self)
+            self._oauth = OauthListInstance(self)
         return self._oauth
 
     @property
-    def openid_discovery(self) -> OpenidDiscoveryList:
+    def openid_discovery(self) -> OpenidDiscoveryListInstance:
         if self._openid_discovery is None:
-            self._openid_discovery = OpenidDiscoveryList(self)
+            self._openid_discovery = OpenidDiscoveryListInstance(self)
         return self._openid_discovery
 
     @property
-    def token(self) -> TokenList:
+    def token(self) -> TokenListInstance:
         if self._token is None:
-            self._token = TokenList(self)
+            self._token = TokenListInstance(self)
         return self._token
 
     @property
-    def user_info(self) -> UserInfoList:
+    def user_info(self) -> UserInfoListInstance:
         if self._user_info is None:
-            self._user_info = UserInfoList(self)
+            self._user_info = UserInfoListInstance(self)
         return self._user_info
 
     def __repr__(self) -> str:

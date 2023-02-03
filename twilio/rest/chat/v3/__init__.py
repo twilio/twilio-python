@@ -21,7 +21,7 @@ class V3(Version):
 
     def __init__(self, domain: Domain):
         """
-        Initialize the V3 version of chat
+        Initialize the V3 version of Chat
 
         :param domain: The Twilio.chat domain
         """
@@ -30,9 +30,9 @@ class V3(Version):
         self._channels = None
         
     @property
-    def channels(self) -> ChannelList:
+    def channels(self) -> ChannelListInstance:
         if self._channels is None:
-            self._channels = ChannelList(self)
+            self._channels = ChannelListInstance(self)
         return self._channels
 
     def __repr__(self) -> str:

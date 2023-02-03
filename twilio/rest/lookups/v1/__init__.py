@@ -21,7 +21,7 @@ class V1(Version):
 
     def __init__(self, domain: Domain):
         """
-        Initialize the V1 version of lookups
+        Initialize the V1 version of Lookups
 
         :param domain: The Twilio.lookups domain
         """
@@ -30,9 +30,9 @@ class V1(Version):
         self._phone_numbers = None
         
     @property
-    def phone_numbers(self) -> PhoneNumberList:
+    def phone_numbers(self) -> PhoneNumberListInstance:
         if self._phone_numbers is None:
-            self._phone_numbers = PhoneNumberList(self)
+            self._phone_numbers = PhoneNumberListInstance(self)
         return self._phone_numbers
 
     def __repr__(self) -> str:

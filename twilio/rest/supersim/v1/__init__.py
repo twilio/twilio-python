@@ -29,7 +29,7 @@ class V1(Version):
 
     def __init__(self, domain: Domain):
         """
-        Initialize the V1 version of supersim
+        Initialize the V1 version of Supersim
 
         :param domain: The Twilio.supersim domain
         """
@@ -46,57 +46,57 @@ class V1(Version):
         self._usage_records = None
         
     @property
-    def esim_profiles(self) -> EsimProfileList:
+    def esim_profiles(self) -> EsimProfileListInstance:
         if self._esim_profiles is None:
-            self._esim_profiles = EsimProfileList(self)
+            self._esim_profiles = EsimProfileListInstance(self)
         return self._esim_profiles
 
     @property
-    def fleets(self) -> FleetList:
+    def fleets(self) -> FleetListInstance:
         if self._fleets is None:
-            self._fleets = FleetList(self)
+            self._fleets = FleetListInstance(self)
         return self._fleets
 
     @property
-    def ip_commands(self) -> IpCommandList:
+    def ip_commands(self) -> IpCommandListInstance:
         if self._ip_commands is None:
-            self._ip_commands = IpCommandList(self)
+            self._ip_commands = IpCommandListInstance(self)
         return self._ip_commands
 
     @property
-    def networks(self) -> NetworkList:
+    def networks(self) -> NetworkListInstance:
         if self._networks is None:
-            self._networks = NetworkList(self)
+            self._networks = NetworkListInstance(self)
         return self._networks
 
     @property
-    def network_access_profiles(self) -> NetworkAccessProfileList:
+    def network_access_profiles(self) -> NetworkAccessProfileListInstance:
         if self._network_access_profiles is None:
-            self._network_access_profiles = NetworkAccessProfileList(self)
+            self._network_access_profiles = NetworkAccessProfileListInstance(self)
         return self._network_access_profiles
 
     @property
-    def settings_updates(self) -> SettingsUpdateList:
+    def settings_updates(self) -> SettingsUpdateListInstance:
         if self._settings_updates is None:
-            self._settings_updates = SettingsUpdateList(self)
+            self._settings_updates = SettingsUpdateListInstance(self)
         return self._settings_updates
 
     @property
-    def sims(self) -> SimList:
+    def sims(self) -> SimListInstance:
         if self._sims is None:
-            self._sims = SimList(self)
+            self._sims = SimListInstance(self)
         return self._sims
 
     @property
-    def sms_commands(self) -> SmsCommandList:
+    def sms_commands(self) -> SmsCommandListInstance:
         if self._sms_commands is None:
-            self._sms_commands = SmsCommandList(self)
+            self._sms_commands = SmsCommandListInstance(self)
         return self._sms_commands
 
     @property
-    def usage_records(self) -> UsageRecordList:
+    def usage_records(self) -> UsageRecordListInstance:
         if self._usage_records is None:
-            self._usage_records = UsageRecordList(self)
+            self._usage_records = UsageRecordListInstance(self)
         return self._usage_records
 
     def __repr__(self) -> str:

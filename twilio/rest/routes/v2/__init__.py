@@ -23,7 +23,7 @@ class V2(Version):
 
     def __init__(self, domain: Domain):
         """
-        Initialize the V2 version of routes
+        Initialize the V2 version of Routes
 
         :param domain: The Twilio.routes domain
         """
@@ -34,21 +34,21 @@ class V2(Version):
         self._trunks = None
         
     @property
-    def phone_numbers(self) -> PhoneNumberList:
+    def phone_numbers(self) -> PhoneNumberListInstance:
         if self._phone_numbers is None:
-            self._phone_numbers = PhoneNumberList(self)
+            self._phone_numbers = PhoneNumberListInstance(self)
         return self._phone_numbers
 
     @property
-    def sip_domains(self) -> SipDomainList:
+    def sip_domains(self) -> SipDomainListInstance:
         if self._sip_domains is None:
-            self._sip_domains = SipDomainList(self)
+            self._sip_domains = SipDomainListInstance(self)
         return self._sip_domains
 
     @property
-    def trunks(self) -> TrunkList:
+    def trunks(self) -> TrunkListInstance:
         if self._trunks is None:
-            self._trunks = TrunkList(self)
+            self._trunks = TrunkListInstance(self)
         return self._trunks
 
     def __repr__(self) -> str:

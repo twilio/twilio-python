@@ -21,7 +21,7 @@ class V1(Version):
 
     def __init__(self, domain: Domain):
         """
-        Initialize the V1 version of frontline_api
+        Initialize the V1 version of FrontlineApi
 
         :param domain: The Twilio.frontline_api domain
         """
@@ -30,9 +30,9 @@ class V1(Version):
         self._users = None
         
     @property
-    def users(self) -> UserList:
+    def users(self) -> UserListInstance:
         if self._users is None:
-            self._users = UserList(self)
+            self._users = UserListInstance(self)
         return self._users
 
     def __repr__(self) -> str:

@@ -21,7 +21,7 @@ class V2(Version):
 
     def __init__(self, domain: Domain):
         """
-        Initialize the V2 version of flex_api
+        Initialize the V2 version of FlexApi
 
         :param domain: The Twilio.flex_api domain
         """
@@ -30,9 +30,9 @@ class V2(Version):
         self._web_channels = None
         
     @property
-    def web_channels(self) -> WebChannelsList:
+    def web_channels(self) -> WebChannelsListInstance:
         if self._web_channels is None:
-            self._web_channels = WebChannelsList(self)
+            self._web_channels = WebChannelsListInstance(self)
         return self._web_channels
 
     def __repr__(self) -> str:

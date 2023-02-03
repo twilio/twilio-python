@@ -24,7 +24,7 @@ class V1(Version):
 
     def __init__(self, domain: Domain):
         """
-        Initialize the V1 version of wireless
+        Initialize the V1 version of Wireless
 
         :param domain: The Twilio.wireless domain
         """
@@ -36,27 +36,27 @@ class V1(Version):
         self._usage_records = None
         
     @property
-    def commands(self) -> CommandList:
+    def commands(self) -> CommandListInstance:
         if self._commands is None:
-            self._commands = CommandList(self)
+            self._commands = CommandListInstance(self)
         return self._commands
 
     @property
-    def rate_plans(self) -> RatePlanList:
+    def rate_plans(self) -> RatePlanListInstance:
         if self._rate_plans is None:
-            self._rate_plans = RatePlanList(self)
+            self._rate_plans = RatePlanListInstance(self)
         return self._rate_plans
 
     @property
-    def sims(self) -> SimList:
+    def sims(self) -> SimListInstance:
         if self._sims is None:
-            self._sims = SimList(self)
+            self._sims = SimListInstance(self)
         return self._sims
 
     @property
-    def usage_records(self) -> UsageRecordList:
+    def usage_records(self) -> UsageRecordListInstance:
         if self._usage_records is None:
-            self._usage_records = UsageRecordList(self)
+            self._usage_records = UsageRecordListInstance(self)
         return self._usage_records
 
     def __repr__(self) -> str:

@@ -21,7 +21,7 @@ class V2(Version):
 
     def __init__(self, domain: Domain):
         """
-        Initialize the V2 version of numbers
+        Initialize the V2 version of Numbers
 
         :param domain: The Twilio.numbers domain
         """
@@ -30,9 +30,9 @@ class V2(Version):
         self._regulatory_compliance = None
         
     @property
-    def regulatory_compliance(self) -> RegulatoryComplianceList:
+    def regulatory_compliance(self) -> RegulatoryComplianceListInstance:
         if self._regulatory_compliance is None:
-            self._regulatory_compliance = RegulatoryComplianceList(self)
+            self._regulatory_compliance = RegulatoryComplianceListInstance(self)
         return self._regulatory_compliance
 
     def __repr__(self) -> str:

@@ -22,7 +22,7 @@ class V1(Version):
 
     def __init__(self, domain: Domain):
         """
-        Initialize the V1 version of bulkexports
+        Initialize the V1 version of Bulkexports
 
         :param domain: The Twilio.bulkexports domain
         """
@@ -32,15 +32,15 @@ class V1(Version):
         self._export_configuration = None
         
     @property
-    def exports(self) -> ExportList:
+    def exports(self) -> ExportListInstance:
         if self._exports is None:
-            self._exports = ExportList(self)
+            self._exports = ExportListInstance(self)
         return self._exports
 
     @property
-    def export_configuration(self) -> ExportConfigurationList:
+    def export_configuration(self) -> ExportConfigurationListInstance:
         if self._export_configuration is None:
-            self._export_configuration = ExportConfigurationList(self)
+            self._export_configuration = ExportConfigurationListInstance(self)
         return self._export_configuration
 
     def __repr__(self) -> str:

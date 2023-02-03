@@ -28,7 +28,7 @@ class V1(Version):
 
     def __init__(self, domain: Domain):
         """
-        Initialize the V1 version of messaging
+        Initialize the V1 version of Messaging
 
         :param domain: The Twilio.messaging domain
         """
@@ -44,51 +44,51 @@ class V1(Version):
         self._usecases = None
         
     @property
-    def brand_registrations(self) -> BrandRegistrationList:
+    def brand_registrations(self) -> BrandRegistrationListInstance:
         if self._brand_registrations is None:
-            self._brand_registrations = BrandRegistrationList(self)
+            self._brand_registrations = BrandRegistrationListInstance(self)
         return self._brand_registrations
 
     @property
-    def deactivations(self) -> DeactivationsList:
+    def deactivations(self) -> DeactivationsListInstance:
         if self._deactivations is None:
-            self._deactivations = DeactivationsList(self)
+            self._deactivations = DeactivationsListInstance(self)
         return self._deactivations
 
     @property
-    def domain_certs(self) -> DomainCertsList:
+    def domain_certs(self) -> DomainCertsListInstance:
         if self._domain_certs is None:
-            self._domain_certs = DomainCertsList(self)
+            self._domain_certs = DomainCertsListInstance(self)
         return self._domain_certs
 
     @property
-    def domain_config(self) -> DomainConfigList:
+    def domain_config(self) -> DomainConfigListInstance:
         if self._domain_config is None:
-            self._domain_config = DomainConfigList(self)
+            self._domain_config = DomainConfigListInstance(self)
         return self._domain_config
 
     @property
-    def external_campaign(self) -> ExternalCampaignList:
+    def external_campaign(self) -> ExternalCampaignListInstance:
         if self._external_campaign is None:
-            self._external_campaign = ExternalCampaignList(self)
+            self._external_campaign = ExternalCampaignListInstance(self)
         return self._external_campaign
 
     @property
-    def services(self) -> ServiceList:
+    def services(self) -> ServiceListInstance:
         if self._services is None:
-            self._services = ServiceList(self)
+            self._services = ServiceListInstance(self)
         return self._services
 
     @property
-    def tollfree_verifications(self) -> TollfreeVerificationList:
+    def tollfree_verifications(self) -> TollfreeVerificationListInstance:
         if self._tollfree_verifications is None:
-            self._tollfree_verifications = TollfreeVerificationList(self)
+            self._tollfree_verifications = TollfreeVerificationListInstance(self)
         return self._tollfree_verifications
 
     @property
-    def usecases(self) -> UsecaseList:
+    def usecases(self) -> UsecaseListInstance:
         if self._usecases is None:
-            self._usecases = UsecaseList(self)
+            self._usecases = UsecaseListInstance(self)
         return self._usecases
 
     def __repr__(self) -> str:

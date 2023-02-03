@@ -26,7 +26,7 @@ class V1(Version):
 
     def __init__(self, domain: Domain):
         """
-        Initialize the V1 version of voice
+        Initialize the V1 version of Voice
 
         :param domain: The Twilio.voice domain
         """
@@ -40,39 +40,39 @@ class V1(Version):
         self._source_ip_mappings = None
         
     @property
-    def archived_calls(self) -> ArchivedCallList:
+    def archived_calls(self) -> ArchivedCallListInstance:
         if self._archived_calls is None:
-            self._archived_calls = ArchivedCallList(self)
+            self._archived_calls = ArchivedCallListInstance(self)
         return self._archived_calls
 
     @property
-    def byoc_trunks(self) -> ByocTrunkList:
+    def byoc_trunks(self) -> ByocTrunkListInstance:
         if self._byoc_trunks is None:
-            self._byoc_trunks = ByocTrunkList(self)
+            self._byoc_trunks = ByocTrunkListInstance(self)
         return self._byoc_trunks
 
     @property
-    def connection_policies(self) -> ConnectionPolicyList:
+    def connection_policies(self) -> ConnectionPolicyListInstance:
         if self._connection_policies is None:
-            self._connection_policies = ConnectionPolicyList(self)
+            self._connection_policies = ConnectionPolicyListInstance(self)
         return self._connection_policies
 
     @property
-    def dialing_permissions(self) -> DialingPermissionsList:
+    def dialing_permissions(self) -> DialingPermissionsListInstance:
         if self._dialing_permissions is None:
-            self._dialing_permissions = DialingPermissionsList(self)
+            self._dialing_permissions = DialingPermissionsListInstance(self)
         return self._dialing_permissions
 
     @property
-    def ip_records(self) -> IpRecordList:
+    def ip_records(self) -> IpRecordListInstance:
         if self._ip_records is None:
-            self._ip_records = IpRecordList(self)
+            self._ip_records = IpRecordListInstance(self)
         return self._ip_records
 
     @property
-    def source_ip_mappings(self) -> SourceIpMappingList:
+    def source_ip_mappings(self) -> SourceIpMappingListInstance:
         if self._source_ip_mappings is None:
-            self._source_ip_mappings = SourceIpMappingList(self)
+            self._source_ip_mappings = SourceIpMappingListInstance(self)
         return self._source_ip_mappings
 
     def __repr__(self) -> str:

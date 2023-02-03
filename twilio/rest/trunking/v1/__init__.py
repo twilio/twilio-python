@@ -21,7 +21,7 @@ class V1(Version):
 
     def __init__(self, domain: Domain):
         """
-        Initialize the V1 version of trunking
+        Initialize the V1 version of Trunking
 
         :param domain: The Twilio.trunking domain
         """
@@ -30,9 +30,9 @@ class V1(Version):
         self._trunks = None
         
     @property
-    def trunks(self) -> TrunkList:
+    def trunks(self) -> TrunkListInstance:
         if self._trunks is None:
-            self._trunks = TrunkList(self)
+            self._trunks = TrunkListInstance(self)
         return self._trunks
 
     def __repr__(self) -> str:

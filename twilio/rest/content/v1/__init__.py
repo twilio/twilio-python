@@ -21,7 +21,7 @@ class V1(Version):
 
     def __init__(self, domain: Domain):
         """
-        Initialize the V1 version of content
+        Initialize the V1 version of Content
 
         :param domain: The Twilio.content domain
         """
@@ -30,9 +30,9 @@ class V1(Version):
         self._contents = None
         
     @property
-    def contents(self) -> ContentList:
+    def contents(self) -> ContentListInstance:
         if self._contents is None:
-            self._contents = ContentList(self)
+            self._contents = ContentListInstance(self)
         return self._contents
 
     def __repr__(self) -> str:

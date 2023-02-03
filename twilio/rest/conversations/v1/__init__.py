@@ -28,7 +28,7 @@ class V1(Version):
 
     def __init__(self, domain: Domain):
         """
-        Initialize the V1 version of conversations
+        Initialize the V1 version of Conversations
 
         :param domain: The Twilio.conversations domain
         """
@@ -44,51 +44,51 @@ class V1(Version):
         self._users = None
         
     @property
-    def address_configurations(self) -> AddressConfigurationList:
+    def address_configurations(self) -> AddressConfigurationListInstance:
         if self._address_configurations is None:
-            self._address_configurations = AddressConfigurationList(self)
+            self._address_configurations = AddressConfigurationListInstance(self)
         return self._address_configurations
 
     @property
-    def configuration(self) -> ConfigurationList:
+    def configuration(self) -> ConfigurationListInstance:
         if self._configuration is None:
-            self._configuration = ConfigurationList(self)
+            self._configuration = ConfigurationListInstance(self)
         return self._configuration
 
     @property
-    def conversations(self) -> ConversationList:
+    def conversations(self) -> ConversationListInstance:
         if self._conversations is None:
-            self._conversations = ConversationList(self)
+            self._conversations = ConversationListInstance(self)
         return self._conversations
 
     @property
-    def credentials(self) -> CredentialList:
+    def credentials(self) -> CredentialListInstance:
         if self._credentials is None:
-            self._credentials = CredentialList(self)
+            self._credentials = CredentialListInstance(self)
         return self._credentials
 
     @property
-    def participant_conversations(self) -> ParticipantConversationList:
+    def participant_conversations(self) -> ParticipantConversationListInstance:
         if self._participant_conversations is None:
-            self._participant_conversations = ParticipantConversationList(self)
+            self._participant_conversations = ParticipantConversationListInstance(self)
         return self._participant_conversations
 
     @property
-    def roles(self) -> RoleList:
+    def roles(self) -> RoleListInstance:
         if self._roles is None:
-            self._roles = RoleList(self)
+            self._roles = RoleListInstance(self)
         return self._roles
 
     @property
-    def services(self) -> ServiceList:
+    def services(self) -> ServiceListInstance:
         if self._services is None:
-            self._services = ServiceList(self)
+            self._services = ServiceListInstance(self)
         return self._services
 
     @property
-    def users(self) -> UserList:
+    def users(self) -> UserListInstance:
         if self._users is None:
-            self._users = UserList(self)
+            self._users = UserListInstance(self)
         return self._users
 
     def __repr__(self) -> str:

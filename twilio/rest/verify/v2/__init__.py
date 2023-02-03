@@ -26,7 +26,7 @@ class V2(Version):
 
     def __init__(self, domain: Domain):
         """
-        Initialize the V2 version of verify
+        Initialize the V2 version of Verify
 
         :param domain: The Twilio.verify domain
         """
@@ -40,39 +40,39 @@ class V2(Version):
         self._verification_attempts_summary = None
         
     @property
-    def forms(self) -> FormList:
+    def forms(self) -> FormListInstance:
         if self._forms is None:
-            self._forms = FormList(self)
+            self._forms = FormListInstance(self)
         return self._forms
 
     @property
-    def safelist(self) -> SafelistList:
+    def safelist(self) -> SafelistListInstance:
         if self._safelist is None:
-            self._safelist = SafelistList(self)
+            self._safelist = SafelistListInstance(self)
         return self._safelist
 
     @property
-    def services(self) -> ServiceList:
+    def services(self) -> ServiceListInstance:
         if self._services is None:
-            self._services = ServiceList(self)
+            self._services = ServiceListInstance(self)
         return self._services
 
     @property
-    def templates(self) -> TemplateList:
+    def templates(self) -> TemplateListInstance:
         if self._templates is None:
-            self._templates = TemplateList(self)
+            self._templates = TemplateListInstance(self)
         return self._templates
 
     @property
-    def verification_attempts(self) -> VerificationAttemptList:
+    def verification_attempts(self) -> VerificationAttemptListInstance:
         if self._verification_attempts is None:
-            self._verification_attempts = VerificationAttemptList(self)
+            self._verification_attempts = VerificationAttemptListInstance(self)
         return self._verification_attempts
 
     @property
-    def verification_attempts_summary(self) -> VerificationAttemptsSummaryList:
+    def verification_attempts_summary(self) -> VerificationAttemptsSummaryListInstance:
         if self._verification_attempts_summary is None:
-            self._verification_attempts_summary = VerificationAttemptsSummaryList(self)
+            self._verification_attempts_summary = VerificationAttemptsSummaryListInstance(self)
         return self._verification_attempts_summary
 
     def __repr__(self) -> str:

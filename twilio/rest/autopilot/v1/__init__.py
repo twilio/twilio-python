@@ -22,7 +22,7 @@ class V1(Version):
 
     def __init__(self, domain: Domain):
         """
-        Initialize the V1 version of autopilot
+        Initialize the V1 version of Autopilot
 
         :param domain: The Twilio.autopilot domain
         """
@@ -32,15 +32,15 @@ class V1(Version):
         self._restore_assistant = None
         
     @property
-    def assistants(self) -> AssistantList:
+    def assistants(self) -> AssistantListInstance:
         if self._assistants is None:
-            self._assistants = AssistantList(self)
+            self._assistants = AssistantListInstance(self)
         return self._assistants
 
     @property
-    def restore_assistant(self) -> RestoreAssistantList:
+    def restore_assistant(self) -> RestoreAssistantListInstance:
         if self._restore_assistant is None:
-            self._restore_assistant = RestoreAssistantList(self)
+            self._restore_assistant = RestoreAssistantListInstance(self)
         return self._restore_assistant
 
     def __repr__(self) -> str:

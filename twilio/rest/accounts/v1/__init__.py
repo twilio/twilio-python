@@ -23,7 +23,7 @@ class V1(Version):
 
     def __init__(self, domain: Domain):
         """
-        Initialize the V1 version of accounts
+        Initialize the V1 version of Accounts
 
         :param domain: The Twilio.accounts domain
         """
@@ -34,21 +34,21 @@ class V1(Version):
         self._secondary_auth_token = None
         
     @property
-    def auth_token_promotion(self) -> AuthTokenPromotionList:
+    def auth_token_promotion(self) -> AuthTokenPromotionListInstance:
         if self._auth_token_promotion is None:
-            self._auth_token_promotion = AuthTokenPromotionList(self)
+            self._auth_token_promotion = AuthTokenPromotionListInstance(self)
         return self._auth_token_promotion
 
     @property
-    def credentials(self) -> CredentialList:
+    def credentials(self) -> CredentialListInstance:
         if self._credentials is None:
-            self._credentials = CredentialList(self)
+            self._credentials = CredentialListInstance(self)
         return self._credentials
 
     @property
-    def secondary_auth_token(self) -> SecondaryAuthTokenList:
+    def secondary_auth_token(self) -> SecondaryAuthTokenListInstance:
         if self._secondary_auth_token is None:
-            self._secondary_auth_token = SecondaryAuthTokenList(self)
+            self._secondary_auth_token = SecondaryAuthTokenListInstance(self)
         return self._secondary_auth_token
 
     def __repr__(self) -> str:

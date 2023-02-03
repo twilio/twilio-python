@@ -25,7 +25,7 @@ class V1(Version):
 
     def __init__(self, domain: Domain):
         """
-        Initialize the V1 version of insights
+        Initialize the V1 version of Insights
 
         :param domain: The Twilio.insights domain
         """
@@ -38,33 +38,33 @@ class V1(Version):
         self._settings = None
         
     @property
-    def calls(self) -> CallList:
+    def calls(self) -> CallListInstance:
         if self._calls is None:
-            self._calls = CallList(self)
+            self._calls = CallListInstance(self)
         return self._calls
 
     @property
-    def call_summaries(self) -> CallSummariesList:
+    def call_summaries(self) -> CallSummariesListInstance:
         if self._call_summaries is None:
-            self._call_summaries = CallSummariesList(self)
+            self._call_summaries = CallSummariesListInstance(self)
         return self._call_summaries
 
     @property
-    def conferences(self) -> ConferenceList:
+    def conferences(self) -> ConferenceListInstance:
         if self._conferences is None:
-            self._conferences = ConferenceList(self)
+            self._conferences = ConferenceListInstance(self)
         return self._conferences
 
     @property
-    def rooms(self) -> RoomList:
+    def rooms(self) -> RoomListInstance:
         if self._rooms is None:
-            self._rooms = RoomList(self)
+            self._rooms = RoomListInstance(self)
         return self._rooms
 
     @property
-    def settings(self) -> SettingList:
+    def settings(self) -> SettingListInstance:
         if self._settings is None:
-            self._settings = SettingList(self)
+            self._settings = SettingListInstance(self)
         return self._settings
 
     def __repr__(self) -> str:
