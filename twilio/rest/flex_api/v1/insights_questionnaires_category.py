@@ -50,6 +50,87 @@ class InsightsQuestionnairesCategoryList(ListResource):
 
         return InsightsQuestionnairesCategoryInstance(self._version, payload, )
 
+    def stream(self, token=values.unset, limit=None, page_size=None):
+        """
+        Streams InsightsQuestionnairesCategoryInstance records from the API as a generator stream.
+        This operation lazily loads records as efficiently as possible until the limit
+        is reached.
+        The results are returned as a generator, so this operation is memory efficient.
+
+        :param unicode token: The Token HTTP request header
+        :param int limit: Upper limit for the number of records to return. stream()
+                          guarantees to never return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, stream() will attempt to read the
+                              limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.flex_api.v1.insights_questionnaires_category.InsightsQuestionnairesCategoryInstance]
+        """
+        limits = self._version.read_limits(limit, page_size)
+
+        page = self.page(token=token, page_size=limits['page_size'], )
+
+        return self._version.stream(page, limits['limit'])
+
+    def list(self, token=values.unset, limit=None, page_size=None):
+        """
+        Lists InsightsQuestionnairesCategoryInstance records from the API as a list.
+        Unlike stream(), this operation is eager and will load `limit` records into
+        memory before returning.
+
+        :param unicode token: The Token HTTP request header
+        :param int limit: Upper limit for the number of records to return. list() guarantees
+                          never to return more than limit.  Default is no limit
+        :param int page_size: Number of records to fetch per request, when not set will use
+                              the default value of 50 records.  If no page_size is defined
+                              but a limit is defined, list() will attempt to read the limit
+                              with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: Generator that will yield up to limit results
+        :rtype: list[twilio.rest.flex_api.v1.insights_questionnaires_category.InsightsQuestionnairesCategoryInstance]
+        """
+        return list(self.stream(token=token, limit=limit, page_size=page_size, ))
+
+    def page(self, token=values.unset, page_token=values.unset,
+             page_number=values.unset, page_size=values.unset):
+        """
+        Retrieve a single page of InsightsQuestionnairesCategoryInstance records from the API.
+        Request is executed immediately
+
+        :param unicode token: The Token HTTP request header
+        :param str page_token: PageToken provided by the API
+        :param int page_number: Page Number, this value is simply for client state
+        :param int page_size: Number of records to return, defaults to 50
+
+        :returns: Page of InsightsQuestionnairesCategoryInstance
+        :rtype: twilio.rest.flex_api.v1.insights_questionnaires_category.InsightsQuestionnairesCategoryPage
+        """
+        data = values.of({'PageToken': page_token, 'Page': page_number, 'PageSize': page_size, })
+        headers = values.of({'Token': token, })
+
+        response = self._version.page(method='GET', uri=self._uri, params=data, headers=headers, )
+
+        return InsightsQuestionnairesCategoryPage(self._version, response, self._solution)
+
+    def get_page(self, target_url):
+        """
+        Retrieve a specific page of InsightsQuestionnairesCategoryInstance records from the API.
+        Request is executed immediately
+
+        :param str target_url: API-generated URL for the requested results page
+
+        :returns: Page of InsightsQuestionnairesCategoryInstance
+        :rtype: twilio.rest.flex_api.v1.insights_questionnaires_category.InsightsQuestionnairesCategoryPage
+        """
+        response = self._version.domain.twilio.request(
+            'GET',
+            target_url,
+        )
+
+        return InsightsQuestionnairesCategoryPage(self._version, response, self._solution)
+
     def get(self, category_id):
         """
         Constructs a InsightsQuestionnairesCategoryContext

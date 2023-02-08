@@ -18,9 +18,9 @@ class InsightsUserRolesTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.flex_api.v1.insights_user_roles().fetch(token="token")
+            self.client.flex_api.v1.insights_user_roles().fetch(authorization="authorization")
 
-        headers = {'Token': "token", }
+        headers = {'Authorization': "authorization", }
         self.holodeck.assert_has_request(Request(
             'get',
             'https://flex-api.twilio.com/v1/Insights/UserRoles',

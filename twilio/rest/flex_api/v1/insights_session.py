@@ -14,6 +14,9 @@ from twilio.base.page import Page
 
 
 class InsightsSessionList(ListResource):
+    """ PLEASE NOTE that this class contains preview products that are subject
+    to change. Use them with caution. If you currently do not have developer
+    preview access, please contact help@twilio.com. """
 
     def __init__(self, version):
         """
@@ -58,6 +61,9 @@ class InsightsSessionList(ListResource):
 
 
 class InsightsSessionPage(Page):
+    """ PLEASE NOTE that this class contains preview products that are subject
+    to change. Use them with caution. If you currently do not have developer
+    preview access, please contact help@twilio.com. """
 
     def __init__(self, version, response, solution):
         """
@@ -96,6 +102,9 @@ class InsightsSessionPage(Page):
 
 
 class InsightsSessionContext(InstanceContext):
+    """ PLEASE NOTE that this class contains preview products that are subject
+    to change. Use them with caution. If you currently do not have developer
+    preview access, please contact help@twilio.com. """
 
     def __init__(self, version):
         """
@@ -112,16 +121,16 @@ class InsightsSessionContext(InstanceContext):
         self._solution = {}
         self._uri = '/Insights/Session'.format(**self._solution)
 
-    def create(self, token=values.unset):
+    def create(self, authorization=values.unset):
         """
         Create the InsightsSessionInstance
 
-        :param unicode token: The Token HTTP request header
+        :param unicode authorization: The Authorization HTTP request header
 
         :returns: The created InsightsSessionInstance
         :rtype: twilio.rest.flex_api.v1.insights_session.InsightsSessionInstance
         """
-        headers = values.of({'Token': token, })
+        headers = values.of({'Authorization': authorization, })
 
         payload = self._version.create(method='POST', uri=self._uri, headers=headers, )
 
@@ -139,6 +148,9 @@ class InsightsSessionContext(InstanceContext):
 
 
 class InsightsSessionInstance(InstanceResource):
+    """ PLEASE NOTE that this class contains preview products that are subject
+    to change. Use them with caution. If you currently do not have developer
+    preview access, please contact help@twilio.com. """
 
     def __init__(self, version, payload):
         """
@@ -215,16 +227,16 @@ class InsightsSessionInstance(InstanceResource):
         """
         return self._properties['url']
 
-    def create(self, token=values.unset):
+    def create(self, authorization=values.unset):
         """
         Create the InsightsSessionInstance
 
-        :param unicode token: The Token HTTP request header
+        :param unicode authorization: The Authorization HTTP request header
 
         :returns: The created InsightsSessionInstance
         :rtype: twilio.rest.flex_api.v1.insights_session.InsightsSessionInstance
         """
-        return self._proxy.create(token=token, )
+        return self._proxy.create(authorization=authorization, )
 
     def __repr__(self):
         """

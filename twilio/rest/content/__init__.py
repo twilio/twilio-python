@@ -43,6 +43,13 @@ class Content(Domain):
         """
         return self.v1.contents
 
+    @property
+    def legacy_contents(self):
+        """
+        :rtype: twilio.rest.content.v1.legacy_content.LegacyContentList
+        """
+        return self.v1.legacy_contents
+
     def __repr__(self):
         """
         Provide a friendly representation

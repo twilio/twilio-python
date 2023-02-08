@@ -18,9 +18,9 @@ class InsightsSessionTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.flex_api.v1.insights_session().create(token="token")
+            self.client.flex_api.v1.insights_session().create(authorization="authorization")
 
-        headers = {'Token': "token", }
+        headers = {'Authorization': "authorization", }
         self.holodeck.assert_has_request(Request(
             'post',
             'https://flex-api.twilio.com/v1/Insights/Session',

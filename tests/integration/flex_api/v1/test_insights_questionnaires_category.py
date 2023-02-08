@@ -88,6 +88,72 @@ class InsightsQuestionnairesCategoryTestCase(IntegrationTestCase):
 
         self.assertIsNotNone(actual)
 
+    def test_list_request(self):
+        self.holodeck.mock(Response(500, ''))
+
+        with self.assertRaises(TwilioException):
+            self.client.flex_api.v1.insights_questionnaires_category.list(token="token")
+
+        headers = {'Token': "token", }
+        self.holodeck.assert_has_request(Request(
+            'get',
+            'https://flex-api.twilio.com/v1/Insights/QM/Categories',
+            headers=headers,
+        ))
+
+    def test_read_empty_response(self):
+        self.holodeck.mock(Response(
+            200,
+            '''
+            {
+                "categories": [],
+                "meta": {
+                    "page": 0,
+                    "page_size": 50,
+                    "first_page_url": "https://flex-api.twilio.com/v1/Insights/QM/Categories?PageSize=50&Page=0",
+                    "previous_page_url": null,
+                    "url": "https://flex-api.twilio.com/v1/Insights/QM/Categories?PageSize=50&Page=0",
+                    "next_page_url": null,
+                    "key": "categories"
+                }
+            }
+            '''
+        ))
+
+        actual = self.client.flex_api.v1.insights_questionnaires_category.list()
+
+        self.assertIsNotNone(actual)
+
+    def test_read_full_response(self):
+        self.holodeck.mock(Response(
+            200,
+            '''
+            {
+                "categories": [
+                    {
+                        "category_id": "4b4e78e4-4f05-49e2-bf52-0973c5cde418",
+                        "name": "Test1",
+                        "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                        "url": "https://flex-api.twilio.com/v1/Insights/QM/Categories/4b4e78e4-4f05-49e2-bf52-0973c5cde418"
+                    }
+                ],
+                "meta": {
+                    "page": 0,
+                    "page_size": 50,
+                    "first_page_url": "https://flex-api.twilio.com/v1/Insights/QM/Categories?PageSize=50&Page=0",
+                    "previous_page_url": null,
+                    "url": "https://flex-api.twilio.com/v1/Insights/QM/Categories?PageSize=50&Page=0",
+                    "next_page_url": null,
+                    "key": "categories"
+                }
+            }
+            '''
+        ))
+
+        actual = self.client.flex_api.v1.insights_questionnaires_category.list()
+
+        self.assertIsNotNone(actual)
+
     def test_delete_request(self):
         self.holodeck.mock(Response(500, ''))
 

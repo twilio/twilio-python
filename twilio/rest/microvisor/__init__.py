@@ -37,6 +37,20 @@ class Microvisor(Domain):
         return self._v1
 
     @property
+    def account_configs(self):
+        """
+        :rtype: twilio.rest.microvisor.v1.account_config.AccountConfigList
+        """
+        return self.v1.account_configs
+
+    @property
+    def account_secrets(self):
+        """
+        :rtype: twilio.rest.microvisor.v1.account_secret.AccountSecretList
+        """
+        return self.v1.account_secrets
+
+    @property
     def apps(self):
         """
         :rtype: twilio.rest.microvisor.v1.app.AppList

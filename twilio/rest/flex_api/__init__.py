@@ -77,6 +77,20 @@ class FlexApi(Domain):
         return self.v1.assessments
 
     @property
+    def insights_assessments_comment(self):
+        """
+        :rtype: twilio.rest.flex_api.v1.insights_assessments_comment.InsightsAssessmentsCommentList
+        """
+        return self.v1.insights_assessments_comment
+
+    @property
+    def insights_questionnaires(self):
+        """
+        :rtype: twilio.rest.flex_api.v1.insights_questionnaires.InsightsQuestionnairesList
+        """
+        return self.v1.insights_questionnaires
+
+    @property
     def insights_questionnaires_category(self):
         """
         :rtype: twilio.rest.flex_api.v1.insights_questionnaires_category.InsightsQuestionnairesCategoryList
@@ -89,6 +103,13 @@ class FlexApi(Domain):
         :rtype: twilio.rest.flex_api.v1.insights_questionnaires_question.InsightsQuestionnairesQuestionList
         """
         return self.v1.insights_questionnaires_question
+
+    @property
+    def insights_segments(self):
+        """
+        :rtype: twilio.rest.flex_api.v1.insights_segments.InsightsSegmentsList
+        """
+        return self.v1.insights_segments
 
     @property
     def insights_session(self):

@@ -55,6 +55,7 @@ class InsightsQuestionnairesQuestionTestCase(IntegrationTestCase):
                 },
                 "answer_set_id": "a6a8a54f-5305-4aec-b92c-a6e429932f58",
                 "allow_na": false,
+                "usage": 0,
                 "url": "https://flex-api.twilio.com/v1/Insights/QM/Questions/945ac7ff-8afc-4606-be76-e94b1a80cd72"
             }
             '''
@@ -68,14 +69,9 @@ class InsightsQuestionnairesQuestionTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.flex_api.v1.insights_questionnaires_question("question_id").update(question="question", description="description", answer_set_id="answer_set_id", allow_na=True, token="token")
+            self.client.flex_api.v1.insights_questionnaires_question("question_id").update(allow_na=True, token="token")
 
-        values = {
-            'Question': "question",
-            'Description': "description",
-            'AnswerSetId': "answer_set_id",
-            'AllowNa': True,
-        }
+        values = {'AllowNa': True, }
 
         headers = {'Token': "token", }
         self.holodeck.assert_has_request(Request(
@@ -104,12 +100,87 @@ class InsightsQuestionnairesQuestionTestCase(IntegrationTestCase):
                 },
                 "answer_set_id": "a6a8a54f-5305-4aec-b92c-a6e429932f58",
                 "allow_na": false,
+                "usage": 0,
                 "url": "https://flex-api.twilio.com/v1/Insights/QM/Questions/945ac7ff-8afc-4606-be76-e94b1a80cd72"
             }
             '''
         ))
 
-        actual = self.client.flex_api.v1.insights_questionnaires_question("question_id").update(question="question", description="description", answer_set_id="answer_set_id", allow_na=True)
+        actual = self.client.flex_api.v1.insights_questionnaires_question("question_id").update(allow_na=True)
+
+        self.assertIsNotNone(actual)
+
+    def test_list_request(self):
+        self.holodeck.mock(Response(500, ''))
+
+        with self.assertRaises(TwilioException):
+            self.client.flex_api.v1.insights_questionnaires_question.list(token="token")
+
+        headers = {'Token': "token", }
+        self.holodeck.assert_has_request(Request(
+            'get',
+            'https://flex-api.twilio.com/v1/Insights/QM/Questions',
+            headers=headers,
+        ))
+
+    def test_read_empty_response(self):
+        self.holodeck.mock(Response(
+            200,
+            '''
+            {
+                "questions": [],
+                "meta": {
+                    "page": 0,
+                    "page_size": 50,
+                    "first_page_url": "https://flex-api.twilio.com/v1/Insights/QM/Questions?CategoryId=4b4e78e4-4f05-49e2-bf52-0973c5cde419&PageSize=50&Page=0",
+                    "previous_page_url": null,
+                    "url": "https://flex-api.twilio.com/v1/Insights/QM/Questions?CategoryId=4b4e78e4-4f05-49e2-bf52-0973c5cde419&PageSize=50&Page=0",
+                    "next_page_url": null,
+                    "key": "questions"
+                }
+            }
+            '''
+        ))
+
+        actual = self.client.flex_api.v1.insights_questionnaires_question.list()
+
+        self.assertIsNotNone(actual)
+
+    def test_read_full_response(self):
+        self.holodeck.mock(Response(
+            200,
+            '''
+            {
+                "questions": [
+                    {
+                        "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                        "question": "What is the total time",
+                        "question_id": "945ac7ff-8afc-4606-be76-e94b1a80cd72",
+                        "description": "time spent",
+                        "category": {
+                            "category_name": "test cat",
+                            "category_id": "4b4e78e4-4f05-49e2-bf52-0973c5cde418"
+                        },
+                        "answer_set_id": "a6a8a54f-5305-4aec-b92c-a6e429932f58",
+                        "allow_na": false,
+                        "usage": 0,
+                        "url": "https://flex-api.twilio.com/v1/Insights/QM/Questions/945ac7ff-8afc-4606-be76-e94b1a80cd72"
+                    }
+                ],
+                "meta": {
+                    "page": 0,
+                    "page_size": 50,
+                    "first_page_url": "https://flex-api.twilio.com/v1/Insights/QM/Questions?CategoryId=4b4e78e4-4f05-49e2-bf52-0973c5cde419&PageSize=50&Page=0",
+                    "previous_page_url": null,
+                    "url": "https://flex-api.twilio.com/v1/Insights/QM/Questions?CategoryId=4b4e78e4-4f05-49e2-bf52-0973c5cde419&PageSize=50&Page=0",
+                    "next_page_url": null,
+                    "key": "questions"
+                }
+            }
+            '''
+        ))
+
+        actual = self.client.flex_api.v1.insights_questionnaires_question.list()
 
         self.assertIsNotNone(actual)
 

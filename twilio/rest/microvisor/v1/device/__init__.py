@@ -12,6 +12,8 @@ from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.page import Page
+from twilio.rest.microvisor.v1.device.device_config import DeviceConfigList
+from twilio.rest.microvisor.v1.device.device_secret import DeviceSecretList
 
 
 class DeviceList(ListResource):
@@ -205,6 +207,10 @@ class DeviceContext(InstanceContext):
         self._solution = {'sid': sid, }
         self._uri = '/Devices/{sid}'.format(**self._solution)
 
+        # Dependents
+        self._device_configs = None
+        self._device_secrets = None
+
     def fetch(self):
         """
         Fetch the DeviceInstance
@@ -237,6 +243,30 @@ class DeviceContext(InstanceContext):
         payload = self._version.update(method='POST', uri=self._uri, data=data, )
 
         return DeviceInstance(self._version, payload, sid=self._solution['sid'], )
+
+    @property
+    def device_configs(self):
+        """
+        Access the device_configs
+
+        :returns: twilio.rest.microvisor.v1.device.device_config.DeviceConfigList
+        :rtype: twilio.rest.microvisor.v1.device.device_config.DeviceConfigList
+        """
+        if self._device_configs is None:
+            self._device_configs = DeviceConfigList(self._version, device_sid=self._solution['sid'], )
+        return self._device_configs
+
+    @property
+    def device_secrets(self):
+        """
+        Access the device_secrets
+
+        :returns: twilio.rest.microvisor.v1.device.device_secret.DeviceSecretList
+        :rtype: twilio.rest.microvisor.v1.device.device_secret.DeviceSecretList
+        """
+        if self._device_secrets is None:
+            self._device_secrets = DeviceSecretList(self._version, device_sid=self._solution['sid'], )
+        return self._device_secrets
 
     def __repr__(self):
         """
@@ -391,6 +421,26 @@ class DeviceInstance(InstanceResource):
             target_app=target_app,
             logging_enabled=logging_enabled,
         )
+
+    @property
+    def device_configs(self):
+        """
+        Access the device_configs
+
+        :returns: twilio.rest.microvisor.v1.device.device_config.DeviceConfigList
+        :rtype: twilio.rest.microvisor.v1.device.device_config.DeviceConfigList
+        """
+        return self._proxy.device_configs
+
+    @property
+    def device_secrets(self):
+        """
+        Access the device_secrets
+
+        :returns: twilio.rest.microvisor.v1.device.device_secret.DeviceSecretList
+        :rtype: twilio.rest.microvisor.v1.device.device_secret.DeviceSecretList
+        """
+        return self._proxy.device_secrets
 
     def __repr__(self):
         """

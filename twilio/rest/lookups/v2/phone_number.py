@@ -218,6 +218,8 @@ class PhoneNumberInstance(InstanceResource):
             'live_activity': payload.get('live_activity'),
             'line_type_intelligence': payload.get('line_type_intelligence'),
             'identity_match': payload.get('identity_match'),
+            'sms_pumping_risk': payload.get('sms_pumping_risk'),
+            'disposable_phone_number_risk': payload.get('disposable_phone_number_risk'),
             'url': payload.get('url'),
         }
 
@@ -333,6 +335,22 @@ class PhoneNumberInstance(InstanceResource):
         :rtype: dict
         """
         return self._properties['identity_match']
+
+    @property
+    def sms_pumping_risk(self):
+        """
+        :returns: An object that contains sms pumping risk information
+        :rtype: dict
+        """
+        return self._properties['sms_pumping_risk']
+
+    @property
+    def disposable_phone_number_risk(self):
+        """
+        :returns: An object that contains disposable phone number risk information
+        :rtype: dict
+        """
+        return self._properties['disposable_phone_number_risk']
 
     @property
     def url(self):

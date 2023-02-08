@@ -14,6 +14,9 @@ from twilio.base.page import Page
 
 
 class InsightsUserRolesList(ListResource):
+    """ PLEASE NOTE that this class contains preview products that are subject
+    to change. Use them with caution. If you currently do not have developer
+    preview access, please contact help@twilio.com. """
 
     def __init__(self, version):
         """
@@ -58,6 +61,9 @@ class InsightsUserRolesList(ListResource):
 
 
 class InsightsUserRolesPage(Page):
+    """ PLEASE NOTE that this class contains preview products that are subject
+    to change. Use them with caution. If you currently do not have developer
+    preview access, please contact help@twilio.com. """
 
     def __init__(self, version, response, solution):
         """
@@ -96,6 +102,9 @@ class InsightsUserRolesPage(Page):
 
 
 class InsightsUserRolesContext(InstanceContext):
+    """ PLEASE NOTE that this class contains preview products that are subject
+    to change. Use them with caution. If you currently do not have developer
+    preview access, please contact help@twilio.com. """
 
     def __init__(self, version):
         """
@@ -112,16 +121,16 @@ class InsightsUserRolesContext(InstanceContext):
         self._solution = {}
         self._uri = '/Insights/UserRoles'.format(**self._solution)
 
-    def fetch(self, token=values.unset):
+    def fetch(self, authorization=values.unset):
         """
         Fetch the InsightsUserRolesInstance
 
-        :param unicode token: The Token HTTP request header
+        :param unicode authorization: The Authorization HTTP request header
 
         :returns: The fetched InsightsUserRolesInstance
         :rtype: twilio.rest.flex_api.v1.insights_user_roles.InsightsUserRolesInstance
         """
-        headers = values.of({'Token': token, })
+        headers = values.of({'Authorization': authorization, })
 
         payload = self._version.fetch(method='GET', uri=self._uri, headers=headers, )
 
@@ -139,6 +148,9 @@ class InsightsUserRolesContext(InstanceContext):
 
 
 class InsightsUserRolesInstance(InstanceResource):
+    """ PLEASE NOTE that this class contains preview products that are subject
+    to change. Use them with caution. If you currently do not have developer
+    preview access, please contact help@twilio.com. """
 
     def __init__(self, version, payload):
         """
@@ -185,16 +197,16 @@ class InsightsUserRolesInstance(InstanceResource):
         """
         return self._properties['url']
 
-    def fetch(self, token=values.unset):
+    def fetch(self, authorization=values.unset):
         """
         Fetch the InsightsUserRolesInstance
 
-        :param unicode token: The Token HTTP request header
+        :param unicode authorization: The Authorization HTTP request header
 
         :returns: The fetched InsightsUserRolesInstance
         :rtype: twilio.rest.flex_api.v1.insights_user_roles.InsightsUserRolesInstance
         """
-        return self._proxy.fetch(token=token, )
+        return self._proxy.fetch(authorization=authorization, )
 
     def __repr__(self):
         """
