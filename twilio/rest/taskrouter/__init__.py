@@ -6,5 +6,5 @@ class Taskrouter(TaskrouterBase):
 
     @property
     def workspaces(self):
-        warn('workspaces() is deprecated. Use v1.workspaces() instead.', DeprecationWarning, stacklevel=2)
+        warn('workspaces is deprecated. Use v1.workspaces instead.', DeprecationWarning, stacklevel=2)
         return self.v1.workspaces
