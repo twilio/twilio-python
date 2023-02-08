@@ -6,35 +6,35 @@ class FlexApi(FlexApiBase):
 
     @property
     def assessments(self):
-        warn('assessments() is deprecated. Use v1.assessments() instead.', DeprecationWarning, stacklevel=2)
+        warn('assessments is deprecated. Use v1.assessments instead.', DeprecationWarning, stacklevel=2)
         return self.v1.assessments
 
     @property
     def channel(self):
-        warn('channel() is deprecated. Use v1.channel() instead.', DeprecationWarning, stacklevel=2)
+        warn('channel is deprecated. Use v1.channel instead.', DeprecationWarning, stacklevel=2)
         return self.v1.channel
 
     @property
     def configuration(self):
-        warn('configuration() is deprecated. Use v1.configuration() instead.', DeprecationWarning, stacklevel=2)
+        warn('configuration is deprecated. Use v1.configuration instead.', DeprecationWarning, stacklevel=2)
         return self.v1.configuration
 
     @property
     def flex_flow(self):
-        warn('flex_flow() is deprecated. Use v1.flex_flow() instead.', DeprecationWarning, stacklevel=2)
+        warn('flex_flow is deprecated. Use v1.flex_flow instead.', DeprecationWarning, stacklevel=2)
         return self.v1.flex_flow
 
     @property
     def interaction(self):
-        warn('interaction() is deprecated. Use v1.interaction() instead.', DeprecationWarning, stacklevel=2)
+        warn('interaction is deprecated. Use v1.interaction instead.', DeprecationWarning, stacklevel=2)
         return self.v1.interaction
 
     @property
     def web_channel(self):
-        warn('web_channel() is deprecated. Use v1.web_channel() instead.', DeprecationWarning, stacklevel=2)
+        warn('web_channel is deprecated. Use v1.web_channel instead.', DeprecationWarning, stacklevel=2)
         return self.v1.web_channel
 
     @property
     def web_channels(self):
-        warn('web_channels() is deprecated. Use v2.web_channels() instead.', DeprecationWarning, stacklevel=2)
+        warn('web_channels is deprecated. Use v2.web_channels instead.', DeprecationWarning, stacklevel=2)
         return self.v2.web_channels
