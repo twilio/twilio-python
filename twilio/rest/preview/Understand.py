@@ -14,14 +14,14 @@
 
 from twilio.base.version import Version
 from twilio.base.domain import Domain
-from twilio.rest.preview.understand.assistant import AssistantListInstance
+from twilio.rest.preview.understand.assistant import AssistantList
 
 
 class Understand(Version):
 
     def __init__(self, domain: Domain):
         """
-        Initialize the Understand version of preview
+        Initialize the Understand version of Preview
 
         :param domain: The Twilio.preview domain
         """
@@ -30,9 +30,9 @@ class Understand(Version):
         self._assistants = None
         
     @property
-    def assistants(self) -> AssistantListInstance:
+    def assistants(self) -> AssistantList:
         if self._assistants is None:
-            self._assistants = AssistantListInstance(self)
+            self._assistants = AssistantList(self)
         return self._assistants
 
     def __repr__(self) -> str:
@@ -41,4 +41,4 @@ class Understand(Version):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.preview.Understand>'
+        return '<Twilio.Preview.Understand>'

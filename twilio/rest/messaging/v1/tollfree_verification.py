@@ -110,6 +110,7 @@ class TollfreeVerificationInstance(InstanceResource):
             'status' : payload.get('status'),
             'url' : payload.get('url'),
             'resource_links' : payload.get('resource_links'),
+            'external_reference_id' : payload.get('external_reference_id'),
         }
 
         self._context = None

@@ -14,14 +14,14 @@
 
 from twilio.base.version import Version
 from twilio.base.domain import Domain
-from twilio.rest.preview.deployed_devices.fleet import FleetListInstance
+from twilio.rest.preview.deployed_devices.fleet import FleetList
 
 
 class DeployedDevices(Version):
 
     def __init__(self, domain: Domain):
         """
-        Initialize the DeployedDevices version of preview
+        Initialize the DeployedDevices version of Preview
 
         :param domain: The Twilio.preview domain
         """
@@ -30,9 +30,9 @@ class DeployedDevices(Version):
         self._fleets = None
         
     @property
-    def fleets(self) -> FleetListInstance:
+    def fleets(self) -> FleetList:
         if self._fleets is None:
-            self._fleets = FleetListInstance(self)
+            self._fleets = FleetList(self)
         return self._fleets
 
     def __repr__(self) -> str:
@@ -41,4 +41,4 @@ class DeployedDevices(Version):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.preview.DeployedDevices>'
+        return '<Twilio.Preview.DeployedDevices>'

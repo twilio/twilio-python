@@ -8,6 +8,7 @@ class Api(ApiBase):
     def account(self):
         return self.v2010.account
 
+    @property
     def accounts(self):
         return self.v2010.accounts
 

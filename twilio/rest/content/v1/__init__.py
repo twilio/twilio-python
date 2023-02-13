@@ -15,6 +15,7 @@
 from twilio.base.version import Version
 from twilio.base.domain import Domain
 from twilio.rest.content.v1.content import ContentList
+from twilio.rest.content.v1.legacy_content import LegacyContentList
 
 
 class V1(Version):
@@ -28,12 +29,19 @@ class V1(Version):
         super().__init__(domain)
         self.version = 'v1'
         self._contents = None
+        self._legacy_contents = None
         
     @property
     def contents(self) -> ContentList:
         if self._contents is None:
             self._contents = ContentList(self)
         return self._contents
+
+    @property
+    def legacy_contents(self) -> LegacyContentList:
+        if self._legacy_contents is None:
+            self._legacy_contents = LegacyContentList(self)
+        return self._legacy_contents
 
     def __repr__(self) -> str:
         """

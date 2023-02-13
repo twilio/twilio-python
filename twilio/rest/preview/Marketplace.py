@@ -14,15 +14,15 @@
 
 from twilio.base.version import Version
 from twilio.base.domain import Domain
-from twilio.rest.preview.marketplace.available_add_on import AvailableAddOnListInstance
-from twilio.rest.preview.marketplace.installed_add_on import InstalledAddOnListInstance
+from twilio.rest.preview.marketplace.available_add_on import AvailableAddOnList
+from twilio.rest.preview.marketplace.installed_add_on import InstalledAddOnList
 
 
 class Marketplace(Version):
 
     def __init__(self, domain: Domain):
         """
-        Initialize the Marketplace version of preview
+        Initialize the Marketplace version of Preview
 
         :param domain: The Twilio.preview domain
         """
@@ -32,15 +32,15 @@ class Marketplace(Version):
         self._installed_add_ons = None
         
     @property
-    def available_add_ons(self) -> AvailableAddOnListInstance:
+    def available_add_ons(self) -> AvailableAddOnList:
         if self._available_add_ons is None:
-            self._available_add_ons = AvailableAddOnListInstance(self)
+            self._available_add_ons = AvailableAddOnList(self)
         return self._available_add_ons
 
     @property
-    def installed_add_ons(self) -> InstalledAddOnListInstance:
+    def installed_add_ons(self) -> InstalledAddOnList:
         if self._installed_add_ons is None:
-            self._installed_add_ons = InstalledAddOnListInstance(self)
+            self._installed_add_ons = InstalledAddOnList(self)
         return self._installed_add_ons
 
     def __repr__(self) -> str:
@@ -49,4 +49,4 @@ class Marketplace(Version):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.preview.Marketplace>'
+        return '<Twilio.Preview.Marketplace>'

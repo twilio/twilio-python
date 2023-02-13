@@ -14,15 +14,15 @@
 
 from twilio.base.version import Version
 from twilio.base.domain import Domain
-from twilio.rest.preview.hosted_numbers.authorization_document import AuthorizationDocumentListInstance
-from twilio.rest.preview.hosted_numbers.hosted_number_order import HostedNumberOrderListInstance
+from twilio.rest.preview.hosted_numbers.authorization_document import AuthorizationDocumentList
+from twilio.rest.preview.hosted_numbers.hosted_number_order import HostedNumberOrderList
 
 
 class HostedNumbers(Version):
 
     def __init__(self, domain: Domain):
         """
-        Initialize the HostedNumbers version of preview
+        Initialize the HostedNumbers version of Preview
 
         :param domain: The Twilio.preview domain
         """
@@ -32,15 +32,15 @@ class HostedNumbers(Version):
         self._hosted_number_orders = None
         
     @property
-    def authorization_documents(self) -> AuthorizationDocumentListInstance:
+    def authorization_documents(self) -> AuthorizationDocumentList:
         if self._authorization_documents is None:
-            self._authorization_documents = AuthorizationDocumentListInstance(self)
+            self._authorization_documents = AuthorizationDocumentList(self)
         return self._authorization_documents
 
     @property
-    def hosted_number_orders(self) -> HostedNumberOrderListInstance:
+    def hosted_number_orders(self) -> HostedNumberOrderList:
         if self._hosted_number_orders is None:
-            self._hosted_number_orders = HostedNumberOrderListInstance(self)
+            self._hosted_number_orders = HostedNumberOrderList(self)
         return self._hosted_number_orders
 
     def __repr__(self) -> str:
@@ -49,4 +49,4 @@ class HostedNumbers(Version):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.preview.HostedNumbers>'
+        return '<Twilio.Preview.HostedNumbers>'
