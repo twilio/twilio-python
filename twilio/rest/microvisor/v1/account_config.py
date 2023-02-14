@@ -23,7 +23,7 @@ from twilio.base.version import Version
 
 from twilio.base.page import Page
 
-# 
+# from twilio.rest.device.device_config import DeviceConfigListInstancefrom twilio.rest.device.device_secret import DeviceSecretListInstance
 
 
 class AccountConfigContext(InstanceContext):
@@ -35,6 +35,8 @@ class AccountConfigContext(InstanceContext):
         self._solution = { 'key': key,  }
         self._uri = '/Configs/${key}'
         
+        self._device_configs = None
+        self._device_secrets = None
     
     def delete(self):
         
@@ -98,6 +100,12 @@ class AccountConfigInstance(InstanceResource):
             )
         return self._context
 
+    @property
+    def device_configs(self):
+        return self._proxy.device_configs
+    @property
+    def device_secrets(self):
+        return self._proxy.device_secrets
     
 
     def __repr__(self):
