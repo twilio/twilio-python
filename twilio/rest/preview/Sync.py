@@ -14,14 +14,14 @@
 
 from twilio.base.version import Version
 from twilio.base.domain import Domain
-from twilio.rest.preview.sync.service import ServiceListInstance
+from twilio.rest.preview.sync.service import ServiceList
 
 
 class Sync(Version):
 
     def __init__(self, domain: Domain):
         """
-        Initialize the Sync version of preview
+        Initialize the Sync version of Preview
 
         :param domain: The Twilio.preview domain
         """
@@ -30,9 +30,9 @@ class Sync(Version):
         self._services = None
         
     @property
-    def services(self) -> ServiceListInstance:
+    def services(self) -> ServiceList:
         if self._services is None:
-            self._services = ServiceListInstance(self)
+            self._services = ServiceList(self)
         return self._services
 
     def __repr__(self) -> str:
@@ -41,4 +41,4 @@ class Sync(Version):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.preview.Sync>'
+        return '<Twilio.Preview.Sync>'

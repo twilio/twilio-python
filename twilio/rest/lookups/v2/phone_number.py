@@ -76,6 +76,8 @@ class PhoneNumberInstance(InstanceResource):
             'live_activity' : payload.get('live_activity'),
             'line_type_intelligence' : payload.get('line_type_intelligence'),
             'identity_match' : payload.get('identity_match'),
+            'sms_pumping_risk' : payload.get('sms_pumping_risk'),
+            'disposable_phone_number_risk' : payload.get('disposable_phone_number_risk'),
             'url' : payload.get('url'),
         }
 

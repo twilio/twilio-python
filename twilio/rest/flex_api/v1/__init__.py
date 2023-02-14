@@ -18,8 +18,11 @@ from twilio.rest.flex_api.v1.assessments import AssessmentsList
 from twilio.rest.flex_api.v1.channel import ChannelList
 from twilio.rest.flex_api.v1.configuration import ConfigurationList
 from twilio.rest.flex_api.v1.flex_flow import FlexFlowList
+from twilio.rest.flex_api.v1.insights_assessments_comment import InsightsAssessmentsCommentList
+from twilio.rest.flex_api.v1.insights_questionnaires import InsightsQuestionnairesList
 from twilio.rest.flex_api.v1.insights_questionnaires_category import InsightsQuestionnairesCategoryList
 from twilio.rest.flex_api.v1.insights_questionnaires_question import InsightsQuestionnairesQuestionList
+from twilio.rest.flex_api.v1.insights_segments import InsightsSegmentsList
 from twilio.rest.flex_api.v1.insights_session import InsightsSessionList
 from twilio.rest.flex_api.v1.insights_settings_answer_sets import InsightsSettingsAnswerSetsList
 from twilio.rest.flex_api.v1.insights_settings_comment import InsightsSettingsCommentList
@@ -42,8 +45,11 @@ class V1(Version):
         self._channel = None
         self._configuration = None
         self._flex_flow = None
+        self._insights_assessments_comment = None
+        self._insights_questionnaires = None
         self._insights_questionnaires_category = None
         self._insights_questionnaires_question = None
+        self._insights_segments = None
         self._insights_session = None
         self._insights_settings_answer_sets = None
         self._insights_settings_comment = None
@@ -76,6 +82,18 @@ class V1(Version):
         return self._flex_flow
 
     @property
+    def insights_assessments_comment(self) -> InsightsAssessmentsCommentList:
+        if self._insights_assessments_comment is None:
+            self._insights_assessments_comment = InsightsAssessmentsCommentList(self)
+        return self._insights_assessments_comment
+
+    @property
+    def insights_questionnaires(self) -> InsightsQuestionnairesList:
+        if self._insights_questionnaires is None:
+            self._insights_questionnaires = InsightsQuestionnairesList(self)
+        return self._insights_questionnaires
+
+    @property
     def insights_questionnaires_category(self) -> InsightsQuestionnairesCategoryList:
         if self._insights_questionnaires_category is None:
             self._insights_questionnaires_category = InsightsQuestionnairesCategoryList(self)
@@ -86,6 +104,12 @@ class V1(Version):
         if self._insights_questionnaires_question is None:
             self._insights_questionnaires_question = InsightsQuestionnairesQuestionList(self)
         return self._insights_questionnaires_question
+
+    @property
+    def insights_segments(self) -> InsightsSegmentsList:
+        if self._insights_segments is None:
+            self._insights_segments = InsightsSegmentsList(self)
+        return self._insights_segments
 
     @property
     def insights_session(self) -> InsightsSessionList:
