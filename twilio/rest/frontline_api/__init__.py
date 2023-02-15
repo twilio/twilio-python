@@ -1,10 +1,13 @@
-from rest.frontline_api import FrontlineApiBase
 from warnings import warn
+
+from rest.frontline_api import FrontlineApiBase
+
+from twilio.rest.frontline_api.v1.user import UserList
 
 
 class FrontlineApi(FrontlineApiBase):
 
     @property
-    def users(self):
+    def users(self) -> UserList:
         warn('users is deprecated. Use v1.users instead.', DeprecationWarning, stacklevel=2)
         return self.v1.users
