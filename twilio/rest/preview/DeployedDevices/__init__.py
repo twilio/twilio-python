@@ -14,42 +14,26 @@
 
 from twilio.base.version import Version
 from twilio.base.domain import Domain
-from twilio.rest.preview.wireless.command import CommandList
-from twilio.rest.preview.wireless.rate_plan import RatePlanList
-from twilio.rest.preview.wireless.sim import SimList
+from twilio.rest.preview.deployed_devices.fleet import FleetList
 
 
-class Wireless(Version):
+class DeployedDevices(Version):
 
     def __init__(self, domain: Domain):
         """
-        Initialize the Wireless version of Preview
+        Initialize the DeployedDevices version of Preview
 
         :param domain: The Twilio.preview domain
         """
         super().__init__(domain)
-        self.version = 'wireless'
-        self._commands = None
-        self._rate_plans = None
-        self._sims = None
+        self.version = 'DeployedDevices'
+        self._fleets = None
         
     @property
-    def commands(self) -> CommandList:
-        if self._commands is None:
-            self._commands = CommandList(self)
-        return self._commands
-
-    @property
-    def rate_plans(self) -> RatePlanList:
-        if self._rate_plans is None:
-            self._rate_plans = RatePlanList(self)
-        return self._rate_plans
-
-    @property
-    def sims(self) -> SimList:
-        if self._sims is None:
-            self._sims = SimList(self)
-        return self._sims
+    def fleets(self) -> FleetList:
+        if self._fleets is None:
+            self._fleets = FleetList(self)
+        return self._fleets
 
     def __repr__(self) -> str:
         """
@@ -57,4 +41,4 @@ class Wireless(Version):
         :returns: Machine friendly representation
         :rtype: str
         """
-        return '<Twilio.Preview.Wireless>'
+        return '<Twilio.Preview.DeployedDevices>'
