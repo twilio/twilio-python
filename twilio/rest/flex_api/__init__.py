@@ -8,10 +8,10 @@ from twilio.rest.flex_api.v1.flex_flow import FlexFlowList
 from twilio.rest.flex_api.v1.insights_assessments_comment import InsightsAssessmentsCommentList
 from twilio.rest.flex_api.v1.insights_questionnaires import InsightsQuestionnairesList
 from twilio.rest.flex_api.v1.insights_questionnaires_category import InsightsQuestionnairesCategoryList
-from twilio.rest.flex_api.v1.insights_assessments_insights_questionnaires_questioncomment import InsightsQuestionnairesQuestionList
+from twilio.rest.flex_api.v1.insights_questionnaires_question import InsightsQuestionnairesQuestionList
 from twilio.rest.flex_api.v1.insights_segments import InsightsSegmentsList
 from twilio.rest.flex_api.v1.insights_session import InsightsSessionList
-from twilio.rest.flex_api.v1.insights_settings_answersets import InsightsSettingsAnswerSetsList
+from twilio.rest.flex_api.v1.insights_settings_answer_sets import InsightsSettingsAnswerSetsList
 from twilio.rest.flex_api.v1.insights_settings_comment import InsightsSettingsCommentList
 from twilio.rest.flex_api.v1.insights_user_roles import InsightsUserRolesList
 from twilio.rest.flex_api.v1.interaction import InteractionList
