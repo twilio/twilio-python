@@ -43,6 +43,10 @@ class V2010(Version):
             self._account = AccountContext(self, self.domain.twilio.account_sid)
         return self._account
 
+    @account.setter
+    def account(self, value: AccountContext):
+        self._account = value
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
