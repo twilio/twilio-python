@@ -40,11 +40,28 @@ class BucketList(ListResource):
         # Path Solution
         self._solution = { 'service_sid': service_sid, 'rate_limit_sid': rate_limit_sid,  }
         self._uri = '/Services/${service_sid}/RateLimits/${rate_limit_sid}/Buckets'.format(**self._solution)
+        
+        
+    
+    
+    
+    
+    def create(self, max, interval):
+        """
+        Create the BucketInstance
+         :param int max: Maximum number of requests permitted in during the interval.
+         :param int interval: Number of seconds that the rate limit will be enforced over.
+        
+        :returns: The created BucketInstance
+        :rtype: twilio.rest.verify.v2.bucket.BucketInstance
+        """
+        data = values.of({ 
+            'Max': max,
+            'Interval': interval,
+        })
 
-
-    
-    
-    
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return BucketInstance(self._version, payload, service_sid=self._solution['service_sid'], rate_limit_sid=self._solution['rate_limit_sid'])
     
     
     def stream(self, limit=None, page_size=None):
@@ -129,6 +146,28 @@ class BucketList(ListResource):
         )
         return BucketPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a BucketContext
+        
+        :param sid: A 34 character string that uniquely identifies this Bucket.
+        
+        :returns: twilio.rest.verify.v2.bucket.BucketContext
+        :rtype: twilio.rest.verify.v2.bucket.BucketContext
+        """
+        return BucketContext(self._version, service_sid=self._solution['service_sid'], rate_limit_sid=self._solution['rate_limit_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a BucketContext
+        
+        :param sid: A 34 character string that uniquely identifies this Bucket.
+        
+        :returns: twilio.rest.verify.v2.bucket.BucketContext
+        :rtype: twilio.rest.verify.v2.bucket.BucketContext
+        """
+        return BucketContext(self._version, service_sid=self._solution['service_sid'], rate_limit_sid=self._solution['rate_limit_sid'], sid=sid)
 
     def __repr__(self):
         """
@@ -225,9 +264,9 @@ class BucketContext(InstanceContext):
 
         
     
-    def update(self, body):
+    def update(self, max, interval):
         data = values.of({
-            'body': body,
+            'max': max,'interval': interval,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

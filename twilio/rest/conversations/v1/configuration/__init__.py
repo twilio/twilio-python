@@ -38,10 +38,10 @@ class ConfigurationList(ListResource):
 
         # Path Solution
         self._solution = {  }
-        self._uri = ''.format(**self._solution)
-
+        
+        
         self._webhooks = None
-
+        
     
     
 
@@ -56,6 +56,23 @@ class ConfigurationList(ListResource):
         if self._webhooks is None:
             self._webhooks = WebhookList(self._version)
         return self.webhooks
+    def get(self):
+        """
+        Constructs a ConfigurationContext
+        
+        :returns: twilio.rest.conversations.v1.configuration.ConfigurationContext
+        :rtype: twilio.rest.conversations.v1.configuration.ConfigurationContext
+        """
+        return ConfigurationContext(self._version)
+
+    def __call__(self):
+        """
+        Constructs a ConfigurationContext
+        
+        :returns: twilio.rest.conversations.v1.configuration.ConfigurationContext
+        :rtype: twilio.rest.conversations.v1.configuration.ConfigurationContext
+        """
+        return ConfigurationContext(self._version)
 
     def __repr__(self):
         """
@@ -91,9 +108,9 @@ class ConfigurationContext(InstanceContext):
 
         
     
-    def update(self, body):
+    def update(self, default_chat_service_sid, default_messaging_service_sid, default_inactive_timer, default_closed_timer):
         data = values.of({
-            'body': body,
+            'default_chat_service_sid': default_chat_service_sid,'default_messaging_service_sid': default_messaging_service_sid,'default_inactive_timer': default_inactive_timer,'default_closed_timer': default_closed_timer,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

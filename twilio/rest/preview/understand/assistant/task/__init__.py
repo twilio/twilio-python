@@ -43,11 +43,32 @@ class TaskList(ListResource):
         # Path Solution
         self._solution = { 'assistant_sid': assistant_sid,  }
         self._uri = '/Assistants/${assistant_sid}/Tasks'.format(**self._solution)
+        
+        
+    
+    
+    
+    
+    def create(self, unique_name, friendly_name=values.unset, actions=values.unset, actions_url=values.unset):
+        """
+        Create the TaskInstance
+         :param str unique_name: A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
+         :param str friendly_name: A user-provided string that identifies this resource. It is non-unique and can up to 255 characters long.
+         :param bool, date, datetime, dict, float, int, list, str, none_type actions: A user-provided JSON object encoded as a string to specify the actions for this task. It is optional and non-unique.
+         :param str actions_url: User-provided HTTP endpoint where from the assistant fetches actions
+        
+        :returns: The created TaskInstance
+        :rtype: twilio.rest.preview.understand.task.TaskInstance
+        """
+        data = values.of({ 
+            'UniqueName': unique_name,
+            'FriendlyName': friendly_name,
+            'Actions': actions,
+            'ActionsUrl': actions_url,
+        })
 
-
-    
-    
-    
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return TaskInstance(self._version, payload, assistant_sid=self._solution['assistant_sid'])
     
     
     def stream(self, limit=None, page_size=None):
@@ -132,6 +153,28 @@ class TaskList(ListResource):
         )
         return TaskPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a TaskContext
+        
+        :param sid: A 34 character string that uniquely identifies this resource.
+        
+        :returns: twilio.rest.preview.understand.task.TaskContext
+        :rtype: twilio.rest.preview.understand.task.TaskContext
+        """
+        return TaskContext(self._version, assistant_sid=self._solution['assistant_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a TaskContext
+        
+        :param sid: A 34 character string that uniquely identifies this resource.
+        
+        :returns: twilio.rest.preview.understand.task.TaskContext
+        :rtype: twilio.rest.preview.understand.task.TaskContext
+        """
+        return TaskContext(self._version, assistant_sid=self._solution['assistant_sid'], sid=sid)
 
     def __repr__(self):
         """
@@ -232,9 +275,9 @@ class TaskContext(InstanceContext):
 
         
     
-    def update(self, body):
+    def update(self, friendly_name, unique_name, actions, actions_url):
         data = values.of({
-            'body': body,
+            'friendly_name': friendly_name,'unique_name': unique_name,'actions': actions,'actions_url': actions_url,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

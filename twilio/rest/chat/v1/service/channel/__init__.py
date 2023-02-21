@@ -42,11 +42,32 @@ class ChannelList(ListResource):
         # Path Solution
         self._solution = { 'service_sid': service_sid,  }
         self._uri = '/Services/${service_sid}/Channels'.format(**self._solution)
+        
+        
+    
+    
+    
+    
+    def create(self, friendly_name=values.unset, unique_name=values.unset, attributes=values.unset, type=values.unset):
+        """
+        Create the ChannelInstance
+         :param str friendly_name: A descriptive string that you create to describe the new resource. It can be up to 64 characters long.
+         :param str unique_name: An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource's `sid` in the URL. This value must be 64 characters or less in length and be unique within the Service.
+         :param str attributes: A valid JSON string that contains application-specific data.
+         :param ChannelChannelType type: 
+        
+        :returns: The created ChannelInstance
+        :rtype: twilio.rest.chat.v1.channel.ChannelInstance
+        """
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+            'UniqueName': unique_name,
+            'Attributes': attributes,
+            'Type': type,
+        })
 
-
-    
-    
-    
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return ChannelInstance(self._version, payload, service_sid=self._solution['service_sid'])
     
     
     def stream(self, type=values.unset, limit=None, page_size=None):
@@ -137,6 +158,28 @@ class ChannelList(ListResource):
         )
         return ChannelPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a ChannelContext
+        
+        :param sid: The Twilio-provided string that uniquely identifies the Channel resource to update.
+        
+        :returns: twilio.rest.chat.v1.channel.ChannelContext
+        :rtype: twilio.rest.chat.v1.channel.ChannelContext
+        """
+        return ChannelContext(self._version, service_sid=self._solution['service_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a ChannelContext
+        
+        :param sid: The Twilio-provided string that uniquely identifies the Channel resource to update.
+        
+        :returns: twilio.rest.chat.v1.channel.ChannelContext
+        :rtype: twilio.rest.chat.v1.channel.ChannelContext
+        """
+        return ChannelContext(self._version, service_sid=self._solution['service_sid'], sid=sid)
 
     def __repr__(self):
         """
@@ -236,9 +279,9 @@ class ChannelContext(InstanceContext):
 
         
     
-    def update(self, body):
+    def update(self, friendly_name, unique_name, attributes):
         data = values.of({
-            'body': body,
+            'friendly_name': friendly_name,'unique_name': unique_name,'attributes': attributes,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

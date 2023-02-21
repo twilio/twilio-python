@@ -38,11 +38,38 @@ class CredentialList(ListResource):
         # Path Solution
         self._solution = {  }
         self._uri = '/Credentials'.format(**self._solution)
+        
+        
+    
+    
+    
+    
+    def create(self, type, friendly_name=values.unset, certificate=values.unset, private_key=values.unset, sandbox=values.unset, api_key=values.unset, secret=values.unset):
+        """
+        Create the CredentialInstance
+         :param CredentialPushService type: 
+         :param str friendly_name: 
+         :param str certificate: 
+         :param str private_key: 
+         :param bool sandbox: 
+         :param str api_key: 
+         :param str secret: 
+        
+        :returns: The created CredentialInstance
+        :rtype: twilio.rest.ip_messaging.v1.credential.CredentialInstance
+        """
+        data = values.of({ 
+            'Type': type,
+            'FriendlyName': friendly_name,
+            'Certificate': certificate,
+            'PrivateKey': private_key,
+            'Sandbox': sandbox,
+            'ApiKey': api_key,
+            'Secret': secret,
+        })
 
-
-    
-    
-    
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return CredentialInstance(self._version, payload)
     
     
     def stream(self, limit=None, page_size=None):
@@ -127,6 +154,28 @@ class CredentialList(ListResource):
         )
         return CredentialPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a CredentialContext
+        
+        :param sid: 
+        
+        :returns: twilio.rest.ip_messaging.v1.credential.CredentialContext
+        :rtype: twilio.rest.ip_messaging.v1.credential.CredentialContext
+        """
+        return CredentialContext(self._version, sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a CredentialContext
+        
+        :param sid: 
+        
+        :returns: twilio.rest.ip_messaging.v1.credential.CredentialContext
+        :rtype: twilio.rest.ip_messaging.v1.credential.CredentialContext
+        """
+        return CredentialContext(self._version, sid=sid)
 
     def __repr__(self):
         """
@@ -223,9 +272,9 @@ class CredentialContext(InstanceContext):
 
         
     
-    def update(self, body):
+    def update(self, friendly_name, certificate, private_key, sandbox, api_key, secret):
         data = values.of({
-            'body': body,
+            'friendly_name': friendly_name,'certificate': certificate,'private_key': private_key,'sandbox': sandbox,'api_key': api_key,'secret': secret,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

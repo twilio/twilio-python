@@ -38,8 +38,8 @@ class CallSummariesList(ListResource):
         # Path Solution
         self._solution = {  }
         self._uri = '/Voice/Summaries'.format(**self._solution)
-
-
+        
+        
     
     def stream(self, from_=values.unset, to=values.unset, from_carrier=values.unset, to_carrier=values.unset, from_country_code=values.unset, to_country_code=values.unset, branded=values.unset, verified_caller=values.unset, has_tag=values.unset, start_time=values.unset, end_time=values.unset, call_type=values.unset, call_state=values.unset, direction=values.unset, processing_state=values.unset, sort_by=values.unset, subaccount=values.unset, abnormal_session=values.unset, limit=None, page_size=None):
         """
@@ -230,6 +230,7 @@ class CallSummariesList(ListResource):
             target_url
         )
         return CallSummariesPage(self._version, response, self._solution)
+
 
 
     def __repr__(self):

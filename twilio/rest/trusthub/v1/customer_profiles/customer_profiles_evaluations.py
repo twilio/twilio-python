@@ -39,9 +39,24 @@ class CustomerProfilesEvaluationsList(ListResource):
         # Path Solution
         self._solution = { 'customer_profile_sid': customer_profile_sid,  }
         self._uri = '/CustomerProfiles/${customer_profile_sid}/Evaluations'.format(**self._solution)
-
-
+        
+        
     
+    
+    def create(self, policy_sid):
+        """
+        Create the CustomerProfilesEvaluationsInstance
+         :param str policy_sid: The unique string of a policy that is associated to the customer_profile resource.
+        
+        :returns: The created CustomerProfilesEvaluationsInstance
+        :rtype: twilio.rest.trusthub.v1.customer_profiles_evaluations.CustomerProfilesEvaluationsInstance
+        """
+        data = values.of({ 
+            'PolicySid': policy_sid,
+        })
+
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return CustomerProfilesEvaluationsInstance(self._version, payload, customer_profile_sid=self._solution['customer_profile_sid'])
     
     
     def stream(self, limit=None, page_size=None):
@@ -126,6 +141,28 @@ class CustomerProfilesEvaluationsList(ListResource):
         )
         return CustomerProfilesEvaluationsPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a CustomerProfilesEvaluationsContext
+        
+        :param sid: The unique string that identifies the Evaluation resource.
+        
+        :returns: twilio.rest.trusthub.v1.customer_profiles_evaluations.CustomerProfilesEvaluationsContext
+        :rtype: twilio.rest.trusthub.v1.customer_profiles_evaluations.CustomerProfilesEvaluationsContext
+        """
+        return CustomerProfilesEvaluationsContext(self._version, customer_profile_sid=self._solution['customer_profile_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a CustomerProfilesEvaluationsContext
+        
+        :param sid: The unique string that identifies the Evaluation resource.
+        
+        :returns: twilio.rest.trusthub.v1.customer_profiles_evaluations.CustomerProfilesEvaluationsContext
+        :rtype: twilio.rest.trusthub.v1.customer_profiles_evaluations.CustomerProfilesEvaluationsContext
+        """
+        return CustomerProfilesEvaluationsContext(self._version, customer_profile_sid=self._solution['customer_profile_sid'], sid=sid)
 
     def __repr__(self):
         """

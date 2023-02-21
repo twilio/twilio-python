@@ -39,8 +39,8 @@ class AvailableAddOnList(ListResource):
         # Path Solution
         self._solution = {  }
         self._uri = '/AvailableAddOns'.format(**self._solution)
-
-
+        
+        
     
     
     def stream(self, limit=None, page_size=None):
@@ -125,6 +125,28 @@ class AvailableAddOnList(ListResource):
         )
         return AvailableAddOnPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a AvailableAddOnContext
+        
+        :param sid: The SID of the AvailableAddOn resource to fetch.
+        
+        :returns: twilio.rest.preview.marketplace.available_add_on.AvailableAddOnContext
+        :rtype: twilio.rest.preview.marketplace.available_add_on.AvailableAddOnContext
+        """
+        return AvailableAddOnContext(self._version, sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a AvailableAddOnContext
+        
+        :param sid: The SID of the AvailableAddOn resource to fetch.
+        
+        :returns: twilio.rest.preview.marketplace.available_add_on.AvailableAddOnContext
+        :rtype: twilio.rest.preview.marketplace.available_add_on.AvailableAddOnContext
+        """
+        return AvailableAddOnContext(self._version, sid=sid)
 
     def __repr__(self):
         """

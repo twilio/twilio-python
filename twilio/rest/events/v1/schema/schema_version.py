@@ -39,8 +39,8 @@ class SchemaVersionList(ListResource):
         # Path Solution
         self._solution = { 'id': id,  }
         self._uri = '/Schemas/${id}/Versions'.format(**self._solution)
-
-
+        
+        
     
     
     def stream(self, limit=None, page_size=None):
@@ -125,6 +125,28 @@ class SchemaVersionList(ListResource):
         )
         return SchemaVersionPage(self._version, response, self._solution)
 
+
+    def get(self, schema_version):
+        """
+        Constructs a SchemaVersionContext
+        
+        :param schema_version: The version of the schema
+        
+        :returns: twilio.rest.events.v1.schema_version.SchemaVersionContext
+        :rtype: twilio.rest.events.v1.schema_version.SchemaVersionContext
+        """
+        return SchemaVersionContext(self._version, id=self._solution['id'], schema_version=schema_version)
+
+    def __call__(self, schema_version):
+        """
+        Constructs a SchemaVersionContext
+        
+        :param schema_version: The version of the schema
+        
+        :returns: twilio.rest.events.v1.schema_version.SchemaVersionContext
+        :rtype: twilio.rest.events.v1.schema_version.SchemaVersionContext
+        """
+        return SchemaVersionContext(self._version, id=self._solution['id'], schema_version=schema_version)
 
     def __repr__(self):
         """

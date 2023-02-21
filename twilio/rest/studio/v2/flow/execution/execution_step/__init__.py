@@ -41,8 +41,8 @@ class ExecutionStepList(ListResource):
         # Path Solution
         self._solution = { 'flow_sid': flow_sid, 'execution_sid': execution_sid,  }
         self._uri = '/Flows/${flow_sid}/Executions/${execution_sid}/Steps'.format(**self._solution)
-
-
+        
+        
     
     
     def stream(self, limit=None, page_size=None):
@@ -127,6 +127,28 @@ class ExecutionStepList(ListResource):
         )
         return ExecutionStepPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a ExecutionStepContext
+        
+        :param sid: The SID of the ExecutionStep resource to fetch.
+        
+        :returns: twilio.rest.studio.v2.execution_step.ExecutionStepContext
+        :rtype: twilio.rest.studio.v2.execution_step.ExecutionStepContext
+        """
+        return ExecutionStepContext(self._version, flow_sid=self._solution['flow_sid'], execution_sid=self._solution['execution_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a ExecutionStepContext
+        
+        :param sid: The SID of the ExecutionStep resource to fetch.
+        
+        :returns: twilio.rest.studio.v2.execution_step.ExecutionStepContext
+        :rtype: twilio.rest.studio.v2.execution_step.ExecutionStepContext
+        """
+        return ExecutionStepContext(self._version, flow_sid=self._solution['flow_sid'], execution_sid=self._solution['execution_sid'], sid=sid)
 
     def __repr__(self):
         """

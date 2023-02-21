@@ -41,8 +41,8 @@ class FunctionVersionList(ListResource):
         # Path Solution
         self._solution = { 'service_sid': service_sid, 'function_sid': function_sid,  }
         self._uri = '/Services/${service_sid}/Functions/${function_sid}/Versions'.format(**self._solution)
-
-
+        
+        
     
     
     def stream(self, limit=None, page_size=None):
@@ -127,6 +127,28 @@ class FunctionVersionList(ListResource):
         )
         return FunctionVersionPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a FunctionVersionContext
+        
+        :param sid: The SID of the Function Version resource to fetch.
+        
+        :returns: twilio.rest.serverless.v1.function_version.FunctionVersionContext
+        :rtype: twilio.rest.serverless.v1.function_version.FunctionVersionContext
+        """
+        return FunctionVersionContext(self._version, service_sid=self._solution['service_sid'], function_sid=self._solution['function_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a FunctionVersionContext
+        
+        :param sid: The SID of the Function Version resource to fetch.
+        
+        :returns: twilio.rest.serverless.v1.function_version.FunctionVersionContext
+        :rtype: twilio.rest.serverless.v1.function_version.FunctionVersionContext
+        """
+        return FunctionVersionContext(self._version, service_sid=self._solution['service_sid'], function_sid=self._solution['function_sid'], sid=sid)
 
     def __repr__(self):
         """

@@ -38,8 +38,8 @@ class EventTypeList(ListResource):
         # Path Solution
         self._solution = {  }
         self._uri = '/Types'.format(**self._solution)
-
-
+        
+        
     
     
     def stream(self, schema_id=values.unset, limit=None, page_size=None):
@@ -130,6 +130,28 @@ class EventTypeList(ListResource):
         )
         return EventTypePage(self._version, response, self._solution)
 
+
+    def get(self, type):
+        """
+        Constructs a EventTypeContext
+        
+        :param type: A string that uniquely identifies this Event Type.
+        
+        :returns: twilio.rest.events.v1.event_type.EventTypeContext
+        :rtype: twilio.rest.events.v1.event_type.EventTypeContext
+        """
+        return EventTypeContext(self._version, type=type)
+
+    def __call__(self, type):
+        """
+        Constructs a EventTypeContext
+        
+        :param type: A string that uniquely identifies this Event Type.
+        
+        :returns: twilio.rest.events.v1.event_type.EventTypeContext
+        :rtype: twilio.rest.events.v1.event_type.EventTypeContext
+        """
+        return EventTypeContext(self._version, type=type)
 
     def __repr__(self):
         """

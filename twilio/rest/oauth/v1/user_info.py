@@ -37,10 +37,28 @@ class UserInfoList(ListResource):
 
         # Path Solution
         self._solution = {  }
-        self._uri = ''.format(**self._solution)
-
-
+        
+        
+        
     
+
+    def get(self):
+        """
+        Constructs a UserInfoContext
+        
+        :returns: twilio.rest.oauth.v1.user_info.UserInfoContext
+        :rtype: twilio.rest.oauth.v1.user_info.UserInfoContext
+        """
+        return UserInfoContext(self._version)
+
+    def __call__(self):
+        """
+        Constructs a UserInfoContext
+        
+        :returns: twilio.rest.oauth.v1.user_info.UserInfoContext
+        :rtype: twilio.rest.oauth.v1.user_info.UserInfoContext
+        """
+        return UserInfoContext(self._version)
 
     def __repr__(self):
         """

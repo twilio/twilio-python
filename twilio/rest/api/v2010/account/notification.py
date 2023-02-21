@@ -39,8 +39,8 @@ class NotificationList(ListResource):
         # Path Solution
         self._solution = { 'account_sid': account_sid,  }
         self._uri = '/Accounts/${account_sid}/Notifications.json'.format(**self._solution)
-
-
+        
+        
     
     
     def stream(self, log=values.unset, message_date=values.unset, message_date_before=values.unset, message_date_after=values.unset, limit=None, page_size=None):
@@ -122,9 +122,9 @@ class NotificationList(ListResource):
         """
         data = values.of({ 
             'Log': log,
-            'MessageDate': message_date,
-            'MessageDate&lt;': message_date_before,
-            'MessageDate&gt;': message_date_after,
+            'MessageDate': serialize.iso8601_date(message_date),
+            'MessageDate<': serialize.iso8601_date(message_date_before),
+            'MessageDate>': serialize.iso8601_date(message_date_after),
             'PageToken': page_token,
             'Page': page_number,
             'PageSize': page_size,
@@ -149,6 +149,28 @@ class NotificationList(ListResource):
         )
         return NotificationPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a NotificationContext
+        
+        :param sid: The Twilio-provided string that uniquely identifies the Notification resource to fetch.
+        
+        :returns: twilio.rest.api.v2010.notification.NotificationContext
+        :rtype: twilio.rest.api.v2010.notification.NotificationContext
+        """
+        return NotificationContext(self._version, account_sid=self._solution['account_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a NotificationContext
+        
+        :param sid: The Twilio-provided string that uniquely identifies the Notification resource to fetch.
+        
+        :returns: twilio.rest.api.v2010.notification.NotificationContext
+        :rtype: twilio.rest.api.v2010.notification.NotificationContext
+        """
+        return NotificationContext(self._version, account_sid=self._solution['account_sid'], sid=sid)
 
     def __repr__(self):
         """

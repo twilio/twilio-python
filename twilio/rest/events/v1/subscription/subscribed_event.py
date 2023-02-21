@@ -39,11 +39,28 @@ class SubscribedEventList(ListResource):
         # Path Solution
         self._solution = { 'subscription_sid': subscription_sid,  }
         self._uri = '/Subscriptions/${subscription_sid}/SubscribedEvents'.format(**self._solution)
+        
+        
+    
+    
+    
+    
+    def create(self, type, schema_version=values.unset):
+        """
+        Create the SubscribedEventInstance
+         :param str type: Type of event being subscribed to.
+         :param int schema_version: The schema version that the subscription should use.
+        
+        :returns: The created SubscribedEventInstance
+        :rtype: twilio.rest.events.v1.subscribed_event.SubscribedEventInstance
+        """
+        data = values.of({ 
+            'Type': type,
+            'SchemaVersion': schema_version,
+        })
 
-
-    
-    
-    
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return SubscribedEventInstance(self._version, payload, subscription_sid=self._solution['subscription_sid'])
     
     
     def stream(self, limit=None, page_size=None):
@@ -128,6 +145,28 @@ class SubscribedEventList(ListResource):
         )
         return SubscribedEventPage(self._version, response, self._solution)
 
+
+    def get(self, type):
+        """
+        Constructs a SubscribedEventContext
+        
+        :param type: Type of event being subscribed to.
+        
+        :returns: twilio.rest.events.v1.subscribed_event.SubscribedEventContext
+        :rtype: twilio.rest.events.v1.subscribed_event.SubscribedEventContext
+        """
+        return SubscribedEventContext(self._version, subscription_sid=self._solution['subscription_sid'], type=type)
+
+    def __call__(self, type):
+        """
+        Constructs a SubscribedEventContext
+        
+        :param type: Type of event being subscribed to.
+        
+        :returns: twilio.rest.events.v1.subscribed_event.SubscribedEventContext
+        :rtype: twilio.rest.events.v1.subscribed_event.SubscribedEventContext
+        """
+        return SubscribedEventContext(self._version, subscription_sid=self._solution['subscription_sid'], type=type)
 
     def __repr__(self):
         """
@@ -224,9 +263,9 @@ class SubscribedEventContext(InstanceContext):
 
         
     
-    def update(self, body):
+    def update(self, schema_version):
         data = values.of({
-            'body': body,
+            'schema_version': schema_version,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

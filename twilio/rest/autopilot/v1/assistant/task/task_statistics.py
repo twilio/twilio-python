@@ -39,10 +39,28 @@ class TaskStatisticsList(ListResource):
 
         # Path Solution
         self._solution = { 'assistant_sid': assistant_sid, 'task_sid': task_sid,  }
-        self._uri = ''.format(**self._solution)
-
-
+        
+        
+        
     
+
+    def get(self):
+        """
+        Constructs a TaskStatisticsContext
+        
+        :returns: twilio.rest.autopilot.v1.task_statistics.TaskStatisticsContext
+        :rtype: twilio.rest.autopilot.v1.task_statistics.TaskStatisticsContext
+        """
+        return TaskStatisticsContext(self._version, assistant_sid=self._solution['assistant_sid'], task_sid=self._solution['task_sid'])
+
+    def __call__(self):
+        """
+        Constructs a TaskStatisticsContext
+        
+        :returns: twilio.rest.autopilot.v1.task_statistics.TaskStatisticsContext
+        :rtype: twilio.rest.autopilot.v1.task_statistics.TaskStatisticsContext
+        """
+        return TaskStatisticsContext(self._version, assistant_sid=self._solution['assistant_sid'], task_sid=self._solution['task_sid'])
 
     def __repr__(self):
         """

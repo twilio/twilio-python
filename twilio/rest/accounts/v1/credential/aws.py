@@ -38,11 +38,30 @@ class AwsList(ListResource):
         # Path Solution
         self._solution = {  }
         self._uri = '/Credentials/AWS'.format(**self._solution)
+        
+        
+    
+    
+    
+    
+    def create(self, credentials, friendly_name=values.unset, account_sid=values.unset):
+        """
+        Create the AwsInstance
+         :param str credentials: A string that contains the AWS access credentials in the format `<AWS_ACCESS_KEY_ID>:<AWS_SECRET_ACCESS_KEY>`. For example, `AKIAIOSFODNN7EXAMPLE:wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY`
+         :param str friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+         :param str account_sid: The SID of the Subaccount that this Credential should be associated with. Must be a valid Subaccount of the account issuing the request.
+        
+        :returns: The created AwsInstance
+        :rtype: twilio.rest.accounts.v1.aws.AwsInstance
+        """
+        data = values.of({ 
+            'Credentials': credentials,
+            'FriendlyName': friendly_name,
+            'AccountSid': account_sid,
+        })
 
-
-    
-    
-    
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return AwsInstance(self._version, payload)
     
     
     def stream(self, limit=None, page_size=None):
@@ -127,6 +146,28 @@ class AwsList(ListResource):
         )
         return AwsPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a AwsContext
+        
+        :param sid: The Twilio-provided string that uniquely identifies the AWS resource to update.
+        
+        :returns: twilio.rest.accounts.v1.aws.AwsContext
+        :rtype: twilio.rest.accounts.v1.aws.AwsContext
+        """
+        return AwsContext(self._version, sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a AwsContext
+        
+        :param sid: The Twilio-provided string that uniquely identifies the AWS resource to update.
+        
+        :returns: twilio.rest.accounts.v1.aws.AwsContext
+        :rtype: twilio.rest.accounts.v1.aws.AwsContext
+        """
+        return AwsContext(self._version, sid=sid)
 
     def __repr__(self):
         """
@@ -223,9 +264,9 @@ class AwsContext(InstanceContext):
 
         
     
-    def update(self, body):
+    def update(self, friendly_name):
         data = values.of({
-            'body': body,
+            'friendly_name': friendly_name,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

@@ -40,11 +40,32 @@ class SyncListItemList(ListResource):
         # Path Solution
         self._solution = { 'service_sid': service_sid, 'list_sid': list_sid,  }
         self._uri = '/Services/${service_sid}/Lists/${list_sid}/Items'.format(**self._solution)
+        
+        
+    
+    
+    
+    
+    def create(self, data, ttl=values.unset, item_ttl=values.unset, collection_ttl=values.unset):
+        """
+        Create the SyncListItemInstance
+         :param bool, date, datetime, dict, float, int, list, str, none_type data: A JSON string that represents an arbitrary, schema-less object that the List Item stores. Can be up to 16 KiB in length.
+         :param int ttl: An alias for `item_ttl`. If both parameters are provided, this value is ignored.
+         :param int item_ttl: How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the List Item expires (time-to-live) and is deleted.
+         :param int collection_ttl: How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the List Item's parent Sync List expires (time-to-live) and is deleted.
+        
+        :returns: The created SyncListItemInstance
+        :rtype: twilio.rest.sync.v1.sync_list_item.SyncListItemInstance
+        """
+        data = values.of({ 
+            'Data': data,
+            'Ttl': ttl,
+            'ItemTtl': item_ttl,
+            'CollectionTtl': collection_ttl,
+        })
 
-
-    
-    
-    
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return SyncListItemInstance(self._version, payload, service_sid=self._solution['service_sid'], list_sid=self._solution['list_sid'])
     
     
     def stream(self, order=values.unset, from_=values.unset, bounds=values.unset, limit=None, page_size=None):
@@ -148,6 +169,28 @@ class SyncListItemList(ListResource):
         return SyncListItemPage(self._version, response, self._solution)
 
 
+    def get(self, index):
+        """
+        Constructs a SyncListItemContext
+        
+        :param index: The index of the Sync List Item resource to update.
+        
+        :returns: twilio.rest.sync.v1.sync_list_item.SyncListItemContext
+        :rtype: twilio.rest.sync.v1.sync_list_item.SyncListItemContext
+        """
+        return SyncListItemContext(self._version, service_sid=self._solution['service_sid'], list_sid=self._solution['list_sid'], index=index)
+
+    def __call__(self, index):
+        """
+        Constructs a SyncListItemContext
+        
+        :param index: The index of the Sync List Item resource to update.
+        
+        :returns: twilio.rest.sync.v1.sync_list_item.SyncListItemContext
+        :rtype: twilio.rest.sync.v1.sync_list_item.SyncListItemContext
+        """
+        return SyncListItemContext(self._version, service_sid=self._solution['service_sid'], list_sid=self._solution['list_sid'], index=index)
+
     def __repr__(self):
         """
         Provide a friendly representation
@@ -243,9 +286,9 @@ class SyncListItemContext(InstanceContext):
 
         
     
-    def update(self, if_match, body):
+    def update(self, data, ttl, item_ttl, collection_ttl):
         data = values.of({
-            'if_match': if_match,'body': body,
+            'data': data,'ttl': ttl,'item_ttl': item_ttl,'collection_ttl': collection_ttl,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

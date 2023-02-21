@@ -39,10 +39,25 @@ class ShortCodeList(ListResource):
         # Path Solution
         self._solution = { 'service_sid': service_sid,  }
         self._uri = '/Services/${service_sid}/ShortCodes'.format(**self._solution)
-
-
+        
+        
     
     
+    
+    def create(self, short_code_sid):
+        """
+        Create the ShortCodeInstance
+         :param str short_code_sid: The SID of the ShortCode resource being added to the Service.
+        
+        :returns: The created ShortCodeInstance
+        :rtype: twilio.rest.messaging.v1.short_code.ShortCodeInstance
+        """
+        data = values.of({ 
+            'ShortCodeSid': short_code_sid,
+        })
+
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return ShortCodeInstance(self._version, payload, service_sid=self._solution['service_sid'])
     
     
     def stream(self, limit=None, page_size=None):
@@ -127,6 +142,28 @@ class ShortCodeList(ListResource):
         )
         return ShortCodePage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a ShortCodeContext
+        
+        :param sid: The SID of the ShortCode resource to fetch.
+        
+        :returns: twilio.rest.messaging.v1.short_code.ShortCodeContext
+        :rtype: twilio.rest.messaging.v1.short_code.ShortCodeContext
+        """
+        return ShortCodeContext(self._version, service_sid=self._solution['service_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a ShortCodeContext
+        
+        :param sid: The SID of the ShortCode resource to fetch.
+        
+        :returns: twilio.rest.messaging.v1.short_code.ShortCodeContext
+        :rtype: twilio.rest.messaging.v1.short_code.ShortCodeContext
+        """
+        return ShortCodeContext(self._version, service_sid=self._solution['service_sid'], sid=sid)
 
     def __repr__(self):
         """

@@ -40,8 +40,23 @@ class InteractionChannelInviteList(ListResource):
         # Path Solution
         self._solution = { 'interaction_sid': interaction_sid, 'channel_sid': channel_sid,  }
         self._uri = '/Interactions/${interaction_sid}/Channels/${channel_sid}/Invites'.format(**self._solution)
+        
+        
+    
+    def create(self, routing):
+        """
+        Create the InteractionChannelInviteInstance
+         :param bool, date, datetime, dict, float, int, list, str, none_type routing: The Interaction's routing logic.
+        
+        :returns: The created InteractionChannelInviteInstance
+        :rtype: twilio.rest.flex_api.v1.interaction_channel_invite.InteractionChannelInviteInstance
+        """
+        data = values.of({ 
+            'Routing': routing,
+        })
 
-
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return InteractionChannelInviteInstance(self._version, payload, interaction_sid=self._solution['interaction_sid'], channel_sid=self._solution['channel_sid'])
     
     
     def stream(self, limit=None, page_size=None):
@@ -125,6 +140,7 @@ class InteractionChannelInviteList(ListResource):
             target_url
         )
         return InteractionChannelInvitePage(self._version, response, self._solution)
+
 
 
     def __repr__(self):

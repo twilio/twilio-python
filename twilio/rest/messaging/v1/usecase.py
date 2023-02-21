@@ -38,9 +38,10 @@ class UsecaseList(ListResource):
         # Path Solution
         self._solution = {  }
         self._uri = '/Services/Usecases'.format(**self._solution)
-
-
+        
+        
     
+
 
     def __repr__(self):
         """

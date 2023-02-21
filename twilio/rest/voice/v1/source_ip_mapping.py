@@ -38,11 +38,28 @@ class SourceIpMappingList(ListResource):
         # Path Solution
         self._solution = {  }
         self._uri = '/SourceIpMappings'.format(**self._solution)
+        
+        
+    
+    
+    
+    
+    def create(self, ip_record_sid, sip_domain_sid):
+        """
+        Create the SourceIpMappingInstance
+         :param str ip_record_sid: The Twilio-provided string that uniquely identifies the IP Record resource to map from.
+         :param str sip_domain_sid: The SID of the SIP Domain that the IP Record should be mapped to.
+        
+        :returns: The created SourceIpMappingInstance
+        :rtype: twilio.rest.voice.v1.source_ip_mapping.SourceIpMappingInstance
+        """
+        data = values.of({ 
+            'IpRecordSid': ip_record_sid,
+            'SipDomainSid': sip_domain_sid,
+        })
 
-
-    
-    
-    
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return SourceIpMappingInstance(self._version, payload)
     
     
     def stream(self, limit=None, page_size=None):
@@ -127,6 +144,28 @@ class SourceIpMappingList(ListResource):
         )
         return SourceIpMappingPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a SourceIpMappingContext
+        
+        :param sid: The Twilio-provided string that uniquely identifies the IP Record resource to update.
+        
+        :returns: twilio.rest.voice.v1.source_ip_mapping.SourceIpMappingContext
+        :rtype: twilio.rest.voice.v1.source_ip_mapping.SourceIpMappingContext
+        """
+        return SourceIpMappingContext(self._version, sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a SourceIpMappingContext
+        
+        :param sid: The Twilio-provided string that uniquely identifies the IP Record resource to update.
+        
+        :returns: twilio.rest.voice.v1.source_ip_mapping.SourceIpMappingContext
+        :rtype: twilio.rest.voice.v1.source_ip_mapping.SourceIpMappingContext
+        """
+        return SourceIpMappingContext(self._version, sid=sid)
 
     def __repr__(self):
         """
@@ -223,9 +262,9 @@ class SourceIpMappingContext(InstanceContext):
 
         
     
-    def update(self, body):
+    def update(self, sip_domain_sid):
         data = values.of({
-            'body': body,
+            'sip_domain_sid': sip_domain_sid,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

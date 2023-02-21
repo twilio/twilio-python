@@ -39,10 +39,33 @@ class BrandRegistrationList(ListResource):
         # Path Solution
         self._solution = {  }
         self._uri = '/a2p/BrandRegistrations'.format(**self._solution)
-
-
+        
+        
     
     
+    
+    def create(self, customer_profile_bundle_sid, a2_p_profile_bundle_sid, brand_type=values.unset, mock=values.unset, skip_automatic_sec_vet=values.unset):
+        """
+        Create the BrandRegistrationInstance
+         :param str customer_profile_bundle_sid: Customer Profile Bundle Sid.
+         :param str a2_p_profile_bundle_sid: A2P Messaging Profile Bundle Sid.
+         :param str brand_type: Type of brand being created. One of: \"STANDARD\", \"STARTER\". STARTER is for low volume, starter use cases. STANDARD is for all other use cases.
+         :param bool mock: A boolean that specifies whether brand should be a mock or not. If true, brand will be registered as a mock brand. Defaults to false if no value is provided.
+         :param bool skip_automatic_sec_vet: A flag to disable automatic secondary vetting for brands which it would otherwise be done.
+        
+        :returns: The created BrandRegistrationInstance
+        :rtype: twilio.rest.messaging.v1.brand_registration.BrandRegistrationInstance
+        """
+        data = values.of({ 
+            'CustomerProfileBundleSid': customer_profile_bundle_sid,
+            'A2PProfileBundleSid': a2_p_profile_bundle_sid,
+            'BrandType': brand_type,
+            'Mock': mock,
+            'SkipAutomaticSecVet': skip_automatic_sec_vet,
+        })
+
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return BrandRegistrationInstance(self._version, payload)
     
     
     def stream(self, limit=None, page_size=None):
@@ -127,6 +150,28 @@ class BrandRegistrationList(ListResource):
         )
         return BrandRegistrationPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a BrandRegistrationContext
+        
+        :param sid: The SID of the Brand Registration resource to update.
+        
+        :returns: twilio.rest.messaging.v1.brand_registration.BrandRegistrationContext
+        :rtype: twilio.rest.messaging.v1.brand_registration.BrandRegistrationContext
+        """
+        return BrandRegistrationContext(self._version, sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a BrandRegistrationContext
+        
+        :param sid: The SID of the Brand Registration resource to update.
+        
+        :returns: twilio.rest.messaging.v1.brand_registration.BrandRegistrationContext
+        :rtype: twilio.rest.messaging.v1.brand_registration.BrandRegistrationContext
+        """
+        return BrandRegistrationContext(self._version, sid=sid)
 
     def __repr__(self):
         """

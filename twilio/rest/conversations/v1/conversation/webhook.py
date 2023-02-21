@@ -39,11 +39,38 @@ class WebhookList(ListResource):
         # Path Solution
         self._solution = { 'conversation_sid': conversation_sid,  }
         self._uri = '/Conversations/${conversation_sid}/Webhooks'.format(**self._solution)
+        
+        
+    
+    
+    
+    
+    def create(self, target, configuration_url=values.unset, configuration_method=values.unset, configuration_filters=values.unset, configuration_triggers=values.unset, configuration_flow_sid=values.unset, configuration_replay_after=values.unset):
+        """
+        Create the WebhookInstance
+         :param ConversationScopedWebhookTarget target: 
+         :param str configuration_url: The absolute url the webhook request should be sent to.
+         :param ConversationScopedWebhookMethod configuration_method: 
+         :param [str] configuration_filters: The list of events, firing webhook event for this Conversation.
+         :param [str] configuration_triggers: The list of keywords, firing webhook event for this Conversation.
+         :param str configuration_flow_sid: The studio flow SID, where the webhook should be sent to.
+         :param int configuration_replay_after: The message index for which and it's successors the webhook will be replayed. Not set by default
+        
+        :returns: The created WebhookInstance
+        :rtype: twilio.rest.conversations.v1.webhook.WebhookInstance
+        """
+        data = values.of({ 
+            'Target': target,
+            'Configuration.Url': configuration_url,
+            'Configuration.Method': configuration_method,
+            'Configuration.Filters': serialize.map(configuration_filters, lambda e: e),
+            'Configuration.Triggers': serialize.map(configuration_triggers, lambda e: e),
+            'Configuration.FlowSid': configuration_flow_sid,
+            'Configuration.ReplayAfter': configuration_replay_after,
+        })
 
-
-    
-    
-    
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return WebhookInstance(self._version, payload, conversation_sid=self._solution['conversation_sid'])
     
     
     def stream(self, limit=None, page_size=None):
@@ -128,6 +155,28 @@ class WebhookList(ListResource):
         )
         return WebhookPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a WebhookContext
+        
+        :param sid: A 34 character string that uniquely identifies this resource.
+        
+        :returns: twilio.rest.conversations.v1.webhook.WebhookContext
+        :rtype: twilio.rest.conversations.v1.webhook.WebhookContext
+        """
+        return WebhookContext(self._version, conversation_sid=self._solution['conversation_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a WebhookContext
+        
+        :param sid: A 34 character string that uniquely identifies this resource.
+        
+        :returns: twilio.rest.conversations.v1.webhook.WebhookContext
+        :rtype: twilio.rest.conversations.v1.webhook.WebhookContext
+        """
+        return WebhookContext(self._version, conversation_sid=self._solution['conversation_sid'], sid=sid)
 
     def __repr__(self):
         """
@@ -224,9 +273,9 @@ class WebhookContext(InstanceContext):
 
         
     
-    def update(self, body):
+    def update(self, configuration_url, configuration_method, configuration_filters, configuration_triggers, configuration_flow_sid):
         data = values.of({
-            'body': body,
+            'configuration_url': configuration_url,'configuration_method': configuration_method,'configuration_filters': configuration_filters,'configuration_triggers': configuration_triggers,'configuration_flow_sid': configuration_flow_sid,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

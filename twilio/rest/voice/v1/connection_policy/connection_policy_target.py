@@ -39,11 +39,34 @@ class ConnectionPolicyTargetList(ListResource):
         # Path Solution
         self._solution = { 'connection_policy_sid': connection_policy_sid,  }
         self._uri = '/ConnectionPolicies/${connection_policy_sid}/Targets'.format(**self._solution)
+        
+        
+    
+    
+    
+    
+    def create(self, target, friendly_name=values.unset, priority=values.unset, weight=values.unset, enabled=values.unset):
+        """
+        Create the ConnectionPolicyTargetInstance
+         :param str target: The SIP address you want Twilio to route your calls to. This must be a `sip:` schema. `sips` is NOT supported.
+         :param str friendly_name: A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
+         :param int priority: The relative importance of the target. Can be an integer from 0 to 65535, inclusive, and the default is 10. The lowest number represents the most important target.
+         :param int weight: The value that determines the relative share of the load the Target should receive compared to other Targets with the same priority. Can be an integer from 1 to 65535, inclusive, and the default is 10. Targets with higher values receive more load than those with lower ones with the same priority.
+         :param bool enabled: Whether the Target is enabled. The default is `true`.
+        
+        :returns: The created ConnectionPolicyTargetInstance
+        :rtype: twilio.rest.voice.v1.connection_policy_target.ConnectionPolicyTargetInstance
+        """
+        data = values.of({ 
+            'Target': target,
+            'FriendlyName': friendly_name,
+            'Priority': priority,
+            'Weight': weight,
+            'Enabled': enabled,
+        })
 
-
-    
-    
-    
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return ConnectionPolicyTargetInstance(self._version, payload, connection_policy_sid=self._solution['connection_policy_sid'])
     
     
     def stream(self, limit=None, page_size=None):
@@ -128,6 +151,28 @@ class ConnectionPolicyTargetList(ListResource):
         )
         return ConnectionPolicyTargetPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a ConnectionPolicyTargetContext
+        
+        :param sid: The unique string that we created to identify the Target resource to update.
+        
+        :returns: twilio.rest.voice.v1.connection_policy_target.ConnectionPolicyTargetContext
+        :rtype: twilio.rest.voice.v1.connection_policy_target.ConnectionPolicyTargetContext
+        """
+        return ConnectionPolicyTargetContext(self._version, connection_policy_sid=self._solution['connection_policy_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a ConnectionPolicyTargetContext
+        
+        :param sid: The unique string that we created to identify the Target resource to update.
+        
+        :returns: twilio.rest.voice.v1.connection_policy_target.ConnectionPolicyTargetContext
+        :rtype: twilio.rest.voice.v1.connection_policy_target.ConnectionPolicyTargetContext
+        """
+        return ConnectionPolicyTargetContext(self._version, connection_policy_sid=self._solution['connection_policy_sid'], sid=sid)
 
     def __repr__(self):
         """
@@ -224,9 +269,9 @@ class ConnectionPolicyTargetContext(InstanceContext):
 
         
     
-    def update(self, body):
+    def update(self, friendly_name, target, priority, weight, enabled):
         data = values.of({
-            'body': body,
+            'friendly_name': friendly_name,'target': target,'priority': priority,'weight': weight,'enabled': enabled,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

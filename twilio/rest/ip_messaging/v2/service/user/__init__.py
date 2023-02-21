@@ -41,11 +41,32 @@ class UserList(ListResource):
         # Path Solution
         self._solution = { 'service_sid': service_sid,  }
         self._uri = '/Services/${service_sid}/Users'.format(**self._solution)
+        
+        
+    
+    
+    
+    
+    def create(self, identity, role_sid=values.unset, attributes=values.unset, friendly_name=values.unset):
+        """
+        Create the UserInstance
+         :param str identity: 
+         :param str role_sid: 
+         :param str attributes: 
+         :param str friendly_name: 
+        
+        :returns: The created UserInstance
+        :rtype: twilio.rest.ip_messaging.v2.user.UserInstance
+        """
+        data = values.of({ 
+            'Identity': identity,
+            'RoleSid': role_sid,
+            'Attributes': attributes,
+            'FriendlyName': friendly_name,
+        })
 
-
-    
-    
-    
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return UserInstance(self._version, payload, service_sid=self._solution['service_sid'])
     
     
     def stream(self, limit=None, page_size=None):
@@ -130,6 +151,28 @@ class UserList(ListResource):
         )
         return UserPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a UserContext
+        
+        :param sid: 
+        
+        :returns: twilio.rest.ip_messaging.v2.user.UserContext
+        :rtype: twilio.rest.ip_messaging.v2.user.UserContext
+        """
+        return UserContext(self._version, service_sid=self._solution['service_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a UserContext
+        
+        :param sid: 
+        
+        :returns: twilio.rest.ip_messaging.v2.user.UserContext
+        :rtype: twilio.rest.ip_messaging.v2.user.UserContext
+        """
+        return UserContext(self._version, service_sid=self._solution['service_sid'], sid=sid)
 
     def __repr__(self):
         """
@@ -228,9 +271,9 @@ class UserContext(InstanceContext):
 
         
     
-    def update(self, x_twilio_webhook_enabled, body):
+    def update(self, role_sid, attributes, friendly_name):
         data = values.of({
-            'x_twilio_webhook_enabled': x_twilio_webhook_enabled,'body': body,
+            'role_sid': role_sid,'attributes': attributes,'friendly_name': friendly_name,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

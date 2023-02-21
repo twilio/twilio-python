@@ -39,8 +39,8 @@ class DayList(ListResource):
         # Path Solution
         self._solution = { 'resource_type': resource_type,  }
         self._uri = '/Exports/${resource_type}/Days'.format(**self._solution)
-
-
+        
+        
     
     
     def stream(self, limit=None, page_size=None):
@@ -125,6 +125,28 @@ class DayList(ListResource):
         )
         return DayPage(self._version, response, self._solution)
 
+
+    def get(self, day):
+        """
+        Constructs a DayContext
+        
+        :param day: The ISO 8601 format date of the resources in the file, for a UTC day
+        
+        :returns: twilio.rest.bulkexports.v1.day.DayContext
+        :rtype: twilio.rest.bulkexports.v1.day.DayContext
+        """
+        return DayContext(self._version, resource_type=self._solution['resource_type'], day=day)
+
+    def __call__(self, day):
+        """
+        Constructs a DayContext
+        
+        :param day: The ISO 8601 format date of the resources in the file, for a UTC day
+        
+        :returns: twilio.rest.bulkexports.v1.day.DayContext
+        :rtype: twilio.rest.bulkexports.v1.day.DayContext
+        """
+        return DayContext(self._version, resource_type=self._solution['resource_type'], day=day)
 
     def __repr__(self):
         """

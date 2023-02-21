@@ -38,11 +38,29 @@ class RecordingList(ListResource):
 
         # Path Solution
         self._solution = { 'trunk_sid': trunk_sid,  }
-        self._uri = ''.format(**self._solution)
-
-
+        
+        
+        
     
     
+
+    def get(self):
+        """
+        Constructs a RecordingContext
+        
+        :returns: twilio.rest.trunking.v1.recording.RecordingContext
+        :rtype: twilio.rest.trunking.v1.recording.RecordingContext
+        """
+        return RecordingContext(self._version, trunk_sid=self._solution['trunk_sid'])
+
+    def __call__(self):
+        """
+        Constructs a RecordingContext
+        
+        :returns: twilio.rest.trunking.v1.recording.RecordingContext
+        :rtype: twilio.rest.trunking.v1.recording.RecordingContext
+        """
+        return RecordingContext(self._version, trunk_sid=self._solution['trunk_sid'])
 
     def __repr__(self):
         """
@@ -78,9 +96,9 @@ class RecordingContext(InstanceContext):
 
         
     
-    def update(self, body):
+    def update(self, mode, trim):
         data = values.of({
-            'body': body,
+            'mode': mode,'trim': trim,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

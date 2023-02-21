@@ -41,10 +41,10 @@ class UsageList(ListResource):
         # Path Solution
         self._solution = { 'account_sid': account_sid,  }
         self._uri = '/Accounts/${account_sid}/Usage.json'.format(**self._solution)
-
+        
         self._records = None
         self._triggers = None
-
+        
 
     @property
     def records(self):
@@ -57,7 +57,6 @@ class UsageList(ListResource):
         if self._records is None:
             self._records = RecordList(self._version, account_sid=self._solution['account_sid'])
         return self.records
-
     @property
     def triggers(self):
         """

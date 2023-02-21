@@ -41,8 +41,8 @@ class PayloadList(ListResource):
         # Path Solution
         self._solution = { 'account_sid': account_sid, 'reference_sid': reference_sid, 'add_on_result_sid': add_on_result_sid,  }
         self._uri = '/Accounts/${account_sid}/Recordings/${reference_sid}/AddOnResults/${add_on_result_sid}/Payloads.json'.format(**self._solution)
-
-
+        
+        
     
     
     
@@ -128,6 +128,28 @@ class PayloadList(ListResource):
         )
         return PayloadPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a PayloadContext
+        
+        :param sid: The Twilio-provided string that uniquely identifies the Recording AddOnResult Payload resource to fetch.
+        
+        :returns: twilio.rest.api.v2010.payload.PayloadContext
+        :rtype: twilio.rest.api.v2010.payload.PayloadContext
+        """
+        return PayloadContext(self._version, account_sid=self._solution['account_sid'], reference_sid=self._solution['reference_sid'], add_on_result_sid=self._solution['add_on_result_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a PayloadContext
+        
+        :param sid: The Twilio-provided string that uniquely identifies the Recording AddOnResult Payload resource to fetch.
+        
+        :returns: twilio.rest.api.v2010.payload.PayloadContext
+        :rtype: twilio.rest.api.v2010.payload.PayloadContext
+        """
+        return PayloadContext(self._version, account_sid=self._solution['account_sid'], reference_sid=self._solution['reference_sid'], add_on_result_sid=self._solution['add_on_result_sid'], sid=sid)
 
     def __repr__(self):
         """

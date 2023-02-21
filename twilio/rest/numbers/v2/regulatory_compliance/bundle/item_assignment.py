@@ -39,10 +39,25 @@ class ItemAssignmentList(ListResource):
         # Path Solution
         self._solution = { 'bundle_sid': bundle_sid,  }
         self._uri = '/RegulatoryCompliance/Bundles/${bundle_sid}/ItemAssignments'.format(**self._solution)
-
-
+        
+        
     
     
+    
+    def create(self, object_sid):
+        """
+        Create the ItemAssignmentInstance
+         :param str object_sid: The SID of an object bag that holds information of the different items.
+        
+        :returns: The created ItemAssignmentInstance
+        :rtype: twilio.rest.numbers.v2.item_assignment.ItemAssignmentInstance
+        """
+        data = values.of({ 
+            'ObjectSid': object_sid,
+        })
+
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return ItemAssignmentInstance(self._version, payload, bundle_sid=self._solution['bundle_sid'])
     
     
     def stream(self, limit=None, page_size=None):
@@ -127,6 +142,28 @@ class ItemAssignmentList(ListResource):
         )
         return ItemAssignmentPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a ItemAssignmentContext
+        
+        :param sid: The unique string that we created to identify the Identity resource.
+        
+        :returns: twilio.rest.numbers.v2.item_assignment.ItemAssignmentContext
+        :rtype: twilio.rest.numbers.v2.item_assignment.ItemAssignmentContext
+        """
+        return ItemAssignmentContext(self._version, bundle_sid=self._solution['bundle_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a ItemAssignmentContext
+        
+        :param sid: The unique string that we created to identify the Identity resource.
+        
+        :returns: twilio.rest.numbers.v2.item_assignment.ItemAssignmentContext
+        :rtype: twilio.rest.numbers.v2.item_assignment.ItemAssignmentContext
+        """
+        return ItemAssignmentContext(self._version, bundle_sid=self._solution['bundle_sid'], sid=sid)
 
     def __repr__(self):
         """

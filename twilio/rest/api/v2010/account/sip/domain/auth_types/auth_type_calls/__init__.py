@@ -42,10 +42,10 @@ class AuthTypeCallsList(ListResource):
         # Path Solution
         self._solution = { 'account_sid': account_sid, 'domain_sid': domain_sid,  }
         self._uri = '/Accounts/${account_sid}/SIP/Domains/${domain_sid}/Auth/Calls.json'.format(**self._solution)
-
+        
         self._credential_list_mappings = None
         self._ip_access_control_list_mappings = None
-
+        
 
     @property
     def credential_list_mappings(self):
@@ -58,7 +58,6 @@ class AuthTypeCallsList(ListResource):
         if self._credential_list_mappings is None:
             self._credential_list_mappings = AuthCallsCredentialListMappingList(self._version, account_sid=self._solution['account_sid'], domain_sid=self._solution['domain_sid'])
         return self.credential_list_mappings
-
     @property
     def ip_access_control_list_mappings(self):
         """

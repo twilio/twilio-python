@@ -40,11 +40,26 @@ class CredentialListList(ListResource):
         # Path Solution
         self._solution = { 'account_sid': account_sid,  }
         self._uri = '/Accounts/${account_sid}/SIP/CredentialLists.json'.format(**self._solution)
+        
+        
+    
+    
+    
+    
+    def create(self, friendly_name):
+        """
+        Create the CredentialListInstance
+         :param str friendly_name: A human readable descriptive text that describes the CredentialList, up to 64 characters long.
+        
+        :returns: The created CredentialListInstance
+        :rtype: twilio.rest.api.v2010.credential_list.CredentialListInstance
+        """
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+        })
 
-
-    
-    
-    
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return CredentialListInstance(self._version, payload, account_sid=self._solution['account_sid'])
     
     
     def stream(self, limit=None, page_size=None):
@@ -129,6 +144,28 @@ class CredentialListList(ListResource):
         )
         return CredentialListPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a CredentialListContext
+        
+        :param sid: The credential list Sid that uniquely identifies this resource
+        
+        :returns: twilio.rest.api.v2010.credential_list.CredentialListContext
+        :rtype: twilio.rest.api.v2010.credential_list.CredentialListContext
+        """
+        return CredentialListContext(self._version, account_sid=self._solution['account_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a CredentialListContext
+        
+        :param sid: The credential list Sid that uniquely identifies this resource
+        
+        :returns: twilio.rest.api.v2010.credential_list.CredentialListContext
+        :rtype: twilio.rest.api.v2010.credential_list.CredentialListContext
+        """
+        return CredentialListContext(self._version, account_sid=self._solution['account_sid'], sid=sid)
 
     def __repr__(self):
         """
@@ -226,9 +263,9 @@ class CredentialListContext(InstanceContext):
 
         
     
-    def update(self, body):
+    def update(self, friendly_name):
         data = values.of({
-            'body': body,
+            'friendly_name': friendly_name,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

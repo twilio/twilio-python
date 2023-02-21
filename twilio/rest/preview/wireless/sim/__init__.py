@@ -39,8 +39,8 @@ class SimList(ListResource):
         # Path Solution
         self._solution = {  }
         self._uri = '/Sims'.format(**self._solution)
-
-
+        
+        
     
     
     
@@ -157,6 +157,28 @@ class SimList(ListResource):
         return SimPage(self._version, response, self._solution)
 
 
+    def get(self, sid):
+        """
+        Constructs a SimContext
+        
+        :param sid: 
+        
+        :returns: twilio.rest.preview.wireless.sim.SimContext
+        :rtype: twilio.rest.preview.wireless.sim.SimContext
+        """
+        return SimContext(self._version, sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a SimContext
+        
+        :param sid: 
+        
+        :returns: twilio.rest.preview.wireless.sim.SimContext
+        :rtype: twilio.rest.preview.wireless.sim.SimContext
+        """
+        return SimContext(self._version, sid=sid)
+
     def __repr__(self):
         """
         Provide a friendly representation
@@ -237,9 +259,9 @@ class SimContext(InstanceContext):
 
         
     
-    def update(self, body):
+    def update(self, unique_name, callback_method, callback_url, friendly_name, rate_plan, status, commands_callback_method, commands_callback_url, sms_fallback_method, sms_fallback_url, sms_method, sms_url, voice_fallback_method, voice_fallback_url, voice_method, voice_url):
         data = values.of({
-            'body': body,
+            'unique_name': unique_name,'callback_method': callback_method,'callback_url': callback_url,'friendly_name': friendly_name,'rate_plan': rate_plan,'status': status,'commands_callback_method': commands_callback_method,'commands_callback_url': commands_callback_url,'sms_fallback_method': sms_fallback_method,'sms_fallback_url': sms_fallback_url,'sms_method': sms_method,'sms_url': sms_url,'voice_fallback_method': voice_fallback_method,'voice_fallback_url': voice_fallback_url,'voice_method': voice_method,'voice_url': voice_url,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

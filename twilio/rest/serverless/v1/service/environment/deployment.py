@@ -40,9 +40,24 @@ class DeploymentList(ListResource):
         # Path Solution
         self._solution = { 'service_sid': service_sid, 'environment_sid': environment_sid,  }
         self._uri = '/Services/${service_sid}/Environments/${environment_sid}/Deployments'.format(**self._solution)
-
-
+        
+        
     
+    
+    def create(self, build_sid=values.unset):
+        """
+        Create the DeploymentInstance
+         :param str build_sid: The SID of the Build for the Deployment.
+        
+        :returns: The created DeploymentInstance
+        :rtype: twilio.rest.serverless.v1.deployment.DeploymentInstance
+        """
+        data = values.of({ 
+            'BuildSid': build_sid,
+        })
+
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return DeploymentInstance(self._version, payload, service_sid=self._solution['service_sid'], environment_sid=self._solution['environment_sid'])
     
     
     def stream(self, limit=None, page_size=None):
@@ -127,6 +142,28 @@ class DeploymentList(ListResource):
         )
         return DeploymentPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a DeploymentContext
+        
+        :param sid: The SID that identifies the Deployment resource to fetch.
+        
+        :returns: twilio.rest.serverless.v1.deployment.DeploymentContext
+        :rtype: twilio.rest.serverless.v1.deployment.DeploymentContext
+        """
+        return DeploymentContext(self._version, service_sid=self._solution['service_sid'], environment_sid=self._solution['environment_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a DeploymentContext
+        
+        :param sid: The SID that identifies the Deployment resource to fetch.
+        
+        :returns: twilio.rest.serverless.v1.deployment.DeploymentContext
+        :rtype: twilio.rest.serverless.v1.deployment.DeploymentContext
+        """
+        return DeploymentContext(self._version, service_sid=self._solution['service_sid'], environment_sid=self._solution['environment_sid'], sid=sid)
 
     def __repr__(self):
         """

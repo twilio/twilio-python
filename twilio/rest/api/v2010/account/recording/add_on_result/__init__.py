@@ -41,8 +41,8 @@ class AddOnResultList(ListResource):
         # Path Solution
         self._solution = { 'account_sid': account_sid, 'reference_sid': reference_sid,  }
         self._uri = '/Accounts/${account_sid}/Recordings/${reference_sid}/AddOnResults.json'.format(**self._solution)
-
-
+        
+        
     
     
     
@@ -128,6 +128,28 @@ class AddOnResultList(ListResource):
         )
         return AddOnResultPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a AddOnResultContext
+        
+        :param sid: The Twilio-provided string that uniquely identifies the Recording AddOnResult resource to fetch.
+        
+        :returns: twilio.rest.api.v2010.add_on_result.AddOnResultContext
+        :rtype: twilio.rest.api.v2010.add_on_result.AddOnResultContext
+        """
+        return AddOnResultContext(self._version, account_sid=self._solution['account_sid'], reference_sid=self._solution['reference_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a AddOnResultContext
+        
+        :param sid: The Twilio-provided string that uniquely identifies the Recording AddOnResult resource to fetch.
+        
+        :returns: twilio.rest.api.v2010.add_on_result.AddOnResultContext
+        :rtype: twilio.rest.api.v2010.add_on_result.AddOnResultContext
+        """
+        return AddOnResultContext(self._version, account_sid=self._solution['account_sid'], reference_sid=self._solution['reference_sid'], sid=sid)
 
     def __repr__(self):
         """

@@ -38,11 +38,29 @@ class AssistantInitiationActionsList(ListResource):
 
         # Path Solution
         self._solution = { 'assistant_sid': assistant_sid,  }
-        self._uri = ''.format(**self._solution)
-
-
+        
+        
+        
     
     
+
+    def get(self):
+        """
+        Constructs a AssistantInitiationActionsContext
+        
+        :returns: twilio.rest.preview.understand.assistant_initiation_actions.AssistantInitiationActionsContext
+        :rtype: twilio.rest.preview.understand.assistant_initiation_actions.AssistantInitiationActionsContext
+        """
+        return AssistantInitiationActionsContext(self._version, assistant_sid=self._solution['assistant_sid'])
+
+    def __call__(self):
+        """
+        Constructs a AssistantInitiationActionsContext
+        
+        :returns: twilio.rest.preview.understand.assistant_initiation_actions.AssistantInitiationActionsContext
+        :rtype: twilio.rest.preview.understand.assistant_initiation_actions.AssistantInitiationActionsContext
+        """
+        return AssistantInitiationActionsContext(self._version, assistant_sid=self._solution['assistant_sid'])
 
     def __repr__(self):
         """
@@ -78,9 +96,9 @@ class AssistantInitiationActionsContext(InstanceContext):
 
         
     
-    def update(self, body):
+    def update(self, initiation_actions):
         data = values.of({
-            'body': body,
+            'initiation_actions': initiation_actions,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

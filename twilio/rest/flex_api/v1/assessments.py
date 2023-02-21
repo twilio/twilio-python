@@ -37,10 +37,28 @@ class AssessmentsList(ListResource):
 
         # Path Solution
         self._solution = {  }
-        self._uri = ''.format(**self._solution)
-
-
+        
+        
+        
     
+
+    def get(self):
+        """
+        Constructs a AssessmentsContext
+        
+        :returns: twilio.rest.flex_api.v1.assessments.AssessmentsContext
+        :rtype: twilio.rest.flex_api.v1.assessments.AssessmentsContext
+        """
+        return AssessmentsContext(self._version)
+
+    def __call__(self):
+        """
+        Constructs a AssessmentsContext
+        
+        :returns: twilio.rest.flex_api.v1.assessments.AssessmentsContext
+        :rtype: twilio.rest.flex_api.v1.assessments.AssessmentsContext
+        """
+        return AssessmentsContext(self._version)
 
     def __repr__(self):
         """

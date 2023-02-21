@@ -39,10 +39,28 @@ class WorkflowRealTimeStatisticsList(ListResource):
 
         # Path Solution
         self._solution = { 'workspace_sid': workspace_sid, 'workflow_sid': workflow_sid,  }
-        self._uri = ''.format(**self._solution)
-
-
+        
+        
+        
     
+
+    def get(self):
+        """
+        Constructs a WorkflowRealTimeStatisticsContext
+        
+        :returns: twilio.rest.taskrouter.v1.workflow_real_time_statistics.WorkflowRealTimeStatisticsContext
+        :rtype: twilio.rest.taskrouter.v1.workflow_real_time_statistics.WorkflowRealTimeStatisticsContext
+        """
+        return WorkflowRealTimeStatisticsContext(self._version, workspace_sid=self._solution['workspace_sid'], workflow_sid=self._solution['workflow_sid'])
+
+    def __call__(self):
+        """
+        Constructs a WorkflowRealTimeStatisticsContext
+        
+        :returns: twilio.rest.taskrouter.v1.workflow_real_time_statistics.WorkflowRealTimeStatisticsContext
+        :rtype: twilio.rest.taskrouter.v1.workflow_real_time_statistics.WorkflowRealTimeStatisticsContext
+        """
+        return WorkflowRealTimeStatisticsContext(self._version, workspace_sid=self._solution['workspace_sid'], workflow_sid=self._solution['workflow_sid'])
 
     def __repr__(self):
         """

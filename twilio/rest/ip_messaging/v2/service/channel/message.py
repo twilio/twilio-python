@@ -40,11 +40,38 @@ class MessageList(ListResource):
         # Path Solution
         self._solution = { 'service_sid': service_sid, 'channel_sid': channel_sid,  }
         self._uri = '/Services/${service_sid}/Channels/${channel_sid}/Messages'.format(**self._solution)
+        
+        
+    
+    
+    
+    
+    def create(self, from_=values.unset, attributes=values.unset, date_created=values.unset, date_updated=values.unset, last_updated_by=values.unset, body=values.unset, media_sid=values.unset):
+        """
+        Create the MessageInstance
+         :param str from_: 
+         :param str attributes: 
+         :param datetime date_created: 
+         :param datetime date_updated: 
+         :param str last_updated_by: 
+         :param str body: 
+         :param str media_sid: 
+        
+        :returns: The created MessageInstance
+        :rtype: twilio.rest.ip_messaging.v2.message.MessageInstance
+        """
+        data = values.of({ 
+            'From': from_,
+            'Attributes': attributes,
+            'DateCreated': date_created,
+            'DateUpdated': date_updated,
+            'LastUpdatedBy': last_updated_by,
+            'Body': body,
+            'MediaSid': media_sid,
+        })
 
-
-    
-    
-    
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return MessageInstance(self._version, payload, service_sid=self._solution['service_sid'], channel_sid=self._solution['channel_sid'])
     
     
     def stream(self, order=values.unset, limit=None, page_size=None):
@@ -135,6 +162,28 @@ class MessageList(ListResource):
         )
         return MessagePage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a MessageContext
+        
+        :param sid: 
+        
+        :returns: twilio.rest.ip_messaging.v2.message.MessageContext
+        :rtype: twilio.rest.ip_messaging.v2.message.MessageContext
+        """
+        return MessageContext(self._version, service_sid=self._solution['service_sid'], channel_sid=self._solution['channel_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a MessageContext
+        
+        :param sid: 
+        
+        :returns: twilio.rest.ip_messaging.v2.message.MessageContext
+        :rtype: twilio.rest.ip_messaging.v2.message.MessageContext
+        """
+        return MessageContext(self._version, service_sid=self._solution['service_sid'], channel_sid=self._solution['channel_sid'], sid=sid)
 
     def __repr__(self):
         """
@@ -231,9 +280,9 @@ class MessageContext(InstanceContext):
 
         
     
-    def update(self, x_twilio_webhook_enabled, body):
+    def update(self, body, attributes, date_created, date_updated, last_updated_by, from_):
         data = values.of({
-            'x_twilio_webhook_enabled': x_twilio_webhook_enabled,'body': body,
+            'body': body,'attributes': attributes,'date_created': date_created,'date_updated': date_updated,'last_updated_by': last_updated_by,'from_': from_,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

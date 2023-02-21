@@ -39,8 +39,8 @@ class AvailableAddOnExtensionList(ListResource):
         # Path Solution
         self._solution = { 'available_add_on_sid': available_add_on_sid,  }
         self._uri = '/AvailableAddOns/${available_add_on_sid}/Extensions'.format(**self._solution)
-
-
+        
+        
     
     
     def stream(self, limit=None, page_size=None):
@@ -125,6 +125,28 @@ class AvailableAddOnExtensionList(ListResource):
         )
         return AvailableAddOnExtensionPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a AvailableAddOnExtensionContext
+        
+        :param sid: The SID of the AvailableAddOn Extension resource to fetch.
+        
+        :returns: twilio.rest.preview.marketplace.available_add_on_extension.AvailableAddOnExtensionContext
+        :rtype: twilio.rest.preview.marketplace.available_add_on_extension.AvailableAddOnExtensionContext
+        """
+        return AvailableAddOnExtensionContext(self._version, available_add_on_sid=self._solution['available_add_on_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a AvailableAddOnExtensionContext
+        
+        :param sid: The SID of the AvailableAddOn Extension resource to fetch.
+        
+        :returns: twilio.rest.preview.marketplace.available_add_on_extension.AvailableAddOnExtensionContext
+        :rtype: twilio.rest.preview.marketplace.available_add_on_extension.AvailableAddOnExtensionContext
+        """
+        return AvailableAddOnExtensionContext(self._version, available_add_on_sid=self._solution['available_add_on_sid'], sid=sid)
 
     def __repr__(self):
         """

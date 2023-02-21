@@ -48,11 +48,36 @@ class WorkspaceList(ListResource):
         # Path Solution
         self._solution = {  }
         self._uri = '/Workspaces'.format(**self._solution)
+        
+        
+    
+    
+    
+    
+    def create(self, friendly_name, event_callback_url=values.unset, events_filter=values.unset, multi_task_enabled=values.unset, template=values.unset, prioritize_queue_order=values.unset):
+        """
+        Create the WorkspaceInstance
+         :param str friendly_name: A descriptive string that you create to describe the Workspace resource. It can be up to 64 characters long. For example: `Customer Support` or `2014 Election Campaign`.
+         :param str event_callback_url: The URL we should call when an event occurs. If provided, the Workspace will publish events to this URL, for example, to collect data for reporting. See [Workspace Events](https://www.twilio.com/docs/taskrouter/api/event) for more information. This parameter supports Twilio's [Webhooks (HTTP callbacks) Connection Overrides](https://www.twilio.com/docs/usage/webhooks/webhooks-connection-overrides).
+         :param str events_filter: The list of Workspace events for which to call event_callback_url. For example, if `EventsFilter=task.created, task.canceled, worker.activity.update`, then TaskRouter will call event_callback_url only when a task is created, canceled, or a Worker activity is updated.
+         :param bool multi_task_enabled: Whether to enable multi-tasking. Can be: `true` to enable multi-tasking, or `false` to disable it. However, all workspaces should be created as multi-tasking. The default is `true`. Multi-tasking allows Workers to handle multiple Tasks simultaneously. When enabled (`true`), each Worker can receive parallel reservations up to the per-channel maximums defined in the Workers section. In single-tasking mode (legacy mode), each Worker will only receive a new reservation when the previous task is completed. Learn more at [Multitasking](https://www.twilio.com/docs/taskrouter/multitasking).
+         :param str template: An available template name. Can be: `NONE` or `FIFO` and the default is `NONE`. Pre-configures the Workspace with the Workflow and Activities specified in the template. `NONE` will create a Workspace with only a set of default activities. `FIFO` will configure TaskRouter with a set of default activities and a single TaskQueue for first-in, first-out distribution, which can be useful when you are getting started with TaskRouter.
+         :param WorkspaceQueueOrder prioritize_queue_order: 
+        
+        :returns: The created WorkspaceInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.WorkspaceInstance
+        """
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+            'EventCallbackUrl': event_callback_url,
+            'EventsFilter': events_filter,
+            'MultiTaskEnabled': multi_task_enabled,
+            'Template': template,
+            'PrioritizeQueueOrder': prioritize_queue_order,
+        })
 
-
-    
-    
-    
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return WorkspaceInstance(self._version, payload)
     
     
     def stream(self, friendly_name=values.unset, limit=None, page_size=None):
@@ -143,6 +168,28 @@ class WorkspaceList(ListResource):
         )
         return WorkspacePage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a WorkspaceContext
+        
+        :param sid: The SID of the Workspace resource to update.
+        
+        :returns: twilio.rest.taskrouter.v1.workspace.WorkspaceContext
+        :rtype: twilio.rest.taskrouter.v1.workspace.WorkspaceContext
+        """
+        return WorkspaceContext(self._version, sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a WorkspaceContext
+        
+        :param sid: The SID of the Workspace resource to update.
+        
+        :returns: twilio.rest.taskrouter.v1.workspace.WorkspaceContext
+        :rtype: twilio.rest.taskrouter.v1.workspace.WorkspaceContext
+        """
+        return WorkspaceContext(self._version, sid=sid)
 
     def __repr__(self):
         """
@@ -249,9 +296,9 @@ class WorkspaceContext(InstanceContext):
 
         
     
-    def update(self, body):
+    def update(self, default_activity_sid, event_callback_url, events_filter, friendly_name, multi_task_enabled, timeout_activity_sid, prioritize_queue_order):
         data = values.of({
-            'body': body,
+            'default_activity_sid': default_activity_sid,'event_callback_url': event_callback_url,'events_filter': events_filter,'friendly_name': friendly_name,'multi_task_enabled': multi_task_enabled,'timeout_activity_sid': timeout_activity_sid,'prioritize_queue_order': prioritize_queue_order,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

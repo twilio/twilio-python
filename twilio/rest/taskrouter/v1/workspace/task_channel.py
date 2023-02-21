@@ -39,11 +39,30 @@ class TaskChannelList(ListResource):
         # Path Solution
         self._solution = { 'workspace_sid': workspace_sid,  }
         self._uri = '/Workspaces/${workspace_sid}/TaskChannels'.format(**self._solution)
+        
+        
+    
+    
+    
+    
+    def create(self, friendly_name, unique_name, channel_optimized_routing=values.unset):
+        """
+        Create the TaskChannelInstance
+         :param str friendly_name: A descriptive string that you create to describe the Task Channel. It can be up to 64 characters long.
+         :param str unique_name: An application-defined string that uniquely identifies the Task Channel, such as `voice` or `sms`.
+         :param bool channel_optimized_routing: Whether the Task Channel should prioritize Workers that have been idle. If `true`, Workers that have been idle the longest are prioritized.
+        
+        :returns: The created TaskChannelInstance
+        :rtype: twilio.rest.taskrouter.v1.task_channel.TaskChannelInstance
+        """
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+            'UniqueName': unique_name,
+            'ChannelOptimizedRouting': channel_optimized_routing,
+        })
 
-
-    
-    
-    
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return TaskChannelInstance(self._version, payload, workspace_sid=self._solution['workspace_sid'])
     
     
     def stream(self, limit=None, page_size=None):
@@ -128,6 +147,28 @@ class TaskChannelList(ListResource):
         )
         return TaskChannelPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a TaskChannelContext
+        
+        :param sid: The SID of the Task Channel resource to update.
+        
+        :returns: twilio.rest.taskrouter.v1.task_channel.TaskChannelContext
+        :rtype: twilio.rest.taskrouter.v1.task_channel.TaskChannelContext
+        """
+        return TaskChannelContext(self._version, workspace_sid=self._solution['workspace_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a TaskChannelContext
+        
+        :param sid: The SID of the Task Channel resource to update.
+        
+        :returns: twilio.rest.taskrouter.v1.task_channel.TaskChannelContext
+        :rtype: twilio.rest.taskrouter.v1.task_channel.TaskChannelContext
+        """
+        return TaskChannelContext(self._version, workspace_sid=self._solution['workspace_sid'], sid=sid)
 
     def __repr__(self):
         """
@@ -224,9 +265,9 @@ class TaskChannelContext(InstanceContext):
 
         
     
-    def update(self, body):
+    def update(self, friendly_name, channel_optimized_routing):
         data = values.of({
-            'body': body,
+            'friendly_name': friendly_name,'channel_optimized_routing': channel_optimized_routing,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

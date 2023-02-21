@@ -40,10 +40,11 @@ class SubscribeRulesList(ListResource):
         # Path Solution
         self._solution = { 'room_sid': room_sid, 'participant_sid': participant_sid,  }
         self._uri = '/Rooms/${room_sid}/Participants/${participant_sid}/SubscribeRules'.format(**self._solution)
-
-
+        
+        
     
     
+
 
     def __repr__(self):
         """

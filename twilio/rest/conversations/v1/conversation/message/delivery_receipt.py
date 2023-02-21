@@ -40,8 +40,8 @@ class DeliveryReceiptList(ListResource):
         # Path Solution
         self._solution = { 'conversation_sid': conversation_sid, 'message_sid': message_sid,  }
         self._uri = '/Conversations/${conversation_sid}/Messages/${message_sid}/Receipts'.format(**self._solution)
-
-
+        
+        
     
     
     def stream(self, limit=None, page_size=None):
@@ -126,6 +126,28 @@ class DeliveryReceiptList(ListResource):
         )
         return DeliveryReceiptPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a DeliveryReceiptContext
+        
+        :param sid: A 34 character string that uniquely identifies this resource.
+        
+        :returns: twilio.rest.conversations.v1.delivery_receipt.DeliveryReceiptContext
+        :rtype: twilio.rest.conversations.v1.delivery_receipt.DeliveryReceiptContext
+        """
+        return DeliveryReceiptContext(self._version, conversation_sid=self._solution['conversation_sid'], message_sid=self._solution['message_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a DeliveryReceiptContext
+        
+        :param sid: A 34 character string that uniquely identifies this resource.
+        
+        :returns: twilio.rest.conversations.v1.delivery_receipt.DeliveryReceiptContext
+        :rtype: twilio.rest.conversations.v1.delivery_receipt.DeliveryReceiptContext
+        """
+        return DeliveryReceiptContext(self._version, conversation_sid=self._solution['conversation_sid'], message_sid=self._solution['message_sid'], sid=sid)
 
     def __repr__(self):
         """

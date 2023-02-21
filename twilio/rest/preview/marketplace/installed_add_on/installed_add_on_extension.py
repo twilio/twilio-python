@@ -39,8 +39,8 @@ class InstalledAddOnExtensionList(ListResource):
         # Path Solution
         self._solution = { 'installed_add_on_sid': installed_add_on_sid,  }
         self._uri = '/InstalledAddOns/${installed_add_on_sid}/Extensions'.format(**self._solution)
-
-
+        
+        
     
     
     
@@ -127,6 +127,28 @@ class InstalledAddOnExtensionList(ListResource):
         return InstalledAddOnExtensionPage(self._version, response, self._solution)
 
 
+    def get(self, sid):
+        """
+        Constructs a InstalledAddOnExtensionContext
+        
+        :param sid: The SID of the InstalledAddOn Extension resource to update.
+        
+        :returns: twilio.rest.preview.marketplace.installed_add_on_extension.InstalledAddOnExtensionContext
+        :rtype: twilio.rest.preview.marketplace.installed_add_on_extension.InstalledAddOnExtensionContext
+        """
+        return InstalledAddOnExtensionContext(self._version, installed_add_on_sid=self._solution['installed_add_on_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a InstalledAddOnExtensionContext
+        
+        :param sid: The SID of the InstalledAddOn Extension resource to update.
+        
+        :returns: twilio.rest.preview.marketplace.installed_add_on_extension.InstalledAddOnExtensionContext
+        :rtype: twilio.rest.preview.marketplace.installed_add_on_extension.InstalledAddOnExtensionContext
+        """
+        return InstalledAddOnExtensionContext(self._version, installed_add_on_sid=self._solution['installed_add_on_sid'], sid=sid)
+
     def __repr__(self):
         """
         Provide a friendly representation
@@ -206,9 +228,9 @@ class InstalledAddOnExtensionContext(InstanceContext):
 
         
     
-    def update(self, body):
+    def update(self, enabled):
         data = values.of({
-            'body': body,
+            'enabled': enabled,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

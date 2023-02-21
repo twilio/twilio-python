@@ -38,8 +38,8 @@ class UsageRecordList(ListResource):
         # Path Solution
         self._solution = {  }
         self._uri = '/UsageRecords'.format(**self._solution)
-
-
+        
+        
     
     def stream(self, sim=values.unset, fleet=values.unset, network=values.unset, iso_country=values.unset, group=values.unset, granularity=values.unset, start_time=values.unset, end_time=values.unset, limit=None, page_size=None):
         """
@@ -145,8 +145,8 @@ class UsageRecordList(ListResource):
             'IsoCountry': iso_country,
             'Group': group,
             'Granularity': granularity,
-            'StartTime': start_time,
-            'EndTime': end_time,
+            'StartTime': serialize.iso8601_datetime(start_time),
+            'EndTime': serialize.iso8601_datetime(end_time),
             'PageToken': page_token,
             'Page': page_number,
             'PageSize': page_size,
@@ -170,6 +170,7 @@ class UsageRecordList(ListResource):
             target_url
         )
         return UsageRecordPage(self._version, response, self._solution)
+
 
 
     def __repr__(self):

@@ -38,8 +38,8 @@ class SettingsUpdateList(ListResource):
         # Path Solution
         self._solution = {  }
         self._uri = '/SettingsUpdates'.format(**self._solution)
-
-
+        
+        
     
     def stream(self, sim=values.unset, status=values.unset, limit=None, page_size=None):
         """
@@ -134,6 +134,7 @@ class SettingsUpdateList(ListResource):
             target_url
         )
         return SettingsUpdatePage(self._version, response, self._solution)
+
 
 
     def __repr__(self):

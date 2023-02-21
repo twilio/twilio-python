@@ -38,10 +38,28 @@ class ApprovalFetchList(ListResource):
 
         # Path Solution
         self._solution = { 'sid': sid,  }
-        self._uri = ''.format(**self._solution)
-
-
+        
+        
+        
     
+
+    def get(self):
+        """
+        Constructs a ApprovalFetchContext
+        
+        :returns: twilio.rest.content.v1.approval_fetch.ApprovalFetchContext
+        :rtype: twilio.rest.content.v1.approval_fetch.ApprovalFetchContext
+        """
+        return ApprovalFetchContext(self._version, sid=self._solution['sid'])
+
+    def __call__(self):
+        """
+        Constructs a ApprovalFetchContext
+        
+        :returns: twilio.rest.content.v1.approval_fetch.ApprovalFetchContext
+        :rtype: twilio.rest.content.v1.approval_fetch.ApprovalFetchContext
+        """
+        return ApprovalFetchContext(self._version, sid=self._solution['sid'])
 
     def __repr__(self):
         """

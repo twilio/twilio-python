@@ -41,9 +41,9 @@ class ExportList(ListResource):
         # Path Solution
         self._solution = {  }
         self._uri = '/Exports'.format(**self._solution)
-
+        
         self._jobs = None
-
+        
     
 
     @property
@@ -57,6 +57,27 @@ class ExportList(ListResource):
         if self._jobs is None:
             self._jobs = JobList(self._version)
         return self.jobs
+    def get(self, resource_type):
+        """
+        Constructs a ExportContext
+        
+        :param resource_type: The type of communication – Messages, Calls, Conferences, and Participants
+        
+        :returns: twilio.rest.bulkexports.v1.export.ExportContext
+        :rtype: twilio.rest.bulkexports.v1.export.ExportContext
+        """
+        return ExportContext(self._version, resource_type=resource_type)
+
+    def __call__(self, resource_type):
+        """
+        Constructs a ExportContext
+        
+        :param resource_type: The type of communication – Messages, Calls, Conferences, and Participants
+        
+        :returns: twilio.rest.bulkexports.v1.export.ExportContext
+        :rtype: twilio.rest.bulkexports.v1.export.ExportContext
+        """
+        return ExportContext(self._version, resource_type=resource_type)
 
     def __repr__(self):
         """

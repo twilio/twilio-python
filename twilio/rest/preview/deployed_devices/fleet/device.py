@@ -39,11 +39,34 @@ class DeviceList(ListResource):
         # Path Solution
         self._solution = { 'fleet_sid': fleet_sid,  }
         self._uri = '/Fleets/${fleet_sid}/Devices'.format(**self._solution)
+        
+        
+    
+    
+    
+    
+    def create(self, unique_name=values.unset, friendly_name=values.unset, identity=values.unset, deployment_sid=values.unset, enabled=values.unset):
+        """
+        Create the DeviceInstance
+         :param str unique_name: Provides a unique and addressable name to be assigned to this Device, to be used in addition to SID, up to 128 characters long.
+         :param str friendly_name: Provides a human readable descriptive text to be assigned to this Device, up to 256 characters long.
+         :param str identity: Provides an arbitrary string identifier representing a human user to be associated with this Device, up to 256 characters long.
+         :param str deployment_sid: Specifies the unique string identifier of the Deployment group that this Device is going to be associated with.
+         :param bool enabled: 
+        
+        :returns: The created DeviceInstance
+        :rtype: twilio.rest.preview.deployed_devices.device.DeviceInstance
+        """
+        data = values.of({ 
+            'UniqueName': unique_name,
+            'FriendlyName': friendly_name,
+            'Identity': identity,
+            'DeploymentSid': deployment_sid,
+            'Enabled': enabled,
+        })
 
-
-    
-    
-    
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return DeviceInstance(self._version, payload, fleet_sid=self._solution['fleet_sid'])
     
     
     def stream(self, deployment_sid=values.unset, limit=None, page_size=None):
@@ -134,6 +157,28 @@ class DeviceList(ListResource):
         )
         return DevicePage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a DeviceContext
+        
+        :param sid: Provides a 34 character string that uniquely identifies the requested Device resource.
+        
+        :returns: twilio.rest.preview.deployed_devices.device.DeviceContext
+        :rtype: twilio.rest.preview.deployed_devices.device.DeviceContext
+        """
+        return DeviceContext(self._version, fleet_sid=self._solution['fleet_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a DeviceContext
+        
+        :param sid: Provides a 34 character string that uniquely identifies the requested Device resource.
+        
+        :returns: twilio.rest.preview.deployed_devices.device.DeviceContext
+        :rtype: twilio.rest.preview.deployed_devices.device.DeviceContext
+        """
+        return DeviceContext(self._version, fleet_sid=self._solution['fleet_sid'], sid=sid)
 
     def __repr__(self):
         """
@@ -230,9 +275,9 @@ class DeviceContext(InstanceContext):
 
         
     
-    def update(self, body):
+    def update(self, friendly_name, identity, deployment_sid, enabled):
         data = values.of({
-            'body': body,
+            'friendly_name': friendly_name,'identity': identity,'deployment_sid': deployment_sid,'enabled': enabled,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

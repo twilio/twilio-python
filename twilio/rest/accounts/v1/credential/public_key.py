@@ -38,11 +38,30 @@ class PublicKeyList(ListResource):
         # Path Solution
         self._solution = {  }
         self._uri = '/Credentials/PublicKeys'.format(**self._solution)
+        
+        
+    
+    
+    
+    
+    def create(self, public_key, friendly_name=values.unset, account_sid=values.unset):
+        """
+        Create the PublicKeyInstance
+         :param str public_key: A URL encoded representation of the public key. For example, `-----BEGIN PUBLIC KEY-----MIIBIjANB.pa9xQIDAQAB-----END PUBLIC KEY-----`
+         :param str friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+         :param str account_sid: The SID of the Subaccount that this Credential should be associated with. Must be a valid Subaccount of the account issuing the request
+        
+        :returns: The created PublicKeyInstance
+        :rtype: twilio.rest.accounts.v1.public_key.PublicKeyInstance
+        """
+        data = values.of({ 
+            'PublicKey': public_key,
+            'FriendlyName': friendly_name,
+            'AccountSid': account_sid,
+        })
 
-
-    
-    
-    
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return PublicKeyInstance(self._version, payload)
     
     
     def stream(self, limit=None, page_size=None):
@@ -127,6 +146,28 @@ class PublicKeyList(ListResource):
         )
         return PublicKeyPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a PublicKeyContext
+        
+        :param sid: The Twilio-provided string that uniquely identifies the PublicKey resource to update.
+        
+        :returns: twilio.rest.accounts.v1.public_key.PublicKeyContext
+        :rtype: twilio.rest.accounts.v1.public_key.PublicKeyContext
+        """
+        return PublicKeyContext(self._version, sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a PublicKeyContext
+        
+        :param sid: The Twilio-provided string that uniquely identifies the PublicKey resource to update.
+        
+        :returns: twilio.rest.accounts.v1.public_key.PublicKeyContext
+        :rtype: twilio.rest.accounts.v1.public_key.PublicKeyContext
+        """
+        return PublicKeyContext(self._version, sid=sid)
 
     def __repr__(self):
         """
@@ -223,9 +264,9 @@ class PublicKeyContext(InstanceContext):
 
         
     
-    def update(self, body):
+    def update(self, friendly_name):
         data = values.of({
-            'body': body,
+            'friendly_name': friendly_name,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

@@ -40,10 +40,29 @@ class FieldValueList(ListResource):
         # Path Solution
         self._solution = { 'assistant_sid': assistant_sid, 'field_type_sid': field_type_sid,  }
         self._uri = '/Assistants/${assistant_sid}/FieldTypes/${field_type_sid}/FieldValues'.format(**self._solution)
-
-
+        
+        
     
     
+    
+    def create(self, language, value, synonym_of=values.unset):
+        """
+        Create the FieldValueInstance
+         :param str language: An ISO language-country string of the value.
+         :param str value: A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
+         :param str synonym_of: A value that indicates this field value is a synonym of. Empty if the value is not a synonym.
+        
+        :returns: The created FieldValueInstance
+        :rtype: twilio.rest.preview.understand.field_value.FieldValueInstance
+        """
+        data = values.of({ 
+            'Language': language,
+            'Value': value,
+            'SynonymOf': synonym_of,
+        })
+
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return FieldValueInstance(self._version, payload, assistant_sid=self._solution['assistant_sid'], field_type_sid=self._solution['field_type_sid'])
     
     
     def stream(self, language=values.unset, limit=None, page_size=None):
@@ -134,6 +153,28 @@ class FieldValueList(ListResource):
         )
         return FieldValuePage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a FieldValueContext
+        
+        :param sid: 
+        
+        :returns: twilio.rest.preview.understand.field_value.FieldValueContext
+        :rtype: twilio.rest.preview.understand.field_value.FieldValueContext
+        """
+        return FieldValueContext(self._version, assistant_sid=self._solution['assistant_sid'], field_type_sid=self._solution['field_type_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a FieldValueContext
+        
+        :param sid: 
+        
+        :returns: twilio.rest.preview.understand.field_value.FieldValueContext
+        :rtype: twilio.rest.preview.understand.field_value.FieldValueContext
+        """
+        return FieldValueContext(self._version, assistant_sid=self._solution['assistant_sid'], field_type_sid=self._solution['field_type_sid'], sid=sid)
 
     def __repr__(self):
         """

@@ -45,14 +45,33 @@ class WorkerList(ListResource):
         # Path Solution
         self._solution = { 'workspace_sid': workspace_sid,  }
         self._uri = '/Workspaces/${workspace_sid}/Workers'.format(**self._solution)
-
+        
         self._cumulative_statistics = None
         self._real_time_statistics = None
         self._statistics = None
+        
+    
+    
+    
+    
+    def create(self, friendly_name, activity_sid=values.unset, attributes=values.unset):
+        """
+        Create the WorkerInstance
+         :param str friendly_name: A descriptive string that you create to describe the new Worker. It can be up to 64 characters long.
+         :param str activity_sid: The SID of a valid Activity that will describe the new Worker's initial state. See [Activities](https://www.twilio.com/docs/taskrouter/api/activity) for more information. If not provided, the new Worker's initial state is the `default_activity_sid` configured on the Workspace.
+         :param str attributes: A valid JSON string that describes the new Worker. For example: `{ \"email\": \"Bob@example.com\", \"phone\": \"+5095551234\" }`. This data is passed to the `assignment_callback_url` when TaskRouter assigns a Task to the Worker. Defaults to {}.
+        
+        :returns: The created WorkerInstance
+        :rtype: twilio.rest.taskrouter.v1.worker.WorkerInstance
+        """
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+            'ActivitySid': activity_sid,
+            'Attributes': attributes,
+        })
 
-    
-    
-    
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return WorkerInstance(self._version, payload, workspace_sid=self._solution['workspace_sid'])
     
     
     def stream(self, activity_name=values.unset, activity_sid=values.unset, available=values.unset, friendly_name=values.unset, target_workers_expression=values.unset, task_queue_name=values.unset, task_queue_sid=values.unset, ordering=values.unset, limit=None, page_size=None):
@@ -197,7 +216,6 @@ class WorkerList(ListResource):
         if self._cumulative_statistics is None:
             self._cumulative_statistics = WorkersCumulativeStatisticsList(self._version, workspace_sid=self._solution['workspace_sid'])
         return self.cumulative_statistics
-
     @property
     def real_time_statistics(self):
         """
@@ -209,7 +227,6 @@ class WorkerList(ListResource):
         if self._real_time_statistics is None:
             self._real_time_statistics = WorkersRealTimeStatisticsList(self._version, workspace_sid=self._solution['workspace_sid'])
         return self.real_time_statistics
-
     @property
     def statistics(self):
         """
@@ -221,6 +238,27 @@ class WorkerList(ListResource):
         if self._statistics is None:
             self._statistics = WorkersStatisticsList(self._version, workspace_sid=self._solution['workspace_sid'])
         return self.statistics
+    def get(self, sid):
+        """
+        Constructs a WorkerContext
+        
+        :param sid: The SID of the Worker resource to update.
+        
+        :returns: twilio.rest.taskrouter.v1.worker.WorkerContext
+        :rtype: twilio.rest.taskrouter.v1.worker.WorkerContext
+        """
+        return WorkerContext(self._version, workspace_sid=self._solution['workspace_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a WorkerContext
+        
+        :param sid: The SID of the Worker resource to update.
+        
+        :returns: twilio.rest.taskrouter.v1.worker.WorkerContext
+        :rtype: twilio.rest.taskrouter.v1.worker.WorkerContext
+        """
+        return WorkerContext(self._version, workspace_sid=self._solution['workspace_sid'], sid=sid)
 
     def __repr__(self):
         """
@@ -320,9 +358,9 @@ class WorkerContext(InstanceContext):
 
         
     
-    def update(self, if_match, body):
+    def update(self, activity_sid, attributes, friendly_name, reject_pending_reservations):
         data = values.of({
-            'if_match': if_match,'body': body,
+            'activity_sid': activity_sid,'attributes': attributes,'friendly_name': friendly_name,'reject_pending_reservations': reject_pending_reservations,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

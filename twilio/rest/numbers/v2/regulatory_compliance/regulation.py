@@ -38,8 +38,8 @@ class RegulationList(ListResource):
         # Path Solution
         self._solution = {  }
         self._uri = '/RegulatoryCompliance/Regulations'.format(**self._solution)
-
-
+        
+        
     
     
     def stream(self, end_user_type=values.unset, iso_country=values.unset, number_type=values.unset, limit=None, page_size=None):
@@ -142,6 +142,28 @@ class RegulationList(ListResource):
         )
         return RegulationPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a RegulationContext
+        
+        :param sid: The unique string that identifies the Regulation resource.
+        
+        :returns: twilio.rest.numbers.v2.regulation.RegulationContext
+        :rtype: twilio.rest.numbers.v2.regulation.RegulationContext
+        """
+        return RegulationContext(self._version, sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a RegulationContext
+        
+        :param sid: The unique string that identifies the Regulation resource.
+        
+        :returns: twilio.rest.numbers.v2.regulation.RegulationContext
+        :rtype: twilio.rest.numbers.v2.regulation.RegulationContext
+        """
+        return RegulationContext(self._version, sid=sid)
 
     def __repr__(self):
         """

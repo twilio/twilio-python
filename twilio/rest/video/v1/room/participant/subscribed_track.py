@@ -40,8 +40,8 @@ class SubscribedTrackList(ListResource):
         # Path Solution
         self._solution = { 'room_sid': room_sid, 'participant_sid': participant_sid,  }
         self._uri = '/Rooms/${room_sid}/Participants/${participant_sid}/SubscribedTracks'.format(**self._solution)
-
-
+        
+        
     
     
     def stream(self, limit=None, page_size=None):
@@ -126,6 +126,28 @@ class SubscribedTrackList(ListResource):
         )
         return SubscribedTrackPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a SubscribedTrackContext
+        
+        :param sid: The SID of the RoomParticipantSubscribedTrack resource to fetch.
+        
+        :returns: twilio.rest.video.v1.subscribed_track.SubscribedTrackContext
+        :rtype: twilio.rest.video.v1.subscribed_track.SubscribedTrackContext
+        """
+        return SubscribedTrackContext(self._version, room_sid=self._solution['room_sid'], participant_sid=self._solution['participant_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a SubscribedTrackContext
+        
+        :param sid: The SID of the RoomParticipantSubscribedTrack resource to fetch.
+        
+        :returns: twilio.rest.video.v1.subscribed_track.SubscribedTrackContext
+        :rtype: twilio.rest.video.v1.subscribed_track.SubscribedTrackContext
+        """
+        return SubscribedTrackContext(self._version, room_sid=self._solution['room_sid'], participant_sid=self._solution['participant_sid'], sid=sid)
 
     def __repr__(self):
         """

@@ -38,10 +38,28 @@ class CallSummaryList(ListResource):
 
         # Path Solution
         self._solution = { 'call_sid': call_sid,  }
-        self._uri = ''.format(**self._solution)
-
-
+        
+        
+        
     
+
+    def get(self):
+        """
+        Constructs a CallSummaryContext
+        
+        :returns: twilio.rest.insights.v1.call_summary.CallSummaryContext
+        :rtype: twilio.rest.insights.v1.call_summary.CallSummaryContext
+        """
+        return CallSummaryContext(self._version, call_sid=self._solution['call_sid'])
+
+    def __call__(self):
+        """
+        Constructs a CallSummaryContext
+        
+        :returns: twilio.rest.insights.v1.call_summary.CallSummaryContext
+        :rtype: twilio.rest.insights.v1.call_summary.CallSummaryContext
+        """
+        return CallSummaryContext(self._version, call_sid=self._solution['call_sid'])
 
     def __repr__(self):
         """

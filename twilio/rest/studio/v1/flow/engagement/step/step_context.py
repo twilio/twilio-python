@@ -40,10 +40,28 @@ class StepContextList(ListResource):
 
         # Path Solution
         self._solution = { 'flow_sid': flow_sid, 'engagement_sid': engagement_sid, 'step_sid': step_sid,  }
-        self._uri = ''.format(**self._solution)
-
-
+        
+        
+        
     
+
+    def get(self):
+        """
+        Constructs a StepContextContext
+        
+        :returns: twilio.rest.studio.v1.step_context.StepContextContext
+        :rtype: twilio.rest.studio.v1.step_context.StepContextContext
+        """
+        return StepContextContext(self._version, flow_sid=self._solution['flow_sid'], engagement_sid=self._solution['engagement_sid'], step_sid=self._solution['step_sid'])
+
+    def __call__(self):
+        """
+        Constructs a StepContextContext
+        
+        :returns: twilio.rest.studio.v1.step_context.StepContextContext
+        :rtype: twilio.rest.studio.v1.step_context.StepContextContext
+        """
+        return StepContextContext(self._version, flow_sid=self._solution['flow_sid'], engagement_sid=self._solution['engagement_sid'], step_sid=self._solution['step_sid'])
 
     def __repr__(self):
         """

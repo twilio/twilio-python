@@ -42,11 +42,42 @@ class ConversationList(ListResource):
         # Path Solution
         self._solution = { 'chat_service_sid': chat_service_sid,  }
         self._uri = '/Services/${chat_service_sid}/Conversations'.format(**self._solution)
+        
+        
+    
+    
+    
+    
+    def create(self, friendly_name=values.unset, unique_name=values.unset, attributes=values.unset, messaging_service_sid=values.unset, date_created=values.unset, date_updated=values.unset, state=values.unset, timers_inactive=values.unset, timers_closed=values.unset):
+        """
+        Create the ConversationInstance
+         :param str friendly_name: The human-readable name of this conversation, limited to 256 characters. Optional.
+         :param str unique_name: An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource's `sid` in the URL.
+         :param str attributes: An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \"{}\" will be returned.
+         :param str messaging_service_sid: The unique ID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) this conversation belongs to.
+         :param datetime date_created: The date that this resource was created.
+         :param datetime date_updated: The date that this resource was last updated.
+         :param ServiceConversationState state: 
+         :param str timers_inactive: ISO8601 duration when conversation will be switched to `inactive` state. Minimum value for this timer is 1 minute.
+         :param str timers_closed: ISO8601 duration when conversation will be switched to `closed` state. Minimum value for this timer is 10 minutes.
+        
+        :returns: The created ConversationInstance
+        :rtype: twilio.rest.conversations.v1.conversation.ConversationInstance
+        """
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+            'UniqueName': unique_name,
+            'Attributes': attributes,
+            'MessagingServiceSid': messaging_service_sid,
+            'DateCreated': date_created,
+            'DateUpdated': date_updated,
+            'State': state,
+            'Timers.Inactive': timers_inactive,
+            'Timers.Closed': timers_closed,
+        })
 
-
-    
-    
-    
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return ConversationInstance(self._version, payload, chat_service_sid=self._solution['chat_service_sid'])
     
     
     def stream(self, limit=None, page_size=None):
@@ -131,6 +162,28 @@ class ConversationList(ListResource):
         )
         return ConversationPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a ConversationContext
+        
+        :param sid: A 34 character string that uniquely identifies this resource. Can also be the `unique_name` of the Conversation.
+        
+        :returns: twilio.rest.conversations.v1.conversation.ConversationContext
+        :rtype: twilio.rest.conversations.v1.conversation.ConversationContext
+        """
+        return ConversationContext(self._version, chat_service_sid=self._solution['chat_service_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a ConversationContext
+        
+        :param sid: A 34 character string that uniquely identifies this resource. Can also be the `unique_name` of the Conversation.
+        
+        :returns: twilio.rest.conversations.v1.conversation.ConversationContext
+        :rtype: twilio.rest.conversations.v1.conversation.ConversationContext
+        """
+        return ConversationContext(self._version, chat_service_sid=self._solution['chat_service_sid'], sid=sid)
 
     def __repr__(self):
         """
@@ -230,9 +283,9 @@ class ConversationContext(InstanceContext):
 
         
     
-    def update(self, x_twilio_webhook_enabled, body):
+    def update(self, friendly_name, date_created, date_updated, attributes, messaging_service_sid, state, timers_inactive, timers_closed, unique_name):
         data = values.of({
-            'x_twilio_webhook_enabled': x_twilio_webhook_enabled,'body': body,
+            'friendly_name': friendly_name,'date_created': date_created,'date_updated': date_updated,'attributes': attributes,'messaging_service_sid': messaging_service_sid,'state': state,'timers_inactive': timers_inactive,'timers_closed': timers_closed,'unique_name': unique_name,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

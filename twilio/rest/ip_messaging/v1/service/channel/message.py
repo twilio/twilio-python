@@ -40,11 +40,30 @@ class MessageList(ListResource):
         # Path Solution
         self._solution = { 'service_sid': service_sid, 'channel_sid': channel_sid,  }
         self._uri = '/Services/${service_sid}/Channels/${channel_sid}/Messages'.format(**self._solution)
+        
+        
+    
+    
+    
+    
+    def create(self, body, from_=values.unset, attributes=values.unset):
+        """
+        Create the MessageInstance
+         :param str body: 
+         :param str from_: 
+         :param str attributes: 
+        
+        :returns: The created MessageInstance
+        :rtype: twilio.rest.ip_messaging.v1.message.MessageInstance
+        """
+        data = values.of({ 
+            'Body': body,
+            'From': from_,
+            'Attributes': attributes,
+        })
 
-
-    
-    
-    
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return MessageInstance(self._version, payload, service_sid=self._solution['service_sid'], channel_sid=self._solution['channel_sid'])
     
     
     def stream(self, order=values.unset, limit=None, page_size=None):
@@ -135,6 +154,28 @@ class MessageList(ListResource):
         )
         return MessagePage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a MessageContext
+        
+        :param sid: 
+        
+        :returns: twilio.rest.ip_messaging.v1.message.MessageContext
+        :rtype: twilio.rest.ip_messaging.v1.message.MessageContext
+        """
+        return MessageContext(self._version, service_sid=self._solution['service_sid'], channel_sid=self._solution['channel_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a MessageContext
+        
+        :param sid: 
+        
+        :returns: twilio.rest.ip_messaging.v1.message.MessageContext
+        :rtype: twilio.rest.ip_messaging.v1.message.MessageContext
+        """
+        return MessageContext(self._version, service_sid=self._solution['service_sid'], channel_sid=self._solution['channel_sid'], sid=sid)
 
     def __repr__(self):
         """
@@ -231,9 +272,9 @@ class MessageContext(InstanceContext):
 
         
     
-    def update(self, body):
+    def update(self, body, attributes):
         data = values.of({
-            'body': body,
+            'body': body,'attributes': attributes,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

@@ -40,11 +40,34 @@ class SyncMapItemList(ListResource):
         # Path Solution
         self._solution = { 'service_sid': service_sid, 'map_sid': map_sid,  }
         self._uri = '/Services/${service_sid}/Maps/${map_sid}/Items'.format(**self._solution)
+        
+        
+    
+    
+    
+    
+    def create(self, key, data, ttl=values.unset, item_ttl=values.unset, collection_ttl=values.unset):
+        """
+        Create the SyncMapItemInstance
+         :param str key: The unique, user-defined key for the Map Item. Can be up to 320 characters long.
+         :param bool, date, datetime, dict, float, int, list, str, none_type data: A JSON string that represents an arbitrary, schema-less object that the Map Item stores. Can be up to 16 KiB in length.
+         :param int ttl: An alias for `item_ttl`. If both parameters are provided, this value is ignored.
+         :param int item_ttl: How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Map Item expires (time-to-live) and is deleted.
+         :param int collection_ttl: How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Map Item's parent Sync Map expires (time-to-live) and is deleted.
+        
+        :returns: The created SyncMapItemInstance
+        :rtype: twilio.rest.sync.v1.sync_map_item.SyncMapItemInstance
+        """
+        data = values.of({ 
+            'Key': key,
+            'Data': data,
+            'Ttl': ttl,
+            'ItemTtl': item_ttl,
+            'CollectionTtl': collection_ttl,
+        })
 
-
-    
-    
-    
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return SyncMapItemInstance(self._version, payload, service_sid=self._solution['service_sid'], map_sid=self._solution['map_sid'])
     
     
     def stream(self, order=values.unset, from_=values.unset, bounds=values.unset, limit=None, page_size=None):
@@ -148,6 +171,28 @@ class SyncMapItemList(ListResource):
         return SyncMapItemPage(self._version, response, self._solution)
 
 
+    def get(self, key):
+        """
+        Constructs a SyncMapItemContext
+        
+        :param key: The `key` value of the Sync Map Item resource to update. 
+        
+        :returns: twilio.rest.sync.v1.sync_map_item.SyncMapItemContext
+        :rtype: twilio.rest.sync.v1.sync_map_item.SyncMapItemContext
+        """
+        return SyncMapItemContext(self._version, service_sid=self._solution['service_sid'], map_sid=self._solution['map_sid'], key=key)
+
+    def __call__(self, key):
+        """
+        Constructs a SyncMapItemContext
+        
+        :param key: The `key` value of the Sync Map Item resource to update. 
+        
+        :returns: twilio.rest.sync.v1.sync_map_item.SyncMapItemContext
+        :rtype: twilio.rest.sync.v1.sync_map_item.SyncMapItemContext
+        """
+        return SyncMapItemContext(self._version, service_sid=self._solution['service_sid'], map_sid=self._solution['map_sid'], key=key)
+
     def __repr__(self):
         """
         Provide a friendly representation
@@ -243,9 +288,9 @@ class SyncMapItemContext(InstanceContext):
 
         
     
-    def update(self, if_match, body):
+    def update(self, data, ttl, item_ttl, collection_ttl):
         data = values.of({
-            'if_match': if_match,'body': body,
+            'data': data,'ttl': ttl,'item_ttl': item_ttl,'collection_ttl': collection_ttl,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

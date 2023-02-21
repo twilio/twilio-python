@@ -39,8 +39,8 @@ class RoomRecordingList(ListResource):
         # Path Solution
         self._solution = { 'room_sid': room_sid,  }
         self._uri = '/Rooms/${room_sid}/Recordings'.format(**self._solution)
-
-
+        
+        
     
     
     
@@ -124,8 +124,8 @@ class RoomRecordingList(ListResource):
         data = values.of({ 
             'Status': status,
             'SourceSid': source_sid,
-            'DateCreatedAfter': date_created_after,
-            'DateCreatedBefore': date_created_before,
+            'DateCreatedAfter': serialize.iso8601_datetime(date_created_after),
+            'DateCreatedBefore': serialize.iso8601_datetime(date_created_before),
             'PageToken': page_token,
             'Page': page_number,
             'PageSize': page_size,
@@ -150,6 +150,28 @@ class RoomRecordingList(ListResource):
         )
         return RoomRecordingPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a RoomRecordingContext
+        
+        :param sid: The SID of the RoomRecording resource to fetch.
+        
+        :returns: twilio.rest.video.v1.room_recording.RoomRecordingContext
+        :rtype: twilio.rest.video.v1.room_recording.RoomRecordingContext
+        """
+        return RoomRecordingContext(self._version, room_sid=self._solution['room_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a RoomRecordingContext
+        
+        :param sid: The SID of the RoomRecording resource to fetch.
+        
+        :returns: twilio.rest.video.v1.room_recording.RoomRecordingContext
+        :rtype: twilio.rest.video.v1.room_recording.RoomRecordingContext
+        """
+        return RoomRecordingContext(self._version, room_sid=self._solution['room_sid'], sid=sid)
 
     def __repr__(self):
         """

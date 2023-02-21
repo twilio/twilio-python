@@ -39,8 +39,8 @@ class TaskQueuesStatisticsList(ListResource):
         # Path Solution
         self._solution = { 'workspace_sid': workspace_sid,  }
         self._uri = '/Workspaces/${workspace_sid}/TaskQueues/Statistics'.format(**self._solution)
-
-
+        
+        
     
     def stream(self, end_date=values.unset, friendly_name=values.unset, minutes=values.unset, start_date=values.unset, task_channel=values.unset, split_by_wait_time=values.unset, limit=None, page_size=None):
         """
@@ -130,10 +130,10 @@ class TaskQueuesStatisticsList(ListResource):
         :rtype: twilio.rest.taskrouter.v1.task_queues_statistics.TaskQueuesStatisticsPage
         """
         data = values.of({ 
-            'EndDate': end_date,
+            'EndDate': serialize.iso8601_datetime(end_date),
             'FriendlyName': friendly_name,
             'Minutes': minutes,
-            'StartDate': start_date,
+            'StartDate': serialize.iso8601_datetime(start_date),
             'TaskChannel': task_channel,
             'SplitByWaitTime': split_by_wait_time,
             'PageToken': page_token,
@@ -159,6 +159,7 @@ class TaskQueuesStatisticsList(ListResource):
             target_url
         )
         return TaskQueuesStatisticsPage(self._version, response, self._solution)
+
 
 
     def __repr__(self):

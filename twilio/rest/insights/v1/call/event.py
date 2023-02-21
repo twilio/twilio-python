@@ -39,8 +39,8 @@ class EventList(ListResource):
         # Path Solution
         self._solution = { 'call_sid': call_sid,  }
         self._uri = '/Voice/${call_sid}/Events'.format(**self._solution)
-
-
+        
+        
     
     def stream(self, edge=values.unset, limit=None, page_size=None):
         """
@@ -129,6 +129,7 @@ class EventList(ListResource):
             target_url
         )
         return EventPage(self._version, response, self._solution)
+
 
 
     def __repr__(self):

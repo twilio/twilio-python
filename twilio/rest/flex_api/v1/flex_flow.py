@@ -38,11 +38,58 @@ class FlexFlowList(ListResource):
         # Path Solution
         self._solution = {  }
         self._uri = '/FlexFlows'.format(**self._solution)
+        
+        
+    
+    
+    
+    
+    def create(self, friendly_name, chat_service_sid, channel_type, contact_identity=values.unset, enabled=values.unset, integration_type=values.unset, integration_flow_sid=values.unset, integration_url=values.unset, integration_workspace_sid=values.unset, integration_workflow_sid=values.unset, integration_channel=values.unset, integration_timeout=values.unset, integration_priority=values.unset, integration_creation_on_message=values.unset, long_lived=values.unset, janitor_enabled=values.unset, integration_retry_count=values.unset):
+        """
+        Create the FlexFlowInstance
+         :param str friendly_name: A descriptive string that you create to describe the Flex Flow resource.
+         :param str chat_service_sid: The SID of the chat service.
+         :param FlexFlowChannelType channel_type: 
+         :param str contact_identity: The channel contact's Identity.
+         :param bool enabled: Whether the new Flex Flow is enabled.
+         :param FlexFlowIntegrationType integration_type: 
+         :param str integration_flow_sid: The SID of the Studio Flow. Required when `integrationType` is `studio`.
+         :param str integration_url: The URL of the external webhook. Required when `integrationType` is `external`.
+         :param str integration_workspace_sid: The Workspace SID for a new Task. Required when `integrationType` is `task`.
+         :param str integration_workflow_sid: The Workflow SID for a new Task. Required when `integrationType` is `task`.
+         :param str integration_channel: The Task Channel SID (TCXXXX) or unique name (e.g., `sms`) to use for the Task that will be created. Applicable and required when `integrationType` is `task`. The default value is `default`.
+         :param int integration_timeout: The Task timeout in seconds for a new Task. Default is 86,400 seconds (24 hours). Optional when `integrationType` is `task`, not applicable otherwise.
+         :param int integration_priority: The Task priority of a new Task. The default priority is 0. Optional when `integrationType` is `task`, not applicable otherwise.
+         :param bool integration_creation_on_message: In the context of outbound messaging, defines whether to create a Task immediately (and therefore reserve the conversation to current agent), or delay Task creation until the customer sends the first response. Set to false to create immediately, true to delay Task creation. This setting is only applicable for outbound messaging.
+         :param bool long_lived: When enabled, Flex will keep the chat channel active so that it may be used for subsequent interactions with a contact identity. Defaults to `false`.
+         :param bool janitor_enabled: When enabled, the Messaging Channel Janitor will remove active Proxy sessions if the associated Task is deleted outside of the Flex UI. Defaults to `false`.
+         :param int integration_retry_count: The number of times to retry the Studio Flow or webhook in case of failure. Takes integer values from 0 to 3 with the default being 3. Optional when `integrationType` is `studio` or `external`, not applicable otherwise.
+        
+        :returns: The created FlexFlowInstance
+        :rtype: twilio.rest.flex_api.v1.flex_flow.FlexFlowInstance
+        """
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+            'ChatServiceSid': chat_service_sid,
+            'ChannelType': channel_type,
+            'ContactIdentity': contact_identity,
+            'Enabled': enabled,
+            'IntegrationType': integration_type,
+            'Integration.FlowSid': integration_flow_sid,
+            'Integration.Url': integration_url,
+            'Integration.WorkspaceSid': integration_workspace_sid,
+            'Integration.WorkflowSid': integration_workflow_sid,
+            'Integration.Channel': integration_channel,
+            'Integration.Timeout': integration_timeout,
+            'Integration.Priority': integration_priority,
+            'Integration.CreationOnMessage': integration_creation_on_message,
+            'LongLived': long_lived,
+            'JanitorEnabled': janitor_enabled,
+            'Integration.RetryCount': integration_retry_count,
+        })
 
-
-    
-    
-    
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return FlexFlowInstance(self._version, payload)
     
     
     def stream(self, friendly_name=values.unset, limit=None, page_size=None):
@@ -133,6 +180,28 @@ class FlexFlowList(ListResource):
         )
         return FlexFlowPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a FlexFlowContext
+        
+        :param sid: The SID of the Flex Flow resource to update.
+        
+        :returns: twilio.rest.flex_api.v1.flex_flow.FlexFlowContext
+        :rtype: twilio.rest.flex_api.v1.flex_flow.FlexFlowContext
+        """
+        return FlexFlowContext(self._version, sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a FlexFlowContext
+        
+        :param sid: The SID of the Flex Flow resource to update.
+        
+        :returns: twilio.rest.flex_api.v1.flex_flow.FlexFlowContext
+        :rtype: twilio.rest.flex_api.v1.flex_flow.FlexFlowContext
+        """
+        return FlexFlowContext(self._version, sid=sid)
 
     def __repr__(self):
         """
@@ -229,9 +298,9 @@ class FlexFlowContext(InstanceContext):
 
         
     
-    def update(self, body):
+    def update(self, friendly_name, chat_service_sid, channel_type, contact_identity, enabled, integration_type, integration_flow_sid, integration_url, integration_workspace_sid, integration_workflow_sid, integration_channel, integration_timeout, integration_priority, integration_creation_on_message, long_lived, janitor_enabled, integration_retry_count):
         data = values.of({
-            'body': body,
+            'friendly_name': friendly_name,'chat_service_sid': chat_service_sid,'channel_type': channel_type,'contact_identity': contact_identity,'enabled': enabled,'integration_type': integration_type,'integration_flow_sid': integration_flow_sid,'integration_url': integration_url,'integration_workspace_sid': integration_workspace_sid,'integration_workflow_sid': integration_workflow_sid,'integration_channel': integration_channel,'integration_timeout': integration_timeout,'integration_priority': integration_priority,'integration_creation_on_message': integration_creation_on_message,'long_lived': long_lived,'janitor_enabled': janitor_enabled,'integration_retry_count': integration_retry_count,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

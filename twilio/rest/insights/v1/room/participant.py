@@ -39,8 +39,8 @@ class ParticipantList(ListResource):
         # Path Solution
         self._solution = { 'room_sid': room_sid,  }
         self._uri = '/Video/Rooms/${room_sid}/Participants'.format(**self._solution)
-
-
+        
+        
     
     
     def stream(self, limit=None, page_size=None):
@@ -125,6 +125,28 @@ class ParticipantList(ListResource):
         )
         return ParticipantPage(self._version, response, self._solution)
 
+
+    def get(self, participant_sid):
+        """
+        Constructs a ParticipantContext
+        
+        :param participant_sid: The SID of the Participant resource.
+        
+        :returns: twilio.rest.insights.v1.participant.ParticipantContext
+        :rtype: twilio.rest.insights.v1.participant.ParticipantContext
+        """
+        return ParticipantContext(self._version, room_sid=self._solution['room_sid'], participant_sid=participant_sid)
+
+    def __call__(self, participant_sid):
+        """
+        Constructs a ParticipantContext
+        
+        :param participant_sid: The SID of the Participant resource.
+        
+        :returns: twilio.rest.insights.v1.participant.ParticipantContext
+        :rtype: twilio.rest.insights.v1.participant.ParticipantContext
+        """
+        return ParticipantContext(self._version, room_sid=self._solution['room_sid'], participant_sid=participant_sid)
 
     def __repr__(self):
         """

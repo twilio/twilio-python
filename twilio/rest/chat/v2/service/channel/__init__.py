@@ -43,11 +43,38 @@ class ChannelList(ListResource):
         # Path Solution
         self._solution = { 'service_sid': service_sid,  }
         self._uri = '/Services/${service_sid}/Channels'.format(**self._solution)
+        
+        
+    
+    
+    
+    
+    def create(self, friendly_name=values.unset, unique_name=values.unset, attributes=values.unset, type=values.unset, date_created=values.unset, date_updated=values.unset, created_by=values.unset):
+        """
+        Create the ChannelInstance
+         :param str friendly_name: A descriptive string that you create to describe the new resource. It can be up to 64 characters long.
+         :param str unique_name: An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the Channel resource's `sid` in the URL. This value must be 64 characters or less in length and be unique within the Service.
+         :param str attributes: A valid JSON string that contains application-specific data.
+         :param ChannelChannelType type: 
+         :param datetime date_created: The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format, to assign to the resource as the date it was created. The default value is the current time set by the Chat service.  Note that this should only be used in cases where a Channel is being recreated from a backup/separate source.
+         :param datetime date_updated: The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format, to assign to the resource as the date it was last updated. The default value is `null`. Note that this parameter should only be used in cases where a Channel is being recreated from a backup/separate source  and where a Message was previously updated.
+         :param str created_by: The `identity` of the User that created the channel. Default is: `system`.
+        
+        :returns: The created ChannelInstance
+        :rtype: twilio.rest.chat.v2.channel.ChannelInstance
+        """
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+            'UniqueName': unique_name,
+            'Attributes': attributes,
+            'Type': type,
+            'DateCreated': date_created,
+            'DateUpdated': date_updated,
+            'CreatedBy': created_by,
+        })
 
-
-    
-    
-    
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return ChannelInstance(self._version, payload, service_sid=self._solution['service_sid'])
     
     
     def stream(self, type=values.unset, limit=None, page_size=None):
@@ -138,6 +165,28 @@ class ChannelList(ListResource):
         )
         return ChannelPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a ChannelContext
+        
+        :param sid: The SID of the Channel resource to update. This value can be either the `sid` or the `unique_name` of the Channel resource to update.
+        
+        :returns: twilio.rest.chat.v2.channel.ChannelContext
+        :rtype: twilio.rest.chat.v2.channel.ChannelContext
+        """
+        return ChannelContext(self._version, service_sid=self._solution['service_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a ChannelContext
+        
+        :param sid: The SID of the Channel resource to update. This value can be either the `sid` or the `unique_name` of the Channel resource to update.
+        
+        :returns: twilio.rest.chat.v2.channel.ChannelContext
+        :rtype: twilio.rest.chat.v2.channel.ChannelContext
+        """
+        return ChannelContext(self._version, service_sid=self._solution['service_sid'], sid=sid)
 
     def __repr__(self):
         """
@@ -238,9 +287,9 @@ class ChannelContext(InstanceContext):
 
         
     
-    def update(self, x_twilio_webhook_enabled, body):
+    def update(self, friendly_name, unique_name, attributes, date_created, date_updated, created_by):
         data = values.of({
-            'x_twilio_webhook_enabled': x_twilio_webhook_enabled,'body': body,
+            'friendly_name': friendly_name,'unique_name': unique_name,'attributes': attributes,'date_created': date_created,'date_updated': date_updated,'created_by': created_by,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

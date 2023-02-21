@@ -43,14 +43,75 @@ class IncomingPhoneNumberList(ListResource):
         # Path Solution
         self._solution = { 'account_sid': account_sid,  }
         self._uri = '/Accounts/${account_sid}/IncomingPhoneNumbers.json'.format(**self._solution)
-
+        
         self._local = None
         self._mobile = None
         self._toll_free = None
+        
+    
+    
+    
+    
+    def create(self, api_version=values.unset, friendly_name=values.unset, sms_application_sid=values.unset, sms_fallback_method=values.unset, sms_fallback_url=values.unset, sms_method=values.unset, sms_url=values.unset, status_callback=values.unset, status_callback_method=values.unset, voice_application_sid=values.unset, voice_caller_id_lookup=values.unset, voice_fallback_method=values.unset, voice_fallback_url=values.unset, voice_method=values.unset, voice_url=values.unset, emergency_status=values.unset, emergency_address_sid=values.unset, trunk_sid=values.unset, identity_sid=values.unset, address_sid=values.unset, voice_receive_mode=values.unset, bundle_sid=values.unset, phone_number=values.unset, area_code=values.unset):
+        """
+        Create the IncomingPhoneNumberInstance
+         :param str api_version: The API version to use for incoming calls made to the new phone number. The default is `2010-04-01`.
+         :param str friendly_name: A descriptive string that you created to describe the new phone number. It can be up to 64 characters long. By default, this is a formatted version of the new phone number.
+         :param str sms_application_sid: The SID of the application that should handle SMS messages sent to the new phone number. If an `sms_application_sid` is present, we ignore all of the `sms_*_url` urls and use those set on the application.
+         :param str sms_fallback_method: The HTTP method that we should use to call `sms_fallback_url`. Can be: `GET` or `POST` and defaults to `POST`.
+         :param str sms_fallback_url: The URL that we should call when an error occurs while requesting or executing the TwiML defined by `sms_url`.
+         :param str sms_method: The HTTP method that we should use to call `sms_url`. Can be: `GET` or `POST` and defaults to `POST`.
+         :param str sms_url: The URL we should call when the new phone number receives an incoming SMS message.
+         :param str status_callback: The URL we should call using the `status_callback_method` to send status information to your application.
+         :param str status_callback_method: The HTTP method we should use to call `status_callback`. Can be: `GET` or `POST` and defaults to `POST`.
+         :param str voice_application_sid: The SID of the application we should use to handle calls to the new phone number. If a `voice_application_sid` is present, we ignore all of the voice urls and use only those set on the application. Setting a `voice_application_sid` will automatically delete your `trunk_sid` and vice versa.
+         :param bool voice_caller_id_lookup: Whether to lookup the caller's name from the CNAM database and post it to your app. Can be: `true` or `false` and defaults to `false`.
+         :param str voice_fallback_method: The HTTP method that we should use to call `voice_fallback_url`. Can be: `GET` or `POST` and defaults to `POST`.
+         :param str voice_fallback_url: The URL that we should call when an error occurs retrieving or executing the TwiML requested by `url`.
+         :param str voice_method: The HTTP method that we should use to call `voice_url`. Can be: `GET` or `POST` and defaults to `POST`.
+         :param str voice_url: The URL that we should call to answer a call to the new phone number. The `voice_url` will not be called if a `voice_application_sid` or a `trunk_sid` is set.
+         :param IncomingPhoneNumberEmergencyStatus emergency_status: 
+         :param str emergency_address_sid: The SID of the emergency address configuration to use for emergency calling from the new phone number.
+         :param str trunk_sid: The SID of the Trunk we should use to handle calls to the new phone number. If a `trunk_sid` is present, we ignore all of the voice urls and voice applications and use only those set on the Trunk. Setting a `trunk_sid` will automatically delete your `voice_application_sid` and vice versa.
+         :param str identity_sid: The SID of the Identity resource that we should associate with the new phone number. Some regions require an identity to meet local regulations.
+         :param str address_sid: The SID of the Address resource we should associate with the new phone number. Some regions require addresses to meet local regulations.
+         :param IncomingPhoneNumberVoiceReceiveMode voice_receive_mode: 
+         :param str bundle_sid: The SID of the Bundle resource that you associate with the phone number. Some regions require a Bundle to meet local Regulations.
+         :param str phone_number: The phone number to purchase specified in [E.164](https://www.twilio.com/docs/glossary/what-e164) format.  E.164 phone numbers consist of a + followed by the country code and subscriber number without punctuation characters. For example, +14155551234.
+         :param str area_code: The desired area code for your new incoming phone number. Can be any three-digit, US or Canada area code. We will provision an available phone number within this area code for you. **You must provide an `area_code` or a `phone_number`.** (US and Canada only).
+        
+        :returns: The created IncomingPhoneNumberInstance
+        :rtype: twilio.rest.api.v2010.incoming_phone_number.IncomingPhoneNumberInstance
+        """
+        data = values.of({ 
+            'ApiVersion': api_version,
+            'FriendlyName': friendly_name,
+            'SmsApplicationSid': sms_application_sid,
+            'SmsFallbackMethod': sms_fallback_method,
+            'SmsFallbackUrl': sms_fallback_url,
+            'SmsMethod': sms_method,
+            'SmsUrl': sms_url,
+            'StatusCallback': status_callback,
+            'StatusCallbackMethod': status_callback_method,
+            'VoiceApplicationSid': voice_application_sid,
+            'VoiceCallerIdLookup': voice_caller_id_lookup,
+            'VoiceFallbackMethod': voice_fallback_method,
+            'VoiceFallbackUrl': voice_fallback_url,
+            'VoiceMethod': voice_method,
+            'VoiceUrl': voice_url,
+            'EmergencyStatus': emergency_status,
+            'EmergencyAddressSid': emergency_address_sid,
+            'TrunkSid': trunk_sid,
+            'IdentitySid': identity_sid,
+            'AddressSid': address_sid,
+            'VoiceReceiveMode': voice_receive_mode,
+            'BundleSid': bundle_sid,
+            'PhoneNumber': phone_number,
+            'AreaCode': area_code,
+        })
 
-    
-    
-    
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return IncomingPhoneNumberInstance(self._version, payload, account_sid=self._solution['account_sid'])
     
     
     def stream(self, beta=values.unset, friendly_name=values.unset, phone_number=values.unset, origin=values.unset, limit=None, page_size=None):
@@ -171,7 +232,6 @@ class IncomingPhoneNumberList(ListResource):
         if self._local is None:
             self._local = LocalList(self._version, account_sid=self._solution['account_sid'])
         return self.local
-
     @property
     def mobile(self):
         """
@@ -183,7 +243,6 @@ class IncomingPhoneNumberList(ListResource):
         if self._mobile is None:
             self._mobile = MobileList(self._version, account_sid=self._solution['account_sid'])
         return self.mobile
-
     @property
     def toll_free(self):
         """
@@ -195,6 +254,27 @@ class IncomingPhoneNumberList(ListResource):
         if self._toll_free is None:
             self._toll_free = TollFreeList(self._version, account_sid=self._solution['account_sid'])
         return self.toll_free
+    def get(self, sid):
+        """
+        Constructs a IncomingPhoneNumberContext
+        
+        :param sid: The Twilio-provided string that uniquely identifies the IncomingPhoneNumber resource to update.
+        
+        :returns: twilio.rest.api.v2010.incoming_phone_number.IncomingPhoneNumberContext
+        :rtype: twilio.rest.api.v2010.incoming_phone_number.IncomingPhoneNumberContext
+        """
+        return IncomingPhoneNumberContext(self._version, account_sid=self._solution['account_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a IncomingPhoneNumberContext
+        
+        :param sid: The Twilio-provided string that uniquely identifies the IncomingPhoneNumber resource to update.
+        
+        :returns: twilio.rest.api.v2010.incoming_phone_number.IncomingPhoneNumberContext
+        :rtype: twilio.rest.api.v2010.incoming_phone_number.IncomingPhoneNumberContext
+        """
+        return IncomingPhoneNumberContext(self._version, account_sid=self._solution['account_sid'], sid=sid)
 
     def __repr__(self):
         """
@@ -292,9 +372,9 @@ class IncomingPhoneNumberContext(InstanceContext):
 
         
     
-    def update(self, body):
+    def update(self, account_sid, api_version, friendly_name, sms_application_sid, sms_fallback_method, sms_fallback_url, sms_method, sms_url, status_callback, status_callback_method, voice_application_sid, voice_caller_id_lookup, voice_fallback_method, voice_fallback_url, voice_method, voice_url, emergency_status, emergency_address_sid, trunk_sid, voice_receive_mode, identity_sid, address_sid, bundle_sid):
         data = values.of({
-            'body': body,
+            'account_sid': account_sid,'api_version': api_version,'friendly_name': friendly_name,'sms_application_sid': sms_application_sid,'sms_fallback_method': sms_fallback_method,'sms_fallback_url': sms_fallback_url,'sms_method': sms_method,'sms_url': sms_url,'status_callback': status_callback,'status_callback_method': status_callback_method,'voice_application_sid': voice_application_sid,'voice_caller_id_lookup': voice_caller_id_lookup,'voice_fallback_method': voice_fallback_method,'voice_fallback_url': voice_fallback_url,'voice_method': voice_method,'voice_url': voice_url,'emergency_status': emergency_status,'emergency_address_sid': emergency_address_sid,'trunk_sid': trunk_sid,'voice_receive_mode': voice_receive_mode,'identity_sid': identity_sid,'address_sid': address_sid,'bundle_sid': bundle_sid,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

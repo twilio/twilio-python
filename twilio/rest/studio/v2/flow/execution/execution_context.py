@@ -39,10 +39,28 @@ class ExecutionContextList(ListResource):
 
         # Path Solution
         self._solution = { 'flow_sid': flow_sid, 'execution_sid': execution_sid,  }
-        self._uri = ''.format(**self._solution)
-
-
+        
+        
+        
     
+
+    def get(self):
+        """
+        Constructs a ExecutionContextContext
+        
+        :returns: twilio.rest.studio.v2.execution_context.ExecutionContextContext
+        :rtype: twilio.rest.studio.v2.execution_context.ExecutionContextContext
+        """
+        return ExecutionContextContext(self._version, flow_sid=self._solution['flow_sid'], execution_sid=self._solution['execution_sid'])
+
+    def __call__(self):
+        """
+        Constructs a ExecutionContextContext
+        
+        :returns: twilio.rest.studio.v2.execution_context.ExecutionContextContext
+        :rtype: twilio.rest.studio.v2.execution_context.ExecutionContextContext
+        """
+        return ExecutionContextContext(self._version, flow_sid=self._solution['flow_sid'], execution_sid=self._solution['execution_sid'])
 
     def __repr__(self):
         """

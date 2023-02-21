@@ -40,8 +40,8 @@ class DependentPhoneNumberList(ListResource):
         # Path Solution
         self._solution = { 'account_sid': account_sid, 'address_sid': address_sid,  }
         self._uri = '/Accounts/${account_sid}/Addresses/${address_sid}/DependentPhoneNumbers.json'.format(**self._solution)
-
-
+        
+        
     
     def stream(self, limit=None, page_size=None):
         """
@@ -124,6 +124,7 @@ class DependentPhoneNumberList(ListResource):
             target_url
         )
         return DependentPhoneNumberPage(self._version, response, self._solution)
+
 
 
     def __repr__(self):

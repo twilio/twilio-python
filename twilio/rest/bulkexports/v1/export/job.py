@@ -37,11 +37,33 @@ class JobList(ListResource):
 
         # Path Solution
         self._solution = {  }
-        self._uri = ''.format(**self._solution)
-
-
+        
+        
+        
     
     
+
+    def get(self, job_sid):
+        """
+        Constructs a JobContext
+        
+        :param job_sid: The unique string that that we created to identify the Bulk Export job
+        
+        :returns: twilio.rest.bulkexports.v1.job.JobContext
+        :rtype: twilio.rest.bulkexports.v1.job.JobContext
+        """
+        return JobContext(self._version, job_sid=job_sid)
+
+    def __call__(self, job_sid):
+        """
+        Constructs a JobContext
+        
+        :param job_sid: The unique string that that we created to identify the Bulk Export job
+        
+        :returns: twilio.rest.bulkexports.v1.job.JobContext
+        :rtype: twilio.rest.bulkexports.v1.job.JobContext
+        """
+        return JobContext(self._version, job_sid=job_sid)
 
     def __repr__(self):
         """

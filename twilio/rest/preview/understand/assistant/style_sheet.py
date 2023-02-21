@@ -38,11 +38,29 @@ class StyleSheetList(ListResource):
 
         # Path Solution
         self._solution = { 'assistant_sid': assistant_sid,  }
-        self._uri = ''.format(**self._solution)
-
-
+        
+        
+        
     
     
+
+    def get(self):
+        """
+        Constructs a StyleSheetContext
+        
+        :returns: twilio.rest.preview.understand.style_sheet.StyleSheetContext
+        :rtype: twilio.rest.preview.understand.style_sheet.StyleSheetContext
+        """
+        return StyleSheetContext(self._version, assistant_sid=self._solution['assistant_sid'])
+
+    def __call__(self):
+        """
+        Constructs a StyleSheetContext
+        
+        :returns: twilio.rest.preview.understand.style_sheet.StyleSheetContext
+        :rtype: twilio.rest.preview.understand.style_sheet.StyleSheetContext
+        """
+        return StyleSheetContext(self._version, assistant_sid=self._solution['assistant_sid'])
 
     def __repr__(self):
         """
@@ -78,9 +96,9 @@ class StyleSheetContext(InstanceContext):
 
         
     
-    def update(self, body):
+    def update(self, style_sheet):
         data = values.of({
-            'body': body,
+            'style_sheet': style_sheet,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

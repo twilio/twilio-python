@@ -41,10 +41,25 @@ class SyncMapList(ListResource):
         # Path Solution
         self._solution = { 'service_sid': service_sid,  }
         self._uri = '/Services/${service_sid}/Maps'.format(**self._solution)
-
-
+        
+        
     
     
+    
+    def create(self, unique_name=values.unset):
+        """
+        Create the SyncMapInstance
+         :param str unique_name: 
+        
+        :returns: The created SyncMapInstance
+        :rtype: twilio.rest.preview.sync.sync_map.SyncMapInstance
+        """
+        data = values.of({ 
+            'UniqueName': unique_name,
+        })
+
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return SyncMapInstance(self._version, payload, service_sid=self._solution['service_sid'])
     
     
     def stream(self, limit=None, page_size=None):
@@ -129,6 +144,28 @@ class SyncMapList(ListResource):
         )
         return SyncMapPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a SyncMapContext
+        
+        :param sid: 
+        
+        :returns: twilio.rest.preview.sync.sync_map.SyncMapContext
+        :rtype: twilio.rest.preview.sync.sync_map.SyncMapContext
+        """
+        return SyncMapContext(self._version, service_sid=self._solution['service_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a SyncMapContext
+        
+        :param sid: 
+        
+        :returns: twilio.rest.preview.sync.sync_map.SyncMapContext
+        :rtype: twilio.rest.preview.sync.sync_map.SyncMapContext
+        """
+        return SyncMapContext(self._version, service_sid=self._solution['service_sid'], sid=sid)
 
     def __repr__(self):
         """

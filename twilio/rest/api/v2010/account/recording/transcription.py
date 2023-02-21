@@ -40,8 +40,8 @@ class TranscriptionList(ListResource):
         # Path Solution
         self._solution = { 'account_sid': account_sid, 'recording_sid': recording_sid,  }
         self._uri = '/Accounts/${account_sid}/Recordings/${recording_sid}/Transcriptions.json'.format(**self._solution)
-
-
+        
+        
     
     
     
@@ -127,6 +127,28 @@ class TranscriptionList(ListResource):
         )
         return TranscriptionPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a TranscriptionContext
+        
+        :param sid: The Twilio-provided string that uniquely identifies the Transcription resource to fetch.
+        
+        :returns: twilio.rest.api.v2010.transcription.TranscriptionContext
+        :rtype: twilio.rest.api.v2010.transcription.TranscriptionContext
+        """
+        return TranscriptionContext(self._version, account_sid=self._solution['account_sid'], recording_sid=self._solution['recording_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a TranscriptionContext
+        
+        :param sid: The Twilio-provided string that uniquely identifies the Transcription resource to fetch.
+        
+        :returns: twilio.rest.api.v2010.transcription.TranscriptionContext
+        :rtype: twilio.rest.api.v2010.transcription.TranscriptionContext
+        """
+        return TranscriptionContext(self._version, account_sid=self._solution['account_sid'], recording_sid=self._solution['recording_sid'], sid=sid)
 
     def __repr__(self):
         """

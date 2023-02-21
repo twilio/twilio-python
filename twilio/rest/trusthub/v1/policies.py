@@ -38,8 +38,8 @@ class PoliciesList(ListResource):
         # Path Solution
         self._solution = {  }
         self._uri = '/Policies'.format(**self._solution)
-
-
+        
+        
     
     
     def stream(self, limit=None, page_size=None):
@@ -124,6 +124,28 @@ class PoliciesList(ListResource):
         )
         return PoliciesPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a PoliciesContext
+        
+        :param sid: The unique string that identifies the Policy resource.
+        
+        :returns: twilio.rest.trusthub.v1.policies.PoliciesContext
+        :rtype: twilio.rest.trusthub.v1.policies.PoliciesContext
+        """
+        return PoliciesContext(self._version, sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a PoliciesContext
+        
+        :param sid: The unique string that identifies the Policy resource.
+        
+        :returns: twilio.rest.trusthub.v1.policies.PoliciesContext
+        :rtype: twilio.rest.trusthub.v1.policies.PoliciesContext
+        """
+        return PoliciesContext(self._version, sid=sid)
 
     def __repr__(self):
         """

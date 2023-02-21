@@ -39,8 +39,8 @@ class DependentHostedNumberOrderList(ListResource):
         # Path Solution
         self._solution = { 'signing_document_sid': signing_document_sid,  }
         self._uri = '/AuthorizationDocuments/${signing_document_sid}/DependentHostedNumberOrders'.format(**self._solution)
-
-
+        
+        
     
     def stream(self, status=values.unset, phone_number=values.unset, incoming_phone_number_sid=values.unset, friendly_name=values.unset, unique_name=values.unset, limit=None, page_size=None):
         """
@@ -153,6 +153,7 @@ class DependentHostedNumberOrderList(ListResource):
             target_url
         )
         return DependentHostedNumberOrderPage(self._version, response, self._solution)
+
 
 
     def __repr__(self):

@@ -40,11 +40,30 @@ class IpAddressList(ListResource):
         # Path Solution
         self._solution = { 'account_sid': account_sid, 'ip_access_control_list_sid': ip_access_control_list_sid,  }
         self._uri = '/Accounts/${account_sid}/SIP/IpAccessControlLists/${ip_access_control_list_sid}/IpAddresses.json'.format(**self._solution)
+        
+        
+    
+    
+    
+    
+    def create(self, friendly_name, ip_address, cidr_prefix_length=values.unset):
+        """
+        Create the IpAddressInstance
+         :param str friendly_name: A human readable descriptive text for this resource, up to 255 characters long.
+         :param str ip_address: An IP address in dotted decimal notation from which you want to accept traffic. Any SIP requests from this IP address will be allowed by Twilio. IPv4 only supported today.
+         :param int cidr_prefix_length: An integer representing the length of the CIDR prefix to use with this IP address when accepting traffic. By default the entire IP address is used.
+        
+        :returns: The created IpAddressInstance
+        :rtype: twilio.rest.api.v2010.ip_address.IpAddressInstance
+        """
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+            'IpAddress': ip_address,
+            'CidrPrefixLength': cidr_prefix_length,
+        })
 
-
-    
-    
-    
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return IpAddressInstance(self._version, payload, account_sid=self._solution['account_sid'], ip_access_control_list_sid=self._solution['ip_access_control_list_sid'])
     
     
     def stream(self, limit=None, page_size=None):
@@ -129,6 +148,28 @@ class IpAddressList(ListResource):
         )
         return IpAddressPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a IpAddressContext
+        
+        :param sid: A 34 character string that identifies the IpAddress resource to update.
+        
+        :returns: twilio.rest.api.v2010.ip_address.IpAddressContext
+        :rtype: twilio.rest.api.v2010.ip_address.IpAddressContext
+        """
+        return IpAddressContext(self._version, account_sid=self._solution['account_sid'], ip_access_control_list_sid=self._solution['ip_access_control_list_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a IpAddressContext
+        
+        :param sid: A 34 character string that identifies the IpAddress resource to update.
+        
+        :returns: twilio.rest.api.v2010.ip_address.IpAddressContext
+        :rtype: twilio.rest.api.v2010.ip_address.IpAddressContext
+        """
+        return IpAddressContext(self._version, account_sid=self._solution['account_sid'], ip_access_control_list_sid=self._solution['ip_access_control_list_sid'], sid=sid)
 
     def __repr__(self):
         """
@@ -225,9 +266,9 @@ class IpAddressContext(InstanceContext):
 
         
     
-    def update(self, body):
+    def update(self, ip_address, friendly_name, cidr_prefix_length):
         data = values.of({
-            'body': body,
+            'ip_address': ip_address,'friendly_name': friendly_name,'cidr_prefix_length': cidr_prefix_length,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

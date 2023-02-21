@@ -38,11 +38,58 @@ class HostedNumberOrderList(ListResource):
         # Path Solution
         self._solution = {  }
         self._uri = '/HostedNumberOrders'.format(**self._solution)
+        
+        
+    
+    
+    
+    
+    def create(self, phone_number, sms_capability, account_sid=values.unset, friendly_name=values.unset, unique_name=values.unset, cc_emails=values.unset, sms_url=values.unset, sms_method=values.unset, sms_fallback_url=values.unset, sms_fallback_method=values.unset, status_callback_url=values.unset, status_callback_method=values.unset, sms_application_sid=values.unset, address_sid=values.unset, email=values.unset, verification_type=values.unset, verification_document_sid=values.unset):
+        """
+        Create the HostedNumberOrderInstance
+         :param str phone_number: The number to host in [+E.164](https://en.wikipedia.org/wiki/E.164) format
+         :param bool sms_capability: Used to specify that the SMS capability will be hosted on Twilio's platform.
+         :param str account_sid: This defaults to the AccountSid of the authorization the user is using. This can be provided to specify a subaccount to add the HostedNumberOrder to.
+         :param str friendly_name: A 64 character string that is a human readable text that describes this resource.
+         :param str unique_name: Optional. Provides a unique and addressable name to be assigned to this HostedNumberOrder, assigned by the developer, to be optionally used in addition to SID.
+         :param [str] cc_emails: Optional. A list of emails that the LOA document for this HostedNumberOrder will be carbon copied to.
+         :param str sms_url: The URL that Twilio should request when somebody sends an SMS to the phone number. This will be copied onto the IncomingPhoneNumber resource.
+         :param str sms_method: The HTTP method that should be used to request the SmsUrl. Must be either `GET` or `POST`.  This will be copied onto the IncomingPhoneNumber resource.
+         :param str sms_fallback_url: A URL that Twilio will request if an error occurs requesting or executing the TwiML defined by SmsUrl. This will be copied onto the IncomingPhoneNumber resource.
+         :param str sms_fallback_method: The HTTP method that should be used to request the SmsFallbackUrl. Must be either `GET` or `POST`. This will be copied onto the IncomingPhoneNumber resource.
+         :param str status_callback_url: Optional. The Status Callback URL attached to the IncomingPhoneNumber resource.
+         :param str status_callback_method: Optional. The Status Callback Method attached to the IncomingPhoneNumber resource.
+         :param str sms_application_sid: Optional. The 34 character sid of the application Twilio should use to handle SMS messages sent to this number. If a `SmsApplicationSid` is present, Twilio will ignore all of the SMS urls above and use those set on the application.
+         :param str address_sid: Optional. A 34 character string that uniquely identifies the Address resource that represents the address of the owner of this phone number.
+         :param str email: Optional. Email of the owner of this phone number that is being hosted.
+         :param HostedNumberOrderVerificationType verification_type: 
+         :param str verification_document_sid: Optional. The unique sid identifier of the Identity Document that represents the document for verifying ownership of the number to be hosted. Required when VerificationType is phone-bill.
+        
+        :returns: The created HostedNumberOrderInstance
+        :rtype: twilio.rest.preview.hosted_numbers.hosted_number_order.HostedNumberOrderInstance
+        """
+        data = values.of({ 
+            'PhoneNumber': phone_number,
+            'SmsCapability': sms_capability,
+            'AccountSid': account_sid,
+            'FriendlyName': friendly_name,
+            'UniqueName': unique_name,
+            'CcEmails': serialize.map(cc_emails, lambda e: e),
+            'SmsUrl': sms_url,
+            'SmsMethod': sms_method,
+            'SmsFallbackUrl': sms_fallback_url,
+            'SmsFallbackMethod': sms_fallback_method,
+            'StatusCallbackUrl': status_callback_url,
+            'StatusCallbackMethod': status_callback_method,
+            'SmsApplicationSid': sms_application_sid,
+            'AddressSid': address_sid,
+            'Email': email,
+            'VerificationType': verification_type,
+            'VerificationDocumentSid': verification_document_sid,
+        })
 
-
-    
-    
-    
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return HostedNumberOrderInstance(self._version, payload)
     
     
     def stream(self, status=values.unset, phone_number=values.unset, incoming_phone_number_sid=values.unset, friendly_name=values.unset, unique_name=values.unset, limit=None, page_size=None):
@@ -158,6 +205,28 @@ class HostedNumberOrderList(ListResource):
         return HostedNumberOrderPage(self._version, response, self._solution)
 
 
+    def get(self, sid):
+        """
+        Constructs a HostedNumberOrderContext
+        
+        :param sid: 
+        
+        :returns: twilio.rest.preview.hosted_numbers.hosted_number_order.HostedNumberOrderContext
+        :rtype: twilio.rest.preview.hosted_numbers.hosted_number_order.HostedNumberOrderContext
+        """
+        return HostedNumberOrderContext(self._version, sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a HostedNumberOrderContext
+        
+        :param sid: 
+        
+        :returns: twilio.rest.preview.hosted_numbers.hosted_number_order.HostedNumberOrderContext
+        :rtype: twilio.rest.preview.hosted_numbers.hosted_number_order.HostedNumberOrderContext
+        """
+        return HostedNumberOrderContext(self._version, sid=sid)
+
     def __repr__(self):
         """
         Provide a friendly representation
@@ -253,9 +322,9 @@ class HostedNumberOrderContext(InstanceContext):
 
         
     
-    def update(self, body):
+    def update(self, friendly_name, unique_name, email, cc_emails, status, verification_code, verification_type, verification_document_sid, extension, call_delay):
         data = values.of({
-            'body': body,
+            'friendly_name': friendly_name,'unique_name': unique_name,'email': email,'cc_emails': cc_emails,'status': status,'verification_code': verification_code,'verification_type': verification_type,'verification_document_sid': verification_document_sid,'extension': extension,'call_delay': call_delay,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

@@ -47,7 +47,7 @@ class RecordList(ListResource):
         # Path Solution
         self._solution = { 'account_sid': account_sid,  }
         self._uri = '/Accounts/${account_sid}/Usage/Records.json'.format(**self._solution)
-
+        
         self._all_time = None
         self._daily = None
         self._last_month = None
@@ -56,7 +56,7 @@ class RecordList(ListResource):
         self._today = None
         self._yearly = None
         self._yesterday = None
-
+        
     
     def stream(self, category=values.unset, start_date=values.unset, end_date=values.unset, include_subaccounts=values.unset, limit=None, page_size=None):
         """
@@ -137,8 +137,8 @@ class RecordList(ListResource):
         """
         data = values.of({ 
             'Category': category,
-            'StartDate': start_date,
-            'EndDate': end_date,
+            'StartDate': serialize.iso8601_date(start_date),
+            'EndDate': serialize.iso8601_date(end_date),
             'IncludeSubaccounts': include_subaccounts,
             'PageToken': page_token,
             'Page': page_number,
@@ -176,7 +176,6 @@ class RecordList(ListResource):
         if self._all_time is None:
             self._all_time = AllTimeList(self._version, account_sid=self._solution['account_sid'])
         return self.all_time
-
     @property
     def daily(self):
         """
@@ -188,7 +187,6 @@ class RecordList(ListResource):
         if self._daily is None:
             self._daily = DailyList(self._version, account_sid=self._solution['account_sid'])
         return self.daily
-
     @property
     def last_month(self):
         """
@@ -200,7 +198,6 @@ class RecordList(ListResource):
         if self._last_month is None:
             self._last_month = LastMonthList(self._version, account_sid=self._solution['account_sid'])
         return self.last_month
-
     @property
     def monthly(self):
         """
@@ -212,7 +209,6 @@ class RecordList(ListResource):
         if self._monthly is None:
             self._monthly = MonthlyList(self._version, account_sid=self._solution['account_sid'])
         return self.monthly
-
     @property
     def this_month(self):
         """
@@ -224,7 +220,6 @@ class RecordList(ListResource):
         if self._this_month is None:
             self._this_month = ThisMonthList(self._version, account_sid=self._solution['account_sid'])
         return self.this_month
-
     @property
     def today(self):
         """
@@ -236,7 +231,6 @@ class RecordList(ListResource):
         if self._today is None:
             self._today = TodayList(self._version, account_sid=self._solution['account_sid'])
         return self.today
-
     @property
     def yearly(self):
         """
@@ -248,7 +242,6 @@ class RecordList(ListResource):
         if self._yearly is None:
             self._yearly = YearlyList(self._version, account_sid=self._solution['account_sid'])
         return self.yearly
-
     @property
     def yesterday(self):
         """

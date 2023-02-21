@@ -39,9 +39,26 @@ class BrandVettingList(ListResource):
         # Path Solution
         self._solution = { 'brand_sid': brand_sid,  }
         self._uri = '/a2p/BrandRegistrations/${brand_sid}/Vettings'.format(**self._solution)
-
-
+        
+        
     
+    
+    def create(self, vetting_provider, vetting_id=values.unset):
+        """
+        Create the BrandVettingInstance
+         :param BrandVettingVettingProvider vetting_provider: 
+         :param str vetting_id: The unique ID of the vetting
+        
+        :returns: The created BrandVettingInstance
+        :rtype: twilio.rest.messaging.v1.brand_vetting.BrandVettingInstance
+        """
+        data = values.of({ 
+            'VettingProvider': vetting_provider,
+            'VettingId': vetting_id,
+        })
+
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return BrandVettingInstance(self._version, payload, brand_sid=self._solution['brand_sid'])
     
     
     def stream(self, vetting_provider=values.unset, limit=None, page_size=None):
@@ -132,6 +149,28 @@ class BrandVettingList(ListResource):
         )
         return BrandVettingPage(self._version, response, self._solution)
 
+
+    def get(self, brand_vetting_sid):
+        """
+        Constructs a BrandVettingContext
+        
+        :param brand_vetting_sid: The Twilio SID of the third-party vetting record.
+        
+        :returns: twilio.rest.messaging.v1.brand_vetting.BrandVettingContext
+        :rtype: twilio.rest.messaging.v1.brand_vetting.BrandVettingContext
+        """
+        return BrandVettingContext(self._version, brand_sid=self._solution['brand_sid'], brand_vetting_sid=brand_vetting_sid)
+
+    def __call__(self, brand_vetting_sid):
+        """
+        Constructs a BrandVettingContext
+        
+        :param brand_vetting_sid: The Twilio SID of the third-party vetting record.
+        
+        :returns: twilio.rest.messaging.v1.brand_vetting.BrandVettingContext
+        :rtype: twilio.rest.messaging.v1.brand_vetting.BrandVettingContext
+        """
+        return BrandVettingContext(self._version, brand_sid=self._solution['brand_sid'], brand_vetting_sid=brand_vetting_sid)
 
     def __repr__(self):
         """

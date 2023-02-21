@@ -39,8 +39,8 @@ class SimIpAddressList(ListResource):
         # Path Solution
         self._solution = { 'sim_sid': sim_sid,  }
         self._uri = '/Sims/${sim_sid}/IpAddresses'.format(**self._solution)
-
-
+        
+        
     
     def stream(self, limit=None, page_size=None):
         """
@@ -123,6 +123,7 @@ class SimIpAddressList(ListResource):
             target_url
         )
         return SimIpAddressPage(self._version, response, self._solution)
+
 
 
     def __repr__(self):

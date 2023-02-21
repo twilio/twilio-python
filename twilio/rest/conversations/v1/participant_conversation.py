@@ -38,8 +38,8 @@ class ParticipantConversationList(ListResource):
         # Path Solution
         self._solution = {  }
         self._uri = '/ParticipantConversations'.format(**self._solution)
-
-
+        
+        
     
     def stream(self, identity=values.unset, address=values.unset, limit=None, page_size=None):
         """
@@ -134,6 +134,7 @@ class ParticipantConversationList(ListResource):
             target_url
         )
         return ParticipantConversationPage(self._version, response, self._solution)
+
 
 
     def __repr__(self):

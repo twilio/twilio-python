@@ -40,8 +40,8 @@ class UserChannelList(ListResource):
         # Path Solution
         self._solution = { 'service_sid': service_sid, 'user_sid': user_sid,  }
         self._uri = '/Services/${service_sid}/Users/${user_sid}/Channels'.format(**self._solution)
-
-
+        
+        
     
     def stream(self, limit=None, page_size=None):
         """
@@ -124,6 +124,7 @@ class UserChannelList(ListResource):
             target_url
         )
         return UserChannelPage(self._version, response, self._solution)
+
 
 
     def __repr__(self):

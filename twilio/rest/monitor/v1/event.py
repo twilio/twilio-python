@@ -38,8 +38,8 @@ class EventList(ListResource):
         # Path Solution
         self._solution = {  }
         self._uri = '/Events'.format(**self._solution)
-
-
+        
+        
     
     
     def stream(self, actor_sid=values.unset, event_type=values.unset, resource_sid=values.unset, source_ip_address=values.unset, start_date=values.unset, end_date=values.unset, limit=None, page_size=None):
@@ -134,8 +134,8 @@ class EventList(ListResource):
             'EventType': event_type,
             'ResourceSid': resource_sid,
             'SourceIpAddress': source_ip_address,
-            'StartDate': start_date,
-            'EndDate': end_date,
+            'StartDate': serialize.iso8601_datetime(start_date),
+            'EndDate': serialize.iso8601_datetime(end_date),
             'PageToken': page_token,
             'Page': page_number,
             'PageSize': page_size,
@@ -160,6 +160,28 @@ class EventList(ListResource):
         )
         return EventPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a EventContext
+        
+        :param sid: The SID of the Event resource to fetch.
+        
+        :returns: twilio.rest.monitor.v1.event.EventContext
+        :rtype: twilio.rest.monitor.v1.event.EventContext
+        """
+        return EventContext(self._version, sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a EventContext
+        
+        :param sid: The SID of the Event resource to fetch.
+        
+        :returns: twilio.rest.monitor.v1.event.EventContext
+        :rtype: twilio.rest.monitor.v1.event.EventContext
+        """
+        return EventContext(self._version, sid=sid)
 
     def __repr__(self):
         """

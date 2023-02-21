@@ -40,8 +40,8 @@ class FlowList(ListResource):
         # Path Solution
         self._solution = {  }
         self._uri = '/Flows'.format(**self._solution)
-
-
+        
+        
     
     
     
@@ -127,6 +127,28 @@ class FlowList(ListResource):
         )
         return FlowPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a FlowContext
+        
+        :param sid: The SID of the Flow resource to fetch.
+        
+        :returns: twilio.rest.studio.v1.flow.FlowContext
+        :rtype: twilio.rest.studio.v1.flow.FlowContext
+        """
+        return FlowContext(self._version, sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a FlowContext
+        
+        :param sid: The SID of the Flow resource to fetch.
+        
+        :returns: twilio.rest.studio.v1.flow.FlowContext
+        :rtype: twilio.rest.studio.v1.flow.FlowContext
+        """
+        return FlowContext(self._version, sid=sid)
 
     def __repr__(self):
         """

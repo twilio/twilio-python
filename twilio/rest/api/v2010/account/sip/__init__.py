@@ -42,11 +42,11 @@ class SipList(ListResource):
         # Path Solution
         self._solution = { 'account_sid': account_sid,  }
         self._uri = '/Accounts/${account_sid}/SIP.json'.format(**self._solution)
-
+        
         self._credential_lists = None
         self._domains = None
         self._ip_access_control_lists = None
-
+        
 
     @property
     def credential_lists(self):
@@ -59,7 +59,6 @@ class SipList(ListResource):
         if self._credential_lists is None:
             self._credential_lists = CredentialListList(self._version, account_sid=self._solution['account_sid'])
         return self.credential_lists
-
     @property
     def domains(self):
         """
@@ -71,7 +70,6 @@ class SipList(ListResource):
         if self._domains is None:
             self._domains = DomainList(self._version, account_sid=self._solution['account_sid'])
         return self.domains
-
     @property
     def ip_access_control_lists(self):
         """

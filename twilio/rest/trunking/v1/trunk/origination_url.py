@@ -39,11 +39,34 @@ class OriginationUrlList(ListResource):
         # Path Solution
         self._solution = { 'trunk_sid': trunk_sid,  }
         self._uri = '/Trunks/${trunk_sid}/OriginationUrls'.format(**self._solution)
+        
+        
+    
+    
+    
+    
+    def create(self, weight, priority, enabled, friendly_name, sip_url):
+        """
+        Create the OriginationUrlInstance
+         :param int weight: The value that determines the relative share of the load the URI should receive compared to other URIs with the same priority. Can be an integer from 1 to 65535, inclusive, and the default is 10. URLs with higher values receive more load than those with lower ones with the same priority.
+         :param int priority: The relative importance of the URI. Can be an integer from 0 to 65535, inclusive, and the default is 10. The lowest number represents the most important URI.
+         :param bool enabled: Whether the URL is enabled. The default is `true`.
+         :param str friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+         :param str sip_url: The SIP address you want Twilio to route your Origination calls to. This must be a `sip:` schema.
+        
+        :returns: The created OriginationUrlInstance
+        :rtype: twilio.rest.trunking.v1.origination_url.OriginationUrlInstance
+        """
+        data = values.of({ 
+            'Weight': weight,
+            'Priority': priority,
+            'Enabled': enabled,
+            'FriendlyName': friendly_name,
+            'SipUrl': sip_url,
+        })
 
-
-    
-    
-    
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return OriginationUrlInstance(self._version, payload, trunk_sid=self._solution['trunk_sid'])
     
     
     def stream(self, limit=None, page_size=None):
@@ -128,6 +151,28 @@ class OriginationUrlList(ListResource):
         )
         return OriginationUrlPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a OriginationUrlContext
+        
+        :param sid: The unique string that we created to identify the OriginationUrl resource to update.
+        
+        :returns: twilio.rest.trunking.v1.origination_url.OriginationUrlContext
+        :rtype: twilio.rest.trunking.v1.origination_url.OriginationUrlContext
+        """
+        return OriginationUrlContext(self._version, trunk_sid=self._solution['trunk_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a OriginationUrlContext
+        
+        :param sid: The unique string that we created to identify the OriginationUrl resource to update.
+        
+        :returns: twilio.rest.trunking.v1.origination_url.OriginationUrlContext
+        :rtype: twilio.rest.trunking.v1.origination_url.OriginationUrlContext
+        """
+        return OriginationUrlContext(self._version, trunk_sid=self._solution['trunk_sid'], sid=sid)
 
     def __repr__(self):
         """
@@ -224,9 +269,9 @@ class OriginationUrlContext(InstanceContext):
 
         
     
-    def update(self, body):
+    def update(self, weight, priority, enabled, friendly_name, sip_url):
         data = values.of({
-            'body': body,
+            'weight': weight,'priority': priority,'enabled': enabled,'friendly_name': friendly_name,'sip_url': sip_url,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

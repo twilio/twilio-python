@@ -40,8 +40,8 @@ class LogList(ListResource):
         # Path Solution
         self._solution = { 'service_sid': service_sid, 'environment_sid': environment_sid,  }
         self._uri = '/Services/${service_sid}/Environments/${environment_sid}/Logs'.format(**self._solution)
-
-
+        
+        
     
     
     def stream(self, function_sid=values.unset, start_date=values.unset, end_date=values.unset, limit=None, page_size=None):
@@ -118,8 +118,8 @@ class LogList(ListResource):
         """
         data = values.of({ 
             'FunctionSid': function_sid,
-            'StartDate': start_date,
-            'EndDate': end_date,
+            'StartDate': serialize.iso8601_datetime(start_date),
+            'EndDate': serialize.iso8601_datetime(end_date),
             'PageToken': page_token,
             'Page': page_number,
             'PageSize': page_size,
@@ -144,6 +144,28 @@ class LogList(ListResource):
         )
         return LogPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a LogContext
+        
+        :param sid: The SID of the Log resource to fetch.
+        
+        :returns: twilio.rest.serverless.v1.log.LogContext
+        :rtype: twilio.rest.serverless.v1.log.LogContext
+        """
+        return LogContext(self._version, service_sid=self._solution['service_sid'], environment_sid=self._solution['environment_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a LogContext
+        
+        :param sid: The SID of the Log resource to fetch.
+        
+        :returns: twilio.rest.serverless.v1.log.LogContext
+        :rtype: twilio.rest.serverless.v1.log.LogContext
+        """
+        return LogContext(self._version, service_sid=self._solution['service_sid'], environment_sid=self._solution['environment_sid'], sid=sid)
 
     def __repr__(self):
         """

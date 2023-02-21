@@ -38,8 +38,8 @@ class TemplateList(ListResource):
         # Path Solution
         self._solution = {  }
         self._uri = '/Templates'.format(**self._solution)
-
-
+        
+        
     
     def stream(self, friendly_name=values.unset, limit=None, page_size=None):
         """
@@ -128,6 +128,7 @@ class TemplateList(ListResource):
             target_url
         )
         return TemplatePage(self._version, response, self._solution)
+
 
 
     def __repr__(self):

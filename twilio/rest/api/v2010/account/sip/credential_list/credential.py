@@ -40,11 +40,28 @@ class CredentialList(ListResource):
         # Path Solution
         self._solution = { 'account_sid': account_sid, 'credential_list_sid': credential_list_sid,  }
         self._uri = '/Accounts/${account_sid}/SIP/CredentialLists/${credential_list_sid}/Credentials.json'.format(**self._solution)
+        
+        
+    
+    
+    
+    
+    def create(self, username, password):
+        """
+        Create the CredentialInstance
+         :param str username: The username that will be passed when authenticating SIP requests. The username should be sent in response to Twilio's challenge of the initial INVITE. It can be up to 32 characters long.
+         :param str password: The password that the username will use when authenticating SIP requests. The password must be a minimum of 12 characters, contain at least 1 digit, and have mixed case. (eg `IWasAtSignal2018`)
+        
+        :returns: The created CredentialInstance
+        :rtype: twilio.rest.api.v2010.credential.CredentialInstance
+        """
+        data = values.of({ 
+            'Username': username,
+            'Password': password,
+        })
 
-
-    
-    
-    
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return CredentialInstance(self._version, payload, account_sid=self._solution['account_sid'], credential_list_sid=self._solution['credential_list_sid'])
     
     
     def stream(self, limit=None, page_size=None):
@@ -129,6 +146,28 @@ class CredentialList(ListResource):
         )
         return CredentialPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a CredentialContext
+        
+        :param sid: The unique id that identifies the resource to update.
+        
+        :returns: twilio.rest.api.v2010.credential.CredentialContext
+        :rtype: twilio.rest.api.v2010.credential.CredentialContext
+        """
+        return CredentialContext(self._version, account_sid=self._solution['account_sid'], credential_list_sid=self._solution['credential_list_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a CredentialContext
+        
+        :param sid: The unique id that identifies the resource to update.
+        
+        :returns: twilio.rest.api.v2010.credential.CredentialContext
+        :rtype: twilio.rest.api.v2010.credential.CredentialContext
+        """
+        return CredentialContext(self._version, account_sid=self._solution['account_sid'], credential_list_sid=self._solution['credential_list_sid'], sid=sid)
 
     def __repr__(self):
         """
@@ -225,9 +264,9 @@ class CredentialContext(InstanceContext):
 
         
     
-    def update(self, body):
+    def update(self, password):
         data = values.of({
-            'body': body,
+            'password': password,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

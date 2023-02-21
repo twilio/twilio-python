@@ -39,11 +39,38 @@ class TriggerList(ListResource):
         # Path Solution
         self._solution = { 'account_sid': account_sid,  }
         self._uri = '/Accounts/${account_sid}/Usage/Triggers.json'.format(**self._solution)
+        
+        
+    
+    
+    
+    
+    def create(self, callback_url, trigger_value, usage_category, callback_method=values.unset, friendly_name=values.unset, recurring=values.unset, trigger_by=values.unset):
+        """
+        Create the TriggerInstance
+         :param str callback_url: The URL we should call using `callback_method` when the trigger fires.
+         :param str trigger_value: The usage value at which the trigger should fire.  For convenience, you can use an offset value such as `+30` to specify a trigger_value that is 30 units more than the current usage value. Be sure to urlencode a `+` as `%2B`.
+         :param UsageTriggerUsageCategory usage_category: 
+         :param str callback_method: The HTTP method we should use to call `callback_url`. Can be: `GET` or `POST` and the default is `POST`.
+         :param str friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+         :param UsageTriggerRecurring recurring: 
+         :param UsageTriggerTriggerField trigger_by: 
+        
+        :returns: The created TriggerInstance
+        :rtype: twilio.rest.api.v2010.trigger.TriggerInstance
+        """
+        data = values.of({ 
+            'CallbackUrl': callback_url,
+            'TriggerValue': trigger_value,
+            'UsageCategory': usage_category,
+            'CallbackMethod': callback_method,
+            'FriendlyName': friendly_name,
+            'Recurring': recurring,
+            'TriggerBy': trigger_by,
+        })
 
-
-    
-    
-    
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return TriggerInstance(self._version, payload, account_sid=self._solution['account_sid'])
     
     
     def stream(self, recurring=values.unset, trigger_by=values.unset, usage_category=values.unset, limit=None, page_size=None):
@@ -147,6 +174,28 @@ class TriggerList(ListResource):
         return TriggerPage(self._version, response, self._solution)
 
 
+    def get(self, sid):
+        """
+        Constructs a TriggerContext
+        
+        :param sid: The Twilio-provided string that uniquely identifies the UsageTrigger resource to update.
+        
+        :returns: twilio.rest.api.v2010.trigger.TriggerContext
+        :rtype: twilio.rest.api.v2010.trigger.TriggerContext
+        """
+        return TriggerContext(self._version, account_sid=self._solution['account_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a TriggerContext
+        
+        :param sid: The Twilio-provided string that uniquely identifies the UsageTrigger resource to update.
+        
+        :returns: twilio.rest.api.v2010.trigger.TriggerContext
+        :rtype: twilio.rest.api.v2010.trigger.TriggerContext
+        """
+        return TriggerContext(self._version, account_sid=self._solution['account_sid'], sid=sid)
+
     def __repr__(self):
         """
         Provide a friendly representation
@@ -242,9 +291,9 @@ class TriggerContext(InstanceContext):
 
         
     
-    def update(self, body):
+    def update(self, callback_method, callback_url, friendly_name):
         data = values.of({
-            'body': body,
+            'callback_method': callback_method,'callback_url': callback_url,'friendly_name': friendly_name,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

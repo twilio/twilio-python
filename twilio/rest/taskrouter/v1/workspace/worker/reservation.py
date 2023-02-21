@@ -40,8 +40,8 @@ class ReservationList(ListResource):
         # Path Solution
         self._solution = { 'workspace_sid': workspace_sid, 'worker_sid': worker_sid,  }
         self._uri = '/Workspaces/${workspace_sid}/Workers/${worker_sid}/Reservations'.format(**self._solution)
-
-
+        
+        
     
     
     
@@ -134,6 +134,28 @@ class ReservationList(ListResource):
         return ReservationPage(self._version, response, self._solution)
 
 
+    def get(self, sid):
+        """
+        Constructs a ReservationContext
+        
+        :param sid: The SID of the WorkerReservation resource to update.
+        
+        :returns: twilio.rest.taskrouter.v1.reservation.ReservationContext
+        :rtype: twilio.rest.taskrouter.v1.reservation.ReservationContext
+        """
+        return ReservationContext(self._version, workspace_sid=self._solution['workspace_sid'], worker_sid=self._solution['worker_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a ReservationContext
+        
+        :param sid: The SID of the WorkerReservation resource to update.
+        
+        :returns: twilio.rest.taskrouter.v1.reservation.ReservationContext
+        :rtype: twilio.rest.taskrouter.v1.reservation.ReservationContext
+        """
+        return ReservationContext(self._version, workspace_sid=self._solution['workspace_sid'], worker_sid=self._solution['worker_sid'], sid=sid)
+
     def __repr__(self):
         """
         Provide a friendly representation
@@ -213,9 +235,9 @@ class ReservationContext(InstanceContext):
 
         
     
-    def update(self, if_match, body):
+    def update(self, reservation_status, worker_activity_sid, instruction, dequeue_post_work_activity_sid, dequeue_from, dequeue_record, dequeue_timeout, dequeue_to, dequeue_status_callback_url, call_from, call_record, call_timeout, call_to, call_url, call_status_callback_url, call_accept, redirect_call_sid, redirect_accept, redirect_url, to, from_, status_callback, status_callback_method, status_callback_event, timeout, record, muted, beep, start_conference_on_enter, end_conference_on_exit, wait_url, wait_method, early_media, max_participants, conference_status_callback, conference_status_callback_method, conference_status_callback_event, conference_record, conference_trim, recording_channels, recording_status_callback, recording_status_callback_method, conference_recording_status_callback, conference_recording_status_callback_method, region, sip_auth_username, sip_auth_password, dequeue_status_callback_event, post_work_activity_sid, end_conference_on_customer_exit, beep_on_customer_entrance):
         data = values.of({
-            'if_match': if_match,'body': body,
+            'reservation_status': reservation_status,'worker_activity_sid': worker_activity_sid,'instruction': instruction,'dequeue_post_work_activity_sid': dequeue_post_work_activity_sid,'dequeue_from': dequeue_from,'dequeue_record': dequeue_record,'dequeue_timeout': dequeue_timeout,'dequeue_to': dequeue_to,'dequeue_status_callback_url': dequeue_status_callback_url,'call_from': call_from,'call_record': call_record,'call_timeout': call_timeout,'call_to': call_to,'call_url': call_url,'call_status_callback_url': call_status_callback_url,'call_accept': call_accept,'redirect_call_sid': redirect_call_sid,'redirect_accept': redirect_accept,'redirect_url': redirect_url,'to': to,'from_': from_,'status_callback': status_callback,'status_callback_method': status_callback_method,'status_callback_event': status_callback_event,'timeout': timeout,'record': record,'muted': muted,'beep': beep,'start_conference_on_enter': start_conference_on_enter,'end_conference_on_exit': end_conference_on_exit,'wait_url': wait_url,'wait_method': wait_method,'early_media': early_media,'max_participants': max_participants,'conference_status_callback': conference_status_callback,'conference_status_callback_method': conference_status_callback_method,'conference_status_callback_event': conference_status_callback_event,'conference_record': conference_record,'conference_trim': conference_trim,'recording_channels': recording_channels,'recording_status_callback': recording_status_callback,'recording_status_callback_method': recording_status_callback_method,'conference_recording_status_callback': conference_recording_status_callback,'conference_recording_status_callback_method': conference_recording_status_callback_method,'region': region,'sip_auth_username': sip_auth_username,'sip_auth_password': sip_auth_password,'dequeue_status_callback_event': dequeue_status_callback_event,'post_work_activity_sid': post_work_activity_sid,'end_conference_on_customer_exit': end_conference_on_customer_exit,'beep_on_customer_entrance': beep_on_customer_entrance,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

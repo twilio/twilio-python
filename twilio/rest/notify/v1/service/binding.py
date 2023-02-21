@@ -39,10 +39,37 @@ class BindingList(ListResource):
         # Path Solution
         self._solution = { 'service_sid': service_sid,  }
         self._uri = '/Services/${service_sid}/Bindings'.format(**self._solution)
-
-
+        
+        
     
     
+    
+    def create(self, identity, binding_type, address, tag=values.unset, notification_protocol_version=values.unset, credential_sid=values.unset, endpoint=values.unset):
+        """
+        Create the BindingInstance
+         :param str identity: The `identity` value that uniquely identifies the new resource's [User](https://www.twilio.com/docs/chat/rest/user-resource) within the [Service](https://www.twilio.com/docs/notify/api/service-resource). Up to 20 Bindings can be created for the same Identity in a given Service.
+         :param BindingBindingType binding_type: 
+         :param str address: The channel-specific address. For APNS, the device token. For FCM and GCM, the registration token. For SMS, a phone number in E.164 format. For Facebook Messenger, the Messenger ID of the user or a phone number in E.164 format.
+         :param [str] tag: A tag that can be used to select the Bindings to notify. Repeat this parameter to specify more than one tag, up to a total of 20 tags.
+         :param str notification_protocol_version: The protocol version to use to send the notification. This defaults to the value of `default_xxxx_notification_protocol_version` for the protocol in the [Service](https://www.twilio.com/docs/notify/api/service-resource). The current version is `\"3\"` for `apn`, `fcm`, and `gcm` type Bindings. The parameter is not applicable to `sms` and `facebook-messenger` type Bindings as the data format is fixed.
+         :param str credential_sid: The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) resource to be used to send notifications to this Binding. If present, this overrides the Credential specified in the Service resource. Applies to only `apn`, `fcm`, and `gcm` type Bindings.
+         :param str endpoint: Deprecated.
+        
+        :returns: The created BindingInstance
+        :rtype: twilio.rest.notify.v1.binding.BindingInstance
+        """
+        data = values.of({ 
+            'Identity': identity,
+            'BindingType': binding_type,
+            'Address': address,
+            'Tag': serialize.map(tag, lambda e: e),
+            'NotificationProtocolVersion': notification_protocol_version,
+            'CredentialSid': credential_sid,
+            'Endpoint': endpoint,
+        })
+
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return BindingInstance(self._version, payload, service_sid=self._solution['service_sid'])
     
     
     def stream(self, start_date=values.unset, end_date=values.unset, identity=values.unset, tag=values.unset, limit=None, page_size=None):
@@ -123,10 +150,10 @@ class BindingList(ListResource):
         :rtype: twilio.rest.notify.v1.binding.BindingPage
         """
         data = values.of({ 
-            'StartDate': start_date,
-            'EndDate': end_date,
-            'Identity': identity,
-            'Tag': tag,
+            'StartDate': serialize.iso8601_date(start_date),
+            'EndDate': serialize.iso8601_date(end_date),
+            'Identity': serialize.map(identity),
+            'Tag': serialize.map(tag),
             'PageToken': page_token,
             'Page': page_number,
             'PageSize': page_size,
@@ -151,6 +178,28 @@ class BindingList(ListResource):
         )
         return BindingPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a BindingContext
+        
+        :param sid: The Twilio-provided string that uniquely identifies the Binding resource to fetch.
+        
+        :returns: twilio.rest.notify.v1.binding.BindingContext
+        :rtype: twilio.rest.notify.v1.binding.BindingContext
+        """
+        return BindingContext(self._version, service_sid=self._solution['service_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a BindingContext
+        
+        :param sid: The Twilio-provided string that uniquely identifies the Binding resource to fetch.
+        
+        :returns: twilio.rest.notify.v1.binding.BindingContext
+        :rtype: twilio.rest.notify.v1.binding.BindingContext
+        """
+        return BindingContext(self._version, service_sid=self._solution['service_sid'], sid=sid)
 
     def __repr__(self):
         """

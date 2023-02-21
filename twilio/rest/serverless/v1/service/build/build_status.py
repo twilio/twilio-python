@@ -39,10 +39,28 @@ class BuildStatusList(ListResource):
 
         # Path Solution
         self._solution = { 'service_sid': service_sid, 'sid': sid,  }
-        self._uri = ''.format(**self._solution)
-
-
+        
+        
+        
     
+
+    def get(self):
+        """
+        Constructs a BuildStatusContext
+        
+        :returns: twilio.rest.serverless.v1.build_status.BuildStatusContext
+        :rtype: twilio.rest.serverless.v1.build_status.BuildStatusContext
+        """
+        return BuildStatusContext(self._version, service_sid=self._solution['service_sid'], sid=self._solution['sid'])
+
+    def __call__(self):
+        """
+        Constructs a BuildStatusContext
+        
+        :returns: twilio.rest.serverless.v1.build_status.BuildStatusContext
+        :rtype: twilio.rest.serverless.v1.build_status.BuildStatusContext
+        """
+        return BuildStatusContext(self._version, service_sid=self._solution['service_sid'], sid=self._solution['sid'])
 
     def __repr__(self):
         """

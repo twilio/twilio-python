@@ -39,8 +39,8 @@ class ConferenceParticipantList(ListResource):
         # Path Solution
         self._solution = { 'conference_sid': conference_sid,  }
         self._uri = '/Conferences/${conference_sid}/Participants'.format(**self._solution)
-
-
+        
+        
     
     
     def stream(self, participant_sid=values.unset, label=values.unset, events=values.unset, limit=None, page_size=None):
@@ -143,6 +143,28 @@ class ConferenceParticipantList(ListResource):
         )
         return ConferenceParticipantPage(self._version, response, self._solution)
 
+
+    def get(self, participant_sid):
+        """
+        Constructs a ConferenceParticipantContext
+        
+        :param participant_sid: The unique SID identifier of the Participant.
+        
+        :returns: twilio.rest.insights.v1.conference_participant.ConferenceParticipantContext
+        :rtype: twilio.rest.insights.v1.conference_participant.ConferenceParticipantContext
+        """
+        return ConferenceParticipantContext(self._version, conference_sid=self._solution['conference_sid'], participant_sid=participant_sid)
+
+    def __call__(self, participant_sid):
+        """
+        Constructs a ConferenceParticipantContext
+        
+        :param participant_sid: The unique SID identifier of the Participant.
+        
+        :returns: twilio.rest.insights.v1.conference_participant.ConferenceParticipantContext
+        :rtype: twilio.rest.insights.v1.conference_participant.ConferenceParticipantContext
+        """
+        return ConferenceParticipantContext(self._version, conference_sid=self._solution['conference_sid'], participant_sid=participant_sid)
 
     def __repr__(self):
         """

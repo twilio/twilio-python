@@ -40,8 +40,8 @@ class SyncMapPermissionList(ListResource):
         # Path Solution
         self._solution = { 'service_sid': service_sid, 'map_sid': map_sid,  }
         self._uri = '/Services/${service_sid}/Maps/${map_sid}/Permissions'.format(**self._solution)
-
-
+        
+        
     
     
     
@@ -128,6 +128,28 @@ class SyncMapPermissionList(ListResource):
         )
         return SyncMapPermissionPage(self._version, response, self._solution)
 
+
+    def get(self, identity):
+        """
+        Constructs a SyncMapPermissionContext
+        
+        :param identity: The application-defined string that uniquely identifies the User's Sync Map Permission resource to update.
+        
+        :returns: twilio.rest.sync.v1.sync_map_permission.SyncMapPermissionContext
+        :rtype: twilio.rest.sync.v1.sync_map_permission.SyncMapPermissionContext
+        """
+        return SyncMapPermissionContext(self._version, service_sid=self._solution['service_sid'], map_sid=self._solution['map_sid'], identity=identity)
+
+    def __call__(self, identity):
+        """
+        Constructs a SyncMapPermissionContext
+        
+        :param identity: The application-defined string that uniquely identifies the User's Sync Map Permission resource to update.
+        
+        :returns: twilio.rest.sync.v1.sync_map_permission.SyncMapPermissionContext
+        :rtype: twilio.rest.sync.v1.sync_map_permission.SyncMapPermissionContext
+        """
+        return SyncMapPermissionContext(self._version, service_sid=self._solution['service_sid'], map_sid=self._solution['map_sid'], identity=identity)
 
     def __repr__(self):
         """
@@ -222,9 +244,9 @@ class SyncMapPermissionContext(InstanceContext):
 
         
     
-    def update(self, body):
+    def update(self, read, write, manage):
         data = values.of({
-            'body': body,
+            'read': read,'write': write,'manage': manage,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

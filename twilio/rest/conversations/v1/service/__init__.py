@@ -44,10 +44,25 @@ class ServiceList(ListResource):
         # Path Solution
         self._solution = {  }
         self._uri = '/Services'.format(**self._solution)
-
-
+        
+        
     
     
+    
+    def create(self, friendly_name):
+        """
+        Create the ServiceInstance
+         :param str friendly_name: The human-readable name of this service, limited to 256 characters. Optional.
+        
+        :returns: The created ServiceInstance
+        :rtype: twilio.rest.conversations.v1.service.ServiceInstance
+        """
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+        })
+
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return ServiceInstance(self._version, payload)
     
     
     def stream(self, limit=None, page_size=None):
@@ -132,6 +147,28 @@ class ServiceList(ListResource):
         )
         return ServicePage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a ServiceContext
+        
+        :param sid: A 34 character string that uniquely identifies this resource.
+        
+        :returns: twilio.rest.conversations.v1.service.ServiceContext
+        :rtype: twilio.rest.conversations.v1.service.ServiceContext
+        """
+        return ServiceContext(self._version, sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a ServiceContext
+        
+        :param sid: A 34 character string that uniquely identifies this resource.
+        
+        :returns: twilio.rest.conversations.v1.service.ServiceContext
+        :rtype: twilio.rest.conversations.v1.service.ServiceContext
+        """
+        return ServiceContext(self._version, sid=sid)
 
     def __repr__(self):
         """

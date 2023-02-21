@@ -40,8 +40,8 @@ class MemberList(ListResource):
         # Path Solution
         self._solution = { 'account_sid': account_sid, 'queue_sid': queue_sid,  }
         self._uri = '/Accounts/${account_sid}/Queues/${queue_sid}/Members.json'.format(**self._solution)
-
-
+        
+        
     
     
     
@@ -128,6 +128,28 @@ class MemberList(ListResource):
         return MemberPage(self._version, response, self._solution)
 
 
+    def get(self, call_sid):
+        """
+        Constructs a MemberContext
+        
+        :param call_sid: The [Call](https://www.twilio.com/docs/voice/api/call-resource) SID of the resource(s) to update.
+        
+        :returns: twilio.rest.api.v2010.member.MemberContext
+        :rtype: twilio.rest.api.v2010.member.MemberContext
+        """
+        return MemberContext(self._version, account_sid=self._solution['account_sid'], queue_sid=self._solution['queue_sid'], call_sid=call_sid)
+
+    def __call__(self, call_sid):
+        """
+        Constructs a MemberContext
+        
+        :param call_sid: The [Call](https://www.twilio.com/docs/voice/api/call-resource) SID of the resource(s) to update.
+        
+        :returns: twilio.rest.api.v2010.member.MemberContext
+        :rtype: twilio.rest.api.v2010.member.MemberContext
+        """
+        return MemberContext(self._version, account_sid=self._solution['account_sid'], queue_sid=self._solution['queue_sid'], call_sid=call_sid)
+
     def __repr__(self):
         """
         Provide a friendly representation
@@ -207,9 +229,9 @@ class MemberContext(InstanceContext):
 
         
     
-    def update(self, body):
+    def update(self, url, method):
         data = values.of({
-            'body': body,
+            'url': url,'method': method,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

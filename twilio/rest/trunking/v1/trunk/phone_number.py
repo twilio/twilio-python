@@ -39,10 +39,25 @@ class PhoneNumberList(ListResource):
         # Path Solution
         self._solution = { 'trunk_sid': trunk_sid,  }
         self._uri = '/Trunks/${trunk_sid}/PhoneNumbers'.format(**self._solution)
-
-
+        
+        
     
     
+    
+    def create(self, phone_number_sid):
+        """
+        Create the PhoneNumberInstance
+         :param str phone_number_sid: The SID of the [Incoming Phone Number](https://www.twilio.com/docs/phone-numbers/api/incomingphonenumber-resource) that you want to associate with the trunk.
+        
+        :returns: The created PhoneNumberInstance
+        :rtype: twilio.rest.trunking.v1.phone_number.PhoneNumberInstance
+        """
+        data = values.of({ 
+            'PhoneNumberSid': phone_number_sid,
+        })
+
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return PhoneNumberInstance(self._version, payload, trunk_sid=self._solution['trunk_sid'])
     
     
     def stream(self, limit=None, page_size=None):
@@ -127,6 +142,28 @@ class PhoneNumberList(ListResource):
         )
         return PhoneNumberPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a PhoneNumberContext
+        
+        :param sid: The unique string that we created to identify the PhoneNumber resource to fetch.
+        
+        :returns: twilio.rest.trunking.v1.phone_number.PhoneNumberContext
+        :rtype: twilio.rest.trunking.v1.phone_number.PhoneNumberContext
+        """
+        return PhoneNumberContext(self._version, trunk_sid=self._solution['trunk_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a PhoneNumberContext
+        
+        :param sid: The unique string that we created to identify the PhoneNumber resource to fetch.
+        
+        :returns: twilio.rest.trunking.v1.phone_number.PhoneNumberContext
+        :rtype: twilio.rest.trunking.v1.phone_number.PhoneNumberContext
+        """
+        return PhoneNumberContext(self._version, trunk_sid=self._solution['trunk_sid'], sid=sid)
 
     def __repr__(self):
         """

@@ -37,10 +37,36 @@ class ArchivedCallList(ListResource):
 
         # Path Solution
         self._solution = {  }
-        self._uri = ''.format(**self._solution)
-
-
+        
+        
+        
     
+
+    def get(self, date, sid):
+        """
+        Constructs a ArchivedCallContext
+        
+        :param date: The date of the Call in UTC.
+        
+        :param sid: The Twilio-provided Call SID that uniquely identifies the Call resource to delete
+        
+        :returns: twilio.rest.voice.v1.archived_call.ArchivedCallContext
+        :rtype: twilio.rest.voice.v1.archived_call.ArchivedCallContext
+        """
+        return ArchivedCallContext(self._version, date=date, sid=sid)
+
+    def __call__(self, date, sid):
+        """
+        Constructs a ArchivedCallContext
+        
+        :param date: The date of the Call in UTC.
+        
+        :param sid: The Twilio-provided Call SID that uniquely identifies the Call resource to delete
+        
+        :returns: twilio.rest.voice.v1.archived_call.ArchivedCallContext
+        :rtype: twilio.rest.voice.v1.archived_call.ArchivedCallContext
+        """
+        return ArchivedCallContext(self._version, date=date, sid=sid)
 
     def __repr__(self):
         """

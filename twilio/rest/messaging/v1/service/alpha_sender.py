@@ -39,10 +39,25 @@ class AlphaSenderList(ListResource):
         # Path Solution
         self._solution = { 'service_sid': service_sid,  }
         self._uri = '/Services/${service_sid}/AlphaSenders'.format(**self._solution)
-
-
+        
+        
     
     
+    
+    def create(self, alpha_sender):
+        """
+        Create the AlphaSenderInstance
+         :param str alpha_sender: The Alphanumeric Sender ID string. Can be up to 11 characters long. Valid characters are A-Z, a-z, 0-9, space, hyphen `-`, plus `+`, underscore `_` and ampersand `&`. This value cannot contain only numbers.
+        
+        :returns: The created AlphaSenderInstance
+        :rtype: twilio.rest.messaging.v1.alpha_sender.AlphaSenderInstance
+        """
+        data = values.of({ 
+            'AlphaSender': alpha_sender,
+        })
+
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return AlphaSenderInstance(self._version, payload, service_sid=self._solution['service_sid'])
     
     
     def stream(self, limit=None, page_size=None):
@@ -127,6 +142,28 @@ class AlphaSenderList(ListResource):
         )
         return AlphaSenderPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a AlphaSenderContext
+        
+        :param sid: The SID of the AlphaSender resource to fetch.
+        
+        :returns: twilio.rest.messaging.v1.alpha_sender.AlphaSenderContext
+        :rtype: twilio.rest.messaging.v1.alpha_sender.AlphaSenderContext
+        """
+        return AlphaSenderContext(self._version, service_sid=self._solution['service_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a AlphaSenderContext
+        
+        :param sid: The SID of the AlphaSender resource to fetch.
+        
+        :returns: twilio.rest.messaging.v1.alpha_sender.AlphaSenderContext
+        :rtype: twilio.rest.messaging.v1.alpha_sender.AlphaSenderContext
+        """
+        return AlphaSenderContext(self._version, service_sid=self._solution['service_sid'], sid=sid)
 
     def __repr__(self):
         """

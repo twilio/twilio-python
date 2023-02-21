@@ -40,8 +40,8 @@ class MachineToMachineList(ListResource):
         # Path Solution
         self._solution = { 'account_sid': account_sid, 'country_code': country_code,  }
         self._uri = '/Accounts/${account_sid}/AvailablePhoneNumbers/${country_code}/MachineToMachine.json'.format(**self._solution)
-
-
+        
+        
     
     def stream(self, area_code=values.unset, contains=values.unset, sms_enabled=values.unset, mms_enabled=values.unset, voice_enabled=values.unset, exclude_all_address_required=values.unset, exclude_local_address_required=values.unset, exclude_foreign_address_required=values.unset, beta=values.unset, near_number=values.unset, near_lat_long=values.unset, distance=values.unset, in_postal_code=values.unset, in_region=values.unset, in_rate_center=values.unset, in_lata=values.unset, in_locality=values.unset, fax_enabled=values.unset, limit=None, page_size=None):
         """
@@ -232,6 +232,7 @@ class MachineToMachineList(ListResource):
             target_url
         )
         return MachineToMachinePage(self._version, response, self._solution)
+
 
 
     def __repr__(self):

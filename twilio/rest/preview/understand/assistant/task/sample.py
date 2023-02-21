@@ -40,11 +40,30 @@ class SampleList(ListResource):
         # Path Solution
         self._solution = { 'assistant_sid': assistant_sid, 'task_sid': task_sid,  }
         self._uri = '/Assistants/${assistant_sid}/Tasks/${task_sid}/Samples'.format(**self._solution)
+        
+        
+    
+    
+    
+    
+    def create(self, language, tagged_text, source_channel=values.unset):
+        """
+        Create the SampleInstance
+         :param str language: An ISO language-country string of the sample.
+         :param str tagged_text: The text example of how end-users may express this task. The sample may contain Field tag blocks.
+         :param str source_channel: The communication channel the sample was captured. It can be: *voice*, *sms*, *chat*, *alexa*, *google-assistant*, or *slack*. If not included the value will be null
+        
+        :returns: The created SampleInstance
+        :rtype: twilio.rest.preview.understand.sample.SampleInstance
+        """
+        data = values.of({ 
+            'Language': language,
+            'TaggedText': tagged_text,
+            'SourceChannel': source_channel,
+        })
 
-
-    
-    
-    
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return SampleInstance(self._version, payload, assistant_sid=self._solution['assistant_sid'], task_sid=self._solution['task_sid'])
     
     
     def stream(self, language=values.unset, limit=None, page_size=None):
@@ -135,6 +154,28 @@ class SampleList(ListResource):
         )
         return SamplePage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a SampleContext
+        
+        :param sid: A 34 character string that uniquely identifies this resource.
+        
+        :returns: twilio.rest.preview.understand.sample.SampleContext
+        :rtype: twilio.rest.preview.understand.sample.SampleContext
+        """
+        return SampleContext(self._version, assistant_sid=self._solution['assistant_sid'], task_sid=self._solution['task_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a SampleContext
+        
+        :param sid: A 34 character string that uniquely identifies this resource.
+        
+        :returns: twilio.rest.preview.understand.sample.SampleContext
+        :rtype: twilio.rest.preview.understand.sample.SampleContext
+        """
+        return SampleContext(self._version, assistant_sid=self._solution['assistant_sid'], task_sid=self._solution['task_sid'], sid=sid)
 
     def __repr__(self):
         """
@@ -231,9 +272,9 @@ class SampleContext(InstanceContext):
 
         
     
-    def update(self, body):
+    def update(self, language, tagged_text, source_channel):
         data = values.of({
-            'body': body,
+            'language': language,'tagged_text': tagged_text,'source_channel': source_channel,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

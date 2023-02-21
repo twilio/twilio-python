@@ -37,10 +37,28 @@ class AuthTokenPromotionList(ListResource):
 
         # Path Solution
         self._solution = {  }
-        self._uri = ''.format(**self._solution)
-
-
+        
+        
+        
     
+
+    def get(self):
+        """
+        Constructs a AuthTokenPromotionContext
+        
+        :returns: twilio.rest.accounts.v1.auth_token_promotion.AuthTokenPromotionContext
+        :rtype: twilio.rest.accounts.v1.auth_token_promotion.AuthTokenPromotionContext
+        """
+        return AuthTokenPromotionContext(self._version)
+
+    def __call__(self):
+        """
+        Constructs a AuthTokenPromotionContext
+        
+        :returns: twilio.rest.accounts.v1.auth_token_promotion.AuthTokenPromotionContext
+        :rtype: twilio.rest.accounts.v1.auth_token_promotion.AuthTokenPromotionContext
+        """
+        return AuthTokenPromotionContext(self._version)
 
     def __repr__(self):
         """

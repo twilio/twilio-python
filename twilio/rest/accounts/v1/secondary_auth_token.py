@@ -37,11 +37,29 @@ class SecondaryAuthTokenList(ListResource):
 
         # Path Solution
         self._solution = {  }
-        self._uri = ''.format(**self._solution)
-
-
+        
+        
+        
     
     
+
+    def get(self):
+        """
+        Constructs a SecondaryAuthTokenContext
+        
+        :returns: twilio.rest.accounts.v1.secondary_auth_token.SecondaryAuthTokenContext
+        :rtype: twilio.rest.accounts.v1.secondary_auth_token.SecondaryAuthTokenContext
+        """
+        return SecondaryAuthTokenContext(self._version)
+
+    def __call__(self):
+        """
+        Constructs a SecondaryAuthTokenContext
+        
+        :returns: twilio.rest.accounts.v1.secondary_auth_token.SecondaryAuthTokenContext
+        :rtype: twilio.rest.accounts.v1.secondary_auth_token.SecondaryAuthTokenContext
+        """
+        return SecondaryAuthTokenContext(self._version)
 
     def __repr__(self):
         """

@@ -46,8 +46,8 @@ class AvailablePhoneNumberCountryList(ListResource):
         # Path Solution
         self._solution = { 'account_sid': account_sid,  }
         self._uri = '/Accounts/${account_sid}/AvailablePhoneNumbers.json'.format(**self._solution)
-
-
+        
+        
     
     
     def stream(self, limit=None, page_size=None):
@@ -132,6 +132,28 @@ class AvailablePhoneNumberCountryList(ListResource):
         )
         return AvailablePhoneNumberCountryPage(self._version, response, self._solution)
 
+
+    def get(self, country_code):
+        """
+        Constructs a AvailablePhoneNumberCountryContext
+        
+        :param country_code: The [ISO-3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code of the country to fetch available phone number information about.
+        
+        :returns: twilio.rest.api.v2010.available_phone_number_country.AvailablePhoneNumberCountryContext
+        :rtype: twilio.rest.api.v2010.available_phone_number_country.AvailablePhoneNumberCountryContext
+        """
+        return AvailablePhoneNumberCountryContext(self._version, account_sid=self._solution['account_sid'], country_code=country_code)
+
+    def __call__(self, country_code):
+        """
+        Constructs a AvailablePhoneNumberCountryContext
+        
+        :param country_code: The [ISO-3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code of the country to fetch available phone number information about.
+        
+        :returns: twilio.rest.api.v2010.available_phone_number_country.AvailablePhoneNumberCountryContext
+        :rtype: twilio.rest.api.v2010.available_phone_number_country.AvailablePhoneNumberCountryContext
+        """
+        return AvailablePhoneNumberCountryContext(self._version, account_sid=self._solution['account_sid'], country_code=country_code)
 
     def __repr__(self):
         """

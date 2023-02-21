@@ -40,8 +40,8 @@ class EventList(ListResource):
         # Path Solution
         self._solution = { 'account_sid': account_sid, 'call_sid': call_sid,  }
         self._uri = '/Accounts/${account_sid}/Calls/${call_sid}/Events.json'.format(**self._solution)
-
-
+        
+        
     
     def stream(self, limit=None, page_size=None):
         """
@@ -124,6 +124,7 @@ class EventList(ListResource):
             target_url
         )
         return EventPage(self._version, response, self._solution)
+
 
 
     def __repr__(self):

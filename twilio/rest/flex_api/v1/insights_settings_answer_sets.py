@@ -38,9 +38,10 @@ class InsightsSettingsAnswerSetsList(ListResource):
         # Path Solution
         self._solution = {  }
         self._uri = '/Insights/QM/Settings/AnswerSets'.format(**self._solution)
-
-
+        
+        
     
+
 
     def __repr__(self):
         """

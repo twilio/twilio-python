@@ -39,8 +39,8 @@ class UsageRecordList(ListResource):
         # Path Solution
         self._solution = { 'sim_sid': sim_sid,  }
         self._uri = '/Sims/${sim_sid}/UsageRecords'.format(**self._solution)
-
-
+        
+        
     
     def stream(self, end=values.unset, start=values.unset, granularity=values.unset, limit=None, page_size=None):
         """
@@ -115,8 +115,8 @@ class UsageRecordList(ListResource):
         :rtype: twilio.rest.wireless.v1.usage_record.UsageRecordPage
         """
         data = values.of({ 
-            'End': end,
-            'Start': start,
+            'End': serialize.iso8601_datetime(end),
+            'Start': serialize.iso8601_datetime(start),
             'Granularity': granularity,
             'PageToken': page_token,
             'Page': page_number,
@@ -141,6 +141,7 @@ class UsageRecordList(ListResource):
             target_url
         )
         return UsageRecordPage(self._version, response, self._solution)
+
 
 
     def __repr__(self):

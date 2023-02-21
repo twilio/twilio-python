@@ -38,8 +38,8 @@ class EndUserTypeList(ListResource):
         # Path Solution
         self._solution = {  }
         self._uri = '/EndUserTypes'.format(**self._solution)
-
-
+        
+        
     
     
     def stream(self, limit=None, page_size=None):
@@ -124,6 +124,28 @@ class EndUserTypeList(ListResource):
         )
         return EndUserTypePage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a EndUserTypeContext
+        
+        :param sid: The unique string that identifies the End-User Type resource.
+        
+        :returns: twilio.rest.trusthub.v1.end_user_type.EndUserTypeContext
+        :rtype: twilio.rest.trusthub.v1.end_user_type.EndUserTypeContext
+        """
+        return EndUserTypeContext(self._version, sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a EndUserTypeContext
+        
+        :param sid: The unique string that identifies the End-User Type resource.
+        
+        :returns: twilio.rest.trusthub.v1.end_user_type.EndUserTypeContext
+        :rtype: twilio.rest.trusthub.v1.end_user_type.EndUserTypeContext
+        """
+        return EndUserTypeContext(self._version, sid=sid)
 
     def __repr__(self):
         """

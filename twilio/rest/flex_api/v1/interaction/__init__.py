@@ -39,10 +39,49 @@ class InteractionList(ListResource):
         # Path Solution
         self._solution = {  }
         self._uri = '/Interactions'.format(**self._solution)
-
-
+        
+        
     
     
+    def create(self, channel, routing):
+        """
+        Create the InteractionInstance
+         :param bool, date, datetime, dict, float, int, list, str, none_type channel: The Interaction's channel.
+         :param bool, date, datetime, dict, float, int, list, str, none_type routing: The Interaction's routing logic.
+        
+        :returns: The created InteractionInstance
+        :rtype: twilio.rest.flex_api.v1.interaction.InteractionInstance
+        """
+        data = values.of({ 
+            'Channel': channel,
+            'Routing': routing,
+        })
+
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return InteractionInstance(self._version, payload)
+    
+
+    def get(self, sid):
+        """
+        Constructs a InteractionContext
+        
+        :param sid: The SID of the Interaction resource to fetch.
+        
+        :returns: twilio.rest.flex_api.v1.interaction.InteractionContext
+        :rtype: twilio.rest.flex_api.v1.interaction.InteractionContext
+        """
+        return InteractionContext(self._version, sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a InteractionContext
+        
+        :param sid: The SID of the Interaction resource to fetch.
+        
+        :returns: twilio.rest.flex_api.v1.interaction.InteractionContext
+        :rtype: twilio.rest.flex_api.v1.interaction.InteractionContext
+        """
+        return InteractionContext(self._version, sid=sid)
 
     def __repr__(self):
         """

@@ -37,10 +37,28 @@ class OpenidDiscoveryList(ListResource):
 
         # Path Solution
         self._solution = {  }
-        self._uri = ''.format(**self._solution)
-
-
+        
+        
+        
     
+
+    def get(self):
+        """
+        Constructs a OpenidDiscoveryContext
+        
+        :returns: twilio.rest.oauth.v1.openid_discovery.OpenidDiscoveryContext
+        :rtype: twilio.rest.oauth.v1.openid_discovery.OpenidDiscoveryContext
+        """
+        return OpenidDiscoveryContext(self._version)
+
+    def __call__(self):
+        """
+        Constructs a OpenidDiscoveryContext
+        
+        :returns: twilio.rest.oauth.v1.openid_discovery.OpenidDiscoveryContext
+        :rtype: twilio.rest.oauth.v1.openid_discovery.OpenidDiscoveryContext
+        """
+        return OpenidDiscoveryContext(self._version)
 
     def __repr__(self):
         """

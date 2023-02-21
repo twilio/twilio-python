@@ -40,10 +40,10 @@ class VoiceList(ListResource):
         # Path Solution
         self._solution = {  }
         self._uri = '/Voice'.format(**self._solution)
-
+        
         self._countries = None
         self._numbers = None
-
+        
 
     @property
     def countries(self):
@@ -56,7 +56,6 @@ class VoiceList(ListResource):
         if self._countries is None:
             self._countries = CountryList(self._version)
         return self.countries
-
     @property
     def numbers(self):
         """

@@ -38,10 +38,28 @@ class WorkersStatisticsList(ListResource):
 
         # Path Solution
         self._solution = { 'workspace_sid': workspace_sid,  }
-        self._uri = ''.format(**self._solution)
-
-
+        
+        
+        
     
+
+    def get(self):
+        """
+        Constructs a WorkersStatisticsContext
+        
+        :returns: twilio.rest.taskrouter.v1.workers_statistics.WorkersStatisticsContext
+        :rtype: twilio.rest.taskrouter.v1.workers_statistics.WorkersStatisticsContext
+        """
+        return WorkersStatisticsContext(self._version, workspace_sid=self._solution['workspace_sid'])
+
+    def __call__(self):
+        """
+        Constructs a WorkersStatisticsContext
+        
+        :returns: twilio.rest.taskrouter.v1.workers_statistics.WorkersStatisticsContext
+        :rtype: twilio.rest.taskrouter.v1.workers_statistics.WorkersStatisticsContext
+        """
+        return WorkersStatisticsContext(self._version, workspace_sid=self._solution['workspace_sid'])
 
     def __repr__(self):
         """

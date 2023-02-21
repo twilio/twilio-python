@@ -39,8 +39,8 @@ class CountryList(ListResource):
         # Path Solution
         self._solution = {  }
         self._uri = '/DialingPermissions/Countries'.format(**self._solution)
-
-
+        
+        
     
     
     def stream(self, iso_code=values.unset, continent=values.unset, country_code=values.unset, low_risk_numbers_enabled=values.unset, high_risk_special_numbers_enabled=values.unset, high_risk_tollfraud_numbers_enabled=values.unset, limit=None, page_size=None):
@@ -161,6 +161,28 @@ class CountryList(ListResource):
         )
         return CountryPage(self._version, response, self._solution)
 
+
+    def get(self, iso_code):
+        """
+        Constructs a CountryContext
+        
+        :param iso_code: The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the DialingPermissions Country resource to fetch
+        
+        :returns: twilio.rest.voice.v1.country.CountryContext
+        :rtype: twilio.rest.voice.v1.country.CountryContext
+        """
+        return CountryContext(self._version, iso_code=iso_code)
+
+    def __call__(self, iso_code):
+        """
+        Constructs a CountryContext
+        
+        :param iso_code: The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the DialingPermissions Country resource to fetch
+        
+        :returns: twilio.rest.voice.v1.country.CountryContext
+        :rtype: twilio.rest.voice.v1.country.CountryContext
+        """
+        return CountryContext(self._version, iso_code=iso_code)
 
     def __repr__(self):
         """

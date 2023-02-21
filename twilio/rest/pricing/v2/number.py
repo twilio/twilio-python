@@ -37,10 +37,32 @@ class NumberList(ListResource):
 
         # Path Solution
         self._solution = {  }
-        self._uri = ''.format(**self._solution)
-
-
+        
+        
+        
     
+
+    def get(self, destination_number):
+        """
+        Constructs a NumberContext
+        
+        :param destination_number: The destination phone number, in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, for which to fetch the origin-based voice pricing information. E.164 format consists of a + followed by the country code and subscriber number.
+        
+        :returns: twilio.rest.pricing.v2.number.NumberContext
+        :rtype: twilio.rest.pricing.v2.number.NumberContext
+        """
+        return NumberContext(self._version, destination_number=destination_number)
+
+    def __call__(self, destination_number):
+        """
+        Constructs a NumberContext
+        
+        :param destination_number: The destination phone number, in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, for which to fetch the origin-based voice pricing information. E.164 format consists of a + followed by the country code and subscriber number.
+        
+        :returns: twilio.rest.pricing.v2.number.NumberContext
+        :rtype: twilio.rest.pricing.v2.number.NumberContext
+        """
+        return NumberContext(self._version, destination_number=destination_number)
 
     def __repr__(self):
         """

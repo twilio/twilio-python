@@ -41,11 +41,36 @@ class SessionList(ListResource):
         # Path Solution
         self._solution = { 'service_sid': service_sid,  }
         self._uri = '/Services/${service_sid}/Sessions'.format(**self._solution)
+        
+        
+    
+    
+    
+    
+    def create(self, unique_name=values.unset, date_expiry=values.unset, ttl=values.unset, mode=values.unset, status=values.unset, participants=values.unset):
+        """
+        Create the SessionInstance
+         :param str unique_name: An application-defined string that uniquely identifies the resource. This value must be 191 characters or fewer in length and be unique. **This value should not have PII.**
+         :param datetime date_expiry: The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date when the Session should expire. If this is value is present, it overrides the `ttl` value.
+         :param int ttl: The time, in seconds, when the session will expire. The time is measured from the last Session create or the Session's last Interaction.
+         :param SessionMode mode: 
+         :param SessionStatus status: 
+         :param [bool, date, datetime, dict, float, int, list, str, none_type] participants: The Participant objects to include in the new session.
+        
+        :returns: The created SessionInstance
+        :rtype: twilio.rest.proxy.v1.session.SessionInstance
+        """
+        data = values.of({ 
+            'UniqueName': unique_name,
+            'DateExpiry': date_expiry,
+            'Ttl': ttl,
+            'Mode': mode,
+            'Status': status,
+            'Participants': participants,
+        })
 
-
-    
-    
-    
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return SessionInstance(self._version, payload, service_sid=self._solution['service_sid'])
     
     
     def stream(self, limit=None, page_size=None):
@@ -130,6 +155,28 @@ class SessionList(ListResource):
         )
         return SessionPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a SessionContext
+        
+        :param sid: The Twilio-provided string that uniquely identifies the Session resource to update.
+        
+        :returns: twilio.rest.proxy.v1.session.SessionContext
+        :rtype: twilio.rest.proxy.v1.session.SessionContext
+        """
+        return SessionContext(self._version, service_sid=self._solution['service_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a SessionContext
+        
+        :param sid: The Twilio-provided string that uniquely identifies the Session resource to update.
+        
+        :returns: twilio.rest.proxy.v1.session.SessionContext
+        :rtype: twilio.rest.proxy.v1.session.SessionContext
+        """
+        return SessionContext(self._version, service_sid=self._solution['service_sid'], sid=sid)
 
     def __repr__(self):
         """
@@ -228,9 +275,9 @@ class SessionContext(InstanceContext):
 
         
     
-    def update(self, body):
+    def update(self, date_expiry, ttl, status):
         data = values.of({
-            'body': body,
+            'date_expiry': date_expiry,'ttl': ttl,'status': status,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

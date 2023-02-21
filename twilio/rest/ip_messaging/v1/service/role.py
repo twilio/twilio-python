@@ -39,11 +39,30 @@ class RoleList(ListResource):
         # Path Solution
         self._solution = { 'service_sid': service_sid,  }
         self._uri = '/Services/${service_sid}/Roles'.format(**self._solution)
+        
+        
+    
+    
+    
+    
+    def create(self, friendly_name, type, permission):
+        """
+        Create the RoleInstance
+         :param str friendly_name: 
+         :param RoleRoleType type: 
+         :param [str] permission: 
+        
+        :returns: The created RoleInstance
+        :rtype: twilio.rest.ip_messaging.v1.role.RoleInstance
+        """
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+            'Type': type,
+            'Permission': serialize.map(permission, lambda e: e),
+        })
 
-
-    
-    
-    
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return RoleInstance(self._version, payload, service_sid=self._solution['service_sid'])
     
     
     def stream(self, limit=None, page_size=None):
@@ -128,6 +147,28 @@ class RoleList(ListResource):
         )
         return RolePage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a RoleContext
+        
+        :param sid: 
+        
+        :returns: twilio.rest.ip_messaging.v1.role.RoleContext
+        :rtype: twilio.rest.ip_messaging.v1.role.RoleContext
+        """
+        return RoleContext(self._version, service_sid=self._solution['service_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a RoleContext
+        
+        :param sid: 
+        
+        :returns: twilio.rest.ip_messaging.v1.role.RoleContext
+        :rtype: twilio.rest.ip_messaging.v1.role.RoleContext
+        """
+        return RoleContext(self._version, service_sid=self._solution['service_sid'], sid=sid)
 
     def __repr__(self):
         """
@@ -224,9 +265,9 @@ class RoleContext(InstanceContext):
 
         
     
-    def update(self, body):
+    def update(self, permission):
         data = values.of({
-            'body': body,
+            'permission': permission,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

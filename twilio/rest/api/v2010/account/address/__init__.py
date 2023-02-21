@@ -40,11 +40,44 @@ class AddressList(ListResource):
         # Path Solution
         self._solution = { 'account_sid': account_sid,  }
         self._uri = '/Accounts/${account_sid}/Addresses.json'.format(**self._solution)
+        
+        
+    
+    
+    
+    
+    def create(self, customer_name, street, city, region, postal_code, iso_country, friendly_name=values.unset, emergency_enabled=values.unset, auto_correct_address=values.unset, street_secondary=values.unset):
+        """
+        Create the AddressInstance
+         :param str customer_name: The name to associate with the new address.
+         :param str street: The number and street address of the new address.
+         :param str city: The city of the new address.
+         :param str region: The state or region of the new address.
+         :param str postal_code: The postal code of the new address.
+         :param str iso_country: The ISO country code of the new address.
+         :param str friendly_name: A descriptive string that you create to describe the new address. It can be up to 64 characters long.
+         :param bool emergency_enabled: Whether to enable emergency calling on the new address. Can be: `true` or `false`.
+         :param bool auto_correct_address: Whether we should automatically correct the address. Can be: `true` or `false` and the default is `true`. If empty or `true`, we will correct the address you provide if necessary. If `false`, we won't alter the address you provide.
+         :param str street_secondary: The additional number and street address of the address.
+        
+        :returns: The created AddressInstance
+        :rtype: twilio.rest.api.v2010.address.AddressInstance
+        """
+        data = values.of({ 
+            'CustomerName': customer_name,
+            'Street': street,
+            'City': city,
+            'Region': region,
+            'PostalCode': postal_code,
+            'IsoCountry': iso_country,
+            'FriendlyName': friendly_name,
+            'EmergencyEnabled': emergency_enabled,
+            'AutoCorrectAddress': auto_correct_address,
+            'StreetSecondary': street_secondary,
+        })
 
-
-    
-    
-    
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return AddressInstance(self._version, payload, account_sid=self._solution['account_sid'])
     
     
     def stream(self, customer_name=values.unset, friendly_name=values.unset, iso_country=values.unset, limit=None, page_size=None):
@@ -148,6 +181,28 @@ class AddressList(ListResource):
         return AddressPage(self._version, response, self._solution)
 
 
+    def get(self, sid):
+        """
+        Constructs a AddressContext
+        
+        :param sid: The Twilio-provided string that uniquely identifies the Address resource to update.
+        
+        :returns: twilio.rest.api.v2010.address.AddressContext
+        :rtype: twilio.rest.api.v2010.address.AddressContext
+        """
+        return AddressContext(self._version, account_sid=self._solution['account_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a AddressContext
+        
+        :param sid: The Twilio-provided string that uniquely identifies the Address resource to update.
+        
+        :returns: twilio.rest.api.v2010.address.AddressContext
+        :rtype: twilio.rest.api.v2010.address.AddressContext
+        """
+        return AddressContext(self._version, account_sid=self._solution['account_sid'], sid=sid)
+
     def __repr__(self):
         """
         Provide a friendly representation
@@ -244,9 +299,9 @@ class AddressContext(InstanceContext):
 
         
     
-    def update(self, body):
+    def update(self, friendly_name, customer_name, street, city, region, postal_code, emergency_enabled, auto_correct_address, street_secondary):
         data = values.of({
-            'body': body,
+            'friendly_name': friendly_name,'customer_name': customer_name,'street': street,'city': city,'region': region,'postal_code': postal_code,'emergency_enabled': emergency_enabled,'auto_correct_address': auto_correct_address,'street_secondary': street_secondary,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

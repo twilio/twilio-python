@@ -39,8 +39,8 @@ class ThisMonthList(ListResource):
         # Path Solution
         self._solution = { 'account_sid': account_sid,  }
         self._uri = '/Accounts/${account_sid}/Usage/Records/ThisMonth.json'.format(**self._solution)
-
-
+        
+        
     
     def stream(self, category=values.unset, start_date=values.unset, end_date=values.unset, include_subaccounts=values.unset, limit=None, page_size=None):
         """
@@ -121,8 +121,8 @@ class ThisMonthList(ListResource):
         """
         data = values.of({ 
             'Category': category,
-            'StartDate': start_date,
-            'EndDate': end_date,
+            'StartDate': serialize.iso8601_date(start_date),
+            'EndDate': serialize.iso8601_date(end_date),
             'IncludeSubaccounts': include_subaccounts,
             'PageToken': page_token,
             'Page': page_number,
@@ -147,6 +147,7 @@ class ThisMonthList(ListResource):
             target_url
         )
         return ThisMonthPage(self._version, response, self._solution)
+
 
 
     def __repr__(self):

@@ -40,8 +40,8 @@ class AssetVersionList(ListResource):
         # Path Solution
         self._solution = { 'service_sid': service_sid, 'asset_sid': asset_sid,  }
         self._uri = '/Services/${service_sid}/Assets/${asset_sid}/Versions'.format(**self._solution)
-
-
+        
+        
     
     
     def stream(self, limit=None, page_size=None):
@@ -126,6 +126,28 @@ class AssetVersionList(ListResource):
         )
         return AssetVersionPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a AssetVersionContext
+        
+        :param sid: The SID of the Asset Version resource to fetch.
+        
+        :returns: twilio.rest.serverless.v1.asset_version.AssetVersionContext
+        :rtype: twilio.rest.serverless.v1.asset_version.AssetVersionContext
+        """
+        return AssetVersionContext(self._version, service_sid=self._solution['service_sid'], asset_sid=self._solution['asset_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a AssetVersionContext
+        
+        :param sid: The SID of the Asset Version resource to fetch.
+        
+        :returns: twilio.rest.serverless.v1.asset_version.AssetVersionContext
+        :rtype: twilio.rest.serverless.v1.asset_version.AssetVersionContext
+        """
+        return AssetVersionContext(self._version, service_sid=self._solution['service_sid'], asset_sid=self._solution['asset_sid'], sid=sid)
 
     def __repr__(self):
         """

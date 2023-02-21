@@ -37,12 +37,34 @@ class DomainCertsList(ListResource):
 
         # Path Solution
         self._solution = {  }
-        self._uri = ''.format(**self._solution)
+        
+        
+        
+    
+    
+    
 
+    def get(self, domain_sid):
+        """
+        Constructs a DomainCertsContext
+        
+        :param domain_sid: Unique string used to identify the domain that this certificate should be associated with.
+        
+        :returns: twilio.rest.messaging.v1.domain_certs.DomainCertsContext
+        :rtype: twilio.rest.messaging.v1.domain_certs.DomainCertsContext
+        """
+        return DomainCertsContext(self._version, domain_sid=domain_sid)
 
-    
-    
-    
+    def __call__(self, domain_sid):
+        """
+        Constructs a DomainCertsContext
+        
+        :param domain_sid: Unique string used to identify the domain that this certificate should be associated with.
+        
+        :returns: twilio.rest.messaging.v1.domain_certs.DomainCertsContext
+        :rtype: twilio.rest.messaging.v1.domain_certs.DomainCertsContext
+        """
+        return DomainCertsContext(self._version, domain_sid=domain_sid)
 
     def __repr__(self):
         """
@@ -90,9 +112,9 @@ class DomainCertsContext(InstanceContext):
 
         
     
-    def update(self, body):
+    def update(self, tls_cert):
         data = values.of({
-            'body': body,
+            'tls_cert': tls_cert,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

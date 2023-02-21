@@ -39,8 +39,8 @@ class EventList(ListResource):
         # Path Solution
         self._solution = { 'workspace_sid': workspace_sid,  }
         self._uri = '/Workspaces/${workspace_sid}/Events'.format(**self._solution)
-
-
+        
+        
     
     
     def stream(self, end_date=values.unset, event_type=values.unset, minutes=values.unset, reservation_sid=values.unset, start_date=values.unset, task_queue_sid=values.unset, task_sid=values.unset, worker_sid=values.unset, workflow_sid=values.unset, task_channel=values.unset, sid=values.unset, limit=None, page_size=None):
@@ -156,11 +156,11 @@ class EventList(ListResource):
         :rtype: twilio.rest.taskrouter.v1.event.EventPage
         """
         data = values.of({ 
-            'EndDate': end_date,
+            'EndDate': serialize.iso8601_datetime(end_date),
             'EventType': event_type,
             'Minutes': minutes,
             'ReservationSid': reservation_sid,
-            'StartDate': start_date,
+            'StartDate': serialize.iso8601_datetime(start_date),
             'TaskQueueSid': task_queue_sid,
             'TaskSid': task_sid,
             'WorkerSid': worker_sid,
@@ -191,6 +191,28 @@ class EventList(ListResource):
         )
         return EventPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a EventContext
+        
+        :param sid: The SID of the Event resource to fetch.
+        
+        :returns: twilio.rest.taskrouter.v1.event.EventContext
+        :rtype: twilio.rest.taskrouter.v1.event.EventContext
+        """
+        return EventContext(self._version, workspace_sid=self._solution['workspace_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a EventContext
+        
+        :param sid: The SID of the Event resource to fetch.
+        
+        :returns: twilio.rest.taskrouter.v1.event.EventContext
+        :rtype: twilio.rest.taskrouter.v1.event.EventContext
+        """
+        return EventContext(self._version, workspace_sid=self._solution['workspace_sid'], sid=sid)
 
     def __repr__(self):
         """

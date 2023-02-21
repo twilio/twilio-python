@@ -39,8 +39,8 @@ class SigningKeyList(ListResource):
         # Path Solution
         self._solution = { 'account_sid': account_sid,  }
         self._uri = '/Accounts/${account_sid}/SigningKeys.json'.format(**self._solution)
-
-
+        
+        
     
     
     
@@ -127,6 +127,28 @@ class SigningKeyList(ListResource):
         )
         return SigningKeyPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a SigningKeyContext
+        
+        :param sid: 
+        
+        :returns: twilio.rest.api.v2010.signing_key.SigningKeyContext
+        :rtype: twilio.rest.api.v2010.signing_key.SigningKeyContext
+        """
+        return SigningKeyContext(self._version, account_sid=self._solution['account_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a SigningKeyContext
+        
+        :param sid: 
+        
+        :returns: twilio.rest.api.v2010.signing_key.SigningKeyContext
+        :rtype: twilio.rest.api.v2010.signing_key.SigningKeyContext
+        """
+        return SigningKeyContext(self._version, account_sid=self._solution['account_sid'], sid=sid)
 
     def __repr__(self):
         """
@@ -221,9 +243,9 @@ class SigningKeyContext(InstanceContext):
 
         
     
-    def update(self, body):
+    def update(self, friendly_name):
         data = values.of({
-            'body': body,
+            'friendly_name': friendly_name,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

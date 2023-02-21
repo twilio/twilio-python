@@ -39,8 +39,8 @@ class EvaluationList(ListResource):
         # Path Solution
         self._solution = { 'bundle_sid': bundle_sid,  }
         self._uri = '/RegulatoryCompliance/Bundles/${bundle_sid}/Evaluations'.format(**self._solution)
-
-
+        
+        
     
     
     
@@ -126,6 +126,28 @@ class EvaluationList(ListResource):
         )
         return EvaluationPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a EvaluationContext
+        
+        :param sid: The unique string that identifies the Evaluation resource.
+        
+        :returns: twilio.rest.numbers.v2.evaluation.EvaluationContext
+        :rtype: twilio.rest.numbers.v2.evaluation.EvaluationContext
+        """
+        return EvaluationContext(self._version, bundle_sid=self._solution['bundle_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a EvaluationContext
+        
+        :param sid: The unique string that identifies the Evaluation resource.
+        
+        :returns: twilio.rest.numbers.v2.evaluation.EvaluationContext
+        :rtype: twilio.rest.numbers.v2.evaluation.EvaluationContext
+        """
+        return EvaluationContext(self._version, bundle_sid=self._solution['bundle_sid'], sid=sid)
 
     def __repr__(self):
         """

@@ -38,8 +38,8 @@ class SupportingDocumentTypeList(ListResource):
         # Path Solution
         self._solution = {  }
         self._uri = '/RegulatoryCompliance/SupportingDocumentTypes'.format(**self._solution)
-
-
+        
+        
     
     
     def stream(self, limit=None, page_size=None):
@@ -124,6 +124,28 @@ class SupportingDocumentTypeList(ListResource):
         )
         return SupportingDocumentTypePage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a SupportingDocumentTypeContext
+        
+        :param sid: The unique string that identifies the Supporting Document Type resource.
+        
+        :returns: twilio.rest.numbers.v2.supporting_document_type.SupportingDocumentTypeContext
+        :rtype: twilio.rest.numbers.v2.supporting_document_type.SupportingDocumentTypeContext
+        """
+        return SupportingDocumentTypeContext(self._version, sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a SupportingDocumentTypeContext
+        
+        :param sid: The unique string that identifies the Supporting Document Type resource.
+        
+        :returns: twilio.rest.numbers.v2.supporting_document_type.SupportingDocumentTypeContext
+        :rtype: twilio.rest.numbers.v2.supporting_document_type.SupportingDocumentTypeContext
+        """
+        return SupportingDocumentTypeContext(self._version, sid=sid)
 
     def __repr__(self):
         """

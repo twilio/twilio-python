@@ -37,10 +37,32 @@ class PhoneNumberList(ListResource):
 
         # Path Solution
         self._solution = {  }
-        self._uri = ''.format(**self._solution)
-
-
+        
+        
+        
     
+
+    def get(self, phone_number):
+        """
+        Constructs a PhoneNumberContext
+        
+        :param phone_number: The phone number to lookup in E.164 or national format. Default country code is +1 (North America).
+        
+        :returns: twilio.rest.lookups.v2.phone_number.PhoneNumberContext
+        :rtype: twilio.rest.lookups.v2.phone_number.PhoneNumberContext
+        """
+        return PhoneNumberContext(self._version, phone_number=phone_number)
+
+    def __call__(self, phone_number):
+        """
+        Constructs a PhoneNumberContext
+        
+        :param phone_number: The phone number to lookup in E.164 or national format. Default country code is +1 (North America).
+        
+        :returns: twilio.rest.lookups.v2.phone_number.PhoneNumberContext
+        :rtype: twilio.rest.lookups.v2.phone_number.PhoneNumberContext
+        """
+        return PhoneNumberContext(self._version, phone_number=phone_number)
 
     def __repr__(self):
         """

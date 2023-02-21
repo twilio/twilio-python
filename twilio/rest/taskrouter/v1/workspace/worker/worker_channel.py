@@ -40,8 +40,8 @@ class WorkerChannelList(ListResource):
         # Path Solution
         self._solution = { 'workspace_sid': workspace_sid, 'worker_sid': worker_sid,  }
         self._uri = '/Workspaces/${workspace_sid}/Workers/${worker_sid}/Channels'.format(**self._solution)
-
-
+        
+        
     
     
     
@@ -128,6 +128,28 @@ class WorkerChannelList(ListResource):
         return WorkerChannelPage(self._version, response, self._solution)
 
 
+    def get(self, sid):
+        """
+        Constructs a WorkerChannelContext
+        
+        :param sid: The SID of the WorkerChannel to update.
+        
+        :returns: twilio.rest.taskrouter.v1.worker_channel.WorkerChannelContext
+        :rtype: twilio.rest.taskrouter.v1.worker_channel.WorkerChannelContext
+        """
+        return WorkerChannelContext(self._version, workspace_sid=self._solution['workspace_sid'], worker_sid=self._solution['worker_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a WorkerChannelContext
+        
+        :param sid: The SID of the WorkerChannel to update.
+        
+        :returns: twilio.rest.taskrouter.v1.worker_channel.WorkerChannelContext
+        :rtype: twilio.rest.taskrouter.v1.worker_channel.WorkerChannelContext
+        """
+        return WorkerChannelContext(self._version, workspace_sid=self._solution['workspace_sid'], worker_sid=self._solution['worker_sid'], sid=sid)
+
     def __repr__(self):
         """
         Provide a friendly representation
@@ -207,9 +229,9 @@ class WorkerChannelContext(InstanceContext):
 
         
     
-    def update(self, body):
+    def update(self, capacity, available):
         data = values.of({
-            'body': body,
+            'capacity': capacity,'available': available,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

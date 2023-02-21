@@ -39,10 +39,25 @@ class CustomerProfilesEntityAssignmentsList(ListResource):
         # Path Solution
         self._solution = { 'customer_profile_sid': customer_profile_sid,  }
         self._uri = '/CustomerProfiles/${customer_profile_sid}/EntityAssignments'.format(**self._solution)
-
-
+        
+        
     
     
+    
+    def create(self, object_sid):
+        """
+        Create the CustomerProfilesEntityAssignmentsInstance
+         :param str object_sid: The SID of an object bag that holds information of the different items.
+        
+        :returns: The created CustomerProfilesEntityAssignmentsInstance
+        :rtype: twilio.rest.trusthub.v1.customer_profiles_entity_assignments.CustomerProfilesEntityAssignmentsInstance
+        """
+        data = values.of({ 
+            'ObjectSid': object_sid,
+        })
+
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return CustomerProfilesEntityAssignmentsInstance(self._version, payload, customer_profile_sid=self._solution['customer_profile_sid'])
     
     
     def stream(self, limit=None, page_size=None):
@@ -127,6 +142,28 @@ class CustomerProfilesEntityAssignmentsList(ListResource):
         )
         return CustomerProfilesEntityAssignmentsPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a CustomerProfilesEntityAssignmentsContext
+        
+        :param sid: The unique string that we created to identify the Identity resource.
+        
+        :returns: twilio.rest.trusthub.v1.customer_profiles_entity_assignments.CustomerProfilesEntityAssignmentsContext
+        :rtype: twilio.rest.trusthub.v1.customer_profiles_entity_assignments.CustomerProfilesEntityAssignmentsContext
+        """
+        return CustomerProfilesEntityAssignmentsContext(self._version, customer_profile_sid=self._solution['customer_profile_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a CustomerProfilesEntityAssignmentsContext
+        
+        :param sid: The unique string that we created to identify the Identity resource.
+        
+        :returns: twilio.rest.trusthub.v1.customer_profiles_entity_assignments.CustomerProfilesEntityAssignmentsContext
+        :rtype: twilio.rest.trusthub.v1.customer_profiles_entity_assignments.CustomerProfilesEntityAssignmentsContext
+        """
+        return CustomerProfilesEntityAssignmentsContext(self._version, customer_profile_sid=self._solution['customer_profile_sid'], sid=sid)
 
     def __repr__(self):
         """

@@ -39,10 +39,27 @@ class CustomerProfilesChannelEndpointAssignmentList(ListResource):
         # Path Solution
         self._solution = { 'customer_profile_sid': customer_profile_sid,  }
         self._uri = '/CustomerProfiles/${customer_profile_sid}/ChannelEndpointAssignments'.format(**self._solution)
-
-
+        
+        
     
     
+    
+    def create(self, channel_endpoint_type, channel_endpoint_sid):
+        """
+        Create the CustomerProfilesChannelEndpointAssignmentInstance
+         :param str channel_endpoint_type: The type of channel endpoint. eg: phone-number
+         :param str channel_endpoint_sid: The SID of an channel endpoint
+        
+        :returns: The created CustomerProfilesChannelEndpointAssignmentInstance
+        :rtype: twilio.rest.trusthub.v1.customer_profiles_channel_endpoint_assignment.CustomerProfilesChannelEndpointAssignmentInstance
+        """
+        data = values.of({ 
+            'ChannelEndpointType': channel_endpoint_type,
+            'ChannelEndpointSid': channel_endpoint_sid,
+        })
+
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return CustomerProfilesChannelEndpointAssignmentInstance(self._version, payload, customer_profile_sid=self._solution['customer_profile_sid'])
     
     
     def stream(self, channel_endpoint_sid=values.unset, channel_endpoint_sids=values.unset, limit=None, page_size=None):
@@ -139,6 +156,28 @@ class CustomerProfilesChannelEndpointAssignmentList(ListResource):
         )
         return CustomerProfilesChannelEndpointAssignmentPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a CustomerProfilesChannelEndpointAssignmentContext
+        
+        :param sid: The unique string that we created to identify the resource.
+        
+        :returns: twilio.rest.trusthub.v1.customer_profiles_channel_endpoint_assignment.CustomerProfilesChannelEndpointAssignmentContext
+        :rtype: twilio.rest.trusthub.v1.customer_profiles_channel_endpoint_assignment.CustomerProfilesChannelEndpointAssignmentContext
+        """
+        return CustomerProfilesChannelEndpointAssignmentContext(self._version, customer_profile_sid=self._solution['customer_profile_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a CustomerProfilesChannelEndpointAssignmentContext
+        
+        :param sid: The unique string that we created to identify the resource.
+        
+        :returns: twilio.rest.trusthub.v1.customer_profiles_channel_endpoint_assignment.CustomerProfilesChannelEndpointAssignmentContext
+        :rtype: twilio.rest.trusthub.v1.customer_profiles_channel_endpoint_assignment.CustomerProfilesChannelEndpointAssignmentContext
+        """
+        return CustomerProfilesChannelEndpointAssignmentContext(self._version, customer_profile_sid=self._solution['customer_profile_sid'], sid=sid)
 
     def __repr__(self):
         """

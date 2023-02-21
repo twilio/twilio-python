@@ -41,10 +41,35 @@ class ChallengeList(ListResource):
         # Path Solution
         self._solution = { 'service_sid': service_sid, 'identity': identity,  }
         self._uri = '/Services/${service_sid}/Entities/${identity}/Challenges'.format(**self._solution)
-
-
+        
+        
     
     
+    
+    def create(self, factor_sid, expiration_date=values.unset, details_message=values.unset, details_fields=values.unset, hidden_details=values.unset, auth_payload=values.unset):
+        """
+        Create the ChallengeInstance
+         :param str factor_sid: The unique SID identifier of the Factor.
+         :param datetime expiration_date: The date-time when this Challenge expires, given in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. The default value is five (5) minutes after Challenge creation. The max value is sixty (60) minutes after creation.
+         :param str details_message: Shown to the user when the push notification arrives. Required when `factor_type` is `push`. Can be up to 256 characters in length
+         :param [bool, date, datetime, dict, float, int, list, str, none_type] details_fields: A list of objects that describe the Fields included in the Challenge. Each object contains the label and value of the field, the label can be up to 36 characters in length and the value can be up to 128 characters in length. Used when `factor_type` is `push`. There can be up to 20 details fields.
+         :param bool, date, datetime, dict, float, int, list, str, none_type hidden_details: Details provided to give context about the Challenge. Not shown to the end user. It must be a stringified JSON with only strings values eg. `{\"ip\": \"172.168.1.234\"}`. Can be up to 1024 characters in length
+         :param str auth_payload: Optional payload used to verify the Challenge upon creation. Only used with a Factor of type `totp` to carry the TOTP code that needs to be verified. For `TOTP` this value must be between 3 and 8 characters long.
+        
+        :returns: The created ChallengeInstance
+        :rtype: twilio.rest.verify.v2.challenge.ChallengeInstance
+        """
+        data = values.of({ 
+            'FactorSid': factor_sid,
+            'ExpirationDate': expiration_date,
+            'Details.Message': details_message,
+            'Details.Fields': details_fields,
+            'HiddenDetails': hidden_details,
+            'AuthPayload': auth_payload,
+        })
+
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return ChallengeInstance(self._version, payload, service_sid=self._solution['service_sid'], identity=self._solution['identity'])
     
     
     def stream(self, factor_sid=values.unset, status=values.unset, order=values.unset, limit=None, page_size=None):
@@ -148,6 +173,28 @@ class ChallengeList(ListResource):
         return ChallengePage(self._version, response, self._solution)
 
 
+    def get(self, sid):
+        """
+        Constructs a ChallengeContext
+        
+        :param sid: A 34 character string that uniquely identifies this Challenge.
+        
+        :returns: twilio.rest.verify.v2.challenge.ChallengeContext
+        :rtype: twilio.rest.verify.v2.challenge.ChallengeContext
+        """
+        return ChallengeContext(self._version, service_sid=self._solution['service_sid'], identity=self._solution['identity'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a ChallengeContext
+        
+        :param sid: A 34 character string that uniquely identifies this Challenge.
+        
+        :returns: twilio.rest.verify.v2.challenge.ChallengeContext
+        :rtype: twilio.rest.verify.v2.challenge.ChallengeContext
+        """
+        return ChallengeContext(self._version, service_sid=self._solution['service_sid'], identity=self._solution['identity'], sid=sid)
+
     def __repr__(self):
         """
         Provide a friendly representation
@@ -230,9 +277,9 @@ class ChallengeContext(InstanceContext):
 
         
     
-    def update(self, body):
+    def update(self, auth_payload, metadata):
         data = values.of({
-            'body': body,
+            'auth_payload': auth_payload,'metadata': metadata,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

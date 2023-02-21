@@ -39,11 +39,28 @@ class ActivityList(ListResource):
         # Path Solution
         self._solution = { 'workspace_sid': workspace_sid,  }
         self._uri = '/Workspaces/${workspace_sid}/Activities'.format(**self._solution)
+        
+        
+    
+    
+    
+    
+    def create(self, friendly_name, available=values.unset):
+        """
+        Create the ActivityInstance
+         :param str friendly_name: A descriptive string that you create to describe the Activity resource. It can be up to 64 characters long. These names are used to calculate and expose statistics about Workers, and provide visibility into the state of each Worker. Examples of friendly names include: `on-call`, `break`, and `email`.
+         :param bool available: Whether the Worker should be eligible to receive a Task when it occupies the Activity. A value of `true`, `1`, or `yes` specifies the Activity is available. All other values specify that it is not. The value cannot be changed after the Activity is created.
+        
+        :returns: The created ActivityInstance
+        :rtype: twilio.rest.taskrouter.v1.activity.ActivityInstance
+        """
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+            'Available': available,
+        })
 
-
-    
-    
-    
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return ActivityInstance(self._version, payload, workspace_sid=self._solution['workspace_sid'])
     
     
     def stream(self, friendly_name=values.unset, available=values.unset, limit=None, page_size=None):
@@ -141,6 +158,28 @@ class ActivityList(ListResource):
         return ActivityPage(self._version, response, self._solution)
 
 
+    def get(self, sid):
+        """
+        Constructs a ActivityContext
+        
+        :param sid: The SID of the Activity resource to update.
+        
+        :returns: twilio.rest.taskrouter.v1.activity.ActivityContext
+        :rtype: twilio.rest.taskrouter.v1.activity.ActivityContext
+        """
+        return ActivityContext(self._version, workspace_sid=self._solution['workspace_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a ActivityContext
+        
+        :param sid: The SID of the Activity resource to update.
+        
+        :returns: twilio.rest.taskrouter.v1.activity.ActivityContext
+        :rtype: twilio.rest.taskrouter.v1.activity.ActivityContext
+        """
+        return ActivityContext(self._version, workspace_sid=self._solution['workspace_sid'], sid=sid)
+
     def __repr__(self):
         """
         Provide a friendly representation
@@ -236,9 +275,9 @@ class ActivityContext(InstanceContext):
 
         
     
-    def update(self, body):
+    def update(self, friendly_name):
         data = values.of({
-            'body': body,
+            'friendly_name': friendly_name,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

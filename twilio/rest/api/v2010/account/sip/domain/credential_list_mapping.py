@@ -40,10 +40,25 @@ class CredentialListMappingList(ListResource):
         # Path Solution
         self._solution = { 'account_sid': account_sid, 'domain_sid': domain_sid,  }
         self._uri = '/Accounts/${account_sid}/SIP/Domains/${domain_sid}/CredentialListMappings.json'.format(**self._solution)
-
-
+        
+        
     
     
+    
+    def create(self, credential_list_sid):
+        """
+        Create the CredentialListMappingInstance
+         :param str credential_list_sid: A 34 character string that uniquely identifies the CredentialList resource to map to the SIP domain.
+        
+        :returns: The created CredentialListMappingInstance
+        :rtype: twilio.rest.api.v2010.credential_list_mapping.CredentialListMappingInstance
+        """
+        data = values.of({ 
+            'CredentialListSid': credential_list_sid,
+        })
+
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return CredentialListMappingInstance(self._version, payload, account_sid=self._solution['account_sid'], domain_sid=self._solution['domain_sid'])
     
     
     def stream(self, limit=None, page_size=None):
@@ -128,6 +143,28 @@ class CredentialListMappingList(ListResource):
         )
         return CredentialListMappingPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a CredentialListMappingContext
+        
+        :param sid: A 34 character string that uniquely identifies the resource to fetch.
+        
+        :returns: twilio.rest.api.v2010.credential_list_mapping.CredentialListMappingContext
+        :rtype: twilio.rest.api.v2010.credential_list_mapping.CredentialListMappingContext
+        """
+        return CredentialListMappingContext(self._version, account_sid=self._solution['account_sid'], domain_sid=self._solution['domain_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a CredentialListMappingContext
+        
+        :param sid: A 34 character string that uniquely identifies the resource to fetch.
+        
+        :returns: twilio.rest.api.v2010.credential_list_mapping.CredentialListMappingContext
+        :rtype: twilio.rest.api.v2010.credential_list_mapping.CredentialListMappingContext
+        """
+        return CredentialListMappingContext(self._version, account_sid=self._solution['account_sid'], domain_sid=self._solution['domain_sid'], sid=sid)
 
     def __repr__(self):
         """

@@ -37,11 +37,33 @@ class UserList(ListResource):
 
         # Path Solution
         self._solution = {  }
-        self._uri = ''.format(**self._solution)
-
-
+        
+        
+        
     
     
+
+    def get(self, sid):
+        """
+        Constructs a UserContext
+        
+        :param sid: The SID of the User resource to update. This value can be either the `sid` or the `identity` of the User resource to update.
+        
+        :returns: twilio.rest.frontline_api.v1.user.UserContext
+        :rtype: twilio.rest.frontline_api.v1.user.UserContext
+        """
+        return UserContext(self._version, sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a UserContext
+        
+        :param sid: The SID of the User resource to update. This value can be either the `sid` or the `identity` of the User resource to update.
+        
+        :returns: twilio.rest.frontline_api.v1.user.UserContext
+        :rtype: twilio.rest.frontline_api.v1.user.UserContext
+        """
+        return UserContext(self._version, sid=sid)
 
     def __repr__(self):
         """
@@ -77,9 +99,9 @@ class UserContext(InstanceContext):
 
         
     
-    def update(self, body):
+    def update(self, friendly_name, avatar, state, is_available):
         data = values.of({
-            'body': body,
+            'friendly_name': friendly_name,'avatar': avatar,'state': state,'is_available': is_available,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

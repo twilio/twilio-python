@@ -41,9 +41,26 @@ class MessageInteractionList(ListResource):
         # Path Solution
         self._solution = { 'service_sid': service_sid, 'session_sid': session_sid, 'participant_sid': participant_sid,  }
         self._uri = '/Services/${service_sid}/Sessions/${session_sid}/Participants/${participant_sid}/MessageInteractions'.format(**self._solution)
-
-
+        
+        
     
+    
+    def create(self, body=values.unset, media_url=values.unset):
+        """
+        Create the MessageInteractionInstance
+         :param str body: The message to send to the participant
+         :param [str] media_url: Reserved. Not currently supported.
+        
+        :returns: The created MessageInteractionInstance
+        :rtype: twilio.rest.proxy.v1.message_interaction.MessageInteractionInstance
+        """
+        data = values.of({ 
+            'Body': body,
+            'MediaUrl': serialize.map(media_url, lambda e: e),
+        })
+
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return MessageInteractionInstance(self._version, payload, service_sid=self._solution['service_sid'], session_sid=self._solution['session_sid'], participant_sid=self._solution['participant_sid'])
     
     
     def stream(self, limit=None, page_size=None):
@@ -128,6 +145,28 @@ class MessageInteractionList(ListResource):
         )
         return MessageInteractionPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a MessageInteractionContext
+        
+        :param sid: The Twilio-provided string that uniquely identifies the MessageInteraction resource to fetch.
+        
+        :returns: twilio.rest.proxy.v1.message_interaction.MessageInteractionContext
+        :rtype: twilio.rest.proxy.v1.message_interaction.MessageInteractionContext
+        """
+        return MessageInteractionContext(self._version, service_sid=self._solution['service_sid'], session_sid=self._solution['session_sid'], participant_sid=self._solution['participant_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a MessageInteractionContext
+        
+        :param sid: The Twilio-provided string that uniquely identifies the MessageInteraction resource to fetch.
+        
+        :returns: twilio.rest.proxy.v1.message_interaction.MessageInteractionContext
+        :rtype: twilio.rest.proxy.v1.message_interaction.MessageInteractionContext
+        """
+        return MessageInteractionContext(self._version, service_sid=self._solution['service_sid'], session_sid=self._solution['session_sid'], participant_sid=self._solution['participant_sid'], sid=sid)
 
     def __repr__(self):
         """

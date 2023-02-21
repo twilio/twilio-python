@@ -38,10 +38,32 @@ class DialogueList(ListResource):
 
         # Path Solution
         self._solution = { 'assistant_sid': assistant_sid,  }
-        self._uri = ''.format(**self._solution)
-
-
+        
+        
+        
     
+
+    def get(self, sid):
+        """
+        Constructs a DialogueContext
+        
+        :param sid: 
+        
+        :returns: twilio.rest.preview.understand.dialogue.DialogueContext
+        :rtype: twilio.rest.preview.understand.dialogue.DialogueContext
+        """
+        return DialogueContext(self._version, assistant_sid=self._solution['assistant_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a DialogueContext
+        
+        :param sid: 
+        
+        :returns: twilio.rest.preview.understand.dialogue.DialogueContext
+        :rtype: twilio.rest.preview.understand.dialogue.DialogueContext
+        """
+        return DialogueContext(self._version, assistant_sid=self._solution['assistant_sid'], sid=sid)
 
     def __repr__(self):
         """

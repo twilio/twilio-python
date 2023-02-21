@@ -38,8 +38,8 @@ class NetworkList(ListResource):
         # Path Solution
         self._solution = {  }
         self._uri = '/Networks'.format(**self._solution)
-
-
+        
+        
     
     
     def stream(self, iso_country=values.unset, mcc=values.unset, mnc=values.unset, limit=None, page_size=None):
@@ -142,6 +142,28 @@ class NetworkList(ListResource):
         )
         return NetworkPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a NetworkContext
+        
+        :param sid: The SID of the Network resource to fetch.
+        
+        :returns: twilio.rest.supersim.v1.network.NetworkContext
+        :rtype: twilio.rest.supersim.v1.network.NetworkContext
+        """
+        return NetworkContext(self._version, sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a NetworkContext
+        
+        :param sid: The SID of the Network resource to fetch.
+        
+        :returns: twilio.rest.supersim.v1.network.NetworkContext
+        :rtype: twilio.rest.supersim.v1.network.NetworkContext
+        """
+        return NetworkContext(self._version, sid=sid)
 
     def __repr__(self):
         """

@@ -38,9 +38,25 @@ class BulkCountryUpdateList(ListResource):
         # Path Solution
         self._solution = {  }
         self._uri = '/DialingPermissions/BulkCountryUpdates'.format(**self._solution)
-
-
+        
+        
     
+    def create(self, update_request):
+        """
+        Create the BulkCountryUpdateInstance
+         :param str update_request: URL encoded JSON array of update objects. example : `[ { \"iso_code\": \"GB\", \"low_risk_numbers_enabled\": \"true\", \"high_risk_special_numbers_enabled\":\"true\", \"high_risk_tollfraud_numbers_enabled\": \"false\" } ]`
+        
+        :returns: The created BulkCountryUpdateInstance
+        :rtype: twilio.rest.voice.v1.bulk_country_update.BulkCountryUpdateInstance
+        """
+        data = values.of({ 
+            'UpdateRequest': update_request,
+        })
+
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return BulkCountryUpdateInstance(self._version, payload)
+    
+
 
     def __repr__(self):
         """

@@ -39,8 +39,8 @@ class FlowRevisionList(ListResource):
         # Path Solution
         self._solution = { 'sid': sid,  }
         self._uri = '/Flows/${sid}/Revisions'.format(**self._solution)
-
-
+        
+        
     
     
     def stream(self, limit=None, page_size=None):
@@ -125,6 +125,28 @@ class FlowRevisionList(ListResource):
         )
         return FlowRevisionPage(self._version, response, self._solution)
 
+
+    def get(self, revision):
+        """
+        Constructs a FlowRevisionContext
+        
+        :param revision: Specific Revision number or can be `LatestPublished` and `LatestRevision`.
+        
+        :returns: twilio.rest.studio.v2.flow_revision.FlowRevisionContext
+        :rtype: twilio.rest.studio.v2.flow_revision.FlowRevisionContext
+        """
+        return FlowRevisionContext(self._version, sid=self._solution['sid'], revision=revision)
+
+    def __call__(self, revision):
+        """
+        Constructs a FlowRevisionContext
+        
+        :param revision: Specific Revision number or can be `LatestPublished` and `LatestRevision`.
+        
+        :returns: twilio.rest.studio.v2.flow_revision.FlowRevisionContext
+        :rtype: twilio.rest.studio.v2.flow_revision.FlowRevisionContext
+        """
+        return FlowRevisionContext(self._version, sid=self._solution['sid'], revision=revision)
 
     def __repr__(self):
         """

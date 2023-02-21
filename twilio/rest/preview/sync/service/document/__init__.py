@@ -40,11 +40,28 @@ class DocumentList(ListResource):
         # Path Solution
         self._solution = { 'service_sid': service_sid,  }
         self._uri = '/Services/${service_sid}/Documents'.format(**self._solution)
+        
+        
+    
+    
+    
+    
+    def create(self, unique_name=values.unset, data=values.unset):
+        """
+        Create the DocumentInstance
+         :param str unique_name: 
+         :param bool, date, datetime, dict, float, int, list, str, none_type data: 
+        
+        :returns: The created DocumentInstance
+        :rtype: twilio.rest.preview.sync.document.DocumentInstance
+        """
+        data = values.of({ 
+            'UniqueName': unique_name,
+            'Data': data,
+        })
 
-
-    
-    
-    
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return DocumentInstance(self._version, payload, service_sid=self._solution['service_sid'])
     
     
     def stream(self, limit=None, page_size=None):
@@ -129,6 +146,28 @@ class DocumentList(ListResource):
         )
         return DocumentPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a DocumentContext
+        
+        :param sid: 
+        
+        :returns: twilio.rest.preview.sync.document.DocumentContext
+        :rtype: twilio.rest.preview.sync.document.DocumentContext
+        """
+        return DocumentContext(self._version, service_sid=self._solution['service_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a DocumentContext
+        
+        :param sid: 
+        
+        :returns: twilio.rest.preview.sync.document.DocumentContext
+        :rtype: twilio.rest.preview.sync.document.DocumentContext
+        """
+        return DocumentContext(self._version, service_sid=self._solution['service_sid'], sid=sid)
 
     def __repr__(self):
         """
@@ -226,9 +265,9 @@ class DocumentContext(InstanceContext):
 
         
     
-    def update(self, if_match, body):
+    def update(self, data):
         data = values.of({
-            'if_match': if_match,'body': body,
+            'data': data,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

@@ -40,10 +40,10 @@ class CredentialList(ListResource):
         # Path Solution
         self._solution = {  }
         self._uri = '/Credentials'.format(**self._solution)
-
+        
         self._aws = None
         self._public_key = None
-
+        
 
     @property
     def aws(self):
@@ -56,7 +56,6 @@ class CredentialList(ListResource):
         if self._aws is None:
             self._aws = AwsList(self._version)
         return self.aws
-
     @property
     def public_key(self):
         """

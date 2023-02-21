@@ -46,11 +46,38 @@ class AssistantList(ListResource):
         # Path Solution
         self._solution = {  }
         self._uri = '/Assistants'.format(**self._solution)
+        
+        
+    
+    
+    
+    
+    def create(self, friendly_name=values.unset, log_queries=values.unset, unique_name=values.unset, callback_url=values.unset, callback_events=values.unset, style_sheet=values.unset, defaults=values.unset):
+        """
+        Create the AssistantInstance
+         :param str friendly_name: A descriptive string that you create to describe the new resource. It is not unique and can be up to 255 characters long.
+         :param bool log_queries: Whether queries should be logged and kept after training. Can be: `true` or `false` and defaults to `true`. If `true`, queries are stored for 30 days, and then deleted. If `false`, no queries are stored.
+         :param str unique_name: An application-defined string that uniquely identifies the new resource. It can be used as an alternative to the `sid` in the URL path to address the resource. The first 64 characters must be unique.
+         :param str callback_url: Reserved.
+         :param str callback_events: Reserved.
+         :param bool, date, datetime, dict, float, int, list, str, none_type style_sheet: The JSON string that defines the Assistant's [style sheet](https://www.twilio.com/docs/autopilot/api/assistant/stylesheet)
+         :param bool, date, datetime, dict, float, int, list, str, none_type defaults: A JSON object that defines the Assistant's [default tasks](https://www.twilio.com/docs/autopilot/api/assistant/defaults) for various scenarios, including initiation actions and fallback tasks.
+        
+        :returns: The created AssistantInstance
+        :rtype: twilio.rest.autopilot.v1.assistant.AssistantInstance
+        """
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+            'LogQueries': log_queries,
+            'UniqueName': unique_name,
+            'CallbackUrl': callback_url,
+            'CallbackEvents': callback_events,
+            'StyleSheet': style_sheet,
+            'Defaults': defaults,
+        })
 
-
-    
-    
-    
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return AssistantInstance(self._version, payload)
     
     
     def stream(self, limit=None, page_size=None):
@@ -135,6 +162,28 @@ class AssistantList(ListResource):
         )
         return AssistantPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a AssistantContext
+        
+        :param sid: The Twilio-provided string that uniquely identifies the Assistant resource to update.
+        
+        :returns: twilio.rest.autopilot.v1.assistant.AssistantContext
+        :rtype: twilio.rest.autopilot.v1.assistant.AssistantContext
+        """
+        return AssistantContext(self._version, sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a AssistantContext
+        
+        :param sid: The Twilio-provided string that uniquely identifies the Assistant resource to update.
+        
+        :returns: twilio.rest.autopilot.v1.assistant.AssistantContext
+        :rtype: twilio.rest.autopilot.v1.assistant.AssistantContext
+        """
+        return AssistantContext(self._version, sid=sid)
 
     def __repr__(self):
         """
@@ -239,9 +288,9 @@ class AssistantContext(InstanceContext):
 
         
     
-    def update(self, body):
+    def update(self, friendly_name, log_queries, unique_name, callback_url, callback_events, style_sheet, defaults, development_stage):
         data = values.of({
-            'body': body,
+            'friendly_name': friendly_name,'log_queries': log_queries,'unique_name': unique_name,'callback_url': callback_url,'callback_events': callback_events,'style_sheet': style_sheet,'defaults': defaults,'development_stage': development_stage,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

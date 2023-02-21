@@ -40,10 +40,31 @@ class BuildList(ListResource):
         # Path Solution
         self._solution = { 'service_sid': service_sid,  }
         self._uri = '/Services/${service_sid}/Builds'.format(**self._solution)
-
-
+        
+        
     
     
+    
+    def create(self, asset_versions=values.unset, function_versions=values.unset, dependencies=values.unset, runtime=values.unset):
+        """
+        Create the BuildInstance
+         :param [str] asset_versions: The list of Asset Version resource SIDs to include in the Build.
+         :param [str] function_versions: The list of the Function Version resource SIDs to include in the Build.
+         :param str dependencies: A list of objects that describe the Dependencies included in the Build. Each object contains the `name` and `version` of the dependency.
+         :param str runtime: The Runtime version that will be used to run the Build resource when it is deployed.
+        
+        :returns: The created BuildInstance
+        :rtype: twilio.rest.serverless.v1.build.BuildInstance
+        """
+        data = values.of({ 
+            'AssetVersions': serialize.map(asset_versions, lambda e: e),
+            'FunctionVersions': serialize.map(function_versions, lambda e: e),
+            'Dependencies': dependencies,
+            'Runtime': runtime,
+        })
+
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return BuildInstance(self._version, payload, service_sid=self._solution['service_sid'])
     
     
     def stream(self, limit=None, page_size=None):
@@ -128,6 +149,28 @@ class BuildList(ListResource):
         )
         return BuildPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a BuildContext
+        
+        :param sid: The SID of the Build resource to fetch.
+        
+        :returns: twilio.rest.serverless.v1.build.BuildContext
+        :rtype: twilio.rest.serverless.v1.build.BuildContext
+        """
+        return BuildContext(self._version, service_sid=self._solution['service_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a BuildContext
+        
+        :param sid: The SID of the Build resource to fetch.
+        
+        :returns: twilio.rest.serverless.v1.build.BuildContext
+        :rtype: twilio.rest.serverless.v1.build.BuildContext
+        """
+        return BuildContext(self._version, service_sid=self._solution['service_sid'], sid=sid)
 
     def __repr__(self):
         """

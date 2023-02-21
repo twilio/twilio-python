@@ -40,8 +40,8 @@ class DeviceList(ListResource):
         # Path Solution
         self._solution = {  }
         self._uri = '/Devices'.format(**self._solution)
-
-
+        
+        
     
     
     
@@ -128,6 +128,28 @@ class DeviceList(ListResource):
         return DevicePage(self._version, response, self._solution)
 
 
+    def get(self, sid):
+        """
+        Constructs a DeviceContext
+        
+        :param sid: A 34-character string that uniquely identifies this Device.
+        
+        :returns: twilio.rest.microvisor.v1.device.DeviceContext
+        :rtype: twilio.rest.microvisor.v1.device.DeviceContext
+        """
+        return DeviceContext(self._version, sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a DeviceContext
+        
+        :param sid: A 34-character string that uniquely identifies this Device.
+        
+        :returns: twilio.rest.microvisor.v1.device.DeviceContext
+        :rtype: twilio.rest.microvisor.v1.device.DeviceContext
+        """
+        return DeviceContext(self._version, sid=sid)
+
     def __repr__(self):
         """
         Provide a friendly representation
@@ -209,9 +231,9 @@ class DeviceContext(InstanceContext):
 
         
     
-    def update(self, body):
+    def update(self, unique_name, target_app, logging_enabled):
         data = values.of({
-            'body': body,
+            'unique_name': unique_name,'target_app': target_app,'logging_enabled': logging_enabled,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

@@ -39,11 +39,30 @@ class SubscriptionList(ListResource):
         # Path Solution
         self._solution = {  }
         self._uri = '/Subscriptions'.format(**self._solution)
+        
+        
+    
+    
+    
+    
+    def create(self, description, sink_sid, types):
+        """
+        Create the SubscriptionInstance
+         :param str description: A human readable description for the Subscription **This value should not contain PII.**
+         :param str sink_sid: The SID of the sink that events selected by this subscription should be sent to. Sink must be active for the subscription to be created.
+         :param [bool, date, datetime, dict, float, int, list, str, none_type] types: An array of objects containing the subscribed Event Types
+        
+        :returns: The created SubscriptionInstance
+        :rtype: twilio.rest.events.v1.subscription.SubscriptionInstance
+        """
+        data = values.of({ 
+            'Description': description,
+            'SinkSid': sink_sid,
+            'Types': types,
+        })
 
-
-    
-    
-    
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return SubscriptionInstance(self._version, payload)
     
     
     def stream(self, sink_sid=values.unset, limit=None, page_size=None):
@@ -134,6 +153,28 @@ class SubscriptionList(ListResource):
         )
         return SubscriptionPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a SubscriptionContext
+        
+        :param sid: A 34 character string that uniquely identifies this Subscription.
+        
+        :returns: twilio.rest.events.v1.subscription.SubscriptionContext
+        :rtype: twilio.rest.events.v1.subscription.SubscriptionContext
+        """
+        return SubscriptionContext(self._version, sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a SubscriptionContext
+        
+        :param sid: A 34 character string that uniquely identifies this Subscription.
+        
+        :returns: twilio.rest.events.v1.subscription.SubscriptionContext
+        :rtype: twilio.rest.events.v1.subscription.SubscriptionContext
+        """
+        return SubscriptionContext(self._version, sid=sid)
 
     def __repr__(self):
         """
@@ -231,9 +272,9 @@ class SubscriptionContext(InstanceContext):
 
         
     
-    def update(self, body):
+    def update(self, description, sink_sid):
         data = values.of({
-            'body': body,
+            'description': description,'sink_sid': sink_sid,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

@@ -38,11 +38,30 @@ class IpRecordList(ListResource):
         # Path Solution
         self._solution = {  }
         self._uri = '/IpRecords'.format(**self._solution)
+        
+        
+    
+    
+    
+    
+    def create(self, ip_address, friendly_name=values.unset, cidr_prefix_length=values.unset):
+        """
+        Create the IpRecordInstance
+         :param str ip_address: An IP address in dotted decimal notation, IPv4 only.
+         :param str friendly_name: A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
+         :param int cidr_prefix_length: An integer representing the length of the [CIDR](https://tools.ietf.org/html/rfc4632) prefix to use with this IP address. By default the entire IP address is used, which for IPv4 is value 32.
+        
+        :returns: The created IpRecordInstance
+        :rtype: twilio.rest.voice.v1.ip_record.IpRecordInstance
+        """
+        data = values.of({ 
+            'IpAddress': ip_address,
+            'FriendlyName': friendly_name,
+            'CidrPrefixLength': cidr_prefix_length,
+        })
 
-
-    
-    
-    
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return IpRecordInstance(self._version, payload)
     
     
     def stream(self, limit=None, page_size=None):
@@ -127,6 +146,28 @@ class IpRecordList(ListResource):
         )
         return IpRecordPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a IpRecordContext
+        
+        :param sid: The Twilio-provided string that uniquely identifies the IP Record resource to update.
+        
+        :returns: twilio.rest.voice.v1.ip_record.IpRecordContext
+        :rtype: twilio.rest.voice.v1.ip_record.IpRecordContext
+        """
+        return IpRecordContext(self._version, sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a IpRecordContext
+        
+        :param sid: The Twilio-provided string that uniquely identifies the IP Record resource to update.
+        
+        :returns: twilio.rest.voice.v1.ip_record.IpRecordContext
+        :rtype: twilio.rest.voice.v1.ip_record.IpRecordContext
+        """
+        return IpRecordContext(self._version, sid=sid)
 
     def __repr__(self):
         """
@@ -223,9 +264,9 @@ class IpRecordContext(InstanceContext):
 
         
     
-    def update(self, body):
+    def update(self, friendly_name):
         data = values.of({
-            'body': body,
+            'friendly_name': friendly_name,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

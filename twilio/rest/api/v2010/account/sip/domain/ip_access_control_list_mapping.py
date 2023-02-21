@@ -40,10 +40,25 @@ class IpAccessControlListMappingList(ListResource):
         # Path Solution
         self._solution = { 'account_sid': account_sid, 'domain_sid': domain_sid,  }
         self._uri = '/Accounts/${account_sid}/SIP/Domains/${domain_sid}/IpAccessControlListMappings.json'.format(**self._solution)
-
-
+        
+        
     
     
+    
+    def create(self, ip_access_control_list_sid):
+        """
+        Create the IpAccessControlListMappingInstance
+         :param str ip_access_control_list_sid: The unique id of the IP access control list to map to the SIP domain.
+        
+        :returns: The created IpAccessControlListMappingInstance
+        :rtype: twilio.rest.api.v2010.ip_access_control_list_mapping.IpAccessControlListMappingInstance
+        """
+        data = values.of({ 
+            'IpAccessControlListSid': ip_access_control_list_sid,
+        })
+
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return IpAccessControlListMappingInstance(self._version, payload, account_sid=self._solution['account_sid'], domain_sid=self._solution['domain_sid'])
     
     
     def stream(self, limit=None, page_size=None):
@@ -128,6 +143,28 @@ class IpAccessControlListMappingList(ListResource):
         )
         return IpAccessControlListMappingPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a IpAccessControlListMappingContext
+        
+        :param sid: A 34 character string that uniquely identifies the resource to fetch.
+        
+        :returns: twilio.rest.api.v2010.ip_access_control_list_mapping.IpAccessControlListMappingContext
+        :rtype: twilio.rest.api.v2010.ip_access_control_list_mapping.IpAccessControlListMappingContext
+        """
+        return IpAccessControlListMappingContext(self._version, account_sid=self._solution['account_sid'], domain_sid=self._solution['domain_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a IpAccessControlListMappingContext
+        
+        :param sid: A 34 character string that uniquely identifies the resource to fetch.
+        
+        :returns: twilio.rest.api.v2010.ip_access_control_list_mapping.IpAccessControlListMappingContext
+        :rtype: twilio.rest.api.v2010.ip_access_control_list_mapping.IpAccessControlListMappingContext
+        """
+        return IpAccessControlListMappingContext(self._version, account_sid=self._solution['account_sid'], domain_sid=self._solution['domain_sid'], sid=sid)
 
     def __repr__(self):
         """

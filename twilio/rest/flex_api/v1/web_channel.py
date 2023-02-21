@@ -38,11 +38,36 @@ class WebChannelList(ListResource):
         # Path Solution
         self._solution = {  }
         self._uri = '/WebChannels'.format(**self._solution)
+        
+        
+    
+    
+    
+    
+    def create(self, flex_flow_sid, identity, customer_friendly_name, chat_friendly_name, chat_unique_name=values.unset, pre_engagement_data=values.unset):
+        """
+        Create the WebChannelInstance
+         :param str flex_flow_sid: The SID of the Flex Flow.
+         :param str identity: The chat identity.
+         :param str customer_friendly_name: The chat participant's friendly name.
+         :param str chat_friendly_name: The chat channel's friendly name.
+         :param str chat_unique_name: The chat channel's unique name.
+         :param str pre_engagement_data: The pre-engagement data.
+        
+        :returns: The created WebChannelInstance
+        :rtype: twilio.rest.flex_api.v1.web_channel.WebChannelInstance
+        """
+        data = values.of({ 
+            'FlexFlowSid': flex_flow_sid,
+            'Identity': identity,
+            'CustomerFriendlyName': customer_friendly_name,
+            'ChatFriendlyName': chat_friendly_name,
+            'ChatUniqueName': chat_unique_name,
+            'PreEngagementData': pre_engagement_data,
+        })
 
-
-    
-    
-    
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return WebChannelInstance(self._version, payload)
     
     
     def stream(self, limit=None, page_size=None):
@@ -127,6 +152,28 @@ class WebChannelList(ListResource):
         )
         return WebChannelPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a WebChannelContext
+        
+        :param sid: The SID of the WebChannel resource to update.
+        
+        :returns: twilio.rest.flex_api.v1.web_channel.WebChannelContext
+        :rtype: twilio.rest.flex_api.v1.web_channel.WebChannelContext
+        """
+        return WebChannelContext(self._version, sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a WebChannelContext
+        
+        :param sid: The SID of the WebChannel resource to update.
+        
+        :returns: twilio.rest.flex_api.v1.web_channel.WebChannelContext
+        :rtype: twilio.rest.flex_api.v1.web_channel.WebChannelContext
+        """
+        return WebChannelContext(self._version, sid=sid)
 
     def __repr__(self):
         """
@@ -223,9 +270,9 @@ class WebChannelContext(InstanceContext):
 
         
     
-    def update(self, body):
+    def update(self, chat_status, post_engagement_data):
         data = values.of({
-            'body': body,
+            'chat_status': chat_status,'post_engagement_data': post_engagement_data,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

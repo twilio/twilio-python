@@ -39,10 +39,28 @@ class AnonymizeList(ListResource):
 
         # Path Solution
         self._solution = { 'room_sid': room_sid, 'sid': sid,  }
-        self._uri = ''.format(**self._solution)
-
-
+        
+        
+        
     
+
+    def get(self):
+        """
+        Constructs a AnonymizeContext
+        
+        :returns: twilio.rest.video.v1.anonymize.AnonymizeContext
+        :rtype: twilio.rest.video.v1.anonymize.AnonymizeContext
+        """
+        return AnonymizeContext(self._version, room_sid=self._solution['room_sid'], sid=self._solution['sid'])
+
+    def __call__(self):
+        """
+        Constructs a AnonymizeContext
+        
+        :returns: twilio.rest.video.v1.anonymize.AnonymizeContext
+        :rtype: twilio.rest.video.v1.anonymize.AnonymizeContext
+        """
+        return AnonymizeContext(self._version, room_sid=self._solution['room_sid'], sid=self._solution['sid'])
 
     def __repr__(self):
         """

@@ -40,10 +40,27 @@ class FieldList(ListResource):
         # Path Solution
         self._solution = { 'assistant_sid': assistant_sid, 'task_sid': task_sid,  }
         self._uri = '/Assistants/${assistant_sid}/Tasks/${task_sid}/Fields'.format(**self._solution)
-
-
+        
+        
     
     
+    
+    def create(self, field_type, unique_name):
+        """
+        Create the FieldInstance
+         :param str field_type: The Field Type of the new field. Can be: a [Built-in Field Type](https://www.twilio.com/docs/autopilot/built-in-field-types), the `unique_name`, or the `sid` of a custom Field Type.
+         :param str unique_name: An application-defined string that uniquely identifies the new resource. This value must be a unique string of no more than 64 characters. It can be used as an alternative to the `sid` in the URL path to address the resource.
+        
+        :returns: The created FieldInstance
+        :rtype: twilio.rest.autopilot.v1.field.FieldInstance
+        """
+        data = values.of({ 
+            'FieldType': field_type,
+            'UniqueName': unique_name,
+        })
+
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return FieldInstance(self._version, payload, assistant_sid=self._solution['assistant_sid'], task_sid=self._solution['task_sid'])
     
     
     def stream(self, limit=None, page_size=None):
@@ -128,6 +145,28 @@ class FieldList(ListResource):
         )
         return FieldPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a FieldContext
+        
+        :param sid: The Twilio-provided string that uniquely identifies the Field resource to fetch.
+        
+        :returns: twilio.rest.autopilot.v1.field.FieldContext
+        :rtype: twilio.rest.autopilot.v1.field.FieldContext
+        """
+        return FieldContext(self._version, assistant_sid=self._solution['assistant_sid'], task_sid=self._solution['task_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a FieldContext
+        
+        :param sid: The Twilio-provided string that uniquely identifies the Field resource to fetch.
+        
+        :returns: twilio.rest.autopilot.v1.field.FieldContext
+        :rtype: twilio.rest.autopilot.v1.field.FieldContext
+        """
+        return FieldContext(self._version, assistant_sid=self._solution['assistant_sid'], task_sid=self._solution['task_sid'], sid=sid)
 
     def __repr__(self):
         """

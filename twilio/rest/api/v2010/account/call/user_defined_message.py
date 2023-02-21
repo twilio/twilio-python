@@ -40,9 +40,27 @@ class UserDefinedMessageList(ListResource):
         # Path Solution
         self._solution = { 'account_sid': account_sid, 'call_sid': call_sid,  }
         self._uri = '/Accounts/${account_sid}/Calls/${call_sid}/UserDefinedMessages.json'.format(**self._solution)
-
-
+        
+        
     
+    def create(self, content, idempotency_key=values.unset):
+        """
+        Create the UserDefinedMessageInstance
+         :param str content: The User Defined Message in the form of URL-encoded JSON string.
+         :param str idempotency_key: A unique string value to identify API call. This should be a unique string value per API call and can be a randomly generated.
+        
+        :returns: The created UserDefinedMessageInstance
+        :rtype: twilio.rest.api.v2010.user_defined_message.UserDefinedMessageInstance
+        """
+        data = values.of({ 
+            'Content': content,
+            'IdempotencyKey': idempotency_key,
+        })
+
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return UserDefinedMessageInstance(self._version, payload, account_sid=self._solution['account_sid'], call_sid=self._solution['call_sid'])
+    
+
 
     def __repr__(self):
         """

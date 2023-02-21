@@ -39,9 +39,9 @@ class PhoneNumberList(ListResource):
         # Path Solution
         self._solution = {  }
         self._uri = '/PhoneNumbers'.format(**self._solution)
-
+        
         self._countries = None
-
+        
 
     @property
     def countries(self):

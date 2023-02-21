@@ -39,8 +39,8 @@ class RoomList(ListResource):
         # Path Solution
         self._solution = {  }
         self._uri = '/Video/Rooms'.format(**self._solution)
-
-
+        
+        
     
     
     def stream(self, room_type=values.unset, codec=values.unset, room_name=values.unset, created_after=values.unset, created_before=values.unset, limit=None, page_size=None):
@@ -129,8 +129,8 @@ class RoomList(ListResource):
             'RoomType': room_type,
             'Codec': codec,
             'RoomName': room_name,
-            'CreatedAfter': created_after,
-            'CreatedBefore': created_before,
+            'CreatedAfter': serialize.iso8601_datetime(created_after),
+            'CreatedBefore': serialize.iso8601_datetime(created_before),
             'PageToken': page_token,
             'Page': page_number,
             'PageSize': page_size,
@@ -155,6 +155,28 @@ class RoomList(ListResource):
         )
         return RoomPage(self._version, response, self._solution)
 
+
+    def get(self, room_sid):
+        """
+        Constructs a RoomContext
+        
+        :param room_sid: The SID of the Room resource.
+        
+        :returns: twilio.rest.insights.v1.room.RoomContext
+        :rtype: twilio.rest.insights.v1.room.RoomContext
+        """
+        return RoomContext(self._version, room_sid=room_sid)
+
+    def __call__(self, room_sid):
+        """
+        Constructs a RoomContext
+        
+        :param room_sid: The SID of the Room resource.
+        
+        :returns: twilio.rest.insights.v1.room.RoomContext
+        :rtype: twilio.rest.insights.v1.room.RoomContext
+        """
+        return RoomContext(self._version, room_sid=room_sid)
 
     def __repr__(self):
         """

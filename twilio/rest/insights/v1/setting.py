@@ -37,11 +37,29 @@ class SettingList(ListResource):
 
         # Path Solution
         self._solution = {  }
-        self._uri = ''.format(**self._solution)
-
-
+        
+        
+        
     
     
+
+    def get(self):
+        """
+        Constructs a SettingContext
+        
+        :returns: twilio.rest.insights.v1.setting.SettingContext
+        :rtype: twilio.rest.insights.v1.setting.SettingContext
+        """
+        return SettingContext(self._version)
+
+    def __call__(self):
+        """
+        Constructs a SettingContext
+        
+        :returns: twilio.rest.insights.v1.setting.SettingContext
+        :rtype: twilio.rest.insights.v1.setting.SettingContext
+        """
+        return SettingContext(self._version)
 
     def __repr__(self):
         """
@@ -77,9 +95,9 @@ class SettingContext(InstanceContext):
 
         
     
-    def update(self, body):
+    def update(self, advanced_features, voice_trace, subaccount_sid):
         data = values.of({
-            'body': body,
+            'advanced_features': advanced_features,'voice_trace': voice_trace,'subaccount_sid': subaccount_sid,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

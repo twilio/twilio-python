@@ -39,8 +39,8 @@ class ShortCodeList(ListResource):
         # Path Solution
         self._solution = { 'account_sid': account_sid,  }
         self._uri = '/Accounts/${account_sid}/SMS/ShortCodes.json'.format(**self._solution)
-
-
+        
+        
     
     
     
@@ -139,6 +139,28 @@ class ShortCodeList(ListResource):
         return ShortCodePage(self._version, response, self._solution)
 
 
+    def get(self, sid):
+        """
+        Constructs a ShortCodeContext
+        
+        :param sid: The Twilio-provided string that uniquely identifies the ShortCode resource to update
+        
+        :returns: twilio.rest.api.v2010.short_code.ShortCodeContext
+        :rtype: twilio.rest.api.v2010.short_code.ShortCodeContext
+        """
+        return ShortCodeContext(self._version, account_sid=self._solution['account_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a ShortCodeContext
+        
+        :param sid: The Twilio-provided string that uniquely identifies the ShortCode resource to update
+        
+        :returns: twilio.rest.api.v2010.short_code.ShortCodeContext
+        :rtype: twilio.rest.api.v2010.short_code.ShortCodeContext
+        """
+        return ShortCodeContext(self._version, account_sid=self._solution['account_sid'], sid=sid)
+
     def __repr__(self):
         """
         Provide a friendly representation
@@ -218,9 +240,9 @@ class ShortCodeContext(InstanceContext):
 
         
     
-    def update(self, body):
+    def update(self, friendly_name, api_version, sms_url, sms_method, sms_fallback_url, sms_fallback_method):
         data = values.of({
-            'body': body,
+            'friendly_name': friendly_name,'api_version': api_version,'sms_url': sms_url,'sms_method': sms_method,'sms_fallback_url': sms_fallback_url,'sms_fallback_method': sms_fallback_method,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

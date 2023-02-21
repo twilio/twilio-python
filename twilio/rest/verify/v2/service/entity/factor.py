@@ -40,8 +40,8 @@ class FactorList(ListResource):
         # Path Solution
         self._solution = { 'service_sid': service_sid, 'identity': identity,  }
         self._uri = '/Services/${service_sid}/Entities/${identity}/Factors'.format(**self._solution)
-
-
+        
+        
     
     
     
@@ -128,6 +128,28 @@ class FactorList(ListResource):
         )
         return FactorPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a FactorContext
+        
+        :param sid: A 34 character string that uniquely identifies this Factor.
+        
+        :returns: twilio.rest.verify.v2.factor.FactorContext
+        :rtype: twilio.rest.verify.v2.factor.FactorContext
+        """
+        return FactorContext(self._version, service_sid=self._solution['service_sid'], identity=self._solution['identity'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a FactorContext
+        
+        :param sid: A 34 character string that uniquely identifies this Factor.
+        
+        :returns: twilio.rest.verify.v2.factor.FactorContext
+        :rtype: twilio.rest.verify.v2.factor.FactorContext
+        """
+        return FactorContext(self._version, service_sid=self._solution['service_sid'], identity=self._solution['identity'], sid=sid)
 
     def __repr__(self):
         """
@@ -222,9 +244,9 @@ class FactorContext(InstanceContext):
 
         
     
-    def update(self, body):
+    def update(self, auth_payload, friendly_name, config_notification_token, config_sdk_version, config_time_step, config_skew, config_code_length, config_alg, config_notification_platform):
         data = values.of({
-            'body': body,
+            'auth_payload': auth_payload,'friendly_name': friendly_name,'config_notification_token': config_notification_token,'config_sdk_version': config_sdk_version,'config_time_step': config_time_step,'config_skew': config_skew,'config_code_length': config_code_length,'config_alg': config_alg,'config_notification_platform': config_notification_platform,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

@@ -40,8 +40,8 @@ class UserConversationList(ListResource):
         # Path Solution
         self._solution = { 'chat_service_sid': chat_service_sid, 'user_sid': user_sid,  }
         self._uri = '/Services/${chat_service_sid}/Users/${user_sid}/Conversations'.format(**self._solution)
-
-
+        
+        
     
     
     
@@ -128,6 +128,28 @@ class UserConversationList(ListResource):
         )
         return UserConversationPage(self._version, response, self._solution)
 
+
+    def get(self, conversation_sid):
+        """
+        Constructs a UserConversationContext
+        
+        :param conversation_sid: The unique SID identifier of the Conversation. This value can be either the `sid` or the `unique_name` of the [Conversation resource](https://www.twilio.com/docs/conversations/api/conversation-resource).
+        
+        :returns: twilio.rest.conversations.v1.user_conversation.UserConversationContext
+        :rtype: twilio.rest.conversations.v1.user_conversation.UserConversationContext
+        """
+        return UserConversationContext(self._version, chat_service_sid=self._solution['chat_service_sid'], user_sid=self._solution['user_sid'], conversation_sid=conversation_sid)
+
+    def __call__(self, conversation_sid):
+        """
+        Constructs a UserConversationContext
+        
+        :param conversation_sid: The unique SID identifier of the Conversation. This value can be either the `sid` or the `unique_name` of the [Conversation resource](https://www.twilio.com/docs/conversations/api/conversation-resource).
+        
+        :returns: twilio.rest.conversations.v1.user_conversation.UserConversationContext
+        :rtype: twilio.rest.conversations.v1.user_conversation.UserConversationContext
+        """
+        return UserConversationContext(self._version, chat_service_sid=self._solution['chat_service_sid'], user_sid=self._solution['user_sid'], conversation_sid=conversation_sid)
 
     def __repr__(self):
         """
@@ -222,9 +244,9 @@ class UserConversationContext(InstanceContext):
 
         
     
-    def update(self, body):
+    def update(self, notification_level, last_read_timestamp, last_read_message_index):
         data = values.of({
-            'body': body,
+            'notification_level': notification_level,'last_read_timestamp': last_read_timestamp,'last_read_message_index': last_read_message_index,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

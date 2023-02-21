@@ -38,9 +38,10 @@ class InsightsSettingsCommentList(ListResource):
         # Path Solution
         self._solution = {  }
         self._uri = '/Insights/QM/Settings/CommentTags'.format(**self._solution)
-
-
+        
+        
     
+
 
     def __repr__(self):
         """

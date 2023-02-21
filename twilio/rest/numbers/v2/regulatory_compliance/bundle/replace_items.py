@@ -39,9 +39,25 @@ class ReplaceItemsList(ListResource):
         # Path Solution
         self._solution = { 'bundle_sid': bundle_sid,  }
         self._uri = '/RegulatoryCompliance/Bundles/${bundle_sid}/ReplaceItems'.format(**self._solution)
-
-
+        
+        
     
+    def create(self, from_bundle_sid):
+        """
+        Create the ReplaceItemsInstance
+         :param str from_bundle_sid: The source bundle sid to copy the item assignments from.
+        
+        :returns: The created ReplaceItemsInstance
+        :rtype: twilio.rest.numbers.v2.replace_items.ReplaceItemsInstance
+        """
+        data = values.of({ 
+            'FromBundleSid': from_bundle_sid,
+        })
+
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return ReplaceItemsInstance(self._version, payload, bundle_sid=self._solution['bundle_sid'])
+    
+
 
     def __repr__(self):
         """

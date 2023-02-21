@@ -40,11 +40,28 @@ class RateLimitList(ListResource):
         # Path Solution
         self._solution = { 'service_sid': service_sid,  }
         self._uri = '/Services/${service_sid}/RateLimits'.format(**self._solution)
+        
+        
+    
+    
+    
+    
+    def create(self, unique_name, description=values.unset):
+        """
+        Create the RateLimitInstance
+         :param str unique_name: Provides a unique and addressable name to be assigned to this Rate Limit, assigned by the developer, to be optionally used in addition to SID. **This value should not contain PII.**
+         :param str description: Description of this Rate Limit
+        
+        :returns: The created RateLimitInstance
+        :rtype: twilio.rest.verify.v2.rate_limit.RateLimitInstance
+        """
+        data = values.of({ 
+            'UniqueName': unique_name,
+            'Description': description,
+        })
 
-
-    
-    
-    
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return RateLimitInstance(self._version, payload, service_sid=self._solution['service_sid'])
     
     
     def stream(self, limit=None, page_size=None):
@@ -129,6 +146,28 @@ class RateLimitList(ListResource):
         )
         return RateLimitPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a RateLimitContext
+        
+        :param sid: The Twilio-provided string that uniquely identifies the Rate Limit resource to fetch.
+        
+        :returns: twilio.rest.verify.v2.rate_limit.RateLimitContext
+        :rtype: twilio.rest.verify.v2.rate_limit.RateLimitContext
+        """
+        return RateLimitContext(self._version, service_sid=self._solution['service_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a RateLimitContext
+        
+        :param sid: The Twilio-provided string that uniquely identifies the Rate Limit resource to fetch.
+        
+        :returns: twilio.rest.verify.v2.rate_limit.RateLimitContext
+        :rtype: twilio.rest.verify.v2.rate_limit.RateLimitContext
+        """
+        return RateLimitContext(self._version, service_sid=self._solution['service_sid'], sid=sid)
 
     def __repr__(self):
         """
@@ -226,9 +265,9 @@ class RateLimitContext(InstanceContext):
 
         
     
-    def update(self, body):
+    def update(self, description):
         data = values.of({
-            'body': body,
+            'description': description,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

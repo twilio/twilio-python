@@ -40,11 +40,38 @@ class MessageList(ListResource):
         # Path Solution
         self._solution = { 'service_sid': service_sid, 'channel_sid': channel_sid,  }
         self._uri = '/Services/${service_sid}/Channels/${channel_sid}/Messages'.format(**self._solution)
+        
+        
+    
+    
+    
+    
+    def create(self, from_=values.unset, attributes=values.unset, date_created=values.unset, date_updated=values.unset, last_updated_by=values.unset, body=values.unset, media_sid=values.unset):
+        """
+        Create the MessageInstance
+         :param str from_: The [Identity](https://www.twilio.com/docs/chat/identity) of the new message's author. The default value is `system`.
+         :param str attributes: A valid JSON string that contains application-specific data.
+         :param datetime date_created: The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format, to assign to the resource as the date it was created. The default value is the current time set by the Chat service. This parameter should only be used when a Chat's history is being recreated from a backup/separate source.
+         :param datetime date_updated: The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format, to assign to the resource as the date it was last updated.
+         :param str last_updated_by: The [Identity](https://www.twilio.com/docs/chat/identity) of the User who last updated the Message, if applicable.
+         :param str body: The message to send to the channel. Can be an empty string or `null`, which sets the value as an empty string. You can send structured data in the body by serializing it as a string.
+         :param str media_sid: The SID of the [Media](https://www.twilio.com/docs/chat/rest/media) to attach to the new Message.
+        
+        :returns: The created MessageInstance
+        :rtype: twilio.rest.chat.v2.message.MessageInstance
+        """
+        data = values.of({ 
+            'From': from_,
+            'Attributes': attributes,
+            'DateCreated': date_created,
+            'DateUpdated': date_updated,
+            'LastUpdatedBy': last_updated_by,
+            'Body': body,
+            'MediaSid': media_sid,
+        })
 
-
-    
-    
-    
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return MessageInstance(self._version, payload, service_sid=self._solution['service_sid'], channel_sid=self._solution['channel_sid'])
     
     
     def stream(self, order=values.unset, limit=None, page_size=None):
@@ -135,6 +162,28 @@ class MessageList(ListResource):
         )
         return MessagePage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a MessageContext
+        
+        :param sid: The SID of the Message resource to update.
+        
+        :returns: twilio.rest.chat.v2.message.MessageContext
+        :rtype: twilio.rest.chat.v2.message.MessageContext
+        """
+        return MessageContext(self._version, service_sid=self._solution['service_sid'], channel_sid=self._solution['channel_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a MessageContext
+        
+        :param sid: The SID of the Message resource to update.
+        
+        :returns: twilio.rest.chat.v2.message.MessageContext
+        :rtype: twilio.rest.chat.v2.message.MessageContext
+        """
+        return MessageContext(self._version, service_sid=self._solution['service_sid'], channel_sid=self._solution['channel_sid'], sid=sid)
 
     def __repr__(self):
         """
@@ -231,9 +280,9 @@ class MessageContext(InstanceContext):
 
         
     
-    def update(self, x_twilio_webhook_enabled, body):
+    def update(self, body, attributes, date_created, date_updated, last_updated_by, from_):
         data = values.of({
-            'x_twilio_webhook_enabled': x_twilio_webhook_enabled,'body': body,
+            'body': body,'attributes': attributes,'date_created': date_created,'date_updated': date_updated,'last_updated_by': last_updated_by,'from_': from_,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

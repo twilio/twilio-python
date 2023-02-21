@@ -40,8 +40,8 @@ class RecordingList(ListResource):
         # Path Solution
         self._solution = { 'account_sid': account_sid, 'conference_sid': conference_sid,  }
         self._uri = '/Accounts/${account_sid}/Conferences/${conference_sid}/Recordings.json'.format(**self._solution)
-
-
+        
+        
     
     
     
@@ -119,9 +119,9 @@ class RecordingList(ListResource):
         :rtype: twilio.rest.api.v2010.recording.RecordingPage
         """
         data = values.of({ 
-            'DateCreated': date_created,
-            'DateCreated&lt;': date_created_before,
-            'DateCreated&gt;': date_created_after,
+            'DateCreated': serialize.iso8601_date(date_created),
+            'DateCreated<': serialize.iso8601_date(date_created_before),
+            'DateCreated>': serialize.iso8601_date(date_created_after),
             'PageToken': page_token,
             'Page': page_number,
             'PageSize': page_size,
@@ -146,6 +146,28 @@ class RecordingList(ListResource):
         )
         return RecordingPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a RecordingContext
+        
+        :param sid: The Twilio-provided string that uniquely identifies the Conference Recording resource to update. Use `Twilio.CURRENT` to reference the current active recording.
+        
+        :returns: twilio.rest.api.v2010.recording.RecordingContext
+        :rtype: twilio.rest.api.v2010.recording.RecordingContext
+        """
+        return RecordingContext(self._version, account_sid=self._solution['account_sid'], conference_sid=self._solution['conference_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a RecordingContext
+        
+        :param sid: The Twilio-provided string that uniquely identifies the Conference Recording resource to update. Use `Twilio.CURRENT` to reference the current active recording.
+        
+        :returns: twilio.rest.api.v2010.recording.RecordingContext
+        :rtype: twilio.rest.api.v2010.recording.RecordingContext
+        """
+        return RecordingContext(self._version, account_sid=self._solution['account_sid'], conference_sid=self._solution['conference_sid'], sid=sid)
 
     def __repr__(self):
         """
@@ -240,9 +262,9 @@ class RecordingContext(InstanceContext):
 
         
     
-    def update(self, body):
+    def update(self, status, pause_behavior):
         data = values.of({
-            'body': body,
+            'status': status,'pause_behavior': pause_behavior,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

@@ -37,10 +37,28 @@ class ConfigurationList(ListResource):
 
         # Path Solution
         self._solution = {  }
-        self._uri = ''.format(**self._solution)
-
-
+        
+        
+        
     
+
+    def get(self):
+        """
+        Constructs a ConfigurationContext
+        
+        :returns: twilio.rest.flex_api.v1.configuration.ConfigurationContext
+        :rtype: twilio.rest.flex_api.v1.configuration.ConfigurationContext
+        """
+        return ConfigurationContext(self._version)
+
+    def __call__(self):
+        """
+        Constructs a ConfigurationContext
+        
+        :returns: twilio.rest.flex_api.v1.configuration.ConfigurationContext
+        :rtype: twilio.rest.flex_api.v1.configuration.ConfigurationContext
+        """
+        return ConfigurationContext(self._version)
 
     def __repr__(self):
         """

@@ -41,8 +41,8 @@ class ConferenceList(ListResource):
         # Path Solution
         self._solution = { 'account_sid': account_sid,  }
         self._uri = '/Accounts/${account_sid}/Conferences.json'.format(**self._solution)
-
-
+        
+        
     
     
     
@@ -144,12 +144,12 @@ class ConferenceList(ListResource):
         :rtype: twilio.rest.api.v2010.conference.ConferencePage
         """
         data = values.of({ 
-            'DateCreated': date_created,
-            'DateCreated&lt;': date_created_before,
-            'DateCreated&gt;': date_created_after,
-            'DateUpdated': date_updated,
-            'DateUpdated&lt;': date_updated_before,
-            'DateUpdated&gt;': date_updated_after,
+            'DateCreated': serialize.iso8601_date(date_created),
+            'DateCreated<': serialize.iso8601_date(date_created_before),
+            'DateCreated>': serialize.iso8601_date(date_created_after),
+            'DateUpdated': serialize.iso8601_date(date_updated),
+            'DateUpdated<': serialize.iso8601_date(date_updated_before),
+            'DateUpdated>': serialize.iso8601_date(date_updated_after),
             'FriendlyName': friendly_name,
             'Status': status,
             'PageToken': page_token,
@@ -176,6 +176,28 @@ class ConferenceList(ListResource):
         )
         return ConferencePage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a ConferenceContext
+        
+        :param sid: The Twilio-provided string that uniquely identifies the Conference resource to update
+        
+        :returns: twilio.rest.api.v2010.conference.ConferenceContext
+        :rtype: twilio.rest.api.v2010.conference.ConferenceContext
+        """
+        return ConferenceContext(self._version, account_sid=self._solution['account_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a ConferenceContext
+        
+        :param sid: The Twilio-provided string that uniquely identifies the Conference resource to update
+        
+        :returns: twilio.rest.api.v2010.conference.ConferenceContext
+        :rtype: twilio.rest.api.v2010.conference.ConferenceContext
+        """
+        return ConferenceContext(self._version, account_sid=self._solution['account_sid'], sid=sid)
 
     def __repr__(self):
         """
@@ -258,9 +280,9 @@ class ConferenceContext(InstanceContext):
 
         
     
-    def update(self, body):
+    def update(self, status, announce_url, announce_method):
         data = values.of({
-            'body': body,
+            'status': status,'announce_url': announce_url,'announce_method': announce_method,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

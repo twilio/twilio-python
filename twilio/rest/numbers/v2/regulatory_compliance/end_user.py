@@ -38,11 +38,30 @@ class EndUserList(ListResource):
         # Path Solution
         self._solution = {  }
         self._uri = '/RegulatoryCompliance/EndUsers'.format(**self._solution)
+        
+        
+    
+    
+    
+    
+    def create(self, friendly_name, type, attributes=values.unset):
+        """
+        Create the EndUserInstance
+         :param str friendly_name: The string that you assigned to describe the resource.
+         :param EndUserType type: 
+         :param bool, date, datetime, dict, float, int, list, str, none_type attributes: The set of parameters that are the attributes of the End User resource which are derived End User Types.
+        
+        :returns: The created EndUserInstance
+        :rtype: twilio.rest.numbers.v2.end_user.EndUserInstance
+        """
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+            'Type': type,
+            'Attributes': attributes,
+        })
 
-
-    
-    
-    
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return EndUserInstance(self._version, payload)
     
     
     def stream(self, limit=None, page_size=None):
@@ -127,6 +146,28 @@ class EndUserList(ListResource):
         )
         return EndUserPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a EndUserContext
+        
+        :param sid: The unique string created by Twilio to identify the End User resource.
+        
+        :returns: twilio.rest.numbers.v2.end_user.EndUserContext
+        :rtype: twilio.rest.numbers.v2.end_user.EndUserContext
+        """
+        return EndUserContext(self._version, sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a EndUserContext
+        
+        :param sid: The unique string created by Twilio to identify the End User resource.
+        
+        :returns: twilio.rest.numbers.v2.end_user.EndUserContext
+        :rtype: twilio.rest.numbers.v2.end_user.EndUserContext
+        """
+        return EndUserContext(self._version, sid=sid)
 
     def __repr__(self):
         """
@@ -223,9 +264,9 @@ class EndUserContext(InstanceContext):
 
         
     
-    def update(self, body):
+    def update(self, friendly_name, attributes):
         data = values.of({
-            'body': body,
+            'friendly_name': friendly_name,'attributes': attributes,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

@@ -40,11 +40,26 @@ class SyncListItemList(ListResource):
         # Path Solution
         self._solution = { 'service_sid': service_sid, 'list_sid': list_sid,  }
         self._uri = '/Services/${service_sid}/Lists/${list_sid}/Items'.format(**self._solution)
+        
+        
+    
+    
+    
+    
+    def create(self, data):
+        """
+        Create the SyncListItemInstance
+         :param bool, date, datetime, dict, float, int, list, str, none_type data: 
+        
+        :returns: The created SyncListItemInstance
+        :rtype: twilio.rest.preview.sync.sync_list_item.SyncListItemInstance
+        """
+        data = values.of({ 
+            'Data': data,
+        })
 
-
-    
-    
-    
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return SyncListItemInstance(self._version, payload, service_sid=self._solution['service_sid'], list_sid=self._solution['list_sid'])
     
     
     def stream(self, order=values.unset, from_=values.unset, bounds=values.unset, limit=None, page_size=None):
@@ -148,6 +163,28 @@ class SyncListItemList(ListResource):
         return SyncListItemPage(self._version, response, self._solution)
 
 
+    def get(self, index):
+        """
+        Constructs a SyncListItemContext
+        
+        :param index: 
+        
+        :returns: twilio.rest.preview.sync.sync_list_item.SyncListItemContext
+        :rtype: twilio.rest.preview.sync.sync_list_item.SyncListItemContext
+        """
+        return SyncListItemContext(self._version, service_sid=self._solution['service_sid'], list_sid=self._solution['list_sid'], index=index)
+
+    def __call__(self, index):
+        """
+        Constructs a SyncListItemContext
+        
+        :param index: 
+        
+        :returns: twilio.rest.preview.sync.sync_list_item.SyncListItemContext
+        :rtype: twilio.rest.preview.sync.sync_list_item.SyncListItemContext
+        """
+        return SyncListItemContext(self._version, service_sid=self._solution['service_sid'], list_sid=self._solution['list_sid'], index=index)
+
     def __repr__(self):
         """
         Provide a friendly representation
@@ -243,9 +280,9 @@ class SyncListItemContext(InstanceContext):
 
         
     
-    def update(self, if_match, body):
+    def update(self, data):
         data = values.of({
-            'if_match': if_match,'body': body,
+            'data': data,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

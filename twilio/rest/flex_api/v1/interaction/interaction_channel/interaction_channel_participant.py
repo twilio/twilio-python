@@ -40,9 +40,26 @@ class InteractionChannelParticipantList(ListResource):
         # Path Solution
         self._solution = { 'interaction_sid': interaction_sid, 'channel_sid': channel_sid,  }
         self._uri = '/Interactions/${interaction_sid}/Channels/${channel_sid}/Participants'.format(**self._solution)
-
-
+        
+        
     
+    
+    def create(self, type, media_properties):
+        """
+        Create the InteractionChannelParticipantInstance
+         :param InteractionChannelParticipantType type: 
+         :param bool, date, datetime, dict, float, int, list, str, none_type media_properties: JSON representing the Media Properties for the new Participant.
+        
+        :returns: The created InteractionChannelParticipantInstance
+        :rtype: twilio.rest.flex_api.v1.interaction_channel_participant.InteractionChannelParticipantInstance
+        """
+        data = values.of({ 
+            'Type': type,
+            'MediaProperties': media_properties,
+        })
+
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return InteractionChannelParticipantInstance(self._version, payload, interaction_sid=self._solution['interaction_sid'], channel_sid=self._solution['channel_sid'])
     
     
     def stream(self, limit=None, page_size=None):
@@ -128,6 +145,28 @@ class InteractionChannelParticipantList(ListResource):
         return InteractionChannelParticipantPage(self._version, response, self._solution)
 
 
+    def get(self, sid):
+        """
+        Constructs a InteractionChannelParticipantContext
+        
+        :param sid: The unique string created by Twilio to identify an Interaction Channel resource.
+        
+        :returns: twilio.rest.flex_api.v1.interaction_channel_participant.InteractionChannelParticipantContext
+        :rtype: twilio.rest.flex_api.v1.interaction_channel_participant.InteractionChannelParticipantContext
+        """
+        return InteractionChannelParticipantContext(self._version, interaction_sid=self._solution['interaction_sid'], channel_sid=self._solution['channel_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a InteractionChannelParticipantContext
+        
+        :param sid: The unique string created by Twilio to identify an Interaction Channel resource.
+        
+        :returns: twilio.rest.flex_api.v1.interaction_channel_participant.InteractionChannelParticipantContext
+        :rtype: twilio.rest.flex_api.v1.interaction_channel_participant.InteractionChannelParticipantContext
+        """
+        return InteractionChannelParticipantContext(self._version, interaction_sid=self._solution['interaction_sid'], channel_sid=self._solution['channel_sid'], sid=sid)
+
     def __repr__(self):
         """
         Provide a friendly representation
@@ -192,9 +231,9 @@ class InteractionChannelParticipantContext(InstanceContext):
         self._uri = '/Interactions/${interaction_sid}/Channels/${channel_sid}/Participants/${sid}'
         
     
-    def update(self, body):
+    def update(self, status):
         data = values.of({
-            'body': body,
+            'status': status,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

@@ -38,8 +38,37 @@ class InsightsAssessmentsCommentList(ListResource):
         # Path Solution
         self._solution = {  }
         self._uri = '/Insights/QM/Assessments/Comments'.format(**self._solution)
+        
+        
+    
+    def create(self, category_id, category_name, comment, segment_id, user_name, user_email, agent_id, offset):
+        """
+        Create the InsightsAssessmentsCommentInstance
+         :param str category_id: The ID of the category
+         :param str category_name: The name of the category
+         :param str comment: The Assessment comment.
+         :param str segment_id: The id of the segment.
+         :param str user_name: The name of the user.
+         :param str user_email: The email id of the user.
+         :param str agent_id: The id of the agent.
+         :param int, float offset: The offset
+        
+        :returns: The created InsightsAssessmentsCommentInstance
+        :rtype: twilio.rest.flex_api.v1.insights_assessments_comment.InsightsAssessmentsCommentInstance
+        """
+        data = values.of({ 
+            'CategoryId': category_id,
+            'CategoryName': category_name,
+            'Comment': comment,
+            'SegmentId': segment_id,
+            'UserName': user_name,
+            'UserEmail': user_email,
+            'AgentId': agent_id,
+            'Offset': offset,
+        })
 
-
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return InsightsAssessmentsCommentInstance(self._version, payload)
     
     
     def stream(self, token=values.unset, segment_id=values.unset, agent_id=values.unset, limit=None, page_size=None):
@@ -141,6 +170,7 @@ class InsightsAssessmentsCommentList(ListResource):
             target_url
         )
         return InsightsAssessmentsCommentPage(self._version, response, self._solution)
+
 
 
     def __repr__(self):

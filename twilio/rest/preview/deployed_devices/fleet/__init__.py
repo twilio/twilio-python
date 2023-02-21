@@ -42,11 +42,26 @@ class FleetList(ListResource):
         # Path Solution
         self._solution = {  }
         self._uri = '/Fleets'.format(**self._solution)
+        
+        
+    
+    
+    
+    
+    def create(self, friendly_name=values.unset):
+        """
+        Create the FleetInstance
+         :param str friendly_name: Provides a human readable descriptive text for this Fleet, up to 256 characters long.
+        
+        :returns: The created FleetInstance
+        :rtype: twilio.rest.preview.deployed_devices.fleet.FleetInstance
+        """
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+        })
 
-
-    
-    
-    
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return FleetInstance(self._version, payload)
     
     
     def stream(self, limit=None, page_size=None):
@@ -131,6 +146,28 @@ class FleetList(ListResource):
         )
         return FleetPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a FleetContext
+        
+        :param sid: Provides a 34 character string that uniquely identifies the requested Fleet resource.
+        
+        :returns: twilio.rest.preview.deployed_devices.fleet.FleetContext
+        :rtype: twilio.rest.preview.deployed_devices.fleet.FleetContext
+        """
+        return FleetContext(self._version, sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a FleetContext
+        
+        :param sid: Provides a 34 character string that uniquely identifies the requested Fleet resource.
+        
+        :returns: twilio.rest.preview.deployed_devices.fleet.FleetContext
+        :rtype: twilio.rest.preview.deployed_devices.fleet.FleetContext
+        """
+        return FleetContext(self._version, sid=sid)
 
     def __repr__(self):
         """
@@ -231,9 +268,9 @@ class FleetContext(InstanceContext):
 
         
     
-    def update(self, body):
+    def update(self, friendly_name, default_deployment_sid):
         data = values.of({
-            'body': body,
+            'friendly_name': friendly_name,'default_deployment_sid': default_deployment_sid,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

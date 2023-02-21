@@ -41,10 +41,25 @@ class AssignedAddOnList(ListResource):
         # Path Solution
         self._solution = { 'account_sid': account_sid, 'resource_sid': resource_sid,  }
         self._uri = '/Accounts/${account_sid}/IncomingPhoneNumbers/${resource_sid}/AssignedAddOns.json'.format(**self._solution)
-
-
+        
+        
     
     
+    
+    def create(self, installed_add_on_sid):
+        """
+        Create the AssignedAddOnInstance
+         :param str installed_add_on_sid: The SID that identifies the Add-on installation.
+        
+        :returns: The created AssignedAddOnInstance
+        :rtype: twilio.rest.api.v2010.assigned_add_on.AssignedAddOnInstance
+        """
+        data = values.of({ 
+            'InstalledAddOnSid': installed_add_on_sid,
+        })
+
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return AssignedAddOnInstance(self._version, payload, account_sid=self._solution['account_sid'], resource_sid=self._solution['resource_sid'])
     
     
     def stream(self, limit=None, page_size=None):
@@ -129,6 +144,28 @@ class AssignedAddOnList(ListResource):
         )
         return AssignedAddOnPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a AssignedAddOnContext
+        
+        :param sid: The Twilio-provided string that uniquely identifies the resource to fetch.
+        
+        :returns: twilio.rest.api.v2010.assigned_add_on.AssignedAddOnContext
+        :rtype: twilio.rest.api.v2010.assigned_add_on.AssignedAddOnContext
+        """
+        return AssignedAddOnContext(self._version, account_sid=self._solution['account_sid'], resource_sid=self._solution['resource_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a AssignedAddOnContext
+        
+        :param sid: The Twilio-provided string that uniquely identifies the resource to fetch.
+        
+        :returns: twilio.rest.api.v2010.assigned_add_on.AssignedAddOnContext
+        :rtype: twilio.rest.api.v2010.assigned_add_on.AssignedAddOnContext
+        """
+        return AssignedAddOnContext(self._version, account_sid=self._solution['account_sid'], resource_sid=self._solution['resource_sid'], sid=sid)
 
     def __repr__(self):
         """

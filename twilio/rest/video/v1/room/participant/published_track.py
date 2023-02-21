@@ -40,8 +40,8 @@ class PublishedTrackList(ListResource):
         # Path Solution
         self._solution = { 'room_sid': room_sid, 'participant_sid': participant_sid,  }
         self._uri = '/Rooms/${room_sid}/Participants/${participant_sid}/PublishedTracks'.format(**self._solution)
-
-
+        
+        
     
     
     def stream(self, limit=None, page_size=None):
@@ -126,6 +126,28 @@ class PublishedTrackList(ListResource):
         )
         return PublishedTrackPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a PublishedTrackContext
+        
+        :param sid: The SID of the RoomParticipantPublishedTrack resource to fetch.
+        
+        :returns: twilio.rest.video.v1.published_track.PublishedTrackContext
+        :rtype: twilio.rest.video.v1.published_track.PublishedTrackContext
+        """
+        return PublishedTrackContext(self._version, room_sid=self._solution['room_sid'], participant_sid=self._solution['participant_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a PublishedTrackContext
+        
+        :param sid: The SID of the RoomParticipantPublishedTrack resource to fetch.
+        
+        :returns: twilio.rest.video.v1.published_track.PublishedTrackContext
+        :rtype: twilio.rest.video.v1.published_track.PublishedTrackContext
+        """
+        return PublishedTrackContext(self._version, room_sid=self._solution['room_sid'], participant_sid=self._solution['participant_sid'], sid=sid)
 
     def __repr__(self):
         """

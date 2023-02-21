@@ -38,11 +38,29 @@ class DefaultsList(ListResource):
 
         # Path Solution
         self._solution = { 'assistant_sid': assistant_sid,  }
-        self._uri = ''.format(**self._solution)
-
-
+        
+        
+        
     
     
+
+    def get(self):
+        """
+        Constructs a DefaultsContext
+        
+        :returns: twilio.rest.autopilot.v1.defaults.DefaultsContext
+        :rtype: twilio.rest.autopilot.v1.defaults.DefaultsContext
+        """
+        return DefaultsContext(self._version, assistant_sid=self._solution['assistant_sid'])
+
+    def __call__(self):
+        """
+        Constructs a DefaultsContext
+        
+        :returns: twilio.rest.autopilot.v1.defaults.DefaultsContext
+        :rtype: twilio.rest.autopilot.v1.defaults.DefaultsContext
+        """
+        return DefaultsContext(self._version, assistant_sid=self._solution['assistant_sid'])
 
     def __repr__(self):
         """
@@ -78,9 +96,9 @@ class DefaultsContext(InstanceContext):
 
         
     
-    def update(self, body):
+    def update(self, defaults):
         data = values.of({
-            'body': body,
+            'defaults': defaults,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

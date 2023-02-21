@@ -41,10 +41,31 @@ class ParticipantList(ListResource):
         # Path Solution
         self._solution = { 'service_sid': service_sid, 'session_sid': session_sid,  }
         self._uri = '/Services/${service_sid}/Sessions/${session_sid}/Participants'.format(**self._solution)
-
-
+        
+        
     
     
+    
+    def create(self, identifier, friendly_name=values.unset, proxy_identifier=values.unset, proxy_identifier_sid=values.unset):
+        """
+        Create the ParticipantInstance
+         :param str identifier: The phone number of the Participant.
+         :param str friendly_name: The string that you assigned to describe the participant. This value must be 255 characters or fewer. **This value should not have PII.**
+         :param str proxy_identifier: The proxy phone number to use for the Participant. If not specified, Proxy will select a number from the pool.
+         :param str proxy_identifier_sid: The SID of the Proxy Identifier to assign to the Participant.
+        
+        :returns: The created ParticipantInstance
+        :rtype: twilio.rest.proxy.v1.participant.ParticipantInstance
+        """
+        data = values.of({ 
+            'Identifier': identifier,
+            'FriendlyName': friendly_name,
+            'ProxyIdentifier': proxy_identifier,
+            'ProxyIdentifierSid': proxy_identifier_sid,
+        })
+
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return ParticipantInstance(self._version, payload, service_sid=self._solution['service_sid'], session_sid=self._solution['session_sid'])
     
     
     def stream(self, limit=None, page_size=None):
@@ -129,6 +150,28 @@ class ParticipantList(ListResource):
         )
         return ParticipantPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a ParticipantContext
+        
+        :param sid: The Twilio-provided string that uniquely identifies the Participant resource to fetch.
+        
+        :returns: twilio.rest.proxy.v1.participant.ParticipantContext
+        :rtype: twilio.rest.proxy.v1.participant.ParticipantContext
+        """
+        return ParticipantContext(self._version, service_sid=self._solution['service_sid'], session_sid=self._solution['session_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a ParticipantContext
+        
+        :param sid: The Twilio-provided string that uniquely identifies the Participant resource to fetch.
+        
+        :returns: twilio.rest.proxy.v1.participant.ParticipantContext
+        :rtype: twilio.rest.proxy.v1.participant.ParticipantContext
+        """
+        return ParticipantContext(self._version, service_sid=self._solution['service_sid'], session_sid=self._solution['session_sid'], sid=sid)
 
     def __repr__(self):
         """

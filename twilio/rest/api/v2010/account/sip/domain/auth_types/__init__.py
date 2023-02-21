@@ -42,10 +42,10 @@ class AuthTypesList(ListResource):
         # Path Solution
         self._solution = { 'account_sid': account_sid, 'domain_sid': domain_sid,  }
         self._uri = '/Accounts/${account_sid}/SIP/Domains/${domain_sid}/Auth.json'.format(**self._solution)
-
+        
         self._calls = None
         self._registrations = None
-
+        
 
     @property
     def calls(self):
@@ -58,7 +58,6 @@ class AuthTypesList(ListResource):
         if self._calls is None:
             self._calls = AuthTypeCallsList(self._version, account_sid=self._solution['account_sid'], domain_sid=self._solution['domain_sid'])
         return self.calls
-
     @property
     def registrations(self):
         """

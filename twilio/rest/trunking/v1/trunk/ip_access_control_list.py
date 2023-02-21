@@ -39,10 +39,25 @@ class IpAccessControlListList(ListResource):
         # Path Solution
         self._solution = { 'trunk_sid': trunk_sid,  }
         self._uri = '/Trunks/${trunk_sid}/IpAccessControlLists'.format(**self._solution)
-
-
+        
+        
     
     
+    
+    def create(self, ip_access_control_list_sid):
+        """
+        Create the IpAccessControlListInstance
+         :param str ip_access_control_list_sid: The SID of the [IP Access Control List](https://www.twilio.com/docs/voice/sip/api/sip-ipaccesscontrollist-resource) that you want to associate with the trunk.
+        
+        :returns: The created IpAccessControlListInstance
+        :rtype: twilio.rest.trunking.v1.ip_access_control_list.IpAccessControlListInstance
+        """
+        data = values.of({ 
+            'IpAccessControlListSid': ip_access_control_list_sid,
+        })
+
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return IpAccessControlListInstance(self._version, payload, trunk_sid=self._solution['trunk_sid'])
     
     
     def stream(self, limit=None, page_size=None):
@@ -127,6 +142,28 @@ class IpAccessControlListList(ListResource):
         )
         return IpAccessControlListPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a IpAccessControlListContext
+        
+        :param sid: The unique string that we created to identify the IpAccessControlList resource to fetch.
+        
+        :returns: twilio.rest.trunking.v1.ip_access_control_list.IpAccessControlListContext
+        :rtype: twilio.rest.trunking.v1.ip_access_control_list.IpAccessControlListContext
+        """
+        return IpAccessControlListContext(self._version, trunk_sid=self._solution['trunk_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a IpAccessControlListContext
+        
+        :param sid: The unique string that we created to identify the IpAccessControlList resource to fetch.
+        
+        :returns: twilio.rest.trunking.v1.ip_access_control_list.IpAccessControlListContext
+        :rtype: twilio.rest.trunking.v1.ip_access_control_list.IpAccessControlListContext
+        """
+        return IpAccessControlListContext(self._version, trunk_sid=self._solution['trunk_sid'], sid=sid)
 
     def __repr__(self):
         """

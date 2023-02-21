@@ -40,11 +40,28 @@ class SyncStreamList(ListResource):
         # Path Solution
         self._solution = { 'service_sid': service_sid,  }
         self._uri = '/Services/${service_sid}/Streams'.format(**self._solution)
+        
+        
+    
+    
+    
+    
+    def create(self, unique_name=values.unset, ttl=values.unset):
+        """
+        Create the SyncStreamInstance
+         :param str unique_name: An application-defined string that uniquely identifies the resource. This value must be unique within its Service and it can be up to 320 characters long. The `unique_name` value can be used as an alternative to the `sid` in the URL path to address the resource.
+         :param int ttl: How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Stream expires and is deleted (time-to-live).
+        
+        :returns: The created SyncStreamInstance
+        :rtype: twilio.rest.sync.v1.sync_stream.SyncStreamInstance
+        """
+        data = values.of({ 
+            'UniqueName': unique_name,
+            'Ttl': ttl,
+        })
 
-
-    
-    
-    
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return SyncStreamInstance(self._version, payload, service_sid=self._solution['service_sid'])
     
     
     def stream(self, limit=None, page_size=None):
@@ -129,6 +146,28 @@ class SyncStreamList(ListResource):
         )
         return SyncStreamPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a SyncStreamContext
+        
+        :param sid: The SID of the Stream resource to update.
+        
+        :returns: twilio.rest.sync.v1.sync_stream.SyncStreamContext
+        :rtype: twilio.rest.sync.v1.sync_stream.SyncStreamContext
+        """
+        return SyncStreamContext(self._version, service_sid=self._solution['service_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a SyncStreamContext
+        
+        :param sid: The SID of the Stream resource to update.
+        
+        :returns: twilio.rest.sync.v1.sync_stream.SyncStreamContext
+        :rtype: twilio.rest.sync.v1.sync_stream.SyncStreamContext
+        """
+        return SyncStreamContext(self._version, service_sid=self._solution['service_sid'], sid=sid)
 
     def __repr__(self):
         """
@@ -226,9 +265,9 @@ class SyncStreamContext(InstanceContext):
 
         
     
-    def update(self, body):
+    def update(self, ttl):
         data = values.of({
-            'body': body,
+            'ttl': ttl,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

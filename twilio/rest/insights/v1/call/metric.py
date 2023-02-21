@@ -39,8 +39,8 @@ class MetricList(ListResource):
         # Path Solution
         self._solution = { 'call_sid': call_sid,  }
         self._uri = '/Voice/${call_sid}/Metrics'.format(**self._solution)
-
-
+        
+        
     
     def stream(self, edge=values.unset, direction=values.unset, limit=None, page_size=None):
         """
@@ -135,6 +135,7 @@ class MetricList(ListResource):
             target_url
         )
         return MetricPage(self._version, response, self._solution)
+
 
 
     def __repr__(self):

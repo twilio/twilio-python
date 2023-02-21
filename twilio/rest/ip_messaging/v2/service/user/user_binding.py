@@ -40,8 +40,8 @@ class UserBindingList(ListResource):
         # Path Solution
         self._solution = { 'service_sid': service_sid, 'user_sid': user_sid,  }
         self._uri = '/Services/${service_sid}/Users/${user_sid}/Bindings'.format(**self._solution)
-
-
+        
+        
     
     
     
@@ -133,6 +133,28 @@ class UserBindingList(ListResource):
         )
         return UserBindingPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a UserBindingContext
+        
+        :param sid: 
+        
+        :returns: twilio.rest.ip_messaging.v2.user_binding.UserBindingContext
+        :rtype: twilio.rest.ip_messaging.v2.user_binding.UserBindingContext
+        """
+        return UserBindingContext(self._version, service_sid=self._solution['service_sid'], user_sid=self._solution['user_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a UserBindingContext
+        
+        :param sid: 
+        
+        :returns: twilio.rest.ip_messaging.v2.user_binding.UserBindingContext
+        :rtype: twilio.rest.ip_messaging.v2.user_binding.UserBindingContext
+        """
+        return UserBindingContext(self._version, service_sid=self._solution['service_sid'], user_sid=self._solution['user_sid'], sid=sid)
 
     def __repr__(self):
         """

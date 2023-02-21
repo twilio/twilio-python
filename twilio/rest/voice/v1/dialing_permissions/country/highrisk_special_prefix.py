@@ -39,8 +39,8 @@ class HighriskSpecialPrefixList(ListResource):
         # Path Solution
         self._solution = { 'iso_code': iso_code,  }
         self._uri = '/DialingPermissions/Countries/${iso_code}/HighRiskSpecialPrefixes'.format(**self._solution)
-
-
+        
+        
     
     def stream(self, limit=None, page_size=None):
         """
@@ -123,6 +123,7 @@ class HighriskSpecialPrefixList(ListResource):
             target_url
         )
         return HighriskSpecialPrefixPage(self._version, response, self._solution)
+
 
 
     def __repr__(self):

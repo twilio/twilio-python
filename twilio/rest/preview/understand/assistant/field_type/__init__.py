@@ -40,11 +40,28 @@ class FieldTypeList(ListResource):
         # Path Solution
         self._solution = { 'assistant_sid': assistant_sid,  }
         self._uri = '/Assistants/${assistant_sid}/FieldTypes'.format(**self._solution)
+        
+        
+    
+    
+    
+    
+    def create(self, unique_name, friendly_name=values.unset):
+        """
+        Create the FieldTypeInstance
+         :param str unique_name: A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
+         :param str friendly_name: A user-provided string that identifies this resource. It is non-unique and can up to 255 characters long.
+        
+        :returns: The created FieldTypeInstance
+        :rtype: twilio.rest.preview.understand.field_type.FieldTypeInstance
+        """
+        data = values.of({ 
+            'UniqueName': unique_name,
+            'FriendlyName': friendly_name,
+        })
 
-
-    
-    
-    
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return FieldTypeInstance(self._version, payload, assistant_sid=self._solution['assistant_sid'])
     
     
     def stream(self, limit=None, page_size=None):
@@ -129,6 +146,28 @@ class FieldTypeList(ListResource):
         )
         return FieldTypePage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a FieldTypeContext
+        
+        :param sid: 
+        
+        :returns: twilio.rest.preview.understand.field_type.FieldTypeContext
+        :rtype: twilio.rest.preview.understand.field_type.FieldTypeContext
+        """
+        return FieldTypeContext(self._version, assistant_sid=self._solution['assistant_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a FieldTypeContext
+        
+        :param sid: 
+        
+        :returns: twilio.rest.preview.understand.field_type.FieldTypeContext
+        :rtype: twilio.rest.preview.understand.field_type.FieldTypeContext
+        """
+        return FieldTypeContext(self._version, assistant_sid=self._solution['assistant_sid'], sid=sid)
 
     def __repr__(self):
         """
@@ -226,9 +265,9 @@ class FieldTypeContext(InstanceContext):
 
         
     
-    def update(self, body):
+    def update(self, friendly_name, unique_name):
         data = values.of({
-            'body': body,
+            'friendly_name': friendly_name,'unique_name': unique_name,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

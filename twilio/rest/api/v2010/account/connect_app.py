@@ -39,8 +39,8 @@ class ConnectAppList(ListResource):
         # Path Solution
         self._solution = { 'account_sid': account_sid,  }
         self._uri = '/Accounts/${account_sid}/ConnectApps.json'.format(**self._solution)
-
-
+        
+        
     
     
     
@@ -127,6 +127,28 @@ class ConnectAppList(ListResource):
         )
         return ConnectAppPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a ConnectAppContext
+        
+        :param sid: The Twilio-provided string that uniquely identifies the ConnectApp resource to update.
+        
+        :returns: twilio.rest.api.v2010.connect_app.ConnectAppContext
+        :rtype: twilio.rest.api.v2010.connect_app.ConnectAppContext
+        """
+        return ConnectAppContext(self._version, account_sid=self._solution['account_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a ConnectAppContext
+        
+        :param sid: The Twilio-provided string that uniquely identifies the ConnectApp resource to update.
+        
+        :returns: twilio.rest.api.v2010.connect_app.ConnectAppContext
+        :rtype: twilio.rest.api.v2010.connect_app.ConnectAppContext
+        """
+        return ConnectAppContext(self._version, account_sid=self._solution['account_sid'], sid=sid)
 
     def __repr__(self):
         """
@@ -221,9 +243,9 @@ class ConnectAppContext(InstanceContext):
 
         
     
-    def update(self, body):
+    def update(self, authorize_redirect_url, company_name, deauthorize_callback_method, deauthorize_callback_url, description, friendly_name, homepage_url, permissions):
         data = values.of({
-            'body': body,
+            'authorize_redirect_url': authorize_redirect_url,'company_name': company_name,'deauthorize_callback_method': deauthorize_callback_method,'deauthorize_callback_url': deauthorize_callback_url,'description': description,'friendly_name': friendly_name,'homepage_url': homepage_url,'permissions': permissions,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

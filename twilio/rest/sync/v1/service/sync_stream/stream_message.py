@@ -40,9 +40,25 @@ class StreamMessageList(ListResource):
         # Path Solution
         self._solution = { 'service_sid': service_sid, 'stream_sid': stream_sid,  }
         self._uri = '/Services/${service_sid}/Streams/${stream_sid}/Messages'.format(**self._solution)
-
-
+        
+        
     
+    def create(self, data):
+        """
+        Create the StreamMessageInstance
+         :param bool, date, datetime, dict, float, int, list, str, none_type data: A JSON string that represents an arbitrary, schema-less object that makes up the Stream Message body. Can be up to 4 KiB in length.
+        
+        :returns: The created StreamMessageInstance
+        :rtype: twilio.rest.sync.v1.stream_message.StreamMessageInstance
+        """
+        data = values.of({ 
+            'Data': data,
+        })
+
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return StreamMessageInstance(self._version, payload, service_sid=self._solution['service_sid'], stream_sid=self._solution['stream_sid'])
+    
+
 
     def __repr__(self):
         """

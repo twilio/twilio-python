@@ -38,9 +38,34 @@ class IpCommandList(ListResource):
         # Path Solution
         self._solution = {  }
         self._uri = '/IpCommands'.format(**self._solution)
-
-
+        
+        
     
+    
+    def create(self, sim, payload, device_port, payload_type=values.unset, callback_url=values.unset, callback_method=values.unset):
+        """
+        Create the IpCommandInstance
+         :param str sim: The `sid` or `unique_name` of the [Super SIM](https://www.twilio.com/docs/iot/supersim/api/sim-resource) to send the IP Command to.
+         :param str payload: The data that will be sent to the device. The payload cannot exceed 1300 bytes. If the PayloadType is set to text, the payload is encoded in UTF-8. If PayloadType is set to binary, the payload is encoded in Base64.
+         :param int device_port: The device port to which the IP Command will be sent.
+         :param IpCommandPayloadType payload_type: 
+         :param str callback_url: The URL we should call using the `callback_method` after we have sent the IP Command.
+         :param str callback_method: The HTTP method we should use to call `callback_url`. Can be `GET` or `POST`, and the default is `POST`.
+        
+        :returns: The created IpCommandInstance
+        :rtype: twilio.rest.supersim.v1.ip_command.IpCommandInstance
+        """
+        data = values.of({ 
+            'Sim': sim,
+            'Payload': payload,
+            'DevicePort': device_port,
+            'PayloadType': payload_type,
+            'CallbackUrl': callback_url,
+            'CallbackMethod': callback_method,
+        })
+
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return IpCommandInstance(self._version, payload)
     
     
     def stream(self, sim=values.unset, sim_iccid=values.unset, status=values.unset, direction=values.unset, limit=None, page_size=None):
@@ -149,6 +174,28 @@ class IpCommandList(ListResource):
         )
         return IpCommandPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a IpCommandContext
+        
+        :param sid: The SID of the IP Command resource to fetch.
+        
+        :returns: twilio.rest.supersim.v1.ip_command.IpCommandContext
+        :rtype: twilio.rest.supersim.v1.ip_command.IpCommandContext
+        """
+        return IpCommandContext(self._version, sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a IpCommandContext
+        
+        :param sid: The SID of the IP Command resource to fetch.
+        
+        :returns: twilio.rest.supersim.v1.ip_command.IpCommandContext
+        :rtype: twilio.rest.supersim.v1.ip_command.IpCommandContext
+        """
+        return IpCommandContext(self._version, sid=sid)
 
     def __repr__(self):
         """

@@ -39,8 +39,8 @@ class OutgoingCallerIdList(ListResource):
         # Path Solution
         self._solution = { 'account_sid': account_sid,  }
         self._uri = '/Accounts/${account_sid}/OutgoingCallerIds.json'.format(**self._solution)
-
-
+        
+        
     
     
     
@@ -140,6 +140,28 @@ class OutgoingCallerIdList(ListResource):
         return OutgoingCallerIdPage(self._version, response, self._solution)
 
 
+    def get(self, sid):
+        """
+        Constructs a OutgoingCallerIdContext
+        
+        :param sid: The Twilio-provided string that uniquely identifies the OutgoingCallerId resource to update.
+        
+        :returns: twilio.rest.api.v2010.outgoing_caller_id.OutgoingCallerIdContext
+        :rtype: twilio.rest.api.v2010.outgoing_caller_id.OutgoingCallerIdContext
+        """
+        return OutgoingCallerIdContext(self._version, account_sid=self._solution['account_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a OutgoingCallerIdContext
+        
+        :param sid: The Twilio-provided string that uniquely identifies the OutgoingCallerId resource to update.
+        
+        :returns: twilio.rest.api.v2010.outgoing_caller_id.OutgoingCallerIdContext
+        :rtype: twilio.rest.api.v2010.outgoing_caller_id.OutgoingCallerIdContext
+        """
+        return OutgoingCallerIdContext(self._version, account_sid=self._solution['account_sid'], sid=sid)
+
     def __repr__(self):
         """
         Provide a friendly representation
@@ -233,9 +255,9 @@ class OutgoingCallerIdContext(InstanceContext):
 
         
     
-    def update(self, body):
+    def update(self, friendly_name):
         data = values.of({
-            'body': body,
+            'friendly_name': friendly_name,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

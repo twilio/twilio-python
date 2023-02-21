@@ -40,8 +40,8 @@ class MediaList(ListResource):
         # Path Solution
         self._solution = { 'account_sid': account_sid, 'message_sid': message_sid,  }
         self._uri = '/Accounts/${account_sid}/Messages/${message_sid}/Media.json'.format(**self._solution)
-
-
+        
+        
     
     
     
@@ -118,9 +118,9 @@ class MediaList(ListResource):
         :rtype: twilio.rest.api.v2010.media.MediaPage
         """
         data = values.of({ 
-            'DateCreated': date_created,
-            'DateCreated&lt;': date_created_before,
-            'DateCreated&gt;': date_created_after,
+            'DateCreated': serialize.iso8601_datetime(date_created),
+            'DateCreated<': serialize.iso8601_datetime(date_created_before),
+            'DateCreated>': serialize.iso8601_datetime(date_created_after),
             'PageToken': page_token,
             'Page': page_number,
             'PageSize': page_size,
@@ -145,6 +145,28 @@ class MediaList(ListResource):
         )
         return MediaPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a MediaContext
+        
+        :param sid: The Twilio-provided string that uniquely identifies the Media resource to fetch
+        
+        :returns: twilio.rest.api.v2010.media.MediaContext
+        :rtype: twilio.rest.api.v2010.media.MediaContext
+        """
+        return MediaContext(self._version, account_sid=self._solution['account_sid'], message_sid=self._solution['message_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a MediaContext
+        
+        :param sid: The Twilio-provided string that uniquely identifies the Media resource to fetch
+        
+        :returns: twilio.rest.api.v2010.media.MediaContext
+        :rtype: twilio.rest.api.v2010.media.MediaContext
+        """
+        return MediaContext(self._version, account_sid=self._solution['account_sid'], message_sid=self._solution['message_sid'], sid=sid)
 
     def __repr__(self):
         """

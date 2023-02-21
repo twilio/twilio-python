@@ -38,11 +38,29 @@ class FlowTestUserList(ListResource):
 
         # Path Solution
         self._solution = { 'sid': sid,  }
-        self._uri = ''.format(**self._solution)
-
-
+        
+        
+        
     
     
+
+    def get(self):
+        """
+        Constructs a FlowTestUserContext
+        
+        :returns: twilio.rest.studio.v2.flow_test_user.FlowTestUserContext
+        :rtype: twilio.rest.studio.v2.flow_test_user.FlowTestUserContext
+        """
+        return FlowTestUserContext(self._version, sid=self._solution['sid'])
+
+    def __call__(self):
+        """
+        Constructs a FlowTestUserContext
+        
+        :returns: twilio.rest.studio.v2.flow_test_user.FlowTestUserContext
+        :rtype: twilio.rest.studio.v2.flow_test_user.FlowTestUserContext
+        """
+        return FlowTestUserContext(self._version, sid=self._solution['sid'])
 
     def __repr__(self):
         """
@@ -78,9 +96,9 @@ class FlowTestUserContext(InstanceContext):
 
         
     
-    def update(self, body):
+    def update(self, test_users):
         data = values.of({
-            'body': body,
+            'test_users': test_users,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

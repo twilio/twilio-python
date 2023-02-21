@@ -41,8 +41,8 @@ class AssignedAddOnExtensionList(ListResource):
         # Path Solution
         self._solution = { 'account_sid': account_sid, 'resource_sid': resource_sid, 'assigned_add_on_sid': assigned_add_on_sid,  }
         self._uri = '/Accounts/${account_sid}/IncomingPhoneNumbers/${resource_sid}/AssignedAddOns/${assigned_add_on_sid}/Extensions.json'.format(**self._solution)
-
-
+        
+        
     
     
     def stream(self, limit=None, page_size=None):
@@ -127,6 +127,28 @@ class AssignedAddOnExtensionList(ListResource):
         )
         return AssignedAddOnExtensionPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a AssignedAddOnExtensionContext
+        
+        :param sid: The Twilio-provided string that uniquely identifies the resource to fetch.
+        
+        :returns: twilio.rest.api.v2010.assigned_add_on_extension.AssignedAddOnExtensionContext
+        :rtype: twilio.rest.api.v2010.assigned_add_on_extension.AssignedAddOnExtensionContext
+        """
+        return AssignedAddOnExtensionContext(self._version, account_sid=self._solution['account_sid'], resource_sid=self._solution['resource_sid'], assigned_add_on_sid=self._solution['assigned_add_on_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a AssignedAddOnExtensionContext
+        
+        :param sid: The Twilio-provided string that uniquely identifies the resource to fetch.
+        
+        :returns: twilio.rest.api.v2010.assigned_add_on_extension.AssignedAddOnExtensionContext
+        :rtype: twilio.rest.api.v2010.assigned_add_on_extension.AssignedAddOnExtensionContext
+        """
+        return AssignedAddOnExtensionContext(self._version, account_sid=self._solution['account_sid'], resource_sid=self._solution['resource_sid'], assigned_add_on_sid=self._solution['assigned_add_on_sid'], sid=sid)
 
     def __repr__(self):
         """

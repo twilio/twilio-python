@@ -41,11 +41,32 @@ class FlowList(ListResource):
         # Path Solution
         self._solution = {  }
         self._uri = '/Flows'.format(**self._solution)
+        
+        
+    
+    
+    
+    
+    def create(self, friendly_name, status, definition, commit_message=values.unset):
+        """
+        Create the FlowInstance
+         :param str friendly_name: The string that you assigned to describe the Flow.
+         :param FlowStatus status: 
+         :param bool, date, datetime, dict, float, int, list, str, none_type definition: JSON representation of flow definition.
+         :param str commit_message: Description of change made in the revision.
+        
+        :returns: The created FlowInstance
+        :rtype: twilio.rest.studio.v2.flow.FlowInstance
+        """
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+            'Status': status,
+            'Definition': definition,
+            'CommitMessage': commit_message,
+        })
 
-
-    
-    
-    
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return FlowInstance(self._version, payload)
     
     
     def stream(self, limit=None, page_size=None):
@@ -130,6 +151,28 @@ class FlowList(ListResource):
         )
         return FlowPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a FlowContext
+        
+        :param sid: The SID of the Flow resource to fetch.
+        
+        :returns: twilio.rest.studio.v2.flow.FlowContext
+        :rtype: twilio.rest.studio.v2.flow.FlowContext
+        """
+        return FlowContext(self._version, sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a FlowContext
+        
+        :param sid: The SID of the Flow resource to fetch.
+        
+        :returns: twilio.rest.studio.v2.flow.FlowContext
+        :rtype: twilio.rest.studio.v2.flow.FlowContext
+        """
+        return FlowContext(self._version, sid=sid)
 
     def __repr__(self):
         """
@@ -229,9 +272,9 @@ class FlowContext(InstanceContext):
 
         
     
-    def update(self, body):
+    def update(self, status, friendly_name, definition, commit_message):
         data = values.of({
-            'body': body,
+            'status': status,'friendly_name': friendly_name,'definition': definition,'commit_message': commit_message,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

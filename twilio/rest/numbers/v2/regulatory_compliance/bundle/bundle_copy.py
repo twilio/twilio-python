@@ -39,8 +39,23 @@ class BundleCopyList(ListResource):
         # Path Solution
         self._solution = { 'bundle_sid': bundle_sid,  }
         self._uri = '/RegulatoryCompliance/Bundles/${bundle_sid}/Copies'.format(**self._solution)
+        
+        
+    
+    def create(self, friendly_name=values.unset):
+        """
+        Create the BundleCopyInstance
+         :param str friendly_name: The string that you assigned to describe the copied bundle.
+        
+        :returns: The created BundleCopyInstance
+        :rtype: twilio.rest.numbers.v2.bundle_copy.BundleCopyInstance
+        """
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+        })
 
-
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return BundleCopyInstance(self._version, payload, bundle_sid=self._solution['bundle_sid'])
     
     
     def stream(self, limit=None, page_size=None):
@@ -124,6 +139,7 @@ class BundleCopyList(ListResource):
             target_url
         )
         return BundleCopyPage(self._version, response, self._solution)
+
 
 
     def __repr__(self):

@@ -38,8 +38,8 @@ class RecordingList(ListResource):
         # Path Solution
         self._solution = {  }
         self._uri = '/Recordings'.format(**self._solution)
-
-
+        
+        
     
     
     
@@ -133,9 +133,9 @@ class RecordingList(ListResource):
         data = values.of({ 
             'Status': status,
             'SourceSid': source_sid,
-            'GroupingSid': grouping_sid,
-            'DateCreatedAfter': date_created_after,
-            'DateCreatedBefore': date_created_before,
+            'GroupingSid': serialize.map(grouping_sid),
+            'DateCreatedAfter': serialize.iso8601_datetime(date_created_after),
+            'DateCreatedBefore': serialize.iso8601_datetime(date_created_before),
             'MediaType': media_type,
             'PageToken': page_token,
             'Page': page_number,
@@ -161,6 +161,28 @@ class RecordingList(ListResource):
         )
         return RecordingPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a RecordingContext
+        
+        :param sid: The SID of the Recording resource to fetch.
+        
+        :returns: twilio.rest.video.v1.recording.RecordingContext
+        :rtype: twilio.rest.video.v1.recording.RecordingContext
+        """
+        return RecordingContext(self._version, sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a RecordingContext
+        
+        :param sid: The SID of the Recording resource to fetch.
+        
+        :returns: twilio.rest.video.v1.recording.RecordingContext
+        :rtype: twilio.rest.video.v1.recording.RecordingContext
+        """
+        return RecordingContext(self._version, sid=sid)
 
     def __repr__(self):
         """

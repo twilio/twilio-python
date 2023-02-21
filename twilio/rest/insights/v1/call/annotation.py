@@ -38,11 +38,29 @@ class AnnotationList(ListResource):
 
         # Path Solution
         self._solution = { 'call_sid': call_sid,  }
-        self._uri = ''.format(**self._solution)
-
-
+        
+        
+        
     
     
+
+    def get(self):
+        """
+        Constructs a AnnotationContext
+        
+        :returns: twilio.rest.insights.v1.annotation.AnnotationContext
+        :rtype: twilio.rest.insights.v1.annotation.AnnotationContext
+        """
+        return AnnotationContext(self._version, call_sid=self._solution['call_sid'])
+
+    def __call__(self):
+        """
+        Constructs a AnnotationContext
+        
+        :returns: twilio.rest.insights.v1.annotation.AnnotationContext
+        :rtype: twilio.rest.insights.v1.annotation.AnnotationContext
+        """
+        return AnnotationContext(self._version, call_sid=self._solution['call_sid'])
 
     def __repr__(self):
         """
@@ -78,9 +96,9 @@ class AnnotationContext(InstanceContext):
 
         
     
-    def update(self, body):
+    def update(self, answered_by, connectivity_issue, quality_issues, spam, call_score, comment, incident):
         data = values.of({
-            'body': body,
+            'answered_by': answered_by,'connectivity_issue': connectivity_issue,'quality_issues': quality_issues,'spam': spam,'call_score': call_score,'comment': comment,'incident': incident,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

@@ -38,11 +38,44 @@ class RatePlanList(ListResource):
         # Path Solution
         self._solution = {  }
         self._uri = '/RatePlans'.format(**self._solution)
+        
+        
+    
+    
+    
+    
+    def create(self, unique_name=values.unset, friendly_name=values.unset, data_enabled=values.unset, data_limit=values.unset, data_metering=values.unset, messaging_enabled=values.unset, voice_enabled=values.unset, commands_enabled=values.unset, national_roaming_enabled=values.unset, international_roaming=values.unset):
+        """
+        Create the RatePlanInstance
+         :param str unique_name: 
+         :param str friendly_name: 
+         :param bool data_enabled: 
+         :param int data_limit: 
+         :param str data_metering: 
+         :param bool messaging_enabled: 
+         :param bool voice_enabled: 
+         :param bool commands_enabled: 
+         :param bool national_roaming_enabled: 
+         :param [str] international_roaming: 
+        
+        :returns: The created RatePlanInstance
+        :rtype: twilio.rest.preview.wireless.rate_plan.RatePlanInstance
+        """
+        data = values.of({ 
+            'UniqueName': unique_name,
+            'FriendlyName': friendly_name,
+            'DataEnabled': data_enabled,
+            'DataLimit': data_limit,
+            'DataMetering': data_metering,
+            'MessagingEnabled': messaging_enabled,
+            'VoiceEnabled': voice_enabled,
+            'CommandsEnabled': commands_enabled,
+            'NationalRoamingEnabled': national_roaming_enabled,
+            'InternationalRoaming': serialize.map(international_roaming, lambda e: e),
+        })
 
-
-    
-    
-    
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return RatePlanInstance(self._version, payload)
     
     
     def stream(self, limit=None, page_size=None):
@@ -127,6 +160,28 @@ class RatePlanList(ListResource):
         )
         return RatePlanPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a RatePlanContext
+        
+        :param sid: 
+        
+        :returns: twilio.rest.preview.wireless.rate_plan.RatePlanContext
+        :rtype: twilio.rest.preview.wireless.rate_plan.RatePlanContext
+        """
+        return RatePlanContext(self._version, sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a RatePlanContext
+        
+        :param sid: 
+        
+        :returns: twilio.rest.preview.wireless.rate_plan.RatePlanContext
+        :rtype: twilio.rest.preview.wireless.rate_plan.RatePlanContext
+        """
+        return RatePlanContext(self._version, sid=sid)
 
     def __repr__(self):
         """
@@ -223,9 +278,9 @@ class RatePlanContext(InstanceContext):
 
         
     
-    def update(self, body):
+    def update(self, unique_name, friendly_name):
         data = values.of({
-            'body': body,
+            'unique_name': unique_name,'friendly_name': friendly_name,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

@@ -37,10 +37,28 @@ class VerificationAttemptsSummaryList(ListResource):
 
         # Path Solution
         self._solution = {  }
-        self._uri = ''.format(**self._solution)
-
-
+        
+        
+        
     
+
+    def get(self):
+        """
+        Constructs a VerificationAttemptsSummaryContext
+        
+        :returns: twilio.rest.verify.v2.verification_attempts_summary.VerificationAttemptsSummaryContext
+        :rtype: twilio.rest.verify.v2.verification_attempts_summary.VerificationAttemptsSummaryContext
+        """
+        return VerificationAttemptsSummaryContext(self._version)
+
+    def __call__(self):
+        """
+        Constructs a VerificationAttemptsSummaryContext
+        
+        :returns: twilio.rest.verify.v2.verification_attempts_summary.VerificationAttemptsSummaryContext
+        :rtype: twilio.rest.verify.v2.verification_attempts_summary.VerificationAttemptsSummaryContext
+        """
+        return VerificationAttemptsSummaryContext(self._version)
 
     def __repr__(self):
         """

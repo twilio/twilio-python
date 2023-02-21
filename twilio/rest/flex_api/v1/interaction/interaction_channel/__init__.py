@@ -41,8 +41,8 @@ class InteractionChannelList(ListResource):
         # Path Solution
         self._solution = { 'interaction_sid': interaction_sid,  }
         self._uri = '/Interactions/${interaction_sid}/Channels'.format(**self._solution)
-
-
+        
+        
     
     
     
@@ -129,6 +129,28 @@ class InteractionChannelList(ListResource):
         return InteractionChannelPage(self._version, response, self._solution)
 
 
+    def get(self, sid):
+        """
+        Constructs a InteractionChannelContext
+        
+        :param sid: The unique string created by Twilio to identify an Interaction Channel resource, prefixed with UO.
+        
+        :returns: twilio.rest.flex_api.v1.interaction_channel.InteractionChannelContext
+        :rtype: twilio.rest.flex_api.v1.interaction_channel.InteractionChannelContext
+        """
+        return InteractionChannelContext(self._version, interaction_sid=self._solution['interaction_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a InteractionChannelContext
+        
+        :param sid: The unique string created by Twilio to identify an Interaction Channel resource, prefixed with UO.
+        
+        :returns: twilio.rest.flex_api.v1.interaction_channel.InteractionChannelContext
+        :rtype: twilio.rest.flex_api.v1.interaction_channel.InteractionChannelContext
+        """
+        return InteractionChannelContext(self._version, interaction_sid=self._solution['interaction_sid'], sid=sid)
+
     def __repr__(self):
         """
         Provide a friendly representation
@@ -210,9 +232,9 @@ class InteractionChannelContext(InstanceContext):
 
         
     
-    def update(self, body):
+    def update(self, status, routing):
         data = values.of({
-            'body': body,
+            'status': status,'routing': routing,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

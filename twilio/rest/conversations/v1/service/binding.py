@@ -39,8 +39,8 @@ class BindingList(ListResource):
         # Path Solution
         self._solution = { 'chat_service_sid': chat_service_sid,  }
         self._uri = '/Services/${chat_service_sid}/Bindings'.format(**self._solution)
-
-
+        
+        
     
     
     
@@ -113,7 +113,7 @@ class BindingList(ListResource):
         """
         data = values.of({ 
             'BindingType': binding_type,
-            'Identity': identity,
+            'Identity': serialize.map(identity),
             'PageToken': page_token,
             'Page': page_number,
             'PageSize': page_size,
@@ -138,6 +138,28 @@ class BindingList(ListResource):
         )
         return BindingPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a BindingContext
+        
+        :param sid: A 34 character string that uniquely identifies this resource.
+        
+        :returns: twilio.rest.conversations.v1.binding.BindingContext
+        :rtype: twilio.rest.conversations.v1.binding.BindingContext
+        """
+        return BindingContext(self._version, chat_service_sid=self._solution['chat_service_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a BindingContext
+        
+        :param sid: A 34 character string that uniquely identifies this resource.
+        
+        :returns: twilio.rest.conversations.v1.binding.BindingContext
+        :rtype: twilio.rest.conversations.v1.binding.BindingContext
+        """
+        return BindingContext(self._version, chat_service_sid=self._solution['chat_service_sid'], sid=sid)
 
     def __repr__(self):
         """

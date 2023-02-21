@@ -40,9 +40,25 @@ class FeedbackList(ListResource):
         # Path Solution
         self._solution = { 'account_sid': account_sid, 'message_sid': message_sid,  }
         self._uri = '/Accounts/${account_sid}/Messages/${message_sid}/Feedback.json'.format(**self._solution)
-
-
+        
+        
     
+    def create(self, outcome=values.unset):
+        """
+        Create the FeedbackInstance
+         :param MessageFeedbackOutcome outcome: 
+        
+        :returns: The created FeedbackInstance
+        :rtype: twilio.rest.api.v2010.feedback.FeedbackInstance
+        """
+        data = values.of({ 
+            'Outcome': outcome,
+        })
+
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return FeedbackInstance(self._version, payload, account_sid=self._solution['account_sid'], message_sid=self._solution['message_sid'])
+    
+
 
     def __repr__(self):
         """

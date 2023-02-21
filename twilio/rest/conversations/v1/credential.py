@@ -38,11 +38,38 @@ class CredentialList(ListResource):
         # Path Solution
         self._solution = {  }
         self._uri = '/Credentials'.format(**self._solution)
+        
+        
+    
+    
+    
+    
+    def create(self, type, friendly_name=values.unset, certificate=values.unset, private_key=values.unset, sandbox=values.unset, api_key=values.unset, secret=values.unset):
+        """
+        Create the CredentialInstance
+         :param CredentialPushType type: 
+         :param str friendly_name: A descriptive string that you create to describe the new resource. It can be up to 64 characters long.
+         :param str certificate: [APN only] The URL encoded representation of the certificate. For example,  `-----BEGIN CERTIFICATE----- MIIFnTCCBIWgAwIBAgIIAjy9H849+E8wDQYJKoZIhvcNAQEF.....A== -----END CERTIFICATE-----`.
+         :param str private_key: [APN only] The URL encoded representation of the private key. For example, `-----BEGIN RSA PRIVATE KEY----- MIIEpQIBAAKCAQEAuyf/lNrH9ck8DmNyo3fG... -----END RSA PRIVATE KEY-----`.
+         :param bool sandbox: [APN only] Whether to send the credential to sandbox APNs. Can be `true` to send to sandbox APNs or `false` to send to production.
+         :param str api_key: [GCM only] The API key for the project that was obtained from the Google Developer console for your GCM Service application credential.
+         :param str secret: [FCM only] The **Server key** of your project from the Firebase console, found under Settings / Cloud messaging.
+        
+        :returns: The created CredentialInstance
+        :rtype: twilio.rest.conversations.v1.credential.CredentialInstance
+        """
+        data = values.of({ 
+            'Type': type,
+            'FriendlyName': friendly_name,
+            'Certificate': certificate,
+            'PrivateKey': private_key,
+            'Sandbox': sandbox,
+            'ApiKey': api_key,
+            'Secret': secret,
+        })
 
-
-    
-    
-    
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return CredentialInstance(self._version, payload)
     
     
     def stream(self, limit=None, page_size=None):
@@ -127,6 +154,28 @@ class CredentialList(ListResource):
         )
         return CredentialPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a CredentialContext
+        
+        :param sid: A 34 character string that uniquely identifies this resource.
+        
+        :returns: twilio.rest.conversations.v1.credential.CredentialContext
+        :rtype: twilio.rest.conversations.v1.credential.CredentialContext
+        """
+        return CredentialContext(self._version, sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a CredentialContext
+        
+        :param sid: A 34 character string that uniquely identifies this resource.
+        
+        :returns: twilio.rest.conversations.v1.credential.CredentialContext
+        :rtype: twilio.rest.conversations.v1.credential.CredentialContext
+        """
+        return CredentialContext(self._version, sid=sid)
 
     def __repr__(self):
         """
@@ -223,9 +272,9 @@ class CredentialContext(InstanceContext):
 
         
     
-    def update(self, body):
+    def update(self, type, friendly_name, certificate, private_key, sandbox, api_key, secret):
         data = values.of({
-            'body': body,
+            'type': type,'friendly_name': friendly_name,'certificate': certificate,'private_key': private_key,'sandbox': sandbox,'api_key': api_key,'secret': secret,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

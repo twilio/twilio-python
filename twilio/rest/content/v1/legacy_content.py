@@ -38,8 +38,8 @@ class LegacyContentList(ListResource):
         # Path Solution
         self._solution = {  }
         self._uri = '/LegacyContent'.format(**self._solution)
-
-
+        
+        
     
     def stream(self, limit=None, page_size=None):
         """
@@ -122,6 +122,7 @@ class LegacyContentList(ListResource):
             target_url
         )
         return LegacyContentPage(self._version, response, self._solution)
+
 
 
     def __repr__(self):

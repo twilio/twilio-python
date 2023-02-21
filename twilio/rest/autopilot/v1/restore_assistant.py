@@ -38,9 +38,10 @@ class RestoreAssistantList(ListResource):
         # Path Solution
         self._solution = {  }
         self._uri = '/Assistants/Restore'.format(**self._solution)
-
-
+        
+        
     
+
 
     def __repr__(self):
         """

@@ -40,8 +40,8 @@ class SyncListPermissionList(ListResource):
         # Path Solution
         self._solution = { 'service_sid': service_sid, 'list_sid': list_sid,  }
         self._uri = '/Services/${service_sid}/Lists/${list_sid}/Permissions'.format(**self._solution)
-
-
+        
+        
     
     
     
@@ -128,6 +128,28 @@ class SyncListPermissionList(ListResource):
         )
         return SyncListPermissionPage(self._version, response, self._solution)
 
+
+    def get(self, identity):
+        """
+        Constructs a SyncListPermissionContext
+        
+        :param identity: Arbitrary string identifier representing a human user associated with an FPA token, assigned by the developer.
+        
+        :returns: twilio.rest.preview.sync.sync_list_permission.SyncListPermissionContext
+        :rtype: twilio.rest.preview.sync.sync_list_permission.SyncListPermissionContext
+        """
+        return SyncListPermissionContext(self._version, service_sid=self._solution['service_sid'], list_sid=self._solution['list_sid'], identity=identity)
+
+    def __call__(self, identity):
+        """
+        Constructs a SyncListPermissionContext
+        
+        :param identity: Arbitrary string identifier representing a human user associated with an FPA token, assigned by the developer.
+        
+        :returns: twilio.rest.preview.sync.sync_list_permission.SyncListPermissionContext
+        :rtype: twilio.rest.preview.sync.sync_list_permission.SyncListPermissionContext
+        """
+        return SyncListPermissionContext(self._version, service_sid=self._solution['service_sid'], list_sid=self._solution['list_sid'], identity=identity)
 
     def __repr__(self):
         """
@@ -222,9 +244,9 @@ class SyncListPermissionContext(InstanceContext):
 
         
     
-    def update(self, body):
+    def update(self, read, write, manage):
         data = values.of({
-            'body': body,
+            'read': read,'write': write,'manage': manage,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

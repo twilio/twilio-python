@@ -38,10 +38,27 @@ class AccountConfigList(ListResource):
         # Path Solution
         self._solution = {  }
         self._uri = '/Configs'.format(**self._solution)
-
-
+        
+        
     
     
+    
+    def create(self, key, value):
+        """
+        Create the AccountConfigInstance
+         :param str key: The config key; up to 100 characters.
+         :param str value: The config value;  up to 4096 characters.
+        
+        :returns: The created AccountConfigInstance
+        :rtype: twilio.rest.microvisor.v1.account_config.AccountConfigInstance
+        """
+        data = values.of({ 
+            'Key': key,
+            'Value': value,
+        })
+
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return AccountConfigInstance(self._version, payload)
     
     
     def stream(self, limit=None, page_size=None):
@@ -126,6 +143,28 @@ class AccountConfigList(ListResource):
         )
         return AccountConfigPage(self._version, response, self._solution)
 
+
+    def get(self, key):
+        """
+        Constructs a AccountConfigContext
+        
+        :param key: The config key; up to 100 characters.
+        
+        :returns: twilio.rest.microvisor.v1.account_config.AccountConfigContext
+        :rtype: twilio.rest.microvisor.v1.account_config.AccountConfigContext
+        """
+        return AccountConfigContext(self._version, key=key)
+
+    def __call__(self, key):
+        """
+        Constructs a AccountConfigContext
+        
+        :param key: The config key; up to 100 characters.
+        
+        :returns: twilio.rest.microvisor.v1.account_config.AccountConfigContext
+        :rtype: twilio.rest.microvisor.v1.account_config.AccountConfigContext
+        """
+        return AccountConfigContext(self._version, key=key)
 
     def __repr__(self):
         """

@@ -41,10 +41,29 @@ class EngagementList(ListResource):
         # Path Solution
         self._solution = { 'flow_sid': flow_sid,  }
         self._uri = '/Flows/${flow_sid}/Engagements'.format(**self._solution)
-
-
+        
+        
     
     
+    
+    def create(self, to, from_, parameters=values.unset):
+        """
+        Create the EngagementInstance
+         :param str to: The Contact phone number to start a Studio Flow Engagement, available as variable `{{contact.channel.address}}`.
+         :param str from_: The Twilio phone number to send messages or initiate calls from during the Flow Engagement. Available as variable `{{flow.channel.address}}`
+         :param bool, date, datetime, dict, float, int, list, str, none_type parameters: A JSON string we will add to your flow's context and that you can access as variables inside your flow. For example, if you pass in `Parameters={'name':'Zeke'}` then inside a widget you can reference the variable `{{flow.data.name}}` which will return the string 'Zeke'. Note: the JSON value must explicitly be passed as a string, not as a hash object. Depending on your particular HTTP library, you may need to add quotes or URL encode your JSON string.
+        
+        :returns: The created EngagementInstance
+        :rtype: twilio.rest.studio.v1.engagement.EngagementInstance
+        """
+        data = values.of({ 
+            'To': to,
+            'From': from_,
+            'Parameters': parameters,
+        })
+
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return EngagementInstance(self._version, payload, flow_sid=self._solution['flow_sid'])
     
     
     def stream(self, limit=None, page_size=None):
@@ -129,6 +148,28 @@ class EngagementList(ListResource):
         )
         return EngagementPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a EngagementContext
+        
+        :param sid: The SID of the Engagement resource to fetch.
+        
+        :returns: twilio.rest.studio.v1.engagement.EngagementContext
+        :rtype: twilio.rest.studio.v1.engagement.EngagementContext
+        """
+        return EngagementContext(self._version, flow_sid=self._solution['flow_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a EngagementContext
+        
+        :param sid: The SID of the Engagement resource to fetch.
+        
+        :returns: twilio.rest.studio.v1.engagement.EngagementContext
+        :rtype: twilio.rest.studio.v1.engagement.EngagementContext
+        """
+        return EngagementContext(self._version, flow_sid=self._solution['flow_sid'], sid=sid)
 
     def __repr__(self):
         """

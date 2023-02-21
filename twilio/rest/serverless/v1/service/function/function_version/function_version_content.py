@@ -40,10 +40,28 @@ class FunctionVersionContentList(ListResource):
 
         # Path Solution
         self._solution = { 'service_sid': service_sid, 'function_sid': function_sid, 'sid': sid,  }
-        self._uri = ''.format(**self._solution)
-
-
+        
+        
+        
     
+
+    def get(self):
+        """
+        Constructs a FunctionVersionContentContext
+        
+        :returns: twilio.rest.serverless.v1.function_version_content.FunctionVersionContentContext
+        :rtype: twilio.rest.serverless.v1.function_version_content.FunctionVersionContentContext
+        """
+        return FunctionVersionContentContext(self._version, service_sid=self._solution['service_sid'], function_sid=self._solution['function_sid'], sid=self._solution['sid'])
+
+    def __call__(self):
+        """
+        Constructs a FunctionVersionContentContext
+        
+        :returns: twilio.rest.serverless.v1.function_version_content.FunctionVersionContentContext
+        :rtype: twilio.rest.serverless.v1.function_version_content.FunctionVersionContentContext
+        """
+        return FunctionVersionContentContext(self._version, service_sid=self._solution['service_sid'], function_sid=self._solution['function_sid'], sid=self._solution['sid'])
 
     def __repr__(self):
         """

@@ -39,10 +39,25 @@ class CredentialListList(ListResource):
         # Path Solution
         self._solution = { 'trunk_sid': trunk_sid,  }
         self._uri = '/Trunks/${trunk_sid}/CredentialLists'.format(**self._solution)
-
-
+        
+        
     
     
+    
+    def create(self, credential_list_sid):
+        """
+        Create the CredentialListInstance
+         :param str credential_list_sid: The SID of the [Credential List](https://www.twilio.com/docs/voice/sip/api/sip-credentiallist-resource) that you want to associate with the trunk. Once associated, we will authenticate access to the trunk against this list.
+        
+        :returns: The created CredentialListInstance
+        :rtype: twilio.rest.trunking.v1.credential_list.CredentialListInstance
+        """
+        data = values.of({ 
+            'CredentialListSid': credential_list_sid,
+        })
+
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return CredentialListInstance(self._version, payload, trunk_sid=self._solution['trunk_sid'])
     
     
     def stream(self, limit=None, page_size=None):
@@ -127,6 +142,28 @@ class CredentialListList(ListResource):
         )
         return CredentialListPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a CredentialListContext
+        
+        :param sid: The unique string that we created to identify the CredentialList resource to fetch.
+        
+        :returns: twilio.rest.trunking.v1.credential_list.CredentialListContext
+        :rtype: twilio.rest.trunking.v1.credential_list.CredentialListContext
+        """
+        return CredentialListContext(self._version, trunk_sid=self._solution['trunk_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a CredentialListContext
+        
+        :param sid: The unique string that we created to identify the CredentialList resource to fetch.
+        
+        :returns: twilio.rest.trunking.v1.credential_list.CredentialListContext
+        :rtype: twilio.rest.trunking.v1.credential_list.CredentialListContext
+        """
+        return CredentialListContext(self._version, trunk_sid=self._solution['trunk_sid'], sid=sid)
 
     def __repr__(self):
         """

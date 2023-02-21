@@ -43,8 +43,8 @@ class ParticipantList(ListResource):
         # Path Solution
         self._solution = { 'room_sid': room_sid,  }
         self._uri = '/Rooms/${room_sid}/Participants'.format(**self._solution)
-
-
+        
+        
     
     
     
@@ -128,8 +128,8 @@ class ParticipantList(ListResource):
         data = values.of({ 
             'Status': status,
             'Identity': identity,
-            'DateCreatedAfter': date_created_after,
-            'DateCreatedBefore': date_created_before,
+            'DateCreatedAfter': serialize.iso8601_datetime(date_created_after),
+            'DateCreatedBefore': serialize.iso8601_datetime(date_created_before),
             'PageToken': page_token,
             'Page': page_number,
             'PageSize': page_size,
@@ -154,6 +154,28 @@ class ParticipantList(ListResource):
         )
         return ParticipantPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a ParticipantContext
+        
+        :param sid: The SID of the RoomParticipant resource to update.
+        
+        :returns: twilio.rest.video.v1.participant.ParticipantContext
+        :rtype: twilio.rest.video.v1.participant.ParticipantContext
+        """
+        return ParticipantContext(self._version, room_sid=self._solution['room_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a ParticipantContext
+        
+        :param sid: The SID of the RoomParticipant resource to update.
+        
+        :returns: twilio.rest.video.v1.participant.ParticipantContext
+        :rtype: twilio.rest.video.v1.participant.ParticipantContext
+        """
+        return ParticipantContext(self._version, room_sid=self._solution['room_sid'], sid=sid)
 
     def __repr__(self):
         """
@@ -238,9 +260,9 @@ class ParticipantContext(InstanceContext):
 
         
     
-    def update(self, body):
+    def update(self, status):
         data = values.of({
-            'body': body,
+            'status': status,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

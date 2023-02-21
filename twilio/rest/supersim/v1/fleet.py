@@ -38,10 +38,41 @@ class FleetList(ListResource):
         # Path Solution
         self._solution = {  }
         self._uri = '/Fleets'.format(**self._solution)
-
-
+        
+        
     
     
+    
+    def create(self, network_access_profile, unique_name=values.unset, data_enabled=values.unset, data_limit=values.unset, ip_commands_url=values.unset, ip_commands_method=values.unset, sms_commands_enabled=values.unset, sms_commands_url=values.unset, sms_commands_method=values.unset):
+        """
+        Create the FleetInstance
+         :param str network_access_profile: The SID or unique name of the Network Access Profile that will control which cellular networks the Fleet's SIMs can connect to.
+         :param str unique_name: An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
+         :param bool data_enabled: Defines whether SIMs in the Fleet are capable of using 2G/3G/4G/LTE/CAT-M data connectivity. Defaults to `true`.
+         :param int data_limit: The total data usage (download and upload combined) in Megabytes that each Super SIM assigned to the Fleet can consume during a billing period (normally one month). Value must be between 1MB (1) and 2TB (2,000,000). Defaults to 1GB (1,000).
+         :param str ip_commands_url: The URL that will receive a webhook when a Super SIM in the Fleet is used to send an IP Command from your device to a special IP address. Your server should respond with an HTTP status code in the 200 range; any response body will be ignored.
+         :param str ip_commands_method: A string representing the HTTP method to use when making a request to `ip_commands_url`. Can be one of `POST` or `GET`. Defaults to `POST`.
+         :param bool sms_commands_enabled: Defines whether SIMs in the Fleet are capable of sending and receiving machine-to-machine SMS via Commands. Defaults to `true`.
+         :param str sms_commands_url: The URL that will receive a webhook when a Super SIM in the Fleet is used to send an SMS from your device to the SMS Commands number. Your server should respond with an HTTP status code in the 200 range; any response body will be ignored.
+         :param str sms_commands_method: A string representing the HTTP method to use when making a request to `sms_commands_url`. Can be one of `POST` or `GET`. Defaults to `POST`.
+        
+        :returns: The created FleetInstance
+        :rtype: twilio.rest.supersim.v1.fleet.FleetInstance
+        """
+        data = values.of({ 
+            'NetworkAccessProfile': network_access_profile,
+            'UniqueName': unique_name,
+            'DataEnabled': data_enabled,
+            'DataLimit': data_limit,
+            'IpCommandsUrl': ip_commands_url,
+            'IpCommandsMethod': ip_commands_method,
+            'SmsCommandsEnabled': sms_commands_enabled,
+            'SmsCommandsUrl': sms_commands_url,
+            'SmsCommandsMethod': sms_commands_method,
+        })
+
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return FleetInstance(self._version, payload)
     
     
     def stream(self, network_access_profile=values.unset, limit=None, page_size=None):
@@ -133,6 +164,28 @@ class FleetList(ListResource):
         return FleetPage(self._version, response, self._solution)
 
 
+    def get(self, sid):
+        """
+        Constructs a FleetContext
+        
+        :param sid: The SID of the Fleet resource to update.
+        
+        :returns: twilio.rest.supersim.v1.fleet.FleetContext
+        :rtype: twilio.rest.supersim.v1.fleet.FleetContext
+        """
+        return FleetContext(self._version, sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a FleetContext
+        
+        :param sid: The SID of the Fleet resource to update.
+        
+        :returns: twilio.rest.supersim.v1.fleet.FleetContext
+        :rtype: twilio.rest.supersim.v1.fleet.FleetContext
+        """
+        return FleetContext(self._version, sid=sid)
+
     def __repr__(self):
         """
         Provide a friendly representation
@@ -214,9 +267,9 @@ class FleetContext(InstanceContext):
 
         
     
-    def update(self, body):
+    def update(self, unique_name, network_access_profile, ip_commands_url, ip_commands_method, sms_commands_url, sms_commands_method, data_limit):
         data = values.of({
-            'body': body,
+            'unique_name': unique_name,'network_access_profile': network_access_profile,'ip_commands_url': ip_commands_url,'ip_commands_method': ip_commands_method,'sms_commands_url': sms_commands_url,'sms_commands_method': sms_commands_method,'data_limit': data_limit,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

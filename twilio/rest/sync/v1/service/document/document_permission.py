@@ -40,8 +40,8 @@ class DocumentPermissionList(ListResource):
         # Path Solution
         self._solution = { 'service_sid': service_sid, 'document_sid': document_sid,  }
         self._uri = '/Services/${service_sid}/Documents/${document_sid}/Permissions'.format(**self._solution)
-
-
+        
+        
     
     
     
@@ -128,6 +128,28 @@ class DocumentPermissionList(ListResource):
         )
         return DocumentPermissionPage(self._version, response, self._solution)
 
+
+    def get(self, identity):
+        """
+        Constructs a DocumentPermissionContext
+        
+        :param identity: The application-defined string that uniquely identifies the User's Document Permission resource to update.
+        
+        :returns: twilio.rest.sync.v1.document_permission.DocumentPermissionContext
+        :rtype: twilio.rest.sync.v1.document_permission.DocumentPermissionContext
+        """
+        return DocumentPermissionContext(self._version, service_sid=self._solution['service_sid'], document_sid=self._solution['document_sid'], identity=identity)
+
+    def __call__(self, identity):
+        """
+        Constructs a DocumentPermissionContext
+        
+        :param identity: The application-defined string that uniquely identifies the User's Document Permission resource to update.
+        
+        :returns: twilio.rest.sync.v1.document_permission.DocumentPermissionContext
+        :rtype: twilio.rest.sync.v1.document_permission.DocumentPermissionContext
+        """
+        return DocumentPermissionContext(self._version, service_sid=self._solution['service_sid'], document_sid=self._solution['document_sid'], identity=identity)
 
     def __repr__(self):
         """
@@ -222,9 +244,9 @@ class DocumentPermissionContext(InstanceContext):
 
         
     
-    def update(self, body):
+    def update(self, read, write, manage):
         data = values.of({
-            'body': body,
+            'read': read,'write': write,'manage': manage,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

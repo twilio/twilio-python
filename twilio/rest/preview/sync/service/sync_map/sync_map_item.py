@@ -40,11 +40,28 @@ class SyncMapItemList(ListResource):
         # Path Solution
         self._solution = { 'service_sid': service_sid, 'map_sid': map_sid,  }
         self._uri = '/Services/${service_sid}/Maps/${map_sid}/Items'.format(**self._solution)
+        
+        
+    
+    
+    
+    
+    def create(self, key, data):
+        """
+        Create the SyncMapItemInstance
+         :param str key: 
+         :param bool, date, datetime, dict, float, int, list, str, none_type data: 
+        
+        :returns: The created SyncMapItemInstance
+        :rtype: twilio.rest.preview.sync.sync_map_item.SyncMapItemInstance
+        """
+        data = values.of({ 
+            'Key': key,
+            'Data': data,
+        })
 
-
-    
-    
-    
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return SyncMapItemInstance(self._version, payload, service_sid=self._solution['service_sid'], map_sid=self._solution['map_sid'])
     
     
     def stream(self, order=values.unset, from_=values.unset, bounds=values.unset, limit=None, page_size=None):
@@ -148,6 +165,28 @@ class SyncMapItemList(ListResource):
         return SyncMapItemPage(self._version, response, self._solution)
 
 
+    def get(self, key):
+        """
+        Constructs a SyncMapItemContext
+        
+        :param key: 
+        
+        :returns: twilio.rest.preview.sync.sync_map_item.SyncMapItemContext
+        :rtype: twilio.rest.preview.sync.sync_map_item.SyncMapItemContext
+        """
+        return SyncMapItemContext(self._version, service_sid=self._solution['service_sid'], map_sid=self._solution['map_sid'], key=key)
+
+    def __call__(self, key):
+        """
+        Constructs a SyncMapItemContext
+        
+        :param key: 
+        
+        :returns: twilio.rest.preview.sync.sync_map_item.SyncMapItemContext
+        :rtype: twilio.rest.preview.sync.sync_map_item.SyncMapItemContext
+        """
+        return SyncMapItemContext(self._version, service_sid=self._solution['service_sid'], map_sid=self._solution['map_sid'], key=key)
+
     def __repr__(self):
         """
         Provide a friendly representation
@@ -243,9 +282,9 @@ class SyncMapItemContext(InstanceContext):
 
         
     
-    def update(self, if_match, body):
+    def update(self, data):
         data = values.of({
-            'if_match': if_match,'body': body,
+            'data': data,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

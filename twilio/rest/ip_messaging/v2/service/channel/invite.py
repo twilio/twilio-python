@@ -40,10 +40,27 @@ class InviteList(ListResource):
         # Path Solution
         self._solution = { 'service_sid': service_sid, 'channel_sid': channel_sid,  }
         self._uri = '/Services/${service_sid}/Channels/${channel_sid}/Invites'.format(**self._solution)
-
-
+        
+        
     
     
+    
+    def create(self, identity, role_sid=values.unset):
+        """
+        Create the InviteInstance
+         :param str identity: 
+         :param str role_sid: 
+        
+        :returns: The created InviteInstance
+        :rtype: twilio.rest.ip_messaging.v2.invite.InviteInstance
+        """
+        data = values.of({ 
+            'Identity': identity,
+            'RoleSid': role_sid,
+        })
+
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return InviteInstance(self._version, payload, service_sid=self._solution['service_sid'], channel_sid=self._solution['channel_sid'])
     
     
     def stream(self, identity=values.unset, limit=None, page_size=None):
@@ -109,7 +126,7 @@ class InviteList(ListResource):
         :rtype: twilio.rest.ip_messaging.v2.invite.InvitePage
         """
         data = values.of({ 
-            'Identity': identity,
+            'Identity': serialize.map(identity),
             'PageToken': page_token,
             'Page': page_number,
             'PageSize': page_size,
@@ -134,6 +151,28 @@ class InviteList(ListResource):
         )
         return InvitePage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a InviteContext
+        
+        :param sid: 
+        
+        :returns: twilio.rest.ip_messaging.v2.invite.InviteContext
+        :rtype: twilio.rest.ip_messaging.v2.invite.InviteContext
+        """
+        return InviteContext(self._version, service_sid=self._solution['service_sid'], channel_sid=self._solution['channel_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a InviteContext
+        
+        :param sid: 
+        
+        :returns: twilio.rest.ip_messaging.v2.invite.InviteContext
+        :rtype: twilio.rest.ip_messaging.v2.invite.InviteContext
+        """
+        return InviteContext(self._version, service_sid=self._solution['service_sid'], channel_sid=self._solution['channel_sid'], sid=sid)
 
     def __repr__(self):
         """

@@ -41,11 +41,26 @@ class ServiceList(ListResource):
         # Path Solution
         self._solution = {  }
         self._uri = '/Services'.format(**self._solution)
+        
+        
+    
+    
+    
+    
+    def create(self, friendly_name):
+        """
+        Create the ServiceInstance
+         :param str friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+        
+        :returns: The created ServiceInstance
+        :rtype: twilio.rest.chat.v1.service.ServiceInstance
+        """
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+        })
 
-
-    
-    
-    
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return ServiceInstance(self._version, payload)
     
     
     def stream(self, limit=None, page_size=None):
@@ -130,6 +145,28 @@ class ServiceList(ListResource):
         )
         return ServicePage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a ServiceContext
+        
+        :param sid: The Twilio-provided string that uniquely identifies the Service resource to update.
+        
+        :returns: twilio.rest.chat.v1.service.ServiceContext
+        :rtype: twilio.rest.chat.v1.service.ServiceContext
+        """
+        return ServiceContext(self._version, sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a ServiceContext
+        
+        :param sid: The Twilio-provided string that uniquely identifies the Service resource to update.
+        
+        :returns: twilio.rest.chat.v1.service.ServiceContext
+        :rtype: twilio.rest.chat.v1.service.ServiceContext
+        """
+        return ServiceContext(self._version, sid=sid)
 
     def __repr__(self):
         """
@@ -229,9 +266,9 @@ class ServiceContext(InstanceContext):
 
         
     
-    def update(self, body):
+    def update(self, friendly_name, default_service_role_sid, default_channel_role_sid, default_channel_creator_role_sid, read_status_enabled, reachability_enabled, typing_indicator_timeout, consumption_report_interval, notifications_new_message_enabled, notifications_new_message_template, notifications_added_to_channel_enabled, notifications_added_to_channel_template, notifications_removed_from_channel_enabled, notifications_removed_from_channel_template, notifications_invited_to_channel_enabled, notifications_invited_to_channel_template, pre_webhook_url, post_webhook_url, webhook_method, webhook_filters, webhooks_on_message_send_url, webhooks_on_message_send_method, webhooks_on_message_update_url, webhooks_on_message_update_method, webhooks_on_message_remove_url, webhooks_on_message_remove_method, webhooks_on_channel_add_url, webhooks_on_channel_add_method, webhooks_on_channel_destroy_url, webhooks_on_channel_destroy_method, webhooks_on_channel_update_url, webhooks_on_channel_update_method, webhooks_on_member_add_url, webhooks_on_member_add_method, webhooks_on_member_remove_url, webhooks_on_member_remove_method, webhooks_on_message_sent_url, webhooks_on_message_sent_method, webhooks_on_message_updated_url, webhooks_on_message_updated_method, webhooks_on_message_removed_url, webhooks_on_message_removed_method, webhooks_on_channel_added_url, webhooks_on_channel_added_method, webhooks_on_channel_destroyed_url, webhooks_on_channel_destroyed_method, webhooks_on_channel_updated_url, webhooks_on_channel_updated_method, webhooks_on_member_added_url, webhooks_on_member_added_method, webhooks_on_member_removed_url, webhooks_on_member_removed_method, limits_channel_members, limits_user_channels):
         data = values.of({
-            'body': body,
+            'friendly_name': friendly_name,'default_service_role_sid': default_service_role_sid,'default_channel_role_sid': default_channel_role_sid,'default_channel_creator_role_sid': default_channel_creator_role_sid,'read_status_enabled': read_status_enabled,'reachability_enabled': reachability_enabled,'typing_indicator_timeout': typing_indicator_timeout,'consumption_report_interval': consumption_report_interval,'notifications_new_message_enabled': notifications_new_message_enabled,'notifications_new_message_template': notifications_new_message_template,'notifications_added_to_channel_enabled': notifications_added_to_channel_enabled,'notifications_added_to_channel_template': notifications_added_to_channel_template,'notifications_removed_from_channel_enabled': notifications_removed_from_channel_enabled,'notifications_removed_from_channel_template': notifications_removed_from_channel_template,'notifications_invited_to_channel_enabled': notifications_invited_to_channel_enabled,'notifications_invited_to_channel_template': notifications_invited_to_channel_template,'pre_webhook_url': pre_webhook_url,'post_webhook_url': post_webhook_url,'webhook_method': webhook_method,'webhook_filters': webhook_filters,'webhooks_on_message_send_url': webhooks_on_message_send_url,'webhooks_on_message_send_method': webhooks_on_message_send_method,'webhooks_on_message_update_url': webhooks_on_message_update_url,'webhooks_on_message_update_method': webhooks_on_message_update_method,'webhooks_on_message_remove_url': webhooks_on_message_remove_url,'webhooks_on_message_remove_method': webhooks_on_message_remove_method,'webhooks_on_channel_add_url': webhooks_on_channel_add_url,'webhooks_on_channel_add_method': webhooks_on_channel_add_method,'webhooks_on_channel_destroy_url': webhooks_on_channel_destroy_url,'webhooks_on_channel_destroy_method': webhooks_on_channel_destroy_method,'webhooks_on_channel_update_url': webhooks_on_channel_update_url,'webhooks_on_channel_update_method': webhooks_on_channel_update_method,'webhooks_on_member_add_url': webhooks_on_member_add_url,'webhooks_on_member_add_method': webhooks_on_member_add_method,'webhooks_on_member_remove_url': webhooks_on_member_remove_url,'webhooks_on_member_remove_method': webhooks_on_member_remove_method,'webhooks_on_message_sent_url': webhooks_on_message_sent_url,'webhooks_on_message_sent_method': webhooks_on_message_sent_method,'webhooks_on_message_updated_url': webhooks_on_message_updated_url,'webhooks_on_message_updated_method': webhooks_on_message_updated_method,'webhooks_on_message_removed_url': webhooks_on_message_removed_url,'webhooks_on_message_removed_method': webhooks_on_message_removed_method,'webhooks_on_channel_added_url': webhooks_on_channel_added_url,'webhooks_on_channel_added_method': webhooks_on_channel_added_method,'webhooks_on_channel_destroyed_url': webhooks_on_channel_destroyed_url,'webhooks_on_channel_destroyed_method': webhooks_on_channel_destroyed_method,'webhooks_on_channel_updated_url': webhooks_on_channel_updated_url,'webhooks_on_channel_updated_method': webhooks_on_channel_updated_method,'webhooks_on_member_added_url': webhooks_on_member_added_url,'webhooks_on_member_added_method': webhooks_on_member_added_method,'webhooks_on_member_removed_url': webhooks_on_member_removed_url,'webhooks_on_member_removed_method': webhooks_on_member_removed_method,'limits_channel_members': limits_channel_members,'limits_user_channels': limits_user_channels,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

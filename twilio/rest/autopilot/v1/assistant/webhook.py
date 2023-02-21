@@ -39,11 +39,32 @@ class WebhookList(ListResource):
         # Path Solution
         self._solution = { 'assistant_sid': assistant_sid,  }
         self._uri = '/Assistants/${assistant_sid}/Webhooks'.format(**self._solution)
+        
+        
+    
+    
+    
+    
+    def create(self, unique_name, events, webhook_url, webhook_method=values.unset):
+        """
+        Create the WebhookInstance
+         :param str unique_name: An application-defined string that uniquely identifies the new resource. It can be used as an alternative to the `sid` in the URL path to address the resource. This value must be unique and 64 characters or less in length.
+         :param str events: The list of space-separated events that this Webhook will subscribe to.
+         :param str webhook_url: The URL associated with this Webhook.
+         :param str webhook_method: The method to be used when calling the webhook's URL.
+        
+        :returns: The created WebhookInstance
+        :rtype: twilio.rest.autopilot.v1.webhook.WebhookInstance
+        """
+        data = values.of({ 
+            'UniqueName': unique_name,
+            'Events': events,
+            'WebhookUrl': webhook_url,
+            'WebhookMethod': webhook_method,
+        })
 
-
-    
-    
-    
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return WebhookInstance(self._version, payload, assistant_sid=self._solution['assistant_sid'])
     
     
     def stream(self, limit=None, page_size=None):
@@ -128,6 +149,28 @@ class WebhookList(ListResource):
         )
         return WebhookPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a WebhookContext
+        
+        :param sid: The Twilio-provided string that uniquely identifies the Webhook resource to update.
+        
+        :returns: twilio.rest.autopilot.v1.webhook.WebhookContext
+        :rtype: twilio.rest.autopilot.v1.webhook.WebhookContext
+        """
+        return WebhookContext(self._version, assistant_sid=self._solution['assistant_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a WebhookContext
+        
+        :param sid: The Twilio-provided string that uniquely identifies the Webhook resource to update.
+        
+        :returns: twilio.rest.autopilot.v1.webhook.WebhookContext
+        :rtype: twilio.rest.autopilot.v1.webhook.WebhookContext
+        """
+        return WebhookContext(self._version, assistant_sid=self._solution['assistant_sid'], sid=sid)
 
     def __repr__(self):
         """
@@ -224,9 +267,9 @@ class WebhookContext(InstanceContext):
 
         
     
-    def update(self, body):
+    def update(self, unique_name, events, webhook_url, webhook_method):
         data = values.of({
-            'body': body,
+            'unique_name': unique_name,'events': events,'webhook_url': webhook_url,'webhook_method': webhook_method,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

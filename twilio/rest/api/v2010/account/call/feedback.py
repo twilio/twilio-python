@@ -39,11 +39,29 @@ class FeedbackList(ListResource):
 
         # Path Solution
         self._solution = { 'account_sid': account_sid, 'call_sid': call_sid,  }
-        self._uri = ''.format(**self._solution)
-
-
+        
+        
+        
     
     
+
+    def get(self):
+        """
+        Constructs a FeedbackContext
+        
+        :returns: twilio.rest.api.v2010.feedback.FeedbackContext
+        :rtype: twilio.rest.api.v2010.feedback.FeedbackContext
+        """
+        return FeedbackContext(self._version, account_sid=self._solution['account_sid'], call_sid=self._solution['call_sid'])
+
+    def __call__(self):
+        """
+        Constructs a FeedbackContext
+        
+        :returns: twilio.rest.api.v2010.feedback.FeedbackContext
+        :rtype: twilio.rest.api.v2010.feedback.FeedbackContext
+        """
+        return FeedbackContext(self._version, account_sid=self._solution['account_sid'], call_sid=self._solution['call_sid'])
 
     def __repr__(self):
         """
@@ -79,9 +97,9 @@ class FeedbackContext(InstanceContext):
 
         
     
-    def update(self, body):
+    def update(self, quality_score, issue):
         data = values.of({
-            'body': body,
+            'quality_score': quality_score,'issue': issue,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

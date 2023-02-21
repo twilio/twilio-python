@@ -40,11 +40,11 @@ class ConfigurationList(ListResource):
 
         # Path Solution
         self._solution = { 'chat_service_sid': chat_service_sid,  }
-        self._uri = ''.format(**self._solution)
-
+        
+        
         self._notifications = None
         self._webhooks = None
-
+        
     
     
 
@@ -59,7 +59,6 @@ class ConfigurationList(ListResource):
         if self._notifications is None:
             self._notifications = NotificationList(self._version, chat_service_sid=self._solution['chat_service_sid'])
         return self.notifications
-
     @property
     def webhooks(self):
         """
@@ -71,6 +70,23 @@ class ConfigurationList(ListResource):
         if self._webhooks is None:
             self._webhooks = WebhookList(self._version, chat_service_sid=self._solution['chat_service_sid'])
         return self.webhooks
+    def get(self):
+        """
+        Constructs a ConfigurationContext
+        
+        :returns: twilio.rest.conversations.v1.configuration.ConfigurationContext
+        :rtype: twilio.rest.conversations.v1.configuration.ConfigurationContext
+        """
+        return ConfigurationContext(self._version, chat_service_sid=self._solution['chat_service_sid'])
+
+    def __call__(self):
+        """
+        Constructs a ConfigurationContext
+        
+        :returns: twilio.rest.conversations.v1.configuration.ConfigurationContext
+        :rtype: twilio.rest.conversations.v1.configuration.ConfigurationContext
+        """
+        return ConfigurationContext(self._version, chat_service_sid=self._solution['chat_service_sid'])
 
     def __repr__(self):
         """
@@ -106,9 +122,9 @@ class ConfigurationContext(InstanceContext):
 
         
     
-    def update(self, body):
+    def update(self, default_conversation_creator_role_sid, default_conversation_role_sid, default_chat_service_role_sid, reachability_enabled):
         data = values.of({
-            'body': body,
+            'default_conversation_creator_role_sid': default_conversation_creator_role_sid,'default_conversation_role_sid': default_conversation_role_sid,'default_chat_service_role_sid': default_chat_service_role_sid,'reachability_enabled': reachability_enabled,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

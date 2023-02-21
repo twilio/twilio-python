@@ -37,10 +37,32 @@ class InsightsSegmentsList(ListResource):
 
         # Path Solution
         self._solution = {  }
-        self._uri = ''.format(**self._solution)
-
-
+        
+        
+        
     
+
+    def get(self, segment_id):
+        """
+        Constructs a InsightsSegmentsContext
+        
+        :param segment_id: To unique id of the segment
+        
+        :returns: twilio.rest.flex_api.v1.insights_segments.InsightsSegmentsContext
+        :rtype: twilio.rest.flex_api.v1.insights_segments.InsightsSegmentsContext
+        """
+        return InsightsSegmentsContext(self._version, segment_id=segment_id)
+
+    def __call__(self, segment_id):
+        """
+        Constructs a InsightsSegmentsContext
+        
+        :param segment_id: To unique id of the segment
+        
+        :returns: twilio.rest.flex_api.v1.insights_segments.InsightsSegmentsContext
+        :rtype: twilio.rest.flex_api.v1.insights_segments.InsightsSegmentsContext
+        """
+        return InsightsSegmentsContext(self._version, segment_id=segment_id)
 
     def __repr__(self):
         """

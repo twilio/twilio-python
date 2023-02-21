@@ -38,9 +38,28 @@ class EsimProfileList(ListResource):
         # Path Solution
         self._solution = {  }
         self._uri = '/ESimProfiles'.format(**self._solution)
-
-
+        
+        
     
+    
+    def create(self, callback_url=values.unset, callback_method=values.unset, eid=values.unset):
+        """
+        Create the EsimProfileInstance
+         :param str callback_url: The URL we should call using the `callback_method` when the status of the eSIM Profile changes. At this stage of the eSIM Profile pilot, the a request to the URL will only be called when the ESimProfile resource changes from `reserving` to `available`.
+         :param str callback_method: The HTTP method we should use to call `callback_url`. Can be: `GET` or `POST` and the default is POST.
+         :param str eid: Identifier of the eUICC that will claim the eSIM Profile.
+        
+        :returns: The created EsimProfileInstance
+        :rtype: twilio.rest.supersim.v1.esim_profile.EsimProfileInstance
+        """
+        data = values.of({ 
+            'CallbackUrl': callback_url,
+            'CallbackMethod': callback_method,
+            'Eid': eid,
+        })
+
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return EsimProfileInstance(self._version, payload)
     
     
     def stream(self, eid=values.unset, sim_sid=values.unset, status=values.unset, limit=None, page_size=None):
@@ -143,6 +162,28 @@ class EsimProfileList(ListResource):
         )
         return EsimProfilePage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a EsimProfileContext
+        
+        :param sid: The SID of the eSIM Profile resource to fetch.
+        
+        :returns: twilio.rest.supersim.v1.esim_profile.EsimProfileContext
+        :rtype: twilio.rest.supersim.v1.esim_profile.EsimProfileContext
+        """
+        return EsimProfileContext(self._version, sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a EsimProfileContext
+        
+        :param sid: The SID of the eSIM Profile resource to fetch.
+        
+        :returns: twilio.rest.supersim.v1.esim_profile.EsimProfileContext
+        :rtype: twilio.rest.supersim.v1.esim_profile.EsimProfileContext
+        """
+        return EsimProfileContext(self._version, sid=sid)
 
     def __repr__(self):
         """

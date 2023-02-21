@@ -42,11 +42,26 @@ class ServiceList(ListResource):
         # Path Solution
         self._solution = {  }
         self._uri = '/Services'.format(**self._solution)
+        
+        
+    
+    
+    
+    
+    def create(self, friendly_name):
+        """
+        Create the ServiceInstance
+         :param str friendly_name: A descriptive string that you create to describe the new resource.
+        
+        :returns: The created ServiceInstance
+        :rtype: twilio.rest.chat.v2.service.ServiceInstance
+        """
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+        })
 
-
-    
-    
-    
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return ServiceInstance(self._version, payload)
     
     
     def stream(self, limit=None, page_size=None):
@@ -131,6 +146,28 @@ class ServiceList(ListResource):
         )
         return ServicePage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a ServiceContext
+        
+        :param sid: The SID of the Service resource to update.
+        
+        :returns: twilio.rest.chat.v2.service.ServiceContext
+        :rtype: twilio.rest.chat.v2.service.ServiceContext
+        """
+        return ServiceContext(self._version, sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a ServiceContext
+        
+        :param sid: The SID of the Service resource to update.
+        
+        :returns: twilio.rest.chat.v2.service.ServiceContext
+        :rtype: twilio.rest.chat.v2.service.ServiceContext
+        """
+        return ServiceContext(self._version, sid=sid)
 
     def __repr__(self):
         """
@@ -231,9 +268,9 @@ class ServiceContext(InstanceContext):
 
         
     
-    def update(self, body):
+    def update(self, friendly_name, default_service_role_sid, default_channel_role_sid, default_channel_creator_role_sid, read_status_enabled, reachability_enabled, typing_indicator_timeout, consumption_report_interval, notifications_new_message_enabled, notifications_new_message_template, notifications_new_message_sound, notifications_new_message_badge_count_enabled, notifications_added_to_channel_enabled, notifications_added_to_channel_template, notifications_added_to_channel_sound, notifications_removed_from_channel_enabled, notifications_removed_from_channel_template, notifications_removed_from_channel_sound, notifications_invited_to_channel_enabled, notifications_invited_to_channel_template, notifications_invited_to_channel_sound, pre_webhook_url, post_webhook_url, webhook_method, webhook_filters, limits_channel_members, limits_user_channels, media_compatibility_message, pre_webhook_retry_count, post_webhook_retry_count, notifications_log_enabled):
         data = values.of({
-            'body': body,
+            'friendly_name': friendly_name,'default_service_role_sid': default_service_role_sid,'default_channel_role_sid': default_channel_role_sid,'default_channel_creator_role_sid': default_channel_creator_role_sid,'read_status_enabled': read_status_enabled,'reachability_enabled': reachability_enabled,'typing_indicator_timeout': typing_indicator_timeout,'consumption_report_interval': consumption_report_interval,'notifications_new_message_enabled': notifications_new_message_enabled,'notifications_new_message_template': notifications_new_message_template,'notifications_new_message_sound': notifications_new_message_sound,'notifications_new_message_badge_count_enabled': notifications_new_message_badge_count_enabled,'notifications_added_to_channel_enabled': notifications_added_to_channel_enabled,'notifications_added_to_channel_template': notifications_added_to_channel_template,'notifications_added_to_channel_sound': notifications_added_to_channel_sound,'notifications_removed_from_channel_enabled': notifications_removed_from_channel_enabled,'notifications_removed_from_channel_template': notifications_removed_from_channel_template,'notifications_removed_from_channel_sound': notifications_removed_from_channel_sound,'notifications_invited_to_channel_enabled': notifications_invited_to_channel_enabled,'notifications_invited_to_channel_template': notifications_invited_to_channel_template,'notifications_invited_to_channel_sound': notifications_invited_to_channel_sound,'pre_webhook_url': pre_webhook_url,'post_webhook_url': post_webhook_url,'webhook_method': webhook_method,'webhook_filters': webhook_filters,'limits_channel_members': limits_channel_members,'limits_user_channels': limits_user_channels,'media_compatibility_message': media_compatibility_message,'pre_webhook_retry_count': pre_webhook_retry_count,'post_webhook_retry_count': post_webhook_retry_count,'notifications_log_enabled': notifications_log_enabled,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

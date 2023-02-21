@@ -40,11 +40,26 @@ class AssetList(ListResource):
         # Path Solution
         self._solution = { 'service_sid': service_sid,  }
         self._uri = '/Services/${service_sid}/Assets'.format(**self._solution)
+        
+        
+    
+    
+    
+    
+    def create(self, friendly_name):
+        """
+        Create the AssetInstance
+         :param str friendly_name: A descriptive string that you create to describe the Asset resource. It can be a maximum of 255 characters.
+        
+        :returns: The created AssetInstance
+        :rtype: twilio.rest.serverless.v1.asset.AssetInstance
+        """
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+        })
 
-
-    
-    
-    
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return AssetInstance(self._version, payload, service_sid=self._solution['service_sid'])
     
     
     def stream(self, limit=None, page_size=None):
@@ -129,6 +144,28 @@ class AssetList(ListResource):
         )
         return AssetPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a AssetContext
+        
+        :param sid: The SID that identifies the Asset resource to update.
+        
+        :returns: twilio.rest.serverless.v1.asset.AssetContext
+        :rtype: twilio.rest.serverless.v1.asset.AssetContext
+        """
+        return AssetContext(self._version, service_sid=self._solution['service_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a AssetContext
+        
+        :param sid: The SID that identifies the Asset resource to update.
+        
+        :returns: twilio.rest.serverless.v1.asset.AssetContext
+        :rtype: twilio.rest.serverless.v1.asset.AssetContext
+        """
+        return AssetContext(self._version, service_sid=self._solution['service_sid'], sid=sid)
 
     def __repr__(self):
         """
@@ -226,9 +263,9 @@ class AssetContext(InstanceContext):
 
         
     
-    def update(self, body):
+    def update(self, friendly_name):
         data = values.of({
-            'body': body,
+            'friendly_name': friendly_name,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

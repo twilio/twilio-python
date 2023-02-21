@@ -41,8 +41,8 @@ class StepList(ListResource):
         # Path Solution
         self._solution = { 'flow_sid': flow_sid, 'engagement_sid': engagement_sid,  }
         self._uri = '/Flows/${flow_sid}/Engagements/${engagement_sid}/Steps'.format(**self._solution)
-
-
+        
+        
     
     
     def stream(self, limit=None, page_size=None):
@@ -127,6 +127,28 @@ class StepList(ListResource):
         )
         return StepPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a StepContext
+        
+        :param sid: The SID of the Step resource to fetch.
+        
+        :returns: twilio.rest.studio.v1.step.StepContext
+        :rtype: twilio.rest.studio.v1.step.StepContext
+        """
+        return StepContext(self._version, flow_sid=self._solution['flow_sid'], engagement_sid=self._solution['engagement_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a StepContext
+        
+        :param sid: The SID of the Step resource to fetch.
+        
+        :returns: twilio.rest.studio.v1.step.StepContext
+        :rtype: twilio.rest.studio.v1.step.StepContext
+        """
+        return StepContext(self._version, flow_sid=self._solution['flow_sid'], engagement_sid=self._solution['engagement_sid'], sid=sid)
 
     def __repr__(self):
         """

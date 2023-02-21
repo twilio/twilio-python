@@ -39,10 +39,31 @@ class PlayerStreamerList(ListResource):
         # Path Solution
         self._solution = {  }
         self._uri = '/PlayerStreamers'.format(**self._solution)
-
-
+        
+        
     
     
+    
+    def create(self, video=values.unset, status_callback=values.unset, status_callback_method=values.unset, max_duration=values.unset):
+        """
+        Create the PlayerStreamerInstance
+         :param bool video: Specifies whether the PlayerStreamer is configured to stream video. Defaults to `true`.
+         :param str status_callback: The URL to which Twilio will send asynchronous webhook requests for every PlayerStreamer event. See [Status Callbacks](/docs/live/status-callbacks) for more details.
+         :param str status_callback_method: The HTTP method Twilio should use to call the `status_callback` URL. Can be `POST` or `GET` and the default is `POST`.
+         :param int max_duration: The maximum time, in seconds, that the PlayerStreamer is active (`created` or `started`) before automatically ends. The default value is 300 seconds, and the maximum value is 90000 seconds. Once this maximum duration is reached, Twilio will end the PlayerStreamer, regardless of whether media is still streaming.
+        
+        :returns: The created PlayerStreamerInstance
+        :rtype: twilio.rest.media.v1.player_streamer.PlayerStreamerInstance
+        """
+        data = values.of({ 
+            'Video': video,
+            'StatusCallback': status_callback,
+            'StatusCallbackMethod': status_callback_method,
+            'MaxDuration': max_duration,
+        })
+
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return PlayerStreamerInstance(self._version, payload)
     
     
     def stream(self, order=values.unset, status=values.unset, limit=None, page_size=None):
@@ -140,6 +161,28 @@ class PlayerStreamerList(ListResource):
         return PlayerStreamerPage(self._version, response, self._solution)
 
 
+    def get(self, sid):
+        """
+        Constructs a PlayerStreamerContext
+        
+        :param sid: The SID of the PlayerStreamer resource to update.
+        
+        :returns: twilio.rest.media.v1.player_streamer.PlayerStreamerContext
+        :rtype: twilio.rest.media.v1.player_streamer.PlayerStreamerContext
+        """
+        return PlayerStreamerContext(self._version, sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a PlayerStreamerContext
+        
+        :param sid: The SID of the PlayerStreamer resource to update.
+        
+        :returns: twilio.rest.media.v1.player_streamer.PlayerStreamerContext
+        :rtype: twilio.rest.media.v1.player_streamer.PlayerStreamerContext
+        """
+        return PlayerStreamerContext(self._version, sid=sid)
+
     def __repr__(self):
         """
         Provide a friendly representation
@@ -222,9 +265,9 @@ class PlayerStreamerContext(InstanceContext):
 
         
     
-    def update(self, body):
+    def update(self, status):
         data = values.of({
-            'body': body,
+            'status': status,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

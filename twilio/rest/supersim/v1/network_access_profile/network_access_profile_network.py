@@ -39,10 +39,25 @@ class NetworkAccessProfileNetworkList(ListResource):
         # Path Solution
         self._solution = { 'network_access_profile_sid': network_access_profile_sid,  }
         self._uri = '/NetworkAccessProfiles/${network_access_profile_sid}/Networks'.format(**self._solution)
-
-
+        
+        
     
     
+    
+    def create(self, network):
+        """
+        Create the NetworkAccessProfileNetworkInstance
+         :param str network: The SID of the Network resource to be added to the Network Access Profile resource.
+        
+        :returns: The created NetworkAccessProfileNetworkInstance
+        :rtype: twilio.rest.supersim.v1.network_access_profile_network.NetworkAccessProfileNetworkInstance
+        """
+        data = values.of({ 
+            'Network': network,
+        })
+
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return NetworkAccessProfileNetworkInstance(self._version, payload, network_access_profile_sid=self._solution['network_access_profile_sid'])
     
     
     def stream(self, limit=None, page_size=None):
@@ -127,6 +142,28 @@ class NetworkAccessProfileNetworkList(ListResource):
         )
         return NetworkAccessProfileNetworkPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a NetworkAccessProfileNetworkContext
+        
+        :param sid: The SID of the Network resource to fetch.
+        
+        :returns: twilio.rest.supersim.v1.network_access_profile_network.NetworkAccessProfileNetworkContext
+        :rtype: twilio.rest.supersim.v1.network_access_profile_network.NetworkAccessProfileNetworkContext
+        """
+        return NetworkAccessProfileNetworkContext(self._version, network_access_profile_sid=self._solution['network_access_profile_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a NetworkAccessProfileNetworkContext
+        
+        :param sid: The SID of the Network resource to fetch.
+        
+        :returns: twilio.rest.supersim.v1.network_access_profile_network.NetworkAccessProfileNetworkContext
+        :rtype: twilio.rest.supersim.v1.network_access_profile_network.NetworkAccessProfileNetworkContext
+        """
+        return NetworkAccessProfileNetworkContext(self._version, network_access_profile_sid=self._solution['network_access_profile_sid'], sid=sid)
 
     def __repr__(self):
         """

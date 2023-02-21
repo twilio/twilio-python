@@ -37,10 +37,28 @@ class InsightsUserRolesList(ListResource):
 
         # Path Solution
         self._solution = {  }
-        self._uri = ''.format(**self._solution)
-
-
+        
+        
+        
     
+
+    def get(self):
+        """
+        Constructs a InsightsUserRolesContext
+        
+        :returns: twilio.rest.flex_api.v1.insights_user_roles.InsightsUserRolesContext
+        :rtype: twilio.rest.flex_api.v1.insights_user_roles.InsightsUserRolesContext
+        """
+        return InsightsUserRolesContext(self._version)
+
+    def __call__(self):
+        """
+        Constructs a InsightsUserRolesContext
+        
+        :returns: twilio.rest.flex_api.v1.insights_user_roles.InsightsUserRolesContext
+        :rtype: twilio.rest.flex_api.v1.insights_user_roles.InsightsUserRolesContext
+        """
+        return InsightsUserRolesContext(self._version)
 
     def __repr__(self):
         """

@@ -39,11 +39,29 @@ class TaskActionsList(ListResource):
 
         # Path Solution
         self._solution = { 'assistant_sid': assistant_sid, 'task_sid': task_sid,  }
-        self._uri = ''.format(**self._solution)
-
-
+        
+        
+        
     
     
+
+    def get(self):
+        """
+        Constructs a TaskActionsContext
+        
+        :returns: twilio.rest.preview.understand.task_actions.TaskActionsContext
+        :rtype: twilio.rest.preview.understand.task_actions.TaskActionsContext
+        """
+        return TaskActionsContext(self._version, assistant_sid=self._solution['assistant_sid'], task_sid=self._solution['task_sid'])
+
+    def __call__(self):
+        """
+        Constructs a TaskActionsContext
+        
+        :returns: twilio.rest.preview.understand.task_actions.TaskActionsContext
+        :rtype: twilio.rest.preview.understand.task_actions.TaskActionsContext
+        """
+        return TaskActionsContext(self._version, assistant_sid=self._solution['assistant_sid'], task_sid=self._solution['task_sid'])
 
     def __repr__(self):
         """
@@ -79,9 +97,9 @@ class TaskActionsContext(InstanceContext):
 
         
     
-    def update(self, body):
+    def update(self, actions):
         data = values.of({
-            'body': body,
+            'actions': actions,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

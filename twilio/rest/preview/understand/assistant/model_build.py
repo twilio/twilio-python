@@ -39,11 +39,28 @@ class ModelBuildList(ListResource):
         # Path Solution
         self._solution = { 'assistant_sid': assistant_sid,  }
         self._uri = '/Assistants/${assistant_sid}/ModelBuilds'.format(**self._solution)
+        
+        
+    
+    
+    
+    
+    def create(self, status_callback=values.unset, unique_name=values.unset):
+        """
+        Create the ModelBuildInstance
+         :param str status_callback: 
+         :param str unique_name: A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long. For example: v0.1
+        
+        :returns: The created ModelBuildInstance
+        :rtype: twilio.rest.preview.understand.model_build.ModelBuildInstance
+        """
+        data = values.of({ 
+            'StatusCallback': status_callback,
+            'UniqueName': unique_name,
+        })
 
-
-    
-    
-    
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return ModelBuildInstance(self._version, payload, assistant_sid=self._solution['assistant_sid'])
     
     
     def stream(self, limit=None, page_size=None):
@@ -128,6 +145,28 @@ class ModelBuildList(ListResource):
         )
         return ModelBuildPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a ModelBuildContext
+        
+        :param sid: 
+        
+        :returns: twilio.rest.preview.understand.model_build.ModelBuildContext
+        :rtype: twilio.rest.preview.understand.model_build.ModelBuildContext
+        """
+        return ModelBuildContext(self._version, assistant_sid=self._solution['assistant_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a ModelBuildContext
+        
+        :param sid: 
+        
+        :returns: twilio.rest.preview.understand.model_build.ModelBuildContext
+        :rtype: twilio.rest.preview.understand.model_build.ModelBuildContext
+        """
+        return ModelBuildContext(self._version, assistant_sid=self._solution['assistant_sid'], sid=sid)
 
     def __repr__(self):
         """
@@ -224,9 +263,9 @@ class ModelBuildContext(InstanceContext):
 
         
     
-    def update(self, body):
+    def update(self, unique_name):
         data = values.of({
-            'body': body,
+            'unique_name': unique_name,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

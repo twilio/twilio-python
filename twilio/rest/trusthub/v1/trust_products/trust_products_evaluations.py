@@ -39,9 +39,24 @@ class TrustProductsEvaluationsList(ListResource):
         # Path Solution
         self._solution = { 'trust_product_sid': trust_product_sid,  }
         self._uri = '/TrustProducts/${trust_product_sid}/Evaluations'.format(**self._solution)
-
-
+        
+        
     
+    
+    def create(self, policy_sid):
+        """
+        Create the TrustProductsEvaluationsInstance
+         :param str policy_sid: The unique string of a policy that is associated to the customer_profile resource.
+        
+        :returns: The created TrustProductsEvaluationsInstance
+        :rtype: twilio.rest.trusthub.v1.trust_products_evaluations.TrustProductsEvaluationsInstance
+        """
+        data = values.of({ 
+            'PolicySid': policy_sid,
+        })
+
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return TrustProductsEvaluationsInstance(self._version, payload, trust_product_sid=self._solution['trust_product_sid'])
     
     
     def stream(self, limit=None, page_size=None):
@@ -126,6 +141,28 @@ class TrustProductsEvaluationsList(ListResource):
         )
         return TrustProductsEvaluationsPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a TrustProductsEvaluationsContext
+        
+        :param sid: The unique string that identifies the Evaluation resource.
+        
+        :returns: twilio.rest.trusthub.v1.trust_products_evaluations.TrustProductsEvaluationsContext
+        :rtype: twilio.rest.trusthub.v1.trust_products_evaluations.TrustProductsEvaluationsContext
+        """
+        return TrustProductsEvaluationsContext(self._version, trust_product_sid=self._solution['trust_product_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a TrustProductsEvaluationsContext
+        
+        :param sid: The unique string that identifies the Evaluation resource.
+        
+        :returns: twilio.rest.trusthub.v1.trust_products_evaluations.TrustProductsEvaluationsContext
+        :rtype: twilio.rest.trusthub.v1.trust_products_evaluations.TrustProductsEvaluationsContext
+        """
+        return TrustProductsEvaluationsContext(self._version, trust_product_sid=self._solution['trust_product_sid'], sid=sid)
 
     def __repr__(self):
         """

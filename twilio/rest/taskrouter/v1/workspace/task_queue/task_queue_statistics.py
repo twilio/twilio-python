@@ -39,10 +39,28 @@ class TaskQueueStatisticsList(ListResource):
 
         # Path Solution
         self._solution = { 'workspace_sid': workspace_sid, 'task_queue_sid': task_queue_sid,  }
-        self._uri = ''.format(**self._solution)
-
-
+        
+        
+        
     
+
+    def get(self):
+        """
+        Constructs a TaskQueueStatisticsContext
+        
+        :returns: twilio.rest.taskrouter.v1.task_queue_statistics.TaskQueueStatisticsContext
+        :rtype: twilio.rest.taskrouter.v1.task_queue_statistics.TaskQueueStatisticsContext
+        """
+        return TaskQueueStatisticsContext(self._version, workspace_sid=self._solution['workspace_sid'], task_queue_sid=self._solution['task_queue_sid'])
+
+    def __call__(self):
+        """
+        Constructs a TaskQueueStatisticsContext
+        
+        :returns: twilio.rest.taskrouter.v1.task_queue_statistics.TaskQueueStatisticsContext
+        :rtype: twilio.rest.taskrouter.v1.task_queue_statistics.TaskQueueStatisticsContext
+        """
+        return TaskQueueStatisticsContext(self._version, workspace_sid=self._solution['workspace_sid'], task_queue_sid=self._solution['task_queue_sid'])
 
     def __repr__(self):
         """

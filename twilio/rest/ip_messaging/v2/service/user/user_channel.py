@@ -40,8 +40,8 @@ class UserChannelList(ListResource):
         # Path Solution
         self._solution = { 'service_sid': service_sid, 'user_sid': user_sid,  }
         self._uri = '/Services/${service_sid}/Users/${user_sid}/Channels'.format(**self._solution)
-
-
+        
+        
     
     
     
@@ -128,6 +128,28 @@ class UserChannelList(ListResource):
         )
         return UserChannelPage(self._version, response, self._solution)
 
+
+    def get(self, channel_sid):
+        """
+        Constructs a UserChannelContext
+        
+        :param channel_sid: 
+        
+        :returns: twilio.rest.ip_messaging.v2.user_channel.UserChannelContext
+        :rtype: twilio.rest.ip_messaging.v2.user_channel.UserChannelContext
+        """
+        return UserChannelContext(self._version, service_sid=self._solution['service_sid'], user_sid=self._solution['user_sid'], channel_sid=channel_sid)
+
+    def __call__(self, channel_sid):
+        """
+        Constructs a UserChannelContext
+        
+        :param channel_sid: 
+        
+        :returns: twilio.rest.ip_messaging.v2.user_channel.UserChannelContext
+        :rtype: twilio.rest.ip_messaging.v2.user_channel.UserChannelContext
+        """
+        return UserChannelContext(self._version, service_sid=self._solution['service_sid'], user_sid=self._solution['user_sid'], channel_sid=channel_sid)
 
     def __repr__(self):
         """
@@ -222,9 +244,9 @@ class UserChannelContext(InstanceContext):
 
         
     
-    def update(self, body):
+    def update(self, notification_level, last_consumed_message_index, last_consumption_timestamp):
         data = values.of({
-            'body': body,
+            'notification_level': notification_level,'last_consumed_message_index': last_consumed_message_index,'last_consumption_timestamp': last_consumption_timestamp,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

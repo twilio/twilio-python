@@ -39,8 +39,8 @@ class DataSessionList(ListResource):
         # Path Solution
         self._solution = { 'sim_sid': sim_sid,  }
         self._uri = '/Sims/${sim_sid}/DataSessions'.format(**self._solution)
-
-
+        
+        
     
     def stream(self, limit=None, page_size=None):
         """
@@ -123,6 +123,7 @@ class DataSessionList(ListResource):
             target_url
         )
         return DataSessionPage(self._version, response, self._solution)
+
 
 
     def __repr__(self):

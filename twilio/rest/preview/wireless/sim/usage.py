@@ -38,10 +38,28 @@ class UsageList(ListResource):
 
         # Path Solution
         self._solution = { 'sim_sid': sim_sid,  }
-        self._uri = ''.format(**self._solution)
-
-
+        
+        
+        
     
+
+    def get(self):
+        """
+        Constructs a UsageContext
+        
+        :returns: twilio.rest.preview.wireless.usage.UsageContext
+        :rtype: twilio.rest.preview.wireless.usage.UsageContext
+        """
+        return UsageContext(self._version, sim_sid=self._solution['sim_sid'])
+
+    def __call__(self):
+        """
+        Constructs a UsageContext
+        
+        :returns: twilio.rest.preview.wireless.usage.UsageContext
+        :rtype: twilio.rest.preview.wireless.usage.UsageContext
+        """
+        return UsageContext(self._version, sim_sid=self._solution['sim_sid'])
 
     def __repr__(self):
         """

@@ -37,11 +37,29 @@ class WebhookList(ListResource):
 
         # Path Solution
         self._solution = {  }
-        self._uri = ''.format(**self._solution)
-
-
+        
+        
+        
     
     
+
+    def get(self):
+        """
+        Constructs a WebhookContext
+        
+        :returns: twilio.rest.conversations.v1.webhook.WebhookContext
+        :rtype: twilio.rest.conversations.v1.webhook.WebhookContext
+        """
+        return WebhookContext(self._version)
+
+    def __call__(self):
+        """
+        Constructs a WebhookContext
+        
+        :returns: twilio.rest.conversations.v1.webhook.WebhookContext
+        :rtype: twilio.rest.conversations.v1.webhook.WebhookContext
+        """
+        return WebhookContext(self._version)
 
     def __repr__(self):
         """
@@ -77,9 +95,9 @@ class WebhookContext(InstanceContext):
 
         
     
-    def update(self, body):
+    def update(self, method, filters, pre_webhook_url, post_webhook_url, target):
         data = values.of({
-            'body': body,
+            'method': method,'filters': filters,'pre_webhook_url': pre_webhook_url,'post_webhook_url': post_webhook_url,'target': target,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

@@ -40,11 +40,26 @@ class IpAccessControlListList(ListResource):
         # Path Solution
         self._solution = { 'account_sid': account_sid,  }
         self._uri = '/Accounts/${account_sid}/SIP/IpAccessControlLists.json'.format(**self._solution)
+        
+        
+    
+    
+    
+    
+    def create(self, friendly_name):
+        """
+        Create the IpAccessControlListInstance
+         :param str friendly_name: A human readable descriptive text that describes the IpAccessControlList, up to 255 characters long.
+        
+        :returns: The created IpAccessControlListInstance
+        :rtype: twilio.rest.api.v2010.ip_access_control_list.IpAccessControlListInstance
+        """
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+        })
 
-
-    
-    
-    
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return IpAccessControlListInstance(self._version, payload, account_sid=self._solution['account_sid'])
     
     
     def stream(self, limit=None, page_size=None):
@@ -129,6 +144,28 @@ class IpAccessControlListList(ListResource):
         )
         return IpAccessControlListPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a IpAccessControlListContext
+        
+        :param sid: A 34 character string that uniquely identifies the resource to udpate.
+        
+        :returns: twilio.rest.api.v2010.ip_access_control_list.IpAccessControlListContext
+        :rtype: twilio.rest.api.v2010.ip_access_control_list.IpAccessControlListContext
+        """
+        return IpAccessControlListContext(self._version, account_sid=self._solution['account_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a IpAccessControlListContext
+        
+        :param sid: A 34 character string that uniquely identifies the resource to udpate.
+        
+        :returns: twilio.rest.api.v2010.ip_access_control_list.IpAccessControlListContext
+        :rtype: twilio.rest.api.v2010.ip_access_control_list.IpAccessControlListContext
+        """
+        return IpAccessControlListContext(self._version, account_sid=self._solution['account_sid'], sid=sid)
 
     def __repr__(self):
         """
@@ -226,9 +263,9 @@ class IpAccessControlListContext(InstanceContext):
 
         
     
-    def update(self, body):
+    def update(self, friendly_name):
         data = values.of({
-            'body': body,
+            'friendly_name': friendly_name,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

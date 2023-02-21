@@ -41,11 +41,30 @@ class SyncMapList(ListResource):
         # Path Solution
         self._solution = { 'service_sid': service_sid,  }
         self._uri = '/Services/${service_sid}/Maps'.format(**self._solution)
+        
+        
+    
+    
+    
+    
+    def create(self, unique_name=values.unset, ttl=values.unset, collection_ttl=values.unset):
+        """
+        Create the SyncMapInstance
+         :param str unique_name: An application-defined string that uniquely identifies the resource. It can be used as an alternative to the `sid` in the URL path to address the resource.
+         :param int ttl: An alias for `collection_ttl`. If both parameters are provided, this value is ignored.
+         :param int collection_ttl: How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Sync Map expires (time-to-live) and is deleted.
+        
+        :returns: The created SyncMapInstance
+        :rtype: twilio.rest.sync.v1.sync_map.SyncMapInstance
+        """
+        data = values.of({ 
+            'UniqueName': unique_name,
+            'Ttl': ttl,
+            'CollectionTtl': collection_ttl,
+        })
 
-
-    
-    
-    
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return SyncMapInstance(self._version, payload, service_sid=self._solution['service_sid'])
     
     
     def stream(self, limit=None, page_size=None):
@@ -130,6 +149,28 @@ class SyncMapList(ListResource):
         )
         return SyncMapPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a SyncMapContext
+        
+        :param sid: The SID of the Sync Map resource to update. Can be the Sync Map's `sid` or its `unique_name`.
+        
+        :returns: twilio.rest.sync.v1.sync_map.SyncMapContext
+        :rtype: twilio.rest.sync.v1.sync_map.SyncMapContext
+        """
+        return SyncMapContext(self._version, service_sid=self._solution['service_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a SyncMapContext
+        
+        :param sid: The SID of the Sync Map resource to update. Can be the Sync Map's `sid` or its `unique_name`.
+        
+        :returns: twilio.rest.sync.v1.sync_map.SyncMapContext
+        :rtype: twilio.rest.sync.v1.sync_map.SyncMapContext
+        """
+        return SyncMapContext(self._version, service_sid=self._solution['service_sid'], sid=sid)
 
     def __repr__(self):
         """
@@ -228,9 +269,9 @@ class SyncMapContext(InstanceContext):
 
         
     
-    def update(self, body):
+    def update(self, ttl, collection_ttl):
         data = values.of({
-            'body': body,
+            'ttl': ttl,'collection_ttl': collection_ttl,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

@@ -41,10 +41,25 @@ class SyncListList(ListResource):
         # Path Solution
         self._solution = { 'service_sid': service_sid,  }
         self._uri = '/Services/${service_sid}/Lists'.format(**self._solution)
-
-
+        
+        
     
     
+    
+    def create(self, unique_name=values.unset):
+        """
+        Create the SyncListInstance
+         :param str unique_name: 
+        
+        :returns: The created SyncListInstance
+        :rtype: twilio.rest.preview.sync.sync_list.SyncListInstance
+        """
+        data = values.of({ 
+            'UniqueName': unique_name,
+        })
+
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return SyncListInstance(self._version, payload, service_sid=self._solution['service_sid'])
     
     
     def stream(self, limit=None, page_size=None):
@@ -129,6 +144,28 @@ class SyncListList(ListResource):
         )
         return SyncListPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a SyncListContext
+        
+        :param sid: 
+        
+        :returns: twilio.rest.preview.sync.sync_list.SyncListContext
+        :rtype: twilio.rest.preview.sync.sync_list.SyncListContext
+        """
+        return SyncListContext(self._version, service_sid=self._solution['service_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a SyncListContext
+        
+        :param sid: 
+        
+        :returns: twilio.rest.preview.sync.sync_list.SyncListContext
+        :rtype: twilio.rest.preview.sync.sync_list.SyncListContext
+        """
+        return SyncListContext(self._version, service_sid=self._solution['service_sid'], sid=sid)
 
     def __repr__(self):
         """

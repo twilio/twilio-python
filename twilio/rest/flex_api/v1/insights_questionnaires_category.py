@@ -38,10 +38,25 @@ class InsightsQuestionnairesCategoryList(ListResource):
         # Path Solution
         self._solution = {  }
         self._uri = '/Insights/QM/Categories'.format(**self._solution)
-
-
+        
+        
     
     
+    
+    def create(self, name):
+        """
+        Create the InsightsQuestionnairesCategoryInstance
+         :param str name: The name of this category.
+        
+        :returns: The created InsightsQuestionnairesCategoryInstance
+        :rtype: twilio.rest.flex_api.v1.insights_questionnaires_category.InsightsQuestionnairesCategoryInstance
+        """
+        data = values.of({ 
+            'Name': name,
+        })
+
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return InsightsQuestionnairesCategoryInstance(self._version, payload)
     
     
     def stream(self, token=values.unset, limit=None, page_size=None):
@@ -133,6 +148,28 @@ class InsightsQuestionnairesCategoryList(ListResource):
         return InsightsQuestionnairesCategoryPage(self._version, response, self._solution)
 
 
+    def get(self, category_id):
+        """
+        Constructs a InsightsQuestionnairesCategoryContext
+        
+        :param category_id: The ID of the category to be update
+        
+        :returns: twilio.rest.flex_api.v1.insights_questionnaires_category.InsightsQuestionnairesCategoryContext
+        :rtype: twilio.rest.flex_api.v1.insights_questionnaires_category.InsightsQuestionnairesCategoryContext
+        """
+        return InsightsQuestionnairesCategoryContext(self._version, category_id=category_id)
+
+    def __call__(self, category_id):
+        """
+        Constructs a InsightsQuestionnairesCategoryContext
+        
+        :param category_id: The ID of the category to be update
+        
+        :returns: twilio.rest.flex_api.v1.insights_questionnaires_category.InsightsQuestionnairesCategoryContext
+        :rtype: twilio.rest.flex_api.v1.insights_questionnaires_category.InsightsQuestionnairesCategoryContext
+        """
+        return InsightsQuestionnairesCategoryContext(self._version, category_id=category_id)
+
     def __repr__(self):
         """
         Provide a friendly representation
@@ -211,9 +248,9 @@ class InsightsQuestionnairesCategoryContext(InstanceContext):
         """
         return self._version.delete(method='DELETE', uri=self._uri, )
     
-    def update(self, token, body):
+    def update(self, name):
         data = values.of({
-            'token': token,'body': body,
+            'name': name,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

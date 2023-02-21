@@ -39,11 +39,40 @@ class ParticipantList(ListResource):
         # Path Solution
         self._solution = { 'conversation_sid': conversation_sid,  }
         self._uri = '/Conversations/${conversation_sid}/Participants'.format(**self._solution)
+        
+        
+    
+    
+    
+    
+    def create(self, identity=values.unset, messaging_binding_address=values.unset, messaging_binding_proxy_address=values.unset, date_created=values.unset, date_updated=values.unset, attributes=values.unset, messaging_binding_projected_address=values.unset, role_sid=values.unset):
+        """
+        Create the ParticipantInstance
+         :param str identity: A unique string identifier for the conversation participant as [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource). This parameter is non-null if (and only if) the participant is using the Conversations SDK to communicate. Limited to 256 characters.
+         :param str messaging_binding_address: The address of the participant's device, e.g. a phone or WhatsApp number. Together with the Proxy address, this determines a participant uniquely. This field (with proxy_address) is only null when the participant is interacting from an SDK endpoint (see the 'identity' field).
+         :param str messaging_binding_proxy_address: The address of the Twilio phone number (or WhatsApp number) that the participant is in contact with. This field, together with participant address, is only null when the participant is interacting from an SDK endpoint (see the 'identity' field).
+         :param datetime date_created: The date that this resource was created.
+         :param datetime date_updated: The date that this resource was last updated.
+         :param str attributes: An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \"{}\" will be returned.
+         :param str messaging_binding_projected_address: The address of the Twilio phone number that is used in Group MMS. Communication mask for the Conversation participant with Identity.
+         :param str role_sid: The SID of a conversation-level [Role](https://www.twilio.com/docs/conversations/api/role-resource) to assign to the participant.
+        
+        :returns: The created ParticipantInstance
+        :rtype: twilio.rest.conversations.v1.participant.ParticipantInstance
+        """
+        data = values.of({ 
+            'Identity': identity,
+            'MessagingBinding.Address': messaging_binding_address,
+            'MessagingBinding.ProxyAddress': messaging_binding_proxy_address,
+            'DateCreated': date_created,
+            'DateUpdated': date_updated,
+            'Attributes': attributes,
+            'MessagingBinding.ProjectedAddress': messaging_binding_projected_address,
+            'RoleSid': role_sid,
+        })
 
-
-    
-    
-    
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return ParticipantInstance(self._version, payload, conversation_sid=self._solution['conversation_sid'])
     
     
     def stream(self, limit=None, page_size=None):
@@ -128,6 +157,28 @@ class ParticipantList(ListResource):
         )
         return ParticipantPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a ParticipantContext
+        
+        :param sid: A 34 character string that uniquely identifies this resource.
+        
+        :returns: twilio.rest.conversations.v1.participant.ParticipantContext
+        :rtype: twilio.rest.conversations.v1.participant.ParticipantContext
+        """
+        return ParticipantContext(self._version, conversation_sid=self._solution['conversation_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a ParticipantContext
+        
+        :param sid: A 34 character string that uniquely identifies this resource.
+        
+        :returns: twilio.rest.conversations.v1.participant.ParticipantContext
+        :rtype: twilio.rest.conversations.v1.participant.ParticipantContext
+        """
+        return ParticipantContext(self._version, conversation_sid=self._solution['conversation_sid'], sid=sid)
 
     def __repr__(self):
         """
@@ -224,9 +275,9 @@ class ParticipantContext(InstanceContext):
 
         
     
-    def update(self, x_twilio_webhook_enabled, body):
+    def update(self, date_created, date_updated, attributes, role_sid, messaging_binding_proxy_address, messaging_binding_projected_address, identity, last_read_message_index, last_read_timestamp):
         data = values.of({
-            'x_twilio_webhook_enabled': x_twilio_webhook_enabled,'body': body,
+            'date_created': date_created,'date_updated': date_updated,'attributes': attributes,'role_sid': role_sid,'messaging_binding_proxy_address': messaging_binding_proxy_address,'messaging_binding_projected_address': messaging_binding_projected_address,'identity': identity,'last_read_message_index': last_read_message_index,'last_read_timestamp': last_read_timestamp,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

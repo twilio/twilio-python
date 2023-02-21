@@ -37,11 +37,33 @@ class TrunkList(ListResource):
 
         # Path Solution
         self._solution = {  }
-        self._uri = ''.format(**self._solution)
-
-
+        
+        
+        
     
     
+
+    def get(self, sip_trunk_domain):
+        """
+        Constructs a TrunkContext
+        
+        :param sip_trunk_domain: The absolute URL of the SIP Trunk
+        
+        :returns: twilio.rest.routes.v2.trunk.TrunkContext
+        :rtype: twilio.rest.routes.v2.trunk.TrunkContext
+        """
+        return TrunkContext(self._version, sip_trunk_domain=sip_trunk_domain)
+
+    def __call__(self, sip_trunk_domain):
+        """
+        Constructs a TrunkContext
+        
+        :param sip_trunk_domain: The absolute URL of the SIP Trunk
+        
+        :returns: twilio.rest.routes.v2.trunk.TrunkContext
+        :rtype: twilio.rest.routes.v2.trunk.TrunkContext
+        """
+        return TrunkContext(self._version, sip_trunk_domain=sip_trunk_domain)
 
     def __repr__(self):
         """
@@ -77,9 +99,9 @@ class TrunkContext(InstanceContext):
 
         
     
-    def update(self, body):
+    def update(self, voice_region, friendly_name):
         data = values.of({
-            'body': body,
+            'voice_region': voice_region,'friendly_name': friendly_name,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

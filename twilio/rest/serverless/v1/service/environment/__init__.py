@@ -42,10 +42,27 @@ class EnvironmentList(ListResource):
         # Path Solution
         self._solution = { 'service_sid': service_sid,  }
         self._uri = '/Services/${service_sid}/Environments'.format(**self._solution)
-
-
+        
+        
     
     
+    
+    def create(self, unique_name, domain_suffix=values.unset):
+        """
+        Create the EnvironmentInstance
+         :param str unique_name: A user-defined string that uniquely identifies the Environment resource. It can be a maximum of 100 characters.
+         :param str domain_suffix: A URL-friendly name that represents the environment and forms part of the domain name. It can be a maximum of 16 characters.
+        
+        :returns: The created EnvironmentInstance
+        :rtype: twilio.rest.serverless.v1.environment.EnvironmentInstance
+        """
+        data = values.of({ 
+            'UniqueName': unique_name,
+            'DomainSuffix': domain_suffix,
+        })
+
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return EnvironmentInstance(self._version, payload, service_sid=self._solution['service_sid'])
     
     
     def stream(self, limit=None, page_size=None):
@@ -130,6 +147,28 @@ class EnvironmentList(ListResource):
         )
         return EnvironmentPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a EnvironmentContext
+        
+        :param sid: The SID of the Environment resource to fetch.
+        
+        :returns: twilio.rest.serverless.v1.environment.EnvironmentContext
+        :rtype: twilio.rest.serverless.v1.environment.EnvironmentContext
+        """
+        return EnvironmentContext(self._version, service_sid=self._solution['service_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a EnvironmentContext
+        
+        :param sid: The SID of the Environment resource to fetch.
+        
+        :returns: twilio.rest.serverless.v1.environment.EnvironmentContext
+        :rtype: twilio.rest.serverless.v1.environment.EnvironmentContext
+        """
+        return EnvironmentContext(self._version, service_sid=self._solution['service_sid'], sid=sid)
 
     def __repr__(self):
         """

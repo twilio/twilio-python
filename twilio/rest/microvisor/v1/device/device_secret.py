@@ -39,10 +39,27 @@ class DeviceSecretList(ListResource):
         # Path Solution
         self._solution = { 'device_sid': device_sid,  }
         self._uri = '/Devices/${device_sid}/Secrets'.format(**self._solution)
-
-
+        
+        
     
     
+    
+    def create(self, key, value):
+        """
+        Create the DeviceSecretInstance
+         :param str key: The secret key; up to 100 characters.
+         :param str value: The secret value; up to 4096 characters.
+        
+        :returns: The created DeviceSecretInstance
+        :rtype: twilio.rest.microvisor.v1.device_secret.DeviceSecretInstance
+        """
+        data = values.of({ 
+            'Key': key,
+            'Value': value,
+        })
+
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return DeviceSecretInstance(self._version, payload, device_sid=self._solution['device_sid'])
     
     
     def stream(self, limit=None, page_size=None):
@@ -127,6 +144,28 @@ class DeviceSecretList(ListResource):
         )
         return DeviceSecretPage(self._version, response, self._solution)
 
+
+    def get(self, key):
+        """
+        Constructs a DeviceSecretContext
+        
+        :param key: The secret key; up to 100 characters.
+        
+        :returns: twilio.rest.microvisor.v1.device_secret.DeviceSecretContext
+        :rtype: twilio.rest.microvisor.v1.device_secret.DeviceSecretContext
+        """
+        return DeviceSecretContext(self._version, device_sid=self._solution['device_sid'], key=key)
+
+    def __call__(self, key):
+        """
+        Constructs a DeviceSecretContext
+        
+        :param key: The secret key; up to 100 characters.
+        
+        :returns: twilio.rest.microvisor.v1.device_secret.DeviceSecretContext
+        :rtype: twilio.rest.microvisor.v1.device_secret.DeviceSecretContext
+        """
+        return DeviceSecretContext(self._version, device_sid=self._solution['device_sid'], key=key)
 
     def __repr__(self):
         """

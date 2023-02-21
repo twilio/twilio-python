@@ -38,9 +38,30 @@ class SmsCommandList(ListResource):
         # Path Solution
         self._solution = {  }
         self._uri = '/SmsCommands'.format(**self._solution)
-
-
+        
+        
     
+    
+    def create(self, sim, payload, callback_method=values.unset, callback_url=values.unset):
+        """
+        Create the SmsCommandInstance
+         :param str sim: The `sid` or `unique_name` of the [SIM](https://www.twilio.com/docs/iot/supersim/api/sim-resource) to send the SMS Command to.
+         :param str payload: The message body of the SMS Command.
+         :param str callback_method: The HTTP method we should use to call `callback_url`. Can be: `GET` or `POST` and the default is POST.
+         :param str callback_url: The URL we should call using the `callback_method` after we have sent the command.
+        
+        :returns: The created SmsCommandInstance
+        :rtype: twilio.rest.supersim.v1.sms_command.SmsCommandInstance
+        """
+        data = values.of({ 
+            'Sim': sim,
+            'Payload': payload,
+            'CallbackMethod': callback_method,
+            'CallbackUrl': callback_url,
+        })
+
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return SmsCommandInstance(self._version, payload)
     
     
     def stream(self, sim=values.unset, status=values.unset, direction=values.unset, limit=None, page_size=None):
@@ -143,6 +164,28 @@ class SmsCommandList(ListResource):
         )
         return SmsCommandPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a SmsCommandContext
+        
+        :param sid: The SID of the SMS Command resource to fetch.
+        
+        :returns: twilio.rest.supersim.v1.sms_command.SmsCommandContext
+        :rtype: twilio.rest.supersim.v1.sms_command.SmsCommandContext
+        """
+        return SmsCommandContext(self._version, sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a SmsCommandContext
+        
+        :param sid: The SID of the SMS Command resource to fetch.
+        
+        :returns: twilio.rest.supersim.v1.sms_command.SmsCommandContext
+        :rtype: twilio.rest.supersim.v1.sms_command.SmsCommandContext
+        """
+        return SmsCommandContext(self._version, sid=sid)
 
     def __repr__(self):
         """

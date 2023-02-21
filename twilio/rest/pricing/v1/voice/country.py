@@ -38,8 +38,8 @@ class CountryList(ListResource):
         # Path Solution
         self._solution = {  }
         self._uri = '/Voice/Countries'.format(**self._solution)
-
-
+        
+        
     
     
     def stream(self, limit=None, page_size=None):
@@ -124,6 +124,28 @@ class CountryList(ListResource):
         )
         return CountryPage(self._version, response, self._solution)
 
+
+    def get(self, iso_country):
+        """
+        Constructs a CountryContext
+        
+        :param iso_country: The [ISO country code](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the pricing information to fetch.
+        
+        :returns: twilio.rest.pricing.v1.country.CountryContext
+        :rtype: twilio.rest.pricing.v1.country.CountryContext
+        """
+        return CountryContext(self._version, iso_country=iso_country)
+
+    def __call__(self, iso_country):
+        """
+        Constructs a CountryContext
+        
+        :param iso_country: The [ISO country code](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the pricing information to fetch.
+        
+        :returns: twilio.rest.pricing.v1.country.CountryContext
+        :rtype: twilio.rest.pricing.v1.country.CountryContext
+        """
+        return CountryContext(self._version, iso_country=iso_country)
 
     def __repr__(self):
         """

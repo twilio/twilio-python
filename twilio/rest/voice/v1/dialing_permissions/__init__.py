@@ -41,11 +41,11 @@ class DialingPermissionsList(ListResource):
         # Path Solution
         self._solution = {  }
         self._uri = '/DialingPermissions'.format(**self._solution)
-
+        
         self._bulk_country_updates = None
         self._countries = None
         self._settings = None
-
+        
 
     @property
     def bulk_country_updates(self):
@@ -58,7 +58,6 @@ class DialingPermissionsList(ListResource):
         if self._bulk_country_updates is None:
             self._bulk_country_updates = BulkCountryUpdateList(self._version)
         return self.bulk_country_updates
-
     @property
     def countries(self):
         """
@@ -70,7 +69,6 @@ class DialingPermissionsList(ListResource):
         if self._countries is None:
             self._countries = CountryList(self._version)
         return self.countries
-
     @property
     def settings(self):
         """

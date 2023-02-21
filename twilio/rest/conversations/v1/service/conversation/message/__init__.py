@@ -41,11 +41,40 @@ class MessageList(ListResource):
         # Path Solution
         self._solution = { 'chat_service_sid': chat_service_sid, 'conversation_sid': conversation_sid,  }
         self._uri = '/Services/${chat_service_sid}/Conversations/${conversation_sid}/Messages'.format(**self._solution)
+        
+        
+    
+    
+    
+    
+    def create(self, author=values.unset, body=values.unset, date_created=values.unset, date_updated=values.unset, attributes=values.unset, media_sid=values.unset, content_sid=values.unset, content_variables=values.unset):
+        """
+        Create the MessageInstance
+         :param str author: The channel specific identifier of the message's author. Defaults to `system`.
+         :param str body: The content of the message, can be up to 1,600 characters long.
+         :param datetime date_created: The date that this resource was created.
+         :param datetime date_updated: The date that this resource was last updated. `null` if the message has not been edited.
+         :param str attributes: A string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \"{}\" will be returned.
+         :param str media_sid: The Media SID to be attached to the new Message.
+         :param str content_sid: The unique ID of the multi-channel [Rich Content](https://www.twilio.com/docs/content-api) template, required for template-generated messages.  **Note** that if this field is set, `Body` and `MediaSid` parameters are ignored.
+         :param str content_variables: A structurally valid JSON string that contains values to resolve Rich Content template variables.
+        
+        :returns: The created MessageInstance
+        :rtype: twilio.rest.conversations.v1.message.MessageInstance
+        """
+        data = values.of({ 
+            'Author': author,
+            'Body': body,
+            'DateCreated': date_created,
+            'DateUpdated': date_updated,
+            'Attributes': attributes,
+            'MediaSid': media_sid,
+            'ContentSid': content_sid,
+            'ContentVariables': content_variables,
+        })
 
-
-    
-    
-    
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return MessageInstance(self._version, payload, chat_service_sid=self._solution['chat_service_sid'], conversation_sid=self._solution['conversation_sid'])
     
     
     def stream(self, order=values.unset, limit=None, page_size=None):
@@ -136,6 +165,28 @@ class MessageList(ListResource):
         )
         return MessagePage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a MessageContext
+        
+        :param sid: A 34 character string that uniquely identifies this resource.
+        
+        :returns: twilio.rest.conversations.v1.message.MessageContext
+        :rtype: twilio.rest.conversations.v1.message.MessageContext
+        """
+        return MessageContext(self._version, chat_service_sid=self._solution['chat_service_sid'], conversation_sid=self._solution['conversation_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a MessageContext
+        
+        :param sid: A 34 character string that uniquely identifies this resource.
+        
+        :returns: twilio.rest.conversations.v1.message.MessageContext
+        :rtype: twilio.rest.conversations.v1.message.MessageContext
+        """
+        return MessageContext(self._version, chat_service_sid=self._solution['chat_service_sid'], conversation_sid=self._solution['conversation_sid'], sid=sid)
 
     def __repr__(self):
         """
@@ -233,9 +284,9 @@ class MessageContext(InstanceContext):
 
         
     
-    def update(self, x_twilio_webhook_enabled, body):
+    def update(self, author, body, date_created, date_updated, attributes):
         data = values.of({
-            'x_twilio_webhook_enabled': x_twilio_webhook_enabled,'body': body,
+            'author': author,'body': body,'date_created': date_created,'date_updated': date_updated,'attributes': attributes,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

@@ -39,10 +39,25 @@ class PhoneNumberList(ListResource):
         # Path Solution
         self._solution = { 'service_sid': service_sid,  }
         self._uri = '/Services/${service_sid}/PhoneNumbers'.format(**self._solution)
-
-
+        
+        
     
     
+    
+    def create(self, phone_number_sid):
+        """
+        Create the PhoneNumberInstance
+         :param str phone_number_sid: The SID of the Phone Number being added to the Service.
+        
+        :returns: The created PhoneNumberInstance
+        :rtype: twilio.rest.messaging.v1.phone_number.PhoneNumberInstance
+        """
+        data = values.of({ 
+            'PhoneNumberSid': phone_number_sid,
+        })
+
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return PhoneNumberInstance(self._version, payload, service_sid=self._solution['service_sid'])
     
     
     def stream(self, limit=None, page_size=None):
@@ -127,6 +142,28 @@ class PhoneNumberList(ListResource):
         )
         return PhoneNumberPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a PhoneNumberContext
+        
+        :param sid: The SID of the PhoneNumber resource to fetch.
+        
+        :returns: twilio.rest.messaging.v1.phone_number.PhoneNumberContext
+        :rtype: twilio.rest.messaging.v1.phone_number.PhoneNumberContext
+        """
+        return PhoneNumberContext(self._version, service_sid=self._solution['service_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a PhoneNumberContext
+        
+        :param sid: The SID of the PhoneNumber resource to fetch.
+        
+        :returns: twilio.rest.messaging.v1.phone_number.PhoneNumberContext
+        :rtype: twilio.rest.messaging.v1.phone_number.PhoneNumberContext
+        """
+        return PhoneNumberContext(self._version, service_sid=self._solution['service_sid'], sid=sid)
 
     def __repr__(self):
         """

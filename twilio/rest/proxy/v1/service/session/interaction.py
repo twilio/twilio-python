@@ -40,8 +40,8 @@ class InteractionList(ListResource):
         # Path Solution
         self._solution = { 'service_sid': service_sid, 'session_sid': session_sid,  }
         self._uri = '/Services/${service_sid}/Sessions/${session_sid}/Interactions'.format(**self._solution)
-
-
+        
+        
     
     
     
@@ -127,6 +127,28 @@ class InteractionList(ListResource):
         )
         return InteractionPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a InteractionContext
+        
+        :param sid: The Twilio-provided string that uniquely identifies the Interaction resource to fetch.
+        
+        :returns: twilio.rest.proxy.v1.interaction.InteractionContext
+        :rtype: twilio.rest.proxy.v1.interaction.InteractionContext
+        """
+        return InteractionContext(self._version, service_sid=self._solution['service_sid'], session_sid=self._solution['session_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a InteractionContext
+        
+        :param sid: The Twilio-provided string that uniquely identifies the Interaction resource to fetch.
+        
+        :returns: twilio.rest.proxy.v1.interaction.InteractionContext
+        :rtype: twilio.rest.proxy.v1.interaction.InteractionContext
+        """
+        return InteractionContext(self._version, service_sid=self._solution['service_sid'], session_sid=self._solution['session_sid'], sid=sid)
 
     def __repr__(self):
         """

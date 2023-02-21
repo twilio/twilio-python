@@ -38,10 +38,33 @@ class InsightsQuestionnairesQuestionList(ListResource):
         # Path Solution
         self._solution = {  }
         self._uri = '/Insights/QM/Questions'.format(**self._solution)
-
-
+        
+        
     
     
+    
+    def create(self, category_id, question, description, answer_set_id, allow_na):
+        """
+        Create the InsightsQuestionnairesQuestionInstance
+         :param str category_id: The ID of the category
+         :param str question: The question.
+         :param str description: The description for the question.
+         :param str answer_set_id: The answer_set for the question.
+         :param bool allow_na: The flag to enable for disable NA for answer.
+        
+        :returns: The created InsightsQuestionnairesQuestionInstance
+        :rtype: twilio.rest.flex_api.v1.insights_questionnaires_question.InsightsQuestionnairesQuestionInstance
+        """
+        data = values.of({ 
+            'CategoryId': category_id,
+            'Question': question,
+            'Description': description,
+            'AnswerSetId': answer_set_id,
+            'AllowNa': allow_na,
+        })
+
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return InsightsQuestionnairesQuestionInstance(self._version, payload)
     
     
     def stream(self, token=values.unset, category_id=values.unset, limit=None, page_size=None):
@@ -113,7 +136,7 @@ class InsightsQuestionnairesQuestionList(ListResource):
         """
         data = values.of({ 
             'Token': token,
-            'CategoryId': category_id,
+            'CategoryId': serialize.map(category_id),
             'PageToken': page_token,
             'Page': page_number,
             'PageSize': page_size,
@@ -138,6 +161,28 @@ class InsightsQuestionnairesQuestionList(ListResource):
         )
         return InsightsQuestionnairesQuestionPage(self._version, response, self._solution)
 
+
+    def get(self, question_id):
+        """
+        Constructs a InsightsQuestionnairesQuestionContext
+        
+        :param question_id: The unique ID of the question
+        
+        :returns: twilio.rest.flex_api.v1.insights_questionnaires_question.InsightsQuestionnairesQuestionContext
+        :rtype: twilio.rest.flex_api.v1.insights_questionnaires_question.InsightsQuestionnairesQuestionContext
+        """
+        return InsightsQuestionnairesQuestionContext(self._version, question_id=question_id)
+
+    def __call__(self, question_id):
+        """
+        Constructs a InsightsQuestionnairesQuestionContext
+        
+        :param question_id: The unique ID of the question
+        
+        :returns: twilio.rest.flex_api.v1.insights_questionnaires_question.InsightsQuestionnairesQuestionContext
+        :rtype: twilio.rest.flex_api.v1.insights_questionnaires_question.InsightsQuestionnairesQuestionContext
+        """
+        return InsightsQuestionnairesQuestionContext(self._version, question_id=question_id)
 
     def __repr__(self):
         """
@@ -217,9 +262,9 @@ class InsightsQuestionnairesQuestionContext(InstanceContext):
         """
         return self._version.delete(method='DELETE', uri=self._uri, )
     
-    def update(self, token, body):
+    def update(self, allow_na, category_id, question, description, answer_set_id):
         data = values.of({
-            'token': token,'body': body,
+            'allow_na': allow_na,'category_id': category_id,'question': question,'description': description,'answer_set_id': answer_set_id,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

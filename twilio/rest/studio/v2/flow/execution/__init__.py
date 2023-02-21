@@ -41,11 +41,30 @@ class ExecutionList(ListResource):
         # Path Solution
         self._solution = { 'flow_sid': flow_sid,  }
         self._uri = '/Flows/${flow_sid}/Executions'.format(**self._solution)
+        
+        
+    
+    
+    
+    
+    def create(self, to, from_, parameters=values.unset):
+        """
+        Create the ExecutionInstance
+         :param str to: The Contact phone number to start a Studio Flow Execution, available as variable `{{contact.channel.address}}`.
+         :param str from_: The Twilio phone number to send messages or initiate calls from during the Flow's Execution. Available as variable `{{flow.channel.address}}`. For SMS, this can also be a Messaging Service SID.
+         :param bool, date, datetime, dict, float, int, list, str, none_type parameters: JSON data that will be added to the Flow's context and that can be accessed as variables inside your Flow. For example, if you pass in `Parameters={\"name\":\"Zeke\"}`, a widget in your Flow can reference the variable `{{flow.data.name}}`, which returns \"Zeke\". Note: the JSON value must explicitly be passed as a string, not as a hash object. Depending on your particular HTTP library, you may need to add quotes or URL encode the JSON string.
+        
+        :returns: The created ExecutionInstance
+        :rtype: twilio.rest.studio.v2.execution.ExecutionInstance
+        """
+        data = values.of({ 
+            'To': to,
+            'From': from_,
+            'Parameters': parameters,
+        })
 
-
-    
-    
-    
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return ExecutionInstance(self._version, payload, flow_sid=self._solution['flow_sid'])
     
     
     def stream(self, date_created_from=values.unset, date_created_to=values.unset, limit=None, page_size=None):
@@ -116,8 +135,8 @@ class ExecutionList(ListResource):
         :rtype: twilio.rest.studio.v2.execution.ExecutionPage
         """
         data = values.of({ 
-            'DateCreatedFrom': date_created_from,
-            'DateCreatedTo': date_created_to,
+            'DateCreatedFrom': serialize.iso8601_datetime(date_created_from),
+            'DateCreatedTo': serialize.iso8601_datetime(date_created_to),
             'PageToken': page_token,
             'Page': page_number,
             'PageSize': page_size,
@@ -142,6 +161,28 @@ class ExecutionList(ListResource):
         )
         return ExecutionPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a ExecutionContext
+        
+        :param sid: The SID of the Execution resource to update.
+        
+        :returns: twilio.rest.studio.v2.execution.ExecutionContext
+        :rtype: twilio.rest.studio.v2.execution.ExecutionContext
+        """
+        return ExecutionContext(self._version, flow_sid=self._solution['flow_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a ExecutionContext
+        
+        :param sid: The SID of the Execution resource to update.
+        
+        :returns: twilio.rest.studio.v2.execution.ExecutionContext
+        :rtype: twilio.rest.studio.v2.execution.ExecutionContext
+        """
+        return ExecutionContext(self._version, flow_sid=self._solution['flow_sid'], sid=sid)
 
     def __repr__(self):
         """
@@ -240,9 +281,9 @@ class ExecutionContext(InstanceContext):
 
         
     
-    def update(self, body):
+    def update(self, status):
         data = values.of({
-            'body': body,
+            'status': status,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

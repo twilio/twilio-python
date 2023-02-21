@@ -39,9 +39,33 @@ class VerificationCheckList(ListResource):
         # Path Solution
         self._solution = { 'service_sid': service_sid,  }
         self._uri = '/Services/${service_sid}/VerificationCheck'.format(**self._solution)
-
-
+        
+        
     
+    def create(self, code=values.unset, to=values.unset, verification_sid=values.unset, amount=values.unset, payee=values.unset):
+        """
+        Create the VerificationCheckInstance
+         :param str code: The 4-10 character string being verified.
+         :param str to: The phone number or [email](https://www.twilio.com/docs/verify/email) to verify. Either this parameter or the `verification_sid` must be specified. Phone numbers must be in [E.164 format](https://www.twilio.com/docs/glossary/what-e164).
+         :param str verification_sid: A SID that uniquely identifies the Verification Check. Either this parameter or the `to` phone number/[email](https://www.twilio.com/docs/verify/email) must be specified.
+         :param str amount: The amount of the associated PSD2 compliant transaction. Requires the PSD2 Service flag enabled.
+         :param str payee: The payee of the associated PSD2 compliant transaction. Requires the PSD2 Service flag enabled.
+        
+        :returns: The created VerificationCheckInstance
+        :rtype: twilio.rest.verify.v2.verification_check.VerificationCheckInstance
+        """
+        data = values.of({ 
+            'Code': code,
+            'To': to,
+            'VerificationSid': verification_sid,
+            'Amount': amount,
+            'Payee': payee,
+        })
+
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return VerificationCheckInstance(self._version, payload, service_sid=self._solution['service_sid'])
+    
+
 
     def __repr__(self):
         """

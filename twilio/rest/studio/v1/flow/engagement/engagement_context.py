@@ -39,10 +39,28 @@ class EngagementContextList(ListResource):
 
         # Path Solution
         self._solution = { 'flow_sid': flow_sid, 'engagement_sid': engagement_sid,  }
-        self._uri = ''.format(**self._solution)
-
-
+        
+        
+        
     
+
+    def get(self):
+        """
+        Constructs a EngagementContextContext
+        
+        :returns: twilio.rest.studio.v1.engagement_context.EngagementContextContext
+        :rtype: twilio.rest.studio.v1.engagement_context.EngagementContextContext
+        """
+        return EngagementContextContext(self._version, flow_sid=self._solution['flow_sid'], engagement_sid=self._solution['engagement_sid'])
+
+    def __call__(self):
+        """
+        Constructs a EngagementContextContext
+        
+        :returns: twilio.rest.studio.v1.engagement_context.EngagementContextContext
+        :rtype: twilio.rest.studio.v1.engagement_context.EngagementContextContext
+        """
+        return EngagementContextContext(self._version, flow_sid=self._solution['flow_sid'], engagement_sid=self._solution['engagement_sid'])
 
     def __repr__(self):
         """

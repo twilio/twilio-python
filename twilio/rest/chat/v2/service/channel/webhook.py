@@ -40,11 +40,38 @@ class WebhookList(ListResource):
         # Path Solution
         self._solution = { 'service_sid': service_sid, 'channel_sid': channel_sid,  }
         self._uri = '/Services/${service_sid}/Channels/${channel_sid}/Webhooks'.format(**self._solution)
+        
+        
+    
+    
+    
+    
+    def create(self, type, configuration_url=values.unset, configuration_method=values.unset, configuration_filters=values.unset, configuration_triggers=values.unset, configuration_flow_sid=values.unset, configuration_retry_count=values.unset):
+        """
+        Create the WebhookInstance
+         :param ChannelWebhookType type: 
+         :param str configuration_url: The URL of the webhook to call using the `configuration.method`.
+         :param ChannelWebhookMethod configuration_method: 
+         :param [str] configuration_filters: The events that cause us to call the Channel Webhook. Used when `type` is `webhook`. This parameter takes only one event. To specify more than one event, repeat this parameter for each event. For the list of possible events, see [Webhook Event Triggers](https://www.twilio.com/docs/chat/webhook-events#webhook-event-trigger).
+         :param [str] configuration_triggers: A string that will cause us to call the webhook when it is present in a message body. This parameter takes only one trigger string. To specify more than one, repeat this parameter for each trigger string up to a total of 5 trigger strings. Used only when `type` = `trigger`.
+         :param str configuration_flow_sid: The SID of the Studio [Flow](https://www.twilio.com/docs/studio/rest-api/flow) to call when an event in `configuration.filters` occurs. Used only when `type` is `studio`.
+         :param int configuration_retry_count: The number of times to retry the webhook if the first attempt fails. Can be an integer between 0 and 3, inclusive, and the default is 0.
+        
+        :returns: The created WebhookInstance
+        :rtype: twilio.rest.chat.v2.webhook.WebhookInstance
+        """
+        data = values.of({ 
+            'Type': type,
+            'Configuration.Url': configuration_url,
+            'Configuration.Method': configuration_method,
+            'Configuration.Filters': serialize.map(configuration_filters, lambda e: e),
+            'Configuration.Triggers': serialize.map(configuration_triggers, lambda e: e),
+            'Configuration.FlowSid': configuration_flow_sid,
+            'Configuration.RetryCount': configuration_retry_count,
+        })
 
-
-    
-    
-    
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return WebhookInstance(self._version, payload, service_sid=self._solution['service_sid'], channel_sid=self._solution['channel_sid'])
     
     
     def stream(self, limit=None, page_size=None):
@@ -129,6 +156,28 @@ class WebhookList(ListResource):
         )
         return WebhookPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a WebhookContext
+        
+        :param sid: The SID of the Channel Webhook resource to update.
+        
+        :returns: twilio.rest.chat.v2.webhook.WebhookContext
+        :rtype: twilio.rest.chat.v2.webhook.WebhookContext
+        """
+        return WebhookContext(self._version, service_sid=self._solution['service_sid'], channel_sid=self._solution['channel_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a WebhookContext
+        
+        :param sid: The SID of the Channel Webhook resource to update.
+        
+        :returns: twilio.rest.chat.v2.webhook.WebhookContext
+        :rtype: twilio.rest.chat.v2.webhook.WebhookContext
+        """
+        return WebhookContext(self._version, service_sid=self._solution['service_sid'], channel_sid=self._solution['channel_sid'], sid=sid)
 
     def __repr__(self):
         """
@@ -225,9 +274,9 @@ class WebhookContext(InstanceContext):
 
         
     
-    def update(self, body):
+    def update(self, configuration_url, configuration_method, configuration_filters, configuration_triggers, configuration_flow_sid, configuration_retry_count):
         data = values.of({
-            'body': body,
+            'configuration_url': configuration_url,'configuration_method': configuration_method,'configuration_filters': configuration_filters,'configuration_triggers': configuration_triggers,'configuration_flow_sid': configuration_flow_sid,'configuration_retry_count': configuration_retry_count,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

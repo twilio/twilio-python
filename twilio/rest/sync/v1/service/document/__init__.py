@@ -40,11 +40,30 @@ class DocumentList(ListResource):
         # Path Solution
         self._solution = { 'service_sid': service_sid,  }
         self._uri = '/Services/${service_sid}/Documents'.format(**self._solution)
+        
+        
+    
+    
+    
+    
+    def create(self, unique_name=values.unset, data=values.unset, ttl=values.unset):
+        """
+        Create the DocumentInstance
+         :param str unique_name: An application-defined string that uniquely identifies the Sync Document
+         :param bool, date, datetime, dict, float, int, list, str, none_type data: A JSON string that represents an arbitrary, schema-less object that the Sync Document stores. Can be up to 16 KiB in length.
+         :param int ttl: How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Sync Document expires and is deleted (the Sync Document's time-to-live).
+        
+        :returns: The created DocumentInstance
+        :rtype: twilio.rest.sync.v1.document.DocumentInstance
+        """
+        data = values.of({ 
+            'UniqueName': unique_name,
+            'Data': data,
+            'Ttl': ttl,
+        })
 
-
-    
-    
-    
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return DocumentInstance(self._version, payload, service_sid=self._solution['service_sid'])
     
     
     def stream(self, limit=None, page_size=None):
@@ -129,6 +148,28 @@ class DocumentList(ListResource):
         )
         return DocumentPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a DocumentContext
+        
+        :param sid: The SID of the Document resource to update. Can be the Document resource's `sid` or its `unique_name`.
+        
+        :returns: twilio.rest.sync.v1.document.DocumentContext
+        :rtype: twilio.rest.sync.v1.document.DocumentContext
+        """
+        return DocumentContext(self._version, service_sid=self._solution['service_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a DocumentContext
+        
+        :param sid: The SID of the Document resource to update. Can be the Document resource's `sid` or its `unique_name`.
+        
+        :returns: twilio.rest.sync.v1.document.DocumentContext
+        :rtype: twilio.rest.sync.v1.document.DocumentContext
+        """
+        return DocumentContext(self._version, service_sid=self._solution['service_sid'], sid=sid)
 
     def __repr__(self):
         """
@@ -226,9 +267,9 @@ class DocumentContext(InstanceContext):
 
         
     
-    def update(self, if_match, body):
+    def update(self, data, ttl):
         data = values.of({
-            'if_match': if_match,'body': body,
+            'data': data,'ttl': ttl,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

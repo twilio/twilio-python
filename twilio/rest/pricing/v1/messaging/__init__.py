@@ -39,9 +39,9 @@ class MessagingList(ListResource):
         # Path Solution
         self._solution = {  }
         self._uri = '/Messaging'.format(**self._solution)
-
+        
         self._countries = None
-
+        
 
     @property
     def countries(self):

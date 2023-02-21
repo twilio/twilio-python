@@ -40,10 +40,51 @@ class UserDefinedMessageSubscriptionList(ListResource):
         # Path Solution
         self._solution = { 'account_sid': account_sid, 'call_sid': call_sid,  }
         self._uri = '/Accounts/${account_sid}/Calls/${call_sid}/UserDefinedMessageSubscriptions.json'.format(**self._solution)
-
-
+        
+        
     
     
+    def create(self, callback, idempotency_key=values.unset, method=values.unset):
+        """
+        Create the UserDefinedMessageSubscriptionInstance
+         :param str callback: The URL we should call using the `method` to send user defined events to your application. URLs must contain a valid hostname (underscores are not permitted).
+         :param str idempotency_key: A unique string value to identify API call. This should be a unique string value per API call and can be a randomly generated.
+         :param str method: The HTTP method Twilio will use when requesting the above `Url`. Either `GET` or `POST`. Default is `POST`.
+        
+        :returns: The created UserDefinedMessageSubscriptionInstance
+        :rtype: twilio.rest.api.v2010.user_defined_message_subscription.UserDefinedMessageSubscriptionInstance
+        """
+        data = values.of({ 
+            'Callback': callback,
+            'IdempotencyKey': idempotency_key,
+            'Method': method,
+        })
+
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return UserDefinedMessageSubscriptionInstance(self._version, payload, account_sid=self._solution['account_sid'], call_sid=self._solution['call_sid'])
+    
+
+    def get(self, sid):
+        """
+        Constructs a UserDefinedMessageSubscriptionContext
+        
+        :param sid: The SID that uniquely identifies this User Defined Message Subscription.
+        
+        :returns: twilio.rest.api.v2010.user_defined_message_subscription.UserDefinedMessageSubscriptionContext
+        :rtype: twilio.rest.api.v2010.user_defined_message_subscription.UserDefinedMessageSubscriptionContext
+        """
+        return UserDefinedMessageSubscriptionContext(self._version, account_sid=self._solution['account_sid'], call_sid=self._solution['call_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a UserDefinedMessageSubscriptionContext
+        
+        :param sid: The SID that uniquely identifies this User Defined Message Subscription.
+        
+        :returns: twilio.rest.api.v2010.user_defined_message_subscription.UserDefinedMessageSubscriptionContext
+        :rtype: twilio.rest.api.v2010.user_defined_message_subscription.UserDefinedMessageSubscriptionContext
+        """
+        return UserDefinedMessageSubscriptionContext(self._version, account_sid=self._solution['account_sid'], call_sid=self._solution['call_sid'], sid=sid)
 
     def __repr__(self):
         """
