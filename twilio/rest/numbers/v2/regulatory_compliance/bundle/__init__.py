@@ -21,10 +21,10 @@ from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
-from twilio.rest.numbers.v2.bundle.bundle_copies import BundleCopyList
-from twilio.rest.numbers.v2.bundle.evaluations import EvaluationList
-from twilio.rest.numbers.v2.bundle.item_assignments import ItemAssignmentList
-from twilio.rest.numbers.v2.bundle.replace_items import ReplaceItemsList
+from twilio.rest.numbers.v2.regulatory_compliance.bundle.bundle_copy import BundleCopyList
+from twilio.rest.numbers.v2.regulatory_compliance.bundle.evaluation import EvaluationList
+from twilio.rest.numbers.v2.regulatory_compliance.bundle.item_assignment import ItemAssignmentList
+from twilio.rest.numbers.v2.regulatory_compliance.bundle.replace_items import ReplaceItemsList
 
 
 class BundleList(ListResource):

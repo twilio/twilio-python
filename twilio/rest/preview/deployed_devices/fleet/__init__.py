@@ -21,10 +21,10 @@ from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
-from twilio.rest.preview.deployed_devices.fleet.certificates import CertificateList
-from twilio.rest.preview.deployed_devices.fleet.deployments import DeploymentList
-from twilio.rest.preview.deployed_devices.fleet.devices import DeviceList
-from twilio.rest.preview.deployed_devices.fleet.keys import KeyList
+from twilio.rest.preview.deployed_devices.fleet.certificate import CertificateList
+from twilio.rest.preview.deployed_devices.fleet.deployment import DeploymentList
+from twilio.rest.preview.deployed_devices.fleet.device import DeviceList
+from twilio.rest.preview.deployed_devices.fleet.key import KeyList
 
 
 class FleetList(ListResource):

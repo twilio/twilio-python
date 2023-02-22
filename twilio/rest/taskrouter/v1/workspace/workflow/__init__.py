@@ -21,9 +21,9 @@ from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
-from twilio.rest.taskrouter.v1.workflow.cumulative_statistics import WorkflowCumulativeStatisticsList
-from twilio.rest.taskrouter.v1.workflow.real_time_statistics import WorkflowRealTimeStatisticsList
-from twilio.rest.taskrouter.v1.workflow.statistics import WorkflowStatisticsList
+from twilio.rest.taskrouter.v1.workspace.workflow.workflow_cumulative_statistics import WorkflowCumulativeStatisticsList
+from twilio.rest.taskrouter.v1.workspace.workflow.workflow_real_time_statistics import WorkflowRealTimeStatisticsList
+from twilio.rest.taskrouter.v1.workspace.workflow.workflow_statistics import WorkflowStatisticsList
 
 
 class WorkflowList(ListResource):

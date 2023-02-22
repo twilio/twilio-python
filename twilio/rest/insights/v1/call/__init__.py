@@ -22,9 +22,9 @@ from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 
 from twilio.rest.insights.v1.call.annotation import AnnotationList
-from twilio.rest.insights.v1.call.summary import CallSummaryList
-from twilio.rest.insights.v1.call.events import EventList
-from twilio.rest.insights.v1.call.metrics import MetricList
+from twilio.rest.insights.v1.call.call_summary import CallSummaryList
+from twilio.rest.insights.v1.call.event import EventList
+from twilio.rest.insights.v1.call.metric import MetricList
 
 
 class CallList(ListResource):

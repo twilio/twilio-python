@@ -21,8 +21,8 @@ from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
-from twilio.rest.wireless.v1.sim.data_sessions import DataSessionList
-from twilio.rest.wireless.v1.sim.usage_records import UsageRecordList
+from twilio.rest.wireless.v1.sim.data_session import DataSessionList
+from twilio.rest.wireless.v1.sim.usage_record import UsageRecordList
 
 
 class SimList(ListResource):

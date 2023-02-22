@@ -21,7 +21,7 @@ from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 
-from twilio.rest.api.v2010.auth_type_registrations.credential_list_mappings import AuthRegistrationsCredentialListMappingList
+from twilio.rest.api.v2010.account.sip.domain.auth_types.auth_type_registrations.auth_registrations_credential_list_mapping import AuthRegistrationsCredentialListMappingList
 
 
 class AuthTypeRegistrationsList(ListResource):

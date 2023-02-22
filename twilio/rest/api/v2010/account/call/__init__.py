@@ -21,16 +21,16 @@ from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
-from twilio.rest.api.v2010.call.events import EventList
-from twilio.rest.api.v2010.call.feedback import FeedbackList
-from twilio.rest.api.v2010.call.feedback_summaries import FeedbackSummaryList
-from twilio.rest.api.v2010.call.notifications import NotificationList
-from twilio.rest.api.v2010.call.payments import PaymentList
-from twilio.rest.api.v2010.call.recordings import RecordingList
-from twilio.rest.api.v2010.call.siprec import SiprecList
-from twilio.rest.api.v2010.call.streams import StreamList
-from twilio.rest.api.v2010.call.user_defined_messages import UserDefinedMessageList
-from twilio.rest.api.v2010.call.user_defined_message_subscriptions import UserDefinedMessageSubscriptionList
+from twilio.rest.api.v2010.account.call.event import EventList
+from twilio.rest.api.v2010.account.call.feedback import FeedbackList
+from twilio.rest.api.v2010.account.call.feedback_summary import FeedbackSummaryList
+from twilio.rest.api.v2010.account.call.notification import NotificationList
+from twilio.rest.api.v2010.account.call.payment import PaymentList
+from twilio.rest.api.v2010.account.call.recording import RecordingList
+from twilio.rest.api.v2010.account.call.siprec import SiprecList
+from twilio.rest.api.v2010.account.call.stream import StreamList
+from twilio.rest.api.v2010.account.call.user_defined_message import UserDefinedMessageList
+from twilio.rest.api.v2010.account.call.user_defined_message_subscription import UserDefinedMessageSubscriptionList
 
 
 class CallList(ListResource):

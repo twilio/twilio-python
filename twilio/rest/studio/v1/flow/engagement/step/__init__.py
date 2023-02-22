@@ -21,7 +21,7 @@ from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
-from twilio.rest.studio.v1.step.step_context import StepContextList
+from twilio.rest.studio.v1.flow.engagement.step.step_context import StepContextList
 
 
 class StepList(ListResource):

@@ -21,8 +21,8 @@ from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
-from twilio.rest.api.v2010.recording.add_on_results import AddOnResultList
-from twilio.rest.api.v2010.recording.transcriptions import TranscriptionList
+from twilio.rest.api.v2010.account.recording.add_on_result import AddOnResultList
+from twilio.rest.api.v2010.account.recording.transcription import TranscriptionList
 
 
 class RecordingList(ListResource):

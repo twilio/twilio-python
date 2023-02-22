@@ -21,7 +21,7 @@ from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
-from twilio.rest.studio.v2.execution_step.step_context import ExecutionStepContextList
+from twilio.rest.studio.v2.flow.execution.execution_step.execution_step_context import ExecutionStepContextList
 
 
 class ExecutionStepList(ListResource):

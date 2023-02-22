@@ -21,8 +21,8 @@ from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 
-from twilio.rest.voice.v1.dialing_permissions.bulk_country_updates import BulkCountryUpdateList
-from twilio.rest.voice.v1.dialing_permissions.countries import CountryList
+from twilio.rest.voice.v1.dialing_permissions.bulk_country_update import BulkCountryUpdateList
+from twilio.rest.voice.v1.dialing_permissions.country import CountryList
 from twilio.rest.voice.v1.dialing_permissions.settings import SettingsList
 
 

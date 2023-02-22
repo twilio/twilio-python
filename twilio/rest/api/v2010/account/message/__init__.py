@@ -21,8 +21,8 @@ from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
-from twilio.rest.api.v2010.message.feedback import FeedbackList
-from twilio.rest.api.v2010.message.media import MediaList
+from twilio.rest.api.v2010.account.message.feedback import FeedbackList
+from twilio.rest.api.v2010.account.message.media import MediaList
 
 
 class MessageList(ListResource):

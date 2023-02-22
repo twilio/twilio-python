@@ -21,9 +21,9 @@ from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
-from twilio.rest.video.v1.room.participants import ParticipantList
+from twilio.rest.video.v1.room.participant import ParticipantList
 from twilio.rest.video.v1.room.recording_rules import RecordingRulesList
-from twilio.rest.video.v1.room.recordings import RoomRecordingList
+from twilio.rest.video.v1.room.room_recording import RoomRecordingList
 
 
 class RoomList(ListResource):

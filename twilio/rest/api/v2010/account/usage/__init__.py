@@ -21,8 +21,8 @@ from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 
-from twilio.rest.api.v2010.usage.records import RecordList
-from twilio.rest.api.v2010.usage.triggers import TriggerList
+from twilio.rest.api.v2010.account.usage.record import RecordList
+from twilio.rest.api.v2010.account.usage.trigger import TriggerList
 
 
 class UsageList(ListResource):

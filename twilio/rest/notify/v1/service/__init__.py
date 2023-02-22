@@ -21,8 +21,8 @@ from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
-from twilio.rest.notify.v1.service.bindings import BindingList
-from twilio.rest.notify.v1.service.notifications import NotificationList
+from twilio.rest.notify.v1.service.binding import BindingList
+from twilio.rest.notify.v1.service.notification import NotificationList
 
 
 class ServiceList(ListResource):

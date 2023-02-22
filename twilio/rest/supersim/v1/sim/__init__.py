@@ -21,8 +21,8 @@ from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
-from twilio.rest.supersim.v1.sim.billing_periods import BillingPeriodList
-from twilio.rest.supersim.v1.sim.sim_ip_addresses import SimIpAddressList
+from twilio.rest.supersim.v1.sim.billing_period import BillingPeriodList
+from twilio.rest.supersim.v1.sim.sim_ip_address import SimIpAddressList
 
 
 class SimList(ListResource):

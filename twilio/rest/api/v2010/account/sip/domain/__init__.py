@@ -21,9 +21,9 @@ from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
-from twilio.rest.api.v2010.domain.auth import AuthTypesList
-from twilio.rest.api.v2010.domain.credential_list_mappings import CredentialListMappingList
-from twilio.rest.api.v2010.domain.ip_access_control_list_mappings import IpAccessControlListMappingList
+from twilio.rest.api.v2010.account.sip.domain.auth_types import AuthTypesList
+from twilio.rest.api.v2010.account.sip.domain.credential_list_mapping import CredentialListMappingList
+from twilio.rest.api.v2010.account.sip.domain.ip_access_control_list_mapping import IpAccessControlListMappingList
 
 
 class DomainList(ListResource):

@@ -21,14 +21,14 @@ from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
-from twilio.rest.api.v2010.record.all_time import AllTimeList
-from twilio.rest.api.v2010.record.daily import DailyList
-from twilio.rest.api.v2010.record.last_month import LastMonthList
-from twilio.rest.api.v2010.record.monthly import MonthlyList
-from twilio.rest.api.v2010.record.this_month import ThisMonthList
-from twilio.rest.api.v2010.record.today import TodayList
-from twilio.rest.api.v2010.record.yearly import YearlyList
-from twilio.rest.api.v2010.record.yesterday import YesterdayList
+from twilio.rest.api.v2010.account.usage.record.all_time import AllTimeList
+from twilio.rest.api.v2010.account.usage.record.daily import DailyList
+from twilio.rest.api.v2010.account.usage.record.last_month import LastMonthList
+from twilio.rest.api.v2010.account.usage.record.monthly import MonthlyList
+from twilio.rest.api.v2010.account.usage.record.this_month import ThisMonthList
+from twilio.rest.api.v2010.account.usage.record.today import TodayList
+from twilio.rest.api.v2010.account.usage.record.yearly import YearlyList
+from twilio.rest.api.v2010.account.usage.record.yesterday import YesterdayList
 
 
 class RecordList(ListResource):

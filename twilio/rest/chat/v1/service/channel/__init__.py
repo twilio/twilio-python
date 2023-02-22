@@ -21,9 +21,9 @@ from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
-from twilio.rest.chat.v1.channel.invites import InviteList
-from twilio.rest.chat.v1.channel.members import MemberList
-from twilio.rest.chat.v1.channel.messages import MessageList
+from twilio.rest.chat.v1.service.channel.invite import InviteList
+from twilio.rest.chat.v1.service.channel.member import MemberList
+from twilio.rest.chat.v1.service.channel.message import MessageList
 
 
 class ChannelList(ListResource):

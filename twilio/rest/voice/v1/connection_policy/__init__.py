@@ -21,7 +21,7 @@ from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
-from twilio.rest.voice.v1.connection_policy.targets import ConnectionPolicyTargetList
+from twilio.rest.voice.v1.connection_policy.connection_policy_target import ConnectionPolicyTargetList
 
 
 class ConnectionPolicyList(ListResource):

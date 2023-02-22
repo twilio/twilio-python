@@ -21,9 +21,9 @@ from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
-from twilio.rest.serverless.v1.environment.deployments import DeploymentList
-from twilio.rest.serverless.v1.environment.logs import LogList
-from twilio.rest.serverless.v1.environment.variables import VariableList
+from twilio.rest.serverless.v1.service.environment.deployment import DeploymentList
+from twilio.rest.serverless.v1.service.environment.log import LogList
+from twilio.rest.serverless.v1.service.environment.variable import VariableList
 
 
 class EnvironmentList(ListResource):

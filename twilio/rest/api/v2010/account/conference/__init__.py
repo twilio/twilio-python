@@ -21,8 +21,8 @@ from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
-from twilio.rest.api.v2010.conference.participants import ParticipantList
-from twilio.rest.api.v2010.conference.recordings import RecordingList
+from twilio.rest.api.v2010.account.conference.participant import ParticipantList
+from twilio.rest.api.v2010.account.conference.recording import RecordingList
 
 
 class ConferenceList(ListResource):

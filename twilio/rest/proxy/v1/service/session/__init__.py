@@ -21,8 +21,8 @@ from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
-from twilio.rest.proxy.v1.session.interactions import InteractionList
-from twilio.rest.proxy.v1.session.participants import ParticipantList
+from twilio.rest.proxy.v1.service.session.interaction import InteractionList
+from twilio.rest.proxy.v1.service.session.participant import ParticipantList
 
 
 class SessionList(ListResource):

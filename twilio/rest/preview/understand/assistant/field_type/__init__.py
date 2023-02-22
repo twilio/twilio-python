@@ -21,7 +21,7 @@ from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
-from twilio.rest.preview.understand.field_type.field_values import FieldValueList
+from twilio.rest.preview.understand.assistant.field_type.field_value import FieldValueList
 
 
 class FieldTypeList(ListResource):

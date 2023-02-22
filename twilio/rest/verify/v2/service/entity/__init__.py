@@ -21,9 +21,9 @@ from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
-from twilio.rest.verify.v2.entity.challenges import ChallengeList
-from twilio.rest.verify.v2.entity.factors import FactorList
-from twilio.rest.verify.v2.entity.new_factors import NewFactorList
+from twilio.rest.verify.v2.service.entity.challenge import ChallengeList
+from twilio.rest.verify.v2.service.entity.factor import FactorList
+from twilio.rest.verify.v2.service.entity.new_factor import NewFactorList
 
 
 class EntityList(ListResource):

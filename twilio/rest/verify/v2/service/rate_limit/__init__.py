@@ -21,7 +21,7 @@ from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
-from twilio.rest.verify.v2.rate_limit.buckets import BucketList
+from twilio.rest.verify.v2.service.rate_limit.bucket import BucketList
 
 
 class RateLimitList(ListResource):

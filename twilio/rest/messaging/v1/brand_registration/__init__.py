@@ -21,7 +21,7 @@ from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
-from twilio.rest.messaging.v1.brand_registration.brand_vettings import BrandVettingList
+from twilio.rest.messaging.v1.brand_registration.brand_vetting import BrandVettingList
 
 
 class BrandRegistrationList(ListResource):

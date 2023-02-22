@@ -21,13 +21,13 @@ from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
-from twilio.rest.verify.v2.service.access_tokens import AccessTokenList
-from twilio.rest.verify.v2.service.entities import EntityList
-from twilio.rest.verify.v2.service.messaging_configurations import MessagingConfigurationList
-from twilio.rest.verify.v2.service.rate_limits import RateLimitList
-from twilio.rest.verify.v2.service.verifications import VerificationList
-from twilio.rest.verify.v2.service.verification_checks import VerificationCheckList
-from twilio.rest.verify.v2.service.webhooks import WebhookList
+from twilio.rest.verify.v2.service.access_token import AccessTokenList
+from twilio.rest.verify.v2.service.entity import EntityList
+from twilio.rest.verify.v2.service.messaging_configuration import MessagingConfigurationList
+from twilio.rest.verify.v2.service.rate_limit import RateLimitList
+from twilio.rest.verify.v2.service.verification import VerificationList
+from twilio.rest.verify.v2.service.verification_check import VerificationCheckList
+from twilio.rest.verify.v2.service.webhook import WebhookList
 
 
 class ServiceList(ListResource):

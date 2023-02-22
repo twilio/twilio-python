@@ -22,13 +22,13 @@ from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
 from twilio.rest.autopilot.v1.assistant.defaults import DefaultsList
-from twilio.rest.autopilot.v1.assistant.dialogues import DialogueList
-from twilio.rest.autopilot.v1.assistant.field_types import FieldTypeList
-from twilio.rest.autopilot.v1.assistant.model_builds import ModelBuildList
-from twilio.rest.autopilot.v1.assistant.queries import QueryList
+from twilio.rest.autopilot.v1.assistant.dialogue import DialogueList
+from twilio.rest.autopilot.v1.assistant.field_type import FieldTypeList
+from twilio.rest.autopilot.v1.assistant.model_build import ModelBuildList
+from twilio.rest.autopilot.v1.assistant.query import QueryList
 from twilio.rest.autopilot.v1.assistant.style_sheet import StyleSheetList
-from twilio.rest.autopilot.v1.assistant.tasks import TaskList
-from twilio.rest.autopilot.v1.assistant.webhooks import WebhookList
+from twilio.rest.autopilot.v1.assistant.task import TaskList
+from twilio.rest.autopilot.v1.assistant.webhook import WebhookList
 
 
 class AssistantList(ListResource):

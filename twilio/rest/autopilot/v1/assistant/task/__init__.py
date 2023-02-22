@@ -21,10 +21,10 @@ from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
-from twilio.rest.autopilot.v1.task.fields import FieldList
-from twilio.rest.autopilot.v1.task.samples import SampleList
-from twilio.rest.autopilot.v1.task.task_actions import TaskActionsList
-from twilio.rest.autopilot.v1.task.statistics import TaskStatisticsList
+from twilio.rest.autopilot.v1.assistant.task.field import FieldList
+from twilio.rest.autopilot.v1.assistant.task.sample import SampleList
+from twilio.rest.autopilot.v1.assistant.task.task_actions import TaskActionsList
+from twilio.rest.autopilot.v1.assistant.task.task_statistics import TaskStatisticsList
 
 
 class TaskList(ListResource):

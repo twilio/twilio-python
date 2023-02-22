@@ -21,7 +21,7 @@ from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
-from twilio.rest.api.v2010.ip_access_control_list.ip_addresses import IpAddressList
+from twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address import IpAddressList
 
 
 class IpAccessControlListList(ListResource):

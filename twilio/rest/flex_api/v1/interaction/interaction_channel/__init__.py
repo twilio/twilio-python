@@ -21,8 +21,8 @@ from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
-from twilio.rest.flex_api.v1.interaction_channel.invites import InteractionChannelInviteList
-from twilio.rest.flex_api.v1.interaction_channel.participants import InteractionChannelParticipantList
+from twilio.rest.flex_api.v1.interaction.interaction_channel.interaction_channel_invite import InteractionChannelInviteList
+from twilio.rest.flex_api.v1.interaction.interaction_channel.interaction_channel_participant import InteractionChannelParticipantList
 
 
 class InteractionChannelList(ListResource):
