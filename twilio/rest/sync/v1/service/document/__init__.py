@@ -29,22 +29,42 @@ class DocumentList(ListResource):
     def __init__(self, version: Version, service_sid: str):
         """
         Initialize the DocumentList
+
         :param Version version: Version that contains the resource
         :param service_sid: The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Document resources to read.
         
-        :returns: twilio.sync.v1.document..DocumentList
-        :rtype: twilio.sync.v1.document..DocumentList
+        :returns: twilio.rest.sync.v1.service.document.DocumentList
+        :rtype: twilio.rest.sync.v1.service.document.DocumentList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = { 'service_sid': service_sid,  }
         self._uri = '/Services/${service_sid}/Documents'.format(**self._solution)
+        
+        
+    
+    
+    
+    
+    def create(self, unique_name=values.unset, data=values.unset, ttl=values.unset):
+        """
+        Create the DocumentInstance
+        :param str unique_name: An application-defined string that uniquely identifies the Sync Document
+        :param object data: A JSON string that represents an arbitrary, schema-less object that the Sync Document stores. Can be up to 16 KiB in length.
+        :param int ttl: How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Sync Document expires and is deleted (the Sync Document's time-to-live).
+        
+        :returns: The created DocumentInstance
+        :rtype: twilio.rest.sync.v1.service.document.DocumentInstance
+        """
+        data = values.of({ 
+            'UniqueName': unique_name,
+            'Data': serialize.object(data),
+            'Ttl': ttl,
+        })
 
-
-    
-    
-    
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return DocumentInstance(self._version, payload, service_sid=self._solution['service_sid'])
     
     
     def stream(self, limit=None, page_size=None):
@@ -62,7 +82,7 @@ class DocumentList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.sync.v1.document.DocumentInstance]
+        :rtype: list[twilio.rest.sync.v1.service.document.DocumentInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -85,7 +105,7 @@ class DocumentList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.sync.v1.document.DocumentInstance]
+        :rtype: list[twilio.rest.sync.v1.service.document.DocumentInstance]
         """
         return list(self.stream(
             limit=limit,
@@ -102,7 +122,7 @@ class DocumentList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of DocumentInstance
-        :rtype: twilio.rest.sync.v1.document.DocumentPage
+        :rtype: twilio.rest.sync.v1.service.document.DocumentPage
         """
         data = values.of({ 
             'PageToken': page_token,
@@ -121,7 +141,7 @@ class DocumentList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of DocumentInstance
-        :rtype: twilio.rest.sync.v1.document.DocumentPage
+        :rtype: twilio.rest.sync.v1.service.document.DocumentPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -129,6 +149,28 @@ class DocumentList(ListResource):
         )
         return DocumentPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a DocumentContext
+        
+        :param sid: The SID of the Document resource to update. Can be the Document resource's `sid` or its `unique_name`.
+        
+        :returns: twilio.rest.sync.v1.service.document.DocumentContext
+        :rtype: twilio.rest.sync.v1.service.document.DocumentContext
+        """
+        return DocumentContext(self._version, service_sid=self._solution['service_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a DocumentContext
+        
+        :param sid: The SID of the Document resource to update. Can be the Document resource's `sid` or its `unique_name`.
+        
+        :returns: twilio.rest.sync.v1.service.document.DocumentContext
+        :rtype: twilio.rest.sync.v1.service.document.DocumentContext
+        """
+        return DocumentContext(self._version, service_sid=self._solution['service_sid'], sid=sid)
 
     def __repr__(self):
         """
@@ -156,8 +198,8 @@ class DocumentPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.sync.v1.document.DocumentPage
-        :rtype: twilio.rest.sync.v1.document.DocumentPage
+        :returns: twilio.rest.sync.v1.service.document.DocumentPage
+        :rtype: twilio.rest.sync.v1.service.document.DocumentPage
         """
         super().__init__(version, response)
 
@@ -170,8 +212,8 @@ class DocumentPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.sync.v1.document.DocumentInstance
-        :rtype: twilio.rest.sync.v1.document.DocumentInstance
+        :returns: twilio.rest.sync.v1.service.document.DocumentInstance
+        :rtype: twilio.rest.sync.v1.service.document.DocumentInstance
         """
         return DocumentInstance(self._version, payload, service_sid=self._solution['service_sid'])
 
@@ -226,9 +268,9 @@ class DocumentContext(InstanceContext):
 
         
     
-    def update(self, if_match, body):
+    def update(self, if_match, data, ttl):
         data = values.of({
-            'if_match': if_match,'body': body,
+            'if_match': if_match,'data': data,'ttl': ttl,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

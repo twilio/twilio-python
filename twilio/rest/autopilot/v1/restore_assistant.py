@@ -28,19 +28,21 @@ class RestoreAssistantList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the RestoreAssistantList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.autopilot.v1.restore_assistant..RestoreAssistantList
-        :rtype: twilio.autopilot.v1.restore_assistant..RestoreAssistantList
+        :returns: twilio.rest.autopilot.v1.restore_assistant.RestoreAssistantList
+        :rtype: twilio.rest.autopilot.v1.restore_assistant.RestoreAssistantList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = {  }
         self._uri = '/Assistants/Restore'.format(**self._solution)
-
-
+        
+        
     
+
 
     def __repr__(self):
         """

@@ -28,20 +28,43 @@ class DomainConfigList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the DomainConfigList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.messaging.v1.domain_config..DomainConfigList
-        :rtype: twilio.messaging.v1.domain_config..DomainConfigList
+        :returns: twilio.rest.messaging.v1.domain_config.DomainConfigList
+        :rtype: twilio.rest.messaging.v1.domain_config.DomainConfigList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = {  }
-        self._uri = ''.format(**self._solution)
-
-
+        
+        
+        
     
     
+
+    def get(self, domain_sid):
+        """
+        Constructs a DomainConfigContext
+        
+        :param domain_sid: Unique string used to identify the domain that this config should be associated with.
+        
+        :returns: twilio.rest.messaging.v1.domain_config.DomainConfigContext
+        :rtype: twilio.rest.messaging.v1.domain_config.DomainConfigContext
+        """
+        return DomainConfigContext(self._version, domain_sid=domain_sid)
+
+    def __call__(self, domain_sid):
+        """
+        Constructs a DomainConfigContext
+        
+        :param domain_sid: Unique string used to identify the domain that this config should be associated with.
+        
+        :returns: twilio.rest.messaging.v1.domain_config.DomainConfigContext
+        :rtype: twilio.rest.messaging.v1.domain_config.DomainConfigContext
+        """
+        return DomainConfigContext(self._version, domain_sid=domain_sid)
 
     def __repr__(self):
         """
@@ -77,9 +100,9 @@ class DomainConfigContext(InstanceContext):
 
         
     
-    def update(self, body):
+    def update(self, messaging_service_sids, fallback_url, callback_url, messaging_service_sids_action):
         data = values.of({
-            'body': body,
+            'messaging_service_sids': messaging_service_sids,'fallback_url': fallback_url,'callback_url': callback_url,'messaging_service_sids_action': messaging_service_sids_action,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

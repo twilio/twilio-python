@@ -28,19 +28,46 @@ class ChannelList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the ChannelList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.chat.v3.channel..ChannelList
-        :rtype: twilio.chat.v3.channel..ChannelList
+        :returns: twilio.rest.chat.v3.channel.ChannelList
+        :rtype: twilio.rest.chat.v3.channel.ChannelList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = {  }
-        self._uri = ''.format(**self._solution)
-
-
+        
+        
+        
     
+
+    def get(self, service_sid, sid):
+        """
+        Constructs a ChannelContext
+        
+        :param service_sid: The unique SID identifier of the Service.
+        
+        :param sid: A 34 character string that uniquely identifies this Channel.
+        
+        :returns: twilio.rest.chat.v3.channel.ChannelContext
+        :rtype: twilio.rest.chat.v3.channel.ChannelContext
+        """
+        return ChannelContext(self._version, service_sid=service_sid, sid=sid)
+
+    def __call__(self, service_sid, sid):
+        """
+        Constructs a ChannelContext
+        
+        :param service_sid: The unique SID identifier of the Service.
+        
+        :param sid: A 34 character string that uniquely identifies this Channel.
+        
+        :returns: twilio.rest.chat.v3.channel.ChannelContext
+        :rtype: twilio.rest.chat.v3.channel.ChannelContext
+        """
+        return ChannelContext(self._version, service_sid=service_sid, sid=sid)
 
     def __repr__(self):
         """
@@ -61,9 +88,9 @@ class ChannelContext(InstanceContext):
         self._uri = '/Services/${service_sid}/Channels/${sid}'
         
     
-    def update(self, x_twilio_webhook_enabled, body):
+    def update(self, x_twilio_webhook_enabled, type, messaging_service_sid):
         data = values.of({
-            'x_twilio_webhook_enabled': x_twilio_webhook_enabled,'body': body,
+            'x_twilio_webhook_enabled': x_twilio_webhook_enabled,'type': type,'messaging_service_sid': messaging_service_sid,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

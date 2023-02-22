@@ -29,20 +29,21 @@ class StepList(ListResource):
     def __init__(self, version: Version, flow_sid: str, engagement_sid: str):
         """
         Initialize the StepList
+
         :param Version version: Version that contains the resource
         :param flow_sid: The SID of the Flow with the Step to read.
         :param engagement_sid: The SID of the Engagement with the Step to read.
         
-        :returns: twilio.studio.v1.step..StepList
-        :rtype: twilio.studio.v1.step..StepList
+        :returns: twilio.rest.studio.v1.flow.engagement.step.StepList
+        :rtype: twilio.rest.studio.v1.flow.engagement.step.StepList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = { 'flow_sid': flow_sid, 'engagement_sid': engagement_sid,  }
         self._uri = '/Flows/${flow_sid}/Engagements/${engagement_sid}/Steps'.format(**self._solution)
-
-
+        
+        
     
     
     def stream(self, limit=None, page_size=None):
@@ -60,7 +61,7 @@ class StepList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.studio.v1.step.StepInstance]
+        :rtype: list[twilio.rest.studio.v1.flow.engagement.step.StepInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -83,7 +84,7 @@ class StepList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.studio.v1.step.StepInstance]
+        :rtype: list[twilio.rest.studio.v1.flow.engagement.step.StepInstance]
         """
         return list(self.stream(
             limit=limit,
@@ -100,7 +101,7 @@ class StepList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of StepInstance
-        :rtype: twilio.rest.studio.v1.step.StepPage
+        :rtype: twilio.rest.studio.v1.flow.engagement.step.StepPage
         """
         data = values.of({ 
             'PageToken': page_token,
@@ -119,7 +120,7 @@ class StepList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of StepInstance
-        :rtype: twilio.rest.studio.v1.step.StepPage
+        :rtype: twilio.rest.studio.v1.flow.engagement.step.StepPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -127,6 +128,28 @@ class StepList(ListResource):
         )
         return StepPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a StepContext
+        
+        :param sid: The SID of the Step resource to fetch.
+        
+        :returns: twilio.rest.studio.v1.flow.engagement.step.StepContext
+        :rtype: twilio.rest.studio.v1.flow.engagement.step.StepContext
+        """
+        return StepContext(self._version, flow_sid=self._solution['flow_sid'], engagement_sid=self._solution['engagement_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a StepContext
+        
+        :param sid: The SID of the Step resource to fetch.
+        
+        :returns: twilio.rest.studio.v1.flow.engagement.step.StepContext
+        :rtype: twilio.rest.studio.v1.flow.engagement.step.StepContext
+        """
+        return StepContext(self._version, flow_sid=self._solution['flow_sid'], engagement_sid=self._solution['engagement_sid'], sid=sid)
 
     def __repr__(self):
         """
@@ -148,8 +171,8 @@ class StepPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.studio.v1.step.StepPage
-        :rtype: twilio.rest.studio.v1.step.StepPage
+        :returns: twilio.rest.studio.v1.flow.engagement.step.StepPage
+        :rtype: twilio.rest.studio.v1.flow.engagement.step.StepPage
         """
         super().__init__(version, response)
 
@@ -162,8 +185,8 @@ class StepPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.studio.v1.step.StepInstance
-        :rtype: twilio.rest.studio.v1.step.StepInstance
+        :returns: twilio.rest.studio.v1.flow.engagement.step.StepInstance
+        :rtype: twilio.rest.studio.v1.flow.engagement.step.StepInstance
         """
         return StepInstance(self._version, payload, flow_sid=self._solution['flow_sid'], engagement_sid=self._solution['engagement_sid'])
 

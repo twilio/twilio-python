@@ -29,18 +29,19 @@ class ConferenceList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the ConferenceList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.insights.v1.conference..ConferenceList
-        :rtype: twilio.insights.v1.conference..ConferenceList
+        :returns: twilio.rest.insights.v1.conference.ConferenceList
+        :rtype: twilio.rest.insights.v1.conference.ConferenceList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = {  }
         self._uri = '/Conferences'.format(**self._solution)
-
-
+        
+        
     
     
     def stream(self, conference_sid=values.unset, friendly_name=values.unset, status=values.unset, created_after=values.unset, created_before=values.unset, mixer_region=values.unset, tags=values.unset, subaccount=values.unset, detected_issues=values.unset, end_reason=values.unset, limit=None, page_size=None):
@@ -185,6 +186,28 @@ class ConferenceList(ListResource):
         )
         return ConferencePage(self._version, response, self._solution)
 
+
+    def get(self, conference_sid):
+        """
+        Constructs a ConferenceContext
+        
+        :param conference_sid: The unique SID identifier of the Conference.
+        
+        :returns: twilio.rest.insights.v1.conference.ConferenceContext
+        :rtype: twilio.rest.insights.v1.conference.ConferenceContext
+        """
+        return ConferenceContext(self._version, conference_sid=conference_sid)
+
+    def __call__(self, conference_sid):
+        """
+        Constructs a ConferenceContext
+        
+        :param conference_sid: The unique SID identifier of the Conference.
+        
+        :returns: twilio.rest.insights.v1.conference.ConferenceContext
+        :rtype: twilio.rest.insights.v1.conference.ConferenceContext
+        """
+        return ConferenceContext(self._version, conference_sid=conference_sid)
 
     def __repr__(self):
         """

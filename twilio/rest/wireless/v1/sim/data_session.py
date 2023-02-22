@@ -28,19 +28,20 @@ class DataSessionList(ListResource):
     def __init__(self, version: Version, sim_sid: str):
         """
         Initialize the DataSessionList
+
         :param Version version: Version that contains the resource
         :param sim_sid: The SID of the [Sim resource](https://www.twilio.com/docs/wireless/api/sim-resource) with the Data Sessions to read.
         
-        :returns: twilio.wireless.v1.data_session..DataSessionList
-        :rtype: twilio.wireless.v1.data_session..DataSessionList
+        :returns: twilio.rest.wireless.v1.sim.data_session.DataSessionList
+        :rtype: twilio.rest.wireless.v1.sim.data_session.DataSessionList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = { 'sim_sid': sim_sid,  }
         self._uri = '/Sims/${sim_sid}/DataSessions'.format(**self._solution)
-
-
+        
+        
     
     def stream(self, limit=None, page_size=None):
         """
@@ -57,7 +58,7 @@ class DataSessionList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.wireless.v1.data_session.DataSessionInstance]
+        :rtype: list[twilio.rest.wireless.v1.sim.data_session.DataSessionInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -80,7 +81,7 @@ class DataSessionList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.wireless.v1.data_session.DataSessionInstance]
+        :rtype: list[twilio.rest.wireless.v1.sim.data_session.DataSessionInstance]
         """
         return list(self.stream(
             limit=limit,
@@ -97,7 +98,7 @@ class DataSessionList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of DataSessionInstance
-        :rtype: twilio.rest.wireless.v1.data_session.DataSessionPage
+        :rtype: twilio.rest.wireless.v1.sim.data_session.DataSessionPage
         """
         data = values.of({ 
             'PageToken': page_token,
@@ -116,13 +117,14 @@ class DataSessionList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of DataSessionInstance
-        :rtype: twilio.rest.wireless.v1.data_session.DataSessionPage
+        :rtype: twilio.rest.wireless.v1.sim.data_session.DataSessionPage
         """
         response = self._version.domain.twilio.request(
             'GET',
             target_url
         )
         return DataSessionPage(self._version, response, self._solution)
+
 
 
     def __repr__(self):
@@ -143,8 +145,8 @@ class DataSessionPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.wireless.v1.data_session.DataSessionPage
-        :rtype: twilio.rest.wireless.v1.data_session.DataSessionPage
+        :returns: twilio.rest.wireless.v1.sim.data_session.DataSessionPage
+        :rtype: twilio.rest.wireless.v1.sim.data_session.DataSessionPage
         """
         super().__init__(version, response)
 
@@ -157,8 +159,8 @@ class DataSessionPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.wireless.v1.data_session.DataSessionInstance
-        :rtype: twilio.rest.wireless.v1.data_session.DataSessionInstance
+        :returns: twilio.rest.wireless.v1.sim.data_session.DataSessionInstance
+        :rtype: twilio.rest.wireless.v1.sim.data_session.DataSessionInstance
         """
         return DataSessionInstance(self._version, payload, sim_sid=self._solution['sim_sid'])
 
@@ -174,6 +176,54 @@ class DataSessionPage(Page):
 
 
 
+
+
+class DataSessionInstance(InstanceResource):
+    def __init__(self, version, payload, sim_sid: str):
+        super().__init__(version)
+        self._properties = { 
+            'sid' : payload.get('sid'),
+            'sim_sid' : payload.get('sim_sid'),
+            'account_sid' : payload.get('account_sid'),
+            'radio_link' : payload.get('radio_link'),
+            'operator_mcc' : payload.get('operator_mcc'),
+            'operator_mnc' : payload.get('operator_mnc'),
+            'operator_country' : payload.get('operator_country'),
+            'operator_name' : payload.get('operator_name'),
+            'cell_id' : payload.get('cell_id'),
+            'cell_location_estimate' : payload.get('cell_location_estimate'),
+            'packets_uploaded' : payload.get('packets_uploaded'),
+            'packets_downloaded' : payload.get('packets_downloaded'),
+            'last_updated' : payload.get('last_updated'),
+            'start' : payload.get('start'),
+            'end' : payload.get('end'),
+            'imei' : payload.get('imei'),
+        }
+
+        self._context = None
+        self._solution = {
+            'sim_sid': sim_sid or self._properties['sim_sid'],
+        }
+
+    @property
+    def _proxy(self):
+        if self._context is None:
+            self._context = DataSessionContext(
+                self._version,
+                sim_sid=self._solution['sim_sid'],
+            )
+        return self._context
+
+    
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Wireless.V1.DataSessionInstance {}>'.format(context)
 
 
 

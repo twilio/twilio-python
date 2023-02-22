@@ -29,22 +29,40 @@ class FieldTypeList(ListResource):
     def __init__(self, version: Version, assistant_sid: str):
         """
         Initialize the FieldTypeList
+
         :param Version version: Version that contains the resource
         :param assistant_sid: 
         
-        :returns: twilio.preview.understand.field_type..FieldTypeList
-        :rtype: twilio.preview.understand.field_type..FieldTypeList
+        :returns: twilio.rest.preview.understand.assistant.field_type.FieldTypeList
+        :rtype: twilio.rest.preview.understand.assistant.field_type.FieldTypeList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = { 'assistant_sid': assistant_sid,  }
         self._uri = '/Assistants/${assistant_sid}/FieldTypes'.format(**self._solution)
+        
+        
+    
+    
+    
+    
+    def create(self, unique_name, friendly_name=values.unset):
+        """
+        Create the FieldTypeInstance
+        :param str unique_name: A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
+        :param str friendly_name: A user-provided string that identifies this resource. It is non-unique and can up to 255 characters long.
+        
+        :returns: The created FieldTypeInstance
+        :rtype: twilio.rest.preview.understand.assistant.field_type.FieldTypeInstance
+        """
+        data = values.of({ 
+            'UniqueName': unique_name,
+            'FriendlyName': friendly_name,
+        })
 
-
-    
-    
-    
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return FieldTypeInstance(self._version, payload, assistant_sid=self._solution['assistant_sid'])
     
     
     def stream(self, limit=None, page_size=None):
@@ -62,7 +80,7 @@ class FieldTypeList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.preview.understand.field_type.FieldTypeInstance]
+        :rtype: list[twilio.rest.preview.understand.assistant.field_type.FieldTypeInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -85,7 +103,7 @@ class FieldTypeList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.preview.understand.field_type.FieldTypeInstance]
+        :rtype: list[twilio.rest.preview.understand.assistant.field_type.FieldTypeInstance]
         """
         return list(self.stream(
             limit=limit,
@@ -102,7 +120,7 @@ class FieldTypeList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of FieldTypeInstance
-        :rtype: twilio.rest.preview.understand.field_type.FieldTypePage
+        :rtype: twilio.rest.preview.understand.assistant.field_type.FieldTypePage
         """
         data = values.of({ 
             'PageToken': page_token,
@@ -121,7 +139,7 @@ class FieldTypeList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of FieldTypeInstance
-        :rtype: twilio.rest.preview.understand.field_type.FieldTypePage
+        :rtype: twilio.rest.preview.understand.assistant.field_type.FieldTypePage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -129,6 +147,28 @@ class FieldTypeList(ListResource):
         )
         return FieldTypePage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a FieldTypeContext
+        
+        :param sid: 
+        
+        :returns: twilio.rest.preview.understand.assistant.field_type.FieldTypeContext
+        :rtype: twilio.rest.preview.understand.assistant.field_type.FieldTypeContext
+        """
+        return FieldTypeContext(self._version, assistant_sid=self._solution['assistant_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a FieldTypeContext
+        
+        :param sid: 
+        
+        :returns: twilio.rest.preview.understand.assistant.field_type.FieldTypeContext
+        :rtype: twilio.rest.preview.understand.assistant.field_type.FieldTypeContext
+        """
+        return FieldTypeContext(self._version, assistant_sid=self._solution['assistant_sid'], sid=sid)
 
     def __repr__(self):
         """
@@ -156,8 +196,8 @@ class FieldTypePage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.preview.understand.field_type.FieldTypePage
-        :rtype: twilio.rest.preview.understand.field_type.FieldTypePage
+        :returns: twilio.rest.preview.understand.assistant.field_type.FieldTypePage
+        :rtype: twilio.rest.preview.understand.assistant.field_type.FieldTypePage
         """
         super().__init__(version, response)
 
@@ -170,8 +210,8 @@ class FieldTypePage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.preview.understand.field_type.FieldTypeInstance
-        :rtype: twilio.rest.preview.understand.field_type.FieldTypeInstance
+        :returns: twilio.rest.preview.understand.assistant.field_type.FieldTypeInstance
+        :rtype: twilio.rest.preview.understand.assistant.field_type.FieldTypeInstance
         """
         return FieldTypeInstance(self._version, payload, assistant_sid=self._solution['assistant_sid'])
 
@@ -226,9 +266,9 @@ class FieldTypeContext(InstanceContext):
 
         
     
-    def update(self, body):
+    def update(self, friendly_name, unique_name):
         data = values.of({
-            'body': body,
+            'friendly_name': friendly_name,'unique_name': unique_name,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

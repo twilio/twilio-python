@@ -28,19 +28,42 @@ class PhoneNumberList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the PhoneNumberList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.lookups.v2.phone_number..PhoneNumberList
-        :rtype: twilio.lookups.v2.phone_number..PhoneNumberList
+        :returns: twilio.rest.lookups.v2.phone_number.PhoneNumberList
+        :rtype: twilio.rest.lookups.v2.phone_number.PhoneNumberList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = {  }
-        self._uri = ''.format(**self._solution)
-
-
+        
+        
+        
     
+
+    def get(self, phone_number):
+        """
+        Constructs a PhoneNumberContext
+        
+        :param phone_number: The phone number to lookup in E.164 or national format. Default country code is +1 (North America).
+        
+        :returns: twilio.rest.lookups.v2.phone_number.PhoneNumberContext
+        :rtype: twilio.rest.lookups.v2.phone_number.PhoneNumberContext
+        """
+        return PhoneNumberContext(self._version, phone_number=phone_number)
+
+    def __call__(self, phone_number):
+        """
+        Constructs a PhoneNumberContext
+        
+        :param phone_number: The phone number to lookup in E.164 or national format. Default country code is +1 (North America).
+        
+        :returns: twilio.rest.lookups.v2.phone_number.PhoneNumberContext
+        :rtype: twilio.rest.lookups.v2.phone_number.PhoneNumberContext
+        """
+        return PhoneNumberContext(self._version, phone_number=phone_number)
 
     def __repr__(self):
         """

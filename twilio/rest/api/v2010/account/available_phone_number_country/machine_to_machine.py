@@ -28,20 +28,21 @@ class MachineToMachineList(ListResource):
     def __init__(self, version: Version, account_sid: str, country_code: str):
         """
         Initialize the MachineToMachineList
+
         :param Version version: Version that contains the resource
         :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) requesting the AvailablePhoneNumber resources.
         :param country_code: The [ISO-3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code of the country from which to read phone numbers.
         
-        :returns: twilio.api.v2010.machine_to_machine..MachineToMachineList
-        :rtype: twilio.api.v2010.machine_to_machine..MachineToMachineList
+        :returns: twilio.rest.api.v2010.account.available_phone_number_country.machine_to_machine.MachineToMachineList
+        :rtype: twilio.rest.api.v2010.account.available_phone_number_country.machine_to_machine.MachineToMachineList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = { 'account_sid': account_sid, 'country_code': country_code,  }
         self._uri = '/Accounts/${account_sid}/AvailablePhoneNumbers/${country_code}/MachineToMachine.json'.format(**self._solution)
-
-
+        
+        
     
     def stream(self, area_code=values.unset, contains=values.unset, sms_enabled=values.unset, mms_enabled=values.unset, voice_enabled=values.unset, exclude_all_address_required=values.unset, exclude_local_address_required=values.unset, exclude_foreign_address_required=values.unset, beta=values.unset, near_number=values.unset, near_lat_long=values.unset, distance=values.unset, in_postal_code=values.unset, in_region=values.unset, in_rate_center=values.unset, in_lata=values.unset, in_locality=values.unset, fax_enabled=values.unset, limit=None, page_size=None):
         """
@@ -76,7 +77,7 @@ class MachineToMachineList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.machine_to_machine.MachineToMachineInstance]
+        :rtype: list[twilio.rest.api.v2010.account.available_phone_number_country.machine_to_machine.MachineToMachineInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -135,7 +136,7 @@ class MachineToMachineList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.machine_to_machine.MachineToMachineInstance]
+        :rtype: list[twilio.rest.api.v2010.account.available_phone_number_country.machine_to_machine.MachineToMachineInstance]
         """
         return list(self.stream(
             area_code=area_code,
@@ -188,7 +189,7 @@ class MachineToMachineList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of MachineToMachineInstance
-        :rtype: twilio.rest.api.v2010.machine_to_machine.MachineToMachinePage
+        :rtype: twilio.rest.api.v2010.account.available_phone_number_country.machine_to_machine.MachineToMachinePage
         """
         data = values.of({ 
             'AreaCode': area_code,
@@ -225,13 +226,14 @@ class MachineToMachineList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of MachineToMachineInstance
-        :rtype: twilio.rest.api.v2010.machine_to_machine.MachineToMachinePage
+        :rtype: twilio.rest.api.v2010.account.available_phone_number_country.machine_to_machine.MachineToMachinePage
         """
         response = self._version.domain.twilio.request(
             'GET',
             target_url
         )
         return MachineToMachinePage(self._version, response, self._solution)
+
 
 
     def __repr__(self):
@@ -252,8 +254,8 @@ class MachineToMachinePage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.api.v2010.machine_to_machine.MachineToMachinePage
-        :rtype: twilio.rest.api.v2010.machine_to_machine.MachineToMachinePage
+        :returns: twilio.rest.api.v2010.account.available_phone_number_country.machine_to_machine.MachineToMachinePage
+        :rtype: twilio.rest.api.v2010.account.available_phone_number_country.machine_to_machine.MachineToMachinePage
         """
         super().__init__(version, response)
 
@@ -266,8 +268,8 @@ class MachineToMachinePage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.api.v2010.machine_to_machine.MachineToMachineInstance
-        :rtype: twilio.rest.api.v2010.machine_to_machine.MachineToMachineInstance
+        :returns: twilio.rest.api.v2010.account.available_phone_number_country.machine_to_machine.MachineToMachineInstance
+        :rtype: twilio.rest.api.v2010.account.available_phone_number_country.machine_to_machine.MachineToMachineInstance
         """
         return MachineToMachineInstance(self._version, payload, account_sid=self._solution['account_sid'], country_code=self._solution['country_code'])
 
@@ -283,6 +285,51 @@ class MachineToMachinePage(Page):
 
 
 
+
+
+class MachineToMachineInstance(InstanceResource):
+    def __init__(self, version, payload, account_sid: str, country_code: str):
+        super().__init__(version)
+        self._properties = { 
+            'friendly_name' : payload.get('friendly_name'),
+            'phone_number' : payload.get('phone_number'),
+            'lata' : payload.get('lata'),
+            'locality' : payload.get('locality'),
+            'rate_center' : payload.get('rate_center'),
+            'latitude' : payload.get('latitude'),
+            'longitude' : payload.get('longitude'),
+            'region' : payload.get('region'),
+            'postal_code' : payload.get('postal_code'),
+            'iso_country' : payload.get('iso_country'),
+            'address_requirements' : payload.get('address_requirements'),
+            'beta' : payload.get('beta'),
+            'capabilities' : payload.get('capabilities'),
+        }
+
+        self._context = None
+        self._solution = {
+            'account_sid': account_sid or self._properties['account_sid'],'country_code': country_code or self._properties['country_code'],
+        }
+
+    @property
+    def _proxy(self):
+        if self._context is None:
+            self._context = MachineToMachineContext(
+                self._version,
+                account_sid=self._solution['account_sid'],country_code=self._solution['country_code'],
+            )
+        return self._context
+
+    
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Api.V2010.MachineToMachineInstance {}>'.format(context)
 
 
 

@@ -28,21 +28,37 @@ class IpAccessControlListList(ListResource):
     def __init__(self, version: Version, trunk_sid: str):
         """
         Initialize the IpAccessControlListList
+
         :param Version version: Version that contains the resource
         :param trunk_sid: The SID of the Trunk from which to read the IP Access Control Lists.
         
-        :returns: twilio.trunking.v1.ip_access_control_list..IpAccessControlListList
-        :rtype: twilio.trunking.v1.ip_access_control_list..IpAccessControlListList
+        :returns: twilio.rest.trunking.v1.trunk.ip_access_control_list.IpAccessControlListList
+        :rtype: twilio.rest.trunking.v1.trunk.ip_access_control_list.IpAccessControlListList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = { 'trunk_sid': trunk_sid,  }
         self._uri = '/Trunks/${trunk_sid}/IpAccessControlLists'.format(**self._solution)
-
-
+        
+        
     
     
+    
+    def create(self, ip_access_control_list_sid):
+        """
+        Create the IpAccessControlListInstance
+        :param str ip_access_control_list_sid: The SID of the [IP Access Control List](https://www.twilio.com/docs/voice/sip/api/sip-ipaccesscontrollist-resource) that you want to associate with the trunk.
+        
+        :returns: The created IpAccessControlListInstance
+        :rtype: twilio.rest.trunking.v1.trunk.ip_access_control_list.IpAccessControlListInstance
+        """
+        data = values.of({ 
+            'IpAccessControlListSid': ip_access_control_list_sid,
+        })
+
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return IpAccessControlListInstance(self._version, payload, trunk_sid=self._solution['trunk_sid'])
     
     
     def stream(self, limit=None, page_size=None):
@@ -60,7 +76,7 @@ class IpAccessControlListList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.trunking.v1.ip_access_control_list.IpAccessControlListInstance]
+        :rtype: list[twilio.rest.trunking.v1.trunk.ip_access_control_list.IpAccessControlListInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -83,7 +99,7 @@ class IpAccessControlListList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.trunking.v1.ip_access_control_list.IpAccessControlListInstance]
+        :rtype: list[twilio.rest.trunking.v1.trunk.ip_access_control_list.IpAccessControlListInstance]
         """
         return list(self.stream(
             limit=limit,
@@ -100,7 +116,7 @@ class IpAccessControlListList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of IpAccessControlListInstance
-        :rtype: twilio.rest.trunking.v1.ip_access_control_list.IpAccessControlListPage
+        :rtype: twilio.rest.trunking.v1.trunk.ip_access_control_list.IpAccessControlListPage
         """
         data = values.of({ 
             'PageToken': page_token,
@@ -119,7 +135,7 @@ class IpAccessControlListList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of IpAccessControlListInstance
-        :rtype: twilio.rest.trunking.v1.ip_access_control_list.IpAccessControlListPage
+        :rtype: twilio.rest.trunking.v1.trunk.ip_access_control_list.IpAccessControlListPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -127,6 +143,28 @@ class IpAccessControlListList(ListResource):
         )
         return IpAccessControlListPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a IpAccessControlListContext
+        
+        :param sid: The unique string that we created to identify the IpAccessControlList resource to fetch.
+        
+        :returns: twilio.rest.trunking.v1.trunk.ip_access_control_list.IpAccessControlListContext
+        :rtype: twilio.rest.trunking.v1.trunk.ip_access_control_list.IpAccessControlListContext
+        """
+        return IpAccessControlListContext(self._version, trunk_sid=self._solution['trunk_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a IpAccessControlListContext
+        
+        :param sid: The unique string that we created to identify the IpAccessControlList resource to fetch.
+        
+        :returns: twilio.rest.trunking.v1.trunk.ip_access_control_list.IpAccessControlListContext
+        :rtype: twilio.rest.trunking.v1.trunk.ip_access_control_list.IpAccessControlListContext
+        """
+        return IpAccessControlListContext(self._version, trunk_sid=self._solution['trunk_sid'], sid=sid)
 
     def __repr__(self):
         """
@@ -152,8 +190,8 @@ class IpAccessControlListPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.trunking.v1.ip_access_control_list.IpAccessControlListPage
-        :rtype: twilio.rest.trunking.v1.ip_access_control_list.IpAccessControlListPage
+        :returns: twilio.rest.trunking.v1.trunk.ip_access_control_list.IpAccessControlListPage
+        :rtype: twilio.rest.trunking.v1.trunk.ip_access_control_list.IpAccessControlListPage
         """
         super().__init__(version, response)
 
@@ -166,8 +204,8 @@ class IpAccessControlListPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.trunking.v1.ip_access_control_list.IpAccessControlListInstance
-        :rtype: twilio.rest.trunking.v1.ip_access_control_list.IpAccessControlListInstance
+        :returns: twilio.rest.trunking.v1.trunk.ip_access_control_list.IpAccessControlListInstance
+        :rtype: twilio.rest.trunking.v1.trunk.ip_access_control_list.IpAccessControlListInstance
         """
         return IpAccessControlListInstance(self._version, payload, trunk_sid=self._solution['trunk_sid'])
 

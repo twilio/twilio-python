@@ -28,21 +28,40 @@ class WorkflowStatisticsList(ListResource):
     def __init__(self, version: Version, workspace_sid: str, workflow_sid: str):
         """
         Initialize the WorkflowStatisticsList
+
         :param Version version: Version that contains the resource
         :param workspace_sid: The SID of the Workspace with the Workflow to fetch.
         :param workflow_sid: Returns the list of Tasks that are being controlled by the Workflow with the specified SID value.
         
-        :returns: twilio.taskrouter.v1.workflow_statistics..WorkflowStatisticsList
-        :rtype: twilio.taskrouter.v1.workflow_statistics..WorkflowStatisticsList
+        :returns: twilio.rest.taskrouter.v1.workspace.workflow.workflow_statistics.WorkflowStatisticsList
+        :rtype: twilio.rest.taskrouter.v1.workspace.workflow.workflow_statistics.WorkflowStatisticsList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = { 'workspace_sid': workspace_sid, 'workflow_sid': workflow_sid,  }
-        self._uri = ''.format(**self._solution)
-
-
+        
+        
+        
     
+
+    def get(self):
+        """
+        Constructs a WorkflowStatisticsContext
+        
+        :returns: twilio.rest.taskrouter.v1.workspace.workflow.workflow_statistics.WorkflowStatisticsContext
+        :rtype: twilio.rest.taskrouter.v1.workspace.workflow.workflow_statistics.WorkflowStatisticsContext
+        """
+        return WorkflowStatisticsContext(self._version, workspace_sid=self._solution['workspace_sid'], workflow_sid=self._solution['workflow_sid'])
+
+    def __call__(self):
+        """
+        Constructs a WorkflowStatisticsContext
+        
+        :returns: twilio.rest.taskrouter.v1.workspace.workflow.workflow_statistics.WorkflowStatisticsContext
+        :rtype: twilio.rest.taskrouter.v1.workspace.workflow.workflow_statistics.WorkflowStatisticsContext
+        """
+        return WorkflowStatisticsContext(self._version, workspace_sid=self._solution['workspace_sid'], workflow_sid=self._solution['workflow_sid'])
 
     def __repr__(self):
         """

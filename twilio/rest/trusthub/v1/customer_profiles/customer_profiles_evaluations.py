@@ -28,20 +28,36 @@ class CustomerProfilesEvaluationsList(ListResource):
     def __init__(self, version: Version, customer_profile_sid: str):
         """
         Initialize the CustomerProfilesEvaluationsList
+
         :param Version version: Version that contains the resource
         :param customer_profile_sid: The unique string that we created to identify the CustomerProfile resource.
         
-        :returns: twilio.trusthub.v1.customer_profiles_evaluations..CustomerProfilesEvaluationsList
-        :rtype: twilio.trusthub.v1.customer_profiles_evaluations..CustomerProfilesEvaluationsList
+        :returns: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_evaluations.CustomerProfilesEvaluationsList
+        :rtype: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_evaluations.CustomerProfilesEvaluationsList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = { 'customer_profile_sid': customer_profile_sid,  }
         self._uri = '/CustomerProfiles/${customer_profile_sid}/Evaluations'.format(**self._solution)
-
-
+        
+        
     
+    
+    def create(self, policy_sid):
+        """
+        Create the CustomerProfilesEvaluationsInstance
+        :param str policy_sid: The unique string of a policy that is associated to the customer_profile resource.
+        
+        :returns: The created CustomerProfilesEvaluationsInstance
+        :rtype: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_evaluations.CustomerProfilesEvaluationsInstance
+        """
+        data = values.of({ 
+            'PolicySid': policy_sid,
+        })
+
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return CustomerProfilesEvaluationsInstance(self._version, payload, customer_profile_sid=self._solution['customer_profile_sid'])
     
     
     def stream(self, limit=None, page_size=None):
@@ -59,7 +75,7 @@ class CustomerProfilesEvaluationsList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.trusthub.v1.customer_profiles_evaluations.CustomerProfilesEvaluationsInstance]
+        :rtype: list[twilio.rest.trusthub.v1.customer_profiles.customer_profiles_evaluations.CustomerProfilesEvaluationsInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -82,7 +98,7 @@ class CustomerProfilesEvaluationsList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.trusthub.v1.customer_profiles_evaluations.CustomerProfilesEvaluationsInstance]
+        :rtype: list[twilio.rest.trusthub.v1.customer_profiles.customer_profiles_evaluations.CustomerProfilesEvaluationsInstance]
         """
         return list(self.stream(
             limit=limit,
@@ -99,7 +115,7 @@ class CustomerProfilesEvaluationsList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of CustomerProfilesEvaluationsInstance
-        :rtype: twilio.rest.trusthub.v1.customer_profiles_evaluations.CustomerProfilesEvaluationsPage
+        :rtype: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_evaluations.CustomerProfilesEvaluationsPage
         """
         data = values.of({ 
             'PageToken': page_token,
@@ -118,7 +134,7 @@ class CustomerProfilesEvaluationsList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of CustomerProfilesEvaluationsInstance
-        :rtype: twilio.rest.trusthub.v1.customer_profiles_evaluations.CustomerProfilesEvaluationsPage
+        :rtype: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_evaluations.CustomerProfilesEvaluationsPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -126,6 +142,28 @@ class CustomerProfilesEvaluationsList(ListResource):
         )
         return CustomerProfilesEvaluationsPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a CustomerProfilesEvaluationsContext
+        
+        :param sid: The unique string that identifies the Evaluation resource.
+        
+        :returns: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_evaluations.CustomerProfilesEvaluationsContext
+        :rtype: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_evaluations.CustomerProfilesEvaluationsContext
+        """
+        return CustomerProfilesEvaluationsContext(self._version, customer_profile_sid=self._solution['customer_profile_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a CustomerProfilesEvaluationsContext
+        
+        :param sid: The unique string that identifies the Evaluation resource.
+        
+        :returns: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_evaluations.CustomerProfilesEvaluationsContext
+        :rtype: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_evaluations.CustomerProfilesEvaluationsContext
+        """
+        return CustomerProfilesEvaluationsContext(self._version, customer_profile_sid=self._solution['customer_profile_sid'], sid=sid)
 
     def __repr__(self):
         """
@@ -149,8 +187,8 @@ class CustomerProfilesEvaluationsPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.trusthub.v1.customer_profiles_evaluations.CustomerProfilesEvaluationsPage
-        :rtype: twilio.rest.trusthub.v1.customer_profiles_evaluations.CustomerProfilesEvaluationsPage
+        :returns: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_evaluations.CustomerProfilesEvaluationsPage
+        :rtype: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_evaluations.CustomerProfilesEvaluationsPage
         """
         super().__init__(version, response)
 
@@ -163,8 +201,8 @@ class CustomerProfilesEvaluationsPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.trusthub.v1.customer_profiles_evaluations.CustomerProfilesEvaluationsInstance
-        :rtype: twilio.rest.trusthub.v1.customer_profiles_evaluations.CustomerProfilesEvaluationsInstance
+        :returns: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_evaluations.CustomerProfilesEvaluationsInstance
+        :rtype: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_evaluations.CustomerProfilesEvaluationsInstance
         """
         return CustomerProfilesEvaluationsInstance(self._version, payload, customer_profile_sid=self._solution['customer_profile_sid'])
 

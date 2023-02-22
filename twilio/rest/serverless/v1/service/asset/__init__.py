@@ -29,22 +29,38 @@ class AssetList(ListResource):
     def __init__(self, version: Version, service_sid: str):
         """
         Initialize the AssetList
+
         :param Version version: Version that contains the resource
         :param service_sid: The SID of the Service to read the Asset resources from.
         
-        :returns: twilio.serverless.v1.asset..AssetList
-        :rtype: twilio.serverless.v1.asset..AssetList
+        :returns: twilio.rest.serverless.v1.service.asset.AssetList
+        :rtype: twilio.rest.serverless.v1.service.asset.AssetList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = { 'service_sid': service_sid,  }
         self._uri = '/Services/${service_sid}/Assets'.format(**self._solution)
+        
+        
+    
+    
+    
+    
+    def create(self, friendly_name):
+        """
+        Create the AssetInstance
+        :param str friendly_name: A descriptive string that you create to describe the Asset resource. It can be a maximum of 255 characters.
+        
+        :returns: The created AssetInstance
+        :rtype: twilio.rest.serverless.v1.service.asset.AssetInstance
+        """
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+        })
 
-
-    
-    
-    
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return AssetInstance(self._version, payload, service_sid=self._solution['service_sid'])
     
     
     def stream(self, limit=None, page_size=None):
@@ -62,7 +78,7 @@ class AssetList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.serverless.v1.asset.AssetInstance]
+        :rtype: list[twilio.rest.serverless.v1.service.asset.AssetInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -85,7 +101,7 @@ class AssetList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.serverless.v1.asset.AssetInstance]
+        :rtype: list[twilio.rest.serverless.v1.service.asset.AssetInstance]
         """
         return list(self.stream(
             limit=limit,
@@ -102,7 +118,7 @@ class AssetList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of AssetInstance
-        :rtype: twilio.rest.serverless.v1.asset.AssetPage
+        :rtype: twilio.rest.serverless.v1.service.asset.AssetPage
         """
         data = values.of({ 
             'PageToken': page_token,
@@ -121,7 +137,7 @@ class AssetList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of AssetInstance
-        :rtype: twilio.rest.serverless.v1.asset.AssetPage
+        :rtype: twilio.rest.serverless.v1.service.asset.AssetPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -129,6 +145,28 @@ class AssetList(ListResource):
         )
         return AssetPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a AssetContext
+        
+        :param sid: The SID that identifies the Asset resource to update.
+        
+        :returns: twilio.rest.serverless.v1.service.asset.AssetContext
+        :rtype: twilio.rest.serverless.v1.service.asset.AssetContext
+        """
+        return AssetContext(self._version, service_sid=self._solution['service_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a AssetContext
+        
+        :param sid: The SID that identifies the Asset resource to update.
+        
+        :returns: twilio.rest.serverless.v1.service.asset.AssetContext
+        :rtype: twilio.rest.serverless.v1.service.asset.AssetContext
+        """
+        return AssetContext(self._version, service_sid=self._solution['service_sid'], sid=sid)
 
     def __repr__(self):
         """
@@ -156,8 +194,8 @@ class AssetPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.serverless.v1.asset.AssetPage
-        :rtype: twilio.rest.serverless.v1.asset.AssetPage
+        :returns: twilio.rest.serverless.v1.service.asset.AssetPage
+        :rtype: twilio.rest.serverless.v1.service.asset.AssetPage
         """
         super().__init__(version, response)
 
@@ -170,8 +208,8 @@ class AssetPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.serverless.v1.asset.AssetInstance
-        :rtype: twilio.rest.serverless.v1.asset.AssetInstance
+        :returns: twilio.rest.serverless.v1.service.asset.AssetInstance
+        :rtype: twilio.rest.serverless.v1.service.asset.AssetInstance
         """
         return AssetInstance(self._version, payload, service_sid=self._solution['service_sid'])
 
@@ -226,9 +264,9 @@ class AssetContext(InstanceContext):
 
         
     
-    def update(self, body):
+    def update(self, friendly_name):
         data = values.of({
-            'body': body,
+            'friendly_name': friendly_name,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

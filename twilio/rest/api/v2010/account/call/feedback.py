@@ -28,22 +28,41 @@ class FeedbackList(ListResource):
     def __init__(self, version: Version, account_sid: str, call_sid: str):
         """
         Initialize the FeedbackList
+
         :param Version version: Version that contains the resource
         :param account_sid: The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.
         :param call_sid: The call sid that uniquely identifies the call
         
-        :returns: twilio.api.v2010.feedback..FeedbackList
-        :rtype: twilio.api.v2010.feedback..FeedbackList
+        :returns: twilio.rest.api.v2010.account.call.feedback.FeedbackList
+        :rtype: twilio.rest.api.v2010.account.call.feedback.FeedbackList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = { 'account_sid': account_sid, 'call_sid': call_sid,  }
-        self._uri = ''.format(**self._solution)
-
-
+        
+        
+        
     
     
+
+    def get(self):
+        """
+        Constructs a FeedbackContext
+        
+        :returns: twilio.rest.api.v2010.account.call.feedback.FeedbackContext
+        :rtype: twilio.rest.api.v2010.account.call.feedback.FeedbackContext
+        """
+        return FeedbackContext(self._version, account_sid=self._solution['account_sid'], call_sid=self._solution['call_sid'])
+
+    def __call__(self):
+        """
+        Constructs a FeedbackContext
+        
+        :returns: twilio.rest.api.v2010.account.call.feedback.FeedbackContext
+        :rtype: twilio.rest.api.v2010.account.call.feedback.FeedbackContext
+        """
+        return FeedbackContext(self._version, account_sid=self._solution['account_sid'], call_sid=self._solution['call_sid'])
 
     def __repr__(self):
         """
@@ -79,9 +98,9 @@ class FeedbackContext(InstanceContext):
 
         
     
-    def update(self, body):
+    def update(self, quality_score, issue):
         data = values.of({
-            'body': body,
+            'quality_score': quality_score,'issue': issue,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

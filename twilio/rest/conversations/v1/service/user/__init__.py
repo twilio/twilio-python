@@ -29,22 +29,46 @@ class UserList(ListResource):
     def __init__(self, version: Version, chat_service_sid: str):
         """
         Initialize the UserList
+
         :param Version version: Version that contains the resource
         :param chat_service_sid: The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) to read the User resources from.
         
-        :returns: twilio.conversations.v1.user..UserList
-        :rtype: twilio.conversations.v1.user..UserList
+        :returns: twilio.rest.conversations.v1.service.user.UserList
+        :rtype: twilio.rest.conversations.v1.service.user.UserList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = { 'chat_service_sid': chat_service_sid,  }
         self._uri = '/Services/${chat_service_sid}/Users'.format(**self._solution)
+        
+        
+    
+    
+    
+    
+    def create(self, identity, x_twilio_webhook_enabled=values.unset, friendly_name=values.unset, attributes=values.unset, role_sid=values.unset):
+        """
+        Create the UserInstance
+        :param str identity: The application-defined string that uniquely identifies the resource's User within the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource). This value is often a username or an email address, and is case-sensitive.
+        :param ServiceUserWebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :param str friendly_name: The string that you assigned to describe the resource.
+        :param str attributes: The JSON Object string that stores application-specific data. If attributes have not been set, `{}` is returned.
+        :param str role_sid: The SID of a service-level [Role](https://www.twilio.com/docs/conversations/api/role-resource) to assign to the user.
+        
+        :returns: The created UserInstance
+        :rtype: twilio.rest.conversations.v1.service.user.UserInstance
+        """
+        data = values.of({ 
+            'Identity': identity,
+            'X-Twilio-Webhook-Enabled': x_twilio_webhook_enabled,
+            'FriendlyName': friendly_name,
+            'Attributes': attributes,
+            'RoleSid': role_sid,
+        })
 
-
-    
-    
-    
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return UserInstance(self._version, payload, chat_service_sid=self._solution['chat_service_sid'])
     
     
     def stream(self, limit=None, page_size=None):
@@ -62,7 +86,7 @@ class UserList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.conversations.v1.user.UserInstance]
+        :rtype: list[twilio.rest.conversations.v1.service.user.UserInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -85,7 +109,7 @@ class UserList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.conversations.v1.user.UserInstance]
+        :rtype: list[twilio.rest.conversations.v1.service.user.UserInstance]
         """
         return list(self.stream(
             limit=limit,
@@ -102,7 +126,7 @@ class UserList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of UserInstance
-        :rtype: twilio.rest.conversations.v1.user.UserPage
+        :rtype: twilio.rest.conversations.v1.service.user.UserPage
         """
         data = values.of({ 
             'PageToken': page_token,
@@ -121,7 +145,7 @@ class UserList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of UserInstance
-        :rtype: twilio.rest.conversations.v1.user.UserPage
+        :rtype: twilio.rest.conversations.v1.service.user.UserPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -129,6 +153,28 @@ class UserList(ListResource):
         )
         return UserPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a UserContext
+        
+        :param sid: The SID of the User resource to update. This value can be either the `sid` or the `identity` of the User resource to update.
+        
+        :returns: twilio.rest.conversations.v1.service.user.UserContext
+        :rtype: twilio.rest.conversations.v1.service.user.UserContext
+        """
+        return UserContext(self._version, chat_service_sid=self._solution['chat_service_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a UserContext
+        
+        :param sid: The SID of the User resource to update. This value can be either the `sid` or the `identity` of the User resource to update.
+        
+        :returns: twilio.rest.conversations.v1.service.user.UserContext
+        :rtype: twilio.rest.conversations.v1.service.user.UserContext
+        """
+        return UserContext(self._version, chat_service_sid=self._solution['chat_service_sid'], sid=sid)
 
     def __repr__(self):
         """
@@ -156,8 +202,8 @@ class UserPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.conversations.v1.user.UserPage
-        :rtype: twilio.rest.conversations.v1.user.UserPage
+        :returns: twilio.rest.conversations.v1.service.user.UserPage
+        :rtype: twilio.rest.conversations.v1.service.user.UserPage
         """
         super().__init__(version, response)
 
@@ -170,8 +216,8 @@ class UserPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.conversations.v1.user.UserInstance
-        :rtype: twilio.rest.conversations.v1.user.UserInstance
+        :returns: twilio.rest.conversations.v1.service.user.UserInstance
+        :rtype: twilio.rest.conversations.v1.service.user.UserInstance
         """
         return UserInstance(self._version, payload, chat_service_sid=self._solution['chat_service_sid'])
 
@@ -226,9 +272,9 @@ class UserContext(InstanceContext):
 
         
     
-    def update(self, x_twilio_webhook_enabled, body):
+    def update(self, x_twilio_webhook_enabled, friendly_name, attributes, role_sid):
         data = values.of({
-            'x_twilio_webhook_enabled': x_twilio_webhook_enabled,'body': body,
+            'x_twilio_webhook_enabled': x_twilio_webhook_enabled,'friendly_name': friendly_name,'attributes': attributes,'role_sid': role_sid,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

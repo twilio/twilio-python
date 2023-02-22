@@ -28,22 +28,40 @@ class SubscribedEventList(ListResource):
     def __init__(self, version: Version, subscription_sid: str):
         """
         Initialize the SubscribedEventList
+
         :param Version version: Version that contains the resource
         :param subscription_sid: The unique SID identifier of the Subscription.
         
-        :returns: twilio.events.v1.subscribed_event..SubscribedEventList
-        :rtype: twilio.events.v1.subscribed_event..SubscribedEventList
+        :returns: twilio.rest.events.v1.subscription.subscribed_event.SubscribedEventList
+        :rtype: twilio.rest.events.v1.subscription.subscribed_event.SubscribedEventList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = { 'subscription_sid': subscription_sid,  }
         self._uri = '/Subscriptions/${subscription_sid}/SubscribedEvents'.format(**self._solution)
+        
+        
+    
+    
+    
+    
+    def create(self, type, schema_version=values.unset):
+        """
+        Create the SubscribedEventInstance
+        :param str type: Type of event being subscribed to.
+        :param int schema_version: The schema version that the subscription should use.
+        
+        :returns: The created SubscribedEventInstance
+        :rtype: twilio.rest.events.v1.subscription.subscribed_event.SubscribedEventInstance
+        """
+        data = values.of({ 
+            'Type': type,
+            'SchemaVersion': schema_version,
+        })
 
-
-    
-    
-    
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return SubscribedEventInstance(self._version, payload, subscription_sid=self._solution['subscription_sid'])
     
     
     def stream(self, limit=None, page_size=None):
@@ -61,7 +79,7 @@ class SubscribedEventList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.events.v1.subscribed_event.SubscribedEventInstance]
+        :rtype: list[twilio.rest.events.v1.subscription.subscribed_event.SubscribedEventInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -84,7 +102,7 @@ class SubscribedEventList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.events.v1.subscribed_event.SubscribedEventInstance]
+        :rtype: list[twilio.rest.events.v1.subscription.subscribed_event.SubscribedEventInstance]
         """
         return list(self.stream(
             limit=limit,
@@ -101,7 +119,7 @@ class SubscribedEventList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of SubscribedEventInstance
-        :rtype: twilio.rest.events.v1.subscribed_event.SubscribedEventPage
+        :rtype: twilio.rest.events.v1.subscription.subscribed_event.SubscribedEventPage
         """
         data = values.of({ 
             'PageToken': page_token,
@@ -120,7 +138,7 @@ class SubscribedEventList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of SubscribedEventInstance
-        :rtype: twilio.rest.events.v1.subscribed_event.SubscribedEventPage
+        :rtype: twilio.rest.events.v1.subscription.subscribed_event.SubscribedEventPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -128,6 +146,28 @@ class SubscribedEventList(ListResource):
         )
         return SubscribedEventPage(self._version, response, self._solution)
 
+
+    def get(self, type):
+        """
+        Constructs a SubscribedEventContext
+        
+        :param type: Type of event being subscribed to.
+        
+        :returns: twilio.rest.events.v1.subscription.subscribed_event.SubscribedEventContext
+        :rtype: twilio.rest.events.v1.subscription.subscribed_event.SubscribedEventContext
+        """
+        return SubscribedEventContext(self._version, subscription_sid=self._solution['subscription_sid'], type=type)
+
+    def __call__(self, type):
+        """
+        Constructs a SubscribedEventContext
+        
+        :param type: Type of event being subscribed to.
+        
+        :returns: twilio.rest.events.v1.subscription.subscribed_event.SubscribedEventContext
+        :rtype: twilio.rest.events.v1.subscription.subscribed_event.SubscribedEventContext
+        """
+        return SubscribedEventContext(self._version, subscription_sid=self._solution['subscription_sid'], type=type)
 
     def __repr__(self):
         """
@@ -155,8 +195,8 @@ class SubscribedEventPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.events.v1.subscribed_event.SubscribedEventPage
-        :rtype: twilio.rest.events.v1.subscribed_event.SubscribedEventPage
+        :returns: twilio.rest.events.v1.subscription.subscribed_event.SubscribedEventPage
+        :rtype: twilio.rest.events.v1.subscription.subscribed_event.SubscribedEventPage
         """
         super().__init__(version, response)
 
@@ -169,8 +209,8 @@ class SubscribedEventPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.events.v1.subscribed_event.SubscribedEventInstance
-        :rtype: twilio.rest.events.v1.subscribed_event.SubscribedEventInstance
+        :returns: twilio.rest.events.v1.subscription.subscribed_event.SubscribedEventInstance
+        :rtype: twilio.rest.events.v1.subscription.subscribed_event.SubscribedEventInstance
         """
         return SubscribedEventInstance(self._version, payload, subscription_sid=self._solution['subscription_sid'])
 
@@ -224,9 +264,9 @@ class SubscribedEventContext(InstanceContext):
 
         
     
-    def update(self, body):
+    def update(self, schema_version):
         data = values.of({
-            'body': body,
+            'schema_version': schema_version,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

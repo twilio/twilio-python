@@ -28,20 +28,21 @@ class LogList(ListResource):
     def __init__(self, version: Version, service_sid: str, environment_sid: str):
         """
         Initialize the LogList
+
         :param Version version: Version that contains the resource
         :param service_sid: The SID of the Service to read the Log resource from.
         :param environment_sid: The SID of the environment with the Log resources to read.
         
-        :returns: twilio.serverless.v1.log..LogList
-        :rtype: twilio.serverless.v1.log..LogList
+        :returns: twilio.rest.serverless.v1.service.environment.log.LogList
+        :rtype: twilio.rest.serverless.v1.service.environment.log.LogList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = { 'service_sid': service_sid, 'environment_sid': environment_sid,  }
         self._uri = '/Services/${service_sid}/Environments/${environment_sid}/Logs'.format(**self._solution)
-
-
+        
+        
     
     
     def stream(self, function_sid=values.unset, start_date=values.unset, end_date=values.unset, limit=None, page_size=None):
@@ -62,7 +63,7 @@ class LogList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.serverless.v1.log.LogInstance]
+        :rtype: list[twilio.rest.serverless.v1.service.environment.log.LogInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -91,7 +92,7 @@ class LogList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.serverless.v1.log.LogInstance]
+        :rtype: list[twilio.rest.serverless.v1.service.environment.log.LogInstance]
         """
         return list(self.stream(
             function_sid=function_sid,
@@ -114,12 +115,12 @@ class LogList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of LogInstance
-        :rtype: twilio.rest.serverless.v1.log.LogPage
+        :rtype: twilio.rest.serverless.v1.service.environment.log.LogPage
         """
         data = values.of({ 
             'FunctionSid': function_sid,
-            'StartDate': start_date,
-            'EndDate': end_date,
+            'StartDate': serialize.iso8601_datetime(start_date),
+            'EndDate': serialize.iso8601_datetime(end_date),
             'PageToken': page_token,
             'Page': page_number,
             'PageSize': page_size,
@@ -136,7 +137,7 @@ class LogList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of LogInstance
-        :rtype: twilio.rest.serverless.v1.log.LogPage
+        :rtype: twilio.rest.serverless.v1.service.environment.log.LogPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -144,6 +145,28 @@ class LogList(ListResource):
         )
         return LogPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a LogContext
+        
+        :param sid: The SID of the Log resource to fetch.
+        
+        :returns: twilio.rest.serverless.v1.service.environment.log.LogContext
+        :rtype: twilio.rest.serverless.v1.service.environment.log.LogContext
+        """
+        return LogContext(self._version, service_sid=self._solution['service_sid'], environment_sid=self._solution['environment_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a LogContext
+        
+        :param sid: The SID of the Log resource to fetch.
+        
+        :returns: twilio.rest.serverless.v1.service.environment.log.LogContext
+        :rtype: twilio.rest.serverless.v1.service.environment.log.LogContext
+        """
+        return LogContext(self._version, service_sid=self._solution['service_sid'], environment_sid=self._solution['environment_sid'], sid=sid)
 
     def __repr__(self):
         """
@@ -165,8 +188,8 @@ class LogPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.serverless.v1.log.LogPage
-        :rtype: twilio.rest.serverless.v1.log.LogPage
+        :returns: twilio.rest.serverless.v1.service.environment.log.LogPage
+        :rtype: twilio.rest.serverless.v1.service.environment.log.LogPage
         """
         super().__init__(version, response)
 
@@ -179,8 +202,8 @@ class LogPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.serverless.v1.log.LogInstance
-        :rtype: twilio.rest.serverless.v1.log.LogInstance
+        :returns: twilio.rest.serverless.v1.service.environment.log.LogInstance
+        :rtype: twilio.rest.serverless.v1.service.environment.log.LogInstance
         """
         return LogInstance(self._version, payload, service_sid=self._solution['service_sid'], environment_sid=self._solution['environment_sid'])
 

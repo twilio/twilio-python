@@ -28,19 +28,45 @@ class ExportCustomJobList(ListResource):
     def __init__(self, version: Version, resource_type: str):
         """
         Initialize the ExportCustomJobList
+
         :param Version version: Version that contains the resource
         :param resource_type: The type of communication – Messages, Calls, Conferences, and Participants
         
-        :returns: twilio.bulkexports.v1.export_custom_job..ExportCustomJobList
-        :rtype: twilio.bulkexports.v1.export_custom_job..ExportCustomJobList
+        :returns: twilio.rest.bulkexports.v1.export.export_custom_job.ExportCustomJobList
+        :rtype: twilio.rest.bulkexports.v1.export.export_custom_job.ExportCustomJobList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = { 'resource_type': resource_type,  }
         self._uri = '/Exports/${resource_type}/Jobs'.format(**self._solution)
+        
+        
+    
+    def create(self, start_day, end_day, friendly_name, webhook_url=values.unset, webhook_method=values.unset, email=values.unset):
+        """
+        Create the ExportCustomJobInstance
+        :param str start_day: The start day for the custom export specified as a string in the format of yyyy-mm-dd
+        :param str end_day: The end day for the custom export specified as a string in the format of yyyy-mm-dd. End day is inclusive and must be 2 days earlier than the current UTC day.
+        :param str friendly_name: The friendly name specified when creating the job
+        :param str webhook_url: The optional webhook url called on completion of the job. If this is supplied, `WebhookMethod` must also be supplied. If you set neither webhook nor email, you will have to check your job's status manually.
+        :param str webhook_method: This is the method used to call the webhook on completion of the job. If this is supplied, `WebhookUrl` must also be supplied.
+        :param str email: The optional email to send the completion notification to. You can set both webhook, and email, or one or the other. If you set neither, the job will run but you will have to query to determine your job's status.
+        
+        :returns: The created ExportCustomJobInstance
+        :rtype: twilio.rest.bulkexports.v1.export.export_custom_job.ExportCustomJobInstance
+        """
+        data = values.of({ 
+            'StartDay': start_day,
+            'EndDay': end_day,
+            'FriendlyName': friendly_name,
+            'WebhookUrl': webhook_url,
+            'WebhookMethod': webhook_method,
+            'Email': email,
+        })
 
-
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return ExportCustomJobInstance(self._version, payload, resource_type=self._solution['resource_type'])
     
     
     def stream(self, limit=None, page_size=None):
@@ -58,7 +84,7 @@ class ExportCustomJobList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.bulkexports.v1.export_custom_job.ExportCustomJobInstance]
+        :rtype: list[twilio.rest.bulkexports.v1.export.export_custom_job.ExportCustomJobInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -81,7 +107,7 @@ class ExportCustomJobList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.bulkexports.v1.export_custom_job.ExportCustomJobInstance]
+        :rtype: list[twilio.rest.bulkexports.v1.export.export_custom_job.ExportCustomJobInstance]
         """
         return list(self.stream(
             limit=limit,
@@ -98,7 +124,7 @@ class ExportCustomJobList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of ExportCustomJobInstance
-        :rtype: twilio.rest.bulkexports.v1.export_custom_job.ExportCustomJobPage
+        :rtype: twilio.rest.bulkexports.v1.export.export_custom_job.ExportCustomJobPage
         """
         data = values.of({ 
             'PageToken': page_token,
@@ -117,13 +143,14 @@ class ExportCustomJobList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of ExportCustomJobInstance
-        :rtype: twilio.rest.bulkexports.v1.export_custom_job.ExportCustomJobPage
+        :rtype: twilio.rest.bulkexports.v1.export.export_custom_job.ExportCustomJobPage
         """
         response = self._version.domain.twilio.request(
             'GET',
             target_url
         )
         return ExportCustomJobPage(self._version, response, self._solution)
+
 
 
     def __repr__(self):
@@ -146,8 +173,8 @@ class ExportCustomJobPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.bulkexports.v1.export_custom_job.ExportCustomJobPage
-        :rtype: twilio.rest.bulkexports.v1.export_custom_job.ExportCustomJobPage
+        :returns: twilio.rest.bulkexports.v1.export.export_custom_job.ExportCustomJobPage
+        :rtype: twilio.rest.bulkexports.v1.export.export_custom_job.ExportCustomJobPage
         """
         super().__init__(version, response)
 
@@ -160,8 +187,8 @@ class ExportCustomJobPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.bulkexports.v1.export_custom_job.ExportCustomJobInstance
-        :rtype: twilio.rest.bulkexports.v1.export_custom_job.ExportCustomJobInstance
+        :returns: twilio.rest.bulkexports.v1.export.export_custom_job.ExportCustomJobInstance
+        :rtype: twilio.rest.bulkexports.v1.export.export_custom_job.ExportCustomJobInstance
         """
         return ExportCustomJobInstance(self._version, payload, resource_type=self._solution['resource_type'])
 

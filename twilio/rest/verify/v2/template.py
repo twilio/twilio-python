@@ -28,18 +28,19 @@ class TemplateList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the TemplateList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.verify.v2.template..TemplateList
-        :rtype: twilio.verify.v2.template..TemplateList
+        :returns: twilio.rest.verify.v2.template.TemplateList
+        :rtype: twilio.rest.verify.v2.template.TemplateList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = {  }
         self._uri = '/Templates'.format(**self._solution)
-
-
+        
+        
     
     def stream(self, friendly_name=values.unset, limit=None, page_size=None):
         """
@@ -130,6 +131,7 @@ class TemplateList(ListResource):
         return TemplatePage(self._version, response, self._solution)
 
 
+
     def __repr__(self):
         """
         Provide a friendly representation
@@ -179,6 +181,43 @@ class TemplatePage(Page):
 
 
 
+
+
+class TemplateInstance(InstanceResource):
+    def __init__(self, version, payload):
+        super().__init__(version)
+        self._properties = { 
+            'sid' : payload.get('sid'),
+            'account_sid' : payload.get('account_sid'),
+            'friendly_name' : payload.get('friendly_name'),
+            'channels' : payload.get('channels'),
+            'translations' : payload.get('translations'),
+        }
+
+        self._context = None
+        self._solution = {
+            
+        }
+
+    @property
+    def _proxy(self):
+        if self._context is None:
+            self._context = TemplateContext(
+                self._version,
+                
+            )
+        return self._context
+
+    
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Verify.V2.TemplateInstance {}>'.format(context)
 
 
 

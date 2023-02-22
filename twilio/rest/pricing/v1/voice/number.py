@@ -28,19 +28,42 @@ class NumberList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the NumberList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.pricing.v1.number..NumberList
-        :rtype: twilio.pricing.v1.number..NumberList
+        :returns: twilio.rest.pricing.v1.voice.number.NumberList
+        :rtype: twilio.rest.pricing.v1.voice.number.NumberList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = {  }
-        self._uri = ''.format(**self._solution)
-
-
+        
+        
+        
     
+
+    def get(self, number):
+        """
+        Constructs a NumberContext
+        
+        :param number: The phone number to fetch.
+        
+        :returns: twilio.rest.pricing.v1.voice.number.NumberContext
+        :rtype: twilio.rest.pricing.v1.voice.number.NumberContext
+        """
+        return NumberContext(self._version, number=number)
+
+    def __call__(self, number):
+        """
+        Constructs a NumberContext
+        
+        :param number: The phone number to fetch.
+        
+        :returns: twilio.rest.pricing.v1.voice.number.NumberContext
+        :rtype: twilio.rest.pricing.v1.voice.number.NumberContext
+        """
+        return NumberContext(self._version, number=number)
 
     def __repr__(self):
         """

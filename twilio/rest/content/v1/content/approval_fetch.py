@@ -28,20 +28,39 @@ class ApprovalFetchList(ListResource):
     def __init__(self, version: Version, sid: str):
         """
         Initialize the ApprovalFetchList
+
         :param Version version: Version that contains the resource
         :param sid: The Twilio-provided string that uniquely identifies the Content resource whose approval information to fetch.
         
-        :returns: twilio.content.v1.approval_fetch..ApprovalFetchList
-        :rtype: twilio.content.v1.approval_fetch..ApprovalFetchList
+        :returns: twilio.rest.content.v1.content.approval_fetch.ApprovalFetchList
+        :rtype: twilio.rest.content.v1.content.approval_fetch.ApprovalFetchList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = { 'sid': sid,  }
-        self._uri = ''.format(**self._solution)
-
-
+        
+        
+        
     
+
+    def get(self):
+        """
+        Constructs a ApprovalFetchContext
+        
+        :returns: twilio.rest.content.v1.content.approval_fetch.ApprovalFetchContext
+        :rtype: twilio.rest.content.v1.content.approval_fetch.ApprovalFetchContext
+        """
+        return ApprovalFetchContext(self._version, sid=self._solution['sid'])
+
+    def __call__(self):
+        """
+        Constructs a ApprovalFetchContext
+        
+        :returns: twilio.rest.content.v1.content.approval_fetch.ApprovalFetchContext
+        :rtype: twilio.rest.content.v1.content.approval_fetch.ApprovalFetchContext
+        """
+        return ApprovalFetchContext(self._version, sid=self._solution['sid'])
 
     def __repr__(self):
         """

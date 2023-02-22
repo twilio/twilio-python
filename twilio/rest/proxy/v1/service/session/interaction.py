@@ -28,20 +28,21 @@ class InteractionList(ListResource):
     def __init__(self, version: Version, service_sid: str, session_sid: str):
         """
         Initialize the InteractionList
+
         :param Version version: Version that contains the resource
         :param service_sid: The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) to read the resources from.
         :param session_sid: The SID of the parent [Session](https://www.twilio.com/docs/proxy/api/session) to read the resources from.
         
-        :returns: twilio.proxy.v1.interaction..InteractionList
-        :rtype: twilio.proxy.v1.interaction..InteractionList
+        :returns: twilio.rest.proxy.v1.service.session.interaction.InteractionList
+        :rtype: twilio.rest.proxy.v1.service.session.interaction.InteractionList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = { 'service_sid': service_sid, 'session_sid': session_sid,  }
         self._uri = '/Services/${service_sid}/Sessions/${session_sid}/Interactions'.format(**self._solution)
-
-
+        
+        
     
     
     
@@ -60,7 +61,7 @@ class InteractionList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.proxy.v1.interaction.InteractionInstance]
+        :rtype: list[twilio.rest.proxy.v1.service.session.interaction.InteractionInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -83,7 +84,7 @@ class InteractionList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.proxy.v1.interaction.InteractionInstance]
+        :rtype: list[twilio.rest.proxy.v1.service.session.interaction.InteractionInstance]
         """
         return list(self.stream(
             limit=limit,
@@ -100,7 +101,7 @@ class InteractionList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of InteractionInstance
-        :rtype: twilio.rest.proxy.v1.interaction.InteractionPage
+        :rtype: twilio.rest.proxy.v1.service.session.interaction.InteractionPage
         """
         data = values.of({ 
             'PageToken': page_token,
@@ -119,7 +120,7 @@ class InteractionList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of InteractionInstance
-        :rtype: twilio.rest.proxy.v1.interaction.InteractionPage
+        :rtype: twilio.rest.proxy.v1.service.session.interaction.InteractionPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -127,6 +128,28 @@ class InteractionList(ListResource):
         )
         return InteractionPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a InteractionContext
+        
+        :param sid: The Twilio-provided string that uniquely identifies the Interaction resource to fetch.
+        
+        :returns: twilio.rest.proxy.v1.service.session.interaction.InteractionContext
+        :rtype: twilio.rest.proxy.v1.service.session.interaction.InteractionContext
+        """
+        return InteractionContext(self._version, service_sid=self._solution['service_sid'], session_sid=self._solution['session_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a InteractionContext
+        
+        :param sid: The Twilio-provided string that uniquely identifies the Interaction resource to fetch.
+        
+        :returns: twilio.rest.proxy.v1.service.session.interaction.InteractionContext
+        :rtype: twilio.rest.proxy.v1.service.session.interaction.InteractionContext
+        """
+        return InteractionContext(self._version, service_sid=self._solution['service_sid'], session_sid=self._solution['session_sid'], sid=sid)
 
     def __repr__(self):
         """
@@ -150,8 +173,8 @@ class InteractionPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.proxy.v1.interaction.InteractionPage
-        :rtype: twilio.rest.proxy.v1.interaction.InteractionPage
+        :returns: twilio.rest.proxy.v1.service.session.interaction.InteractionPage
+        :rtype: twilio.rest.proxy.v1.service.session.interaction.InteractionPage
         """
         super().__init__(version, response)
 
@@ -164,8 +187,8 @@ class InteractionPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.proxy.v1.interaction.InteractionInstance
-        :rtype: twilio.rest.proxy.v1.interaction.InteractionInstance
+        :returns: twilio.rest.proxy.v1.service.session.interaction.InteractionInstance
+        :rtype: twilio.rest.proxy.v1.service.session.interaction.InteractionInstance
         """
         return InteractionInstance(self._version, payload, service_sid=self._solution['service_sid'], session_sid=self._solution['session_sid'])
 

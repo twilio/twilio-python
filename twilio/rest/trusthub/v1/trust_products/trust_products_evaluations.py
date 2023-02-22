@@ -28,20 +28,36 @@ class TrustProductsEvaluationsList(ListResource):
     def __init__(self, version: Version, trust_product_sid: str):
         """
         Initialize the TrustProductsEvaluationsList
+
         :param Version version: Version that contains the resource
         :param trust_product_sid: The unique string that we created to identify the trust_product resource.
         
-        :returns: twilio.trusthub.v1.trust_products_evaluations..TrustProductsEvaluationsList
-        :rtype: twilio.trusthub.v1.trust_products_evaluations..TrustProductsEvaluationsList
+        :returns: twilio.rest.trusthub.v1.trust_products.trust_products_evaluations.TrustProductsEvaluationsList
+        :rtype: twilio.rest.trusthub.v1.trust_products.trust_products_evaluations.TrustProductsEvaluationsList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = { 'trust_product_sid': trust_product_sid,  }
         self._uri = '/TrustProducts/${trust_product_sid}/Evaluations'.format(**self._solution)
-
-
+        
+        
     
+    
+    def create(self, policy_sid):
+        """
+        Create the TrustProductsEvaluationsInstance
+        :param str policy_sid: The unique string of a policy that is associated to the customer_profile resource.
+        
+        :returns: The created TrustProductsEvaluationsInstance
+        :rtype: twilio.rest.trusthub.v1.trust_products.trust_products_evaluations.TrustProductsEvaluationsInstance
+        """
+        data = values.of({ 
+            'PolicySid': policy_sid,
+        })
+
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return TrustProductsEvaluationsInstance(self._version, payload, trust_product_sid=self._solution['trust_product_sid'])
     
     
     def stream(self, limit=None, page_size=None):
@@ -59,7 +75,7 @@ class TrustProductsEvaluationsList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.trusthub.v1.trust_products_evaluations.TrustProductsEvaluationsInstance]
+        :rtype: list[twilio.rest.trusthub.v1.trust_products.trust_products_evaluations.TrustProductsEvaluationsInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -82,7 +98,7 @@ class TrustProductsEvaluationsList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.trusthub.v1.trust_products_evaluations.TrustProductsEvaluationsInstance]
+        :rtype: list[twilio.rest.trusthub.v1.trust_products.trust_products_evaluations.TrustProductsEvaluationsInstance]
         """
         return list(self.stream(
             limit=limit,
@@ -99,7 +115,7 @@ class TrustProductsEvaluationsList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of TrustProductsEvaluationsInstance
-        :rtype: twilio.rest.trusthub.v1.trust_products_evaluations.TrustProductsEvaluationsPage
+        :rtype: twilio.rest.trusthub.v1.trust_products.trust_products_evaluations.TrustProductsEvaluationsPage
         """
         data = values.of({ 
             'PageToken': page_token,
@@ -118,7 +134,7 @@ class TrustProductsEvaluationsList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of TrustProductsEvaluationsInstance
-        :rtype: twilio.rest.trusthub.v1.trust_products_evaluations.TrustProductsEvaluationsPage
+        :rtype: twilio.rest.trusthub.v1.trust_products.trust_products_evaluations.TrustProductsEvaluationsPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -126,6 +142,28 @@ class TrustProductsEvaluationsList(ListResource):
         )
         return TrustProductsEvaluationsPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a TrustProductsEvaluationsContext
+        
+        :param sid: The unique string that identifies the Evaluation resource.
+        
+        :returns: twilio.rest.trusthub.v1.trust_products.trust_products_evaluations.TrustProductsEvaluationsContext
+        :rtype: twilio.rest.trusthub.v1.trust_products.trust_products_evaluations.TrustProductsEvaluationsContext
+        """
+        return TrustProductsEvaluationsContext(self._version, trust_product_sid=self._solution['trust_product_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a TrustProductsEvaluationsContext
+        
+        :param sid: The unique string that identifies the Evaluation resource.
+        
+        :returns: twilio.rest.trusthub.v1.trust_products.trust_products_evaluations.TrustProductsEvaluationsContext
+        :rtype: twilio.rest.trusthub.v1.trust_products.trust_products_evaluations.TrustProductsEvaluationsContext
+        """
+        return TrustProductsEvaluationsContext(self._version, trust_product_sid=self._solution['trust_product_sid'], sid=sid)
 
     def __repr__(self):
         """
@@ -149,8 +187,8 @@ class TrustProductsEvaluationsPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.trusthub.v1.trust_products_evaluations.TrustProductsEvaluationsPage
-        :rtype: twilio.rest.trusthub.v1.trust_products_evaluations.TrustProductsEvaluationsPage
+        :returns: twilio.rest.trusthub.v1.trust_products.trust_products_evaluations.TrustProductsEvaluationsPage
+        :rtype: twilio.rest.trusthub.v1.trust_products.trust_products_evaluations.TrustProductsEvaluationsPage
         """
         super().__init__(version, response)
 
@@ -163,8 +201,8 @@ class TrustProductsEvaluationsPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.trusthub.v1.trust_products_evaluations.TrustProductsEvaluationsInstance
-        :rtype: twilio.rest.trusthub.v1.trust_products_evaluations.TrustProductsEvaluationsInstance
+        :returns: twilio.rest.trusthub.v1.trust_products.trust_products_evaluations.TrustProductsEvaluationsInstance
+        :rtype: twilio.rest.trusthub.v1.trust_products.trust_products_evaluations.TrustProductsEvaluationsInstance
         """
         return TrustProductsEvaluationsInstance(self._version, payload, trust_product_sid=self._solution['trust_product_sid'])
 

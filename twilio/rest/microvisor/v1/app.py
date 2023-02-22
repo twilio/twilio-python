@@ -28,18 +28,19 @@ class AppList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the AppList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.microvisor.v1.app..AppList
-        :rtype: twilio.microvisor.v1.app..AppList
+        :returns: twilio.rest.microvisor.v1.app.AppList
+        :rtype: twilio.rest.microvisor.v1.app.AppList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = {  }
         self._uri = '/Apps'.format(**self._solution)
-
-
+        
+        
     
     
     
@@ -125,6 +126,28 @@ class AppList(ListResource):
         )
         return AppPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a AppContext
+        
+        :param sid: A 34-character string that uniquely identifies this App.
+        
+        :returns: twilio.rest.microvisor.v1.app.AppContext
+        :rtype: twilio.rest.microvisor.v1.app.AppContext
+        """
+        return AppContext(self._version, sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a AppContext
+        
+        :param sid: A 34-character string that uniquely identifies this App.
+        
+        :returns: twilio.rest.microvisor.v1.app.AppContext
+        :rtype: twilio.rest.microvisor.v1.app.AppContext
+        """
+        return AppContext(self._version, sid=sid)
 
     def __repr__(self):
         """

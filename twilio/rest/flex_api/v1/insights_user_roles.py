@@ -28,19 +28,38 @@ class InsightsUserRolesList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the InsightsUserRolesList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.flex_api.v1.insights_user_roles..InsightsUserRolesList
-        :rtype: twilio.flex_api.v1.insights_user_roles..InsightsUserRolesList
+        :returns: twilio.rest.flex_api.v1.insights_user_roles.InsightsUserRolesList
+        :rtype: twilio.rest.flex_api.v1.insights_user_roles.InsightsUserRolesList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = {  }
-        self._uri = ''.format(**self._solution)
-
-
+        
+        
+        
     
+
+    def get(self):
+        """
+        Constructs a InsightsUserRolesContext
+        
+        :returns: twilio.rest.flex_api.v1.insights_user_roles.InsightsUserRolesContext
+        :rtype: twilio.rest.flex_api.v1.insights_user_roles.InsightsUserRolesContext
+        """
+        return InsightsUserRolesContext(self._version)
+
+    def __call__(self):
+        """
+        Constructs a InsightsUserRolesContext
+        
+        :returns: twilio.rest.flex_api.v1.insights_user_roles.InsightsUserRolesContext
+        :rtype: twilio.rest.flex_api.v1.insights_user_roles.InsightsUserRolesContext
+        """
+        return InsightsUserRolesContext(self._version)
 
     def __repr__(self):
         """

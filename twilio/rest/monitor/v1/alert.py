@@ -28,18 +28,19 @@ class AlertList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the AlertList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.monitor.v1.alert..AlertList
-        :rtype: twilio.monitor.v1.alert..AlertList
+        :returns: twilio.rest.monitor.v1.alert.AlertList
+        :rtype: twilio.rest.monitor.v1.alert.AlertList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = {  }
         self._uri = '/Alerts'.format(**self._solution)
-
-
+        
+        
     
     
     def stream(self, log_level=values.unset, start_date=values.unset, end_date=values.unset, limit=None, page_size=None):
@@ -116,8 +117,8 @@ class AlertList(ListResource):
         """
         data = values.of({ 
             'LogLevel': log_level,
-            'StartDate': start_date,
-            'EndDate': end_date,
+            'StartDate': serialize.iso8601_datetime(start_date),
+            'EndDate': serialize.iso8601_datetime(end_date),
             'PageToken': page_token,
             'Page': page_number,
             'PageSize': page_size,
@@ -142,6 +143,28 @@ class AlertList(ListResource):
         )
         return AlertPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a AlertContext
+        
+        :param sid: The SID of the Alert resource to fetch.
+        
+        :returns: twilio.rest.monitor.v1.alert.AlertContext
+        :rtype: twilio.rest.monitor.v1.alert.AlertContext
+        """
+        return AlertContext(self._version, sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a AlertContext
+        
+        :param sid: The SID of the Alert resource to fetch.
+        
+        :returns: twilio.rest.monitor.v1.alert.AlertContext
+        :rtype: twilio.rest.monitor.v1.alert.AlertContext
+        """
+        return AlertContext(self._version, sid=sid)
 
     def __repr__(self):
         """

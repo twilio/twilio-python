@@ -28,23 +28,53 @@ class MemberList(ListResource):
     def __init__(self, version: Version, service_sid: str, channel_sid: str):
         """
         Initialize the MemberList
+
         :param Version version: Version that contains the resource
         :param service_sid: 
         :param channel_sid: 
         
-        :returns: twilio.ip_messaging.v2.member..MemberList
-        :rtype: twilio.ip_messaging.v2.member..MemberList
+        :returns: twilio.rest.ip_messaging.v2.service.channel.member.MemberList
+        :rtype: twilio.rest.ip_messaging.v2.service.channel.member.MemberList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = { 'service_sid': service_sid, 'channel_sid': channel_sid,  }
         self._uri = '/Services/${service_sid}/Channels/${channel_sid}/Members'.format(**self._solution)
+        
+        
+    
+    
+    
+    
+    def create(self, identity, x_twilio_webhook_enabled=values.unset, role_sid=values.unset, last_consumed_message_index=values.unset, last_consumption_timestamp=values.unset, date_created=values.unset, date_updated=values.unset, attributes=values.unset):
+        """
+        Create the MemberInstance
+        :param str identity: 
+        :param MemberWebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :param str role_sid: 
+        :param int last_consumed_message_index: 
+        :param datetime last_consumption_timestamp: 
+        :param datetime date_created: 
+        :param datetime date_updated: 
+        :param str attributes: 
+        
+        :returns: The created MemberInstance
+        :rtype: twilio.rest.ip_messaging.v2.service.channel.member.MemberInstance
+        """
+        data = values.of({ 
+            'Identity': identity,
+            'X-Twilio-Webhook-Enabled': x_twilio_webhook_enabled,
+            'RoleSid': role_sid,
+            'LastConsumedMessageIndex': last_consumed_message_index,
+            'LastConsumptionTimestamp': serialize.iso8601_datetime(last_consumption_timestamp),
+            'DateCreated': serialize.iso8601_datetime(date_created),
+            'DateUpdated': serialize.iso8601_datetime(date_updated),
+            'Attributes': attributes,
+        })
 
-
-    
-    
-    
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return MemberInstance(self._version, payload, service_sid=self._solution['service_sid'], channel_sid=self._solution['channel_sid'])
     
     
     def stream(self, identity=values.unset, limit=None, page_size=None):
@@ -54,7 +84,7 @@ class MemberList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
         
-        :param [str] identity: 
+        :param list[str] identity: 
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -63,7 +93,7 @@ class MemberList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.ip_messaging.v2.member.MemberInstance]
+        :rtype: list[twilio.rest.ip_messaging.v2.service.channel.member.MemberInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -79,7 +109,7 @@ class MemberList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
-        :param [str] identity: 
+        :param list[str] identity: 
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -88,7 +118,7 @@ class MemberList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.ip_messaging.v2.member.MemberInstance]
+        :rtype: list[twilio.rest.ip_messaging.v2.service.channel.member.MemberInstance]
         """
         return list(self.stream(
             identity=identity,
@@ -101,16 +131,16 @@ class MemberList(ListResource):
         Retrieve a single page of MemberInstance records from the API.
         Request is executed immediately
         
-        :param [str] identity: 
+        :param list[str] identity: 
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of MemberInstance
-        :rtype: twilio.rest.ip_messaging.v2.member.MemberPage
+        :rtype: twilio.rest.ip_messaging.v2.service.channel.member.MemberPage
         """
         data = values.of({ 
-            'Identity': identity,
+            'Identity': serialize.map(identity),
             'PageToken': page_token,
             'Page': page_number,
             'PageSize': page_size,
@@ -127,7 +157,7 @@ class MemberList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of MemberInstance
-        :rtype: twilio.rest.ip_messaging.v2.member.MemberPage
+        :rtype: twilio.rest.ip_messaging.v2.service.channel.member.MemberPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -135,6 +165,28 @@ class MemberList(ListResource):
         )
         return MemberPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a MemberContext
+        
+        :param sid: 
+        
+        :returns: twilio.rest.ip_messaging.v2.service.channel.member.MemberContext
+        :rtype: twilio.rest.ip_messaging.v2.service.channel.member.MemberContext
+        """
+        return MemberContext(self._version, service_sid=self._solution['service_sid'], channel_sid=self._solution['channel_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a MemberContext
+        
+        :param sid: 
+        
+        :returns: twilio.rest.ip_messaging.v2.service.channel.member.MemberContext
+        :rtype: twilio.rest.ip_messaging.v2.service.channel.member.MemberContext
+        """
+        return MemberContext(self._version, service_sid=self._solution['service_sid'], channel_sid=self._solution['channel_sid'], sid=sid)
 
     def __repr__(self):
         """
@@ -162,8 +214,8 @@ class MemberPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.ip_messaging.v2.member.MemberPage
-        :rtype: twilio.rest.ip_messaging.v2.member.MemberPage
+        :returns: twilio.rest.ip_messaging.v2.service.channel.member.MemberPage
+        :rtype: twilio.rest.ip_messaging.v2.service.channel.member.MemberPage
         """
         super().__init__(version, response)
 
@@ -176,8 +228,8 @@ class MemberPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.ip_messaging.v2.member.MemberInstance
-        :rtype: twilio.rest.ip_messaging.v2.member.MemberInstance
+        :returns: twilio.rest.ip_messaging.v2.service.channel.member.MemberInstance
+        :rtype: twilio.rest.ip_messaging.v2.service.channel.member.MemberInstance
         """
         return MemberInstance(self._version, payload, service_sid=self._solution['service_sid'], channel_sid=self._solution['channel_sid'])
 
@@ -231,9 +283,9 @@ class MemberContext(InstanceContext):
 
         
     
-    def update(self, x_twilio_webhook_enabled, body):
+    def update(self, x_twilio_webhook_enabled, role_sid, last_consumed_message_index, last_consumption_timestamp, date_created, date_updated, attributes):
         data = values.of({
-            'x_twilio_webhook_enabled': x_twilio_webhook_enabled,'body': body,
+            'x_twilio_webhook_enabled': x_twilio_webhook_enabled,'role_sid': role_sid,'last_consumed_message_index': last_consumed_message_index,'last_consumption_timestamp': last_consumption_timestamp,'date_created': date_created,'date_updated': date_updated,'attributes': attributes,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

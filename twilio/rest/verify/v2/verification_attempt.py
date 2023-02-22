@@ -28,18 +28,19 @@ class VerificationAttemptList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the VerificationAttemptList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.verify.v2.verification_attempt..VerificationAttemptList
-        :rtype: twilio.verify.v2.verification_attempt..VerificationAttemptList
+        :returns: twilio.rest.verify.v2.verification_attempt.VerificationAttemptList
+        :rtype: twilio.rest.verify.v2.verification_attempt.VerificationAttemptList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = {  }
         self._uri = '/Attempts'.format(**self._solution)
-
-
+        
+        
     
     
     def stream(self, date_created_after=values.unset, date_created_before=values.unset, channel_data_to=values.unset, country=values.unset, channel=values.unset, verify_service_sid=values.unset, verification_sid=values.unset, status=values.unset, limit=None, page_size=None):
@@ -140,8 +141,8 @@ class VerificationAttemptList(ListResource):
         :rtype: twilio.rest.verify.v2.verification_attempt.VerificationAttemptPage
         """
         data = values.of({ 
-            'DateCreatedAfter': date_created_after,
-            'DateCreatedBefore': date_created_before,
+            'DateCreatedAfter': serialize.iso8601_datetime(date_created_after),
+            'DateCreatedBefore': serialize.iso8601_datetime(date_created_before),
             'ChannelData.To': channel_data_to,
             'Country': country,
             'Channel': channel,
@@ -172,6 +173,28 @@ class VerificationAttemptList(ListResource):
         )
         return VerificationAttemptPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a VerificationAttemptContext
+        
+        :param sid: The unique SID identifier of a Verification Attempt
+        
+        :returns: twilio.rest.verify.v2.verification_attempt.VerificationAttemptContext
+        :rtype: twilio.rest.verify.v2.verification_attempt.VerificationAttemptContext
+        """
+        return VerificationAttemptContext(self._version, sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a VerificationAttemptContext
+        
+        :param sid: The unique SID identifier of a Verification Attempt
+        
+        :returns: twilio.rest.verify.v2.verification_attempt.VerificationAttemptContext
+        :rtype: twilio.rest.verify.v2.verification_attempt.VerificationAttemptContext
+        """
+        return VerificationAttemptContext(self._version, sid=sid)
 
     def __repr__(self):
         """

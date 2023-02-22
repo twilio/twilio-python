@@ -28,20 +28,39 @@ class WorkspaceStatisticsList(ListResource):
     def __init__(self, version: Version, workspace_sid: str):
         """
         Initialize the WorkspaceStatisticsList
+
         :param Version version: Version that contains the resource
         :param workspace_sid: The SID of the Workspace to fetch.
         
-        :returns: twilio.taskrouter.v1.workspace_statistics..WorkspaceStatisticsList
-        :rtype: twilio.taskrouter.v1.workspace_statistics..WorkspaceStatisticsList
+        :returns: twilio.rest.taskrouter.v1.workspace.workspace_statistics.WorkspaceStatisticsList
+        :rtype: twilio.rest.taskrouter.v1.workspace.workspace_statistics.WorkspaceStatisticsList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = { 'workspace_sid': workspace_sid,  }
-        self._uri = ''.format(**self._solution)
-
-
+        
+        
+        
     
+
+    def get(self):
+        """
+        Constructs a WorkspaceStatisticsContext
+        
+        :returns: twilio.rest.taskrouter.v1.workspace.workspace_statistics.WorkspaceStatisticsContext
+        :rtype: twilio.rest.taskrouter.v1.workspace.workspace_statistics.WorkspaceStatisticsContext
+        """
+        return WorkspaceStatisticsContext(self._version, workspace_sid=self._solution['workspace_sid'])
+
+    def __call__(self):
+        """
+        Constructs a WorkspaceStatisticsContext
+        
+        :returns: twilio.rest.taskrouter.v1.workspace.workspace_statistics.WorkspaceStatisticsContext
+        :rtype: twilio.rest.taskrouter.v1.workspace.workspace_statistics.WorkspaceStatisticsContext
+        """
+        return WorkspaceStatisticsContext(self._version, workspace_sid=self._solution['workspace_sid'])
 
     def __repr__(self):
         """

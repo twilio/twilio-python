@@ -28,18 +28,19 @@ class PoliciesList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the PoliciesList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.trusthub.v1.policies..PoliciesList
-        :rtype: twilio.trusthub.v1.policies..PoliciesList
+        :returns: twilio.rest.trusthub.v1.policies.PoliciesList
+        :rtype: twilio.rest.trusthub.v1.policies.PoliciesList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = {  }
         self._uri = '/Policies'.format(**self._solution)
-
-
+        
+        
     
     
     def stream(self, limit=None, page_size=None):
@@ -124,6 +125,28 @@ class PoliciesList(ListResource):
         )
         return PoliciesPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a PoliciesContext
+        
+        :param sid: The unique string that identifies the Policy resource.
+        
+        :returns: twilio.rest.trusthub.v1.policies.PoliciesContext
+        :rtype: twilio.rest.trusthub.v1.policies.PoliciesContext
+        """
+        return PoliciesContext(self._version, sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a PoliciesContext
+        
+        :param sid: The unique string that identifies the Policy resource.
+        
+        :returns: twilio.rest.trusthub.v1.policies.PoliciesContext
+        :rtype: twilio.rest.trusthub.v1.policies.PoliciesContext
+        """
+        return PoliciesContext(self._version, sid=sid)
 
     def __repr__(self):
         """

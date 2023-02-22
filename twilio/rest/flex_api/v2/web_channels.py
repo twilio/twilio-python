@@ -28,19 +28,42 @@ class WebChannelsList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the WebChannelsList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.flex_api.v2.web_channels..WebChannelsList
-        :rtype: twilio.flex_api.v2.web_channels..WebChannelsList
+        :returns: twilio.rest.flex_api.v2.web_channels.WebChannelsList
+        :rtype: twilio.rest.flex_api.v2.web_channels.WebChannelsList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = {  }
         self._uri = '/WebChats'.format(**self._solution)
-
-
+        
+        
     
+    def create(self, address_sid, chat_friendly_name=values.unset, customer_friendly_name=values.unset, pre_engagement_data=values.unset):
+        """
+        Create the WebChannelsInstance
+        :param str address_sid: The SID of the Conversations Address. See [Address Configuration Resource](https://www.twilio.com/docs/conversations/api/address-configuration-resource) for configuration details. When a conversation is created on the Flex backend, the callback URL will be set to the corresponding Studio Flow SID or webhook URL in your address configuration.
+        :param str chat_friendly_name: The Conversation's friendly name. See the [Conversation resource](https://www.twilio.com/docs/conversations/api/conversation-resource) for an example.
+        :param str customer_friendly_name: The Conversation participant's friendly name. See the [Conversation Participant Resource](https://www.twilio.com/docs/conversations/api/conversation-participant-resource) for an example.
+        :param str pre_engagement_data: The pre-engagement data.
+        
+        :returns: The created WebChannelsInstance
+        :rtype: twilio.rest.flex_api.v2.web_channels.WebChannelsInstance
+        """
+        data = values.of({ 
+            'AddressSid': address_sid,
+            'ChatFriendlyName': chat_friendly_name,
+            'CustomerFriendlyName': customer_friendly_name,
+            'PreEngagementData': pre_engagement_data,
+        })
+
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return WebChannelsInstance(self._version, payload)
+    
+
 
     def __repr__(self):
         """

@@ -28,19 +28,38 @@ class AssessmentsList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the AssessmentsList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.flex_api.v1.assessments..AssessmentsList
-        :rtype: twilio.flex_api.v1.assessments..AssessmentsList
+        :returns: twilio.rest.flex_api.v1.assessments.AssessmentsList
+        :rtype: twilio.rest.flex_api.v1.assessments.AssessmentsList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = {  }
-        self._uri = ''.format(**self._solution)
-
-
+        
+        
+        
     
+
+    def get(self):
+        """
+        Constructs a AssessmentsContext
+        
+        :returns: twilio.rest.flex_api.v1.assessments.AssessmentsContext
+        :rtype: twilio.rest.flex_api.v1.assessments.AssessmentsContext
+        """
+        return AssessmentsContext(self._version)
+
+    def __call__(self):
+        """
+        Constructs a AssessmentsContext
+        
+        :returns: twilio.rest.flex_api.v1.assessments.AssessmentsContext
+        :rtype: twilio.rest.flex_api.v1.assessments.AssessmentsContext
+        """
+        return AssessmentsContext(self._version)
 
     def __repr__(self):
         """

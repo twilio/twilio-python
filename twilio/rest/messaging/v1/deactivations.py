@@ -28,19 +28,38 @@ class DeactivationsList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the DeactivationsList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.messaging.v1.deactivations..DeactivationsList
-        :rtype: twilio.messaging.v1.deactivations..DeactivationsList
+        :returns: twilio.rest.messaging.v1.deactivations.DeactivationsList
+        :rtype: twilio.rest.messaging.v1.deactivations.DeactivationsList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = {  }
-        self._uri = ''.format(**self._solution)
-
-
+        
+        
+        
     
+
+    def get(self):
+        """
+        Constructs a DeactivationsContext
+        
+        :returns: twilio.rest.messaging.v1.deactivations.DeactivationsContext
+        :rtype: twilio.rest.messaging.v1.deactivations.DeactivationsContext
+        """
+        return DeactivationsContext(self._version)
+
+    def __call__(self):
+        """
+        Constructs a DeactivationsContext
+        
+        :returns: twilio.rest.messaging.v1.deactivations.DeactivationsContext
+        :rtype: twilio.rest.messaging.v1.deactivations.DeactivationsContext
+        """
+        return DeactivationsContext(self._version)
 
     def __repr__(self):
         """

@@ -28,20 +28,39 @@ class WorkersCumulativeStatisticsList(ListResource):
     def __init__(self, version: Version, workspace_sid: str):
         """
         Initialize the WorkersCumulativeStatisticsList
+
         :param Version version: Version that contains the resource
         :param workspace_sid: The SID of the Workspace with the resource to fetch.
         
-        :returns: twilio.taskrouter.v1.workers_cumulative_statistics..WorkersCumulativeStatisticsList
-        :rtype: twilio.taskrouter.v1.workers_cumulative_statistics..WorkersCumulativeStatisticsList
+        :returns: twilio.rest.taskrouter.v1.workspace.worker.workers_cumulative_statistics.WorkersCumulativeStatisticsList
+        :rtype: twilio.rest.taskrouter.v1.workspace.worker.workers_cumulative_statistics.WorkersCumulativeStatisticsList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = { 'workspace_sid': workspace_sid,  }
-        self._uri = ''.format(**self._solution)
-
-
+        
+        
+        
     
+
+    def get(self):
+        """
+        Constructs a WorkersCumulativeStatisticsContext
+        
+        :returns: twilio.rest.taskrouter.v1.workspace.worker.workers_cumulative_statistics.WorkersCumulativeStatisticsContext
+        :rtype: twilio.rest.taskrouter.v1.workspace.worker.workers_cumulative_statistics.WorkersCumulativeStatisticsContext
+        """
+        return WorkersCumulativeStatisticsContext(self._version, workspace_sid=self._solution['workspace_sid'])
+
+    def __call__(self):
+        """
+        Constructs a WorkersCumulativeStatisticsContext
+        
+        :returns: twilio.rest.taskrouter.v1.workspace.worker.workers_cumulative_statistics.WorkersCumulativeStatisticsContext
+        :rtype: twilio.rest.taskrouter.v1.workspace.worker.workers_cumulative_statistics.WorkersCumulativeStatisticsContext
+        """
+        return WorkersCumulativeStatisticsContext(self._version, workspace_sid=self._solution['workspace_sid'])
 
     def __repr__(self):
         """

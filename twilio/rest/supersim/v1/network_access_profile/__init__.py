@@ -29,20 +29,38 @@ class NetworkAccessProfileList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the NetworkAccessProfileList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.supersim.v1.network_access_profile..NetworkAccessProfileList
-        :rtype: twilio.supersim.v1.network_access_profile..NetworkAccessProfileList
+        :returns: twilio.rest.supersim.v1.network_access_profile.NetworkAccessProfileList
+        :rtype: twilio.rest.supersim.v1.network_access_profile.NetworkAccessProfileList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = {  }
         self._uri = '/NetworkAccessProfiles'.format(**self._solution)
-
-
+        
+        
     
     
+    
+    def create(self, unique_name=values.unset, networks=values.unset):
+        """
+        Create the NetworkAccessProfileInstance
+        :param str unique_name: An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
+        :param list[str] networks: List of Network SIDs that this Network Access Profile will allow connections to.
+        
+        :returns: The created NetworkAccessProfileInstance
+        :rtype: twilio.rest.supersim.v1.network_access_profile.NetworkAccessProfileInstance
+        """
+        data = values.of({ 
+            'UniqueName': unique_name,
+            'Networks': serialize.map(networks, lambda e: e),
+        })
+
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return NetworkAccessProfileInstance(self._version, payload)
     
     
     def stream(self, limit=None, page_size=None):
@@ -128,6 +146,28 @@ class NetworkAccessProfileList(ListResource):
         return NetworkAccessProfilePage(self._version, response, self._solution)
 
 
+    def get(self, sid):
+        """
+        Constructs a NetworkAccessProfileContext
+        
+        :param sid: The SID of the Network Access Profile to update.
+        
+        :returns: twilio.rest.supersim.v1.network_access_profile.NetworkAccessProfileContext
+        :rtype: twilio.rest.supersim.v1.network_access_profile.NetworkAccessProfileContext
+        """
+        return NetworkAccessProfileContext(self._version, sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a NetworkAccessProfileContext
+        
+        :param sid: The SID of the Network Access Profile to update.
+        
+        :returns: twilio.rest.supersim.v1.network_access_profile.NetworkAccessProfileContext
+        :rtype: twilio.rest.supersim.v1.network_access_profile.NetworkAccessProfileContext
+        """
+        return NetworkAccessProfileContext(self._version, sid=sid)
+
     def __repr__(self):
         """
         Provide a friendly representation
@@ -210,9 +250,9 @@ class NetworkAccessProfileContext(InstanceContext):
 
         
     
-    def update(self, body):
+    def update(self, unique_name):
         data = values.of({
-            'body': body,
+            'unique_name': unique_name,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

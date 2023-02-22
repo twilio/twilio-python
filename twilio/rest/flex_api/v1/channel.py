@@ -28,20 +28,54 @@ class ChannelList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the ChannelList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.flex_api.v1.channel..ChannelList
-        :rtype: twilio.flex_api.v1.channel..ChannelList
+        :returns: twilio.rest.flex_api.v1.channel.ChannelList
+        :rtype: twilio.rest.flex_api.v1.channel.ChannelList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = {  }
         self._uri = '/Channels'.format(**self._solution)
-
-
+        
+        
     
     
+    
+    def create(self, flex_flow_sid, identity, chat_user_friendly_name, chat_friendly_name, target=values.unset, chat_unique_name=values.unset, pre_engagement_data=values.unset, task_sid=values.unset, task_attributes=values.unset, long_lived=values.unset):
+        """
+        Create the ChannelInstance
+        :param str flex_flow_sid: The SID of the Flex Flow.
+        :param str identity: The `identity` value that uniquely identifies the new resource's chat User.
+        :param str chat_user_friendly_name: The chat participant's friendly name.
+        :param str chat_friendly_name: The chat channel's friendly name.
+        :param str target: The Target Contact Identity, for example the phone number of an SMS.
+        :param str chat_unique_name: The chat channel's unique name.
+        :param str pre_engagement_data: The pre-engagement data.
+        :param str task_sid: The SID of the TaskRouter Task. Only valid when integration type is `task`. `null` for integration types `studio` & `external`
+        :param str task_attributes: The Task attributes to be added for the TaskRouter Task.
+        :param bool long_lived: Whether to create the channel as long-lived.
+        
+        :returns: The created ChannelInstance
+        :rtype: twilio.rest.flex_api.v1.channel.ChannelInstance
+        """
+        data = values.of({ 
+            'FlexFlowSid': flex_flow_sid,
+            'Identity': identity,
+            'ChatUserFriendlyName': chat_user_friendly_name,
+            'ChatFriendlyName': chat_friendly_name,
+            'Target': target,
+            'ChatUniqueName': chat_unique_name,
+            'PreEngagementData': pre_engagement_data,
+            'TaskSid': task_sid,
+            'TaskAttributes': task_attributes,
+            'LongLived': long_lived,
+        })
+
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return ChannelInstance(self._version, payload)
     
     
     def stream(self, limit=None, page_size=None):
@@ -126,6 +160,28 @@ class ChannelList(ListResource):
         )
         return ChannelPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a ChannelContext
+        
+        :param sid: The SID of the Flex chat channel resource to fetch.
+        
+        :returns: twilio.rest.flex_api.v1.channel.ChannelContext
+        :rtype: twilio.rest.flex_api.v1.channel.ChannelContext
+        """
+        return ChannelContext(self._version, sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a ChannelContext
+        
+        :param sid: The SID of the Flex chat channel resource to fetch.
+        
+        :returns: twilio.rest.flex_api.v1.channel.ChannelContext
+        :rtype: twilio.rest.flex_api.v1.channel.ChannelContext
+        """
+        return ChannelContext(self._version, sid=sid)
 
     def __repr__(self):
         """

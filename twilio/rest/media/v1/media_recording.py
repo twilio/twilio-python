@@ -28,18 +28,19 @@ class MediaRecordingList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the MediaRecordingList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.media.v1.media_recording..MediaRecordingList
-        :rtype: twilio.media.v1.media_recording..MediaRecordingList
+        :returns: twilio.rest.media.v1.media_recording.MediaRecordingList
+        :rtype: twilio.rest.media.v1.media_recording.MediaRecordingList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = {  }
         self._uri = '/MediaRecordings'.format(**self._solution)
-
-
+        
+        
     
     
     
@@ -149,6 +150,28 @@ class MediaRecordingList(ListResource):
         )
         return MediaRecordingPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a MediaRecordingContext
+        
+        :param sid: The SID of the MediaRecording resource to fetch.
+        
+        :returns: twilio.rest.media.v1.media_recording.MediaRecordingContext
+        :rtype: twilio.rest.media.v1.media_recording.MediaRecordingContext
+        """
+        return MediaRecordingContext(self._version, sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a MediaRecordingContext
+        
+        :param sid: The SID of the MediaRecording resource to fetch.
+        
+        :returns: twilio.rest.media.v1.media_recording.MediaRecordingContext
+        :rtype: twilio.rest.media.v1.media_recording.MediaRecordingContext
+        """
+        return MediaRecordingContext(self._version, sid=sid)
 
     def __repr__(self):
         """

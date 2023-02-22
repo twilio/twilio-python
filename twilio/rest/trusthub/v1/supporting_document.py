@@ -28,21 +28,41 @@ class SupportingDocumentList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the SupportingDocumentList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.trusthub.v1.supporting_document..SupportingDocumentList
-        :rtype: twilio.trusthub.v1.supporting_document..SupportingDocumentList
+        :returns: twilio.rest.trusthub.v1.supporting_document.SupportingDocumentList
+        :rtype: twilio.rest.trusthub.v1.supporting_document.SupportingDocumentList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = {  }
         self._uri = '/SupportingDocuments'.format(**self._solution)
+        
+        
+    
+    
+    
+    
+    def create(self, friendly_name, type, attributes=values.unset):
+        """
+        Create the SupportingDocumentInstance
+        :param str friendly_name: The string that you assigned to describe the resource.
+        :param str type: The type of the Supporting Document.
+        :param object attributes: The set of parameters that are the attributes of the Supporting Documents resource which are derived Supporting Document Types.
+        
+        :returns: The created SupportingDocumentInstance
+        :rtype: twilio.rest.trusthub.v1.supporting_document.SupportingDocumentInstance
+        """
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+            'Type': type,
+            'Attributes': serialize.object(attributes),
+        })
 
-
-    
-    
-    
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return SupportingDocumentInstance(self._version, payload)
     
     
     def stream(self, limit=None, page_size=None):
@@ -127,6 +147,28 @@ class SupportingDocumentList(ListResource):
         )
         return SupportingDocumentPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a SupportingDocumentContext
+        
+        :param sid: The unique string created by Twilio to identify the Supporting Document resource.
+        
+        :returns: twilio.rest.trusthub.v1.supporting_document.SupportingDocumentContext
+        :rtype: twilio.rest.trusthub.v1.supporting_document.SupportingDocumentContext
+        """
+        return SupportingDocumentContext(self._version, sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a SupportingDocumentContext
+        
+        :param sid: The unique string created by Twilio to identify the Supporting Document resource.
+        
+        :returns: twilio.rest.trusthub.v1.supporting_document.SupportingDocumentContext
+        :rtype: twilio.rest.trusthub.v1.supporting_document.SupportingDocumentContext
+        """
+        return SupportingDocumentContext(self._version, sid=sid)
 
     def __repr__(self):
         """
@@ -223,9 +265,9 @@ class SupportingDocumentContext(InstanceContext):
 
         
     
-    def update(self, body):
+    def update(self, friendly_name, attributes):
         data = values.of({
-            'body': body,
+            'friendly_name': friendly_name,'attributes': attributes,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

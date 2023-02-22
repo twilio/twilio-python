@@ -28,19 +28,21 @@ class UsecaseList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the UsecaseList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.messaging.v1.usecase..UsecaseList
-        :rtype: twilio.messaging.v1.usecase..UsecaseList
+        :returns: twilio.rest.messaging.v1.usecase.UsecaseList
+        :rtype: twilio.rest.messaging.v1.usecase.UsecaseList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = {  }
         self._uri = '/Services/Usecases'.format(**self._solution)
-
-
+        
+        
     
+
 
     def __repr__(self):
         """

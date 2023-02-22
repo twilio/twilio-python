@@ -28,20 +28,39 @@ class SettingsList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the SettingsList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.voice.v1.settings..SettingsList
-        :rtype: twilio.voice.v1.settings..SettingsList
+        :returns: twilio.rest.voice.v1.dialing_permissions.settings.SettingsList
+        :rtype: twilio.rest.voice.v1.dialing_permissions.settings.SettingsList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = {  }
-        self._uri = ''.format(**self._solution)
-
-
+        
+        
+        
     
     
+
+    def get(self):
+        """
+        Constructs a SettingsContext
+        
+        :returns: twilio.rest.voice.v1.dialing_permissions.settings.SettingsContext
+        :rtype: twilio.rest.voice.v1.dialing_permissions.settings.SettingsContext
+        """
+        return SettingsContext(self._version)
+
+    def __call__(self):
+        """
+        Constructs a SettingsContext
+        
+        :returns: twilio.rest.voice.v1.dialing_permissions.settings.SettingsContext
+        :rtype: twilio.rest.voice.v1.dialing_permissions.settings.SettingsContext
+        """
+        return SettingsContext(self._version)
 
     def __repr__(self):
         """
@@ -77,9 +96,9 @@ class SettingsContext(InstanceContext):
 
         
     
-    def update(self, body):
+    def update(self, dialing_permissions_inheritance):
         data = values.of({
-            'body': body,
+            'dialing_permissions_inheritance': dialing_permissions_inheritance,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

@@ -31,30 +31,31 @@ class SipList(ListResource):
     def __init__(self, version: Version, account_sid: str):
         """
         Initialize the SipList
+
         :param Version version: Version that contains the resource
         :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the SipDomain resources to read.
         
-        :returns: twilio.api.v2010.sip..SipList
-        :rtype: twilio.api.v2010.sip..SipList
+        :returns: twilio.rest.api.v2010.account.sip.SipList
+        :rtype: twilio.rest.api.v2010.account.sip.SipList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = { 'account_sid': account_sid,  }
         self._uri = '/Accounts/${account_sid}/SIP.json'.format(**self._solution)
-
+        
         self._credential_lists = None
         self._domains = None
         self._ip_access_control_lists = None
-
+        
 
     @property
     def credential_lists(self):
         """
         Access the credential_lists
 
-        :returns: twilio.rest.api.v2010.sip.credential_lists.CredentialListList
-        :rtype: twilio.rest.api.v2010.sip.credential_lists.CredentialListList
+        :returns: twilio.rest.api.v2010.account.sip.CredentialListList
+        :rtype: twilio.rest.api.v2010.account.sip.CredentialListList
         """
         if self._credential_lists is None:
             self._credential_lists = CredentialListList(self._version, account_sid=self._solution['account_sid'])
@@ -65,8 +66,8 @@ class SipList(ListResource):
         """
         Access the domains
 
-        :returns: twilio.rest.api.v2010.sip.domains.DomainList
-        :rtype: twilio.rest.api.v2010.sip.domains.DomainList
+        :returns: twilio.rest.api.v2010.account.sip.DomainList
+        :rtype: twilio.rest.api.v2010.account.sip.DomainList
         """
         if self._domains is None:
             self._domains = DomainList(self._version, account_sid=self._solution['account_sid'])
@@ -77,12 +78,13 @@ class SipList(ListResource):
         """
         Access the ip_access_control_lists
 
-        :returns: twilio.rest.api.v2010.sip.ip_access_control_lists.IpAccessControlListList
-        :rtype: twilio.rest.api.v2010.sip.ip_access_control_lists.IpAccessControlListList
+        :returns: twilio.rest.api.v2010.account.sip.IpAccessControlListList
+        :rtype: twilio.rest.api.v2010.account.sip.IpAccessControlListList
         """
         if self._ip_access_control_lists is None:
             self._ip_access_control_lists = IpAccessControlListList(self._version, account_sid=self._solution['account_sid'])
         return self.ip_access_control_lists
+
 
     def __repr__(self):
         """

@@ -28,20 +28,21 @@ class PublishedTrackList(ListResource):
     def __init__(self, version: Version, room_sid: str, participant_sid: str):
         """
         Initialize the PublishedTrackList
+
         :param Version version: Version that contains the resource
         :param room_sid: The SID of the Room resource where the Track resources to read are published.
         :param participant_sid: The SID of the Participant resource with the published tracks to read.
         
-        :returns: twilio.video.v1.published_track..PublishedTrackList
-        :rtype: twilio.video.v1.published_track..PublishedTrackList
+        :returns: twilio.rest.video.v1.room.participant.published_track.PublishedTrackList
+        :rtype: twilio.rest.video.v1.room.participant.published_track.PublishedTrackList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = { 'room_sid': room_sid, 'participant_sid': participant_sid,  }
         self._uri = '/Rooms/${room_sid}/Participants/${participant_sid}/PublishedTracks'.format(**self._solution)
-
-
+        
+        
     
     
     def stream(self, limit=None, page_size=None):
@@ -59,7 +60,7 @@ class PublishedTrackList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.video.v1.published_track.PublishedTrackInstance]
+        :rtype: list[twilio.rest.video.v1.room.participant.published_track.PublishedTrackInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -82,7 +83,7 @@ class PublishedTrackList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.video.v1.published_track.PublishedTrackInstance]
+        :rtype: list[twilio.rest.video.v1.room.participant.published_track.PublishedTrackInstance]
         """
         return list(self.stream(
             limit=limit,
@@ -99,7 +100,7 @@ class PublishedTrackList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of PublishedTrackInstance
-        :rtype: twilio.rest.video.v1.published_track.PublishedTrackPage
+        :rtype: twilio.rest.video.v1.room.participant.published_track.PublishedTrackPage
         """
         data = values.of({ 
             'PageToken': page_token,
@@ -118,7 +119,7 @@ class PublishedTrackList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of PublishedTrackInstance
-        :rtype: twilio.rest.video.v1.published_track.PublishedTrackPage
+        :rtype: twilio.rest.video.v1.room.participant.published_track.PublishedTrackPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -126,6 +127,28 @@ class PublishedTrackList(ListResource):
         )
         return PublishedTrackPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a PublishedTrackContext
+        
+        :param sid: The SID of the RoomParticipantPublishedTrack resource to fetch.
+        
+        :returns: twilio.rest.video.v1.room.participant.published_track.PublishedTrackContext
+        :rtype: twilio.rest.video.v1.room.participant.published_track.PublishedTrackContext
+        """
+        return PublishedTrackContext(self._version, room_sid=self._solution['room_sid'], participant_sid=self._solution['participant_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a PublishedTrackContext
+        
+        :param sid: The SID of the RoomParticipantPublishedTrack resource to fetch.
+        
+        :returns: twilio.rest.video.v1.room.participant.published_track.PublishedTrackContext
+        :rtype: twilio.rest.video.v1.room.participant.published_track.PublishedTrackContext
+        """
+        return PublishedTrackContext(self._version, room_sid=self._solution['room_sid'], participant_sid=self._solution['participant_sid'], sid=sid)
 
     def __repr__(self):
         """
@@ -147,8 +170,8 @@ class PublishedTrackPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.video.v1.published_track.PublishedTrackPage
-        :rtype: twilio.rest.video.v1.published_track.PublishedTrackPage
+        :returns: twilio.rest.video.v1.room.participant.published_track.PublishedTrackPage
+        :rtype: twilio.rest.video.v1.room.participant.published_track.PublishedTrackPage
         """
         super().__init__(version, response)
 
@@ -161,8 +184,8 @@ class PublishedTrackPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.video.v1.published_track.PublishedTrackInstance
-        :rtype: twilio.rest.video.v1.published_track.PublishedTrackInstance
+        :returns: twilio.rest.video.v1.room.participant.published_track.PublishedTrackInstance
+        :rtype: twilio.rest.video.v1.room.participant.published_track.PublishedTrackInstance
         """
         return PublishedTrackInstance(self._version, payload, room_sid=self._solution['room_sid'], participant_sid=self._solution['participant_sid'])
 

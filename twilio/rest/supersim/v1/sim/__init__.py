@@ -30,20 +30,38 @@ class SimList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the SimList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.supersim.v1.sim..SimList
-        :rtype: twilio.supersim.v1.sim..SimList
+        :returns: twilio.rest.supersim.v1.sim.SimList
+        :rtype: twilio.rest.supersim.v1.sim.SimList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = {  }
         self._uri = '/Sims'.format(**self._solution)
-
-
+        
+        
     
     
+    
+    def create(self, iccid, registration_code):
+        """
+        Create the SimInstance
+        :param str iccid: The [ICCID](https://en.wikipedia.org/wiki/Subscriber_identity_module#ICCID) of the Super SIM to be added to your Account.
+        :param str registration_code: The 10-digit code required to claim the Super SIM for your Account.
+        
+        :returns: The created SimInstance
+        :rtype: twilio.rest.supersim.v1.sim.SimInstance
+        """
+        data = values.of({ 
+            'Iccid': iccid,
+            'RegistrationCode': registration_code,
+        })
+
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return SimInstance(self._version, payload)
     
     
     def stream(self, status=values.unset, fleet=values.unset, iccid=values.unset, limit=None, page_size=None):
@@ -147,6 +165,28 @@ class SimList(ListResource):
         return SimPage(self._version, response, self._solution)
 
 
+    def get(self, sid):
+        """
+        Constructs a SimContext
+        
+        :param sid: The SID of the Sim resource to update.
+        
+        :returns: twilio.rest.supersim.v1.sim.SimContext
+        :rtype: twilio.rest.supersim.v1.sim.SimContext
+        """
+        return SimContext(self._version, sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a SimContext
+        
+        :param sid: The SID of the Sim resource to update.
+        
+        :returns: twilio.rest.supersim.v1.sim.SimContext
+        :rtype: twilio.rest.supersim.v1.sim.SimContext
+        """
+        return SimContext(self._version, sid=sid)
+
     def __repr__(self):
         """
         Provide a friendly representation
@@ -230,9 +270,9 @@ class SimContext(InstanceContext):
 
         
     
-    def update(self, body):
+    def update(self, unique_name, status, fleet, callback_url, callback_method, account_sid):
         data = values.of({
-            'body': body,
+            'unique_name': unique_name,'status': status,'fleet': fleet,'callback_url': callback_url,'callback_method': callback_method,'account_sid': account_sid,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

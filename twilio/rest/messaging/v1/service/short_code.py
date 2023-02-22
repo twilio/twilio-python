@@ -28,21 +28,37 @@ class ShortCodeList(ListResource):
     def __init__(self, version: Version, service_sid: str):
         """
         Initialize the ShortCodeList
+
         :param Version version: Version that contains the resource
         :param service_sid: The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to read the resources from.
         
-        :returns: twilio.messaging.v1.short_code..ShortCodeList
-        :rtype: twilio.messaging.v1.short_code..ShortCodeList
+        :returns: twilio.rest.messaging.v1.service.short_code.ShortCodeList
+        :rtype: twilio.rest.messaging.v1.service.short_code.ShortCodeList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = { 'service_sid': service_sid,  }
         self._uri = '/Services/${service_sid}/ShortCodes'.format(**self._solution)
-
-
+        
+        
     
     
+    
+    def create(self, short_code_sid):
+        """
+        Create the ShortCodeInstance
+        :param str short_code_sid: The SID of the ShortCode resource being added to the Service.
+        
+        :returns: The created ShortCodeInstance
+        :rtype: twilio.rest.messaging.v1.service.short_code.ShortCodeInstance
+        """
+        data = values.of({ 
+            'ShortCodeSid': short_code_sid,
+        })
+
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return ShortCodeInstance(self._version, payload, service_sid=self._solution['service_sid'])
     
     
     def stream(self, limit=None, page_size=None):
@@ -60,7 +76,7 @@ class ShortCodeList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.messaging.v1.short_code.ShortCodeInstance]
+        :rtype: list[twilio.rest.messaging.v1.service.short_code.ShortCodeInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -83,7 +99,7 @@ class ShortCodeList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.messaging.v1.short_code.ShortCodeInstance]
+        :rtype: list[twilio.rest.messaging.v1.service.short_code.ShortCodeInstance]
         """
         return list(self.stream(
             limit=limit,
@@ -100,7 +116,7 @@ class ShortCodeList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of ShortCodeInstance
-        :rtype: twilio.rest.messaging.v1.short_code.ShortCodePage
+        :rtype: twilio.rest.messaging.v1.service.short_code.ShortCodePage
         """
         data = values.of({ 
             'PageToken': page_token,
@@ -119,7 +135,7 @@ class ShortCodeList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of ShortCodeInstance
-        :rtype: twilio.rest.messaging.v1.short_code.ShortCodePage
+        :rtype: twilio.rest.messaging.v1.service.short_code.ShortCodePage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -127,6 +143,28 @@ class ShortCodeList(ListResource):
         )
         return ShortCodePage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a ShortCodeContext
+        
+        :param sid: The SID of the ShortCode resource to fetch.
+        
+        :returns: twilio.rest.messaging.v1.service.short_code.ShortCodeContext
+        :rtype: twilio.rest.messaging.v1.service.short_code.ShortCodeContext
+        """
+        return ShortCodeContext(self._version, service_sid=self._solution['service_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a ShortCodeContext
+        
+        :param sid: The SID of the ShortCode resource to fetch.
+        
+        :returns: twilio.rest.messaging.v1.service.short_code.ShortCodeContext
+        :rtype: twilio.rest.messaging.v1.service.short_code.ShortCodeContext
+        """
+        return ShortCodeContext(self._version, service_sid=self._solution['service_sid'], sid=sid)
 
     def __repr__(self):
         """
@@ -152,8 +190,8 @@ class ShortCodePage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.messaging.v1.short_code.ShortCodePage
-        :rtype: twilio.rest.messaging.v1.short_code.ShortCodePage
+        :returns: twilio.rest.messaging.v1.service.short_code.ShortCodePage
+        :rtype: twilio.rest.messaging.v1.service.short_code.ShortCodePage
         """
         super().__init__(version, response)
 
@@ -166,8 +204,8 @@ class ShortCodePage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.messaging.v1.short_code.ShortCodeInstance
-        :rtype: twilio.rest.messaging.v1.short_code.ShortCodeInstance
+        :returns: twilio.rest.messaging.v1.service.short_code.ShortCodeInstance
+        :rtype: twilio.rest.messaging.v1.service.short_code.ShortCodeInstance
         """
         return ShortCodeInstance(self._version, payload, service_sid=self._solution['service_sid'])
 

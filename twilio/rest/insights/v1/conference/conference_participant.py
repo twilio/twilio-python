@@ -28,19 +28,20 @@ class ConferenceParticipantList(ListResource):
     def __init__(self, version: Version, conference_sid: str):
         """
         Initialize the ConferenceParticipantList
+
         :param Version version: Version that contains the resource
         :param conference_sid: The unique SID identifier of the Conference.
         
-        :returns: twilio.insights.v1.conference_participant..ConferenceParticipantList
-        :rtype: twilio.insights.v1.conference_participant..ConferenceParticipantList
+        :returns: twilio.rest.insights.v1.conference.conference_participant.ConferenceParticipantList
+        :rtype: twilio.rest.insights.v1.conference.conference_participant.ConferenceParticipantList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = { 'conference_sid': conference_sid,  }
         self._uri = '/Conferences/${conference_sid}/Participants'.format(**self._solution)
-
-
+        
+        
     
     
     def stream(self, participant_sid=values.unset, label=values.unset, events=values.unset, limit=None, page_size=None):
@@ -61,7 +62,7 @@ class ConferenceParticipantList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.insights.v1.conference_participant.ConferenceParticipantInstance]
+        :rtype: list[twilio.rest.insights.v1.conference.conference_participant.ConferenceParticipantInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -90,7 +91,7 @@ class ConferenceParticipantList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.insights.v1.conference_participant.ConferenceParticipantInstance]
+        :rtype: list[twilio.rest.insights.v1.conference.conference_participant.ConferenceParticipantInstance]
         """
         return list(self.stream(
             participant_sid=participant_sid,
@@ -113,7 +114,7 @@ class ConferenceParticipantList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of ConferenceParticipantInstance
-        :rtype: twilio.rest.insights.v1.conference_participant.ConferenceParticipantPage
+        :rtype: twilio.rest.insights.v1.conference.conference_participant.ConferenceParticipantPage
         """
         data = values.of({ 
             'ParticipantSid': participant_sid,
@@ -135,7 +136,7 @@ class ConferenceParticipantList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of ConferenceParticipantInstance
-        :rtype: twilio.rest.insights.v1.conference_participant.ConferenceParticipantPage
+        :rtype: twilio.rest.insights.v1.conference.conference_participant.ConferenceParticipantPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -143,6 +144,28 @@ class ConferenceParticipantList(ListResource):
         )
         return ConferenceParticipantPage(self._version, response, self._solution)
 
+
+    def get(self, participant_sid):
+        """
+        Constructs a ConferenceParticipantContext
+        
+        :param participant_sid: The unique SID identifier of the Participant.
+        
+        :returns: twilio.rest.insights.v1.conference.conference_participant.ConferenceParticipantContext
+        :rtype: twilio.rest.insights.v1.conference.conference_participant.ConferenceParticipantContext
+        """
+        return ConferenceParticipantContext(self._version, conference_sid=self._solution['conference_sid'], participant_sid=participant_sid)
+
+    def __call__(self, participant_sid):
+        """
+        Constructs a ConferenceParticipantContext
+        
+        :param participant_sid: The unique SID identifier of the Participant.
+        
+        :returns: twilio.rest.insights.v1.conference.conference_participant.ConferenceParticipantContext
+        :rtype: twilio.rest.insights.v1.conference.conference_participant.ConferenceParticipantContext
+        """
+        return ConferenceParticipantContext(self._version, conference_sid=self._solution['conference_sid'], participant_sid=participant_sid)
 
     def __repr__(self):
         """
@@ -164,8 +187,8 @@ class ConferenceParticipantPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.insights.v1.conference_participant.ConferenceParticipantPage
-        :rtype: twilio.rest.insights.v1.conference_participant.ConferenceParticipantPage
+        :returns: twilio.rest.insights.v1.conference.conference_participant.ConferenceParticipantPage
+        :rtype: twilio.rest.insights.v1.conference.conference_participant.ConferenceParticipantPage
         """
         super().__init__(version, response)
 
@@ -178,8 +201,8 @@ class ConferenceParticipantPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.insights.v1.conference_participant.ConferenceParticipantInstance
-        :rtype: twilio.rest.insights.v1.conference_participant.ConferenceParticipantInstance
+        :returns: twilio.rest.insights.v1.conference.conference_participant.ConferenceParticipantInstance
+        :rtype: twilio.rest.insights.v1.conference.conference_participant.ConferenceParticipantInstance
         """
         return ConferenceParticipantInstance(self._version, payload, conference_sid=self._solution['conference_sid'])
 

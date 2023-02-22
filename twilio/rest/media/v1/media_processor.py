@@ -28,20 +28,46 @@ class MediaProcessorList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the MediaProcessorList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.media.v1.media_processor..MediaProcessorList
-        :rtype: twilio.media.v1.media_processor..MediaProcessorList
+        :returns: twilio.rest.media.v1.media_processor.MediaProcessorList
+        :rtype: twilio.rest.media.v1.media_processor.MediaProcessorList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = {  }
         self._uri = '/MediaProcessors'.format(**self._solution)
-
-
+        
+        
     
     
+    
+    def create(self, extension, extension_context, extension_environment=values.unset, status_callback=values.unset, status_callback_method=values.unset, max_duration=values.unset):
+        """
+        Create the MediaProcessorInstance
+        :param str extension: The [Media Extension](/docs/live/api/media-extensions-overview) name or URL. Ex: `video-composer-v2`
+        :param str extension_context: The context of the Media Extension, represented as a JSON dictionary. See the documentation for the specific [Media Extension](/docs/live/api/media-extensions-overview) you are using for more information about the context to send.
+        :param object extension_environment: User-defined environment variables for the Media Extension, represented as a JSON dictionary of key/value strings. See the documentation for the specific [Media Extension](/docs/live/api/media-extensions-overview) you are using for more information about whether you need to provide this.
+        :param str status_callback: The URL to which Twilio will send asynchronous webhook requests for every MediaProcessor event. See [Status Callbacks](/docs/live/status-callbacks) for details.
+        :param str status_callback_method: The HTTP method Twilio should use to call the `status_callback` URL. Can be `POST` or `GET` and the default is `POST`.
+        :param int max_duration: The maximum time, in seconds, that the MediaProcessor can run before automatically ends. The default value is 300 seconds, and the maximum value is 90000 seconds. Once this maximum duration is reached, Twilio will end the MediaProcessor, regardless of whether media is still streaming.
+        
+        :returns: The created MediaProcessorInstance
+        :rtype: twilio.rest.media.v1.media_processor.MediaProcessorInstance
+        """
+        data = values.of({ 
+            'Extension': extension,
+            'ExtensionContext': extension_context,
+            'ExtensionEnvironment': serialize.object(extension_environment),
+            'StatusCallback': status_callback,
+            'StatusCallbackMethod': status_callback_method,
+            'MaxDuration': max_duration,
+        })
+
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return MediaProcessorInstance(self._version, payload)
     
     
     def stream(self, order=values.unset, status=values.unset, limit=None, page_size=None):
@@ -139,6 +165,28 @@ class MediaProcessorList(ListResource):
         return MediaProcessorPage(self._version, response, self._solution)
 
 
+    def get(self, sid):
+        """
+        Constructs a MediaProcessorContext
+        
+        :param sid: The SID of the MediaProcessor resource to update.
+        
+        :returns: twilio.rest.media.v1.media_processor.MediaProcessorContext
+        :rtype: twilio.rest.media.v1.media_processor.MediaProcessorContext
+        """
+        return MediaProcessorContext(self._version, sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a MediaProcessorContext
+        
+        :param sid: The SID of the MediaProcessor resource to update.
+        
+        :returns: twilio.rest.media.v1.media_processor.MediaProcessorContext
+        :rtype: twilio.rest.media.v1.media_processor.MediaProcessorContext
+        """
+        return MediaProcessorContext(self._version, sid=sid)
+
     def __repr__(self):
         """
         Provide a friendly representation
@@ -220,9 +268,9 @@ class MediaProcessorContext(InstanceContext):
 
         
     
-    def update(self, body):
+    def update(self, status):
         data = values.of({
-            'body': body,
+            'status': status,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

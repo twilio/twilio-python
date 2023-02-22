@@ -28,21 +28,40 @@ class BuildStatusList(ListResource):
     def __init__(self, version: Version, service_sid: str, sid: str):
         """
         Initialize the BuildStatusList
+
         :param Version version: Version that contains the resource
         :param service_sid: The SID of the Service to fetch the Build resource from.
         :param sid: The SID of the Build resource to fetch.
         
-        :returns: twilio.serverless.v1.build_status..BuildStatusList
-        :rtype: twilio.serverless.v1.build_status..BuildStatusList
+        :returns: twilio.rest.serverless.v1.service.build.build_status.BuildStatusList
+        :rtype: twilio.rest.serverless.v1.service.build.build_status.BuildStatusList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = { 'service_sid': service_sid, 'sid': sid,  }
-        self._uri = ''.format(**self._solution)
-
-
+        
+        
+        
     
+
+    def get(self):
+        """
+        Constructs a BuildStatusContext
+        
+        :returns: twilio.rest.serverless.v1.service.build.build_status.BuildStatusContext
+        :rtype: twilio.rest.serverless.v1.service.build.build_status.BuildStatusContext
+        """
+        return BuildStatusContext(self._version, service_sid=self._solution['service_sid'], sid=self._solution['sid'])
+
+    def __call__(self):
+        """
+        Constructs a BuildStatusContext
+        
+        :returns: twilio.rest.serverless.v1.service.build.build_status.BuildStatusContext
+        :rtype: twilio.rest.serverless.v1.service.build.build_status.BuildStatusContext
+        """
+        return BuildStatusContext(self._version, service_sid=self._solution['service_sid'], sid=self._solution['sid'])
 
     def __repr__(self):
         """

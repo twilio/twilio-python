@@ -28,22 +28,40 @@ class ModelBuildList(ListResource):
     def __init__(self, version: Version, assistant_sid: str):
         """
         Initialize the ModelBuildList
+
         :param Version version: Version that contains the resource
         :param assistant_sid: 
         
-        :returns: twilio.preview.understand.model_build..ModelBuildList
-        :rtype: twilio.preview.understand.model_build..ModelBuildList
+        :returns: twilio.rest.preview.understand.assistant.model_build.ModelBuildList
+        :rtype: twilio.rest.preview.understand.assistant.model_build.ModelBuildList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = { 'assistant_sid': assistant_sid,  }
         self._uri = '/Assistants/${assistant_sid}/ModelBuilds'.format(**self._solution)
+        
+        
+    
+    
+    
+    
+    def create(self, status_callback=values.unset, unique_name=values.unset):
+        """
+        Create the ModelBuildInstance
+        :param str status_callback: 
+        :param str unique_name: A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long. For example: v0.1
+        
+        :returns: The created ModelBuildInstance
+        :rtype: twilio.rest.preview.understand.assistant.model_build.ModelBuildInstance
+        """
+        data = values.of({ 
+            'StatusCallback': status_callback,
+            'UniqueName': unique_name,
+        })
 
-
-    
-    
-    
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return ModelBuildInstance(self._version, payload, assistant_sid=self._solution['assistant_sid'])
     
     
     def stream(self, limit=None, page_size=None):
@@ -61,7 +79,7 @@ class ModelBuildList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.preview.understand.model_build.ModelBuildInstance]
+        :rtype: list[twilio.rest.preview.understand.assistant.model_build.ModelBuildInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -84,7 +102,7 @@ class ModelBuildList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.preview.understand.model_build.ModelBuildInstance]
+        :rtype: list[twilio.rest.preview.understand.assistant.model_build.ModelBuildInstance]
         """
         return list(self.stream(
             limit=limit,
@@ -101,7 +119,7 @@ class ModelBuildList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of ModelBuildInstance
-        :rtype: twilio.rest.preview.understand.model_build.ModelBuildPage
+        :rtype: twilio.rest.preview.understand.assistant.model_build.ModelBuildPage
         """
         data = values.of({ 
             'PageToken': page_token,
@@ -120,7 +138,7 @@ class ModelBuildList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of ModelBuildInstance
-        :rtype: twilio.rest.preview.understand.model_build.ModelBuildPage
+        :rtype: twilio.rest.preview.understand.assistant.model_build.ModelBuildPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -128,6 +146,28 @@ class ModelBuildList(ListResource):
         )
         return ModelBuildPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a ModelBuildContext
+        
+        :param sid: 
+        
+        :returns: twilio.rest.preview.understand.assistant.model_build.ModelBuildContext
+        :rtype: twilio.rest.preview.understand.assistant.model_build.ModelBuildContext
+        """
+        return ModelBuildContext(self._version, assistant_sid=self._solution['assistant_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a ModelBuildContext
+        
+        :param sid: 
+        
+        :returns: twilio.rest.preview.understand.assistant.model_build.ModelBuildContext
+        :rtype: twilio.rest.preview.understand.assistant.model_build.ModelBuildContext
+        """
+        return ModelBuildContext(self._version, assistant_sid=self._solution['assistant_sid'], sid=sid)
 
     def __repr__(self):
         """
@@ -155,8 +195,8 @@ class ModelBuildPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.preview.understand.model_build.ModelBuildPage
-        :rtype: twilio.rest.preview.understand.model_build.ModelBuildPage
+        :returns: twilio.rest.preview.understand.assistant.model_build.ModelBuildPage
+        :rtype: twilio.rest.preview.understand.assistant.model_build.ModelBuildPage
         """
         super().__init__(version, response)
 
@@ -169,8 +209,8 @@ class ModelBuildPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.preview.understand.model_build.ModelBuildInstance
-        :rtype: twilio.rest.preview.understand.model_build.ModelBuildInstance
+        :returns: twilio.rest.preview.understand.assistant.model_build.ModelBuildInstance
+        :rtype: twilio.rest.preview.understand.assistant.model_build.ModelBuildInstance
         """
         return ModelBuildInstance(self._version, payload, assistant_sid=self._solution['assistant_sid'])
 
@@ -224,9 +264,9 @@ class ModelBuildContext(InstanceContext):
 
         
     
-    def update(self, body):
+    def update(self, unique_name):
         data = values.of({
-            'body': body,
+            'unique_name': unique_name,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

@@ -28,20 +28,43 @@ class ExportConfigurationList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the ExportConfigurationList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.bulkexports.v1.export_configuration..ExportConfigurationList
-        :rtype: twilio.bulkexports.v1.export_configuration..ExportConfigurationList
+        :returns: twilio.rest.bulkexports.v1.export_configuration.ExportConfigurationList
+        :rtype: twilio.rest.bulkexports.v1.export_configuration.ExportConfigurationList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = {  }
-        self._uri = ''.format(**self._solution)
-
-
+        
+        
+        
     
     
+
+    def get(self, resource_type):
+        """
+        Constructs a ExportConfigurationContext
+        
+        :param resource_type: The type of communication – Messages, Calls, Conferences, and Participants
+        
+        :returns: twilio.rest.bulkexports.v1.export_configuration.ExportConfigurationContext
+        :rtype: twilio.rest.bulkexports.v1.export_configuration.ExportConfigurationContext
+        """
+        return ExportConfigurationContext(self._version, resource_type=resource_type)
+
+    def __call__(self, resource_type):
+        """
+        Constructs a ExportConfigurationContext
+        
+        :param resource_type: The type of communication – Messages, Calls, Conferences, and Participants
+        
+        :returns: twilio.rest.bulkexports.v1.export_configuration.ExportConfigurationContext
+        :rtype: twilio.rest.bulkexports.v1.export_configuration.ExportConfigurationContext
+        """
+        return ExportConfigurationContext(self._version, resource_type=resource_type)
 
     def __repr__(self):
         """
@@ -77,9 +100,9 @@ class ExportConfigurationContext(InstanceContext):
 
         
     
-    def update(self, body):
+    def update(self, enabled, webhook_url, webhook_method):
         data = values.of({
-            'body': body,
+            'enabled': enabled,'webhook_url': webhook_url,'webhook_method': webhook_method,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

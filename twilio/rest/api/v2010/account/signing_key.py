@@ -28,19 +28,20 @@ class SigningKeyList(ListResource):
     def __init__(self, version: Version, account_sid: str):
         """
         Initialize the SigningKeyList
+
         :param Version version: Version that contains the resource
         :param account_sid: 
         
-        :returns: twilio.api.v2010.signing_key..SigningKeyList
-        :rtype: twilio.api.v2010.signing_key..SigningKeyList
+        :returns: twilio.rest.api.v2010.account.signing_key.SigningKeyList
+        :rtype: twilio.rest.api.v2010.account.signing_key.SigningKeyList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = { 'account_sid': account_sid,  }
         self._uri = '/Accounts/${account_sid}/SigningKeys.json'.format(**self._solution)
-
-
+        
+        
     
     
     
@@ -60,7 +61,7 @@ class SigningKeyList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.signing_key.SigningKeyInstance]
+        :rtype: list[twilio.rest.api.v2010.account.signing_key.SigningKeyInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -83,7 +84,7 @@ class SigningKeyList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.signing_key.SigningKeyInstance]
+        :rtype: list[twilio.rest.api.v2010.account.signing_key.SigningKeyInstance]
         """
         return list(self.stream(
             limit=limit,
@@ -100,7 +101,7 @@ class SigningKeyList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of SigningKeyInstance
-        :rtype: twilio.rest.api.v2010.signing_key.SigningKeyPage
+        :rtype: twilio.rest.api.v2010.account.signing_key.SigningKeyPage
         """
         data = values.of({ 
             'PageToken': page_token,
@@ -119,7 +120,7 @@ class SigningKeyList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of SigningKeyInstance
-        :rtype: twilio.rest.api.v2010.signing_key.SigningKeyPage
+        :rtype: twilio.rest.api.v2010.account.signing_key.SigningKeyPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -127,6 +128,28 @@ class SigningKeyList(ListResource):
         )
         return SigningKeyPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a SigningKeyContext
+        
+        :param sid: 
+        
+        :returns: twilio.rest.api.v2010.account.signing_key.SigningKeyContext
+        :rtype: twilio.rest.api.v2010.account.signing_key.SigningKeyContext
+        """
+        return SigningKeyContext(self._version, account_sid=self._solution['account_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a SigningKeyContext
+        
+        :param sid: 
+        
+        :returns: twilio.rest.api.v2010.account.signing_key.SigningKeyContext
+        :rtype: twilio.rest.api.v2010.account.signing_key.SigningKeyContext
+        """
+        return SigningKeyContext(self._version, account_sid=self._solution['account_sid'], sid=sid)
 
     def __repr__(self):
         """
@@ -152,8 +175,8 @@ class SigningKeyPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.api.v2010.signing_key.SigningKeyPage
-        :rtype: twilio.rest.api.v2010.signing_key.SigningKeyPage
+        :returns: twilio.rest.api.v2010.account.signing_key.SigningKeyPage
+        :rtype: twilio.rest.api.v2010.account.signing_key.SigningKeyPage
         """
         super().__init__(version, response)
 
@@ -166,8 +189,8 @@ class SigningKeyPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.api.v2010.signing_key.SigningKeyInstance
-        :rtype: twilio.rest.api.v2010.signing_key.SigningKeyInstance
+        :returns: twilio.rest.api.v2010.account.signing_key.SigningKeyInstance
+        :rtype: twilio.rest.api.v2010.account.signing_key.SigningKeyInstance
         """
         return SigningKeyInstance(self._version, payload, account_sid=self._solution['account_sid'])
 
@@ -221,9 +244,9 @@ class SigningKeyContext(InstanceContext):
 
         
     
-    def update(self, body):
+    def update(self, friendly_name):
         data = values.of({
-            'body': body,
+            'friendly_name': friendly_name,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

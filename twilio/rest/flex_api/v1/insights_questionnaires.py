@@ -28,21 +28,45 @@ class InsightsQuestionnairesList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the InsightsQuestionnairesList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.flex_api.v1.insights_questionnaires..InsightsQuestionnairesList
-        :rtype: twilio.flex_api.v1.insights_questionnaires..InsightsQuestionnairesList
+        :returns: twilio.rest.flex_api.v1.insights_questionnaires.InsightsQuestionnairesList
+        :rtype: twilio.rest.flex_api.v1.insights_questionnaires.InsightsQuestionnairesList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = {  }
         self._uri = '/Insights/QM/Questionnaires'.format(**self._solution)
+        
+        
+    
+    
+    
+    
+    def create(self, name, token=values.unset, description=values.unset, active=values.unset, question_ids=values.unset):
+        """
+        Create the InsightsQuestionnairesInstance
+        :param str name: The name of this questionnaire
+        :param str token: The Token HTTP request header
+        :param str description: The description of this questionnaire
+        :param bool active: The flag to enable or disable questionnaire
+        :param list[str] question_ids: The list of questions ids under a questionnaire
+        
+        :returns: The created InsightsQuestionnairesInstance
+        :rtype: twilio.rest.flex_api.v1.insights_questionnaires.InsightsQuestionnairesInstance
+        """
+        data = values.of({ 
+            'Name': name,
+            'Token': token,
+            'Description': description,
+            'Active': active,
+            'QuestionIds': serialize.map(question_ids, lambda e: e),
+        })
 
-
-    
-    
-    
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return InsightsQuestionnairesInstance(self._version, payload)
     
     
     def stream(self, token=values.unset, include_inactive=values.unset, limit=None, page_size=None):
@@ -140,6 +164,28 @@ class InsightsQuestionnairesList(ListResource):
         return InsightsQuestionnairesPage(self._version, response, self._solution)
 
 
+    def get(self, id):
+        """
+        Constructs a InsightsQuestionnairesContext
+        
+        :param id: The unique ID of the questionnaire
+        
+        :returns: twilio.rest.flex_api.v1.insights_questionnaires.InsightsQuestionnairesContext
+        :rtype: twilio.rest.flex_api.v1.insights_questionnaires.InsightsQuestionnairesContext
+        """
+        return InsightsQuestionnairesContext(self._version, id=id)
+
+    def __call__(self, id):
+        """
+        Constructs a InsightsQuestionnairesContext
+        
+        :param id: The unique ID of the questionnaire
+        
+        :returns: twilio.rest.flex_api.v1.insights_questionnaires.InsightsQuestionnairesContext
+        :rtype: twilio.rest.flex_api.v1.insights_questionnaires.InsightsQuestionnairesContext
+        """
+        return InsightsQuestionnairesContext(self._version, id=id)
+
     def __repr__(self):
         """
         Provide a friendly representation
@@ -235,9 +281,9 @@ class InsightsQuestionnairesContext(InstanceContext):
 
         
     
-    def update(self, token, body):
+    def update(self, active, token, name, description, question_ids):
         data = values.of({
-            'token': token,'body': body,
+            'active': active,'token': token,'name': name,'description': description,'question_ids': question_ids,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

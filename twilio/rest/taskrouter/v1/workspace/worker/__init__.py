@@ -34,25 +34,45 @@ class WorkerList(ListResource):
     def __init__(self, version: Version, workspace_sid: str):
         """
         Initialize the WorkerList
+
         :param Version version: Version that contains the resource
         :param workspace_sid: The SID of the Workspace with the Workers to read.
         
-        :returns: twilio.taskrouter.v1.worker..WorkerList
-        :rtype: twilio.taskrouter.v1.worker..WorkerList
+        :returns: twilio.rest.taskrouter.v1.workspace.worker.WorkerList
+        :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkerList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = { 'workspace_sid': workspace_sid,  }
         self._uri = '/Workspaces/${workspace_sid}/Workers'.format(**self._solution)
-
+        
         self._cumulative_statistics = None
         self._real_time_statistics = None
         self._statistics = None
+        
+    
+    
+    
+    
+    def create(self, friendly_name, activity_sid=values.unset, attributes=values.unset):
+        """
+        Create the WorkerInstance
+        :param str friendly_name: A descriptive string that you create to describe the new Worker. It can be up to 64 characters long.
+        :param str activity_sid: The SID of a valid Activity that will describe the new Worker's initial state. See [Activities](https://www.twilio.com/docs/taskrouter/api/activity) for more information. If not provided, the new Worker's initial state is the `default_activity_sid` configured on the Workspace.
+        :param str attributes: A valid JSON string that describes the new Worker. For example: `{ \\\"email\\\": \\\"Bob@example.com\\\", \\\"phone\\\": \\\"+5095551234\\\" }`. This data is passed to the `assignment_callback_url` when TaskRouter assigns a Task to the Worker. Defaults to {}.
+        
+        :returns: The created WorkerInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkerInstance
+        """
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+            'ActivitySid': activity_sid,
+            'Attributes': attributes,
+        })
 
-    
-    
-    
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return WorkerInstance(self._version, payload, workspace_sid=self._solution['workspace_sid'])
     
     
     def stream(self, activity_name=values.unset, activity_sid=values.unset, available=values.unset, friendly_name=values.unset, target_workers_expression=values.unset, task_queue_name=values.unset, task_queue_sid=values.unset, ordering=values.unset, limit=None, page_size=None):
@@ -78,7 +98,7 @@ class WorkerList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.taskrouter.v1.worker.WorkerInstance]
+        :rtype: list[twilio.rest.taskrouter.v1.workspace.worker.WorkerInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -117,7 +137,7 @@ class WorkerList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.taskrouter.v1.worker.WorkerInstance]
+        :rtype: list[twilio.rest.taskrouter.v1.workspace.worker.WorkerInstance]
         """
         return list(self.stream(
             activity_name=activity_name,
@@ -150,7 +170,7 @@ class WorkerList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of WorkerInstance
-        :rtype: twilio.rest.taskrouter.v1.worker.WorkerPage
+        :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkerPage
         """
         data = values.of({ 
             'ActivityName': activity_name,
@@ -177,7 +197,7 @@ class WorkerList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of WorkerInstance
-        :rtype: twilio.rest.taskrouter.v1.worker.WorkerPage
+        :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkerPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -191,8 +211,8 @@ class WorkerList(ListResource):
         """
         Access the cumulative_statistics
 
-        :returns: twilio.rest.taskrouter.v1.worker.cumulative_statistics.WorkersCumulativeStatisticsList
-        :rtype: twilio.rest.taskrouter.v1.worker.cumulative_statistics.WorkersCumulativeStatisticsList
+        :returns: twilio.rest.taskrouter.v1.workspace.worker.WorkersCumulativeStatisticsList
+        :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkersCumulativeStatisticsList
         """
         if self._cumulative_statistics is None:
             self._cumulative_statistics = WorkersCumulativeStatisticsList(self._version, workspace_sid=self._solution['workspace_sid'])
@@ -203,8 +223,8 @@ class WorkerList(ListResource):
         """
         Access the real_time_statistics
 
-        :returns: twilio.rest.taskrouter.v1.worker.real_time_statistics.WorkersRealTimeStatisticsList
-        :rtype: twilio.rest.taskrouter.v1.worker.real_time_statistics.WorkersRealTimeStatisticsList
+        :returns: twilio.rest.taskrouter.v1.workspace.worker.WorkersRealTimeStatisticsList
+        :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkersRealTimeStatisticsList
         """
         if self._real_time_statistics is None:
             self._real_time_statistics = WorkersRealTimeStatisticsList(self._version, workspace_sid=self._solution['workspace_sid'])
@@ -215,12 +235,34 @@ class WorkerList(ListResource):
         """
         Access the statistics
 
-        :returns: twilio.rest.taskrouter.v1.worker.statistics.WorkersStatisticsList
-        :rtype: twilio.rest.taskrouter.v1.worker.statistics.WorkersStatisticsList
+        :returns: twilio.rest.taskrouter.v1.workspace.worker.WorkersStatisticsList
+        :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkersStatisticsList
         """
         if self._statistics is None:
             self._statistics = WorkersStatisticsList(self._version, workspace_sid=self._solution['workspace_sid'])
         return self.statistics
+
+    def get(self, sid):
+        """
+        Constructs a WorkerContext
+        
+        :param sid: The SID of the Worker resource to update.
+        
+        :returns: twilio.rest.taskrouter.v1.workspace.worker.WorkerContext
+        :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkerContext
+        """
+        return WorkerContext(self._version, workspace_sid=self._solution['workspace_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a WorkerContext
+        
+        :param sid: The SID of the Worker resource to update.
+        
+        :returns: twilio.rest.taskrouter.v1.workspace.worker.WorkerContext
+        :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkerContext
+        """
+        return WorkerContext(self._version, workspace_sid=self._solution['workspace_sid'], sid=sid)
 
     def __repr__(self):
         """
@@ -248,8 +290,8 @@ class WorkerPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.taskrouter.v1.worker.WorkerPage
-        :rtype: twilio.rest.taskrouter.v1.worker.WorkerPage
+        :returns: twilio.rest.taskrouter.v1.workspace.worker.WorkerPage
+        :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkerPage
         """
         super().__init__(version, response)
 
@@ -262,8 +304,8 @@ class WorkerPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.taskrouter.v1.worker.WorkerInstance
-        :rtype: twilio.rest.taskrouter.v1.worker.WorkerInstance
+        :returns: twilio.rest.taskrouter.v1.workspace.worker.WorkerInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkerInstance
         """
         return WorkerInstance(self._version, payload, workspace_sid=self._solution['workspace_sid'])
 
@@ -320,9 +362,9 @@ class WorkerContext(InstanceContext):
 
         
     
-    def update(self, if_match, body):
+    def update(self, if_match, activity_sid, attributes, friendly_name, reject_pending_reservations):
         data = values.of({
-            'if_match': if_match,'body': body,
+            'if_match': if_match,'activity_sid': activity_sid,'attributes': attributes,'friendly_name': friendly_name,'reject_pending_reservations': reject_pending_reservations,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

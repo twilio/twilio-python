@@ -34,32 +34,33 @@ class RegulatoryComplianceList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the RegulatoryComplianceList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.numbers.v2.regulatory_compliance..RegulatoryComplianceList
-        :rtype: twilio.numbers.v2.regulatory_compliance..RegulatoryComplianceList
+        :returns: twilio.rest.numbers.v2.regulatory_compliance.RegulatoryComplianceList
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.RegulatoryComplianceList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = {  }
         self._uri = '/RegulatoryCompliance'.format(**self._solution)
-
+        
         self._bundles = None
         self._end_users = None
         self._end_user_types = None
         self._regulations = None
         self._supporting_documents = None
         self._supporting_document_types = None
-
+        
 
     @property
     def bundles(self):
         """
         Access the bundles
 
-        :returns: twilio.rest.numbers.v2.regulatory_compliance.bundles.BundleList
-        :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundles.BundleList
+        :returns: twilio.rest.numbers.v2.regulatory_compliance.BundleList
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.BundleList
         """
         if self._bundles is None:
             self._bundles = BundleList(self._version)
@@ -70,8 +71,8 @@ class RegulatoryComplianceList(ListResource):
         """
         Access the end_users
 
-        :returns: twilio.rest.numbers.v2.regulatory_compliance.end_users.EndUserList
-        :rtype: twilio.rest.numbers.v2.regulatory_compliance.end_users.EndUserList
+        :returns: twilio.rest.numbers.v2.regulatory_compliance.EndUserList
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.EndUserList
         """
         if self._end_users is None:
             self._end_users = EndUserList(self._version)
@@ -82,8 +83,8 @@ class RegulatoryComplianceList(ListResource):
         """
         Access the end_user_types
 
-        :returns: twilio.rest.numbers.v2.regulatory_compliance.end_user_types.EndUserTypeList
-        :rtype: twilio.rest.numbers.v2.regulatory_compliance.end_user_types.EndUserTypeList
+        :returns: twilio.rest.numbers.v2.regulatory_compliance.EndUserTypeList
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.EndUserTypeList
         """
         if self._end_user_types is None:
             self._end_user_types = EndUserTypeList(self._version)
@@ -94,8 +95,8 @@ class RegulatoryComplianceList(ListResource):
         """
         Access the regulations
 
-        :returns: twilio.rest.numbers.v2.regulatory_compliance.regulations.RegulationList
-        :rtype: twilio.rest.numbers.v2.regulatory_compliance.regulations.RegulationList
+        :returns: twilio.rest.numbers.v2.regulatory_compliance.RegulationList
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.RegulationList
         """
         if self._regulations is None:
             self._regulations = RegulationList(self._version)
@@ -106,8 +107,8 @@ class RegulatoryComplianceList(ListResource):
         """
         Access the supporting_documents
 
-        :returns: twilio.rest.numbers.v2.regulatory_compliance.supporting_documents.SupportingDocumentList
-        :rtype: twilio.rest.numbers.v2.regulatory_compliance.supporting_documents.SupportingDocumentList
+        :returns: twilio.rest.numbers.v2.regulatory_compliance.SupportingDocumentList
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.SupportingDocumentList
         """
         if self._supporting_documents is None:
             self._supporting_documents = SupportingDocumentList(self._version)
@@ -118,12 +119,13 @@ class RegulatoryComplianceList(ListResource):
         """
         Access the supporting_document_types
 
-        :returns: twilio.rest.numbers.v2.regulatory_compliance.supporting_document_types.SupportingDocumentTypeList
-        :rtype: twilio.rest.numbers.v2.regulatory_compliance.supporting_document_types.SupportingDocumentTypeList
+        :returns: twilio.rest.numbers.v2.regulatory_compliance.SupportingDocumentTypeList
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.SupportingDocumentTypeList
         """
         if self._supporting_document_types is None:
             self._supporting_document_types = SupportingDocumentTypeList(self._version)
         return self.supporting_document_types
+
 
     def __repr__(self):
         """

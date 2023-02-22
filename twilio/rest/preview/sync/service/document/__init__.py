@@ -29,22 +29,40 @@ class DocumentList(ListResource):
     def __init__(self, version: Version, service_sid: str):
         """
         Initialize the DocumentList
+
         :param Version version: Version that contains the resource
         :param service_sid: 
         
-        :returns: twilio.preview.sync.document..DocumentList
-        :rtype: twilio.preview.sync.document..DocumentList
+        :returns: twilio.rest.preview.sync.service.document.DocumentList
+        :rtype: twilio.rest.preview.sync.service.document.DocumentList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = { 'service_sid': service_sid,  }
         self._uri = '/Services/${service_sid}/Documents'.format(**self._solution)
+        
+        
+    
+    
+    
+    
+    def create(self, unique_name=values.unset, data=values.unset):
+        """
+        Create the DocumentInstance
+        :param str unique_name: 
+        :param object data: 
+        
+        :returns: The created DocumentInstance
+        :rtype: twilio.rest.preview.sync.service.document.DocumentInstance
+        """
+        data = values.of({ 
+            'UniqueName': unique_name,
+            'Data': serialize.object(data),
+        })
 
-
-    
-    
-    
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return DocumentInstance(self._version, payload, service_sid=self._solution['service_sid'])
     
     
     def stream(self, limit=None, page_size=None):
@@ -62,7 +80,7 @@ class DocumentList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.preview.sync.document.DocumentInstance]
+        :rtype: list[twilio.rest.preview.sync.service.document.DocumentInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -85,7 +103,7 @@ class DocumentList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.preview.sync.document.DocumentInstance]
+        :rtype: list[twilio.rest.preview.sync.service.document.DocumentInstance]
         """
         return list(self.stream(
             limit=limit,
@@ -102,7 +120,7 @@ class DocumentList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of DocumentInstance
-        :rtype: twilio.rest.preview.sync.document.DocumentPage
+        :rtype: twilio.rest.preview.sync.service.document.DocumentPage
         """
         data = values.of({ 
             'PageToken': page_token,
@@ -121,7 +139,7 @@ class DocumentList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of DocumentInstance
-        :rtype: twilio.rest.preview.sync.document.DocumentPage
+        :rtype: twilio.rest.preview.sync.service.document.DocumentPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -129,6 +147,28 @@ class DocumentList(ListResource):
         )
         return DocumentPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a DocumentContext
+        
+        :param sid: 
+        
+        :returns: twilio.rest.preview.sync.service.document.DocumentContext
+        :rtype: twilio.rest.preview.sync.service.document.DocumentContext
+        """
+        return DocumentContext(self._version, service_sid=self._solution['service_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a DocumentContext
+        
+        :param sid: 
+        
+        :returns: twilio.rest.preview.sync.service.document.DocumentContext
+        :rtype: twilio.rest.preview.sync.service.document.DocumentContext
+        """
+        return DocumentContext(self._version, service_sid=self._solution['service_sid'], sid=sid)
 
     def __repr__(self):
         """
@@ -156,8 +196,8 @@ class DocumentPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.preview.sync.document.DocumentPage
-        :rtype: twilio.rest.preview.sync.document.DocumentPage
+        :returns: twilio.rest.preview.sync.service.document.DocumentPage
+        :rtype: twilio.rest.preview.sync.service.document.DocumentPage
         """
         super().__init__(version, response)
 
@@ -170,8 +210,8 @@ class DocumentPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.preview.sync.document.DocumentInstance
-        :rtype: twilio.rest.preview.sync.document.DocumentInstance
+        :returns: twilio.rest.preview.sync.service.document.DocumentInstance
+        :rtype: twilio.rest.preview.sync.service.document.DocumentInstance
         """
         return DocumentInstance(self._version, payload, service_sid=self._solution['service_sid'])
 
@@ -226,9 +266,9 @@ class DocumentContext(InstanceContext):
 
         
     
-    def update(self, if_match, body):
+    def update(self, data, if_match):
         data = values.of({
-            'if_match': if_match,'body': body,
+            'data': data,'if_match': if_match,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

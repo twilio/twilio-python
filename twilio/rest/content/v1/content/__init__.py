@@ -29,18 +29,19 @@ class ContentList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the ContentList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.content.v1.content..ContentList
-        :rtype: twilio.content.v1.content..ContentList
+        :returns: twilio.rest.content.v1.content.ContentList
+        :rtype: twilio.rest.content.v1.content.ContentList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = {  }
         self._uri = '/Content'.format(**self._solution)
-
-
+        
+        
     
     
     
@@ -126,6 +127,28 @@ class ContentList(ListResource):
         )
         return ContentPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a ContentContext
+        
+        :param sid: The Twilio-provided string that uniquely identifies the Content resource to fetch.
+        
+        :returns: twilio.rest.content.v1.content.ContentContext
+        :rtype: twilio.rest.content.v1.content.ContentContext
+        """
+        return ContentContext(self._version, sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a ContentContext
+        
+        :param sid: The Twilio-provided string that uniquely identifies the Content resource to fetch.
+        
+        :returns: twilio.rest.content.v1.content.ContentContext
+        :rtype: twilio.rest.content.v1.content.ContentContext
+        """
+        return ContentContext(self._version, sid=sid)
 
     def __repr__(self):
         """

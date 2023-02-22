@@ -31,21 +31,43 @@ class ServiceList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the ServiceList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.preview.sync.service..ServiceList
-        :rtype: twilio.preview.sync.service..ServiceList
+        :returns: twilio.rest.preview.sync.service.ServiceList
+        :rtype: twilio.rest.preview.sync.service.ServiceList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = {  }
         self._uri = '/Services'.format(**self._solution)
+        
+        
+    
+    
+    
+    
+    def create(self, friendly_name=values.unset, webhook_url=values.unset, reachability_webhooks_enabled=values.unset, acl_enabled=values.unset):
+        """
+        Create the ServiceInstance
+        :param str friendly_name: 
+        :param str webhook_url: 
+        :param bool reachability_webhooks_enabled: 
+        :param bool acl_enabled: 
+        
+        :returns: The created ServiceInstance
+        :rtype: twilio.rest.preview.sync.service.ServiceInstance
+        """
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+            'WebhookUrl': webhook_url,
+            'ReachabilityWebhooksEnabled': reachability_webhooks_enabled,
+            'AclEnabled': acl_enabled,
+        })
 
-
-    
-    
-    
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return ServiceInstance(self._version, payload)
     
     
     def stream(self, limit=None, page_size=None):
@@ -130,6 +152,28 @@ class ServiceList(ListResource):
         )
         return ServicePage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a ServiceContext
+        
+        :param sid: 
+        
+        :returns: twilio.rest.preview.sync.service.ServiceContext
+        :rtype: twilio.rest.preview.sync.service.ServiceContext
+        """
+        return ServiceContext(self._version, sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a ServiceContext
+        
+        :param sid: 
+        
+        :returns: twilio.rest.preview.sync.service.ServiceContext
+        :rtype: twilio.rest.preview.sync.service.ServiceContext
+        """
+        return ServiceContext(self._version, sid=sid)
 
     def __repr__(self):
         """
@@ -229,9 +273,9 @@ class ServiceContext(InstanceContext):
 
         
     
-    def update(self, body):
+    def update(self, webhook_url, friendly_name, reachability_webhooks_enabled, acl_enabled):
         data = values.of({
-            'body': body,
+            'webhook_url': webhook_url,'friendly_name': friendly_name,'reachability_webhooks_enabled': reachability_webhooks_enabled,'acl_enabled': acl_enabled,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

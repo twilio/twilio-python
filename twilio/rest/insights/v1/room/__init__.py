@@ -29,18 +29,19 @@ class RoomList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the RoomList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.insights.v1.room..RoomList
-        :rtype: twilio.insights.v1.room..RoomList
+        :returns: twilio.rest.insights.v1.room.RoomList
+        :rtype: twilio.rest.insights.v1.room.RoomList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = {  }
         self._uri = '/Video/Rooms'.format(**self._solution)
-
-
+        
+        
     
     
     def stream(self, room_type=values.unset, codec=values.unset, room_name=values.unset, created_after=values.unset, created_before=values.unset, limit=None, page_size=None):
@@ -50,8 +51,8 @@ class RoomList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
         
-        :param [VideoRoomSummaryRoomType] room_type: Type of room. Can be `go`, `peer_to_peer`, `group`, or `group_small`.
-        :param [VideoRoomSummaryCodec] codec: Codecs used by participants in the room. Can be `VP8`, `H264`, or `VP9`.
+        :param list[VideoRoomSummaryRoomType] room_type: Type of room. Can be `go`, `peer_to_peer`, `group`, or `group_small`.
+        :param list[VideoRoomSummaryCodec] codec: Codecs used by participants in the room. Can be `VP8`, `H264`, or `VP9`.
         :param str room_name: Room friendly name.
         :param datetime created_after: Only read rooms that started on or after this ISO 8601 timestamp.
         :param datetime created_before: Only read rooms that started before this ISO 8601 timestamp.
@@ -83,8 +84,8 @@ class RoomList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
-        :param [VideoRoomSummaryRoomType] room_type: Type of room. Can be `go`, `peer_to_peer`, `group`, or `group_small`.
-        :param [VideoRoomSummaryCodec] codec: Codecs used by participants in the room. Can be `VP8`, `H264`, or `VP9`.
+        :param list[VideoRoomSummaryRoomType] room_type: Type of room. Can be `go`, `peer_to_peer`, `group`, or `group_small`.
+        :param list[VideoRoomSummaryCodec] codec: Codecs used by participants in the room. Can be `VP8`, `H264`, or `VP9`.
         :param str room_name: Room friendly name.
         :param datetime created_after: Only read rooms that started on or after this ISO 8601 timestamp.
         :param datetime created_before: Only read rooms that started before this ISO 8601 timestamp.
@@ -113,8 +114,8 @@ class RoomList(ListResource):
         Retrieve a single page of RoomInstance records from the API.
         Request is executed immediately
         
-        :param [VideoRoomSummaryRoomType] room_type: Type of room. Can be `go`, `peer_to_peer`, `group`, or `group_small`.
-        :param [VideoRoomSummaryCodec] codec: Codecs used by participants in the room. Can be `VP8`, `H264`, or `VP9`.
+        :param list[VideoRoomSummaryRoomType] room_type: Type of room. Can be `go`, `peer_to_peer`, `group`, or `group_small`.
+        :param list[VideoRoomSummaryCodec] codec: Codecs used by participants in the room. Can be `VP8`, `H264`, or `VP9`.
         :param str room_name: Room friendly name.
         :param datetime created_after: Only read rooms that started on or after this ISO 8601 timestamp.
         :param datetime created_before: Only read rooms that started before this ISO 8601 timestamp.
@@ -129,8 +130,8 @@ class RoomList(ListResource):
             'RoomType': room_type,
             'Codec': codec,
             'RoomName': room_name,
-            'CreatedAfter': created_after,
-            'CreatedBefore': created_before,
+            'CreatedAfter': serialize.iso8601_datetime(created_after),
+            'CreatedBefore': serialize.iso8601_datetime(created_before),
             'PageToken': page_token,
             'Page': page_number,
             'PageSize': page_size,
@@ -155,6 +156,28 @@ class RoomList(ListResource):
         )
         return RoomPage(self._version, response, self._solution)
 
+
+    def get(self, room_sid):
+        """
+        Constructs a RoomContext
+        
+        :param room_sid: The SID of the Room resource.
+        
+        :returns: twilio.rest.insights.v1.room.RoomContext
+        :rtype: twilio.rest.insights.v1.room.RoomContext
+        """
+        return RoomContext(self._version, room_sid=room_sid)
+
+    def __call__(self, room_sid):
+        """
+        Constructs a RoomContext
+        
+        :param room_sid: The SID of the Room resource.
+        
+        :returns: twilio.rest.insights.v1.room.RoomContext
+        :rtype: twilio.rest.insights.v1.room.RoomContext
+        """
+        return RoomContext(self._version, room_sid=room_sid)
 
     def __repr__(self):
         """

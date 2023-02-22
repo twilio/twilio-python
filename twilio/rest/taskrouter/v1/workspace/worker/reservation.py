@@ -28,20 +28,21 @@ class ReservationList(ListResource):
     def __init__(self, version: Version, workspace_sid: str, worker_sid: str):
         """
         Initialize the ReservationList
+
         :param Version version: Version that contains the resource
         :param workspace_sid: The SID of the Workspace with the WorkerReservation resources to read.
         :param worker_sid: The SID of the reserved Worker resource with the WorkerReservation resources to read.
         
-        :returns: twilio.taskrouter.v1.reservation..ReservationList
-        :rtype: twilio.taskrouter.v1.reservation..ReservationList
+        :returns: twilio.rest.taskrouter.v1.workspace.worker.reservation.ReservationList
+        :rtype: twilio.rest.taskrouter.v1.workspace.worker.reservation.ReservationList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = { 'workspace_sid': workspace_sid, 'worker_sid': worker_sid,  }
         self._uri = '/Workspaces/${workspace_sid}/Workers/${worker_sid}/Reservations'.format(**self._solution)
-
-
+        
+        
     
     
     
@@ -61,7 +62,7 @@ class ReservationList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.taskrouter.v1.reservation.ReservationInstance]
+        :rtype: list[twilio.rest.taskrouter.v1.workspace.worker.reservation.ReservationInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -86,7 +87,7 @@ class ReservationList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.taskrouter.v1.reservation.ReservationInstance]
+        :rtype: list[twilio.rest.taskrouter.v1.workspace.worker.reservation.ReservationInstance]
         """
         return list(self.stream(
             reservation_status=reservation_status,
@@ -105,7 +106,7 @@ class ReservationList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of ReservationInstance
-        :rtype: twilio.rest.taskrouter.v1.reservation.ReservationPage
+        :rtype: twilio.rest.taskrouter.v1.workspace.worker.reservation.ReservationPage
         """
         data = values.of({ 
             'ReservationStatus': reservation_status,
@@ -125,7 +126,7 @@ class ReservationList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of ReservationInstance
-        :rtype: twilio.rest.taskrouter.v1.reservation.ReservationPage
+        :rtype: twilio.rest.taskrouter.v1.workspace.worker.reservation.ReservationPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -133,6 +134,28 @@ class ReservationList(ListResource):
         )
         return ReservationPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a ReservationContext
+        
+        :param sid: The SID of the WorkerReservation resource to update.
+        
+        :returns: twilio.rest.taskrouter.v1.workspace.worker.reservation.ReservationContext
+        :rtype: twilio.rest.taskrouter.v1.workspace.worker.reservation.ReservationContext
+        """
+        return ReservationContext(self._version, workspace_sid=self._solution['workspace_sid'], worker_sid=self._solution['worker_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a ReservationContext
+        
+        :param sid: The SID of the WorkerReservation resource to update.
+        
+        :returns: twilio.rest.taskrouter.v1.workspace.worker.reservation.ReservationContext
+        :rtype: twilio.rest.taskrouter.v1.workspace.worker.reservation.ReservationContext
+        """
+        return ReservationContext(self._version, workspace_sid=self._solution['workspace_sid'], worker_sid=self._solution['worker_sid'], sid=sid)
 
     def __repr__(self):
         """
@@ -156,8 +179,8 @@ class ReservationPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.taskrouter.v1.reservation.ReservationPage
-        :rtype: twilio.rest.taskrouter.v1.reservation.ReservationPage
+        :returns: twilio.rest.taskrouter.v1.workspace.worker.reservation.ReservationPage
+        :rtype: twilio.rest.taskrouter.v1.workspace.worker.reservation.ReservationPage
         """
         super().__init__(version, response)
 
@@ -170,8 +193,8 @@ class ReservationPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.taskrouter.v1.reservation.ReservationInstance
-        :rtype: twilio.rest.taskrouter.v1.reservation.ReservationInstance
+        :returns: twilio.rest.taskrouter.v1.workspace.worker.reservation.ReservationInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.worker.reservation.ReservationInstance
         """
         return ReservationInstance(self._version, payload, workspace_sid=self._solution['workspace_sid'], worker_sid=self._solution['worker_sid'])
 
@@ -213,9 +236,9 @@ class ReservationContext(InstanceContext):
 
         
     
-    def update(self, if_match, body):
+    def update(self, if_match, reservation_status, worker_activity_sid, instruction, dequeue_post_work_activity_sid, dequeue_from, dequeue_record, dequeue_timeout, dequeue_to, dequeue_status_callback_url, call_from, call_record, call_timeout, call_to, call_url, call_status_callback_url, call_accept, redirect_call_sid, redirect_accept, redirect_url, to, from_, status_callback, status_callback_method, status_callback_event, timeout, record, muted, beep, start_conference_on_enter, end_conference_on_exit, wait_url, wait_method, early_media, max_participants, conference_status_callback, conference_status_callback_method, conference_status_callback_event, conference_record, conference_trim, recording_channels, recording_status_callback, recording_status_callback_method, conference_recording_status_callback, conference_recording_status_callback_method, region, sip_auth_username, sip_auth_password, dequeue_status_callback_event, post_work_activity_sid, end_conference_on_customer_exit, beep_on_customer_entrance):
         data = values.of({
-            'if_match': if_match,'body': body,
+            'if_match': if_match,'reservation_status': reservation_status,'worker_activity_sid': worker_activity_sid,'instruction': instruction,'dequeue_post_work_activity_sid': dequeue_post_work_activity_sid,'dequeue_from': dequeue_from,'dequeue_record': dequeue_record,'dequeue_timeout': dequeue_timeout,'dequeue_to': dequeue_to,'dequeue_status_callback_url': dequeue_status_callback_url,'call_from': call_from,'call_record': call_record,'call_timeout': call_timeout,'call_to': call_to,'call_url': call_url,'call_status_callback_url': call_status_callback_url,'call_accept': call_accept,'redirect_call_sid': redirect_call_sid,'redirect_accept': redirect_accept,'redirect_url': redirect_url,'to': to,'from_': from_,'status_callback': status_callback,'status_callback_method': status_callback_method,'status_callback_event': status_callback_event,'timeout': timeout,'record': record,'muted': muted,'beep': beep,'start_conference_on_enter': start_conference_on_enter,'end_conference_on_exit': end_conference_on_exit,'wait_url': wait_url,'wait_method': wait_method,'early_media': early_media,'max_participants': max_participants,'conference_status_callback': conference_status_callback,'conference_status_callback_method': conference_status_callback_method,'conference_status_callback_event': conference_status_callback_event,'conference_record': conference_record,'conference_trim': conference_trim,'recording_channels': recording_channels,'recording_status_callback': recording_status_callback,'recording_status_callback_method': recording_status_callback_method,'conference_recording_status_callback': conference_recording_status_callback,'conference_recording_status_callback_method': conference_recording_status_callback_method,'region': region,'sip_auth_username': sip_auth_username,'sip_auth_password': sip_auth_password,'dequeue_status_callback_event': dequeue_status_callback_event,'post_work_activity_sid': post_work_activity_sid,'end_conference_on_customer_exit': end_conference_on_customer_exit,'beep_on_customer_entrance': beep_on_customer_entrance,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

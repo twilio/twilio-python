@@ -28,22 +28,41 @@ class ExecutionStepContextList(ListResource):
     def __init__(self, version: Version, flow_sid: str, execution_sid: str, step_sid: str):
         """
         Initialize the ExecutionStepContextList
+
         :param Version version: Version that contains the resource
         :param flow_sid: The SID of the Flow with the Step to fetch.
         :param execution_sid: The SID of the Execution resource with the Step to fetch.
         :param step_sid: The SID of the Step to fetch.
         
-        :returns: twilio.studio.v2.execution_step_context..ExecutionStepContextList
-        :rtype: twilio.studio.v2.execution_step_context..ExecutionStepContextList
+        :returns: twilio.rest.studio.v2.flow.execution.execution_step.execution_step_context.ExecutionStepContextList
+        :rtype: twilio.rest.studio.v2.flow.execution.execution_step.execution_step_context.ExecutionStepContextList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = { 'flow_sid': flow_sid, 'execution_sid': execution_sid, 'step_sid': step_sid,  }
-        self._uri = ''.format(**self._solution)
-
-
+        
+        
+        
     
+
+    def get(self):
+        """
+        Constructs a ExecutionStepContextContext
+        
+        :returns: twilio.rest.studio.v2.flow.execution.execution_step.execution_step_context.ExecutionStepContextContext
+        :rtype: twilio.rest.studio.v2.flow.execution.execution_step.execution_step_context.ExecutionStepContextContext
+        """
+        return ExecutionStepContextContext(self._version, flow_sid=self._solution['flow_sid'], execution_sid=self._solution['execution_sid'], step_sid=self._solution['step_sid'])
+
+    def __call__(self):
+        """
+        Constructs a ExecutionStepContextContext
+        
+        :returns: twilio.rest.studio.v2.flow.execution.execution_step.execution_step_context.ExecutionStepContextContext
+        :rtype: twilio.rest.studio.v2.flow.execution.execution_step.execution_step_context.ExecutionStepContextContext
+        """
+        return ExecutionStepContextContext(self._version, flow_sid=self._solution['flow_sid'], execution_sid=self._solution['execution_sid'], step_sid=self._solution['step_sid'])
 
     def __repr__(self):
         """

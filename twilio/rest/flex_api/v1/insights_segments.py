@@ -28,19 +28,42 @@ class InsightsSegmentsList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the InsightsSegmentsList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.flex_api.v1.insights_segments..InsightsSegmentsList
-        :rtype: twilio.flex_api.v1.insights_segments..InsightsSegmentsList
+        :returns: twilio.rest.flex_api.v1.insights_segments.InsightsSegmentsList
+        :rtype: twilio.rest.flex_api.v1.insights_segments.InsightsSegmentsList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = {  }
-        self._uri = ''.format(**self._solution)
-
-
+        
+        
+        
     
+
+    def get(self, segment_id):
+        """
+        Constructs a InsightsSegmentsContext
+        
+        :param segment_id: To unique id of the segment
+        
+        :returns: twilio.rest.flex_api.v1.insights_segments.InsightsSegmentsContext
+        :rtype: twilio.rest.flex_api.v1.insights_segments.InsightsSegmentsContext
+        """
+        return InsightsSegmentsContext(self._version, segment_id=segment_id)
+
+    def __call__(self, segment_id):
+        """
+        Constructs a InsightsSegmentsContext
+        
+        :param segment_id: To unique id of the segment
+        
+        :returns: twilio.rest.flex_api.v1.insights_segments.InsightsSegmentsContext
+        :rtype: twilio.rest.flex_api.v1.insights_segments.InsightsSegmentsContext
+        """
+        return InsightsSegmentsContext(self._version, segment_id=segment_id)
 
     def __repr__(self):
         """

@@ -28,20 +28,43 @@ class SipDomainList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the SipDomainList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.routes.v2.sip_domain..SipDomainList
-        :rtype: twilio.routes.v2.sip_domain..SipDomainList
+        :returns: twilio.rest.routes.v2.sip_domain.SipDomainList
+        :rtype: twilio.rest.routes.v2.sip_domain.SipDomainList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = {  }
-        self._uri = ''.format(**self._solution)
-
-
+        
+        
+        
     
     
+
+    def get(self, sip_domain):
+        """
+        Constructs a SipDomainContext
+        
+        :param sip_domain: 
+        
+        :returns: twilio.rest.routes.v2.sip_domain.SipDomainContext
+        :rtype: twilio.rest.routes.v2.sip_domain.SipDomainContext
+        """
+        return SipDomainContext(self._version, sip_domain=sip_domain)
+
+    def __call__(self, sip_domain):
+        """
+        Constructs a SipDomainContext
+        
+        :param sip_domain: 
+        
+        :returns: twilio.rest.routes.v2.sip_domain.SipDomainContext
+        :rtype: twilio.rest.routes.v2.sip_domain.SipDomainContext
+        """
+        return SipDomainContext(self._version, sip_domain=sip_domain)
 
     def __repr__(self):
         """
@@ -77,9 +100,9 @@ class SipDomainContext(InstanceContext):
 
         
     
-    def update(self, body):
+    def update(self, voice_region, friendly_name):
         data = values.of({
-            'body': body,
+            'voice_region': voice_region,'friendly_name': friendly_name,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

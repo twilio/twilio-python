@@ -29,22 +29,44 @@ class UserList(ListResource):
     def __init__(self, version: Version, service_sid: str):
         """
         Initialize the UserList
+
         :param Version version: Version that contains the resource
         :param service_sid: 
         
-        :returns: twilio.ip_messaging.v1.user..UserList
-        :rtype: twilio.ip_messaging.v1.user..UserList
+        :returns: twilio.rest.ip_messaging.v1.service.user.UserList
+        :rtype: twilio.rest.ip_messaging.v1.service.user.UserList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = { 'service_sid': service_sid,  }
         self._uri = '/Services/${service_sid}/Users'.format(**self._solution)
+        
+        
+    
+    
+    
+    
+    def create(self, identity, role_sid=values.unset, attributes=values.unset, friendly_name=values.unset):
+        """
+        Create the UserInstance
+        :param str identity: 
+        :param str role_sid: 
+        :param str attributes: 
+        :param str friendly_name: 
+        
+        :returns: The created UserInstance
+        :rtype: twilio.rest.ip_messaging.v1.service.user.UserInstance
+        """
+        data = values.of({ 
+            'Identity': identity,
+            'RoleSid': role_sid,
+            'Attributes': attributes,
+            'FriendlyName': friendly_name,
+        })
 
-
-    
-    
-    
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return UserInstance(self._version, payload, service_sid=self._solution['service_sid'])
     
     
     def stream(self, limit=None, page_size=None):
@@ -62,7 +84,7 @@ class UserList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.ip_messaging.v1.user.UserInstance]
+        :rtype: list[twilio.rest.ip_messaging.v1.service.user.UserInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -85,7 +107,7 @@ class UserList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.ip_messaging.v1.user.UserInstance]
+        :rtype: list[twilio.rest.ip_messaging.v1.service.user.UserInstance]
         """
         return list(self.stream(
             limit=limit,
@@ -102,7 +124,7 @@ class UserList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of UserInstance
-        :rtype: twilio.rest.ip_messaging.v1.user.UserPage
+        :rtype: twilio.rest.ip_messaging.v1.service.user.UserPage
         """
         data = values.of({ 
             'PageToken': page_token,
@@ -121,7 +143,7 @@ class UserList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of UserInstance
-        :rtype: twilio.rest.ip_messaging.v1.user.UserPage
+        :rtype: twilio.rest.ip_messaging.v1.service.user.UserPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -129,6 +151,28 @@ class UserList(ListResource):
         )
         return UserPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a UserContext
+        
+        :param sid: 
+        
+        :returns: twilio.rest.ip_messaging.v1.service.user.UserContext
+        :rtype: twilio.rest.ip_messaging.v1.service.user.UserContext
+        """
+        return UserContext(self._version, service_sid=self._solution['service_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a UserContext
+        
+        :param sid: 
+        
+        :returns: twilio.rest.ip_messaging.v1.service.user.UserContext
+        :rtype: twilio.rest.ip_messaging.v1.service.user.UserContext
+        """
+        return UserContext(self._version, service_sid=self._solution['service_sid'], sid=sid)
 
     def __repr__(self):
         """
@@ -156,8 +200,8 @@ class UserPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.ip_messaging.v1.user.UserPage
-        :rtype: twilio.rest.ip_messaging.v1.user.UserPage
+        :returns: twilio.rest.ip_messaging.v1.service.user.UserPage
+        :rtype: twilio.rest.ip_messaging.v1.service.user.UserPage
         """
         super().__init__(version, response)
 
@@ -170,8 +214,8 @@ class UserPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.ip_messaging.v1.user.UserInstance
-        :rtype: twilio.rest.ip_messaging.v1.user.UserInstance
+        :returns: twilio.rest.ip_messaging.v1.service.user.UserInstance
+        :rtype: twilio.rest.ip_messaging.v1.service.user.UserInstance
         """
         return UserInstance(self._version, payload, service_sid=self._solution['service_sid'])
 
@@ -226,9 +270,9 @@ class UserContext(InstanceContext):
 
         
     
-    def update(self, body):
+    def update(self, role_sid, attributes, friendly_name):
         data = values.of({
-            'body': body,
+            'role_sid': role_sid,'attributes': attributes,'friendly_name': friendly_name,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

@@ -28,23 +28,41 @@ class SyncMapItemList(ListResource):
     def __init__(self, version: Version, service_sid: str, map_sid: str):
         """
         Initialize the SyncMapItemList
+
         :param Version version: Version that contains the resource
         :param service_sid: 
         :param map_sid: 
         
-        :returns: twilio.preview.sync.sync_map_item..SyncMapItemList
-        :rtype: twilio.preview.sync.sync_map_item..SyncMapItemList
+        :returns: twilio.rest.preview.sync.service.sync_map.sync_map_item.SyncMapItemList
+        :rtype: twilio.rest.preview.sync.service.sync_map.sync_map_item.SyncMapItemList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = { 'service_sid': service_sid, 'map_sid': map_sid,  }
         self._uri = '/Services/${service_sid}/Maps/${map_sid}/Items'.format(**self._solution)
+        
+        
+    
+    
+    
+    
+    def create(self, key, data):
+        """
+        Create the SyncMapItemInstance
+        :param str key: 
+        :param object data: 
+        
+        :returns: The created SyncMapItemInstance
+        :rtype: twilio.rest.preview.sync.service.sync_map.sync_map_item.SyncMapItemInstance
+        """
+        data = values.of({ 
+            'Key': key,
+            'Data': serialize.object(data),
+        })
 
-
-    
-    
-    
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return SyncMapItemInstance(self._version, payload, service_sid=self._solution['service_sid'], map_sid=self._solution['map_sid'])
     
     
     def stream(self, order=values.unset, from_=values.unset, bounds=values.unset, limit=None, page_size=None):
@@ -65,7 +83,7 @@ class SyncMapItemList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.preview.sync.sync_map_item.SyncMapItemInstance]
+        :rtype: list[twilio.rest.preview.sync.service.sync_map.sync_map_item.SyncMapItemInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -94,7 +112,7 @@ class SyncMapItemList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.preview.sync.sync_map_item.SyncMapItemInstance]
+        :rtype: list[twilio.rest.preview.sync.service.sync_map.sync_map_item.SyncMapItemInstance]
         """
         return list(self.stream(
             order=order,
@@ -117,7 +135,7 @@ class SyncMapItemList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of SyncMapItemInstance
-        :rtype: twilio.rest.preview.sync.sync_map_item.SyncMapItemPage
+        :rtype: twilio.rest.preview.sync.service.sync_map.sync_map_item.SyncMapItemPage
         """
         data = values.of({ 
             'Order': order,
@@ -139,7 +157,7 @@ class SyncMapItemList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of SyncMapItemInstance
-        :rtype: twilio.rest.preview.sync.sync_map_item.SyncMapItemPage
+        :rtype: twilio.rest.preview.sync.service.sync_map.sync_map_item.SyncMapItemPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -147,6 +165,28 @@ class SyncMapItemList(ListResource):
         )
         return SyncMapItemPage(self._version, response, self._solution)
 
+
+    def get(self, key):
+        """
+        Constructs a SyncMapItemContext
+        
+        :param key: 
+        
+        :returns: twilio.rest.preview.sync.service.sync_map.sync_map_item.SyncMapItemContext
+        :rtype: twilio.rest.preview.sync.service.sync_map.sync_map_item.SyncMapItemContext
+        """
+        return SyncMapItemContext(self._version, service_sid=self._solution['service_sid'], map_sid=self._solution['map_sid'], key=key)
+
+    def __call__(self, key):
+        """
+        Constructs a SyncMapItemContext
+        
+        :param key: 
+        
+        :returns: twilio.rest.preview.sync.service.sync_map.sync_map_item.SyncMapItemContext
+        :rtype: twilio.rest.preview.sync.service.sync_map.sync_map_item.SyncMapItemContext
+        """
+        return SyncMapItemContext(self._version, service_sid=self._solution['service_sid'], map_sid=self._solution['map_sid'], key=key)
 
     def __repr__(self):
         """
@@ -174,8 +214,8 @@ class SyncMapItemPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.preview.sync.sync_map_item.SyncMapItemPage
-        :rtype: twilio.rest.preview.sync.sync_map_item.SyncMapItemPage
+        :returns: twilio.rest.preview.sync.service.sync_map.sync_map_item.SyncMapItemPage
+        :rtype: twilio.rest.preview.sync.service.sync_map.sync_map_item.SyncMapItemPage
         """
         super().__init__(version, response)
 
@@ -188,8 +228,8 @@ class SyncMapItemPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.preview.sync.sync_map_item.SyncMapItemInstance
-        :rtype: twilio.rest.preview.sync.sync_map_item.SyncMapItemInstance
+        :returns: twilio.rest.preview.sync.service.sync_map.sync_map_item.SyncMapItemInstance
+        :rtype: twilio.rest.preview.sync.service.sync_map.sync_map_item.SyncMapItemInstance
         """
         return SyncMapItemInstance(self._version, payload, service_sid=self._solution['service_sid'], map_sid=self._solution['map_sid'])
 
@@ -243,9 +283,9 @@ class SyncMapItemContext(InstanceContext):
 
         
     
-    def update(self, if_match, body):
+    def update(self, data, if_match):
         data = values.of({
-            'if_match': if_match,'body': body,
+            'data': data,'if_match': if_match,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

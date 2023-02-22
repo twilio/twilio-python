@@ -28,22 +28,42 @@ class CertificateList(ListResource):
     def __init__(self, version: Version, fleet_sid: str):
         """
         Initialize the CertificateList
+
         :param Version version: Version that contains the resource
         :param fleet_sid: 
         
-        :returns: twilio.preview.deployed_devices.certificate..CertificateList
-        :rtype: twilio.preview.deployed_devices.certificate..CertificateList
+        :returns: twilio.rest.preview.deployed_devices.fleet.certificate.CertificateList
+        :rtype: twilio.rest.preview.deployed_devices.fleet.certificate.CertificateList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = { 'fleet_sid': fleet_sid,  }
         self._uri = '/Fleets/${fleet_sid}/Certificates'.format(**self._solution)
+        
+        
+    
+    
+    
+    
+    def create(self, certificate_data, friendly_name=values.unset, device_sid=values.unset):
+        """
+        Create the CertificateInstance
+        :param str certificate_data: Provides a URL encoded representation of the public certificate in PEM format.
+        :param str friendly_name: Provides a human readable descriptive text for this Certificate credential, up to 256 characters long.
+        :param str device_sid: Provides the unique string identifier of an existing Device to become authenticated with this Certificate credential.
+        
+        :returns: The created CertificateInstance
+        :rtype: twilio.rest.preview.deployed_devices.fleet.certificate.CertificateInstance
+        """
+        data = values.of({ 
+            'CertificateData': certificate_data,
+            'FriendlyName': friendly_name,
+            'DeviceSid': device_sid,
+        })
 
-
-    
-    
-    
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return CertificateInstance(self._version, payload, fleet_sid=self._solution['fleet_sid'])
     
     
     def stream(self, device_sid=values.unset, limit=None, page_size=None):
@@ -62,7 +82,7 @@ class CertificateList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.preview.deployed_devices.certificate.CertificateInstance]
+        :rtype: list[twilio.rest.preview.deployed_devices.fleet.certificate.CertificateInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -87,7 +107,7 @@ class CertificateList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.preview.deployed_devices.certificate.CertificateInstance]
+        :rtype: list[twilio.rest.preview.deployed_devices.fleet.certificate.CertificateInstance]
         """
         return list(self.stream(
             device_sid=device_sid,
@@ -106,7 +126,7 @@ class CertificateList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of CertificateInstance
-        :rtype: twilio.rest.preview.deployed_devices.certificate.CertificatePage
+        :rtype: twilio.rest.preview.deployed_devices.fleet.certificate.CertificatePage
         """
         data = values.of({ 
             'DeviceSid': device_sid,
@@ -126,7 +146,7 @@ class CertificateList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of CertificateInstance
-        :rtype: twilio.rest.preview.deployed_devices.certificate.CertificatePage
+        :rtype: twilio.rest.preview.deployed_devices.fleet.certificate.CertificatePage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -134,6 +154,28 @@ class CertificateList(ListResource):
         )
         return CertificatePage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a CertificateContext
+        
+        :param sid: Provides a 34 character string that uniquely identifies the requested Certificate credential resource.
+        
+        :returns: twilio.rest.preview.deployed_devices.fleet.certificate.CertificateContext
+        :rtype: twilio.rest.preview.deployed_devices.fleet.certificate.CertificateContext
+        """
+        return CertificateContext(self._version, fleet_sid=self._solution['fleet_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a CertificateContext
+        
+        :param sid: Provides a 34 character string that uniquely identifies the requested Certificate credential resource.
+        
+        :returns: twilio.rest.preview.deployed_devices.fleet.certificate.CertificateContext
+        :rtype: twilio.rest.preview.deployed_devices.fleet.certificate.CertificateContext
+        """
+        return CertificateContext(self._version, fleet_sid=self._solution['fleet_sid'], sid=sid)
 
     def __repr__(self):
         """
@@ -161,8 +203,8 @@ class CertificatePage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.preview.deployed_devices.certificate.CertificatePage
-        :rtype: twilio.rest.preview.deployed_devices.certificate.CertificatePage
+        :returns: twilio.rest.preview.deployed_devices.fleet.certificate.CertificatePage
+        :rtype: twilio.rest.preview.deployed_devices.fleet.certificate.CertificatePage
         """
         super().__init__(version, response)
 
@@ -175,8 +217,8 @@ class CertificatePage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.preview.deployed_devices.certificate.CertificateInstance
-        :rtype: twilio.rest.preview.deployed_devices.certificate.CertificateInstance
+        :returns: twilio.rest.preview.deployed_devices.fleet.certificate.CertificateInstance
+        :rtype: twilio.rest.preview.deployed_devices.fleet.certificate.CertificateInstance
         """
         return CertificateInstance(self._version, payload, fleet_sid=self._solution['fleet_sid'])
 
@@ -230,9 +272,9 @@ class CertificateContext(InstanceContext):
 
         
     
-    def update(self, body):
+    def update(self, friendly_name, device_sid):
         data = values.of({
-            'body': body,
+            'friendly_name': friendly_name,'device_sid': device_sid,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

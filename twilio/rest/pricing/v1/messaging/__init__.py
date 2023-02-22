@@ -29,31 +29,33 @@ class MessagingList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the MessagingList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.pricing.v1.messaging..MessagingList
-        :rtype: twilio.pricing.v1.messaging..MessagingList
+        :returns: twilio.rest.pricing.v1.messaging.MessagingList
+        :rtype: twilio.rest.pricing.v1.messaging.MessagingList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = {  }
         self._uri = '/Messaging'.format(**self._solution)
-
+        
         self._countries = None
-
+        
 
     @property
     def countries(self):
         """
         Access the countries
 
-        :returns: twilio.rest.pricing.v1.messaging.countries.CountryList
-        :rtype: twilio.rest.pricing.v1.messaging.countries.CountryList
+        :returns: twilio.rest.pricing.v1.messaging.CountryList
+        :rtype: twilio.rest.pricing.v1.messaging.CountryList
         """
         if self._countries is None:
             self._countries = CountryList(self._version)
         return self.countries
+
 
     def __repr__(self):
         """

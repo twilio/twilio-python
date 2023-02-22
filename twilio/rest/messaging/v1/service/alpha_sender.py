@@ -28,21 +28,37 @@ class AlphaSenderList(ListResource):
     def __init__(self, version: Version, service_sid: str):
         """
         Initialize the AlphaSenderList
+
         :param Version version: Version that contains the resource
         :param service_sid: The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to read the resources from.
         
-        :returns: twilio.messaging.v1.alpha_sender..AlphaSenderList
-        :rtype: twilio.messaging.v1.alpha_sender..AlphaSenderList
+        :returns: twilio.rest.messaging.v1.service.alpha_sender.AlphaSenderList
+        :rtype: twilio.rest.messaging.v1.service.alpha_sender.AlphaSenderList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = { 'service_sid': service_sid,  }
         self._uri = '/Services/${service_sid}/AlphaSenders'.format(**self._solution)
-
-
+        
+        
     
     
+    
+    def create(self, alpha_sender):
+        """
+        Create the AlphaSenderInstance
+        :param str alpha_sender: The Alphanumeric Sender ID string. Can be up to 11 characters long. Valid characters are A-Z, a-z, 0-9, space, hyphen `-`, plus `+`, underscore `_` and ampersand `&`. This value cannot contain only numbers.
+        
+        :returns: The created AlphaSenderInstance
+        :rtype: twilio.rest.messaging.v1.service.alpha_sender.AlphaSenderInstance
+        """
+        data = values.of({ 
+            'AlphaSender': alpha_sender,
+        })
+
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return AlphaSenderInstance(self._version, payload, service_sid=self._solution['service_sid'])
     
     
     def stream(self, limit=None, page_size=None):
@@ -60,7 +76,7 @@ class AlphaSenderList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.messaging.v1.alpha_sender.AlphaSenderInstance]
+        :rtype: list[twilio.rest.messaging.v1.service.alpha_sender.AlphaSenderInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -83,7 +99,7 @@ class AlphaSenderList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.messaging.v1.alpha_sender.AlphaSenderInstance]
+        :rtype: list[twilio.rest.messaging.v1.service.alpha_sender.AlphaSenderInstance]
         """
         return list(self.stream(
             limit=limit,
@@ -100,7 +116,7 @@ class AlphaSenderList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of AlphaSenderInstance
-        :rtype: twilio.rest.messaging.v1.alpha_sender.AlphaSenderPage
+        :rtype: twilio.rest.messaging.v1.service.alpha_sender.AlphaSenderPage
         """
         data = values.of({ 
             'PageToken': page_token,
@@ -119,7 +135,7 @@ class AlphaSenderList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of AlphaSenderInstance
-        :rtype: twilio.rest.messaging.v1.alpha_sender.AlphaSenderPage
+        :rtype: twilio.rest.messaging.v1.service.alpha_sender.AlphaSenderPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -127,6 +143,28 @@ class AlphaSenderList(ListResource):
         )
         return AlphaSenderPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a AlphaSenderContext
+        
+        :param sid: The SID of the AlphaSender resource to fetch.
+        
+        :returns: twilio.rest.messaging.v1.service.alpha_sender.AlphaSenderContext
+        :rtype: twilio.rest.messaging.v1.service.alpha_sender.AlphaSenderContext
+        """
+        return AlphaSenderContext(self._version, service_sid=self._solution['service_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a AlphaSenderContext
+        
+        :param sid: The SID of the AlphaSender resource to fetch.
+        
+        :returns: twilio.rest.messaging.v1.service.alpha_sender.AlphaSenderContext
+        :rtype: twilio.rest.messaging.v1.service.alpha_sender.AlphaSenderContext
+        """
+        return AlphaSenderContext(self._version, service_sid=self._solution['service_sid'], sid=sid)
 
     def __repr__(self):
         """
@@ -152,8 +190,8 @@ class AlphaSenderPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.messaging.v1.alpha_sender.AlphaSenderPage
-        :rtype: twilio.rest.messaging.v1.alpha_sender.AlphaSenderPage
+        :returns: twilio.rest.messaging.v1.service.alpha_sender.AlphaSenderPage
+        :rtype: twilio.rest.messaging.v1.service.alpha_sender.AlphaSenderPage
         """
         super().__init__(version, response)
 
@@ -166,8 +204,8 @@ class AlphaSenderPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.messaging.v1.alpha_sender.AlphaSenderInstance
-        :rtype: twilio.rest.messaging.v1.alpha_sender.AlphaSenderInstance
+        :returns: twilio.rest.messaging.v1.service.alpha_sender.AlphaSenderInstance
+        :rtype: twilio.rest.messaging.v1.service.alpha_sender.AlphaSenderInstance
         """
         return AlphaSenderInstance(self._version, payload, service_sid=self._solution['service_sid'])
 

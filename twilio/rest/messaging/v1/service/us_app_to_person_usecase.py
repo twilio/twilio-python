@@ -28,20 +28,22 @@ class UsAppToPersonUsecaseList(ListResource):
     def __init__(self, version: Version, messaging_service_sid: str):
         """
         Initialize the UsAppToPersonUsecaseList
+
         :param Version version: Version that contains the resource
         :param messaging_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/services/api) to fetch the resource from.
         
-        :returns: twilio.messaging.v1.us_app_to_person_usecase..UsAppToPersonUsecaseList
-        :rtype: twilio.messaging.v1.us_app_to_person_usecase..UsAppToPersonUsecaseList
+        :returns: twilio.rest.messaging.v1.service.us_app_to_person_usecase.UsAppToPersonUsecaseList
+        :rtype: twilio.rest.messaging.v1.service.us_app_to_person_usecase.UsAppToPersonUsecaseList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = { 'messaging_service_sid': messaging_service_sid,  }
         self._uri = '/Services/${messaging_service_sid}/Compliance/Usa2p/Usecases'.format(**self._solution)
-
-
+        
+        
     
+
 
     def __repr__(self):
         """

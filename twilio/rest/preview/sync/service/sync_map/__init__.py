@@ -30,21 +30,37 @@ class SyncMapList(ListResource):
     def __init__(self, version: Version, service_sid: str):
         """
         Initialize the SyncMapList
+
         :param Version version: Version that contains the resource
         :param service_sid: 
         
-        :returns: twilio.preview.sync.sync_map..SyncMapList
-        :rtype: twilio.preview.sync.sync_map..SyncMapList
+        :returns: twilio.rest.preview.sync.service.sync_map.SyncMapList
+        :rtype: twilio.rest.preview.sync.service.sync_map.SyncMapList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = { 'service_sid': service_sid,  }
         self._uri = '/Services/${service_sid}/Maps'.format(**self._solution)
-
-
+        
+        
     
     
+    
+    def create(self, unique_name=values.unset):
+        """
+        Create the SyncMapInstance
+        :param str unique_name: 
+        
+        :returns: The created SyncMapInstance
+        :rtype: twilio.rest.preview.sync.service.sync_map.SyncMapInstance
+        """
+        data = values.of({ 
+            'UniqueName': unique_name,
+        })
+
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return SyncMapInstance(self._version, payload, service_sid=self._solution['service_sid'])
     
     
     def stream(self, limit=None, page_size=None):
@@ -62,7 +78,7 @@ class SyncMapList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.preview.sync.sync_map.SyncMapInstance]
+        :rtype: list[twilio.rest.preview.sync.service.sync_map.SyncMapInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -85,7 +101,7 @@ class SyncMapList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.preview.sync.sync_map.SyncMapInstance]
+        :rtype: list[twilio.rest.preview.sync.service.sync_map.SyncMapInstance]
         """
         return list(self.stream(
             limit=limit,
@@ -102,7 +118,7 @@ class SyncMapList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of SyncMapInstance
-        :rtype: twilio.rest.preview.sync.sync_map.SyncMapPage
+        :rtype: twilio.rest.preview.sync.service.sync_map.SyncMapPage
         """
         data = values.of({ 
             'PageToken': page_token,
@@ -121,7 +137,7 @@ class SyncMapList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of SyncMapInstance
-        :rtype: twilio.rest.preview.sync.sync_map.SyncMapPage
+        :rtype: twilio.rest.preview.sync.service.sync_map.SyncMapPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -129,6 +145,28 @@ class SyncMapList(ListResource):
         )
         return SyncMapPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a SyncMapContext
+        
+        :param sid: 
+        
+        :returns: twilio.rest.preview.sync.service.sync_map.SyncMapContext
+        :rtype: twilio.rest.preview.sync.service.sync_map.SyncMapContext
+        """
+        return SyncMapContext(self._version, service_sid=self._solution['service_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a SyncMapContext
+        
+        :param sid: 
+        
+        :returns: twilio.rest.preview.sync.service.sync_map.SyncMapContext
+        :rtype: twilio.rest.preview.sync.service.sync_map.SyncMapContext
+        """
+        return SyncMapContext(self._version, service_sid=self._solution['service_sid'], sid=sid)
 
     def __repr__(self):
         """
@@ -154,8 +192,8 @@ class SyncMapPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.preview.sync.sync_map.SyncMapPage
-        :rtype: twilio.rest.preview.sync.sync_map.SyncMapPage
+        :returns: twilio.rest.preview.sync.service.sync_map.SyncMapPage
+        :rtype: twilio.rest.preview.sync.service.sync_map.SyncMapPage
         """
         super().__init__(version, response)
 
@@ -168,8 +206,8 @@ class SyncMapPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.preview.sync.sync_map.SyncMapInstance
-        :rtype: twilio.rest.preview.sync.sync_map.SyncMapInstance
+        :returns: twilio.rest.preview.sync.service.sync_map.SyncMapInstance
+        :rtype: twilio.rest.preview.sync.service.sync_map.SyncMapInstance
         """
         return SyncMapInstance(self._version, payload, service_sid=self._solution['service_sid'])
 

@@ -28,18 +28,19 @@ class CallSummariesList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the CallSummariesList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.insights.v1.call_summaries..CallSummariesList
-        :rtype: twilio.insights.v1.call_summaries..CallSummariesList
+        :returns: twilio.rest.insights.v1.call_summaries.CallSummariesList
+        :rtype: twilio.rest.insights.v1.call_summaries.CallSummariesList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = {  }
         self._uri = '/Voice/Summaries'.format(**self._solution)
-
-
+        
+        
     
     def stream(self, from_=values.unset, to=values.unset, from_carrier=values.unset, to_carrier=values.unset, from_country_code=values.unset, to_country_code=values.unset, branded=values.unset, verified_caller=values.unset, has_tag=values.unset, start_time=values.unset, end_time=values.unset, call_type=values.unset, call_state=values.unset, direction=values.unset, processing_state=values.unset, sort_by=values.unset, subaccount=values.unset, abnormal_session=values.unset, limit=None, page_size=None):
         """
@@ -232,6 +233,7 @@ class CallSummariesList(ListResource):
         return CallSummariesPage(self._version, response, self._solution)
 
 
+
     def __repr__(self):
         """
         Provide a friendly representation
@@ -281,6 +283,60 @@ class CallSummariesPage(Page):
 
 
 
+
+
+class CallSummariesInstance(InstanceResource):
+    def __init__(self, version, payload):
+        super().__init__(version)
+        self._properties = { 
+            'account_sid' : payload.get('account_sid'),
+            'call_sid' : payload.get('call_sid'),
+            'answered_by' : payload.get('answered_by'),
+            'call_type' : payload.get('call_type'),
+            'call_state' : payload.get('call_state'),
+            'processing_state' : payload.get('processing_state'),
+            'created_time' : payload.get('created_time'),
+            'start_time' : payload.get('start_time'),
+            'end_time' : payload.get('end_time'),
+            'duration' : payload.get('duration'),
+            'connect_duration' : payload.get('connect_duration'),
+            '_from' : payload.get('from'),
+            'to' : payload.get('to'),
+            'carrier_edge' : payload.get('carrier_edge'),
+            'client_edge' : payload.get('client_edge'),
+            'sdk_edge' : payload.get('sdk_edge'),
+            'sip_edge' : payload.get('sip_edge'),
+            'tags' : payload.get('tags'),
+            'url' : payload.get('url'),
+            'attributes' : payload.get('attributes'),
+            'properties' : payload.get('properties'),
+            'trust' : payload.get('trust'),
+        }
+
+        self._context = None
+        self._solution = {
+            
+        }
+
+    @property
+    def _proxy(self):
+        if self._context is None:
+            self._context = CallSummariesContext(
+                self._version,
+                
+            )
+        return self._context
+
+    
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Insights.V1.CallSummariesInstance {}>'.format(context)
 
 
 

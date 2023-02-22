@@ -28,19 +28,35 @@ class BundleCopyList(ListResource):
     def __init__(self, version: Version, bundle_sid: str):
         """
         Initialize the BundleCopyList
+
         :param Version version: Version that contains the resource
         :param bundle_sid: The unique string that we created to identify the Bundle resource.
         
-        :returns: twilio.numbers.v2.bundle_copy..BundleCopyList
-        :rtype: twilio.numbers.v2.bundle_copy..BundleCopyList
+        :returns: twilio.rest.numbers.v2.regulatory_compliance.bundle.bundle_copy.BundleCopyList
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.bundle_copy.BundleCopyList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = { 'bundle_sid': bundle_sid,  }
         self._uri = '/RegulatoryCompliance/Bundles/${bundle_sid}/Copies'.format(**self._solution)
+        
+        
+    
+    def create(self, friendly_name=values.unset):
+        """
+        Create the BundleCopyInstance
+        :param str friendly_name: The string that you assigned to describe the copied bundle.
+        
+        :returns: The created BundleCopyInstance
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.bundle_copy.BundleCopyInstance
+        """
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+        })
 
-
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return BundleCopyInstance(self._version, payload, bundle_sid=self._solution['bundle_sid'])
     
     
     def stream(self, limit=None, page_size=None):
@@ -58,7 +74,7 @@ class BundleCopyList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.numbers.v2.bundle_copy.BundleCopyInstance]
+        :rtype: list[twilio.rest.numbers.v2.regulatory_compliance.bundle.bundle_copy.BundleCopyInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -81,7 +97,7 @@ class BundleCopyList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.numbers.v2.bundle_copy.BundleCopyInstance]
+        :rtype: list[twilio.rest.numbers.v2.regulatory_compliance.bundle.bundle_copy.BundleCopyInstance]
         """
         return list(self.stream(
             limit=limit,
@@ -98,7 +114,7 @@ class BundleCopyList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of BundleCopyInstance
-        :rtype: twilio.rest.numbers.v2.bundle_copy.BundleCopyPage
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.bundle_copy.BundleCopyPage
         """
         data = values.of({ 
             'PageToken': page_token,
@@ -117,13 +133,14 @@ class BundleCopyList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of BundleCopyInstance
-        :rtype: twilio.rest.numbers.v2.bundle_copy.BundleCopyPage
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.bundle_copy.BundleCopyPage
         """
         response = self._version.domain.twilio.request(
             'GET',
             target_url
         )
         return BundleCopyPage(self._version, response, self._solution)
+
 
 
     def __repr__(self):
@@ -146,8 +163,8 @@ class BundleCopyPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.numbers.v2.bundle_copy.BundleCopyPage
-        :rtype: twilio.rest.numbers.v2.bundle_copy.BundleCopyPage
+        :returns: twilio.rest.numbers.v2.regulatory_compliance.bundle.bundle_copy.BundleCopyPage
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.bundle_copy.BundleCopyPage
         """
         super().__init__(version, response)
 
@@ -160,8 +177,8 @@ class BundleCopyPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.numbers.v2.bundle_copy.BundleCopyInstance
-        :rtype: twilio.rest.numbers.v2.bundle_copy.BundleCopyInstance
+        :returns: twilio.rest.numbers.v2.regulatory_compliance.bundle.bundle_copy.BundleCopyInstance
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.bundle_copy.BundleCopyInstance
         """
         return BundleCopyInstance(self._version, payload, bundle_sid=self._solution['bundle_sid'])
 

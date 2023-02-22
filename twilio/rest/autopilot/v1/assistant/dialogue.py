@@ -28,20 +28,43 @@ class DialogueList(ListResource):
     def __init__(self, version: Version, assistant_sid: str):
         """
         Initialize the DialogueList
+
         :param Version version: Version that contains the resource
         :param assistant_sid: The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the resource to fetch.
         
-        :returns: twilio.autopilot.v1.dialogue..DialogueList
-        :rtype: twilio.autopilot.v1.dialogue..DialogueList
+        :returns: twilio.rest.autopilot.v1.assistant.dialogue.DialogueList
+        :rtype: twilio.rest.autopilot.v1.assistant.dialogue.DialogueList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = { 'assistant_sid': assistant_sid,  }
-        self._uri = ''.format(**self._solution)
-
-
+        
+        
+        
     
+
+    def get(self, sid):
+        """
+        Constructs a DialogueContext
+        
+        :param sid: The Twilio-provided string that uniquely identifies the Dialogue resource to fetch.
+        
+        :returns: twilio.rest.autopilot.v1.assistant.dialogue.DialogueContext
+        :rtype: twilio.rest.autopilot.v1.assistant.dialogue.DialogueContext
+        """
+        return DialogueContext(self._version, assistant_sid=self._solution['assistant_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a DialogueContext
+        
+        :param sid: The Twilio-provided string that uniquely identifies the Dialogue resource to fetch.
+        
+        :returns: twilio.rest.autopilot.v1.assistant.dialogue.DialogueContext
+        :rtype: twilio.rest.autopilot.v1.assistant.dialogue.DialogueContext
+        """
+        return DialogueContext(self._version, assistant_sid=self._solution['assistant_sid'], sid=sid)
 
     def __repr__(self):
         """

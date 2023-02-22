@@ -28,19 +28,53 @@ class InsightsSessionList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the InsightsSessionList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.flex_api.v1.insights_session..InsightsSessionList
-        :rtype: twilio.flex_api.v1.insights_session..InsightsSessionList
+        :returns: twilio.rest.flex_api.v1.insights_session.InsightsSessionList
+        :rtype: twilio.rest.flex_api.v1.insights_session.InsightsSessionList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = {  }
-        self._uri = ''.format(**self._solution)
-
-
+        
+        
+        
     
+    def create(self, authorization=values.unset):
+        """
+        Create the InsightsSessionInstance
+        :param str authorization: The Authorization HTTP request header
+        
+        :returns: The created InsightsSessionInstance
+        :rtype: twilio.rest.flex_api.v1.insights_session.InsightsSessionInstance
+        """
+        data = values.of({ 
+            'Authorization': authorization,
+        })
+
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return InsightsSessionInstance(self._version, payload)
+    
+
+    def get(self):
+        """
+        Constructs a InsightsSessionContext
+        
+        :returns: twilio.rest.flex_api.v1.insights_session.InsightsSessionContext
+        :rtype: twilio.rest.flex_api.v1.insights_session.InsightsSessionContext
+        """
+        return InsightsSessionContext(self._version)
+
+    def __call__(self):
+        """
+        Constructs a InsightsSessionContext
+        
+        :returns: twilio.rest.flex_api.v1.insights_session.InsightsSessionContext
+        :rtype: twilio.rest.flex_api.v1.insights_session.InsightsSessionContext
+        """
+        return InsightsSessionContext(self._version)
 
     def __repr__(self):
         """

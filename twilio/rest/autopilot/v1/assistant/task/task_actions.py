@@ -28,22 +28,41 @@ class TaskActionsList(ListResource):
     def __init__(self, version: Version, assistant_sid: str, task_sid: str):
         """
         Initialize the TaskActionsList
+
         :param Version version: Version that contains the resource
         :param assistant_sid: The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the Task for which the task actions to fetch were defined.
         :param task_sid: The SID of the [Task](https://www.twilio.com/docs/autopilot/api/task) for which the task actions to fetch were defined.
         
-        :returns: twilio.autopilot.v1.task_actions..TaskActionsList
-        :rtype: twilio.autopilot.v1.task_actions..TaskActionsList
+        :returns: twilio.rest.autopilot.v1.assistant.task.task_actions.TaskActionsList
+        :rtype: twilio.rest.autopilot.v1.assistant.task.task_actions.TaskActionsList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = { 'assistant_sid': assistant_sid, 'task_sid': task_sid,  }
-        self._uri = ''.format(**self._solution)
-
-
+        
+        
+        
     
     
+
+    def get(self):
+        """
+        Constructs a TaskActionsContext
+        
+        :returns: twilio.rest.autopilot.v1.assistant.task.task_actions.TaskActionsContext
+        :rtype: twilio.rest.autopilot.v1.assistant.task.task_actions.TaskActionsContext
+        """
+        return TaskActionsContext(self._version, assistant_sid=self._solution['assistant_sid'], task_sid=self._solution['task_sid'])
+
+    def __call__(self):
+        """
+        Constructs a TaskActionsContext
+        
+        :returns: twilio.rest.autopilot.v1.assistant.task.task_actions.TaskActionsContext
+        :rtype: twilio.rest.autopilot.v1.assistant.task.task_actions.TaskActionsContext
+        """
+        return TaskActionsContext(self._version, assistant_sid=self._solution['assistant_sid'], task_sid=self._solution['task_sid'])
 
     def __repr__(self):
         """
@@ -79,9 +98,9 @@ class TaskActionsContext(InstanceContext):
 
         
     
-    def update(self, body):
+    def update(self, actions):
         data = values.of({
-            'body': body,
+            'actions': actions,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

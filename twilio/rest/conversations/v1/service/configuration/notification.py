@@ -28,21 +28,40 @@ class NotificationList(ListResource):
     def __init__(self, version: Version, chat_service_sid: str):
         """
         Initialize the NotificationList
+
         :param Version version: Version that contains the resource
         :param chat_service_sid: The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Configuration applies to.
         
-        :returns: twilio.conversations.v1.notification..NotificationList
-        :rtype: twilio.conversations.v1.notification..NotificationList
+        :returns: twilio.rest.conversations.v1.service.configuration.notification.NotificationList
+        :rtype: twilio.rest.conversations.v1.service.configuration.notification.NotificationList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = { 'chat_service_sid': chat_service_sid,  }
-        self._uri = ''.format(**self._solution)
-
-
+        
+        
+        
     
     
+
+    def get(self):
+        """
+        Constructs a NotificationContext
+        
+        :returns: twilio.rest.conversations.v1.service.configuration.notification.NotificationContext
+        :rtype: twilio.rest.conversations.v1.service.configuration.notification.NotificationContext
+        """
+        return NotificationContext(self._version, chat_service_sid=self._solution['chat_service_sid'])
+
+    def __call__(self):
+        """
+        Constructs a NotificationContext
+        
+        :returns: twilio.rest.conversations.v1.service.configuration.notification.NotificationContext
+        :rtype: twilio.rest.conversations.v1.service.configuration.notification.NotificationContext
+        """
+        return NotificationContext(self._version, chat_service_sid=self._solution['chat_service_sid'])
 
     def __repr__(self):
         """
@@ -78,9 +97,9 @@ class NotificationContext(InstanceContext):
 
         
     
-    def update(self, body):
+    def update(self, log_enabled, new_message_enabled, new_message_template, new_message_sound, new_message_badge_count_enabled, added_to_conversation_enabled, added_to_conversation_template, added_to_conversation_sound, removed_from_conversation_enabled, removed_from_conversation_template, removed_from_conversation_sound, new_message_with_media_enabled, new_message_with_media_template):
         data = values.of({
-            'body': body,
+            'log_enabled': log_enabled,'new_message_enabled': new_message_enabled,'new_message_template': new_message_template,'new_message_sound': new_message_sound,'new_message_badge_count_enabled': new_message_badge_count_enabled,'added_to_conversation_enabled': added_to_conversation_enabled,'added_to_conversation_template': added_to_conversation_template,'added_to_conversation_sound': added_to_conversation_sound,'removed_from_conversation_enabled': removed_from_conversation_enabled,'removed_from_conversation_template': removed_from_conversation_template,'removed_from_conversation_sound': removed_from_conversation_sound,'new_message_with_media_enabled': new_message_with_media_enabled,'new_message_with_media_template': new_message_with_media_template,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

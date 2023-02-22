@@ -28,23 +28,45 @@ class SyncListItemList(ListResource):
     def __init__(self, version: Version, service_sid: str, list_sid: str):
         """
         Initialize the SyncListItemList
+
         :param Version version: Version that contains the resource
         :param service_sid: The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the List Item resources to read.
         :param list_sid: The SID of the Sync List with the List Items to read. Can be the Sync List resource's `sid` or its `unique_name`.
         
-        :returns: twilio.sync.v1.sync_list_item..SyncListItemList
-        :rtype: twilio.sync.v1.sync_list_item..SyncListItemList
+        :returns: twilio.rest.sync.v1.service.sync_list.sync_list_item.SyncListItemList
+        :rtype: twilio.rest.sync.v1.service.sync_list.sync_list_item.SyncListItemList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = { 'service_sid': service_sid, 'list_sid': list_sid,  }
         self._uri = '/Services/${service_sid}/Lists/${list_sid}/Items'.format(**self._solution)
+        
+        
+    
+    
+    
+    
+    def create(self, data, ttl=values.unset, item_ttl=values.unset, collection_ttl=values.unset):
+        """
+        Create the SyncListItemInstance
+        :param object data: A JSON string that represents an arbitrary, schema-less object that the List Item stores. Can be up to 16 KiB in length.
+        :param int ttl: An alias for `item_ttl`. If both parameters are provided, this value is ignored.
+        :param int item_ttl: How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the List Item expires (time-to-live) and is deleted.
+        :param int collection_ttl: How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the List Item's parent Sync List expires (time-to-live) and is deleted.
+        
+        :returns: The created SyncListItemInstance
+        :rtype: twilio.rest.sync.v1.service.sync_list.sync_list_item.SyncListItemInstance
+        """
+        data = values.of({ 
+            'Data': serialize.object(data),
+            'Ttl': ttl,
+            'ItemTtl': item_ttl,
+            'CollectionTtl': collection_ttl,
+        })
 
-
-    
-    
-    
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return SyncListItemInstance(self._version, payload, service_sid=self._solution['service_sid'], list_sid=self._solution['list_sid'])
     
     
     def stream(self, order=values.unset, from_=values.unset, bounds=values.unset, limit=None, page_size=None):
@@ -65,7 +87,7 @@ class SyncListItemList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.sync.v1.sync_list_item.SyncListItemInstance]
+        :rtype: list[twilio.rest.sync.v1.service.sync_list.sync_list_item.SyncListItemInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -94,7 +116,7 @@ class SyncListItemList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.sync.v1.sync_list_item.SyncListItemInstance]
+        :rtype: list[twilio.rest.sync.v1.service.sync_list.sync_list_item.SyncListItemInstance]
         """
         return list(self.stream(
             order=order,
@@ -117,7 +139,7 @@ class SyncListItemList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of SyncListItemInstance
-        :rtype: twilio.rest.sync.v1.sync_list_item.SyncListItemPage
+        :rtype: twilio.rest.sync.v1.service.sync_list.sync_list_item.SyncListItemPage
         """
         data = values.of({ 
             'Order': order,
@@ -139,7 +161,7 @@ class SyncListItemList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of SyncListItemInstance
-        :rtype: twilio.rest.sync.v1.sync_list_item.SyncListItemPage
+        :rtype: twilio.rest.sync.v1.service.sync_list.sync_list_item.SyncListItemPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -147,6 +169,28 @@ class SyncListItemList(ListResource):
         )
         return SyncListItemPage(self._version, response, self._solution)
 
+
+    def get(self, index):
+        """
+        Constructs a SyncListItemContext
+        
+        :param index: The index of the Sync List Item resource to update.
+        
+        :returns: twilio.rest.sync.v1.service.sync_list.sync_list_item.SyncListItemContext
+        :rtype: twilio.rest.sync.v1.service.sync_list.sync_list_item.SyncListItemContext
+        """
+        return SyncListItemContext(self._version, service_sid=self._solution['service_sid'], list_sid=self._solution['list_sid'], index=index)
+
+    def __call__(self, index):
+        """
+        Constructs a SyncListItemContext
+        
+        :param index: The index of the Sync List Item resource to update.
+        
+        :returns: twilio.rest.sync.v1.service.sync_list.sync_list_item.SyncListItemContext
+        :rtype: twilio.rest.sync.v1.service.sync_list.sync_list_item.SyncListItemContext
+        """
+        return SyncListItemContext(self._version, service_sid=self._solution['service_sid'], list_sid=self._solution['list_sid'], index=index)
 
     def __repr__(self):
         """
@@ -174,8 +218,8 @@ class SyncListItemPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.sync.v1.sync_list_item.SyncListItemPage
-        :rtype: twilio.rest.sync.v1.sync_list_item.SyncListItemPage
+        :returns: twilio.rest.sync.v1.service.sync_list.sync_list_item.SyncListItemPage
+        :rtype: twilio.rest.sync.v1.service.sync_list.sync_list_item.SyncListItemPage
         """
         super().__init__(version, response)
 
@@ -188,8 +232,8 @@ class SyncListItemPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.sync.v1.sync_list_item.SyncListItemInstance
-        :rtype: twilio.rest.sync.v1.sync_list_item.SyncListItemInstance
+        :returns: twilio.rest.sync.v1.service.sync_list.sync_list_item.SyncListItemInstance
+        :rtype: twilio.rest.sync.v1.service.sync_list.sync_list_item.SyncListItemInstance
         """
         return SyncListItemInstance(self._version, payload, service_sid=self._solution['service_sid'], list_sid=self._solution['list_sid'])
 
@@ -243,9 +287,9 @@ class SyncListItemContext(InstanceContext):
 
         
     
-    def update(self, if_match, body):
+    def update(self, if_match, data, ttl, item_ttl, collection_ttl):
         data = values.of({
-            'if_match': if_match,'body': body,
+            'if_match': if_match,'data': data,'ttl': ttl,'item_ttl': item_ttl,'collection_ttl': collection_ttl,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

@@ -30,21 +30,41 @@ class SinkList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the SinkList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.events.v1.sink..SinkList
-        :rtype: twilio.events.v1.sink..SinkList
+        :returns: twilio.rest.events.v1.sink.SinkList
+        :rtype: twilio.rest.events.v1.sink.SinkList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = {  }
         self._uri = '/Sinks'.format(**self._solution)
+        
+        
+    
+    
+    
+    
+    def create(self, description, sink_configuration, sink_type):
+        """
+        Create the SinkInstance
+        :param str description: A human readable description for the Sink **This value should not contain PII.**
+        :param object sink_configuration: The information required for Twilio to connect to the provided Sink encoded as JSON.
+        :param SinkSinkType sink_type: 
+        
+        :returns: The created SinkInstance
+        :rtype: twilio.rest.events.v1.sink.SinkInstance
+        """
+        data = values.of({ 
+            'Description': description,
+            'SinkConfiguration': serialize.object(sink_configuration),
+            'SinkType': sink_type,
+        })
 
-
-    
-    
-    
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return SinkInstance(self._version, payload)
     
     
     def stream(self, in_use=values.unset, status=values.unset, limit=None, page_size=None):
@@ -141,6 +161,28 @@ class SinkList(ListResource):
         )
         return SinkPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a SinkContext
+        
+        :param sid: A 34 character string that uniquely identifies this Sink.
+        
+        :returns: twilio.rest.events.v1.sink.SinkContext
+        :rtype: twilio.rest.events.v1.sink.SinkContext
+        """
+        return SinkContext(self._version, sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a SinkContext
+        
+        :param sid: A 34 character string that uniquely identifies this Sink.
+        
+        :returns: twilio.rest.events.v1.sink.SinkContext
+        :rtype: twilio.rest.events.v1.sink.SinkContext
+        """
+        return SinkContext(self._version, sid=sid)
 
     def __repr__(self):
         """
@@ -239,9 +281,9 @@ class SinkContext(InstanceContext):
 
         
     
-    def update(self, body):
+    def update(self, description):
         data = values.of({
-            'body': body,
+            'description': description,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

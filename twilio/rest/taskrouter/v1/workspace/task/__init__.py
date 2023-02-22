@@ -29,22 +29,46 @@ class TaskList(ListResource):
     def __init__(self, version: Version, workspace_sid: str):
         """
         Initialize the TaskList
+
         :param Version version: Version that contains the resource
         :param workspace_sid: The SID of the Workspace with the Tasks to read.
         
-        :returns: twilio.taskrouter.v1.task..TaskList
-        :rtype: twilio.taskrouter.v1.task..TaskList
+        :returns: twilio.rest.taskrouter.v1.workspace.task.TaskList
+        :rtype: twilio.rest.taskrouter.v1.workspace.task.TaskList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = { 'workspace_sid': workspace_sid,  }
         self._uri = '/Workspaces/${workspace_sid}/Tasks'.format(**self._solution)
+        
+        
+    
+    
+    
+    
+    def create(self, timeout=values.unset, priority=values.unset, task_channel=values.unset, workflow_sid=values.unset, attributes=values.unset):
+        """
+        Create the TaskInstance
+        :param int timeout: The amount of time in seconds the new task can live before being assigned. Can be up to a maximum of 2 weeks (1,209,600 seconds). The default value is 24 hours (86,400 seconds). On timeout, the `task.canceled` event will fire with description `Task TTL Exceeded`.
+        :param int priority: The priority to assign the new task and override the default. When supplied, the new Task will have this priority unless it matches a Workflow Target with a Priority set. When not supplied, the new Task will have the priority of the matching Workflow Target. Value can be 0 to 2^31^ (2,147,483,647).
+        :param str task_channel: When MultiTasking is enabled, specify the TaskChannel by passing either its `unique_name` or `sid`. Default value is `default`.
+        :param str workflow_sid: The SID of the Workflow that you would like to handle routing for the new Task. If there is only one Workflow defined for the Workspace that you are posting the new task to, this parameter is optional.
+        :param str attributes: A URL-encoded JSON string with the attributes of the new task. This value is passed to the Workflow's `assignment_callback_url` when the Task is assigned to a Worker. For example: `{ \\\"task_type\\\": \\\"call\\\", \\\"twilio_call_sid\\\": \\\"CAxxx\\\", \\\"customer_ticket_number\\\": \\\"12345\\\" }`.
+        
+        :returns: The created TaskInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.task.TaskInstance
+        """
+        data = values.of({ 
+            'Timeout': timeout,
+            'Priority': priority,
+            'TaskChannel': task_channel,
+            'WorkflowSid': workflow_sid,
+            'Attributes': attributes,
+        })
 
-
-    
-    
-    
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return TaskInstance(self._version, payload, workspace_sid=self._solution['workspace_sid'])
     
     
     def stream(self, priority=values.unset, assignment_status=values.unset, workflow_sid=values.unset, workflow_name=values.unset, task_queue_sid=values.unset, task_queue_name=values.unset, evaluate_task_attributes=values.unset, ordering=values.unset, has_addons=values.unset, limit=None, page_size=None):
@@ -55,7 +79,7 @@ class TaskList(ListResource):
         The results are returned as a generator, so this operation is memory efficient.
         
         :param int priority: The priority value of the Tasks to read. Returns the list of all Tasks in the Workspace with the specified priority.
-        :param [str] assignment_status: The `assignment_status` of the Tasks you want to read. Can be: `pending`, `reserved`, `assigned`, `canceled`, `wrapping`, or `completed`. Returns all Tasks in the Workspace with the specified `assignment_status`.
+        :param list[str] assignment_status: The `assignment_status` of the Tasks you want to read. Can be: `pending`, `reserved`, `assigned`, `canceled`, `wrapping`, or `completed`. Returns all Tasks in the Workspace with the specified `assignment_status`.
         :param str workflow_sid: The SID of the Workflow with the Tasks to read. Returns the Tasks controlled by the Workflow identified by this SID.
         :param str workflow_name: The friendly name of the Workflow with the Tasks to read. Returns the Tasks controlled by the Workflow identified by this friendly name.
         :param str task_queue_sid: The SID of the TaskQueue with the Tasks to read. Returns the Tasks waiting in the TaskQueue identified by this SID.
@@ -71,7 +95,7 @@ class TaskList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.taskrouter.v1.task.TaskInstance]
+        :rtype: list[twilio.rest.taskrouter.v1.workspace.task.TaskInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -96,7 +120,7 @@ class TaskList(ListResource):
         memory before returning.
         
         :param int priority: The priority value of the Tasks to read. Returns the list of all Tasks in the Workspace with the specified priority.
-        :param [str] assignment_status: The `assignment_status` of the Tasks you want to read. Can be: `pending`, `reserved`, `assigned`, `canceled`, `wrapping`, or `completed`. Returns all Tasks in the Workspace with the specified `assignment_status`.
+        :param list[str] assignment_status: The `assignment_status` of the Tasks you want to read. Can be: `pending`, `reserved`, `assigned`, `canceled`, `wrapping`, or `completed`. Returns all Tasks in the Workspace with the specified `assignment_status`.
         :param str workflow_sid: The SID of the Workflow with the Tasks to read. Returns the Tasks controlled by the Workflow identified by this SID.
         :param str workflow_name: The friendly name of the Workflow with the Tasks to read. Returns the Tasks controlled by the Workflow identified by this friendly name.
         :param str task_queue_sid: The SID of the TaskQueue with the Tasks to read. Returns the Tasks waiting in the TaskQueue identified by this SID.
@@ -112,7 +136,7 @@ class TaskList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.taskrouter.v1.task.TaskInstance]
+        :rtype: list[twilio.rest.taskrouter.v1.workspace.task.TaskInstance]
         """
         return list(self.stream(
             priority=priority,
@@ -134,7 +158,7 @@ class TaskList(ListResource):
         Request is executed immediately
         
         :param int priority: The priority value of the Tasks to read. Returns the list of all Tasks in the Workspace with the specified priority.
-        :param [str] assignment_status: The `assignment_status` of the Tasks you want to read. Can be: `pending`, `reserved`, `assigned`, `canceled`, `wrapping`, or `completed`. Returns all Tasks in the Workspace with the specified `assignment_status`.
+        :param list[str] assignment_status: The `assignment_status` of the Tasks you want to read. Can be: `pending`, `reserved`, `assigned`, `canceled`, `wrapping`, or `completed`. Returns all Tasks in the Workspace with the specified `assignment_status`.
         :param str workflow_sid: The SID of the Workflow with the Tasks to read. Returns the Tasks controlled by the Workflow identified by this SID.
         :param str workflow_name: The friendly name of the Workflow with the Tasks to read. Returns the Tasks controlled by the Workflow identified by this friendly name.
         :param str task_queue_sid: The SID of the TaskQueue with the Tasks to read. Returns the Tasks waiting in the TaskQueue identified by this SID.
@@ -147,11 +171,11 @@ class TaskList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of TaskInstance
-        :rtype: twilio.rest.taskrouter.v1.task.TaskPage
+        :rtype: twilio.rest.taskrouter.v1.workspace.task.TaskPage
         """
         data = values.of({ 
             'Priority': priority,
-            'AssignmentStatus': assignment_status,
+            'AssignmentStatus': serialize.map(assignment_status),
             'WorkflowSid': workflow_sid,
             'WorkflowName': workflow_name,
             'TaskQueueSid': task_queue_sid,
@@ -175,7 +199,7 @@ class TaskList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of TaskInstance
-        :rtype: twilio.rest.taskrouter.v1.task.TaskPage
+        :rtype: twilio.rest.taskrouter.v1.workspace.task.TaskPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -183,6 +207,28 @@ class TaskList(ListResource):
         )
         return TaskPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a TaskContext
+        
+        :param sid: The SID of the Task resource to update.
+        
+        :returns: twilio.rest.taskrouter.v1.workspace.task.TaskContext
+        :rtype: twilio.rest.taskrouter.v1.workspace.task.TaskContext
+        """
+        return TaskContext(self._version, workspace_sid=self._solution['workspace_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a TaskContext
+        
+        :param sid: The SID of the Task resource to update.
+        
+        :returns: twilio.rest.taskrouter.v1.workspace.task.TaskContext
+        :rtype: twilio.rest.taskrouter.v1.workspace.task.TaskContext
+        """
+        return TaskContext(self._version, workspace_sid=self._solution['workspace_sid'], sid=sid)
 
     def __repr__(self):
         """
@@ -210,8 +256,8 @@ class TaskPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.taskrouter.v1.task.TaskPage
-        :rtype: twilio.rest.taskrouter.v1.task.TaskPage
+        :returns: twilio.rest.taskrouter.v1.workspace.task.TaskPage
+        :rtype: twilio.rest.taskrouter.v1.workspace.task.TaskPage
         """
         super().__init__(version, response)
 
@@ -224,8 +270,8 @@ class TaskPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.taskrouter.v1.task.TaskInstance
-        :rtype: twilio.rest.taskrouter.v1.task.TaskInstance
+        :returns: twilio.rest.taskrouter.v1.workspace.task.TaskInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.task.TaskInstance
         """
         return TaskInstance(self._version, payload, workspace_sid=self._solution['workspace_sid'])
 
@@ -280,9 +326,9 @@ class TaskContext(InstanceContext):
 
         
     
-    def update(self, if_match, body):
+    def update(self, if_match, attributes, assignment_status, reason, priority, task_channel):
         data = values.of({
-            'if_match': if_match,'body': body,
+            'if_match': if_match,'attributes': attributes,'assignment_status': assignment_status,'reason': reason,'priority': priority,'task_channel': task_channel,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

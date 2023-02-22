@@ -28,19 +28,42 @@ class FormList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the FormList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.verify.v2.form..FormList
-        :rtype: twilio.verify.v2.form..FormList
+        :returns: twilio.rest.verify.v2.form.FormList
+        :rtype: twilio.rest.verify.v2.form.FormList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = {  }
-        self._uri = ''.format(**self._solution)
-
-
+        
+        
+        
     
+
+    def get(self, form_type):
+        """
+        Constructs a FormContext
+        
+        :param form_type: The Type of this Form. Currently only `form-push` is supported.
+        
+        :returns: twilio.rest.verify.v2.form.FormContext
+        :rtype: twilio.rest.verify.v2.form.FormContext
+        """
+        return FormContext(self._version, form_type=form_type)
+
+    def __call__(self, form_type):
+        """
+        Constructs a FormContext
+        
+        :param form_type: The Type of this Form. Currently only `form-push` is supported.
+        
+        :returns: twilio.rest.verify.v2.form.FormContext
+        :rtype: twilio.rest.verify.v2.form.FormContext
+        """
+        return FormContext(self._version, form_type=form_type)
 
     def __repr__(self):
         """

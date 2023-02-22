@@ -28,20 +28,21 @@ class MediaList(ListResource):
     def __init__(self, version: Version, account_sid: str, message_sid: str):
         """
         Initialize the MediaList
+
         :param Version version: Version that contains the resource
         :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Media resource(s) to read.
         :param message_sid: The SID of the Message resource that this Media resource belongs to.
         
-        :returns: twilio.api.v2010.media..MediaList
-        :rtype: twilio.api.v2010.media..MediaList
+        :returns: twilio.rest.api.v2010.account.message.media.MediaList
+        :rtype: twilio.rest.api.v2010.account.message.media.MediaList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = { 'account_sid': account_sid, 'message_sid': message_sid,  }
         self._uri = '/Accounts/${account_sid}/Messages/${message_sid}/Media.json'.format(**self._solution)
-
-
+        
+        
     
     
     
@@ -63,7 +64,7 @@ class MediaList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.media.MediaInstance]
+        :rtype: list[twilio.rest.api.v2010.account.message.media.MediaInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -92,7 +93,7 @@ class MediaList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.media.MediaInstance]
+        :rtype: list[twilio.rest.api.v2010.account.message.media.MediaInstance]
         """
         return list(self.stream(
             date_created=date_created,
@@ -115,12 +116,12 @@ class MediaList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of MediaInstance
-        :rtype: twilio.rest.api.v2010.media.MediaPage
+        :rtype: twilio.rest.api.v2010.account.message.media.MediaPage
         """
         data = values.of({ 
-            'DateCreated': date_created,
-            'DateCreated&lt;': date_created_before,
-            'DateCreated&gt;': date_created_after,
+            'DateCreated': serialize.iso8601_datetime(date_created),
+            'DateCreated<': serialize.iso8601_datetime(date_created_before),
+            'DateCreated>': serialize.iso8601_datetime(date_created_after),
             'PageToken': page_token,
             'Page': page_number,
             'PageSize': page_size,
@@ -137,7 +138,7 @@ class MediaList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of MediaInstance
-        :rtype: twilio.rest.api.v2010.media.MediaPage
+        :rtype: twilio.rest.api.v2010.account.message.media.MediaPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -145,6 +146,28 @@ class MediaList(ListResource):
         )
         return MediaPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a MediaContext
+        
+        :param sid: The Twilio-provided string that uniquely identifies the Media resource to fetch
+        
+        :returns: twilio.rest.api.v2010.account.message.media.MediaContext
+        :rtype: twilio.rest.api.v2010.account.message.media.MediaContext
+        """
+        return MediaContext(self._version, account_sid=self._solution['account_sid'], message_sid=self._solution['message_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a MediaContext
+        
+        :param sid: The Twilio-provided string that uniquely identifies the Media resource to fetch
+        
+        :returns: twilio.rest.api.v2010.account.message.media.MediaContext
+        :rtype: twilio.rest.api.v2010.account.message.media.MediaContext
+        """
+        return MediaContext(self._version, account_sid=self._solution['account_sid'], message_sid=self._solution['message_sid'], sid=sid)
 
     def __repr__(self):
         """
@@ -168,8 +191,8 @@ class MediaPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.api.v2010.media.MediaPage
-        :rtype: twilio.rest.api.v2010.media.MediaPage
+        :returns: twilio.rest.api.v2010.account.message.media.MediaPage
+        :rtype: twilio.rest.api.v2010.account.message.media.MediaPage
         """
         super().__init__(version, response)
 
@@ -182,8 +205,8 @@ class MediaPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.api.v2010.media.MediaInstance
-        :rtype: twilio.rest.api.v2010.media.MediaInstance
+        :returns: twilio.rest.api.v2010.account.message.media.MediaInstance
+        :rtype: twilio.rest.api.v2010.account.message.media.MediaInstance
         """
         return MediaInstance(self._version, payload, account_sid=self._solution['account_sid'], message_sid=self._solution['message_sid'])
 

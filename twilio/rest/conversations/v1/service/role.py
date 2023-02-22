@@ -28,22 +28,42 @@ class RoleList(ListResource):
     def __init__(self, version: Version, chat_service_sid: str):
         """
         Initialize the RoleList
+
         :param Version version: Version that contains the resource
         :param chat_service_sid: The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) to read the Role resources from.
         
-        :returns: twilio.conversations.v1.role..RoleList
-        :rtype: twilio.conversations.v1.role..RoleList
+        :returns: twilio.rest.conversations.v1.service.role.RoleList
+        :rtype: twilio.rest.conversations.v1.service.role.RoleList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = { 'chat_service_sid': chat_service_sid,  }
         self._uri = '/Services/${chat_service_sid}/Roles'.format(**self._solution)
+        
+        
+    
+    
+    
+    
+    def create(self, friendly_name, type, permission):
+        """
+        Create the RoleInstance
+        :param str friendly_name: A descriptive string that you create to describe the new resource. It can be up to 64 characters long.
+        :param ServiceRoleRoleType type: 
+        :param list[str] permission: A permission that you grant to the new role. Only one permission can be granted per parameter. To assign more than one permission, repeat this parameter for each permission value. The values for this parameter depend on the role's `type`.
+        
+        :returns: The created RoleInstance
+        :rtype: twilio.rest.conversations.v1.service.role.RoleInstance
+        """
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+            'Type': type,
+            'Permission': serialize.map(permission, lambda e: e),
+        })
 
-
-    
-    
-    
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return RoleInstance(self._version, payload, chat_service_sid=self._solution['chat_service_sid'])
     
     
     def stream(self, limit=None, page_size=None):
@@ -61,7 +81,7 @@ class RoleList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.conversations.v1.role.RoleInstance]
+        :rtype: list[twilio.rest.conversations.v1.service.role.RoleInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -84,7 +104,7 @@ class RoleList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.conversations.v1.role.RoleInstance]
+        :rtype: list[twilio.rest.conversations.v1.service.role.RoleInstance]
         """
         return list(self.stream(
             limit=limit,
@@ -101,7 +121,7 @@ class RoleList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of RoleInstance
-        :rtype: twilio.rest.conversations.v1.role.RolePage
+        :rtype: twilio.rest.conversations.v1.service.role.RolePage
         """
         data = values.of({ 
             'PageToken': page_token,
@@ -120,7 +140,7 @@ class RoleList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of RoleInstance
-        :rtype: twilio.rest.conversations.v1.role.RolePage
+        :rtype: twilio.rest.conversations.v1.service.role.RolePage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -128,6 +148,28 @@ class RoleList(ListResource):
         )
         return RolePage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a RoleContext
+        
+        :param sid: The SID of the Role resource to update.
+        
+        :returns: twilio.rest.conversations.v1.service.role.RoleContext
+        :rtype: twilio.rest.conversations.v1.service.role.RoleContext
+        """
+        return RoleContext(self._version, chat_service_sid=self._solution['chat_service_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a RoleContext
+        
+        :param sid: The SID of the Role resource to update.
+        
+        :returns: twilio.rest.conversations.v1.service.role.RoleContext
+        :rtype: twilio.rest.conversations.v1.service.role.RoleContext
+        """
+        return RoleContext(self._version, chat_service_sid=self._solution['chat_service_sid'], sid=sid)
 
     def __repr__(self):
         """
@@ -155,8 +197,8 @@ class RolePage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.conversations.v1.role.RolePage
-        :rtype: twilio.rest.conversations.v1.role.RolePage
+        :returns: twilio.rest.conversations.v1.service.role.RolePage
+        :rtype: twilio.rest.conversations.v1.service.role.RolePage
         """
         super().__init__(version, response)
 
@@ -169,8 +211,8 @@ class RolePage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.conversations.v1.role.RoleInstance
-        :rtype: twilio.rest.conversations.v1.role.RoleInstance
+        :returns: twilio.rest.conversations.v1.service.role.RoleInstance
+        :rtype: twilio.rest.conversations.v1.service.role.RoleInstance
         """
         return RoleInstance(self._version, payload, chat_service_sid=self._solution['chat_service_sid'])
 
@@ -224,9 +266,9 @@ class RoleContext(InstanceContext):
 
         
     
-    def update(self, body):
+    def update(self, permission):
         data = values.of({
-            'body': body,
+            'permission': permission,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

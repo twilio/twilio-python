@@ -28,19 +28,38 @@ class ExternalCampaignList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the ExternalCampaignList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.messaging.v1.external_campaign..ExternalCampaignList
-        :rtype: twilio.messaging.v1.external_campaign..ExternalCampaignList
+        :returns: twilio.rest.messaging.v1.external_campaign.ExternalCampaignList
+        :rtype: twilio.rest.messaging.v1.external_campaign.ExternalCampaignList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = {  }
         self._uri = '/Services/PreregisteredUsa2p'.format(**self._solution)
-
-
+        
+        
     
+    def create(self, campaign_id, messaging_service_sid):
+        """
+        Create the ExternalCampaignInstance
+        :param str campaign_id: ID of the preregistered campaign.
+        :param str messaging_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/services/api) that the resource is associated with.
+        
+        :returns: The created ExternalCampaignInstance
+        :rtype: twilio.rest.messaging.v1.external_campaign.ExternalCampaignInstance
+        """
+        data = values.of({ 
+            'CampaignId': campaign_id,
+            'MessagingServiceSid': messaging_service_sid,
+        })
+
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return ExternalCampaignInstance(self._version, payload)
+    
+
 
     def __repr__(self):
         """

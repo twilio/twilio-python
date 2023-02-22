@@ -28,19 +28,20 @@ class DayList(ListResource):
     def __init__(self, version: Version, resource_type: str):
         """
         Initialize the DayList
+
         :param Version version: Version that contains the resource
         :param resource_type: The type of communication – Messages, Calls, Conferences, and Participants
         
-        :returns: twilio.bulkexports.v1.day..DayList
-        :rtype: twilio.bulkexports.v1.day..DayList
+        :returns: twilio.rest.bulkexports.v1.export.day.DayList
+        :rtype: twilio.rest.bulkexports.v1.export.day.DayList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = { 'resource_type': resource_type,  }
         self._uri = '/Exports/${resource_type}/Days'.format(**self._solution)
-
-
+        
+        
     
     
     def stream(self, limit=None, page_size=None):
@@ -58,7 +59,7 @@ class DayList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.bulkexports.v1.day.DayInstance]
+        :rtype: list[twilio.rest.bulkexports.v1.export.day.DayInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -81,7 +82,7 @@ class DayList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.bulkexports.v1.day.DayInstance]
+        :rtype: list[twilio.rest.bulkexports.v1.export.day.DayInstance]
         """
         return list(self.stream(
             limit=limit,
@@ -98,7 +99,7 @@ class DayList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of DayInstance
-        :rtype: twilio.rest.bulkexports.v1.day.DayPage
+        :rtype: twilio.rest.bulkexports.v1.export.day.DayPage
         """
         data = values.of({ 
             'PageToken': page_token,
@@ -117,7 +118,7 @@ class DayList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of DayInstance
-        :rtype: twilio.rest.bulkexports.v1.day.DayPage
+        :rtype: twilio.rest.bulkexports.v1.export.day.DayPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -125,6 +126,28 @@ class DayList(ListResource):
         )
         return DayPage(self._version, response, self._solution)
 
+
+    def get(self, day):
+        """
+        Constructs a DayContext
+        
+        :param day: The ISO 8601 format date of the resources in the file, for a UTC day
+        
+        :returns: twilio.rest.bulkexports.v1.export.day.DayContext
+        :rtype: twilio.rest.bulkexports.v1.export.day.DayContext
+        """
+        return DayContext(self._version, resource_type=self._solution['resource_type'], day=day)
+
+    def __call__(self, day):
+        """
+        Constructs a DayContext
+        
+        :param day: The ISO 8601 format date of the resources in the file, for a UTC day
+        
+        :returns: twilio.rest.bulkexports.v1.export.day.DayContext
+        :rtype: twilio.rest.bulkexports.v1.export.day.DayContext
+        """
+        return DayContext(self._version, resource_type=self._solution['resource_type'], day=day)
 
     def __repr__(self):
         """
@@ -146,8 +169,8 @@ class DayPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.bulkexports.v1.day.DayPage
-        :rtype: twilio.rest.bulkexports.v1.day.DayPage
+        :returns: twilio.rest.bulkexports.v1.export.day.DayPage
+        :rtype: twilio.rest.bulkexports.v1.export.day.DayPage
         """
         super().__init__(version, response)
 
@@ -160,8 +183,8 @@ class DayPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.bulkexports.v1.day.DayInstance
-        :rtype: twilio.rest.bulkexports.v1.day.DayInstance
+        :returns: twilio.rest.bulkexports.v1.export.day.DayInstance
+        :rtype: twilio.rest.bulkexports.v1.export.day.DayInstance
         """
         return DayInstance(self._version, payload, resource_type=self._solution['resource_type'])
 
@@ -219,6 +242,11 @@ class DayInstance(InstanceResource):
         super().__init__(version)
         self._properties = { 
             'redirect_to' : payload.get('redirect_to'),
+            'day' : payload.get('day'),
+            'size' : payload.get('size'),
+            'create_date' : payload.get('create_date'),
+            'friendly_name' : payload.get('friendly_name'),
+            'resource_type' : payload.get('resource_type'),
         }
 
         self._context = None

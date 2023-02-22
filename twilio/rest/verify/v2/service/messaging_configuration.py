@@ -28,22 +28,40 @@ class MessagingConfigurationList(ListResource):
     def __init__(self, version: Version, service_sid: str):
         """
         Initialize the MessagingConfigurationList
+
         :param Version version: Version that contains the resource
         :param service_sid: The SID of the [Service](https://www.twilio.com/docs/verify/api/service) that the resource is associated with.
         
-        :returns: twilio.verify.v2.messaging_configuration..MessagingConfigurationList
-        :rtype: twilio.verify.v2.messaging_configuration..MessagingConfigurationList
+        :returns: twilio.rest.verify.v2.service.messaging_configuration.MessagingConfigurationList
+        :rtype: twilio.rest.verify.v2.service.messaging_configuration.MessagingConfigurationList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = { 'service_sid': service_sid,  }
         self._uri = '/Services/${service_sid}/MessagingConfigurations'.format(**self._solution)
+        
+        
+    
+    
+    
+    
+    def create(self, country, messaging_service_sid):
+        """
+        Create the MessagingConfigurationInstance
+        :param str country: The [ISO-3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code of the country this configuration will be applied to. If this is a global configuration, Country will take the value `all`.
+        :param str messaging_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) to be used to send SMS to the country of this configuration.
+        
+        :returns: The created MessagingConfigurationInstance
+        :rtype: twilio.rest.verify.v2.service.messaging_configuration.MessagingConfigurationInstance
+        """
+        data = values.of({ 
+            'Country': country,
+            'MessagingServiceSid': messaging_service_sid,
+        })
 
-
-    
-    
-    
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return MessagingConfigurationInstance(self._version, payload, service_sid=self._solution['service_sid'])
     
     
     def stream(self, limit=None, page_size=None):
@@ -61,7 +79,7 @@ class MessagingConfigurationList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.verify.v2.messaging_configuration.MessagingConfigurationInstance]
+        :rtype: list[twilio.rest.verify.v2.service.messaging_configuration.MessagingConfigurationInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -84,7 +102,7 @@ class MessagingConfigurationList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.verify.v2.messaging_configuration.MessagingConfigurationInstance]
+        :rtype: list[twilio.rest.verify.v2.service.messaging_configuration.MessagingConfigurationInstance]
         """
         return list(self.stream(
             limit=limit,
@@ -101,7 +119,7 @@ class MessagingConfigurationList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of MessagingConfigurationInstance
-        :rtype: twilio.rest.verify.v2.messaging_configuration.MessagingConfigurationPage
+        :rtype: twilio.rest.verify.v2.service.messaging_configuration.MessagingConfigurationPage
         """
         data = values.of({ 
             'PageToken': page_token,
@@ -120,7 +138,7 @@ class MessagingConfigurationList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of MessagingConfigurationInstance
-        :rtype: twilio.rest.verify.v2.messaging_configuration.MessagingConfigurationPage
+        :rtype: twilio.rest.verify.v2.service.messaging_configuration.MessagingConfigurationPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -128,6 +146,28 @@ class MessagingConfigurationList(ListResource):
         )
         return MessagingConfigurationPage(self._version, response, self._solution)
 
+
+    def get(self, country):
+        """
+        Constructs a MessagingConfigurationContext
+        
+        :param country: The [ISO-3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code of the country this configuration will be applied to. If this is a global configuration, Country will take the value `all`.
+        
+        :returns: twilio.rest.verify.v2.service.messaging_configuration.MessagingConfigurationContext
+        :rtype: twilio.rest.verify.v2.service.messaging_configuration.MessagingConfigurationContext
+        """
+        return MessagingConfigurationContext(self._version, service_sid=self._solution['service_sid'], country=country)
+
+    def __call__(self, country):
+        """
+        Constructs a MessagingConfigurationContext
+        
+        :param country: The [ISO-3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code of the country this configuration will be applied to. If this is a global configuration, Country will take the value `all`.
+        
+        :returns: twilio.rest.verify.v2.service.messaging_configuration.MessagingConfigurationContext
+        :rtype: twilio.rest.verify.v2.service.messaging_configuration.MessagingConfigurationContext
+        """
+        return MessagingConfigurationContext(self._version, service_sid=self._solution['service_sid'], country=country)
 
     def __repr__(self):
         """
@@ -155,8 +195,8 @@ class MessagingConfigurationPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.verify.v2.messaging_configuration.MessagingConfigurationPage
-        :rtype: twilio.rest.verify.v2.messaging_configuration.MessagingConfigurationPage
+        :returns: twilio.rest.verify.v2.service.messaging_configuration.MessagingConfigurationPage
+        :rtype: twilio.rest.verify.v2.service.messaging_configuration.MessagingConfigurationPage
         """
         super().__init__(version, response)
 
@@ -169,8 +209,8 @@ class MessagingConfigurationPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.verify.v2.messaging_configuration.MessagingConfigurationInstance
-        :rtype: twilio.rest.verify.v2.messaging_configuration.MessagingConfigurationInstance
+        :returns: twilio.rest.verify.v2.service.messaging_configuration.MessagingConfigurationInstance
+        :rtype: twilio.rest.verify.v2.service.messaging_configuration.MessagingConfigurationInstance
         """
         return MessagingConfigurationInstance(self._version, payload, service_sid=self._solution['service_sid'])
 
@@ -224,9 +264,9 @@ class MessagingConfigurationContext(InstanceContext):
 
         
     
-    def update(self, body):
+    def update(self, messaging_service_sid):
         data = values.of({
-            'body': body,
+            'messaging_service_sid': messaging_service_sid,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

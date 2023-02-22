@@ -28,19 +28,38 @@ class UserInfoList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the UserInfoList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.oauth.v1.user_info..UserInfoList
-        :rtype: twilio.oauth.v1.user_info..UserInfoList
+        :returns: twilio.rest.oauth.v1.user_info.UserInfoList
+        :rtype: twilio.rest.oauth.v1.user_info.UserInfoList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = {  }
-        self._uri = ''.format(**self._solution)
-
-
+        
+        
+        
     
+
+    def get(self):
+        """
+        Constructs a UserInfoContext
+        
+        :returns: twilio.rest.oauth.v1.user_info.UserInfoContext
+        :rtype: twilio.rest.oauth.v1.user_info.UserInfoContext
+        """
+        return UserInfoContext(self._version)
+
+    def __call__(self):
+        """
+        Constructs a UserInfoContext
+        
+        :returns: twilio.rest.oauth.v1.user_info.UserInfoContext
+        :rtype: twilio.rest.oauth.v1.user_info.UserInfoContext
+        """
+        return UserInfoContext(self._version)
 
     def __repr__(self):
         """

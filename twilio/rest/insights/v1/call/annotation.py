@@ -28,21 +28,40 @@ class AnnotationList(ListResource):
     def __init__(self, version: Version, call_sid: str):
         """
         Initialize the AnnotationList
+
         :param Version version: Version that contains the resource
         :param call_sid: The unique SID identifier of the Call.
         
-        :returns: twilio.insights.v1.annotation..AnnotationList
-        :rtype: twilio.insights.v1.annotation..AnnotationList
+        :returns: twilio.rest.insights.v1.call.annotation.AnnotationList
+        :rtype: twilio.rest.insights.v1.call.annotation.AnnotationList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = { 'call_sid': call_sid,  }
-        self._uri = ''.format(**self._solution)
-
-
+        
+        
+        
     
     
+
+    def get(self):
+        """
+        Constructs a AnnotationContext
+        
+        :returns: twilio.rest.insights.v1.call.annotation.AnnotationContext
+        :rtype: twilio.rest.insights.v1.call.annotation.AnnotationContext
+        """
+        return AnnotationContext(self._version, call_sid=self._solution['call_sid'])
+
+    def __call__(self):
+        """
+        Constructs a AnnotationContext
+        
+        :returns: twilio.rest.insights.v1.call.annotation.AnnotationContext
+        :rtype: twilio.rest.insights.v1.call.annotation.AnnotationContext
+        """
+        return AnnotationContext(self._version, call_sid=self._solution['call_sid'])
 
     def __repr__(self):
         """
@@ -78,9 +97,9 @@ class AnnotationContext(InstanceContext):
 
         
     
-    def update(self, body):
+    def update(self, answered_by, connectivity_issue, quality_issues, spam, call_score, comment, incident):
         data = values.of({
-            'body': body,
+            'answered_by': answered_by,'connectivity_issue': connectivity_issue,'quality_issues': quality_issues,'spam': spam,'call_score': call_score,'comment': comment,'incident': incident,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

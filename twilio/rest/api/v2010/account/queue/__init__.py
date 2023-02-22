@@ -29,22 +29,40 @@ class QueueList(ListResource):
     def __init__(self, version: Version, account_sid: str):
         """
         Initialize the QueueList
+
         :param Version version: Version that contains the resource
         :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Queue resources to read.
         
-        :returns: twilio.api.v2010.queue..QueueList
-        :rtype: twilio.api.v2010.queue..QueueList
+        :returns: twilio.rest.api.v2010.account.queue.QueueList
+        :rtype: twilio.rest.api.v2010.account.queue.QueueList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = { 'account_sid': account_sid,  }
         self._uri = '/Accounts/${account_sid}/Queues.json'.format(**self._solution)
+        
+        
+    
+    
+    
+    
+    def create(self, friendly_name, max_size=values.unset):
+        """
+        Create the QueueInstance
+        :param str friendly_name: A descriptive string that you created to describe this resource. It can be up to 64 characters long.
+        :param int max_size: The maximum number of calls allowed to be in the queue. The default is 100. The maximum is 5000.
+        
+        :returns: The created QueueInstance
+        :rtype: twilio.rest.api.v2010.account.queue.QueueInstance
+        """
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+            'MaxSize': max_size,
+        })
 
-
-    
-    
-    
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return QueueInstance(self._version, payload, account_sid=self._solution['account_sid'])
     
     
     def stream(self, limit=None, page_size=None):
@@ -62,7 +80,7 @@ class QueueList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.queue.QueueInstance]
+        :rtype: list[twilio.rest.api.v2010.account.queue.QueueInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -85,7 +103,7 @@ class QueueList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.queue.QueueInstance]
+        :rtype: list[twilio.rest.api.v2010.account.queue.QueueInstance]
         """
         return list(self.stream(
             limit=limit,
@@ -102,7 +120,7 @@ class QueueList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of QueueInstance
-        :rtype: twilio.rest.api.v2010.queue.QueuePage
+        :rtype: twilio.rest.api.v2010.account.queue.QueuePage
         """
         data = values.of({ 
             'PageToken': page_token,
@@ -121,7 +139,7 @@ class QueueList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of QueueInstance
-        :rtype: twilio.rest.api.v2010.queue.QueuePage
+        :rtype: twilio.rest.api.v2010.account.queue.QueuePage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -129,6 +147,28 @@ class QueueList(ListResource):
         )
         return QueuePage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a QueueContext
+        
+        :param sid: The Twilio-provided string that uniquely identifies the Queue resource to update
+        
+        :returns: twilio.rest.api.v2010.account.queue.QueueContext
+        :rtype: twilio.rest.api.v2010.account.queue.QueueContext
+        """
+        return QueueContext(self._version, account_sid=self._solution['account_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a QueueContext
+        
+        :param sid: The Twilio-provided string that uniquely identifies the Queue resource to update
+        
+        :returns: twilio.rest.api.v2010.account.queue.QueueContext
+        :rtype: twilio.rest.api.v2010.account.queue.QueueContext
+        """
+        return QueueContext(self._version, account_sid=self._solution['account_sid'], sid=sid)
 
     def __repr__(self):
         """
@@ -156,8 +196,8 @@ class QueuePage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.api.v2010.queue.QueuePage
-        :rtype: twilio.rest.api.v2010.queue.QueuePage
+        :returns: twilio.rest.api.v2010.account.queue.QueuePage
+        :rtype: twilio.rest.api.v2010.account.queue.QueuePage
         """
         super().__init__(version, response)
 
@@ -170,8 +210,8 @@ class QueuePage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.api.v2010.queue.QueueInstance
-        :rtype: twilio.rest.api.v2010.queue.QueueInstance
+        :returns: twilio.rest.api.v2010.account.queue.QueueInstance
+        :rtype: twilio.rest.api.v2010.account.queue.QueueInstance
         """
         return QueueInstance(self._version, payload, account_sid=self._solution['account_sid'])
 
@@ -226,9 +266,9 @@ class QueueContext(InstanceContext):
 
         
     
-    def update(self, body):
+    def update(self, friendly_name, max_size):
         data = values.of({
-            'body': body,
+            'friendly_name': friendly_name,'max_size': max_size,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

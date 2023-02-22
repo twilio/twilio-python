@@ -28,18 +28,19 @@ class LegacyContentList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the LegacyContentList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.content.v1.legacy_content..LegacyContentList
-        :rtype: twilio.content.v1.legacy_content..LegacyContentList
+        :returns: twilio.rest.content.v1.legacy_content.LegacyContentList
+        :rtype: twilio.rest.content.v1.legacy_content.LegacyContentList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = {  }
         self._uri = '/LegacyContent'.format(**self._solution)
-
-
+        
+        
     
     def stream(self, limit=None, page_size=None):
         """
@@ -124,6 +125,7 @@ class LegacyContentList(ListResource):
         return LegacyContentPage(self._version, response, self._solution)
 
 
+
     def __repr__(self):
         """
         Provide a friendly representation
@@ -173,6 +175,49 @@ class LegacyContentPage(Page):
 
 
 
+
+
+class LegacyContentInstance(InstanceResource):
+    def __init__(self, version, payload):
+        super().__init__(version)
+        self._properties = { 
+            'date_created' : payload.get('date_created'),
+            'date_updated' : payload.get('date_updated'),
+            'sid' : payload.get('sid'),
+            'account_sid' : payload.get('account_sid'),
+            'friendly_name' : payload.get('friendly_name'),
+            'language' : payload.get('language'),
+            'variables' : payload.get('variables'),
+            'types' : payload.get('types'),
+            'legacy_template_name' : payload.get('legacy_template_name'),
+            'legacy_body' : payload.get('legacy_body'),
+            'url' : payload.get('url'),
+        }
+
+        self._context = None
+        self._solution = {
+            
+        }
+
+    @property
+    def _proxy(self):
+        if self._context is None:
+            self._context = LegacyContentContext(
+                self._version,
+                
+            )
+        return self._context
+
+    
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Content.V1.LegacyContentInstance {}>'.format(context)
 
 
 

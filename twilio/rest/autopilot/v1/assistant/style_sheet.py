@@ -28,21 +28,40 @@ class StyleSheetList(ListResource):
     def __init__(self, version: Version, assistant_sid: str):
         """
         Initialize the StyleSheetList
+
         :param Version version: Version that contains the resource
         :param assistant_sid: The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the resource to fetch.
         
-        :returns: twilio.autopilot.v1.style_sheet..StyleSheetList
-        :rtype: twilio.autopilot.v1.style_sheet..StyleSheetList
+        :returns: twilio.rest.autopilot.v1.assistant.style_sheet.StyleSheetList
+        :rtype: twilio.rest.autopilot.v1.assistant.style_sheet.StyleSheetList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = { 'assistant_sid': assistant_sid,  }
-        self._uri = ''.format(**self._solution)
-
-
+        
+        
+        
     
     
+
+    def get(self):
+        """
+        Constructs a StyleSheetContext
+        
+        :returns: twilio.rest.autopilot.v1.assistant.style_sheet.StyleSheetContext
+        :rtype: twilio.rest.autopilot.v1.assistant.style_sheet.StyleSheetContext
+        """
+        return StyleSheetContext(self._version, assistant_sid=self._solution['assistant_sid'])
+
+    def __call__(self):
+        """
+        Constructs a StyleSheetContext
+        
+        :returns: twilio.rest.autopilot.v1.assistant.style_sheet.StyleSheetContext
+        :rtype: twilio.rest.autopilot.v1.assistant.style_sheet.StyleSheetContext
+        """
+        return StyleSheetContext(self._version, assistant_sid=self._solution['assistant_sid'])
 
     def __repr__(self):
         """
@@ -78,9 +97,9 @@ class StyleSheetContext(InstanceContext):
 
         
     
-    def update(self, body):
+    def update(self, style_sheet):
         data = values.of({
-            'body': body,
+            'style_sheet': style_sheet,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

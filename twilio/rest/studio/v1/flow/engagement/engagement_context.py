@@ -28,21 +28,40 @@ class EngagementContextList(ListResource):
     def __init__(self, version: Version, flow_sid: str, engagement_sid: str):
         """
         Initialize the EngagementContextList
+
         :param Version version: Version that contains the resource
         :param flow_sid: The SID of the Flow.
         :param engagement_sid: The SID of the Engagement.
         
-        :returns: twilio.studio.v1.engagement_context..EngagementContextList
-        :rtype: twilio.studio.v1.engagement_context..EngagementContextList
+        :returns: twilio.rest.studio.v1.flow.engagement.engagement_context.EngagementContextList
+        :rtype: twilio.rest.studio.v1.flow.engagement.engagement_context.EngagementContextList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = { 'flow_sid': flow_sid, 'engagement_sid': engagement_sid,  }
-        self._uri = ''.format(**self._solution)
-
-
+        
+        
+        
     
+
+    def get(self):
+        """
+        Constructs a EngagementContextContext
+        
+        :returns: twilio.rest.studio.v1.flow.engagement.engagement_context.EngagementContextContext
+        :rtype: twilio.rest.studio.v1.flow.engagement.engagement_context.EngagementContextContext
+        """
+        return EngagementContextContext(self._version, flow_sid=self._solution['flow_sid'], engagement_sid=self._solution['engagement_sid'])
+
+    def __call__(self):
+        """
+        Constructs a EngagementContextContext
+        
+        :returns: twilio.rest.studio.v1.flow.engagement.engagement_context.EngagementContextContext
+        :rtype: twilio.rest.studio.v1.flow.engagement.engagement_context.EngagementContextContext
+        """
+        return EngagementContextContext(self._version, flow_sid=self._solution['flow_sid'], engagement_sid=self._solution['engagement_sid'])
 
     def __repr__(self):
         """

@@ -28,20 +28,21 @@ class UserBindingList(ListResource):
     def __init__(self, version: Version, service_sid: str, user_sid: str):
         """
         Initialize the UserBindingList
+
         :param Version version: Version that contains the resource
         :param service_sid: 
         :param user_sid: 
         
-        :returns: twilio.ip_messaging.v2.user_binding..UserBindingList
-        :rtype: twilio.ip_messaging.v2.user_binding..UserBindingList
+        :returns: twilio.rest.ip_messaging.v2.service.user.user_binding.UserBindingList
+        :rtype: twilio.rest.ip_messaging.v2.service.user.user_binding.UserBindingList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = { 'service_sid': service_sid, 'user_sid': user_sid,  }
         self._uri = '/Services/${service_sid}/Users/${user_sid}/Bindings'.format(**self._solution)
-
-
+        
+        
     
     
     
@@ -52,7 +53,7 @@ class UserBindingList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
         
-        :param [UserBindingBindingType] binding_type: 
+        :param list[UserBindingBindingType] binding_type: 
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -61,7 +62,7 @@ class UserBindingList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.ip_messaging.v2.user_binding.UserBindingInstance]
+        :rtype: list[twilio.rest.ip_messaging.v2.service.user.user_binding.UserBindingInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -77,7 +78,7 @@ class UserBindingList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
-        :param [UserBindingBindingType] binding_type: 
+        :param list[UserBindingBindingType] binding_type: 
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -86,7 +87,7 @@ class UserBindingList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.ip_messaging.v2.user_binding.UserBindingInstance]
+        :rtype: list[twilio.rest.ip_messaging.v2.service.user.user_binding.UserBindingInstance]
         """
         return list(self.stream(
             binding_type=binding_type,
@@ -99,13 +100,13 @@ class UserBindingList(ListResource):
         Retrieve a single page of UserBindingInstance records from the API.
         Request is executed immediately
         
-        :param [UserBindingBindingType] binding_type: 
+        :param list[UserBindingBindingType] binding_type: 
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of UserBindingInstance
-        :rtype: twilio.rest.ip_messaging.v2.user_binding.UserBindingPage
+        :rtype: twilio.rest.ip_messaging.v2.service.user.user_binding.UserBindingPage
         """
         data = values.of({ 
             'BindingType': binding_type,
@@ -125,7 +126,7 @@ class UserBindingList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of UserBindingInstance
-        :rtype: twilio.rest.ip_messaging.v2.user_binding.UserBindingPage
+        :rtype: twilio.rest.ip_messaging.v2.service.user.user_binding.UserBindingPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -133,6 +134,28 @@ class UserBindingList(ListResource):
         )
         return UserBindingPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a UserBindingContext
+        
+        :param sid: 
+        
+        :returns: twilio.rest.ip_messaging.v2.service.user.user_binding.UserBindingContext
+        :rtype: twilio.rest.ip_messaging.v2.service.user.user_binding.UserBindingContext
+        """
+        return UserBindingContext(self._version, service_sid=self._solution['service_sid'], user_sid=self._solution['user_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a UserBindingContext
+        
+        :param sid: 
+        
+        :returns: twilio.rest.ip_messaging.v2.service.user.user_binding.UserBindingContext
+        :rtype: twilio.rest.ip_messaging.v2.service.user.user_binding.UserBindingContext
+        """
+        return UserBindingContext(self._version, service_sid=self._solution['service_sid'], user_sid=self._solution['user_sid'], sid=sid)
 
     def __repr__(self):
         """
@@ -156,8 +179,8 @@ class UserBindingPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.ip_messaging.v2.user_binding.UserBindingPage
-        :rtype: twilio.rest.ip_messaging.v2.user_binding.UserBindingPage
+        :returns: twilio.rest.ip_messaging.v2.service.user.user_binding.UserBindingPage
+        :rtype: twilio.rest.ip_messaging.v2.service.user.user_binding.UserBindingPage
         """
         super().__init__(version, response)
 
@@ -170,8 +193,8 @@ class UserBindingPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.ip_messaging.v2.user_binding.UserBindingInstance
-        :rtype: twilio.rest.ip_messaging.v2.user_binding.UserBindingInstance
+        :returns: twilio.rest.ip_messaging.v2.service.user.user_binding.UserBindingInstance
+        :rtype: twilio.rest.ip_messaging.v2.service.user.user_binding.UserBindingInstance
         """
         return UserBindingInstance(self._version, payload, service_sid=self._solution['service_sid'], user_sid=self._solution['user_sid'])
 

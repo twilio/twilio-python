@@ -28,19 +28,47 @@ class CommandList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the CommandList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.preview.wireless.command..CommandList
-        :rtype: twilio.preview.wireless.command..CommandList
+        :returns: twilio.rest.preview.wireless.command.CommandList
+        :rtype: twilio.rest.preview.wireless.command.CommandList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = {  }
         self._uri = '/Commands'.format(**self._solution)
-
-
+        
+        
     
+    
+    def create(self, command, device=values.unset, sim=values.unset, callback_method=values.unset, callback_url=values.unset, command_mode=values.unset, include_sid=values.unset):
+        """
+        Create the CommandInstance
+        :param str command: 
+        :param str device: 
+        :param str sim: 
+        :param str callback_method: 
+        :param str callback_url: 
+        :param str command_mode: 
+        :param str include_sid: 
+        
+        :returns: The created CommandInstance
+        :rtype: twilio.rest.preview.wireless.command.CommandInstance
+        """
+        data = values.of({ 
+            'Command': command,
+            'Device': device,
+            'Sim': sim,
+            'CallbackMethod': callback_method,
+            'CallbackUrl': callback_url,
+            'CommandMode': command_mode,
+            'IncludeSid': include_sid,
+        })
+
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return CommandInstance(self._version, payload)
     
     
     def stream(self, device=values.unset, sim=values.unset, status=values.unset, direction=values.unset, limit=None, page_size=None):
@@ -149,6 +177,28 @@ class CommandList(ListResource):
         )
         return CommandPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a CommandContext
+        
+        :param sid: 
+        
+        :returns: twilio.rest.preview.wireless.command.CommandContext
+        :rtype: twilio.rest.preview.wireless.command.CommandContext
+        """
+        return CommandContext(self._version, sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a CommandContext
+        
+        :param sid: 
+        
+        :returns: twilio.rest.preview.wireless.command.CommandContext
+        :rtype: twilio.rest.preview.wireless.command.CommandContext
+        """
+        return CommandContext(self._version, sid=sid)
 
     def __repr__(self):
         """

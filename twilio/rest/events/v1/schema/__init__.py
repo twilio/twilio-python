@@ -29,19 +29,42 @@ class SchemaList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the SchemaList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.events.v1.schema..SchemaList
-        :rtype: twilio.events.v1.schema..SchemaList
+        :returns: twilio.rest.events.v1.schema.SchemaList
+        :rtype: twilio.rest.events.v1.schema.SchemaList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = {  }
-        self._uri = ''.format(**self._solution)
-
-
+        
+        
+        
     
+
+    def get(self, id):
+        """
+        Constructs a SchemaContext
+        
+        :param id: The unique identifier of the schema. Each schema can have multiple versions, that share the same id.
+        
+        :returns: twilio.rest.events.v1.schema.SchemaContext
+        :rtype: twilio.rest.events.v1.schema.SchemaContext
+        """
+        return SchemaContext(self._version, id=id)
+
+    def __call__(self, id):
+        """
+        Constructs a SchemaContext
+        
+        :param id: The unique identifier of the schema. Each schema can have multiple versions, that share the same id.
+        
+        :returns: twilio.rest.events.v1.schema.SchemaContext
+        :rtype: twilio.rest.events.v1.schema.SchemaContext
+        """
+        return SchemaContext(self._version, id=id)
 
     def __repr__(self):
         """

@@ -28,21 +28,40 @@ class AssistantFallbackActionsList(ListResource):
     def __init__(self, version: Version, assistant_sid: str):
         """
         Initialize the AssistantFallbackActionsList
+
         :param Version version: Version that contains the resource
         :param assistant_sid: 
         
-        :returns: twilio.preview.understand.assistant_fallback_actions..AssistantFallbackActionsList
-        :rtype: twilio.preview.understand.assistant_fallback_actions..AssistantFallbackActionsList
+        :returns: twilio.rest.preview.understand.assistant.assistant_fallback_actions.AssistantFallbackActionsList
+        :rtype: twilio.rest.preview.understand.assistant.assistant_fallback_actions.AssistantFallbackActionsList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = { 'assistant_sid': assistant_sid,  }
-        self._uri = ''.format(**self._solution)
-
-
+        
+        
+        
     
     
+
+    def get(self):
+        """
+        Constructs a AssistantFallbackActionsContext
+        
+        :returns: twilio.rest.preview.understand.assistant.assistant_fallback_actions.AssistantFallbackActionsContext
+        :rtype: twilio.rest.preview.understand.assistant.assistant_fallback_actions.AssistantFallbackActionsContext
+        """
+        return AssistantFallbackActionsContext(self._version, assistant_sid=self._solution['assistant_sid'])
+
+    def __call__(self):
+        """
+        Constructs a AssistantFallbackActionsContext
+        
+        :returns: twilio.rest.preview.understand.assistant.assistant_fallback_actions.AssistantFallbackActionsContext
+        :rtype: twilio.rest.preview.understand.assistant.assistant_fallback_actions.AssistantFallbackActionsContext
+        """
+        return AssistantFallbackActionsContext(self._version, assistant_sid=self._solution['assistant_sid'])
 
     def __repr__(self):
         """
@@ -78,9 +97,9 @@ class AssistantFallbackActionsContext(InstanceContext):
 
         
     
-    def update(self, body):
+    def update(self, fallback_actions):
         data = values.of({
-            'body': body,
+            'fallback_actions': fallback_actions,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

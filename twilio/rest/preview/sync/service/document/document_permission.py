@@ -28,20 +28,21 @@ class DocumentPermissionList(ListResource):
     def __init__(self, version: Version, service_sid: str, document_sid: str):
         """
         Initialize the DocumentPermissionList
+
         :param Version version: Version that contains the resource
         :param service_sid: 
         :param document_sid: Identifier of the Sync Document. Either a SID or a unique name.
         
-        :returns: twilio.preview.sync.document_permission..DocumentPermissionList
-        :rtype: twilio.preview.sync.document_permission..DocumentPermissionList
+        :returns: twilio.rest.preview.sync.service.document.document_permission.DocumentPermissionList
+        :rtype: twilio.rest.preview.sync.service.document.document_permission.DocumentPermissionList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = { 'service_sid': service_sid, 'document_sid': document_sid,  }
         self._uri = '/Services/${service_sid}/Documents/${document_sid}/Permissions'.format(**self._solution)
-
-
+        
+        
     
     
     
@@ -61,7 +62,7 @@ class DocumentPermissionList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.preview.sync.document_permission.DocumentPermissionInstance]
+        :rtype: list[twilio.rest.preview.sync.service.document.document_permission.DocumentPermissionInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -84,7 +85,7 @@ class DocumentPermissionList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.preview.sync.document_permission.DocumentPermissionInstance]
+        :rtype: list[twilio.rest.preview.sync.service.document.document_permission.DocumentPermissionInstance]
         """
         return list(self.stream(
             limit=limit,
@@ -101,7 +102,7 @@ class DocumentPermissionList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of DocumentPermissionInstance
-        :rtype: twilio.rest.preview.sync.document_permission.DocumentPermissionPage
+        :rtype: twilio.rest.preview.sync.service.document.document_permission.DocumentPermissionPage
         """
         data = values.of({ 
             'PageToken': page_token,
@@ -120,7 +121,7 @@ class DocumentPermissionList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of DocumentPermissionInstance
-        :rtype: twilio.rest.preview.sync.document_permission.DocumentPermissionPage
+        :rtype: twilio.rest.preview.sync.service.document.document_permission.DocumentPermissionPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -128,6 +129,28 @@ class DocumentPermissionList(ListResource):
         )
         return DocumentPermissionPage(self._version, response, self._solution)
 
+
+    def get(self, identity):
+        """
+        Constructs a DocumentPermissionContext
+        
+        :param identity: Arbitrary string identifier representing a human user associated with an FPA token, assigned by the developer.
+        
+        :returns: twilio.rest.preview.sync.service.document.document_permission.DocumentPermissionContext
+        :rtype: twilio.rest.preview.sync.service.document.document_permission.DocumentPermissionContext
+        """
+        return DocumentPermissionContext(self._version, service_sid=self._solution['service_sid'], document_sid=self._solution['document_sid'], identity=identity)
+
+    def __call__(self, identity):
+        """
+        Constructs a DocumentPermissionContext
+        
+        :param identity: Arbitrary string identifier representing a human user associated with an FPA token, assigned by the developer.
+        
+        :returns: twilio.rest.preview.sync.service.document.document_permission.DocumentPermissionContext
+        :rtype: twilio.rest.preview.sync.service.document.document_permission.DocumentPermissionContext
+        """
+        return DocumentPermissionContext(self._version, service_sid=self._solution['service_sid'], document_sid=self._solution['document_sid'], identity=identity)
 
     def __repr__(self):
         """
@@ -153,8 +176,8 @@ class DocumentPermissionPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.preview.sync.document_permission.DocumentPermissionPage
-        :rtype: twilio.rest.preview.sync.document_permission.DocumentPermissionPage
+        :returns: twilio.rest.preview.sync.service.document.document_permission.DocumentPermissionPage
+        :rtype: twilio.rest.preview.sync.service.document.document_permission.DocumentPermissionPage
         """
         super().__init__(version, response)
 
@@ -167,8 +190,8 @@ class DocumentPermissionPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.preview.sync.document_permission.DocumentPermissionInstance
-        :rtype: twilio.rest.preview.sync.document_permission.DocumentPermissionInstance
+        :returns: twilio.rest.preview.sync.service.document.document_permission.DocumentPermissionInstance
+        :rtype: twilio.rest.preview.sync.service.document.document_permission.DocumentPermissionInstance
         """
         return DocumentPermissionInstance(self._version, payload, service_sid=self._solution['service_sid'], document_sid=self._solution['document_sid'])
 
@@ -222,9 +245,9 @@ class DocumentPermissionContext(InstanceContext):
 
         
     
-    def update(self, body):
+    def update(self, read, write, manage):
         data = values.of({
-            'body': body,
+            'read': read,'write': write,'manage': manage,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

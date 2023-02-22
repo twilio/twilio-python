@@ -30,19 +30,20 @@ class ConferenceList(ListResource):
     def __init__(self, version: Version, account_sid: str):
         """
         Initialize the ConferenceList
+
         :param Version version: Version that contains the resource
         :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Conference resource(s) to read.
         
-        :returns: twilio.api.v2010.conference..ConferenceList
-        :rtype: twilio.api.v2010.conference..ConferenceList
+        :returns: twilio.rest.api.v2010.account.conference.ConferenceList
+        :rtype: twilio.rest.api.v2010.account.conference.ConferenceList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = { 'account_sid': account_sid,  }
         self._uri = '/Accounts/${account_sid}/Conferences.json'.format(**self._solution)
-
-
+        
+        
     
     
     
@@ -69,7 +70,7 @@ class ConferenceList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.conference.ConferenceInstance]
+        :rtype: list[twilio.rest.api.v2010.account.conference.ConferenceInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -108,7 +109,7 @@ class ConferenceList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.conference.ConferenceInstance]
+        :rtype: list[twilio.rest.api.v2010.account.conference.ConferenceInstance]
         """
         return list(self.stream(
             date_created=date_created,
@@ -141,15 +142,15 @@ class ConferenceList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of ConferenceInstance
-        :rtype: twilio.rest.api.v2010.conference.ConferencePage
+        :rtype: twilio.rest.api.v2010.account.conference.ConferencePage
         """
         data = values.of({ 
-            'DateCreated': date_created,
-            'DateCreated&lt;': date_created_before,
-            'DateCreated&gt;': date_created_after,
-            'DateUpdated': date_updated,
-            'DateUpdated&lt;': date_updated_before,
-            'DateUpdated&gt;': date_updated_after,
+            'DateCreated': serialize.iso8601_date(date_created),
+            'DateCreated<': serialize.iso8601_date(date_created_before),
+            'DateCreated>': serialize.iso8601_date(date_created_after),
+            'DateUpdated': serialize.iso8601_date(date_updated),
+            'DateUpdated<': serialize.iso8601_date(date_updated_before),
+            'DateUpdated>': serialize.iso8601_date(date_updated_after),
             'FriendlyName': friendly_name,
             'Status': status,
             'PageToken': page_token,
@@ -168,7 +169,7 @@ class ConferenceList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of ConferenceInstance
-        :rtype: twilio.rest.api.v2010.conference.ConferencePage
+        :rtype: twilio.rest.api.v2010.account.conference.ConferencePage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -176,6 +177,28 @@ class ConferenceList(ListResource):
         )
         return ConferencePage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a ConferenceContext
+        
+        :param sid: The Twilio-provided string that uniquely identifies the Conference resource to update
+        
+        :returns: twilio.rest.api.v2010.account.conference.ConferenceContext
+        :rtype: twilio.rest.api.v2010.account.conference.ConferenceContext
+        """
+        return ConferenceContext(self._version, account_sid=self._solution['account_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a ConferenceContext
+        
+        :param sid: The Twilio-provided string that uniquely identifies the Conference resource to update
+        
+        :returns: twilio.rest.api.v2010.account.conference.ConferenceContext
+        :rtype: twilio.rest.api.v2010.account.conference.ConferenceContext
+        """
+        return ConferenceContext(self._version, account_sid=self._solution['account_sid'], sid=sid)
 
     def __repr__(self):
         """
@@ -199,8 +222,8 @@ class ConferencePage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.api.v2010.conference.ConferencePage
-        :rtype: twilio.rest.api.v2010.conference.ConferencePage
+        :returns: twilio.rest.api.v2010.account.conference.ConferencePage
+        :rtype: twilio.rest.api.v2010.account.conference.ConferencePage
         """
         super().__init__(version, response)
 
@@ -213,8 +236,8 @@ class ConferencePage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.api.v2010.conference.ConferenceInstance
-        :rtype: twilio.rest.api.v2010.conference.ConferenceInstance
+        :returns: twilio.rest.api.v2010.account.conference.ConferenceInstance
+        :rtype: twilio.rest.api.v2010.account.conference.ConferenceInstance
         """
         return ConferenceInstance(self._version, payload, account_sid=self._solution['account_sid'])
 
@@ -258,9 +281,9 @@ class ConferenceContext(InstanceContext):
 
         
     
-    def update(self, body):
+    def update(self, status, announce_url, announce_method):
         data = values.of({
-            'body': body,
+            'status': status,'announce_url': announce_url,'announce_method': announce_method,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

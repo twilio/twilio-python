@@ -28,19 +28,38 @@ class ConfigurationList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the ConfigurationList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.flex_api.v1.configuration..ConfigurationList
-        :rtype: twilio.flex_api.v1.configuration..ConfigurationList
+        :returns: twilio.rest.flex_api.v1.configuration.ConfigurationList
+        :rtype: twilio.rest.flex_api.v1.configuration.ConfigurationList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = {  }
-        self._uri = ''.format(**self._solution)
-
-
+        
+        
+        
     
+
+    def get(self):
+        """
+        Constructs a ConfigurationContext
+        
+        :returns: twilio.rest.flex_api.v1.configuration.ConfigurationContext
+        :rtype: twilio.rest.flex_api.v1.configuration.ConfigurationContext
+        """
+        return ConfigurationContext(self._version)
+
+    def __call__(self):
+        """
+        Constructs a ConfigurationContext
+        
+        :returns: twilio.rest.flex_api.v1.configuration.ConfigurationContext
+        :rtype: twilio.rest.flex_api.v1.configuration.ConfigurationContext
+        """
+        return ConfigurationContext(self._version)
 
     def __repr__(self):
         """

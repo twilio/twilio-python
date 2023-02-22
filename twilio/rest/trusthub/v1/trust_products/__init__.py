@@ -31,21 +31,43 @@ class TrustProductsList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the TrustProductsList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.trusthub.v1.trust_products..TrustProductsList
-        :rtype: twilio.trusthub.v1.trust_products..TrustProductsList
+        :returns: twilio.rest.trusthub.v1.trust_products.TrustProductsList
+        :rtype: twilio.rest.trusthub.v1.trust_products.TrustProductsList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = {  }
         self._uri = '/TrustProducts'.format(**self._solution)
+        
+        
+    
+    
+    
+    
+    def create(self, friendly_name, email, policy_sid, status_callback=values.unset):
+        """
+        Create the TrustProductsInstance
+        :param str friendly_name: The string that you assigned to describe the resource.
+        :param str email: The email address that will receive updates when the Customer-Profile resource changes status.
+        :param str policy_sid: The unique string of a policy that is associated to the Customer-Profile resource.
+        :param str status_callback: The URL we call to inform your application of status changes.
+        
+        :returns: The created TrustProductsInstance
+        :rtype: twilio.rest.trusthub.v1.trust_products.TrustProductsInstance
+        """
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+            'Email': email,
+            'PolicySid': policy_sid,
+            'StatusCallback': status_callback,
+        })
 
-
-    
-    
-    
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return TrustProductsInstance(self._version, payload)
     
     
     def stream(self, status=values.unset, friendly_name=values.unset, policy_sid=values.unset, limit=None, page_size=None):
@@ -149,6 +171,28 @@ class TrustProductsList(ListResource):
         return TrustProductsPage(self._version, response, self._solution)
 
 
+    def get(self, sid):
+        """
+        Constructs a TrustProductsContext
+        
+        :param sid: The unique string that we created to identify the Customer-Profile resource.
+        
+        :returns: twilio.rest.trusthub.v1.trust_products.TrustProductsContext
+        :rtype: twilio.rest.trusthub.v1.trust_products.TrustProductsContext
+        """
+        return TrustProductsContext(self._version, sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a TrustProductsContext
+        
+        :param sid: The unique string that we created to identify the Customer-Profile resource.
+        
+        :returns: twilio.rest.trusthub.v1.trust_products.TrustProductsContext
+        :rtype: twilio.rest.trusthub.v1.trust_products.TrustProductsContext
+        """
+        return TrustProductsContext(self._version, sid=sid)
+
     def __repr__(self):
         """
         Provide a friendly representation
@@ -247,9 +291,9 @@ class TrustProductsContext(InstanceContext):
 
         
     
-    def update(self, body):
+    def update(self, status, status_callback, friendly_name, email):
         data = values.of({
-            'body': body,
+            'status': status,'status_callback': status_callback,'friendly_name': friendly_name,'email': email,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

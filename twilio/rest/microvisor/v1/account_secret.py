@@ -28,20 +28,38 @@ class AccountSecretList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the AccountSecretList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.microvisor.v1.account_secret..AccountSecretList
-        :rtype: twilio.microvisor.v1.account_secret..AccountSecretList
+        :returns: twilio.rest.microvisor.v1.account_secret.AccountSecretList
+        :rtype: twilio.rest.microvisor.v1.account_secret.AccountSecretList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = {  }
         self._uri = '/Secrets'.format(**self._solution)
-
-
+        
+        
     
     
+    
+    def create(self, key, value):
+        """
+        Create the AccountSecretInstance
+        :param str key: The secret key; up to 100 characters.
+        :param str value: The secret value; up to 4096 characters.
+        
+        :returns: The created AccountSecretInstance
+        :rtype: twilio.rest.microvisor.v1.account_secret.AccountSecretInstance
+        """
+        data = values.of({ 
+            'Key': key,
+            'Value': value,
+        })
+
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return AccountSecretInstance(self._version, payload)
     
     
     def stream(self, limit=None, page_size=None):
@@ -126,6 +144,28 @@ class AccountSecretList(ListResource):
         )
         return AccountSecretPage(self._version, response, self._solution)
 
+
+    def get(self, key):
+        """
+        Constructs a AccountSecretContext
+        
+        :param key: The secret key; up to 100 characters.
+        
+        :returns: twilio.rest.microvisor.v1.account_secret.AccountSecretContext
+        :rtype: twilio.rest.microvisor.v1.account_secret.AccountSecretContext
+        """
+        return AccountSecretContext(self._version, key=key)
+
+    def __call__(self, key):
+        """
+        Constructs a AccountSecretContext
+        
+        :param key: The secret key; up to 100 characters.
+        
+        :returns: twilio.rest.microvisor.v1.account_secret.AccountSecretContext
+        :rtype: twilio.rest.microvisor.v1.account_secret.AccountSecretContext
+        """
+        return AccountSecretContext(self._version, key=key)
 
     def __repr__(self):
         """

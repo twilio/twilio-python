@@ -28,18 +28,19 @@ class CountryList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the CountryList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.pricing.v2.country..CountryList
-        :rtype: twilio.pricing.v2.country..CountryList
+        :returns: twilio.rest.pricing.v2.country.CountryList
+        :rtype: twilio.rest.pricing.v2.country.CountryList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = {  }
         self._uri = '/Trunking/Countries'.format(**self._solution)
-
-
+        
+        
     
     
     def stream(self, limit=None, page_size=None):
@@ -124,6 +125,28 @@ class CountryList(ListResource):
         )
         return CountryPage(self._version, response, self._solution)
 
+
+    def get(self, iso_country):
+        """
+        Constructs a CountryContext
+        
+        :param iso_country: The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the origin-based voice pricing information to fetch.
+        
+        :returns: twilio.rest.pricing.v2.country.CountryContext
+        :rtype: twilio.rest.pricing.v2.country.CountryContext
+        """
+        return CountryContext(self._version, iso_country=iso_country)
+
+    def __call__(self, iso_country):
+        """
+        Constructs a CountryContext
+        
+        :param iso_country: The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the origin-based voice pricing information to fetch.
+        
+        :returns: twilio.rest.pricing.v2.country.CountryContext
+        :rtype: twilio.rest.pricing.v2.country.CountryContext
+        """
+        return CountryContext(self._version, iso_country=iso_country)
 
     def __repr__(self):
         """

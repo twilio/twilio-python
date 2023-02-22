@@ -28,20 +28,52 @@ class CompositionList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the CompositionList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.video.v1.composition..CompositionList
-        :rtype: twilio.video.v1.composition..CompositionList
+        :returns: twilio.rest.video.v1.composition.CompositionList
+        :rtype: twilio.rest.video.v1.composition.CompositionList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = {  }
         self._uri = '/Compositions'.format(**self._solution)
-
-
+        
+        
     
     
+    
+    def create(self, room_sid, video_layout=values.unset, audio_sources=values.unset, audio_sources_excluded=values.unset, resolution=values.unset, format=values.unset, status_callback=values.unset, status_callback_method=values.unset, trim=values.unset):
+        """
+        Create the CompositionInstance
+        :param str room_sid: The SID of the Group Room with the media tracks to be used as composition sources.
+        :param object video_layout: An object that describes the video layout of the composition in terms of regions. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info. Please, be aware that either video_layout or audio_sources have to be provided to get a valid creation request
+        :param list[str] audio_sources: An array of track names from the same group room to merge into the new composition. Can include zero or more track names. The new composition includes all audio sources specified in `audio_sources` except for those specified in `audio_sources_excluded`. The track names in this parameter can include an asterisk as a wild card character, which will match zero or more characters in a track name. For example, `student*` includes `student` as well as `studentTeam`. Please, be aware that either video_layout or audio_sources have to be provided to get a valid creation request
+        :param list[str] audio_sources_excluded: An array of track names to exclude. The new composition includes all audio sources specified in `audio_sources` except for those specified in `audio_sources_excluded`. The track names in this parameter can include an asterisk as a wild card character, which will match zero or more characters in a track name. For example, `student*` excludes `student` as well as `studentTeam`. This parameter can also be empty.
+        :param str resolution: A string that describes the columns (width) and rows (height) of the generated composed video in pixels. Defaults to `640x480`.  The string's format is `{width}x{height}` where:   * 16 <= `{width}` <= 1280 * 16 <= `{height}` <= 1280 * `{width}` * `{height}` <= 921,600  Typical values are:   * HD = `1280x720` * PAL = `1024x576` * VGA = `640x480` * CIF = `320x240`  Note that the `resolution` imposes an aspect ratio to the resulting composition. When the original video tracks are constrained by the aspect ratio, they are scaled to fit. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info.
+        :param CompositionFormat format: 
+        :param str status_callback: The URL we should call using the `status_callback_method` to send status information to your application on every composition event. If not provided, status callback events will not be dispatched.
+        :param str status_callback_method: The HTTP method we should use to call `status_callback`. Can be: `POST` or `GET` and the default is `POST`.
+        :param bool trim: Whether to clip the intervals where there is no active media in the composition. The default is `true`. Compositions with `trim` enabled are shorter when the Room is created and no Participant joins for a while as well as if all the Participants leave the room and join later, because those gaps will be removed. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info.
+        
+        :returns: The created CompositionInstance
+        :rtype: twilio.rest.video.v1.composition.CompositionInstance
+        """
+        data = values.of({ 
+            'RoomSid': room_sid,
+            'VideoLayout': serialize.object(video_layout),
+            'AudioSources': serialize.map(audio_sources, lambda e: e),
+            'AudioSourcesExcluded': serialize.map(audio_sources_excluded, lambda e: e),
+            'Resolution': resolution,
+            'Format': format,
+            'StatusCallback': status_callback,
+            'StatusCallbackMethod': status_callback_method,
+            'Trim': trim,
+        })
+
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return CompositionInstance(self._version, payload)
     
     
     def stream(self, status=values.unset, date_created_after=values.unset, date_created_before=values.unset, room_sid=values.unset, limit=None, page_size=None):
@@ -123,8 +155,8 @@ class CompositionList(ListResource):
         """
         data = values.of({ 
             'Status': status,
-            'DateCreatedAfter': date_created_after,
-            'DateCreatedBefore': date_created_before,
+            'DateCreatedAfter': serialize.iso8601_datetime(date_created_after),
+            'DateCreatedBefore': serialize.iso8601_datetime(date_created_before),
             'RoomSid': room_sid,
             'PageToken': page_token,
             'Page': page_number,
@@ -150,6 +182,28 @@ class CompositionList(ListResource):
         )
         return CompositionPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a CompositionContext
+        
+        :param sid: The SID of the Composition resource to fetch.
+        
+        :returns: twilio.rest.video.v1.composition.CompositionContext
+        :rtype: twilio.rest.video.v1.composition.CompositionContext
+        """
+        return CompositionContext(self._version, sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a CompositionContext
+        
+        :param sid: The SID of the Composition resource to fetch.
+        
+        :returns: twilio.rest.video.v1.composition.CompositionContext
+        :rtype: twilio.rest.video.v1.composition.CompositionContext
+        """
+        return CompositionContext(self._version, sid=sid)
 
     def __repr__(self):
         """

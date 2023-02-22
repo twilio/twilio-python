@@ -28,20 +28,39 @@ class UsageList(ListResource):
     def __init__(self, version: Version, sim_sid: str):
         """
         Initialize the UsageList
+
         :param Version version: Version that contains the resource
         :param sim_sid: 
         
-        :returns: twilio.preview.wireless.usage..UsageList
-        :rtype: twilio.preview.wireless.usage..UsageList
+        :returns: twilio.rest.preview.wireless.sim.usage.UsageList
+        :rtype: twilio.rest.preview.wireless.sim.usage.UsageList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = { 'sim_sid': sim_sid,  }
-        self._uri = ''.format(**self._solution)
-
-
+        
+        
+        
     
+
+    def get(self):
+        """
+        Constructs a UsageContext
+        
+        :returns: twilio.rest.preview.wireless.sim.usage.UsageContext
+        :rtype: twilio.rest.preview.wireless.sim.usage.UsageContext
+        """
+        return UsageContext(self._version, sim_sid=self._solution['sim_sid'])
+
+    def __call__(self):
+        """
+        Constructs a UsageContext
+        
+        :returns: twilio.rest.preview.wireless.sim.usage.UsageContext
+        :rtype: twilio.rest.preview.wireless.sim.usage.UsageContext
+        """
+        return UsageContext(self._version, sim_sid=self._solution['sim_sid'])
 
     def __repr__(self):
         """

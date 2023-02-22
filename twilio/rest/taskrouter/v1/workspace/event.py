@@ -28,19 +28,20 @@ class EventList(ListResource):
     def __init__(self, version: Version, workspace_sid: str):
         """
         Initialize the EventList
+
         :param Version version: Version that contains the resource
         :param workspace_sid: The SID of the Workspace with the Events to read. Returns only the Events that pertain to the specified Workspace.
         
-        :returns: twilio.taskrouter.v1.event..EventList
-        :rtype: twilio.taskrouter.v1.event..EventList
+        :returns: twilio.rest.taskrouter.v1.workspace.event.EventList
+        :rtype: twilio.rest.taskrouter.v1.workspace.event.EventList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = { 'workspace_sid': workspace_sid,  }
         self._uri = '/Workspaces/${workspace_sid}/Events'.format(**self._solution)
-
-
+        
+        
     
     
     def stream(self, end_date=values.unset, event_type=values.unset, minutes=values.unset, reservation_sid=values.unset, start_date=values.unset, task_queue_sid=values.unset, task_sid=values.unset, worker_sid=values.unset, workflow_sid=values.unset, task_channel=values.unset, sid=values.unset, limit=None, page_size=None):
@@ -69,7 +70,7 @@ class EventList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.taskrouter.v1.event.EventInstance]
+        :rtype: list[twilio.rest.taskrouter.v1.workspace.event.EventInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -114,7 +115,7 @@ class EventList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.taskrouter.v1.event.EventInstance]
+        :rtype: list[twilio.rest.taskrouter.v1.workspace.event.EventInstance]
         """
         return list(self.stream(
             end_date=end_date,
@@ -153,14 +154,14 @@ class EventList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of EventInstance
-        :rtype: twilio.rest.taskrouter.v1.event.EventPage
+        :rtype: twilio.rest.taskrouter.v1.workspace.event.EventPage
         """
         data = values.of({ 
-            'EndDate': end_date,
+            'EndDate': serialize.iso8601_datetime(end_date),
             'EventType': event_type,
             'Minutes': minutes,
             'ReservationSid': reservation_sid,
-            'StartDate': start_date,
+            'StartDate': serialize.iso8601_datetime(start_date),
             'TaskQueueSid': task_queue_sid,
             'TaskSid': task_sid,
             'WorkerSid': worker_sid,
@@ -183,7 +184,7 @@ class EventList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of EventInstance
-        :rtype: twilio.rest.taskrouter.v1.event.EventPage
+        :rtype: twilio.rest.taskrouter.v1.workspace.event.EventPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -191,6 +192,28 @@ class EventList(ListResource):
         )
         return EventPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a EventContext
+        
+        :param sid: The SID of the Event resource to fetch.
+        
+        :returns: twilio.rest.taskrouter.v1.workspace.event.EventContext
+        :rtype: twilio.rest.taskrouter.v1.workspace.event.EventContext
+        """
+        return EventContext(self._version, workspace_sid=self._solution['workspace_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a EventContext
+        
+        :param sid: The SID of the Event resource to fetch.
+        
+        :returns: twilio.rest.taskrouter.v1.workspace.event.EventContext
+        :rtype: twilio.rest.taskrouter.v1.workspace.event.EventContext
+        """
+        return EventContext(self._version, workspace_sid=self._solution['workspace_sid'], sid=sid)
 
     def __repr__(self):
         """
@@ -212,8 +235,8 @@ class EventPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.taskrouter.v1.event.EventPage
-        :rtype: twilio.rest.taskrouter.v1.event.EventPage
+        :returns: twilio.rest.taskrouter.v1.workspace.event.EventPage
+        :rtype: twilio.rest.taskrouter.v1.workspace.event.EventPage
         """
         super().__init__(version, response)
 
@@ -226,8 +249,8 @@ class EventPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.taskrouter.v1.event.EventInstance
-        :rtype: twilio.rest.taskrouter.v1.event.EventInstance
+        :returns: twilio.rest.taskrouter.v1.workspace.event.EventInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.event.EventInstance
         """
         return EventInstance(self._version, payload, workspace_sid=self._solution['workspace_sid'])
 

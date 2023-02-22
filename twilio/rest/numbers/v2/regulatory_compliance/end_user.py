@@ -28,21 +28,41 @@ class EndUserList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the EndUserList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.numbers.v2.end_user..EndUserList
-        :rtype: twilio.numbers.v2.end_user..EndUserList
+        :returns: twilio.rest.numbers.v2.regulatory_compliance.end_user.EndUserList
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.end_user.EndUserList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = {  }
         self._uri = '/RegulatoryCompliance/EndUsers'.format(**self._solution)
+        
+        
+    
+    
+    
+    
+    def create(self, friendly_name, type, attributes=values.unset):
+        """
+        Create the EndUserInstance
+        :param str friendly_name: The string that you assigned to describe the resource.
+        :param EndUserType type: 
+        :param object attributes: The set of parameters that are the attributes of the End User resource which are derived End User Types.
+        
+        :returns: The created EndUserInstance
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.end_user.EndUserInstance
+        """
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+            'Type': type,
+            'Attributes': serialize.object(attributes),
+        })
 
-
-    
-    
-    
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return EndUserInstance(self._version, payload)
     
     
     def stream(self, limit=None, page_size=None):
@@ -60,7 +80,7 @@ class EndUserList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.numbers.v2.end_user.EndUserInstance]
+        :rtype: list[twilio.rest.numbers.v2.regulatory_compliance.end_user.EndUserInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -83,7 +103,7 @@ class EndUserList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.numbers.v2.end_user.EndUserInstance]
+        :rtype: list[twilio.rest.numbers.v2.regulatory_compliance.end_user.EndUserInstance]
         """
         return list(self.stream(
             limit=limit,
@@ -100,7 +120,7 @@ class EndUserList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of EndUserInstance
-        :rtype: twilio.rest.numbers.v2.end_user.EndUserPage
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.end_user.EndUserPage
         """
         data = values.of({ 
             'PageToken': page_token,
@@ -119,7 +139,7 @@ class EndUserList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of EndUserInstance
-        :rtype: twilio.rest.numbers.v2.end_user.EndUserPage
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.end_user.EndUserPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -127,6 +147,28 @@ class EndUserList(ListResource):
         )
         return EndUserPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a EndUserContext
+        
+        :param sid: The unique string created by Twilio to identify the End User resource.
+        
+        :returns: twilio.rest.numbers.v2.regulatory_compliance.end_user.EndUserContext
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.end_user.EndUserContext
+        """
+        return EndUserContext(self._version, sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a EndUserContext
+        
+        :param sid: The unique string created by Twilio to identify the End User resource.
+        
+        :returns: twilio.rest.numbers.v2.regulatory_compliance.end_user.EndUserContext
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.end_user.EndUserContext
+        """
+        return EndUserContext(self._version, sid=sid)
 
     def __repr__(self):
         """
@@ -154,8 +196,8 @@ class EndUserPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.numbers.v2.end_user.EndUserPage
-        :rtype: twilio.rest.numbers.v2.end_user.EndUserPage
+        :returns: twilio.rest.numbers.v2.regulatory_compliance.end_user.EndUserPage
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.end_user.EndUserPage
         """
         super().__init__(version, response)
 
@@ -168,8 +210,8 @@ class EndUserPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.numbers.v2.end_user.EndUserInstance
-        :rtype: twilio.rest.numbers.v2.end_user.EndUserInstance
+        :returns: twilio.rest.numbers.v2.regulatory_compliance.end_user.EndUserInstance
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.end_user.EndUserInstance
         """
         return EndUserInstance(self._version, payload)
 
@@ -223,9 +265,9 @@ class EndUserContext(InstanceContext):
 
         
     
-    def update(self, body):
+    def update(self, friendly_name, attributes):
         data = values.of({
-            'body': body,
+            'friendly_name': friendly_name,'attributes': attributes,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

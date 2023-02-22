@@ -28,21 +28,37 @@ class CredentialListList(ListResource):
     def __init__(self, version: Version, trunk_sid: str):
         """
         Initialize the CredentialListList
+
         :param Version version: Version that contains the resource
         :param trunk_sid: The SID of the Trunk from which to read the credential lists.
         
-        :returns: twilio.trunking.v1.credential_list..CredentialListList
-        :rtype: twilio.trunking.v1.credential_list..CredentialListList
+        :returns: twilio.rest.trunking.v1.trunk.credential_list.CredentialListList
+        :rtype: twilio.rest.trunking.v1.trunk.credential_list.CredentialListList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = { 'trunk_sid': trunk_sid,  }
         self._uri = '/Trunks/${trunk_sid}/CredentialLists'.format(**self._solution)
-
-
+        
+        
     
     
+    
+    def create(self, credential_list_sid):
+        """
+        Create the CredentialListInstance
+        :param str credential_list_sid: The SID of the [Credential List](https://www.twilio.com/docs/voice/sip/api/sip-credentiallist-resource) that you want to associate with the trunk. Once associated, we will authenticate access to the trunk against this list.
+        
+        :returns: The created CredentialListInstance
+        :rtype: twilio.rest.trunking.v1.trunk.credential_list.CredentialListInstance
+        """
+        data = values.of({ 
+            'CredentialListSid': credential_list_sid,
+        })
+
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return CredentialListInstance(self._version, payload, trunk_sid=self._solution['trunk_sid'])
     
     
     def stream(self, limit=None, page_size=None):
@@ -60,7 +76,7 @@ class CredentialListList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.trunking.v1.credential_list.CredentialListInstance]
+        :rtype: list[twilio.rest.trunking.v1.trunk.credential_list.CredentialListInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -83,7 +99,7 @@ class CredentialListList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.trunking.v1.credential_list.CredentialListInstance]
+        :rtype: list[twilio.rest.trunking.v1.trunk.credential_list.CredentialListInstance]
         """
         return list(self.stream(
             limit=limit,
@@ -100,7 +116,7 @@ class CredentialListList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of CredentialListInstance
-        :rtype: twilio.rest.trunking.v1.credential_list.CredentialListPage
+        :rtype: twilio.rest.trunking.v1.trunk.credential_list.CredentialListPage
         """
         data = values.of({ 
             'PageToken': page_token,
@@ -119,7 +135,7 @@ class CredentialListList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of CredentialListInstance
-        :rtype: twilio.rest.trunking.v1.credential_list.CredentialListPage
+        :rtype: twilio.rest.trunking.v1.trunk.credential_list.CredentialListPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -127,6 +143,28 @@ class CredentialListList(ListResource):
         )
         return CredentialListPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a CredentialListContext
+        
+        :param sid: The unique string that we created to identify the CredentialList resource to fetch.
+        
+        :returns: twilio.rest.trunking.v1.trunk.credential_list.CredentialListContext
+        :rtype: twilio.rest.trunking.v1.trunk.credential_list.CredentialListContext
+        """
+        return CredentialListContext(self._version, trunk_sid=self._solution['trunk_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a CredentialListContext
+        
+        :param sid: The unique string that we created to identify the CredentialList resource to fetch.
+        
+        :returns: twilio.rest.trunking.v1.trunk.credential_list.CredentialListContext
+        :rtype: twilio.rest.trunking.v1.trunk.credential_list.CredentialListContext
+        """
+        return CredentialListContext(self._version, trunk_sid=self._solution['trunk_sid'], sid=sid)
 
     def __repr__(self):
         """
@@ -152,8 +190,8 @@ class CredentialListPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.trunking.v1.credential_list.CredentialListPage
-        :rtype: twilio.rest.trunking.v1.credential_list.CredentialListPage
+        :returns: twilio.rest.trunking.v1.trunk.credential_list.CredentialListPage
+        :rtype: twilio.rest.trunking.v1.trunk.credential_list.CredentialListPage
         """
         super().__init__(version, response)
 
@@ -166,8 +204,8 @@ class CredentialListPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.trunking.v1.credential_list.CredentialListInstance
-        :rtype: twilio.rest.trunking.v1.credential_list.CredentialListInstance
+        :returns: twilio.rest.trunking.v1.trunk.credential_list.CredentialListInstance
+        :rtype: twilio.rest.trunking.v1.trunk.credential_list.CredentialListInstance
         """
         return CredentialListInstance(self._version, payload, trunk_sid=self._solution['trunk_sid'])
 

@@ -28,21 +28,40 @@ class TaskQueueStatisticsList(ListResource):
     def __init__(self, version: Version, workspace_sid: str, task_queue_sid: str):
         """
         Initialize the TaskQueueStatisticsList
+
         :param Version version: Version that contains the resource
         :param workspace_sid: The SID of the Workspace with the TaskQueue to fetch.
         :param task_queue_sid: The SID of the TaskQueue for which to fetch statistics.
         
-        :returns: twilio.taskrouter.v1.task_queue_statistics..TaskQueueStatisticsList
-        :rtype: twilio.taskrouter.v1.task_queue_statistics..TaskQueueStatisticsList
+        :returns: twilio.rest.taskrouter.v1.workspace.task_queue.task_queue_statistics.TaskQueueStatisticsList
+        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.task_queue_statistics.TaskQueueStatisticsList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = { 'workspace_sid': workspace_sid, 'task_queue_sid': task_queue_sid,  }
-        self._uri = ''.format(**self._solution)
-
-
+        
+        
+        
     
+
+    def get(self):
+        """
+        Constructs a TaskQueueStatisticsContext
+        
+        :returns: twilio.rest.taskrouter.v1.workspace.task_queue.task_queue_statistics.TaskQueueStatisticsContext
+        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.task_queue_statistics.TaskQueueStatisticsContext
+        """
+        return TaskQueueStatisticsContext(self._version, workspace_sid=self._solution['workspace_sid'], task_queue_sid=self._solution['task_queue_sid'])
+
+    def __call__(self):
+        """
+        Constructs a TaskQueueStatisticsContext
+        
+        :returns: twilio.rest.taskrouter.v1.workspace.task_queue.task_queue_statistics.TaskQueueStatisticsContext
+        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.task_queue_statistics.TaskQueueStatisticsContext
+        """
+        return TaskQueueStatisticsContext(self._version, workspace_sid=self._solution['workspace_sid'], task_queue_sid=self._solution['task_queue_sid'])
 
     def __repr__(self):
         """

@@ -52,20 +52,36 @@ class AccountList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the AccountList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.api.v2010.account..AccountList
-        :rtype: twilio.api.v2010.account..AccountList
+        :returns: twilio.rest.api.v2010.account.AccountList
+        :rtype: twilio.rest.api.v2010.account.AccountList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = {  }
         self._uri = '/Accounts.json'.format(**self._solution)
-
-
+        
+        
     
     
+    
+    def create(self, friendly_name=values.unset):
+        """
+        Create the AccountInstance
+        :param str friendly_name: A human readable description of the account to create, defaults to `SubAccount Created at {YYYY-MM-DD HH:MM meridian}`
+        
+        :returns: The created AccountInstance
+        :rtype: twilio.rest.api.v2010.account.AccountInstance
+        """
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+        })
+
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return AccountInstance(self._version, payload)
     
     
     def stream(self, friendly_name=values.unset, status=values.unset, limit=None, page_size=None):
@@ -162,6 +178,28 @@ class AccountList(ListResource):
         )
         return AccountPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a AccountContext
+        
+        :param sid: The Account Sid that uniquely identifies the account to update
+        
+        :returns: twilio.rest.api.v2010.account.AccountContext
+        :rtype: twilio.rest.api.v2010.account.AccountContext
+        """
+        return AccountContext(self._version, sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a AccountContext
+        
+        :param sid: The Account Sid that uniquely identifies the account to update
+        
+        :returns: twilio.rest.api.v2010.account.AccountContext
+        :rtype: twilio.rest.api.v2010.account.AccountContext
+        """
+        return AccountContext(self._version, sid=sid)
 
     def __repr__(self):
         """
@@ -268,9 +306,9 @@ class AccountContext(InstanceContext):
 
         
     
-    def update(self, body):
+    def update(self, friendly_name, status):
         data = values.of({
-            'body': body,
+            'friendly_name': friendly_name,'status': status,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

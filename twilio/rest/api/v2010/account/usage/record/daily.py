@@ -28,19 +28,20 @@ class DailyList(ListResource):
     def __init__(self, version: Version, account_sid: str):
         """
         Initialize the DailyList
+
         :param Version version: Version that contains the resource
         :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the UsageRecord resources to read.
         
-        :returns: twilio.api.v2010.daily..DailyList
-        :rtype: twilio.api.v2010.daily..DailyList
+        :returns: twilio.rest.api.v2010.account.usage.record.daily.DailyList
+        :rtype: twilio.rest.api.v2010.account.usage.record.daily.DailyList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = { 'account_sid': account_sid,  }
         self._uri = '/Accounts/${account_sid}/Usage/Records/Daily.json'.format(**self._solution)
-
-
+        
+        
     
     def stream(self, category=values.unset, start_date=values.unset, end_date=values.unset, include_subaccounts=values.unset, limit=None, page_size=None):
         """
@@ -61,7 +62,7 @@ class DailyList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.daily.DailyInstance]
+        :rtype: list[twilio.rest.api.v2010.account.usage.record.daily.DailyInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -92,7 +93,7 @@ class DailyList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.daily.DailyInstance]
+        :rtype: list[twilio.rest.api.v2010.account.usage.record.daily.DailyInstance]
         """
         return list(self.stream(
             category=category,
@@ -117,12 +118,12 @@ class DailyList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of DailyInstance
-        :rtype: twilio.rest.api.v2010.daily.DailyPage
+        :rtype: twilio.rest.api.v2010.account.usage.record.daily.DailyPage
         """
         data = values.of({ 
             'Category': category,
-            'StartDate': start_date,
-            'EndDate': end_date,
+            'StartDate': serialize.iso8601_date(start_date),
+            'EndDate': serialize.iso8601_date(end_date),
             'IncludeSubaccounts': include_subaccounts,
             'PageToken': page_token,
             'Page': page_number,
@@ -140,13 +141,14 @@ class DailyList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of DailyInstance
-        :rtype: twilio.rest.api.v2010.daily.DailyPage
+        :rtype: twilio.rest.api.v2010.account.usage.record.daily.DailyPage
         """
         response = self._version.domain.twilio.request(
             'GET',
             target_url
         )
         return DailyPage(self._version, response, self._solution)
+
 
 
     def __repr__(self):
@@ -167,8 +169,8 @@ class DailyPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.api.v2010.daily.DailyPage
-        :rtype: twilio.rest.api.v2010.daily.DailyPage
+        :returns: twilio.rest.api.v2010.account.usage.record.daily.DailyPage
+        :rtype: twilio.rest.api.v2010.account.usage.record.daily.DailyPage
         """
         super().__init__(version, response)
 
@@ -181,8 +183,8 @@ class DailyPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.api.v2010.daily.DailyInstance
-        :rtype: twilio.rest.api.v2010.daily.DailyInstance
+        :returns: twilio.rest.api.v2010.account.usage.record.daily.DailyInstance
+        :rtype: twilio.rest.api.v2010.account.usage.record.daily.DailyInstance
         """
         return DailyInstance(self._version, payload, account_sid=self._solution['account_sid'])
 
@@ -198,6 +200,53 @@ class DailyPage(Page):
 
 
 
+
+
+class DailyInstance(InstanceResource):
+    def __init__(self, version, payload, account_sid: str):
+        super().__init__(version)
+        self._properties = { 
+            'account_sid' : payload.get('account_sid'),
+            'api_version' : payload.get('api_version'),
+            'as_of' : payload.get('as_of'),
+            'category' : payload.get('category'),
+            'count' : payload.get('count'),
+            'count_unit' : payload.get('count_unit'),
+            'description' : payload.get('description'),
+            'end_date' : payload.get('end_date'),
+            'price' : payload.get('price'),
+            'price_unit' : payload.get('price_unit'),
+            'start_date' : payload.get('start_date'),
+            'subresource_uris' : payload.get('subresource_uris'),
+            'uri' : payload.get('uri'),
+            'usage' : payload.get('usage'),
+            'usage_unit' : payload.get('usage_unit'),
+        }
+
+        self._context = None
+        self._solution = {
+            'account_sid': account_sid or self._properties['account_sid'],
+        }
+
+    @property
+    def _proxy(self):
+        if self._context is None:
+            self._context = DailyContext(
+                self._version,
+                account_sid=self._solution['account_sid'],
+            )
+        return self._context
+
+    
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Api.V2010.DailyInstance {}>'.format(context)
 
 
 

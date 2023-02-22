@@ -29,22 +29,54 @@ class MessageList(ListResource):
     def __init__(self, version: Version, conversation_sid: str):
         """
         Initialize the MessageList
+
         :param Version version: Version that contains the resource
         :param conversation_sid: The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for messages.
         
-        :returns: twilio.conversations.v1.message..MessageList
-        :rtype: twilio.conversations.v1.message..MessageList
+        :returns: twilio.rest.conversations.v1.conversation.message.MessageList
+        :rtype: twilio.rest.conversations.v1.conversation.message.MessageList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = { 'conversation_sid': conversation_sid,  }
         self._uri = '/Conversations/${conversation_sid}/Messages'.format(**self._solution)
+        
+        
+    
+    
+    
+    
+    def create(self, x_twilio_webhook_enabled=values.unset, author=values.unset, body=values.unset, date_created=values.unset, date_updated=values.unset, attributes=values.unset, media_sid=values.unset, content_sid=values.unset, content_variables=values.unset):
+        """
+        Create the MessageInstance
+        :param ConversationMessageWebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :param str author: The channel specific identifier of the message's author. Defaults to `system`.
+        :param str body: The content of the message, can be up to 1,600 characters long.
+        :param datetime date_created: The date that this resource was created.
+        :param datetime date_updated: The date that this resource was last updated. `null` if the message has not been edited.
+        :param str attributes: A string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
+        :param str media_sid: The Media SID to be attached to the new Message.
+        :param str content_sid: The unique ID of the multi-channel [Rich Content](https://www.twilio.com/docs/content-api) template, required for template-generated messages.  **Note** that if this field is set, `Body` and `MediaSid` parameters are ignored.
+        :param str content_variables: A structurally valid JSON string that contains values to resolve Rich Content template variables.
+        
+        :returns: The created MessageInstance
+        :rtype: twilio.rest.conversations.v1.conversation.message.MessageInstance
+        """
+        data = values.of({ 
+            'X-Twilio-Webhook-Enabled': x_twilio_webhook_enabled,
+            'Author': author,
+            'Body': body,
+            'DateCreated': serialize.iso8601_datetime(date_created),
+            'DateUpdated': serialize.iso8601_datetime(date_updated),
+            'Attributes': attributes,
+            'MediaSid': media_sid,
+            'ContentSid': content_sid,
+            'ContentVariables': content_variables,
+        })
 
-
-    
-    
-    
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return MessageInstance(self._version, payload, conversation_sid=self._solution['conversation_sid'])
     
     
     def stream(self, order=values.unset, limit=None, page_size=None):
@@ -63,7 +95,7 @@ class MessageList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.conversations.v1.message.MessageInstance]
+        :rtype: list[twilio.rest.conversations.v1.conversation.message.MessageInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -88,7 +120,7 @@ class MessageList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.conversations.v1.message.MessageInstance]
+        :rtype: list[twilio.rest.conversations.v1.conversation.message.MessageInstance]
         """
         return list(self.stream(
             order=order,
@@ -107,7 +139,7 @@ class MessageList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of MessageInstance
-        :rtype: twilio.rest.conversations.v1.message.MessagePage
+        :rtype: twilio.rest.conversations.v1.conversation.message.MessagePage
         """
         data = values.of({ 
             'Order': order,
@@ -127,7 +159,7 @@ class MessageList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of MessageInstance
-        :rtype: twilio.rest.conversations.v1.message.MessagePage
+        :rtype: twilio.rest.conversations.v1.conversation.message.MessagePage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -135,6 +167,28 @@ class MessageList(ListResource):
         )
         return MessagePage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a MessageContext
+        
+        :param sid: A 34 character string that uniquely identifies this resource.
+        
+        :returns: twilio.rest.conversations.v1.conversation.message.MessageContext
+        :rtype: twilio.rest.conversations.v1.conversation.message.MessageContext
+        """
+        return MessageContext(self._version, conversation_sid=self._solution['conversation_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a MessageContext
+        
+        :param sid: A 34 character string that uniquely identifies this resource.
+        
+        :returns: twilio.rest.conversations.v1.conversation.message.MessageContext
+        :rtype: twilio.rest.conversations.v1.conversation.message.MessageContext
+        """
+        return MessageContext(self._version, conversation_sid=self._solution['conversation_sid'], sid=sid)
 
     def __repr__(self):
         """
@@ -162,8 +216,8 @@ class MessagePage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.conversations.v1.message.MessagePage
-        :rtype: twilio.rest.conversations.v1.message.MessagePage
+        :returns: twilio.rest.conversations.v1.conversation.message.MessagePage
+        :rtype: twilio.rest.conversations.v1.conversation.message.MessagePage
         """
         super().__init__(version, response)
 
@@ -176,8 +230,8 @@ class MessagePage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.conversations.v1.message.MessageInstance
-        :rtype: twilio.rest.conversations.v1.message.MessageInstance
+        :returns: twilio.rest.conversations.v1.conversation.message.MessageInstance
+        :rtype: twilio.rest.conversations.v1.conversation.message.MessageInstance
         """
         return MessageInstance(self._version, payload, conversation_sid=self._solution['conversation_sid'])
 
@@ -232,9 +286,9 @@ class MessageContext(InstanceContext):
 
         
     
-    def update(self, x_twilio_webhook_enabled, body):
+    def update(self, x_twilio_webhook_enabled, author, body, date_created, date_updated, attributes):
         data = values.of({
-            'x_twilio_webhook_enabled': x_twilio_webhook_enabled,'body': body,
+            'x_twilio_webhook_enabled': x_twilio_webhook_enabled,'author': author,'body': body,'date_created': date_created,'date_updated': date_updated,'attributes': attributes,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

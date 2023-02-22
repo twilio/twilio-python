@@ -28,22 +28,40 @@ class MessageInteractionList(ListResource):
     def __init__(self, version: Version, service_sid: str, session_sid: str, participant_sid: str):
         """
         Initialize the MessageInteractionList
+
         :param Version version: Version that contains the resource
         :param service_sid: The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) to read the resources from.
         :param session_sid: The SID of the parent [Session](https://www.twilio.com/docs/proxy/api/session) to read the resources from.
         :param participant_sid: The SID of the [Participant](https://www.twilio.com/docs/proxy/api/participant) to read the resources from.
         
-        :returns: twilio.proxy.v1.message_interaction..MessageInteractionList
-        :rtype: twilio.proxy.v1.message_interaction..MessageInteractionList
+        :returns: twilio.rest.proxy.v1.service.session.participant.message_interaction.MessageInteractionList
+        :rtype: twilio.rest.proxy.v1.service.session.participant.message_interaction.MessageInteractionList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = { 'service_sid': service_sid, 'session_sid': session_sid, 'participant_sid': participant_sid,  }
         self._uri = '/Services/${service_sid}/Sessions/${session_sid}/Participants/${participant_sid}/MessageInteractions'.format(**self._solution)
-
-
+        
+        
     
+    
+    def create(self, body=values.unset, media_url=values.unset):
+        """
+        Create the MessageInteractionInstance
+        :param str body: The message to send to the participant
+        :param list[str] media_url: Reserved. Not currently supported.
+        
+        :returns: The created MessageInteractionInstance
+        :rtype: twilio.rest.proxy.v1.service.session.participant.message_interaction.MessageInteractionInstance
+        """
+        data = values.of({ 
+            'Body': body,
+            'MediaUrl': media_url,
+        })
+
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return MessageInteractionInstance(self._version, payload, service_sid=self._solution['service_sid'], session_sid=self._solution['session_sid'], participant_sid=self._solution['participant_sid'])
     
     
     def stream(self, limit=None, page_size=None):
@@ -61,7 +79,7 @@ class MessageInteractionList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.proxy.v1.message_interaction.MessageInteractionInstance]
+        :rtype: list[twilio.rest.proxy.v1.service.session.participant.message_interaction.MessageInteractionInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -84,7 +102,7 @@ class MessageInteractionList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.proxy.v1.message_interaction.MessageInteractionInstance]
+        :rtype: list[twilio.rest.proxy.v1.service.session.participant.message_interaction.MessageInteractionInstance]
         """
         return list(self.stream(
             limit=limit,
@@ -101,7 +119,7 @@ class MessageInteractionList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of MessageInteractionInstance
-        :rtype: twilio.rest.proxy.v1.message_interaction.MessageInteractionPage
+        :rtype: twilio.rest.proxy.v1.service.session.participant.message_interaction.MessageInteractionPage
         """
         data = values.of({ 
             'PageToken': page_token,
@@ -120,7 +138,7 @@ class MessageInteractionList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of MessageInteractionInstance
-        :rtype: twilio.rest.proxy.v1.message_interaction.MessageInteractionPage
+        :rtype: twilio.rest.proxy.v1.service.session.participant.message_interaction.MessageInteractionPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -128,6 +146,28 @@ class MessageInteractionList(ListResource):
         )
         return MessageInteractionPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a MessageInteractionContext
+        
+        :param sid: The Twilio-provided string that uniquely identifies the MessageInteraction resource to fetch.
+        
+        :returns: twilio.rest.proxy.v1.service.session.participant.message_interaction.MessageInteractionContext
+        :rtype: twilio.rest.proxy.v1.service.session.participant.message_interaction.MessageInteractionContext
+        """
+        return MessageInteractionContext(self._version, service_sid=self._solution['service_sid'], session_sid=self._solution['session_sid'], participant_sid=self._solution['participant_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a MessageInteractionContext
+        
+        :param sid: The Twilio-provided string that uniquely identifies the MessageInteraction resource to fetch.
+        
+        :returns: twilio.rest.proxy.v1.service.session.participant.message_interaction.MessageInteractionContext
+        :rtype: twilio.rest.proxy.v1.service.session.participant.message_interaction.MessageInteractionContext
+        """
+        return MessageInteractionContext(self._version, service_sid=self._solution['service_sid'], session_sid=self._solution['session_sid'], participant_sid=self._solution['participant_sid'], sid=sid)
 
     def __repr__(self):
         """
@@ -151,8 +191,8 @@ class MessageInteractionPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.proxy.v1.message_interaction.MessageInteractionPage
-        :rtype: twilio.rest.proxy.v1.message_interaction.MessageInteractionPage
+        :returns: twilio.rest.proxy.v1.service.session.participant.message_interaction.MessageInteractionPage
+        :rtype: twilio.rest.proxy.v1.service.session.participant.message_interaction.MessageInteractionPage
         """
         super().__init__(version, response)
 
@@ -165,8 +205,8 @@ class MessageInteractionPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.proxy.v1.message_interaction.MessageInteractionInstance
-        :rtype: twilio.rest.proxy.v1.message_interaction.MessageInteractionInstance
+        :returns: twilio.rest.proxy.v1.service.session.participant.message_interaction.MessageInteractionInstance
+        :rtype: twilio.rest.proxy.v1.service.session.participant.message_interaction.MessageInteractionInstance
         """
         return MessageInteractionInstance(self._version, payload, service_sid=self._solution['service_sid'], session_sid=self._solution['session_sid'], participant_sid=self._solution['participant_sid'])
 

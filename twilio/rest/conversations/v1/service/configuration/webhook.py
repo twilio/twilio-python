@@ -28,21 +28,40 @@ class WebhookList(ListResource):
     def __init__(self, version: Version, chat_service_sid: str):
         """
         Initialize the WebhookList
+
         :param Version version: Version that contains the resource
         :param chat_service_sid: The unique ID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) this conversation belongs to.
         
-        :returns: twilio.conversations.v1.webhook..WebhookList
-        :rtype: twilio.conversations.v1.webhook..WebhookList
+        :returns: twilio.rest.conversations.v1.service.configuration.webhook.WebhookList
+        :rtype: twilio.rest.conversations.v1.service.configuration.webhook.WebhookList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = { 'chat_service_sid': chat_service_sid,  }
-        self._uri = ''.format(**self._solution)
-
-
+        
+        
+        
     
     
+
+    def get(self):
+        """
+        Constructs a WebhookContext
+        
+        :returns: twilio.rest.conversations.v1.service.configuration.webhook.WebhookContext
+        :rtype: twilio.rest.conversations.v1.service.configuration.webhook.WebhookContext
+        """
+        return WebhookContext(self._version, chat_service_sid=self._solution['chat_service_sid'])
+
+    def __call__(self):
+        """
+        Constructs a WebhookContext
+        
+        :returns: twilio.rest.conversations.v1.service.configuration.webhook.WebhookContext
+        :rtype: twilio.rest.conversations.v1.service.configuration.webhook.WebhookContext
+        """
+        return WebhookContext(self._version, chat_service_sid=self._solution['chat_service_sid'])
 
     def __repr__(self):
         """
@@ -78,9 +97,9 @@ class WebhookContext(InstanceContext):
 
         
     
-    def update(self, body):
+    def update(self, pre_webhook_url, post_webhook_url, filters, method):
         data = values.of({
-            'body': body,
+            'pre_webhook_url': pre_webhook_url,'post_webhook_url': post_webhook_url,'filters': filters,'method': method,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

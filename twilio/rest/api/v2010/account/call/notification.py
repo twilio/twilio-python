@@ -28,20 +28,21 @@ class NotificationList(ListResource):
     def __init__(self, version: Version, account_sid: str, call_sid: str):
         """
         Initialize the NotificationList
+
         :param Version version: Version that contains the resource
         :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Call Notification resources to read.
         :param call_sid: The [Call](https://www.twilio.com/docs/voice/api/call-resource) SID of the Call Notification resources to read.
         
-        :returns: twilio.api.v2010.notification..NotificationList
-        :rtype: twilio.api.v2010.notification..NotificationList
+        :returns: twilio.rest.api.v2010.account.call.notification.NotificationList
+        :rtype: twilio.rest.api.v2010.account.call.notification.NotificationList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = { 'account_sid': account_sid, 'call_sid': call_sid,  }
         self._uri = '/Accounts/${account_sid}/Calls/${call_sid}/Notifications.json'.format(**self._solution)
-
-
+        
+        
     
     
     def stream(self, log=values.unset, message_date=values.unset, message_date_before=values.unset, message_date_after=values.unset, limit=None, page_size=None):
@@ -63,7 +64,7 @@ class NotificationList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.notification.NotificationInstance]
+        :rtype: list[twilio.rest.api.v2010.account.call.notification.NotificationInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -94,7 +95,7 @@ class NotificationList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.notification.NotificationInstance]
+        :rtype: list[twilio.rest.api.v2010.account.call.notification.NotificationInstance]
         """
         return list(self.stream(
             log=log,
@@ -119,13 +120,13 @@ class NotificationList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of NotificationInstance
-        :rtype: twilio.rest.api.v2010.notification.NotificationPage
+        :rtype: twilio.rest.api.v2010.account.call.notification.NotificationPage
         """
         data = values.of({ 
             'Log': log,
-            'MessageDate': message_date,
-            'MessageDate&lt;': message_date_before,
-            'MessageDate&gt;': message_date_after,
+            'MessageDate': serialize.iso8601_date(message_date),
+            'MessageDate<': serialize.iso8601_date(message_date_before),
+            'MessageDate>': serialize.iso8601_date(message_date_after),
             'PageToken': page_token,
             'Page': page_number,
             'PageSize': page_size,
@@ -142,7 +143,7 @@ class NotificationList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of NotificationInstance
-        :rtype: twilio.rest.api.v2010.notification.NotificationPage
+        :rtype: twilio.rest.api.v2010.account.call.notification.NotificationPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -150,6 +151,28 @@ class NotificationList(ListResource):
         )
         return NotificationPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a NotificationContext
+        
+        :param sid: The Twilio-provided string that uniquely identifies the Call Notification resource to fetch.
+        
+        :returns: twilio.rest.api.v2010.account.call.notification.NotificationContext
+        :rtype: twilio.rest.api.v2010.account.call.notification.NotificationContext
+        """
+        return NotificationContext(self._version, account_sid=self._solution['account_sid'], call_sid=self._solution['call_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a NotificationContext
+        
+        :param sid: The Twilio-provided string that uniquely identifies the Call Notification resource to fetch.
+        
+        :returns: twilio.rest.api.v2010.account.call.notification.NotificationContext
+        :rtype: twilio.rest.api.v2010.account.call.notification.NotificationContext
+        """
+        return NotificationContext(self._version, account_sid=self._solution['account_sid'], call_sid=self._solution['call_sid'], sid=sid)
 
     def __repr__(self):
         """
@@ -171,8 +194,8 @@ class NotificationPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.api.v2010.notification.NotificationPage
-        :rtype: twilio.rest.api.v2010.notification.NotificationPage
+        :returns: twilio.rest.api.v2010.account.call.notification.NotificationPage
+        :rtype: twilio.rest.api.v2010.account.call.notification.NotificationPage
         """
         super().__init__(version, response)
 
@@ -185,8 +208,8 @@ class NotificationPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.api.v2010.notification.NotificationInstance
-        :rtype: twilio.rest.api.v2010.notification.NotificationInstance
+        :returns: twilio.rest.api.v2010.account.call.notification.NotificationInstance
+        :rtype: twilio.rest.api.v2010.account.call.notification.NotificationInstance
         """
         return NotificationInstance(self._version, payload, account_sid=self._solution['account_sid'], call_sid=self._solution['call_sid'])
 

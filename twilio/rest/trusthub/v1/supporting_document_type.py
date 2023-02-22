@@ -28,18 +28,19 @@ class SupportingDocumentTypeList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the SupportingDocumentTypeList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.trusthub.v1.supporting_document_type..SupportingDocumentTypeList
-        :rtype: twilio.trusthub.v1.supporting_document_type..SupportingDocumentTypeList
+        :returns: twilio.rest.trusthub.v1.supporting_document_type.SupportingDocumentTypeList
+        :rtype: twilio.rest.trusthub.v1.supporting_document_type.SupportingDocumentTypeList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = {  }
         self._uri = '/SupportingDocumentTypes'.format(**self._solution)
-
-
+        
+        
     
     
     def stream(self, limit=None, page_size=None):
@@ -124,6 +125,28 @@ class SupportingDocumentTypeList(ListResource):
         )
         return SupportingDocumentTypePage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a SupportingDocumentTypeContext
+        
+        :param sid: The unique string that identifies the Supporting Document Type resource.
+        
+        :returns: twilio.rest.trusthub.v1.supporting_document_type.SupportingDocumentTypeContext
+        :rtype: twilio.rest.trusthub.v1.supporting_document_type.SupportingDocumentTypeContext
+        """
+        return SupportingDocumentTypeContext(self._version, sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a SupportingDocumentTypeContext
+        
+        :param sid: The unique string that identifies the Supporting Document Type resource.
+        
+        :returns: twilio.rest.trusthub.v1.supporting_document_type.SupportingDocumentTypeContext
+        :rtype: twilio.rest.trusthub.v1.supporting_document_type.SupportingDocumentTypeContext
+        """
+        return SupportingDocumentTypeContext(self._version, sid=sid)
 
     def __repr__(self):
         """

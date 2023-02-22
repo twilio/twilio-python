@@ -28,21 +28,37 @@ class ItemAssignmentList(ListResource):
     def __init__(self, version: Version, bundle_sid: str):
         """
         Initialize the ItemAssignmentList
+
         :param Version version: Version that contains the resource
         :param bundle_sid: The unique string that we created to identify the Bundle resource.
         
-        :returns: twilio.numbers.v2.item_assignment..ItemAssignmentList
-        :rtype: twilio.numbers.v2.item_assignment..ItemAssignmentList
+        :returns: twilio.rest.numbers.v2.regulatory_compliance.bundle.item_assignment.ItemAssignmentList
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.item_assignment.ItemAssignmentList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = { 'bundle_sid': bundle_sid,  }
         self._uri = '/RegulatoryCompliance/Bundles/${bundle_sid}/ItemAssignments'.format(**self._solution)
-
-
+        
+        
     
     
+    
+    def create(self, object_sid):
+        """
+        Create the ItemAssignmentInstance
+        :param str object_sid: The SID of an object bag that holds information of the different items.
+        
+        :returns: The created ItemAssignmentInstance
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.item_assignment.ItemAssignmentInstance
+        """
+        data = values.of({ 
+            'ObjectSid': object_sid,
+        })
+
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return ItemAssignmentInstance(self._version, payload, bundle_sid=self._solution['bundle_sid'])
     
     
     def stream(self, limit=None, page_size=None):
@@ -60,7 +76,7 @@ class ItemAssignmentList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.numbers.v2.item_assignment.ItemAssignmentInstance]
+        :rtype: list[twilio.rest.numbers.v2.regulatory_compliance.bundle.item_assignment.ItemAssignmentInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -83,7 +99,7 @@ class ItemAssignmentList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.numbers.v2.item_assignment.ItemAssignmentInstance]
+        :rtype: list[twilio.rest.numbers.v2.regulatory_compliance.bundle.item_assignment.ItemAssignmentInstance]
         """
         return list(self.stream(
             limit=limit,
@@ -100,7 +116,7 @@ class ItemAssignmentList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of ItemAssignmentInstance
-        :rtype: twilio.rest.numbers.v2.item_assignment.ItemAssignmentPage
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.item_assignment.ItemAssignmentPage
         """
         data = values.of({ 
             'PageToken': page_token,
@@ -119,7 +135,7 @@ class ItemAssignmentList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of ItemAssignmentInstance
-        :rtype: twilio.rest.numbers.v2.item_assignment.ItemAssignmentPage
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.item_assignment.ItemAssignmentPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -127,6 +143,28 @@ class ItemAssignmentList(ListResource):
         )
         return ItemAssignmentPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a ItemAssignmentContext
+        
+        :param sid: The unique string that we created to identify the Identity resource.
+        
+        :returns: twilio.rest.numbers.v2.regulatory_compliance.bundle.item_assignment.ItemAssignmentContext
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.item_assignment.ItemAssignmentContext
+        """
+        return ItemAssignmentContext(self._version, bundle_sid=self._solution['bundle_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a ItemAssignmentContext
+        
+        :param sid: The unique string that we created to identify the Identity resource.
+        
+        :returns: twilio.rest.numbers.v2.regulatory_compliance.bundle.item_assignment.ItemAssignmentContext
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.item_assignment.ItemAssignmentContext
+        """
+        return ItemAssignmentContext(self._version, bundle_sid=self._solution['bundle_sid'], sid=sid)
 
     def __repr__(self):
         """
@@ -152,8 +190,8 @@ class ItemAssignmentPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.numbers.v2.item_assignment.ItemAssignmentPage
-        :rtype: twilio.rest.numbers.v2.item_assignment.ItemAssignmentPage
+        :returns: twilio.rest.numbers.v2.regulatory_compliance.bundle.item_assignment.ItemAssignmentPage
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.item_assignment.ItemAssignmentPage
         """
         super().__init__(version, response)
 
@@ -166,8 +204,8 @@ class ItemAssignmentPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.numbers.v2.item_assignment.ItemAssignmentInstance
-        :rtype: twilio.rest.numbers.v2.item_assignment.ItemAssignmentInstance
+        :returns: twilio.rest.numbers.v2.regulatory_compliance.bundle.item_assignment.ItemAssignmentInstance
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.item_assignment.ItemAssignmentInstance
         """
         return ItemAssignmentInstance(self._version, payload, bundle_sid=self._solution['bundle_sid'])
 

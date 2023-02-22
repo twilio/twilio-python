@@ -28,23 +28,41 @@ class VariableList(ListResource):
     def __init__(self, version: Version, service_sid: str, environment_sid: str):
         """
         Initialize the VariableList
+
         :param Version version: Version that contains the resource
         :param service_sid: The SID of the Service to read the Variable resources from.
         :param environment_sid: The SID of the Environment with the Variable resources to read.
         
-        :returns: twilio.serverless.v1.variable..VariableList
-        :rtype: twilio.serverless.v1.variable..VariableList
+        :returns: twilio.rest.serverless.v1.service.environment.variable.VariableList
+        :rtype: twilio.rest.serverless.v1.service.environment.variable.VariableList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = { 'service_sid': service_sid, 'environment_sid': environment_sid,  }
         self._uri = '/Services/${service_sid}/Environments/${environment_sid}/Variables'.format(**self._solution)
+        
+        
+    
+    
+    
+    
+    def create(self, key, value):
+        """
+        Create the VariableInstance
+        :param str key: A string by which the Variable resource can be referenced. It can be a maximum of 128 characters.
+        :param str value: A string that contains the actual value of the Variable. It can be a maximum of 450 bytes in size.
+        
+        :returns: The created VariableInstance
+        :rtype: twilio.rest.serverless.v1.service.environment.variable.VariableInstance
+        """
+        data = values.of({ 
+            'Key': key,
+            'Value': value,
+        })
 
-
-    
-    
-    
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return VariableInstance(self._version, payload, service_sid=self._solution['service_sid'], environment_sid=self._solution['environment_sid'])
     
     
     def stream(self, limit=None, page_size=None):
@@ -62,7 +80,7 @@ class VariableList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.serverless.v1.variable.VariableInstance]
+        :rtype: list[twilio.rest.serverless.v1.service.environment.variable.VariableInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -85,7 +103,7 @@ class VariableList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.serverless.v1.variable.VariableInstance]
+        :rtype: list[twilio.rest.serverless.v1.service.environment.variable.VariableInstance]
         """
         return list(self.stream(
             limit=limit,
@@ -102,7 +120,7 @@ class VariableList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of VariableInstance
-        :rtype: twilio.rest.serverless.v1.variable.VariablePage
+        :rtype: twilio.rest.serverless.v1.service.environment.variable.VariablePage
         """
         data = values.of({ 
             'PageToken': page_token,
@@ -121,7 +139,7 @@ class VariableList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of VariableInstance
-        :rtype: twilio.rest.serverless.v1.variable.VariablePage
+        :rtype: twilio.rest.serverless.v1.service.environment.variable.VariablePage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -129,6 +147,28 @@ class VariableList(ListResource):
         )
         return VariablePage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a VariableContext
+        
+        :param sid: The SID of the Variable resource to update.
+        
+        :returns: twilio.rest.serverless.v1.service.environment.variable.VariableContext
+        :rtype: twilio.rest.serverless.v1.service.environment.variable.VariableContext
+        """
+        return VariableContext(self._version, service_sid=self._solution['service_sid'], environment_sid=self._solution['environment_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a VariableContext
+        
+        :param sid: The SID of the Variable resource to update.
+        
+        :returns: twilio.rest.serverless.v1.service.environment.variable.VariableContext
+        :rtype: twilio.rest.serverless.v1.service.environment.variable.VariableContext
+        """
+        return VariableContext(self._version, service_sid=self._solution['service_sid'], environment_sid=self._solution['environment_sid'], sid=sid)
 
     def __repr__(self):
         """
@@ -156,8 +196,8 @@ class VariablePage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.serverless.v1.variable.VariablePage
-        :rtype: twilio.rest.serverless.v1.variable.VariablePage
+        :returns: twilio.rest.serverless.v1.service.environment.variable.VariablePage
+        :rtype: twilio.rest.serverless.v1.service.environment.variable.VariablePage
         """
         super().__init__(version, response)
 
@@ -170,8 +210,8 @@ class VariablePage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.serverless.v1.variable.VariableInstance
-        :rtype: twilio.rest.serverless.v1.variable.VariableInstance
+        :returns: twilio.rest.serverless.v1.service.environment.variable.VariableInstance
+        :rtype: twilio.rest.serverless.v1.service.environment.variable.VariableInstance
         """
         return VariableInstance(self._version, payload, service_sid=self._solution['service_sid'], environment_sid=self._solution['environment_sid'])
 
@@ -225,9 +265,9 @@ class VariableContext(InstanceContext):
 
         
     
-    def update(self, body):
+    def update(self, key, value):
         data = values.of({
-            'body': body,
+            'key': key,'value': value,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

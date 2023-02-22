@@ -28,19 +28,38 @@ class AuthTokenPromotionList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the AuthTokenPromotionList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.accounts.v1.auth_token_promotion..AuthTokenPromotionList
-        :rtype: twilio.accounts.v1.auth_token_promotion..AuthTokenPromotionList
+        :returns: twilio.rest.accounts.v1.auth_token_promotion.AuthTokenPromotionList
+        :rtype: twilio.rest.accounts.v1.auth_token_promotion.AuthTokenPromotionList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = {  }
-        self._uri = ''.format(**self._solution)
-
-
+        
+        
+        
     
+
+    def get(self):
+        """
+        Constructs a AuthTokenPromotionContext
+        
+        :returns: twilio.rest.accounts.v1.auth_token_promotion.AuthTokenPromotionContext
+        :rtype: twilio.rest.accounts.v1.auth_token_promotion.AuthTokenPromotionContext
+        """
+        return AuthTokenPromotionContext(self._version)
+
+    def __call__(self):
+        """
+        Constructs a AuthTokenPromotionContext
+        
+        :returns: twilio.rest.accounts.v1.auth_token_promotion.AuthTokenPromotionContext
+        :rtype: twilio.rest.accounts.v1.auth_token_promotion.AuthTokenPromotionContext
+        """
+        return AuthTokenPromotionContext(self._version)
 
     def __repr__(self):
         """

@@ -28,18 +28,19 @@ class UsageRecordList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the UsageRecordList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.wireless.v1.usage_record..UsageRecordList
-        :rtype: twilio.wireless.v1.usage_record..UsageRecordList
+        :returns: twilio.rest.wireless.v1.usage_record.UsageRecordList
+        :rtype: twilio.rest.wireless.v1.usage_record.UsageRecordList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = {  }
         self._uri = '/UsageRecords'.format(**self._solution)
-
-
+        
+        
     
     def stream(self, end=values.unset, start=values.unset, granularity=values.unset, limit=None, page_size=None):
         """
@@ -114,8 +115,8 @@ class UsageRecordList(ListResource):
         :rtype: twilio.rest.wireless.v1.usage_record.UsageRecordPage
         """
         data = values.of({ 
-            'End': end,
-            'Start': start,
+            'End': serialize.iso8601_datetime(end),
+            'Start': serialize.iso8601_datetime(start),
             'Granularity': granularity,
             'PageToken': page_token,
             'Page': page_number,
@@ -140,6 +141,7 @@ class UsageRecordList(ListResource):
             target_url
         )
         return UsageRecordPage(self._version, response, self._solution)
+
 
 
     def __repr__(self):
@@ -191,6 +193,42 @@ class UsageRecordPage(Page):
 
 
 
+
+
+class UsageRecordInstance(InstanceResource):
+    def __init__(self, version, payload):
+        super().__init__(version)
+        self._properties = { 
+            'account_sid' : payload.get('account_sid'),
+            'period' : payload.get('period'),
+            'commands' : payload.get('commands'),
+            'data' : payload.get('data'),
+        }
+
+        self._context = None
+        self._solution = {
+            
+        }
+
+    @property
+    def _proxy(self):
+        if self._context is None:
+            self._context = UsageRecordContext(
+                self._version,
+                
+            )
+        return self._context
+
+    
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Wireless.V1.UsageRecordInstance {}>'.format(context)
 
 
 

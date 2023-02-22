@@ -28,19 +28,21 @@ class FlowValidateList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the FlowValidateList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.studio.v2.flow_validate..FlowValidateList
-        :rtype: twilio.studio.v2.flow_validate..FlowValidateList
+        :returns: twilio.rest.studio.v2.flow_validate.FlowValidateList
+        :rtype: twilio.rest.studio.v2.flow_validate.FlowValidateList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = {  }
         self._uri = '/Flows/Validate'.format(**self._solution)
-
-
+        
+        
     
+
 
     def __repr__(self):
         """

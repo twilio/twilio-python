@@ -29,21 +29,37 @@ class ConnectionPolicyList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the ConnectionPolicyList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.voice.v1.connection_policy..ConnectionPolicyList
-        :rtype: twilio.voice.v1.connection_policy..ConnectionPolicyList
+        :returns: twilio.rest.voice.v1.connection_policy.ConnectionPolicyList
+        :rtype: twilio.rest.voice.v1.connection_policy.ConnectionPolicyList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = {  }
         self._uri = '/ConnectionPolicies'.format(**self._solution)
+        
+        
+    
+    
+    
+    
+    def create(self, friendly_name=values.unset):
+        """
+        Create the ConnectionPolicyInstance
+        :param str friendly_name: A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
+        
+        :returns: The created ConnectionPolicyInstance
+        :rtype: twilio.rest.voice.v1.connection_policy.ConnectionPolicyInstance
+        """
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+        })
 
-
-    
-    
-    
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return ConnectionPolicyInstance(self._version, payload)
     
     
     def stream(self, limit=None, page_size=None):
@@ -128,6 +144,28 @@ class ConnectionPolicyList(ListResource):
         )
         return ConnectionPolicyPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a ConnectionPolicyContext
+        
+        :param sid: The unique string that we created to identify the Connection Policy resource to update.
+        
+        :returns: twilio.rest.voice.v1.connection_policy.ConnectionPolicyContext
+        :rtype: twilio.rest.voice.v1.connection_policy.ConnectionPolicyContext
+        """
+        return ConnectionPolicyContext(self._version, sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a ConnectionPolicyContext
+        
+        :param sid: The unique string that we created to identify the Connection Policy resource to update.
+        
+        :returns: twilio.rest.voice.v1.connection_policy.ConnectionPolicyContext
+        :rtype: twilio.rest.voice.v1.connection_policy.ConnectionPolicyContext
+        """
+        return ConnectionPolicyContext(self._version, sid=sid)
 
     def __repr__(self):
         """
@@ -225,9 +263,9 @@ class ConnectionPolicyContext(InstanceContext):
 
         
     
-    def update(self, body):
+    def update(self, friendly_name):
         data = values.of({
-            'body': body,
+            'friendly_name': friendly_name,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

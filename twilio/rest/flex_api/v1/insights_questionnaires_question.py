@@ -28,20 +28,46 @@ class InsightsQuestionnairesQuestionList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the InsightsQuestionnairesQuestionList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.flex_api.v1.insights_questionnaires_question..InsightsQuestionnairesQuestionList
-        :rtype: twilio.flex_api.v1.insights_questionnaires_question..InsightsQuestionnairesQuestionList
+        :returns: twilio.rest.flex_api.v1.insights_questionnaires_question.InsightsQuestionnairesQuestionList
+        :rtype: twilio.rest.flex_api.v1.insights_questionnaires_question.InsightsQuestionnairesQuestionList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = {  }
         self._uri = '/Insights/QM/Questions'.format(**self._solution)
-
-
+        
+        
     
     
+    
+    def create(self, category_id, question, description, answer_set_id, allow_na, token=values.unset):
+        """
+        Create the InsightsQuestionnairesQuestionInstance
+        :param str category_id: The ID of the category
+        :param str question: The question.
+        :param str description: The description for the question.
+        :param str answer_set_id: The answer_set for the question.
+        :param bool allow_na: The flag to enable for disable NA for answer.
+        :param str token: The Token HTTP request header
+        
+        :returns: The created InsightsQuestionnairesQuestionInstance
+        :rtype: twilio.rest.flex_api.v1.insights_questionnaires_question.InsightsQuestionnairesQuestionInstance
+        """
+        data = values.of({ 
+            'CategoryId': category_id,
+            'Question': question,
+            'Description': description,
+            'AnswerSetId': answer_set_id,
+            'AllowNa': allow_na,
+            'Token': token,
+        })
+
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return InsightsQuestionnairesQuestionInstance(self._version, payload)
     
     
     def stream(self, token=values.unset, category_id=values.unset, limit=None, page_size=None):
@@ -52,7 +78,7 @@ class InsightsQuestionnairesQuestionList(ListResource):
         The results are returned as a generator, so this operation is memory efficient.
         
         :param str token: The Token HTTP request header
-        :param [str] category_id: The list of category IDs
+        :param list[str] category_id: The list of category IDs
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -79,7 +105,7 @@ class InsightsQuestionnairesQuestionList(ListResource):
         memory before returning.
         
         :param str token: The Token HTTP request header
-        :param [str] category_id: The list of category IDs
+        :param list[str] category_id: The list of category IDs
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -103,7 +129,7 @@ class InsightsQuestionnairesQuestionList(ListResource):
         Request is executed immediately
         
         :param str token: The Token HTTP request header
-        :param [str] category_id: The list of category IDs
+        :param list[str] category_id: The list of category IDs
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -113,7 +139,7 @@ class InsightsQuestionnairesQuestionList(ListResource):
         """
         data = values.of({ 
             'Token': token,
-            'CategoryId': category_id,
+            'CategoryId': serialize.map(category_id),
             'PageToken': page_token,
             'Page': page_number,
             'PageSize': page_size,
@@ -138,6 +164,28 @@ class InsightsQuestionnairesQuestionList(ListResource):
         )
         return InsightsQuestionnairesQuestionPage(self._version, response, self._solution)
 
+
+    def get(self, question_id):
+        """
+        Constructs a InsightsQuestionnairesQuestionContext
+        
+        :param question_id: The unique ID of the question
+        
+        :returns: twilio.rest.flex_api.v1.insights_questionnaires_question.InsightsQuestionnairesQuestionContext
+        :rtype: twilio.rest.flex_api.v1.insights_questionnaires_question.InsightsQuestionnairesQuestionContext
+        """
+        return InsightsQuestionnairesQuestionContext(self._version, question_id=question_id)
+
+    def __call__(self, question_id):
+        """
+        Constructs a InsightsQuestionnairesQuestionContext
+        
+        :param question_id: The unique ID of the question
+        
+        :returns: twilio.rest.flex_api.v1.insights_questionnaires_question.InsightsQuestionnairesQuestionContext
+        :rtype: twilio.rest.flex_api.v1.insights_questionnaires_question.InsightsQuestionnairesQuestionContext
+        """
+        return InsightsQuestionnairesQuestionContext(self._version, question_id=question_id)
 
     def __repr__(self):
         """
@@ -217,9 +265,9 @@ class InsightsQuestionnairesQuestionContext(InstanceContext):
         """
         return self._version.delete(method='DELETE', uri=self._uri, )
     
-    def update(self, token, body):
+    def update(self, allow_na, token, category_id, question, description, answer_set_id):
         data = values.of({
-            'token': token,'body': body,
+            'allow_na': allow_na,'token': token,'category_id': category_id,'question': question,'description': description,'answer_set_id': answer_set_id,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

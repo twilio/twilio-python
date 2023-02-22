@@ -28,21 +28,23 @@ class RecordingRulesList(ListResource):
     def __init__(self, version: Version, room_sid: str):
         """
         Initialize the RecordingRulesList
+
         :param Version version: Version that contains the resource
         :param room_sid: The SID of the Room resource where the recording rules to update apply.
         
-        :returns: twilio.video.v1.recording_rules..RecordingRulesList
-        :rtype: twilio.video.v1.recording_rules..RecordingRulesList
+        :returns: twilio.rest.video.v1.room.recording_rules.RecordingRulesList
+        :rtype: twilio.rest.video.v1.room.recording_rules.RecordingRulesList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = { 'room_sid': room_sid,  }
         self._uri = '/Rooms/${room_sid}/RecordingRules'.format(**self._solution)
-
-
+        
+        
     
     
+
 
     def __repr__(self):
         """

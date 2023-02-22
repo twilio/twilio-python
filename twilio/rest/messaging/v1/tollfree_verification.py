@@ -28,20 +28,80 @@ class TollfreeVerificationList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the TollfreeVerificationList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.messaging.v1.tollfree_verification..TollfreeVerificationList
-        :rtype: twilio.messaging.v1.tollfree_verification..TollfreeVerificationList
+        :returns: twilio.rest.messaging.v1.tollfree_verification.TollfreeVerificationList
+        :rtype: twilio.rest.messaging.v1.tollfree_verification.TollfreeVerificationList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = {  }
         self._uri = '/Tollfree/Verifications'.format(**self._solution)
-
-
+        
+        
     
     
+    
+    def create(self, business_name, business_website, notification_email, use_case_categories, use_case_summary, production_message_sample, opt_in_image_urls, opt_in_type, message_volume, tollfree_phone_number_sid, customer_profile_sid=values.unset, business_street_address=values.unset, business_street_address2=values.unset, business_city=values.unset, business_state_province_region=values.unset, business_postal_code=values.unset, business_country=values.unset, additional_information=values.unset, business_contact_first_name=values.unset, business_contact_last_name=values.unset, business_contact_email=values.unset, business_contact_phone=values.unset, external_reference_id=values.unset):
+        """
+        Create the TollfreeVerificationInstance
+        :param str business_name: The name of the business or organization using the Tollfree number.
+        :param str business_website: The website of the business or organization using the Tollfree number.
+        :param str notification_email: The email address to receive the notification about the verification result. .
+        :param list[str] use_case_categories: The category of the use case for the Tollfree Number. List as many are applicable..
+        :param str use_case_summary: Use this to further explain how messaging is used by the business or organization.
+        :param str production_message_sample: An example of message content, i.e. a sample message.
+        :param list[str] opt_in_image_urls: Link to an image that shows the opt-in workflow. Multiple images allowed and must be a publicly hosted URL.
+        :param TollfreeVerificationOptInType opt_in_type: 
+        :param str message_volume: Estimate monthly volume of messages from the Tollfree Number.
+        :param str tollfree_phone_number_sid: The SID of the Phone Number associated with the Tollfree Verification.
+        :param str customer_profile_sid: Customer's Profile Bundle BundleSid.
+        :param str business_street_address: The address of the business or organization using the Tollfree number.
+        :param str business_street_address2: The address of the business or organization using the Tollfree number.
+        :param str business_city: The city of the business or organization using the Tollfree number.
+        :param str business_state_province_region: The state/province/region of the business or organization using the Tollfree number.
+        :param str business_postal_code: The postal code of the business or organization using the Tollfree number.
+        :param str business_country: The country of the business or organization using the Tollfree number.
+        :param str additional_information: Additional information to be provided for verification.
+        :param str business_contact_first_name: The first name of the contact for the business or organization using the Tollfree number.
+        :param str business_contact_last_name: The last name of the contact for the business or organization using the Tollfree number.
+        :param str business_contact_email: The email address of the contact for the business or organization using the Tollfree number.
+        :param str business_contact_phone: The phone number of the contact for the business or organization using the Tollfree number.
+        :param str external_reference_id: An optional external reference ID supplied by customer and echoed back on status retrieval.
+        
+        :returns: The created TollfreeVerificationInstance
+        :rtype: twilio.rest.messaging.v1.tollfree_verification.TollfreeVerificationInstance
+        """
+        data = values.of({ 
+            'BusinessName': business_name,
+            'BusinessWebsite': business_website,
+            'NotificationEmail': notification_email,
+            'UseCaseCategories': serialize.map(use_case_categories, lambda e: e),
+            'UseCaseSummary': use_case_summary,
+            'ProductionMessageSample': production_message_sample,
+            'OptInImageUrls': serialize.map(opt_in_image_urls, lambda e: e),
+            'OptInType': opt_in_type,
+            'MessageVolume': message_volume,
+            'TollfreePhoneNumberSid': tollfree_phone_number_sid,
+            'CustomerProfileSid': customer_profile_sid,
+            'BusinessStreetAddress': business_street_address,
+            'BusinessStreetAddress2': business_street_address2,
+            'BusinessCity': business_city,
+            'BusinessStateProvinceRegion': business_state_province_region,
+            'BusinessPostalCode': business_postal_code,
+            'BusinessCountry': business_country,
+            'AdditionalInformation': additional_information,
+            'BusinessContactFirstName': business_contact_first_name,
+            'BusinessContactLastName': business_contact_last_name,
+            'BusinessContactEmail': business_contact_email,
+            'BusinessContactPhone': business_contact_phone,
+            'ExternalReferenceId': external_reference_id,
+        })
+
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return TollfreeVerificationInstance(self._version, payload)
     
     
     def stream(self, tollfree_phone_number_sid=values.unset, status=values.unset, limit=None, page_size=None):
@@ -139,6 +199,28 @@ class TollfreeVerificationList(ListResource):
         return TollfreeVerificationPage(self._version, response, self._solution)
 
 
+    def get(self, sid):
+        """
+        Constructs a TollfreeVerificationContext
+        
+        :param sid: The unique string to identify Tollfree Verification.
+        
+        :returns: twilio.rest.messaging.v1.tollfree_verification.TollfreeVerificationContext
+        :rtype: twilio.rest.messaging.v1.tollfree_verification.TollfreeVerificationContext
+        """
+        return TollfreeVerificationContext(self._version, sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a TollfreeVerificationContext
+        
+        :param sid: The unique string to identify Tollfree Verification.
+        
+        :returns: twilio.rest.messaging.v1.tollfree_verification.TollfreeVerificationContext
+        :rtype: twilio.rest.messaging.v1.tollfree_verification.TollfreeVerificationContext
+        """
+        return TollfreeVerificationContext(self._version, sid=sid)
+
     def __repr__(self):
         """
         Provide a friendly representation
@@ -220,9 +302,9 @@ class TollfreeVerificationContext(InstanceContext):
 
         
     
-    def update(self, body):
+    def update(self, business_name, business_website, notification_email, use_case_categories, use_case_summary, production_message_sample, opt_in_image_urls, opt_in_type, message_volume, business_street_address, business_street_address2, business_city, business_state_province_region, business_postal_code, business_country, additional_information, business_contact_first_name, business_contact_last_name, business_contact_email, business_contact_phone):
         data = values.of({
-            'body': body,
+            'business_name': business_name,'business_website': business_website,'notification_email': notification_email,'use_case_categories': use_case_categories,'use_case_summary': use_case_summary,'production_message_sample': production_message_sample,'opt_in_image_urls': opt_in_image_urls,'opt_in_type': opt_in_type,'message_volume': message_volume,'business_street_address': business_street_address,'business_street_address2': business_street_address2,'business_city': business_city,'business_state_province_region': business_state_province_region,'business_postal_code': business_postal_code,'business_country': business_country,'additional_information': additional_information,'business_contact_first_name': business_contact_first_name,'business_contact_last_name': business_contact_last_name,'business_contact_email': business_contact_email,'business_contact_phone': business_contact_phone,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

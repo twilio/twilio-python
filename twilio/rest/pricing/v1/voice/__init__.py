@@ -30,28 +30,29 @@ class VoiceList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the VoiceList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.pricing.v1.voice..VoiceList
-        :rtype: twilio.pricing.v1.voice..VoiceList
+        :returns: twilio.rest.pricing.v1.voice.VoiceList
+        :rtype: twilio.rest.pricing.v1.voice.VoiceList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = {  }
         self._uri = '/Voice'.format(**self._solution)
-
+        
         self._countries = None
         self._numbers = None
-
+        
 
     @property
     def countries(self):
         """
         Access the countries
 
-        :returns: twilio.rest.pricing.v1.voice.countries.CountryList
-        :rtype: twilio.rest.pricing.v1.voice.countries.CountryList
+        :returns: twilio.rest.pricing.v1.voice.CountryList
+        :rtype: twilio.rest.pricing.v1.voice.CountryList
         """
         if self._countries is None:
             self._countries = CountryList(self._version)
@@ -62,12 +63,13 @@ class VoiceList(ListResource):
         """
         Access the numbers
 
-        :returns: twilio.rest.pricing.v1.voice.numbers.NumberList
-        :rtype: twilio.rest.pricing.v1.voice.numbers.NumberList
+        :returns: twilio.rest.pricing.v1.voice.NumberList
+        :rtype: twilio.rest.pricing.v1.voice.NumberList
         """
         if self._numbers is None:
             self._numbers = NumberList(self._version)
         return self.numbers
+
 
     def __repr__(self):
         """

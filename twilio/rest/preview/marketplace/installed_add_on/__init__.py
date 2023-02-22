@@ -29,21 +29,43 @@ class InstalledAddOnList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the InstalledAddOnList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.preview.marketplace.installed_add_on..InstalledAddOnList
-        :rtype: twilio.preview.marketplace.installed_add_on..InstalledAddOnList
+        :returns: twilio.rest.preview.marketplace.installed_add_on.InstalledAddOnList
+        :rtype: twilio.rest.preview.marketplace.installed_add_on.InstalledAddOnList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = {  }
         self._uri = '/InstalledAddOns'.format(**self._solution)
+        
+        
+    
+    
+    
+    
+    def create(self, available_add_on_sid, accept_terms_of_service, configuration=values.unset, unique_name=values.unset):
+        """
+        Create the InstalledAddOnInstance
+        :param str available_add_on_sid: The SID of the AvaliableAddOn to install.
+        :param bool accept_terms_of_service: Whether the Terms of Service were accepted.
+        :param object configuration: The JSON object that represents the configuration of the new Add-on being installed.
+        :param str unique_name: An application-defined string that uniquely identifies the resource. This value must be unique within the Account.
+        
+        :returns: The created InstalledAddOnInstance
+        :rtype: twilio.rest.preview.marketplace.installed_add_on.InstalledAddOnInstance
+        """
+        data = values.of({ 
+            'AvailableAddOnSid': available_add_on_sid,
+            'AcceptTermsOfService': accept_terms_of_service,
+            'Configuration': serialize.object(configuration),
+            'UniqueName': unique_name,
+        })
 
-
-    
-    
-    
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return InstalledAddOnInstance(self._version, payload)
     
     
     def stream(self, limit=None, page_size=None):
@@ -128,6 +150,28 @@ class InstalledAddOnList(ListResource):
         )
         return InstalledAddOnPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a InstalledAddOnContext
+        
+        :param sid: The SID of the InstalledAddOn resource to update.
+        
+        :returns: twilio.rest.preview.marketplace.installed_add_on.InstalledAddOnContext
+        :rtype: twilio.rest.preview.marketplace.installed_add_on.InstalledAddOnContext
+        """
+        return InstalledAddOnContext(self._version, sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a InstalledAddOnContext
+        
+        :param sid: The SID of the InstalledAddOn resource to update.
+        
+        :returns: twilio.rest.preview.marketplace.installed_add_on.InstalledAddOnContext
+        :rtype: twilio.rest.preview.marketplace.installed_add_on.InstalledAddOnContext
+        """
+        return InstalledAddOnContext(self._version, sid=sid)
 
     def __repr__(self):
         """
@@ -225,9 +269,9 @@ class InstalledAddOnContext(InstanceContext):
 
         
     
-    def update(self, body):
+    def update(self, configuration, unique_name):
         data = values.of({
-            'body': body,
+            'configuration': configuration,'unique_name': unique_name,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

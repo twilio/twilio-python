@@ -29,20 +29,46 @@ class AuthorizationDocumentList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the AuthorizationDocumentList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.preview.hosted_numbers.authorization_document..AuthorizationDocumentList
-        :rtype: twilio.preview.hosted_numbers.authorization_document..AuthorizationDocumentList
+        :returns: twilio.rest.preview.hosted_numbers.authorization_document.AuthorizationDocumentList
+        :rtype: twilio.rest.preview.hosted_numbers.authorization_document.AuthorizationDocumentList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = {  }
         self._uri = '/AuthorizationDocuments'.format(**self._solution)
-
-
+        
+        
     
     
+    
+    def create(self, hosted_number_order_sids, address_sid, email, contact_title, contact_phone_number, cc_emails=values.unset):
+        """
+        Create the AuthorizationDocumentInstance
+        :param list[str] hosted_number_order_sids: A list of HostedNumberOrder sids that this AuthorizationDocument will authorize for hosting phone number capabilities on Twilio's platform.
+        :param str address_sid: A 34 character string that uniquely identifies the Address resource that is associated with this AuthorizationDocument.
+        :param str email: Email that this AuthorizationDocument will be sent to for signing.
+        :param str contact_title: The title of the person authorized to sign the Authorization Document for this phone number.
+        :param str contact_phone_number: The contact phone number of the person authorized to sign the Authorization Document.
+        :param list[str] cc_emails: Email recipients who will be informed when an Authorization Document has been sent and signed.
+        
+        :returns: The created AuthorizationDocumentInstance
+        :rtype: twilio.rest.preview.hosted_numbers.authorization_document.AuthorizationDocumentInstance
+        """
+        data = values.of({ 
+            'HostedNumberOrderSids': serialize.map(hosted_number_order_sids, lambda e: e),
+            'AddressSid': address_sid,
+            'Email': email,
+            'ContactTitle': contact_title,
+            'ContactPhoneNumber': contact_phone_number,
+            'CcEmails': serialize.map(cc_emails, lambda e: e),
+        })
+
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return AuthorizationDocumentInstance(self._version, payload)
     
     
     def stream(self, email=values.unset, status=values.unset, limit=None, page_size=None):
@@ -140,6 +166,28 @@ class AuthorizationDocumentList(ListResource):
         return AuthorizationDocumentPage(self._version, response, self._solution)
 
 
+    def get(self, sid):
+        """
+        Constructs a AuthorizationDocumentContext
+        
+        :param sid: 
+        
+        :returns: twilio.rest.preview.hosted_numbers.authorization_document.AuthorizationDocumentContext
+        :rtype: twilio.rest.preview.hosted_numbers.authorization_document.AuthorizationDocumentContext
+        """
+        return AuthorizationDocumentContext(self._version, sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a AuthorizationDocumentContext
+        
+        :param sid: 
+        
+        :returns: twilio.rest.preview.hosted_numbers.authorization_document.AuthorizationDocumentContext
+        :rtype: twilio.rest.preview.hosted_numbers.authorization_document.AuthorizationDocumentContext
+        """
+        return AuthorizationDocumentContext(self._version, sid=sid)
+
     def __repr__(self):
         """
         Provide a friendly representation
@@ -222,9 +270,9 @@ class AuthorizationDocumentContext(InstanceContext):
 
         
     
-    def update(self, body):
+    def update(self, hosted_number_order_sids, address_sid, email, cc_emails, status, contact_title, contact_phone_number):
         data = values.of({
-            'body': body,
+            'hosted_number_order_sids': hosted_number_order_sids,'address_sid': address_sid,'email': email,'cc_emails': cc_emails,'status': status,'contact_title': contact_title,'contact_phone_number': contact_phone_number,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

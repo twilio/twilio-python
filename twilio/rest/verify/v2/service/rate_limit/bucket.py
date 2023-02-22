@@ -28,23 +28,41 @@ class BucketList(ListResource):
     def __init__(self, version: Version, service_sid: str, rate_limit_sid: str):
         """
         Initialize the BucketList
+
         :param Version version: Version that contains the resource
         :param service_sid: The SID of the [Service](https://www.twilio.com/docs/verify/api/service) the resource is associated with.
         :param rate_limit_sid: The Twilio-provided string that uniquely identifies the Rate Limit resource.
         
-        :returns: twilio.verify.v2.bucket..BucketList
-        :rtype: twilio.verify.v2.bucket..BucketList
+        :returns: twilio.rest.verify.v2.service.rate_limit.bucket.BucketList
+        :rtype: twilio.rest.verify.v2.service.rate_limit.bucket.BucketList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = { 'service_sid': service_sid, 'rate_limit_sid': rate_limit_sid,  }
         self._uri = '/Services/${service_sid}/RateLimits/${rate_limit_sid}/Buckets'.format(**self._solution)
+        
+        
+    
+    
+    
+    
+    def create(self, max, interval):
+        """
+        Create the BucketInstance
+        :param int max: Maximum number of requests permitted in during the interval.
+        :param int interval: Number of seconds that the rate limit will be enforced over.
+        
+        :returns: The created BucketInstance
+        :rtype: twilio.rest.verify.v2.service.rate_limit.bucket.BucketInstance
+        """
+        data = values.of({ 
+            'Max': max,
+            'Interval': interval,
+        })
 
-
-    
-    
-    
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return BucketInstance(self._version, payload, service_sid=self._solution['service_sid'], rate_limit_sid=self._solution['rate_limit_sid'])
     
     
     def stream(self, limit=None, page_size=None):
@@ -62,7 +80,7 @@ class BucketList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.verify.v2.bucket.BucketInstance]
+        :rtype: list[twilio.rest.verify.v2.service.rate_limit.bucket.BucketInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -85,7 +103,7 @@ class BucketList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.verify.v2.bucket.BucketInstance]
+        :rtype: list[twilio.rest.verify.v2.service.rate_limit.bucket.BucketInstance]
         """
         return list(self.stream(
             limit=limit,
@@ -102,7 +120,7 @@ class BucketList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of BucketInstance
-        :rtype: twilio.rest.verify.v2.bucket.BucketPage
+        :rtype: twilio.rest.verify.v2.service.rate_limit.bucket.BucketPage
         """
         data = values.of({ 
             'PageToken': page_token,
@@ -121,7 +139,7 @@ class BucketList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of BucketInstance
-        :rtype: twilio.rest.verify.v2.bucket.BucketPage
+        :rtype: twilio.rest.verify.v2.service.rate_limit.bucket.BucketPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -129,6 +147,28 @@ class BucketList(ListResource):
         )
         return BucketPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a BucketContext
+        
+        :param sid: A 34 character string that uniquely identifies this Bucket.
+        
+        :returns: twilio.rest.verify.v2.service.rate_limit.bucket.BucketContext
+        :rtype: twilio.rest.verify.v2.service.rate_limit.bucket.BucketContext
+        """
+        return BucketContext(self._version, service_sid=self._solution['service_sid'], rate_limit_sid=self._solution['rate_limit_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a BucketContext
+        
+        :param sid: A 34 character string that uniquely identifies this Bucket.
+        
+        :returns: twilio.rest.verify.v2.service.rate_limit.bucket.BucketContext
+        :rtype: twilio.rest.verify.v2.service.rate_limit.bucket.BucketContext
+        """
+        return BucketContext(self._version, service_sid=self._solution['service_sid'], rate_limit_sid=self._solution['rate_limit_sid'], sid=sid)
 
     def __repr__(self):
         """
@@ -156,8 +196,8 @@ class BucketPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.verify.v2.bucket.BucketPage
-        :rtype: twilio.rest.verify.v2.bucket.BucketPage
+        :returns: twilio.rest.verify.v2.service.rate_limit.bucket.BucketPage
+        :rtype: twilio.rest.verify.v2.service.rate_limit.bucket.BucketPage
         """
         super().__init__(version, response)
 
@@ -170,8 +210,8 @@ class BucketPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.verify.v2.bucket.BucketInstance
-        :rtype: twilio.rest.verify.v2.bucket.BucketInstance
+        :returns: twilio.rest.verify.v2.service.rate_limit.bucket.BucketInstance
+        :rtype: twilio.rest.verify.v2.service.rate_limit.bucket.BucketInstance
         """
         return BucketInstance(self._version, payload, service_sid=self._solution['service_sid'], rate_limit_sid=self._solution['rate_limit_sid'])
 
@@ -225,9 +265,9 @@ class BucketContext(InstanceContext):
 
         
     
-    def update(self, body):
+    def update(self, max, interval):
         data = values.of({
-            'body': body,
+            'max': max,'interval': interval,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

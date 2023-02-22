@@ -31,21 +31,43 @@ class CustomerProfilesList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the CustomerProfilesList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.trusthub.v1.customer_profiles..CustomerProfilesList
-        :rtype: twilio.trusthub.v1.customer_profiles..CustomerProfilesList
+        :returns: twilio.rest.trusthub.v1.customer_profiles.CustomerProfilesList
+        :rtype: twilio.rest.trusthub.v1.customer_profiles.CustomerProfilesList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = {  }
         self._uri = '/CustomerProfiles'.format(**self._solution)
+        
+        
+    
+    
+    
+    
+    def create(self, friendly_name, email, policy_sid, status_callback=values.unset):
+        """
+        Create the CustomerProfilesInstance
+        :param str friendly_name: The string that you assigned to describe the resource.
+        :param str email: The email address that will receive updates when the Customer-Profile resource changes status.
+        :param str policy_sid: The unique string of a policy that is associated to the Customer-Profile resource.
+        :param str status_callback: The URL we call to inform your application of status changes.
+        
+        :returns: The created CustomerProfilesInstance
+        :rtype: twilio.rest.trusthub.v1.customer_profiles.CustomerProfilesInstance
+        """
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+            'Email': email,
+            'PolicySid': policy_sid,
+            'StatusCallback': status_callback,
+        })
 
-
-    
-    
-    
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return CustomerProfilesInstance(self._version, payload)
     
     
     def stream(self, status=values.unset, friendly_name=values.unset, policy_sid=values.unset, limit=None, page_size=None):
@@ -149,6 +171,28 @@ class CustomerProfilesList(ListResource):
         return CustomerProfilesPage(self._version, response, self._solution)
 
 
+    def get(self, sid):
+        """
+        Constructs a CustomerProfilesContext
+        
+        :param sid: The unique string that we created to identify the Customer-Profile resource.
+        
+        :returns: twilio.rest.trusthub.v1.customer_profiles.CustomerProfilesContext
+        :rtype: twilio.rest.trusthub.v1.customer_profiles.CustomerProfilesContext
+        """
+        return CustomerProfilesContext(self._version, sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a CustomerProfilesContext
+        
+        :param sid: The unique string that we created to identify the Customer-Profile resource.
+        
+        :returns: twilio.rest.trusthub.v1.customer_profiles.CustomerProfilesContext
+        :rtype: twilio.rest.trusthub.v1.customer_profiles.CustomerProfilesContext
+        """
+        return CustomerProfilesContext(self._version, sid=sid)
+
     def __repr__(self):
         """
         Provide a friendly representation
@@ -247,9 +291,9 @@ class CustomerProfilesContext(InstanceContext):
 
         
     
-    def update(self, body):
+    def update(self, status, status_callback, friendly_name, email):
         data = values.of({
-            'body': body,
+            'status': status,'status_callback': status_callback,'friendly_name': friendly_name,'email': email,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

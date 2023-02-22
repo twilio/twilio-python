@@ -28,22 +28,38 @@ class IpAccessControlListMappingList(ListResource):
     def __init__(self, version: Version, account_sid: str, domain_sid: str):
         """
         Initialize the IpAccessControlListMappingList
+
         :param Version version: Version that contains the resource
         :param account_sid: The unique id of the Account that is responsible for this resource.
         :param domain_sid: A 34 character string that uniquely identifies the SIP domain.
         
-        :returns: twilio.api.v2010.ip_access_control_list_mapping..IpAccessControlListMappingList
-        :rtype: twilio.api.v2010.ip_access_control_list_mapping..IpAccessControlListMappingList
+        :returns: twilio.rest.api.v2010.account.sip.domain.ip_access_control_list_mapping.IpAccessControlListMappingList
+        :rtype: twilio.rest.api.v2010.account.sip.domain.ip_access_control_list_mapping.IpAccessControlListMappingList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = { 'account_sid': account_sid, 'domain_sid': domain_sid,  }
         self._uri = '/Accounts/${account_sid}/SIP/Domains/${domain_sid}/IpAccessControlListMappings.json'.format(**self._solution)
-
-
+        
+        
     
     
+    
+    def create(self, ip_access_control_list_sid):
+        """
+        Create the IpAccessControlListMappingInstance
+        :param str ip_access_control_list_sid: The unique id of the IP access control list to map to the SIP domain.
+        
+        :returns: The created IpAccessControlListMappingInstance
+        :rtype: twilio.rest.api.v2010.account.sip.domain.ip_access_control_list_mapping.IpAccessControlListMappingInstance
+        """
+        data = values.of({ 
+            'IpAccessControlListSid': ip_access_control_list_sid,
+        })
+
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return IpAccessControlListMappingInstance(self._version, payload, account_sid=self._solution['account_sid'], domain_sid=self._solution['domain_sid'])
     
     
     def stream(self, limit=None, page_size=None):
@@ -61,7 +77,7 @@ class IpAccessControlListMappingList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.ip_access_control_list_mapping.IpAccessControlListMappingInstance]
+        :rtype: list[twilio.rest.api.v2010.account.sip.domain.ip_access_control_list_mapping.IpAccessControlListMappingInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -84,7 +100,7 @@ class IpAccessControlListMappingList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.ip_access_control_list_mapping.IpAccessControlListMappingInstance]
+        :rtype: list[twilio.rest.api.v2010.account.sip.domain.ip_access_control_list_mapping.IpAccessControlListMappingInstance]
         """
         return list(self.stream(
             limit=limit,
@@ -101,7 +117,7 @@ class IpAccessControlListMappingList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of IpAccessControlListMappingInstance
-        :rtype: twilio.rest.api.v2010.ip_access_control_list_mapping.IpAccessControlListMappingPage
+        :rtype: twilio.rest.api.v2010.account.sip.domain.ip_access_control_list_mapping.IpAccessControlListMappingPage
         """
         data = values.of({ 
             'PageToken': page_token,
@@ -120,7 +136,7 @@ class IpAccessControlListMappingList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of IpAccessControlListMappingInstance
-        :rtype: twilio.rest.api.v2010.ip_access_control_list_mapping.IpAccessControlListMappingPage
+        :rtype: twilio.rest.api.v2010.account.sip.domain.ip_access_control_list_mapping.IpAccessControlListMappingPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -128,6 +144,28 @@ class IpAccessControlListMappingList(ListResource):
         )
         return IpAccessControlListMappingPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a IpAccessControlListMappingContext
+        
+        :param sid: A 34 character string that uniquely identifies the resource to fetch.
+        
+        :returns: twilio.rest.api.v2010.account.sip.domain.ip_access_control_list_mapping.IpAccessControlListMappingContext
+        :rtype: twilio.rest.api.v2010.account.sip.domain.ip_access_control_list_mapping.IpAccessControlListMappingContext
+        """
+        return IpAccessControlListMappingContext(self._version, account_sid=self._solution['account_sid'], domain_sid=self._solution['domain_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a IpAccessControlListMappingContext
+        
+        :param sid: A 34 character string that uniquely identifies the resource to fetch.
+        
+        :returns: twilio.rest.api.v2010.account.sip.domain.ip_access_control_list_mapping.IpAccessControlListMappingContext
+        :rtype: twilio.rest.api.v2010.account.sip.domain.ip_access_control_list_mapping.IpAccessControlListMappingContext
+        """
+        return IpAccessControlListMappingContext(self._version, account_sid=self._solution['account_sid'], domain_sid=self._solution['domain_sid'], sid=sid)
 
     def __repr__(self):
         """
@@ -153,8 +191,8 @@ class IpAccessControlListMappingPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.api.v2010.ip_access_control_list_mapping.IpAccessControlListMappingPage
-        :rtype: twilio.rest.api.v2010.ip_access_control_list_mapping.IpAccessControlListMappingPage
+        :returns: twilio.rest.api.v2010.account.sip.domain.ip_access_control_list_mapping.IpAccessControlListMappingPage
+        :rtype: twilio.rest.api.v2010.account.sip.domain.ip_access_control_list_mapping.IpAccessControlListMappingPage
         """
         super().__init__(version, response)
 
@@ -167,8 +205,8 @@ class IpAccessControlListMappingPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.api.v2010.ip_access_control_list_mapping.IpAccessControlListMappingInstance
-        :rtype: twilio.rest.api.v2010.ip_access_control_list_mapping.IpAccessControlListMappingInstance
+        :returns: twilio.rest.api.v2010.account.sip.domain.ip_access_control_list_mapping.IpAccessControlListMappingInstance
+        :rtype: twilio.rest.api.v2010.account.sip.domain.ip_access_control_list_mapping.IpAccessControlListMappingInstance
         """
         return IpAccessControlListMappingInstance(self._version, payload, account_sid=self._solution['account_sid'], domain_sid=self._solution['domain_sid'])
 

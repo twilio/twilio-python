@@ -28,19 +28,21 @@ class InsightsSettingsAnswerSetsList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the InsightsSettingsAnswerSetsList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.flex_api.v1.insights_settings_answer_sets..InsightsSettingsAnswerSetsList
-        :rtype: twilio.flex_api.v1.insights_settings_answer_sets..InsightsSettingsAnswerSetsList
+        :returns: twilio.rest.flex_api.v1.insights_settings_answer_sets.InsightsSettingsAnswerSetsList
+        :rtype: twilio.rest.flex_api.v1.insights_settings_answer_sets.InsightsSettingsAnswerSetsList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = {  }
         self._uri = '/Insights/QM/Settings/AnswerSets'.format(**self._solution)
-
-
+        
+        
     
+
 
     def __repr__(self):
         """

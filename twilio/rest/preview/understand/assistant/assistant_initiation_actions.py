@@ -28,21 +28,40 @@ class AssistantInitiationActionsList(ListResource):
     def __init__(self, version: Version, assistant_sid: str):
         """
         Initialize the AssistantInitiationActionsList
+
         :param Version version: Version that contains the resource
         :param assistant_sid: 
         
-        :returns: twilio.preview.understand.assistant_initiation_actions..AssistantInitiationActionsList
-        :rtype: twilio.preview.understand.assistant_initiation_actions..AssistantInitiationActionsList
+        :returns: twilio.rest.preview.understand.assistant.assistant_initiation_actions.AssistantInitiationActionsList
+        :rtype: twilio.rest.preview.understand.assistant.assistant_initiation_actions.AssistantInitiationActionsList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = { 'assistant_sid': assistant_sid,  }
-        self._uri = ''.format(**self._solution)
-
-
+        
+        
+        
     
     
+
+    def get(self):
+        """
+        Constructs a AssistantInitiationActionsContext
+        
+        :returns: twilio.rest.preview.understand.assistant.assistant_initiation_actions.AssistantInitiationActionsContext
+        :rtype: twilio.rest.preview.understand.assistant.assistant_initiation_actions.AssistantInitiationActionsContext
+        """
+        return AssistantInitiationActionsContext(self._version, assistant_sid=self._solution['assistant_sid'])
+
+    def __call__(self):
+        """
+        Constructs a AssistantInitiationActionsContext
+        
+        :returns: twilio.rest.preview.understand.assistant.assistant_initiation_actions.AssistantInitiationActionsContext
+        :rtype: twilio.rest.preview.understand.assistant.assistant_initiation_actions.AssistantInitiationActionsContext
+        """
+        return AssistantInitiationActionsContext(self._version, assistant_sid=self._solution['assistant_sid'])
 
     def __repr__(self):
         """
@@ -78,9 +97,9 @@ class AssistantInitiationActionsContext(InstanceContext):
 
         
     
-    def update(self, body):
+    def update(self, initiation_actions):
         data = values.of({
-            'body': body,
+            'initiation_actions': initiation_actions,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

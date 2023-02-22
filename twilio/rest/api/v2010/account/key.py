@@ -28,19 +28,20 @@ class KeyList(ListResource):
     def __init__(self, version: Version, account_sid: str):
         """
         Initialize the KeyList
+
         :param Version version: Version that contains the resource
         :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Key resources to read.
         
-        :returns: twilio.api.v2010.key..KeyList
-        :rtype: twilio.api.v2010.key..KeyList
+        :returns: twilio.rest.api.v2010.account.key.KeyList
+        :rtype: twilio.rest.api.v2010.account.key.KeyList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = { 'account_sid': account_sid,  }
         self._uri = '/Accounts/${account_sid}/Keys.json'.format(**self._solution)
-
-
+        
+        
     
     
     
@@ -60,7 +61,7 @@ class KeyList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.key.KeyInstance]
+        :rtype: list[twilio.rest.api.v2010.account.key.KeyInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -83,7 +84,7 @@ class KeyList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.key.KeyInstance]
+        :rtype: list[twilio.rest.api.v2010.account.key.KeyInstance]
         """
         return list(self.stream(
             limit=limit,
@@ -100,7 +101,7 @@ class KeyList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of KeyInstance
-        :rtype: twilio.rest.api.v2010.key.KeyPage
+        :rtype: twilio.rest.api.v2010.account.key.KeyPage
         """
         data = values.of({ 
             'PageToken': page_token,
@@ -119,7 +120,7 @@ class KeyList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of KeyInstance
-        :rtype: twilio.rest.api.v2010.key.KeyPage
+        :rtype: twilio.rest.api.v2010.account.key.KeyPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -127,6 +128,28 @@ class KeyList(ListResource):
         )
         return KeyPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a KeyContext
+        
+        :param sid: The Twilio-provided string that uniquely identifies the Key resource to update.
+        
+        :returns: twilio.rest.api.v2010.account.key.KeyContext
+        :rtype: twilio.rest.api.v2010.account.key.KeyContext
+        """
+        return KeyContext(self._version, account_sid=self._solution['account_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a KeyContext
+        
+        :param sid: The Twilio-provided string that uniquely identifies the Key resource to update.
+        
+        :returns: twilio.rest.api.v2010.account.key.KeyContext
+        :rtype: twilio.rest.api.v2010.account.key.KeyContext
+        """
+        return KeyContext(self._version, account_sid=self._solution['account_sid'], sid=sid)
 
     def __repr__(self):
         """
@@ -152,8 +175,8 @@ class KeyPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.api.v2010.key.KeyPage
-        :rtype: twilio.rest.api.v2010.key.KeyPage
+        :returns: twilio.rest.api.v2010.account.key.KeyPage
+        :rtype: twilio.rest.api.v2010.account.key.KeyPage
         """
         super().__init__(version, response)
 
@@ -166,8 +189,8 @@ class KeyPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.api.v2010.key.KeyInstance
-        :rtype: twilio.rest.api.v2010.key.KeyInstance
+        :returns: twilio.rest.api.v2010.account.key.KeyInstance
+        :rtype: twilio.rest.api.v2010.account.key.KeyInstance
         """
         return KeyInstance(self._version, payload, account_sid=self._solution['account_sid'])
 
@@ -221,9 +244,9 @@ class KeyContext(InstanceContext):
 
         
     
-    def update(self, body):
+    def update(self, friendly_name):
         data = values.of({
-            'body': body,
+            'friendly_name': friendly_name,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

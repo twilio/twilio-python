@@ -28,21 +28,49 @@ class CredentialList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the CredentialList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.notify.v1.credential..CredentialList
-        :rtype: twilio.notify.v1.credential..CredentialList
+        :returns: twilio.rest.notify.v1.credential.CredentialList
+        :rtype: twilio.rest.notify.v1.credential.CredentialList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = {  }
         self._uri = '/Credentials'.format(**self._solution)
+        
+        
+    
+    
+    
+    
+    def create(self, type, friendly_name=values.unset, certificate=values.unset, private_key=values.unset, sandbox=values.unset, api_key=values.unset, secret=values.unset):
+        """
+        Create the CredentialInstance
+        :param CredentialPushService type: 
+        :param str friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+        :param str certificate: [APN only] The URL-encoded representation of the certificate. Strip everything outside of the headers, e.g. `-----BEGIN CERTIFICATE-----MIIFnTCCBIWgAwIBAgIIAjy9H849+E8wDQYJKoZIhvcNAQEFBQAwgZYxCzAJBgNV.....A==-----END CERTIFICATE-----`
+        :param str private_key: [APN only] The URL-encoded representation of the private key. Strip everything outside of the headers, e.g. `-----BEGIN RSA PRIVATE KEY-----MIIEpQIBAAKCAQEAuyf/lNrH9ck8DmNyo3fGgvCI1l9s+cmBY3WIz+cUDqmxiieR\\\\n.-----END RSA PRIVATE KEY-----`
+        :param bool sandbox: [APN only] Whether to send the credential to sandbox APNs. Can be `true` to send to sandbox APNs or `false` to send to production.
+        :param str api_key: [GCM only] The `Server key` of your project from Firebase console under Settings / Cloud messaging.
+        :param str secret: [FCM only] The `Server key` of your project from Firebase console under Settings / Cloud messaging.
+        
+        :returns: The created CredentialInstance
+        :rtype: twilio.rest.notify.v1.credential.CredentialInstance
+        """
+        data = values.of({ 
+            'Type': type,
+            'FriendlyName': friendly_name,
+            'Certificate': certificate,
+            'PrivateKey': private_key,
+            'Sandbox': sandbox,
+            'ApiKey': api_key,
+            'Secret': secret,
+        })
 
-
-    
-    
-    
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return CredentialInstance(self._version, payload)
     
     
     def stream(self, limit=None, page_size=None):
@@ -127,6 +155,28 @@ class CredentialList(ListResource):
         )
         return CredentialPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a CredentialContext
+        
+        :param sid: The Twilio-provided string that uniquely identifies the Credential resource to update.
+        
+        :returns: twilio.rest.notify.v1.credential.CredentialContext
+        :rtype: twilio.rest.notify.v1.credential.CredentialContext
+        """
+        return CredentialContext(self._version, sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a CredentialContext
+        
+        :param sid: The Twilio-provided string that uniquely identifies the Credential resource to update.
+        
+        :returns: twilio.rest.notify.v1.credential.CredentialContext
+        :rtype: twilio.rest.notify.v1.credential.CredentialContext
+        """
+        return CredentialContext(self._version, sid=sid)
 
     def __repr__(self):
         """
@@ -223,9 +273,9 @@ class CredentialContext(InstanceContext):
 
         
     
-    def update(self, body):
+    def update(self, friendly_name, certificate, private_key, sandbox, api_key, secret):
         data = values.of({
-            'body': body,
+            'friendly_name': friendly_name,'certificate': certificate,'private_key': private_key,'sandbox': sandbox,'api_key': api_key,'secret': secret,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

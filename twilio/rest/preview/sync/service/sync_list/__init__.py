@@ -30,21 +30,37 @@ class SyncListList(ListResource):
     def __init__(self, version: Version, service_sid: str):
         """
         Initialize the SyncListList
+
         :param Version version: Version that contains the resource
         :param service_sid: 
         
-        :returns: twilio.preview.sync.sync_list..SyncListList
-        :rtype: twilio.preview.sync.sync_list..SyncListList
+        :returns: twilio.rest.preview.sync.service.sync_list.SyncListList
+        :rtype: twilio.rest.preview.sync.service.sync_list.SyncListList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = { 'service_sid': service_sid,  }
         self._uri = '/Services/${service_sid}/Lists'.format(**self._solution)
-
-
+        
+        
     
     
+    
+    def create(self, unique_name=values.unset):
+        """
+        Create the SyncListInstance
+        :param str unique_name: 
+        
+        :returns: The created SyncListInstance
+        :rtype: twilio.rest.preview.sync.service.sync_list.SyncListInstance
+        """
+        data = values.of({ 
+            'UniqueName': unique_name,
+        })
+
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return SyncListInstance(self._version, payload, service_sid=self._solution['service_sid'])
     
     
     def stream(self, limit=None, page_size=None):
@@ -62,7 +78,7 @@ class SyncListList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.preview.sync.sync_list.SyncListInstance]
+        :rtype: list[twilio.rest.preview.sync.service.sync_list.SyncListInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -85,7 +101,7 @@ class SyncListList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.preview.sync.sync_list.SyncListInstance]
+        :rtype: list[twilio.rest.preview.sync.service.sync_list.SyncListInstance]
         """
         return list(self.stream(
             limit=limit,
@@ -102,7 +118,7 @@ class SyncListList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of SyncListInstance
-        :rtype: twilio.rest.preview.sync.sync_list.SyncListPage
+        :rtype: twilio.rest.preview.sync.service.sync_list.SyncListPage
         """
         data = values.of({ 
             'PageToken': page_token,
@@ -121,7 +137,7 @@ class SyncListList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of SyncListInstance
-        :rtype: twilio.rest.preview.sync.sync_list.SyncListPage
+        :rtype: twilio.rest.preview.sync.service.sync_list.SyncListPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -129,6 +145,28 @@ class SyncListList(ListResource):
         )
         return SyncListPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a SyncListContext
+        
+        :param sid: 
+        
+        :returns: twilio.rest.preview.sync.service.sync_list.SyncListContext
+        :rtype: twilio.rest.preview.sync.service.sync_list.SyncListContext
+        """
+        return SyncListContext(self._version, service_sid=self._solution['service_sid'], sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a SyncListContext
+        
+        :param sid: 
+        
+        :returns: twilio.rest.preview.sync.service.sync_list.SyncListContext
+        :rtype: twilio.rest.preview.sync.service.sync_list.SyncListContext
+        """
+        return SyncListContext(self._version, service_sid=self._solution['service_sid'], sid=sid)
 
     def __repr__(self):
         """
@@ -154,8 +192,8 @@ class SyncListPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.preview.sync.sync_list.SyncListPage
-        :rtype: twilio.rest.preview.sync.sync_list.SyncListPage
+        :returns: twilio.rest.preview.sync.service.sync_list.SyncListPage
+        :rtype: twilio.rest.preview.sync.service.sync_list.SyncListPage
         """
         super().__init__(version, response)
 
@@ -168,8 +206,8 @@ class SyncListPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.preview.sync.sync_list.SyncListInstance
-        :rtype: twilio.rest.preview.sync.sync_list.SyncListInstance
+        :returns: twilio.rest.preview.sync.service.sync_list.SyncListInstance
+        :rtype: twilio.rest.preview.sync.service.sync_list.SyncListInstance
         """
         return SyncListInstance(self._version, payload, service_sid=self._solution['service_sid'])
 

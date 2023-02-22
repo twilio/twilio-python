@@ -28,20 +28,48 @@ class CommandList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the CommandList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.wireless.v1.command..CommandList
-        :rtype: twilio.wireless.v1.command..CommandList
+        :returns: twilio.rest.wireless.v1.command.CommandList
+        :rtype: twilio.rest.wireless.v1.command.CommandList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = {  }
         self._uri = '/Commands'.format(**self._solution)
-
-
+        
+        
     
     
+    
+    def create(self, command, sim=values.unset, callback_method=values.unset, callback_url=values.unset, command_mode=values.unset, include_sid=values.unset, delivery_receipt_requested=values.unset):
+        """
+        Create the CommandInstance
+        :param str command: The message body of the Command. Can be plain text in text mode or a Base64 encoded byte string in binary mode.
+        :param str sim: The `sid` or `unique_name` of the [SIM](https://www.twilio.com/docs/wireless/api/sim-resource) to send the Command to.
+        :param str callback_method: The HTTP method we use to call `callback_url`. Can be: `POST` or `GET`, and the default is `POST`.
+        :param str callback_url: The URL we call using the `callback_url` when the Command has finished sending, whether the command was delivered or it failed.
+        :param CommandCommandMode command_mode: 
+        :param str include_sid: Whether to include the SID of the command in the message body. Can be: `none`, `start`, or `end`, and the default behavior is `none`. When sending a Command to a SIM in text mode, we can automatically include the SID of the Command in the message body, which could be used to ensure that the device does not process the same Command more than once.  A value of `start` will prepend the message with the Command SID, and `end` will append it to the end, separating the Command SID from the message body with a space. The length of the Command SID is included in the 160 character limit so the SMS body must be 128 characters or less before the Command SID is included.
+        :param bool delivery_receipt_requested: Whether to request delivery receipt from the recipient. For Commands that request delivery receipt, the Command state transitions to 'delivered' once the server has received a delivery receipt from the device. The default value is `true`.
+        
+        :returns: The created CommandInstance
+        :rtype: twilio.rest.wireless.v1.command.CommandInstance
+        """
+        data = values.of({ 
+            'Command': command,
+            'Sim': sim,
+            'CallbackMethod': callback_method,
+            'CallbackUrl': callback_url,
+            'CommandMode': command_mode,
+            'IncludeSid': include_sid,
+            'DeliveryReceiptRequested': delivery_receipt_requested,
+        })
+
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return CommandInstance(self._version, payload)
     
     
     def stream(self, sim=values.unset, status=values.unset, direction=values.unset, transport=values.unset, limit=None, page_size=None):
@@ -150,6 +178,28 @@ class CommandList(ListResource):
         )
         return CommandPage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a CommandContext
+        
+        :param sid: The SID of the Command resource to fetch.
+        
+        :returns: twilio.rest.wireless.v1.command.CommandContext
+        :rtype: twilio.rest.wireless.v1.command.CommandContext
+        """
+        return CommandContext(self._version, sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a CommandContext
+        
+        :param sid: The SID of the Command resource to fetch.
+        
+        :returns: twilio.rest.wireless.v1.command.CommandContext
+        :rtype: twilio.rest.wireless.v1.command.CommandContext
+        """
+        return CommandContext(self._version, sid=sid)
 
     def __repr__(self):
         """

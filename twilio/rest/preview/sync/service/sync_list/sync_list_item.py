@@ -28,23 +28,39 @@ class SyncListItemList(ListResource):
     def __init__(self, version: Version, service_sid: str, list_sid: str):
         """
         Initialize the SyncListItemList
+
         :param Version version: Version that contains the resource
         :param service_sid: 
         :param list_sid: 
         
-        :returns: twilio.preview.sync.sync_list_item..SyncListItemList
-        :rtype: twilio.preview.sync.sync_list_item..SyncListItemList
+        :returns: twilio.rest.preview.sync.service.sync_list.sync_list_item.SyncListItemList
+        :rtype: twilio.rest.preview.sync.service.sync_list.sync_list_item.SyncListItemList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = { 'service_sid': service_sid, 'list_sid': list_sid,  }
         self._uri = '/Services/${service_sid}/Lists/${list_sid}/Items'.format(**self._solution)
+        
+        
+    
+    
+    
+    
+    def create(self, data):
+        """
+        Create the SyncListItemInstance
+        :param object data: 
+        
+        :returns: The created SyncListItemInstance
+        :rtype: twilio.rest.preview.sync.service.sync_list.sync_list_item.SyncListItemInstance
+        """
+        data = values.of({ 
+            'Data': serialize.object(data),
+        })
 
-
-    
-    
-    
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return SyncListItemInstance(self._version, payload, service_sid=self._solution['service_sid'], list_sid=self._solution['list_sid'])
     
     
     def stream(self, order=values.unset, from_=values.unset, bounds=values.unset, limit=None, page_size=None):
@@ -65,7 +81,7 @@ class SyncListItemList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.preview.sync.sync_list_item.SyncListItemInstance]
+        :rtype: list[twilio.rest.preview.sync.service.sync_list.sync_list_item.SyncListItemInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -94,7 +110,7 @@ class SyncListItemList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.preview.sync.sync_list_item.SyncListItemInstance]
+        :rtype: list[twilio.rest.preview.sync.service.sync_list.sync_list_item.SyncListItemInstance]
         """
         return list(self.stream(
             order=order,
@@ -117,7 +133,7 @@ class SyncListItemList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of SyncListItemInstance
-        :rtype: twilio.rest.preview.sync.sync_list_item.SyncListItemPage
+        :rtype: twilio.rest.preview.sync.service.sync_list.sync_list_item.SyncListItemPage
         """
         data = values.of({ 
             'Order': order,
@@ -139,7 +155,7 @@ class SyncListItemList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of SyncListItemInstance
-        :rtype: twilio.rest.preview.sync.sync_list_item.SyncListItemPage
+        :rtype: twilio.rest.preview.sync.service.sync_list.sync_list_item.SyncListItemPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -147,6 +163,28 @@ class SyncListItemList(ListResource):
         )
         return SyncListItemPage(self._version, response, self._solution)
 
+
+    def get(self, index):
+        """
+        Constructs a SyncListItemContext
+        
+        :param index: 
+        
+        :returns: twilio.rest.preview.sync.service.sync_list.sync_list_item.SyncListItemContext
+        :rtype: twilio.rest.preview.sync.service.sync_list.sync_list_item.SyncListItemContext
+        """
+        return SyncListItemContext(self._version, service_sid=self._solution['service_sid'], list_sid=self._solution['list_sid'], index=index)
+
+    def __call__(self, index):
+        """
+        Constructs a SyncListItemContext
+        
+        :param index: 
+        
+        :returns: twilio.rest.preview.sync.service.sync_list.sync_list_item.SyncListItemContext
+        :rtype: twilio.rest.preview.sync.service.sync_list.sync_list_item.SyncListItemContext
+        """
+        return SyncListItemContext(self._version, service_sid=self._solution['service_sid'], list_sid=self._solution['list_sid'], index=index)
 
     def __repr__(self):
         """
@@ -174,8 +212,8 @@ class SyncListItemPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.preview.sync.sync_list_item.SyncListItemPage
-        :rtype: twilio.rest.preview.sync.sync_list_item.SyncListItemPage
+        :returns: twilio.rest.preview.sync.service.sync_list.sync_list_item.SyncListItemPage
+        :rtype: twilio.rest.preview.sync.service.sync_list.sync_list_item.SyncListItemPage
         """
         super().__init__(version, response)
 
@@ -188,8 +226,8 @@ class SyncListItemPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.preview.sync.sync_list_item.SyncListItemInstance
-        :rtype: twilio.rest.preview.sync.sync_list_item.SyncListItemInstance
+        :returns: twilio.rest.preview.sync.service.sync_list.sync_list_item.SyncListItemInstance
+        :rtype: twilio.rest.preview.sync.service.sync_list.sync_list_item.SyncListItemInstance
         """
         return SyncListItemInstance(self._version, payload, service_sid=self._solution['service_sid'], list_sid=self._solution['list_sid'])
 
@@ -243,9 +281,9 @@ class SyncListItemContext(InstanceContext):
 
         
     
-    def update(self, if_match, body):
+    def update(self, data, if_match):
         data = values.of({
-            'if_match': if_match,'body': body,
+            'data': data,'if_match': if_match,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

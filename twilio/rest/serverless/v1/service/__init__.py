@@ -32,21 +32,43 @@ class ServiceList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the ServiceList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.serverless.v1.service..ServiceList
-        :rtype: twilio.serverless.v1.service..ServiceList
+        :returns: twilio.rest.serverless.v1.service.ServiceList
+        :rtype: twilio.rest.serverless.v1.service.ServiceList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = {  }
         self._uri = '/Services'.format(**self._solution)
+        
+        
+    
+    
+    
+    
+    def create(self, unique_name, friendly_name, include_credentials=values.unset, ui_editable=values.unset):
+        """
+        Create the ServiceInstance
+        :param str unique_name: A user-defined string that uniquely identifies the Service resource. It can be used as an alternative to the `sid` in the URL path to address the Service resource. This value must be 50 characters or less in length and be unique.
+        :param str friendly_name: A descriptive string that you create to describe the Service resource. It can be a maximum of 255 characters.
+        :param bool include_credentials: Whether to inject Account credentials into a function invocation context. The default value is `true`.
+        :param bool ui_editable: Whether the Service's properties and subresources can be edited via the UI. The default value is `false`.
+        
+        :returns: The created ServiceInstance
+        :rtype: twilio.rest.serverless.v1.service.ServiceInstance
+        """
+        data = values.of({ 
+            'UniqueName': unique_name,
+            'FriendlyName': friendly_name,
+            'IncludeCredentials': include_credentials,
+            'UiEditable': ui_editable,
+        })
 
-
-    
-    
-    
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        return ServiceInstance(self._version, payload)
     
     
     def stream(self, limit=None, page_size=None):
@@ -131,6 +153,28 @@ class ServiceList(ListResource):
         )
         return ServicePage(self._version, response, self._solution)
 
+
+    def get(self, sid):
+        """
+        Constructs a ServiceContext
+        
+        :param sid: The `sid` or `unique_name` of the Service resource to update.
+        
+        :returns: twilio.rest.serverless.v1.service.ServiceContext
+        :rtype: twilio.rest.serverless.v1.service.ServiceContext
+        """
+        return ServiceContext(self._version, sid=sid)
+
+    def __call__(self, sid):
+        """
+        Constructs a ServiceContext
+        
+        :param sid: The `sid` or `unique_name` of the Service resource to update.
+        
+        :returns: twilio.rest.serverless.v1.service.ServiceContext
+        :rtype: twilio.rest.serverless.v1.service.ServiceContext
+        """
+        return ServiceContext(self._version, sid=sid)
 
     def __repr__(self):
         """
@@ -231,9 +275,9 @@ class ServiceContext(InstanceContext):
 
         
     
-    def update(self, body):
+    def update(self, include_credentials, friendly_name, ui_editable):
         data = values.of({
-            'body': body,
+            'include_credentials': include_credentials,'friendly_name': friendly_name,'ui_editable': ui_editable,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

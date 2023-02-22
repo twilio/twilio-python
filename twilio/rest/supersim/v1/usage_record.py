@@ -28,18 +28,19 @@ class UsageRecordList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the UsageRecordList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.supersim.v1.usage_record..UsageRecordList
-        :rtype: twilio.supersim.v1.usage_record..UsageRecordList
+        :returns: twilio.rest.supersim.v1.usage_record.UsageRecordList
+        :rtype: twilio.rest.supersim.v1.usage_record.UsageRecordList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = {  }
         self._uri = '/UsageRecords'.format(**self._solution)
-
-
+        
+        
     
     def stream(self, sim=values.unset, fleet=values.unset, network=values.unset, iso_country=values.unset, group=values.unset, granularity=values.unset, start_time=values.unset, end_time=values.unset, limit=None, page_size=None):
         """
@@ -145,8 +146,8 @@ class UsageRecordList(ListResource):
             'IsoCountry': iso_country,
             'Group': group,
             'Granularity': granularity,
-            'StartTime': start_time,
-            'EndTime': end_time,
+            'StartTime': serialize.iso8601_datetime(start_time),
+            'EndTime': serialize.iso8601_datetime(end_time),
             'PageToken': page_token,
             'Page': page_number,
             'PageSize': page_size,
@@ -170,6 +171,7 @@ class UsageRecordList(ListResource):
             target_url
         )
         return UsageRecordPage(self._version, response, self._solution)
+
 
 
     def __repr__(self):
@@ -221,6 +223,49 @@ class UsageRecordPage(Page):
 
 
 
+
+
+class UsageRecordInstance(InstanceResource):
+    def __init__(self, version, payload):
+        super().__init__(version)
+        self._properties = { 
+            'account_sid' : payload.get('account_sid'),
+            'sim_sid' : payload.get('sim_sid'),
+            'network_sid' : payload.get('network_sid'),
+            'fleet_sid' : payload.get('fleet_sid'),
+            'iso_country' : payload.get('iso_country'),
+            'period' : payload.get('period'),
+            'data_upload' : payload.get('data_upload'),
+            'data_download' : payload.get('data_download'),
+            'data_total' : payload.get('data_total'),
+            'data_total_billed' : payload.get('data_total_billed'),
+            'billed_unit' : payload.get('billed_unit'),
+        }
+
+        self._context = None
+        self._solution = {
+            
+        }
+
+    @property
+    def _proxy(self):
+        if self._context is None:
+            self._context = UsageRecordContext(
+                self._version,
+                
+            )
+        return self._context
+
+    
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Supersim.V1.UsageRecordInstance {}>'.format(context)
 
 
 

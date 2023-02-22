@@ -36,18 +36,19 @@ class RecordList(ListResource):
     def __init__(self, version: Version, account_sid: str):
         """
         Initialize the RecordList
+
         :param Version version: Version that contains the resource
         :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the UsageRecord resources to read.
         
-        :returns: twilio.api.v2010.record..RecordList
-        :rtype: twilio.api.v2010.record..RecordList
+        :returns: twilio.rest.api.v2010.account.usage.record.RecordList
+        :rtype: twilio.rest.api.v2010.account.usage.record.RecordList
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = { 'account_sid': account_sid,  }
         self._uri = '/Accounts/${account_sid}/Usage/Records.json'.format(**self._solution)
-
+        
         self._all_time = None
         self._daily = None
         self._last_month = None
@@ -56,7 +57,7 @@ class RecordList(ListResource):
         self._today = None
         self._yearly = None
         self._yesterday = None
-
+        
     
     def stream(self, category=values.unset, start_date=values.unset, end_date=values.unset, include_subaccounts=values.unset, limit=None, page_size=None):
         """
@@ -77,7 +78,7 @@ class RecordList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.record.RecordInstance]
+        :rtype: list[twilio.rest.api.v2010.account.usage.record.RecordInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -108,7 +109,7 @@ class RecordList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.record.RecordInstance]
+        :rtype: list[twilio.rest.api.v2010.account.usage.record.RecordInstance]
         """
         return list(self.stream(
             category=category,
@@ -133,12 +134,12 @@ class RecordList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of RecordInstance
-        :rtype: twilio.rest.api.v2010.record.RecordPage
+        :rtype: twilio.rest.api.v2010.account.usage.record.RecordPage
         """
         data = values.of({ 
             'Category': category,
-            'StartDate': start_date,
-            'EndDate': end_date,
+            'StartDate': serialize.iso8601_date(start_date),
+            'EndDate': serialize.iso8601_date(end_date),
             'IncludeSubaccounts': include_subaccounts,
             'PageToken': page_token,
             'Page': page_number,
@@ -156,7 +157,7 @@ class RecordList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of RecordInstance
-        :rtype: twilio.rest.api.v2010.record.RecordPage
+        :rtype: twilio.rest.api.v2010.account.usage.record.RecordPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -170,8 +171,8 @@ class RecordList(ListResource):
         """
         Access the all_time
 
-        :returns: twilio.rest.api.v2010.record.all_time.AllTimeList
-        :rtype: twilio.rest.api.v2010.record.all_time.AllTimeList
+        :returns: twilio.rest.api.v2010.account.usage.record.AllTimeList
+        :rtype: twilio.rest.api.v2010.account.usage.record.AllTimeList
         """
         if self._all_time is None:
             self._all_time = AllTimeList(self._version, account_sid=self._solution['account_sid'])
@@ -182,8 +183,8 @@ class RecordList(ListResource):
         """
         Access the daily
 
-        :returns: twilio.rest.api.v2010.record.daily.DailyList
-        :rtype: twilio.rest.api.v2010.record.daily.DailyList
+        :returns: twilio.rest.api.v2010.account.usage.record.DailyList
+        :rtype: twilio.rest.api.v2010.account.usage.record.DailyList
         """
         if self._daily is None:
             self._daily = DailyList(self._version, account_sid=self._solution['account_sid'])
@@ -194,8 +195,8 @@ class RecordList(ListResource):
         """
         Access the last_month
 
-        :returns: twilio.rest.api.v2010.record.last_month.LastMonthList
-        :rtype: twilio.rest.api.v2010.record.last_month.LastMonthList
+        :returns: twilio.rest.api.v2010.account.usage.record.LastMonthList
+        :rtype: twilio.rest.api.v2010.account.usage.record.LastMonthList
         """
         if self._last_month is None:
             self._last_month = LastMonthList(self._version, account_sid=self._solution['account_sid'])
@@ -206,8 +207,8 @@ class RecordList(ListResource):
         """
         Access the monthly
 
-        :returns: twilio.rest.api.v2010.record.monthly.MonthlyList
-        :rtype: twilio.rest.api.v2010.record.monthly.MonthlyList
+        :returns: twilio.rest.api.v2010.account.usage.record.MonthlyList
+        :rtype: twilio.rest.api.v2010.account.usage.record.MonthlyList
         """
         if self._monthly is None:
             self._monthly = MonthlyList(self._version, account_sid=self._solution['account_sid'])
@@ -218,8 +219,8 @@ class RecordList(ListResource):
         """
         Access the this_month
 
-        :returns: twilio.rest.api.v2010.record.this_month.ThisMonthList
-        :rtype: twilio.rest.api.v2010.record.this_month.ThisMonthList
+        :returns: twilio.rest.api.v2010.account.usage.record.ThisMonthList
+        :rtype: twilio.rest.api.v2010.account.usage.record.ThisMonthList
         """
         if self._this_month is None:
             self._this_month = ThisMonthList(self._version, account_sid=self._solution['account_sid'])
@@ -230,8 +231,8 @@ class RecordList(ListResource):
         """
         Access the today
 
-        :returns: twilio.rest.api.v2010.record.today.TodayList
-        :rtype: twilio.rest.api.v2010.record.today.TodayList
+        :returns: twilio.rest.api.v2010.account.usage.record.TodayList
+        :rtype: twilio.rest.api.v2010.account.usage.record.TodayList
         """
         if self._today is None:
             self._today = TodayList(self._version, account_sid=self._solution['account_sid'])
@@ -242,8 +243,8 @@ class RecordList(ListResource):
         """
         Access the yearly
 
-        :returns: twilio.rest.api.v2010.record.yearly.YearlyList
-        :rtype: twilio.rest.api.v2010.record.yearly.YearlyList
+        :returns: twilio.rest.api.v2010.account.usage.record.YearlyList
+        :rtype: twilio.rest.api.v2010.account.usage.record.YearlyList
         """
         if self._yearly is None:
             self._yearly = YearlyList(self._version, account_sid=self._solution['account_sid'])
@@ -254,12 +255,13 @@ class RecordList(ListResource):
         """
         Access the yesterday
 
-        :returns: twilio.rest.api.v2010.record.yesterday.YesterdayList
-        :rtype: twilio.rest.api.v2010.record.yesterday.YesterdayList
+        :returns: twilio.rest.api.v2010.account.usage.record.YesterdayList
+        :rtype: twilio.rest.api.v2010.account.usage.record.YesterdayList
         """
         if self._yesterday is None:
             self._yesterday = YesterdayList(self._version, account_sid=self._solution['account_sid'])
         return self.yesterday
+
 
     def __repr__(self):
         """
@@ -279,8 +281,8 @@ class RecordPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.api.v2010.record.RecordPage
-        :rtype: twilio.rest.api.v2010.record.RecordPage
+        :returns: twilio.rest.api.v2010.account.usage.record.RecordPage
+        :rtype: twilio.rest.api.v2010.account.usage.record.RecordPage
         """
         super().__init__(version, response)
 
@@ -293,8 +295,8 @@ class RecordPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.api.v2010.record.RecordInstance
-        :rtype: twilio.rest.api.v2010.record.RecordInstance
+        :returns: twilio.rest.api.v2010.account.usage.record.RecordInstance
+        :rtype: twilio.rest.api.v2010.account.usage.record.RecordInstance
         """
         return RecordInstance(self._version, payload, account_sid=self._solution['account_sid'])
 
@@ -310,6 +312,53 @@ class RecordPage(Page):
 
 
 
+
+
+class RecordInstance(InstanceResource):
+    def __init__(self, version, payload, account_sid: str):
+        super().__init__(version)
+        self._properties = { 
+            'account_sid' : payload.get('account_sid'),
+            'api_version' : payload.get('api_version'),
+            'as_of' : payload.get('as_of'),
+            'category' : payload.get('category'),
+            'count' : payload.get('count'),
+            'count_unit' : payload.get('count_unit'),
+            'description' : payload.get('description'),
+            'end_date' : payload.get('end_date'),
+            'price' : payload.get('price'),
+            'price_unit' : payload.get('price_unit'),
+            'start_date' : payload.get('start_date'),
+            'subresource_uris' : payload.get('subresource_uris'),
+            'uri' : payload.get('uri'),
+            'usage' : payload.get('usage'),
+            'usage_unit' : payload.get('usage_unit'),
+        }
+
+        self._context = None
+        self._solution = {
+            'account_sid': account_sid or self._properties['account_sid'],
+        }
+
+    @property
+    def _proxy(self):
+        if self._context is None:
+            self._context = RecordContext(
+                self._version,
+                account_sid=self._solution['account_sid'],
+            )
+        return self._context
+
+    
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Api.V2010.RecordInstance {}>'.format(context)
 
 
 
