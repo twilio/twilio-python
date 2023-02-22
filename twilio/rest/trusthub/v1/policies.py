@@ -28,10 +28,11 @@ class PoliciesList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the PoliciesList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.trusthub.v1.policies..PoliciesList
-        :rtype: twilio.trusthub.v1.policies..PoliciesList
+        :returns: twilio.rest.trusthub.v1.policies.PoliciesList
+        :rtype: twilio.rest.trusthub.v1.policies.PoliciesList
         """
         super().__init__(version)
 

@@ -28,12 +28,13 @@ class SubscribeRulesList(ListResource):
     def __init__(self, version: Version, room_sid: str, participant_sid: str):
         """
         Initialize the SubscribeRulesList
+
         :param Version version: Version that contains the resource
         :param room_sid: The SID of the Room resource where the subscribe rules to update apply.
         :param participant_sid: The SID of the Participant resource to update the Subscribe Rules.
         
-        :returns: twilio.video.v1.subscribe_rules..SubscribeRulesList
-        :rtype: twilio.video.v1.subscribe_rules..SubscribeRulesList
+        :returns: twilio.rest.video.v1.room.participant.subscribe_rules.SubscribeRulesList
+        :rtype: twilio.rest.video.v1.room.participant.subscribe_rules.SubscribeRulesList
         """
         super().__init__(version)
 

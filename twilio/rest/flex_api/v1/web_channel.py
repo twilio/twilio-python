@@ -28,10 +28,11 @@ class WebChannelList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the WebChannelList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.flex_api.v1.web_channel..WebChannelList
-        :rtype: twilio.flex_api.v1.web_channel..WebChannelList
+        :returns: twilio.rest.flex_api.v1.web_channel.WebChannelList
+        :rtype: twilio.rest.flex_api.v1.web_channel.WebChannelList
         """
         super().__init__(version)
 
@@ -47,12 +48,12 @@ class WebChannelList(ListResource):
     def create(self, flex_flow_sid, identity, customer_friendly_name, chat_friendly_name, chat_unique_name=values.unset, pre_engagement_data=values.unset):
         """
         Create the WebChannelInstance
-         :param str flex_flow_sid: The SID of the Flex Flow.
-         :param str identity: The chat identity.
-         :param str customer_friendly_name: The chat participant's friendly name.
-         :param str chat_friendly_name: The chat channel's friendly name.
-         :param str chat_unique_name: The chat channel's unique name.
-         :param str pre_engagement_data: The pre-engagement data.
+        :param str flex_flow_sid: The SID of the Flex Flow.
+        :param str identity: The chat identity.
+        :param str customer_friendly_name: The chat participant's friendly name.
+        :param str chat_friendly_name: The chat channel's friendly name.
+        :param str chat_unique_name: The chat channel's unique name.
+        :param str pre_engagement_data: The pre-engagement data.
         
         :returns: The created WebChannelInstance
         :rtype: twilio.rest.flex_api.v1.web_channel.WebChannelInstance

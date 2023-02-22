@@ -28,11 +28,12 @@ class EventList(ListResource):
     def __init__(self, version: Version, workspace_sid: str):
         """
         Initialize the EventList
+
         :param Version version: Version that contains the resource
         :param workspace_sid: The SID of the Workspace with the Events to read. Returns only the Events that pertain to the specified Workspace.
         
-        :returns: twilio.taskrouter.v1.event..EventList
-        :rtype: twilio.taskrouter.v1.event..EventList
+        :returns: twilio.rest.taskrouter.v1.workspace.event.EventList
+        :rtype: twilio.rest.taskrouter.v1.workspace.event.EventList
         """
         super().__init__(version)
 
@@ -69,7 +70,7 @@ class EventList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.taskrouter.v1.event.EventInstance]
+        :rtype: list[twilio.rest.taskrouter.v1.workspace.event.EventInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -114,7 +115,7 @@ class EventList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.taskrouter.v1.event.EventInstance]
+        :rtype: list[twilio.rest.taskrouter.v1.workspace.event.EventInstance]
         """
         return list(self.stream(
             end_date=end_date,
@@ -153,7 +154,7 @@ class EventList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of EventInstance
-        :rtype: twilio.rest.taskrouter.v1.event.EventPage
+        :rtype: twilio.rest.taskrouter.v1.workspace.event.EventPage
         """
         data = values.of({ 
             'EndDate': serialize.iso8601_datetime(end_date),
@@ -183,7 +184,7 @@ class EventList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of EventInstance
-        :rtype: twilio.rest.taskrouter.v1.event.EventPage
+        :rtype: twilio.rest.taskrouter.v1.workspace.event.EventPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -198,8 +199,8 @@ class EventList(ListResource):
         
         :param sid: The SID of the Event resource to fetch.
         
-        :returns: twilio.rest.taskrouter.v1.event.EventContext
-        :rtype: twilio.rest.taskrouter.v1.event.EventContext
+        :returns: twilio.rest.taskrouter.v1.workspace.event.EventContext
+        :rtype: twilio.rest.taskrouter.v1.workspace.event.EventContext
         """
         return EventContext(self._version, workspace_sid=self._solution['workspace_sid'], sid=sid)
 
@@ -209,8 +210,8 @@ class EventList(ListResource):
         
         :param sid: The SID of the Event resource to fetch.
         
-        :returns: twilio.rest.taskrouter.v1.event.EventContext
-        :rtype: twilio.rest.taskrouter.v1.event.EventContext
+        :returns: twilio.rest.taskrouter.v1.workspace.event.EventContext
+        :rtype: twilio.rest.taskrouter.v1.workspace.event.EventContext
         """
         return EventContext(self._version, workspace_sid=self._solution['workspace_sid'], sid=sid)
 
@@ -234,8 +235,8 @@ class EventPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.taskrouter.v1.event.EventPage
-        :rtype: twilio.rest.taskrouter.v1.event.EventPage
+        :returns: twilio.rest.taskrouter.v1.workspace.event.EventPage
+        :rtype: twilio.rest.taskrouter.v1.workspace.event.EventPage
         """
         super().__init__(version, response)
 
@@ -248,8 +249,8 @@ class EventPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.taskrouter.v1.event.EventInstance
-        :rtype: twilio.rest.taskrouter.v1.event.EventInstance
+        :returns: twilio.rest.taskrouter.v1.workspace.event.EventInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.event.EventInstance
         """
         return EventInstance(self._version, payload, workspace_sid=self._solution['workspace_sid'])
 

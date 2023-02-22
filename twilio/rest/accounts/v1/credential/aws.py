@@ -28,10 +28,11 @@ class AwsList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the AwsList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.accounts.v1.aws..AwsList
-        :rtype: twilio.accounts.v1.aws..AwsList
+        :returns: twilio.rest.accounts.v1.credential.aws.AwsList
+        :rtype: twilio.rest.accounts.v1.credential.aws.AwsList
         """
         super().__init__(version)
 
@@ -47,12 +48,12 @@ class AwsList(ListResource):
     def create(self, credentials, friendly_name=values.unset, account_sid=values.unset):
         """
         Create the AwsInstance
-         :param str credentials: A string that contains the AWS access credentials in the format `<AWS_ACCESS_KEY_ID>:<AWS_SECRET_ACCESS_KEY>`. For example, `AKIAIOSFODNN7EXAMPLE:wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY`
-         :param str friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
-         :param str account_sid: The SID of the Subaccount that this Credential should be associated with. Must be a valid Subaccount of the account issuing the request.
+        :param str credentials: A string that contains the AWS access credentials in the format `<AWS_ACCESS_KEY_ID>:<AWS_SECRET_ACCESS_KEY>`. For example, `AKIAIOSFODNN7EXAMPLE:wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY`
+        :param str friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+        :param str account_sid: The SID of the Subaccount that this Credential should be associated with. Must be a valid Subaccount of the account issuing the request.
         
         :returns: The created AwsInstance
-        :rtype: twilio.rest.accounts.v1.aws.AwsInstance
+        :rtype: twilio.rest.accounts.v1.credential.aws.AwsInstance
         """
         data = values.of({ 
             'Credentials': credentials,
@@ -79,7 +80,7 @@ class AwsList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.accounts.v1.aws.AwsInstance]
+        :rtype: list[twilio.rest.accounts.v1.credential.aws.AwsInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -102,7 +103,7 @@ class AwsList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.accounts.v1.aws.AwsInstance]
+        :rtype: list[twilio.rest.accounts.v1.credential.aws.AwsInstance]
         """
         return list(self.stream(
             limit=limit,
@@ -119,7 +120,7 @@ class AwsList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of AwsInstance
-        :rtype: twilio.rest.accounts.v1.aws.AwsPage
+        :rtype: twilio.rest.accounts.v1.credential.aws.AwsPage
         """
         data = values.of({ 
             'PageToken': page_token,
@@ -138,7 +139,7 @@ class AwsList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of AwsInstance
-        :rtype: twilio.rest.accounts.v1.aws.AwsPage
+        :rtype: twilio.rest.accounts.v1.credential.aws.AwsPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -153,8 +154,8 @@ class AwsList(ListResource):
         
         :param sid: The Twilio-provided string that uniquely identifies the AWS resource to update.
         
-        :returns: twilio.rest.accounts.v1.aws.AwsContext
-        :rtype: twilio.rest.accounts.v1.aws.AwsContext
+        :returns: twilio.rest.accounts.v1.credential.aws.AwsContext
+        :rtype: twilio.rest.accounts.v1.credential.aws.AwsContext
         """
         return AwsContext(self._version, sid=sid)
 
@@ -164,8 +165,8 @@ class AwsList(ListResource):
         
         :param sid: The Twilio-provided string that uniquely identifies the AWS resource to update.
         
-        :returns: twilio.rest.accounts.v1.aws.AwsContext
-        :rtype: twilio.rest.accounts.v1.aws.AwsContext
+        :returns: twilio.rest.accounts.v1.credential.aws.AwsContext
+        :rtype: twilio.rest.accounts.v1.credential.aws.AwsContext
         """
         return AwsContext(self._version, sid=sid)
 
@@ -195,8 +196,8 @@ class AwsPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.accounts.v1.aws.AwsPage
-        :rtype: twilio.rest.accounts.v1.aws.AwsPage
+        :returns: twilio.rest.accounts.v1.credential.aws.AwsPage
+        :rtype: twilio.rest.accounts.v1.credential.aws.AwsPage
         """
         super().__init__(version, response)
 
@@ -209,8 +210,8 @@ class AwsPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.accounts.v1.aws.AwsInstance
-        :rtype: twilio.rest.accounts.v1.aws.AwsInstance
+        :returns: twilio.rest.accounts.v1.credential.aws.AwsInstance
+        :rtype: twilio.rest.accounts.v1.credential.aws.AwsInstance
         """
         return AwsInstance(self._version, payload)
 

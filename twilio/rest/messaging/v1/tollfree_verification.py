@@ -28,10 +28,11 @@ class TollfreeVerificationList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the TollfreeVerificationList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.messaging.v1.tollfree_verification..TollfreeVerificationList
-        :rtype: twilio.messaging.v1.tollfree_verification..TollfreeVerificationList
+        :returns: twilio.rest.messaging.v1.tollfree_verification.TollfreeVerificationList
+        :rtype: twilio.rest.messaging.v1.tollfree_verification.TollfreeVerificationList
         """
         super().__init__(version)
 
@@ -46,29 +47,29 @@ class TollfreeVerificationList(ListResource):
     def create(self, business_name, business_website, notification_email, use_case_categories, use_case_summary, production_message_sample, opt_in_image_urls, opt_in_type, message_volume, tollfree_phone_number_sid, customer_profile_sid=values.unset, business_street_address=values.unset, business_street_address2=values.unset, business_city=values.unset, business_state_province_region=values.unset, business_postal_code=values.unset, business_country=values.unset, additional_information=values.unset, business_contact_first_name=values.unset, business_contact_last_name=values.unset, business_contact_email=values.unset, business_contact_phone=values.unset, external_reference_id=values.unset):
         """
         Create the TollfreeVerificationInstance
-         :param str business_name: The name of the business or organization using the Tollfree number.
-         :param str business_website: The website of the business or organization using the Tollfree number.
-         :param str notification_email: The email address to receive the notification about the verification result. .
-         :param [str] use_case_categories: The category of the use case for the Tollfree Number. List as many are applicable..
-         :param str use_case_summary: Use this to further explain how messaging is used by the business or organization.
-         :param str production_message_sample: An example of message content, i.e. a sample message.
-         :param [str] opt_in_image_urls: Link to an image that shows the opt-in workflow. Multiple images allowed and must be a publicly hosted URL.
-         :param TollfreeVerificationOptInType opt_in_type: 
-         :param str message_volume: Estimate monthly volume of messages from the Tollfree Number.
-         :param str tollfree_phone_number_sid: The SID of the Phone Number associated with the Tollfree Verification.
-         :param str customer_profile_sid: Customer's Profile Bundle BundleSid.
-         :param str business_street_address: The address of the business or organization using the Tollfree number.
-         :param str business_street_address2: The address of the business or organization using the Tollfree number.
-         :param str business_city: The city of the business or organization using the Tollfree number.
-         :param str business_state_province_region: The state/province/region of the business or organization using the Tollfree number.
-         :param str business_postal_code: The postal code of the business or organization using the Tollfree number.
-         :param str business_country: The country of the business or organization using the Tollfree number.
-         :param str additional_information: Additional information to be provided for verification.
-         :param str business_contact_first_name: The first name of the contact for the business or organization using the Tollfree number.
-         :param str business_contact_last_name: The last name of the contact for the business or organization using the Tollfree number.
-         :param str business_contact_email: The email address of the contact for the business or organization using the Tollfree number.
-         :param str business_contact_phone: The phone number of the contact for the business or organization using the Tollfree number.
-         :param str external_reference_id: An optional external reference ID supplied by customer and echoed back on status retrieval.
+        :param str business_name: The name of the business or organization using the Tollfree number.
+        :param str business_website: The website of the business or organization using the Tollfree number.
+        :param str notification_email: The email address to receive the notification about the verification result. .
+        :param list[str] use_case_categories: The category of the use case for the Tollfree Number. List as many are applicable..
+        :param str use_case_summary: Use this to further explain how messaging is used by the business or organization.
+        :param str production_message_sample: An example of message content, i.e. a sample message.
+        :param list[str] opt_in_image_urls: Link to an image that shows the opt-in workflow. Multiple images allowed and must be a publicly hosted URL.
+        :param TollfreeVerificationOptInType opt_in_type: 
+        :param str message_volume: Estimate monthly volume of messages from the Tollfree Number.
+        :param str tollfree_phone_number_sid: The SID of the Phone Number associated with the Tollfree Verification.
+        :param str customer_profile_sid: Customer's Profile Bundle BundleSid.
+        :param str business_street_address: The address of the business or organization using the Tollfree number.
+        :param str business_street_address2: The address of the business or organization using the Tollfree number.
+        :param str business_city: The city of the business or organization using the Tollfree number.
+        :param str business_state_province_region: The state/province/region of the business or organization using the Tollfree number.
+        :param str business_postal_code: The postal code of the business or organization using the Tollfree number.
+        :param str business_country: The country of the business or organization using the Tollfree number.
+        :param str additional_information: Additional information to be provided for verification.
+        :param str business_contact_first_name: The first name of the contact for the business or organization using the Tollfree number.
+        :param str business_contact_last_name: The last name of the contact for the business or organization using the Tollfree number.
+        :param str business_contact_email: The email address of the contact for the business or organization using the Tollfree number.
+        :param str business_contact_phone: The phone number of the contact for the business or organization using the Tollfree number.
+        :param str external_reference_id: An optional external reference ID supplied by customer and echoed back on status retrieval.
         
         :returns: The created TollfreeVerificationInstance
         :rtype: twilio.rest.messaging.v1.tollfree_verification.TollfreeVerificationInstance

@@ -28,11 +28,12 @@ class UserConversationList(ListResource):
     def __init__(self, version: Version, user_sid: str):
         """
         Initialize the UserConversationList
+
         :param Version version: Version that contains the resource
         :param user_sid: The unique SID identifier of the [User resource](https://www.twilio.com/docs/conversations/api/user-resource). This value can be either the `sid` or the `identity` of the User resource.
         
-        :returns: twilio.conversations.v1.user_conversation..UserConversationList
-        :rtype: twilio.conversations.v1.user_conversation..UserConversationList
+        :returns: twilio.rest.conversations.v1.user.user_conversation.UserConversationList
+        :rtype: twilio.rest.conversations.v1.user.user_conversation.UserConversationList
         """
         super().__init__(version)
 
@@ -60,7 +61,7 @@ class UserConversationList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.conversations.v1.user_conversation.UserConversationInstance]
+        :rtype: list[twilio.rest.conversations.v1.user.user_conversation.UserConversationInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -83,7 +84,7 @@ class UserConversationList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.conversations.v1.user_conversation.UserConversationInstance]
+        :rtype: list[twilio.rest.conversations.v1.user.user_conversation.UserConversationInstance]
         """
         return list(self.stream(
             limit=limit,
@@ -100,7 +101,7 @@ class UserConversationList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of UserConversationInstance
-        :rtype: twilio.rest.conversations.v1.user_conversation.UserConversationPage
+        :rtype: twilio.rest.conversations.v1.user.user_conversation.UserConversationPage
         """
         data = values.of({ 
             'PageToken': page_token,
@@ -119,7 +120,7 @@ class UserConversationList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of UserConversationInstance
-        :rtype: twilio.rest.conversations.v1.user_conversation.UserConversationPage
+        :rtype: twilio.rest.conversations.v1.user.user_conversation.UserConversationPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -134,8 +135,8 @@ class UserConversationList(ListResource):
         
         :param conversation_sid: The unique SID identifier of the Conversation. This value can be either the `sid` or the `unique_name` of the [Conversation resource](https://www.twilio.com/docs/conversations/api/conversation-resource).
         
-        :returns: twilio.rest.conversations.v1.user_conversation.UserConversationContext
-        :rtype: twilio.rest.conversations.v1.user_conversation.UserConversationContext
+        :returns: twilio.rest.conversations.v1.user.user_conversation.UserConversationContext
+        :rtype: twilio.rest.conversations.v1.user.user_conversation.UserConversationContext
         """
         return UserConversationContext(self._version, user_sid=self._solution['user_sid'], conversation_sid=conversation_sid)
 
@@ -145,8 +146,8 @@ class UserConversationList(ListResource):
         
         :param conversation_sid: The unique SID identifier of the Conversation. This value can be either the `sid` or the `unique_name` of the [Conversation resource](https://www.twilio.com/docs/conversations/api/conversation-resource).
         
-        :returns: twilio.rest.conversations.v1.user_conversation.UserConversationContext
-        :rtype: twilio.rest.conversations.v1.user_conversation.UserConversationContext
+        :returns: twilio.rest.conversations.v1.user.user_conversation.UserConversationContext
+        :rtype: twilio.rest.conversations.v1.user.user_conversation.UserConversationContext
         """
         return UserConversationContext(self._version, user_sid=self._solution['user_sid'], conversation_sid=conversation_sid)
 
@@ -174,8 +175,8 @@ class UserConversationPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.conversations.v1.user_conversation.UserConversationPage
-        :rtype: twilio.rest.conversations.v1.user_conversation.UserConversationPage
+        :returns: twilio.rest.conversations.v1.user.user_conversation.UserConversationPage
+        :rtype: twilio.rest.conversations.v1.user.user_conversation.UserConversationPage
         """
         super().__init__(version, response)
 
@@ -188,8 +189,8 @@ class UserConversationPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.conversations.v1.user_conversation.UserConversationInstance
-        :rtype: twilio.rest.conversations.v1.user_conversation.UserConversationInstance
+        :returns: twilio.rest.conversations.v1.user.user_conversation.UserConversationInstance
+        :rtype: twilio.rest.conversations.v1.user.user_conversation.UserConversationInstance
         """
         return UserConversationInstance(self._version, payload, user_sid=self._solution['user_sid'])
 

@@ -28,11 +28,12 @@ class ShortCodeList(ListResource):
     def __init__(self, version: Version, account_sid: str):
         """
         Initialize the ShortCodeList
+
         :param Version version: Version that contains the resource
         :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the ShortCode resource(s) to read.
         
-        :returns: twilio.api.v2010.short_code..ShortCodeList
-        :rtype: twilio.api.v2010.short_code..ShortCodeList
+        :returns: twilio.rest.api.v2010.account.short_code.ShortCodeList
+        :rtype: twilio.rest.api.v2010.account.short_code.ShortCodeList
         """
         super().__init__(version)
 
@@ -61,7 +62,7 @@ class ShortCodeList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.short_code.ShortCodeInstance]
+        :rtype: list[twilio.rest.api.v2010.account.short_code.ShortCodeInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -88,7 +89,7 @@ class ShortCodeList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.short_code.ShortCodeInstance]
+        :rtype: list[twilio.rest.api.v2010.account.short_code.ShortCodeInstance]
         """
         return list(self.stream(
             friendly_name=friendly_name,
@@ -109,7 +110,7 @@ class ShortCodeList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of ShortCodeInstance
-        :rtype: twilio.rest.api.v2010.short_code.ShortCodePage
+        :rtype: twilio.rest.api.v2010.account.short_code.ShortCodePage
         """
         data = values.of({ 
             'FriendlyName': friendly_name,
@@ -130,7 +131,7 @@ class ShortCodeList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of ShortCodeInstance
-        :rtype: twilio.rest.api.v2010.short_code.ShortCodePage
+        :rtype: twilio.rest.api.v2010.account.short_code.ShortCodePage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -145,8 +146,8 @@ class ShortCodeList(ListResource):
         
         :param sid: The Twilio-provided string that uniquely identifies the ShortCode resource to update
         
-        :returns: twilio.rest.api.v2010.short_code.ShortCodeContext
-        :rtype: twilio.rest.api.v2010.short_code.ShortCodeContext
+        :returns: twilio.rest.api.v2010.account.short_code.ShortCodeContext
+        :rtype: twilio.rest.api.v2010.account.short_code.ShortCodeContext
         """
         return ShortCodeContext(self._version, account_sid=self._solution['account_sid'], sid=sid)
 
@@ -156,8 +157,8 @@ class ShortCodeList(ListResource):
         
         :param sid: The Twilio-provided string that uniquely identifies the ShortCode resource to update
         
-        :returns: twilio.rest.api.v2010.short_code.ShortCodeContext
-        :rtype: twilio.rest.api.v2010.short_code.ShortCodeContext
+        :returns: twilio.rest.api.v2010.account.short_code.ShortCodeContext
+        :rtype: twilio.rest.api.v2010.account.short_code.ShortCodeContext
         """
         return ShortCodeContext(self._version, account_sid=self._solution['account_sid'], sid=sid)
 
@@ -183,8 +184,8 @@ class ShortCodePage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.api.v2010.short_code.ShortCodePage
-        :rtype: twilio.rest.api.v2010.short_code.ShortCodePage
+        :returns: twilio.rest.api.v2010.account.short_code.ShortCodePage
+        :rtype: twilio.rest.api.v2010.account.short_code.ShortCodePage
         """
         super().__init__(version, response)
 
@@ -197,8 +198,8 @@ class ShortCodePage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.api.v2010.short_code.ShortCodeInstance
-        :rtype: twilio.rest.api.v2010.short_code.ShortCodeInstance
+        :returns: twilio.rest.api.v2010.account.short_code.ShortCodeInstance
+        :rtype: twilio.rest.api.v2010.account.short_code.ShortCodeInstance
         """
         return ShortCodeInstance(self._version, payload, account_sid=self._solution['account_sid'])
 

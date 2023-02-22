@@ -28,10 +28,11 @@ class PhoneNumberList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the PhoneNumberList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.routes.v2.phone_number..PhoneNumberList
-        :rtype: twilio.routes.v2.phone_number..PhoneNumberList
+        :returns: twilio.rest.routes.v2.phone_number.PhoneNumberList
+        :rtype: twilio.rest.routes.v2.phone_number.PhoneNumberList
         """
         super().__init__(version)
 

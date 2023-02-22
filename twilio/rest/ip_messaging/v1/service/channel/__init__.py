@@ -31,11 +31,12 @@ class ChannelList(ListResource):
     def __init__(self, version: Version, service_sid: str):
         """
         Initialize the ChannelList
+
         :param Version version: Version that contains the resource
         :param service_sid: 
         
-        :returns: twilio.ip_messaging.v1.channel..ChannelList
-        :rtype: twilio.ip_messaging.v1.channel..ChannelList
+        :returns: twilio.rest.ip_messaging.v1.service.channel.ChannelList
+        :rtype: twilio.rest.ip_messaging.v1.service.channel.ChannelList
         """
         super().__init__(version)
 
@@ -51,13 +52,13 @@ class ChannelList(ListResource):
     def create(self, friendly_name=values.unset, unique_name=values.unset, attributes=values.unset, type=values.unset):
         """
         Create the ChannelInstance
-         :param str friendly_name: 
-         :param str unique_name: 
-         :param str attributes: 
-         :param ChannelChannelType type: 
+        :param str friendly_name: 
+        :param str unique_name: 
+        :param str attributes: 
+        :param ChannelChannelType type: 
         
         :returns: The created ChannelInstance
-        :rtype: twilio.rest.ip_messaging.v1.channel.ChannelInstance
+        :rtype: twilio.rest.ip_messaging.v1.service.channel.ChannelInstance
         """
         data = values.of({ 
             'FriendlyName': friendly_name,
@@ -77,7 +78,7 @@ class ChannelList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
         
-        :param [ChannelChannelType] type: 
+        :param list[ChannelChannelType] type: 
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -86,7 +87,7 @@ class ChannelList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.ip_messaging.v1.channel.ChannelInstance]
+        :rtype: list[twilio.rest.ip_messaging.v1.service.channel.ChannelInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -102,7 +103,7 @@ class ChannelList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
-        :param [ChannelChannelType] type: 
+        :param list[ChannelChannelType] type: 
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -111,7 +112,7 @@ class ChannelList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.ip_messaging.v1.channel.ChannelInstance]
+        :rtype: list[twilio.rest.ip_messaging.v1.service.channel.ChannelInstance]
         """
         return list(self.stream(
             type=type,
@@ -124,13 +125,13 @@ class ChannelList(ListResource):
         Retrieve a single page of ChannelInstance records from the API.
         Request is executed immediately
         
-        :param [ChannelChannelType] type: 
+        :param list[ChannelChannelType] type: 
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of ChannelInstance
-        :rtype: twilio.rest.ip_messaging.v1.channel.ChannelPage
+        :rtype: twilio.rest.ip_messaging.v1.service.channel.ChannelPage
         """
         data = values.of({ 
             'Type': type,
@@ -150,7 +151,7 @@ class ChannelList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of ChannelInstance
-        :rtype: twilio.rest.ip_messaging.v1.channel.ChannelPage
+        :rtype: twilio.rest.ip_messaging.v1.service.channel.ChannelPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -165,8 +166,8 @@ class ChannelList(ListResource):
         
         :param sid: 
         
-        :returns: twilio.rest.ip_messaging.v1.channel.ChannelContext
-        :rtype: twilio.rest.ip_messaging.v1.channel.ChannelContext
+        :returns: twilio.rest.ip_messaging.v1.service.channel.ChannelContext
+        :rtype: twilio.rest.ip_messaging.v1.service.channel.ChannelContext
         """
         return ChannelContext(self._version, service_sid=self._solution['service_sid'], sid=sid)
 
@@ -176,8 +177,8 @@ class ChannelList(ListResource):
         
         :param sid: 
         
-        :returns: twilio.rest.ip_messaging.v1.channel.ChannelContext
-        :rtype: twilio.rest.ip_messaging.v1.channel.ChannelContext
+        :returns: twilio.rest.ip_messaging.v1.service.channel.ChannelContext
+        :rtype: twilio.rest.ip_messaging.v1.service.channel.ChannelContext
         """
         return ChannelContext(self._version, service_sid=self._solution['service_sid'], sid=sid)
 
@@ -207,8 +208,8 @@ class ChannelPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.ip_messaging.v1.channel.ChannelPage
-        :rtype: twilio.rest.ip_messaging.v1.channel.ChannelPage
+        :returns: twilio.rest.ip_messaging.v1.service.channel.ChannelPage
+        :rtype: twilio.rest.ip_messaging.v1.service.channel.ChannelPage
         """
         super().__init__(version, response)
 
@@ -221,8 +222,8 @@ class ChannelPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.ip_messaging.v1.channel.ChannelInstance
-        :rtype: twilio.rest.ip_messaging.v1.channel.ChannelInstance
+        :returns: twilio.rest.ip_messaging.v1.service.channel.ChannelInstance
+        :rtype: twilio.rest.ip_messaging.v1.service.channel.ChannelInstance
         """
         return ChannelInstance(self._version, payload, service_sid=self._solution['service_sid'])
 

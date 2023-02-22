@@ -28,10 +28,11 @@ class JobList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the JobList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.bulkexports.v1.job..JobList
-        :rtype: twilio.bulkexports.v1.job..JobList
+        :returns: twilio.rest.bulkexports.v1.export.job.JobList
+        :rtype: twilio.rest.bulkexports.v1.export.job.JobList
         """
         super().__init__(version)
 
@@ -49,8 +50,8 @@ class JobList(ListResource):
         
         :param job_sid: The unique string that that we created to identify the Bulk Export job
         
-        :returns: twilio.rest.bulkexports.v1.job.JobContext
-        :rtype: twilio.rest.bulkexports.v1.job.JobContext
+        :returns: twilio.rest.bulkexports.v1.export.job.JobContext
+        :rtype: twilio.rest.bulkexports.v1.export.job.JobContext
         """
         return JobContext(self._version, job_sid=job_sid)
 
@@ -60,8 +61,8 @@ class JobList(ListResource):
         
         :param job_sid: The unique string that that we created to identify the Bulk Export job
         
-        :returns: twilio.rest.bulkexports.v1.job.JobContext
-        :rtype: twilio.rest.bulkexports.v1.job.JobContext
+        :returns: twilio.rest.bulkexports.v1.export.job.JobContext
+        :rtype: twilio.rest.bulkexports.v1.export.job.JobContext
         """
         return JobContext(self._version, job_sid=job_sid)
 

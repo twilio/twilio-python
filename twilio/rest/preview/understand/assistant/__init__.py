@@ -36,10 +36,11 @@ class AssistantList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the AssistantList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.preview.understand.assistant..AssistantList
-        :rtype: twilio.preview.understand.assistant..AssistantList
+        :returns: twilio.rest.preview.understand.assistant.AssistantList
+        :rtype: twilio.rest.preview.understand.assistant.AssistantList
         """
         super().__init__(version)
 
@@ -55,14 +56,14 @@ class AssistantList(ListResource):
     def create(self, friendly_name=values.unset, log_queries=values.unset, unique_name=values.unset, callback_url=values.unset, callback_events=values.unset, fallback_actions=values.unset, initiation_actions=values.unset, style_sheet=values.unset):
         """
         Create the AssistantInstance
-         :param str friendly_name: A text description for the Assistant. It is non-unique and can up to 255 characters long.
-         :param bool log_queries: A boolean that specifies whether queries should be logged for 30 days further training. If false, no queries will be stored, if true, queries will be stored for 30 days and deleted thereafter. Defaults to true if no value is provided.
-         :param str unique_name: A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
-         :param str callback_url: A user-provided URL to send event callbacks to.
-         :param str callback_events: Space-separated list of callback events that will trigger callbacks.
-         :param bool, date, datetime, dict, float, int, list, str, none_type fallback_actions: The JSON actions to be executed when the user's input is not recognized as matching any Task.
-         :param bool, date, datetime, dict, float, int, list, str, none_type initiation_actions: The JSON actions to be executed on inbound phone calls when the Assistant has to say something first.
-         :param bool, date, datetime, dict, float, int, list, str, none_type style_sheet: The JSON object that holds the style sheet for the assistant
+        :param str friendly_name: A text description for the Assistant. It is non-unique and can up to 255 characters long.
+        :param bool log_queries: A boolean that specifies whether queries should be logged for 30 days further training. If false, no queries will be stored, if true, queries will be stored for 30 days and deleted thereafter. Defaults to true if no value is provided.
+        :param str unique_name: A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
+        :param str callback_url: A user-provided URL to send event callbacks to.
+        :param str callback_events: Space-separated list of callback events that will trigger callbacks.
+        :param object fallback_actions: The JSON actions to be executed when the user's input is not recognized as matching any Task.
+        :param object initiation_actions: The JSON actions to be executed on inbound phone calls when the Assistant has to say something first.
+        :param object style_sheet: The JSON object that holds the style sheet for the assistant
         
         :returns: The created AssistantInstance
         :rtype: twilio.rest.preview.understand.assistant.AssistantInstance
@@ -73,9 +74,9 @@ class AssistantList(ListResource):
             'UniqueName': unique_name,
             'CallbackUrl': callback_url,
             'CallbackEvents': callback_events,
-            'FallbackActions': fallback_actions,
-            'InitiationActions': initiation_actions,
-            'StyleSheet': style_sheet,
+            'FallbackActions': serialize.object(fallback_actions),
+            'InitiationActions': serialize.object(initiation_actions),
+            'StyleSheet': serialize.object(style_sheet),
         })
 
         payload = self._version.create(method='POST', uri=self._uri, data=data)

@@ -28,10 +28,11 @@ class RecordingList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the RecordingList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.video.v1.recording..RecordingList
-        :rtype: twilio.video.v1.recording..RecordingList
+        :returns: twilio.rest.video.v1.recording.RecordingList
+        :rtype: twilio.rest.video.v1.recording.RecordingList
         """
         super().__init__(version)
 
@@ -52,7 +53,7 @@ class RecordingList(ListResource):
         
         :param RecordingStatus status: Read only the recordings that have this status. Can be: `processing`, `completed`, or `deleted`.
         :param str source_sid: Read only the recordings that have this `source_sid`.
-        :param [str] grouping_sid: Read only recordings with this `grouping_sid`, which may include a `participant_sid` and/or a `room_sid`.
+        :param list[str] grouping_sid: Read only recordings with this `grouping_sid`, which may include a `participant_sid` and/or a `room_sid`.
         :param datetime date_created_after: Read only recordings that started on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time with time zone.
         :param datetime date_created_before: Read only recordings that started before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time with time zone, given as `YYYY-MM-DDThh:mm:ss+|-hh:mm` or `YYYY-MM-DDThh:mm:ssZ`.
         :param RecordingType media_type: Read only recordings that have this media type. Can be either `audio` or `video`.
@@ -87,7 +88,7 @@ class RecordingList(ListResource):
         
         :param RecordingStatus status: Read only the recordings that have this status. Can be: `processing`, `completed`, or `deleted`.
         :param str source_sid: Read only the recordings that have this `source_sid`.
-        :param [str] grouping_sid: Read only recordings with this `grouping_sid`, which may include a `participant_sid` and/or a `room_sid`.
+        :param list[str] grouping_sid: Read only recordings with this `grouping_sid`, which may include a `participant_sid` and/or a `room_sid`.
         :param datetime date_created_after: Read only recordings that started on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time with time zone.
         :param datetime date_created_before: Read only recordings that started before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time with time zone, given as `YYYY-MM-DDThh:mm:ss+|-hh:mm` or `YYYY-MM-DDThh:mm:ssZ`.
         :param RecordingType media_type: Read only recordings that have this media type. Can be either `audio` or `video`.
@@ -119,7 +120,7 @@ class RecordingList(ListResource):
         
         :param RecordingStatus status: Read only the recordings that have this status. Can be: `processing`, `completed`, or `deleted`.
         :param str source_sid: Read only the recordings that have this `source_sid`.
-        :param [str] grouping_sid: Read only recordings with this `grouping_sid`, which may include a `participant_sid` and/or a `room_sid`.
+        :param list[str] grouping_sid: Read only recordings with this `grouping_sid`, which may include a `participant_sid` and/or a `room_sid`.
         :param datetime date_created_after: Read only recordings that started on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time with time zone.
         :param datetime date_created_before: Read only recordings that started before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time with time zone, given as `YYYY-MM-DDThh:mm:ss+|-hh:mm` or `YYYY-MM-DDThh:mm:ssZ`.
         :param RecordingType media_type: Read only recordings that have this media type. Can be either `audio` or `video`.

@@ -28,10 +28,11 @@ class AddressConfigurationList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the AddressConfigurationList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.conversations.v1.address_configuration..AddressConfigurationList
-        :rtype: twilio.conversations.v1.address_configuration..AddressConfigurationList
+        :returns: twilio.rest.conversations.v1.address_configuration.AddressConfigurationList
+        :rtype: twilio.rest.conversations.v1.address_configuration.AddressConfigurationList
         """
         super().__init__(version)
 
@@ -47,17 +48,17 @@ class AddressConfigurationList(ListResource):
     def create(self, type, address, friendly_name=values.unset, auto_creation_enabled=values.unset, auto_creation_type=values.unset, auto_creation_conversation_service_sid=values.unset, auto_creation_webhook_url=values.unset, auto_creation_webhook_method=values.unset, auto_creation_webhook_filters=values.unset, auto_creation_studio_flow_sid=values.unset, auto_creation_studio_retry_count=values.unset):
         """
         Create the AddressConfigurationInstance
-         :param ConfigurationAddressType type: 
-         :param str address: The unique address to be configured. The address can be a whatsapp address or phone number
-         :param str friendly_name: The human-readable name of this configuration, limited to 256 characters. Optional.
-         :param bool auto_creation_enabled: Enable/Disable auto-creating conversations for messages to this address
-         :param ConfigurationAddressAutoCreationType auto_creation_type: 
-         :param str auto_creation_conversation_service_sid: Conversation Service for the auto-created conversation. If not set, the conversation is created in the default service.
-         :param str auto_creation_webhook_url: For type `webhook`, the url for the webhook request.
-         :param ConfigurationAddressMethod auto_creation_webhook_method: 
-         :param [str] auto_creation_webhook_filters: The list of events, firing webhook event for this Conversation. Values can be any of the following: `onMessageAdded`, `onMessageUpdated`, `onMessageRemoved`, `onConversationUpdated`, `onConversationStateUpdated`, `onConversationRemoved`, `onParticipantAdded`, `onParticipantUpdated`, `onParticipantRemoved`, `onDeliveryUpdated`
-         :param str auto_creation_studio_flow_sid: For type `studio`, the studio flow SID where the webhook should be sent to.
-         :param int auto_creation_studio_retry_count: For type `studio`, number of times to retry the webhook request
+        :param ConfigurationAddressType type: 
+        :param str address: The unique address to be configured. The address can be a whatsapp address or phone number
+        :param str friendly_name: The human-readable name of this configuration, limited to 256 characters. Optional.
+        :param bool auto_creation_enabled: Enable/Disable auto-creating conversations for messages to this address
+        :param ConfigurationAddressAutoCreationType auto_creation_type: 
+        :param str auto_creation_conversation_service_sid: Conversation Service for the auto-created conversation. If not set, the conversation is created in the default service.
+        :param str auto_creation_webhook_url: For type `webhook`, the url for the webhook request.
+        :param ConfigurationAddressMethod auto_creation_webhook_method: 
+        :param list[str] auto_creation_webhook_filters: The list of events, firing webhook event for this Conversation. Values can be any of the following: `onMessageAdded`, `onMessageUpdated`, `onMessageRemoved`, `onConversationUpdated`, `onConversationStateUpdated`, `onConversationRemoved`, `onParticipantAdded`, `onParticipantUpdated`, `onParticipantRemoved`, `onDeliveryUpdated`
+        :param str auto_creation_studio_flow_sid: For type `studio`, the studio flow SID where the webhook should be sent to.
+        :param int auto_creation_studio_retry_count: For type `studio`, number of times to retry the webhook request
         
         :returns: The created AddressConfigurationInstance
         :rtype: twilio.rest.conversations.v1.address_configuration.AddressConfigurationInstance

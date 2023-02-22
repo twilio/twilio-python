@@ -29,10 +29,11 @@ class InteractionList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the InteractionList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.flex_api.v1.interaction..InteractionList
-        :rtype: twilio.flex_api.v1.interaction..InteractionList
+        :returns: twilio.rest.flex_api.v1.interaction.InteractionList
+        :rtype: twilio.rest.flex_api.v1.interaction.InteractionList
         """
         super().__init__(version)
 
@@ -46,15 +47,15 @@ class InteractionList(ListResource):
     def create(self, channel, routing):
         """
         Create the InteractionInstance
-         :param bool, date, datetime, dict, float, int, list, str, none_type channel: The Interaction's channel.
-         :param bool, date, datetime, dict, float, int, list, str, none_type routing: The Interaction's routing logic.
+        :param object channel: The Interaction's channel.
+        :param object routing: The Interaction's routing logic.
         
         :returns: The created InteractionInstance
         :rtype: twilio.rest.flex_api.v1.interaction.InteractionInstance
         """
         data = values.of({ 
-            'Channel': channel,
-            'Routing': routing,
+            'Channel': serialize.object(channel),
+            'Routing': serialize.object(routing),
         })
 
         payload = self._version.create(method='POST', uri=self._uri, data=data)

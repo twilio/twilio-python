@@ -28,11 +28,12 @@ class CustomerProfilesEntityAssignmentsList(ListResource):
     def __init__(self, version: Version, customer_profile_sid: str):
         """
         Initialize the CustomerProfilesEntityAssignmentsList
+
         :param Version version: Version that contains the resource
         :param customer_profile_sid: The unique string that we created to identify the CustomerProfile resource.
         
-        :returns: twilio.trusthub.v1.customer_profiles_entity_assignments..CustomerProfilesEntityAssignmentsList
-        :rtype: twilio.trusthub.v1.customer_profiles_entity_assignments..CustomerProfilesEntityAssignmentsList
+        :returns: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_entity_assignments.CustomerProfilesEntityAssignmentsList
+        :rtype: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_entity_assignments.CustomerProfilesEntityAssignmentsList
         """
         super().__init__(version)
 
@@ -47,10 +48,10 @@ class CustomerProfilesEntityAssignmentsList(ListResource):
     def create(self, object_sid):
         """
         Create the CustomerProfilesEntityAssignmentsInstance
-         :param str object_sid: The SID of an object bag that holds information of the different items.
+        :param str object_sid: The SID of an object bag that holds information of the different items.
         
         :returns: The created CustomerProfilesEntityAssignmentsInstance
-        :rtype: twilio.rest.trusthub.v1.customer_profiles_entity_assignments.CustomerProfilesEntityAssignmentsInstance
+        :rtype: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_entity_assignments.CustomerProfilesEntityAssignmentsInstance
         """
         data = values.of({ 
             'ObjectSid': object_sid,
@@ -75,7 +76,7 @@ class CustomerProfilesEntityAssignmentsList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.trusthub.v1.customer_profiles_entity_assignments.CustomerProfilesEntityAssignmentsInstance]
+        :rtype: list[twilio.rest.trusthub.v1.customer_profiles.customer_profiles_entity_assignments.CustomerProfilesEntityAssignmentsInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -98,7 +99,7 @@ class CustomerProfilesEntityAssignmentsList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.trusthub.v1.customer_profiles_entity_assignments.CustomerProfilesEntityAssignmentsInstance]
+        :rtype: list[twilio.rest.trusthub.v1.customer_profiles.customer_profiles_entity_assignments.CustomerProfilesEntityAssignmentsInstance]
         """
         return list(self.stream(
             limit=limit,
@@ -115,7 +116,7 @@ class CustomerProfilesEntityAssignmentsList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of CustomerProfilesEntityAssignmentsInstance
-        :rtype: twilio.rest.trusthub.v1.customer_profiles_entity_assignments.CustomerProfilesEntityAssignmentsPage
+        :rtype: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_entity_assignments.CustomerProfilesEntityAssignmentsPage
         """
         data = values.of({ 
             'PageToken': page_token,
@@ -134,7 +135,7 @@ class CustomerProfilesEntityAssignmentsList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of CustomerProfilesEntityAssignmentsInstance
-        :rtype: twilio.rest.trusthub.v1.customer_profiles_entity_assignments.CustomerProfilesEntityAssignmentsPage
+        :rtype: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_entity_assignments.CustomerProfilesEntityAssignmentsPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -149,8 +150,8 @@ class CustomerProfilesEntityAssignmentsList(ListResource):
         
         :param sid: The unique string that we created to identify the Identity resource.
         
-        :returns: twilio.rest.trusthub.v1.customer_profiles_entity_assignments.CustomerProfilesEntityAssignmentsContext
-        :rtype: twilio.rest.trusthub.v1.customer_profiles_entity_assignments.CustomerProfilesEntityAssignmentsContext
+        :returns: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_entity_assignments.CustomerProfilesEntityAssignmentsContext
+        :rtype: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_entity_assignments.CustomerProfilesEntityAssignmentsContext
         """
         return CustomerProfilesEntityAssignmentsContext(self._version, customer_profile_sid=self._solution['customer_profile_sid'], sid=sid)
 
@@ -160,8 +161,8 @@ class CustomerProfilesEntityAssignmentsList(ListResource):
         
         :param sid: The unique string that we created to identify the Identity resource.
         
-        :returns: twilio.rest.trusthub.v1.customer_profiles_entity_assignments.CustomerProfilesEntityAssignmentsContext
-        :rtype: twilio.rest.trusthub.v1.customer_profiles_entity_assignments.CustomerProfilesEntityAssignmentsContext
+        :returns: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_entity_assignments.CustomerProfilesEntityAssignmentsContext
+        :rtype: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_entity_assignments.CustomerProfilesEntityAssignmentsContext
         """
         return CustomerProfilesEntityAssignmentsContext(self._version, customer_profile_sid=self._solution['customer_profile_sid'], sid=sid)
 
@@ -189,8 +190,8 @@ class CustomerProfilesEntityAssignmentsPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.trusthub.v1.customer_profiles_entity_assignments.CustomerProfilesEntityAssignmentsPage
-        :rtype: twilio.rest.trusthub.v1.customer_profiles_entity_assignments.CustomerProfilesEntityAssignmentsPage
+        :returns: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_entity_assignments.CustomerProfilesEntityAssignmentsPage
+        :rtype: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_entity_assignments.CustomerProfilesEntityAssignmentsPage
         """
         super().__init__(version, response)
 
@@ -203,8 +204,8 @@ class CustomerProfilesEntityAssignmentsPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.trusthub.v1.customer_profiles_entity_assignments.CustomerProfilesEntityAssignmentsInstance
-        :rtype: twilio.rest.trusthub.v1.customer_profiles_entity_assignments.CustomerProfilesEntityAssignmentsInstance
+        :returns: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_entity_assignments.CustomerProfilesEntityAssignmentsInstance
+        :rtype: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_entity_assignments.CustomerProfilesEntityAssignmentsInstance
         """
         return CustomerProfilesEntityAssignmentsInstance(self._version, payload, customer_profile_sid=self._solution['customer_profile_sid'])
 

@@ -28,12 +28,13 @@ class AssetVersionList(ListResource):
     def __init__(self, version: Version, service_sid: str, asset_sid: str):
         """
         Initialize the AssetVersionList
+
         :param Version version: Version that contains the resource
         :param service_sid: The SID of the Service to read the Asset Version resource from.
         :param asset_sid: The SID of the Asset resource that is the parent of the Asset Version resources to read.
         
-        :returns: twilio.serverless.v1.asset_version..AssetVersionList
-        :rtype: twilio.serverless.v1.asset_version..AssetVersionList
+        :returns: twilio.rest.serverless.v1.service.asset.asset_version.AssetVersionList
+        :rtype: twilio.rest.serverless.v1.service.asset.asset_version.AssetVersionList
         """
         super().__init__(version)
 
@@ -59,7 +60,7 @@ class AssetVersionList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.serverless.v1.asset_version.AssetVersionInstance]
+        :rtype: list[twilio.rest.serverless.v1.service.asset.asset_version.AssetVersionInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -82,7 +83,7 @@ class AssetVersionList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.serverless.v1.asset_version.AssetVersionInstance]
+        :rtype: list[twilio.rest.serverless.v1.service.asset.asset_version.AssetVersionInstance]
         """
         return list(self.stream(
             limit=limit,
@@ -99,7 +100,7 @@ class AssetVersionList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of AssetVersionInstance
-        :rtype: twilio.rest.serverless.v1.asset_version.AssetVersionPage
+        :rtype: twilio.rest.serverless.v1.service.asset.asset_version.AssetVersionPage
         """
         data = values.of({ 
             'PageToken': page_token,
@@ -118,7 +119,7 @@ class AssetVersionList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of AssetVersionInstance
-        :rtype: twilio.rest.serverless.v1.asset_version.AssetVersionPage
+        :rtype: twilio.rest.serverless.v1.service.asset.asset_version.AssetVersionPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -133,8 +134,8 @@ class AssetVersionList(ListResource):
         
         :param sid: The SID of the Asset Version resource to fetch.
         
-        :returns: twilio.rest.serverless.v1.asset_version.AssetVersionContext
-        :rtype: twilio.rest.serverless.v1.asset_version.AssetVersionContext
+        :returns: twilio.rest.serverless.v1.service.asset.asset_version.AssetVersionContext
+        :rtype: twilio.rest.serverless.v1.service.asset.asset_version.AssetVersionContext
         """
         return AssetVersionContext(self._version, service_sid=self._solution['service_sid'], asset_sid=self._solution['asset_sid'], sid=sid)
 
@@ -144,8 +145,8 @@ class AssetVersionList(ListResource):
         
         :param sid: The SID of the Asset Version resource to fetch.
         
-        :returns: twilio.rest.serverless.v1.asset_version.AssetVersionContext
-        :rtype: twilio.rest.serverless.v1.asset_version.AssetVersionContext
+        :returns: twilio.rest.serverless.v1.service.asset.asset_version.AssetVersionContext
+        :rtype: twilio.rest.serverless.v1.service.asset.asset_version.AssetVersionContext
         """
         return AssetVersionContext(self._version, service_sid=self._solution['service_sid'], asset_sid=self._solution['asset_sid'], sid=sid)
 
@@ -169,8 +170,8 @@ class AssetVersionPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.serverless.v1.asset_version.AssetVersionPage
-        :rtype: twilio.rest.serverless.v1.asset_version.AssetVersionPage
+        :returns: twilio.rest.serverless.v1.service.asset.asset_version.AssetVersionPage
+        :rtype: twilio.rest.serverless.v1.service.asset.asset_version.AssetVersionPage
         """
         super().__init__(version, response)
 
@@ -183,8 +184,8 @@ class AssetVersionPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.serverless.v1.asset_version.AssetVersionInstance
-        :rtype: twilio.rest.serverless.v1.asset_version.AssetVersionInstance
+        :returns: twilio.rest.serverless.v1.service.asset.asset_version.AssetVersionInstance
+        :rtype: twilio.rest.serverless.v1.service.asset.asset_version.AssetVersionInstance
         """
         return AssetVersionInstance(self._version, payload, service_sid=self._solution['service_sid'], asset_sid=self._solution['asset_sid'])
 

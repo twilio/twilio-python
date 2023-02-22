@@ -28,10 +28,11 @@ class NetworkList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the NetworkList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.supersim.v1.network..NetworkList
-        :rtype: twilio.supersim.v1.network..NetworkList
+        :returns: twilio.rest.supersim.v1.network.NetworkList
+        :rtype: twilio.rest.supersim.v1.network.NetworkList
         """
         super().__init__(version)
 

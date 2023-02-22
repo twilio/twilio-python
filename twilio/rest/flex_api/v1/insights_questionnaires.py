@@ -28,10 +28,11 @@ class InsightsQuestionnairesList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the InsightsQuestionnairesList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.flex_api.v1.insights_questionnaires..InsightsQuestionnairesList
-        :rtype: twilio.flex_api.v1.insights_questionnaires..InsightsQuestionnairesList
+        :returns: twilio.rest.flex_api.v1.insights_questionnaires.InsightsQuestionnairesList
+        :rtype: twilio.rest.flex_api.v1.insights_questionnaires.InsightsQuestionnairesList
         """
         super().__init__(version)
 
@@ -44,19 +45,21 @@ class InsightsQuestionnairesList(ListResource):
     
     
     
-    def create(self, name, description=values.unset, active=values.unset, question_ids=values.unset):
+    def create(self, name, token=values.unset, description=values.unset, active=values.unset, question_ids=values.unset):
         """
         Create the InsightsQuestionnairesInstance
-         :param str name: The name of this questionnaire
-         :param str description: The description of this questionnaire
-         :param bool active: The flag to enable or disable questionnaire
-         :param [str] question_ids: The list of questions ids under a questionnaire
+        :param str name: The name of this questionnaire
+        :param str token: The Token HTTP request header
+        :param str description: The description of this questionnaire
+        :param bool active: The flag to enable or disable questionnaire
+        :param list[str] question_ids: The list of questions ids under a questionnaire
         
         :returns: The created InsightsQuestionnairesInstance
         :rtype: twilio.rest.flex_api.v1.insights_questionnaires.InsightsQuestionnairesInstance
         """
         data = values.of({ 
             'Name': name,
+            'Token': token,
             'Description': description,
             'Active': active,
             'QuestionIds': serialize.map(question_ids, lambda e: e),
@@ -278,9 +281,9 @@ class InsightsQuestionnairesContext(InstanceContext):
 
         
     
-    def update(self, active, name, description, question_ids):
+    def update(self, active, token, name, description, question_ids):
         data = values.of({
-            'active': active,'name': name,'description': description,'question_ids': question_ids,
+            'active': active,'token': token,'name': name,'description': description,'question_ids': question_ids,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

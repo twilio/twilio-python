@@ -28,12 +28,13 @@ class TollFreeList(ListResource):
     def __init__(self, version: Version, account_sid: str, country_code: str):
         """
         Initialize the TollFreeList
+
         :param Version version: Version that contains the resource
         :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) requesting the AvailablePhoneNumber resources.
         :param country_code: The [ISO-3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code of the country from which to read phone numbers.
         
-        :returns: twilio.api.v2010.toll_free..TollFreeList
-        :rtype: twilio.api.v2010.toll_free..TollFreeList
+        :returns: twilio.rest.api.v2010.account.available_phone_number_country.toll_free.TollFreeList
+        :rtype: twilio.rest.api.v2010.account.available_phone_number_country.toll_free.TollFreeList
         """
         super().__init__(version)
 
@@ -76,7 +77,7 @@ class TollFreeList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.toll_free.TollFreeInstance]
+        :rtype: list[twilio.rest.api.v2010.account.available_phone_number_country.toll_free.TollFreeInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -135,7 +136,7 @@ class TollFreeList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.toll_free.TollFreeInstance]
+        :rtype: list[twilio.rest.api.v2010.account.available_phone_number_country.toll_free.TollFreeInstance]
         """
         return list(self.stream(
             area_code=area_code,
@@ -188,7 +189,7 @@ class TollFreeList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of TollFreeInstance
-        :rtype: twilio.rest.api.v2010.toll_free.TollFreePage
+        :rtype: twilio.rest.api.v2010.account.available_phone_number_country.toll_free.TollFreePage
         """
         data = values.of({ 
             'AreaCode': area_code,
@@ -225,7 +226,7 @@ class TollFreeList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of TollFreeInstance
-        :rtype: twilio.rest.api.v2010.toll_free.TollFreePage
+        :rtype: twilio.rest.api.v2010.account.available_phone_number_country.toll_free.TollFreePage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -253,8 +254,8 @@ class TollFreePage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.api.v2010.toll_free.TollFreePage
-        :rtype: twilio.rest.api.v2010.toll_free.TollFreePage
+        :returns: twilio.rest.api.v2010.account.available_phone_number_country.toll_free.TollFreePage
+        :rtype: twilio.rest.api.v2010.account.available_phone_number_country.toll_free.TollFreePage
         """
         super().__init__(version, response)
 
@@ -267,8 +268,8 @@ class TollFreePage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.api.v2010.toll_free.TollFreeInstance
-        :rtype: twilio.rest.api.v2010.toll_free.TollFreeInstance
+        :returns: twilio.rest.api.v2010.account.available_phone_number_country.toll_free.TollFreeInstance
+        :rtype: twilio.rest.api.v2010.account.available_phone_number_country.toll_free.TollFreeInstance
         """
         return TollFreeInstance(self._version, payload, account_sid=self._solution['account_sid'], country_code=self._solution['country_code'])
 
@@ -284,6 +285,51 @@ class TollFreePage(Page):
 
 
 
+
+
+class TollFreeInstance(InstanceResource):
+    def __init__(self, version, payload, account_sid: str, country_code: str):
+        super().__init__(version)
+        self._properties = { 
+            'friendly_name' : payload.get('friendly_name'),
+            'phone_number' : payload.get('phone_number'),
+            'lata' : payload.get('lata'),
+            'locality' : payload.get('locality'),
+            'rate_center' : payload.get('rate_center'),
+            'latitude' : payload.get('latitude'),
+            'longitude' : payload.get('longitude'),
+            'region' : payload.get('region'),
+            'postal_code' : payload.get('postal_code'),
+            'iso_country' : payload.get('iso_country'),
+            'address_requirements' : payload.get('address_requirements'),
+            'beta' : payload.get('beta'),
+            'capabilities' : payload.get('capabilities'),
+        }
+
+        self._context = None
+        self._solution = {
+            'account_sid': account_sid or self._properties['account_sid'],'country_code': country_code or self._properties['country_code'],
+        }
+
+    @property
+    def _proxy(self):
+        if self._context is None:
+            self._context = TollFreeContext(
+                self._version,
+                account_sid=self._solution['account_sid'],country_code=self._solution['country_code'],
+            )
+        return self._context
+
+    
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Api.V2010.TollFreeInstance {}>'.format(context)
 
 
 

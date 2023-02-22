@@ -28,10 +28,11 @@ class EsimProfileList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the EsimProfileList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.supersim.v1.esim_profile..EsimProfileList
-        :rtype: twilio.supersim.v1.esim_profile..EsimProfileList
+        :returns: twilio.rest.supersim.v1.esim_profile.EsimProfileList
+        :rtype: twilio.rest.supersim.v1.esim_profile.EsimProfileList
         """
         super().__init__(version)
 
@@ -45,9 +46,9 @@ class EsimProfileList(ListResource):
     def create(self, callback_url=values.unset, callback_method=values.unset, eid=values.unset):
         """
         Create the EsimProfileInstance
-         :param str callback_url: The URL we should call using the `callback_method` when the status of the eSIM Profile changes. At this stage of the eSIM Profile pilot, the a request to the URL will only be called when the ESimProfile resource changes from `reserving` to `available`.
-         :param str callback_method: The HTTP method we should use to call `callback_url`. Can be: `GET` or `POST` and the default is POST.
-         :param str eid: Identifier of the eUICC that will claim the eSIM Profile.
+        :param str callback_url: The URL we should call using the `callback_method` when the status of the eSIM Profile changes. At this stage of the eSIM Profile pilot, the a request to the URL will only be called when the ESimProfile resource changes from `reserving` to `available`.
+        :param str callback_method: The HTTP method we should use to call `callback_url`. Can be: `GET` or `POST` and the default is POST.
+        :param str eid: Identifier of the eUICC that will claim the eSIM Profile.
         
         :returns: The created EsimProfileInstance
         :rtype: twilio.rest.supersim.v1.esim_profile.EsimProfileInstance

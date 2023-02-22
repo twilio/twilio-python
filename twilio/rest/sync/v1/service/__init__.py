@@ -32,10 +32,11 @@ class ServiceList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the ServiceList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.sync.v1.service..ServiceList
-        :rtype: twilio.sync.v1.service..ServiceList
+        :returns: twilio.rest.sync.v1.service.ServiceList
+        :rtype: twilio.rest.sync.v1.service.ServiceList
         """
         super().__init__(version)
 
@@ -51,13 +52,13 @@ class ServiceList(ListResource):
     def create(self, friendly_name=values.unset, webhook_url=values.unset, reachability_webhooks_enabled=values.unset, acl_enabled=values.unset, reachability_debouncing_enabled=values.unset, reachability_debouncing_window=values.unset, webhooks_from_rest_enabled=values.unset):
         """
         Create the ServiceInstance
-         :param str friendly_name: A string that you assign to describe the resource.
-         :param str webhook_url: The URL we should call when Sync objects are manipulated.
-         :param bool reachability_webhooks_enabled: Whether the service instance should call `webhook_url` when client endpoints connect to Sync. The default is `false`.
-         :param bool acl_enabled: Whether token identities in the Service must be granted access to Sync objects by using the [Permissions](https://www.twilio.com/docs/sync/api/sync-permissions) resource.
-         :param bool reachability_debouncing_enabled: Whether every `endpoint_disconnected` event should occur after a configurable delay. The default is `false`, where the `endpoint_disconnected` event occurs immediately after disconnection. When `true`, intervening reconnections can prevent the `endpoint_disconnected` event.
-         :param int reachability_debouncing_window: The reachability event delay in milliseconds if `reachability_debouncing_enabled` = `true`.  Must be between 1,000 and 30,000 and defaults to 5,000. This is the number of milliseconds after the last running client disconnects, and a Sync identity is declared offline, before the `webhook_url` is called if all endpoints remain offline. A reconnection from the same identity by any endpoint during this interval prevents the call to `webhook_url`.
-         :param bool webhooks_from_rest_enabled: Whether the Service instance should call `webhook_url` when the REST API is used to update Sync objects. The default is `false`.
+        :param str friendly_name: A string that you assign to describe the resource.
+        :param str webhook_url: The URL we should call when Sync objects are manipulated.
+        :param bool reachability_webhooks_enabled: Whether the service instance should call `webhook_url` when client endpoints connect to Sync. The default is `false`.
+        :param bool acl_enabled: Whether token identities in the Service must be granted access to Sync objects by using the [Permissions](https://www.twilio.com/docs/sync/api/sync-permissions) resource.
+        :param bool reachability_debouncing_enabled: Whether every `endpoint_disconnected` event should occur after a configurable delay. The default is `false`, where the `endpoint_disconnected` event occurs immediately after disconnection. When `true`, intervening reconnections can prevent the `endpoint_disconnected` event.
+        :param int reachability_debouncing_window: The reachability event delay in milliseconds if `reachability_debouncing_enabled` = `true`.  Must be between 1,000 and 30,000 and defaults to 5,000. This is the number of milliseconds after the last running client disconnects, and a Sync identity is declared offline, before the `webhook_url` is called if all endpoints remain offline. A reconnection from the same identity by any endpoint during this interval prevents the call to `webhook_url`.
+        :param bool webhooks_from_rest_enabled: Whether the Service instance should call `webhook_url` when the REST API is used to update Sync objects. The default is `false`.
         
         :returns: The created ServiceInstance
         :rtype: twilio.rest.sync.v1.service.ServiceInstance

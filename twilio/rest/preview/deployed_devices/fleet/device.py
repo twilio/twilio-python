@@ -28,11 +28,12 @@ class DeviceList(ListResource):
     def __init__(self, version: Version, fleet_sid: str):
         """
         Initialize the DeviceList
+
         :param Version version: Version that contains the resource
         :param fleet_sid: 
         
-        :returns: twilio.preview.deployed_devices.device..DeviceList
-        :rtype: twilio.preview.deployed_devices.device..DeviceList
+        :returns: twilio.rest.preview.deployed_devices.fleet.device.DeviceList
+        :rtype: twilio.rest.preview.deployed_devices.fleet.device.DeviceList
         """
         super().__init__(version)
 
@@ -48,14 +49,14 @@ class DeviceList(ListResource):
     def create(self, unique_name=values.unset, friendly_name=values.unset, identity=values.unset, deployment_sid=values.unset, enabled=values.unset):
         """
         Create the DeviceInstance
-         :param str unique_name: Provides a unique and addressable name to be assigned to this Device, to be used in addition to SID, up to 128 characters long.
-         :param str friendly_name: Provides a human readable descriptive text to be assigned to this Device, up to 256 characters long.
-         :param str identity: Provides an arbitrary string identifier representing a human user to be associated with this Device, up to 256 characters long.
-         :param str deployment_sid: Specifies the unique string identifier of the Deployment group that this Device is going to be associated with.
-         :param bool enabled: 
+        :param str unique_name: Provides a unique and addressable name to be assigned to this Device, to be used in addition to SID, up to 128 characters long.
+        :param str friendly_name: Provides a human readable descriptive text to be assigned to this Device, up to 256 characters long.
+        :param str identity: Provides an arbitrary string identifier representing a human user to be associated with this Device, up to 256 characters long.
+        :param str deployment_sid: Specifies the unique string identifier of the Deployment group that this Device is going to be associated with.
+        :param bool enabled: 
         
         :returns: The created DeviceInstance
-        :rtype: twilio.rest.preview.deployed_devices.device.DeviceInstance
+        :rtype: twilio.rest.preview.deployed_devices.fleet.device.DeviceInstance
         """
         data = values.of({ 
             'UniqueName': unique_name,
@@ -85,7 +86,7 @@ class DeviceList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.preview.deployed_devices.device.DeviceInstance]
+        :rtype: list[twilio.rest.preview.deployed_devices.fleet.device.DeviceInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -110,7 +111,7 @@ class DeviceList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.preview.deployed_devices.device.DeviceInstance]
+        :rtype: list[twilio.rest.preview.deployed_devices.fleet.device.DeviceInstance]
         """
         return list(self.stream(
             deployment_sid=deployment_sid,
@@ -129,7 +130,7 @@ class DeviceList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of DeviceInstance
-        :rtype: twilio.rest.preview.deployed_devices.device.DevicePage
+        :rtype: twilio.rest.preview.deployed_devices.fleet.device.DevicePage
         """
         data = values.of({ 
             'DeploymentSid': deployment_sid,
@@ -149,7 +150,7 @@ class DeviceList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of DeviceInstance
-        :rtype: twilio.rest.preview.deployed_devices.device.DevicePage
+        :rtype: twilio.rest.preview.deployed_devices.fleet.device.DevicePage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -164,8 +165,8 @@ class DeviceList(ListResource):
         
         :param sid: Provides a 34 character string that uniquely identifies the requested Device resource.
         
-        :returns: twilio.rest.preview.deployed_devices.device.DeviceContext
-        :rtype: twilio.rest.preview.deployed_devices.device.DeviceContext
+        :returns: twilio.rest.preview.deployed_devices.fleet.device.DeviceContext
+        :rtype: twilio.rest.preview.deployed_devices.fleet.device.DeviceContext
         """
         return DeviceContext(self._version, fleet_sid=self._solution['fleet_sid'], sid=sid)
 
@@ -175,8 +176,8 @@ class DeviceList(ListResource):
         
         :param sid: Provides a 34 character string that uniquely identifies the requested Device resource.
         
-        :returns: twilio.rest.preview.deployed_devices.device.DeviceContext
-        :rtype: twilio.rest.preview.deployed_devices.device.DeviceContext
+        :returns: twilio.rest.preview.deployed_devices.fleet.device.DeviceContext
+        :rtype: twilio.rest.preview.deployed_devices.fleet.device.DeviceContext
         """
         return DeviceContext(self._version, fleet_sid=self._solution['fleet_sid'], sid=sid)
 
@@ -206,8 +207,8 @@ class DevicePage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.preview.deployed_devices.device.DevicePage
-        :rtype: twilio.rest.preview.deployed_devices.device.DevicePage
+        :returns: twilio.rest.preview.deployed_devices.fleet.device.DevicePage
+        :rtype: twilio.rest.preview.deployed_devices.fleet.device.DevicePage
         """
         super().__init__(version, response)
 
@@ -220,8 +221,8 @@ class DevicePage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.preview.deployed_devices.device.DeviceInstance
-        :rtype: twilio.rest.preview.deployed_devices.device.DeviceInstance
+        :returns: twilio.rest.preview.deployed_devices.fleet.device.DeviceInstance
+        :rtype: twilio.rest.preview.deployed_devices.fleet.device.DeviceInstance
         """
         return DeviceInstance(self._version, payload, fleet_sid=self._solution['fleet_sid'])
 

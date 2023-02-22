@@ -30,10 +30,11 @@ class DeviceList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the DeviceList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.microvisor.v1.device..DeviceList
-        :rtype: twilio.microvisor.v1.device..DeviceList
+        :returns: twilio.rest.microvisor.v1.device.DeviceList
+        :rtype: twilio.rest.microvisor.v1.device.DeviceList
         """
         super().__init__(version)
 

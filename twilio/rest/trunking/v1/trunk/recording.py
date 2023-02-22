@@ -28,11 +28,12 @@ class RecordingList(ListResource):
     def __init__(self, version: Version, trunk_sid: str):
         """
         Initialize the RecordingList
+
         :param Version version: Version that contains the resource
         :param trunk_sid: The SID of the Trunk from which to fetch the recording settings.
         
-        :returns: twilio.trunking.v1.recording..RecordingList
-        :rtype: twilio.trunking.v1.recording..RecordingList
+        :returns: twilio.rest.trunking.v1.trunk.recording.RecordingList
+        :rtype: twilio.rest.trunking.v1.trunk.recording.RecordingList
         """
         super().__init__(version)
 
@@ -48,8 +49,8 @@ class RecordingList(ListResource):
         """
         Constructs a RecordingContext
         
-        :returns: twilio.rest.trunking.v1.recording.RecordingContext
-        :rtype: twilio.rest.trunking.v1.recording.RecordingContext
+        :returns: twilio.rest.trunking.v1.trunk.recording.RecordingContext
+        :rtype: twilio.rest.trunking.v1.trunk.recording.RecordingContext
         """
         return RecordingContext(self._version, trunk_sid=self._solution['trunk_sid'])
 
@@ -57,8 +58,8 @@ class RecordingList(ListResource):
         """
         Constructs a RecordingContext
         
-        :returns: twilio.rest.trunking.v1.recording.RecordingContext
-        :rtype: twilio.rest.trunking.v1.recording.RecordingContext
+        :returns: twilio.rest.trunking.v1.trunk.recording.RecordingContext
+        :rtype: twilio.rest.trunking.v1.trunk.recording.RecordingContext
         """
         return RecordingContext(self._version, trunk_sid=self._solution['trunk_sid'])
 

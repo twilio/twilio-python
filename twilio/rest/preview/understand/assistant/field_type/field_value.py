@@ -28,12 +28,13 @@ class FieldValueList(ListResource):
     def __init__(self, version: Version, assistant_sid: str, field_type_sid: str):
         """
         Initialize the FieldValueList
+
         :param Version version: Version that contains the resource
         :param assistant_sid: 
         :param field_type_sid: 
         
-        :returns: twilio.preview.understand.field_value..FieldValueList
-        :rtype: twilio.preview.understand.field_value..FieldValueList
+        :returns: twilio.rest.preview.understand.assistant.field_type.field_value.FieldValueList
+        :rtype: twilio.rest.preview.understand.assistant.field_type.field_value.FieldValueList
         """
         super().__init__(version)
 
@@ -48,12 +49,12 @@ class FieldValueList(ListResource):
     def create(self, language, value, synonym_of=values.unset):
         """
         Create the FieldValueInstance
-         :param str language: An ISO language-country string of the value.
-         :param str value: A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
-         :param str synonym_of: A value that indicates this field value is a synonym of. Empty if the value is not a synonym.
+        :param str language: An ISO language-country string of the value.
+        :param str value: A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
+        :param str synonym_of: A value that indicates this field value is a synonym of. Empty if the value is not a synonym.
         
         :returns: The created FieldValueInstance
-        :rtype: twilio.rest.preview.understand.field_value.FieldValueInstance
+        :rtype: twilio.rest.preview.understand.assistant.field_type.field_value.FieldValueInstance
         """
         data = values.of({ 
             'Language': language,
@@ -81,7 +82,7 @@ class FieldValueList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.preview.understand.field_value.FieldValueInstance]
+        :rtype: list[twilio.rest.preview.understand.assistant.field_type.field_value.FieldValueInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -106,7 +107,7 @@ class FieldValueList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.preview.understand.field_value.FieldValueInstance]
+        :rtype: list[twilio.rest.preview.understand.assistant.field_type.field_value.FieldValueInstance]
         """
         return list(self.stream(
             language=language,
@@ -125,7 +126,7 @@ class FieldValueList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of FieldValueInstance
-        :rtype: twilio.rest.preview.understand.field_value.FieldValuePage
+        :rtype: twilio.rest.preview.understand.assistant.field_type.field_value.FieldValuePage
         """
         data = values.of({ 
             'Language': language,
@@ -145,7 +146,7 @@ class FieldValueList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of FieldValueInstance
-        :rtype: twilio.rest.preview.understand.field_value.FieldValuePage
+        :rtype: twilio.rest.preview.understand.assistant.field_type.field_value.FieldValuePage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -160,8 +161,8 @@ class FieldValueList(ListResource):
         
         :param sid: 
         
-        :returns: twilio.rest.preview.understand.field_value.FieldValueContext
-        :rtype: twilio.rest.preview.understand.field_value.FieldValueContext
+        :returns: twilio.rest.preview.understand.assistant.field_type.field_value.FieldValueContext
+        :rtype: twilio.rest.preview.understand.assistant.field_type.field_value.FieldValueContext
         """
         return FieldValueContext(self._version, assistant_sid=self._solution['assistant_sid'], field_type_sid=self._solution['field_type_sid'], sid=sid)
 
@@ -171,8 +172,8 @@ class FieldValueList(ListResource):
         
         :param sid: 
         
-        :returns: twilio.rest.preview.understand.field_value.FieldValueContext
-        :rtype: twilio.rest.preview.understand.field_value.FieldValueContext
+        :returns: twilio.rest.preview.understand.assistant.field_type.field_value.FieldValueContext
+        :rtype: twilio.rest.preview.understand.assistant.field_type.field_value.FieldValueContext
         """
         return FieldValueContext(self._version, assistant_sid=self._solution['assistant_sid'], field_type_sid=self._solution['field_type_sid'], sid=sid)
 
@@ -200,8 +201,8 @@ class FieldValuePage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.preview.understand.field_value.FieldValuePage
-        :rtype: twilio.rest.preview.understand.field_value.FieldValuePage
+        :returns: twilio.rest.preview.understand.assistant.field_type.field_value.FieldValuePage
+        :rtype: twilio.rest.preview.understand.assistant.field_type.field_value.FieldValuePage
         """
         super().__init__(version, response)
 
@@ -214,8 +215,8 @@ class FieldValuePage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.preview.understand.field_value.FieldValueInstance
-        :rtype: twilio.rest.preview.understand.field_value.FieldValueInstance
+        :returns: twilio.rest.preview.understand.assistant.field_type.field_value.FieldValueInstance
+        :rtype: twilio.rest.preview.understand.assistant.field_type.field_value.FieldValueInstance
         """
         return FieldValueInstance(self._version, payload, assistant_sid=self._solution['assistant_sid'], field_type_sid=self._solution['field_type_sid'])
 

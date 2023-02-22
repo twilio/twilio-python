@@ -28,11 +28,12 @@ class OutgoingCallerIdList(ListResource):
     def __init__(self, version: Version, account_sid: str):
         """
         Initialize the OutgoingCallerIdList
+
         :param Version version: Version that contains the resource
         :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the OutgoingCallerId resources to read.
         
-        :returns: twilio.api.v2010.outgoing_caller_id..OutgoingCallerIdList
-        :rtype: twilio.api.v2010.outgoing_caller_id..OutgoingCallerIdList
+        :returns: twilio.rest.api.v2010.account.outgoing_caller_id.OutgoingCallerIdList
+        :rtype: twilio.rest.api.v2010.account.outgoing_caller_id.OutgoingCallerIdList
         """
         super().__init__(version)
 
@@ -62,7 +63,7 @@ class OutgoingCallerIdList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.outgoing_caller_id.OutgoingCallerIdInstance]
+        :rtype: list[twilio.rest.api.v2010.account.outgoing_caller_id.OutgoingCallerIdInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -89,7 +90,7 @@ class OutgoingCallerIdList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.outgoing_caller_id.OutgoingCallerIdInstance]
+        :rtype: list[twilio.rest.api.v2010.account.outgoing_caller_id.OutgoingCallerIdInstance]
         """
         return list(self.stream(
             phone_number=phone_number,
@@ -110,7 +111,7 @@ class OutgoingCallerIdList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of OutgoingCallerIdInstance
-        :rtype: twilio.rest.api.v2010.outgoing_caller_id.OutgoingCallerIdPage
+        :rtype: twilio.rest.api.v2010.account.outgoing_caller_id.OutgoingCallerIdPage
         """
         data = values.of({ 
             'PhoneNumber': phone_number,
@@ -131,7 +132,7 @@ class OutgoingCallerIdList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of OutgoingCallerIdInstance
-        :rtype: twilio.rest.api.v2010.outgoing_caller_id.OutgoingCallerIdPage
+        :rtype: twilio.rest.api.v2010.account.outgoing_caller_id.OutgoingCallerIdPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -146,8 +147,8 @@ class OutgoingCallerIdList(ListResource):
         
         :param sid: The Twilio-provided string that uniquely identifies the OutgoingCallerId resource to update.
         
-        :returns: twilio.rest.api.v2010.outgoing_caller_id.OutgoingCallerIdContext
-        :rtype: twilio.rest.api.v2010.outgoing_caller_id.OutgoingCallerIdContext
+        :returns: twilio.rest.api.v2010.account.outgoing_caller_id.OutgoingCallerIdContext
+        :rtype: twilio.rest.api.v2010.account.outgoing_caller_id.OutgoingCallerIdContext
         """
         return OutgoingCallerIdContext(self._version, account_sid=self._solution['account_sid'], sid=sid)
 
@@ -157,8 +158,8 @@ class OutgoingCallerIdList(ListResource):
         
         :param sid: The Twilio-provided string that uniquely identifies the OutgoingCallerId resource to update.
         
-        :returns: twilio.rest.api.v2010.outgoing_caller_id.OutgoingCallerIdContext
-        :rtype: twilio.rest.api.v2010.outgoing_caller_id.OutgoingCallerIdContext
+        :returns: twilio.rest.api.v2010.account.outgoing_caller_id.OutgoingCallerIdContext
+        :rtype: twilio.rest.api.v2010.account.outgoing_caller_id.OutgoingCallerIdContext
         """
         return OutgoingCallerIdContext(self._version, account_sid=self._solution['account_sid'], sid=sid)
 
@@ -186,8 +187,8 @@ class OutgoingCallerIdPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.api.v2010.outgoing_caller_id.OutgoingCallerIdPage
-        :rtype: twilio.rest.api.v2010.outgoing_caller_id.OutgoingCallerIdPage
+        :returns: twilio.rest.api.v2010.account.outgoing_caller_id.OutgoingCallerIdPage
+        :rtype: twilio.rest.api.v2010.account.outgoing_caller_id.OutgoingCallerIdPage
         """
         super().__init__(version, response)
 
@@ -200,8 +201,8 @@ class OutgoingCallerIdPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.api.v2010.outgoing_caller_id.OutgoingCallerIdInstance
-        :rtype: twilio.rest.api.v2010.outgoing_caller_id.OutgoingCallerIdInstance
+        :returns: twilio.rest.api.v2010.account.outgoing_caller_id.OutgoingCallerIdInstance
+        :rtype: twilio.rest.api.v2010.account.outgoing_caller_id.OutgoingCallerIdInstance
         """
         return OutgoingCallerIdInstance(self._version, payload, account_sid=self._solution['account_sid'])
 

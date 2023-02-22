@@ -28,12 +28,13 @@ class MemberList(ListResource):
     def __init__(self, version: Version, service_sid: str, channel_sid: str):
         """
         Initialize the MemberList
+
         :param Version version: Version that contains the resource
         :param service_sid: 
         :param channel_sid: 
         
-        :returns: twilio.ip_messaging.v1.member..MemberList
-        :rtype: twilio.ip_messaging.v1.member..MemberList
+        :returns: twilio.rest.ip_messaging.v1.service.channel.member.MemberList
+        :rtype: twilio.rest.ip_messaging.v1.service.channel.member.MemberList
         """
         super().__init__(version)
 
@@ -49,11 +50,11 @@ class MemberList(ListResource):
     def create(self, identity, role_sid=values.unset):
         """
         Create the MemberInstance
-         :param str identity: 
-         :param str role_sid: 
+        :param str identity: 
+        :param str role_sid: 
         
         :returns: The created MemberInstance
-        :rtype: twilio.rest.ip_messaging.v1.member.MemberInstance
+        :rtype: twilio.rest.ip_messaging.v1.service.channel.member.MemberInstance
         """
         data = values.of({ 
             'Identity': identity,
@@ -71,7 +72,7 @@ class MemberList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
         
-        :param [str] identity: 
+        :param list[str] identity: 
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -80,7 +81,7 @@ class MemberList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.ip_messaging.v1.member.MemberInstance]
+        :rtype: list[twilio.rest.ip_messaging.v1.service.channel.member.MemberInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -96,7 +97,7 @@ class MemberList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
-        :param [str] identity: 
+        :param list[str] identity: 
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -105,7 +106,7 @@ class MemberList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.ip_messaging.v1.member.MemberInstance]
+        :rtype: list[twilio.rest.ip_messaging.v1.service.channel.member.MemberInstance]
         """
         return list(self.stream(
             identity=identity,
@@ -118,13 +119,13 @@ class MemberList(ListResource):
         Retrieve a single page of MemberInstance records from the API.
         Request is executed immediately
         
-        :param [str] identity: 
+        :param list[str] identity: 
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of MemberInstance
-        :rtype: twilio.rest.ip_messaging.v1.member.MemberPage
+        :rtype: twilio.rest.ip_messaging.v1.service.channel.member.MemberPage
         """
         data = values.of({ 
             'Identity': serialize.map(identity),
@@ -144,7 +145,7 @@ class MemberList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of MemberInstance
-        :rtype: twilio.rest.ip_messaging.v1.member.MemberPage
+        :rtype: twilio.rest.ip_messaging.v1.service.channel.member.MemberPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -159,8 +160,8 @@ class MemberList(ListResource):
         
         :param sid: 
         
-        :returns: twilio.rest.ip_messaging.v1.member.MemberContext
-        :rtype: twilio.rest.ip_messaging.v1.member.MemberContext
+        :returns: twilio.rest.ip_messaging.v1.service.channel.member.MemberContext
+        :rtype: twilio.rest.ip_messaging.v1.service.channel.member.MemberContext
         """
         return MemberContext(self._version, service_sid=self._solution['service_sid'], channel_sid=self._solution['channel_sid'], sid=sid)
 
@@ -170,8 +171,8 @@ class MemberList(ListResource):
         
         :param sid: 
         
-        :returns: twilio.rest.ip_messaging.v1.member.MemberContext
-        :rtype: twilio.rest.ip_messaging.v1.member.MemberContext
+        :returns: twilio.rest.ip_messaging.v1.service.channel.member.MemberContext
+        :rtype: twilio.rest.ip_messaging.v1.service.channel.member.MemberContext
         """
         return MemberContext(self._version, service_sid=self._solution['service_sid'], channel_sid=self._solution['channel_sid'], sid=sid)
 
@@ -201,8 +202,8 @@ class MemberPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.ip_messaging.v1.member.MemberPage
-        :rtype: twilio.rest.ip_messaging.v1.member.MemberPage
+        :returns: twilio.rest.ip_messaging.v1.service.channel.member.MemberPage
+        :rtype: twilio.rest.ip_messaging.v1.service.channel.member.MemberPage
         """
         super().__init__(version, response)
 
@@ -215,8 +216,8 @@ class MemberPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.ip_messaging.v1.member.MemberInstance
-        :rtype: twilio.rest.ip_messaging.v1.member.MemberInstance
+        :returns: twilio.rest.ip_messaging.v1.service.channel.member.MemberInstance
+        :rtype: twilio.rest.ip_messaging.v1.service.channel.member.MemberInstance
         """
         return MemberInstance(self._version, payload, service_sid=self._solution['service_sid'], channel_sid=self._solution['channel_sid'])
 

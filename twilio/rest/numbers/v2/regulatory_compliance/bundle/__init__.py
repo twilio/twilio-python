@@ -32,10 +32,11 @@ class BundleList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the BundleList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.numbers.v2.bundle..BundleList
-        :rtype: twilio.numbers.v2.bundle..BundleList
+        :returns: twilio.rest.numbers.v2.regulatory_compliance.bundle.BundleList
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.BundleList
         """
         super().__init__(version)
 
@@ -51,16 +52,16 @@ class BundleList(ListResource):
     def create(self, friendly_name, email, status_callback=values.unset, regulation_sid=values.unset, iso_country=values.unset, end_user_type=values.unset, number_type=values.unset):
         """
         Create the BundleInstance
-         :param str friendly_name: The string that you assigned to describe the resource.
-         :param str email: The email address that will receive updates when the Bundle resource changes status.
-         :param str status_callback: The URL we call to inform your application of status changes.
-         :param str regulation_sid: The unique string of a regulation that is associated to the Bundle resource.
-         :param str iso_country: The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the Bundle's phone number country ownership request.
-         :param BundleEndUserType end_user_type: 
-         :param str number_type: The type of phone number of the Bundle's ownership request. Can be `local`, `mobile`, `national`, or `toll free`.
+        :param str friendly_name: The string that you assigned to describe the resource.
+        :param str email: The email address that will receive updates when the Bundle resource changes status.
+        :param str status_callback: The URL we call to inform your application of status changes.
+        :param str regulation_sid: The unique string of a regulation that is associated to the Bundle resource.
+        :param str iso_country: The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the Bundle's phone number country ownership request.
+        :param BundleEndUserType end_user_type: 
+        :param str number_type: The type of phone number of the Bundle's ownership request. Can be `local`, `mobile`, `national`, or `toll free`.
         
         :returns: The created BundleInstance
-        :rtype: twilio.rest.numbers.v2.bundle.BundleInstance
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.BundleInstance
         """
         data = values.of({ 
             'FriendlyName': friendly_name,
@@ -102,7 +103,7 @@ class BundleList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.numbers.v2.bundle.BundleInstance]
+        :rtype: list[twilio.rest.numbers.v2.regulatory_compliance.bundle.BundleInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -147,7 +148,7 @@ class BundleList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.numbers.v2.bundle.BundleInstance]
+        :rtype: list[twilio.rest.numbers.v2.regulatory_compliance.bundle.BundleInstance]
         """
         return list(self.stream(
             status=status,
@@ -186,7 +187,7 @@ class BundleList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of BundleInstance
-        :rtype: twilio.rest.numbers.v2.bundle.BundlePage
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.BundlePage
         """
         data = values.of({ 
             'Status': status,
@@ -216,7 +217,7 @@ class BundleList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of BundleInstance
-        :rtype: twilio.rest.numbers.v2.bundle.BundlePage
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.BundlePage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -231,8 +232,8 @@ class BundleList(ListResource):
         
         :param sid: The unique string that we created to identify the Bundle resource.
         
-        :returns: twilio.rest.numbers.v2.bundle.BundleContext
-        :rtype: twilio.rest.numbers.v2.bundle.BundleContext
+        :returns: twilio.rest.numbers.v2.regulatory_compliance.bundle.BundleContext
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.BundleContext
         """
         return BundleContext(self._version, sid=sid)
 
@@ -242,8 +243,8 @@ class BundleList(ListResource):
         
         :param sid: The unique string that we created to identify the Bundle resource.
         
-        :returns: twilio.rest.numbers.v2.bundle.BundleContext
-        :rtype: twilio.rest.numbers.v2.bundle.BundleContext
+        :returns: twilio.rest.numbers.v2.regulatory_compliance.bundle.BundleContext
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.BundleContext
         """
         return BundleContext(self._version, sid=sid)
 
@@ -273,8 +274,8 @@ class BundlePage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.numbers.v2.bundle.BundlePage
-        :rtype: twilio.rest.numbers.v2.bundle.BundlePage
+        :returns: twilio.rest.numbers.v2.regulatory_compliance.bundle.BundlePage
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.BundlePage
         """
         super().__init__(version, response)
 
@@ -287,8 +288,8 @@ class BundlePage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.numbers.v2.bundle.BundleInstance
-        :rtype: twilio.rest.numbers.v2.bundle.BundleInstance
+        :returns: twilio.rest.numbers.v2.regulatory_compliance.bundle.BundleInstance
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.BundleInstance
         """
         return BundleInstance(self._version, payload)
 

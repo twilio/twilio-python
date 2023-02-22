@@ -28,11 +28,12 @@ class DialogueList(ListResource):
     def __init__(self, version: Version, assistant_sid: str):
         """
         Initialize the DialogueList
+
         :param Version version: Version that contains the resource
         :param assistant_sid: 
         
-        :returns: twilio.preview.understand.dialogue..DialogueList
-        :rtype: twilio.preview.understand.dialogue..DialogueList
+        :returns: twilio.rest.preview.understand.assistant.dialogue.DialogueList
+        :rtype: twilio.rest.preview.understand.assistant.dialogue.DialogueList
         """
         super().__init__(version)
 
@@ -49,8 +50,8 @@ class DialogueList(ListResource):
         
         :param sid: 
         
-        :returns: twilio.rest.preview.understand.dialogue.DialogueContext
-        :rtype: twilio.rest.preview.understand.dialogue.DialogueContext
+        :returns: twilio.rest.preview.understand.assistant.dialogue.DialogueContext
+        :rtype: twilio.rest.preview.understand.assistant.dialogue.DialogueContext
         """
         return DialogueContext(self._version, assistant_sid=self._solution['assistant_sid'], sid=sid)
 
@@ -60,8 +61,8 @@ class DialogueList(ListResource):
         
         :param sid: 
         
-        :returns: twilio.rest.preview.understand.dialogue.DialogueContext
-        :rtype: twilio.rest.preview.understand.dialogue.DialogueContext
+        :returns: twilio.rest.preview.understand.assistant.dialogue.DialogueContext
+        :rtype: twilio.rest.preview.understand.assistant.dialogue.DialogueContext
         """
         return DialogueContext(self._version, assistant_sid=self._solution['assistant_sid'], sid=sid)
 

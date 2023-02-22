@@ -28,11 +28,12 @@ class WorkersRealTimeStatisticsList(ListResource):
     def __init__(self, version: Version, workspace_sid: str):
         """
         Initialize the WorkersRealTimeStatisticsList
+
         :param Version version: Version that contains the resource
         :param workspace_sid: The SID of the Workspace with the resource to fetch.
         
-        :returns: twilio.taskrouter.v1.workers_real_time_statistics..WorkersRealTimeStatisticsList
-        :rtype: twilio.taskrouter.v1.workers_real_time_statistics..WorkersRealTimeStatisticsList
+        :returns: twilio.rest.taskrouter.v1.workspace.worker.workers_real_time_statistics.WorkersRealTimeStatisticsList
+        :rtype: twilio.rest.taskrouter.v1.workspace.worker.workers_real_time_statistics.WorkersRealTimeStatisticsList
         """
         super().__init__(version)
 
@@ -47,8 +48,8 @@ class WorkersRealTimeStatisticsList(ListResource):
         """
         Constructs a WorkersRealTimeStatisticsContext
         
-        :returns: twilio.rest.taskrouter.v1.workers_real_time_statistics.WorkersRealTimeStatisticsContext
-        :rtype: twilio.rest.taskrouter.v1.workers_real_time_statistics.WorkersRealTimeStatisticsContext
+        :returns: twilio.rest.taskrouter.v1.workspace.worker.workers_real_time_statistics.WorkersRealTimeStatisticsContext
+        :rtype: twilio.rest.taskrouter.v1.workspace.worker.workers_real_time_statistics.WorkersRealTimeStatisticsContext
         """
         return WorkersRealTimeStatisticsContext(self._version, workspace_sid=self._solution['workspace_sid'])
 
@@ -56,8 +57,8 @@ class WorkersRealTimeStatisticsList(ListResource):
         """
         Constructs a WorkersRealTimeStatisticsContext
         
-        :returns: twilio.rest.taskrouter.v1.workers_real_time_statistics.WorkersRealTimeStatisticsContext
-        :rtype: twilio.rest.taskrouter.v1.workers_real_time_statistics.WorkersRealTimeStatisticsContext
+        :returns: twilio.rest.taskrouter.v1.workspace.worker.workers_real_time_statistics.WorkersRealTimeStatisticsContext
+        :rtype: twilio.rest.taskrouter.v1.workspace.worker.workers_real_time_statistics.WorkersRealTimeStatisticsContext
         """
         return WorkersRealTimeStatisticsContext(self._version, workspace_sid=self._solution['workspace_sid'])
 

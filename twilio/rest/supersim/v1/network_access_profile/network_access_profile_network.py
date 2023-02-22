@@ -28,11 +28,12 @@ class NetworkAccessProfileNetworkList(ListResource):
     def __init__(self, version: Version, network_access_profile_sid: str):
         """
         Initialize the NetworkAccessProfileNetworkList
+
         :param Version version: Version that contains the resource
         :param network_access_profile_sid: The unique string that identifies the Network Access Profile resource.
         
-        :returns: twilio.supersim.v1.network_access_profile_network..NetworkAccessProfileNetworkList
-        :rtype: twilio.supersim.v1.network_access_profile_network..NetworkAccessProfileNetworkList
+        :returns: twilio.rest.supersim.v1.network_access_profile.network_access_profile_network.NetworkAccessProfileNetworkList
+        :rtype: twilio.rest.supersim.v1.network_access_profile.network_access_profile_network.NetworkAccessProfileNetworkList
         """
         super().__init__(version)
 
@@ -47,10 +48,10 @@ class NetworkAccessProfileNetworkList(ListResource):
     def create(self, network):
         """
         Create the NetworkAccessProfileNetworkInstance
-         :param str network: The SID of the Network resource to be added to the Network Access Profile resource.
+        :param str network: The SID of the Network resource to be added to the Network Access Profile resource.
         
         :returns: The created NetworkAccessProfileNetworkInstance
-        :rtype: twilio.rest.supersim.v1.network_access_profile_network.NetworkAccessProfileNetworkInstance
+        :rtype: twilio.rest.supersim.v1.network_access_profile.network_access_profile_network.NetworkAccessProfileNetworkInstance
         """
         data = values.of({ 
             'Network': network,
@@ -75,7 +76,7 @@ class NetworkAccessProfileNetworkList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.supersim.v1.network_access_profile_network.NetworkAccessProfileNetworkInstance]
+        :rtype: list[twilio.rest.supersim.v1.network_access_profile.network_access_profile_network.NetworkAccessProfileNetworkInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -98,7 +99,7 @@ class NetworkAccessProfileNetworkList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.supersim.v1.network_access_profile_network.NetworkAccessProfileNetworkInstance]
+        :rtype: list[twilio.rest.supersim.v1.network_access_profile.network_access_profile_network.NetworkAccessProfileNetworkInstance]
         """
         return list(self.stream(
             limit=limit,
@@ -115,7 +116,7 @@ class NetworkAccessProfileNetworkList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of NetworkAccessProfileNetworkInstance
-        :rtype: twilio.rest.supersim.v1.network_access_profile_network.NetworkAccessProfileNetworkPage
+        :rtype: twilio.rest.supersim.v1.network_access_profile.network_access_profile_network.NetworkAccessProfileNetworkPage
         """
         data = values.of({ 
             'PageToken': page_token,
@@ -134,7 +135,7 @@ class NetworkAccessProfileNetworkList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of NetworkAccessProfileNetworkInstance
-        :rtype: twilio.rest.supersim.v1.network_access_profile_network.NetworkAccessProfileNetworkPage
+        :rtype: twilio.rest.supersim.v1.network_access_profile.network_access_profile_network.NetworkAccessProfileNetworkPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -149,8 +150,8 @@ class NetworkAccessProfileNetworkList(ListResource):
         
         :param sid: The SID of the Network resource to fetch.
         
-        :returns: twilio.rest.supersim.v1.network_access_profile_network.NetworkAccessProfileNetworkContext
-        :rtype: twilio.rest.supersim.v1.network_access_profile_network.NetworkAccessProfileNetworkContext
+        :returns: twilio.rest.supersim.v1.network_access_profile.network_access_profile_network.NetworkAccessProfileNetworkContext
+        :rtype: twilio.rest.supersim.v1.network_access_profile.network_access_profile_network.NetworkAccessProfileNetworkContext
         """
         return NetworkAccessProfileNetworkContext(self._version, network_access_profile_sid=self._solution['network_access_profile_sid'], sid=sid)
 
@@ -160,8 +161,8 @@ class NetworkAccessProfileNetworkList(ListResource):
         
         :param sid: The SID of the Network resource to fetch.
         
-        :returns: twilio.rest.supersim.v1.network_access_profile_network.NetworkAccessProfileNetworkContext
-        :rtype: twilio.rest.supersim.v1.network_access_profile_network.NetworkAccessProfileNetworkContext
+        :returns: twilio.rest.supersim.v1.network_access_profile.network_access_profile_network.NetworkAccessProfileNetworkContext
+        :rtype: twilio.rest.supersim.v1.network_access_profile.network_access_profile_network.NetworkAccessProfileNetworkContext
         """
         return NetworkAccessProfileNetworkContext(self._version, network_access_profile_sid=self._solution['network_access_profile_sid'], sid=sid)
 
@@ -189,8 +190,8 @@ class NetworkAccessProfileNetworkPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.supersim.v1.network_access_profile_network.NetworkAccessProfileNetworkPage
-        :rtype: twilio.rest.supersim.v1.network_access_profile_network.NetworkAccessProfileNetworkPage
+        :returns: twilio.rest.supersim.v1.network_access_profile.network_access_profile_network.NetworkAccessProfileNetworkPage
+        :rtype: twilio.rest.supersim.v1.network_access_profile.network_access_profile_network.NetworkAccessProfileNetworkPage
         """
         super().__init__(version, response)
 
@@ -203,8 +204,8 @@ class NetworkAccessProfileNetworkPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.supersim.v1.network_access_profile_network.NetworkAccessProfileNetworkInstance
-        :rtype: twilio.rest.supersim.v1.network_access_profile_network.NetworkAccessProfileNetworkInstance
+        :returns: twilio.rest.supersim.v1.network_access_profile.network_access_profile_network.NetworkAccessProfileNetworkInstance
+        :rtype: twilio.rest.supersim.v1.network_access_profile.network_access_profile_network.NetworkAccessProfileNetworkInstance
         """
         return NetworkAccessProfileNetworkInstance(self._version, payload, network_access_profile_sid=self._solution['network_access_profile_sid'])
 

@@ -28,10 +28,11 @@ class SettingList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the SettingList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.insights.v1.setting..SettingList
-        :rtype: twilio.insights.v1.setting..SettingList
+        :returns: twilio.rest.insights.v1.setting.SettingList
+        :rtype: twilio.rest.insights.v1.setting.SettingList
         """
         super().__init__(version)
 

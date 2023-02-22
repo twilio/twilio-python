@@ -31,10 +31,11 @@ class FlowList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the FlowList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.studio.v2.flow..FlowList
-        :rtype: twilio.studio.v2.flow..FlowList
+        :returns: twilio.rest.studio.v2.flow.FlowList
+        :rtype: twilio.rest.studio.v2.flow.FlowList
         """
         super().__init__(version)
 
@@ -50,10 +51,10 @@ class FlowList(ListResource):
     def create(self, friendly_name, status, definition, commit_message=values.unset):
         """
         Create the FlowInstance
-         :param str friendly_name: The string that you assigned to describe the Flow.
-         :param FlowStatus status: 
-         :param bool, date, datetime, dict, float, int, list, str, none_type definition: JSON representation of flow definition.
-         :param str commit_message: Description of change made in the revision.
+        :param str friendly_name: The string that you assigned to describe the Flow.
+        :param FlowStatus status: 
+        :param object definition: JSON representation of flow definition.
+        :param str commit_message: Description of change made in the revision.
         
         :returns: The created FlowInstance
         :rtype: twilio.rest.studio.v2.flow.FlowInstance
@@ -61,7 +62,7 @@ class FlowList(ListResource):
         data = values.of({ 
             'FriendlyName': friendly_name,
             'Status': status,
-            'Definition': definition,
+            'Definition': serialize.object(definition),
             'CommitMessage': commit_message,
         })
 

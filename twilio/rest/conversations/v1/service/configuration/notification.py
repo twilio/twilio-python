@@ -28,11 +28,12 @@ class NotificationList(ListResource):
     def __init__(self, version: Version, chat_service_sid: str):
         """
         Initialize the NotificationList
+
         :param Version version: Version that contains the resource
         :param chat_service_sid: The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Configuration applies to.
         
-        :returns: twilio.conversations.v1.notification..NotificationList
-        :rtype: twilio.conversations.v1.notification..NotificationList
+        :returns: twilio.rest.conversations.v1.service.configuration.notification.NotificationList
+        :rtype: twilio.rest.conversations.v1.service.configuration.notification.NotificationList
         """
         super().__init__(version)
 
@@ -48,8 +49,8 @@ class NotificationList(ListResource):
         """
         Constructs a NotificationContext
         
-        :returns: twilio.rest.conversations.v1.notification.NotificationContext
-        :rtype: twilio.rest.conversations.v1.notification.NotificationContext
+        :returns: twilio.rest.conversations.v1.service.configuration.notification.NotificationContext
+        :rtype: twilio.rest.conversations.v1.service.configuration.notification.NotificationContext
         """
         return NotificationContext(self._version, chat_service_sid=self._solution['chat_service_sid'])
 
@@ -57,8 +58,8 @@ class NotificationList(ListResource):
         """
         Constructs a NotificationContext
         
-        :returns: twilio.rest.conversations.v1.notification.NotificationContext
-        :rtype: twilio.rest.conversations.v1.notification.NotificationContext
+        :returns: twilio.rest.conversations.v1.service.configuration.notification.NotificationContext
+        :rtype: twilio.rest.conversations.v1.service.configuration.notification.NotificationContext
         """
         return NotificationContext(self._version, chat_service_sid=self._solution['chat_service_sid'])
 

@@ -29,10 +29,11 @@ class CountryList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the CountryList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.voice.v1.country..CountryList
-        :rtype: twilio.voice.v1.country..CountryList
+        :returns: twilio.rest.voice.v1.dialing_permissions.country.CountryList
+        :rtype: twilio.rest.voice.v1.dialing_permissions.country.CountryList
         """
         super().__init__(version)
 
@@ -64,7 +65,7 @@ class CountryList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.voice.v1.country.CountryInstance]
+        :rtype: list[twilio.rest.voice.v1.dialing_permissions.country.CountryInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -99,7 +100,7 @@ class CountryList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.voice.v1.country.CountryInstance]
+        :rtype: list[twilio.rest.voice.v1.dialing_permissions.country.CountryInstance]
         """
         return list(self.stream(
             iso_code=iso_code,
@@ -128,7 +129,7 @@ class CountryList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of CountryInstance
-        :rtype: twilio.rest.voice.v1.country.CountryPage
+        :rtype: twilio.rest.voice.v1.dialing_permissions.country.CountryPage
         """
         data = values.of({ 
             'IsoCode': iso_code,
@@ -153,7 +154,7 @@ class CountryList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of CountryInstance
-        :rtype: twilio.rest.voice.v1.country.CountryPage
+        :rtype: twilio.rest.voice.v1.dialing_permissions.country.CountryPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -168,8 +169,8 @@ class CountryList(ListResource):
         
         :param iso_code: The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the DialingPermissions Country resource to fetch
         
-        :returns: twilio.rest.voice.v1.country.CountryContext
-        :rtype: twilio.rest.voice.v1.country.CountryContext
+        :returns: twilio.rest.voice.v1.dialing_permissions.country.CountryContext
+        :rtype: twilio.rest.voice.v1.dialing_permissions.country.CountryContext
         """
         return CountryContext(self._version, iso_code=iso_code)
 
@@ -179,8 +180,8 @@ class CountryList(ListResource):
         
         :param iso_code: The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the DialingPermissions Country resource to fetch
         
-        :returns: twilio.rest.voice.v1.country.CountryContext
-        :rtype: twilio.rest.voice.v1.country.CountryContext
+        :returns: twilio.rest.voice.v1.dialing_permissions.country.CountryContext
+        :rtype: twilio.rest.voice.v1.dialing_permissions.country.CountryContext
         """
         return CountryContext(self._version, iso_code=iso_code)
 
@@ -204,8 +205,8 @@ class CountryPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.voice.v1.country.CountryPage
-        :rtype: twilio.rest.voice.v1.country.CountryPage
+        :returns: twilio.rest.voice.v1.dialing_permissions.country.CountryPage
+        :rtype: twilio.rest.voice.v1.dialing_permissions.country.CountryPage
         """
         super().__init__(version, response)
 
@@ -218,8 +219,8 @@ class CountryPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.voice.v1.country.CountryInstance
-        :rtype: twilio.rest.voice.v1.country.CountryInstance
+        :returns: twilio.rest.voice.v1.dialing_permissions.country.CountryInstance
+        :rtype: twilio.rest.voice.v1.dialing_permissions.country.CountryInstance
         """
         return CountryInstance(self._version, payload)
 

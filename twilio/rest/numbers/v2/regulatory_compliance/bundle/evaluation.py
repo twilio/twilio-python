@@ -28,11 +28,12 @@ class EvaluationList(ListResource):
     def __init__(self, version: Version, bundle_sid: str):
         """
         Initialize the EvaluationList
+
         :param Version version: Version that contains the resource
         :param bundle_sid: The unique string that identifies the Bundle resource.
         
-        :returns: twilio.numbers.v2.evaluation..EvaluationList
-        :rtype: twilio.numbers.v2.evaluation..EvaluationList
+        :returns: twilio.rest.numbers.v2.regulatory_compliance.bundle.evaluation.EvaluationList
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.evaluation.EvaluationList
         """
         super().__init__(version)
 
@@ -59,7 +60,7 @@ class EvaluationList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.numbers.v2.evaluation.EvaluationInstance]
+        :rtype: list[twilio.rest.numbers.v2.regulatory_compliance.bundle.evaluation.EvaluationInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -82,7 +83,7 @@ class EvaluationList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.numbers.v2.evaluation.EvaluationInstance]
+        :rtype: list[twilio.rest.numbers.v2.regulatory_compliance.bundle.evaluation.EvaluationInstance]
         """
         return list(self.stream(
             limit=limit,
@@ -99,7 +100,7 @@ class EvaluationList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of EvaluationInstance
-        :rtype: twilio.rest.numbers.v2.evaluation.EvaluationPage
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.evaluation.EvaluationPage
         """
         data = values.of({ 
             'PageToken': page_token,
@@ -118,7 +119,7 @@ class EvaluationList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of EvaluationInstance
-        :rtype: twilio.rest.numbers.v2.evaluation.EvaluationPage
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.evaluation.EvaluationPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -133,8 +134,8 @@ class EvaluationList(ListResource):
         
         :param sid: The unique string that identifies the Evaluation resource.
         
-        :returns: twilio.rest.numbers.v2.evaluation.EvaluationContext
-        :rtype: twilio.rest.numbers.v2.evaluation.EvaluationContext
+        :returns: twilio.rest.numbers.v2.regulatory_compliance.bundle.evaluation.EvaluationContext
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.evaluation.EvaluationContext
         """
         return EvaluationContext(self._version, bundle_sid=self._solution['bundle_sid'], sid=sid)
 
@@ -144,8 +145,8 @@ class EvaluationList(ListResource):
         
         :param sid: The unique string that identifies the Evaluation resource.
         
-        :returns: twilio.rest.numbers.v2.evaluation.EvaluationContext
-        :rtype: twilio.rest.numbers.v2.evaluation.EvaluationContext
+        :returns: twilio.rest.numbers.v2.regulatory_compliance.bundle.evaluation.EvaluationContext
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.evaluation.EvaluationContext
         """
         return EvaluationContext(self._version, bundle_sid=self._solution['bundle_sid'], sid=sid)
 
@@ -171,8 +172,8 @@ class EvaluationPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.numbers.v2.evaluation.EvaluationPage
-        :rtype: twilio.rest.numbers.v2.evaluation.EvaluationPage
+        :returns: twilio.rest.numbers.v2.regulatory_compliance.bundle.evaluation.EvaluationPage
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.evaluation.EvaluationPage
         """
         super().__init__(version, response)
 
@@ -185,8 +186,8 @@ class EvaluationPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.numbers.v2.evaluation.EvaluationInstance
-        :rtype: twilio.rest.numbers.v2.evaluation.EvaluationInstance
+        :returns: twilio.rest.numbers.v2.regulatory_compliance.bundle.evaluation.EvaluationInstance
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.evaluation.EvaluationInstance
         """
         return EvaluationInstance(self._version, payload, bundle_sid=self._solution['bundle_sid'])
 

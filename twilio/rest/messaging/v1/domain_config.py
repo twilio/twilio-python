@@ -28,10 +28,11 @@ class DomainConfigList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the DomainConfigList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.messaging.v1.domain_config..DomainConfigList
-        :rtype: twilio.messaging.v1.domain_config..DomainConfigList
+        :returns: twilio.rest.messaging.v1.domain_config.DomainConfigList
+        :rtype: twilio.rest.messaging.v1.domain_config.DomainConfigList
         """
         super().__init__(version)
 

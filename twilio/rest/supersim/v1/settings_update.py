@@ -28,10 +28,11 @@ class SettingsUpdateList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the SettingsUpdateList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.supersim.v1.settings_update..SettingsUpdateList
-        :rtype: twilio.supersim.v1.settings_update..SettingsUpdateList
+        :returns: twilio.rest.supersim.v1.settings_update.SettingsUpdateList
+        :rtype: twilio.rest.supersim.v1.settings_update.SettingsUpdateList
         """
         super().__init__(version)
 
@@ -186,6 +187,46 @@ class SettingsUpdatePage(Page):
 
 
 
+
+
+class SettingsUpdateInstance(InstanceResource):
+    def __init__(self, version, payload):
+        super().__init__(version)
+        self._properties = { 
+            'sid' : payload.get('sid'),
+            'iccid' : payload.get('iccid'),
+            'sim_sid' : payload.get('sim_sid'),
+            'status' : payload.get('status'),
+            'packages' : payload.get('packages'),
+            'date_completed' : payload.get('date_completed'),
+            'date_created' : payload.get('date_created'),
+            'date_updated' : payload.get('date_updated'),
+        }
+
+        self._context = None
+        self._solution = {
+            
+        }
+
+    @property
+    def _proxy(self):
+        if self._context is None:
+            self._context = SettingsUpdateContext(
+                self._version,
+                
+            )
+        return self._context
+
+    
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Supersim.V1.SettingsUpdateInstance {}>'.format(context)
 
 
 

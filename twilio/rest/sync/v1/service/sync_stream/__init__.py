@@ -29,11 +29,12 @@ class SyncStreamList(ListResource):
     def __init__(self, version: Version, service_sid: str):
         """
         Initialize the SyncStreamList
+
         :param Version version: Version that contains the resource
         :param service_sid: The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Stream resources to read.
         
-        :returns: twilio.sync.v1.sync_stream..SyncStreamList
-        :rtype: twilio.sync.v1.sync_stream..SyncStreamList
+        :returns: twilio.rest.sync.v1.service.sync_stream.SyncStreamList
+        :rtype: twilio.rest.sync.v1.service.sync_stream.SyncStreamList
         """
         super().__init__(version)
 
@@ -49,11 +50,11 @@ class SyncStreamList(ListResource):
     def create(self, unique_name=values.unset, ttl=values.unset):
         """
         Create the SyncStreamInstance
-         :param str unique_name: An application-defined string that uniquely identifies the resource. This value must be unique within its Service and it can be up to 320 characters long. The `unique_name` value can be used as an alternative to the `sid` in the URL path to address the resource.
-         :param int ttl: How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Stream expires and is deleted (time-to-live).
+        :param str unique_name: An application-defined string that uniquely identifies the resource. This value must be unique within its Service and it can be up to 320 characters long. The `unique_name` value can be used as an alternative to the `sid` in the URL path to address the resource.
+        :param int ttl: How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Stream expires and is deleted (time-to-live).
         
         :returns: The created SyncStreamInstance
-        :rtype: twilio.rest.sync.v1.sync_stream.SyncStreamInstance
+        :rtype: twilio.rest.sync.v1.service.sync_stream.SyncStreamInstance
         """
         data = values.of({ 
             'UniqueName': unique_name,
@@ -79,7 +80,7 @@ class SyncStreamList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.sync.v1.sync_stream.SyncStreamInstance]
+        :rtype: list[twilio.rest.sync.v1.service.sync_stream.SyncStreamInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -102,7 +103,7 @@ class SyncStreamList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.sync.v1.sync_stream.SyncStreamInstance]
+        :rtype: list[twilio.rest.sync.v1.service.sync_stream.SyncStreamInstance]
         """
         return list(self.stream(
             limit=limit,
@@ -119,7 +120,7 @@ class SyncStreamList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of SyncStreamInstance
-        :rtype: twilio.rest.sync.v1.sync_stream.SyncStreamPage
+        :rtype: twilio.rest.sync.v1.service.sync_stream.SyncStreamPage
         """
         data = values.of({ 
             'PageToken': page_token,
@@ -138,7 +139,7 @@ class SyncStreamList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of SyncStreamInstance
-        :rtype: twilio.rest.sync.v1.sync_stream.SyncStreamPage
+        :rtype: twilio.rest.sync.v1.service.sync_stream.SyncStreamPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -153,8 +154,8 @@ class SyncStreamList(ListResource):
         
         :param sid: The SID of the Stream resource to update.
         
-        :returns: twilio.rest.sync.v1.sync_stream.SyncStreamContext
-        :rtype: twilio.rest.sync.v1.sync_stream.SyncStreamContext
+        :returns: twilio.rest.sync.v1.service.sync_stream.SyncStreamContext
+        :rtype: twilio.rest.sync.v1.service.sync_stream.SyncStreamContext
         """
         return SyncStreamContext(self._version, service_sid=self._solution['service_sid'], sid=sid)
 
@@ -164,8 +165,8 @@ class SyncStreamList(ListResource):
         
         :param sid: The SID of the Stream resource to update.
         
-        :returns: twilio.rest.sync.v1.sync_stream.SyncStreamContext
-        :rtype: twilio.rest.sync.v1.sync_stream.SyncStreamContext
+        :returns: twilio.rest.sync.v1.service.sync_stream.SyncStreamContext
+        :rtype: twilio.rest.sync.v1.service.sync_stream.SyncStreamContext
         """
         return SyncStreamContext(self._version, service_sid=self._solution['service_sid'], sid=sid)
 
@@ -195,8 +196,8 @@ class SyncStreamPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.sync.v1.sync_stream.SyncStreamPage
-        :rtype: twilio.rest.sync.v1.sync_stream.SyncStreamPage
+        :returns: twilio.rest.sync.v1.service.sync_stream.SyncStreamPage
+        :rtype: twilio.rest.sync.v1.service.sync_stream.SyncStreamPage
         """
         super().__init__(version, response)
 
@@ -209,8 +210,8 @@ class SyncStreamPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.sync.v1.sync_stream.SyncStreamInstance
-        :rtype: twilio.rest.sync.v1.sync_stream.SyncStreamInstance
+        :returns: twilio.rest.sync.v1.service.sync_stream.SyncStreamInstance
+        :rtype: twilio.rest.sync.v1.service.sync_stream.SyncStreamInstance
         """
         return SyncStreamInstance(self._version, payload, service_sid=self._solution['service_sid'])
 

@@ -28,10 +28,11 @@ class DeactivationsList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the DeactivationsList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.messaging.v1.deactivations..DeactivationsList
-        :rtype: twilio.messaging.v1.deactivations..DeactivationsList
+        :returns: twilio.rest.messaging.v1.deactivations.DeactivationsList
+        :rtype: twilio.rest.messaging.v1.deactivations.DeactivationsList
         """
         super().__init__(version)
 

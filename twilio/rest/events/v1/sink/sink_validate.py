@@ -28,11 +28,12 @@ class SinkValidateList(ListResource):
     def __init__(self, version: Version, sid: str):
         """
         Initialize the SinkValidateList
+
         :param Version version: Version that contains the resource
         :param sid: A 34 character string that uniquely identifies the Sink being validated.
         
-        :returns: twilio.events.v1.sink_validate..SinkValidateList
-        :rtype: twilio.events.v1.sink_validate..SinkValidateList
+        :returns: twilio.rest.events.v1.sink.sink_validate.SinkValidateList
+        :rtype: twilio.rest.events.v1.sink.sink_validate.SinkValidateList
         """
         super().__init__(version)
 
@@ -45,10 +46,10 @@ class SinkValidateList(ListResource):
     def create(self, test_id):
         """
         Create the SinkValidateInstance
-         :param str test_id: A 34 character string that uniquely identifies the test event for a Sink being validated.
+        :param str test_id: A 34 character string that uniquely identifies the test event for a Sink being validated.
         
         :returns: The created SinkValidateInstance
-        :rtype: twilio.rest.events.v1.sink_validate.SinkValidateInstance
+        :rtype: twilio.rest.events.v1.sink.sink_validate.SinkValidateInstance
         """
         data = values.of({ 
             'TestId': test_id,

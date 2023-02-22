@@ -31,10 +31,11 @@ class TrustProductsList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the TrustProductsList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.trusthub.v1.trust_products..TrustProductsList
-        :rtype: twilio.trusthub.v1.trust_products..TrustProductsList
+        :returns: twilio.rest.trusthub.v1.trust_products.TrustProductsList
+        :rtype: twilio.rest.trusthub.v1.trust_products.TrustProductsList
         """
         super().__init__(version)
 
@@ -50,10 +51,10 @@ class TrustProductsList(ListResource):
     def create(self, friendly_name, email, policy_sid, status_callback=values.unset):
         """
         Create the TrustProductsInstance
-         :param str friendly_name: The string that you assigned to describe the resource.
-         :param str email: The email address that will receive updates when the Customer-Profile resource changes status.
-         :param str policy_sid: The unique string of a policy that is associated to the Customer-Profile resource.
-         :param str status_callback: The URL we call to inform your application of status changes.
+        :param str friendly_name: The string that you assigned to describe the resource.
+        :param str email: The email address that will receive updates when the Customer-Profile resource changes status.
+        :param str policy_sid: The unique string of a policy that is associated to the Customer-Profile resource.
+        :param str status_callback: The URL we call to inform your application of status changes.
         
         :returns: The created TrustProductsInstance
         :rtype: twilio.rest.trusthub.v1.trust_products.TrustProductsInstance

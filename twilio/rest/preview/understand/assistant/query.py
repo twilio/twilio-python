@@ -28,11 +28,12 @@ class QueryList(ListResource):
     def __init__(self, version: Version, assistant_sid: str):
         """
         Initialize the QueryList
+
         :param Version version: Version that contains the resource
         :param assistant_sid: The unique ID of the parent Assistant.
         
-        :returns: twilio.preview.understand.query..QueryList
-        :rtype: twilio.preview.understand.query..QueryList
+        :returns: twilio.rest.preview.understand.assistant.query.QueryList
+        :rtype: twilio.rest.preview.understand.assistant.query.QueryList
         """
         super().__init__(version)
 
@@ -48,14 +49,14 @@ class QueryList(ListResource):
     def create(self, language, query, tasks=values.unset, model_build=values.unset, field=values.unset):
         """
         Create the QueryInstance
-         :param str language: An ISO language-country string of the sample.
-         :param str query: A user-provided string that uniquely identifies this resource as an alternative to the sid. It can be up to 2048 characters long.
-         :param str tasks: Constraints the query to a set of tasks. Useful when you need to constrain the paths the user can take. Tasks should be comma separated *task-unique-name-1*, *task-unique-name-2*
-         :param str model_build: The Model Build Sid or unique name of the Model Build to be queried.
-         :param str field: Constraints the query to a given Field with an task. Useful when you know the Field you are expecting. It accepts one field in the format *task-unique-name-1*:*field-unique-name*
+        :param str language: An ISO language-country string of the sample.
+        :param str query: A user-provided string that uniquely identifies this resource as an alternative to the sid. It can be up to 2048 characters long.
+        :param str tasks: Constraints the query to a set of tasks. Useful when you need to constrain the paths the user can take. Tasks should be comma separated *task-unique-name-1*, *task-unique-name-2*
+        :param str model_build: The Model Build Sid or unique name of the Model Build to be queried.
+        :param str field: Constraints the query to a given Field with an task. Useful when you know the Field you are expecting. It accepts one field in the format *task-unique-name-1*:*field-unique-name*
         
         :returns: The created QueryInstance
-        :rtype: twilio.rest.preview.understand.query.QueryInstance
+        :rtype: twilio.rest.preview.understand.assistant.query.QueryInstance
         """
         data = values.of({ 
             'Language': language,
@@ -87,7 +88,7 @@ class QueryList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.preview.understand.query.QueryInstance]
+        :rtype: list[twilio.rest.preview.understand.assistant.query.QueryInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -116,7 +117,7 @@ class QueryList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.preview.understand.query.QueryInstance]
+        :rtype: list[twilio.rest.preview.understand.assistant.query.QueryInstance]
         """
         return list(self.stream(
             language=language,
@@ -139,7 +140,7 @@ class QueryList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of QueryInstance
-        :rtype: twilio.rest.preview.understand.query.QueryPage
+        :rtype: twilio.rest.preview.understand.assistant.query.QueryPage
         """
         data = values.of({ 
             'Language': language,
@@ -161,7 +162,7 @@ class QueryList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of QueryInstance
-        :rtype: twilio.rest.preview.understand.query.QueryPage
+        :rtype: twilio.rest.preview.understand.assistant.query.QueryPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -176,8 +177,8 @@ class QueryList(ListResource):
         
         :param sid: A 34 character string that uniquely identifies this resource.
         
-        :returns: twilio.rest.preview.understand.query.QueryContext
-        :rtype: twilio.rest.preview.understand.query.QueryContext
+        :returns: twilio.rest.preview.understand.assistant.query.QueryContext
+        :rtype: twilio.rest.preview.understand.assistant.query.QueryContext
         """
         return QueryContext(self._version, assistant_sid=self._solution['assistant_sid'], sid=sid)
 
@@ -187,8 +188,8 @@ class QueryList(ListResource):
         
         :param sid: A 34 character string that uniquely identifies this resource.
         
-        :returns: twilio.rest.preview.understand.query.QueryContext
-        :rtype: twilio.rest.preview.understand.query.QueryContext
+        :returns: twilio.rest.preview.understand.assistant.query.QueryContext
+        :rtype: twilio.rest.preview.understand.assistant.query.QueryContext
         """
         return QueryContext(self._version, assistant_sid=self._solution['assistant_sid'], sid=sid)
 
@@ -218,8 +219,8 @@ class QueryPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.preview.understand.query.QueryPage
-        :rtype: twilio.rest.preview.understand.query.QueryPage
+        :returns: twilio.rest.preview.understand.assistant.query.QueryPage
+        :rtype: twilio.rest.preview.understand.assistant.query.QueryPage
         """
         super().__init__(version, response)
 
@@ -232,8 +233,8 @@ class QueryPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.preview.understand.query.QueryInstance
-        :rtype: twilio.rest.preview.understand.query.QueryInstance
+        :returns: twilio.rest.preview.understand.assistant.query.QueryInstance
+        :rtype: twilio.rest.preview.understand.assistant.query.QueryInstance
         """
         return QueryInstance(self._version, payload, assistant_sid=self._solution['assistant_sid'])
 

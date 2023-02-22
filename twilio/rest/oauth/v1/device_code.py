@@ -28,10 +28,11 @@ class DeviceCodeList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the DeviceCodeList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.oauth.v1.device_code..DeviceCodeList
-        :rtype: twilio.oauth.v1.device_code..DeviceCodeList
+        :returns: twilio.rest.oauth.v1.device_code.DeviceCodeList
+        :rtype: twilio.rest.oauth.v1.device_code.DeviceCodeList
         """
         super().__init__(version)
 
@@ -44,9 +45,9 @@ class DeviceCodeList(ListResource):
     def create(self, client_sid, scopes, audiences=values.unset):
         """
         Create the DeviceCodeInstance
-         :param str client_sid: A 34 character string that uniquely identifies this OAuth App.
-         :param [str] scopes: An Array of scopes for authorization request
-         :param [str] audiences: An array of intended audiences for token requests
+        :param str client_sid: A 34 character string that uniquely identifies this OAuth App.
+        :param list[str] scopes: An Array of scopes for authorization request
+        :param list[str] audiences: An array of intended audiences for token requests
         
         :returns: The created DeviceCodeInstance
         :rtype: twilio.rest.oauth.v1.device_code.DeviceCodeInstance

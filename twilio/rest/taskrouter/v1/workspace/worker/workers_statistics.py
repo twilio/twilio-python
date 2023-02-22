@@ -28,11 +28,12 @@ class WorkersStatisticsList(ListResource):
     def __init__(self, version: Version, workspace_sid: str):
         """
         Initialize the WorkersStatisticsList
+
         :param Version version: Version that contains the resource
         :param workspace_sid: The SID of the Workspace with the Worker to fetch.
         
-        :returns: twilio.taskrouter.v1.workers_statistics..WorkersStatisticsList
-        :rtype: twilio.taskrouter.v1.workers_statistics..WorkersStatisticsList
+        :returns: twilio.rest.taskrouter.v1.workspace.worker.workers_statistics.WorkersStatisticsList
+        :rtype: twilio.rest.taskrouter.v1.workspace.worker.workers_statistics.WorkersStatisticsList
         """
         super().__init__(version)
 
@@ -47,8 +48,8 @@ class WorkersStatisticsList(ListResource):
         """
         Constructs a WorkersStatisticsContext
         
-        :returns: twilio.rest.taskrouter.v1.workers_statistics.WorkersStatisticsContext
-        :rtype: twilio.rest.taskrouter.v1.workers_statistics.WorkersStatisticsContext
+        :returns: twilio.rest.taskrouter.v1.workspace.worker.workers_statistics.WorkersStatisticsContext
+        :rtype: twilio.rest.taskrouter.v1.workspace.worker.workers_statistics.WorkersStatisticsContext
         """
         return WorkersStatisticsContext(self._version, workspace_sid=self._solution['workspace_sid'])
 
@@ -56,8 +57,8 @@ class WorkersStatisticsList(ListResource):
         """
         Constructs a WorkersStatisticsContext
         
-        :returns: twilio.rest.taskrouter.v1.workers_statistics.WorkersStatisticsContext
-        :rtype: twilio.rest.taskrouter.v1.workers_statistics.WorkersStatisticsContext
+        :returns: twilio.rest.taskrouter.v1.workspace.worker.workers_statistics.WorkersStatisticsContext
+        :rtype: twilio.rest.taskrouter.v1.workspace.worker.workers_statistics.WorkersStatisticsContext
         """
         return WorkersStatisticsContext(self._version, workspace_sid=self._solution['workspace_sid'])
 

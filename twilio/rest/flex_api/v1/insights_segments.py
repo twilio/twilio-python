@@ -28,10 +28,11 @@ class InsightsSegmentsList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the InsightsSegmentsList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.flex_api.v1.insights_segments..InsightsSegmentsList
-        :rtype: twilio.flex_api.v1.insights_segments..InsightsSegmentsList
+        :returns: twilio.rest.flex_api.v1.insights_segments.InsightsSegmentsList
+        :rtype: twilio.rest.flex_api.v1.insights_segments.InsightsSegmentsList
         """
         super().__init__(version)
 

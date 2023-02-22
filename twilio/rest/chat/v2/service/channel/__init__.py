@@ -32,11 +32,12 @@ class ChannelList(ListResource):
     def __init__(self, version: Version, service_sid: str):
         """
         Initialize the ChannelList
+
         :param Version version: Version that contains the resource
         :param service_sid: The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to read the Channel resources from.
         
-        :returns: twilio.chat.v2.channel..ChannelList
-        :rtype: twilio.chat.v2.channel..ChannelList
+        :returns: twilio.rest.chat.v2.service.channel.ChannelList
+        :rtype: twilio.rest.chat.v2.service.channel.ChannelList
         """
         super().__init__(version)
 
@@ -49,27 +50,29 @@ class ChannelList(ListResource):
     
     
     
-    def create(self, friendly_name=values.unset, unique_name=values.unset, attributes=values.unset, type=values.unset, date_created=values.unset, date_updated=values.unset, created_by=values.unset):
+    def create(self, x_twilio_webhook_enabled=values.unset, friendly_name=values.unset, unique_name=values.unset, attributes=values.unset, type=values.unset, date_created=values.unset, date_updated=values.unset, created_by=values.unset):
         """
         Create the ChannelInstance
-         :param str friendly_name: A descriptive string that you create to describe the new resource. It can be up to 64 characters long.
-         :param str unique_name: An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the Channel resource's `sid` in the URL. This value must be 64 characters or less in length and be unique within the Service.
-         :param str attributes: A valid JSON string that contains application-specific data.
-         :param ChannelChannelType type: 
-         :param datetime date_created: The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format, to assign to the resource as the date it was created. The default value is the current time set by the Chat service.  Note that this should only be used in cases where a Channel is being recreated from a backup/separate source.
-         :param datetime date_updated: The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format, to assign to the resource as the date it was last updated. The default value is `null`. Note that this parameter should only be used in cases where a Channel is being recreated from a backup/separate source  and where a Message was previously updated.
-         :param str created_by: The `identity` of the User that created the channel. Default is: `system`.
+        :param ChannelWebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :param str friendly_name: A descriptive string that you create to describe the new resource. It can be up to 64 characters long.
+        :param str unique_name: An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the Channel resource's `sid` in the URL. This value must be 64 characters or less in length and be unique within the Service.
+        :param str attributes: A valid JSON string that contains application-specific data.
+        :param ChannelChannelType type: 
+        :param datetime date_created: The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format, to assign to the resource as the date it was created. The default value is the current time set by the Chat service.  Note that this should only be used in cases where a Channel is being recreated from a backup/separate source.
+        :param datetime date_updated: The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format, to assign to the resource as the date it was last updated. The default value is `null`. Note that this parameter should only be used in cases where a Channel is being recreated from a backup/separate source  and where a Message was previously updated.
+        :param str created_by: The `identity` of the User that created the channel. Default is: `system`.
         
         :returns: The created ChannelInstance
-        :rtype: twilio.rest.chat.v2.channel.ChannelInstance
+        :rtype: twilio.rest.chat.v2.service.channel.ChannelInstance
         """
         data = values.of({ 
+            'X-Twilio-Webhook-Enabled': x_twilio_webhook_enabled,
             'FriendlyName': friendly_name,
             'UniqueName': unique_name,
             'Attributes': attributes,
             'Type': type,
-            'DateCreated': date_created,
-            'DateUpdated': date_updated,
+            'DateCreated': serialize.iso8601_datetime(date_created),
+            'DateUpdated': serialize.iso8601_datetime(date_updated),
             'CreatedBy': created_by,
         })
 
@@ -84,7 +87,7 @@ class ChannelList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
         
-        :param [ChannelChannelType] type: The visibility of the Channels to read. Can be: `public` or `private` and defaults to `public`.
+        :param list[ChannelChannelType] type: The visibility of the Channels to read. Can be: `public` or `private` and defaults to `public`.
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -93,7 +96,7 @@ class ChannelList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.chat.v2.channel.ChannelInstance]
+        :rtype: list[twilio.rest.chat.v2.service.channel.ChannelInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -109,7 +112,7 @@ class ChannelList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
-        :param [ChannelChannelType] type: The visibility of the Channels to read. Can be: `public` or `private` and defaults to `public`.
+        :param list[ChannelChannelType] type: The visibility of the Channels to read. Can be: `public` or `private` and defaults to `public`.
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -118,7 +121,7 @@ class ChannelList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.chat.v2.channel.ChannelInstance]
+        :rtype: list[twilio.rest.chat.v2.service.channel.ChannelInstance]
         """
         return list(self.stream(
             type=type,
@@ -131,13 +134,13 @@ class ChannelList(ListResource):
         Retrieve a single page of ChannelInstance records from the API.
         Request is executed immediately
         
-        :param [ChannelChannelType] type: The visibility of the Channels to read. Can be: `public` or `private` and defaults to `public`.
+        :param list[ChannelChannelType] type: The visibility of the Channels to read. Can be: `public` or `private` and defaults to `public`.
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of ChannelInstance
-        :rtype: twilio.rest.chat.v2.channel.ChannelPage
+        :rtype: twilio.rest.chat.v2.service.channel.ChannelPage
         """
         data = values.of({ 
             'Type': type,
@@ -157,7 +160,7 @@ class ChannelList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of ChannelInstance
-        :rtype: twilio.rest.chat.v2.channel.ChannelPage
+        :rtype: twilio.rest.chat.v2.service.channel.ChannelPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -172,8 +175,8 @@ class ChannelList(ListResource):
         
         :param sid: The SID of the Channel resource to update. This value can be either the `sid` or the `unique_name` of the Channel resource to update.
         
-        :returns: twilio.rest.chat.v2.channel.ChannelContext
-        :rtype: twilio.rest.chat.v2.channel.ChannelContext
+        :returns: twilio.rest.chat.v2.service.channel.ChannelContext
+        :rtype: twilio.rest.chat.v2.service.channel.ChannelContext
         """
         return ChannelContext(self._version, service_sid=self._solution['service_sid'], sid=sid)
 
@@ -183,8 +186,8 @@ class ChannelList(ListResource):
         
         :param sid: The SID of the Channel resource to update. This value can be either the `sid` or the `unique_name` of the Channel resource to update.
         
-        :returns: twilio.rest.chat.v2.channel.ChannelContext
-        :rtype: twilio.rest.chat.v2.channel.ChannelContext
+        :returns: twilio.rest.chat.v2.service.channel.ChannelContext
+        :rtype: twilio.rest.chat.v2.service.channel.ChannelContext
         """
         return ChannelContext(self._version, service_sid=self._solution['service_sid'], sid=sid)
 
@@ -214,8 +217,8 @@ class ChannelPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.chat.v2.channel.ChannelPage
-        :rtype: twilio.rest.chat.v2.channel.ChannelPage
+        :returns: twilio.rest.chat.v2.service.channel.ChannelPage
+        :rtype: twilio.rest.chat.v2.service.channel.ChannelPage
         """
         super().__init__(version, response)
 
@@ -228,8 +231,8 @@ class ChannelPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.chat.v2.channel.ChannelInstance
-        :rtype: twilio.rest.chat.v2.channel.ChannelInstance
+        :returns: twilio.rest.chat.v2.service.channel.ChannelInstance
+        :rtype: twilio.rest.chat.v2.service.channel.ChannelInstance
         """
         return ChannelInstance(self._version, payload, service_sid=self._solution['service_sid'])
 
@@ -287,9 +290,9 @@ class ChannelContext(InstanceContext):
 
         
     
-    def update(self, friendly_name, unique_name, attributes, date_created, date_updated, created_by):
+    def update(self, x_twilio_webhook_enabled, friendly_name, unique_name, attributes, date_created, date_updated, created_by):
         data = values.of({
-            'friendly_name': friendly_name,'unique_name': unique_name,'attributes': attributes,'date_created': date_created,'date_updated': date_updated,'created_by': created_by,
+            'x_twilio_webhook_enabled': x_twilio_webhook_enabled,'friendly_name': friendly_name,'unique_name': unique_name,'attributes': attributes,'date_created': date_created,'date_updated': date_updated,'created_by': created_by,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

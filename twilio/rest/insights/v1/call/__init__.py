@@ -32,10 +32,11 @@ class CallList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the CallList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.insights.v1.call..CallList
-        :rtype: twilio.insights.v1.call..CallList
+        :returns: twilio.rest.insights.v1.call.CallList
+        :rtype: twilio.rest.insights.v1.call.CallList
         """
         super().__init__(version)
 

@@ -33,10 +33,11 @@ class ServiceList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the ServiceList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.messaging.v1.service..ServiceList
-        :rtype: twilio.messaging.v1.service..ServiceList
+        :returns: twilio.rest.messaging.v1.service.ServiceList
+        :rtype: twilio.rest.messaging.v1.service.ServiceList
         """
         super().__init__(version)
 
@@ -52,22 +53,22 @@ class ServiceList(ListResource):
     def create(self, friendly_name, inbound_request_url=values.unset, inbound_method=values.unset, fallback_url=values.unset, fallback_method=values.unset, status_callback=values.unset, sticky_sender=values.unset, mms_converter=values.unset, smart_encoding=values.unset, scan_message_content=values.unset, fallback_to_long_code=values.unset, area_code_geomatch=values.unset, validity_period=values.unset, synchronous_validation=values.unset, usecase=values.unset, use_inbound_webhook_on_number=values.unset):
         """
         Create the ServiceInstance
-         :param str friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
-         :param str inbound_request_url: The URL we call using `inbound_method` when a message is received by any phone number or short code in the Service. When this property is `null`, receiving inbound messages is disabled. All messages sent to the Twilio phone number or short code will not be logged and received on the Account. If the `use_inbound_webhook_on_number` field is enabled then the webhook url defined on the phone number will override the `inbound_request_url` defined for the Messaging Service.
-         :param str inbound_method: The HTTP method we should use to call `inbound_request_url`. Can be `GET` or `POST` and the default is `POST`.
-         :param str fallback_url: The URL that we call using `fallback_method` if an error occurs while retrieving or executing the TwiML from the Inbound Request URL. If the `use_inbound_webhook_on_number` field is enabled then the webhook url defined on the phone number will override the `fallback_url` defined for the Messaging Service.
-         :param str fallback_method: The HTTP method we should use to call `fallback_url`. Can be: `GET` or `POST`.
-         :param str status_callback: The URL we should call to [pass status updates](https://www.twilio.com/docs/sms/api/message-resource#message-status-values) about message delivery.
-         :param bool sticky_sender: Whether to enable [Sticky Sender](https://www.twilio.com/docs/sms/services#sticky-sender) on the Service instance.
-         :param bool mms_converter: Whether to enable the [MMS Converter](https://www.twilio.com/docs/sms/services#mms-converter) for messages sent through the Service instance.
-         :param bool smart_encoding: Whether to enable [Smart Encoding](https://www.twilio.com/docs/sms/services#smart-encoding) for messages sent through the Service instance.
-         :param ServiceScanMessageContent scan_message_content: 
-         :param bool fallback_to_long_code: Whether to enable [Fallback to Long Code](https://www.twilio.com/docs/sms/services#fallback-to-long-code) for messages sent through the Service instance.
-         :param bool area_code_geomatch: Whether to enable [Area Code Geomatch](https://www.twilio.com/docs/sms/services#area-code-geomatch) on the Service Instance.
-         :param int validity_period: How long, in seconds, messages sent from the Service are valid. Can be an integer from `1` to `14,400`.
-         :param bool synchronous_validation: Reserved.
-         :param str usecase: A string that describes the scenario in which the Messaging Service will be used. Examples: [notification, marketing, verification, poll ..].
-         :param bool use_inbound_webhook_on_number: A boolean value that indicates either the webhook url configured on the phone number will be used or `inbound_request_url`/`fallback_url` url will be called when a message is received from the phone number. If this field is enabled then the webhook url defined on the phone number will override the `inbound_request_url`/`fallback_url` defined for the Messaging Service.
+        :param str friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+        :param str inbound_request_url: The URL we call using `inbound_method` when a message is received by any phone number or short code in the Service. When this property is `null`, receiving inbound messages is disabled. All messages sent to the Twilio phone number or short code will not be logged and received on the Account. If the `use_inbound_webhook_on_number` field is enabled then the webhook url defined on the phone number will override the `inbound_request_url` defined for the Messaging Service.
+        :param str inbound_method: The HTTP method we should use to call `inbound_request_url`. Can be `GET` or `POST` and the default is `POST`.
+        :param str fallback_url: The URL that we call using `fallback_method` if an error occurs while retrieving or executing the TwiML from the Inbound Request URL. If the `use_inbound_webhook_on_number` field is enabled then the webhook url defined on the phone number will override the `fallback_url` defined for the Messaging Service.
+        :param str fallback_method: The HTTP method we should use to call `fallback_url`. Can be: `GET` or `POST`.
+        :param str status_callback: The URL we should call to [pass status updates](https://www.twilio.com/docs/sms/api/message-resource#message-status-values) about message delivery.
+        :param bool sticky_sender: Whether to enable [Sticky Sender](https://www.twilio.com/docs/sms/services#sticky-sender) on the Service instance.
+        :param bool mms_converter: Whether to enable the [MMS Converter](https://www.twilio.com/docs/sms/services#mms-converter) for messages sent through the Service instance.
+        :param bool smart_encoding: Whether to enable [Smart Encoding](https://www.twilio.com/docs/sms/services#smart-encoding) for messages sent through the Service instance.
+        :param ServiceScanMessageContent scan_message_content: 
+        :param bool fallback_to_long_code: Whether to enable [Fallback to Long Code](https://www.twilio.com/docs/sms/services#fallback-to-long-code) for messages sent through the Service instance.
+        :param bool area_code_geomatch: Whether to enable [Area Code Geomatch](https://www.twilio.com/docs/sms/services#area-code-geomatch) on the Service Instance.
+        :param int validity_period: How long, in seconds, messages sent from the Service are valid. Can be an integer from `1` to `14,400`.
+        :param bool synchronous_validation: Reserved.
+        :param str usecase: A string that describes the scenario in which the Messaging Service will be used. Examples: [notification, marketing, verification, poll ..].
+        :param bool use_inbound_webhook_on_number: A boolean value that indicates either the webhook url configured on the phone number will be used or `inbound_request_url`/`fallback_url` url will be called when a message is received from the phone number. If this field is enabled then the webhook url defined on the phone number will override the `inbound_request_url`/`fallback_url` defined for the Messaging Service.
         
         :returns: The created ServiceInstance
         :rtype: twilio.rest.messaging.v1.service.ServiceInstance

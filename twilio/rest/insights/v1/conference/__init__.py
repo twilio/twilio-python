@@ -29,10 +29,11 @@ class ConferenceList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the ConferenceList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.insights.v1.conference..ConferenceList
-        :rtype: twilio.insights.v1.conference..ConferenceList
+        :returns: twilio.rest.insights.v1.conference.ConferenceList
+        :rtype: twilio.rest.insights.v1.conference.ConferenceList
         """
         super().__init__(version)
 

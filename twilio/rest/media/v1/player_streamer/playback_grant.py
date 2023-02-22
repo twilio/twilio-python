@@ -28,11 +28,12 @@ class PlaybackGrantList(ListResource):
     def __init__(self, version: Version, sid: str):
         """
         Initialize the PlaybackGrantList
+
         :param Version version: Version that contains the resource
         :param sid: The unique string generated to identify the PlayerStreamer resource associated with this PlaybackGrant
         
-        :returns: twilio.media.v1.playback_grant..PlaybackGrantList
-        :rtype: twilio.media.v1.playback_grant..PlaybackGrantList
+        :returns: twilio.rest.media.v1.player_streamer.playback_grant.PlaybackGrantList
+        :rtype: twilio.rest.media.v1.player_streamer.playback_grant.PlaybackGrantList
         """
         super().__init__(version)
 
@@ -45,11 +46,11 @@ class PlaybackGrantList(ListResource):
     def create(self, ttl=values.unset, access_control_allow_origin=values.unset):
         """
         Create the PlaybackGrantInstance
-         :param int ttl: The time to live of the PlaybackGrant. Default value is 15 seconds. Maximum value is 60 seconds.
-         :param str access_control_allow_origin: The full origin URL where the livestream can be streamed. If this is not provided, it can be streamed from any domain.
+        :param int ttl: The time to live of the PlaybackGrant. Default value is 15 seconds. Maximum value is 60 seconds.
+        :param str access_control_allow_origin: The full origin URL where the livestream can be streamed. If this is not provided, it can be streamed from any domain.
         
         :returns: The created PlaybackGrantInstance
-        :rtype: twilio.rest.media.v1.playback_grant.PlaybackGrantInstance
+        :rtype: twilio.rest.media.v1.player_streamer.playback_grant.PlaybackGrantInstance
         """
         data = values.of({ 
             'Ttl': ttl,
@@ -65,8 +66,8 @@ class PlaybackGrantList(ListResource):
         """
         Constructs a PlaybackGrantContext
         
-        :returns: twilio.rest.media.v1.playback_grant.PlaybackGrantContext
-        :rtype: twilio.rest.media.v1.playback_grant.PlaybackGrantContext
+        :returns: twilio.rest.media.v1.player_streamer.playback_grant.PlaybackGrantContext
+        :rtype: twilio.rest.media.v1.player_streamer.playback_grant.PlaybackGrantContext
         """
         return PlaybackGrantContext(self._version, sid=self._solution['sid'])
 
@@ -74,8 +75,8 @@ class PlaybackGrantList(ListResource):
         """
         Constructs a PlaybackGrantContext
         
-        :returns: twilio.rest.media.v1.playback_grant.PlaybackGrantContext
-        :rtype: twilio.rest.media.v1.playback_grant.PlaybackGrantContext
+        :returns: twilio.rest.media.v1.player_streamer.playback_grant.PlaybackGrantContext
+        :rtype: twilio.rest.media.v1.player_streamer.playback_grant.PlaybackGrantContext
         """
         return PlaybackGrantContext(self._version, sid=self._solution['sid'])
 

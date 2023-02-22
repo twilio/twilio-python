@@ -28,10 +28,11 @@ class RatePlanList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the RatePlanList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.wireless.v1.rate_plan..RatePlanList
-        :rtype: twilio.wireless.v1.rate_plan..RatePlanList
+        :returns: twilio.rest.wireless.v1.rate_plan.RatePlanList
+        :rtype: twilio.rest.wireless.v1.rate_plan.RatePlanList
         """
         super().__init__(version)
 
@@ -47,17 +48,17 @@ class RatePlanList(ListResource):
     def create(self, unique_name=values.unset, friendly_name=values.unset, data_enabled=values.unset, data_limit=values.unset, data_metering=values.unset, messaging_enabled=values.unset, voice_enabled=values.unset, national_roaming_enabled=values.unset, international_roaming=values.unset, national_roaming_data_limit=values.unset, international_roaming_data_limit=values.unset):
         """
         Create the RatePlanInstance
-         :param str unique_name: An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
-         :param str friendly_name: A descriptive string that you create to describe the resource. It does not have to be unique.
-         :param bool data_enabled: Whether SIMs can use GPRS/3G/4G/LTE data connectivity.
-         :param int data_limit: The total data usage (download and upload combined) in Megabytes that the Network allows during one month on the home network (T-Mobile USA). The metering period begins the day of activation and ends on the same day in the following month. Can be up to 2TB and the default value is `1000`.
-         :param str data_metering: The model used to meter data usage. Can be: `payg` and `quota-1`, `quota-10`, and `quota-50`. Learn more about the available [data metering models](https://www.twilio.com/docs/wireless/api/rateplan-resource#payg-vs-quota-data-plans).
-         :param bool messaging_enabled: Whether SIMs can make, send, and receive SMS using [Commands](https://www.twilio.com/docs/wireless/api/command-resource).
-         :param bool voice_enabled: Deprecated.
-         :param bool national_roaming_enabled: Whether SIMs can roam on networks other than the home network (T-Mobile USA) in the United States. See [national roaming](https://www.twilio.com/docs/wireless/api/rateplan-resource#national-roaming).
-         :param [str] international_roaming: The list of services that SIMs capable of using GPRS/3G/4G/LTE data connectivity can use outside of the United States. Can contain: `data` and `messaging`.
-         :param int national_roaming_data_limit: The total data usage (download and upload combined) in Megabytes that the Network allows during one month on non-home networks in the United States. The metering period begins the day of activation and ends on the same day in the following month. Can be up to 2TB. See [national roaming](https://www.twilio.com/docs/wireless/api/rateplan-resource#national-roaming) for more info.
-         :param int international_roaming_data_limit: The total data usage (download and upload combined) in Megabytes that the Network allows during one month when roaming outside the United States. Can be up to 2TB.
+        :param str unique_name: An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
+        :param str friendly_name: A descriptive string that you create to describe the resource. It does not have to be unique.
+        :param bool data_enabled: Whether SIMs can use GPRS/3G/4G/LTE data connectivity.
+        :param int data_limit: The total data usage (download and upload combined) in Megabytes that the Network allows during one month on the home network (T-Mobile USA). The metering period begins the day of activation and ends on the same day in the following month. Can be up to 2TB and the default value is `1000`.
+        :param str data_metering: The model used to meter data usage. Can be: `payg` and `quota-1`, `quota-10`, and `quota-50`. Learn more about the available [data metering models](https://www.twilio.com/docs/wireless/api/rateplan-resource#payg-vs-quota-data-plans).
+        :param bool messaging_enabled: Whether SIMs can make, send, and receive SMS using [Commands](https://www.twilio.com/docs/wireless/api/command-resource).
+        :param bool voice_enabled: Deprecated.
+        :param bool national_roaming_enabled: Whether SIMs can roam on networks other than the home network (T-Mobile USA) in the United States. See [national roaming](https://www.twilio.com/docs/wireless/api/rateplan-resource#national-roaming).
+        :param list[str] international_roaming: The list of services that SIMs capable of using GPRS/3G/4G/LTE data connectivity can use outside of the United States. Can contain: `data` and `messaging`.
+        :param int national_roaming_data_limit: The total data usage (download and upload combined) in Megabytes that the Network allows during one month on non-home networks in the United States. The metering period begins the day of activation and ends on the same day in the following month. Can be up to 2TB. See [national roaming](https://www.twilio.com/docs/wireless/api/rateplan-resource#national-roaming) for more info.
+        :param int international_roaming_data_limit: The total data usage (download and upload combined) in Megabytes that the Network allows during one month when roaming outside the United States. Can be up to 2TB.
         
         :returns: The created RatePlanInstance
         :rtype: twilio.rest.wireless.v1.rate_plan.RatePlanInstance

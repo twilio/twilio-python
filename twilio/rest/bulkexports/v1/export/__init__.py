@@ -31,10 +31,11 @@ class ExportList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the ExportList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.bulkexports.v1.export..ExportList
-        :rtype: twilio.bulkexports.v1.export..ExportList
+        :returns: twilio.rest.bulkexports.v1.export.ExportList
+        :rtype: twilio.rest.bulkexports.v1.export.ExportList
         """
         super().__init__(version)
 
@@ -51,12 +52,13 @@ class ExportList(ListResource):
         """
         Access the jobs
 
-        :returns: twilio.rest.bulkexports.v1.export.jobs.JobList
-        :rtype: twilio.rest.bulkexports.v1.export.jobs.JobList
+        :returns: twilio.rest.bulkexports.v1.export.JobList
+        :rtype: twilio.rest.bulkexports.v1.export.JobList
         """
         if self._jobs is None:
             self._jobs = JobList(self._version)
         return self.jobs
+
     def get(self, resource_type):
         """
         Constructs a ExportContext

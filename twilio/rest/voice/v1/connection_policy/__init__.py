@@ -29,10 +29,11 @@ class ConnectionPolicyList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the ConnectionPolicyList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.voice.v1.connection_policy..ConnectionPolicyList
-        :rtype: twilio.voice.v1.connection_policy..ConnectionPolicyList
+        :returns: twilio.rest.voice.v1.connection_policy.ConnectionPolicyList
+        :rtype: twilio.rest.voice.v1.connection_policy.ConnectionPolicyList
         """
         super().__init__(version)
 
@@ -48,7 +49,7 @@ class ConnectionPolicyList(ListResource):
     def create(self, friendly_name=values.unset):
         """
         Create the ConnectionPolicyInstance
-         :param str friendly_name: A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
+        :param str friendly_name: A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
         
         :returns: The created ConnectionPolicyInstance
         :rtype: twilio.rest.voice.v1.connection_policy.ConnectionPolicyInstance

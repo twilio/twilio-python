@@ -28,10 +28,11 @@ class AccountSecretList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the AccountSecretList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.microvisor.v1.account_secret..AccountSecretList
-        :rtype: twilio.microvisor.v1.account_secret..AccountSecretList
+        :returns: twilio.rest.microvisor.v1.account_secret.AccountSecretList
+        :rtype: twilio.rest.microvisor.v1.account_secret.AccountSecretList
         """
         super().__init__(version)
 
@@ -46,8 +47,8 @@ class AccountSecretList(ListResource):
     def create(self, key, value):
         """
         Create the AccountSecretInstance
-         :param str key: The secret key; up to 100 characters.
-         :param str value: The secret value; up to 4096 characters.
+        :param str key: The secret key; up to 100 characters.
+        :param str value: The secret value; up to 4096 characters.
         
         :returns: The created AccountSecretInstance
         :rtype: twilio.rest.microvisor.v1.account_secret.AccountSecretInstance

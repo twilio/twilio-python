@@ -28,12 +28,13 @@ class SyncMapPermissionList(ListResource):
     def __init__(self, version: Version, service_sid: str, map_sid: str):
         """
         Initialize the SyncMapPermissionList
+
         :param Version version: Version that contains the resource
         :param service_sid: 
         :param map_sid: Identifier of the Sync Map. Either a SID or a unique name.
         
-        :returns: twilio.preview.sync.sync_map_permission..SyncMapPermissionList
-        :rtype: twilio.preview.sync.sync_map_permission..SyncMapPermissionList
+        :returns: twilio.rest.preview.sync.service.sync_map.sync_map_permission.SyncMapPermissionList
+        :rtype: twilio.rest.preview.sync.service.sync_map.sync_map_permission.SyncMapPermissionList
         """
         super().__init__(version)
 
@@ -61,7 +62,7 @@ class SyncMapPermissionList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.preview.sync.sync_map_permission.SyncMapPermissionInstance]
+        :rtype: list[twilio.rest.preview.sync.service.sync_map.sync_map_permission.SyncMapPermissionInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -84,7 +85,7 @@ class SyncMapPermissionList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.preview.sync.sync_map_permission.SyncMapPermissionInstance]
+        :rtype: list[twilio.rest.preview.sync.service.sync_map.sync_map_permission.SyncMapPermissionInstance]
         """
         return list(self.stream(
             limit=limit,
@@ -101,7 +102,7 @@ class SyncMapPermissionList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of SyncMapPermissionInstance
-        :rtype: twilio.rest.preview.sync.sync_map_permission.SyncMapPermissionPage
+        :rtype: twilio.rest.preview.sync.service.sync_map.sync_map_permission.SyncMapPermissionPage
         """
         data = values.of({ 
             'PageToken': page_token,
@@ -120,7 +121,7 @@ class SyncMapPermissionList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of SyncMapPermissionInstance
-        :rtype: twilio.rest.preview.sync.sync_map_permission.SyncMapPermissionPage
+        :rtype: twilio.rest.preview.sync.service.sync_map.sync_map_permission.SyncMapPermissionPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -135,8 +136,8 @@ class SyncMapPermissionList(ListResource):
         
         :param identity: Arbitrary string identifier representing a human user associated with an FPA token, assigned by the developer.
         
-        :returns: twilio.rest.preview.sync.sync_map_permission.SyncMapPermissionContext
-        :rtype: twilio.rest.preview.sync.sync_map_permission.SyncMapPermissionContext
+        :returns: twilio.rest.preview.sync.service.sync_map.sync_map_permission.SyncMapPermissionContext
+        :rtype: twilio.rest.preview.sync.service.sync_map.sync_map_permission.SyncMapPermissionContext
         """
         return SyncMapPermissionContext(self._version, service_sid=self._solution['service_sid'], map_sid=self._solution['map_sid'], identity=identity)
 
@@ -146,8 +147,8 @@ class SyncMapPermissionList(ListResource):
         
         :param identity: Arbitrary string identifier representing a human user associated with an FPA token, assigned by the developer.
         
-        :returns: twilio.rest.preview.sync.sync_map_permission.SyncMapPermissionContext
-        :rtype: twilio.rest.preview.sync.sync_map_permission.SyncMapPermissionContext
+        :returns: twilio.rest.preview.sync.service.sync_map.sync_map_permission.SyncMapPermissionContext
+        :rtype: twilio.rest.preview.sync.service.sync_map.sync_map_permission.SyncMapPermissionContext
         """
         return SyncMapPermissionContext(self._version, service_sid=self._solution['service_sid'], map_sid=self._solution['map_sid'], identity=identity)
 
@@ -175,8 +176,8 @@ class SyncMapPermissionPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.preview.sync.sync_map_permission.SyncMapPermissionPage
-        :rtype: twilio.rest.preview.sync.sync_map_permission.SyncMapPermissionPage
+        :returns: twilio.rest.preview.sync.service.sync_map.sync_map_permission.SyncMapPermissionPage
+        :rtype: twilio.rest.preview.sync.service.sync_map.sync_map_permission.SyncMapPermissionPage
         """
         super().__init__(version, response)
 
@@ -189,8 +190,8 @@ class SyncMapPermissionPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.preview.sync.sync_map_permission.SyncMapPermissionInstance
-        :rtype: twilio.rest.preview.sync.sync_map_permission.SyncMapPermissionInstance
+        :returns: twilio.rest.preview.sync.service.sync_map.sync_map_permission.SyncMapPermissionInstance
+        :rtype: twilio.rest.preview.sync.service.sync_map.sync_map_permission.SyncMapPermissionInstance
         """
         return SyncMapPermissionInstance(self._version, payload, service_sid=self._solution['service_sid'], map_sid=self._solution['map_sid'])
 

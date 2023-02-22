@@ -32,11 +32,12 @@ class TaskList(ListResource):
     def __init__(self, version: Version, assistant_sid: str):
         """
         Initialize the TaskList
+
         :param Version version: Version that contains the resource
         :param assistant_sid: The unique ID of the Assistant.
         
-        :returns: twilio.preview.understand.task..TaskList
-        :rtype: twilio.preview.understand.task..TaskList
+        :returns: twilio.rest.preview.understand.assistant.task.TaskList
+        :rtype: twilio.rest.preview.understand.assistant.task.TaskList
         """
         super().__init__(version)
 
@@ -52,18 +53,18 @@ class TaskList(ListResource):
     def create(self, unique_name, friendly_name=values.unset, actions=values.unset, actions_url=values.unset):
         """
         Create the TaskInstance
-         :param str unique_name: A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
-         :param str friendly_name: A user-provided string that identifies this resource. It is non-unique and can up to 255 characters long.
-         :param bool, date, datetime, dict, float, int, list, str, none_type actions: A user-provided JSON object encoded as a string to specify the actions for this task. It is optional and non-unique.
-         :param str actions_url: User-provided HTTP endpoint where from the assistant fetches actions
+        :param str unique_name: A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
+        :param str friendly_name: A user-provided string that identifies this resource. It is non-unique and can up to 255 characters long.
+        :param object actions: A user-provided JSON object encoded as a string to specify the actions for this task. It is optional and non-unique.
+        :param str actions_url: User-provided HTTP endpoint where from the assistant fetches actions
         
         :returns: The created TaskInstance
-        :rtype: twilio.rest.preview.understand.task.TaskInstance
+        :rtype: twilio.rest.preview.understand.assistant.task.TaskInstance
         """
         data = values.of({ 
             'UniqueName': unique_name,
             'FriendlyName': friendly_name,
-            'Actions': actions,
+            'Actions': serialize.object(actions),
             'ActionsUrl': actions_url,
         })
 
@@ -86,7 +87,7 @@ class TaskList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.preview.understand.task.TaskInstance]
+        :rtype: list[twilio.rest.preview.understand.assistant.task.TaskInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -109,7 +110,7 @@ class TaskList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.preview.understand.task.TaskInstance]
+        :rtype: list[twilio.rest.preview.understand.assistant.task.TaskInstance]
         """
         return list(self.stream(
             limit=limit,
@@ -126,7 +127,7 @@ class TaskList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of TaskInstance
-        :rtype: twilio.rest.preview.understand.task.TaskPage
+        :rtype: twilio.rest.preview.understand.assistant.task.TaskPage
         """
         data = values.of({ 
             'PageToken': page_token,
@@ -145,7 +146,7 @@ class TaskList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of TaskInstance
-        :rtype: twilio.rest.preview.understand.task.TaskPage
+        :rtype: twilio.rest.preview.understand.assistant.task.TaskPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -160,8 +161,8 @@ class TaskList(ListResource):
         
         :param sid: A 34 character string that uniquely identifies this resource.
         
-        :returns: twilio.rest.preview.understand.task.TaskContext
-        :rtype: twilio.rest.preview.understand.task.TaskContext
+        :returns: twilio.rest.preview.understand.assistant.task.TaskContext
+        :rtype: twilio.rest.preview.understand.assistant.task.TaskContext
         """
         return TaskContext(self._version, assistant_sid=self._solution['assistant_sid'], sid=sid)
 
@@ -171,8 +172,8 @@ class TaskList(ListResource):
         
         :param sid: A 34 character string that uniquely identifies this resource.
         
-        :returns: twilio.rest.preview.understand.task.TaskContext
-        :rtype: twilio.rest.preview.understand.task.TaskContext
+        :returns: twilio.rest.preview.understand.assistant.task.TaskContext
+        :rtype: twilio.rest.preview.understand.assistant.task.TaskContext
         """
         return TaskContext(self._version, assistant_sid=self._solution['assistant_sid'], sid=sid)
 
@@ -202,8 +203,8 @@ class TaskPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.preview.understand.task.TaskPage
-        :rtype: twilio.rest.preview.understand.task.TaskPage
+        :returns: twilio.rest.preview.understand.assistant.task.TaskPage
+        :rtype: twilio.rest.preview.understand.assistant.task.TaskPage
         """
         super().__init__(version, response)
 
@@ -216,8 +217,8 @@ class TaskPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.preview.understand.task.TaskInstance
-        :rtype: twilio.rest.preview.understand.task.TaskInstance
+        :returns: twilio.rest.preview.understand.assistant.task.TaskInstance
+        :rtype: twilio.rest.preview.understand.assistant.task.TaskInstance
         """
         return TaskInstance(self._version, payload, assistant_sid=self._solution['assistant_sid'])
 

@@ -28,11 +28,12 @@ class BrandVettingList(ListResource):
     def __init__(self, version: Version, brand_sid: str):
         """
         Initialize the BrandVettingList
+
         :param Version version: Version that contains the resource
         :param brand_sid: The SID of the Brand Registration resource of the vettings to read .
         
-        :returns: twilio.messaging.v1.brand_vetting..BrandVettingList
-        :rtype: twilio.messaging.v1.brand_vetting..BrandVettingList
+        :returns: twilio.rest.messaging.v1.brand_registration.brand_vetting.BrandVettingList
+        :rtype: twilio.rest.messaging.v1.brand_registration.brand_vetting.BrandVettingList
         """
         super().__init__(version)
 
@@ -46,11 +47,11 @@ class BrandVettingList(ListResource):
     def create(self, vetting_provider, vetting_id=values.unset):
         """
         Create the BrandVettingInstance
-         :param BrandVettingVettingProvider vetting_provider: 
-         :param str vetting_id: The unique ID of the vetting
+        :param BrandVettingVettingProvider vetting_provider: 
+        :param str vetting_id: The unique ID of the vetting
         
         :returns: The created BrandVettingInstance
-        :rtype: twilio.rest.messaging.v1.brand_vetting.BrandVettingInstance
+        :rtype: twilio.rest.messaging.v1.brand_registration.brand_vetting.BrandVettingInstance
         """
         data = values.of({ 
             'VettingProvider': vetting_provider,
@@ -77,7 +78,7 @@ class BrandVettingList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.messaging.v1.brand_vetting.BrandVettingInstance]
+        :rtype: list[twilio.rest.messaging.v1.brand_registration.brand_vetting.BrandVettingInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -102,7 +103,7 @@ class BrandVettingList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.messaging.v1.brand_vetting.BrandVettingInstance]
+        :rtype: list[twilio.rest.messaging.v1.brand_registration.brand_vetting.BrandVettingInstance]
         """
         return list(self.stream(
             vetting_provider=vetting_provider,
@@ -121,7 +122,7 @@ class BrandVettingList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of BrandVettingInstance
-        :rtype: twilio.rest.messaging.v1.brand_vetting.BrandVettingPage
+        :rtype: twilio.rest.messaging.v1.brand_registration.brand_vetting.BrandVettingPage
         """
         data = values.of({ 
             'VettingProvider': vetting_provider,
@@ -141,7 +142,7 @@ class BrandVettingList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of BrandVettingInstance
-        :rtype: twilio.rest.messaging.v1.brand_vetting.BrandVettingPage
+        :rtype: twilio.rest.messaging.v1.brand_registration.brand_vetting.BrandVettingPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -156,8 +157,8 @@ class BrandVettingList(ListResource):
         
         :param brand_vetting_sid: The Twilio SID of the third-party vetting record.
         
-        :returns: twilio.rest.messaging.v1.brand_vetting.BrandVettingContext
-        :rtype: twilio.rest.messaging.v1.brand_vetting.BrandVettingContext
+        :returns: twilio.rest.messaging.v1.brand_registration.brand_vetting.BrandVettingContext
+        :rtype: twilio.rest.messaging.v1.brand_registration.brand_vetting.BrandVettingContext
         """
         return BrandVettingContext(self._version, brand_sid=self._solution['brand_sid'], brand_vetting_sid=brand_vetting_sid)
 
@@ -167,8 +168,8 @@ class BrandVettingList(ListResource):
         
         :param brand_vetting_sid: The Twilio SID of the third-party vetting record.
         
-        :returns: twilio.rest.messaging.v1.brand_vetting.BrandVettingContext
-        :rtype: twilio.rest.messaging.v1.brand_vetting.BrandVettingContext
+        :returns: twilio.rest.messaging.v1.brand_registration.brand_vetting.BrandVettingContext
+        :rtype: twilio.rest.messaging.v1.brand_registration.brand_vetting.BrandVettingContext
         """
         return BrandVettingContext(self._version, brand_sid=self._solution['brand_sid'], brand_vetting_sid=brand_vetting_sid)
 
@@ -194,8 +195,8 @@ class BrandVettingPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.messaging.v1.brand_vetting.BrandVettingPage
-        :rtype: twilio.rest.messaging.v1.brand_vetting.BrandVettingPage
+        :returns: twilio.rest.messaging.v1.brand_registration.brand_vetting.BrandVettingPage
+        :rtype: twilio.rest.messaging.v1.brand_registration.brand_vetting.BrandVettingPage
         """
         super().__init__(version, response)
 
@@ -208,8 +209,8 @@ class BrandVettingPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.messaging.v1.brand_vetting.BrandVettingInstance
-        :rtype: twilio.rest.messaging.v1.brand_vetting.BrandVettingInstance
+        :returns: twilio.rest.messaging.v1.brand_registration.brand_vetting.BrandVettingInstance
+        :rtype: twilio.rest.messaging.v1.brand_registration.brand_vetting.BrandVettingInstance
         """
         return BrandVettingInstance(self._version, payload, brand_sid=self._solution['brand_sid'])
 

@@ -32,11 +32,12 @@ class TaskQueueList(ListResource):
     def __init__(self, version: Version, workspace_sid: str):
         """
         Initialize the TaskQueueList
+
         :param Version version: Version that contains the resource
         :param workspace_sid: The SID of the Workspace with the TaskQueue to read.
         
-        :returns: twilio.taskrouter.v1.task_queue..TaskQueueList
-        :rtype: twilio.taskrouter.v1.task_queue..TaskQueueList
+        :returns: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueueList
+        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueueList
         """
         super().__init__(version)
 
@@ -53,15 +54,15 @@ class TaskQueueList(ListResource):
     def create(self, friendly_name, target_workers=values.unset, max_reserved_workers=values.unset, task_order=values.unset, reservation_activity_sid=values.unset, assignment_activity_sid=values.unset):
         """
         Create the TaskQueueInstance
-         :param str friendly_name: A descriptive string that you create to describe the TaskQueue. For example `Support-Tier 1`, `Sales`, or `Escalation`.
-         :param str target_workers: A string that describes the Worker selection criteria for any Tasks that enter the TaskQueue. For example, `'\"language\" == \"spanish\"'`. The default value is `1==1`. If this value is empty, Tasks will wait in the TaskQueue until they are deleted or moved to another TaskQueue. For more information about Worker selection, see [Describing Worker selection criteria](https://www.twilio.com/docs/taskrouter/api/taskqueues#target-workers).
-         :param int max_reserved_workers: The maximum number of Workers to reserve for the assignment of a Task in the queue. Can be an integer between 1 and 50, inclusive and defaults to 1.
-         :param TaskQueueTaskOrder task_order: 
-         :param str reservation_activity_sid: The SID of the Activity to assign Workers when a task is reserved for them.
-         :param str assignment_activity_sid: The SID of the Activity to assign Workers when a task is assigned to them.
+        :param str friendly_name: A descriptive string that you create to describe the TaskQueue. For example `Support-Tier 1`, `Sales`, or `Escalation`.
+        :param str target_workers: A string that describes the Worker selection criteria for any Tasks that enter the TaskQueue. For example, `'\\\"language\\\" == \\\"spanish\\\"'`. The default value is `1==1`. If this value is empty, Tasks will wait in the TaskQueue until they are deleted or moved to another TaskQueue. For more information about Worker selection, see [Describing Worker selection criteria](https://www.twilio.com/docs/taskrouter/api/taskqueues#target-workers).
+        :param int max_reserved_workers: The maximum number of Workers to reserve for the assignment of a Task in the queue. Can be an integer between 1 and 50, inclusive and defaults to 1.
+        :param TaskQueueTaskOrder task_order: 
+        :param str reservation_activity_sid: The SID of the Activity to assign Workers when a task is reserved for them.
+        :param str assignment_activity_sid: The SID of the Activity to assign Workers when a task is assigned to them.
         
         :returns: The created TaskQueueInstance
-        :rtype: twilio.rest.taskrouter.v1.task_queue.TaskQueueInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueueInstance
         """
         data = values.of({ 
             'FriendlyName': friendly_name,
@@ -95,7 +96,7 @@ class TaskQueueList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.taskrouter.v1.task_queue.TaskQueueInstance]
+        :rtype: list[twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueueInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -126,7 +127,7 @@ class TaskQueueList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.taskrouter.v1.task_queue.TaskQueueInstance]
+        :rtype: list[twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueueInstance]
         """
         return list(self.stream(
             friendly_name=friendly_name,
@@ -151,7 +152,7 @@ class TaskQueueList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of TaskQueueInstance
-        :rtype: twilio.rest.taskrouter.v1.task_queue.TaskQueuePage
+        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueuePage
         """
         data = values.of({ 
             'FriendlyName': friendly_name,
@@ -174,7 +175,7 @@ class TaskQueueList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of TaskQueueInstance
-        :rtype: twilio.rest.taskrouter.v1.task_queue.TaskQueuePage
+        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueuePage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -188,20 +189,21 @@ class TaskQueueList(ListResource):
         """
         Access the statistics
 
-        :returns: twilio.rest.taskrouter.v1.task_queue.statistics.TaskQueuesStatisticsList
-        :rtype: twilio.rest.taskrouter.v1.task_queue.statistics.TaskQueuesStatisticsList
+        :returns: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueuesStatisticsList
+        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueuesStatisticsList
         """
         if self._statistics is None:
             self._statistics = TaskQueuesStatisticsList(self._version, workspace_sid=self._solution['workspace_sid'])
         return self.statistics
+
     def get(self, sid):
         """
         Constructs a TaskQueueContext
         
         :param sid: The SID of the TaskQueue resource to update.
         
-        :returns: twilio.rest.taskrouter.v1.task_queue.TaskQueueContext
-        :rtype: twilio.rest.taskrouter.v1.task_queue.TaskQueueContext
+        :returns: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueueContext
+        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueueContext
         """
         return TaskQueueContext(self._version, workspace_sid=self._solution['workspace_sid'], sid=sid)
 
@@ -211,8 +213,8 @@ class TaskQueueList(ListResource):
         
         :param sid: The SID of the TaskQueue resource to update.
         
-        :returns: twilio.rest.taskrouter.v1.task_queue.TaskQueueContext
-        :rtype: twilio.rest.taskrouter.v1.task_queue.TaskQueueContext
+        :returns: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueueContext
+        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueueContext
         """
         return TaskQueueContext(self._version, workspace_sid=self._solution['workspace_sid'], sid=sid)
 
@@ -242,8 +244,8 @@ class TaskQueuePage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.taskrouter.v1.task_queue.TaskQueuePage
-        :rtype: twilio.rest.taskrouter.v1.task_queue.TaskQueuePage
+        :returns: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueuePage
+        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueuePage
         """
         super().__init__(version, response)
 
@@ -256,8 +258,8 @@ class TaskQueuePage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.taskrouter.v1.task_queue.TaskQueueInstance
-        :rtype: twilio.rest.taskrouter.v1.task_queue.TaskQueueInstance
+        :returns: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueueInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueueInstance
         """
         return TaskQueueInstance(self._version, payload, workspace_sid=self._solution['workspace_sid'])
 

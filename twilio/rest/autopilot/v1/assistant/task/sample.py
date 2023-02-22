@@ -28,12 +28,13 @@ class SampleList(ListResource):
     def __init__(self, version: Version, assistant_sid: str, task_sid: str):
         """
         Initialize the SampleList
+
         :param Version version: Version that contains the resource
         :param assistant_sid: The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the Task associated with the resources to read.
         :param task_sid: The SID of the [Task](https://www.twilio.com/docs/autopilot/api/task) associated with the Sample resources to read.
         
-        :returns: twilio.autopilot.v1.sample..SampleList
-        :rtype: twilio.autopilot.v1.sample..SampleList
+        :returns: twilio.rest.autopilot.v1.assistant.task.sample.SampleList
+        :rtype: twilio.rest.autopilot.v1.assistant.task.sample.SampleList
         """
         super().__init__(version)
 
@@ -49,12 +50,12 @@ class SampleList(ListResource):
     def create(self, language, tagged_text, source_channel=values.unset):
         """
         Create the SampleInstance
-         :param str language: The [ISO language-country](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) string that specifies the language used for the new sample. For example: `en-US`.
-         :param str tagged_text: The text example of how end users might express the task. The sample can contain [Field tag blocks](https://www.twilio.com/docs/autopilot/api/task-sample#field-tagging).
-         :param str source_channel: The communication channel from which the new sample was captured. Can be: `voice`, `sms`, `chat`, `alexa`, `google-assistant`, `slack`, or null if not included.
+        :param str language: The [ISO language-country](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) string that specifies the language used for the new sample. For example: `en-US`.
+        :param str tagged_text: The text example of how end users might express the task. The sample can contain [Field tag blocks](https://www.twilio.com/docs/autopilot/api/task-sample#field-tagging).
+        :param str source_channel: The communication channel from which the new sample was captured. Can be: `voice`, `sms`, `chat`, `alexa`, `google-assistant`, `slack`, or null if not included.
         
         :returns: The created SampleInstance
-        :rtype: twilio.rest.autopilot.v1.sample.SampleInstance
+        :rtype: twilio.rest.autopilot.v1.assistant.task.sample.SampleInstance
         """
         data = values.of({ 
             'Language': language,
@@ -82,7 +83,7 @@ class SampleList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.autopilot.v1.sample.SampleInstance]
+        :rtype: list[twilio.rest.autopilot.v1.assistant.task.sample.SampleInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -107,7 +108,7 @@ class SampleList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.autopilot.v1.sample.SampleInstance]
+        :rtype: list[twilio.rest.autopilot.v1.assistant.task.sample.SampleInstance]
         """
         return list(self.stream(
             language=language,
@@ -126,7 +127,7 @@ class SampleList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of SampleInstance
-        :rtype: twilio.rest.autopilot.v1.sample.SamplePage
+        :rtype: twilio.rest.autopilot.v1.assistant.task.sample.SamplePage
         """
         data = values.of({ 
             'Language': language,
@@ -146,7 +147,7 @@ class SampleList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of SampleInstance
-        :rtype: twilio.rest.autopilot.v1.sample.SamplePage
+        :rtype: twilio.rest.autopilot.v1.assistant.task.sample.SamplePage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -161,8 +162,8 @@ class SampleList(ListResource):
         
         :param sid: The Twilio-provided string that uniquely identifies the Sample resource to update.
         
-        :returns: twilio.rest.autopilot.v1.sample.SampleContext
-        :rtype: twilio.rest.autopilot.v1.sample.SampleContext
+        :returns: twilio.rest.autopilot.v1.assistant.task.sample.SampleContext
+        :rtype: twilio.rest.autopilot.v1.assistant.task.sample.SampleContext
         """
         return SampleContext(self._version, assistant_sid=self._solution['assistant_sid'], task_sid=self._solution['task_sid'], sid=sid)
 
@@ -172,8 +173,8 @@ class SampleList(ListResource):
         
         :param sid: The Twilio-provided string that uniquely identifies the Sample resource to update.
         
-        :returns: twilio.rest.autopilot.v1.sample.SampleContext
-        :rtype: twilio.rest.autopilot.v1.sample.SampleContext
+        :returns: twilio.rest.autopilot.v1.assistant.task.sample.SampleContext
+        :rtype: twilio.rest.autopilot.v1.assistant.task.sample.SampleContext
         """
         return SampleContext(self._version, assistant_sid=self._solution['assistant_sid'], task_sid=self._solution['task_sid'], sid=sid)
 
@@ -203,8 +204,8 @@ class SamplePage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.autopilot.v1.sample.SamplePage
-        :rtype: twilio.rest.autopilot.v1.sample.SamplePage
+        :returns: twilio.rest.autopilot.v1.assistant.task.sample.SamplePage
+        :rtype: twilio.rest.autopilot.v1.assistant.task.sample.SamplePage
         """
         super().__init__(version, response)
 
@@ -217,8 +218,8 @@ class SamplePage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.autopilot.v1.sample.SampleInstance
-        :rtype: twilio.rest.autopilot.v1.sample.SampleInstance
+        :returns: twilio.rest.autopilot.v1.assistant.task.sample.SampleInstance
+        :rtype: twilio.rest.autopilot.v1.assistant.task.sample.SampleInstance
         """
         return SampleInstance(self._version, payload, assistant_sid=self._solution['assistant_sid'], task_sid=self._solution['task_sid'])
 

@@ -28,10 +28,11 @@ class CredentialList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the CredentialList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.notify.v1.credential..CredentialList
-        :rtype: twilio.notify.v1.credential..CredentialList
+        :returns: twilio.rest.notify.v1.credential.CredentialList
+        :rtype: twilio.rest.notify.v1.credential.CredentialList
         """
         super().__init__(version)
 
@@ -47,13 +48,13 @@ class CredentialList(ListResource):
     def create(self, type, friendly_name=values.unset, certificate=values.unset, private_key=values.unset, sandbox=values.unset, api_key=values.unset, secret=values.unset):
         """
         Create the CredentialInstance
-         :param CredentialPushService type: 
-         :param str friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
-         :param str certificate: [APN only] The URL-encoded representation of the certificate. Strip everything outside of the headers, e.g. `-----BEGIN CERTIFICATE-----MIIFnTCCBIWgAwIBAgIIAjy9H849+E8wDQYJKoZIhvcNAQEFBQAwgZYxCzAJBgNV.....A==-----END CERTIFICATE-----`
-         :param str private_key: [APN only] The URL-encoded representation of the private key. Strip everything outside of the headers, e.g. `-----BEGIN RSA PRIVATE KEY-----MIIEpQIBAAKCAQEAuyf/lNrH9ck8DmNyo3fGgvCI1l9s+cmBY3WIz+cUDqmxiieR\\n.-----END RSA PRIVATE KEY-----`
-         :param bool sandbox: [APN only] Whether to send the credential to sandbox APNs. Can be `true` to send to sandbox APNs or `false` to send to production.
-         :param str api_key: [GCM only] The `Server key` of your project from Firebase console under Settings / Cloud messaging.
-         :param str secret: [FCM only] The `Server key` of your project from Firebase console under Settings / Cloud messaging.
+        :param CredentialPushService type: 
+        :param str friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+        :param str certificate: [APN only] The URL-encoded representation of the certificate. Strip everything outside of the headers, e.g. `-----BEGIN CERTIFICATE-----MIIFnTCCBIWgAwIBAgIIAjy9H849+E8wDQYJKoZIhvcNAQEFBQAwgZYxCzAJBgNV.....A==-----END CERTIFICATE-----`
+        :param str private_key: [APN only] The URL-encoded representation of the private key. Strip everything outside of the headers, e.g. `-----BEGIN RSA PRIVATE KEY-----MIIEpQIBAAKCAQEAuyf/lNrH9ck8DmNyo3fGgvCI1l9s+cmBY3WIz+cUDqmxiieR\\\\n.-----END RSA PRIVATE KEY-----`
+        :param bool sandbox: [APN only] Whether to send the credential to sandbox APNs. Can be `true` to send to sandbox APNs or `false` to send to production.
+        :param str api_key: [GCM only] The `Server key` of your project from Firebase console under Settings / Cloud messaging.
+        :param str secret: [FCM only] The `Server key` of your project from Firebase console under Settings / Cloud messaging.
         
         :returns: The created CredentialInstance
         :rtype: twilio.rest.notify.v1.credential.CredentialInstance

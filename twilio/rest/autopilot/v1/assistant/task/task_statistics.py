@@ -28,12 +28,13 @@ class TaskStatisticsList(ListResource):
     def __init__(self, version: Version, assistant_sid: str, task_sid: str):
         """
         Initialize the TaskStatisticsList
+
         :param Version version: Version that contains the resource
         :param assistant_sid: The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the resource to fetch.
         :param task_sid: The SID of the [Task](https://www.twilio.com/docs/autopilot/api/task) that is associated with the resource to fetch.
         
-        :returns: twilio.autopilot.v1.task_statistics..TaskStatisticsList
-        :rtype: twilio.autopilot.v1.task_statistics..TaskStatisticsList
+        :returns: twilio.rest.autopilot.v1.assistant.task.task_statistics.TaskStatisticsList
+        :rtype: twilio.rest.autopilot.v1.assistant.task.task_statistics.TaskStatisticsList
         """
         super().__init__(version)
 
@@ -48,8 +49,8 @@ class TaskStatisticsList(ListResource):
         """
         Constructs a TaskStatisticsContext
         
-        :returns: twilio.rest.autopilot.v1.task_statistics.TaskStatisticsContext
-        :rtype: twilio.rest.autopilot.v1.task_statistics.TaskStatisticsContext
+        :returns: twilio.rest.autopilot.v1.assistant.task.task_statistics.TaskStatisticsContext
+        :rtype: twilio.rest.autopilot.v1.assistant.task.task_statistics.TaskStatisticsContext
         """
         return TaskStatisticsContext(self._version, assistant_sid=self._solution['assistant_sid'], task_sid=self._solution['task_sid'])
 
@@ -57,8 +58,8 @@ class TaskStatisticsList(ListResource):
         """
         Constructs a TaskStatisticsContext
         
-        :returns: twilio.rest.autopilot.v1.task_statistics.TaskStatisticsContext
-        :rtype: twilio.rest.autopilot.v1.task_statistics.TaskStatisticsContext
+        :returns: twilio.rest.autopilot.v1.assistant.task.task_statistics.TaskStatisticsContext
+        :rtype: twilio.rest.autopilot.v1.assistant.task.task_statistics.TaskStatisticsContext
         """
         return TaskStatisticsContext(self._version, assistant_sid=self._solution['assistant_sid'], task_sid=self._solution['task_sid'])
 

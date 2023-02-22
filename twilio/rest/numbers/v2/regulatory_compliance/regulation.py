@@ -28,10 +28,11 @@ class RegulationList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the RegulationList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.numbers.v2.regulation..RegulationList
-        :rtype: twilio.numbers.v2.regulation..RegulationList
+        :returns: twilio.rest.numbers.v2.regulatory_compliance.regulation.RegulationList
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.regulation.RegulationList
         """
         super().__init__(version)
 
@@ -60,7 +61,7 @@ class RegulationList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.numbers.v2.regulation.RegulationInstance]
+        :rtype: list[twilio.rest.numbers.v2.regulatory_compliance.regulation.RegulationInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -89,7 +90,7 @@ class RegulationList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.numbers.v2.regulation.RegulationInstance]
+        :rtype: list[twilio.rest.numbers.v2.regulatory_compliance.regulation.RegulationInstance]
         """
         return list(self.stream(
             end_user_type=end_user_type,
@@ -112,7 +113,7 @@ class RegulationList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of RegulationInstance
-        :rtype: twilio.rest.numbers.v2.regulation.RegulationPage
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.regulation.RegulationPage
         """
         data = values.of({ 
             'EndUserType': end_user_type,
@@ -134,7 +135,7 @@ class RegulationList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of RegulationInstance
-        :rtype: twilio.rest.numbers.v2.regulation.RegulationPage
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.regulation.RegulationPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -149,8 +150,8 @@ class RegulationList(ListResource):
         
         :param sid: The unique string that identifies the Regulation resource.
         
-        :returns: twilio.rest.numbers.v2.regulation.RegulationContext
-        :rtype: twilio.rest.numbers.v2.regulation.RegulationContext
+        :returns: twilio.rest.numbers.v2.regulatory_compliance.regulation.RegulationContext
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.regulation.RegulationContext
         """
         return RegulationContext(self._version, sid=sid)
 
@@ -160,8 +161,8 @@ class RegulationList(ListResource):
         
         :param sid: The unique string that identifies the Regulation resource.
         
-        :returns: twilio.rest.numbers.v2.regulation.RegulationContext
-        :rtype: twilio.rest.numbers.v2.regulation.RegulationContext
+        :returns: twilio.rest.numbers.v2.regulatory_compliance.regulation.RegulationContext
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.regulation.RegulationContext
         """
         return RegulationContext(self._version, sid=sid)
 
@@ -185,8 +186,8 @@ class RegulationPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.numbers.v2.regulation.RegulationPage
-        :rtype: twilio.rest.numbers.v2.regulation.RegulationPage
+        :returns: twilio.rest.numbers.v2.regulatory_compliance.regulation.RegulationPage
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.regulation.RegulationPage
         """
         super().__init__(version, response)
 
@@ -199,8 +200,8 @@ class RegulationPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.numbers.v2.regulation.RegulationInstance
-        :rtype: twilio.rest.numbers.v2.regulation.RegulationInstance
+        :returns: twilio.rest.numbers.v2.regulatory_compliance.regulation.RegulationInstance
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.regulation.RegulationInstance
         """
         return RegulationInstance(self._version, payload)
 

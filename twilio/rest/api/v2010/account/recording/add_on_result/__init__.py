@@ -29,12 +29,13 @@ class AddOnResultList(ListResource):
     def __init__(self, version: Version, account_sid: str, reference_sid: str):
         """
         Initialize the AddOnResultList
+
         :param Version version: Version that contains the resource
         :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording AddOnResult resources to read.
         :param reference_sid: The SID of the recording to which the result to read belongs.
         
-        :returns: twilio.api.v2010.add_on_result..AddOnResultList
-        :rtype: twilio.api.v2010.add_on_result..AddOnResultList
+        :returns: twilio.rest.api.v2010.account.recording.add_on_result.AddOnResultList
+        :rtype: twilio.rest.api.v2010.account.recording.add_on_result.AddOnResultList
         """
         super().__init__(version)
 
@@ -61,7 +62,7 @@ class AddOnResultList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.add_on_result.AddOnResultInstance]
+        :rtype: list[twilio.rest.api.v2010.account.recording.add_on_result.AddOnResultInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -84,7 +85,7 @@ class AddOnResultList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.add_on_result.AddOnResultInstance]
+        :rtype: list[twilio.rest.api.v2010.account.recording.add_on_result.AddOnResultInstance]
         """
         return list(self.stream(
             limit=limit,
@@ -101,7 +102,7 @@ class AddOnResultList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of AddOnResultInstance
-        :rtype: twilio.rest.api.v2010.add_on_result.AddOnResultPage
+        :rtype: twilio.rest.api.v2010.account.recording.add_on_result.AddOnResultPage
         """
         data = values.of({ 
             'PageToken': page_token,
@@ -120,7 +121,7 @@ class AddOnResultList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of AddOnResultInstance
-        :rtype: twilio.rest.api.v2010.add_on_result.AddOnResultPage
+        :rtype: twilio.rest.api.v2010.account.recording.add_on_result.AddOnResultPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -135,8 +136,8 @@ class AddOnResultList(ListResource):
         
         :param sid: The Twilio-provided string that uniquely identifies the Recording AddOnResult resource to fetch.
         
-        :returns: twilio.rest.api.v2010.add_on_result.AddOnResultContext
-        :rtype: twilio.rest.api.v2010.add_on_result.AddOnResultContext
+        :returns: twilio.rest.api.v2010.account.recording.add_on_result.AddOnResultContext
+        :rtype: twilio.rest.api.v2010.account.recording.add_on_result.AddOnResultContext
         """
         return AddOnResultContext(self._version, account_sid=self._solution['account_sid'], reference_sid=self._solution['reference_sid'], sid=sid)
 
@@ -146,8 +147,8 @@ class AddOnResultList(ListResource):
         
         :param sid: The Twilio-provided string that uniquely identifies the Recording AddOnResult resource to fetch.
         
-        :returns: twilio.rest.api.v2010.add_on_result.AddOnResultContext
-        :rtype: twilio.rest.api.v2010.add_on_result.AddOnResultContext
+        :returns: twilio.rest.api.v2010.account.recording.add_on_result.AddOnResultContext
+        :rtype: twilio.rest.api.v2010.account.recording.add_on_result.AddOnResultContext
         """
         return AddOnResultContext(self._version, account_sid=self._solution['account_sid'], reference_sid=self._solution['reference_sid'], sid=sid)
 
@@ -173,8 +174,8 @@ class AddOnResultPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.api.v2010.add_on_result.AddOnResultPage
-        :rtype: twilio.rest.api.v2010.add_on_result.AddOnResultPage
+        :returns: twilio.rest.api.v2010.account.recording.add_on_result.AddOnResultPage
+        :rtype: twilio.rest.api.v2010.account.recording.add_on_result.AddOnResultPage
         """
         super().__init__(version, response)
 
@@ -187,8 +188,8 @@ class AddOnResultPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.api.v2010.add_on_result.AddOnResultInstance
-        :rtype: twilio.rest.api.v2010.add_on_result.AddOnResultInstance
+        :returns: twilio.rest.api.v2010.account.recording.add_on_result.AddOnResultInstance
+        :rtype: twilio.rest.api.v2010.account.recording.add_on_result.AddOnResultInstance
         """
         return AddOnResultInstance(self._version, payload, account_sid=self._solution['account_sid'], reference_sid=self._solution['reference_sid'])
 

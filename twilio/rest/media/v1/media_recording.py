@@ -28,10 +28,11 @@ class MediaRecordingList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the MediaRecordingList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.media.v1.media_recording..MediaRecordingList
-        :rtype: twilio.media.v1.media_recording..MediaRecordingList
+        :returns: twilio.rest.media.v1.media_recording.MediaRecordingList
+        :rtype: twilio.rest.media.v1.media_recording.MediaRecordingList
         """
         super().__init__(version)
 

@@ -28,12 +28,13 @@ class WorkerChannelList(ListResource):
     def __init__(self, version: Version, workspace_sid: str, worker_sid: str):
         """
         Initialize the WorkerChannelList
+
         :param Version version: Version that contains the resource
         :param workspace_sid: The SID of the Workspace with the WorkerChannels to read.
         :param worker_sid: The SID of the Worker with the WorkerChannels to read.
         
-        :returns: twilio.taskrouter.v1.worker_channel..WorkerChannelList
-        :rtype: twilio.taskrouter.v1.worker_channel..WorkerChannelList
+        :returns: twilio.rest.taskrouter.v1.workspace.worker.worker_channel.WorkerChannelList
+        :rtype: twilio.rest.taskrouter.v1.workspace.worker.worker_channel.WorkerChannelList
         """
         super().__init__(version)
 
@@ -60,7 +61,7 @@ class WorkerChannelList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.taskrouter.v1.worker_channel.WorkerChannelInstance]
+        :rtype: list[twilio.rest.taskrouter.v1.workspace.worker.worker_channel.WorkerChannelInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -83,7 +84,7 @@ class WorkerChannelList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.taskrouter.v1.worker_channel.WorkerChannelInstance]
+        :rtype: list[twilio.rest.taskrouter.v1.workspace.worker.worker_channel.WorkerChannelInstance]
         """
         return list(self.stream(
             limit=limit,
@@ -100,7 +101,7 @@ class WorkerChannelList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of WorkerChannelInstance
-        :rtype: twilio.rest.taskrouter.v1.worker_channel.WorkerChannelPage
+        :rtype: twilio.rest.taskrouter.v1.workspace.worker.worker_channel.WorkerChannelPage
         """
         data = values.of({ 
             'PageToken': page_token,
@@ -119,7 +120,7 @@ class WorkerChannelList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of WorkerChannelInstance
-        :rtype: twilio.rest.taskrouter.v1.worker_channel.WorkerChannelPage
+        :rtype: twilio.rest.taskrouter.v1.workspace.worker.worker_channel.WorkerChannelPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -134,8 +135,8 @@ class WorkerChannelList(ListResource):
         
         :param sid: The SID of the WorkerChannel to update.
         
-        :returns: twilio.rest.taskrouter.v1.worker_channel.WorkerChannelContext
-        :rtype: twilio.rest.taskrouter.v1.worker_channel.WorkerChannelContext
+        :returns: twilio.rest.taskrouter.v1.workspace.worker.worker_channel.WorkerChannelContext
+        :rtype: twilio.rest.taskrouter.v1.workspace.worker.worker_channel.WorkerChannelContext
         """
         return WorkerChannelContext(self._version, workspace_sid=self._solution['workspace_sid'], worker_sid=self._solution['worker_sid'], sid=sid)
 
@@ -145,8 +146,8 @@ class WorkerChannelList(ListResource):
         
         :param sid: The SID of the WorkerChannel to update.
         
-        :returns: twilio.rest.taskrouter.v1.worker_channel.WorkerChannelContext
-        :rtype: twilio.rest.taskrouter.v1.worker_channel.WorkerChannelContext
+        :returns: twilio.rest.taskrouter.v1.workspace.worker.worker_channel.WorkerChannelContext
+        :rtype: twilio.rest.taskrouter.v1.workspace.worker.worker_channel.WorkerChannelContext
         """
         return WorkerChannelContext(self._version, workspace_sid=self._solution['workspace_sid'], worker_sid=self._solution['worker_sid'], sid=sid)
 
@@ -172,8 +173,8 @@ class WorkerChannelPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.taskrouter.v1.worker_channel.WorkerChannelPage
-        :rtype: twilio.rest.taskrouter.v1.worker_channel.WorkerChannelPage
+        :returns: twilio.rest.taskrouter.v1.workspace.worker.worker_channel.WorkerChannelPage
+        :rtype: twilio.rest.taskrouter.v1.workspace.worker.worker_channel.WorkerChannelPage
         """
         super().__init__(version, response)
 
@@ -186,8 +187,8 @@ class WorkerChannelPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.taskrouter.v1.worker_channel.WorkerChannelInstance
-        :rtype: twilio.rest.taskrouter.v1.worker_channel.WorkerChannelInstance
+        :returns: twilio.rest.taskrouter.v1.workspace.worker.worker_channel.WorkerChannelInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.worker.worker_channel.WorkerChannelInstance
         """
         return WorkerChannelInstance(self._version, payload, workspace_sid=self._solution['workspace_sid'], worker_sid=self._solution['worker_sid'])
 

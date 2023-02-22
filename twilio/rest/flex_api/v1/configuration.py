@@ -28,10 +28,11 @@ class ConfigurationList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the ConfigurationList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.flex_api.v1.configuration..ConfigurationList
-        :rtype: twilio.flex_api.v1.configuration..ConfigurationList
+        :returns: twilio.rest.flex_api.v1.configuration.ConfigurationList
+        :rtype: twilio.rest.flex_api.v1.configuration.ConfigurationList
         """
         super().__init__(version)
 

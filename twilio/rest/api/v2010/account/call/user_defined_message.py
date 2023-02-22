@@ -28,12 +28,13 @@ class UserDefinedMessageList(ListResource):
     def __init__(self, version: Version, account_sid: str, call_sid: str):
         """
         Initialize the UserDefinedMessageList
+
         :param Version version: Version that contains the resource
         :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created User Defined Message.
         :param call_sid: The SID of the [Call](https://www.twilio.com/docs/voice/api/call-resource) the User Defined Message is associated with.
         
-        :returns: twilio.api.v2010.user_defined_message..UserDefinedMessageList
-        :rtype: twilio.api.v2010.user_defined_message..UserDefinedMessageList
+        :returns: twilio.rest.api.v2010.account.call.user_defined_message.UserDefinedMessageList
+        :rtype: twilio.rest.api.v2010.account.call.user_defined_message.UserDefinedMessageList
         """
         super().__init__(version)
 
@@ -46,11 +47,11 @@ class UserDefinedMessageList(ListResource):
     def create(self, content, idempotency_key=values.unset):
         """
         Create the UserDefinedMessageInstance
-         :param str content: The User Defined Message in the form of URL-encoded JSON string.
-         :param str idempotency_key: A unique string value to identify API call. This should be a unique string value per API call and can be a randomly generated.
+        :param str content: The User Defined Message in the form of URL-encoded JSON string.
+        :param str idempotency_key: A unique string value to identify API call. This should be a unique string value per API call and can be a randomly generated.
         
         :returns: The created UserDefinedMessageInstance
-        :rtype: twilio.rest.api.v2010.user_defined_message.UserDefinedMessageInstance
+        :rtype: twilio.rest.api.v2010.account.call.user_defined_message.UserDefinedMessageInstance
         """
         data = values.of({ 
             'Content': content,

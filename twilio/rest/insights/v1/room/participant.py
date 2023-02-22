@@ -28,11 +28,12 @@ class ParticipantList(ListResource):
     def __init__(self, version: Version, room_sid: str):
         """
         Initialize the ParticipantList
+
         :param Version version: Version that contains the resource
         :param room_sid: The SID of the Room resource.
         
-        :returns: twilio.insights.v1.participant..ParticipantList
-        :rtype: twilio.insights.v1.participant..ParticipantList
+        :returns: twilio.rest.insights.v1.room.participant.ParticipantList
+        :rtype: twilio.rest.insights.v1.room.participant.ParticipantList
         """
         super().__init__(version)
 
@@ -58,7 +59,7 @@ class ParticipantList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.insights.v1.participant.ParticipantInstance]
+        :rtype: list[twilio.rest.insights.v1.room.participant.ParticipantInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -81,7 +82,7 @@ class ParticipantList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.insights.v1.participant.ParticipantInstance]
+        :rtype: list[twilio.rest.insights.v1.room.participant.ParticipantInstance]
         """
         return list(self.stream(
             limit=limit,
@@ -98,7 +99,7 @@ class ParticipantList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of ParticipantInstance
-        :rtype: twilio.rest.insights.v1.participant.ParticipantPage
+        :rtype: twilio.rest.insights.v1.room.participant.ParticipantPage
         """
         data = values.of({ 
             'PageToken': page_token,
@@ -117,7 +118,7 @@ class ParticipantList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of ParticipantInstance
-        :rtype: twilio.rest.insights.v1.participant.ParticipantPage
+        :rtype: twilio.rest.insights.v1.room.participant.ParticipantPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -132,8 +133,8 @@ class ParticipantList(ListResource):
         
         :param participant_sid: The SID of the Participant resource.
         
-        :returns: twilio.rest.insights.v1.participant.ParticipantContext
-        :rtype: twilio.rest.insights.v1.participant.ParticipantContext
+        :returns: twilio.rest.insights.v1.room.participant.ParticipantContext
+        :rtype: twilio.rest.insights.v1.room.participant.ParticipantContext
         """
         return ParticipantContext(self._version, room_sid=self._solution['room_sid'], participant_sid=participant_sid)
 
@@ -143,8 +144,8 @@ class ParticipantList(ListResource):
         
         :param participant_sid: The SID of the Participant resource.
         
-        :returns: twilio.rest.insights.v1.participant.ParticipantContext
-        :rtype: twilio.rest.insights.v1.participant.ParticipantContext
+        :returns: twilio.rest.insights.v1.room.participant.ParticipantContext
+        :rtype: twilio.rest.insights.v1.room.participant.ParticipantContext
         """
         return ParticipantContext(self._version, room_sid=self._solution['room_sid'], participant_sid=participant_sid)
 
@@ -168,8 +169,8 @@ class ParticipantPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.insights.v1.participant.ParticipantPage
-        :rtype: twilio.rest.insights.v1.participant.ParticipantPage
+        :returns: twilio.rest.insights.v1.room.participant.ParticipantPage
+        :rtype: twilio.rest.insights.v1.room.participant.ParticipantPage
         """
         super().__init__(version, response)
 
@@ -182,8 +183,8 @@ class ParticipantPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.insights.v1.participant.ParticipantInstance
-        :rtype: twilio.rest.insights.v1.participant.ParticipantInstance
+        :returns: twilio.rest.insights.v1.room.participant.ParticipantInstance
+        :rtype: twilio.rest.insights.v1.room.participant.ParticipantInstance
         """
         return ParticipantInstance(self._version, payload, room_sid=self._solution['room_sid'])
 

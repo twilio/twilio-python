@@ -28,12 +28,13 @@ class DeploymentList(ListResource):
     def __init__(self, version: Version, service_sid: str, environment_sid: str):
         """
         Initialize the DeploymentList
+
         :param Version version: Version that contains the resource
         :param service_sid: The SID of the Service to read the Deployment resources from.
         :param environment_sid: The SID of the Environment used by the Deployment resources to read.
         
-        :returns: twilio.serverless.v1.deployment..DeploymentList
-        :rtype: twilio.serverless.v1.deployment..DeploymentList
+        :returns: twilio.rest.serverless.v1.service.environment.deployment.DeploymentList
+        :rtype: twilio.rest.serverless.v1.service.environment.deployment.DeploymentList
         """
         super().__init__(version)
 
@@ -47,10 +48,10 @@ class DeploymentList(ListResource):
     def create(self, build_sid=values.unset):
         """
         Create the DeploymentInstance
-         :param str build_sid: The SID of the Build for the Deployment.
+        :param str build_sid: The SID of the Build for the Deployment.
         
         :returns: The created DeploymentInstance
-        :rtype: twilio.rest.serverless.v1.deployment.DeploymentInstance
+        :rtype: twilio.rest.serverless.v1.service.environment.deployment.DeploymentInstance
         """
         data = values.of({ 
             'BuildSid': build_sid,
@@ -75,7 +76,7 @@ class DeploymentList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.serverless.v1.deployment.DeploymentInstance]
+        :rtype: list[twilio.rest.serverless.v1.service.environment.deployment.DeploymentInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -98,7 +99,7 @@ class DeploymentList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.serverless.v1.deployment.DeploymentInstance]
+        :rtype: list[twilio.rest.serverless.v1.service.environment.deployment.DeploymentInstance]
         """
         return list(self.stream(
             limit=limit,
@@ -115,7 +116,7 @@ class DeploymentList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of DeploymentInstance
-        :rtype: twilio.rest.serverless.v1.deployment.DeploymentPage
+        :rtype: twilio.rest.serverless.v1.service.environment.deployment.DeploymentPage
         """
         data = values.of({ 
             'PageToken': page_token,
@@ -134,7 +135,7 @@ class DeploymentList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of DeploymentInstance
-        :rtype: twilio.rest.serverless.v1.deployment.DeploymentPage
+        :rtype: twilio.rest.serverless.v1.service.environment.deployment.DeploymentPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -149,8 +150,8 @@ class DeploymentList(ListResource):
         
         :param sid: The SID that identifies the Deployment resource to fetch.
         
-        :returns: twilio.rest.serverless.v1.deployment.DeploymentContext
-        :rtype: twilio.rest.serverless.v1.deployment.DeploymentContext
+        :returns: twilio.rest.serverless.v1.service.environment.deployment.DeploymentContext
+        :rtype: twilio.rest.serverless.v1.service.environment.deployment.DeploymentContext
         """
         return DeploymentContext(self._version, service_sid=self._solution['service_sid'], environment_sid=self._solution['environment_sid'], sid=sid)
 
@@ -160,8 +161,8 @@ class DeploymentList(ListResource):
         
         :param sid: The SID that identifies the Deployment resource to fetch.
         
-        :returns: twilio.rest.serverless.v1.deployment.DeploymentContext
-        :rtype: twilio.rest.serverless.v1.deployment.DeploymentContext
+        :returns: twilio.rest.serverless.v1.service.environment.deployment.DeploymentContext
+        :rtype: twilio.rest.serverless.v1.service.environment.deployment.DeploymentContext
         """
         return DeploymentContext(self._version, service_sid=self._solution['service_sid'], environment_sid=self._solution['environment_sid'], sid=sid)
 
@@ -187,8 +188,8 @@ class DeploymentPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.serverless.v1.deployment.DeploymentPage
-        :rtype: twilio.rest.serverless.v1.deployment.DeploymentPage
+        :returns: twilio.rest.serverless.v1.service.environment.deployment.DeploymentPage
+        :rtype: twilio.rest.serverless.v1.service.environment.deployment.DeploymentPage
         """
         super().__init__(version, response)
 
@@ -201,8 +202,8 @@ class DeploymentPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.serverless.v1.deployment.DeploymentInstance
-        :rtype: twilio.rest.serverless.v1.deployment.DeploymentInstance
+        :returns: twilio.rest.serverless.v1.service.environment.deployment.DeploymentInstance
+        :rtype: twilio.rest.serverless.v1.service.environment.deployment.DeploymentInstance
         """
         return DeploymentInstance(self._version, payload, service_sid=self._solution['service_sid'], environment_sid=self._solution['environment_sid'])
 

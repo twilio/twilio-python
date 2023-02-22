@@ -28,11 +28,12 @@ class PhoneNumberList(ListResource):
     def __init__(self, version: Version, trunk_sid: str):
         """
         Initialize the PhoneNumberList
+
         :param Version version: Version that contains the resource
         :param trunk_sid: The SID of the Trunk from which to read the PhoneNumber resources.
         
-        :returns: twilio.trunking.v1.phone_number..PhoneNumberList
-        :rtype: twilio.trunking.v1.phone_number..PhoneNumberList
+        :returns: twilio.rest.trunking.v1.trunk.phone_number.PhoneNumberList
+        :rtype: twilio.rest.trunking.v1.trunk.phone_number.PhoneNumberList
         """
         super().__init__(version)
 
@@ -47,10 +48,10 @@ class PhoneNumberList(ListResource):
     def create(self, phone_number_sid):
         """
         Create the PhoneNumberInstance
-         :param str phone_number_sid: The SID of the [Incoming Phone Number](https://www.twilio.com/docs/phone-numbers/api/incomingphonenumber-resource) that you want to associate with the trunk.
+        :param str phone_number_sid: The SID of the [Incoming Phone Number](https://www.twilio.com/docs/phone-numbers/api/incomingphonenumber-resource) that you want to associate with the trunk.
         
         :returns: The created PhoneNumberInstance
-        :rtype: twilio.rest.trunking.v1.phone_number.PhoneNumberInstance
+        :rtype: twilio.rest.trunking.v1.trunk.phone_number.PhoneNumberInstance
         """
         data = values.of({ 
             'PhoneNumberSid': phone_number_sid,
@@ -75,7 +76,7 @@ class PhoneNumberList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.trunking.v1.phone_number.PhoneNumberInstance]
+        :rtype: list[twilio.rest.trunking.v1.trunk.phone_number.PhoneNumberInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -98,7 +99,7 @@ class PhoneNumberList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.trunking.v1.phone_number.PhoneNumberInstance]
+        :rtype: list[twilio.rest.trunking.v1.trunk.phone_number.PhoneNumberInstance]
         """
         return list(self.stream(
             limit=limit,
@@ -115,7 +116,7 @@ class PhoneNumberList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of PhoneNumberInstance
-        :rtype: twilio.rest.trunking.v1.phone_number.PhoneNumberPage
+        :rtype: twilio.rest.trunking.v1.trunk.phone_number.PhoneNumberPage
         """
         data = values.of({ 
             'PageToken': page_token,
@@ -134,7 +135,7 @@ class PhoneNumberList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of PhoneNumberInstance
-        :rtype: twilio.rest.trunking.v1.phone_number.PhoneNumberPage
+        :rtype: twilio.rest.trunking.v1.trunk.phone_number.PhoneNumberPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -149,8 +150,8 @@ class PhoneNumberList(ListResource):
         
         :param sid: The unique string that we created to identify the PhoneNumber resource to fetch.
         
-        :returns: twilio.rest.trunking.v1.phone_number.PhoneNumberContext
-        :rtype: twilio.rest.trunking.v1.phone_number.PhoneNumberContext
+        :returns: twilio.rest.trunking.v1.trunk.phone_number.PhoneNumberContext
+        :rtype: twilio.rest.trunking.v1.trunk.phone_number.PhoneNumberContext
         """
         return PhoneNumberContext(self._version, trunk_sid=self._solution['trunk_sid'], sid=sid)
 
@@ -160,8 +161,8 @@ class PhoneNumberList(ListResource):
         
         :param sid: The unique string that we created to identify the PhoneNumber resource to fetch.
         
-        :returns: twilio.rest.trunking.v1.phone_number.PhoneNumberContext
-        :rtype: twilio.rest.trunking.v1.phone_number.PhoneNumberContext
+        :returns: twilio.rest.trunking.v1.trunk.phone_number.PhoneNumberContext
+        :rtype: twilio.rest.trunking.v1.trunk.phone_number.PhoneNumberContext
         """
         return PhoneNumberContext(self._version, trunk_sid=self._solution['trunk_sid'], sid=sid)
 
@@ -189,8 +190,8 @@ class PhoneNumberPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.trunking.v1.phone_number.PhoneNumberPage
-        :rtype: twilio.rest.trunking.v1.phone_number.PhoneNumberPage
+        :returns: twilio.rest.trunking.v1.trunk.phone_number.PhoneNumberPage
+        :rtype: twilio.rest.trunking.v1.trunk.phone_number.PhoneNumberPage
         """
         super().__init__(version, response)
 
@@ -203,8 +204,8 @@ class PhoneNumberPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.trunking.v1.phone_number.PhoneNumberInstance
-        :rtype: twilio.rest.trunking.v1.phone_number.PhoneNumberInstance
+        :returns: twilio.rest.trunking.v1.trunk.phone_number.PhoneNumberInstance
+        :rtype: twilio.rest.trunking.v1.trunk.phone_number.PhoneNumberInstance
         """
         return PhoneNumberInstance(self._version, payload, trunk_sid=self._solution['trunk_sid'])
 

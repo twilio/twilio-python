@@ -28,11 +28,12 @@ class CustomerProfilesChannelEndpointAssignmentList(ListResource):
     def __init__(self, version: Version, customer_profile_sid: str):
         """
         Initialize the CustomerProfilesChannelEndpointAssignmentList
+
         :param Version version: Version that contains the resource
         :param customer_profile_sid: The unique string that we created to identify the CustomerProfile resource.
         
-        :returns: twilio.trusthub.v1.customer_profiles_channel_endpoint_assignment..CustomerProfilesChannelEndpointAssignmentList
-        :rtype: twilio.trusthub.v1.customer_profiles_channel_endpoint_assignment..CustomerProfilesChannelEndpointAssignmentList
+        :returns: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_channel_endpoint_assignment.CustomerProfilesChannelEndpointAssignmentList
+        :rtype: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_channel_endpoint_assignment.CustomerProfilesChannelEndpointAssignmentList
         """
         super().__init__(version)
 
@@ -47,11 +48,11 @@ class CustomerProfilesChannelEndpointAssignmentList(ListResource):
     def create(self, channel_endpoint_type, channel_endpoint_sid):
         """
         Create the CustomerProfilesChannelEndpointAssignmentInstance
-         :param str channel_endpoint_type: The type of channel endpoint. eg: phone-number
-         :param str channel_endpoint_sid: The SID of an channel endpoint
+        :param str channel_endpoint_type: The type of channel endpoint. eg: phone-number
+        :param str channel_endpoint_sid: The SID of an channel endpoint
         
         :returns: The created CustomerProfilesChannelEndpointAssignmentInstance
-        :rtype: twilio.rest.trusthub.v1.customer_profiles_channel_endpoint_assignment.CustomerProfilesChannelEndpointAssignmentInstance
+        :rtype: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_channel_endpoint_assignment.CustomerProfilesChannelEndpointAssignmentInstance
         """
         data = values.of({ 
             'ChannelEndpointType': channel_endpoint_type,
@@ -79,7 +80,7 @@ class CustomerProfilesChannelEndpointAssignmentList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.trusthub.v1.customer_profiles_channel_endpoint_assignment.CustomerProfilesChannelEndpointAssignmentInstance]
+        :rtype: list[twilio.rest.trusthub.v1.customer_profiles.customer_profiles_channel_endpoint_assignment.CustomerProfilesChannelEndpointAssignmentInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -106,7 +107,7 @@ class CustomerProfilesChannelEndpointAssignmentList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.trusthub.v1.customer_profiles_channel_endpoint_assignment.CustomerProfilesChannelEndpointAssignmentInstance]
+        :rtype: list[twilio.rest.trusthub.v1.customer_profiles.customer_profiles_channel_endpoint_assignment.CustomerProfilesChannelEndpointAssignmentInstance]
         """
         return list(self.stream(
             channel_endpoint_sid=channel_endpoint_sid,
@@ -127,7 +128,7 @@ class CustomerProfilesChannelEndpointAssignmentList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of CustomerProfilesChannelEndpointAssignmentInstance
-        :rtype: twilio.rest.trusthub.v1.customer_profiles_channel_endpoint_assignment.CustomerProfilesChannelEndpointAssignmentPage
+        :rtype: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_channel_endpoint_assignment.CustomerProfilesChannelEndpointAssignmentPage
         """
         data = values.of({ 
             'ChannelEndpointSid': channel_endpoint_sid,
@@ -148,7 +149,7 @@ class CustomerProfilesChannelEndpointAssignmentList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of CustomerProfilesChannelEndpointAssignmentInstance
-        :rtype: twilio.rest.trusthub.v1.customer_profiles_channel_endpoint_assignment.CustomerProfilesChannelEndpointAssignmentPage
+        :rtype: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_channel_endpoint_assignment.CustomerProfilesChannelEndpointAssignmentPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -163,8 +164,8 @@ class CustomerProfilesChannelEndpointAssignmentList(ListResource):
         
         :param sid: The unique string that we created to identify the resource.
         
-        :returns: twilio.rest.trusthub.v1.customer_profiles_channel_endpoint_assignment.CustomerProfilesChannelEndpointAssignmentContext
-        :rtype: twilio.rest.trusthub.v1.customer_profiles_channel_endpoint_assignment.CustomerProfilesChannelEndpointAssignmentContext
+        :returns: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_channel_endpoint_assignment.CustomerProfilesChannelEndpointAssignmentContext
+        :rtype: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_channel_endpoint_assignment.CustomerProfilesChannelEndpointAssignmentContext
         """
         return CustomerProfilesChannelEndpointAssignmentContext(self._version, customer_profile_sid=self._solution['customer_profile_sid'], sid=sid)
 
@@ -174,8 +175,8 @@ class CustomerProfilesChannelEndpointAssignmentList(ListResource):
         
         :param sid: The unique string that we created to identify the resource.
         
-        :returns: twilio.rest.trusthub.v1.customer_profiles_channel_endpoint_assignment.CustomerProfilesChannelEndpointAssignmentContext
-        :rtype: twilio.rest.trusthub.v1.customer_profiles_channel_endpoint_assignment.CustomerProfilesChannelEndpointAssignmentContext
+        :returns: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_channel_endpoint_assignment.CustomerProfilesChannelEndpointAssignmentContext
+        :rtype: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_channel_endpoint_assignment.CustomerProfilesChannelEndpointAssignmentContext
         """
         return CustomerProfilesChannelEndpointAssignmentContext(self._version, customer_profile_sid=self._solution['customer_profile_sid'], sid=sid)
 
@@ -203,8 +204,8 @@ class CustomerProfilesChannelEndpointAssignmentPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.trusthub.v1.customer_profiles_channel_endpoint_assignment.CustomerProfilesChannelEndpointAssignmentPage
-        :rtype: twilio.rest.trusthub.v1.customer_profiles_channel_endpoint_assignment.CustomerProfilesChannelEndpointAssignmentPage
+        :returns: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_channel_endpoint_assignment.CustomerProfilesChannelEndpointAssignmentPage
+        :rtype: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_channel_endpoint_assignment.CustomerProfilesChannelEndpointAssignmentPage
         """
         super().__init__(version, response)
 
@@ -217,8 +218,8 @@ class CustomerProfilesChannelEndpointAssignmentPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.trusthub.v1.customer_profiles_channel_endpoint_assignment.CustomerProfilesChannelEndpointAssignmentInstance
-        :rtype: twilio.rest.trusthub.v1.customer_profiles_channel_endpoint_assignment.CustomerProfilesChannelEndpointAssignmentInstance
+        :returns: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_channel_endpoint_assignment.CustomerProfilesChannelEndpointAssignmentInstance
+        :rtype: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_channel_endpoint_assignment.CustomerProfilesChannelEndpointAssignmentInstance
         """
         return CustomerProfilesChannelEndpointAssignmentInstance(self._version, payload, customer_profile_sid=self._solution['customer_profile_sid'])
 

@@ -28,11 +28,12 @@ class RoleList(ListResource):
     def __init__(self, version: Version, service_sid: str):
         """
         Initialize the RoleList
+
         :param Version version: Version that contains the resource
         :param service_sid: 
         
-        :returns: twilio.ip_messaging.v2.role..RoleList
-        :rtype: twilio.ip_messaging.v2.role..RoleList
+        :returns: twilio.rest.ip_messaging.v2.service.role.RoleList
+        :rtype: twilio.rest.ip_messaging.v2.service.role.RoleList
         """
         super().__init__(version)
 
@@ -48,12 +49,12 @@ class RoleList(ListResource):
     def create(self, friendly_name, type, permission):
         """
         Create the RoleInstance
-         :param str friendly_name: 
-         :param RoleRoleType type: 
-         :param [str] permission: 
+        :param str friendly_name: 
+        :param RoleRoleType type: 
+        :param list[str] permission: 
         
         :returns: The created RoleInstance
-        :rtype: twilio.rest.ip_messaging.v2.role.RoleInstance
+        :rtype: twilio.rest.ip_messaging.v2.service.role.RoleInstance
         """
         data = values.of({ 
             'FriendlyName': friendly_name,
@@ -80,7 +81,7 @@ class RoleList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.ip_messaging.v2.role.RoleInstance]
+        :rtype: list[twilio.rest.ip_messaging.v2.service.role.RoleInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -103,7 +104,7 @@ class RoleList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.ip_messaging.v2.role.RoleInstance]
+        :rtype: list[twilio.rest.ip_messaging.v2.service.role.RoleInstance]
         """
         return list(self.stream(
             limit=limit,
@@ -120,7 +121,7 @@ class RoleList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of RoleInstance
-        :rtype: twilio.rest.ip_messaging.v2.role.RolePage
+        :rtype: twilio.rest.ip_messaging.v2.service.role.RolePage
         """
         data = values.of({ 
             'PageToken': page_token,
@@ -139,7 +140,7 @@ class RoleList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of RoleInstance
-        :rtype: twilio.rest.ip_messaging.v2.role.RolePage
+        :rtype: twilio.rest.ip_messaging.v2.service.role.RolePage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -154,8 +155,8 @@ class RoleList(ListResource):
         
         :param sid: 
         
-        :returns: twilio.rest.ip_messaging.v2.role.RoleContext
-        :rtype: twilio.rest.ip_messaging.v2.role.RoleContext
+        :returns: twilio.rest.ip_messaging.v2.service.role.RoleContext
+        :rtype: twilio.rest.ip_messaging.v2.service.role.RoleContext
         """
         return RoleContext(self._version, service_sid=self._solution['service_sid'], sid=sid)
 
@@ -165,8 +166,8 @@ class RoleList(ListResource):
         
         :param sid: 
         
-        :returns: twilio.rest.ip_messaging.v2.role.RoleContext
-        :rtype: twilio.rest.ip_messaging.v2.role.RoleContext
+        :returns: twilio.rest.ip_messaging.v2.service.role.RoleContext
+        :rtype: twilio.rest.ip_messaging.v2.service.role.RoleContext
         """
         return RoleContext(self._version, service_sid=self._solution['service_sid'], sid=sid)
 
@@ -196,8 +197,8 @@ class RolePage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.ip_messaging.v2.role.RolePage
-        :rtype: twilio.rest.ip_messaging.v2.role.RolePage
+        :returns: twilio.rest.ip_messaging.v2.service.role.RolePage
+        :rtype: twilio.rest.ip_messaging.v2.service.role.RolePage
         """
         super().__init__(version, response)
 
@@ -210,8 +211,8 @@ class RolePage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.ip_messaging.v2.role.RoleInstance
-        :rtype: twilio.rest.ip_messaging.v2.role.RoleInstance
+        :returns: twilio.rest.ip_messaging.v2.service.role.RoleInstance
+        :rtype: twilio.rest.ip_messaging.v2.service.role.RoleInstance
         """
         return RoleInstance(self._version, payload, service_sid=self._solution['service_sid'])
 

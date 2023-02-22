@@ -28,10 +28,11 @@ class ParticipantConversationList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the ParticipantConversationList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.conversations.v1.participant_conversation..ParticipantConversationList
-        :rtype: twilio.conversations.v1.participant_conversation..ParticipantConversationList
+        :returns: twilio.rest.conversations.v1.participant_conversation.ParticipantConversationList
+        :rtype: twilio.rest.conversations.v1.participant_conversation.ParticipantConversationList
         """
         super().__init__(version)
 
@@ -186,6 +187,54 @@ class ParticipantConversationPage(Page):
 
 
 
+
+
+class ParticipantConversationInstance(InstanceResource):
+    def __init__(self, version, payload):
+        super().__init__(version)
+        self._properties = { 
+            'account_sid' : payload.get('account_sid'),
+            'chat_service_sid' : payload.get('chat_service_sid'),
+            'participant_sid' : payload.get('participant_sid'),
+            'participant_user_sid' : payload.get('participant_user_sid'),
+            'participant_identity' : payload.get('participant_identity'),
+            'participant_messaging_binding' : payload.get('participant_messaging_binding'),
+            'conversation_sid' : payload.get('conversation_sid'),
+            'conversation_unique_name' : payload.get('conversation_unique_name'),
+            'conversation_friendly_name' : payload.get('conversation_friendly_name'),
+            'conversation_attributes' : payload.get('conversation_attributes'),
+            'conversation_date_created' : payload.get('conversation_date_created'),
+            'conversation_date_updated' : payload.get('conversation_date_updated'),
+            'conversation_created_by' : payload.get('conversation_created_by'),
+            'conversation_state' : payload.get('conversation_state'),
+            'conversation_timers' : payload.get('conversation_timers'),
+            'links' : payload.get('links'),
+        }
+
+        self._context = None
+        self._solution = {
+            
+        }
+
+    @property
+    def _proxy(self):
+        if self._context is None:
+            self._context = ParticipantConversationContext(
+                self._version,
+                
+            )
+        return self._context
+
+    
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Conversations.V1.ParticipantConversationInstance {}>'.format(context)
 
 
 

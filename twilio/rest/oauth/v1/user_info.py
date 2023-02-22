@@ -28,10 +28,11 @@ class UserInfoList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the UserInfoList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.oauth.v1.user_info..UserInfoList
-        :rtype: twilio.oauth.v1.user_info..UserInfoList
+        :returns: twilio.rest.oauth.v1.user_info.UserInfoList
+        :rtype: twilio.rest.oauth.v1.user_info.UserInfoList
         """
         super().__init__(version)
 

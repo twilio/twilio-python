@@ -28,12 +28,13 @@ class EventList(ListResource):
     def __init__(self, version: Version, account_sid: str, call_sid: str):
         """
         Initialize the EventList
+
         :param Version version: Version that contains the resource
         :param account_sid: The unique SID identifier of the Account.
         :param call_sid: The unique SID identifier of the Call.
         
-        :returns: twilio.api.v2010.event..EventList
-        :rtype: twilio.api.v2010.event..EventList
+        :returns: twilio.rest.api.v2010.account.call.event.EventList
+        :rtype: twilio.rest.api.v2010.account.call.event.EventList
         """
         super().__init__(version)
 
@@ -58,7 +59,7 @@ class EventList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.event.EventInstance]
+        :rtype: list[twilio.rest.api.v2010.account.call.event.EventInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -81,7 +82,7 @@ class EventList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.event.EventInstance]
+        :rtype: list[twilio.rest.api.v2010.account.call.event.EventInstance]
         """
         return list(self.stream(
             limit=limit,
@@ -98,7 +99,7 @@ class EventList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of EventInstance
-        :rtype: twilio.rest.api.v2010.event.EventPage
+        :rtype: twilio.rest.api.v2010.account.call.event.EventPage
         """
         data = values.of({ 
             'PageToken': page_token,
@@ -117,7 +118,7 @@ class EventList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of EventInstance
-        :rtype: twilio.rest.api.v2010.event.EventPage
+        :rtype: twilio.rest.api.v2010.account.call.event.EventPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -145,8 +146,8 @@ class EventPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.api.v2010.event.EventPage
-        :rtype: twilio.rest.api.v2010.event.EventPage
+        :returns: twilio.rest.api.v2010.account.call.event.EventPage
+        :rtype: twilio.rest.api.v2010.account.call.event.EventPage
         """
         super().__init__(version, response)
 
@@ -159,8 +160,8 @@ class EventPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.api.v2010.event.EventInstance
-        :rtype: twilio.rest.api.v2010.event.EventInstance
+        :returns: twilio.rest.api.v2010.account.call.event.EventInstance
+        :rtype: twilio.rest.api.v2010.account.call.event.EventInstance
         """
         return EventInstance(self._version, payload, account_sid=self._solution['account_sid'], call_sid=self._solution['call_sid'])
 
@@ -176,6 +177,40 @@ class EventPage(Page):
 
 
 
+
+
+class EventInstance(InstanceResource):
+    def __init__(self, version, payload, account_sid: str, call_sid: str):
+        super().__init__(version)
+        self._properties = { 
+            'request' : payload.get('request'),
+            'response' : payload.get('response'),
+        }
+
+        self._context = None
+        self._solution = {
+            'account_sid': account_sid or self._properties['account_sid'],'call_sid': call_sid or self._properties['call_sid'],
+        }
+
+    @property
+    def _proxy(self):
+        if self._context is None:
+            self._context = EventContext(
+                self._version,
+                account_sid=self._solution['account_sid'],call_sid=self._solution['call_sid'],
+            )
+        return self._context
+
+    
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Api.V2010.EventInstance {}>'.format(context)
 
 
 

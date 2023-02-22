@@ -30,11 +30,12 @@ class RecordingList(ListResource):
     def __init__(self, version: Version, account_sid: str):
         """
         Initialize the RecordingList
+
         :param Version version: Version that contains the resource
         :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording resources to read.
         
-        :returns: twilio.api.v2010.recording..RecordingList
-        :rtype: twilio.api.v2010.recording..RecordingList
+        :returns: twilio.rest.api.v2010.account.recording.RecordingList
+        :rtype: twilio.rest.api.v2010.account.recording.RecordingList
         """
         super().__init__(version)
 
@@ -67,7 +68,7 @@ class RecordingList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.recording.RecordingInstance]
+        :rtype: list[twilio.rest.api.v2010.account.recording.RecordingInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -102,7 +103,7 @@ class RecordingList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.recording.RecordingInstance]
+        :rtype: list[twilio.rest.api.v2010.account.recording.RecordingInstance]
         """
         return list(self.stream(
             date_created=date_created,
@@ -131,7 +132,7 @@ class RecordingList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of RecordingInstance
-        :rtype: twilio.rest.api.v2010.recording.RecordingPage
+        :rtype: twilio.rest.api.v2010.account.recording.RecordingPage
         """
         data = values.of({ 
             'DateCreated': serialize.iso8601_datetime(date_created),
@@ -156,7 +157,7 @@ class RecordingList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of RecordingInstance
-        :rtype: twilio.rest.api.v2010.recording.RecordingPage
+        :rtype: twilio.rest.api.v2010.account.recording.RecordingPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -171,8 +172,8 @@ class RecordingList(ListResource):
         
         :param sid: The Twilio-provided string that uniquely identifies the Recording resource to fetch.
         
-        :returns: twilio.rest.api.v2010.recording.RecordingContext
-        :rtype: twilio.rest.api.v2010.recording.RecordingContext
+        :returns: twilio.rest.api.v2010.account.recording.RecordingContext
+        :rtype: twilio.rest.api.v2010.account.recording.RecordingContext
         """
         return RecordingContext(self._version, account_sid=self._solution['account_sid'], sid=sid)
 
@@ -182,8 +183,8 @@ class RecordingList(ListResource):
         
         :param sid: The Twilio-provided string that uniquely identifies the Recording resource to fetch.
         
-        :returns: twilio.rest.api.v2010.recording.RecordingContext
-        :rtype: twilio.rest.api.v2010.recording.RecordingContext
+        :returns: twilio.rest.api.v2010.account.recording.RecordingContext
+        :rtype: twilio.rest.api.v2010.account.recording.RecordingContext
         """
         return RecordingContext(self._version, account_sid=self._solution['account_sid'], sid=sid)
 
@@ -209,8 +210,8 @@ class RecordingPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.api.v2010.recording.RecordingPage
-        :rtype: twilio.rest.api.v2010.recording.RecordingPage
+        :returns: twilio.rest.api.v2010.account.recording.RecordingPage
+        :rtype: twilio.rest.api.v2010.account.recording.RecordingPage
         """
         super().__init__(version, response)
 
@@ -223,8 +224,8 @@ class RecordingPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.api.v2010.recording.RecordingInstance
-        :rtype: twilio.rest.api.v2010.recording.RecordingInstance
+        :returns: twilio.rest.api.v2010.account.recording.RecordingInstance
+        :rtype: twilio.rest.api.v2010.account.recording.RecordingInstance
         """
         return RecordingInstance(self._version, payload, account_sid=self._solution['account_sid'])
 

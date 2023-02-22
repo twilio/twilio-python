@@ -28,10 +28,11 @@ class ExportConfigurationList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the ExportConfigurationList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.bulkexports.v1.export_configuration..ExportConfigurationList
-        :rtype: twilio.bulkexports.v1.export_configuration..ExportConfigurationList
+        :returns: twilio.rest.bulkexports.v1.export_configuration.ExportConfigurationList
+        :rtype: twilio.rest.bulkexports.v1.export_configuration.ExportConfigurationList
         """
         super().__init__(version)
 

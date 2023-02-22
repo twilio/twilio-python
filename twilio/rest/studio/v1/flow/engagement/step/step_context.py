@@ -28,13 +28,14 @@ class StepContextList(ListResource):
     def __init__(self, version: Version, flow_sid: str, engagement_sid: str, step_sid: str):
         """
         Initialize the StepContextList
+
         :param Version version: Version that contains the resource
         :param flow_sid: The SID of the Flow with the Step to fetch.
         :param engagement_sid: The SID of the Engagement with the Step to fetch.
         :param step_sid: The SID of the Step to fetch
         
-        :returns: twilio.studio.v1.step_context..StepContextList
-        :rtype: twilio.studio.v1.step_context..StepContextList
+        :returns: twilio.rest.studio.v1.flow.engagement.step.step_context.StepContextList
+        :rtype: twilio.rest.studio.v1.flow.engagement.step.step_context.StepContextList
         """
         super().__init__(version)
 
@@ -49,8 +50,8 @@ class StepContextList(ListResource):
         """
         Constructs a StepContextContext
         
-        :returns: twilio.rest.studio.v1.step_context.StepContextContext
-        :rtype: twilio.rest.studio.v1.step_context.StepContextContext
+        :returns: twilio.rest.studio.v1.flow.engagement.step.step_context.StepContextContext
+        :rtype: twilio.rest.studio.v1.flow.engagement.step.step_context.StepContextContext
         """
         return StepContextContext(self._version, flow_sid=self._solution['flow_sid'], engagement_sid=self._solution['engagement_sid'], step_sid=self._solution['step_sid'])
 
@@ -58,8 +59,8 @@ class StepContextList(ListResource):
         """
         Constructs a StepContextContext
         
-        :returns: twilio.rest.studio.v1.step_context.StepContextContext
-        :rtype: twilio.rest.studio.v1.step_context.StepContextContext
+        :returns: twilio.rest.studio.v1.flow.engagement.step.step_context.StepContextContext
+        :rtype: twilio.rest.studio.v1.flow.engagement.step.step_context.StepContextContext
         """
         return StepContextContext(self._version, flow_sid=self._solution['flow_sid'], engagement_sid=self._solution['engagement_sid'], step_sid=self._solution['step_sid'])
 

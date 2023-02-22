@@ -28,11 +28,12 @@ class PhoneNumberList(ListResource):
     def __init__(self, version: Version, service_sid: str):
         """
         Initialize the PhoneNumberList
+
         :param Version version: Version that contains the resource
         :param service_sid: The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) of the PhoneNumber resources to read.
         
-        :returns: twilio.proxy.v1.phone_number..PhoneNumberList
-        :rtype: twilio.proxy.v1.phone_number..PhoneNumberList
+        :returns: twilio.rest.proxy.v1.service.phone_number.PhoneNumberList
+        :rtype: twilio.rest.proxy.v1.service.phone_number.PhoneNumberList
         """
         super().__init__(version)
 
@@ -48,12 +49,12 @@ class PhoneNumberList(ListResource):
     def create(self, sid=values.unset, phone_number=values.unset, is_reserved=values.unset):
         """
         Create the PhoneNumberInstance
-         :param str sid: The SID of a Twilio [IncomingPhoneNumber](https://www.twilio.com/docs/phone-numbers/api/incomingphonenumber-resource) resource that represents the Twilio Number you would like to assign to your Proxy Service.
-         :param str phone_number: The phone number in [E.164](https://www.twilio.com/docs/glossary/what-e164) format.  E.164 phone numbers consist of a + followed by the country code and subscriber number without punctuation characters. For example, +14155551234.
-         :param bool is_reserved: Whether the new phone number should be reserved and not be assigned to a participant using proxy pool logic. See [Reserved Phone Numbers](https://www.twilio.com/docs/proxy/reserved-phone-numbers) for more information.
+        :param str sid: The SID of a Twilio [IncomingPhoneNumber](https://www.twilio.com/docs/phone-numbers/api/incomingphonenumber-resource) resource that represents the Twilio Number you would like to assign to your Proxy Service.
+        :param str phone_number: The phone number in [E.164](https://www.twilio.com/docs/glossary/what-e164) format.  E.164 phone numbers consist of a + followed by the country code and subscriber number without punctuation characters. For example, +14155551234.
+        :param bool is_reserved: Whether the new phone number should be reserved and not be assigned to a participant using proxy pool logic. See [Reserved Phone Numbers](https://www.twilio.com/docs/proxy/reserved-phone-numbers) for more information.
         
         :returns: The created PhoneNumberInstance
-        :rtype: twilio.rest.proxy.v1.phone_number.PhoneNumberInstance
+        :rtype: twilio.rest.proxy.v1.service.phone_number.PhoneNumberInstance
         """
         data = values.of({ 
             'Sid': sid,
@@ -80,7 +81,7 @@ class PhoneNumberList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.proxy.v1.phone_number.PhoneNumberInstance]
+        :rtype: list[twilio.rest.proxy.v1.service.phone_number.PhoneNumberInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -103,7 +104,7 @@ class PhoneNumberList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.proxy.v1.phone_number.PhoneNumberInstance]
+        :rtype: list[twilio.rest.proxy.v1.service.phone_number.PhoneNumberInstance]
         """
         return list(self.stream(
             limit=limit,
@@ -120,7 +121,7 @@ class PhoneNumberList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of PhoneNumberInstance
-        :rtype: twilio.rest.proxy.v1.phone_number.PhoneNumberPage
+        :rtype: twilio.rest.proxy.v1.service.phone_number.PhoneNumberPage
         """
         data = values.of({ 
             'PageToken': page_token,
@@ -139,7 +140,7 @@ class PhoneNumberList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of PhoneNumberInstance
-        :rtype: twilio.rest.proxy.v1.phone_number.PhoneNumberPage
+        :rtype: twilio.rest.proxy.v1.service.phone_number.PhoneNumberPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -154,8 +155,8 @@ class PhoneNumberList(ListResource):
         
         :param sid: The Twilio-provided string that uniquely identifies the PhoneNumber resource to update.
         
-        :returns: twilio.rest.proxy.v1.phone_number.PhoneNumberContext
-        :rtype: twilio.rest.proxy.v1.phone_number.PhoneNumberContext
+        :returns: twilio.rest.proxy.v1.service.phone_number.PhoneNumberContext
+        :rtype: twilio.rest.proxy.v1.service.phone_number.PhoneNumberContext
         """
         return PhoneNumberContext(self._version, service_sid=self._solution['service_sid'], sid=sid)
 
@@ -165,8 +166,8 @@ class PhoneNumberList(ListResource):
         
         :param sid: The Twilio-provided string that uniquely identifies the PhoneNumber resource to update.
         
-        :returns: twilio.rest.proxy.v1.phone_number.PhoneNumberContext
-        :rtype: twilio.rest.proxy.v1.phone_number.PhoneNumberContext
+        :returns: twilio.rest.proxy.v1.service.phone_number.PhoneNumberContext
+        :rtype: twilio.rest.proxy.v1.service.phone_number.PhoneNumberContext
         """
         return PhoneNumberContext(self._version, service_sid=self._solution['service_sid'], sid=sid)
 
@@ -196,8 +197,8 @@ class PhoneNumberPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.proxy.v1.phone_number.PhoneNumberPage
-        :rtype: twilio.rest.proxy.v1.phone_number.PhoneNumberPage
+        :returns: twilio.rest.proxy.v1.service.phone_number.PhoneNumberPage
+        :rtype: twilio.rest.proxy.v1.service.phone_number.PhoneNumberPage
         """
         super().__init__(version, response)
 
@@ -210,8 +211,8 @@ class PhoneNumberPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.proxy.v1.phone_number.PhoneNumberInstance
-        :rtype: twilio.rest.proxy.v1.phone_number.PhoneNumberInstance
+        :returns: twilio.rest.proxy.v1.service.phone_number.PhoneNumberInstance
+        :rtype: twilio.rest.proxy.v1.service.phone_number.PhoneNumberInstance
         """
         return PhoneNumberInstance(self._version, payload, service_sid=self._solution['service_sid'])
 

@@ -28,10 +28,11 @@ class SupportingDocumentList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the SupportingDocumentList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.trusthub.v1.supporting_document..SupportingDocumentList
-        :rtype: twilio.trusthub.v1.supporting_document..SupportingDocumentList
+        :returns: twilio.rest.trusthub.v1.supporting_document.SupportingDocumentList
+        :rtype: twilio.rest.trusthub.v1.supporting_document.SupportingDocumentList
         """
         super().__init__(version)
 
@@ -47,9 +48,9 @@ class SupportingDocumentList(ListResource):
     def create(self, friendly_name, type, attributes=values.unset):
         """
         Create the SupportingDocumentInstance
-         :param str friendly_name: The string that you assigned to describe the resource.
-         :param str type: The type of the Supporting Document.
-         :param bool, date, datetime, dict, float, int, list, str, none_type attributes: The set of parameters that are the attributes of the Supporting Documents resource which are derived Supporting Document Types.
+        :param str friendly_name: The string that you assigned to describe the resource.
+        :param str type: The type of the Supporting Document.
+        :param object attributes: The set of parameters that are the attributes of the Supporting Documents resource which are derived Supporting Document Types.
         
         :returns: The created SupportingDocumentInstance
         :rtype: twilio.rest.trusthub.v1.supporting_document.SupportingDocumentInstance
@@ -57,7 +58,7 @@ class SupportingDocumentList(ListResource):
         data = values.of({ 
             'FriendlyName': friendly_name,
             'Type': type,
-            'Attributes': attributes,
+            'Attributes': serialize.object(attributes),
         })
 
         payload = self._version.create(method='POST', uri=self._uri, data=data)

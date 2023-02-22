@@ -28,12 +28,13 @@ class WebhookList(ListResource):
     def __init__(self, version: Version, service_sid: str, channel_sid: str):
         """
         Initialize the WebhookList
+
         :param Version version: Version that contains the resource
         :param service_sid: The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) with the Channel to read the resources from.
         :param channel_sid: The SID of the [Channel](https://www.twilio.com/docs/chat/channels) the Channel Webhook resources to read belong to. This value can be the Channel resource's `sid` or `unique_name`.
         
-        :returns: twilio.chat.v2.webhook..WebhookList
-        :rtype: twilio.chat.v2.webhook..WebhookList
+        :returns: twilio.rest.chat.v2.service.channel.webhook.WebhookList
+        :rtype: twilio.rest.chat.v2.service.channel.webhook.WebhookList
         """
         super().__init__(version)
 
@@ -49,16 +50,16 @@ class WebhookList(ListResource):
     def create(self, type, configuration_url=values.unset, configuration_method=values.unset, configuration_filters=values.unset, configuration_triggers=values.unset, configuration_flow_sid=values.unset, configuration_retry_count=values.unset):
         """
         Create the WebhookInstance
-         :param ChannelWebhookType type: 
-         :param str configuration_url: The URL of the webhook to call using the `configuration.method`.
-         :param ChannelWebhookMethod configuration_method: 
-         :param [str] configuration_filters: The events that cause us to call the Channel Webhook. Used when `type` is `webhook`. This parameter takes only one event. To specify more than one event, repeat this parameter for each event. For the list of possible events, see [Webhook Event Triggers](https://www.twilio.com/docs/chat/webhook-events#webhook-event-trigger).
-         :param [str] configuration_triggers: A string that will cause us to call the webhook when it is present in a message body. This parameter takes only one trigger string. To specify more than one, repeat this parameter for each trigger string up to a total of 5 trigger strings. Used only when `type` = `trigger`.
-         :param str configuration_flow_sid: The SID of the Studio [Flow](https://www.twilio.com/docs/studio/rest-api/flow) to call when an event in `configuration.filters` occurs. Used only when `type` is `studio`.
-         :param int configuration_retry_count: The number of times to retry the webhook if the first attempt fails. Can be an integer between 0 and 3, inclusive, and the default is 0.
+        :param ChannelWebhookType type: 
+        :param str configuration_url: The URL of the webhook to call using the `configuration.method`.
+        :param ChannelWebhookMethod configuration_method: 
+        :param list[str] configuration_filters: The events that cause us to call the Channel Webhook. Used when `type` is `webhook`. This parameter takes only one event. To specify more than one event, repeat this parameter for each event. For the list of possible events, see [Webhook Event Triggers](https://www.twilio.com/docs/chat/webhook-events#webhook-event-trigger).
+        :param list[str] configuration_triggers: A string that will cause us to call the webhook when it is present in a message body. This parameter takes only one trigger string. To specify more than one, repeat this parameter for each trigger string up to a total of 5 trigger strings. Used only when `type` = `trigger`.
+        :param str configuration_flow_sid: The SID of the Studio [Flow](https://www.twilio.com/docs/studio/rest-api/flow) to call when an event in `configuration.filters` occurs. Used only when `type` is `studio`.
+        :param int configuration_retry_count: The number of times to retry the webhook if the first attempt fails. Can be an integer between 0 and 3, inclusive, and the default is 0.
         
         :returns: The created WebhookInstance
-        :rtype: twilio.rest.chat.v2.webhook.WebhookInstance
+        :rtype: twilio.rest.chat.v2.service.channel.webhook.WebhookInstance
         """
         data = values.of({ 
             'Type': type,
@@ -89,7 +90,7 @@ class WebhookList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.chat.v2.webhook.WebhookInstance]
+        :rtype: list[twilio.rest.chat.v2.service.channel.webhook.WebhookInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -112,7 +113,7 @@ class WebhookList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.chat.v2.webhook.WebhookInstance]
+        :rtype: list[twilio.rest.chat.v2.service.channel.webhook.WebhookInstance]
         """
         return list(self.stream(
             limit=limit,
@@ -129,7 +130,7 @@ class WebhookList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of WebhookInstance
-        :rtype: twilio.rest.chat.v2.webhook.WebhookPage
+        :rtype: twilio.rest.chat.v2.service.channel.webhook.WebhookPage
         """
         data = values.of({ 
             'PageToken': page_token,
@@ -148,7 +149,7 @@ class WebhookList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of WebhookInstance
-        :rtype: twilio.rest.chat.v2.webhook.WebhookPage
+        :rtype: twilio.rest.chat.v2.service.channel.webhook.WebhookPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -163,8 +164,8 @@ class WebhookList(ListResource):
         
         :param sid: The SID of the Channel Webhook resource to update.
         
-        :returns: twilio.rest.chat.v2.webhook.WebhookContext
-        :rtype: twilio.rest.chat.v2.webhook.WebhookContext
+        :returns: twilio.rest.chat.v2.service.channel.webhook.WebhookContext
+        :rtype: twilio.rest.chat.v2.service.channel.webhook.WebhookContext
         """
         return WebhookContext(self._version, service_sid=self._solution['service_sid'], channel_sid=self._solution['channel_sid'], sid=sid)
 
@@ -174,8 +175,8 @@ class WebhookList(ListResource):
         
         :param sid: The SID of the Channel Webhook resource to update.
         
-        :returns: twilio.rest.chat.v2.webhook.WebhookContext
-        :rtype: twilio.rest.chat.v2.webhook.WebhookContext
+        :returns: twilio.rest.chat.v2.service.channel.webhook.WebhookContext
+        :rtype: twilio.rest.chat.v2.service.channel.webhook.WebhookContext
         """
         return WebhookContext(self._version, service_sid=self._solution['service_sid'], channel_sid=self._solution['channel_sid'], sid=sid)
 
@@ -205,8 +206,8 @@ class WebhookPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.chat.v2.webhook.WebhookPage
-        :rtype: twilio.rest.chat.v2.webhook.WebhookPage
+        :returns: twilio.rest.chat.v2.service.channel.webhook.WebhookPage
+        :rtype: twilio.rest.chat.v2.service.channel.webhook.WebhookPage
         """
         super().__init__(version, response)
 
@@ -219,8 +220,8 @@ class WebhookPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.chat.v2.webhook.WebhookInstance
-        :rtype: twilio.rest.chat.v2.webhook.WebhookInstance
+        :returns: twilio.rest.chat.v2.service.channel.webhook.WebhookInstance
+        :rtype: twilio.rest.chat.v2.service.channel.webhook.WebhookInstance
         """
         return WebhookInstance(self._version, payload, service_sid=self._solution['service_sid'], channel_sid=self._solution['channel_sid'])
 

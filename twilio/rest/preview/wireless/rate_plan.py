@@ -28,10 +28,11 @@ class RatePlanList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the RatePlanList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.preview.wireless.rate_plan..RatePlanList
-        :rtype: twilio.preview.wireless.rate_plan..RatePlanList
+        :returns: twilio.rest.preview.wireless.rate_plan.RatePlanList
+        :rtype: twilio.rest.preview.wireless.rate_plan.RatePlanList
         """
         super().__init__(version)
 
@@ -47,16 +48,16 @@ class RatePlanList(ListResource):
     def create(self, unique_name=values.unset, friendly_name=values.unset, data_enabled=values.unset, data_limit=values.unset, data_metering=values.unset, messaging_enabled=values.unset, voice_enabled=values.unset, commands_enabled=values.unset, national_roaming_enabled=values.unset, international_roaming=values.unset):
         """
         Create the RatePlanInstance
-         :param str unique_name: 
-         :param str friendly_name: 
-         :param bool data_enabled: 
-         :param int data_limit: 
-         :param str data_metering: 
-         :param bool messaging_enabled: 
-         :param bool voice_enabled: 
-         :param bool commands_enabled: 
-         :param bool national_roaming_enabled: 
-         :param [str] international_roaming: 
+        :param str unique_name: 
+        :param str friendly_name: 
+        :param bool data_enabled: 
+        :param int data_limit: 
+        :param str data_metering: 
+        :param bool messaging_enabled: 
+        :param bool voice_enabled: 
+        :param bool commands_enabled: 
+        :param bool national_roaming_enabled: 
+        :param list[str] international_roaming: 
         
         :returns: The created RatePlanInstance
         :rtype: twilio.rest.preview.wireless.rate_plan.RatePlanInstance

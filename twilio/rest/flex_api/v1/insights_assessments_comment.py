@@ -28,10 +28,11 @@ class InsightsAssessmentsCommentList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the InsightsAssessmentsCommentList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.flex_api.v1.insights_assessments_comment..InsightsAssessmentsCommentList
-        :rtype: twilio.flex_api.v1.insights_assessments_comment..InsightsAssessmentsCommentList
+        :returns: twilio.rest.flex_api.v1.insights_assessments_comment.InsightsAssessmentsCommentList
+        :rtype: twilio.rest.flex_api.v1.insights_assessments_comment.InsightsAssessmentsCommentList
         """
         super().__init__(version)
 
@@ -41,17 +42,18 @@ class InsightsAssessmentsCommentList(ListResource):
         
         
     
-    def create(self, category_id, category_name, comment, segment_id, user_name, user_email, agent_id, offset):
+    def create(self, category_id, category_name, comment, segment_id, user_name, user_email, agent_id, offset, token=values.unset):
         """
         Create the InsightsAssessmentsCommentInstance
-         :param str category_id: The ID of the category
-         :param str category_name: The name of the category
-         :param str comment: The Assessment comment.
-         :param str segment_id: The id of the segment.
-         :param str user_name: The name of the user.
-         :param str user_email: The email id of the user.
-         :param str agent_id: The id of the agent.
-         :param int, float offset: The offset
+        :param str category_id: The ID of the category
+        :param str category_name: The name of the category
+        :param str comment: The Assessment comment.
+        :param str segment_id: The id of the segment.
+        :param str user_name: The name of the user.
+        :param str user_email: The email id of the user.
+        :param str agent_id: The id of the agent.
+        :param float offset: The offset
+        :param str token: The Token HTTP request header
         
         :returns: The created InsightsAssessmentsCommentInstance
         :rtype: twilio.rest.flex_api.v1.insights_assessments_comment.InsightsAssessmentsCommentInstance
@@ -65,6 +67,7 @@ class InsightsAssessmentsCommentList(ListResource):
             'UserEmail': user_email,
             'AgentId': agent_id,
             'Offset': offset,
+            'Token': token,
         })
 
         payload = self._version.create(method='POST', uri=self._uri, data=data)

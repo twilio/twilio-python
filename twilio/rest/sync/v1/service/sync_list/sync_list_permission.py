@@ -28,12 +28,13 @@ class SyncListPermissionList(ListResource):
     def __init__(self, version: Version, service_sid: str, list_sid: str):
         """
         Initialize the SyncListPermissionList
+
         :param Version version: Version that contains the resource
         :param service_sid: The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Sync List Permission resources to read.
         :param list_sid: The SID of the Sync List with the Sync List Permission resources to read. Can be the Sync List resource's `sid` or its `unique_name`.
         
-        :returns: twilio.sync.v1.sync_list_permission..SyncListPermissionList
-        :rtype: twilio.sync.v1.sync_list_permission..SyncListPermissionList
+        :returns: twilio.rest.sync.v1.service.sync_list.sync_list_permission.SyncListPermissionList
+        :rtype: twilio.rest.sync.v1.service.sync_list.sync_list_permission.SyncListPermissionList
         """
         super().__init__(version)
 
@@ -61,7 +62,7 @@ class SyncListPermissionList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.sync.v1.sync_list_permission.SyncListPermissionInstance]
+        :rtype: list[twilio.rest.sync.v1.service.sync_list.sync_list_permission.SyncListPermissionInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -84,7 +85,7 @@ class SyncListPermissionList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.sync.v1.sync_list_permission.SyncListPermissionInstance]
+        :rtype: list[twilio.rest.sync.v1.service.sync_list.sync_list_permission.SyncListPermissionInstance]
         """
         return list(self.stream(
             limit=limit,
@@ -101,7 +102,7 @@ class SyncListPermissionList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of SyncListPermissionInstance
-        :rtype: twilio.rest.sync.v1.sync_list_permission.SyncListPermissionPage
+        :rtype: twilio.rest.sync.v1.service.sync_list.sync_list_permission.SyncListPermissionPage
         """
         data = values.of({ 
             'PageToken': page_token,
@@ -120,7 +121,7 @@ class SyncListPermissionList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of SyncListPermissionInstance
-        :rtype: twilio.rest.sync.v1.sync_list_permission.SyncListPermissionPage
+        :rtype: twilio.rest.sync.v1.service.sync_list.sync_list_permission.SyncListPermissionPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -135,8 +136,8 @@ class SyncListPermissionList(ListResource):
         
         :param identity: The application-defined string that uniquely identifies the User's Sync List Permission resource to update.
         
-        :returns: twilio.rest.sync.v1.sync_list_permission.SyncListPermissionContext
-        :rtype: twilio.rest.sync.v1.sync_list_permission.SyncListPermissionContext
+        :returns: twilio.rest.sync.v1.service.sync_list.sync_list_permission.SyncListPermissionContext
+        :rtype: twilio.rest.sync.v1.service.sync_list.sync_list_permission.SyncListPermissionContext
         """
         return SyncListPermissionContext(self._version, service_sid=self._solution['service_sid'], list_sid=self._solution['list_sid'], identity=identity)
 
@@ -146,8 +147,8 @@ class SyncListPermissionList(ListResource):
         
         :param identity: The application-defined string that uniquely identifies the User's Sync List Permission resource to update.
         
-        :returns: twilio.rest.sync.v1.sync_list_permission.SyncListPermissionContext
-        :rtype: twilio.rest.sync.v1.sync_list_permission.SyncListPermissionContext
+        :returns: twilio.rest.sync.v1.service.sync_list.sync_list_permission.SyncListPermissionContext
+        :rtype: twilio.rest.sync.v1.service.sync_list.sync_list_permission.SyncListPermissionContext
         """
         return SyncListPermissionContext(self._version, service_sid=self._solution['service_sid'], list_sid=self._solution['list_sid'], identity=identity)
 
@@ -175,8 +176,8 @@ class SyncListPermissionPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.sync.v1.sync_list_permission.SyncListPermissionPage
-        :rtype: twilio.rest.sync.v1.sync_list_permission.SyncListPermissionPage
+        :returns: twilio.rest.sync.v1.service.sync_list.sync_list_permission.SyncListPermissionPage
+        :rtype: twilio.rest.sync.v1.service.sync_list.sync_list_permission.SyncListPermissionPage
         """
         super().__init__(version, response)
 
@@ -189,8 +190,8 @@ class SyncListPermissionPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.sync.v1.sync_list_permission.SyncListPermissionInstance
-        :rtype: twilio.rest.sync.v1.sync_list_permission.SyncListPermissionInstance
+        :returns: twilio.rest.sync.v1.service.sync_list.sync_list_permission.SyncListPermissionInstance
+        :rtype: twilio.rest.sync.v1.service.sync_list.sync_list_permission.SyncListPermissionInstance
         """
         return SyncListPermissionInstance(self._version, payload, service_sid=self._solution['service_sid'], list_sid=self._solution['list_sid'])
 

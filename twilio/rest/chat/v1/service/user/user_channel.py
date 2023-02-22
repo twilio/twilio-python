@@ -28,12 +28,13 @@ class UserChannelList(ListResource):
     def __init__(self, version: Version, service_sid: str, user_sid: str):
         """
         Initialize the UserChannelList
+
         :param Version version: Version that contains the resource
         :param service_sid: The SID of the [Service](https://www.twilio.com/docs/api/chat/rest/services) to read the resources from.
         :param user_sid: The SID of the [User](https://www.twilio.com/docs/api/chat/rest/users) to read the User Channel resources from.
         
-        :returns: twilio.chat.v1.user_channel..UserChannelList
-        :rtype: twilio.chat.v1.user_channel..UserChannelList
+        :returns: twilio.rest.chat.v1.service.user.user_channel.UserChannelList
+        :rtype: twilio.rest.chat.v1.service.user.user_channel.UserChannelList
         """
         super().__init__(version)
 
@@ -58,7 +59,7 @@ class UserChannelList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.chat.v1.user_channel.UserChannelInstance]
+        :rtype: list[twilio.rest.chat.v1.service.user.user_channel.UserChannelInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -81,7 +82,7 @@ class UserChannelList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.chat.v1.user_channel.UserChannelInstance]
+        :rtype: list[twilio.rest.chat.v1.service.user.user_channel.UserChannelInstance]
         """
         return list(self.stream(
             limit=limit,
@@ -98,7 +99,7 @@ class UserChannelList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of UserChannelInstance
-        :rtype: twilio.rest.chat.v1.user_channel.UserChannelPage
+        :rtype: twilio.rest.chat.v1.service.user.user_channel.UserChannelPage
         """
         data = values.of({ 
             'PageToken': page_token,
@@ -117,7 +118,7 @@ class UserChannelList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of UserChannelInstance
-        :rtype: twilio.rest.chat.v1.user_channel.UserChannelPage
+        :rtype: twilio.rest.chat.v1.service.user.user_channel.UserChannelPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -145,8 +146,8 @@ class UserChannelPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.chat.v1.user_channel.UserChannelPage
-        :rtype: twilio.rest.chat.v1.user_channel.UserChannelPage
+        :returns: twilio.rest.chat.v1.service.user.user_channel.UserChannelPage
+        :rtype: twilio.rest.chat.v1.service.user.user_channel.UserChannelPage
         """
         super().__init__(version, response)
 
@@ -159,8 +160,8 @@ class UserChannelPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.chat.v1.user_channel.UserChannelInstance
-        :rtype: twilio.rest.chat.v1.user_channel.UserChannelInstance
+        :returns: twilio.rest.chat.v1.service.user.user_channel.UserChannelInstance
+        :rtype: twilio.rest.chat.v1.service.user.user_channel.UserChannelInstance
         """
         return UserChannelInstance(self._version, payload, service_sid=self._solution['service_sid'], user_sid=self._solution['user_sid'])
 
@@ -176,6 +177,46 @@ class UserChannelPage(Page):
 
 
 
+
+
+class UserChannelInstance(InstanceResource):
+    def __init__(self, version, payload, service_sid: str, user_sid: str):
+        super().__init__(version)
+        self._properties = { 
+            'account_sid' : payload.get('account_sid'),
+            'service_sid' : payload.get('service_sid'),
+            'channel_sid' : payload.get('channel_sid'),
+            'member_sid' : payload.get('member_sid'),
+            'status' : payload.get('status'),
+            'last_consumed_message_index' : payload.get('last_consumed_message_index'),
+            'unread_messages_count' : payload.get('unread_messages_count'),
+            'links' : payload.get('links'),
+        }
+
+        self._context = None
+        self._solution = {
+            'service_sid': service_sid or self._properties['service_sid'],'user_sid': user_sid or self._properties['user_sid'],
+        }
+
+    @property
+    def _proxy(self):
+        if self._context is None:
+            self._context = UserChannelContext(
+                self._version,
+                service_sid=self._solution['service_sid'],user_sid=self._solution['user_sid'],
+            )
+        return self._context
+
+    
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Chat.V1.UserChannelInstance {}>'.format(context)
 
 
 

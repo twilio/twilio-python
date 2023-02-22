@@ -28,10 +28,11 @@ class EndUserTypeList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the EndUserTypeList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.numbers.v2.end_user_type..EndUserTypeList
-        :rtype: twilio.numbers.v2.end_user_type..EndUserTypeList
+        :returns: twilio.rest.numbers.v2.regulatory_compliance.end_user_type.EndUserTypeList
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.end_user_type.EndUserTypeList
         """
         super().__init__(version)
 
@@ -57,7 +58,7 @@ class EndUserTypeList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.numbers.v2.end_user_type.EndUserTypeInstance]
+        :rtype: list[twilio.rest.numbers.v2.regulatory_compliance.end_user_type.EndUserTypeInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -80,7 +81,7 @@ class EndUserTypeList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.numbers.v2.end_user_type.EndUserTypeInstance]
+        :rtype: list[twilio.rest.numbers.v2.regulatory_compliance.end_user_type.EndUserTypeInstance]
         """
         return list(self.stream(
             limit=limit,
@@ -97,7 +98,7 @@ class EndUserTypeList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of EndUserTypeInstance
-        :rtype: twilio.rest.numbers.v2.end_user_type.EndUserTypePage
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.end_user_type.EndUserTypePage
         """
         data = values.of({ 
             'PageToken': page_token,
@@ -116,7 +117,7 @@ class EndUserTypeList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of EndUserTypeInstance
-        :rtype: twilio.rest.numbers.v2.end_user_type.EndUserTypePage
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.end_user_type.EndUserTypePage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -131,8 +132,8 @@ class EndUserTypeList(ListResource):
         
         :param sid: The unique string that identifies the End-User Type resource.
         
-        :returns: twilio.rest.numbers.v2.end_user_type.EndUserTypeContext
-        :rtype: twilio.rest.numbers.v2.end_user_type.EndUserTypeContext
+        :returns: twilio.rest.numbers.v2.regulatory_compliance.end_user_type.EndUserTypeContext
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.end_user_type.EndUserTypeContext
         """
         return EndUserTypeContext(self._version, sid=sid)
 
@@ -142,8 +143,8 @@ class EndUserTypeList(ListResource):
         
         :param sid: The unique string that identifies the End-User Type resource.
         
-        :returns: twilio.rest.numbers.v2.end_user_type.EndUserTypeContext
-        :rtype: twilio.rest.numbers.v2.end_user_type.EndUserTypeContext
+        :returns: twilio.rest.numbers.v2.regulatory_compliance.end_user_type.EndUserTypeContext
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.end_user_type.EndUserTypeContext
         """
         return EndUserTypeContext(self._version, sid=sid)
 
@@ -167,8 +168,8 @@ class EndUserTypePage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.numbers.v2.end_user_type.EndUserTypePage
-        :rtype: twilio.rest.numbers.v2.end_user_type.EndUserTypePage
+        :returns: twilio.rest.numbers.v2.regulatory_compliance.end_user_type.EndUserTypePage
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.end_user_type.EndUserTypePage
         """
         super().__init__(version, response)
 
@@ -181,8 +182,8 @@ class EndUserTypePage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.numbers.v2.end_user_type.EndUserTypeInstance
-        :rtype: twilio.rest.numbers.v2.end_user_type.EndUserTypeInstance
+        :returns: twilio.rest.numbers.v2.regulatory_compliance.end_user_type.EndUserTypeInstance
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.end_user_type.EndUserTypeInstance
         """
         return EndUserTypeInstance(self._version, payload)
 

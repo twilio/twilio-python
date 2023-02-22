@@ -28,11 +28,12 @@ class SinkTestList(ListResource):
     def __init__(self, version: Version, sid: str):
         """
         Initialize the SinkTestList
+
         :param Version version: Version that contains the resource
         :param sid: A 34 character string that uniquely identifies the Sink to be Tested.
         
-        :returns: twilio.events.v1.sink_test..SinkTestList
-        :rtype: twilio.events.v1.sink_test..SinkTestList
+        :returns: twilio.rest.events.v1.sink.sink_test.SinkTestList
+        :rtype: twilio.rest.events.v1.sink.sink_test.SinkTestList
         """
         super().__init__(version)
 

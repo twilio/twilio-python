@@ -28,11 +28,12 @@ class TaskChannelList(ListResource):
     def __init__(self, version: Version, workspace_sid: str):
         """
         Initialize the TaskChannelList
+
         :param Version version: Version that contains the resource
         :param workspace_sid: The SID of the Workspace with the Task Channel to read.
         
-        :returns: twilio.taskrouter.v1.task_channel..TaskChannelList
-        :rtype: twilio.taskrouter.v1.task_channel..TaskChannelList
+        :returns: twilio.rest.taskrouter.v1.workspace.task_channel.TaskChannelList
+        :rtype: twilio.rest.taskrouter.v1.workspace.task_channel.TaskChannelList
         """
         super().__init__(version)
 
@@ -48,12 +49,12 @@ class TaskChannelList(ListResource):
     def create(self, friendly_name, unique_name, channel_optimized_routing=values.unset):
         """
         Create the TaskChannelInstance
-         :param str friendly_name: A descriptive string that you create to describe the Task Channel. It can be up to 64 characters long.
-         :param str unique_name: An application-defined string that uniquely identifies the Task Channel, such as `voice` or `sms`.
-         :param bool channel_optimized_routing: Whether the Task Channel should prioritize Workers that have been idle. If `true`, Workers that have been idle the longest are prioritized.
+        :param str friendly_name: A descriptive string that you create to describe the Task Channel. It can be up to 64 characters long.
+        :param str unique_name: An application-defined string that uniquely identifies the Task Channel, such as `voice` or `sms`.
+        :param bool channel_optimized_routing: Whether the Task Channel should prioritize Workers that have been idle. If `true`, Workers that have been idle the longest are prioritized.
         
         :returns: The created TaskChannelInstance
-        :rtype: twilio.rest.taskrouter.v1.task_channel.TaskChannelInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.task_channel.TaskChannelInstance
         """
         data = values.of({ 
             'FriendlyName': friendly_name,
@@ -80,7 +81,7 @@ class TaskChannelList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.taskrouter.v1.task_channel.TaskChannelInstance]
+        :rtype: list[twilio.rest.taskrouter.v1.workspace.task_channel.TaskChannelInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -103,7 +104,7 @@ class TaskChannelList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.taskrouter.v1.task_channel.TaskChannelInstance]
+        :rtype: list[twilio.rest.taskrouter.v1.workspace.task_channel.TaskChannelInstance]
         """
         return list(self.stream(
             limit=limit,
@@ -120,7 +121,7 @@ class TaskChannelList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of TaskChannelInstance
-        :rtype: twilio.rest.taskrouter.v1.task_channel.TaskChannelPage
+        :rtype: twilio.rest.taskrouter.v1.workspace.task_channel.TaskChannelPage
         """
         data = values.of({ 
             'PageToken': page_token,
@@ -139,7 +140,7 @@ class TaskChannelList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of TaskChannelInstance
-        :rtype: twilio.rest.taskrouter.v1.task_channel.TaskChannelPage
+        :rtype: twilio.rest.taskrouter.v1.workspace.task_channel.TaskChannelPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -154,8 +155,8 @@ class TaskChannelList(ListResource):
         
         :param sid: The SID of the Task Channel resource to update.
         
-        :returns: twilio.rest.taskrouter.v1.task_channel.TaskChannelContext
-        :rtype: twilio.rest.taskrouter.v1.task_channel.TaskChannelContext
+        :returns: twilio.rest.taskrouter.v1.workspace.task_channel.TaskChannelContext
+        :rtype: twilio.rest.taskrouter.v1.workspace.task_channel.TaskChannelContext
         """
         return TaskChannelContext(self._version, workspace_sid=self._solution['workspace_sid'], sid=sid)
 
@@ -165,8 +166,8 @@ class TaskChannelList(ListResource):
         
         :param sid: The SID of the Task Channel resource to update.
         
-        :returns: twilio.rest.taskrouter.v1.task_channel.TaskChannelContext
-        :rtype: twilio.rest.taskrouter.v1.task_channel.TaskChannelContext
+        :returns: twilio.rest.taskrouter.v1.workspace.task_channel.TaskChannelContext
+        :rtype: twilio.rest.taskrouter.v1.workspace.task_channel.TaskChannelContext
         """
         return TaskChannelContext(self._version, workspace_sid=self._solution['workspace_sid'], sid=sid)
 
@@ -196,8 +197,8 @@ class TaskChannelPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.taskrouter.v1.task_channel.TaskChannelPage
-        :rtype: twilio.rest.taskrouter.v1.task_channel.TaskChannelPage
+        :returns: twilio.rest.taskrouter.v1.workspace.task_channel.TaskChannelPage
+        :rtype: twilio.rest.taskrouter.v1.workspace.task_channel.TaskChannelPage
         """
         super().__init__(version, response)
 
@@ -210,8 +211,8 @@ class TaskChannelPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.taskrouter.v1.task_channel.TaskChannelInstance
-        :rtype: twilio.rest.taskrouter.v1.task_channel.TaskChannelInstance
+        :returns: twilio.rest.taskrouter.v1.workspace.task_channel.TaskChannelInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.task_channel.TaskChannelInstance
         """
         return TaskChannelInstance(self._version, payload, workspace_sid=self._solution['workspace_sid'])
 

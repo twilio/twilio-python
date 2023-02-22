@@ -30,10 +30,11 @@ class FlowList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the FlowList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.studio.v1.flow..FlowList
-        :rtype: twilio.studio.v1.flow..FlowList
+        :returns: twilio.rest.studio.v1.flow.FlowList
+        :rtype: twilio.rest.studio.v1.flow.FlowList
         """
         super().__init__(version)
 

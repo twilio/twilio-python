@@ -30,10 +30,11 @@ class SimList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the SimList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.supersim.v1.sim..SimList
-        :rtype: twilio.supersim.v1.sim..SimList
+        :returns: twilio.rest.supersim.v1.sim.SimList
+        :rtype: twilio.rest.supersim.v1.sim.SimList
         """
         super().__init__(version)
 
@@ -48,8 +49,8 @@ class SimList(ListResource):
     def create(self, iccid, registration_code):
         """
         Create the SimInstance
-         :param str iccid: The [ICCID](https://en.wikipedia.org/wiki/Subscriber_identity_module#ICCID) of the Super SIM to be added to your Account.
-         :param str registration_code: The 10-digit code required to claim the Super SIM for your Account.
+        :param str iccid: The [ICCID](https://en.wikipedia.org/wiki/Subscriber_identity_module#ICCID) of the Super SIM to be added to your Account.
+        :param str registration_code: The 10-digit code required to claim the Super SIM for your Account.
         
         :returns: The created SimInstance
         :rtype: twilio.rest.supersim.v1.sim.SimInstance

@@ -31,10 +31,11 @@ class ServiceList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the ServiceList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.preview.sync.service..ServiceList
-        :rtype: twilio.preview.sync.service..ServiceList
+        :returns: twilio.rest.preview.sync.service.ServiceList
+        :rtype: twilio.rest.preview.sync.service.ServiceList
         """
         super().__init__(version)
 
@@ -50,10 +51,10 @@ class ServiceList(ListResource):
     def create(self, friendly_name=values.unset, webhook_url=values.unset, reachability_webhooks_enabled=values.unset, acl_enabled=values.unset):
         """
         Create the ServiceInstance
-         :param str friendly_name: 
-         :param str webhook_url: 
-         :param bool reachability_webhooks_enabled: 
-         :param bool acl_enabled: 
+        :param str friendly_name: 
+        :param str webhook_url: 
+        :param bool reachability_webhooks_enabled: 
+        :param bool acl_enabled: 
         
         :returns: The created ServiceInstance
         :rtype: twilio.rest.preview.sync.service.ServiceInstance

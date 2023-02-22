@@ -28,10 +28,11 @@ class AppList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the AppList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.microvisor.v1.app..AppList
-        :rtype: twilio.microvisor.v1.app..AppList
+        :returns: twilio.rest.microvisor.v1.app.AppList
+        :rtype: twilio.rest.microvisor.v1.app.AppList
         """
         super().__init__(version)
 

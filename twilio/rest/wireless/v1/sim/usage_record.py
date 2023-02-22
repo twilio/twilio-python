@@ -28,11 +28,12 @@ class UsageRecordList(ListResource):
     def __init__(self, version: Version, sim_sid: str):
         """
         Initialize the UsageRecordList
+
         :param Version version: Version that contains the resource
         :param sim_sid: The SID of the [Sim resource](https://www.twilio.com/docs/wireless/api/sim-resource)  to read the usage from.
         
-        :returns: twilio.wireless.v1.usage_record..UsageRecordList
-        :rtype: twilio.wireless.v1.usage_record..UsageRecordList
+        :returns: twilio.rest.wireless.v1.sim.usage_record.UsageRecordList
+        :rtype: twilio.rest.wireless.v1.sim.usage_record.UsageRecordList
         """
         super().__init__(version)
 
@@ -60,7 +61,7 @@ class UsageRecordList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.wireless.v1.usage_record.UsageRecordInstance]
+        :rtype: list[twilio.rest.wireless.v1.sim.usage_record.UsageRecordInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -89,7 +90,7 @@ class UsageRecordList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.wireless.v1.usage_record.UsageRecordInstance]
+        :rtype: list[twilio.rest.wireless.v1.sim.usage_record.UsageRecordInstance]
         """
         return list(self.stream(
             end=end,
@@ -112,7 +113,7 @@ class UsageRecordList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of UsageRecordInstance
-        :rtype: twilio.rest.wireless.v1.usage_record.UsageRecordPage
+        :rtype: twilio.rest.wireless.v1.sim.usage_record.UsageRecordPage
         """
         data = values.of({ 
             'End': serialize.iso8601_datetime(end),
@@ -134,7 +135,7 @@ class UsageRecordList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of UsageRecordInstance
-        :rtype: twilio.rest.wireless.v1.usage_record.UsageRecordPage
+        :rtype: twilio.rest.wireless.v1.sim.usage_record.UsageRecordPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -162,8 +163,8 @@ class UsageRecordPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.wireless.v1.usage_record.UsageRecordPage
-        :rtype: twilio.rest.wireless.v1.usage_record.UsageRecordPage
+        :returns: twilio.rest.wireless.v1.sim.usage_record.UsageRecordPage
+        :rtype: twilio.rest.wireless.v1.sim.usage_record.UsageRecordPage
         """
         super().__init__(version, response)
 
@@ -176,8 +177,8 @@ class UsageRecordPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.wireless.v1.usage_record.UsageRecordInstance
-        :rtype: twilio.rest.wireless.v1.usage_record.UsageRecordInstance
+        :returns: twilio.rest.wireless.v1.sim.usage_record.UsageRecordInstance
+        :rtype: twilio.rest.wireless.v1.sim.usage_record.UsageRecordInstance
         """
         return UsageRecordInstance(self._version, payload, sim_sid=self._solution['sim_sid'])
 
@@ -193,6 +194,43 @@ class UsageRecordPage(Page):
 
 
 
+
+
+class UsageRecordInstance(InstanceResource):
+    def __init__(self, version, payload, sim_sid: str):
+        super().__init__(version)
+        self._properties = { 
+            'sim_sid' : payload.get('sim_sid'),
+            'account_sid' : payload.get('account_sid'),
+            'period' : payload.get('period'),
+            'commands' : payload.get('commands'),
+            'data' : payload.get('data'),
+        }
+
+        self._context = None
+        self._solution = {
+            'sim_sid': sim_sid or self._properties['sim_sid'],
+        }
+
+    @property
+    def _proxy(self):
+        if self._context is None:
+            self._context = UsageRecordContext(
+                self._version,
+                sim_sid=self._solution['sim_sid'],
+            )
+        return self._context
+
+    
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Wireless.V1.UsageRecordInstance {}>'.format(context)
 
 
 

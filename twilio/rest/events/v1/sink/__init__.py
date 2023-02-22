@@ -30,10 +30,11 @@ class SinkList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the SinkList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.events.v1.sink..SinkList
-        :rtype: twilio.events.v1.sink..SinkList
+        :returns: twilio.rest.events.v1.sink.SinkList
+        :rtype: twilio.rest.events.v1.sink.SinkList
         """
         super().__init__(version)
 
@@ -49,16 +50,16 @@ class SinkList(ListResource):
     def create(self, description, sink_configuration, sink_type):
         """
         Create the SinkInstance
-         :param str description: A human readable description for the Sink **This value should not contain PII.**
-         :param bool, date, datetime, dict, float, int, list, str, none_type sink_configuration: The information required for Twilio to connect to the provided Sink encoded as JSON.
-         :param SinkSinkType sink_type: 
+        :param str description: A human readable description for the Sink **This value should not contain PII.**
+        :param object sink_configuration: The information required for Twilio to connect to the provided Sink encoded as JSON.
+        :param SinkSinkType sink_type: 
         
         :returns: The created SinkInstance
         :rtype: twilio.rest.events.v1.sink.SinkInstance
         """
         data = values.of({ 
             'Description': description,
-            'SinkConfiguration': sink_configuration,
+            'SinkConfiguration': serialize.object(sink_configuration),
             'SinkType': sink_type,
         })
 

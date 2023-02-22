@@ -28,10 +28,11 @@ class SmsCommandList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the SmsCommandList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.supersim.v1.sms_command..SmsCommandList
-        :rtype: twilio.supersim.v1.sms_command..SmsCommandList
+        :returns: twilio.rest.supersim.v1.sms_command.SmsCommandList
+        :rtype: twilio.rest.supersim.v1.sms_command.SmsCommandList
         """
         super().__init__(version)
 
@@ -45,10 +46,10 @@ class SmsCommandList(ListResource):
     def create(self, sim, payload, callback_method=values.unset, callback_url=values.unset):
         """
         Create the SmsCommandInstance
-         :param str sim: The `sid` or `unique_name` of the [SIM](https://www.twilio.com/docs/iot/supersim/api/sim-resource) to send the SMS Command to.
-         :param str payload: The message body of the SMS Command.
-         :param str callback_method: The HTTP method we should use to call `callback_url`. Can be: `GET` or `POST` and the default is POST.
-         :param str callback_url: The URL we should call using the `callback_method` after we have sent the command.
+        :param str sim: The `sid` or `unique_name` of the [SIM](https://www.twilio.com/docs/iot/supersim/api/sim-resource) to send the SMS Command to.
+        :param str payload: The message body of the SMS Command.
+        :param str callback_method: The HTTP method we should use to call `callback_url`. Can be: `GET` or `POST` and the default is POST.
+        :param str callback_url: The URL we should call using the `callback_method` after we have sent the command.
         
         :returns: The created SmsCommandInstance
         :rtype: twilio.rest.supersim.v1.sms_command.SmsCommandInstance

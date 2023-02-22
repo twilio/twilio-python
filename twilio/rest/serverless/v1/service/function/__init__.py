@@ -29,11 +29,12 @@ class FunctionList(ListResource):
     def __init__(self, version: Version, service_sid: str):
         """
         Initialize the FunctionList
+
         :param Version version: Version that contains the resource
         :param service_sid: The SID of the Service to read the Function resources from.
         
-        :returns: twilio.serverless.v1.function..FunctionList
-        :rtype: twilio.serverless.v1.function..FunctionList
+        :returns: twilio.rest.serverless.v1.service.function.FunctionList
+        :rtype: twilio.rest.serverless.v1.service.function.FunctionList
         """
         super().__init__(version)
 
@@ -49,10 +50,10 @@ class FunctionList(ListResource):
     def create(self, friendly_name):
         """
         Create the FunctionInstance
-         :param str friendly_name: A descriptive string that you create to describe the Function resource. It can be a maximum of 255 characters.
+        :param str friendly_name: A descriptive string that you create to describe the Function resource. It can be a maximum of 255 characters.
         
         :returns: The created FunctionInstance
-        :rtype: twilio.rest.serverless.v1.function.FunctionInstance
+        :rtype: twilio.rest.serverless.v1.service.function.FunctionInstance
         """
         data = values.of({ 
             'FriendlyName': friendly_name,
@@ -77,7 +78,7 @@ class FunctionList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.serverless.v1.function.FunctionInstance]
+        :rtype: list[twilio.rest.serverless.v1.service.function.FunctionInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -100,7 +101,7 @@ class FunctionList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.serverless.v1.function.FunctionInstance]
+        :rtype: list[twilio.rest.serverless.v1.service.function.FunctionInstance]
         """
         return list(self.stream(
             limit=limit,
@@ -117,7 +118,7 @@ class FunctionList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of FunctionInstance
-        :rtype: twilio.rest.serverless.v1.function.FunctionPage
+        :rtype: twilio.rest.serverless.v1.service.function.FunctionPage
         """
         data = values.of({ 
             'PageToken': page_token,
@@ -136,7 +137,7 @@ class FunctionList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of FunctionInstance
-        :rtype: twilio.rest.serverless.v1.function.FunctionPage
+        :rtype: twilio.rest.serverless.v1.service.function.FunctionPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -151,8 +152,8 @@ class FunctionList(ListResource):
         
         :param sid: The SID of the Function resource to update.
         
-        :returns: twilio.rest.serverless.v1.function.FunctionContext
-        :rtype: twilio.rest.serverless.v1.function.FunctionContext
+        :returns: twilio.rest.serverless.v1.service.function.FunctionContext
+        :rtype: twilio.rest.serverless.v1.service.function.FunctionContext
         """
         return FunctionContext(self._version, service_sid=self._solution['service_sid'], sid=sid)
 
@@ -162,8 +163,8 @@ class FunctionList(ListResource):
         
         :param sid: The SID of the Function resource to update.
         
-        :returns: twilio.rest.serverless.v1.function.FunctionContext
-        :rtype: twilio.rest.serverless.v1.function.FunctionContext
+        :returns: twilio.rest.serverless.v1.service.function.FunctionContext
+        :rtype: twilio.rest.serverless.v1.service.function.FunctionContext
         """
         return FunctionContext(self._version, service_sid=self._solution['service_sid'], sid=sid)
 
@@ -193,8 +194,8 @@ class FunctionPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.serverless.v1.function.FunctionPage
-        :rtype: twilio.rest.serverless.v1.function.FunctionPage
+        :returns: twilio.rest.serverless.v1.service.function.FunctionPage
+        :rtype: twilio.rest.serverless.v1.service.function.FunctionPage
         """
         super().__init__(version, response)
 
@@ -207,8 +208,8 @@ class FunctionPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.serverless.v1.function.FunctionInstance
-        :rtype: twilio.rest.serverless.v1.function.FunctionInstance
+        :returns: twilio.rest.serverless.v1.service.function.FunctionInstance
+        :rtype: twilio.rest.serverless.v1.service.function.FunctionInstance
         """
         return FunctionInstance(self._version, payload, service_sid=self._solution['service_sid'])
 

@@ -28,11 +28,12 @@ class BindingList(ListResource):
     def __init__(self, version: Version, service_sid: str):
         """
         Initialize the BindingList
+
         :param Version version: Version that contains the resource
         :param service_sid: 
         
-        :returns: twilio.ip_messaging.v2.binding..BindingList
-        :rtype: twilio.ip_messaging.v2.binding..BindingList
+        :returns: twilio.rest.ip_messaging.v2.service.binding.BindingList
+        :rtype: twilio.rest.ip_messaging.v2.service.binding.BindingList
         """
         super().__init__(version)
 
@@ -51,8 +52,8 @@ class BindingList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
         
-        :param [BindingBindingType] binding_type: 
-        :param [str] identity: 
+        :param list[BindingBindingType] binding_type: 
+        :param list[str] identity: 
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -61,7 +62,7 @@ class BindingList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.ip_messaging.v2.binding.BindingInstance]
+        :rtype: list[twilio.rest.ip_messaging.v2.service.binding.BindingInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -78,8 +79,8 @@ class BindingList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
-        :param [BindingBindingType] binding_type: 
-        :param [str] identity: 
+        :param list[BindingBindingType] binding_type: 
+        :param list[str] identity: 
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -88,7 +89,7 @@ class BindingList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.ip_messaging.v2.binding.BindingInstance]
+        :rtype: list[twilio.rest.ip_messaging.v2.service.binding.BindingInstance]
         """
         return list(self.stream(
             binding_type=binding_type,
@@ -102,14 +103,14 @@ class BindingList(ListResource):
         Retrieve a single page of BindingInstance records from the API.
         Request is executed immediately
         
-        :param [BindingBindingType] binding_type: 
-        :param [str] identity: 
+        :param list[BindingBindingType] binding_type: 
+        :param list[str] identity: 
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of BindingInstance
-        :rtype: twilio.rest.ip_messaging.v2.binding.BindingPage
+        :rtype: twilio.rest.ip_messaging.v2.service.binding.BindingPage
         """
         data = values.of({ 
             'BindingType': binding_type,
@@ -130,7 +131,7 @@ class BindingList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of BindingInstance
-        :rtype: twilio.rest.ip_messaging.v2.binding.BindingPage
+        :rtype: twilio.rest.ip_messaging.v2.service.binding.BindingPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -145,8 +146,8 @@ class BindingList(ListResource):
         
         :param sid: 
         
-        :returns: twilio.rest.ip_messaging.v2.binding.BindingContext
-        :rtype: twilio.rest.ip_messaging.v2.binding.BindingContext
+        :returns: twilio.rest.ip_messaging.v2.service.binding.BindingContext
+        :rtype: twilio.rest.ip_messaging.v2.service.binding.BindingContext
         """
         return BindingContext(self._version, service_sid=self._solution['service_sid'], sid=sid)
 
@@ -156,8 +157,8 @@ class BindingList(ListResource):
         
         :param sid: 
         
-        :returns: twilio.rest.ip_messaging.v2.binding.BindingContext
-        :rtype: twilio.rest.ip_messaging.v2.binding.BindingContext
+        :returns: twilio.rest.ip_messaging.v2.service.binding.BindingContext
+        :rtype: twilio.rest.ip_messaging.v2.service.binding.BindingContext
         """
         return BindingContext(self._version, service_sid=self._solution['service_sid'], sid=sid)
 
@@ -183,8 +184,8 @@ class BindingPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.ip_messaging.v2.binding.BindingPage
-        :rtype: twilio.rest.ip_messaging.v2.binding.BindingPage
+        :returns: twilio.rest.ip_messaging.v2.service.binding.BindingPage
+        :rtype: twilio.rest.ip_messaging.v2.service.binding.BindingPage
         """
         super().__init__(version, response)
 
@@ -197,8 +198,8 @@ class BindingPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.ip_messaging.v2.binding.BindingInstance
-        :rtype: twilio.rest.ip_messaging.v2.binding.BindingInstance
+        :returns: twilio.rest.ip_messaging.v2.service.binding.BindingInstance
+        :rtype: twilio.rest.ip_messaging.v2.service.binding.BindingInstance
         """
         return BindingInstance(self._version, payload, service_sid=self._solution['service_sid'])
 

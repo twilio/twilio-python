@@ -28,10 +28,11 @@ class EventTypeList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the EventTypeList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.events.v1.event_type..EventTypeList
-        :rtype: twilio.events.v1.event_type..EventTypeList
+        :returns: twilio.rest.events.v1.event_type.EventTypeList
+        :rtype: twilio.rest.events.v1.event_type.EventTypeList
         """
         super().__init__(version)
 

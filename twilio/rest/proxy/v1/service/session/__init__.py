@@ -30,11 +30,12 @@ class SessionList(ListResource):
     def __init__(self, version: Version, service_sid: str):
         """
         Initialize the SessionList
+
         :param Version version: Version that contains the resource
         :param service_sid: The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) of the resource to read.
         
-        :returns: twilio.proxy.v1.session..SessionList
-        :rtype: twilio.proxy.v1.session..SessionList
+        :returns: twilio.rest.proxy.v1.service.session.SessionList
+        :rtype: twilio.rest.proxy.v1.service.session.SessionList
         """
         super().__init__(version)
 
@@ -50,19 +51,19 @@ class SessionList(ListResource):
     def create(self, unique_name=values.unset, date_expiry=values.unset, ttl=values.unset, mode=values.unset, status=values.unset, participants=values.unset):
         """
         Create the SessionInstance
-         :param str unique_name: An application-defined string that uniquely identifies the resource. This value must be 191 characters or fewer in length and be unique. **This value should not have PII.**
-         :param datetime date_expiry: The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date when the Session should expire. If this is value is present, it overrides the `ttl` value.
-         :param int ttl: The time, in seconds, when the session will expire. The time is measured from the last Session create or the Session's last Interaction.
-         :param SessionMode mode: 
-         :param SessionStatus status: 
-         :param [bool, date, datetime, dict, float, int, list, str, none_type] participants: The Participant objects to include in the new session.
+        :param str unique_name: An application-defined string that uniquely identifies the resource. This value must be 191 characters or fewer in length and be unique. **This value should not have PII.**
+        :param datetime date_expiry: The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date when the Session should expire. If this is value is present, it overrides the `ttl` value.
+        :param int ttl: The time, in seconds, when the session will expire. The time is measured from the last Session create or the Session's last Interaction.
+        :param SessionMode mode: 
+        :param SessionStatus status: 
+        :param list[object] participants: The Participant objects to include in the new session.
         
         :returns: The created SessionInstance
-        :rtype: twilio.rest.proxy.v1.session.SessionInstance
+        :rtype: twilio.rest.proxy.v1.service.session.SessionInstance
         """
         data = values.of({ 
             'UniqueName': unique_name,
-            'DateExpiry': date_expiry,
+            'DateExpiry': serialize.iso8601_datetime(date_expiry),
             'Ttl': ttl,
             'Mode': mode,
             'Status': status,
@@ -88,7 +89,7 @@ class SessionList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.proxy.v1.session.SessionInstance]
+        :rtype: list[twilio.rest.proxy.v1.service.session.SessionInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -111,7 +112,7 @@ class SessionList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.proxy.v1.session.SessionInstance]
+        :rtype: list[twilio.rest.proxy.v1.service.session.SessionInstance]
         """
         return list(self.stream(
             limit=limit,
@@ -128,7 +129,7 @@ class SessionList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of SessionInstance
-        :rtype: twilio.rest.proxy.v1.session.SessionPage
+        :rtype: twilio.rest.proxy.v1.service.session.SessionPage
         """
         data = values.of({ 
             'PageToken': page_token,
@@ -147,7 +148,7 @@ class SessionList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of SessionInstance
-        :rtype: twilio.rest.proxy.v1.session.SessionPage
+        :rtype: twilio.rest.proxy.v1.service.session.SessionPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -162,8 +163,8 @@ class SessionList(ListResource):
         
         :param sid: The Twilio-provided string that uniquely identifies the Session resource to update.
         
-        :returns: twilio.rest.proxy.v1.session.SessionContext
-        :rtype: twilio.rest.proxy.v1.session.SessionContext
+        :returns: twilio.rest.proxy.v1.service.session.SessionContext
+        :rtype: twilio.rest.proxy.v1.service.session.SessionContext
         """
         return SessionContext(self._version, service_sid=self._solution['service_sid'], sid=sid)
 
@@ -173,8 +174,8 @@ class SessionList(ListResource):
         
         :param sid: The Twilio-provided string that uniquely identifies the Session resource to update.
         
-        :returns: twilio.rest.proxy.v1.session.SessionContext
-        :rtype: twilio.rest.proxy.v1.session.SessionContext
+        :returns: twilio.rest.proxy.v1.service.session.SessionContext
+        :rtype: twilio.rest.proxy.v1.service.session.SessionContext
         """
         return SessionContext(self._version, service_sid=self._solution['service_sid'], sid=sid)
 
@@ -204,8 +205,8 @@ class SessionPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.proxy.v1.session.SessionPage
-        :rtype: twilio.rest.proxy.v1.session.SessionPage
+        :returns: twilio.rest.proxy.v1.service.session.SessionPage
+        :rtype: twilio.rest.proxy.v1.service.session.SessionPage
         """
         super().__init__(version, response)
 
@@ -218,8 +219,8 @@ class SessionPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.proxy.v1.session.SessionInstance
-        :rtype: twilio.rest.proxy.v1.session.SessionInstance
+        :returns: twilio.rest.proxy.v1.service.session.SessionInstance
+        :rtype: twilio.rest.proxy.v1.service.session.SessionInstance
         """
         return SessionInstance(self._version, payload, service_sid=self._solution['service_sid'])
 

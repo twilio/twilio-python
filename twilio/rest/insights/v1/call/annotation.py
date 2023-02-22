@@ -28,11 +28,12 @@ class AnnotationList(ListResource):
     def __init__(self, version: Version, call_sid: str):
         """
         Initialize the AnnotationList
+
         :param Version version: Version that contains the resource
         :param call_sid: The unique SID identifier of the Call.
         
-        :returns: twilio.insights.v1.annotation..AnnotationList
-        :rtype: twilio.insights.v1.annotation..AnnotationList
+        :returns: twilio.rest.insights.v1.call.annotation.AnnotationList
+        :rtype: twilio.rest.insights.v1.call.annotation.AnnotationList
         """
         super().__init__(version)
 
@@ -48,8 +49,8 @@ class AnnotationList(ListResource):
         """
         Constructs a AnnotationContext
         
-        :returns: twilio.rest.insights.v1.annotation.AnnotationContext
-        :rtype: twilio.rest.insights.v1.annotation.AnnotationContext
+        :returns: twilio.rest.insights.v1.call.annotation.AnnotationContext
+        :rtype: twilio.rest.insights.v1.call.annotation.AnnotationContext
         """
         return AnnotationContext(self._version, call_sid=self._solution['call_sid'])
 
@@ -57,8 +58,8 @@ class AnnotationList(ListResource):
         """
         Constructs a AnnotationContext
         
-        :returns: twilio.rest.insights.v1.annotation.AnnotationContext
-        :rtype: twilio.rest.insights.v1.annotation.AnnotationContext
+        :returns: twilio.rest.insights.v1.call.annotation.AnnotationContext
+        :rtype: twilio.rest.insights.v1.call.annotation.AnnotationContext
         """
         return AnnotationContext(self._version, call_sid=self._solution['call_sid'])
 

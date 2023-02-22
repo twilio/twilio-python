@@ -28,12 +28,13 @@ class FeedbackList(ListResource):
     def __init__(self, version: Version, account_sid: str, message_sid: str):
         """
         Initialize the FeedbackList
+
         :param Version version: Version that contains the resource
         :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource.
         :param message_sid: The SID of the Message resource for which the feedback was provided.
         
-        :returns: twilio.api.v2010.feedback..FeedbackList
-        :rtype: twilio.api.v2010.feedback..FeedbackList
+        :returns: twilio.rest.api.v2010.account.message.feedback.FeedbackList
+        :rtype: twilio.rest.api.v2010.account.message.feedback.FeedbackList
         """
         super().__init__(version)
 
@@ -46,10 +47,10 @@ class FeedbackList(ListResource):
     def create(self, outcome=values.unset):
         """
         Create the FeedbackInstance
-         :param MessageFeedbackOutcome outcome: 
+        :param MessageFeedbackOutcome outcome: 
         
         :returns: The created FeedbackInstance
-        :rtype: twilio.rest.api.v2010.feedback.FeedbackInstance
+        :rtype: twilio.rest.api.v2010.account.message.feedback.FeedbackInstance
         """
         data = values.of({ 
             'Outcome': outcome,

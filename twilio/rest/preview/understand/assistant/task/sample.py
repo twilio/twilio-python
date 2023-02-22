@@ -28,12 +28,13 @@ class SampleList(ListResource):
     def __init__(self, version: Version, assistant_sid: str, task_sid: str):
         """
         Initialize the SampleList
+
         :param Version version: Version that contains the resource
         :param assistant_sid: The unique ID of the Assistant.
         :param task_sid: The unique ID of the Task associated with this Sample.
         
-        :returns: twilio.preview.understand.sample..SampleList
-        :rtype: twilio.preview.understand.sample..SampleList
+        :returns: twilio.rest.preview.understand.assistant.task.sample.SampleList
+        :rtype: twilio.rest.preview.understand.assistant.task.sample.SampleList
         """
         super().__init__(version)
 
@@ -49,12 +50,12 @@ class SampleList(ListResource):
     def create(self, language, tagged_text, source_channel=values.unset):
         """
         Create the SampleInstance
-         :param str language: An ISO language-country string of the sample.
-         :param str tagged_text: The text example of how end-users may express this task. The sample may contain Field tag blocks.
-         :param str source_channel: The communication channel the sample was captured. It can be: *voice*, *sms*, *chat*, *alexa*, *google-assistant*, or *slack*. If not included the value will be null
+        :param str language: An ISO language-country string of the sample.
+        :param str tagged_text: The text example of how end-users may express this task. The sample may contain Field tag blocks.
+        :param str source_channel: The communication channel the sample was captured. It can be: *voice*, *sms*, *chat*, *alexa*, *google-assistant*, or *slack*. If not included the value will be null
         
         :returns: The created SampleInstance
-        :rtype: twilio.rest.preview.understand.sample.SampleInstance
+        :rtype: twilio.rest.preview.understand.assistant.task.sample.SampleInstance
         """
         data = values.of({ 
             'Language': language,
@@ -82,7 +83,7 @@ class SampleList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.preview.understand.sample.SampleInstance]
+        :rtype: list[twilio.rest.preview.understand.assistant.task.sample.SampleInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -107,7 +108,7 @@ class SampleList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.preview.understand.sample.SampleInstance]
+        :rtype: list[twilio.rest.preview.understand.assistant.task.sample.SampleInstance]
         """
         return list(self.stream(
             language=language,
@@ -126,7 +127,7 @@ class SampleList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of SampleInstance
-        :rtype: twilio.rest.preview.understand.sample.SamplePage
+        :rtype: twilio.rest.preview.understand.assistant.task.sample.SamplePage
         """
         data = values.of({ 
             'Language': language,
@@ -146,7 +147,7 @@ class SampleList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of SampleInstance
-        :rtype: twilio.rest.preview.understand.sample.SamplePage
+        :rtype: twilio.rest.preview.understand.assistant.task.sample.SamplePage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -161,8 +162,8 @@ class SampleList(ListResource):
         
         :param sid: A 34 character string that uniquely identifies this resource.
         
-        :returns: twilio.rest.preview.understand.sample.SampleContext
-        :rtype: twilio.rest.preview.understand.sample.SampleContext
+        :returns: twilio.rest.preview.understand.assistant.task.sample.SampleContext
+        :rtype: twilio.rest.preview.understand.assistant.task.sample.SampleContext
         """
         return SampleContext(self._version, assistant_sid=self._solution['assistant_sid'], task_sid=self._solution['task_sid'], sid=sid)
 
@@ -172,8 +173,8 @@ class SampleList(ListResource):
         
         :param sid: A 34 character string that uniquely identifies this resource.
         
-        :returns: twilio.rest.preview.understand.sample.SampleContext
-        :rtype: twilio.rest.preview.understand.sample.SampleContext
+        :returns: twilio.rest.preview.understand.assistant.task.sample.SampleContext
+        :rtype: twilio.rest.preview.understand.assistant.task.sample.SampleContext
         """
         return SampleContext(self._version, assistant_sid=self._solution['assistant_sid'], task_sid=self._solution['task_sid'], sid=sid)
 
@@ -203,8 +204,8 @@ class SamplePage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.preview.understand.sample.SamplePage
-        :rtype: twilio.rest.preview.understand.sample.SamplePage
+        :returns: twilio.rest.preview.understand.assistant.task.sample.SamplePage
+        :rtype: twilio.rest.preview.understand.assistant.task.sample.SamplePage
         """
         super().__init__(version, response)
 
@@ -217,8 +218,8 @@ class SamplePage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.preview.understand.sample.SampleInstance
-        :rtype: twilio.rest.preview.understand.sample.SampleInstance
+        :returns: twilio.rest.preview.understand.assistant.task.sample.SampleInstance
+        :rtype: twilio.rest.preview.understand.assistant.task.sample.SampleInstance
         """
         return SampleInstance(self._version, payload, assistant_sid=self._solution['assistant_sid'], task_sid=self._solution['task_sid'])
 

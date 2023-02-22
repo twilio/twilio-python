@@ -28,10 +28,11 @@ class CredentialList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the CredentialList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.ip_messaging.v1.credential..CredentialList
-        :rtype: twilio.ip_messaging.v1.credential..CredentialList
+        :returns: twilio.rest.ip_messaging.v1.credential.CredentialList
+        :rtype: twilio.rest.ip_messaging.v1.credential.CredentialList
         """
         super().__init__(version)
 
@@ -47,13 +48,13 @@ class CredentialList(ListResource):
     def create(self, type, friendly_name=values.unset, certificate=values.unset, private_key=values.unset, sandbox=values.unset, api_key=values.unset, secret=values.unset):
         """
         Create the CredentialInstance
-         :param CredentialPushService type: 
-         :param str friendly_name: 
-         :param str certificate: 
-         :param str private_key: 
-         :param bool sandbox: 
-         :param str api_key: 
-         :param str secret: 
+        :param CredentialPushService type: 
+        :param str friendly_name: 
+        :param str certificate: 
+        :param str private_key: 
+        :param bool sandbox: 
+        :param str api_key: 
+        :param str secret: 
         
         :returns: The created CredentialInstance
         :rtype: twilio.rest.ip_messaging.v1.credential.CredentialInstance

@@ -28,11 +28,12 @@ class DeploymentList(ListResource):
     def __init__(self, version: Version, fleet_sid: str):
         """
         Initialize the DeploymentList
+
         :param Version version: Version that contains the resource
         :param fleet_sid: 
         
-        :returns: twilio.preview.deployed_devices.deployment..DeploymentList
-        :rtype: twilio.preview.deployed_devices.deployment..DeploymentList
+        :returns: twilio.rest.preview.deployed_devices.fleet.deployment.DeploymentList
+        :rtype: twilio.rest.preview.deployed_devices.fleet.deployment.DeploymentList
         """
         super().__init__(version)
 
@@ -48,11 +49,11 @@ class DeploymentList(ListResource):
     def create(self, friendly_name=values.unset, sync_service_sid=values.unset):
         """
         Create the DeploymentInstance
-         :param str friendly_name: Provides a human readable descriptive text for this Deployment, up to 256 characters long.
-         :param str sync_service_sid: Provides the unique string identifier of the Twilio Sync service instance that will be linked to and accessible by this Deployment.
+        :param str friendly_name: Provides a human readable descriptive text for this Deployment, up to 256 characters long.
+        :param str sync_service_sid: Provides the unique string identifier of the Twilio Sync service instance that will be linked to and accessible by this Deployment.
         
         :returns: The created DeploymentInstance
-        :rtype: twilio.rest.preview.deployed_devices.deployment.DeploymentInstance
+        :rtype: twilio.rest.preview.deployed_devices.fleet.deployment.DeploymentInstance
         """
         data = values.of({ 
             'FriendlyName': friendly_name,
@@ -78,7 +79,7 @@ class DeploymentList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.preview.deployed_devices.deployment.DeploymentInstance]
+        :rtype: list[twilio.rest.preview.deployed_devices.fleet.deployment.DeploymentInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -101,7 +102,7 @@ class DeploymentList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.preview.deployed_devices.deployment.DeploymentInstance]
+        :rtype: list[twilio.rest.preview.deployed_devices.fleet.deployment.DeploymentInstance]
         """
         return list(self.stream(
             limit=limit,
@@ -118,7 +119,7 @@ class DeploymentList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of DeploymentInstance
-        :rtype: twilio.rest.preview.deployed_devices.deployment.DeploymentPage
+        :rtype: twilio.rest.preview.deployed_devices.fleet.deployment.DeploymentPage
         """
         data = values.of({ 
             'PageToken': page_token,
@@ -137,7 +138,7 @@ class DeploymentList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of DeploymentInstance
-        :rtype: twilio.rest.preview.deployed_devices.deployment.DeploymentPage
+        :rtype: twilio.rest.preview.deployed_devices.fleet.deployment.DeploymentPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -152,8 +153,8 @@ class DeploymentList(ListResource):
         
         :param sid: Provides a 34 character string that uniquely identifies the requested Deployment resource.
         
-        :returns: twilio.rest.preview.deployed_devices.deployment.DeploymentContext
-        :rtype: twilio.rest.preview.deployed_devices.deployment.DeploymentContext
+        :returns: twilio.rest.preview.deployed_devices.fleet.deployment.DeploymentContext
+        :rtype: twilio.rest.preview.deployed_devices.fleet.deployment.DeploymentContext
         """
         return DeploymentContext(self._version, fleet_sid=self._solution['fleet_sid'], sid=sid)
 
@@ -163,8 +164,8 @@ class DeploymentList(ListResource):
         
         :param sid: Provides a 34 character string that uniquely identifies the requested Deployment resource.
         
-        :returns: twilio.rest.preview.deployed_devices.deployment.DeploymentContext
-        :rtype: twilio.rest.preview.deployed_devices.deployment.DeploymentContext
+        :returns: twilio.rest.preview.deployed_devices.fleet.deployment.DeploymentContext
+        :rtype: twilio.rest.preview.deployed_devices.fleet.deployment.DeploymentContext
         """
         return DeploymentContext(self._version, fleet_sid=self._solution['fleet_sid'], sid=sid)
 
@@ -194,8 +195,8 @@ class DeploymentPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.preview.deployed_devices.deployment.DeploymentPage
-        :rtype: twilio.rest.preview.deployed_devices.deployment.DeploymentPage
+        :returns: twilio.rest.preview.deployed_devices.fleet.deployment.DeploymentPage
+        :rtype: twilio.rest.preview.deployed_devices.fleet.deployment.DeploymentPage
         """
         super().__init__(version, response)
 
@@ -208,8 +209,8 @@ class DeploymentPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.preview.deployed_devices.deployment.DeploymentInstance
-        :rtype: twilio.rest.preview.deployed_devices.deployment.DeploymentInstance
+        :returns: twilio.rest.preview.deployed_devices.fleet.deployment.DeploymentInstance
+        :rtype: twilio.rest.preview.deployed_devices.fleet.deployment.DeploymentInstance
         """
         return DeploymentInstance(self._version, payload, fleet_sid=self._solution['fleet_sid'])
 

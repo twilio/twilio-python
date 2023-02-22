@@ -31,11 +31,12 @@ class DomainList(ListResource):
     def __init__(self, version: Version, account_sid: str):
         """
         Initialize the DomainList
+
         :param Version version: Version that contains the resource
         :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the SipDomain resources to read.
         
-        :returns: twilio.api.v2010.domain..DomainList
-        :rtype: twilio.api.v2010.domain..DomainList
+        :returns: twilio.rest.api.v2010.account.sip.domain.DomainList
+        :rtype: twilio.rest.api.v2010.account.sip.domain.DomainList
         """
         super().__init__(version)
 
@@ -51,22 +52,22 @@ class DomainList(ListResource):
     def create(self, domain_name, friendly_name=values.unset, voice_url=values.unset, voice_method=values.unset, voice_fallback_url=values.unset, voice_fallback_method=values.unset, voice_status_callback_url=values.unset, voice_status_callback_method=values.unset, sip_registration=values.unset, emergency_calling_enabled=values.unset, secure=values.unset, byoc_trunk_sid=values.unset, emergency_caller_sid=values.unset):
         """
         Create the DomainInstance
-         :param str domain_name: The unique address you reserve on Twilio to which you route your SIP traffic. Domain names can contain letters, digits, and \"-\" and must end with `sip.twilio.com`.
-         :param str friendly_name: A descriptive string that you created to describe the resource. It can be up to 64 characters long.
-         :param str voice_url: The URL we should when the domain receives a call.
-         :param str voice_method: The HTTP method we should use to call `voice_url`. Can be: `GET` or `POST`.
-         :param str voice_fallback_url: The URL that we should call when an error occurs while retrieving or executing the TwiML from `voice_url`.
-         :param str voice_fallback_method: The HTTP method we should use to call `voice_fallback_url`. Can be: `GET` or `POST`.
-         :param str voice_status_callback_url: The URL that we should call to pass status parameters (such as call ended) to your application.
-         :param str voice_status_callback_method: The HTTP method we should use to call `voice_status_callback_url`. Can be: `GET` or `POST`.
-         :param bool sip_registration: Whether to allow SIP Endpoints to register with the domain to receive calls. Can be `true` or `false`. `true` allows SIP Endpoints to register with the domain to receive calls, `false` does not.
-         :param bool emergency_calling_enabled: Whether emergency calling is enabled for the domain. If enabled, allows emergency calls on the domain from phone numbers with validated addresses.
-         :param bool secure: Whether secure SIP is enabled for the domain. If enabled, TLS will be enforced and SRTP will be negotiated on all incoming calls to this sip domain.
-         :param str byoc_trunk_sid: The SID of the BYOC Trunk(Bring Your Own Carrier) resource that the Sip Domain will be associated with.
-         :param str emergency_caller_sid: Whether an emergency caller sid is configured for the domain. If present, this phone number will be used as the callback for the emergency call.
+        :param str domain_name: The unique address you reserve on Twilio to which you route your SIP traffic. Domain names can contain letters, digits, and \\\"-\\\" and must end with `sip.twilio.com`.
+        :param str friendly_name: A descriptive string that you created to describe the resource. It can be up to 64 characters long.
+        :param str voice_url: The URL we should when the domain receives a call.
+        :param str voice_method: The HTTP method we should use to call `voice_url`. Can be: `GET` or `POST`.
+        :param str voice_fallback_url: The URL that we should call when an error occurs while retrieving or executing the TwiML from `voice_url`.
+        :param str voice_fallback_method: The HTTP method we should use to call `voice_fallback_url`. Can be: `GET` or `POST`.
+        :param str voice_status_callback_url: The URL that we should call to pass status parameters (such as call ended) to your application.
+        :param str voice_status_callback_method: The HTTP method we should use to call `voice_status_callback_url`. Can be: `GET` or `POST`.
+        :param bool sip_registration: Whether to allow SIP Endpoints to register with the domain to receive calls. Can be `true` or `false`. `true` allows SIP Endpoints to register with the domain to receive calls, `false` does not.
+        :param bool emergency_calling_enabled: Whether emergency calling is enabled for the domain. If enabled, allows emergency calls on the domain from phone numbers with validated addresses.
+        :param bool secure: Whether secure SIP is enabled for the domain. If enabled, TLS will be enforced and SRTP will be negotiated on all incoming calls to this sip domain.
+        :param str byoc_trunk_sid: The SID of the BYOC Trunk(Bring Your Own Carrier) resource that the Sip Domain will be associated with.
+        :param str emergency_caller_sid: Whether an emergency caller sid is configured for the domain. If present, this phone number will be used as the callback for the emergency call.
         
         :returns: The created DomainInstance
-        :rtype: twilio.rest.api.v2010.domain.DomainInstance
+        :rtype: twilio.rest.api.v2010.account.sip.domain.DomainInstance
         """
         data = values.of({ 
             'DomainName': domain_name,
@@ -103,7 +104,7 @@ class DomainList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.domain.DomainInstance]
+        :rtype: list[twilio.rest.api.v2010.account.sip.domain.DomainInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -126,7 +127,7 @@ class DomainList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.domain.DomainInstance]
+        :rtype: list[twilio.rest.api.v2010.account.sip.domain.DomainInstance]
         """
         return list(self.stream(
             limit=limit,
@@ -143,7 +144,7 @@ class DomainList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of DomainInstance
-        :rtype: twilio.rest.api.v2010.domain.DomainPage
+        :rtype: twilio.rest.api.v2010.account.sip.domain.DomainPage
         """
         data = values.of({ 
             'PageToken': page_token,
@@ -162,7 +163,7 @@ class DomainList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of DomainInstance
-        :rtype: twilio.rest.api.v2010.domain.DomainPage
+        :rtype: twilio.rest.api.v2010.account.sip.domain.DomainPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -177,8 +178,8 @@ class DomainList(ListResource):
         
         :param sid: The Twilio-provided string that uniquely identifies the SipDomain resource to update.
         
-        :returns: twilio.rest.api.v2010.domain.DomainContext
-        :rtype: twilio.rest.api.v2010.domain.DomainContext
+        :returns: twilio.rest.api.v2010.account.sip.domain.DomainContext
+        :rtype: twilio.rest.api.v2010.account.sip.domain.DomainContext
         """
         return DomainContext(self._version, account_sid=self._solution['account_sid'], sid=sid)
 
@@ -188,8 +189,8 @@ class DomainList(ListResource):
         
         :param sid: The Twilio-provided string that uniquely identifies the SipDomain resource to update.
         
-        :returns: twilio.rest.api.v2010.domain.DomainContext
-        :rtype: twilio.rest.api.v2010.domain.DomainContext
+        :returns: twilio.rest.api.v2010.account.sip.domain.DomainContext
+        :rtype: twilio.rest.api.v2010.account.sip.domain.DomainContext
         """
         return DomainContext(self._version, account_sid=self._solution['account_sid'], sid=sid)
 
@@ -219,8 +220,8 @@ class DomainPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.api.v2010.domain.DomainPage
-        :rtype: twilio.rest.api.v2010.domain.DomainPage
+        :returns: twilio.rest.api.v2010.account.sip.domain.DomainPage
+        :rtype: twilio.rest.api.v2010.account.sip.domain.DomainPage
         """
         super().__init__(version, response)
 
@@ -233,8 +234,8 @@ class DomainPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.api.v2010.domain.DomainInstance
-        :rtype: twilio.rest.api.v2010.domain.DomainInstance
+        :returns: twilio.rest.api.v2010.account.sip.domain.DomainInstance
+        :rtype: twilio.rest.api.v2010.account.sip.domain.DomainInstance
         """
         return DomainInstance(self._version, payload, account_sid=self._solution['account_sid'])
 

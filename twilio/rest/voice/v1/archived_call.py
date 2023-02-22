@@ -28,10 +28,11 @@ class ArchivedCallList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the ArchivedCallList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.voice.v1.archived_call..ArchivedCallList
-        :rtype: twilio.voice.v1.archived_call..ArchivedCallList
+        :returns: twilio.rest.voice.v1.archived_call.ArchivedCallList
+        :rtype: twilio.rest.voice.v1.archived_call.ArchivedCallList
         """
         super().__init__(version)
 

@@ -28,11 +28,12 @@ class MetricList(ListResource):
     def __init__(self, version: Version, call_sid: str):
         """
         Initialize the MetricList
+
         :param Version version: Version that contains the resource
         :param call_sid: 
         
-        :returns: twilio.insights.v1.metric..MetricList
-        :rtype: twilio.insights.v1.metric..MetricList
+        :returns: twilio.rest.insights.v1.call.metric.MetricList
+        :rtype: twilio.rest.insights.v1.call.metric.MetricList
         """
         super().__init__(version)
 
@@ -59,7 +60,7 @@ class MetricList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.insights.v1.metric.MetricInstance]
+        :rtype: list[twilio.rest.insights.v1.call.metric.MetricInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -86,7 +87,7 @@ class MetricList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.insights.v1.metric.MetricInstance]
+        :rtype: list[twilio.rest.insights.v1.call.metric.MetricInstance]
         """
         return list(self.stream(
             edge=edge,
@@ -107,7 +108,7 @@ class MetricList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of MetricInstance
-        :rtype: twilio.rest.insights.v1.metric.MetricPage
+        :rtype: twilio.rest.insights.v1.call.metric.MetricPage
         """
         data = values.of({ 
             'Edge': edge,
@@ -128,7 +129,7 @@ class MetricList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of MetricInstance
-        :rtype: twilio.rest.insights.v1.metric.MetricPage
+        :rtype: twilio.rest.insights.v1.call.metric.MetricPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -156,8 +157,8 @@ class MetricPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.insights.v1.metric.MetricPage
-        :rtype: twilio.rest.insights.v1.metric.MetricPage
+        :returns: twilio.rest.insights.v1.call.metric.MetricPage
+        :rtype: twilio.rest.insights.v1.call.metric.MetricPage
         """
         super().__init__(version, response)
 
@@ -170,8 +171,8 @@ class MetricPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.insights.v1.metric.MetricInstance
-        :rtype: twilio.rest.insights.v1.metric.MetricInstance
+        :returns: twilio.rest.insights.v1.call.metric.MetricInstance
+        :rtype: twilio.rest.insights.v1.call.metric.MetricInstance
         """
         return MetricInstance(self._version, payload, call_sid=self._solution['call_sid'])
 
@@ -187,6 +188,47 @@ class MetricPage(Page):
 
 
 
+
+
+class MetricInstance(InstanceResource):
+    def __init__(self, version, payload, call_sid: str):
+        super().__init__(version)
+        self._properties = { 
+            'timestamp' : payload.get('timestamp'),
+            'call_sid' : payload.get('call_sid'),
+            'account_sid' : payload.get('account_sid'),
+            'edge' : payload.get('edge'),
+            'direction' : payload.get('direction'),
+            'carrier_edge' : payload.get('carrier_edge'),
+            'sip_edge' : payload.get('sip_edge'),
+            'sdk_edge' : payload.get('sdk_edge'),
+            'client_edge' : payload.get('client_edge'),
+        }
+
+        self._context = None
+        self._solution = {
+            'call_sid': call_sid or self._properties['call_sid'],
+        }
+
+    @property
+    def _proxy(self):
+        if self._context is None:
+            self._context = MetricContext(
+                self._version,
+                call_sid=self._solution['call_sid'],
+            )
+        return self._context
+
+    
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Insights.V1.MetricInstance {}>'.format(context)
 
 
 

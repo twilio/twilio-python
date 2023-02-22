@@ -28,11 +28,12 @@ class NewSigningKeyList(ListResource):
     def __init__(self, version: Version, account_sid: str):
         """
         Initialize the NewSigningKeyList
+
         :param Version version: Version that contains the resource
         :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will be responsible for the new Key resource.
         
-        :returns: twilio.api.v2010.signing_key..NewSigningKeyList
-        :rtype: twilio.api.v2010.signing_key..NewSigningKeyList
+        :returns: twilio.rest.api.v2010.account.new_signing_key.NewSigningKeyList
+        :rtype: twilio.rest.api.v2010.account.new_signing_key.NewSigningKeyList
         """
         super().__init__(version)
 
@@ -45,10 +46,10 @@ class NewSigningKeyList(ListResource):
     def create(self, friendly_name=values.unset):
         """
         Create the NewSigningKeyInstance
-         :param str friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+        :param str friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
         
         :returns: The created NewSigningKeyInstance
-        :rtype: twilio.rest.api.v2010.signing_key.NewSigningKeyInstance
+        :rtype: twilio.rest.api.v2010.account.new_signing_key.NewSigningKeyInstance
         """
         data = values.of({ 
             'FriendlyName': friendly_name,

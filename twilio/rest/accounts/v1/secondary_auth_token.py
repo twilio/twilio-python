@@ -28,10 +28,11 @@ class SecondaryAuthTokenList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the SecondaryAuthTokenList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.accounts.v1.secondary_auth_token..SecondaryAuthTokenList
-        :rtype: twilio.accounts.v1.secondary_auth_token..SecondaryAuthTokenList
+        :returns: twilio.rest.accounts.v1.secondary_auth_token.SecondaryAuthTokenList
+        :rtype: twilio.rest.accounts.v1.secondary_auth_token.SecondaryAuthTokenList
         """
         super().__init__(version)
 

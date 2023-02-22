@@ -28,11 +28,12 @@ class KeyList(ListResource):
     def __init__(self, version: Version, fleet_sid: str):
         """
         Initialize the KeyList
+
         :param Version version: Version that contains the resource
         :param fleet_sid: 
         
-        :returns: twilio.preview.deployed_devices.key..KeyList
-        :rtype: twilio.preview.deployed_devices.key..KeyList
+        :returns: twilio.rest.preview.deployed_devices.fleet.key.KeyList
+        :rtype: twilio.rest.preview.deployed_devices.fleet.key.KeyList
         """
         super().__init__(version)
 
@@ -48,11 +49,11 @@ class KeyList(ListResource):
     def create(self, friendly_name=values.unset, device_sid=values.unset):
         """
         Create the KeyInstance
-         :param str friendly_name: Provides a human readable descriptive text for this Key credential, up to 256 characters long.
-         :param str device_sid: Provides the unique string identifier of an existing Device to become authenticated with this Key credential.
+        :param str friendly_name: Provides a human readable descriptive text for this Key credential, up to 256 characters long.
+        :param str device_sid: Provides the unique string identifier of an existing Device to become authenticated with this Key credential.
         
         :returns: The created KeyInstance
-        :rtype: twilio.rest.preview.deployed_devices.key.KeyInstance
+        :rtype: twilio.rest.preview.deployed_devices.fleet.key.KeyInstance
         """
         data = values.of({ 
             'FriendlyName': friendly_name,
@@ -79,7 +80,7 @@ class KeyList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.preview.deployed_devices.key.KeyInstance]
+        :rtype: list[twilio.rest.preview.deployed_devices.fleet.key.KeyInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -104,7 +105,7 @@ class KeyList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.preview.deployed_devices.key.KeyInstance]
+        :rtype: list[twilio.rest.preview.deployed_devices.fleet.key.KeyInstance]
         """
         return list(self.stream(
             device_sid=device_sid,
@@ -123,7 +124,7 @@ class KeyList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of KeyInstance
-        :rtype: twilio.rest.preview.deployed_devices.key.KeyPage
+        :rtype: twilio.rest.preview.deployed_devices.fleet.key.KeyPage
         """
         data = values.of({ 
             'DeviceSid': device_sid,
@@ -143,7 +144,7 @@ class KeyList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of KeyInstance
-        :rtype: twilio.rest.preview.deployed_devices.key.KeyPage
+        :rtype: twilio.rest.preview.deployed_devices.fleet.key.KeyPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -158,8 +159,8 @@ class KeyList(ListResource):
         
         :param sid: Provides a 34 character string that uniquely identifies the requested Key credential resource.
         
-        :returns: twilio.rest.preview.deployed_devices.key.KeyContext
-        :rtype: twilio.rest.preview.deployed_devices.key.KeyContext
+        :returns: twilio.rest.preview.deployed_devices.fleet.key.KeyContext
+        :rtype: twilio.rest.preview.deployed_devices.fleet.key.KeyContext
         """
         return KeyContext(self._version, fleet_sid=self._solution['fleet_sid'], sid=sid)
 
@@ -169,8 +170,8 @@ class KeyList(ListResource):
         
         :param sid: Provides a 34 character string that uniquely identifies the requested Key credential resource.
         
-        :returns: twilio.rest.preview.deployed_devices.key.KeyContext
-        :rtype: twilio.rest.preview.deployed_devices.key.KeyContext
+        :returns: twilio.rest.preview.deployed_devices.fleet.key.KeyContext
+        :rtype: twilio.rest.preview.deployed_devices.fleet.key.KeyContext
         """
         return KeyContext(self._version, fleet_sid=self._solution['fleet_sid'], sid=sid)
 
@@ -200,8 +201,8 @@ class KeyPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.preview.deployed_devices.key.KeyPage
-        :rtype: twilio.rest.preview.deployed_devices.key.KeyPage
+        :returns: twilio.rest.preview.deployed_devices.fleet.key.KeyPage
+        :rtype: twilio.rest.preview.deployed_devices.fleet.key.KeyPage
         """
         super().__init__(version, response)
 
@@ -214,8 +215,8 @@ class KeyPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.preview.deployed_devices.key.KeyInstance
-        :rtype: twilio.rest.preview.deployed_devices.key.KeyInstance
+        :returns: twilio.rest.preview.deployed_devices.fleet.key.KeyInstance
+        :rtype: twilio.rest.preview.deployed_devices.fleet.key.KeyInstance
         """
         return KeyInstance(self._version, payload, fleet_sid=self._solution['fleet_sid'])
 

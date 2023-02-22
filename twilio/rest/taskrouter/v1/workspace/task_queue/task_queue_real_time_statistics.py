@@ -28,12 +28,13 @@ class TaskQueueRealTimeStatisticsList(ListResource):
     def __init__(self, version: Version, workspace_sid: str, task_queue_sid: str):
         """
         Initialize the TaskQueueRealTimeStatisticsList
+
         :param Version version: Version that contains the resource
         :param workspace_sid: The SID of the Workspace with the TaskQueue to fetch.
         :param task_queue_sid: The SID of the TaskQueue for which to fetch statistics.
         
-        :returns: twilio.taskrouter.v1.task_queue_real_time_statistics..TaskQueueRealTimeStatisticsList
-        :rtype: twilio.taskrouter.v1.task_queue_real_time_statistics..TaskQueueRealTimeStatisticsList
+        :returns: twilio.rest.taskrouter.v1.workspace.task_queue.task_queue_real_time_statistics.TaskQueueRealTimeStatisticsList
+        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.task_queue_real_time_statistics.TaskQueueRealTimeStatisticsList
         """
         super().__init__(version)
 
@@ -48,8 +49,8 @@ class TaskQueueRealTimeStatisticsList(ListResource):
         """
         Constructs a TaskQueueRealTimeStatisticsContext
         
-        :returns: twilio.rest.taskrouter.v1.task_queue_real_time_statistics.TaskQueueRealTimeStatisticsContext
-        :rtype: twilio.rest.taskrouter.v1.task_queue_real_time_statistics.TaskQueueRealTimeStatisticsContext
+        :returns: twilio.rest.taskrouter.v1.workspace.task_queue.task_queue_real_time_statistics.TaskQueueRealTimeStatisticsContext
+        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.task_queue_real_time_statistics.TaskQueueRealTimeStatisticsContext
         """
         return TaskQueueRealTimeStatisticsContext(self._version, workspace_sid=self._solution['workspace_sid'], task_queue_sid=self._solution['task_queue_sid'])
 
@@ -57,8 +58,8 @@ class TaskQueueRealTimeStatisticsList(ListResource):
         """
         Constructs a TaskQueueRealTimeStatisticsContext
         
-        :returns: twilio.rest.taskrouter.v1.task_queue_real_time_statistics.TaskQueueRealTimeStatisticsContext
-        :rtype: twilio.rest.taskrouter.v1.task_queue_real_time_statistics.TaskQueueRealTimeStatisticsContext
+        :returns: twilio.rest.taskrouter.v1.workspace.task_queue.task_queue_real_time_statistics.TaskQueueRealTimeStatisticsContext
+        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.task_queue_real_time_statistics.TaskQueueRealTimeStatisticsContext
         """
         return TaskQueueRealTimeStatisticsContext(self._version, workspace_sid=self._solution['workspace_sid'], task_queue_sid=self._solution['task_queue_sid'])
 

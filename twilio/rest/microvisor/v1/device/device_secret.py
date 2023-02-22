@@ -28,11 +28,12 @@ class DeviceSecretList(ListResource):
     def __init__(self, version: Version, device_sid: str):
         """
         Initialize the DeviceSecretList
+
         :param Version version: Version that contains the resource
         :param device_sid: A 34-character string that uniquely identifies the Device.
         
-        :returns: twilio.microvisor.v1.device_secret..DeviceSecretList
-        :rtype: twilio.microvisor.v1.device_secret..DeviceSecretList
+        :returns: twilio.rest.microvisor.v1.device.device_secret.DeviceSecretList
+        :rtype: twilio.rest.microvisor.v1.device.device_secret.DeviceSecretList
         """
         super().__init__(version)
 
@@ -47,11 +48,11 @@ class DeviceSecretList(ListResource):
     def create(self, key, value):
         """
         Create the DeviceSecretInstance
-         :param str key: The secret key; up to 100 characters.
-         :param str value: The secret value; up to 4096 characters.
+        :param str key: The secret key; up to 100 characters.
+        :param str value: The secret value; up to 4096 characters.
         
         :returns: The created DeviceSecretInstance
-        :rtype: twilio.rest.microvisor.v1.device_secret.DeviceSecretInstance
+        :rtype: twilio.rest.microvisor.v1.device.device_secret.DeviceSecretInstance
         """
         data = values.of({ 
             'Key': key,
@@ -77,7 +78,7 @@ class DeviceSecretList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.microvisor.v1.device_secret.DeviceSecretInstance]
+        :rtype: list[twilio.rest.microvisor.v1.device.device_secret.DeviceSecretInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -100,7 +101,7 @@ class DeviceSecretList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.microvisor.v1.device_secret.DeviceSecretInstance]
+        :rtype: list[twilio.rest.microvisor.v1.device.device_secret.DeviceSecretInstance]
         """
         return list(self.stream(
             limit=limit,
@@ -117,7 +118,7 @@ class DeviceSecretList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of DeviceSecretInstance
-        :rtype: twilio.rest.microvisor.v1.device_secret.DeviceSecretPage
+        :rtype: twilio.rest.microvisor.v1.device.device_secret.DeviceSecretPage
         """
         data = values.of({ 
             'PageToken': page_token,
@@ -136,7 +137,7 @@ class DeviceSecretList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of DeviceSecretInstance
-        :rtype: twilio.rest.microvisor.v1.device_secret.DeviceSecretPage
+        :rtype: twilio.rest.microvisor.v1.device.device_secret.DeviceSecretPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -151,8 +152,8 @@ class DeviceSecretList(ListResource):
         
         :param key: The secret key; up to 100 characters.
         
-        :returns: twilio.rest.microvisor.v1.device_secret.DeviceSecretContext
-        :rtype: twilio.rest.microvisor.v1.device_secret.DeviceSecretContext
+        :returns: twilio.rest.microvisor.v1.device.device_secret.DeviceSecretContext
+        :rtype: twilio.rest.microvisor.v1.device.device_secret.DeviceSecretContext
         """
         return DeviceSecretContext(self._version, device_sid=self._solution['device_sid'], key=key)
 
@@ -162,8 +163,8 @@ class DeviceSecretList(ListResource):
         
         :param key: The secret key; up to 100 characters.
         
-        :returns: twilio.rest.microvisor.v1.device_secret.DeviceSecretContext
-        :rtype: twilio.rest.microvisor.v1.device_secret.DeviceSecretContext
+        :returns: twilio.rest.microvisor.v1.device.device_secret.DeviceSecretContext
+        :rtype: twilio.rest.microvisor.v1.device.device_secret.DeviceSecretContext
         """
         return DeviceSecretContext(self._version, device_sid=self._solution['device_sid'], key=key)
 
@@ -191,8 +192,8 @@ class DeviceSecretPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.microvisor.v1.device_secret.DeviceSecretPage
-        :rtype: twilio.rest.microvisor.v1.device_secret.DeviceSecretPage
+        :returns: twilio.rest.microvisor.v1.device.device_secret.DeviceSecretPage
+        :rtype: twilio.rest.microvisor.v1.device.device_secret.DeviceSecretPage
         """
         super().__init__(version, response)
 
@@ -205,8 +206,8 @@ class DeviceSecretPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.microvisor.v1.device_secret.DeviceSecretInstance
-        :rtype: twilio.rest.microvisor.v1.device_secret.DeviceSecretInstance
+        :returns: twilio.rest.microvisor.v1.device.device_secret.DeviceSecretInstance
+        :rtype: twilio.rest.microvisor.v1.device.device_secret.DeviceSecretInstance
         """
         return DeviceSecretInstance(self._version, payload, device_sid=self._solution['device_sid'])
 

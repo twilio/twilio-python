@@ -28,12 +28,13 @@ class CredentialList(ListResource):
     def __init__(self, version: Version, account_sid: str, credential_list_sid: str):
         """
         Initialize the CredentialList
+
         :param Version version: Version that contains the resource
         :param account_sid: The unique id of the Account that is responsible for this resource.
         :param credential_list_sid: The unique id that identifies the credential list that contains the desired credentials.
         
-        :returns: twilio.api.v2010.credential..CredentialList
-        :rtype: twilio.api.v2010.credential..CredentialList
+        :returns: twilio.rest.api.v2010.account.sip.credential_list.credential.CredentialList
+        :rtype: twilio.rest.api.v2010.account.sip.credential_list.credential.CredentialList
         """
         super().__init__(version)
 
@@ -49,11 +50,11 @@ class CredentialList(ListResource):
     def create(self, username, password):
         """
         Create the CredentialInstance
-         :param str username: The username that will be passed when authenticating SIP requests. The username should be sent in response to Twilio's challenge of the initial INVITE. It can be up to 32 characters long.
-         :param str password: The password that the username will use when authenticating SIP requests. The password must be a minimum of 12 characters, contain at least 1 digit, and have mixed case. (eg `IWasAtSignal2018`)
+        :param str username: The username that will be passed when authenticating SIP requests. The username should be sent in response to Twilio's challenge of the initial INVITE. It can be up to 32 characters long.
+        :param str password: The password that the username will use when authenticating SIP requests. The password must be a minimum of 12 characters, contain at least 1 digit, and have mixed case. (eg `IWasAtSignal2018`)
         
         :returns: The created CredentialInstance
-        :rtype: twilio.rest.api.v2010.credential.CredentialInstance
+        :rtype: twilio.rest.api.v2010.account.sip.credential_list.credential.CredentialInstance
         """
         data = values.of({ 
             'Username': username,
@@ -79,7 +80,7 @@ class CredentialList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.credential.CredentialInstance]
+        :rtype: list[twilio.rest.api.v2010.account.sip.credential_list.credential.CredentialInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -102,7 +103,7 @@ class CredentialList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.credential.CredentialInstance]
+        :rtype: list[twilio.rest.api.v2010.account.sip.credential_list.credential.CredentialInstance]
         """
         return list(self.stream(
             limit=limit,
@@ -119,7 +120,7 @@ class CredentialList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of CredentialInstance
-        :rtype: twilio.rest.api.v2010.credential.CredentialPage
+        :rtype: twilio.rest.api.v2010.account.sip.credential_list.credential.CredentialPage
         """
         data = values.of({ 
             'PageToken': page_token,
@@ -138,7 +139,7 @@ class CredentialList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of CredentialInstance
-        :rtype: twilio.rest.api.v2010.credential.CredentialPage
+        :rtype: twilio.rest.api.v2010.account.sip.credential_list.credential.CredentialPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -153,8 +154,8 @@ class CredentialList(ListResource):
         
         :param sid: The unique id that identifies the resource to update.
         
-        :returns: twilio.rest.api.v2010.credential.CredentialContext
-        :rtype: twilio.rest.api.v2010.credential.CredentialContext
+        :returns: twilio.rest.api.v2010.account.sip.credential_list.credential.CredentialContext
+        :rtype: twilio.rest.api.v2010.account.sip.credential_list.credential.CredentialContext
         """
         return CredentialContext(self._version, account_sid=self._solution['account_sid'], credential_list_sid=self._solution['credential_list_sid'], sid=sid)
 
@@ -164,8 +165,8 @@ class CredentialList(ListResource):
         
         :param sid: The unique id that identifies the resource to update.
         
-        :returns: twilio.rest.api.v2010.credential.CredentialContext
-        :rtype: twilio.rest.api.v2010.credential.CredentialContext
+        :returns: twilio.rest.api.v2010.account.sip.credential_list.credential.CredentialContext
+        :rtype: twilio.rest.api.v2010.account.sip.credential_list.credential.CredentialContext
         """
         return CredentialContext(self._version, account_sid=self._solution['account_sid'], credential_list_sid=self._solution['credential_list_sid'], sid=sid)
 
@@ -195,8 +196,8 @@ class CredentialPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.api.v2010.credential.CredentialPage
-        :rtype: twilio.rest.api.v2010.credential.CredentialPage
+        :returns: twilio.rest.api.v2010.account.sip.credential_list.credential.CredentialPage
+        :rtype: twilio.rest.api.v2010.account.sip.credential_list.credential.CredentialPage
         """
         super().__init__(version, response)
 
@@ -209,8 +210,8 @@ class CredentialPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.api.v2010.credential.CredentialInstance
-        :rtype: twilio.rest.api.v2010.credential.CredentialInstance
+        :returns: twilio.rest.api.v2010.account.sip.credential_list.credential.CredentialInstance
+        :rtype: twilio.rest.api.v2010.account.sip.credential_list.credential.CredentialInstance
         """
         return CredentialInstance(self._version, payload, account_sid=self._solution['account_sid'], credential_list_sid=self._solution['credential_list_sid'])
 

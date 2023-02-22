@@ -28,10 +28,11 @@ class CommandList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the CommandList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.preview.wireless.command..CommandList
-        :rtype: twilio.preview.wireless.command..CommandList
+        :returns: twilio.rest.preview.wireless.command.CommandList
+        :rtype: twilio.rest.preview.wireless.command.CommandList
         """
         super().__init__(version)
 
@@ -45,13 +46,13 @@ class CommandList(ListResource):
     def create(self, command, device=values.unset, sim=values.unset, callback_method=values.unset, callback_url=values.unset, command_mode=values.unset, include_sid=values.unset):
         """
         Create the CommandInstance
-         :param str command: 
-         :param str device: 
-         :param str sim: 
-         :param str callback_method: 
-         :param str callback_url: 
-         :param str command_mode: 
-         :param str include_sid: 
+        :param str command: 
+        :param str device: 
+        :param str sim: 
+        :param str callback_method: 
+        :param str callback_url: 
+        :param str command_mode: 
+        :param str include_sid: 
         
         :returns: The created CommandInstance
         :rtype: twilio.rest.preview.wireless.command.CommandInstance

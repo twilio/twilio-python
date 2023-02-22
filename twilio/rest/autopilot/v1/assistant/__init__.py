@@ -36,10 +36,11 @@ class AssistantList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the AssistantList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.autopilot.v1.assistant..AssistantList
-        :rtype: twilio.autopilot.v1.assistant..AssistantList
+        :returns: twilio.rest.autopilot.v1.assistant.AssistantList
+        :rtype: twilio.rest.autopilot.v1.assistant.AssistantList
         """
         super().__init__(version)
 
@@ -55,13 +56,13 @@ class AssistantList(ListResource):
     def create(self, friendly_name=values.unset, log_queries=values.unset, unique_name=values.unset, callback_url=values.unset, callback_events=values.unset, style_sheet=values.unset, defaults=values.unset):
         """
         Create the AssistantInstance
-         :param str friendly_name: A descriptive string that you create to describe the new resource. It is not unique and can be up to 255 characters long.
-         :param bool log_queries: Whether queries should be logged and kept after training. Can be: `true` or `false` and defaults to `true`. If `true`, queries are stored for 30 days, and then deleted. If `false`, no queries are stored.
-         :param str unique_name: An application-defined string that uniquely identifies the new resource. It can be used as an alternative to the `sid` in the URL path to address the resource. The first 64 characters must be unique.
-         :param str callback_url: Reserved.
-         :param str callback_events: Reserved.
-         :param bool, date, datetime, dict, float, int, list, str, none_type style_sheet: The JSON string that defines the Assistant's [style sheet](https://www.twilio.com/docs/autopilot/api/assistant/stylesheet)
-         :param bool, date, datetime, dict, float, int, list, str, none_type defaults: A JSON object that defines the Assistant's [default tasks](https://www.twilio.com/docs/autopilot/api/assistant/defaults) for various scenarios, including initiation actions and fallback tasks.
+        :param str friendly_name: A descriptive string that you create to describe the new resource. It is not unique and can be up to 255 characters long.
+        :param bool log_queries: Whether queries should be logged and kept after training. Can be: `true` or `false` and defaults to `true`. If `true`, queries are stored for 30 days, and then deleted. If `false`, no queries are stored.
+        :param str unique_name: An application-defined string that uniquely identifies the new resource. It can be used as an alternative to the `sid` in the URL path to address the resource. The first 64 characters must be unique.
+        :param str callback_url: Reserved.
+        :param str callback_events: Reserved.
+        :param object style_sheet: The JSON string that defines the Assistant's [style sheet](https://www.twilio.com/docs/autopilot/api/assistant/stylesheet)
+        :param object defaults: A JSON object that defines the Assistant's [default tasks](https://www.twilio.com/docs/autopilot/api/assistant/defaults) for various scenarios, including initiation actions and fallback tasks.
         
         :returns: The created AssistantInstance
         :rtype: twilio.rest.autopilot.v1.assistant.AssistantInstance
@@ -72,8 +73,8 @@ class AssistantList(ListResource):
             'UniqueName': unique_name,
             'CallbackUrl': callback_url,
             'CallbackEvents': callback_events,
-            'StyleSheet': style_sheet,
-            'Defaults': defaults,
+            'StyleSheet': serialize.object(style_sheet),
+            'Defaults': serialize.object(defaults),
         })
 
         payload = self._version.create(method='POST', uri=self._uri, data=data)

@@ -28,12 +28,13 @@ class SiprecList(ListResource):
     def __init__(self, version: Version, account_sid: str, call_sid: str):
         """
         Initialize the SiprecList
+
         :param Version version: Version that contains the resource
         :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created this Siprec resource.
         :param call_sid: The SID of the [Call](https://www.twilio.com/docs/voice/api/call-resource) the Siprec resource is associated with.
         
-        :returns: twilio.api.v2010.siprec..SiprecList
-        :rtype: twilio.api.v2010.siprec..SiprecList
+        :returns: twilio.rest.api.v2010.account.call.siprec.SiprecList
+        :rtype: twilio.rest.api.v2010.account.call.siprec.SiprecList
         """
         super().__init__(version)
 
@@ -47,212 +48,212 @@ class SiprecList(ListResource):
     def create(self, name=values.unset, connector_name=values.unset, track=values.unset, status_callback=values.unset, status_callback_method=values.unset, parameter1_name=values.unset, parameter1_value=values.unset, parameter2_name=values.unset, parameter2_value=values.unset, parameter3_name=values.unset, parameter3_value=values.unset, parameter4_name=values.unset, parameter4_value=values.unset, parameter5_name=values.unset, parameter5_value=values.unset, parameter6_name=values.unset, parameter6_value=values.unset, parameter7_name=values.unset, parameter7_value=values.unset, parameter8_name=values.unset, parameter8_value=values.unset, parameter9_name=values.unset, parameter9_value=values.unset, parameter10_name=values.unset, parameter10_value=values.unset, parameter11_name=values.unset, parameter11_value=values.unset, parameter12_name=values.unset, parameter12_value=values.unset, parameter13_name=values.unset, parameter13_value=values.unset, parameter14_name=values.unset, parameter14_value=values.unset, parameter15_name=values.unset, parameter15_value=values.unset, parameter16_name=values.unset, parameter16_value=values.unset, parameter17_name=values.unset, parameter17_value=values.unset, parameter18_name=values.unset, parameter18_value=values.unset, parameter19_name=values.unset, parameter19_value=values.unset, parameter20_name=values.unset, parameter20_value=values.unset, parameter21_name=values.unset, parameter21_value=values.unset, parameter22_name=values.unset, parameter22_value=values.unset, parameter23_name=values.unset, parameter23_value=values.unset, parameter24_name=values.unset, parameter24_value=values.unset, parameter25_name=values.unset, parameter25_value=values.unset, parameter26_name=values.unset, parameter26_value=values.unset, parameter27_name=values.unset, parameter27_value=values.unset, parameter28_name=values.unset, parameter28_value=values.unset, parameter29_name=values.unset, parameter29_value=values.unset, parameter30_name=values.unset, parameter30_value=values.unset, parameter31_name=values.unset, parameter31_value=values.unset, parameter32_name=values.unset, parameter32_value=values.unset, parameter33_name=values.unset, parameter33_value=values.unset, parameter34_name=values.unset, parameter34_value=values.unset, parameter35_name=values.unset, parameter35_value=values.unset, parameter36_name=values.unset, parameter36_value=values.unset, parameter37_name=values.unset, parameter37_value=values.unset, parameter38_name=values.unset, parameter38_value=values.unset, parameter39_name=values.unset, parameter39_value=values.unset, parameter40_name=values.unset, parameter40_value=values.unset, parameter41_name=values.unset, parameter41_value=values.unset, parameter42_name=values.unset, parameter42_value=values.unset, parameter43_name=values.unset, parameter43_value=values.unset, parameter44_name=values.unset, parameter44_value=values.unset, parameter45_name=values.unset, parameter45_value=values.unset, parameter46_name=values.unset, parameter46_value=values.unset, parameter47_name=values.unset, parameter47_value=values.unset, parameter48_name=values.unset, parameter48_value=values.unset, parameter49_name=values.unset, parameter49_value=values.unset, parameter50_name=values.unset, parameter50_value=values.unset, parameter51_name=values.unset, parameter51_value=values.unset, parameter52_name=values.unset, parameter52_value=values.unset, parameter53_name=values.unset, parameter53_value=values.unset, parameter54_name=values.unset, parameter54_value=values.unset, parameter55_name=values.unset, parameter55_value=values.unset, parameter56_name=values.unset, parameter56_value=values.unset, parameter57_name=values.unset, parameter57_value=values.unset, parameter58_name=values.unset, parameter58_value=values.unset, parameter59_name=values.unset, parameter59_value=values.unset, parameter60_name=values.unset, parameter60_value=values.unset, parameter61_name=values.unset, parameter61_value=values.unset, parameter62_name=values.unset, parameter62_value=values.unset, parameter63_name=values.unset, parameter63_value=values.unset, parameter64_name=values.unset, parameter64_value=values.unset, parameter65_name=values.unset, parameter65_value=values.unset, parameter66_name=values.unset, parameter66_value=values.unset, parameter67_name=values.unset, parameter67_value=values.unset, parameter68_name=values.unset, parameter68_value=values.unset, parameter69_name=values.unset, parameter69_value=values.unset, parameter70_name=values.unset, parameter70_value=values.unset, parameter71_name=values.unset, parameter71_value=values.unset, parameter72_name=values.unset, parameter72_value=values.unset, parameter73_name=values.unset, parameter73_value=values.unset, parameter74_name=values.unset, parameter74_value=values.unset, parameter75_name=values.unset, parameter75_value=values.unset, parameter76_name=values.unset, parameter76_value=values.unset, parameter77_name=values.unset, parameter77_value=values.unset, parameter78_name=values.unset, parameter78_value=values.unset, parameter79_name=values.unset, parameter79_value=values.unset, parameter80_name=values.unset, parameter80_value=values.unset, parameter81_name=values.unset, parameter81_value=values.unset, parameter82_name=values.unset, parameter82_value=values.unset, parameter83_name=values.unset, parameter83_value=values.unset, parameter84_name=values.unset, parameter84_value=values.unset, parameter85_name=values.unset, parameter85_value=values.unset, parameter86_name=values.unset, parameter86_value=values.unset, parameter87_name=values.unset, parameter87_value=values.unset, parameter88_name=values.unset, parameter88_value=values.unset, parameter89_name=values.unset, parameter89_value=values.unset, parameter90_name=values.unset, parameter90_value=values.unset, parameter91_name=values.unset, parameter91_value=values.unset, parameter92_name=values.unset, parameter92_value=values.unset, parameter93_name=values.unset, parameter93_value=values.unset, parameter94_name=values.unset, parameter94_value=values.unset, parameter95_name=values.unset, parameter95_value=values.unset, parameter96_name=values.unset, parameter96_value=values.unset, parameter97_name=values.unset, parameter97_value=values.unset, parameter98_name=values.unset, parameter98_value=values.unset, parameter99_name=values.unset, parameter99_value=values.unset):
         """
         Create the SiprecInstance
-         :param str name: The user-specified name of this Siprec, if one was given when the Siprec was created. This may be used to stop the Siprec.
-         :param str connector_name: Unique name used when configuring the connector via Marketplace Add-on.
-         :param SiprecTrack track: 
-         :param str status_callback: Absolute URL of the status callback.
-         :param str status_callback_method: The http method for the status_callback (one of GET, POST).
-         :param str parameter1_name: Parameter name
-         :param str parameter1_value: Parameter value
-         :param str parameter2_name: Parameter name
-         :param str parameter2_value: Parameter value
-         :param str parameter3_name: Parameter name
-         :param str parameter3_value: Parameter value
-         :param str parameter4_name: Parameter name
-         :param str parameter4_value: Parameter value
-         :param str parameter5_name: Parameter name
-         :param str parameter5_value: Parameter value
-         :param str parameter6_name: Parameter name
-         :param str parameter6_value: Parameter value
-         :param str parameter7_name: Parameter name
-         :param str parameter7_value: Parameter value
-         :param str parameter8_name: Parameter name
-         :param str parameter8_value: Parameter value
-         :param str parameter9_name: Parameter name
-         :param str parameter9_value: Parameter value
-         :param str parameter10_name: Parameter name
-         :param str parameter10_value: Parameter value
-         :param str parameter11_name: Parameter name
-         :param str parameter11_value: Parameter value
-         :param str parameter12_name: Parameter name
-         :param str parameter12_value: Parameter value
-         :param str parameter13_name: Parameter name
-         :param str parameter13_value: Parameter value
-         :param str parameter14_name: Parameter name
-         :param str parameter14_value: Parameter value
-         :param str parameter15_name: Parameter name
-         :param str parameter15_value: Parameter value
-         :param str parameter16_name: Parameter name
-         :param str parameter16_value: Parameter value
-         :param str parameter17_name: Parameter name
-         :param str parameter17_value: Parameter value
-         :param str parameter18_name: Parameter name
-         :param str parameter18_value: Parameter value
-         :param str parameter19_name: Parameter name
-         :param str parameter19_value: Parameter value
-         :param str parameter20_name: Parameter name
-         :param str parameter20_value: Parameter value
-         :param str parameter21_name: Parameter name
-         :param str parameter21_value: Parameter value
-         :param str parameter22_name: Parameter name
-         :param str parameter22_value: Parameter value
-         :param str parameter23_name: Parameter name
-         :param str parameter23_value: Parameter value
-         :param str parameter24_name: Parameter name
-         :param str parameter24_value: Parameter value
-         :param str parameter25_name: Parameter name
-         :param str parameter25_value: Parameter value
-         :param str parameter26_name: Parameter name
-         :param str parameter26_value: Parameter value
-         :param str parameter27_name: Parameter name
-         :param str parameter27_value: Parameter value
-         :param str parameter28_name: Parameter name
-         :param str parameter28_value: Parameter value
-         :param str parameter29_name: Parameter name
-         :param str parameter29_value: Parameter value
-         :param str parameter30_name: Parameter name
-         :param str parameter30_value: Parameter value
-         :param str parameter31_name: Parameter name
-         :param str parameter31_value: Parameter value
-         :param str parameter32_name: Parameter name
-         :param str parameter32_value: Parameter value
-         :param str parameter33_name: Parameter name
-         :param str parameter33_value: Parameter value
-         :param str parameter34_name: Parameter name
-         :param str parameter34_value: Parameter value
-         :param str parameter35_name: Parameter name
-         :param str parameter35_value: Parameter value
-         :param str parameter36_name: Parameter name
-         :param str parameter36_value: Parameter value
-         :param str parameter37_name: Parameter name
-         :param str parameter37_value: Parameter value
-         :param str parameter38_name: Parameter name
-         :param str parameter38_value: Parameter value
-         :param str parameter39_name: Parameter name
-         :param str parameter39_value: Parameter value
-         :param str parameter40_name: Parameter name
-         :param str parameter40_value: Parameter value
-         :param str parameter41_name: Parameter name
-         :param str parameter41_value: Parameter value
-         :param str parameter42_name: Parameter name
-         :param str parameter42_value: Parameter value
-         :param str parameter43_name: Parameter name
-         :param str parameter43_value: Parameter value
-         :param str parameter44_name: Parameter name
-         :param str parameter44_value: Parameter value
-         :param str parameter45_name: Parameter name
-         :param str parameter45_value: Parameter value
-         :param str parameter46_name: Parameter name
-         :param str parameter46_value: Parameter value
-         :param str parameter47_name: Parameter name
-         :param str parameter47_value: Parameter value
-         :param str parameter48_name: Parameter name
-         :param str parameter48_value: Parameter value
-         :param str parameter49_name: Parameter name
-         :param str parameter49_value: Parameter value
-         :param str parameter50_name: Parameter name
-         :param str parameter50_value: Parameter value
-         :param str parameter51_name: Parameter name
-         :param str parameter51_value: Parameter value
-         :param str parameter52_name: Parameter name
-         :param str parameter52_value: Parameter value
-         :param str parameter53_name: Parameter name
-         :param str parameter53_value: Parameter value
-         :param str parameter54_name: Parameter name
-         :param str parameter54_value: Parameter value
-         :param str parameter55_name: Parameter name
-         :param str parameter55_value: Parameter value
-         :param str parameter56_name: Parameter name
-         :param str parameter56_value: Parameter value
-         :param str parameter57_name: Parameter name
-         :param str parameter57_value: Parameter value
-         :param str parameter58_name: Parameter name
-         :param str parameter58_value: Parameter value
-         :param str parameter59_name: Parameter name
-         :param str parameter59_value: Parameter value
-         :param str parameter60_name: Parameter name
-         :param str parameter60_value: Parameter value
-         :param str parameter61_name: Parameter name
-         :param str parameter61_value: Parameter value
-         :param str parameter62_name: Parameter name
-         :param str parameter62_value: Parameter value
-         :param str parameter63_name: Parameter name
-         :param str parameter63_value: Parameter value
-         :param str parameter64_name: Parameter name
-         :param str parameter64_value: Parameter value
-         :param str parameter65_name: Parameter name
-         :param str parameter65_value: Parameter value
-         :param str parameter66_name: Parameter name
-         :param str parameter66_value: Parameter value
-         :param str parameter67_name: Parameter name
-         :param str parameter67_value: Parameter value
-         :param str parameter68_name: Parameter name
-         :param str parameter68_value: Parameter value
-         :param str parameter69_name: Parameter name
-         :param str parameter69_value: Parameter value
-         :param str parameter70_name: Parameter name
-         :param str parameter70_value: Parameter value
-         :param str parameter71_name: Parameter name
-         :param str parameter71_value: Parameter value
-         :param str parameter72_name: Parameter name
-         :param str parameter72_value: Parameter value
-         :param str parameter73_name: Parameter name
-         :param str parameter73_value: Parameter value
-         :param str parameter74_name: Parameter name
-         :param str parameter74_value: Parameter value
-         :param str parameter75_name: Parameter name
-         :param str parameter75_value: Parameter value
-         :param str parameter76_name: Parameter name
-         :param str parameter76_value: Parameter value
-         :param str parameter77_name: Parameter name
-         :param str parameter77_value: Parameter value
-         :param str parameter78_name: Parameter name
-         :param str parameter78_value: Parameter value
-         :param str parameter79_name: Parameter name
-         :param str parameter79_value: Parameter value
-         :param str parameter80_name: Parameter name
-         :param str parameter80_value: Parameter value
-         :param str parameter81_name: Parameter name
-         :param str parameter81_value: Parameter value
-         :param str parameter82_name: Parameter name
-         :param str parameter82_value: Parameter value
-         :param str parameter83_name: Parameter name
-         :param str parameter83_value: Parameter value
-         :param str parameter84_name: Parameter name
-         :param str parameter84_value: Parameter value
-         :param str parameter85_name: Parameter name
-         :param str parameter85_value: Parameter value
-         :param str parameter86_name: Parameter name
-         :param str parameter86_value: Parameter value
-         :param str parameter87_name: Parameter name
-         :param str parameter87_value: Parameter value
-         :param str parameter88_name: Parameter name
-         :param str parameter88_value: Parameter value
-         :param str parameter89_name: Parameter name
-         :param str parameter89_value: Parameter value
-         :param str parameter90_name: Parameter name
-         :param str parameter90_value: Parameter value
-         :param str parameter91_name: Parameter name
-         :param str parameter91_value: Parameter value
-         :param str parameter92_name: Parameter name
-         :param str parameter92_value: Parameter value
-         :param str parameter93_name: Parameter name
-         :param str parameter93_value: Parameter value
-         :param str parameter94_name: Parameter name
-         :param str parameter94_value: Parameter value
-         :param str parameter95_name: Parameter name
-         :param str parameter95_value: Parameter value
-         :param str parameter96_name: Parameter name
-         :param str parameter96_value: Parameter value
-         :param str parameter97_name: Parameter name
-         :param str parameter97_value: Parameter value
-         :param str parameter98_name: Parameter name
-         :param str parameter98_value: Parameter value
-         :param str parameter99_name: Parameter name
-         :param str parameter99_value: Parameter value
+        :param str name: The user-specified name of this Siprec, if one was given when the Siprec was created. This may be used to stop the Siprec.
+        :param str connector_name: Unique name used when configuring the connector via Marketplace Add-on.
+        :param SiprecTrack track: 
+        :param str status_callback: Absolute URL of the status callback.
+        :param str status_callback_method: The http method for the status_callback (one of GET, POST).
+        :param str parameter1_name: Parameter name
+        :param str parameter1_value: Parameter value
+        :param str parameter2_name: Parameter name
+        :param str parameter2_value: Parameter value
+        :param str parameter3_name: Parameter name
+        :param str parameter3_value: Parameter value
+        :param str parameter4_name: Parameter name
+        :param str parameter4_value: Parameter value
+        :param str parameter5_name: Parameter name
+        :param str parameter5_value: Parameter value
+        :param str parameter6_name: Parameter name
+        :param str parameter6_value: Parameter value
+        :param str parameter7_name: Parameter name
+        :param str parameter7_value: Parameter value
+        :param str parameter8_name: Parameter name
+        :param str parameter8_value: Parameter value
+        :param str parameter9_name: Parameter name
+        :param str parameter9_value: Parameter value
+        :param str parameter10_name: Parameter name
+        :param str parameter10_value: Parameter value
+        :param str parameter11_name: Parameter name
+        :param str parameter11_value: Parameter value
+        :param str parameter12_name: Parameter name
+        :param str parameter12_value: Parameter value
+        :param str parameter13_name: Parameter name
+        :param str parameter13_value: Parameter value
+        :param str parameter14_name: Parameter name
+        :param str parameter14_value: Parameter value
+        :param str parameter15_name: Parameter name
+        :param str parameter15_value: Parameter value
+        :param str parameter16_name: Parameter name
+        :param str parameter16_value: Parameter value
+        :param str parameter17_name: Parameter name
+        :param str parameter17_value: Parameter value
+        :param str parameter18_name: Parameter name
+        :param str parameter18_value: Parameter value
+        :param str parameter19_name: Parameter name
+        :param str parameter19_value: Parameter value
+        :param str parameter20_name: Parameter name
+        :param str parameter20_value: Parameter value
+        :param str parameter21_name: Parameter name
+        :param str parameter21_value: Parameter value
+        :param str parameter22_name: Parameter name
+        :param str parameter22_value: Parameter value
+        :param str parameter23_name: Parameter name
+        :param str parameter23_value: Parameter value
+        :param str parameter24_name: Parameter name
+        :param str parameter24_value: Parameter value
+        :param str parameter25_name: Parameter name
+        :param str parameter25_value: Parameter value
+        :param str parameter26_name: Parameter name
+        :param str parameter26_value: Parameter value
+        :param str parameter27_name: Parameter name
+        :param str parameter27_value: Parameter value
+        :param str parameter28_name: Parameter name
+        :param str parameter28_value: Parameter value
+        :param str parameter29_name: Parameter name
+        :param str parameter29_value: Parameter value
+        :param str parameter30_name: Parameter name
+        :param str parameter30_value: Parameter value
+        :param str parameter31_name: Parameter name
+        :param str parameter31_value: Parameter value
+        :param str parameter32_name: Parameter name
+        :param str parameter32_value: Parameter value
+        :param str parameter33_name: Parameter name
+        :param str parameter33_value: Parameter value
+        :param str parameter34_name: Parameter name
+        :param str parameter34_value: Parameter value
+        :param str parameter35_name: Parameter name
+        :param str parameter35_value: Parameter value
+        :param str parameter36_name: Parameter name
+        :param str parameter36_value: Parameter value
+        :param str parameter37_name: Parameter name
+        :param str parameter37_value: Parameter value
+        :param str parameter38_name: Parameter name
+        :param str parameter38_value: Parameter value
+        :param str parameter39_name: Parameter name
+        :param str parameter39_value: Parameter value
+        :param str parameter40_name: Parameter name
+        :param str parameter40_value: Parameter value
+        :param str parameter41_name: Parameter name
+        :param str parameter41_value: Parameter value
+        :param str parameter42_name: Parameter name
+        :param str parameter42_value: Parameter value
+        :param str parameter43_name: Parameter name
+        :param str parameter43_value: Parameter value
+        :param str parameter44_name: Parameter name
+        :param str parameter44_value: Parameter value
+        :param str parameter45_name: Parameter name
+        :param str parameter45_value: Parameter value
+        :param str parameter46_name: Parameter name
+        :param str parameter46_value: Parameter value
+        :param str parameter47_name: Parameter name
+        :param str parameter47_value: Parameter value
+        :param str parameter48_name: Parameter name
+        :param str parameter48_value: Parameter value
+        :param str parameter49_name: Parameter name
+        :param str parameter49_value: Parameter value
+        :param str parameter50_name: Parameter name
+        :param str parameter50_value: Parameter value
+        :param str parameter51_name: Parameter name
+        :param str parameter51_value: Parameter value
+        :param str parameter52_name: Parameter name
+        :param str parameter52_value: Parameter value
+        :param str parameter53_name: Parameter name
+        :param str parameter53_value: Parameter value
+        :param str parameter54_name: Parameter name
+        :param str parameter54_value: Parameter value
+        :param str parameter55_name: Parameter name
+        :param str parameter55_value: Parameter value
+        :param str parameter56_name: Parameter name
+        :param str parameter56_value: Parameter value
+        :param str parameter57_name: Parameter name
+        :param str parameter57_value: Parameter value
+        :param str parameter58_name: Parameter name
+        :param str parameter58_value: Parameter value
+        :param str parameter59_name: Parameter name
+        :param str parameter59_value: Parameter value
+        :param str parameter60_name: Parameter name
+        :param str parameter60_value: Parameter value
+        :param str parameter61_name: Parameter name
+        :param str parameter61_value: Parameter value
+        :param str parameter62_name: Parameter name
+        :param str parameter62_value: Parameter value
+        :param str parameter63_name: Parameter name
+        :param str parameter63_value: Parameter value
+        :param str parameter64_name: Parameter name
+        :param str parameter64_value: Parameter value
+        :param str parameter65_name: Parameter name
+        :param str parameter65_value: Parameter value
+        :param str parameter66_name: Parameter name
+        :param str parameter66_value: Parameter value
+        :param str parameter67_name: Parameter name
+        :param str parameter67_value: Parameter value
+        :param str parameter68_name: Parameter name
+        :param str parameter68_value: Parameter value
+        :param str parameter69_name: Parameter name
+        :param str parameter69_value: Parameter value
+        :param str parameter70_name: Parameter name
+        :param str parameter70_value: Parameter value
+        :param str parameter71_name: Parameter name
+        :param str parameter71_value: Parameter value
+        :param str parameter72_name: Parameter name
+        :param str parameter72_value: Parameter value
+        :param str parameter73_name: Parameter name
+        :param str parameter73_value: Parameter value
+        :param str parameter74_name: Parameter name
+        :param str parameter74_value: Parameter value
+        :param str parameter75_name: Parameter name
+        :param str parameter75_value: Parameter value
+        :param str parameter76_name: Parameter name
+        :param str parameter76_value: Parameter value
+        :param str parameter77_name: Parameter name
+        :param str parameter77_value: Parameter value
+        :param str parameter78_name: Parameter name
+        :param str parameter78_value: Parameter value
+        :param str parameter79_name: Parameter name
+        :param str parameter79_value: Parameter value
+        :param str parameter80_name: Parameter name
+        :param str parameter80_value: Parameter value
+        :param str parameter81_name: Parameter name
+        :param str parameter81_value: Parameter value
+        :param str parameter82_name: Parameter name
+        :param str parameter82_value: Parameter value
+        :param str parameter83_name: Parameter name
+        :param str parameter83_value: Parameter value
+        :param str parameter84_name: Parameter name
+        :param str parameter84_value: Parameter value
+        :param str parameter85_name: Parameter name
+        :param str parameter85_value: Parameter value
+        :param str parameter86_name: Parameter name
+        :param str parameter86_value: Parameter value
+        :param str parameter87_name: Parameter name
+        :param str parameter87_value: Parameter value
+        :param str parameter88_name: Parameter name
+        :param str parameter88_value: Parameter value
+        :param str parameter89_name: Parameter name
+        :param str parameter89_value: Parameter value
+        :param str parameter90_name: Parameter name
+        :param str parameter90_value: Parameter value
+        :param str parameter91_name: Parameter name
+        :param str parameter91_value: Parameter value
+        :param str parameter92_name: Parameter name
+        :param str parameter92_value: Parameter value
+        :param str parameter93_name: Parameter name
+        :param str parameter93_value: Parameter value
+        :param str parameter94_name: Parameter name
+        :param str parameter94_value: Parameter value
+        :param str parameter95_name: Parameter name
+        :param str parameter95_value: Parameter value
+        :param str parameter96_name: Parameter name
+        :param str parameter96_value: Parameter value
+        :param str parameter97_name: Parameter name
+        :param str parameter97_value: Parameter value
+        :param str parameter98_name: Parameter name
+        :param str parameter98_value: Parameter value
+        :param str parameter99_name: Parameter name
+        :param str parameter99_value: Parameter value
         
         :returns: The created SiprecInstance
-        :rtype: twilio.rest.api.v2010.siprec.SiprecInstance
+        :rtype: twilio.rest.api.v2010.account.call.siprec.SiprecInstance
         """
         data = values.of({ 
             'Name': name,
@@ -470,8 +471,8 @@ class SiprecList(ListResource):
         
         :param sid: The SID of the Siprec resource, or the `name` used when creating the resource
         
-        :returns: twilio.rest.api.v2010.siprec.SiprecContext
-        :rtype: twilio.rest.api.v2010.siprec.SiprecContext
+        :returns: twilio.rest.api.v2010.account.call.siprec.SiprecContext
+        :rtype: twilio.rest.api.v2010.account.call.siprec.SiprecContext
         """
         return SiprecContext(self._version, account_sid=self._solution['account_sid'], call_sid=self._solution['call_sid'], sid=sid)
 
@@ -481,8 +482,8 @@ class SiprecList(ListResource):
         
         :param sid: The SID of the Siprec resource, or the `name` used when creating the resource
         
-        :returns: twilio.rest.api.v2010.siprec.SiprecContext
-        :rtype: twilio.rest.api.v2010.siprec.SiprecContext
+        :returns: twilio.rest.api.v2010.account.call.siprec.SiprecContext
+        :rtype: twilio.rest.api.v2010.account.call.siprec.SiprecContext
         """
         return SiprecContext(self._version, account_sid=self._solution['account_sid'], call_sid=self._solution['call_sid'], sid=sid)
 

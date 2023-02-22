@@ -28,12 +28,13 @@ class TaskActionsList(ListResource):
     def __init__(self, version: Version, assistant_sid: str, task_sid: str):
         """
         Initialize the TaskActionsList
+
         :param Version version: Version that contains the resource
         :param assistant_sid: The unique ID of the parent Assistant.
         :param task_sid: The unique ID of the Task.
         
-        :returns: twilio.preview.understand.task_actions..TaskActionsList
-        :rtype: twilio.preview.understand.task_actions..TaskActionsList
+        :returns: twilio.rest.preview.understand.assistant.task.task_actions.TaskActionsList
+        :rtype: twilio.rest.preview.understand.assistant.task.task_actions.TaskActionsList
         """
         super().__init__(version)
 
@@ -49,8 +50,8 @@ class TaskActionsList(ListResource):
         """
         Constructs a TaskActionsContext
         
-        :returns: twilio.rest.preview.understand.task_actions.TaskActionsContext
-        :rtype: twilio.rest.preview.understand.task_actions.TaskActionsContext
+        :returns: twilio.rest.preview.understand.assistant.task.task_actions.TaskActionsContext
+        :rtype: twilio.rest.preview.understand.assistant.task.task_actions.TaskActionsContext
         """
         return TaskActionsContext(self._version, assistant_sid=self._solution['assistant_sid'], task_sid=self._solution['task_sid'])
 
@@ -58,8 +59,8 @@ class TaskActionsList(ListResource):
         """
         Constructs a TaskActionsContext
         
-        :returns: twilio.rest.preview.understand.task_actions.TaskActionsContext
-        :rtype: twilio.rest.preview.understand.task_actions.TaskActionsContext
+        :returns: twilio.rest.preview.understand.assistant.task.task_actions.TaskActionsContext
+        :rtype: twilio.rest.preview.understand.assistant.task.task_actions.TaskActionsContext
         """
         return TaskActionsContext(self._version, assistant_sid=self._solution['assistant_sid'], task_sid=self._solution['task_sid'])
 

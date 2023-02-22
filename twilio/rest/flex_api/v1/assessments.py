@@ -28,10 +28,11 @@ class AssessmentsList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the AssessmentsList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.flex_api.v1.assessments..AssessmentsList
-        :rtype: twilio.flex_api.v1.assessments..AssessmentsList
+        :returns: twilio.rest.flex_api.v1.assessments.AssessmentsList
+        :rtype: twilio.rest.flex_api.v1.assessments.AssessmentsList
         """
         super().__init__(version)
 

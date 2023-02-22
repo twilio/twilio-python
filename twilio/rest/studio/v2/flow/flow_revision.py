@@ -28,11 +28,12 @@ class FlowRevisionList(ListResource):
     def __init__(self, version: Version, sid: str):
         """
         Initialize the FlowRevisionList
+
         :param Version version: Version that contains the resource
         :param sid: The SID of the Flow resource to fetch.
         
-        :returns: twilio.studio.v2.flow_revision..FlowRevisionList
-        :rtype: twilio.studio.v2.flow_revision..FlowRevisionList
+        :returns: twilio.rest.studio.v2.flow.flow_revision.FlowRevisionList
+        :rtype: twilio.rest.studio.v2.flow.flow_revision.FlowRevisionList
         """
         super().__init__(version)
 
@@ -58,7 +59,7 @@ class FlowRevisionList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.studio.v2.flow_revision.FlowRevisionInstance]
+        :rtype: list[twilio.rest.studio.v2.flow.flow_revision.FlowRevisionInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -81,7 +82,7 @@ class FlowRevisionList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.studio.v2.flow_revision.FlowRevisionInstance]
+        :rtype: list[twilio.rest.studio.v2.flow.flow_revision.FlowRevisionInstance]
         """
         return list(self.stream(
             limit=limit,
@@ -98,7 +99,7 @@ class FlowRevisionList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of FlowRevisionInstance
-        :rtype: twilio.rest.studio.v2.flow_revision.FlowRevisionPage
+        :rtype: twilio.rest.studio.v2.flow.flow_revision.FlowRevisionPage
         """
         data = values.of({ 
             'PageToken': page_token,
@@ -117,7 +118,7 @@ class FlowRevisionList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of FlowRevisionInstance
-        :rtype: twilio.rest.studio.v2.flow_revision.FlowRevisionPage
+        :rtype: twilio.rest.studio.v2.flow.flow_revision.FlowRevisionPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -132,8 +133,8 @@ class FlowRevisionList(ListResource):
         
         :param revision: Specific Revision number or can be `LatestPublished` and `LatestRevision`.
         
-        :returns: twilio.rest.studio.v2.flow_revision.FlowRevisionContext
-        :rtype: twilio.rest.studio.v2.flow_revision.FlowRevisionContext
+        :returns: twilio.rest.studio.v2.flow.flow_revision.FlowRevisionContext
+        :rtype: twilio.rest.studio.v2.flow.flow_revision.FlowRevisionContext
         """
         return FlowRevisionContext(self._version, sid=self._solution['sid'], revision=revision)
 
@@ -143,8 +144,8 @@ class FlowRevisionList(ListResource):
         
         :param revision: Specific Revision number or can be `LatestPublished` and `LatestRevision`.
         
-        :returns: twilio.rest.studio.v2.flow_revision.FlowRevisionContext
-        :rtype: twilio.rest.studio.v2.flow_revision.FlowRevisionContext
+        :returns: twilio.rest.studio.v2.flow.flow_revision.FlowRevisionContext
+        :rtype: twilio.rest.studio.v2.flow.flow_revision.FlowRevisionContext
         """
         return FlowRevisionContext(self._version, sid=self._solution['sid'], revision=revision)
 
@@ -168,8 +169,8 @@ class FlowRevisionPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.studio.v2.flow_revision.FlowRevisionPage
-        :rtype: twilio.rest.studio.v2.flow_revision.FlowRevisionPage
+        :returns: twilio.rest.studio.v2.flow.flow_revision.FlowRevisionPage
+        :rtype: twilio.rest.studio.v2.flow.flow_revision.FlowRevisionPage
         """
         super().__init__(version, response)
 
@@ -182,8 +183,8 @@ class FlowRevisionPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.studio.v2.flow_revision.FlowRevisionInstance
-        :rtype: twilio.rest.studio.v2.flow_revision.FlowRevisionInstance
+        :returns: twilio.rest.studio.v2.flow.flow_revision.FlowRevisionInstance
+        :rtype: twilio.rest.studio.v2.flow.flow_revision.FlowRevisionInstance
         """
         return FlowRevisionInstance(self._version, payload, sid=self._solution['sid'])
 

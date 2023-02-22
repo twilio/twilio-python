@@ -29,11 +29,12 @@ class CredentialListList(ListResource):
     def __init__(self, version: Version, account_sid: str):
         """
         Initialize the CredentialListList
+
         :param Version version: Version that contains the resource
         :param account_sid: The unique id of the Account that is responsible for this resource.
         
-        :returns: twilio.api.v2010.credential_list..CredentialListList
-        :rtype: twilio.api.v2010.credential_list..CredentialListList
+        :returns: twilio.rest.api.v2010.account.sip.credential_list.CredentialListList
+        :rtype: twilio.rest.api.v2010.account.sip.credential_list.CredentialListList
         """
         super().__init__(version)
 
@@ -49,10 +50,10 @@ class CredentialListList(ListResource):
     def create(self, friendly_name):
         """
         Create the CredentialListInstance
-         :param str friendly_name: A human readable descriptive text that describes the CredentialList, up to 64 characters long.
+        :param str friendly_name: A human readable descriptive text that describes the CredentialList, up to 64 characters long.
         
         :returns: The created CredentialListInstance
-        :rtype: twilio.rest.api.v2010.credential_list.CredentialListInstance
+        :rtype: twilio.rest.api.v2010.account.sip.credential_list.CredentialListInstance
         """
         data = values.of({ 
             'FriendlyName': friendly_name,
@@ -77,7 +78,7 @@ class CredentialListList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.credential_list.CredentialListInstance]
+        :rtype: list[twilio.rest.api.v2010.account.sip.credential_list.CredentialListInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -100,7 +101,7 @@ class CredentialListList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.credential_list.CredentialListInstance]
+        :rtype: list[twilio.rest.api.v2010.account.sip.credential_list.CredentialListInstance]
         """
         return list(self.stream(
             limit=limit,
@@ -117,7 +118,7 @@ class CredentialListList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of CredentialListInstance
-        :rtype: twilio.rest.api.v2010.credential_list.CredentialListPage
+        :rtype: twilio.rest.api.v2010.account.sip.credential_list.CredentialListPage
         """
         data = values.of({ 
             'PageToken': page_token,
@@ -136,7 +137,7 @@ class CredentialListList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of CredentialListInstance
-        :rtype: twilio.rest.api.v2010.credential_list.CredentialListPage
+        :rtype: twilio.rest.api.v2010.account.sip.credential_list.CredentialListPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -151,8 +152,8 @@ class CredentialListList(ListResource):
         
         :param sid: The credential list Sid that uniquely identifies this resource
         
-        :returns: twilio.rest.api.v2010.credential_list.CredentialListContext
-        :rtype: twilio.rest.api.v2010.credential_list.CredentialListContext
+        :returns: twilio.rest.api.v2010.account.sip.credential_list.CredentialListContext
+        :rtype: twilio.rest.api.v2010.account.sip.credential_list.CredentialListContext
         """
         return CredentialListContext(self._version, account_sid=self._solution['account_sid'], sid=sid)
 
@@ -162,8 +163,8 @@ class CredentialListList(ListResource):
         
         :param sid: The credential list Sid that uniquely identifies this resource
         
-        :returns: twilio.rest.api.v2010.credential_list.CredentialListContext
-        :rtype: twilio.rest.api.v2010.credential_list.CredentialListContext
+        :returns: twilio.rest.api.v2010.account.sip.credential_list.CredentialListContext
+        :rtype: twilio.rest.api.v2010.account.sip.credential_list.CredentialListContext
         """
         return CredentialListContext(self._version, account_sid=self._solution['account_sid'], sid=sid)
 
@@ -193,8 +194,8 @@ class CredentialListPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.api.v2010.credential_list.CredentialListPage
-        :rtype: twilio.rest.api.v2010.credential_list.CredentialListPage
+        :returns: twilio.rest.api.v2010.account.sip.credential_list.CredentialListPage
+        :rtype: twilio.rest.api.v2010.account.sip.credential_list.CredentialListPage
         """
         super().__init__(version, response)
 
@@ -207,8 +208,8 @@ class CredentialListPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.api.v2010.credential_list.CredentialListInstance
-        :rtype: twilio.rest.api.v2010.credential_list.CredentialListInstance
+        :returns: twilio.rest.api.v2010.account.sip.credential_list.CredentialListInstance
+        :rtype: twilio.rest.api.v2010.account.sip.credential_list.CredentialListInstance
         """
         return CredentialListInstance(self._version, payload, account_sid=self._solution['account_sid'])
 

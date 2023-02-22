@@ -28,11 +28,12 @@ class QueryList(ListResource):
     def __init__(self, version: Version, assistant_sid: str):
         """
         Initialize the QueryList
+
         :param Version version: Version that contains the resource
         :param assistant_sid: The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the resources to read.
         
-        :returns: twilio.autopilot.v1.query..QueryList
-        :rtype: twilio.autopilot.v1.query..QueryList
+        :returns: twilio.rest.autopilot.v1.assistant.query.QueryList
+        :rtype: twilio.rest.autopilot.v1.assistant.query.QueryList
         """
         super().__init__(version)
 
@@ -48,13 +49,13 @@ class QueryList(ListResource):
     def create(self, language, query, tasks=values.unset, model_build=values.unset):
         """
         Create the QueryInstance
-         :param str language: The [ISO language-country](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) string that specifies the language used for the new query. For example: `en-US`.
-         :param str query: The end-user's natural language input. It can be up to 2048 characters long.
-         :param str tasks: The list of tasks to limit the new query to. Tasks are expressed as a comma-separated list of task `unique_name` values. For example, `task-unique_name-1, task-unique_name-2`. Listing specific tasks is useful to constrain the paths that a user can take.
-         :param str model_build: The SID or unique name of the [Model Build](https://www.twilio.com/docs/autopilot/api/model-build) to be queried.
+        :param str language: The [ISO language-country](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) string that specifies the language used for the new query. For example: `en-US`.
+        :param str query: The end-user's natural language input. It can be up to 2048 characters long.
+        :param str tasks: The list of tasks to limit the new query to. Tasks are expressed as a comma-separated list of task `unique_name` values. For example, `task-unique_name-1, task-unique_name-2`. Listing specific tasks is useful to constrain the paths that a user can take.
+        :param str model_build: The SID or unique name of the [Model Build](https://www.twilio.com/docs/autopilot/api/model-build) to be queried.
         
         :returns: The created QueryInstance
-        :rtype: twilio.rest.autopilot.v1.query.QueryInstance
+        :rtype: twilio.rest.autopilot.v1.assistant.query.QueryInstance
         """
         data = values.of({ 
             'Language': language,
@@ -86,7 +87,7 @@ class QueryList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.autopilot.v1.query.QueryInstance]
+        :rtype: list[twilio.rest.autopilot.v1.assistant.query.QueryInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -117,7 +118,7 @@ class QueryList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.autopilot.v1.query.QueryInstance]
+        :rtype: list[twilio.rest.autopilot.v1.assistant.query.QueryInstance]
         """
         return list(self.stream(
             language=language,
@@ -142,7 +143,7 @@ class QueryList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of QueryInstance
-        :rtype: twilio.rest.autopilot.v1.query.QueryPage
+        :rtype: twilio.rest.autopilot.v1.assistant.query.QueryPage
         """
         data = values.of({ 
             'Language': language,
@@ -165,7 +166,7 @@ class QueryList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of QueryInstance
-        :rtype: twilio.rest.autopilot.v1.query.QueryPage
+        :rtype: twilio.rest.autopilot.v1.assistant.query.QueryPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -180,8 +181,8 @@ class QueryList(ListResource):
         
         :param sid: The Twilio-provided string that uniquely identifies the Query resource to update.
         
-        :returns: twilio.rest.autopilot.v1.query.QueryContext
-        :rtype: twilio.rest.autopilot.v1.query.QueryContext
+        :returns: twilio.rest.autopilot.v1.assistant.query.QueryContext
+        :rtype: twilio.rest.autopilot.v1.assistant.query.QueryContext
         """
         return QueryContext(self._version, assistant_sid=self._solution['assistant_sid'], sid=sid)
 
@@ -191,8 +192,8 @@ class QueryList(ListResource):
         
         :param sid: The Twilio-provided string that uniquely identifies the Query resource to update.
         
-        :returns: twilio.rest.autopilot.v1.query.QueryContext
-        :rtype: twilio.rest.autopilot.v1.query.QueryContext
+        :returns: twilio.rest.autopilot.v1.assistant.query.QueryContext
+        :rtype: twilio.rest.autopilot.v1.assistant.query.QueryContext
         """
         return QueryContext(self._version, assistant_sid=self._solution['assistant_sid'], sid=sid)
 
@@ -222,8 +223,8 @@ class QueryPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.autopilot.v1.query.QueryPage
-        :rtype: twilio.rest.autopilot.v1.query.QueryPage
+        :returns: twilio.rest.autopilot.v1.assistant.query.QueryPage
+        :rtype: twilio.rest.autopilot.v1.assistant.query.QueryPage
         """
         super().__init__(version, response)
 
@@ -236,8 +237,8 @@ class QueryPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.autopilot.v1.query.QueryInstance
-        :rtype: twilio.rest.autopilot.v1.query.QueryInstance
+        :returns: twilio.rest.autopilot.v1.assistant.query.QueryInstance
+        :rtype: twilio.rest.autopilot.v1.assistant.query.QueryInstance
         """
         return QueryInstance(self._version, payload, assistant_sid=self._solution['assistant_sid'])
 

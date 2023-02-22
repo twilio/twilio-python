@@ -28,10 +28,11 @@ class FlexFlowList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the FlexFlowList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.flex_api.v1.flex_flow..FlexFlowList
-        :rtype: twilio.flex_api.v1.flex_flow..FlexFlowList
+        :returns: twilio.rest.flex_api.v1.flex_flow.FlexFlowList
+        :rtype: twilio.rest.flex_api.v1.flex_flow.FlexFlowList
         """
         super().__init__(version)
 
@@ -47,23 +48,23 @@ class FlexFlowList(ListResource):
     def create(self, friendly_name, chat_service_sid, channel_type, contact_identity=values.unset, enabled=values.unset, integration_type=values.unset, integration_flow_sid=values.unset, integration_url=values.unset, integration_workspace_sid=values.unset, integration_workflow_sid=values.unset, integration_channel=values.unset, integration_timeout=values.unset, integration_priority=values.unset, integration_creation_on_message=values.unset, long_lived=values.unset, janitor_enabled=values.unset, integration_retry_count=values.unset):
         """
         Create the FlexFlowInstance
-         :param str friendly_name: A descriptive string that you create to describe the Flex Flow resource.
-         :param str chat_service_sid: The SID of the chat service.
-         :param FlexFlowChannelType channel_type: 
-         :param str contact_identity: The channel contact's Identity.
-         :param bool enabled: Whether the new Flex Flow is enabled.
-         :param FlexFlowIntegrationType integration_type: 
-         :param str integration_flow_sid: The SID of the Studio Flow. Required when `integrationType` is `studio`.
-         :param str integration_url: The URL of the external webhook. Required when `integrationType` is `external`.
-         :param str integration_workspace_sid: The Workspace SID for a new Task. Required when `integrationType` is `task`.
-         :param str integration_workflow_sid: The Workflow SID for a new Task. Required when `integrationType` is `task`.
-         :param str integration_channel: The Task Channel SID (TCXXXX) or unique name (e.g., `sms`) to use for the Task that will be created. Applicable and required when `integrationType` is `task`. The default value is `default`.
-         :param int integration_timeout: The Task timeout in seconds for a new Task. Default is 86,400 seconds (24 hours). Optional when `integrationType` is `task`, not applicable otherwise.
-         :param int integration_priority: The Task priority of a new Task. The default priority is 0. Optional when `integrationType` is `task`, not applicable otherwise.
-         :param bool integration_creation_on_message: In the context of outbound messaging, defines whether to create a Task immediately (and therefore reserve the conversation to current agent), or delay Task creation until the customer sends the first response. Set to false to create immediately, true to delay Task creation. This setting is only applicable for outbound messaging.
-         :param bool long_lived: When enabled, Flex will keep the chat channel active so that it may be used for subsequent interactions with a contact identity. Defaults to `false`.
-         :param bool janitor_enabled: When enabled, the Messaging Channel Janitor will remove active Proxy sessions if the associated Task is deleted outside of the Flex UI. Defaults to `false`.
-         :param int integration_retry_count: The number of times to retry the Studio Flow or webhook in case of failure. Takes integer values from 0 to 3 with the default being 3. Optional when `integrationType` is `studio` or `external`, not applicable otherwise.
+        :param str friendly_name: A descriptive string that you create to describe the Flex Flow resource.
+        :param str chat_service_sid: The SID of the chat service.
+        :param FlexFlowChannelType channel_type: 
+        :param str contact_identity: The channel contact's Identity.
+        :param bool enabled: Whether the new Flex Flow is enabled.
+        :param FlexFlowIntegrationType integration_type: 
+        :param str integration_flow_sid: The SID of the Studio Flow. Required when `integrationType` is `studio`.
+        :param str integration_url: The URL of the external webhook. Required when `integrationType` is `external`.
+        :param str integration_workspace_sid: The Workspace SID for a new Task. Required when `integrationType` is `task`.
+        :param str integration_workflow_sid: The Workflow SID for a new Task. Required when `integrationType` is `task`.
+        :param str integration_channel: The Task Channel SID (TCXXXX) or unique name (e.g., `sms`) to use for the Task that will be created. Applicable and required when `integrationType` is `task`. The default value is `default`.
+        :param int integration_timeout: The Task timeout in seconds for a new Task. Default is 86,400 seconds (24 hours). Optional when `integrationType` is `task`, not applicable otherwise.
+        :param int integration_priority: The Task priority of a new Task. The default priority is 0. Optional when `integrationType` is `task`, not applicable otherwise.
+        :param bool integration_creation_on_message: In the context of outbound messaging, defines whether to create a Task immediately (and therefore reserve the conversation to current agent), or delay Task creation until the customer sends the first response. Set to false to create immediately, true to delay Task creation. This setting is only applicable for outbound messaging.
+        :param bool long_lived: When enabled, Flex will keep the chat channel active so that it may be used for subsequent interactions with a contact identity. Defaults to `false`.
+        :param bool janitor_enabled: When enabled, the Messaging Channel Janitor will remove active Proxy sessions if the associated Task is deleted outside of the Flex UI. Defaults to `false`.
+        :param int integration_retry_count: The number of times to retry the Studio Flow or webhook in case of failure. Takes integer values from 0 to 3 with the default being 3. Optional when `integrationType` is `studio` or `external`, not applicable otherwise.
         
         :returns: The created FlexFlowInstance
         :rtype: twilio.rest.flex_api.v1.flex_flow.FlexFlowInstance

@@ -28,11 +28,12 @@ class WebhookList(ListResource):
     def __init__(self, version: Version, assistant_sid: str):
         """
         Initialize the WebhookList
+
         :param Version version: Version that contains the resource
         :param assistant_sid: The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the resources to read.
         
-        :returns: twilio.autopilot.v1.webhook..WebhookList
-        :rtype: twilio.autopilot.v1.webhook..WebhookList
+        :returns: twilio.rest.autopilot.v1.assistant.webhook.WebhookList
+        :rtype: twilio.rest.autopilot.v1.assistant.webhook.WebhookList
         """
         super().__init__(version)
 
@@ -48,13 +49,13 @@ class WebhookList(ListResource):
     def create(self, unique_name, events, webhook_url, webhook_method=values.unset):
         """
         Create the WebhookInstance
-         :param str unique_name: An application-defined string that uniquely identifies the new resource. It can be used as an alternative to the `sid` in the URL path to address the resource. This value must be unique and 64 characters or less in length.
-         :param str events: The list of space-separated events that this Webhook will subscribe to.
-         :param str webhook_url: The URL associated with this Webhook.
-         :param str webhook_method: The method to be used when calling the webhook's URL.
+        :param str unique_name: An application-defined string that uniquely identifies the new resource. It can be used as an alternative to the `sid` in the URL path to address the resource. This value must be unique and 64 characters or less in length.
+        :param str events: The list of space-separated events that this Webhook will subscribe to.
+        :param str webhook_url: The URL associated with this Webhook.
+        :param str webhook_method: The method to be used when calling the webhook's URL.
         
         :returns: The created WebhookInstance
-        :rtype: twilio.rest.autopilot.v1.webhook.WebhookInstance
+        :rtype: twilio.rest.autopilot.v1.assistant.webhook.WebhookInstance
         """
         data = values.of({ 
             'UniqueName': unique_name,
@@ -82,7 +83,7 @@ class WebhookList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.autopilot.v1.webhook.WebhookInstance]
+        :rtype: list[twilio.rest.autopilot.v1.assistant.webhook.WebhookInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -105,7 +106,7 @@ class WebhookList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.autopilot.v1.webhook.WebhookInstance]
+        :rtype: list[twilio.rest.autopilot.v1.assistant.webhook.WebhookInstance]
         """
         return list(self.stream(
             limit=limit,
@@ -122,7 +123,7 @@ class WebhookList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of WebhookInstance
-        :rtype: twilio.rest.autopilot.v1.webhook.WebhookPage
+        :rtype: twilio.rest.autopilot.v1.assistant.webhook.WebhookPage
         """
         data = values.of({ 
             'PageToken': page_token,
@@ -141,7 +142,7 @@ class WebhookList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of WebhookInstance
-        :rtype: twilio.rest.autopilot.v1.webhook.WebhookPage
+        :rtype: twilio.rest.autopilot.v1.assistant.webhook.WebhookPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -156,8 +157,8 @@ class WebhookList(ListResource):
         
         :param sid: The Twilio-provided string that uniquely identifies the Webhook resource to update.
         
-        :returns: twilio.rest.autopilot.v1.webhook.WebhookContext
-        :rtype: twilio.rest.autopilot.v1.webhook.WebhookContext
+        :returns: twilio.rest.autopilot.v1.assistant.webhook.WebhookContext
+        :rtype: twilio.rest.autopilot.v1.assistant.webhook.WebhookContext
         """
         return WebhookContext(self._version, assistant_sid=self._solution['assistant_sid'], sid=sid)
 
@@ -167,8 +168,8 @@ class WebhookList(ListResource):
         
         :param sid: The Twilio-provided string that uniquely identifies the Webhook resource to update.
         
-        :returns: twilio.rest.autopilot.v1.webhook.WebhookContext
-        :rtype: twilio.rest.autopilot.v1.webhook.WebhookContext
+        :returns: twilio.rest.autopilot.v1.assistant.webhook.WebhookContext
+        :rtype: twilio.rest.autopilot.v1.assistant.webhook.WebhookContext
         """
         return WebhookContext(self._version, assistant_sid=self._solution['assistant_sid'], sid=sid)
 
@@ -198,8 +199,8 @@ class WebhookPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.autopilot.v1.webhook.WebhookPage
-        :rtype: twilio.rest.autopilot.v1.webhook.WebhookPage
+        :returns: twilio.rest.autopilot.v1.assistant.webhook.WebhookPage
+        :rtype: twilio.rest.autopilot.v1.assistant.webhook.WebhookPage
         """
         super().__init__(version, response)
 
@@ -212,8 +213,8 @@ class WebhookPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.autopilot.v1.webhook.WebhookInstance
-        :rtype: twilio.rest.autopilot.v1.webhook.WebhookInstance
+        :returns: twilio.rest.autopilot.v1.assistant.webhook.WebhookInstance
+        :rtype: twilio.rest.autopilot.v1.assistant.webhook.WebhookInstance
         """
         return WebhookInstance(self._version, payload, assistant_sid=self._solution['assistant_sid'])
 

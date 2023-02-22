@@ -28,12 +28,13 @@ class AnonymizeList(ListResource):
     def __init__(self, version: Version, room_sid: str, sid: str):
         """
         Initialize the AnonymizeList
+
         :param Version version: Version that contains the resource
         :param room_sid: The SID of the room with the participant to update.
         :param sid: The SID of the RoomParticipant resource to update.
         
-        :returns: twilio.video.v1.anonymize..AnonymizeList
-        :rtype: twilio.video.v1.anonymize..AnonymizeList
+        :returns: twilio.rest.video.v1.room.participant.anonymize.AnonymizeList
+        :rtype: twilio.rest.video.v1.room.participant.anonymize.AnonymizeList
         """
         super().__init__(version)
 
@@ -48,8 +49,8 @@ class AnonymizeList(ListResource):
         """
         Constructs a AnonymizeContext
         
-        :returns: twilio.rest.video.v1.anonymize.AnonymizeContext
-        :rtype: twilio.rest.video.v1.anonymize.AnonymizeContext
+        :returns: twilio.rest.video.v1.room.participant.anonymize.AnonymizeContext
+        :rtype: twilio.rest.video.v1.room.participant.anonymize.AnonymizeContext
         """
         return AnonymizeContext(self._version, room_sid=self._solution['room_sid'], sid=self._solution['sid'])
 
@@ -57,8 +58,8 @@ class AnonymizeList(ListResource):
         """
         Constructs a AnonymizeContext
         
-        :returns: twilio.rest.video.v1.anonymize.AnonymizeContext
-        :rtype: twilio.rest.video.v1.anonymize.AnonymizeContext
+        :returns: twilio.rest.video.v1.room.participant.anonymize.AnonymizeContext
+        :rtype: twilio.rest.video.v1.room.participant.anonymize.AnonymizeContext
         """
         return AnonymizeContext(self._version, room_sid=self._solution['room_sid'], sid=self._solution['sid'])
 

@@ -28,10 +28,11 @@ class BulkCountryUpdateList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the BulkCountryUpdateList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.voice.v1.bulk_country_update..BulkCountryUpdateList
-        :rtype: twilio.voice.v1.bulk_country_update..BulkCountryUpdateList
+        :returns: twilio.rest.voice.v1.dialing_permissions.bulk_country_update.BulkCountryUpdateList
+        :rtype: twilio.rest.voice.v1.dialing_permissions.bulk_country_update.BulkCountryUpdateList
         """
         super().__init__(version)
 
@@ -44,10 +45,10 @@ class BulkCountryUpdateList(ListResource):
     def create(self, update_request):
         """
         Create the BulkCountryUpdateInstance
-         :param str update_request: URL encoded JSON array of update objects. example : `[ { \"iso_code\": \"GB\", \"low_risk_numbers_enabled\": \"true\", \"high_risk_special_numbers_enabled\":\"true\", \"high_risk_tollfraud_numbers_enabled\": \"false\" } ]`
+        :param str update_request: URL encoded JSON array of update objects. example : `[ { \\\"iso_code\\\": \\\"GB\\\", \\\"low_risk_numbers_enabled\\\": \\\"true\\\", \\\"high_risk_special_numbers_enabled\\\":\\\"true\\\", \\\"high_risk_tollfraud_numbers_enabled\\\": \\\"false\\\" } ]`
         
         :returns: The created BulkCountryUpdateInstance
-        :rtype: twilio.rest.voice.v1.bulk_country_update.BulkCountryUpdateInstance
+        :rtype: twilio.rest.voice.v1.dialing_permissions.bulk_country_update.BulkCountryUpdateInstance
         """
         data = values.of({ 
             'UpdateRequest': update_request,

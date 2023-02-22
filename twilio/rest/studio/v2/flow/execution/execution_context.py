@@ -28,12 +28,13 @@ class ExecutionContextList(ListResource):
     def __init__(self, version: Version, flow_sid: str, execution_sid: str):
         """
         Initialize the ExecutionContextList
+
         :param Version version: Version that contains the resource
         :param flow_sid: The SID of the Flow with the Execution context to fetch.
         :param execution_sid: The SID of the Execution context to fetch.
         
-        :returns: twilio.studio.v2.execution_context..ExecutionContextList
-        :rtype: twilio.studio.v2.execution_context..ExecutionContextList
+        :returns: twilio.rest.studio.v2.flow.execution.execution_context.ExecutionContextList
+        :rtype: twilio.rest.studio.v2.flow.execution.execution_context.ExecutionContextList
         """
         super().__init__(version)
 
@@ -48,8 +49,8 @@ class ExecutionContextList(ListResource):
         """
         Constructs a ExecutionContextContext
         
-        :returns: twilio.rest.studio.v2.execution_context.ExecutionContextContext
-        :rtype: twilio.rest.studio.v2.execution_context.ExecutionContextContext
+        :returns: twilio.rest.studio.v2.flow.execution.execution_context.ExecutionContextContext
+        :rtype: twilio.rest.studio.v2.flow.execution.execution_context.ExecutionContextContext
         """
         return ExecutionContextContext(self._version, flow_sid=self._solution['flow_sid'], execution_sid=self._solution['execution_sid'])
 
@@ -57,8 +58,8 @@ class ExecutionContextList(ListResource):
         """
         Constructs a ExecutionContextContext
         
-        :returns: twilio.rest.studio.v2.execution_context.ExecutionContextContext
-        :rtype: twilio.rest.studio.v2.execution_context.ExecutionContextContext
+        :returns: twilio.rest.studio.v2.flow.execution.execution_context.ExecutionContextContext
+        :rtype: twilio.rest.studio.v2.flow.execution.execution_context.ExecutionContextContext
         """
         return ExecutionContextContext(self._version, flow_sid=self._solution['flow_sid'], execution_sid=self._solution['execution_sid'])
 

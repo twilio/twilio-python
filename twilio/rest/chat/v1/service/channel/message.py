@@ -28,12 +28,13 @@ class MessageList(ListResource):
     def __init__(self, version: Version, service_sid: str, channel_sid: str):
         """
         Initialize the MessageList
+
         :param Version version: Version that contains the resource
         :param service_sid: The SID of the [Service](https://www.twilio.com/docs/api/chat/rest/services) to read the resources from.
         :param channel_sid: The unique ID of the [Channel](https://www.twilio.com/docs/api/chat/rest/channels) the message to read belongs to. Can be the Channel's `sid` or `unique_name`.
         
-        :returns: twilio.chat.v1.message..MessageList
-        :rtype: twilio.chat.v1.message..MessageList
+        :returns: twilio.rest.chat.v1.service.channel.message.MessageList
+        :rtype: twilio.rest.chat.v1.service.channel.message.MessageList
         """
         super().__init__(version)
 
@@ -49,12 +50,12 @@ class MessageList(ListResource):
     def create(self, body, from_=values.unset, attributes=values.unset):
         """
         Create the MessageInstance
-         :param str body: The message to send to the channel. Can also be an empty string or `null`, which sets the value as an empty string. You can send structured data in the body by serializing it as a string.
-         :param str from_: The [identity](https://www.twilio.com/docs/api/chat/guides/identity) of the new message's author. The default value is `system`.
-         :param str attributes: A valid JSON string that contains application-specific data.
+        :param str body: The message to send to the channel. Can also be an empty string or `null`, which sets the value as an empty string. You can send structured data in the body by serializing it as a string.
+        :param str from_: The [identity](https://www.twilio.com/docs/api/chat/guides/identity) of the new message's author. The default value is `system`.
+        :param str attributes: A valid JSON string that contains application-specific data.
         
         :returns: The created MessageInstance
-        :rtype: twilio.rest.chat.v1.message.MessageInstance
+        :rtype: twilio.rest.chat.v1.service.channel.message.MessageInstance
         """
         data = values.of({ 
             'Body': body,
@@ -82,7 +83,7 @@ class MessageList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.chat.v1.message.MessageInstance]
+        :rtype: list[twilio.rest.chat.v1.service.channel.message.MessageInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -107,7 +108,7 @@ class MessageList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.chat.v1.message.MessageInstance]
+        :rtype: list[twilio.rest.chat.v1.service.channel.message.MessageInstance]
         """
         return list(self.stream(
             order=order,
@@ -126,7 +127,7 @@ class MessageList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of MessageInstance
-        :rtype: twilio.rest.chat.v1.message.MessagePage
+        :rtype: twilio.rest.chat.v1.service.channel.message.MessagePage
         """
         data = values.of({ 
             'Order': order,
@@ -146,7 +147,7 @@ class MessageList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of MessageInstance
-        :rtype: twilio.rest.chat.v1.message.MessagePage
+        :rtype: twilio.rest.chat.v1.service.channel.message.MessagePage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -161,8 +162,8 @@ class MessageList(ListResource):
         
         :param sid: The Twilio-provided string that uniquely identifies the Message resource to update.
         
-        :returns: twilio.rest.chat.v1.message.MessageContext
-        :rtype: twilio.rest.chat.v1.message.MessageContext
+        :returns: twilio.rest.chat.v1.service.channel.message.MessageContext
+        :rtype: twilio.rest.chat.v1.service.channel.message.MessageContext
         """
         return MessageContext(self._version, service_sid=self._solution['service_sid'], channel_sid=self._solution['channel_sid'], sid=sid)
 
@@ -172,8 +173,8 @@ class MessageList(ListResource):
         
         :param sid: The Twilio-provided string that uniquely identifies the Message resource to update.
         
-        :returns: twilio.rest.chat.v1.message.MessageContext
-        :rtype: twilio.rest.chat.v1.message.MessageContext
+        :returns: twilio.rest.chat.v1.service.channel.message.MessageContext
+        :rtype: twilio.rest.chat.v1.service.channel.message.MessageContext
         """
         return MessageContext(self._version, service_sid=self._solution['service_sid'], channel_sid=self._solution['channel_sid'], sid=sid)
 
@@ -203,8 +204,8 @@ class MessagePage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.chat.v1.message.MessagePage
-        :rtype: twilio.rest.chat.v1.message.MessagePage
+        :returns: twilio.rest.chat.v1.service.channel.message.MessagePage
+        :rtype: twilio.rest.chat.v1.service.channel.message.MessagePage
         """
         super().__init__(version, response)
 
@@ -217,8 +218,8 @@ class MessagePage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.chat.v1.message.MessageInstance
-        :rtype: twilio.rest.chat.v1.message.MessageInstance
+        :returns: twilio.rest.chat.v1.service.channel.message.MessageInstance
+        :rtype: twilio.rest.chat.v1.service.channel.message.MessageInstance
         """
         return MessageInstance(self._version, payload, service_sid=self._solution['service_sid'], channel_sid=self._solution['channel_sid'])
 

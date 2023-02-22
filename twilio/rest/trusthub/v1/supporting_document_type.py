@@ -28,10 +28,11 @@ class SupportingDocumentTypeList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the SupportingDocumentTypeList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.trusthub.v1.supporting_document_type..SupportingDocumentTypeList
-        :rtype: twilio.trusthub.v1.supporting_document_type..SupportingDocumentTypeList
+        :returns: twilio.rest.trusthub.v1.supporting_document_type.SupportingDocumentTypeList
+        :rtype: twilio.rest.trusthub.v1.supporting_document_type.SupportingDocumentTypeList
         """
         super().__init__(version)
 

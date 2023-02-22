@@ -29,11 +29,12 @@ class BuildList(ListResource):
     def __init__(self, version: Version, service_sid: str):
         """
         Initialize the BuildList
+
         :param Version version: Version that contains the resource
         :param service_sid: The SID of the Service to read the Build resources from.
         
-        :returns: twilio.serverless.v1.build..BuildList
-        :rtype: twilio.serverless.v1.build..BuildList
+        :returns: twilio.rest.serverless.v1.service.build.BuildList
+        :rtype: twilio.rest.serverless.v1.service.build.BuildList
         """
         super().__init__(version)
 
@@ -48,13 +49,13 @@ class BuildList(ListResource):
     def create(self, asset_versions=values.unset, function_versions=values.unset, dependencies=values.unset, runtime=values.unset):
         """
         Create the BuildInstance
-         :param [str] asset_versions: The list of Asset Version resource SIDs to include in the Build.
-         :param [str] function_versions: The list of the Function Version resource SIDs to include in the Build.
-         :param str dependencies: A list of objects that describe the Dependencies included in the Build. Each object contains the `name` and `version` of the dependency.
-         :param str runtime: The Runtime version that will be used to run the Build resource when it is deployed.
+        :param list[str] asset_versions: The list of Asset Version resource SIDs to include in the Build.
+        :param list[str] function_versions: The list of the Function Version resource SIDs to include in the Build.
+        :param str dependencies: A list of objects that describe the Dependencies included in the Build. Each object contains the `name` and `version` of the dependency.
+        :param str runtime: The Runtime version that will be used to run the Build resource when it is deployed.
         
         :returns: The created BuildInstance
-        :rtype: twilio.rest.serverless.v1.build.BuildInstance
+        :rtype: twilio.rest.serverless.v1.service.build.BuildInstance
         """
         data = values.of({ 
             'AssetVersions': serialize.map(asset_versions, lambda e: e),
@@ -82,7 +83,7 @@ class BuildList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.serverless.v1.build.BuildInstance]
+        :rtype: list[twilio.rest.serverless.v1.service.build.BuildInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -105,7 +106,7 @@ class BuildList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.serverless.v1.build.BuildInstance]
+        :rtype: list[twilio.rest.serverless.v1.service.build.BuildInstance]
         """
         return list(self.stream(
             limit=limit,
@@ -122,7 +123,7 @@ class BuildList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of BuildInstance
-        :rtype: twilio.rest.serverless.v1.build.BuildPage
+        :rtype: twilio.rest.serverless.v1.service.build.BuildPage
         """
         data = values.of({ 
             'PageToken': page_token,
@@ -141,7 +142,7 @@ class BuildList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of BuildInstance
-        :rtype: twilio.rest.serverless.v1.build.BuildPage
+        :rtype: twilio.rest.serverless.v1.service.build.BuildPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -156,8 +157,8 @@ class BuildList(ListResource):
         
         :param sid: The SID of the Build resource to fetch.
         
-        :returns: twilio.rest.serverless.v1.build.BuildContext
-        :rtype: twilio.rest.serverless.v1.build.BuildContext
+        :returns: twilio.rest.serverless.v1.service.build.BuildContext
+        :rtype: twilio.rest.serverless.v1.service.build.BuildContext
         """
         return BuildContext(self._version, service_sid=self._solution['service_sid'], sid=sid)
 
@@ -167,8 +168,8 @@ class BuildList(ListResource):
         
         :param sid: The SID of the Build resource to fetch.
         
-        :returns: twilio.rest.serverless.v1.build.BuildContext
-        :rtype: twilio.rest.serverless.v1.build.BuildContext
+        :returns: twilio.rest.serverless.v1.service.build.BuildContext
+        :rtype: twilio.rest.serverless.v1.service.build.BuildContext
         """
         return BuildContext(self._version, service_sid=self._solution['service_sid'], sid=sid)
 
@@ -196,8 +197,8 @@ class BuildPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.serverless.v1.build.BuildPage
-        :rtype: twilio.rest.serverless.v1.build.BuildPage
+        :returns: twilio.rest.serverless.v1.service.build.BuildPage
+        :rtype: twilio.rest.serverless.v1.service.build.BuildPage
         """
         super().__init__(version, response)
 
@@ -210,8 +211,8 @@ class BuildPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.serverless.v1.build.BuildInstance
-        :rtype: twilio.rest.serverless.v1.build.BuildInstance
+        :returns: twilio.rest.serverless.v1.service.build.BuildInstance
+        :rtype: twilio.rest.serverless.v1.service.build.BuildInstance
         """
         return BuildInstance(self._version, payload, service_sid=self._solution['service_sid'])
 

@@ -28,10 +28,11 @@ class IpCommandList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the IpCommandList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.supersim.v1.ip_command..IpCommandList
-        :rtype: twilio.supersim.v1.ip_command..IpCommandList
+        :returns: twilio.rest.supersim.v1.ip_command.IpCommandList
+        :rtype: twilio.rest.supersim.v1.ip_command.IpCommandList
         """
         super().__init__(version)
 
@@ -45,12 +46,12 @@ class IpCommandList(ListResource):
     def create(self, sim, payload, device_port, payload_type=values.unset, callback_url=values.unset, callback_method=values.unset):
         """
         Create the IpCommandInstance
-         :param str sim: The `sid` or `unique_name` of the [Super SIM](https://www.twilio.com/docs/iot/supersim/api/sim-resource) to send the IP Command to.
-         :param str payload: The data that will be sent to the device. The payload cannot exceed 1300 bytes. If the PayloadType is set to text, the payload is encoded in UTF-8. If PayloadType is set to binary, the payload is encoded in Base64.
-         :param int device_port: The device port to which the IP Command will be sent.
-         :param IpCommandPayloadType payload_type: 
-         :param str callback_url: The URL we should call using the `callback_method` after we have sent the IP Command.
-         :param str callback_method: The HTTP method we should use to call `callback_url`. Can be `GET` or `POST`, and the default is `POST`.
+        :param str sim: The `sid` or `unique_name` of the [Super SIM](https://www.twilio.com/docs/iot/supersim/api/sim-resource) to send the IP Command to.
+        :param str payload: The data that will be sent to the device. The payload cannot exceed 1300 bytes. If the PayloadType is set to text, the payload is encoded in UTF-8. If PayloadType is set to binary, the payload is encoded in Base64.
+        :param int device_port: The device port to which the IP Command will be sent.
+        :param IpCommandPayloadType payload_type: 
+        :param str callback_url: The URL we should call using the `callback_method` after we have sent the IP Command.
+        :param str callback_method: The HTTP method we should use to call `callback_url`. Can be `GET` or `POST`, and the default is `POST`.
         
         :returns: The created IpCommandInstance
         :rtype: twilio.rest.supersim.v1.ip_command.IpCommandInstance

@@ -28,10 +28,11 @@ class InsightsSessionList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the InsightsSessionList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.flex_api.v1.insights_session..InsightsSessionList
-        :rtype: twilio.flex_api.v1.insights_session..InsightsSessionList
+        :returns: twilio.rest.flex_api.v1.insights_session.InsightsSessionList
+        :rtype: twilio.rest.flex_api.v1.insights_session.InsightsSessionList
         """
         super().__init__(version)
 
@@ -44,7 +45,7 @@ class InsightsSessionList(ListResource):
     def create(self, authorization=values.unset):
         """
         Create the InsightsSessionInstance
-         :param str authorization: The Authorization HTTP request header
+        :param str authorization: The Authorization HTTP request header
         
         :returns: The created InsightsSessionInstance
         :rtype: twilio.rest.flex_api.v1.insights_session.InsightsSessionInstance

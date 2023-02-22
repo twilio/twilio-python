@@ -28,11 +28,12 @@ class ReplaceItemsList(ListResource):
     def __init__(self, version: Version, bundle_sid: str):
         """
         Initialize the ReplaceItemsList
+
         :param Version version: Version that contains the resource
         :param bundle_sid: The unique string that identifies the Bundle where the item assignments are going to be replaced.
         
-        :returns: twilio.numbers.v2.replace_items..ReplaceItemsList
-        :rtype: twilio.numbers.v2.replace_items..ReplaceItemsList
+        :returns: twilio.rest.numbers.v2.regulatory_compliance.bundle.replace_items.ReplaceItemsList
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.replace_items.ReplaceItemsList
         """
         super().__init__(version)
 
@@ -45,10 +46,10 @@ class ReplaceItemsList(ListResource):
     def create(self, from_bundle_sid):
         """
         Create the ReplaceItemsInstance
-         :param str from_bundle_sid: The source bundle sid to copy the item assignments from.
+        :param str from_bundle_sid: The source bundle sid to copy the item assignments from.
         
         :returns: The created ReplaceItemsInstance
-        :rtype: twilio.rest.numbers.v2.replace_items.ReplaceItemsInstance
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.replace_items.ReplaceItemsInstance
         """
         data = values.of({ 
             'FromBundleSid': from_bundle_sid,

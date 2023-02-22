@@ -30,11 +30,12 @@ class EngagementList(ListResource):
     def __init__(self, version: Version, flow_sid: str):
         """
         Initialize the EngagementList
+
         :param Version version: Version that contains the resource
         :param flow_sid: The SID of the Flow to read Engagements from.
         
-        :returns: twilio.studio.v1.engagement..EngagementList
-        :rtype: twilio.studio.v1.engagement..EngagementList
+        :returns: twilio.rest.studio.v1.flow.engagement.EngagementList
+        :rtype: twilio.rest.studio.v1.flow.engagement.EngagementList
         """
         super().__init__(version)
 
@@ -49,17 +50,17 @@ class EngagementList(ListResource):
     def create(self, to, from_, parameters=values.unset):
         """
         Create the EngagementInstance
-         :param str to: The Contact phone number to start a Studio Flow Engagement, available as variable `{{contact.channel.address}}`.
-         :param str from_: The Twilio phone number to send messages or initiate calls from during the Flow Engagement. Available as variable `{{flow.channel.address}}`
-         :param bool, date, datetime, dict, float, int, list, str, none_type parameters: A JSON string we will add to your flow's context and that you can access as variables inside your flow. For example, if you pass in `Parameters={'name':'Zeke'}` then inside a widget you can reference the variable `{{flow.data.name}}` which will return the string 'Zeke'. Note: the JSON value must explicitly be passed as a string, not as a hash object. Depending on your particular HTTP library, you may need to add quotes or URL encode your JSON string.
+        :param str to: The Contact phone number to start a Studio Flow Engagement, available as variable `{{contact.channel.address}}`.
+        :param str from_: The Twilio phone number to send messages or initiate calls from during the Flow Engagement. Available as variable `{{flow.channel.address}}`
+        :param object parameters: A JSON string we will add to your flow's context and that you can access as variables inside your flow. For example, if you pass in `Parameters={'name':'Zeke'}` then inside a widget you can reference the variable `{{flow.data.name}}` which will return the string 'Zeke'. Note: the JSON value must explicitly be passed as a string, not as a hash object. Depending on your particular HTTP library, you may need to add quotes or URL encode your JSON string.
         
         :returns: The created EngagementInstance
-        :rtype: twilio.rest.studio.v1.engagement.EngagementInstance
+        :rtype: twilio.rest.studio.v1.flow.engagement.EngagementInstance
         """
         data = values.of({ 
             'To': to,
             'From': from_,
-            'Parameters': parameters,
+            'Parameters': serialize.object(parameters),
         })
 
         payload = self._version.create(method='POST', uri=self._uri, data=data)
@@ -81,7 +82,7 @@ class EngagementList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.studio.v1.engagement.EngagementInstance]
+        :rtype: list[twilio.rest.studio.v1.flow.engagement.EngagementInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -104,7 +105,7 @@ class EngagementList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.studio.v1.engagement.EngagementInstance]
+        :rtype: list[twilio.rest.studio.v1.flow.engagement.EngagementInstance]
         """
         return list(self.stream(
             limit=limit,
@@ -121,7 +122,7 @@ class EngagementList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of EngagementInstance
-        :rtype: twilio.rest.studio.v1.engagement.EngagementPage
+        :rtype: twilio.rest.studio.v1.flow.engagement.EngagementPage
         """
         data = values.of({ 
             'PageToken': page_token,
@@ -140,7 +141,7 @@ class EngagementList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of EngagementInstance
-        :rtype: twilio.rest.studio.v1.engagement.EngagementPage
+        :rtype: twilio.rest.studio.v1.flow.engagement.EngagementPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -155,8 +156,8 @@ class EngagementList(ListResource):
         
         :param sid: The SID of the Engagement resource to fetch.
         
-        :returns: twilio.rest.studio.v1.engagement.EngagementContext
-        :rtype: twilio.rest.studio.v1.engagement.EngagementContext
+        :returns: twilio.rest.studio.v1.flow.engagement.EngagementContext
+        :rtype: twilio.rest.studio.v1.flow.engagement.EngagementContext
         """
         return EngagementContext(self._version, flow_sid=self._solution['flow_sid'], sid=sid)
 
@@ -166,8 +167,8 @@ class EngagementList(ListResource):
         
         :param sid: The SID of the Engagement resource to fetch.
         
-        :returns: twilio.rest.studio.v1.engagement.EngagementContext
-        :rtype: twilio.rest.studio.v1.engagement.EngagementContext
+        :returns: twilio.rest.studio.v1.flow.engagement.EngagementContext
+        :rtype: twilio.rest.studio.v1.flow.engagement.EngagementContext
         """
         return EngagementContext(self._version, flow_sid=self._solution['flow_sid'], sid=sid)
 
@@ -195,8 +196,8 @@ class EngagementPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.studio.v1.engagement.EngagementPage
-        :rtype: twilio.rest.studio.v1.engagement.EngagementPage
+        :returns: twilio.rest.studio.v1.flow.engagement.EngagementPage
+        :rtype: twilio.rest.studio.v1.flow.engagement.EngagementPage
         """
         super().__init__(version, response)
 
@@ -209,8 +210,8 @@ class EngagementPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.studio.v1.engagement.EngagementInstance
-        :rtype: twilio.rest.studio.v1.engagement.EngagementInstance
+        :returns: twilio.rest.studio.v1.flow.engagement.EngagementInstance
+        :rtype: twilio.rest.studio.v1.flow.engagement.EngagementInstance
         """
         return EngagementInstance(self._version, payload, flow_sid=self._solution['flow_sid'])
 

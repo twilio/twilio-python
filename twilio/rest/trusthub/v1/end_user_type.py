@@ -28,10 +28,11 @@ class EndUserTypeList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the EndUserTypeList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.trusthub.v1.end_user_type..EndUserTypeList
-        :rtype: twilio.trusthub.v1.end_user_type..EndUserTypeList
+        :returns: twilio.rest.trusthub.v1.end_user_type.EndUserTypeList
+        :rtype: twilio.rest.trusthub.v1.end_user_type.EndUserTypeList
         """
         super().__init__(version)
 

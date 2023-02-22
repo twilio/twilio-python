@@ -28,10 +28,11 @@ class IpRecordList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the IpRecordList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.voice.v1.ip_record..IpRecordList
-        :rtype: twilio.voice.v1.ip_record..IpRecordList
+        :returns: twilio.rest.voice.v1.ip_record.IpRecordList
+        :rtype: twilio.rest.voice.v1.ip_record.IpRecordList
         """
         super().__init__(version)
 
@@ -47,9 +48,9 @@ class IpRecordList(ListResource):
     def create(self, ip_address, friendly_name=values.unset, cidr_prefix_length=values.unset):
         """
         Create the IpRecordInstance
-         :param str ip_address: An IP address in dotted decimal notation, IPv4 only.
-         :param str friendly_name: A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
-         :param int cidr_prefix_length: An integer representing the length of the [CIDR](https://tools.ietf.org/html/rfc4632) prefix to use with this IP address. By default the entire IP address is used, which for IPv4 is value 32.
+        :param str ip_address: An IP address in dotted decimal notation, IPv4 only.
+        :param str friendly_name: A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
+        :param int cidr_prefix_length: An integer representing the length of the [CIDR](https://tools.ietf.org/html/rfc4632) prefix to use with this IP address. By default the entire IP address is used, which for IPv4 is value 32.
         
         :returns: The created IpRecordInstance
         :rtype: twilio.rest.voice.v1.ip_record.IpRecordInstance

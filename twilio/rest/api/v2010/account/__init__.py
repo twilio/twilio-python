@@ -52,10 +52,11 @@ class AccountList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the AccountList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.api.v2010.account..AccountList
-        :rtype: twilio.api.v2010.account..AccountList
+        :returns: twilio.rest.api.v2010.account.AccountList
+        :rtype: twilio.rest.api.v2010.account.AccountList
         """
         super().__init__(version)
 
@@ -70,7 +71,7 @@ class AccountList(ListResource):
     def create(self, friendly_name=values.unset):
         """
         Create the AccountInstance
-         :param str friendly_name: A human readable description of the account to create, defaults to `SubAccount Created at {YYYY-MM-DD HH:MM meridian}`
+        :param str friendly_name: A human readable description of the account to create, defaults to `SubAccount Created at {YYYY-MM-DD HH:MM meridian}`
         
         :returns: The created AccountInstance
         :rtype: twilio.rest.api.v2010.account.AccountInstance

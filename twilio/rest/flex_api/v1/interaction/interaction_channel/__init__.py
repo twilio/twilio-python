@@ -30,11 +30,12 @@ class InteractionChannelList(ListResource):
     def __init__(self, version: Version, interaction_sid: str):
         """
         Initialize the InteractionChannelList
+
         :param Version version: Version that contains the resource
         :param interaction_sid: The unique string created by Twilio to identify an Interaction resource, prefixed with KD.
         
-        :returns: twilio.flex_api.v1.interaction_channel..InteractionChannelList
-        :rtype: twilio.flex_api.v1.interaction_channel..InteractionChannelList
+        :returns: twilio.rest.flex_api.v1.interaction.interaction_channel.InteractionChannelList
+        :rtype: twilio.rest.flex_api.v1.interaction.interaction_channel.InteractionChannelList
         """
         super().__init__(version)
 
@@ -61,7 +62,7 @@ class InteractionChannelList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.flex_api.v1.interaction_channel.InteractionChannelInstance]
+        :rtype: list[twilio.rest.flex_api.v1.interaction.interaction_channel.InteractionChannelInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -84,7 +85,7 @@ class InteractionChannelList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.flex_api.v1.interaction_channel.InteractionChannelInstance]
+        :rtype: list[twilio.rest.flex_api.v1.interaction.interaction_channel.InteractionChannelInstance]
         """
         return list(self.stream(
             limit=limit,
@@ -101,7 +102,7 @@ class InteractionChannelList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of InteractionChannelInstance
-        :rtype: twilio.rest.flex_api.v1.interaction_channel.InteractionChannelPage
+        :rtype: twilio.rest.flex_api.v1.interaction.interaction_channel.InteractionChannelPage
         """
         data = values.of({ 
             'PageToken': page_token,
@@ -120,7 +121,7 @@ class InteractionChannelList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of InteractionChannelInstance
-        :rtype: twilio.rest.flex_api.v1.interaction_channel.InteractionChannelPage
+        :rtype: twilio.rest.flex_api.v1.interaction.interaction_channel.InteractionChannelPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -135,8 +136,8 @@ class InteractionChannelList(ListResource):
         
         :param sid: The unique string created by Twilio to identify an Interaction Channel resource, prefixed with UO.
         
-        :returns: twilio.rest.flex_api.v1.interaction_channel.InteractionChannelContext
-        :rtype: twilio.rest.flex_api.v1.interaction_channel.InteractionChannelContext
+        :returns: twilio.rest.flex_api.v1.interaction.interaction_channel.InteractionChannelContext
+        :rtype: twilio.rest.flex_api.v1.interaction.interaction_channel.InteractionChannelContext
         """
         return InteractionChannelContext(self._version, interaction_sid=self._solution['interaction_sid'], sid=sid)
 
@@ -146,8 +147,8 @@ class InteractionChannelList(ListResource):
         
         :param sid: The unique string created by Twilio to identify an Interaction Channel resource, prefixed with UO.
         
-        :returns: twilio.rest.flex_api.v1.interaction_channel.InteractionChannelContext
-        :rtype: twilio.rest.flex_api.v1.interaction_channel.InteractionChannelContext
+        :returns: twilio.rest.flex_api.v1.interaction.interaction_channel.InteractionChannelContext
+        :rtype: twilio.rest.flex_api.v1.interaction.interaction_channel.InteractionChannelContext
         """
         return InteractionChannelContext(self._version, interaction_sid=self._solution['interaction_sid'], sid=sid)
 
@@ -173,8 +174,8 @@ class InteractionChannelPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.flex_api.v1.interaction_channel.InteractionChannelPage
-        :rtype: twilio.rest.flex_api.v1.interaction_channel.InteractionChannelPage
+        :returns: twilio.rest.flex_api.v1.interaction.interaction_channel.InteractionChannelPage
+        :rtype: twilio.rest.flex_api.v1.interaction.interaction_channel.InteractionChannelPage
         """
         super().__init__(version, response)
 
@@ -187,8 +188,8 @@ class InteractionChannelPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.flex_api.v1.interaction_channel.InteractionChannelInstance
-        :rtype: twilio.rest.flex_api.v1.interaction_channel.InteractionChannelInstance
+        :returns: twilio.rest.flex_api.v1.interaction.interaction_channel.InteractionChannelInstance
+        :rtype: twilio.rest.flex_api.v1.interaction.interaction_channel.InteractionChannelInstance
         """
         return InteractionChannelInstance(self._version, payload, interaction_sid=self._solution['interaction_sid'])
 

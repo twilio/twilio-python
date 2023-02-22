@@ -28,10 +28,11 @@ class FormList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the FormList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.verify.v2.form..FormList
-        :rtype: twilio.verify.v2.form..FormList
+        :returns: twilio.rest.verify.v2.form.FormList
+        :rtype: twilio.rest.verify.v2.form.FormList
         """
         super().__init__(version)
 

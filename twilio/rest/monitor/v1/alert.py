@@ -28,10 +28,11 @@ class AlertList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the AlertList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.monitor.v1.alert..AlertList
-        :rtype: twilio.monitor.v1.alert..AlertList
+        :returns: twilio.rest.monitor.v1.alert.AlertList
+        :rtype: twilio.rest.monitor.v1.alert.AlertList
         """
         super().__init__(version)
 

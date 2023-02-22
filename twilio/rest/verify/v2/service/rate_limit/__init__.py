@@ -29,11 +29,12 @@ class RateLimitList(ListResource):
     def __init__(self, version: Version, service_sid: str):
         """
         Initialize the RateLimitList
+
         :param Version version: Version that contains the resource
         :param service_sid: The SID of the [Service](https://www.twilio.com/docs/verify/api/service) the resource is associated with.
         
-        :returns: twilio.verify.v2.rate_limit..RateLimitList
-        :rtype: twilio.verify.v2.rate_limit..RateLimitList
+        :returns: twilio.rest.verify.v2.service.rate_limit.RateLimitList
+        :rtype: twilio.rest.verify.v2.service.rate_limit.RateLimitList
         """
         super().__init__(version)
 
@@ -49,11 +50,11 @@ class RateLimitList(ListResource):
     def create(self, unique_name, description=values.unset):
         """
         Create the RateLimitInstance
-         :param str unique_name: Provides a unique and addressable name to be assigned to this Rate Limit, assigned by the developer, to be optionally used in addition to SID. **This value should not contain PII.**
-         :param str description: Description of this Rate Limit
+        :param str unique_name: Provides a unique and addressable name to be assigned to this Rate Limit, assigned by the developer, to be optionally used in addition to SID. **This value should not contain PII.**
+        :param str description: Description of this Rate Limit
         
         :returns: The created RateLimitInstance
-        :rtype: twilio.rest.verify.v2.rate_limit.RateLimitInstance
+        :rtype: twilio.rest.verify.v2.service.rate_limit.RateLimitInstance
         """
         data = values.of({ 
             'UniqueName': unique_name,
@@ -79,7 +80,7 @@ class RateLimitList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.verify.v2.rate_limit.RateLimitInstance]
+        :rtype: list[twilio.rest.verify.v2.service.rate_limit.RateLimitInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -102,7 +103,7 @@ class RateLimitList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.verify.v2.rate_limit.RateLimitInstance]
+        :rtype: list[twilio.rest.verify.v2.service.rate_limit.RateLimitInstance]
         """
         return list(self.stream(
             limit=limit,
@@ -119,7 +120,7 @@ class RateLimitList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of RateLimitInstance
-        :rtype: twilio.rest.verify.v2.rate_limit.RateLimitPage
+        :rtype: twilio.rest.verify.v2.service.rate_limit.RateLimitPage
         """
         data = values.of({ 
             'PageToken': page_token,
@@ -138,7 +139,7 @@ class RateLimitList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of RateLimitInstance
-        :rtype: twilio.rest.verify.v2.rate_limit.RateLimitPage
+        :rtype: twilio.rest.verify.v2.service.rate_limit.RateLimitPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -153,8 +154,8 @@ class RateLimitList(ListResource):
         
         :param sid: The Twilio-provided string that uniquely identifies the Rate Limit resource to fetch.
         
-        :returns: twilio.rest.verify.v2.rate_limit.RateLimitContext
-        :rtype: twilio.rest.verify.v2.rate_limit.RateLimitContext
+        :returns: twilio.rest.verify.v2.service.rate_limit.RateLimitContext
+        :rtype: twilio.rest.verify.v2.service.rate_limit.RateLimitContext
         """
         return RateLimitContext(self._version, service_sid=self._solution['service_sid'], sid=sid)
 
@@ -164,8 +165,8 @@ class RateLimitList(ListResource):
         
         :param sid: The Twilio-provided string that uniquely identifies the Rate Limit resource to fetch.
         
-        :returns: twilio.rest.verify.v2.rate_limit.RateLimitContext
-        :rtype: twilio.rest.verify.v2.rate_limit.RateLimitContext
+        :returns: twilio.rest.verify.v2.service.rate_limit.RateLimitContext
+        :rtype: twilio.rest.verify.v2.service.rate_limit.RateLimitContext
         """
         return RateLimitContext(self._version, service_sid=self._solution['service_sid'], sid=sid)
 
@@ -195,8 +196,8 @@ class RateLimitPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.verify.v2.rate_limit.RateLimitPage
-        :rtype: twilio.rest.verify.v2.rate_limit.RateLimitPage
+        :returns: twilio.rest.verify.v2.service.rate_limit.RateLimitPage
+        :rtype: twilio.rest.verify.v2.service.rate_limit.RateLimitPage
         """
         super().__init__(version, response)
 
@@ -209,8 +210,8 @@ class RateLimitPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.verify.v2.rate_limit.RateLimitInstance
-        :rtype: twilio.rest.verify.v2.rate_limit.RateLimitInstance
+        :returns: twilio.rest.verify.v2.service.rate_limit.RateLimitInstance
+        :rtype: twilio.rest.verify.v2.service.rate_limit.RateLimitInstance
         """
         return RateLimitInstance(self._version, payload, service_sid=self._solution['service_sid'])
 

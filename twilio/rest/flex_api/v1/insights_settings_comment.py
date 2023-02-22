@@ -28,10 +28,11 @@ class InsightsSettingsCommentList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the InsightsSettingsCommentList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.flex_api.v1.insights_settings_comment..InsightsSettingsCommentList
-        :rtype: twilio.flex_api.v1.insights_settings_comment..InsightsSettingsCommentList
+        :returns: twilio.rest.flex_api.v1.insights_settings_comment.InsightsSettingsCommentList
+        :rtype: twilio.rest.flex_api.v1.insights_settings_comment.InsightsSettingsCommentList
         """
         super().__init__(version)
 

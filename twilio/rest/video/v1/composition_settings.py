@@ -28,10 +28,11 @@ class CompositionSettingsList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the CompositionSettingsList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.video.v1.composition_settings..CompositionSettingsList
-        :rtype: twilio.video.v1.composition_settings..CompositionSettingsList
+        :returns: twilio.rest.video.v1.composition_settings.CompositionSettingsList
+        :rtype: twilio.rest.video.v1.composition_settings.CompositionSettingsList
         """
         super().__init__(version)
 
@@ -44,12 +45,12 @@ class CompositionSettingsList(ListResource):
     def create(self, friendly_name, aws_credentials_sid=values.unset, encryption_key_sid=values.unset, aws_s3_url=values.unset, aws_storage_enabled=values.unset, encryption_enabled=values.unset):
         """
         Create the CompositionSettingsInstance
-         :param str friendly_name: A descriptive string that you create to describe the resource and show to the user in the console
-         :param str aws_credentials_sid: The SID of the stored Credential resource.
-         :param str encryption_key_sid: The SID of the Public Key resource to use for encryption.
-         :param str aws_s3_url: The URL of the AWS S3 bucket where the compositions should be stored. We only support DNS-compliant URLs like `https://documentation-example-twilio-bucket/compositions`, where `compositions` is the path in which you want the compositions to be stored. This URL accepts only URI-valid characters, as described in the <a href='https://tools.ietf.org/html/rfc3986#section-2'>RFC 3986</a>.
-         :param bool aws_storage_enabled: Whether all compositions should be written to the `aws_s3_url`. When `false`, all compositions are stored in our cloud.
-         :param bool encryption_enabled: Whether all compositions should be stored in an encrypted form. The default is `false`.
+        :param str friendly_name: A descriptive string that you create to describe the resource and show to the user in the console
+        :param str aws_credentials_sid: The SID of the stored Credential resource.
+        :param str encryption_key_sid: The SID of the Public Key resource to use for encryption.
+        :param str aws_s3_url: The URL of the AWS S3 bucket where the compositions should be stored. We only support DNS-compliant URLs like `https://documentation-example-twilio-bucket/compositions`, where `compositions` is the path in which you want the compositions to be stored. This URL accepts only URI-valid characters, as described in the <a href='https://tools.ietf.org/html/rfc3986#section-2'>RFC 3986</a>.
+        :param bool aws_storage_enabled: Whether all compositions should be written to the `aws_s3_url`. When `false`, all compositions are stored in our cloud.
+        :param bool encryption_enabled: Whether all compositions should be stored in an encrypted form. The default is `false`.
         
         :returns: The created CompositionSettingsInstance
         :rtype: twilio.rest.video.v1.composition_settings.CompositionSettingsInstance

@@ -28,10 +28,11 @@ class InsightsQuestionnairesCategoryList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the InsightsQuestionnairesCategoryList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.flex_api.v1.insights_questionnaires_category..InsightsQuestionnairesCategoryList
-        :rtype: twilio.flex_api.v1.insights_questionnaires_category..InsightsQuestionnairesCategoryList
+        :returns: twilio.rest.flex_api.v1.insights_questionnaires_category.InsightsQuestionnairesCategoryList
+        :rtype: twilio.rest.flex_api.v1.insights_questionnaires_category.InsightsQuestionnairesCategoryList
         """
         super().__init__(version)
 
@@ -43,16 +44,18 @@ class InsightsQuestionnairesCategoryList(ListResource):
     
     
     
-    def create(self, name):
+    def create(self, name, token=values.unset):
         """
         Create the InsightsQuestionnairesCategoryInstance
-         :param str name: The name of this category.
+        :param str name: The name of this category.
+        :param str token: The Token HTTP request header
         
         :returns: The created InsightsQuestionnairesCategoryInstance
         :rtype: twilio.rest.flex_api.v1.insights_questionnaires_category.InsightsQuestionnairesCategoryInstance
         """
         data = values.of({ 
             'Name': name,
+            'Token': token,
         })
 
         payload = self._version.create(method='POST', uri=self._uri, data=data)
@@ -248,9 +251,9 @@ class InsightsQuestionnairesCategoryContext(InstanceContext):
         """
         return self._version.delete(method='DELETE', uri=self._uri, )
     
-    def update(self, name):
+    def update(self, name, token):
         data = values.of({
-            'name': name,
+            'name': name,'token': token,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

@@ -28,10 +28,11 @@ class InsightsUserRolesList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the InsightsUserRolesList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.flex_api.v1.insights_user_roles..InsightsUserRolesList
-        :rtype: twilio.flex_api.v1.insights_user_roles..InsightsUserRolesList
+        :returns: twilio.rest.flex_api.v1.insights_user_roles.InsightsUserRolesList
+        :rtype: twilio.rest.flex_api.v1.insights_user_roles.InsightsUserRolesList
         """
         super().__init__(version)
 

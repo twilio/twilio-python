@@ -29,10 +29,11 @@ class SimList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the SimList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.preview.wireless.sim..SimList
-        :rtype: twilio.preview.wireless.sim..SimList
+        :returns: twilio.rest.preview.wireless.sim.SimList
+        :rtype: twilio.rest.preview.wireless.sim.SimList
         """
         super().__init__(version)
 

@@ -28,10 +28,11 @@ class UserList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the UserList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.frontline_api.v1.user..UserList
-        :rtype: twilio.frontline_api.v1.user..UserList
+        :returns: twilio.rest.frontline_api.v1.user.UserList
+        :rtype: twilio.rest.frontline_api.v1.user.UserList
         """
         super().__init__(version)
 

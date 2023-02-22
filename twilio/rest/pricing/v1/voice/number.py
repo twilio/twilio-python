@@ -28,10 +28,11 @@ class NumberList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the NumberList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.pricing.v1.number..NumberList
-        :rtype: twilio.pricing.v1.number..NumberList
+        :returns: twilio.rest.pricing.v1.voice.number.NumberList
+        :rtype: twilio.rest.pricing.v1.voice.number.NumberList
         """
         super().__init__(version)
 
@@ -48,8 +49,8 @@ class NumberList(ListResource):
         
         :param number: The phone number to fetch.
         
-        :returns: twilio.rest.pricing.v1.number.NumberContext
-        :rtype: twilio.rest.pricing.v1.number.NumberContext
+        :returns: twilio.rest.pricing.v1.voice.number.NumberContext
+        :rtype: twilio.rest.pricing.v1.voice.number.NumberContext
         """
         return NumberContext(self._version, number=number)
 
@@ -59,8 +60,8 @@ class NumberList(ListResource):
         
         :param number: The phone number to fetch.
         
-        :returns: twilio.rest.pricing.v1.number.NumberContext
-        :rtype: twilio.rest.pricing.v1.number.NumberContext
+        :returns: twilio.rest.pricing.v1.voice.number.NumberContext
+        :rtype: twilio.rest.pricing.v1.voice.number.NumberContext
         """
         return NumberContext(self._version, number=number)
 

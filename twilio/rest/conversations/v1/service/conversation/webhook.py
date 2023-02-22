@@ -28,12 +28,13 @@ class WebhookList(ListResource):
     def __init__(self, version: Version, chat_service_sid: str, conversation_sid: str):
         """
         Initialize the WebhookList
+
         :param Version version: Version that contains the resource
         :param chat_service_sid: The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Participant resource is associated with.
         :param conversation_sid: The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this webhook.
         
-        :returns: twilio.conversations.v1.webhook..WebhookList
-        :rtype: twilio.conversations.v1.webhook..WebhookList
+        :returns: twilio.rest.conversations.v1.service.conversation.webhook.WebhookList
+        :rtype: twilio.rest.conversations.v1.service.conversation.webhook.WebhookList
         """
         super().__init__(version)
 
@@ -49,16 +50,16 @@ class WebhookList(ListResource):
     def create(self, target, configuration_url=values.unset, configuration_method=values.unset, configuration_filters=values.unset, configuration_triggers=values.unset, configuration_flow_sid=values.unset, configuration_replay_after=values.unset):
         """
         Create the WebhookInstance
-         :param ServiceConversationScopedWebhookTarget target: 
-         :param str configuration_url: The absolute url the webhook request should be sent to.
-         :param ServiceConversationScopedWebhookMethod configuration_method: 
-         :param [str] configuration_filters: The list of events, firing webhook event for this Conversation.
-         :param [str] configuration_triggers: The list of keywords, firing webhook event for this Conversation.
-         :param str configuration_flow_sid: The studio flow SID, where the webhook should be sent to.
-         :param int configuration_replay_after: The message index for which and it's successors the webhook will be replayed. Not set by default
+        :param ServiceConversationScopedWebhookTarget target: 
+        :param str configuration_url: The absolute url the webhook request should be sent to.
+        :param ServiceConversationScopedWebhookMethod configuration_method: 
+        :param list[str] configuration_filters: The list of events, firing webhook event for this Conversation.
+        :param list[str] configuration_triggers: The list of keywords, firing webhook event for this Conversation.
+        :param str configuration_flow_sid: The studio flow SID, where the webhook should be sent to.
+        :param int configuration_replay_after: The message index for which and it's successors the webhook will be replayed. Not set by default
         
         :returns: The created WebhookInstance
-        :rtype: twilio.rest.conversations.v1.webhook.WebhookInstance
+        :rtype: twilio.rest.conversations.v1.service.conversation.webhook.WebhookInstance
         """
         data = values.of({ 
             'Target': target,
@@ -89,7 +90,7 @@ class WebhookList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.conversations.v1.webhook.WebhookInstance]
+        :rtype: list[twilio.rest.conversations.v1.service.conversation.webhook.WebhookInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -112,7 +113,7 @@ class WebhookList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.conversations.v1.webhook.WebhookInstance]
+        :rtype: list[twilio.rest.conversations.v1.service.conversation.webhook.WebhookInstance]
         """
         return list(self.stream(
             limit=limit,
@@ -129,7 +130,7 @@ class WebhookList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of WebhookInstance
-        :rtype: twilio.rest.conversations.v1.webhook.WebhookPage
+        :rtype: twilio.rest.conversations.v1.service.conversation.webhook.WebhookPage
         """
         data = values.of({ 
             'PageToken': page_token,
@@ -148,7 +149,7 @@ class WebhookList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of WebhookInstance
-        :rtype: twilio.rest.conversations.v1.webhook.WebhookPage
+        :rtype: twilio.rest.conversations.v1.service.conversation.webhook.WebhookPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -163,8 +164,8 @@ class WebhookList(ListResource):
         
         :param sid: A 34 character string that uniquely identifies this resource.
         
-        :returns: twilio.rest.conversations.v1.webhook.WebhookContext
-        :rtype: twilio.rest.conversations.v1.webhook.WebhookContext
+        :returns: twilio.rest.conversations.v1.service.conversation.webhook.WebhookContext
+        :rtype: twilio.rest.conversations.v1.service.conversation.webhook.WebhookContext
         """
         return WebhookContext(self._version, chat_service_sid=self._solution['chat_service_sid'], conversation_sid=self._solution['conversation_sid'], sid=sid)
 
@@ -174,8 +175,8 @@ class WebhookList(ListResource):
         
         :param sid: A 34 character string that uniquely identifies this resource.
         
-        :returns: twilio.rest.conversations.v1.webhook.WebhookContext
-        :rtype: twilio.rest.conversations.v1.webhook.WebhookContext
+        :returns: twilio.rest.conversations.v1.service.conversation.webhook.WebhookContext
+        :rtype: twilio.rest.conversations.v1.service.conversation.webhook.WebhookContext
         """
         return WebhookContext(self._version, chat_service_sid=self._solution['chat_service_sid'], conversation_sid=self._solution['conversation_sid'], sid=sid)
 
@@ -205,8 +206,8 @@ class WebhookPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.conversations.v1.webhook.WebhookPage
-        :rtype: twilio.rest.conversations.v1.webhook.WebhookPage
+        :returns: twilio.rest.conversations.v1.service.conversation.webhook.WebhookPage
+        :rtype: twilio.rest.conversations.v1.service.conversation.webhook.WebhookPage
         """
         super().__init__(version, response)
 
@@ -219,8 +220,8 @@ class WebhookPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.conversations.v1.webhook.WebhookInstance
-        :rtype: twilio.rest.conversations.v1.webhook.WebhookInstance
+        :returns: twilio.rest.conversations.v1.service.conversation.webhook.WebhookInstance
+        :rtype: twilio.rest.conversations.v1.service.conversation.webhook.WebhookInstance
         """
         return WebhookInstance(self._version, payload, chat_service_sid=self._solution['chat_service_sid'], conversation_sid=self._solution['conversation_sid'])
 

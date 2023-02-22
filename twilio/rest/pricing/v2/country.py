@@ -28,10 +28,11 @@ class CountryList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the CountryList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.pricing.v2.country..CountryList
-        :rtype: twilio.pricing.v2.country..CountryList
+        :returns: twilio.rest.pricing.v2.country.CountryList
+        :rtype: twilio.rest.pricing.v2.country.CountryList
         """
         super().__init__(version)
 

@@ -29,10 +29,11 @@ class ConfigurationList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the ConfigurationList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.conversations.v1.configuration..ConfigurationList
-        :rtype: twilio.conversations.v1.configuration..ConfigurationList
+        :returns: twilio.rest.conversations.v1.configuration.ConfigurationList
+        :rtype: twilio.rest.conversations.v1.configuration.ConfigurationList
         """
         super().__init__(version)
 
@@ -50,12 +51,13 @@ class ConfigurationList(ListResource):
         """
         Access the webhooks
 
-        :returns: twilio.rest.conversations.v1.configuration.webhooks.WebhookList
-        :rtype: twilio.rest.conversations.v1.configuration.webhooks.WebhookList
+        :returns: twilio.rest.conversations.v1.configuration.WebhookList
+        :rtype: twilio.rest.conversations.v1.configuration.WebhookList
         """
         if self._webhooks is None:
             self._webhooks = WebhookList(self._version)
         return self.webhooks
+
     def get(self):
         """
         Constructs a ConfigurationContext

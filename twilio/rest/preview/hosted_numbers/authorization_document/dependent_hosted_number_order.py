@@ -28,11 +28,12 @@ class DependentHostedNumberOrderList(ListResource):
     def __init__(self, version: Version, signing_document_sid: str):
         """
         Initialize the DependentHostedNumberOrderList
+
         :param Version version: Version that contains the resource
         :param signing_document_sid: 
         
-        :returns: twilio.preview.hosted_numbers.dependent_hosted_number_order..DependentHostedNumberOrderList
-        :rtype: twilio.preview.hosted_numbers.dependent_hosted_number_order..DependentHostedNumberOrderList
+        :returns: twilio.rest.preview.hosted_numbers.authorization_document.dependent_hosted_number_order.DependentHostedNumberOrderList
+        :rtype: twilio.rest.preview.hosted_numbers.authorization_document.dependent_hosted_number_order.DependentHostedNumberOrderList
         """
         super().__init__(version)
 
@@ -62,7 +63,7 @@ class DependentHostedNumberOrderList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.preview.hosted_numbers.dependent_hosted_number_order.DependentHostedNumberOrderInstance]
+        :rtype: list[twilio.rest.preview.hosted_numbers.authorization_document.dependent_hosted_number_order.DependentHostedNumberOrderInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -95,7 +96,7 @@ class DependentHostedNumberOrderList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.preview.hosted_numbers.dependent_hosted_number_order.DependentHostedNumberOrderInstance]
+        :rtype: list[twilio.rest.preview.hosted_numbers.authorization_document.dependent_hosted_number_order.DependentHostedNumberOrderInstance]
         """
         return list(self.stream(
             status=status,
@@ -122,7 +123,7 @@ class DependentHostedNumberOrderList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of DependentHostedNumberOrderInstance
-        :rtype: twilio.rest.preview.hosted_numbers.dependent_hosted_number_order.DependentHostedNumberOrderPage
+        :rtype: twilio.rest.preview.hosted_numbers.authorization_document.dependent_hosted_number_order.DependentHostedNumberOrderPage
         """
         data = values.of({ 
             'Status': status,
@@ -146,7 +147,7 @@ class DependentHostedNumberOrderList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of DependentHostedNumberOrderInstance
-        :rtype: twilio.rest.preview.hosted_numbers.dependent_hosted_number_order.DependentHostedNumberOrderPage
+        :rtype: twilio.rest.preview.hosted_numbers.authorization_document.dependent_hosted_number_order.DependentHostedNumberOrderPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -174,8 +175,8 @@ class DependentHostedNumberOrderPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.preview.hosted_numbers.dependent_hosted_number_order.DependentHostedNumberOrderPage
-        :rtype: twilio.rest.preview.hosted_numbers.dependent_hosted_number_order.DependentHostedNumberOrderPage
+        :returns: twilio.rest.preview.hosted_numbers.authorization_document.dependent_hosted_number_order.DependentHostedNumberOrderPage
+        :rtype: twilio.rest.preview.hosted_numbers.authorization_document.dependent_hosted_number_order.DependentHostedNumberOrderPage
         """
         super().__init__(version, response)
 
@@ -188,8 +189,8 @@ class DependentHostedNumberOrderPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.preview.hosted_numbers.dependent_hosted_number_order.DependentHostedNumberOrderInstance
-        :rtype: twilio.rest.preview.hosted_numbers.dependent_hosted_number_order.DependentHostedNumberOrderInstance
+        :returns: twilio.rest.preview.hosted_numbers.authorization_document.dependent_hosted_number_order.DependentHostedNumberOrderInstance
+        :rtype: twilio.rest.preview.hosted_numbers.authorization_document.dependent_hosted_number_order.DependentHostedNumberOrderInstance
         """
         return DependentHostedNumberOrderInstance(self._version, payload, signing_document_sid=self._solution['signing_document_sid'])
 
@@ -205,6 +206,60 @@ class DependentHostedNumberOrderPage(Page):
 
 
 
+
+
+class DependentHostedNumberOrderInstance(InstanceResource):
+    def __init__(self, version, payload, signing_document_sid: str):
+        super().__init__(version)
+        self._properties = { 
+            'sid' : payload.get('sid'),
+            'account_sid' : payload.get('account_sid'),
+            'incoming_phone_number_sid' : payload.get('incoming_phone_number_sid'),
+            'address_sid' : payload.get('address_sid'),
+            'signing_document_sid' : payload.get('signing_document_sid'),
+            'phone_number' : payload.get('phone_number'),
+            'capabilities' : payload.get('capabilities'),
+            'friendly_name' : payload.get('friendly_name'),
+            'unique_name' : payload.get('unique_name'),
+            'status' : payload.get('status'),
+            'failure_reason' : payload.get('failure_reason'),
+            'date_created' : payload.get('date_created'),
+            'date_updated' : payload.get('date_updated'),
+            'verification_attempts' : payload.get('verification_attempts'),
+            'email' : payload.get('email'),
+            'cc_emails' : payload.get('cc_emails'),
+            'verification_type' : payload.get('verification_type'),
+            'verification_document_sid' : payload.get('verification_document_sid'),
+            'extension' : payload.get('extension'),
+            'call_delay' : payload.get('call_delay'),
+            'verification_code' : payload.get('verification_code'),
+            'verification_call_sids' : payload.get('verification_call_sids'),
+        }
+
+        self._context = None
+        self._solution = {
+            'signing_document_sid': signing_document_sid or self._properties['signing_document_sid'],
+        }
+
+    @property
+    def _proxy(self):
+        if self._context is None:
+            self._context = DependentHostedNumberOrderContext(
+                self._version,
+                signing_document_sid=self._solution['signing_document_sid'],
+            )
+        return self._context
+
+    
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Preview.HostedNumbers.DependentHostedNumberOrderInstance {}>'.format(context)
 
 
 

@@ -28,10 +28,11 @@ class SettingsList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the SettingsList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.voice.v1.settings..SettingsList
-        :rtype: twilio.voice.v1.settings..SettingsList
+        :returns: twilio.rest.voice.v1.dialing_permissions.settings.SettingsList
+        :rtype: twilio.rest.voice.v1.dialing_permissions.settings.SettingsList
         """
         super().__init__(version)
 
@@ -47,8 +48,8 @@ class SettingsList(ListResource):
         """
         Constructs a SettingsContext
         
-        :returns: twilio.rest.voice.v1.settings.SettingsContext
-        :rtype: twilio.rest.voice.v1.settings.SettingsContext
+        :returns: twilio.rest.voice.v1.dialing_permissions.settings.SettingsContext
+        :rtype: twilio.rest.voice.v1.dialing_permissions.settings.SettingsContext
         """
         return SettingsContext(self._version)
 
@@ -56,8 +57,8 @@ class SettingsList(ListResource):
         """
         Constructs a SettingsContext
         
-        :returns: twilio.rest.voice.v1.settings.SettingsContext
-        :rtype: twilio.rest.voice.v1.settings.SettingsContext
+        :returns: twilio.rest.voice.v1.dialing_permissions.settings.SettingsContext
+        :rtype: twilio.rest.voice.v1.dialing_permissions.settings.SettingsContext
         """
         return SettingsContext(self._version)
 

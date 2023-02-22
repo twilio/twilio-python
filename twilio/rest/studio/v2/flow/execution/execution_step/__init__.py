@@ -29,12 +29,13 @@ class ExecutionStepList(ListResource):
     def __init__(self, version: Version, flow_sid: str, execution_sid: str):
         """
         Initialize the ExecutionStepList
+
         :param Version version: Version that contains the resource
         :param flow_sid: The SID of the Flow with the Steps to read.
         :param execution_sid: The SID of the Execution with the Steps to read.
         
-        :returns: twilio.studio.v2.execution_step..ExecutionStepList
-        :rtype: twilio.studio.v2.execution_step..ExecutionStepList
+        :returns: twilio.rest.studio.v2.flow.execution.execution_step.ExecutionStepList
+        :rtype: twilio.rest.studio.v2.flow.execution.execution_step.ExecutionStepList
         """
         super().__init__(version)
 
@@ -60,7 +61,7 @@ class ExecutionStepList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.studio.v2.execution_step.ExecutionStepInstance]
+        :rtype: list[twilio.rest.studio.v2.flow.execution.execution_step.ExecutionStepInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -83,7 +84,7 @@ class ExecutionStepList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.studio.v2.execution_step.ExecutionStepInstance]
+        :rtype: list[twilio.rest.studio.v2.flow.execution.execution_step.ExecutionStepInstance]
         """
         return list(self.stream(
             limit=limit,
@@ -100,7 +101,7 @@ class ExecutionStepList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of ExecutionStepInstance
-        :rtype: twilio.rest.studio.v2.execution_step.ExecutionStepPage
+        :rtype: twilio.rest.studio.v2.flow.execution.execution_step.ExecutionStepPage
         """
         data = values.of({ 
             'PageToken': page_token,
@@ -119,7 +120,7 @@ class ExecutionStepList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of ExecutionStepInstance
-        :rtype: twilio.rest.studio.v2.execution_step.ExecutionStepPage
+        :rtype: twilio.rest.studio.v2.flow.execution.execution_step.ExecutionStepPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -134,8 +135,8 @@ class ExecutionStepList(ListResource):
         
         :param sid: The SID of the ExecutionStep resource to fetch.
         
-        :returns: twilio.rest.studio.v2.execution_step.ExecutionStepContext
-        :rtype: twilio.rest.studio.v2.execution_step.ExecutionStepContext
+        :returns: twilio.rest.studio.v2.flow.execution.execution_step.ExecutionStepContext
+        :rtype: twilio.rest.studio.v2.flow.execution.execution_step.ExecutionStepContext
         """
         return ExecutionStepContext(self._version, flow_sid=self._solution['flow_sid'], execution_sid=self._solution['execution_sid'], sid=sid)
 
@@ -145,8 +146,8 @@ class ExecutionStepList(ListResource):
         
         :param sid: The SID of the ExecutionStep resource to fetch.
         
-        :returns: twilio.rest.studio.v2.execution_step.ExecutionStepContext
-        :rtype: twilio.rest.studio.v2.execution_step.ExecutionStepContext
+        :returns: twilio.rest.studio.v2.flow.execution.execution_step.ExecutionStepContext
+        :rtype: twilio.rest.studio.v2.flow.execution.execution_step.ExecutionStepContext
         """
         return ExecutionStepContext(self._version, flow_sid=self._solution['flow_sid'], execution_sid=self._solution['execution_sid'], sid=sid)
 
@@ -170,8 +171,8 @@ class ExecutionStepPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.studio.v2.execution_step.ExecutionStepPage
-        :rtype: twilio.rest.studio.v2.execution_step.ExecutionStepPage
+        :returns: twilio.rest.studio.v2.flow.execution.execution_step.ExecutionStepPage
+        :rtype: twilio.rest.studio.v2.flow.execution.execution_step.ExecutionStepPage
         """
         super().__init__(version, response)
 
@@ -184,8 +185,8 @@ class ExecutionStepPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.studio.v2.execution_step.ExecutionStepInstance
-        :rtype: twilio.rest.studio.v2.execution_step.ExecutionStepInstance
+        :returns: twilio.rest.studio.v2.flow.execution.execution_step.ExecutionStepInstance
+        :rtype: twilio.rest.studio.v2.flow.execution.execution_step.ExecutionStepInstance
         """
         return ExecutionStepInstance(self._version, payload, flow_sid=self._solution['flow_sid'], execution_sid=self._solution['execution_sid'])
 

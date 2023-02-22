@@ -28,10 +28,11 @@ class MediaProcessorList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the MediaProcessorList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.media.v1.media_processor..MediaProcessorList
-        :rtype: twilio.media.v1.media_processor..MediaProcessorList
+        :returns: twilio.rest.media.v1.media_processor.MediaProcessorList
+        :rtype: twilio.rest.media.v1.media_processor.MediaProcessorList
         """
         super().__init__(version)
 
@@ -46,12 +47,12 @@ class MediaProcessorList(ListResource):
     def create(self, extension, extension_context, extension_environment=values.unset, status_callback=values.unset, status_callback_method=values.unset, max_duration=values.unset):
         """
         Create the MediaProcessorInstance
-         :param str extension: The [Media Extension](/docs/live/api/media-extensions-overview) name or URL. Ex: `video-composer-v2`
-         :param str extension_context: The context of the Media Extension, represented as a JSON dictionary. See the documentation for the specific [Media Extension](/docs/live/api/media-extensions-overview) you are using for more information about the context to send.
-         :param bool, date, datetime, dict, float, int, list, str, none_type extension_environment: User-defined environment variables for the Media Extension, represented as a JSON dictionary of key/value strings. See the documentation for the specific [Media Extension](/docs/live/api/media-extensions-overview) you are using for more information about whether you need to provide this.
-         :param str status_callback: The URL to which Twilio will send asynchronous webhook requests for every MediaProcessor event. See [Status Callbacks](/docs/live/status-callbacks) for details.
-         :param str status_callback_method: The HTTP method Twilio should use to call the `status_callback` URL. Can be `POST` or `GET` and the default is `POST`.
-         :param int max_duration: The maximum time, in seconds, that the MediaProcessor can run before automatically ends. The default value is 300 seconds, and the maximum value is 90000 seconds. Once this maximum duration is reached, Twilio will end the MediaProcessor, regardless of whether media is still streaming.
+        :param str extension: The [Media Extension](/docs/live/api/media-extensions-overview) name or URL. Ex: `video-composer-v2`
+        :param str extension_context: The context of the Media Extension, represented as a JSON dictionary. See the documentation for the specific [Media Extension](/docs/live/api/media-extensions-overview) you are using for more information about the context to send.
+        :param object extension_environment: User-defined environment variables for the Media Extension, represented as a JSON dictionary of key/value strings. See the documentation for the specific [Media Extension](/docs/live/api/media-extensions-overview) you are using for more information about whether you need to provide this.
+        :param str status_callback: The URL to which Twilio will send asynchronous webhook requests for every MediaProcessor event. See [Status Callbacks](/docs/live/status-callbacks) for details.
+        :param str status_callback_method: The HTTP method Twilio should use to call the `status_callback` URL. Can be `POST` or `GET` and the default is `POST`.
+        :param int max_duration: The maximum time, in seconds, that the MediaProcessor can run before automatically ends. The default value is 300 seconds, and the maximum value is 90000 seconds. Once this maximum duration is reached, Twilio will end the MediaProcessor, regardless of whether media is still streaming.
         
         :returns: The created MediaProcessorInstance
         :rtype: twilio.rest.media.v1.media_processor.MediaProcessorInstance
@@ -59,7 +60,7 @@ class MediaProcessorList(ListResource):
         data = values.of({ 
             'Extension': extension,
             'ExtensionContext': extension_context,
-            'ExtensionEnvironment': extension_environment,
+            'ExtensionEnvironment': serialize.object(extension_environment),
             'StatusCallback': status_callback,
             'StatusCallbackMethod': status_callback_method,
             'MaxDuration': max_duration,

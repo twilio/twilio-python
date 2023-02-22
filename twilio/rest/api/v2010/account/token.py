@@ -28,11 +28,12 @@ class TokenList(ListResource):
     def __init__(self, version: Version, account_sid: str):
         """
         Initialize the TokenList
+
         :param Version version: Version that contains the resource
         :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource.
         
-        :returns: twilio.api.v2010.token..TokenList
-        :rtype: twilio.api.v2010.token..TokenList
+        :returns: twilio.rest.api.v2010.account.token.TokenList
+        :rtype: twilio.rest.api.v2010.account.token.TokenList
         """
         super().__init__(version)
 
@@ -45,10 +46,10 @@ class TokenList(ListResource):
     def create(self, ttl=values.unset):
         """
         Create the TokenInstance
-         :param int ttl: The duration in seconds for which the generated credentials are valid. The default value is 86400 (24 hours).
+        :param int ttl: The duration in seconds for which the generated credentials are valid. The default value is 86400 (24 hours).
         
         :returns: The created TokenInstance
-        :rtype: twilio.rest.api.v2010.token.TokenInstance
+        :rtype: twilio.rest.api.v2010.account.token.TokenInstance
         """
         data = values.of({ 
             'Ttl': ttl,

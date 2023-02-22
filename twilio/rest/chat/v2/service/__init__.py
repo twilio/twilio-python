@@ -32,10 +32,11 @@ class ServiceList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the ServiceList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.chat.v2.service..ServiceList
-        :rtype: twilio.chat.v2.service..ServiceList
+        :returns: twilio.rest.chat.v2.service.ServiceList
+        :rtype: twilio.rest.chat.v2.service.ServiceList
         """
         super().__init__(version)
 
@@ -51,7 +52,7 @@ class ServiceList(ListResource):
     def create(self, friendly_name):
         """
         Create the ServiceInstance
-         :param str friendly_name: A descriptive string that you create to describe the new resource.
+        :param str friendly_name: A descriptive string that you create to describe the new resource.
         
         :returns: The created ServiceInstance
         :rtype: twilio.rest.chat.v2.service.ServiceInstance

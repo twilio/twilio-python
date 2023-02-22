@@ -28,12 +28,13 @@ class StreamMessageList(ListResource):
     def __init__(self, version: Version, service_sid: str, stream_sid: str):
         """
         Initialize the StreamMessageList
+
         :param Version version: Version that contains the resource
         :param service_sid: The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) to create the new Stream Message in.
         :param stream_sid: The SID of the Sync Stream to create the new Stream Message resource for.
         
-        :returns: twilio.sync.v1.stream_message..StreamMessageList
-        :rtype: twilio.sync.v1.stream_message..StreamMessageList
+        :returns: twilio.rest.sync.v1.service.sync_stream.stream_message.StreamMessageList
+        :rtype: twilio.rest.sync.v1.service.sync_stream.stream_message.StreamMessageList
         """
         super().__init__(version)
 
@@ -46,13 +47,13 @@ class StreamMessageList(ListResource):
     def create(self, data):
         """
         Create the StreamMessageInstance
-         :param bool, date, datetime, dict, float, int, list, str, none_type data: A JSON string that represents an arbitrary, schema-less object that makes up the Stream Message body. Can be up to 4 KiB in length.
+        :param object data: A JSON string that represents an arbitrary, schema-less object that makes up the Stream Message body. Can be up to 4 KiB in length.
         
         :returns: The created StreamMessageInstance
-        :rtype: twilio.rest.sync.v1.stream_message.StreamMessageInstance
+        :rtype: twilio.rest.sync.v1.service.sync_stream.stream_message.StreamMessageInstance
         """
         data = values.of({ 
-            'Data': data,
+            'Data': serialize.object(data),
         })
 
         payload = self._version.create(method='POST', uri=self._uri, data=data)

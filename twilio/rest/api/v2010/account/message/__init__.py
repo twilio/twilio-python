@@ -30,11 +30,12 @@ class MessageList(ListResource):
     def __init__(self, version: Version, account_sid: str):
         """
         Initialize the MessageList
+
         :param Version version: Version that contains the resource
         :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Message resources to read.
         
-        :returns: twilio.api.v2010.message..MessageList
-        :rtype: twilio.api.v2010.message..MessageList
+        :returns: twilio.rest.api.v2010.account.message.MessageList
+        :rtype: twilio.rest.api.v2010.account.message.MessageList
         """
         super().__init__(version)
 
@@ -50,31 +51,31 @@ class MessageList(ListResource):
     def create(self, to, status_callback=values.unset, application_sid=values.unset, max_price=values.unset, provide_feedback=values.unset, attempt=values.unset, validity_period=values.unset, force_delivery=values.unset, content_retention=values.unset, address_retention=values.unset, smart_encoded=values.unset, persistent_action=values.unset, shorten_urls=values.unset, schedule_type=values.unset, send_at=values.unset, send_as_mms=values.unset, content_sid=values.unset, content_variables=values.unset, from_=values.unset, messaging_service_sid=values.unset, body=values.unset, media_url=values.unset):
         """
         Create the MessageInstance
-         :param str to: The destination phone number in [E.164](https://www.twilio.com/docs/glossary/what-e164) format for SMS/MMS or [Channel user address](https://www.twilio.com/docs/sms/channels#channel-addresses) for other 3rd-party channels.
-         :param str status_callback: The URL we should call using the `status_callback_method` to send status information to your application. If specified, we POST these message status changes to the URL: `queued`, `failed`, `sent`, `delivered`, or `undelivered`. Twilio will POST its [standard request parameters](https://www.twilio.com/docs/sms/twiml#request-parameters) as well as some additional parameters including `MessageSid`, `MessageStatus`, and `ErrorCode`. If you include this parameter with the `messaging_service_sid`, we use this URL instead of the Status Callback URL of the [Messaging Service](https://www.twilio.com/docs/sms/services/api). URLs must contain a valid hostname and underscores are not allowed.
-         :param str application_sid: The SID of the application that should receive message status. We POST a `message_sid` parameter and a `message_status` parameter with a value of `sent` or `failed` to the [application](https://www.twilio.com/docs/usage/api/applications)'s `message_status_callback`. If a `status_callback` parameter is also passed, it will be ignored and the application's `message_status_callback` parameter will be used.
-         :param int, float max_price: The maximum total price in US dollars that you will pay for the message to be delivered. Can be a decimal value that has up to 4 decimal places. All messages are queued for delivery and the message cost is checked before the message is sent. If the cost exceeds `max_price`, the message will fail and a status of `Failed` is sent to the status callback. If `MaxPrice` is not set, the message cost is not checked.
-         :param bool provide_feedback: Whether to confirm delivery of the message. Set this value to `true` if you are sending messages that have a trackable user action and you intend to confirm delivery of the message using the [Message Feedback API](https://www.twilio.com/docs/sms/api/message-feedback-resource). This parameter is `false` by default.
-         :param int attempt: Total number of attempts made ( including this ) to send out the message regardless of the provider used
-         :param int validity_period: How long in seconds the message can remain in our outgoing message queue. After this period elapses, the message fails and we call your status callback. Can be between 1 and the default value of 14,400 seconds. After a message has been accepted by a carrier, however, we cannot guarantee that the message will not be queued after this period. We recommend that this value be at least 5 seconds.
-         :param bool force_delivery: Reserved
-         :param MessageContentRetention content_retention: 
-         :param MessageAddressRetention address_retention: 
-         :param bool smart_encoded: Whether to detect Unicode characters that have a similar GSM-7 character and replace them. Can be: `true` or `false`.
-         :param [str] persistent_action: Rich actions for Channels Messages.
-         :param bool shorten_urls: Determines the usage of Click Tracking. Setting it to `true` will instruct Twilio to replace all links in the Message with a shortened version based on the associated Domain Sid and track clicks on them. If this parameter is not set on an API call, we will use the value set on the Messaging Service. If this parameter is not set and the value is not configured on the Messaging Service used this will default to `false`.
-         :param MessageScheduleType schedule_type: 
-         :param datetime send_at: The time that Twilio will send the message. Must be in ISO 8601 format.
-         :param bool send_as_mms: If set to True, Twilio will deliver the message as a single MMS message, regardless of the presence of media.
-         :param str content_sid: The SID of the Content object returned at Content API content create time (https://www.twilio.com/docs/content-api/create-and-send-your-first-content-api-template#create-a-template). If this parameter is not specified, then the Content API will not be utilized.
-         :param str content_variables: Key-value pairs of variable names to substitution values, used alongside a content_sid. If not specified, Content API will default to the default variables defined at create time.
-         :param str from_: A Twilio phone number in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, an [alphanumeric sender ID](https://www.twilio.com/docs/sms/send-messages#use-an-alphanumeric-sender-id), or a [Channel Endpoint address](https://www.twilio.com/docs/sms/channels#channel-addresses) that is enabled for the type of message you want to send. Phone numbers or [short codes](https://www.twilio.com/docs/sms/api/short-code) purchased from Twilio also work here. You cannot, for example, spoof messages from a private cell phone number. If you are using `messaging_service_sid`, this parameter must be empty.
-         :param str messaging_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/sms/services#send-a-message-with-copilot) you want to associate with the Message. Set this parameter to use the [Messaging Service Settings and Copilot Features](https://www.twilio.com/console/sms/services) you have configured and leave the `from` parameter empty. When only this parameter is set, Twilio will use your enabled Copilot Features to select the `from` phone number for delivery.
-         :param str body: The text of the message you want to send. Can be up to 1,600 characters in length.
-         :param [str] media_url: The URL of the media to send with the message. The media can be of type `gif`, `png`, and `jpeg` and will be formatted correctly on the recipient's device. The media size limit is 5MB for supported file types (JPEG, PNG, GIF) and 500KB for [other types](https://www.twilio.com/docs/sms/accepted-mime-types) of accepted media. To send more than one image in the message body, provide multiple `media_url` parameters in the POST request. You can include up to 10 `media_url` parameters per message. You can send images in an SMS message in only the US and Canada.
+        :param str to: The destination phone number in [E.164](https://www.twilio.com/docs/glossary/what-e164) format for SMS/MMS or [Channel user address](https://www.twilio.com/docs/sms/channels#channel-addresses) for other 3rd-party channels.
+        :param str status_callback: The URL we should call using the `status_callback_method` to send status information to your application. If specified, we POST these message status changes to the URL: `queued`, `failed`, `sent`, `delivered`, or `undelivered`. Twilio will POST its [standard request parameters](https://www.twilio.com/docs/sms/twiml#request-parameters) as well as some additional parameters including `MessageSid`, `MessageStatus`, and `ErrorCode`. If you include this parameter with the `messaging_service_sid`, we use this URL instead of the Status Callback URL of the [Messaging Service](https://www.twilio.com/docs/sms/services/api). URLs must contain a valid hostname and underscores are not allowed.
+        :param str application_sid: The SID of the application that should receive message status. We POST a `message_sid` parameter and a `message_status` parameter with a value of `sent` or `failed` to the [application](https://www.twilio.com/docs/usage/api/applications)'s `message_status_callback`. If a `status_callback` parameter is also passed, it will be ignored and the application's `message_status_callback` parameter will be used.
+        :param float max_price: The maximum total price in US dollars that you will pay for the message to be delivered. Can be a decimal value that has up to 4 decimal places. All messages are queued for delivery and the message cost is checked before the message is sent. If the cost exceeds `max_price`, the message will fail and a status of `Failed` is sent to the status callback. If `MaxPrice` is not set, the message cost is not checked.
+        :param bool provide_feedback: Whether to confirm delivery of the message. Set this value to `true` if you are sending messages that have a trackable user action and you intend to confirm delivery of the message using the [Message Feedback API](https://www.twilio.com/docs/sms/api/message-feedback-resource). This parameter is `false` by default.
+        :param int attempt: Total number of attempts made ( including this ) to send out the message regardless of the provider used
+        :param int validity_period: How long in seconds the message can remain in our outgoing message queue. After this period elapses, the message fails and we call your status callback. Can be between 1 and the default value of 14,400 seconds. After a message has been accepted by a carrier, however, we cannot guarantee that the message will not be queued after this period. We recommend that this value be at least 5 seconds.
+        :param bool force_delivery: Reserved
+        :param MessageContentRetention content_retention: 
+        :param MessageAddressRetention address_retention: 
+        :param bool smart_encoded: Whether to detect Unicode characters that have a similar GSM-7 character and replace them. Can be: `true` or `false`.
+        :param list[str] persistent_action: Rich actions for Channels Messages.
+        :param bool shorten_urls: Determines the usage of Click Tracking. Setting it to `true` will instruct Twilio to replace all links in the Message with a shortened version based on the associated Domain Sid and track clicks on them. If this parameter is not set on an API call, we will use the value set on the Messaging Service. If this parameter is not set and the value is not configured on the Messaging Service used this will default to `false`.
+        :param MessageScheduleType schedule_type: 
+        :param datetime send_at: The time that Twilio will send the message. Must be in ISO 8601 format.
+        :param bool send_as_mms: If set to True, Twilio will deliver the message as a single MMS message, regardless of the presence of media.
+        :param str content_sid: The SID of the Content object returned at Content API content create time (https://www.twilio.com/docs/content-api/create-and-send-your-first-content-api-template#create-a-template). If this parameter is not specified, then the Content API will not be utilized.
+        :param str content_variables: Key-value pairs of variable names to substitution values, used alongside a content_sid. If not specified, Content API will default to the default variables defined at create time.
+        :param str from_: A Twilio phone number in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, an [alphanumeric sender ID](https://www.twilio.com/docs/sms/send-messages#use-an-alphanumeric-sender-id), or a [Channel Endpoint address](https://www.twilio.com/docs/sms/channels#channel-addresses) that is enabled for the type of message you want to send. Phone numbers or [short codes](https://www.twilio.com/docs/sms/api/short-code) purchased from Twilio also work here. You cannot, for example, spoof messages from a private cell phone number. If you are using `messaging_service_sid`, this parameter must be empty.
+        :param str messaging_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/sms/services#send-a-message-with-copilot) you want to associate with the Message. Set this parameter to use the [Messaging Service Settings and Copilot Features](https://www.twilio.com/console/sms/services) you have configured and leave the `from` parameter empty. When only this parameter is set, Twilio will use your enabled Copilot Features to select the `from` phone number for delivery.
+        :param str body: The text of the message you want to send. Can be up to 1,600 characters in length.
+        :param list[str] media_url: The URL of the media to send with the message. The media can be of type `gif`, `png`, and `jpeg` and will be formatted correctly on the recipient's device. The media size limit is 5MB for supported file types (JPEG, PNG, GIF) and 500KB for [other types](https://www.twilio.com/docs/sms/accepted-mime-types) of accepted media. To send more than one image in the message body, provide multiple `media_url` parameters in the POST request. You can include up to 10 `media_url` parameters per message. You can send images in an SMS message in only the US and Canada.
         
         :returns: The created MessageInstance
-        :rtype: twilio.rest.api.v2010.message.MessageInstance
+        :rtype: twilio.rest.api.v2010.account.message.MessageInstance
         """
         data = values.of({ 
             'To': to,
@@ -91,14 +92,14 @@ class MessageList(ListResource):
             'PersistentAction': serialize.map(persistent_action, lambda e: e),
             'ShortenUrls': shorten_urls,
             'ScheduleType': schedule_type,
-            'SendAt': send_at,
+            'SendAt': serialize.iso8601_datetime(send_at),
             'SendAsMms': send_as_mms,
             'ContentSid': content_sid,
             'ContentVariables': content_variables,
             'From': from_,
             'MessagingServiceSid': messaging_service_sid,
             'Body': body,
-            'MediaUrl': serialize.map(media_url, lambda e: e),
+            'MediaUrl': media_url,
         })
 
         payload = self._version.create(method='POST', uri=self._uri, data=data)
@@ -125,7 +126,7 @@ class MessageList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.message.MessageInstance]
+        :rtype: list[twilio.rest.api.v2010.account.message.MessageInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -158,7 +159,7 @@ class MessageList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.message.MessageInstance]
+        :rtype: list[twilio.rest.api.v2010.account.message.MessageInstance]
         """
         return list(self.stream(
             to=to,
@@ -185,7 +186,7 @@ class MessageList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of MessageInstance
-        :rtype: twilio.rest.api.v2010.message.MessagePage
+        :rtype: twilio.rest.api.v2010.account.message.MessagePage
         """
         data = values.of({ 
             'To': to,
@@ -209,7 +210,7 @@ class MessageList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of MessageInstance
-        :rtype: twilio.rest.api.v2010.message.MessagePage
+        :rtype: twilio.rest.api.v2010.account.message.MessagePage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -224,8 +225,8 @@ class MessageList(ListResource):
         
         :param sid: The Twilio-provided string that uniquely identifies the Message resource to update.
         
-        :returns: twilio.rest.api.v2010.message.MessageContext
-        :rtype: twilio.rest.api.v2010.message.MessageContext
+        :returns: twilio.rest.api.v2010.account.message.MessageContext
+        :rtype: twilio.rest.api.v2010.account.message.MessageContext
         """
         return MessageContext(self._version, account_sid=self._solution['account_sid'], sid=sid)
 
@@ -235,8 +236,8 @@ class MessageList(ListResource):
         
         :param sid: The Twilio-provided string that uniquely identifies the Message resource to update.
         
-        :returns: twilio.rest.api.v2010.message.MessageContext
-        :rtype: twilio.rest.api.v2010.message.MessageContext
+        :returns: twilio.rest.api.v2010.account.message.MessageContext
+        :rtype: twilio.rest.api.v2010.account.message.MessageContext
         """
         return MessageContext(self._version, account_sid=self._solution['account_sid'], sid=sid)
 
@@ -266,8 +267,8 @@ class MessagePage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.api.v2010.message.MessagePage
-        :rtype: twilio.rest.api.v2010.message.MessagePage
+        :returns: twilio.rest.api.v2010.account.message.MessagePage
+        :rtype: twilio.rest.api.v2010.account.message.MessagePage
         """
         super().__init__(version, response)
 
@@ -280,8 +281,8 @@ class MessagePage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.api.v2010.message.MessageInstance
-        :rtype: twilio.rest.api.v2010.message.MessageInstance
+        :returns: twilio.rest.api.v2010.account.message.MessageInstance
+        :rtype: twilio.rest.api.v2010.account.message.MessageInstance
         """
         return MessageInstance(self._version, payload, account_sid=self._solution['account_sid'])
 

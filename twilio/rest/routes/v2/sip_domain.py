@@ -28,10 +28,11 @@ class SipDomainList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the SipDomainList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.routes.v2.sip_domain..SipDomainList
-        :rtype: twilio.routes.v2.sip_domain..SipDomainList
+        :returns: twilio.rest.routes.v2.sip_domain.SipDomainList
+        :rtype: twilio.rest.routes.v2.sip_domain.SipDomainList
         """
         super().__init__(version)
 

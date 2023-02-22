@@ -28,10 +28,11 @@ class DomainCertsList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the DomainCertsList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.messaging.v1.domain_certs..DomainCertsList
-        :rtype: twilio.messaging.v1.domain_certs..DomainCertsList
+        :returns: twilio.rest.messaging.v1.domain_certs.DomainCertsList
+        :rtype: twilio.rest.messaging.v1.domain_certs.DomainCertsList
         """
         super().__init__(version)
 

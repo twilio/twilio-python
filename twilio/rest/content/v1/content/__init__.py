@@ -29,10 +29,11 @@ class ContentList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the ContentList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.content.v1.content..ContentList
-        :rtype: twilio.content.v1.content..ContentList
+        :returns: twilio.rest.content.v1.content.ContentList
+        :rtype: twilio.rest.content.v1.content.ContentList
         """
         super().__init__(version)
 

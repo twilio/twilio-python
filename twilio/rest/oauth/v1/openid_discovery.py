@@ -28,10 +28,11 @@ class OpenidDiscoveryList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the OpenidDiscoveryList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.oauth.v1.openid_discovery..OpenidDiscoveryList
-        :rtype: twilio.oauth.v1.openid_discovery..OpenidDiscoveryList
+        :returns: twilio.rest.oauth.v1.openid_discovery.OpenidDiscoveryList
+        :rtype: twilio.rest.oauth.v1.openid_discovery.OpenidDiscoveryList
         """
         super().__init__(version)
 

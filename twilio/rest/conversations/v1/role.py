@@ -28,10 +28,11 @@ class RoleList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the RoleList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.conversations.v1.role..RoleList
-        :rtype: twilio.conversations.v1.role..RoleList
+        :returns: twilio.rest.conversations.v1.role.RoleList
+        :rtype: twilio.rest.conversations.v1.role.RoleList
         """
         super().__init__(version)
 
@@ -47,9 +48,9 @@ class RoleList(ListResource):
     def create(self, friendly_name, type, permission):
         """
         Create the RoleInstance
-         :param str friendly_name: A descriptive string that you create to describe the new resource. It can be up to 64 characters long.
-         :param RoleRoleType type: 
-         :param [str] permission: A permission that you grant to the new role. Only one permission can be granted per parameter. To assign more than one permission, repeat this parameter for each permission value. The values for this parameter depend on the role's `type`.
+        :param str friendly_name: A descriptive string that you create to describe the new resource. It can be up to 64 characters long.
+        :param RoleRoleType type: 
+        :param list[str] permission: A permission that you grant to the new role. Only one permission can be granted per parameter. To assign more than one permission, repeat this parameter for each permission value. The values for this parameter depend on the role's `type`.
         
         :returns: The created RoleInstance
         :rtype: twilio.rest.conversations.v1.role.RoleInstance

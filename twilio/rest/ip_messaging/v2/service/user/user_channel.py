@@ -28,12 +28,13 @@ class UserChannelList(ListResource):
     def __init__(self, version: Version, service_sid: str, user_sid: str):
         """
         Initialize the UserChannelList
+
         :param Version version: Version that contains the resource
         :param service_sid: 
         :param user_sid: 
         
-        :returns: twilio.ip_messaging.v2.user_channel..UserChannelList
-        :rtype: twilio.ip_messaging.v2.user_channel..UserChannelList
+        :returns: twilio.rest.ip_messaging.v2.service.user.user_channel.UserChannelList
+        :rtype: twilio.rest.ip_messaging.v2.service.user.user_channel.UserChannelList
         """
         super().__init__(version)
 
@@ -61,7 +62,7 @@ class UserChannelList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.ip_messaging.v2.user_channel.UserChannelInstance]
+        :rtype: list[twilio.rest.ip_messaging.v2.service.user.user_channel.UserChannelInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -84,7 +85,7 @@ class UserChannelList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.ip_messaging.v2.user_channel.UserChannelInstance]
+        :rtype: list[twilio.rest.ip_messaging.v2.service.user.user_channel.UserChannelInstance]
         """
         return list(self.stream(
             limit=limit,
@@ -101,7 +102,7 @@ class UserChannelList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of UserChannelInstance
-        :rtype: twilio.rest.ip_messaging.v2.user_channel.UserChannelPage
+        :rtype: twilio.rest.ip_messaging.v2.service.user.user_channel.UserChannelPage
         """
         data = values.of({ 
             'PageToken': page_token,
@@ -120,7 +121,7 @@ class UserChannelList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of UserChannelInstance
-        :rtype: twilio.rest.ip_messaging.v2.user_channel.UserChannelPage
+        :rtype: twilio.rest.ip_messaging.v2.service.user.user_channel.UserChannelPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -135,8 +136,8 @@ class UserChannelList(ListResource):
         
         :param channel_sid: 
         
-        :returns: twilio.rest.ip_messaging.v2.user_channel.UserChannelContext
-        :rtype: twilio.rest.ip_messaging.v2.user_channel.UserChannelContext
+        :returns: twilio.rest.ip_messaging.v2.service.user.user_channel.UserChannelContext
+        :rtype: twilio.rest.ip_messaging.v2.service.user.user_channel.UserChannelContext
         """
         return UserChannelContext(self._version, service_sid=self._solution['service_sid'], user_sid=self._solution['user_sid'], channel_sid=channel_sid)
 
@@ -146,8 +147,8 @@ class UserChannelList(ListResource):
         
         :param channel_sid: 
         
-        :returns: twilio.rest.ip_messaging.v2.user_channel.UserChannelContext
-        :rtype: twilio.rest.ip_messaging.v2.user_channel.UserChannelContext
+        :returns: twilio.rest.ip_messaging.v2.service.user.user_channel.UserChannelContext
+        :rtype: twilio.rest.ip_messaging.v2.service.user.user_channel.UserChannelContext
         """
         return UserChannelContext(self._version, service_sid=self._solution['service_sid'], user_sid=self._solution['user_sid'], channel_sid=channel_sid)
 
@@ -175,8 +176,8 @@ class UserChannelPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.ip_messaging.v2.user_channel.UserChannelPage
-        :rtype: twilio.rest.ip_messaging.v2.user_channel.UserChannelPage
+        :returns: twilio.rest.ip_messaging.v2.service.user.user_channel.UserChannelPage
+        :rtype: twilio.rest.ip_messaging.v2.service.user.user_channel.UserChannelPage
         """
         super().__init__(version, response)
 
@@ -189,8 +190,8 @@ class UserChannelPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.ip_messaging.v2.user_channel.UserChannelInstance
-        :rtype: twilio.rest.ip_messaging.v2.user_channel.UserChannelInstance
+        :returns: twilio.rest.ip_messaging.v2.service.user.user_channel.UserChannelInstance
+        :rtype: twilio.rest.ip_messaging.v2.service.user.user_channel.UserChannelInstance
         """
         return UserChannelInstance(self._version, payload, service_sid=self._solution['service_sid'], user_sid=self._solution['user_sid'])
 

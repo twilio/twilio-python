@@ -29,10 +29,11 @@ class NetworkAccessProfileList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the NetworkAccessProfileList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.supersim.v1.network_access_profile..NetworkAccessProfileList
-        :rtype: twilio.supersim.v1.network_access_profile..NetworkAccessProfileList
+        :returns: twilio.rest.supersim.v1.network_access_profile.NetworkAccessProfileList
+        :rtype: twilio.rest.supersim.v1.network_access_profile.NetworkAccessProfileList
         """
         super().__init__(version)
 
@@ -47,8 +48,8 @@ class NetworkAccessProfileList(ListResource):
     def create(self, unique_name=values.unset, networks=values.unset):
         """
         Create the NetworkAccessProfileInstance
-         :param str unique_name: An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
-         :param [str] networks: List of Network SIDs that this Network Access Profile will allow connections to.
+        :param str unique_name: An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
+        :param list[str] networks: List of Network SIDs that this Network Access Profile will allow connections to.
         
         :returns: The created NetworkAccessProfileInstance
         :rtype: twilio.rest.supersim.v1.network_access_profile.NetworkAccessProfileInstance

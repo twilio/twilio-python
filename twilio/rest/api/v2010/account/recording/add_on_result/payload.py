@@ -28,13 +28,14 @@ class PayloadList(ListResource):
     def __init__(self, version: Version, account_sid: str, reference_sid: str, add_on_result_sid: str):
         """
         Initialize the PayloadList
+
         :param Version version: Version that contains the resource
         :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording AddOnResult Payload resources to read.
         :param reference_sid: The SID of the recording to which the AddOnResult resource that contains the payloads to read belongs.
         :param add_on_result_sid: The SID of the AddOnResult to which the payloads to read belongs.
         
-        :returns: twilio.api.v2010.payload..PayloadList
-        :rtype: twilio.api.v2010.payload..PayloadList
+        :returns: twilio.rest.api.v2010.account.recording.add_on_result.payload.PayloadList
+        :rtype: twilio.rest.api.v2010.account.recording.add_on_result.payload.PayloadList
         """
         super().__init__(version)
 
@@ -61,7 +62,7 @@ class PayloadList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.payload.PayloadInstance]
+        :rtype: list[twilio.rest.api.v2010.account.recording.add_on_result.payload.PayloadInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -84,7 +85,7 @@ class PayloadList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.payload.PayloadInstance]
+        :rtype: list[twilio.rest.api.v2010.account.recording.add_on_result.payload.PayloadInstance]
         """
         return list(self.stream(
             limit=limit,
@@ -101,7 +102,7 @@ class PayloadList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of PayloadInstance
-        :rtype: twilio.rest.api.v2010.payload.PayloadPage
+        :rtype: twilio.rest.api.v2010.account.recording.add_on_result.payload.PayloadPage
         """
         data = values.of({ 
             'PageToken': page_token,
@@ -120,7 +121,7 @@ class PayloadList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of PayloadInstance
-        :rtype: twilio.rest.api.v2010.payload.PayloadPage
+        :rtype: twilio.rest.api.v2010.account.recording.add_on_result.payload.PayloadPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -135,8 +136,8 @@ class PayloadList(ListResource):
         
         :param sid: The Twilio-provided string that uniquely identifies the Recording AddOnResult Payload resource to fetch.
         
-        :returns: twilio.rest.api.v2010.payload.PayloadContext
-        :rtype: twilio.rest.api.v2010.payload.PayloadContext
+        :returns: twilio.rest.api.v2010.account.recording.add_on_result.payload.PayloadContext
+        :rtype: twilio.rest.api.v2010.account.recording.add_on_result.payload.PayloadContext
         """
         return PayloadContext(self._version, account_sid=self._solution['account_sid'], reference_sid=self._solution['reference_sid'], add_on_result_sid=self._solution['add_on_result_sid'], sid=sid)
 
@@ -146,8 +147,8 @@ class PayloadList(ListResource):
         
         :param sid: The Twilio-provided string that uniquely identifies the Recording AddOnResult Payload resource to fetch.
         
-        :returns: twilio.rest.api.v2010.payload.PayloadContext
-        :rtype: twilio.rest.api.v2010.payload.PayloadContext
+        :returns: twilio.rest.api.v2010.account.recording.add_on_result.payload.PayloadContext
+        :rtype: twilio.rest.api.v2010.account.recording.add_on_result.payload.PayloadContext
         """
         return PayloadContext(self._version, account_sid=self._solution['account_sid'], reference_sid=self._solution['reference_sid'], add_on_result_sid=self._solution['add_on_result_sid'], sid=sid)
 
@@ -173,8 +174,8 @@ class PayloadPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.api.v2010.payload.PayloadPage
-        :rtype: twilio.rest.api.v2010.payload.PayloadPage
+        :returns: twilio.rest.api.v2010.account.recording.add_on_result.payload.PayloadPage
+        :rtype: twilio.rest.api.v2010.account.recording.add_on_result.payload.PayloadPage
         """
         super().__init__(version, response)
 
@@ -187,8 +188,8 @@ class PayloadPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.api.v2010.payload.PayloadInstance
-        :rtype: twilio.rest.api.v2010.payload.PayloadInstance
+        :returns: twilio.rest.api.v2010.account.recording.add_on_result.payload.PayloadInstance
+        :rtype: twilio.rest.api.v2010.account.recording.add_on_result.payload.PayloadInstance
         """
         return PayloadInstance(self._version, payload, account_sid=self._solution['account_sid'], reference_sid=self._solution['reference_sid'], add_on_result_sid=self._solution['add_on_result_sid'])
 

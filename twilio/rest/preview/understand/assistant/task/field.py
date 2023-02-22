@@ -28,12 +28,13 @@ class FieldList(ListResource):
     def __init__(self, version: Version, assistant_sid: str, task_sid: str):
         """
         Initialize the FieldList
+
         :param Version version: Version that contains the resource
         :param assistant_sid: The unique ID of the Assistant.
         :param task_sid: The unique ID of the Task associated with this Field.
         
-        :returns: twilio.preview.understand.field..FieldList
-        :rtype: twilio.preview.understand.field..FieldList
+        :returns: twilio.rest.preview.understand.assistant.task.field.FieldList
+        :rtype: twilio.rest.preview.understand.assistant.task.field.FieldList
         """
         super().__init__(version)
 
@@ -48,11 +49,11 @@ class FieldList(ListResource):
     def create(self, field_type, unique_name):
         """
         Create the FieldInstance
-         :param str field_type: The unique name or sid of the FieldType. It can be any [Built-in Field Type](https://www.twilio.com/docs/assistant/api/built-in-field-types) or the unique_name or the Field Type sid of a custom Field Type.
-         :param str unique_name: A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
+        :param str field_type: The unique name or sid of the FieldType. It can be any [Built-in Field Type](https://www.twilio.com/docs/assistant/api/built-in-field-types) or the unique_name or the Field Type sid of a custom Field Type.
+        :param str unique_name: A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
         
         :returns: The created FieldInstance
-        :rtype: twilio.rest.preview.understand.field.FieldInstance
+        :rtype: twilio.rest.preview.understand.assistant.task.field.FieldInstance
         """
         data = values.of({ 
             'FieldType': field_type,
@@ -78,7 +79,7 @@ class FieldList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.preview.understand.field.FieldInstance]
+        :rtype: list[twilio.rest.preview.understand.assistant.task.field.FieldInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -101,7 +102,7 @@ class FieldList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.preview.understand.field.FieldInstance]
+        :rtype: list[twilio.rest.preview.understand.assistant.task.field.FieldInstance]
         """
         return list(self.stream(
             limit=limit,
@@ -118,7 +119,7 @@ class FieldList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of FieldInstance
-        :rtype: twilio.rest.preview.understand.field.FieldPage
+        :rtype: twilio.rest.preview.understand.assistant.task.field.FieldPage
         """
         data = values.of({ 
             'PageToken': page_token,
@@ -137,7 +138,7 @@ class FieldList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of FieldInstance
-        :rtype: twilio.rest.preview.understand.field.FieldPage
+        :rtype: twilio.rest.preview.understand.assistant.task.field.FieldPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -152,8 +153,8 @@ class FieldList(ListResource):
         
         :param sid: A 34 character string that uniquely identifies this resource.
         
-        :returns: twilio.rest.preview.understand.field.FieldContext
-        :rtype: twilio.rest.preview.understand.field.FieldContext
+        :returns: twilio.rest.preview.understand.assistant.task.field.FieldContext
+        :rtype: twilio.rest.preview.understand.assistant.task.field.FieldContext
         """
         return FieldContext(self._version, assistant_sid=self._solution['assistant_sid'], task_sid=self._solution['task_sid'], sid=sid)
 
@@ -163,8 +164,8 @@ class FieldList(ListResource):
         
         :param sid: A 34 character string that uniquely identifies this resource.
         
-        :returns: twilio.rest.preview.understand.field.FieldContext
-        :rtype: twilio.rest.preview.understand.field.FieldContext
+        :returns: twilio.rest.preview.understand.assistant.task.field.FieldContext
+        :rtype: twilio.rest.preview.understand.assistant.task.field.FieldContext
         """
         return FieldContext(self._version, assistant_sid=self._solution['assistant_sid'], task_sid=self._solution['task_sid'], sid=sid)
 
@@ -192,8 +193,8 @@ class FieldPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.preview.understand.field.FieldPage
-        :rtype: twilio.rest.preview.understand.field.FieldPage
+        :returns: twilio.rest.preview.understand.assistant.task.field.FieldPage
+        :rtype: twilio.rest.preview.understand.assistant.task.field.FieldPage
         """
         super().__init__(version, response)
 
@@ -206,8 +207,8 @@ class FieldPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.preview.understand.field.FieldInstance
-        :rtype: twilio.rest.preview.understand.field.FieldInstance
+        :returns: twilio.rest.preview.understand.assistant.task.field.FieldInstance
+        :rtype: twilio.rest.preview.understand.assistant.task.field.FieldInstance
         """
         return FieldInstance(self._version, payload, assistant_sid=self._solution['assistant_sid'], task_sid=self._solution['task_sid'])
 

@@ -28,12 +28,13 @@ class InteractionChannelInviteList(ListResource):
     def __init__(self, version: Version, interaction_sid: str, channel_sid: str):
         """
         Initialize the InteractionChannelInviteList
+
         :param Version version: Version that contains the resource
         :param interaction_sid: The Interaction SID for this Channel.
         :param channel_sid: The Channel SID for this Participant.
         
-        :returns: twilio.flex_api.v1.interaction_channel_invite..InteractionChannelInviteList
-        :rtype: twilio.flex_api.v1.interaction_channel_invite..InteractionChannelInviteList
+        :returns: twilio.rest.flex_api.v1.interaction.interaction_channel.interaction_channel_invite.InteractionChannelInviteList
+        :rtype: twilio.rest.flex_api.v1.interaction.interaction_channel.interaction_channel_invite.InteractionChannelInviteList
         """
         super().__init__(version)
 
@@ -46,13 +47,13 @@ class InteractionChannelInviteList(ListResource):
     def create(self, routing):
         """
         Create the InteractionChannelInviteInstance
-         :param bool, date, datetime, dict, float, int, list, str, none_type routing: The Interaction's routing logic.
+        :param object routing: The Interaction's routing logic.
         
         :returns: The created InteractionChannelInviteInstance
-        :rtype: twilio.rest.flex_api.v1.interaction_channel_invite.InteractionChannelInviteInstance
+        :rtype: twilio.rest.flex_api.v1.interaction.interaction_channel.interaction_channel_invite.InteractionChannelInviteInstance
         """
         data = values.of({ 
-            'Routing': routing,
+            'Routing': serialize.object(routing),
         })
 
         payload = self._version.create(method='POST', uri=self._uri, data=data)
@@ -74,7 +75,7 @@ class InteractionChannelInviteList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.flex_api.v1.interaction_channel_invite.InteractionChannelInviteInstance]
+        :rtype: list[twilio.rest.flex_api.v1.interaction.interaction_channel.interaction_channel_invite.InteractionChannelInviteInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -97,7 +98,7 @@ class InteractionChannelInviteList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.flex_api.v1.interaction_channel_invite.InteractionChannelInviteInstance]
+        :rtype: list[twilio.rest.flex_api.v1.interaction.interaction_channel.interaction_channel_invite.InteractionChannelInviteInstance]
         """
         return list(self.stream(
             limit=limit,
@@ -114,7 +115,7 @@ class InteractionChannelInviteList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of InteractionChannelInviteInstance
-        :rtype: twilio.rest.flex_api.v1.interaction_channel_invite.InteractionChannelInvitePage
+        :rtype: twilio.rest.flex_api.v1.interaction.interaction_channel.interaction_channel_invite.InteractionChannelInvitePage
         """
         data = values.of({ 
             'PageToken': page_token,
@@ -133,7 +134,7 @@ class InteractionChannelInviteList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of InteractionChannelInviteInstance
-        :rtype: twilio.rest.flex_api.v1.interaction_channel_invite.InteractionChannelInvitePage
+        :rtype: twilio.rest.flex_api.v1.interaction.interaction_channel.interaction_channel_invite.InteractionChannelInvitePage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -163,8 +164,8 @@ class InteractionChannelInvitePage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.flex_api.v1.interaction_channel_invite.InteractionChannelInvitePage
-        :rtype: twilio.rest.flex_api.v1.interaction_channel_invite.InteractionChannelInvitePage
+        :returns: twilio.rest.flex_api.v1.interaction.interaction_channel.interaction_channel_invite.InteractionChannelInvitePage
+        :rtype: twilio.rest.flex_api.v1.interaction.interaction_channel.interaction_channel_invite.InteractionChannelInvitePage
         """
         super().__init__(version, response)
 
@@ -177,8 +178,8 @@ class InteractionChannelInvitePage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.flex_api.v1.interaction_channel_invite.InteractionChannelInviteInstance
-        :rtype: twilio.rest.flex_api.v1.interaction_channel_invite.InteractionChannelInviteInstance
+        :returns: twilio.rest.flex_api.v1.interaction.interaction_channel.interaction_channel_invite.InteractionChannelInviteInstance
+        :rtype: twilio.rest.flex_api.v1.interaction.interaction_channel.interaction_channel_invite.InteractionChannelInviteInstance
         """
         return InteractionChannelInviteInstance(self._version, payload, interaction_sid=self._solution['interaction_sid'], channel_sid=self._solution['channel_sid'])
 

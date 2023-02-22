@@ -28,10 +28,11 @@ class VerificationAttemptsSummaryList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the VerificationAttemptsSummaryList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.verify.v2.verification_attempts_summary..VerificationAttemptsSummaryList
-        :rtype: twilio.verify.v2.verification_attempts_summary..VerificationAttemptsSummaryList
+        :returns: twilio.rest.verify.v2.verification_attempts_summary.VerificationAttemptsSummaryList
+        :rtype: twilio.rest.verify.v2.verification_attempts_summary.VerificationAttemptsSummaryList
         """
         super().__init__(version)
 

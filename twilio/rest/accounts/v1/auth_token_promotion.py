@@ -28,10 +28,11 @@ class AuthTokenPromotionList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the AuthTokenPromotionList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.accounts.v1.auth_token_promotion..AuthTokenPromotionList
-        :rtype: twilio.accounts.v1.auth_token_promotion..AuthTokenPromotionList
+        :returns: twilio.rest.accounts.v1.auth_token_promotion.AuthTokenPromotionList
+        :rtype: twilio.rest.accounts.v1.auth_token_promotion.AuthTokenPromotionList
         """
         super().__init__(version)
 

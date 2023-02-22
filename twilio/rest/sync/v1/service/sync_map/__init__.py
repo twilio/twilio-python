@@ -30,11 +30,12 @@ class SyncMapList(ListResource):
     def __init__(self, version: Version, service_sid: str):
         """
         Initialize the SyncMapList
+
         :param Version version: Version that contains the resource
         :param service_sid: The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Sync Map resources to read.
         
-        :returns: twilio.sync.v1.sync_map..SyncMapList
-        :rtype: twilio.sync.v1.sync_map..SyncMapList
+        :returns: twilio.rest.sync.v1.service.sync_map.SyncMapList
+        :rtype: twilio.rest.sync.v1.service.sync_map.SyncMapList
         """
         super().__init__(version)
 
@@ -50,12 +51,12 @@ class SyncMapList(ListResource):
     def create(self, unique_name=values.unset, ttl=values.unset, collection_ttl=values.unset):
         """
         Create the SyncMapInstance
-         :param str unique_name: An application-defined string that uniquely identifies the resource. It can be used as an alternative to the `sid` in the URL path to address the resource.
-         :param int ttl: An alias for `collection_ttl`. If both parameters are provided, this value is ignored.
-         :param int collection_ttl: How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Sync Map expires (time-to-live) and is deleted.
+        :param str unique_name: An application-defined string that uniquely identifies the resource. It can be used as an alternative to the `sid` in the URL path to address the resource.
+        :param int ttl: An alias for `collection_ttl`. If both parameters are provided, this value is ignored.
+        :param int collection_ttl: How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Sync Map expires (time-to-live) and is deleted.
         
         :returns: The created SyncMapInstance
-        :rtype: twilio.rest.sync.v1.sync_map.SyncMapInstance
+        :rtype: twilio.rest.sync.v1.service.sync_map.SyncMapInstance
         """
         data = values.of({ 
             'UniqueName': unique_name,
@@ -82,7 +83,7 @@ class SyncMapList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.sync.v1.sync_map.SyncMapInstance]
+        :rtype: list[twilio.rest.sync.v1.service.sync_map.SyncMapInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -105,7 +106,7 @@ class SyncMapList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.sync.v1.sync_map.SyncMapInstance]
+        :rtype: list[twilio.rest.sync.v1.service.sync_map.SyncMapInstance]
         """
         return list(self.stream(
             limit=limit,
@@ -122,7 +123,7 @@ class SyncMapList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of SyncMapInstance
-        :rtype: twilio.rest.sync.v1.sync_map.SyncMapPage
+        :rtype: twilio.rest.sync.v1.service.sync_map.SyncMapPage
         """
         data = values.of({ 
             'PageToken': page_token,
@@ -141,7 +142,7 @@ class SyncMapList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of SyncMapInstance
-        :rtype: twilio.rest.sync.v1.sync_map.SyncMapPage
+        :rtype: twilio.rest.sync.v1.service.sync_map.SyncMapPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -156,8 +157,8 @@ class SyncMapList(ListResource):
         
         :param sid: The SID of the Sync Map resource to update. Can be the Sync Map's `sid` or its `unique_name`.
         
-        :returns: twilio.rest.sync.v1.sync_map.SyncMapContext
-        :rtype: twilio.rest.sync.v1.sync_map.SyncMapContext
+        :returns: twilio.rest.sync.v1.service.sync_map.SyncMapContext
+        :rtype: twilio.rest.sync.v1.service.sync_map.SyncMapContext
         """
         return SyncMapContext(self._version, service_sid=self._solution['service_sid'], sid=sid)
 
@@ -167,8 +168,8 @@ class SyncMapList(ListResource):
         
         :param sid: The SID of the Sync Map resource to update. Can be the Sync Map's `sid` or its `unique_name`.
         
-        :returns: twilio.rest.sync.v1.sync_map.SyncMapContext
-        :rtype: twilio.rest.sync.v1.sync_map.SyncMapContext
+        :returns: twilio.rest.sync.v1.service.sync_map.SyncMapContext
+        :rtype: twilio.rest.sync.v1.service.sync_map.SyncMapContext
         """
         return SyncMapContext(self._version, service_sid=self._solution['service_sid'], sid=sid)
 
@@ -198,8 +199,8 @@ class SyncMapPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.sync.v1.sync_map.SyncMapPage
-        :rtype: twilio.rest.sync.v1.sync_map.SyncMapPage
+        :returns: twilio.rest.sync.v1.service.sync_map.SyncMapPage
+        :rtype: twilio.rest.sync.v1.service.sync_map.SyncMapPage
         """
         super().__init__(version, response)
 
@@ -212,8 +213,8 @@ class SyncMapPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.sync.v1.sync_map.SyncMapInstance
-        :rtype: twilio.rest.sync.v1.sync_map.SyncMapInstance
+        :returns: twilio.rest.sync.v1.service.sync_map.SyncMapInstance
+        :rtype: twilio.rest.sync.v1.service.sync_map.SyncMapInstance
         """
         return SyncMapInstance(self._version, payload, service_sid=self._solution['service_sid'])
 

@@ -28,10 +28,11 @@ class NumberList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the NumberList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.pricing.v2.number..NumberList
-        :rtype: twilio.pricing.v2.number..NumberList
+        :returns: twilio.rest.pricing.v2.voice.number.NumberList
+        :rtype: twilio.rest.pricing.v2.voice.number.NumberList
         """
         super().__init__(version)
 
@@ -48,8 +49,8 @@ class NumberList(ListResource):
         
         :param destination_number: The destination phone number, in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, for which to fetch the origin-based voice pricing information. E.164 format consists of a + followed by the country code and subscriber number.
         
-        :returns: twilio.rest.pricing.v2.number.NumberContext
-        :rtype: twilio.rest.pricing.v2.number.NumberContext
+        :returns: twilio.rest.pricing.v2.voice.number.NumberContext
+        :rtype: twilio.rest.pricing.v2.voice.number.NumberContext
         """
         return NumberContext(self._version, destination_number=destination_number)
 
@@ -59,8 +60,8 @@ class NumberList(ListResource):
         
         :param destination_number: The destination phone number, in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, for which to fetch the origin-based voice pricing information. E.164 format consists of a + followed by the country code and subscriber number.
         
-        :returns: twilio.rest.pricing.v2.number.NumberContext
-        :rtype: twilio.rest.pricing.v2.number.NumberContext
+        :returns: twilio.rest.pricing.v2.voice.number.NumberContext
+        :rtype: twilio.rest.pricing.v2.voice.number.NumberContext
         """
         return NumberContext(self._version, destination_number=destination_number)
 

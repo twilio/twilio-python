@@ -31,10 +31,11 @@ class RoomList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the RoomList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.video.v1.room..RoomList
-        :rtype: twilio.video.v1.room..RoomList
+        :returns: twilio.rest.video.v1.room.RoomList
+        :rtype: twilio.rest.video.v1.room.RoomList
         """
         super().__init__(version)
 
@@ -49,21 +50,21 @@ class RoomList(ListResource):
     def create(self, enable_turn=values.unset, type=values.unset, unique_name=values.unset, status_callback=values.unset, status_callback_method=values.unset, max_participants=values.unset, record_participants_on_connect=values.unset, video_codecs=values.unset, media_region=values.unset, recording_rules=values.unset, audio_only=values.unset, max_participant_duration=values.unset, empty_room_timeout=values.unset, unused_room_timeout=values.unset, large_room=values.unset):
         """
         Create the RoomInstance
-         :param bool enable_turn: Deprecated, now always considered to be true.
-         :param RoomRoomType type: 
-         :param str unique_name: An application-defined string that uniquely identifies the resource. It can be used as a `room_sid` in place of the resource's `sid` in the URL to address the resource, assuming it does not contain any [reserved characters](https://tools.ietf.org/html/rfc3986#section-2.2) that would need to be URL encoded. This value is unique for `in-progress` rooms. SDK clients can use this name to connect to the room. REST API clients can use this name in place of the Room SID to interact with the room as long as the room is `in-progress`.
-         :param str status_callback: The URL we should call using the `status_callback_method` to send status information to your application on every room event. See [Status Callbacks](https://www.twilio.com/docs/video/api/status-callbacks) for more info.
-         :param str status_callback_method: The HTTP method we should use to call `status_callback`. Can be `POST` or `GET`.
-         :param int max_participants: The maximum number of concurrent Participants allowed in the room. Peer-to-peer rooms can have up to 10 Participants. Small Group rooms can have up to 4 Participants. Group rooms can have up to 50 Participants.
-         :param bool record_participants_on_connect: Whether to start recording when Participants connect. ***This feature is not available in `peer-to-peer` rooms.***
-         :param [RoomVideoCodec] video_codecs: An array of the video codecs that are supported when publishing a track in the room.  Can be: `VP8` and `H264`.  ***This feature is not available in `peer-to-peer` rooms***
-         :param str media_region: The region for the media server in Group Rooms.  Can be: one of the [available Media Regions](https://www.twilio.com/docs/video/ip-address-whitelisting#group-rooms-media-servers). ***This feature is not available in `peer-to-peer` rooms.***
-         :param bool, date, datetime, dict, float, int, list, str, none_type recording_rules: A collection of Recording Rules that describe how to include or exclude matching tracks for recording
-         :param bool audio_only: When set to true, indicates that the participants in the room will only publish audio. No video tracks will be allowed. Group rooms only.
-         :param int max_participant_duration: The maximum number of seconds a Participant can be connected to the room. The maximum possible value is 86400 seconds (24 hours). The default is 14400 seconds (4 hours).
-         :param int empty_room_timeout: Configures how long (in minutes) a room will remain active after last participant leaves. Valid values range from 1 to 60 minutes (no fractions).
-         :param int unused_room_timeout: Configures how long (in minutes) a room will remain active if no one joins. Valid values range from 1 to 60 minutes (no fractions).
-         :param bool large_room: When set to true, indicated that this is the large room.
+        :param bool enable_turn: Deprecated, now always considered to be true.
+        :param RoomRoomType type: 
+        :param str unique_name: An application-defined string that uniquely identifies the resource. It can be used as a `room_sid` in place of the resource's `sid` in the URL to address the resource, assuming it does not contain any [reserved characters](https://tools.ietf.org/html/rfc3986#section-2.2) that would need to be URL encoded. This value is unique for `in-progress` rooms. SDK clients can use this name to connect to the room. REST API clients can use this name in place of the Room SID to interact with the room as long as the room is `in-progress`.
+        :param str status_callback: The URL we should call using the `status_callback_method` to send status information to your application on every room event. See [Status Callbacks](https://www.twilio.com/docs/video/api/status-callbacks) for more info.
+        :param str status_callback_method: The HTTP method we should use to call `status_callback`. Can be `POST` or `GET`.
+        :param int max_participants: The maximum number of concurrent Participants allowed in the room. Peer-to-peer rooms can have up to 10 Participants. Small Group rooms can have up to 4 Participants. Group rooms can have up to 50 Participants.
+        :param bool record_participants_on_connect: Whether to start recording when Participants connect. ***This feature is not available in `peer-to-peer` rooms.***
+        :param list[RoomVideoCodec] video_codecs: An array of the video codecs that are supported when publishing a track in the room.  Can be: `VP8` and `H264`.  ***This feature is not available in `peer-to-peer` rooms***
+        :param str media_region: The region for the media server in Group Rooms.  Can be: one of the [available Media Regions](https://www.twilio.com/docs/video/ip-address-whitelisting#group-rooms-media-servers). ***This feature is not available in `peer-to-peer` rooms.***
+        :param object recording_rules: A collection of Recording Rules that describe how to include or exclude matching tracks for recording
+        :param bool audio_only: When set to true, indicates that the participants in the room will only publish audio. No video tracks will be allowed. Group rooms only.
+        :param int max_participant_duration: The maximum number of seconds a Participant can be connected to the room. The maximum possible value is 86400 seconds (24 hours). The default is 14400 seconds (4 hours).
+        :param int empty_room_timeout: Configures how long (in minutes) a room will remain active after last participant leaves. Valid values range from 1 to 60 minutes (no fractions).
+        :param int unused_room_timeout: Configures how long (in minutes) a room will remain active if no one joins. Valid values range from 1 to 60 minutes (no fractions).
+        :param bool large_room: When set to true, indicated that this is the large room.
         
         :returns: The created RoomInstance
         :rtype: twilio.rest.video.v1.room.RoomInstance
@@ -78,7 +79,7 @@ class RoomList(ListResource):
             'RecordParticipantsOnConnect': record_participants_on_connect,
             'VideoCodecs': video_codecs,
             'MediaRegion': media_region,
-            'RecordingRules': recording_rules,
+            'RecordingRules': serialize.object(recording_rules),
             'AudioOnly': audio_only,
             'MaxParticipantDuration': max_participant_duration,
             'EmptyRoomTimeout': empty_room_timeout,

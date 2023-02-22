@@ -28,10 +28,11 @@ class OauthList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the OauthList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.oauth.v1.oauth..OauthList
-        :rtype: twilio.oauth.v1.oauth..OauthList
+        :returns: twilio.rest.oauth.v1.oauth.OauthList
+        :rtype: twilio.rest.oauth.v1.oauth.OauthList
         """
         super().__init__(version)
 

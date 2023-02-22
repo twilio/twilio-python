@@ -29,10 +29,11 @@ class AvailableAddOnList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the AvailableAddOnList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.preview.marketplace.available_add_on..AvailableAddOnList
-        :rtype: twilio.preview.marketplace.available_add_on..AvailableAddOnList
+        :returns: twilio.rest.preview.marketplace.available_add_on.AvailableAddOnList
+        :rtype: twilio.rest.preview.marketplace.available_add_on.AvailableAddOnList
         """
         super().__init__(version)
 

@@ -29,10 +29,11 @@ class SchemaList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the SchemaList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.events.v1.schema..SchemaList
-        :rtype: twilio.events.v1.schema..SchemaList
+        :returns: twilio.rest.events.v1.schema.SchemaList
+        :rtype: twilio.rest.events.v1.schema.SchemaList
         """
         super().__init__(version)
 

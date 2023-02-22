@@ -32,10 +32,11 @@ class ServiceList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the ServiceList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.serverless.v1.service..ServiceList
-        :rtype: twilio.serverless.v1.service..ServiceList
+        :returns: twilio.rest.serverless.v1.service.ServiceList
+        :rtype: twilio.rest.serverless.v1.service.ServiceList
         """
         super().__init__(version)
 
@@ -51,10 +52,10 @@ class ServiceList(ListResource):
     def create(self, unique_name, friendly_name, include_credentials=values.unset, ui_editable=values.unset):
         """
         Create the ServiceInstance
-         :param str unique_name: A user-defined string that uniquely identifies the Service resource. It can be used as an alternative to the `sid` in the URL path to address the Service resource. This value must be 50 characters or less in length and be unique.
-         :param str friendly_name: A descriptive string that you create to describe the Service resource. It can be a maximum of 255 characters.
-         :param bool include_credentials: Whether to inject Account credentials into a function invocation context. The default value is `true`.
-         :param bool ui_editable: Whether the Service's properties and subresources can be edited via the UI. The default value is `false`.
+        :param str unique_name: A user-defined string that uniquely identifies the Service resource. It can be used as an alternative to the `sid` in the URL path to address the Service resource. This value must be 50 characters or less in length and be unique.
+        :param str friendly_name: A descriptive string that you create to describe the Service resource. It can be a maximum of 255 characters.
+        :param bool include_credentials: Whether to inject Account credentials into a function invocation context. The default value is `true`.
+        :param bool ui_editable: Whether the Service's properties and subresources can be edited via the UI. The default value is `false`.
         
         :returns: The created ServiceInstance
         :rtype: twilio.rest.serverless.v1.service.ServiceInstance

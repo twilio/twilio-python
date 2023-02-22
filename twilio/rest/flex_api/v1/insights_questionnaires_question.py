@@ -28,10 +28,11 @@ class InsightsQuestionnairesQuestionList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the InsightsQuestionnairesQuestionList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.flex_api.v1.insights_questionnaires_question..InsightsQuestionnairesQuestionList
-        :rtype: twilio.flex_api.v1.insights_questionnaires_question..InsightsQuestionnairesQuestionList
+        :returns: twilio.rest.flex_api.v1.insights_questionnaires_question.InsightsQuestionnairesQuestionList
+        :rtype: twilio.rest.flex_api.v1.insights_questionnaires_question.InsightsQuestionnairesQuestionList
         """
         super().__init__(version)
 
@@ -43,14 +44,15 @@ class InsightsQuestionnairesQuestionList(ListResource):
     
     
     
-    def create(self, category_id, question, description, answer_set_id, allow_na):
+    def create(self, category_id, question, description, answer_set_id, allow_na, token=values.unset):
         """
         Create the InsightsQuestionnairesQuestionInstance
-         :param str category_id: The ID of the category
-         :param str question: The question.
-         :param str description: The description for the question.
-         :param str answer_set_id: The answer_set for the question.
-         :param bool allow_na: The flag to enable for disable NA for answer.
+        :param str category_id: The ID of the category
+        :param str question: The question.
+        :param str description: The description for the question.
+        :param str answer_set_id: The answer_set for the question.
+        :param bool allow_na: The flag to enable for disable NA for answer.
+        :param str token: The Token HTTP request header
         
         :returns: The created InsightsQuestionnairesQuestionInstance
         :rtype: twilio.rest.flex_api.v1.insights_questionnaires_question.InsightsQuestionnairesQuestionInstance
@@ -61,6 +63,7 @@ class InsightsQuestionnairesQuestionList(ListResource):
             'Description': description,
             'AnswerSetId': answer_set_id,
             'AllowNa': allow_na,
+            'Token': token,
         })
 
         payload = self._version.create(method='POST', uri=self._uri, data=data)
@@ -75,7 +78,7 @@ class InsightsQuestionnairesQuestionList(ListResource):
         The results are returned as a generator, so this operation is memory efficient.
         
         :param str token: The Token HTTP request header
-        :param [str] category_id: The list of category IDs
+        :param list[str] category_id: The list of category IDs
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -102,7 +105,7 @@ class InsightsQuestionnairesQuestionList(ListResource):
         memory before returning.
         
         :param str token: The Token HTTP request header
-        :param [str] category_id: The list of category IDs
+        :param list[str] category_id: The list of category IDs
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -126,7 +129,7 @@ class InsightsQuestionnairesQuestionList(ListResource):
         Request is executed immediately
         
         :param str token: The Token HTTP request header
-        :param [str] category_id: The list of category IDs
+        :param list[str] category_id: The list of category IDs
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -262,9 +265,9 @@ class InsightsQuestionnairesQuestionContext(InstanceContext):
         """
         return self._version.delete(method='DELETE', uri=self._uri, )
     
-    def update(self, allow_na, category_id, question, description, answer_set_id):
+    def update(self, allow_na, token, category_id, question, description, answer_set_id):
         data = values.of({
-            'allow_na': allow_na,'category_id': category_id,'question': question,'description': description,'answer_set_id': answer_set_id,
+            'allow_na': allow_na,'token': token,'category_id': category_id,'question': question,'description': description,'answer_set_id': answer_set_id,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

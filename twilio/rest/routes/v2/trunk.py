@@ -28,10 +28,11 @@ class TrunkList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the TrunkList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.routes.v2.trunk..TrunkList
-        :rtype: twilio.routes.v2.trunk..TrunkList
+        :returns: twilio.rest.routes.v2.trunk.TrunkList
+        :rtype: twilio.rest.routes.v2.trunk.TrunkList
         """
         super().__init__(version)
 

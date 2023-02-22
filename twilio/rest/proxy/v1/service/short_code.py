@@ -28,11 +28,12 @@ class ShortCodeList(ListResource):
     def __init__(self, version: Version, service_sid: str):
         """
         Initialize the ShortCodeList
+
         :param Version version: Version that contains the resource
         :param service_sid: The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) to read the resources from.
         
-        :returns: twilio.proxy.v1.short_code..ShortCodeList
-        :rtype: twilio.proxy.v1.short_code..ShortCodeList
+        :returns: twilio.rest.proxy.v1.service.short_code.ShortCodeList
+        :rtype: twilio.rest.proxy.v1.service.short_code.ShortCodeList
         """
         super().__init__(version)
 
@@ -48,10 +49,10 @@ class ShortCodeList(ListResource):
     def create(self, sid):
         """
         Create the ShortCodeInstance
-         :param str sid: The SID of a Twilio [ShortCode](https://www.twilio.com/docs/sms/api/short-code) resource that represents the short code you would like to assign to your Proxy Service.
+        :param str sid: The SID of a Twilio [ShortCode](https://www.twilio.com/docs/sms/api/short-code) resource that represents the short code you would like to assign to your Proxy Service.
         
         :returns: The created ShortCodeInstance
-        :rtype: twilio.rest.proxy.v1.short_code.ShortCodeInstance
+        :rtype: twilio.rest.proxy.v1.service.short_code.ShortCodeInstance
         """
         data = values.of({ 
             'Sid': sid,
@@ -76,7 +77,7 @@ class ShortCodeList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.proxy.v1.short_code.ShortCodeInstance]
+        :rtype: list[twilio.rest.proxy.v1.service.short_code.ShortCodeInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -99,7 +100,7 @@ class ShortCodeList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.proxy.v1.short_code.ShortCodeInstance]
+        :rtype: list[twilio.rest.proxy.v1.service.short_code.ShortCodeInstance]
         """
         return list(self.stream(
             limit=limit,
@@ -116,7 +117,7 @@ class ShortCodeList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of ShortCodeInstance
-        :rtype: twilio.rest.proxy.v1.short_code.ShortCodePage
+        :rtype: twilio.rest.proxy.v1.service.short_code.ShortCodePage
         """
         data = values.of({ 
             'PageToken': page_token,
@@ -135,7 +136,7 @@ class ShortCodeList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of ShortCodeInstance
-        :rtype: twilio.rest.proxy.v1.short_code.ShortCodePage
+        :rtype: twilio.rest.proxy.v1.service.short_code.ShortCodePage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -150,8 +151,8 @@ class ShortCodeList(ListResource):
         
         :param sid: The Twilio-provided string that uniquely identifies the ShortCode resource to update.
         
-        :returns: twilio.rest.proxy.v1.short_code.ShortCodeContext
-        :rtype: twilio.rest.proxy.v1.short_code.ShortCodeContext
+        :returns: twilio.rest.proxy.v1.service.short_code.ShortCodeContext
+        :rtype: twilio.rest.proxy.v1.service.short_code.ShortCodeContext
         """
         return ShortCodeContext(self._version, service_sid=self._solution['service_sid'], sid=sid)
 
@@ -161,8 +162,8 @@ class ShortCodeList(ListResource):
         
         :param sid: The Twilio-provided string that uniquely identifies the ShortCode resource to update.
         
-        :returns: twilio.rest.proxy.v1.short_code.ShortCodeContext
-        :rtype: twilio.rest.proxy.v1.short_code.ShortCodeContext
+        :returns: twilio.rest.proxy.v1.service.short_code.ShortCodeContext
+        :rtype: twilio.rest.proxy.v1.service.short_code.ShortCodeContext
         """
         return ShortCodeContext(self._version, service_sid=self._solution['service_sid'], sid=sid)
 
@@ -192,8 +193,8 @@ class ShortCodePage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.proxy.v1.short_code.ShortCodePage
-        :rtype: twilio.rest.proxy.v1.short_code.ShortCodePage
+        :returns: twilio.rest.proxy.v1.service.short_code.ShortCodePage
+        :rtype: twilio.rest.proxy.v1.service.short_code.ShortCodePage
         """
         super().__init__(version, response)
 
@@ -206,8 +207,8 @@ class ShortCodePage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.proxy.v1.short_code.ShortCodeInstance
-        :rtype: twilio.rest.proxy.v1.short_code.ShortCodeInstance
+        :returns: twilio.rest.proxy.v1.service.short_code.ShortCodeInstance
+        :rtype: twilio.rest.proxy.v1.service.short_code.ShortCodeInstance
         """
         return ShortCodeInstance(self._version, payload, service_sid=self._solution['service_sid'])
 

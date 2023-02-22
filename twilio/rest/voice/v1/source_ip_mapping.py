@@ -28,10 +28,11 @@ class SourceIpMappingList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the SourceIpMappingList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.voice.v1.source_ip_mapping..SourceIpMappingList
-        :rtype: twilio.voice.v1.source_ip_mapping..SourceIpMappingList
+        :returns: twilio.rest.voice.v1.source_ip_mapping.SourceIpMappingList
+        :rtype: twilio.rest.voice.v1.source_ip_mapping.SourceIpMappingList
         """
         super().__init__(version)
 
@@ -47,8 +48,8 @@ class SourceIpMappingList(ListResource):
     def create(self, ip_record_sid, sip_domain_sid):
         """
         Create the SourceIpMappingInstance
-         :param str ip_record_sid: The Twilio-provided string that uniquely identifies the IP Record resource to map from.
-         :param str sip_domain_sid: The SID of the SIP Domain that the IP Record should be mapped to.
+        :param str ip_record_sid: The Twilio-provided string that uniquely identifies the IP Record resource to map from.
+        :param str sip_domain_sid: The SID of the SIP Domain that the IP Record should be mapped to.
         
         :returns: The created SourceIpMappingInstance
         :rtype: twilio.rest.voice.v1.source_ip_mapping.SourceIpMappingInstance

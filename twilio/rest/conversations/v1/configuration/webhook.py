@@ -28,10 +28,11 @@ class WebhookList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the WebhookList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.conversations.v1.webhook..WebhookList
-        :rtype: twilio.conversations.v1.webhook..WebhookList
+        :returns: twilio.rest.conversations.v1.configuration.webhook.WebhookList
+        :rtype: twilio.rest.conversations.v1.configuration.webhook.WebhookList
         """
         super().__init__(version)
 
@@ -47,8 +48,8 @@ class WebhookList(ListResource):
         """
         Constructs a WebhookContext
         
-        :returns: twilio.rest.conversations.v1.webhook.WebhookContext
-        :rtype: twilio.rest.conversations.v1.webhook.WebhookContext
+        :returns: twilio.rest.conversations.v1.configuration.webhook.WebhookContext
+        :rtype: twilio.rest.conversations.v1.configuration.webhook.WebhookContext
         """
         return WebhookContext(self._version)
 
@@ -56,8 +57,8 @@ class WebhookList(ListResource):
         """
         Constructs a WebhookContext
         
-        :returns: twilio.rest.conversations.v1.webhook.WebhookContext
-        :rtype: twilio.rest.conversations.v1.webhook.WebhookContext
+        :returns: twilio.rest.conversations.v1.configuration.webhook.WebhookContext
+        :rtype: twilio.rest.conversations.v1.configuration.webhook.WebhookContext
         """
         return WebhookContext(self._version)
 

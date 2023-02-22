@@ -28,11 +28,12 @@ class CallSummaryList(ListResource):
     def __init__(self, version: Version, call_sid: str):
         """
         Initialize the CallSummaryList
+
         :param Version version: Version that contains the resource
         :param call_sid: 
         
-        :returns: twilio.insights.v1.call_summary..CallSummaryList
-        :rtype: twilio.insights.v1.call_summary..CallSummaryList
+        :returns: twilio.rest.insights.v1.call.call_summary.CallSummaryList
+        :rtype: twilio.rest.insights.v1.call.call_summary.CallSummaryList
         """
         super().__init__(version)
 
@@ -47,8 +48,8 @@ class CallSummaryList(ListResource):
         """
         Constructs a CallSummaryContext
         
-        :returns: twilio.rest.insights.v1.call_summary.CallSummaryContext
-        :rtype: twilio.rest.insights.v1.call_summary.CallSummaryContext
+        :returns: twilio.rest.insights.v1.call.call_summary.CallSummaryContext
+        :rtype: twilio.rest.insights.v1.call.call_summary.CallSummaryContext
         """
         return CallSummaryContext(self._version, call_sid=self._solution['call_sid'])
 
@@ -56,8 +57,8 @@ class CallSummaryList(ListResource):
         """
         Constructs a CallSummaryContext
         
-        :returns: twilio.rest.insights.v1.call_summary.CallSummaryContext
-        :rtype: twilio.rest.insights.v1.call_summary.CallSummaryContext
+        :returns: twilio.rest.insights.v1.call.call_summary.CallSummaryContext
+        :rtype: twilio.rest.insights.v1.call.call_summary.CallSummaryContext
         """
         return CallSummaryContext(self._version, call_sid=self._solution['call_sid'])
 

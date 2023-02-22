@@ -28,12 +28,13 @@ class NationalList(ListResource):
     def __init__(self, version: Version, account_sid: str, country_code: str):
         """
         Initialize the NationalList
+
         :param Version version: Version that contains the resource
         :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) requesting the AvailablePhoneNumber resources.
         :param country_code: The [ISO-3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code of the country from which to read phone numbers.
         
-        :returns: twilio.api.v2010.national..NationalList
-        :rtype: twilio.api.v2010.national..NationalList
+        :returns: twilio.rest.api.v2010.account.available_phone_number_country.national.NationalList
+        :rtype: twilio.rest.api.v2010.account.available_phone_number_country.national.NationalList
         """
         super().__init__(version)
 
@@ -76,7 +77,7 @@ class NationalList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.national.NationalInstance]
+        :rtype: list[twilio.rest.api.v2010.account.available_phone_number_country.national.NationalInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -135,7 +136,7 @@ class NationalList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.national.NationalInstance]
+        :rtype: list[twilio.rest.api.v2010.account.available_phone_number_country.national.NationalInstance]
         """
         return list(self.stream(
             area_code=area_code,
@@ -188,7 +189,7 @@ class NationalList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of NationalInstance
-        :rtype: twilio.rest.api.v2010.national.NationalPage
+        :rtype: twilio.rest.api.v2010.account.available_phone_number_country.national.NationalPage
         """
         data = values.of({ 
             'AreaCode': area_code,
@@ -225,7 +226,7 @@ class NationalList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of NationalInstance
-        :rtype: twilio.rest.api.v2010.national.NationalPage
+        :rtype: twilio.rest.api.v2010.account.available_phone_number_country.national.NationalPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -253,8 +254,8 @@ class NationalPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.api.v2010.national.NationalPage
-        :rtype: twilio.rest.api.v2010.national.NationalPage
+        :returns: twilio.rest.api.v2010.account.available_phone_number_country.national.NationalPage
+        :rtype: twilio.rest.api.v2010.account.available_phone_number_country.national.NationalPage
         """
         super().__init__(version, response)
 
@@ -267,8 +268,8 @@ class NationalPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.api.v2010.national.NationalInstance
-        :rtype: twilio.rest.api.v2010.national.NationalInstance
+        :returns: twilio.rest.api.v2010.account.available_phone_number_country.national.NationalInstance
+        :rtype: twilio.rest.api.v2010.account.available_phone_number_country.national.NationalInstance
         """
         return NationalInstance(self._version, payload, account_sid=self._solution['account_sid'], country_code=self._solution['country_code'])
 
@@ -284,6 +285,51 @@ class NationalPage(Page):
 
 
 
+
+
+class NationalInstance(InstanceResource):
+    def __init__(self, version, payload, account_sid: str, country_code: str):
+        super().__init__(version)
+        self._properties = { 
+            'friendly_name' : payload.get('friendly_name'),
+            'phone_number' : payload.get('phone_number'),
+            'lata' : payload.get('lata'),
+            'locality' : payload.get('locality'),
+            'rate_center' : payload.get('rate_center'),
+            'latitude' : payload.get('latitude'),
+            'longitude' : payload.get('longitude'),
+            'region' : payload.get('region'),
+            'postal_code' : payload.get('postal_code'),
+            'iso_country' : payload.get('iso_country'),
+            'address_requirements' : payload.get('address_requirements'),
+            'beta' : payload.get('beta'),
+            'capabilities' : payload.get('capabilities'),
+        }
+
+        self._context = None
+        self._solution = {
+            'account_sid': account_sid or self._properties['account_sid'],'country_code': country_code or self._properties['country_code'],
+        }
+
+    @property
+    def _proxy(self):
+        if self._context is None:
+            self._context = NationalContext(
+                self._version,
+                account_sid=self._solution['account_sid'],country_code=self._solution['country_code'],
+            )
+        return self._context
+
+    
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Api.V2010.NationalInstance {}>'.format(context)
 
 
 

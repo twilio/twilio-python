@@ -28,11 +28,12 @@ class ConnectAppList(ListResource):
     def __init__(self, version: Version, account_sid: str):
         """
         Initialize the ConnectAppList
+
         :param Version version: Version that contains the resource
         :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the ConnectApp resources to read.
         
-        :returns: twilio.api.v2010.connect_app..ConnectAppList
-        :rtype: twilio.api.v2010.connect_app..ConnectAppList
+        :returns: twilio.rest.api.v2010.account.connect_app.ConnectAppList
+        :rtype: twilio.rest.api.v2010.account.connect_app.ConnectAppList
         """
         super().__init__(version)
 
@@ -60,7 +61,7 @@ class ConnectAppList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.connect_app.ConnectAppInstance]
+        :rtype: list[twilio.rest.api.v2010.account.connect_app.ConnectAppInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -83,7 +84,7 @@ class ConnectAppList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.connect_app.ConnectAppInstance]
+        :rtype: list[twilio.rest.api.v2010.account.connect_app.ConnectAppInstance]
         """
         return list(self.stream(
             limit=limit,
@@ -100,7 +101,7 @@ class ConnectAppList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of ConnectAppInstance
-        :rtype: twilio.rest.api.v2010.connect_app.ConnectAppPage
+        :rtype: twilio.rest.api.v2010.account.connect_app.ConnectAppPage
         """
         data = values.of({ 
             'PageToken': page_token,
@@ -119,7 +120,7 @@ class ConnectAppList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of ConnectAppInstance
-        :rtype: twilio.rest.api.v2010.connect_app.ConnectAppPage
+        :rtype: twilio.rest.api.v2010.account.connect_app.ConnectAppPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -134,8 +135,8 @@ class ConnectAppList(ListResource):
         
         :param sid: The Twilio-provided string that uniquely identifies the ConnectApp resource to update.
         
-        :returns: twilio.rest.api.v2010.connect_app.ConnectAppContext
-        :rtype: twilio.rest.api.v2010.connect_app.ConnectAppContext
+        :returns: twilio.rest.api.v2010.account.connect_app.ConnectAppContext
+        :rtype: twilio.rest.api.v2010.account.connect_app.ConnectAppContext
         """
         return ConnectAppContext(self._version, account_sid=self._solution['account_sid'], sid=sid)
 
@@ -145,8 +146,8 @@ class ConnectAppList(ListResource):
         
         :param sid: The Twilio-provided string that uniquely identifies the ConnectApp resource to update.
         
-        :returns: twilio.rest.api.v2010.connect_app.ConnectAppContext
-        :rtype: twilio.rest.api.v2010.connect_app.ConnectAppContext
+        :returns: twilio.rest.api.v2010.account.connect_app.ConnectAppContext
+        :rtype: twilio.rest.api.v2010.account.connect_app.ConnectAppContext
         """
         return ConnectAppContext(self._version, account_sid=self._solution['account_sid'], sid=sid)
 
@@ -174,8 +175,8 @@ class ConnectAppPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.api.v2010.connect_app.ConnectAppPage
-        :rtype: twilio.rest.api.v2010.connect_app.ConnectAppPage
+        :returns: twilio.rest.api.v2010.account.connect_app.ConnectAppPage
+        :rtype: twilio.rest.api.v2010.account.connect_app.ConnectAppPage
         """
         super().__init__(version, response)
 
@@ -188,8 +189,8 @@ class ConnectAppPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.api.v2010.connect_app.ConnectAppInstance
-        :rtype: twilio.rest.api.v2010.connect_app.ConnectAppInstance
+        :returns: twilio.rest.api.v2010.account.connect_app.ConnectAppInstance
+        :rtype: twilio.rest.api.v2010.account.connect_app.ConnectAppInstance
         """
         return ConnectAppInstance(self._version, payload, account_sid=self._solution['account_sid'])
 

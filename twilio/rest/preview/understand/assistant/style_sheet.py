@@ -28,11 +28,12 @@ class StyleSheetList(ListResource):
     def __init__(self, version: Version, assistant_sid: str):
         """
         Initialize the StyleSheetList
+
         :param Version version: Version that contains the resource
         :param assistant_sid: The unique ID of the Assistant
         
-        :returns: twilio.preview.understand.style_sheet..StyleSheetList
-        :rtype: twilio.preview.understand.style_sheet..StyleSheetList
+        :returns: twilio.rest.preview.understand.assistant.style_sheet.StyleSheetList
+        :rtype: twilio.rest.preview.understand.assistant.style_sheet.StyleSheetList
         """
         super().__init__(version)
 
@@ -48,8 +49,8 @@ class StyleSheetList(ListResource):
         """
         Constructs a StyleSheetContext
         
-        :returns: twilio.rest.preview.understand.style_sheet.StyleSheetContext
-        :rtype: twilio.rest.preview.understand.style_sheet.StyleSheetContext
+        :returns: twilio.rest.preview.understand.assistant.style_sheet.StyleSheetContext
+        :rtype: twilio.rest.preview.understand.assistant.style_sheet.StyleSheetContext
         """
         return StyleSheetContext(self._version, assistant_sid=self._solution['assistant_sid'])
 
@@ -57,8 +58,8 @@ class StyleSheetList(ListResource):
         """
         Constructs a StyleSheetContext
         
-        :returns: twilio.rest.preview.understand.style_sheet.StyleSheetContext
-        :rtype: twilio.rest.preview.understand.style_sheet.StyleSheetContext
+        :returns: twilio.rest.preview.understand.assistant.style_sheet.StyleSheetContext
+        :rtype: twilio.rest.preview.understand.assistant.style_sheet.StyleSheetContext
         """
         return StyleSheetContext(self._version, assistant_sid=self._solution['assistant_sid'])
 

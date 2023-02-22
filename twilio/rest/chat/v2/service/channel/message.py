@@ -28,12 +28,13 @@ class MessageList(ListResource):
     def __init__(self, version: Version, service_sid: str, channel_sid: str):
         """
         Initialize the MessageList
+
         :param Version version: Version that contains the resource
         :param service_sid: The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to read the Message resources from.
         :param channel_sid: The SID of the [Channel](https://www.twilio.com/docs/chat/channels) the Message resource to read belongs to. This value can be the Channel resource's `sid` or `unique_name`.
         
-        :returns: twilio.chat.v2.message..MessageList
-        :rtype: twilio.chat.v2.message..MessageList
+        :returns: twilio.rest.chat.v2.service.channel.message.MessageList
+        :rtype: twilio.rest.chat.v2.service.channel.message.MessageList
         """
         super().__init__(version)
 
@@ -46,25 +47,27 @@ class MessageList(ListResource):
     
     
     
-    def create(self, from_=values.unset, attributes=values.unset, date_created=values.unset, date_updated=values.unset, last_updated_by=values.unset, body=values.unset, media_sid=values.unset):
+    def create(self, x_twilio_webhook_enabled=values.unset, from_=values.unset, attributes=values.unset, date_created=values.unset, date_updated=values.unset, last_updated_by=values.unset, body=values.unset, media_sid=values.unset):
         """
         Create the MessageInstance
-         :param str from_: The [Identity](https://www.twilio.com/docs/chat/identity) of the new message's author. The default value is `system`.
-         :param str attributes: A valid JSON string that contains application-specific data.
-         :param datetime date_created: The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format, to assign to the resource as the date it was created. The default value is the current time set by the Chat service. This parameter should only be used when a Chat's history is being recreated from a backup/separate source.
-         :param datetime date_updated: The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format, to assign to the resource as the date it was last updated.
-         :param str last_updated_by: The [Identity](https://www.twilio.com/docs/chat/identity) of the User who last updated the Message, if applicable.
-         :param str body: The message to send to the channel. Can be an empty string or `null`, which sets the value as an empty string. You can send structured data in the body by serializing it as a string.
-         :param str media_sid: The SID of the [Media](https://www.twilio.com/docs/chat/rest/media) to attach to the new Message.
+        :param MessageWebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :param str from_: The [Identity](https://www.twilio.com/docs/chat/identity) of the new message's author. The default value is `system`.
+        :param str attributes: A valid JSON string that contains application-specific data.
+        :param datetime date_created: The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format, to assign to the resource as the date it was created. The default value is the current time set by the Chat service. This parameter should only be used when a Chat's history is being recreated from a backup/separate source.
+        :param datetime date_updated: The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format, to assign to the resource as the date it was last updated.
+        :param str last_updated_by: The [Identity](https://www.twilio.com/docs/chat/identity) of the User who last updated the Message, if applicable.
+        :param str body: The message to send to the channel. Can be an empty string or `null`, which sets the value as an empty string. You can send structured data in the body by serializing it as a string.
+        :param str media_sid: The SID of the [Media](https://www.twilio.com/docs/chat/rest/media) to attach to the new Message.
         
         :returns: The created MessageInstance
-        :rtype: twilio.rest.chat.v2.message.MessageInstance
+        :rtype: twilio.rest.chat.v2.service.channel.message.MessageInstance
         """
         data = values.of({ 
+            'X-Twilio-Webhook-Enabled': x_twilio_webhook_enabled,
             'From': from_,
             'Attributes': attributes,
-            'DateCreated': date_created,
-            'DateUpdated': date_updated,
+            'DateCreated': serialize.iso8601_datetime(date_created),
+            'DateUpdated': serialize.iso8601_datetime(date_updated),
             'LastUpdatedBy': last_updated_by,
             'Body': body,
             'MediaSid': media_sid,
@@ -90,7 +93,7 @@ class MessageList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.chat.v2.message.MessageInstance]
+        :rtype: list[twilio.rest.chat.v2.service.channel.message.MessageInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -115,7 +118,7 @@ class MessageList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.chat.v2.message.MessageInstance]
+        :rtype: list[twilio.rest.chat.v2.service.channel.message.MessageInstance]
         """
         return list(self.stream(
             order=order,
@@ -134,7 +137,7 @@ class MessageList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of MessageInstance
-        :rtype: twilio.rest.chat.v2.message.MessagePage
+        :rtype: twilio.rest.chat.v2.service.channel.message.MessagePage
         """
         data = values.of({ 
             'Order': order,
@@ -154,7 +157,7 @@ class MessageList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of MessageInstance
-        :rtype: twilio.rest.chat.v2.message.MessagePage
+        :rtype: twilio.rest.chat.v2.service.channel.message.MessagePage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -169,8 +172,8 @@ class MessageList(ListResource):
         
         :param sid: The SID of the Message resource to update.
         
-        :returns: twilio.rest.chat.v2.message.MessageContext
-        :rtype: twilio.rest.chat.v2.message.MessageContext
+        :returns: twilio.rest.chat.v2.service.channel.message.MessageContext
+        :rtype: twilio.rest.chat.v2.service.channel.message.MessageContext
         """
         return MessageContext(self._version, service_sid=self._solution['service_sid'], channel_sid=self._solution['channel_sid'], sid=sid)
 
@@ -180,8 +183,8 @@ class MessageList(ListResource):
         
         :param sid: The SID of the Message resource to update.
         
-        :returns: twilio.rest.chat.v2.message.MessageContext
-        :rtype: twilio.rest.chat.v2.message.MessageContext
+        :returns: twilio.rest.chat.v2.service.channel.message.MessageContext
+        :rtype: twilio.rest.chat.v2.service.channel.message.MessageContext
         """
         return MessageContext(self._version, service_sid=self._solution['service_sid'], channel_sid=self._solution['channel_sid'], sid=sid)
 
@@ -211,8 +214,8 @@ class MessagePage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.chat.v2.message.MessagePage
-        :rtype: twilio.rest.chat.v2.message.MessagePage
+        :returns: twilio.rest.chat.v2.service.channel.message.MessagePage
+        :rtype: twilio.rest.chat.v2.service.channel.message.MessagePage
         """
         super().__init__(version, response)
 
@@ -225,8 +228,8 @@ class MessagePage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.chat.v2.message.MessageInstance
-        :rtype: twilio.rest.chat.v2.message.MessageInstance
+        :returns: twilio.rest.chat.v2.service.channel.message.MessageInstance
+        :rtype: twilio.rest.chat.v2.service.channel.message.MessageInstance
         """
         return MessageInstance(self._version, payload, service_sid=self._solution['service_sid'], channel_sid=self._solution['channel_sid'])
 
@@ -280,9 +283,9 @@ class MessageContext(InstanceContext):
 
         
     
-    def update(self, body, attributes, date_created, date_updated, last_updated_by, from_):
+    def update(self, x_twilio_webhook_enabled, body, attributes, date_created, date_updated, last_updated_by, from_):
         data = values.of({
-            'body': body,'attributes': attributes,'date_created': date_created,'date_updated': date_updated,'last_updated_by': last_updated_by,'from_': from_,
+            'x_twilio_webhook_enabled': x_twilio_webhook_enabled,'body': body,'attributes': attributes,'date_created': date_created,'date_updated': date_updated,'last_updated_by': last_updated_by,'from_': from_,
         })
 
         payload = self._version.update(method='post', uri=self._uri, data=data, )

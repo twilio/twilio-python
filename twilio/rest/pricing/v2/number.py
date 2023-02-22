@@ -28,10 +28,11 @@ class NumberList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the NumberList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.pricing.v2.number..NumberList
-        :rtype: twilio.pricing.v2.number..NumberList
+        :returns: twilio.rest.pricing.v2.number.NumberList
+        :rtype: twilio.rest.pricing.v2.number.NumberList
         """
         super().__init__(version)
 

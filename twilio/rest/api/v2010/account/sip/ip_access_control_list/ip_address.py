@@ -28,12 +28,13 @@ class IpAddressList(ListResource):
     def __init__(self, version: Version, account_sid: str, ip_access_control_list_sid: str):
         """
         Initialize the IpAddressList
+
         :param Version version: Version that contains the resource
         :param account_sid: The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.
         :param ip_access_control_list_sid: The IpAccessControlList Sid that identifies the IpAddress resources to read.
         
-        :returns: twilio.api.v2010.ip_address..IpAddressList
-        :rtype: twilio.api.v2010.ip_address..IpAddressList
+        :returns: twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address.IpAddressList
+        :rtype: twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address.IpAddressList
         """
         super().__init__(version)
 
@@ -49,12 +50,12 @@ class IpAddressList(ListResource):
     def create(self, friendly_name, ip_address, cidr_prefix_length=values.unset):
         """
         Create the IpAddressInstance
-         :param str friendly_name: A human readable descriptive text for this resource, up to 255 characters long.
-         :param str ip_address: An IP address in dotted decimal notation from which you want to accept traffic. Any SIP requests from this IP address will be allowed by Twilio. IPv4 only supported today.
-         :param int cidr_prefix_length: An integer representing the length of the CIDR prefix to use with this IP address when accepting traffic. By default the entire IP address is used.
+        :param str friendly_name: A human readable descriptive text for this resource, up to 255 characters long.
+        :param str ip_address: An IP address in dotted decimal notation from which you want to accept traffic. Any SIP requests from this IP address will be allowed by Twilio. IPv4 only supported today.
+        :param int cidr_prefix_length: An integer representing the length of the CIDR prefix to use with this IP address when accepting traffic. By default the entire IP address is used.
         
         :returns: The created IpAddressInstance
-        :rtype: twilio.rest.api.v2010.ip_address.IpAddressInstance
+        :rtype: twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address.IpAddressInstance
         """
         data = values.of({ 
             'FriendlyName': friendly_name,
@@ -81,7 +82,7 @@ class IpAddressList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.ip_address.IpAddressInstance]
+        :rtype: list[twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address.IpAddressInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -104,7 +105,7 @@ class IpAddressList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.ip_address.IpAddressInstance]
+        :rtype: list[twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address.IpAddressInstance]
         """
         return list(self.stream(
             limit=limit,
@@ -121,7 +122,7 @@ class IpAddressList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of IpAddressInstance
-        :rtype: twilio.rest.api.v2010.ip_address.IpAddressPage
+        :rtype: twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address.IpAddressPage
         """
         data = values.of({ 
             'PageToken': page_token,
@@ -140,7 +141,7 @@ class IpAddressList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of IpAddressInstance
-        :rtype: twilio.rest.api.v2010.ip_address.IpAddressPage
+        :rtype: twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address.IpAddressPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -155,8 +156,8 @@ class IpAddressList(ListResource):
         
         :param sid: A 34 character string that identifies the IpAddress resource to update.
         
-        :returns: twilio.rest.api.v2010.ip_address.IpAddressContext
-        :rtype: twilio.rest.api.v2010.ip_address.IpAddressContext
+        :returns: twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address.IpAddressContext
+        :rtype: twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address.IpAddressContext
         """
         return IpAddressContext(self._version, account_sid=self._solution['account_sid'], ip_access_control_list_sid=self._solution['ip_access_control_list_sid'], sid=sid)
 
@@ -166,8 +167,8 @@ class IpAddressList(ListResource):
         
         :param sid: A 34 character string that identifies the IpAddress resource to update.
         
-        :returns: twilio.rest.api.v2010.ip_address.IpAddressContext
-        :rtype: twilio.rest.api.v2010.ip_address.IpAddressContext
+        :returns: twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address.IpAddressContext
+        :rtype: twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address.IpAddressContext
         """
         return IpAddressContext(self._version, account_sid=self._solution['account_sid'], ip_access_control_list_sid=self._solution['ip_access_control_list_sid'], sid=sid)
 
@@ -197,8 +198,8 @@ class IpAddressPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.api.v2010.ip_address.IpAddressPage
-        :rtype: twilio.rest.api.v2010.ip_address.IpAddressPage
+        :returns: twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address.IpAddressPage
+        :rtype: twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address.IpAddressPage
         """
         super().__init__(version, response)
 
@@ -211,8 +212,8 @@ class IpAddressPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.api.v2010.ip_address.IpAddressInstance
-        :rtype: twilio.rest.api.v2010.ip_address.IpAddressInstance
+        :returns: twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address.IpAddressInstance
+        :rtype: twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address.IpAddressInstance
         """
         return IpAddressInstance(self._version, payload, account_sid=self._solution['account_sid'], ip_access_control_list_sid=self._solution['ip_access_control_list_sid'])
 

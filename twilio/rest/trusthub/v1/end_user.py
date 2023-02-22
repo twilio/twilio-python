@@ -28,10 +28,11 @@ class EndUserList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the EndUserList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.trusthub.v1.end_user..EndUserList
-        :rtype: twilio.trusthub.v1.end_user..EndUserList
+        :returns: twilio.rest.trusthub.v1.end_user.EndUserList
+        :rtype: twilio.rest.trusthub.v1.end_user.EndUserList
         """
         super().__init__(version)
 
@@ -47,9 +48,9 @@ class EndUserList(ListResource):
     def create(self, friendly_name, type, attributes=values.unset):
         """
         Create the EndUserInstance
-         :param str friendly_name: The string that you assigned to describe the resource.
-         :param str type: The type of end user of the Bundle resource - can be `individual` or `business`.
-         :param bool, date, datetime, dict, float, int, list, str, none_type attributes: The set of parameters that are the attributes of the End User resource which are derived End User Types.
+        :param str friendly_name: The string that you assigned to describe the resource.
+        :param str type: The type of end user of the Bundle resource - can be `individual` or `business`.
+        :param object attributes: The set of parameters that are the attributes of the End User resource which are derived End User Types.
         
         :returns: The created EndUserInstance
         :rtype: twilio.rest.trusthub.v1.end_user.EndUserInstance
@@ -57,7 +58,7 @@ class EndUserList(ListResource):
         data = values.of({ 
             'FriendlyName': friendly_name,
             'Type': type,
-            'Attributes': attributes,
+            'Attributes': serialize.object(attributes),
         })
 
         payload = self._version.create(method='POST', uri=self._uri, data=data)

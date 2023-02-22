@@ -29,12 +29,13 @@ class ParticipantList(ListResource):
     def __init__(self, version: Version, service_sid: str, session_sid: str):
         """
         Initialize the ParticipantList
+
         :param Version version: Version that contains the resource
         :param service_sid: The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) of the resources to read.
         :param session_sid: The SID of the parent [Session](https://www.twilio.com/docs/proxy/api/session) of the resources to read.
         
-        :returns: twilio.proxy.v1.participant..ParticipantList
-        :rtype: twilio.proxy.v1.participant..ParticipantList
+        :returns: twilio.rest.proxy.v1.service.session.participant.ParticipantList
+        :rtype: twilio.rest.proxy.v1.service.session.participant.ParticipantList
         """
         super().__init__(version)
 
@@ -49,13 +50,13 @@ class ParticipantList(ListResource):
     def create(self, identifier, friendly_name=values.unset, proxy_identifier=values.unset, proxy_identifier_sid=values.unset):
         """
         Create the ParticipantInstance
-         :param str identifier: The phone number of the Participant.
-         :param str friendly_name: The string that you assigned to describe the participant. This value must be 255 characters or fewer. **This value should not have PII.**
-         :param str proxy_identifier: The proxy phone number to use for the Participant. If not specified, Proxy will select a number from the pool.
-         :param str proxy_identifier_sid: The SID of the Proxy Identifier to assign to the Participant.
+        :param str identifier: The phone number of the Participant.
+        :param str friendly_name: The string that you assigned to describe the participant. This value must be 255 characters or fewer. **This value should not have PII.**
+        :param str proxy_identifier: The proxy phone number to use for the Participant. If not specified, Proxy will select a number from the pool.
+        :param str proxy_identifier_sid: The SID of the Proxy Identifier to assign to the Participant.
         
         :returns: The created ParticipantInstance
-        :rtype: twilio.rest.proxy.v1.participant.ParticipantInstance
+        :rtype: twilio.rest.proxy.v1.service.session.participant.ParticipantInstance
         """
         data = values.of({ 
             'Identifier': identifier,
@@ -83,7 +84,7 @@ class ParticipantList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.proxy.v1.participant.ParticipantInstance]
+        :rtype: list[twilio.rest.proxy.v1.service.session.participant.ParticipantInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -106,7 +107,7 @@ class ParticipantList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.proxy.v1.participant.ParticipantInstance]
+        :rtype: list[twilio.rest.proxy.v1.service.session.participant.ParticipantInstance]
         """
         return list(self.stream(
             limit=limit,
@@ -123,7 +124,7 @@ class ParticipantList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of ParticipantInstance
-        :rtype: twilio.rest.proxy.v1.participant.ParticipantPage
+        :rtype: twilio.rest.proxy.v1.service.session.participant.ParticipantPage
         """
         data = values.of({ 
             'PageToken': page_token,
@@ -142,7 +143,7 @@ class ParticipantList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of ParticipantInstance
-        :rtype: twilio.rest.proxy.v1.participant.ParticipantPage
+        :rtype: twilio.rest.proxy.v1.service.session.participant.ParticipantPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -157,8 +158,8 @@ class ParticipantList(ListResource):
         
         :param sid: The Twilio-provided string that uniquely identifies the Participant resource to fetch.
         
-        :returns: twilio.rest.proxy.v1.participant.ParticipantContext
-        :rtype: twilio.rest.proxy.v1.participant.ParticipantContext
+        :returns: twilio.rest.proxy.v1.service.session.participant.ParticipantContext
+        :rtype: twilio.rest.proxy.v1.service.session.participant.ParticipantContext
         """
         return ParticipantContext(self._version, service_sid=self._solution['service_sid'], session_sid=self._solution['session_sid'], sid=sid)
 
@@ -168,8 +169,8 @@ class ParticipantList(ListResource):
         
         :param sid: The Twilio-provided string that uniquely identifies the Participant resource to fetch.
         
-        :returns: twilio.rest.proxy.v1.participant.ParticipantContext
-        :rtype: twilio.rest.proxy.v1.participant.ParticipantContext
+        :returns: twilio.rest.proxy.v1.service.session.participant.ParticipantContext
+        :rtype: twilio.rest.proxy.v1.service.session.participant.ParticipantContext
         """
         return ParticipantContext(self._version, service_sid=self._solution['service_sid'], session_sid=self._solution['session_sid'], sid=sid)
 
@@ -197,8 +198,8 @@ class ParticipantPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.proxy.v1.participant.ParticipantPage
-        :rtype: twilio.rest.proxy.v1.participant.ParticipantPage
+        :returns: twilio.rest.proxy.v1.service.session.participant.ParticipantPage
+        :rtype: twilio.rest.proxy.v1.service.session.participant.ParticipantPage
         """
         super().__init__(version, response)
 
@@ -211,8 +212,8 @@ class ParticipantPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.proxy.v1.participant.ParticipantInstance
-        :rtype: twilio.rest.proxy.v1.participant.ParticipantInstance
+        :returns: twilio.rest.proxy.v1.service.session.participant.ParticipantInstance
+        :rtype: twilio.rest.proxy.v1.service.session.participant.ParticipantInstance
         """
         return ParticipantInstance(self._version, payload, service_sid=self._solution['service_sid'], session_sid=self._solution['session_sid'])
 

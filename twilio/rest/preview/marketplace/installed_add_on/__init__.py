@@ -29,10 +29,11 @@ class InstalledAddOnList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the InstalledAddOnList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.preview.marketplace.installed_add_on..InstalledAddOnList
-        :rtype: twilio.preview.marketplace.installed_add_on..InstalledAddOnList
+        :returns: twilio.rest.preview.marketplace.installed_add_on.InstalledAddOnList
+        :rtype: twilio.rest.preview.marketplace.installed_add_on.InstalledAddOnList
         """
         super().__init__(version)
 
@@ -48,10 +49,10 @@ class InstalledAddOnList(ListResource):
     def create(self, available_add_on_sid, accept_terms_of_service, configuration=values.unset, unique_name=values.unset):
         """
         Create the InstalledAddOnInstance
-         :param str available_add_on_sid: The SID of the AvaliableAddOn to install.
-         :param bool accept_terms_of_service: Whether the Terms of Service were accepted.
-         :param bool, date, datetime, dict, float, int, list, str, none_type configuration: The JSON object that represents the configuration of the new Add-on being installed.
-         :param str unique_name: An application-defined string that uniquely identifies the resource. This value must be unique within the Account.
+        :param str available_add_on_sid: The SID of the AvaliableAddOn to install.
+        :param bool accept_terms_of_service: Whether the Terms of Service were accepted.
+        :param object configuration: The JSON object that represents the configuration of the new Add-on being installed.
+        :param str unique_name: An application-defined string that uniquely identifies the resource. This value must be unique within the Account.
         
         :returns: The created InstalledAddOnInstance
         :rtype: twilio.rest.preview.marketplace.installed_add_on.InstalledAddOnInstance
@@ -59,7 +60,7 @@ class InstalledAddOnList(ListResource):
         data = values.of({ 
             'AvailableAddOnSid': available_add_on_sid,
             'AcceptTermsOfService': accept_terms_of_service,
-            'Configuration': configuration,
+            'Configuration': serialize.object(configuration),
             'UniqueName': unique_name,
         })
 

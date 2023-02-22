@@ -28,11 +28,12 @@ class ApplicationList(ListResource):
     def __init__(self, version: Version, account_sid: str):
         """
         Initialize the ApplicationList
+
         :param Version version: Version that contains the resource
         :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Application resources to read.
         
-        :returns: twilio.api.v2010.application..ApplicationList
-        :rtype: twilio.api.v2010.application..ApplicationList
+        :returns: twilio.rest.api.v2010.account.application.ApplicationList
+        :rtype: twilio.rest.api.v2010.account.application.ApplicationList
         """
         super().__init__(version)
 
@@ -48,25 +49,25 @@ class ApplicationList(ListResource):
     def create(self, api_version=values.unset, voice_url=values.unset, voice_method=values.unset, voice_fallback_url=values.unset, voice_fallback_method=values.unset, status_callback=values.unset, status_callback_method=values.unset, voice_caller_id_lookup=values.unset, sms_url=values.unset, sms_method=values.unset, sms_fallback_url=values.unset, sms_fallback_method=values.unset, sms_status_callback=values.unset, message_status_callback=values.unset, friendly_name=values.unset, public_application_connect_enabled=values.unset):
         """
         Create the ApplicationInstance
-         :param str api_version: The API version to use to start a new TwiML session. Can be: `2010-04-01` or `2008-08-01`. The default value is the account's default API version.
-         :param str voice_url: The URL we should call when the phone number assigned to this application receives a call.
-         :param str voice_method: The HTTP method we should use to call `voice_url`. Can be: `GET` or `POST`.
-         :param str voice_fallback_url: The URL that we should call when an error occurs retrieving or executing the TwiML requested by `url`.
-         :param str voice_fallback_method: The HTTP method we should use to call `voice_fallback_url`. Can be: `GET` or `POST`.
-         :param str status_callback: The URL we should call using the `status_callback_method` to send status information to your application.
-         :param str status_callback_method: The HTTP method we should use to call `status_callback`. Can be: `GET` or `POST`.
-         :param bool voice_caller_id_lookup: Whether we should look up the caller's caller-ID name from the CNAM database (additional charges apply). Can be: `true` or `false`.
-         :param str sms_url: The URL we should call when the phone number receives an incoming SMS message.
-         :param str sms_method: The HTTP method we should use to call `sms_url`. Can be: `GET` or `POST`.
-         :param str sms_fallback_url: The URL that we should call when an error occurs while retrieving or executing the TwiML from `sms_url`.
-         :param str sms_fallback_method: The HTTP method we should use to call `sms_fallback_url`. Can be: `GET` or `POST`.
-         :param str sms_status_callback: The URL we should call using a POST method to send status information about SMS messages sent by the application.
-         :param str message_status_callback: The URL we should call using a POST method to send message status information to your application.
-         :param str friendly_name: A descriptive string that you create to describe the new application. It can be up to 64 characters long.
-         :param bool public_application_connect_enabled: Whether to allow other Twilio accounts to dial this applicaton using Dial verb. Can be: `true` or `false`.
+        :param str api_version: The API version to use to start a new TwiML session. Can be: `2010-04-01` or `2008-08-01`. The default value is the account's default API version.
+        :param str voice_url: The URL we should call when the phone number assigned to this application receives a call.
+        :param str voice_method: The HTTP method we should use to call `voice_url`. Can be: `GET` or `POST`.
+        :param str voice_fallback_url: The URL that we should call when an error occurs retrieving or executing the TwiML requested by `url`.
+        :param str voice_fallback_method: The HTTP method we should use to call `voice_fallback_url`. Can be: `GET` or `POST`.
+        :param str status_callback: The URL we should call using the `status_callback_method` to send status information to your application.
+        :param str status_callback_method: The HTTP method we should use to call `status_callback`. Can be: `GET` or `POST`.
+        :param bool voice_caller_id_lookup: Whether we should look up the caller's caller-ID name from the CNAM database (additional charges apply). Can be: `true` or `false`.
+        :param str sms_url: The URL we should call when the phone number receives an incoming SMS message.
+        :param str sms_method: The HTTP method we should use to call `sms_url`. Can be: `GET` or `POST`.
+        :param str sms_fallback_url: The URL that we should call when an error occurs while retrieving or executing the TwiML from `sms_url`.
+        :param str sms_fallback_method: The HTTP method we should use to call `sms_fallback_url`. Can be: `GET` or `POST`.
+        :param str sms_status_callback: The URL we should call using a POST method to send status information about SMS messages sent by the application.
+        :param str message_status_callback: The URL we should call using a POST method to send message status information to your application.
+        :param str friendly_name: A descriptive string that you create to describe the new application. It can be up to 64 characters long.
+        :param bool public_application_connect_enabled: Whether to allow other Twilio accounts to dial this applicaton using Dial verb. Can be: `true` or `false`.
         
         :returns: The created ApplicationInstance
-        :rtype: twilio.rest.api.v2010.application.ApplicationInstance
+        :rtype: twilio.rest.api.v2010.account.application.ApplicationInstance
         """
         data = values.of({ 
             'ApiVersion': api_version,
@@ -107,7 +108,7 @@ class ApplicationList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.application.ApplicationInstance]
+        :rtype: list[twilio.rest.api.v2010.account.application.ApplicationInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -132,7 +133,7 @@ class ApplicationList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.application.ApplicationInstance]
+        :rtype: list[twilio.rest.api.v2010.account.application.ApplicationInstance]
         """
         return list(self.stream(
             friendly_name=friendly_name,
@@ -151,7 +152,7 @@ class ApplicationList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of ApplicationInstance
-        :rtype: twilio.rest.api.v2010.application.ApplicationPage
+        :rtype: twilio.rest.api.v2010.account.application.ApplicationPage
         """
         data = values.of({ 
             'FriendlyName': friendly_name,
@@ -171,7 +172,7 @@ class ApplicationList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of ApplicationInstance
-        :rtype: twilio.rest.api.v2010.application.ApplicationPage
+        :rtype: twilio.rest.api.v2010.account.application.ApplicationPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -186,8 +187,8 @@ class ApplicationList(ListResource):
         
         :param sid: The Twilio-provided string that uniquely identifies the Application resource to update.
         
-        :returns: twilio.rest.api.v2010.application.ApplicationContext
-        :rtype: twilio.rest.api.v2010.application.ApplicationContext
+        :returns: twilio.rest.api.v2010.account.application.ApplicationContext
+        :rtype: twilio.rest.api.v2010.account.application.ApplicationContext
         """
         return ApplicationContext(self._version, account_sid=self._solution['account_sid'], sid=sid)
 
@@ -197,8 +198,8 @@ class ApplicationList(ListResource):
         
         :param sid: The Twilio-provided string that uniquely identifies the Application resource to update.
         
-        :returns: twilio.rest.api.v2010.application.ApplicationContext
-        :rtype: twilio.rest.api.v2010.application.ApplicationContext
+        :returns: twilio.rest.api.v2010.account.application.ApplicationContext
+        :rtype: twilio.rest.api.v2010.account.application.ApplicationContext
         """
         return ApplicationContext(self._version, account_sid=self._solution['account_sid'], sid=sid)
 
@@ -228,8 +229,8 @@ class ApplicationPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.api.v2010.application.ApplicationPage
-        :rtype: twilio.rest.api.v2010.application.ApplicationPage
+        :returns: twilio.rest.api.v2010.account.application.ApplicationPage
+        :rtype: twilio.rest.api.v2010.account.application.ApplicationPage
         """
         super().__init__(version, response)
 
@@ -242,8 +243,8 @@ class ApplicationPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.api.v2010.application.ApplicationInstance
-        :rtype: twilio.rest.api.v2010.application.ApplicationInstance
+        :returns: twilio.rest.api.v2010.account.application.ApplicationInstance
+        :rtype: twilio.rest.api.v2010.account.application.ApplicationInstance
         """
         return ApplicationInstance(self._version, payload, account_sid=self._solution['account_sid'])
 

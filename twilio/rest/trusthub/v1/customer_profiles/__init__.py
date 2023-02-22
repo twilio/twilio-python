@@ -31,10 +31,11 @@ class CustomerProfilesList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the CustomerProfilesList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.trusthub.v1.customer_profiles..CustomerProfilesList
-        :rtype: twilio.trusthub.v1.customer_profiles..CustomerProfilesList
+        :returns: twilio.rest.trusthub.v1.customer_profiles.CustomerProfilesList
+        :rtype: twilio.rest.trusthub.v1.customer_profiles.CustomerProfilesList
         """
         super().__init__(version)
 
@@ -50,10 +51,10 @@ class CustomerProfilesList(ListResource):
     def create(self, friendly_name, email, policy_sid, status_callback=values.unset):
         """
         Create the CustomerProfilesInstance
-         :param str friendly_name: The string that you assigned to describe the resource.
-         :param str email: The email address that will receive updates when the Customer-Profile resource changes status.
-         :param str policy_sid: The unique string of a policy that is associated to the Customer-Profile resource.
-         :param str status_callback: The URL we call to inform your application of status changes.
+        :param str friendly_name: The string that you assigned to describe the resource.
+        :param str email: The email address that will receive updates when the Customer-Profile resource changes status.
+        :param str policy_sid: The unique string of a policy that is associated to the Customer-Profile resource.
+        :param str status_callback: The URL we call to inform your application of status changes.
         
         :returns: The created CustomerProfilesInstance
         :rtype: twilio.rest.trusthub.v1.customer_profiles.CustomerProfilesInstance

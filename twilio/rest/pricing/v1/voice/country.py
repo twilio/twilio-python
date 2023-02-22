@@ -28,10 +28,11 @@ class CountryList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the CountryList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.pricing.v1.country..CountryList
-        :rtype: twilio.pricing.v1.country..CountryList
+        :returns: twilio.rest.pricing.v1.voice.country.CountryList
+        :rtype: twilio.rest.pricing.v1.voice.country.CountryList
         """
         super().__init__(version)
 
@@ -57,7 +58,7 @@ class CountryList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.pricing.v1.country.CountryInstance]
+        :rtype: list[twilio.rest.pricing.v1.voice.country.CountryInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -80,7 +81,7 @@ class CountryList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.pricing.v1.country.CountryInstance]
+        :rtype: list[twilio.rest.pricing.v1.voice.country.CountryInstance]
         """
         return list(self.stream(
             limit=limit,
@@ -97,7 +98,7 @@ class CountryList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of CountryInstance
-        :rtype: twilio.rest.pricing.v1.country.CountryPage
+        :rtype: twilio.rest.pricing.v1.voice.country.CountryPage
         """
         data = values.of({ 
             'PageToken': page_token,
@@ -116,7 +117,7 @@ class CountryList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of CountryInstance
-        :rtype: twilio.rest.pricing.v1.country.CountryPage
+        :rtype: twilio.rest.pricing.v1.voice.country.CountryPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -131,8 +132,8 @@ class CountryList(ListResource):
         
         :param iso_country: The [ISO country code](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the pricing information to fetch.
         
-        :returns: twilio.rest.pricing.v1.country.CountryContext
-        :rtype: twilio.rest.pricing.v1.country.CountryContext
+        :returns: twilio.rest.pricing.v1.voice.country.CountryContext
+        :rtype: twilio.rest.pricing.v1.voice.country.CountryContext
         """
         return CountryContext(self._version, iso_country=iso_country)
 
@@ -142,8 +143,8 @@ class CountryList(ListResource):
         
         :param iso_country: The [ISO country code](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the pricing information to fetch.
         
-        :returns: twilio.rest.pricing.v1.country.CountryContext
-        :rtype: twilio.rest.pricing.v1.country.CountryContext
+        :returns: twilio.rest.pricing.v1.voice.country.CountryContext
+        :rtype: twilio.rest.pricing.v1.voice.country.CountryContext
         """
         return CountryContext(self._version, iso_country=iso_country)
 
@@ -167,8 +168,8 @@ class CountryPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.pricing.v1.country.CountryPage
-        :rtype: twilio.rest.pricing.v1.country.CountryPage
+        :returns: twilio.rest.pricing.v1.voice.country.CountryPage
+        :rtype: twilio.rest.pricing.v1.voice.country.CountryPage
         """
         super().__init__(version, response)
 
@@ -181,8 +182,8 @@ class CountryPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.pricing.v1.country.CountryInstance
-        :rtype: twilio.rest.pricing.v1.country.CountryInstance
+        :returns: twilio.rest.pricing.v1.voice.country.CountryInstance
+        :rtype: twilio.rest.pricing.v1.voice.country.CountryInstance
         """
         return CountryInstance(self._version, payload)
 

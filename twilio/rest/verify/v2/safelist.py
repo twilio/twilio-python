@@ -28,10 +28,11 @@ class SafelistList(ListResource):
     def __init__(self, version: Version):
         """
         Initialize the SafelistList
+
         :param Version version: Version that contains the resource
         
-        :returns: twilio.verify.v2.safelist..SafelistList
-        :rtype: twilio.verify.v2.safelist..SafelistList
+        :returns: twilio.rest.verify.v2.safelist.SafelistList
+        :rtype: twilio.rest.verify.v2.safelist.SafelistList
         """
         super().__init__(version)
 
@@ -46,7 +47,7 @@ class SafelistList(ListResource):
     def create(self, phone_number):
         """
         Create the SafelistInstance
-         :param str phone_number: The phone number to be added in SafeList. Phone numbers must be in [E.164 format](https://www.twilio.com/docs/glossary/what-e164).
+        :param str phone_number: The phone number to be added in SafeList. Phone numbers must be in [E.164 format](https://www.twilio.com/docs/glossary/what-e164).
         
         :returns: The created SafelistInstance
         :rtype: twilio.rest.verify.v2.safelist.SafelistInstance

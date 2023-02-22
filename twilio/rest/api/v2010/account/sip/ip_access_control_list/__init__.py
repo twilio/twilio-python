@@ -29,11 +29,12 @@ class IpAccessControlListList(ListResource):
     def __init__(self, version: Version, account_sid: str):
         """
         Initialize the IpAccessControlListList
+
         :param Version version: Version that contains the resource
         :param account_sid: The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.
         
-        :returns: twilio.api.v2010.ip_access_control_list..IpAccessControlListList
-        :rtype: twilio.api.v2010.ip_access_control_list..IpAccessControlListList
+        :returns: twilio.rest.api.v2010.account.sip.ip_access_control_list.IpAccessControlListList
+        :rtype: twilio.rest.api.v2010.account.sip.ip_access_control_list.IpAccessControlListList
         """
         super().__init__(version)
 
@@ -49,10 +50,10 @@ class IpAccessControlListList(ListResource):
     def create(self, friendly_name):
         """
         Create the IpAccessControlListInstance
-         :param str friendly_name: A human readable descriptive text that describes the IpAccessControlList, up to 255 characters long.
+        :param str friendly_name: A human readable descriptive text that describes the IpAccessControlList, up to 255 characters long.
         
         :returns: The created IpAccessControlListInstance
-        :rtype: twilio.rest.api.v2010.ip_access_control_list.IpAccessControlListInstance
+        :rtype: twilio.rest.api.v2010.account.sip.ip_access_control_list.IpAccessControlListInstance
         """
         data = values.of({ 
             'FriendlyName': friendly_name,
@@ -77,7 +78,7 @@ class IpAccessControlListList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.ip_access_control_list.IpAccessControlListInstance]
+        :rtype: list[twilio.rest.api.v2010.account.sip.ip_access_control_list.IpAccessControlListInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -100,7 +101,7 @@ class IpAccessControlListList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.api.v2010.ip_access_control_list.IpAccessControlListInstance]
+        :rtype: list[twilio.rest.api.v2010.account.sip.ip_access_control_list.IpAccessControlListInstance]
         """
         return list(self.stream(
             limit=limit,
@@ -117,7 +118,7 @@ class IpAccessControlListList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of IpAccessControlListInstance
-        :rtype: twilio.rest.api.v2010.ip_access_control_list.IpAccessControlListPage
+        :rtype: twilio.rest.api.v2010.account.sip.ip_access_control_list.IpAccessControlListPage
         """
         data = values.of({ 
             'PageToken': page_token,
@@ -136,7 +137,7 @@ class IpAccessControlListList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of IpAccessControlListInstance
-        :rtype: twilio.rest.api.v2010.ip_access_control_list.IpAccessControlListPage
+        :rtype: twilio.rest.api.v2010.account.sip.ip_access_control_list.IpAccessControlListPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -151,8 +152,8 @@ class IpAccessControlListList(ListResource):
         
         :param sid: A 34 character string that uniquely identifies the resource to udpate.
         
-        :returns: twilio.rest.api.v2010.ip_access_control_list.IpAccessControlListContext
-        :rtype: twilio.rest.api.v2010.ip_access_control_list.IpAccessControlListContext
+        :returns: twilio.rest.api.v2010.account.sip.ip_access_control_list.IpAccessControlListContext
+        :rtype: twilio.rest.api.v2010.account.sip.ip_access_control_list.IpAccessControlListContext
         """
         return IpAccessControlListContext(self._version, account_sid=self._solution['account_sid'], sid=sid)
 
@@ -162,8 +163,8 @@ class IpAccessControlListList(ListResource):
         
         :param sid: A 34 character string that uniquely identifies the resource to udpate.
         
-        :returns: twilio.rest.api.v2010.ip_access_control_list.IpAccessControlListContext
-        :rtype: twilio.rest.api.v2010.ip_access_control_list.IpAccessControlListContext
+        :returns: twilio.rest.api.v2010.account.sip.ip_access_control_list.IpAccessControlListContext
+        :rtype: twilio.rest.api.v2010.account.sip.ip_access_control_list.IpAccessControlListContext
         """
         return IpAccessControlListContext(self._version, account_sid=self._solution['account_sid'], sid=sid)
 
@@ -193,8 +194,8 @@ class IpAccessControlListPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.api.v2010.ip_access_control_list.IpAccessControlListPage
-        :rtype: twilio.rest.api.v2010.ip_access_control_list.IpAccessControlListPage
+        :returns: twilio.rest.api.v2010.account.sip.ip_access_control_list.IpAccessControlListPage
+        :rtype: twilio.rest.api.v2010.account.sip.ip_access_control_list.IpAccessControlListPage
         """
         super().__init__(version, response)
 
@@ -207,8 +208,8 @@ class IpAccessControlListPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.api.v2010.ip_access_control_list.IpAccessControlListInstance
-        :rtype: twilio.rest.api.v2010.ip_access_control_list.IpAccessControlListInstance
+        :returns: twilio.rest.api.v2010.account.sip.ip_access_control_list.IpAccessControlListInstance
+        :rtype: twilio.rest.api.v2010.account.sip.ip_access_control_list.IpAccessControlListInstance
         """
         return IpAccessControlListInstance(self._version, payload, account_sid=self._solution['account_sid'])
 

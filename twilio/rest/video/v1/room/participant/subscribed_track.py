@@ -28,12 +28,13 @@ class SubscribedTrackList(ListResource):
     def __init__(self, version: Version, room_sid: str, participant_sid: str):
         """
         Initialize the SubscribedTrackList
+
         :param Version version: Version that contains the resource
         :param room_sid: The SID of the Room resource with the Track resources to read.
         :param participant_sid: The SID of the participant that subscribes to the Track resources to read.
         
-        :returns: twilio.video.v1.subscribed_track..SubscribedTrackList
-        :rtype: twilio.video.v1.subscribed_track..SubscribedTrackList
+        :returns: twilio.rest.video.v1.room.participant.subscribed_track.SubscribedTrackList
+        :rtype: twilio.rest.video.v1.room.participant.subscribed_track.SubscribedTrackList
         """
         super().__init__(version)
 
@@ -59,7 +60,7 @@ class SubscribedTrackList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.video.v1.subscribed_track.SubscribedTrackInstance]
+        :rtype: list[twilio.rest.video.v1.room.participant.subscribed_track.SubscribedTrackInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -82,7 +83,7 @@ class SubscribedTrackList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.video.v1.subscribed_track.SubscribedTrackInstance]
+        :rtype: list[twilio.rest.video.v1.room.participant.subscribed_track.SubscribedTrackInstance]
         """
         return list(self.stream(
             limit=limit,
@@ -99,7 +100,7 @@ class SubscribedTrackList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of SubscribedTrackInstance
-        :rtype: twilio.rest.video.v1.subscribed_track.SubscribedTrackPage
+        :rtype: twilio.rest.video.v1.room.participant.subscribed_track.SubscribedTrackPage
         """
         data = values.of({ 
             'PageToken': page_token,
@@ -118,7 +119,7 @@ class SubscribedTrackList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of SubscribedTrackInstance
-        :rtype: twilio.rest.video.v1.subscribed_track.SubscribedTrackPage
+        :rtype: twilio.rest.video.v1.room.participant.subscribed_track.SubscribedTrackPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -133,8 +134,8 @@ class SubscribedTrackList(ListResource):
         
         :param sid: The SID of the RoomParticipantSubscribedTrack resource to fetch.
         
-        :returns: twilio.rest.video.v1.subscribed_track.SubscribedTrackContext
-        :rtype: twilio.rest.video.v1.subscribed_track.SubscribedTrackContext
+        :returns: twilio.rest.video.v1.room.participant.subscribed_track.SubscribedTrackContext
+        :rtype: twilio.rest.video.v1.room.participant.subscribed_track.SubscribedTrackContext
         """
         return SubscribedTrackContext(self._version, room_sid=self._solution['room_sid'], participant_sid=self._solution['participant_sid'], sid=sid)
 
@@ -144,8 +145,8 @@ class SubscribedTrackList(ListResource):
         
         :param sid: The SID of the RoomParticipantSubscribedTrack resource to fetch.
         
-        :returns: twilio.rest.video.v1.subscribed_track.SubscribedTrackContext
-        :rtype: twilio.rest.video.v1.subscribed_track.SubscribedTrackContext
+        :returns: twilio.rest.video.v1.room.participant.subscribed_track.SubscribedTrackContext
+        :rtype: twilio.rest.video.v1.room.participant.subscribed_track.SubscribedTrackContext
         """
         return SubscribedTrackContext(self._version, room_sid=self._solution['room_sid'], participant_sid=self._solution['participant_sid'], sid=sid)
 
@@ -169,8 +170,8 @@ class SubscribedTrackPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.video.v1.subscribed_track.SubscribedTrackPage
-        :rtype: twilio.rest.video.v1.subscribed_track.SubscribedTrackPage
+        :returns: twilio.rest.video.v1.room.participant.subscribed_track.SubscribedTrackPage
+        :rtype: twilio.rest.video.v1.room.participant.subscribed_track.SubscribedTrackPage
         """
         super().__init__(version, response)
 
@@ -183,8 +184,8 @@ class SubscribedTrackPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.video.v1.subscribed_track.SubscribedTrackInstance
-        :rtype: twilio.rest.video.v1.subscribed_track.SubscribedTrackInstance
+        :returns: twilio.rest.video.v1.room.participant.subscribed_track.SubscribedTrackInstance
+        :rtype: twilio.rest.video.v1.room.participant.subscribed_track.SubscribedTrackInstance
         """
         return SubscribedTrackInstance(self._version, payload, room_sid=self._solution['room_sid'], participant_sid=self._solution['participant_sid'])
 

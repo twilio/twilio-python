@@ -28,11 +28,12 @@ class BillingPeriodList(ListResource):
     def __init__(self, version: Version, sim_sid: str):
         """
         Initialize the BillingPeriodList
+
         :param Version version: Version that contains the resource
         :param sim_sid: The SID of the Super SIM to list Billing Periods for.
         
-        :returns: twilio.supersim.v1.billing_period..BillingPeriodList
-        :rtype: twilio.supersim.v1.billing_period..BillingPeriodList
+        :returns: twilio.rest.supersim.v1.sim.billing_period.BillingPeriodList
+        :rtype: twilio.rest.supersim.v1.sim.billing_period.BillingPeriodList
         """
         super().__init__(version)
 
@@ -57,7 +58,7 @@ class BillingPeriodList(ListResource):
                               limit with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.supersim.v1.billing_period.BillingPeriodInstance]
+        :rtype: list[twilio.rest.supersim.v1.sim.billing_period.BillingPeriodInstance]
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
@@ -80,7 +81,7 @@ class BillingPeriodList(ListResource):
                               with the most efficient page size, i.e. min(limit, 1000)
 
         :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.supersim.v1.billing_period.BillingPeriodInstance]
+        :rtype: list[twilio.rest.supersim.v1.sim.billing_period.BillingPeriodInstance]
         """
         return list(self.stream(
             limit=limit,
@@ -97,7 +98,7 @@ class BillingPeriodList(ListResource):
         :param int page_size: Number of records to return, defaults to 50
 
         :returns: Page of BillingPeriodInstance
-        :rtype: twilio.rest.supersim.v1.billing_period.BillingPeriodPage
+        :rtype: twilio.rest.supersim.v1.sim.billing_period.BillingPeriodPage
         """
         data = values.of({ 
             'PageToken': page_token,
@@ -116,7 +117,7 @@ class BillingPeriodList(ListResource):
         :param str target_url: API-generated URL for the requested results page
 
         :returns: Page of BillingPeriodInstance
-        :rtype: twilio.rest.supersim.v1.billing_period.BillingPeriodPage
+        :rtype: twilio.rest.supersim.v1.sim.billing_period.BillingPeriodPage
         """
         response = self._version.domain.twilio.request(
             'GET',
@@ -144,8 +145,8 @@ class BillingPeriodPage(Page):
         :param Version version: Version that contains the resource
         :param Response response: Response from the API
 
-        :returns: twilio.rest.supersim.v1.billing_period.BillingPeriodPage
-        :rtype: twilio.rest.supersim.v1.billing_period.BillingPeriodPage
+        :returns: twilio.rest.supersim.v1.sim.billing_period.BillingPeriodPage
+        :rtype: twilio.rest.supersim.v1.sim.billing_period.BillingPeriodPage
         """
         super().__init__(version, response)
 
@@ -158,8 +159,8 @@ class BillingPeriodPage(Page):
 
         :param dict payload: Payload response from the API
 
-        :returns: twilio.rest.supersim.v1.billing_period.BillingPeriodInstance
-        :rtype: twilio.rest.supersim.v1.billing_period.BillingPeriodInstance
+        :returns: twilio.rest.supersim.v1.sim.billing_period.BillingPeriodInstance
+        :rtype: twilio.rest.supersim.v1.sim.billing_period.BillingPeriodInstance
         """
         return BillingPeriodInstance(self._version, payload, sim_sid=self._solution['sim_sid'])
 
@@ -175,6 +176,46 @@ class BillingPeriodPage(Page):
 
 
 
+
+
+class BillingPeriodInstance(InstanceResource):
+    def __init__(self, version, payload, sim_sid: str):
+        super().__init__(version)
+        self._properties = { 
+            'sid' : payload.get('sid'),
+            'account_sid' : payload.get('account_sid'),
+            'sim_sid' : payload.get('sim_sid'),
+            'start_time' : payload.get('start_time'),
+            'end_time' : payload.get('end_time'),
+            'period_type' : payload.get('period_type'),
+            'date_created' : payload.get('date_created'),
+            'date_updated' : payload.get('date_updated'),
+        }
+
+        self._context = None
+        self._solution = {
+            'sim_sid': sim_sid or self._properties['sim_sid'],
+        }
+
+    @property
+    def _proxy(self):
+        if self._context is None:
+            self._context = BillingPeriodContext(
+                self._version,
+                sim_sid=self._solution['sim_sid'],
+            )
+        return self._context
+
+    
+
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Supersim.V1.BillingPeriodInstance {}>'.format(context)
 
 
 

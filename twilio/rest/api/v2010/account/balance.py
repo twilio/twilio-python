@@ -28,11 +28,12 @@ class BalanceList(ListResource):
     def __init__(self, version: Version, account_sid: str):
         """
         Initialize the BalanceList
+
         :param Version version: Version that contains the resource
         :param account_sid: The unique SID identifier of the Account.
         
-        :returns: twilio.api.v2010.balance..BalanceList
-        :rtype: twilio.api.v2010.balance..BalanceList
+        :returns: twilio.rest.api.v2010.account.balance.BalanceList
+        :rtype: twilio.rest.api.v2010.account.balance.BalanceList
         """
         super().__init__(version)
 
