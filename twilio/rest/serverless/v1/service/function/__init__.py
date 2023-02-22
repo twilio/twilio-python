@@ -21,7 +21,7 @@ from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
-from twilio.rest.serverless.v1.function.function_versions import FunctionVersionList
+from twilio.rest.serverless.v1.service.function.function_version import FunctionVersionList
 
 
 class FunctionList(ListResource):

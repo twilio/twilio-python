@@ -21,10 +21,10 @@ from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
-from twilio.rest.api.v2010.incoming_phone_number.assigned_add_ons import AssignedAddOnList
-from twilio.rest.api.v2010.incoming_phone_number.local import LocalList
-from twilio.rest.api.v2010.incoming_phone_number.mobile import MobileList
-from twilio.rest.api.v2010.incoming_phone_number.toll_free import TollFreeList
+from twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on import AssignedAddOnList
+from twilio.rest.api.v2010.account.incoming_phone_number.local import LocalList
+from twilio.rest.api.v2010.account.incoming_phone_number.mobile import MobileList
+from twilio.rest.api.v2010.account.incoming_phone_number.toll_free import TollFreeList
 
 
 class IncomingPhoneNumberList(ListResource):

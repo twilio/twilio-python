@@ -21,12 +21,12 @@ from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
-from twilio.rest.conversations.v1.service.bindings import BindingList
+from twilio.rest.conversations.v1.service.binding import BindingList
 from twilio.rest.conversations.v1.service.configuration import ConfigurationList
-from twilio.rest.conversations.v1.service.conversations import ConversationList
-from twilio.rest.conversations.v1.service.participant_conversations import ParticipantConversationList
-from twilio.rest.conversations.v1.service.roles import RoleList
-from twilio.rest.conversations.v1.service.users import UserList
+from twilio.rest.conversations.v1.service.conversation import ConversationList
+from twilio.rest.conversations.v1.service.participant_conversation import ParticipantConversationList
+from twilio.rest.conversations.v1.service.role import RoleList
+from twilio.rest.conversations.v1.service.user import UserList
 
 
 class ServiceList(ListResource):

@@ -21,9 +21,9 @@ from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
-from twilio.rest.conversations.v1.conversation.messages import MessageList
-from twilio.rest.conversations.v1.conversation.participants import ParticipantList
-from twilio.rest.conversations.v1.conversation.webhooks import WebhookList
+from twilio.rest.conversations.v1.service.conversation.message import MessageList
+from twilio.rest.conversations.v1.service.conversation.participant import ParticipantList
+from twilio.rest.conversations.v1.service.conversation.webhook import WebhookList
 
 
 class ConversationList(ListResource):

@@ -21,8 +21,8 @@ from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
-from twilio.rest.sync.v1.sync_list.sync_list_items import SyncListItemList
-from twilio.rest.sync.v1.sync_list.sync_list_permissions import SyncListPermissionList
+from twilio.rest.sync.v1.service.sync_list.sync_list_item import SyncListItemList
+from twilio.rest.sync.v1.service.sync_list.sync_list_permission import SyncListPermissionList
 
 
 class SyncListList(ListResource):

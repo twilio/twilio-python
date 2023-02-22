@@ -21,8 +21,8 @@ from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
-from twilio.rest.microvisor.v1.device.device_configs import DeviceConfigList
-from twilio.rest.microvisor.v1.device.device_secrets import DeviceSecretList
+from twilio.rest.microvisor.v1.device.device_config import DeviceConfigList
+from twilio.rest.microvisor.v1.device.device_secret import DeviceSecretList
 
 
 class DeviceList(ListResource):

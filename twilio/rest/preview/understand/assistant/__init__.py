@@ -23,12 +23,12 @@ from twilio.base.version import Version
 from twilio.base.page import Page
 from twilio.rest.preview.understand.assistant.assistant_fallback_actions import AssistantFallbackActionsList
 from twilio.rest.preview.understand.assistant.assistant_initiation_actions import AssistantInitiationActionsList
-from twilio.rest.preview.understand.assistant.dialogues import DialogueList
-from twilio.rest.preview.understand.assistant.field_types import FieldTypeList
-from twilio.rest.preview.understand.assistant.model_builds import ModelBuildList
-from twilio.rest.preview.understand.assistant.queries import QueryList
+from twilio.rest.preview.understand.assistant.dialogue import DialogueList
+from twilio.rest.preview.understand.assistant.field_type import FieldTypeList
+from twilio.rest.preview.understand.assistant.model_build import ModelBuildList
+from twilio.rest.preview.understand.assistant.query import QueryList
 from twilio.rest.preview.understand.assistant.style_sheet import StyleSheetList
-from twilio.rest.preview.understand.assistant.tasks import TaskList
+from twilio.rest.preview.understand.assistant.task import TaskList
 
 
 class AssistantList(ListResource):

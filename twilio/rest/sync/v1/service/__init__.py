@@ -21,10 +21,10 @@ from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
-from twilio.rest.sync.v1.service.documents import DocumentList
-from twilio.rest.sync.v1.service.sync_lists import SyncListList
-from twilio.rest.sync.v1.service.sync_maps import SyncMapList
-from twilio.rest.sync.v1.service.sync_streams import SyncStreamList
+from twilio.rest.sync.v1.service.document import DocumentList
+from twilio.rest.sync.v1.service.sync_list import SyncListList
+from twilio.rest.sync.v1.service.sync_map import SyncMapList
+from twilio.rest.sync.v1.service.sync_stream import SyncStreamList
 
 
 class ServiceList(ListResource):

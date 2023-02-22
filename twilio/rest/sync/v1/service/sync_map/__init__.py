@@ -21,8 +21,8 @@ from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
-from twilio.rest.sync.v1.sync_map.sync_map_items import SyncMapItemList
-from twilio.rest.sync.v1.sync_map.sync_map_permissions import SyncMapPermissionList
+from twilio.rest.sync.v1.service.sync_map.sync_map_item import SyncMapItemList
+from twilio.rest.sync.v1.service.sync_map.sync_map_permission import SyncMapPermissionList
 
 
 class SyncMapList(ListResource):

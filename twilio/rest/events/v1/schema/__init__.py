@@ -21,7 +21,7 @@ from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 
-from twilio.rest.events.v1.schema.versions import SchemaVersionList
+from twilio.rest.events.v1.schema.schema_version import SchemaVersionList
 
 
 class SchemaList(ListResource):

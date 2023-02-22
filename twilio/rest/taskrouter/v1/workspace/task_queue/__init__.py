@@ -21,10 +21,10 @@ from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
-from twilio.rest.taskrouter.v1.task_queue.cumulative_statistics import TaskQueueCumulativeStatisticsList
-from twilio.rest.taskrouter.v1.task_queue.real_time_statistics import TaskQueueRealTimeStatisticsList
-from twilio.rest.taskrouter.v1.task_queue.statistics import TaskQueueStatisticsList
-from twilio.rest.taskrouter.v1.task_queue.statistics import TaskQueuesStatisticsList
+from twilio.rest.taskrouter.v1.workspace.task_queue.task_queue_cumulative_statistics import TaskQueueCumulativeStatisticsList
+from twilio.rest.taskrouter.v1.workspace.task_queue.task_queue_real_time_statistics import TaskQueueRealTimeStatisticsList
+from twilio.rest.taskrouter.v1.workspace.task_queue.task_queue_statistics import TaskQueueStatisticsList
+from twilio.rest.taskrouter.v1.workspace.task_queue.task_queues_statistics import TaskQueuesStatisticsList
 
 
 class TaskQueueList(ListResource):

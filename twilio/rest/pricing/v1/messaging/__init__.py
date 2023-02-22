@@ -21,7 +21,7 @@ from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 
-from twilio.rest.pricing.v1.messaging.countries import CountryList
+from twilio.rest.pricing.v1.messaging.country import CountryList
 
 
 class MessagingList(ListResource):

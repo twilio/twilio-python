@@ -21,7 +21,7 @@ from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
-from twilio.rest.ip_messaging.v1.user.user_channels import UserChannelList
+from twilio.rest.ip_messaging.v1.service.user.user_channel import UserChannelList
 
 
 class UserList(ListResource):

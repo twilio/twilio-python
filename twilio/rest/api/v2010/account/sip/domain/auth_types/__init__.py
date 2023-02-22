@@ -21,8 +21,8 @@ from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 
-from twilio.rest.api.v2010.auth_types.calls import AuthTypeCallsList
-from twilio.rest.api.v2010.auth_types.registrations import AuthTypeRegistrationsList
+from twilio.rest.api.v2010.account.sip.domain.auth_types.auth_type_calls import AuthTypeCallsList
+from twilio.rest.api.v2010.account.sip.domain.auth_types.auth_type_registrations import AuthTypeRegistrationsList
 
 
 class AuthTypesList(ListResource):

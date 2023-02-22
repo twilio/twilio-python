@@ -21,7 +21,7 @@ from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
-from twilio.rest.sync.v1.sync_stream.stream_messages import StreamMessageList
+from twilio.rest.sync.v1.service.sync_stream.stream_message import StreamMessageList
 
 
 class SyncStreamList(ListResource):

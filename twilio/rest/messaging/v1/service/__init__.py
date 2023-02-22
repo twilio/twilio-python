@@ -21,11 +21,11 @@ from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
-from twilio.rest.messaging.v1.service.alpha_senders import AlphaSenderList
-from twilio.rest.messaging.v1.service.phone_numbers import PhoneNumberList
-from twilio.rest.messaging.v1.service.short_codes import ShortCodeList
+from twilio.rest.messaging.v1.service.alpha_sender import AlphaSenderList
+from twilio.rest.messaging.v1.service.phone_number import PhoneNumberList
+from twilio.rest.messaging.v1.service.short_code import ShortCodeList
 from twilio.rest.messaging.v1.service.us_app_to_person import UsAppToPersonList
-from twilio.rest.messaging.v1.service.us_app_to_person_usecases import UsAppToPersonUsecaseList
+from twilio.rest.messaging.v1.service.us_app_to_person_usecase import UsAppToPersonUsecaseList
 
 
 class ServiceList(ListResource):

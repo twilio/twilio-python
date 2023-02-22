@@ -21,9 +21,9 @@ from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
-from twilio.rest.proxy.v1.service.phone_numbers import PhoneNumberList
-from twilio.rest.proxy.v1.service.sessions import SessionList
-from twilio.rest.proxy.v1.service.short_codes import ShortCodeList
+from twilio.rest.proxy.v1.service.phone_number import PhoneNumberList
+from twilio.rest.proxy.v1.service.session import SessionList
+from twilio.rest.proxy.v1.service.short_code import ShortCodeList
 
 
 class ServiceList(ListResource):

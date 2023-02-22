@@ -21,9 +21,9 @@ from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 
-from twilio.rest.bulkexports.v1.export.days import DayList
-from twilio.rest.bulkexports.v1.export.export_custom_jobs import ExportCustomJobList
-from twilio.rest.bulkexports.v1.export.jobs import JobList
+from twilio.rest.bulkexports.v1.export.day import DayList
+from twilio.rest.bulkexports.v1.export.export_custom_job import ExportCustomJobList
+from twilio.rest.bulkexports.v1.export.job import JobList
 
 
 class ExportList(ListResource):

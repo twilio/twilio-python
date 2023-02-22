@@ -21,10 +21,10 @@ from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
-from twilio.rest.serverless.v1.service.assets import AssetList
-from twilio.rest.serverless.v1.service.builds import BuildList
-from twilio.rest.serverless.v1.service.environments import EnvironmentList
-from twilio.rest.serverless.v1.service.functions import FunctionList
+from twilio.rest.serverless.v1.service.asset import AssetList
+from twilio.rest.serverless.v1.service.build import BuildList
+from twilio.rest.serverless.v1.service.environment import EnvironmentList
+from twilio.rest.serverless.v1.service.function import FunctionList
 
 
 class ServiceList(ListResource):

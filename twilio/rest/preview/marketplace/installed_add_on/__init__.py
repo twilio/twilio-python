@@ -21,7 +21,7 @@ from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
-from twilio.rest.preview.marketplace.installed_add_on.extensions import InstalledAddOnExtensionList
+from twilio.rest.preview.marketplace.installed_add_on.installed_add_on_extension import InstalledAddOnExtensionList
 
 
 class InstalledAddOnList(ListResource):

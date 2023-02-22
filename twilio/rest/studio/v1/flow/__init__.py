@@ -21,8 +21,8 @@ from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
-from twilio.rest.studio.v1.flow.engagements import EngagementList
-from twilio.rest.studio.v1.flow.executions import ExecutionList
+from twilio.rest.studio.v1.flow.engagement import EngagementList
+from twilio.rest.studio.v1.flow.execution import ExecutionList
 
 
 class FlowList(ListResource):

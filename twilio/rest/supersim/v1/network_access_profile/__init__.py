@@ -21,7 +21,7 @@ from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
-from twilio.rest.supersim.v1.network_access_profile.networks import NetworkAccessProfileNetworkList
+from twilio.rest.supersim.v1.network_access_profile.network_access_profile_network import NetworkAccessProfileNetworkList
 
 
 class NetworkAccessProfileList(ListResource):

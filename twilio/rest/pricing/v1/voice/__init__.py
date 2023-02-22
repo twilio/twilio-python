@@ -21,8 +21,8 @@ from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 
-from twilio.rest.pricing.v1.voice.countries import CountryList
-from twilio.rest.pricing.v1.voice.numbers import NumberList
+from twilio.rest.pricing.v1.voice.country import CountryList
+from twilio.rest.pricing.v1.voice.number import NumberList
 
 
 class VoiceList(ListResource):

@@ -21,7 +21,7 @@ from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
-from twilio.rest.api.v2010.assigned_add_on.extensions import AssignedAddOnExtensionList
+from twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.assigned_add_on_extension import AssignedAddOnExtensionList
 
 
 class AssignedAddOnList(ListResource):

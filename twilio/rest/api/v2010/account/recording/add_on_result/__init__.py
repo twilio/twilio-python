@@ -21,7 +21,7 @@ from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
-from twilio.rest.api.v2010.add_on_result.payloads import PayloadList
+from twilio.rest.api.v2010.account.recording.add_on_result.payload import PayloadList
 
 
 class AddOnResultList(ListResource):

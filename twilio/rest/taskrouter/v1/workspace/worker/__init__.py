@@ -21,12 +21,12 @@ from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
-from twilio.rest.taskrouter.v1.worker.reservations import ReservationList
-from twilio.rest.taskrouter.v1.worker.worker_channels import WorkerChannelList
-from twilio.rest.taskrouter.v1.worker.statistics import WorkerStatisticsList
-from twilio.rest.taskrouter.v1.worker.cumulative_statistics import WorkersCumulativeStatisticsList
-from twilio.rest.taskrouter.v1.worker.real_time_statistics import WorkersRealTimeStatisticsList
-from twilio.rest.taskrouter.v1.worker.statistics import WorkersStatisticsList
+from twilio.rest.taskrouter.v1.workspace.worker.reservation import ReservationList
+from twilio.rest.taskrouter.v1.workspace.worker.worker_channel import WorkerChannelList
+from twilio.rest.taskrouter.v1.workspace.worker.worker_statistics import WorkerStatisticsList
+from twilio.rest.taskrouter.v1.workspace.worker.workers_cumulative_statistics import WorkersCumulativeStatisticsList
+from twilio.rest.taskrouter.v1.workspace.worker.workers_real_time_statistics import WorkersRealTimeStatisticsList
+from twilio.rest.taskrouter.v1.workspace.worker.workers_statistics import WorkersStatisticsList
 
 
 class WorkerList(ListResource):

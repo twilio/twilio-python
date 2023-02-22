@@ -21,10 +21,10 @@ from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
-from twilio.rest.video.v1.participant.anonymize import AnonymizeList
-from twilio.rest.video.v1.participant.published_tracks import PublishedTrackList
-from twilio.rest.video.v1.participant.subscribe_rules import SubscribeRulesList
-from twilio.rest.video.v1.participant.subscribed_tracks import SubscribedTrackList
+from twilio.rest.video.v1.room.participant.anonymize import AnonymizeList
+from twilio.rest.video.v1.room.participant.published_track import PublishedTrackList
+from twilio.rest.video.v1.room.participant.subscribe_rules import SubscribeRulesList
+from twilio.rest.video.v1.room.participant.subscribed_track import SubscribedTrackList
 
 
 class ParticipantList(ListResource):

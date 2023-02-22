@@ -21,13 +21,13 @@ from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
-from twilio.rest.api.v2010.available_phone_number_country.local import LocalList
-from twilio.rest.api.v2010.available_phone_number_country.machine_to_machine import MachineToMachineList
-from twilio.rest.api.v2010.available_phone_number_country.mobile import MobileList
-from twilio.rest.api.v2010.available_phone_number_country.national import NationalList
-from twilio.rest.api.v2010.available_phone_number_country.shared_cost import SharedCostList
-from twilio.rest.api.v2010.available_phone_number_country.toll_free import TollFreeList
-from twilio.rest.api.v2010.available_phone_number_country.voip import VoipList
+from twilio.rest.api.v2010.account.available_phone_number_country.local import LocalList
+from twilio.rest.api.v2010.account.available_phone_number_country.machine_to_machine import MachineToMachineList
+from twilio.rest.api.v2010.account.available_phone_number_country.mobile import MobileList
+from twilio.rest.api.v2010.account.available_phone_number_country.national import NationalList
+from twilio.rest.api.v2010.account.available_phone_number_country.shared_cost import SharedCostList
+from twilio.rest.api.v2010.account.available_phone_number_country.toll_free import TollFreeList
+from twilio.rest.api.v2010.account.available_phone_number_country.voip import VoipList
 
 
 class AvailablePhoneNumberCountryList(ListResource):

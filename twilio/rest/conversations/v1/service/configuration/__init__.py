@@ -21,8 +21,8 @@ from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 
-from twilio.rest.conversations.v1.configuration.notifications import NotificationList
-from twilio.rest.conversations.v1.configuration.webhooks import WebhookList
+from twilio.rest.conversations.v1.service.configuration.notification import NotificationList
+from twilio.rest.conversations.v1.service.configuration.webhook import WebhookList
 
 
 class ConfigurationList(ListResource):

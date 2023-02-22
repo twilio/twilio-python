@@ -21,16 +21,16 @@ from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
-from twilio.rest.taskrouter.v1.workspace.activities import ActivityList
-from twilio.rest.taskrouter.v1.workspace.events import EventList
-from twilio.rest.taskrouter.v1.workspace.tasks import TaskList
-from twilio.rest.taskrouter.v1.workspace.task_channels import TaskChannelList
-from twilio.rest.taskrouter.v1.workspace.task_queues import TaskQueueList
-from twilio.rest.taskrouter.v1.workspace.workers import WorkerList
-from twilio.rest.taskrouter.v1.workspace.workflows import WorkflowList
-from twilio.rest.taskrouter.v1.workspace.cumulative_statistics import WorkspaceCumulativeStatisticsList
-from twilio.rest.taskrouter.v1.workspace.real_time_statistics import WorkspaceRealTimeStatisticsList
-from twilio.rest.taskrouter.v1.workspace.statistics import WorkspaceStatisticsList
+from twilio.rest.taskrouter.v1.workspace.activity import ActivityList
+from twilio.rest.taskrouter.v1.workspace.event import EventList
+from twilio.rest.taskrouter.v1.workspace.task import TaskList
+from twilio.rest.taskrouter.v1.workspace.task_channel import TaskChannelList
+from twilio.rest.taskrouter.v1.workspace.task_queue import TaskQueueList
+from twilio.rest.taskrouter.v1.workspace.worker import WorkerList
+from twilio.rest.taskrouter.v1.workspace.workflow import WorkflowList
+from twilio.rest.taskrouter.v1.workspace.workspace_cumulative_statistics import WorkspaceCumulativeStatisticsList
+from twilio.rest.taskrouter.v1.workspace.workspace_real_time_statistics import WorkspaceRealTimeStatisticsList
+from twilio.rest.taskrouter.v1.workspace.workspace_statistics import WorkspaceStatisticsList
 
 
 class WorkspaceList(ListResource):
