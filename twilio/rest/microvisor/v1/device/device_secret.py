@@ -240,6 +240,26 @@ class DeviceSecretContext(InstanceContext):
             key=self._solution['key'],
         )
 
+    def update(self, value):
+        """
+        Update the DeviceSecretInstance
+
+        :param unicode value: The secret value.
+
+        :returns: The updated DeviceSecretInstance
+        :rtype: twilio.rest.microvisor.v1.device.device_secret.DeviceSecretInstance
+        """
+        data = values.of({'Value': value, })
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data, )
+
+        return DeviceSecretInstance(
+            self._version,
+            payload,
+            device_sid=self._solution['device_sid'],
+            key=self._solution['key'],
+        )
+
     def delete(self):
         """
         Deletes the DeviceSecretInstance
@@ -343,6 +363,17 @@ class DeviceSecretInstance(InstanceResource):
         :rtype: twilio.rest.microvisor.v1.device.device_secret.DeviceSecretInstance
         """
         return self._proxy.fetch()
+
+    def update(self, value):
+        """
+        Update the DeviceSecretInstance
+
+        :param unicode value: The secret value.
+
+        :returns: The updated DeviceSecretInstance
+        :rtype: twilio.rest.microvisor.v1.device.device_secret.DeviceSecretInstance
+        """
+        return self._proxy.update(value, )
 
     def delete(self):
         """

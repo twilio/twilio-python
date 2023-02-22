@@ -455,7 +455,7 @@ class ConferenceInstance(InstanceResource):
     @property
     def friendly_name(self):
         """
-        :returns: A string that you assigned to describe this conference room
+        :returns: A string that you assigned to describe this conference room. Max length is 128 characters.
         :rtype: unicode
         """
         return self._properties['friendly_name']

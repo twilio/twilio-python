@@ -150,6 +150,39 @@ class DeviceSecretTestCase(IntegrationTestCase):
 
         self.assertIsNotNone(actual)
 
+    def test_update_request(self):
+        self.holodeck.mock(Response(500, ''))
+
+        with self.assertRaises(TwilioException):
+            self.client.microvisor.v1.devices("UVXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                     .device_secrets("key").update(value="value")
+
+        values = {'Value': "value", }
+
+        self.holodeck.assert_has_request(Request(
+            'post',
+            'https://microvisor.twilio.com/v1/Devices/UVXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Secrets/key',
+            data=values,
+        ))
+
+    def test_update_response(self):
+        self.holodeck.mock(Response(
+            200,
+            '''
+            {
+                "device_sid": "UVaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "key": "first",
+                "date_rotated": "2021-01-01T12:34:56Z",
+                "url": "https://microvisor.twilio.com/v1/Devices/UVaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Secrets/first"
+            }
+            '''
+        ))
+
+        actual = self.client.microvisor.v1.devices("UVXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX") \
+                                          .device_secrets("key").update(value="value")
+
+        self.assertIsNotNone(actual)
+
     def test_delete_request(self):
         self.holodeck.mock(Response(500, ''))
 

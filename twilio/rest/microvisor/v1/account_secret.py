@@ -232,6 +232,21 @@ class AccountSecretContext(InstanceContext):
 
         return AccountSecretInstance(self._version, payload, key=self._solution['key'], )
 
+    def update(self, value):
+        """
+        Update the AccountSecretInstance
+
+        :param unicode value: The secret value.
+
+        :returns: The updated AccountSecretInstance
+        :rtype: twilio.rest.microvisor.v1.account_secret.AccountSecretInstance
+        """
+        data = values.of({'Value': value, })
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data, )
+
+        return AccountSecretInstance(self._version, payload, key=self._solution['key'], )
+
     def delete(self):
         """
         Deletes the AccountSecretInstance
@@ -322,6 +337,17 @@ class AccountSecretInstance(InstanceResource):
         :rtype: twilio.rest.microvisor.v1.account_secret.AccountSecretInstance
         """
         return self._proxy.fetch()
+
+    def update(self, value):
+        """
+        Update the AccountSecretInstance
+
+        :param unicode value: The secret value.
+
+        :returns: The updated AccountSecretInstance
+        :rtype: twilio.rest.microvisor.v1.account_secret.AccountSecretInstance
+        """
+        return self._proxy.update(value, )
 
     def delete(self):
         """

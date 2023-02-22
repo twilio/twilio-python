@@ -232,6 +232,21 @@ class AccountConfigContext(InstanceContext):
 
         return AccountConfigInstance(self._version, payload, key=self._solution['key'], )
 
+    def update(self, value):
+        """
+        Update the AccountConfigInstance
+
+        :param unicode value: The config value.
+
+        :returns: The updated AccountConfigInstance
+        :rtype: twilio.rest.microvisor.v1.account_config.AccountConfigInstance
+        """
+        data = values.of({'Value': value, })
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data, )
+
+        return AccountConfigInstance(self._version, payload, key=self._solution['key'], )
+
     def delete(self):
         """
         Deletes the AccountConfigInstance
@@ -331,6 +346,17 @@ class AccountConfigInstance(InstanceResource):
         :rtype: twilio.rest.microvisor.v1.account_config.AccountConfigInstance
         """
         return self._proxy.fetch()
+
+    def update(self, value):
+        """
+        Update the AccountConfigInstance
+
+        :param unicode value: The config value.
+
+        :returns: The updated AccountConfigInstance
+        :rtype: twilio.rest.microvisor.v1.account_config.AccountConfigInstance
+        """
+        return self._proxy.update(value, )
 
     def delete(self):
         """

@@ -56,6 +56,29 @@ class InsightsQuestionnairesQuestionTestCase(IntegrationTestCase):
                 "answer_set_id": "a6a8a54f-5305-4aec-b92c-a6e429932f58",
                 "allow_na": false,
                 "usage": 0,
+                "answer_set": {
+                    "sort": 0,
+                    "name": "Yes, No",
+                    "answers": [
+                        {
+                            "sort": 0,
+                            "score": 100,
+                            "description": "Yes.",
+                            "name": "Yes",
+                            "id": "4e34f701-8206-4670-b376-c9fe26bb3ca3"
+                        },
+                        {
+                            "sort": 1,
+                            "score": 0,
+                            "description": "No or a very poor.",
+                            "name": "No",
+                            "id": "5e926651-fa5d-4aba-86e1-8440bb8faa6c"
+                        }
+                    ],
+                    "category_id": "1a8cac56-826c-4f85-ac14-9104811cf184",
+                    "type": "select",
+                    "id": "a6a8a54f-5305-4aec-b92c-a6e429932f58"
+                },
                 "url": "https://flex-api.twilio.com/v1/Insights/QM/Questions/945ac7ff-8afc-4606-be76-e94b1a80cd72"
             }
             '''
@@ -101,6 +124,29 @@ class InsightsQuestionnairesQuestionTestCase(IntegrationTestCase):
                 "answer_set_id": "a6a8a54f-5305-4aec-b92c-a6e429932f58",
                 "allow_na": false,
                 "usage": 0,
+                "answer_set": {
+                    "sort": 0,
+                    "name": "Yes, No",
+                    "answers": [
+                        {
+                            "sort": 0,
+                            "score": 100,
+                            "description": "Yes.",
+                            "name": "Yes",
+                            "id": "4e34f701-8206-4670-b376-c9fe26bb3ca3"
+                        },
+                        {
+                            "sort": 1,
+                            "score": 0,
+                            "description": "No or a very poor.",
+                            "name": "No",
+                            "id": "5e926651-fa5d-4aba-86e1-8440bb8faa6c"
+                        }
+                    ],
+                    "category_id": "1a8cac56-826c-4f85-ac14-9104811cf184",
+                    "type": "select",
+                    "id": "a6a8a54f-5305-4aec-b92c-a6e429932f58"
+                },
                 "url": "https://flex-api.twilio.com/v1/Insights/QM/Questions/945ac7ff-8afc-4606-be76-e94b1a80cd72"
             }
             '''
@@ -164,6 +210,29 @@ class InsightsQuestionnairesQuestionTestCase(IntegrationTestCase):
                         "answer_set_id": "a6a8a54f-5305-4aec-b92c-a6e429932f58",
                         "allow_na": false,
                         "usage": 0,
+                        "answer_set": {
+                            "sort": 0,
+                            "name": "Yes, No",
+                            "answers": [
+                                {
+                                    "sort": 0,
+                                    "score": 100,
+                                    "description": "Yes.",
+                                    "name": "Yes",
+                                    "id": "4e34f701-8206-4670-b376-c9fe26bb3ca3"
+                                },
+                                {
+                                    "sort": 1,
+                                    "score": 0,
+                                    "description": "No or a very poor.",
+                                    "name": "No",
+                                    "id": "5e926651-fa5d-4aba-86e1-8440bb8faa6c"
+                                }
+                            ],
+                            "category_id": "1a8cac56-826c-4f85-ac14-9104811cf184",
+                            "type": "select",
+                            "id": "a6a8a54f-5305-4aec-b92c-a6e429932f58"
+                        },
                         "url": "https://flex-api.twilio.com/v1/Insights/QM/Questions/945ac7ff-8afc-4606-be76-e94b1a80cd72"
                     }
                 ],

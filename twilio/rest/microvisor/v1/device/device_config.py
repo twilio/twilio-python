@@ -240,6 +240,26 @@ class DeviceConfigContext(InstanceContext):
             key=self._solution['key'],
         )
 
+    def update(self, value):
+        """
+        Update the DeviceConfigInstance
+
+        :param unicode value: The config value.
+
+        :returns: The updated DeviceConfigInstance
+        :rtype: twilio.rest.microvisor.v1.device.device_config.DeviceConfigInstance
+        """
+        data = values.of({'Value': value, })
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data, )
+
+        return DeviceConfigInstance(
+            self._version,
+            payload,
+            device_sid=self._solution['device_sid'],
+            key=self._solution['key'],
+        )
+
     def delete(self):
         """
         Deletes the DeviceConfigInstance
@@ -352,6 +372,17 @@ class DeviceConfigInstance(InstanceResource):
         :rtype: twilio.rest.microvisor.v1.device.device_config.DeviceConfigInstance
         """
         return self._proxy.fetch()
+
+    def update(self, value):
+        """
+        Update the DeviceConfigInstance
+
+        :param unicode value: The config value.
+
+        :returns: The updated DeviceConfigInstance
+        :rtype: twilio.rest.microvisor.v1.device.device_config.DeviceConfigInstance
+        """
+        return self._proxy.update(value, )
 
     def delete(self):
         """

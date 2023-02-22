@@ -18,11 +18,33 @@ class AssessmentsTestCase(IntegrationTestCase):
         self.holodeck.mock(Response(500, ''))
 
         with self.assertRaises(TwilioException):
-            self.client.flex_api.v1.assessments().create()
+            self.client.flex_api.v1.assessments.create(category_id="category_id", category_name="category_name", segment_id="segment_id", user_name="user_name", user_email="user_email", agent_id="agent_id", offset="-0.0300", metric_id="metric_id", metric_name="metric_name", answer_text="answer_text", answer_id="answer_id", questionnaire_id="questionnaire_id", token="token")
 
+        values = {
+            'CategoryId': "category_id",
+            'CategoryName': "category_name",
+            'SegmentId': "segment_id",
+            'UserName': "user_name",
+            'UserEmail': "user_email",
+            'AgentId': "agent_id",
+            'Offset': "-0.0300",
+            'MetricId': "metric_id",
+            'MetricName': "metric_name",
+            'AnswerText': "answer_text",
+            'AnswerId': "answer_id",
+            'QuestionnaireId': "questionnaire_id",
+        }
+
+        headers = {'Token': "token", }
         self.holodeck.assert_has_request(Request(
             'post',
-            'https://flex-api.twilio.com/v1/Accounts/Assessments',
+            'https://flex-api.twilio.com/v1/Insights/QM/Assessments',
+            headers=headers,
+        ))
+        self.holodeck.assert_has_request(Request(
+            'post',
+            'https://flex-api.twilio.com/v1/Insights/QM/Assessments',
+            data=values,
         ))
 
     def test_create_response(self):
@@ -30,11 +52,97 @@ class AssessmentsTestCase(IntegrationTestCase):
             201,
             '''
             {
-                "url": "https://flex-api.twilio.com/v1/Accounts/Assessments"
+                "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "assessment_id": "123",
+                "offset": "0.0",
+                "report": true,
+                "weight": "1",
+                "agent_id": "5d80ee80-7608-55df-b2b2-5ab5608b9831",
+                "segment_id": "dbdf1f7b-c776-5e78-9676-98a397fb3cdc",
+                "user_name": "Supervisor",
+                "user_email": "supervisor@example.com",
+                "answer_id": "ed8697d3-558d-46c3-9b73-cd21cd93cbb3",
+                "answer_text": "Fair",
+                "timestamp": "1657329694199",
+                "assessment": {
+                    "questionnaire": {
+                        "questionnaire_id": "7326e997-a84c-57cd-9186-bb94db0def2b",
+                        "name": "Customer Experience",
+                        "question": {
+                            "id": "41518739-4e38-5871-bb01-d9f6e0cd1377",
+                            "name": "Active listening",
+                            "category": {
+                                "id": "4b4e78e4-4f05-49e2-bf52-0973c5cde418",
+                                "name": "Good for Training"
+                            }
+                        }
+                    }
+                },
+                "url": "https://flex-api.twilio.com/v1/Insights/QM/Assessments/123"
             }
             '''
         ))
 
-        actual = self.client.flex_api.v1.assessments().create()
+        actual = self.client.flex_api.v1.assessments.create(category_id="category_id", category_name="category_name", segment_id="segment_id", user_name="user_name", user_email="user_email", agent_id="agent_id", offset="-0.0300", metric_id="metric_id", metric_name="metric_name", answer_text="answer_text", answer_id="answer_id", questionnaire_id="questionnaire_id")
+
+        self.assertIsNotNone(actual)
+
+    def test_update_request(self):
+        self.holodeck.mock(Response(500, ''))
+
+        with self.assertRaises(TwilioException):
+            self.client.flex_api.v1.assessments("assessment_id").update(offset="-0.0300", answer_text="answer_text", answer_id="answer_id", token="token")
+
+        values = {'Offset': "-0.0300", 'AnswerText': "answer_text", 'AnswerId': "answer_id", }
+
+        headers = {'Token': "token", }
+        self.holodeck.assert_has_request(Request(
+            'post',
+            'https://flex-api.twilio.com/v1/Insights/QM/Assessments/assessment_id',
+            headers=headers,
+        ))
+        self.holodeck.assert_has_request(Request(
+            'post',
+            'https://flex-api.twilio.com/v1/Insights/QM/Assessments/assessment_id',
+            data=values,
+        ))
+
+    def test_update_response(self):
+        self.holodeck.mock(Response(
+            200,
+            '''
+            {
+                "account_sid": "ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "assessment_id": "dbdf1f7b-c776-5e78-9676-98a397fb3cdc",
+                "offset": "0.0",
+                "report": true,
+                "weight": "1",
+                "agent_id": "5d80ee80-7608-55df-b2b2-5ab5608b9831",
+                "segment_id": "0105be7a-9b87-51f1-8df8-aa74ddb9c4a7",
+                "user_name": "Supervisor",
+                "user_email": "supervisor@example.com",
+                "answer_id": "ed8697d3-558d-46c3-9b73-cd21cd93cbb3",
+                "answer_text": "Fair",
+                "timestamp": "1657329694199",
+                "assessment": {
+                    "questionnaire": {
+                        "questionnaire_id": "7326e997-a84c-57cd-9186-bb94db0def2b",
+                        "name": "Customer Experience",
+                        "question": {
+                            "id": "41518739-4e38-5871-bb01-d9f6e0cd1377",
+                            "name": "Active listening",
+                            "category": {
+                                "id": "4b4e78e4-4f05-49e2-bf52-0973c5cde418",
+                                "name": "Good for Training"
+                            }
+                        }
+                    }
+                },
+                "url": "https://flex-api.twilio.com/v1/Insights/QM/Assessments/dbdf1f7b-c776-5e78-9676-98a397fb3cdc"
+            }
+            '''
+        ))
+
+        actual = self.client.flex_api.v1.assessments("assessment_id").update(offset="-0.0300", answer_text="answer_text", answer_id="answer_id")
 
         self.assertIsNotNone(actual)

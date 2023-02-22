@@ -17,7 +17,6 @@ from twilio.rest.taskrouter.v1.workspace.event import EventList
 from twilio.rest.taskrouter.v1.workspace.task import TaskList
 from twilio.rest.taskrouter.v1.workspace.task_channel import TaskChannelList
 from twilio.rest.taskrouter.v1.workspace.task_queue import TaskQueueList
-from twilio.rest.taskrouter.v1.workspace.task_queue_bulk_real_time_statistics import TaskQueueBulkRealTimeStatisticsList
 from twilio.rest.taskrouter.v1.workspace.worker import WorkerList
 from twilio.rest.taskrouter.v1.workspace.workflow import WorkflowList
 from twilio.rest.taskrouter.v1.workspace.workspace_cumulative_statistics import WorkspaceCumulativeStatisticsList
@@ -255,7 +254,6 @@ class WorkspaceContext(InstanceContext):
         self._real_time_statistics = None
         self._cumulative_statistics = None
         self._task_channels = None
-        self._bulk_real_time_statistics = None
 
     def fetch(self):
         """
@@ -435,21 +433,6 @@ class WorkspaceContext(InstanceContext):
         if self._task_channels is None:
             self._task_channels = TaskChannelList(self._version, workspace_sid=self._solution['sid'], )
         return self._task_channels
-
-    @property
-    def bulk_real_time_statistics(self):
-        """
-        Access the bulk_real_time_statistics
-
-        :returns: twilio.rest.taskrouter.v1.workspace.task_queue_bulk_real_time_statistics.TaskQueueBulkRealTimeStatisticsList
-        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue_bulk_real_time_statistics.TaskQueueBulkRealTimeStatisticsList
-        """
-        if self._bulk_real_time_statistics is None:
-            self._bulk_real_time_statistics = TaskQueueBulkRealTimeStatisticsList(
-                self._version,
-                workspace_sid=self._solution['sid'],
-            )
-        return self._bulk_real_time_statistics
 
     def __repr__(self):
         """
@@ -779,16 +762,6 @@ class WorkspaceInstance(InstanceResource):
         :rtype: twilio.rest.taskrouter.v1.workspace.task_channel.TaskChannelList
         """
         return self._proxy.task_channels
-
-    @property
-    def bulk_real_time_statistics(self):
-        """
-        Access the bulk_real_time_statistics
-
-        :returns: twilio.rest.taskrouter.v1.workspace.task_queue_bulk_real_time_statistics.TaskQueueBulkRealTimeStatisticsList
-        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue_bulk_real_time_statistics.TaskQueueBulkRealTimeStatisticsList
-        """
-        return self._proxy.bulk_real_time_statistics
 
     def __repr__(self):
         """
