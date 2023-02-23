@@ -69,7 +69,7 @@ class ChallengeList(ListResource):
             'HiddenDetails': serialize.object(hidden_details),
             'AuthPayload': auth_payload,
         })
-        )
+        
         payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
         return ChallengeInstance(self._version, payload, service_sid=self._solution['service_sid'], identity=self._solution['identity'])

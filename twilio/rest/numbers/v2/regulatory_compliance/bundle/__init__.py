@@ -73,7 +73,7 @@ class BundleList(ListResource):
             'EndUserType': end_user_type,
             'NumberType': number_type,
         })
-        )
+        
         payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
         return BundleInstance(self._version, payload)

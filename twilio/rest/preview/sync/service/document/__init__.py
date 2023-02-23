@@ -61,7 +61,7 @@ class DocumentList(ListResource):
             'UniqueName': unique_name,
             'Data': serialize.object(data),
         })
-        )
+        
         payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
         return DocumentInstance(self._version, payload, service_sid=self._solution['service_sid'])

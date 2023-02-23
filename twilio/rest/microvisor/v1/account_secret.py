@@ -58,7 +58,7 @@ class AccountSecretList(ListResource):
             'Key': key,
             'Value': value,
         })
-        )
+        
         payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
         return AccountSecretInstance(self._version, payload)

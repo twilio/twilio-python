@@ -61,7 +61,7 @@ class IpRecordList(ListResource):
             'FriendlyName': friendly_name,
             'CidrPrefixLength': cidr_prefix_length,
         })
-        )
+        
         payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
         return IpRecordInstance(self._version, payload)

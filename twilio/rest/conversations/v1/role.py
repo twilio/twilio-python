@@ -61,7 +61,7 @@ class RoleList(ListResource):
             'Type': type,
             'Permission': serialize.map(permission, lambda e: e),
         })
-        )
+        
         payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
         return RoleInstance(self._version, payload)

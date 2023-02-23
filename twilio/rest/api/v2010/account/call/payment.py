@@ -87,7 +87,7 @@ class PaymentList(ListResource):
             'TokenType': token_type,
             'ValidCardTypes': valid_card_types,
         })
-        )
+        
         payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
         return PaymentInstance(self._version, payload, account_sid=self._solution['account_sid'], call_sid=self._solution['call_sid'])

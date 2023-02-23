@@ -55,7 +55,7 @@ class BundleCopyList(ListResource):
         data = values.of({ 
             'FriendlyName': friendly_name,
         })
-        )
+        
         payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
         return BundleCopyInstance(self._version, payload, bundle_sid=self._solution['bundle_sid'])

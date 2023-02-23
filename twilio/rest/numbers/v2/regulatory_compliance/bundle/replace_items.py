@@ -55,7 +55,7 @@ class ReplaceItemsList(ListResource):
         data = values.of({ 
             'FromBundleSid': from_bundle_sid,
         })
-        )
+        
         payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
         return ReplaceItemsInstance(self._version, payload, bundle_sid=self._solution['bundle_sid'])

@@ -96,7 +96,7 @@ class ServiceList(ListResource):
             'Totp.Skew': totp_skew,
             'DefaultTemplateSid': default_template_sid,
         })
-        )
+        
         payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
         return ServiceInstance(self._version, payload)

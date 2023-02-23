@@ -59,7 +59,7 @@ class SourceIpMappingList(ListResource):
             'IpRecordSid': ip_record_sid,
             'SipDomainSid': sip_domain_sid,
         })
-        )
+        
         payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
         return SourceIpMappingInstance(self._version, payload)

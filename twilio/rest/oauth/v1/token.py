@@ -68,7 +68,7 @@ class TokenList(ListResource):
             'RefreshToken': refresh_token,
             'DeviceId': device_id,
         })
-        )
+        
         payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
         return TokenInstance(self._version, payload)

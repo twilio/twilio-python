@@ -77,7 +77,7 @@ class WorkspaceList(ListResource):
             'Template': template,
             'PrioritizeQueueOrder': prioritize_queue_order,
         })
-        )
+        
         payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
         return WorkspaceInstance(self._version, payload)

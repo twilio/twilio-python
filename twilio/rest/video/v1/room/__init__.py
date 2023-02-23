@@ -87,7 +87,7 @@ class RoomList(ListResource):
             'UnusedRoomTimeout': unused_room_timeout,
             'LargeRoom': large_room,
         })
-        )
+        
         payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
         return RoomInstance(self._version, payload)

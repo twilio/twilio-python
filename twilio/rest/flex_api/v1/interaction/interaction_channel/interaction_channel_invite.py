@@ -56,7 +56,7 @@ class InteractionChannelInviteList(ListResource):
         data = values.of({ 
             'Routing': serialize.object(routing),
         })
-        )
+        
         payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
         return InteractionChannelInviteInstance(self._version, payload, interaction_sid=self._solution['interaction_sid'], channel_sid=self._solution['channel_sid'])

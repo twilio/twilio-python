@@ -65,7 +65,7 @@ class ParticipantList(ListResource):
             'ProxyIdentifier': proxy_identifier,
             'ProxyIdentifierSid': proxy_identifier_sid,
         })
-        )
+        
         payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
         return ParticipantInstance(self._version, payload, service_sid=self._solution['service_sid'], session_sid=self._solution['session_sid'])

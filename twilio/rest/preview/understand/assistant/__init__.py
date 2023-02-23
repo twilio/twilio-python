@@ -79,7 +79,7 @@ class AssistantList(ListResource):
             'InitiationActions': serialize.object(initiation_actions),
             'StyleSheet': serialize.object(style_sheet),
         })
-        )
+        
         payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
         return AssistantInstance(self._version, payload)

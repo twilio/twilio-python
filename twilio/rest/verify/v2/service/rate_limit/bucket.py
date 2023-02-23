@@ -61,7 +61,7 @@ class BucketList(ListResource):
             'Max': max,
             'Interval': interval,
         })
-        )
+        
         payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
         return BucketInstance(self._version, payload, service_sid=self._solution['service_sid'], rate_limit_sid=self._solution['rate_limit_sid'])

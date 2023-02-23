@@ -64,7 +64,7 @@ class QueryList(ListResource):
             'Tasks': tasks,
             'ModelBuild': model_build,
         })
-        )
+        
         payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
         return QueryInstance(self._version, payload, assistant_sid=self._solution['assistant_sid'])

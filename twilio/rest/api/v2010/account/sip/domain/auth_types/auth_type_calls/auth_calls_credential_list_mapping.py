@@ -58,7 +58,7 @@ class AuthCallsCredentialListMappingList(ListResource):
         data = values.of({ 
             'CredentialListSid': credential_list_sid,
         })
-        )
+        
         payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
         return AuthCallsCredentialListMappingInstance(self._version, payload, account_sid=self._solution['account_sid'], domain_sid=self._solution['domain_sid'])

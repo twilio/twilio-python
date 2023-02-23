@@ -57,7 +57,7 @@ class NetworkAccessProfileNetworkList(ListResource):
         data = values.of({ 
             'Network': network,
         })
-        )
+        
         payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
         return NetworkAccessProfileNetworkInstance(self._version, payload, network_access_profile_sid=self._solution['network_access_profile_sid'])

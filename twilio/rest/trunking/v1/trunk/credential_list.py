@@ -57,7 +57,7 @@ class CredentialListList(ListResource):
         data = values.of({ 
             'CredentialListSid': credential_list_sid,
         })
-        )
+        
         payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
         return CredentialListInstance(self._version, payload, trunk_sid=self._solution['trunk_sid'])

@@ -57,7 +57,7 @@ class DeploymentList(ListResource):
         data = values.of({ 
             'BuildSid': build_sid,
         })
-        )
+        
         payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
         return DeploymentInstance(self._version, payload, service_sid=self._solution['service_sid'], environment_sid=self._solution['environment_sid'])

@@ -60,7 +60,7 @@ class MessageInteractionList(ListResource):
             'Body': body,
             'MediaUrl': serialize.map(media_url, lambda e: e),
         })
-        )
+        
         payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
         return MessageInteractionInstance(self._version, payload, service_sid=self._solution['service_sid'], session_sid=self._solution['session_sid'], participant_sid=self._solution['participant_sid'])

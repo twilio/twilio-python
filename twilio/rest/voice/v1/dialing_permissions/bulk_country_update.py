@@ -54,7 +54,7 @@ class BulkCountryUpdateList(ListResource):
         data = values.of({ 
             'UpdateRequest': update_request,
         })
-        )
+        
         payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
         return BulkCountryUpdateInstance(self._version, payload)

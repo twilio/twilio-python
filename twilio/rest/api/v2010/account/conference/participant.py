@@ -149,7 +149,7 @@ class ParticipantList(ListResource):
             'AmdStatusCallback': amd_status_callback,
             'AmdStatusCallbackMethod': amd_status_callback_method,
         })
-        )
+        
         payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
         return ParticipantInstance(self._version, payload, account_sid=self._solution['account_sid'], conference_sid=self._solution['conference_sid'])

@@ -55,7 +55,7 @@ class TokenList(ListResource):
         data = values.of({ 
             'Ttl': ttl,
         })
-        )
+        
         payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
         return TokenInstance(self._version, payload, account_sid=self._solution['account_sid'])

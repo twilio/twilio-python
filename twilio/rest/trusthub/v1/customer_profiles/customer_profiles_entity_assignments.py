@@ -57,7 +57,7 @@ class CustomerProfilesEntityAssignmentsList(ListResource):
         data = values.of({ 
             'ObjectSid': object_sid,
         })
-        )
+        
         payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
         return CustomerProfilesEntityAssignmentsInstance(self._version, payload, customer_profile_sid=self._solution['customer_profile_sid'])

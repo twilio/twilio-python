@@ -59,7 +59,7 @@ class EsimProfileList(ListResource):
             'CallbackMethod': callback_method,
             'Eid': eid,
         })
-        )
+        
         payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
         return EsimProfileInstance(self._version, payload)

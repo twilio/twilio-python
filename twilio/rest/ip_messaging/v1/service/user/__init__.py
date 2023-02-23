@@ -65,7 +65,7 @@ class UserList(ListResource):
             'Attributes': attributes,
             'FriendlyName': friendly_name,
         })
-        )
+        
         payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
         return UserInstance(self._version, payload, service_sid=self._solution['service_sid'])

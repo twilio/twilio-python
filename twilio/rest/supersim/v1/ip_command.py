@@ -65,7 +65,7 @@ class IpCommandList(ListResource):
             'CallbackUrl': callback_url,
             'CallbackMethod': callback_method,
         })
-        )
+        
         payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
         return IpCommandInstance(self._version, payload)

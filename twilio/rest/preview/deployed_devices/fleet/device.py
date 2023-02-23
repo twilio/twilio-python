@@ -66,7 +66,7 @@ class DeviceList(ListResource):
             'DeploymentSid': deployment_sid,
             'Enabled': enabled,
         })
-        )
+        
         payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
         return DeviceInstance(self._version, payload, fleet_sid=self._solution['fleet_sid'])

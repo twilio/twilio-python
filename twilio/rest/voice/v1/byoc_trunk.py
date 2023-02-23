@@ -75,7 +75,7 @@ class ByocTrunkList(ListResource):
             'ConnectionPolicySid': connection_policy_sid,
             'FromDomainSid': from_domain_sid,
         })
-        )
+        
         payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
         return ByocTrunkInstance(self._version, payload)

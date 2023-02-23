@@ -82,7 +82,7 @@ class NewFactorList(ListResource):
             'Config.Alg': config_alg,
             'Metadata': serialize.object(metadata),
         })
-        )
+        
         payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
         return NewFactorInstance(self._version, payload, service_sid=self._solution['service_sid'], identity=self._solution['identity'])

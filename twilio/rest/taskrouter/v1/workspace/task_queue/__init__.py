@@ -73,7 +73,7 @@ class TaskQueueList(ListResource):
             'ReservationActivitySid': reservation_activity_sid,
             'AssignmentActivitySid': assignment_activity_sid,
         })
-        )
+        
         payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
         return TaskQueueInstance(self._version, payload, workspace_sid=self._solution['workspace_sid'])

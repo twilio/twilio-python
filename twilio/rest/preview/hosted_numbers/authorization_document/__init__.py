@@ -67,7 +67,7 @@ class AuthorizationDocumentList(ListResource):
             'ContactPhoneNumber': contact_phone_number,
             'CcEmails': serialize.map(cc_emails, lambda e: e),
         })
-        )
+        
         payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
         return AuthorizationDocumentInstance(self._version, payload)

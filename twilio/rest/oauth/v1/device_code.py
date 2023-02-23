@@ -58,7 +58,7 @@ class DeviceCodeList(ListResource):
             'Scopes': serialize.map(scopes, lambda e: e),
             'Audiences': serialize.map(audiences, lambda e: e),
         })
-        )
+        
         payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
         return DeviceCodeInstance(self._version, payload)

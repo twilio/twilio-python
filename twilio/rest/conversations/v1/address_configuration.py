@@ -77,7 +77,7 @@ class AddressConfigurationList(ListResource):
             'AutoCreation.StudioFlowSid': auto_creation_studio_flow_sid,
             'AutoCreation.StudioRetryCount': auto_creation_studio_retry_count,
         })
-        )
+        
         payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
         return AddressConfigurationInstance(self._version, payload)

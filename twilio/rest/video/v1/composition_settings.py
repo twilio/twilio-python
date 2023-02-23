@@ -64,7 +64,7 @@ class CompositionSettingsList(ListResource):
             'AwsStorageEnabled': aws_storage_enabled,
             'EncryptionEnabled': encryption_enabled,
         })
-        )
+        
         payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
         return CompositionSettingsInstance(self._version, payload)

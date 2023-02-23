@@ -57,7 +57,7 @@ class ShortCodeList(ListResource):
         data = values.of({ 
             'ShortCodeSid': short_code_sid,
         })
-        )
+        
         payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
         return ShortCodeInstance(self._version, payload, service_sid=self._solution['service_sid'])

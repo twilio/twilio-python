@@ -63,7 +63,7 @@ class MessageList(ListResource):
             'From': from_,
             'Attributes': attributes,
         })
-        )
+        
         payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
         return MessageInstance(self._version, payload, service_sid=self._solution['service_sid'], channel_sid=self._solution['channel_sid'])

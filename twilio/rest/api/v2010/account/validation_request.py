@@ -65,7 +65,7 @@ class ValidationRequestList(ListResource):
             'StatusCallback': status_callback,
             'StatusCallbackMethod': status_callback_method,
         })
-        )
+        
         payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
         return ValidationRequestInstance(self._version, payload, account_sid=self._solution['account_sid'])

@@ -69,7 +69,7 @@ class CredentialList(ListResource):
             'ApiKey': api_key,
             'Secret': secret,
         })
-        )
+        
         payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
         return CredentialInstance(self._version, payload)

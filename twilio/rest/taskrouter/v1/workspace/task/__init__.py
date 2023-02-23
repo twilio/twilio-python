@@ -67,7 +67,7 @@ class TaskList(ListResource):
             'WorkflowSid': workflow_sid,
             'Attributes': attributes,
         })
-        )
+        
         payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
         return TaskInstance(self._version, payload, workspace_sid=self._solution['workspace_sid'])

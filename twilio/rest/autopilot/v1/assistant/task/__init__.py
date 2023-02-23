@@ -68,7 +68,7 @@ class TaskList(ListResource):
             'Actions': serialize.object(actions),
             'ActionsUrl': actions_url,
         })
-        )
+        
         payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
         return TaskInstance(self._version, payload, assistant_sid=self._solution['assistant_sid'])

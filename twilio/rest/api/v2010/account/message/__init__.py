@@ -102,7 +102,7 @@ class MessageList(ListResource):
             'Body': body,
             'MediaUrl': serialize.map(media_url, lambda e: e),
         })
-        )
+        
         payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
         return MessageInstance(self._version, payload, account_sid=self._solution['account_sid'])

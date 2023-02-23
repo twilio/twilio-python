@@ -60,7 +60,7 @@ class SimList(ListResource):
             'Iccid': iccid,
             'RegistrationCode': registration_code,
         })
-        )
+        
         payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
         return SimInstance(self._version, payload)

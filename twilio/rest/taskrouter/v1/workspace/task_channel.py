@@ -62,7 +62,7 @@ class TaskChannelList(ListResource):
             'UniqueName': unique_name,
             'ChannelOptimizedRouting': channel_optimized_routing,
         })
-        )
+        
         payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
         return TaskChannelInstance(self._version, payload, workspace_sid=self._solution['workspace_sid'])

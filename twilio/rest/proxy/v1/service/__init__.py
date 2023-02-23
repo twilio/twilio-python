@@ -74,7 +74,7 @@ class ServiceList(ListResource):
             'OutOfSessionCallbackUrl': out_of_session_callback_url,
             'ChatInstanceSid': chat_instance_sid,
         })
-        )
+        
         payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
         return ServiceInstance(self._version, payload)

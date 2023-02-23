@@ -56,7 +56,7 @@ class FeedbackList(ListResource):
         data = values.of({ 
             'Outcome': outcome,
         })
-        )
+        
         payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
         return FeedbackInstance(self._version, payload, account_sid=self._solution['account_sid'], message_sid=self._solution['message_sid'])

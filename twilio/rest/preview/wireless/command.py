@@ -67,7 +67,7 @@ class CommandList(ListResource):
             'CommandMode': command_mode,
             'IncludeSid': include_sid,
         })
-        )
+        
         payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
         return CommandInstance(self._version, payload)

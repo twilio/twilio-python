@@ -74,7 +74,7 @@ class ChannelList(ListResource):
             'TaskAttributes': task_attributes,
             'LongLived': long_lived,
         })
-        )
+        
         payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
         return ChannelInstance(self._version, payload)

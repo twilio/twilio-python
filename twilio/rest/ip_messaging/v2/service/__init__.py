@@ -61,7 +61,7 @@ class ServiceList(ListResource):
         data = values.of({ 
             'FriendlyName': friendly_name,
         })
-        )
+        
         payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
         return ServiceInstance(self._version, payload)

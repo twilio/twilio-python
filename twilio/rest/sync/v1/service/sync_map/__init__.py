@@ -64,7 +64,7 @@ class SyncMapList(ListResource):
             'Ttl': ttl,
             'CollectionTtl': collection_ttl,
         })
-        )
+        
         payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
         return SyncMapInstance(self._version, payload, service_sid=self._solution['service_sid'])

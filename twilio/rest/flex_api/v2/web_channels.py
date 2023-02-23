@@ -60,7 +60,7 @@ class WebChannelsList(ListResource):
             'CustomerFriendlyName': customer_friendly_name,
             'PreEngagementData': pre_engagement_data,
         })
-        )
+        
         payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
         return WebChannelsInstance(self._version, payload)

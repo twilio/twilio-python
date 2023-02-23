@@ -88,7 +88,7 @@ class ApplicationList(ListResource):
             'FriendlyName': friendly_name,
             'PublicApplicationConnectEnabled': public_application_connect_enabled,
         })
-        )
+        
         payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
         return ApplicationInstance(self._version, payload, account_sid=self._solution['account_sid'])

@@ -62,7 +62,7 @@ class EnvironmentList(ListResource):
             'UniqueName': unique_name,
             'DomainSuffix': domain_suffix,
         })
-        )
+        
         payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
         return EnvironmentInstance(self._version, payload, service_sid=self._solution['service_sid'])

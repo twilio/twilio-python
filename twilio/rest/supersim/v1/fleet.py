@@ -72,7 +72,7 @@ class FleetList(ListResource):
             'SmsCommandsUrl': sms_commands_url,
             'SmsCommandsMethod': sms_commands_method,
         })
-        )
+        
         payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
         return FleetInstance(self._version, payload)

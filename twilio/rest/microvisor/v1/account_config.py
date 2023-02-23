@@ -58,7 +58,7 @@ class AccountConfigList(ListResource):
             'Key': key,
             'Value': value,
         })
-        )
+        
         payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
         return AccountConfigInstance(self._version, payload)

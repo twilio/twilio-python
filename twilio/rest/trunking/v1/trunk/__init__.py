@@ -76,7 +76,7 @@ class TrunkList(ListResource):
             'CnamLookupEnabled': cnam_lookup_enabled,
             'TransferCallerId': transfer_caller_id,
         })
-        )
+        
         payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
         return TrunkInstance(self._version, payload)

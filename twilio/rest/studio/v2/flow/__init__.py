@@ -66,7 +66,7 @@ class FlowList(ListResource):
             'Definition': serialize.object(definition),
             'CommitMessage': commit_message,
         })
-        )
+        
         payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
         return FlowInstance(self._version, payload)

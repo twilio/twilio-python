@@ -63,7 +63,7 @@ class SinkList(ListResource):
             'SinkConfiguration': serialize.object(sink_configuration),
             'SinkType': sink_type,
         })
-        )
+        
         payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
         return SinkInstance(self._version, payload)

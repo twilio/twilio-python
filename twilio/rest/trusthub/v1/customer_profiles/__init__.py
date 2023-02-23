@@ -66,7 +66,7 @@ class CustomerProfilesList(ListResource):
             'PolicySid': policy_sid,
             'StatusCallback': status_callback,
         })
-        )
+        
         payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
         return CustomerProfilesInstance(self._version, payload)

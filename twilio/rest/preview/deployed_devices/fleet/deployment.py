@@ -60,7 +60,7 @@ class DeploymentList(ListResource):
             'FriendlyName': friendly_name,
             'SyncServiceSid': sync_service_sid,
         })
-        )
+        
         payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
         return DeploymentInstance(self._version, payload, fleet_sid=self._solution['fleet_sid'])

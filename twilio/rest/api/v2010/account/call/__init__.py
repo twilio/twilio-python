@@ -137,7 +137,7 @@ class CallList(ListResource):
             'Twiml': twiml,
             'ApplicationSid': application_sid,
         })
-        )
+        
         payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
         return CallInstance(self._version, payload, account_sid=self._solution['account_sid'])

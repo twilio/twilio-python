@@ -77,7 +77,7 @@ class AssistantList(ListResource):
             'StyleSheet': serialize.object(style_sheet),
             'Defaults': serialize.object(defaults),
         })
-        )
+        
         payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
         return AssistantInstance(self._version, payload)

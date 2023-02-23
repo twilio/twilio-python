@@ -67,7 +67,7 @@ class ServiceList(ListResource):
             'IncludeCredentials': include_credentials,
             'UiEditable': ui_editable,
         })
-        )
+        
         payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
         return ServiceInstance(self._version, payload)

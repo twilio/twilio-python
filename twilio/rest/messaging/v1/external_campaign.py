@@ -56,7 +56,7 @@ class ExternalCampaignList(ListResource):
             'CampaignId': campaign_id,
             'MessagingServiceSid': messaging_service_sid,
         })
-        )
+        
         payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
         return ExternalCampaignInstance(self._version, payload)

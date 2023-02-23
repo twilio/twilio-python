@@ -60,7 +60,7 @@ class SubscribedEventList(ListResource):
             'Type': type,
             'SchemaVersion': schema_version,
         })
-        )
+        
         payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
         return SubscribedEventInstance(self._version, payload, subscription_sid=self._solution['subscription_sid'])

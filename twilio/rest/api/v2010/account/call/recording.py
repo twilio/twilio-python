@@ -69,7 +69,7 @@ class RecordingList(ListResource):
             'RecordingChannels': recording_channels,
             'RecordingTrack': recording_track,
         })
-        )
+        
         payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
         return RecordingInstance(self._version, payload, account_sid=self._solution['account_sid'], call_sid=self._solution['call_sid'])

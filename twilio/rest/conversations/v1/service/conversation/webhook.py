@@ -71,7 +71,7 @@ class WebhookList(ListResource):
             'Configuration.FlowSid': configuration_flow_sid,
             'Configuration.ReplayAfter': configuration_replay_after,
         })
-        )
+        
         payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
         return WebhookInstance(self._version, payload, chat_service_sid=self._solution['chat_service_sid'], conversation_sid=self._solution['conversation_sid'])

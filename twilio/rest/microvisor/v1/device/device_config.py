@@ -59,7 +59,7 @@ class DeviceConfigList(ListResource):
             'Key': key,
             'Value': value,
         })
-        )
+        
         payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
         return DeviceConfigInstance(self._version, payload, device_sid=self._solution['device_sid'])

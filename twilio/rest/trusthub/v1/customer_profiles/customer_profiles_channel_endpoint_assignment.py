@@ -59,7 +59,7 @@ class CustomerProfilesChannelEndpointAssignmentList(ListResource):
             'ChannelEndpointType': channel_endpoint_type,
             'ChannelEndpointSid': channel_endpoint_sid,
         })
-        )
+        
         payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
         return CustomerProfilesChannelEndpointAssignmentInstance(self._version, payload, customer_profile_sid=self._solution['customer_profile_sid'])

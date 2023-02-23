@@ -61,7 +61,7 @@ class FleetList(ListResource):
         data = values.of({ 
             'FriendlyName': friendly_name,
         })
-        )
+        
         payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
         return FleetInstance(self._version, payload)

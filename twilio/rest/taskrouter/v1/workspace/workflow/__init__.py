@@ -69,7 +69,7 @@ class WorkflowList(ListResource):
             'FallbackAssignmentCallbackUrl': fallback_assignment_callback_url,
             'TaskReservationTimeout': task_reservation_timeout,
         })
-        )
+        
         payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
         return WorkflowInstance(self._version, payload, workspace_sid=self._solution['workspace_sid'])

@@ -57,7 +57,7 @@ class ItemAssignmentList(ListResource):
         data = values.of({ 
             'ObjectSid': object_sid,
         })
-        )
+        
         payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
         return ItemAssignmentInstance(self._version, payload, bundle_sid=self._solution['bundle_sid'])

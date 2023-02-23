@@ -64,7 +64,7 @@ class WebhookList(ListResource):
             'WebhookUrl': webhook_url,
             'WebhookMethod': webhook_method,
         })
-        )
+        
         payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
         return WebhookInstance(self._version, payload, assistant_sid=self._solution['assistant_sid'])

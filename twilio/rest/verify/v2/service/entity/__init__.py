@@ -60,7 +60,7 @@ class EntityList(ListResource):
         data = values.of({ 
             'Identity': identity,
         })
-        )
+        
         payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
         return EntityInstance(self._version, payload, service_sid=self._solution['service_sid'])

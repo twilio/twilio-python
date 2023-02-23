@@ -60,7 +60,7 @@ class InviteList(ListResource):
             'Identity': identity,
             'RoleSid': role_sid,
         })
-        )
+        
         payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
         return InviteInstance(self._version, payload, service_sid=self._solution['service_sid'], channel_sid=self._solution['channel_sid'])

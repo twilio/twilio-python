@@ -64,7 +64,7 @@ class RecordingSettingsList(ListResource):
             'AwsStorageEnabled': aws_storage_enabled,
             'EncryptionEnabled': encryption_enabled,
         })
-        )
+        
         payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
         return RecordingSettingsInstance(self._version, payload)

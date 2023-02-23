@@ -60,7 +60,7 @@ class ActivityList(ListResource):
             'FriendlyName': friendly_name,
             'Available': available,
         })
-        )
+        
         payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
         return ActivityInstance(self._version, payload, workspace_sid=self._solution['workspace_sid'])

@@ -89,7 +89,7 @@ class HostedNumberOrderList(ListResource):
             'VerificationType': verification_type,
             'VerificationDocumentSid': verification_document_sid,
         })
-        )
+        
         payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
         return HostedNumberOrderInstance(self._version, payload)

@@ -69,7 +69,7 @@ class BindingList(ListResource):
             'CredentialSid': credential_sid,
             'Endpoint': endpoint,
         })
-        )
+        
         payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
         return BindingInstance(self._version, payload, service_sid=self._solution['service_sid'])

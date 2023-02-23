@@ -58,7 +58,7 @@ class BrandVettingList(ListResource):
             'VettingProvider': vetting_provider,
             'VettingId': vetting_id,
         })
-        )
+        
         payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
         return BrandVettingInstance(self._version, payload, brand_sid=self._solution['brand_sid'])

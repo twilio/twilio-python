@@ -58,7 +58,7 @@ class InteractionList(ListResource):
             'Channel': serialize.object(channel),
             'Routing': serialize.object(routing),
         })
-        )
+        
         payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
         return InteractionInstance(self._version, payload)

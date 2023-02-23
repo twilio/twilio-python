@@ -56,7 +56,7 @@ class CustomerProfilesEvaluationsList(ListResource):
         data = values.of({ 
             'PolicySid': policy_sid,
         })
-        )
+        
         payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
         return CustomerProfilesEvaluationsInstance(self._version, payload, customer_profile_sid=self._solution['customer_profile_sid'])

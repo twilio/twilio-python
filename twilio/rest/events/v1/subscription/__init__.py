@@ -62,7 +62,7 @@ class SubscriptionList(ListResource):
             'SinkSid': sink_sid,
             'Types': serialize.map(types, lambda e: e),
         })
-        )
+        
         payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
         return SubscriptionInstance(self._version, payload)

@@ -59,7 +59,7 @@ class SyncListList(ListResource):
         data = values.of({ 
             'UniqueName': unique_name,
         })
-        )
+        
         payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
         return SyncListInstance(self._version, payload, service_sid=self._solution['service_sid'])

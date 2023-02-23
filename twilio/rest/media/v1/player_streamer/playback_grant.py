@@ -57,7 +57,7 @@ class PlaybackGrantList(ListResource):
             'Ttl': ttl,
             'AccessControlAllowOrigin': access_control_allow_origin,
         })
-        )
+        
         payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
         return PlaybackGrantInstance(self._version, payload, sid=self._solution['sid'])

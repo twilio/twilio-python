@@ -61,7 +61,7 @@ class QueueList(ListResource):
             'FriendlyName': friendly_name,
             'MaxSize': max_size,
         })
-        )
+        
         payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
         return QueueInstance(self._version, payload, account_sid=self._solution['account_sid'])

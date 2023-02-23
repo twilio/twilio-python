@@ -72,7 +72,7 @@ class CompositionList(ListResource):
             'StatusCallbackMethod': status_callback_method,
             'Trim': trim,
         })
-        )
+        
         payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
         return CompositionInstance(self._version, payload)

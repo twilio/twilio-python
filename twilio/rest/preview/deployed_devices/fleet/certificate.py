@@ -62,7 +62,7 @@ class CertificateList(ListResource):
             'FriendlyName': friendly_name,
             'DeviceSid': device_sid,
         })
-        )
+        
         payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
         return CertificateInstance(self._version, payload, fleet_sid=self._solution['fleet_sid'])

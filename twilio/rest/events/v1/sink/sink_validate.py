@@ -55,7 +55,7 @@ class SinkValidateList(ListResource):
         data = values.of({ 
             'TestId': test_id,
         })
-        )
+        
         payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
         return SinkValidateInstance(self._version, payload, sid=self._solution['sid'])

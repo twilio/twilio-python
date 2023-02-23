@@ -77,7 +77,7 @@ class AddressList(ListResource):
             'AutoCorrectAddress': auto_correct_address,
             'StreetSecondary': street_secondary,
         })
-        )
+        
         payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
         return AddressInstance(self._version, payload, account_sid=self._solution['account_sid'])

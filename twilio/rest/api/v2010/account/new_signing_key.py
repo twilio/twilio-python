@@ -55,7 +55,7 @@ class NewSigningKeyList(ListResource):
         data = values.of({ 
             'FriendlyName': friendly_name,
         })
-        )
+        
         payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
         return NewSigningKeyInstance(self._version, payload, account_sid=self._solution['account_sid'])

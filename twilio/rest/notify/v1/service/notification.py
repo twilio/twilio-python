@@ -89,7 +89,7 @@ class NotificationList(ListResource):
             'Identity': serialize.map(identity, lambda e: e),
             'Tag': serialize.map(tag, lambda e: e),
         })
-        )
+        
         payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
         return NotificationInstance(self._version, payload, service_sid=self._solution['service_sid'])

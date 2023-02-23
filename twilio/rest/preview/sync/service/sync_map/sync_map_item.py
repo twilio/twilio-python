@@ -61,7 +61,7 @@ class SyncMapItemList(ListResource):
             'Key': key,
             'Data': serialize.object(data),
         })
-        )
+        
         payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
         return SyncMapItemInstance(self._version, payload, service_sid=self._solution['service_sid'], map_sid=self._solution['map_sid'])

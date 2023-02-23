@@ -56,7 +56,7 @@ class SafelistList(ListResource):
         data = values.of({ 
             'PhoneNumber': phone_number,
         })
-        )
+        
         payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
         return SafelistInstance(self._version, payload)

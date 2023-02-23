@@ -67,7 +67,7 @@ class ChannelList(ListResource):
             'Attributes': attributes,
             'Type': type,
         })
-        )
+        
         payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
         return ChannelInstance(self._version, payload, service_sid=self._solution['service_sid'])

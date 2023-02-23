@@ -85,7 +85,7 @@ class ServiceList(ListResource):
             'DeliveryCallbackUrl': delivery_callback_url,
             'DeliveryCallbackEnabled': delivery_callback_enabled,
         })
-        )
+        
         payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
         return ServiceInstance(self._version, payload)

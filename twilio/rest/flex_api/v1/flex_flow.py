@@ -89,7 +89,7 @@ class FlexFlowList(ListResource):
             'JanitorEnabled': janitor_enabled,
             'Integration.RetryCount': integration_retry_count,
         })
-        )
+        
         payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
         return FlexFlowInstance(self._version, payload)

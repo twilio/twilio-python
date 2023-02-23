@@ -62,7 +62,7 @@ class FieldValueList(ListResource):
             'Value': value,
             'SynonymOf': synonym_of,
         })
-        )
+        
         payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
         return FieldValueInstance(self._version, payload, assistant_sid=self._solution['assistant_sid'], field_type_sid=self._solution['field_type_sid'])

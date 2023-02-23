@@ -59,7 +59,7 @@ class AssignedAddOnList(ListResource):
         data = values.of({ 
             'InstalledAddOnSid': installed_add_on_sid,
         })
-        )
+        
         payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
         return AssignedAddOnInstance(self._version, payload, account_sid=self._solution['account_sid'], resource_sid=self._solution['resource_sid'])

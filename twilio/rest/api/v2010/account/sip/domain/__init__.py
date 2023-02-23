@@ -85,7 +85,7 @@ class DomainList(ListResource):
             'ByocTrunkSid': byoc_trunk_sid,
             'EmergencyCallerSid': emergency_caller_sid,
         })
-        )
+        
         payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
         return DomainInstance(self._version, payload, account_sid=self._solution['account_sid'])

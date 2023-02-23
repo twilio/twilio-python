@@ -61,7 +61,7 @@ class EndUserList(ListResource):
             'Type': type,
             'Attributes': serialize.object(attributes),
         })
-        )
+        
         payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
         return EndUserInstance(self._version, payload)

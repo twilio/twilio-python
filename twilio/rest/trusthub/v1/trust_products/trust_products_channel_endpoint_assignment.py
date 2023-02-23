@@ -59,7 +59,7 @@ class TrustProductsChannelEndpointAssignmentList(ListResource):
             'ChannelEndpointType': channel_endpoint_type,
             'ChannelEndpointSid': channel_endpoint_sid,
         })
-        )
+        
         payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
         return TrustProductsChannelEndpointAssignmentInstance(self._version, payload, trust_product_sid=self._solution['trust_product_sid'])

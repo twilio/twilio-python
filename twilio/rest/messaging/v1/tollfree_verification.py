@@ -100,7 +100,7 @@ class TollfreeVerificationList(ListResource):
             'BusinessContactPhone': business_contact_phone,
             'ExternalReferenceId': external_reference_id,
         })
-        )
+        
         payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
         return TollfreeVerificationInstance(self._version, payload)

@@ -66,7 +66,7 @@ class OriginationUrlList(ListResource):
             'FriendlyName': friendly_name,
             'SipUrl': sip_url,
         })
-        )
+        
         payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
         return OriginationUrlInstance(self._version, payload, trunk_sid=self._solution['trunk_sid'])

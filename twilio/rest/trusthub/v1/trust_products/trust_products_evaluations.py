@@ -56,7 +56,7 @@ class TrustProductsEvaluationsList(ListResource):
         data = values.of({ 
             'PolicySid': policy_sid,
         })
-        )
+        
         payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
         return TrustProductsEvaluationsInstance(self._version, payload, trust_product_sid=self._solution['trust_product_sid'])

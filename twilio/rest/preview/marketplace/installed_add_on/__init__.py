@@ -64,7 +64,7 @@ class InstalledAddOnList(ListResource):
             'Configuration': serialize.object(configuration),
             'UniqueName': unique_name,
         })
-        )
+        
         payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
         return InstalledAddOnInstance(self._version, payload)

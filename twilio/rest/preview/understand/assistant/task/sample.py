@@ -63,7 +63,7 @@ class SampleList(ListResource):
             'TaggedText': tagged_text,
             'SourceChannel': source_channel,
         })
-        )
+        
         payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
         return SampleInstance(self._version, payload, assistant_sid=self._solution['assistant_sid'], task_sid=self._solution['task_sid'])

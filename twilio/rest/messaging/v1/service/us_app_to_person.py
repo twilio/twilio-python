@@ -81,7 +81,7 @@ class UsAppToPersonList(ListResource):
             'OptOutKeywords': serialize.map(opt_out_keywords, lambda e: e),
             'HelpKeywords': serialize.map(help_keywords, lambda e: e),
         })
-        )
+        
         payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
         return UsAppToPersonInstance(self._version, payload, messaging_service_sid=self._solution['messaging_service_sid'])

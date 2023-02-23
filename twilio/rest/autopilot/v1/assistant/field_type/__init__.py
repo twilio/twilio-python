@@ -61,7 +61,7 @@ class FieldTypeList(ListResource):
             'UniqueName': unique_name,
             'FriendlyName': friendly_name,
         })
-        )
+        
         payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
         return FieldTypeInstance(self._version, payload, assistant_sid=self._solution['assistant_sid'])

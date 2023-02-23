@@ -65,7 +65,7 @@ class SyncListItemList(ListResource):
             'ItemTtl': item_ttl,
             'CollectionTtl': collection_ttl,
         })
-        )
+        
         payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
         return SyncListItemInstance(self._version, payload, service_sid=self._solution['service_sid'], list_sid=self._solution['list_sid'])

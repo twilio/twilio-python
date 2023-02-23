@@ -75,7 +75,7 @@ class CompositionHookList(ListResource):
             'StatusCallbackMethod': status_callback_method,
             'Trim': trim,
         })
-        )
+        
         payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
         return CompositionHookInstance(self._version, payload)

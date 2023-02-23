@@ -63,7 +63,7 @@ class IpAddressList(ListResource):
             'IpAddress': ip_address,
             'CidrPrefixLength': cidr_prefix_length,
         })
-        )
+        
         payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
         return IpAddressInstance(self._version, payload, account_sid=self._solution['account_sid'], ip_access_control_list_sid=self._solution['ip_access_control_list_sid'])

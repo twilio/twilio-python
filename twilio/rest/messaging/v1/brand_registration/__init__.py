@@ -65,7 +65,7 @@ class BrandRegistrationList(ListResource):
             'Mock': mock,
             'SkipAutomaticSecVet': skip_automatic_sec_vet,
         })
-        )
+        
         payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
         return BrandRegistrationInstance(self._version, payload)

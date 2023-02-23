@@ -61,7 +61,7 @@ class PublicKeyList(ListResource):
             'FriendlyName': friendly_name,
             'AccountSid': account_sid,
         })
-        )
+        
         payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
         return PublicKeyInstance(self._version, payload)

@@ -59,7 +59,7 @@ class NetworkAccessProfileList(ListResource):
             'UniqueName': unique_name,
             'Networks': serialize.map(networks, lambda e: e),
         })
-        )
+        
         payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
         return NetworkAccessProfileInstance(self._version, payload)

@@ -65,7 +65,7 @@ class ExportCustomJobList(ListResource):
             'WebhookMethod': webhook_method,
             'Email': email,
         })
-        )
+        
         payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
         return ExportCustomJobInstance(self._version, payload, resource_type=self._solution['resource_type'])

@@ -66,7 +66,7 @@ class ConnectionPolicyTargetList(ListResource):
             'Weight': weight,
             'Enabled': enabled,
         })
-        )
+        
         payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
         return ConnectionPolicyTargetInstance(self._version, payload, connection_policy_sid=self._solution['connection_policy_sid'])

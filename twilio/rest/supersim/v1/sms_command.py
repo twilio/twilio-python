@@ -61,7 +61,7 @@ class SmsCommandList(ListResource):
             'CallbackMethod': callback_method,
             'CallbackUrl': callback_url,
         })
-        )
+        
         payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
         return SmsCommandInstance(self._version, payload)

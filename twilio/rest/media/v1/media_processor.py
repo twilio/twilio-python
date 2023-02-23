@@ -66,7 +66,7 @@ class MediaProcessorList(ListResource):
             'StatusCallbackMethod': status_callback_method,
             'MaxDuration': max_duration,
         })
-        )
+        
         payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
         return MediaProcessorInstance(self._version, payload)

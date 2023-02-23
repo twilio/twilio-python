@@ -56,7 +56,7 @@ class StreamMessageList(ListResource):
         data = values.of({ 
             'Data': serialize.object(data),
         })
-        )
+        
         payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
         return StreamMessageInstance(self._version, payload, service_sid=self._solution['service_sid'], stream_sid=self._solution['stream_sid'])
