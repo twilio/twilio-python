@@ -40,7 +40,7 @@ class CredentialListMappingList(ListResource):
 
         # Path Solution
         self._solution = { 'account_sid': account_sid, 'domain_sid': domain_sid,  }
-        self._uri = '/Accounts/${account_sid}/SIP/Domains/${domain_sid}/CredentialListMappings.json'.format(**self._solution)
+        self._uri = '/Accounts/{account_sid}/SIP/Domains/{domain_sid}/CredentialListMappings.json'.format(**self._solution)
         
         
     
@@ -49,6 +49,7 @@ class CredentialListMappingList(ListResource):
     def create(self, credential_list_sid):
         """
         Create the CredentialListMappingInstance
+
         :param str credential_list_sid: A 34 character string that uniquely identifies the CredentialList resource to map to the SIP domain.
         
         :returns: The created CredentialListMappingInstance
@@ -57,8 +58,9 @@ class CredentialListMappingList(ListResource):
         data = values.of({ 
             'CredentialListSid': credential_list_sid,
         })
+        
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return CredentialListMappingInstance(self._version, payload, account_sid=self._solution['account_sid'], domain_sid=self._solution['domain_sid'])
     
     
@@ -242,26 +244,29 @@ class CredentialListMappingContext(InstanceContext):
             'domain_sid': domain_sid,
             'sid': sid,
         }
-        self._uri = '/Accounts/${account_sid}/SIP/Domains/${domain_sid}/CredentialListMappings/${sid}.json'.format(**self._solution)
+        self._uri = '/Accounts/{account_sid}/SIP/Domains/{domain_sid}/CredentialListMappings/{sid}.json'.format(**self._solution)
         
     
     def delete(self):
         """
         Deletes the CredentialListMappingInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
     def fetch(self):
         """
         Fetch the CredentialListMappingInstance
+        
 
         :returns: The fetched CredentialListMappingInstance
         :rtype: twilio.rest.api.v2010.account.sip.domain.credential_list_mapping.CredentialListMappingInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return CredentialListMappingInstance(
             self._version,
@@ -377,6 +382,7 @@ class CredentialListMappingInstance(InstanceResource):
     def delete(self):
         """
         Deletes the CredentialListMappingInstance
+        
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -386,6 +392,7 @@ class CredentialListMappingInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the CredentialListMappingInstance
+        
 
         :returns: The fetched CredentialListMappingInstance
         :rtype: twilio.rest.api.v2010.account.sip.domain.credential_list_mapping.CredentialListMappingInstance

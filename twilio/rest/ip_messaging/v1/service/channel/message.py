@@ -40,7 +40,7 @@ class MessageList(ListResource):
 
         # Path Solution
         self._solution = { 'service_sid': service_sid, 'channel_sid': channel_sid,  }
-        self._uri = '/Services/${service_sid}/Channels/${channel_sid}/Messages'.format(**self._solution)
+        self._uri = '/Services/{service_sid}/Channels/{channel_sid}/Messages'.format(**self._solution)
         
         
     
@@ -50,6 +50,7 @@ class MessageList(ListResource):
     def create(self, body, from_=values.unset, attributes=values.unset):
         """
         Create the MessageInstance
+
         :param str body: 
         :param str from_: 
         :param str attributes: 
@@ -62,8 +63,9 @@ class MessageList(ListResource):
             'From': from_,
             'Attributes': attributes,
         })
+        
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return MessageInstance(self._version, payload, service_sid=self._solution['service_sid'], channel_sid=self._solution['channel_sid'])
     
     
@@ -255,26 +257,29 @@ class MessageContext(InstanceContext):
             'channel_sid': channel_sid,
             'sid': sid,
         }
-        self._uri = '/Services/${service_sid}/Channels/${channel_sid}/Messages/${sid}'.format(**self._solution)
+        self._uri = '/Services/{service_sid}/Channels/{channel_sid}/Messages/{sid}'.format(**self._solution)
         
     
     def delete(self):
         """
         Deletes the MessageInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
     def fetch(self):
         """
         Fetch the MessageInstance
+        
 
         :returns: The fetched MessageInstance
         :rtype: twilio.rest.ip_messaging.v1.service.channel.message.MessageInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return MessageInstance(
             self._version,
@@ -299,8 +304,9 @@ class MessageContext(InstanceContext):
             'Body': body,
             'Attributes': attributes,
         })
+        
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return MessageInstance(
             self._version,
@@ -469,6 +475,7 @@ class MessageInstance(InstanceResource):
     def delete(self):
         """
         Deletes the MessageInstance
+        
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -478,6 +485,7 @@ class MessageInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the MessageInstance
+        
 
         :returns: The fetched MessageInstance
         :rtype: twilio.rest.ip_messaging.v1.service.channel.message.MessageInstance

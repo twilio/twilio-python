@@ -39,7 +39,7 @@ class InstalledAddOnExtensionList(ListResource):
 
         # Path Solution
         self._solution = { 'installed_add_on_sid': installed_add_on_sid,  }
-        self._uri = '/InstalledAddOns/${installed_add_on_sid}/Extensions'.format(**self._solution)
+        self._uri = '/InstalledAddOns/{installed_add_on_sid}/Extensions'.format(**self._solution)
         
         
     
@@ -222,17 +222,19 @@ class InstalledAddOnExtensionContext(InstanceContext):
             'installed_add_on_sid': installed_add_on_sid,
             'sid': sid,
         }
-        self._uri = '/InstalledAddOns/${installed_add_on_sid}/Extensions/${sid}'.format(**self._solution)
+        self._uri = '/InstalledAddOns/{installed_add_on_sid}/Extensions/{sid}'.format(**self._solution)
         
     
     def fetch(self):
         """
         Fetch the InstalledAddOnExtensionInstance
+        
 
         :returns: The fetched InstalledAddOnExtensionInstance
         :rtype: twilio.rest.preview.marketplace.installed_add_on.installed_add_on_extension.InstalledAddOnExtensionInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return InstalledAddOnExtensionInstance(
             self._version,
@@ -242,7 +244,7 @@ class InstalledAddOnExtensionContext(InstanceContext):
             
         )
         
-    def update(self, enabled=values.unset):
+    def update(self, enabled):
         """
         Update the InstalledAddOnExtensionInstance
         
@@ -254,8 +256,9 @@ class InstalledAddOnExtensionContext(InstanceContext):
         data = values.of({ 
             'Enabled': enabled,
         })
+        
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return InstalledAddOnExtensionInstance(
             self._version,
@@ -369,13 +372,14 @@ class InstalledAddOnExtensionInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the InstalledAddOnExtensionInstance
+        
 
         :returns: The fetched InstalledAddOnExtensionInstance
         :rtype: twilio.rest.preview.marketplace.installed_add_on.installed_add_on_extension.InstalledAddOnExtensionInstance
         """
         return self._proxy.fetch()
     
-    def update(self, enabled=values.unset):
+    def update(self, enabled):
         """
         Update the InstalledAddOnExtensionInstance
         

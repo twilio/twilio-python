@@ -40,7 +40,7 @@ class SampleList(ListResource):
 
         # Path Solution
         self._solution = { 'assistant_sid': assistant_sid, 'task_sid': task_sid,  }
-        self._uri = '/Assistants/${assistant_sid}/Tasks/${task_sid}/Samples'.format(**self._solution)
+        self._uri = '/Assistants/{assistant_sid}/Tasks/{task_sid}/Samples'.format(**self._solution)
         
         
     
@@ -50,6 +50,7 @@ class SampleList(ListResource):
     def create(self, language, tagged_text, source_channel=values.unset):
         """
         Create the SampleInstance
+
         :param str language: The [ISO language-country](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) string that specifies the language used for the new sample. For example: `en-US`.
         :param str tagged_text: The text example of how end users might express the task. The sample can contain [Field tag blocks](https://www.twilio.com/docs/autopilot/api/task-sample#field-tagging).
         :param str source_channel: The communication channel from which the new sample was captured. Can be: `voice`, `sms`, `chat`, `alexa`, `google-assistant`, `slack`, or null if not included.
@@ -62,8 +63,9 @@ class SampleList(ListResource):
             'TaggedText': tagged_text,
             'SourceChannel': source_channel,
         })
+        
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return SampleInstance(self._version, payload, assistant_sid=self._solution['assistant_sid'], task_sid=self._solution['task_sid'])
     
     
@@ -255,26 +257,29 @@ class SampleContext(InstanceContext):
             'task_sid': task_sid,
             'sid': sid,
         }
-        self._uri = '/Assistants/${assistant_sid}/Tasks/${task_sid}/Samples/${sid}'.format(**self._solution)
+        self._uri = '/Assistants/{assistant_sid}/Tasks/{task_sid}/Samples/{sid}'.format(**self._solution)
         
     
     def delete(self):
         """
         Deletes the SampleInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
     def fetch(self):
         """
         Fetch the SampleInstance
+        
 
         :returns: The fetched SampleInstance
         :rtype: twilio.rest.autopilot.v1.assistant.task.sample.SampleInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return SampleInstance(
             self._version,
@@ -301,8 +306,9 @@ class SampleContext(InstanceContext):
             'TaggedText': tagged_text,
             'SourceChannel': source_channel,
         })
+        
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return SampleInstance(
             self._version,
@@ -444,6 +450,7 @@ class SampleInstance(InstanceResource):
     def delete(self):
         """
         Deletes the SampleInstance
+        
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -453,6 +460,7 @@ class SampleInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the SampleInstance
+        
 
         :returns: The fetched SampleInstance
         :rtype: twilio.rest.autopilot.v1.assistant.task.sample.SampleInstance

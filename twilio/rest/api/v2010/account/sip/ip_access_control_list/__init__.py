@@ -40,7 +40,7 @@ class IpAccessControlListList(ListResource):
 
         # Path Solution
         self._solution = { 'account_sid': account_sid,  }
-        self._uri = '/Accounts/${account_sid}/SIP/IpAccessControlLists.json'.format(**self._solution)
+        self._uri = '/Accounts/{account_sid}/SIP/IpAccessControlLists.json'.format(**self._solution)
         
         
     
@@ -50,6 +50,7 @@ class IpAccessControlListList(ListResource):
     def create(self, friendly_name):
         """
         Create the IpAccessControlListInstance
+
         :param str friendly_name: A human readable descriptive text that describes the IpAccessControlList, up to 255 characters long.
         
         :returns: The created IpAccessControlListInstance
@@ -58,8 +59,9 @@ class IpAccessControlListList(ListResource):
         data = values.of({ 
             'FriendlyName': friendly_name,
         })
+        
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return IpAccessControlListInstance(self._version, payload, account_sid=self._solution['account_sid'])
     
     
@@ -244,7 +246,7 @@ class IpAccessControlListContext(InstanceContext):
             'account_sid': account_sid,
             'sid': sid,
         }
-        self._uri = '/Accounts/${account_sid}/SIP/IpAccessControlLists/${sid}.json'.format(**self._solution)
+        self._uri = '/Accounts/{account_sid}/SIP/IpAccessControlLists/{sid}.json'.format(**self._solution)
         
         self._ip_addresses = None
     
@@ -252,19 +254,22 @@ class IpAccessControlListContext(InstanceContext):
         """
         Deletes the IpAccessControlListInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
     def fetch(self):
         """
         Fetch the IpAccessControlListInstance
+        
 
         :returns: The fetched IpAccessControlListInstance
         :rtype: twilio.rest.api.v2010.account.sip.ip_access_control_list.IpAccessControlListInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return IpAccessControlListInstance(
             self._version,
@@ -274,7 +279,7 @@ class IpAccessControlListContext(InstanceContext):
             
         )
         
-    def update(self, friendly_name=values.unset):
+    def update(self, friendly_name):
         """
         Update the IpAccessControlListInstance
         
@@ -286,8 +291,9 @@ class IpAccessControlListContext(InstanceContext):
         data = values.of({ 
             'FriendlyName': friendly_name,
         })
+        
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return IpAccessControlListInstance(
             self._version,
@@ -414,6 +420,7 @@ class IpAccessControlListInstance(InstanceResource):
     def delete(self):
         """
         Deletes the IpAccessControlListInstance
+        
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -423,13 +430,14 @@ class IpAccessControlListInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the IpAccessControlListInstance
+        
 
         :returns: The fetched IpAccessControlListInstance
         :rtype: twilio.rest.api.v2010.account.sip.ip_access_control_list.IpAccessControlListInstance
         """
         return self._proxy.fetch()
     
-    def update(self, friendly_name=values.unset):
+    def update(self, friendly_name):
         """
         Update the IpAccessControlListInstance
         

@@ -39,13 +39,14 @@ class NotificationList(ListResource):
 
         # Path Solution
         self._solution = { 'service_sid': service_sid,  }
-        self._uri = '/Services/${service_sid}/Notifications'.format(**self._solution)
+        self._uri = '/Services/{service_sid}/Notifications'.format(**self._solution)
         
         
     
     def create(self, body=values.unset, priority=values.unset, ttl=values.unset, title=values.unset, sound=values.unset, action=values.unset, data=values.unset, apn=values.unset, gcm=values.unset, sms=values.unset, facebook_messenger=values.unset, fcm=values.unset, segment=values.unset, alexa=values.unset, to_binding=values.unset, delivery_callback_url=values.unset, identity=values.unset, tag=values.unset):
         """
         Create the NotificationInstance
+
         :param str body: The notification text. For FCM and GCM, translates to `data.twi_body`. For APNS, translates to `aps.alert.body`. For SMS, translates to `body`. SMS requires either this `body` value, or `media_urls` attribute defined in the `sms` parameter of the notification.
         :param NotificationPriority priority: 
         :param int ttl: How long, in seconds, the notification is valid. Can be an integer between 0 and 2,419,200, which is 4 weeks, the default and the maximum supported time to live (TTL). Delivery should be attempted if the device is offline until the TTL elapses. Zero means that the notification delivery is attempted immediately, only once, and is not stored for future delivery. SMS does not support this property.
@@ -88,8 +89,9 @@ class NotificationList(ListResource):
             'Identity': serialize.map(identity, lambda e: e),
             'Tag': serialize.map(tag, lambda e: e),
         })
+        
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return NotificationInstance(self._version, payload, service_sid=self._solution['service_sid'])
     
 

@@ -48,6 +48,7 @@ class IpRecordList(ListResource):
     def create(self, ip_address, friendly_name=values.unset, cidr_prefix_length=values.unset):
         """
         Create the IpRecordInstance
+
         :param str ip_address: An IP address in dotted decimal notation, IPv4 only.
         :param str friendly_name: A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
         :param int cidr_prefix_length: An integer representing the length of the [CIDR](https://tools.ietf.org/html/rfc4632) prefix to use with this IP address. By default the entire IP address is used, which for IPv4 is value 32.
@@ -60,8 +61,9 @@ class IpRecordList(ListResource):
             'FriendlyName': friendly_name,
             'CidrPrefixLength': cidr_prefix_length,
         })
+        
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return IpRecordInstance(self._version, payload)
     
     
@@ -245,26 +247,29 @@ class IpRecordContext(InstanceContext):
         self._solution = { 
             'sid': sid,
         }
-        self._uri = '/IpRecords/${sid}'.format(**self._solution)
+        self._uri = '/IpRecords/{sid}'.format(**self._solution)
         
     
     def delete(self):
         """
         Deletes the IpRecordInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
     def fetch(self):
         """
         Fetch the IpRecordInstance
+        
 
         :returns: The fetched IpRecordInstance
         :rtype: twilio.rest.voice.v1.ip_record.IpRecordInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return IpRecordInstance(
             self._version,
@@ -285,8 +290,9 @@ class IpRecordContext(InstanceContext):
         data = values.of({ 
             'FriendlyName': friendly_name,
         })
+        
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return IpRecordInstance(
             self._version,
@@ -408,6 +414,7 @@ class IpRecordInstance(InstanceResource):
     def delete(self):
         """
         Deletes the IpRecordInstance
+        
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -417,6 +424,7 @@ class IpRecordInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the IpRecordInstance
+        
 
         :returns: The fetched IpRecordInstance
         :rtype: twilio.rest.voice.v1.ip_record.IpRecordInstance

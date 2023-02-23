@@ -42,7 +42,7 @@ class SipList(ListResource):
 
         # Path Solution
         self._solution = { 'account_sid': account_sid,  }
-        self._uri = '/Accounts/${account_sid}/SIP.json'.format(**self._solution)
+        self._uri = '/Accounts/{account_sid}/SIP.json'.format(**self._solution)
         
         self._credential_lists = None
         self._domains = None

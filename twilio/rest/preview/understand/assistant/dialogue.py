@@ -93,17 +93,19 @@ class DialogueContext(InstanceContext):
             'assistant_sid': assistant_sid,
             'sid': sid,
         }
-        self._uri = '/Assistants/${assistant_sid}/Dialogues/${sid}'.format(**self._solution)
+        self._uri = '/Assistants/{assistant_sid}/Dialogues/{sid}'.format(**self._solution)
         
     
     def fetch(self):
         """
         Fetch the DialogueInstance
+        
 
         :returns: The fetched DialogueInstance
         :rtype: twilio.rest.preview.understand.assistant.dialogue.DialogueInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return DialogueInstance(
             self._version,
@@ -200,6 +202,7 @@ class DialogueInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the DialogueInstance
+        
 
         :returns: The fetched DialogueInstance
         :rtype: twilio.rest.preview.understand.assistant.dialogue.DialogueInstance

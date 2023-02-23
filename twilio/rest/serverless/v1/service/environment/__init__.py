@@ -42,7 +42,7 @@ class EnvironmentList(ListResource):
 
         # Path Solution
         self._solution = { 'service_sid': service_sid,  }
-        self._uri = '/Services/${service_sid}/Environments'.format(**self._solution)
+        self._uri = '/Services/{service_sid}/Environments'.format(**self._solution)
         
         
     
@@ -51,6 +51,7 @@ class EnvironmentList(ListResource):
     def create(self, unique_name, domain_suffix=values.unset):
         """
         Create the EnvironmentInstance
+
         :param str unique_name: A user-defined string that uniquely identifies the Environment resource. It can be a maximum of 100 characters.
         :param str domain_suffix: A URL-friendly name that represents the environment and forms part of the domain name. It can be a maximum of 16 characters.
         
@@ -61,8 +62,9 @@ class EnvironmentList(ListResource):
             'UniqueName': unique_name,
             'DomainSuffix': domain_suffix,
         })
+        
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return EnvironmentInstance(self._version, payload, service_sid=self._solution['service_sid'])
     
     
@@ -245,7 +247,7 @@ class EnvironmentContext(InstanceContext):
             'service_sid': service_sid,
             'sid': sid,
         }
-        self._uri = '/Services/${service_sid}/Environments/${sid}'.format(**self._solution)
+        self._uri = '/Services/{service_sid}/Environments/{sid}'.format(**self._solution)
         
         self._deployments = None
         self._logs = None
@@ -255,19 +257,22 @@ class EnvironmentContext(InstanceContext):
         """
         Deletes the EnvironmentInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
     def fetch(self):
         """
         Fetch the EnvironmentInstance
+        
 
         :returns: The fetched EnvironmentInstance
         :rtype: twilio.rest.serverless.v1.service.environment.EnvironmentInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return EnvironmentInstance(
             self._version,
@@ -457,6 +462,7 @@ class EnvironmentInstance(InstanceResource):
     def delete(self):
         """
         Deletes the EnvironmentInstance
+        
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -466,6 +472,7 @@ class EnvironmentInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the EnvironmentInstance
+        
 
         :returns: The fetched EnvironmentInstance
         :rtype: twilio.rest.serverless.v1.service.environment.EnvironmentInstance

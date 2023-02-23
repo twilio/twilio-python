@@ -41,7 +41,7 @@ class PayloadList(ListResource):
 
         # Path Solution
         self._solution = { 'account_sid': account_sid, 'reference_sid': reference_sid, 'add_on_result_sid': add_on_result_sid,  }
-        self._uri = '/Accounts/${account_sid}/Recordings/${reference_sid}/AddOnResults/${add_on_result_sid}/Payloads.json'.format(**self._solution)
+        self._uri = '/Accounts/{account_sid}/Recordings/{reference_sid}/AddOnResults/{add_on_result_sid}/Payloads.json'.format(**self._solution)
         
         
     
@@ -226,26 +226,29 @@ class PayloadContext(InstanceContext):
             'add_on_result_sid': add_on_result_sid,
             'sid': sid,
         }
-        self._uri = '/Accounts/${account_sid}/Recordings/${reference_sid}/AddOnResults/${add_on_result_sid}/Payloads/${sid}.json'.format(**self._solution)
+        self._uri = '/Accounts/{account_sid}/Recordings/{reference_sid}/AddOnResults/{add_on_result_sid}/Payloads/{sid}.json'.format(**self._solution)
         
     
     def delete(self):
         """
         Deletes the PayloadInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
     def fetch(self):
         """
         Fetch the PayloadInstance
+        
 
         :returns: The fetched PayloadInstance
         :rtype: twilio.rest.api.v2010.account.recording.add_on_result.payload.PayloadInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return PayloadInstance(
             self._version,
@@ -398,6 +401,7 @@ class PayloadInstance(InstanceResource):
     def delete(self):
         """
         Deletes the PayloadInstance
+        
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -407,6 +411,7 @@ class PayloadInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the PayloadInstance
+        
 
         :returns: The fetched PayloadInstance
         :rtype: twilio.rest.api.v2010.account.recording.add_on_result.payload.PayloadInstance

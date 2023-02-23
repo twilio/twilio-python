@@ -40,7 +40,7 @@ class AddressList(ListResource):
 
         # Path Solution
         self._solution = { 'account_sid': account_sid,  }
-        self._uri = '/Accounts/${account_sid}/Addresses.json'.format(**self._solution)
+        self._uri = '/Accounts/{account_sid}/Addresses.json'.format(**self._solution)
         
         
     
@@ -50,6 +50,7 @@ class AddressList(ListResource):
     def create(self, customer_name, street, city, region, postal_code, iso_country, friendly_name=values.unset, emergency_enabled=values.unset, auto_correct_address=values.unset, street_secondary=values.unset):
         """
         Create the AddressInstance
+
         :param str customer_name: The name to associate with the new address.
         :param str street: The number and street address of the new address.
         :param str city: The city of the new address.
@@ -76,8 +77,9 @@ class AddressList(ListResource):
             'AutoCorrectAddress': auto_correct_address,
             'StreetSecondary': street_secondary,
         })
+        
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return AddressInstance(self._version, payload, account_sid=self._solution['account_sid'])
     
     
@@ -280,7 +282,7 @@ class AddressContext(InstanceContext):
             'account_sid': account_sid,
             'sid': sid,
         }
-        self._uri = '/Accounts/${account_sid}/Addresses/${sid}.json'.format(**self._solution)
+        self._uri = '/Accounts/{account_sid}/Addresses/{sid}.json'.format(**self._solution)
         
         self._dependent_phone_numbers = None
     
@@ -288,19 +290,22 @@ class AddressContext(InstanceContext):
         """
         Deletes the AddressInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
     def fetch(self):
         """
         Fetch the AddressInstance
+        
 
         :returns: The fetched AddressInstance
         :rtype: twilio.rest.api.v2010.account.address.AddressInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return AddressInstance(
             self._version,
@@ -338,8 +343,9 @@ class AddressContext(InstanceContext):
             'AutoCorrectAddress': auto_correct_address,
             'StreetSecondary': street_secondary,
         })
+        
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return AddressInstance(
             self._version,
@@ -547,6 +553,7 @@ class AddressInstance(InstanceResource):
     def delete(self):
         """
         Deletes the AddressInstance
+        
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -556,6 +563,7 @@ class AddressInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the AddressInstance
+        
 
         :returns: The fetched AddressInstance
         :rtype: twilio.rest.api.v2010.account.address.AddressInstance

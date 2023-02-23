@@ -39,7 +39,7 @@ class FeedbackSummaryList(ListResource):
 
         # Path Solution
         self._solution = { 'account_sid': account_sid,  }
-        self._uri = '/Accounts/${account_sid}/Calls/FeedbackSummary.json'.format(**self._solution)
+        self._uri = '/Accounts/{account_sid}/Calls/FeedbackSummary.json'.format(**self._solution)
         
         
     
@@ -48,6 +48,7 @@ class FeedbackSummaryList(ListResource):
     def create(self, start_date, end_date, include_subaccounts=values.unset, status_callback=values.unset, status_callback_method=values.unset):
         """
         Create the FeedbackSummaryInstance
+
         :param date start_date: Only include feedback given on or after this date. Format is `YYYY-MM-DD` and specified in UTC.
         :param date end_date: Only include feedback given on or before this date. Format is `YYYY-MM-DD` and specified in UTC.
         :param bool include_subaccounts: Whether to also include Feedback resources from all subaccounts. `true` includes feedback from all subaccounts and `false`, the default, includes feedback from only the specified account.
@@ -64,8 +65,9 @@ class FeedbackSummaryList(ListResource):
             'StatusCallback': status_callback,
             'StatusCallbackMethod': status_callback_method,
         })
+        
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return FeedbackSummaryInstance(self._version, payload, account_sid=self._solution['account_sid'])
     
 
@@ -118,26 +120,29 @@ class FeedbackSummaryContext(InstanceContext):
             'account_sid': account_sid,
             'sid': sid,
         }
-        self._uri = '/Accounts/${account_sid}/Calls/FeedbackSummary/${sid}.json'.format(**self._solution)
+        self._uri = '/Accounts/{account_sid}/Calls/FeedbackSummary/{sid}.json'.format(**self._solution)
         
     
     def delete(self):
         """
         Deletes the FeedbackSummaryInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
     def fetch(self):
         """
         Fetch the FeedbackSummaryInstance
+        
 
         :returns: The fetched FeedbackSummaryInstance
         :rtype: twilio.rest.api.v2010.account.call.feedback_summary.FeedbackSummaryInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return FeedbackSummaryInstance(
             self._version,
@@ -315,6 +320,7 @@ class FeedbackSummaryInstance(InstanceResource):
     def delete(self):
         """
         Deletes the FeedbackSummaryInstance
+        
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -324,6 +330,7 @@ class FeedbackSummaryInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the FeedbackSummaryInstance
+        
 
         :returns: The fetched FeedbackSummaryInstance
         :rtype: twilio.rest.api.v2010.account.call.feedback_summary.FeedbackSummaryInstance

@@ -40,7 +40,7 @@ class CredentialList(ListResource):
 
         # Path Solution
         self._solution = { 'account_sid': account_sid, 'credential_list_sid': credential_list_sid,  }
-        self._uri = '/Accounts/${account_sid}/SIP/CredentialLists/${credential_list_sid}/Credentials.json'.format(**self._solution)
+        self._uri = '/Accounts/{account_sid}/SIP/CredentialLists/{credential_list_sid}/Credentials.json'.format(**self._solution)
         
         
     
@@ -50,6 +50,7 @@ class CredentialList(ListResource):
     def create(self, username, password):
         """
         Create the CredentialInstance
+
         :param str username: The username that will be passed when authenticating SIP requests. The username should be sent in response to Twilio's challenge of the initial INVITE. It can be up to 32 characters long.
         :param str password: The password that the username will use when authenticating SIP requests. The password must be a minimum of 12 characters, contain at least 1 digit, and have mixed case. (eg `IWasAtSignal2018`)
         
@@ -60,8 +61,9 @@ class CredentialList(ListResource):
             'Username': username,
             'Password': password,
         })
+        
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return CredentialInstance(self._version, payload, account_sid=self._solution['account_sid'], credential_list_sid=self._solution['credential_list_sid'])
     
     
@@ -247,26 +249,29 @@ class CredentialContext(InstanceContext):
             'credential_list_sid': credential_list_sid,
             'sid': sid,
         }
-        self._uri = '/Accounts/${account_sid}/SIP/CredentialLists/${credential_list_sid}/Credentials/${sid}.json'.format(**self._solution)
+        self._uri = '/Accounts/{account_sid}/SIP/CredentialLists/{credential_list_sid}/Credentials/{sid}.json'.format(**self._solution)
         
     
     def delete(self):
         """
         Deletes the CredentialInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
     def fetch(self):
         """
         Fetch the CredentialInstance
+        
 
         :returns: The fetched CredentialInstance
         :rtype: twilio.rest.api.v2010.account.sip.credential_list.credential.CredentialInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return CredentialInstance(
             self._version,
@@ -289,8 +294,9 @@ class CredentialContext(InstanceContext):
         data = values.of({ 
             'Password': password,
         })
+        
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return CredentialInstance(
             self._version,
@@ -405,6 +411,7 @@ class CredentialInstance(InstanceResource):
     def delete(self):
         """
         Deletes the CredentialInstance
+        
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -414,6 +421,7 @@ class CredentialInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the CredentialInstance
+        
 
         :returns: The fetched CredentialInstance
         :rtype: twilio.rest.api.v2010.account.sip.credential_list.credential.CredentialInstance

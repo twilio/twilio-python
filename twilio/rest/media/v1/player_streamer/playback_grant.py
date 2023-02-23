@@ -46,6 +46,7 @@ class PlaybackGrantList(ListResource):
     def create(self, ttl=values.unset, access_control_allow_origin=values.unset):
         """
         Create the PlaybackGrantInstance
+
         :param int ttl: The time to live of the PlaybackGrant. Default value is 15 seconds. Maximum value is 60 seconds.
         :param str access_control_allow_origin: The full origin URL where the livestream can be streamed. If this is not provided, it can be streamed from any domain.
         
@@ -56,8 +57,9 @@ class PlaybackGrantList(ListResource):
             'Ttl': ttl,
             'AccessControlAllowOrigin': access_control_allow_origin,
         })
+        
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return PlaybackGrantInstance(self._version, payload, sid=self._solution['sid'])
     
     
@@ -106,7 +108,7 @@ class PlaybackGrantContext(InstanceContext):
         self._solution = { 
             'sid': sid,
         }
-        self._uri = '/PlayerStreamers/${sid}/PlaybackGrant'.format(**self._solution)
+        self._uri = '/PlayerStreamers/{sid}/PlaybackGrant'.format(**self._solution)
         
     
     def create(self, ttl=values.unset, access_control_allow_origin=values.unset):
@@ -135,11 +137,13 @@ class PlaybackGrantContext(InstanceContext):
     def fetch(self):
         """
         Fetch the PlaybackGrantInstance
+        
 
         :returns: The fetched PlaybackGrantInstance
         :rtype: twilio.rest.media.v1.player_streamer.playback_grant.PlaybackGrantInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return PlaybackGrantInstance(
             self._version,
@@ -242,11 +246,12 @@ class PlaybackGrantInstance(InstanceResource):
         :returns: The created PlaybackGrantInstance
         :rtype: twilio.rest.media.v1.player_streamer.playback_grant.PlaybackGrantInstance
         """
-        return self._proxy.create(ttl,access_control_allow_origin,)
+        return self._proxy.create(ttl=ttl, access_control_allow_origin=access_control_allow_origin, )
     
     def fetch(self):
         """
         Fetch the PlaybackGrantInstance
+        
 
         :returns: The fetched PlaybackGrantInstance
         :rtype: twilio.rest.media.v1.player_streamer.playback_grant.PlaybackGrantInstance

@@ -265,17 +265,19 @@ class VerificationAttemptContext(InstanceContext):
         self._solution = { 
             'sid': sid,
         }
-        self._uri = '/Attempts/${sid}'.format(**self._solution)
+        self._uri = '/Attempts/{sid}'.format(**self._solution)
         
     
     def fetch(self):
         """
         Fetch the VerificationAttemptInstance
+        
 
         :returns: The fetched VerificationAttemptInstance
         :rtype: twilio.rest.verify.v2.verification_attempt.VerificationAttemptInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return VerificationAttemptInstance(
             self._version,
@@ -425,6 +427,7 @@ class VerificationAttemptInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the VerificationAttemptInstance
+        
 
         :returns: The fetched VerificationAttemptInstance
         :rtype: twilio.rest.verify.v2.verification_attempt.VerificationAttemptInstance

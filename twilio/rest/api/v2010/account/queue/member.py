@@ -40,7 +40,7 @@ class MemberList(ListResource):
 
         # Path Solution
         self._solution = { 'account_sid': account_sid, 'queue_sid': queue_sid,  }
-        self._uri = '/Accounts/${account_sid}/Queues/${queue_sid}/Members.json'.format(**self._solution)
+        self._uri = '/Accounts/{account_sid}/Queues/{queue_sid}/Members.json'.format(**self._solution)
         
         
     
@@ -224,17 +224,19 @@ class MemberContext(InstanceContext):
             'queue_sid': queue_sid,
             'call_sid': call_sid,
         }
-        self._uri = '/Accounts/${account_sid}/Queues/${queue_sid}/Members/${call_sid}.json'.format(**self._solution)
+        self._uri = '/Accounts/{account_sid}/Queues/{queue_sid}/Members/{call_sid}.json'.format(**self._solution)
         
     
     def fetch(self):
         """
         Fetch the MemberInstance
+        
 
         :returns: The fetched MemberInstance
         :rtype: twilio.rest.api.v2010.account.queue.member.MemberInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return MemberInstance(
             self._version,
@@ -245,7 +247,7 @@ class MemberContext(InstanceContext):
             
         )
         
-    def update(self, url=values.unset, method=values.unset):
+    def update(self, url, method=values.unset):
         """
         Update the MemberInstance
         
@@ -259,8 +261,9 @@ class MemberContext(InstanceContext):
             'Url': url,
             'Method': method,
         })
+        
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return MemberInstance(
             self._version,
@@ -366,13 +369,14 @@ class MemberInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the MemberInstance
+        
 
         :returns: The fetched MemberInstance
         :rtype: twilio.rest.api.v2010.account.queue.member.MemberInstance
         """
         return self._proxy.fetch()
     
-    def update(self, url=values.unset, method=values.unset):
+    def update(self, url, method=values.unset):
         """
         Update the MemberInstance
         

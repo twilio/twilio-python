@@ -45,6 +45,7 @@ class BulkCountryUpdateList(ListResource):
     def create(self, update_request):
         """
         Create the BulkCountryUpdateInstance
+
         :param str update_request: URL encoded JSON array of update objects. example : `[ { \\\"iso_code\\\": \\\"GB\\\", \\\"low_risk_numbers_enabled\\\": \\\"true\\\", \\\"high_risk_special_numbers_enabled\\\":\\\"true\\\", \\\"high_risk_tollfraud_numbers_enabled\\\": \\\"false\\\" } ]`
         
         :returns: The created BulkCountryUpdateInstance
@@ -53,8 +54,9 @@ class BulkCountryUpdateList(ListResource):
         data = values.of({ 
             'UpdateRequest': update_request,
         })
+        
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return BulkCountryUpdateInstance(self._version, payload)
     
 

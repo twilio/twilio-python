@@ -39,7 +39,7 @@ class IpAccessControlListList(ListResource):
 
         # Path Solution
         self._solution = { 'trunk_sid': trunk_sid,  }
-        self._uri = '/Trunks/${trunk_sid}/IpAccessControlLists'.format(**self._solution)
+        self._uri = '/Trunks/{trunk_sid}/IpAccessControlLists'.format(**self._solution)
         
         
     
@@ -48,6 +48,7 @@ class IpAccessControlListList(ListResource):
     def create(self, ip_access_control_list_sid):
         """
         Create the IpAccessControlListInstance
+
         :param str ip_access_control_list_sid: The SID of the [IP Access Control List](https://www.twilio.com/docs/voice/sip/api/sip-ipaccesscontrollist-resource) that you want to associate with the trunk.
         
         :returns: The created IpAccessControlListInstance
@@ -56,8 +57,9 @@ class IpAccessControlListList(ListResource):
         data = values.of({ 
             'IpAccessControlListSid': ip_access_control_list_sid,
         })
+        
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return IpAccessControlListInstance(self._version, payload, trunk_sid=self._solution['trunk_sid'])
     
     
@@ -240,26 +242,29 @@ class IpAccessControlListContext(InstanceContext):
             'trunk_sid': trunk_sid,
             'sid': sid,
         }
-        self._uri = '/Trunks/${trunk_sid}/IpAccessControlLists/${sid}'.format(**self._solution)
+        self._uri = '/Trunks/{trunk_sid}/IpAccessControlLists/{sid}'.format(**self._solution)
         
     
     def delete(self):
         """
         Deletes the IpAccessControlListInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
     def fetch(self):
         """
         Fetch the IpAccessControlListInstance
+        
 
         :returns: The fetched IpAccessControlListInstance
         :rtype: twilio.rest.trunking.v1.trunk.ip_access_control_list.IpAccessControlListInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return IpAccessControlListInstance(
             self._version,
@@ -374,6 +379,7 @@ class IpAccessControlListInstance(InstanceResource):
     def delete(self):
         """
         Deletes the IpAccessControlListInstance
+        
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -383,6 +389,7 @@ class IpAccessControlListInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the IpAccessControlListInstance
+        
 
         :returns: The fetched IpAccessControlListInstance
         :rtype: twilio.rest.trunking.v1.trunk.ip_access_control_list.IpAccessControlListInstance

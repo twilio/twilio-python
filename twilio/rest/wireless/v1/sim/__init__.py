@@ -255,7 +255,7 @@ class SimContext(InstanceContext):
         self._solution = { 
             'sid': sid,
         }
-        self._uri = '/Sims/${sid}'.format(**self._solution)
+        self._uri = '/Sims/{sid}'.format(**self._solution)
         
         self._data_sessions = None
         self._usage_records = None
@@ -264,19 +264,22 @@ class SimContext(InstanceContext):
         """
         Deletes the SimInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
     def fetch(self):
         """
         Fetch the SimInstance
+        
 
         :returns: The fetched SimInstance
         :rtype: twilio.rest.wireless.v1.sim.SimInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return SimInstance(
             self._version,
@@ -331,8 +334,9 @@ class SimContext(InstanceContext):
             'ResetStatus': reset_status,
             'AccountSid': account_sid,
         })
+        
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return SimInstance(
             self._version,
@@ -624,6 +628,7 @@ class SimInstance(InstanceResource):
     def delete(self):
         """
         Deletes the SimInstance
+        
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -633,6 +638,7 @@ class SimInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the SimInstance
+        
 
         :returns: The fetched SimInstance
         :rtype: twilio.rest.wireless.v1.sim.SimInstance

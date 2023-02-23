@@ -90,17 +90,19 @@ class TaskStatisticsContext(InstanceContext):
             'assistant_sid': assistant_sid,
             'task_sid': task_sid,
         }
-        self._uri = '/Assistants/${assistant_sid}/Tasks/${task_sid}/Statistics'.format(**self._solution)
+        self._uri = '/Assistants/{assistant_sid}/Tasks/{task_sid}/Statistics'.format(**self._solution)
         
     
     def fetch(self):
         """
         Fetch the TaskStatisticsInstance
+        
 
         :returns: The fetched TaskStatisticsInstance
         :rtype: twilio.rest.autopilot.v1.assistant.task.task_statistics.TaskStatisticsInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return TaskStatisticsInstance(
             self._version,
@@ -206,6 +208,7 @@ class TaskStatisticsInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the TaskStatisticsInstance
+        
 
         :returns: The fetched TaskStatisticsInstance
         :rtype: twilio.rest.autopilot.v1.assistant.task.task_statistics.TaskStatisticsInstance

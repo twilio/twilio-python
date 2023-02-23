@@ -39,7 +39,7 @@ class BillingPeriodList(ListResource):
 
         # Path Solution
         self._solution = { 'sim_sid': sim_sid,  }
-        self._uri = '/Sims/${sim_sid}/BillingPeriods'.format(**self._solution)
+        self._uri = '/Sims/{sim_sid}/BillingPeriods'.format(**self._solution)
         
         
     

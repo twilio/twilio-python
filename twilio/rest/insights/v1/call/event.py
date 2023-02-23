@@ -39,7 +39,7 @@ class EventList(ListResource):
 
         # Path Solution
         self._solution = { 'call_sid': call_sid,  }
-        self._uri = '/Voice/${call_sid}/Events'.format(**self._solution)
+        self._uri = '/Voice/{call_sid}/Events'.format(**self._solution)
         
         
     

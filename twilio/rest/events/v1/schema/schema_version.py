@@ -39,7 +39,7 @@ class SchemaVersionList(ListResource):
 
         # Path Solution
         self._solution = { 'id': id,  }
-        self._uri = '/Schemas/${id}/Versions'.format(**self._solution)
+        self._uri = '/Schemas/{id}/Versions'.format(**self._solution)
         
         
     
@@ -219,17 +219,19 @@ class SchemaVersionContext(InstanceContext):
             'id': id,
             'schema_version': schema_version,
         }
-        self._uri = '/Schemas/${id}/Versions/${schema_version}'.format(**self._solution)
+        self._uri = '/Schemas/{id}/Versions/{schema_version}'.format(**self._solution)
         
     
     def fetch(self):
         """
         Fetch the SchemaVersionInstance
+        
 
         :returns: The fetched SchemaVersionInstance
         :rtype: twilio.rest.events.v1.schema.schema_version.SchemaVersionInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return SchemaVersionInstance(
             self._version,
@@ -326,6 +328,7 @@ class SchemaVersionInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the SchemaVersionInstance
+        
 
         :returns: The fetched SchemaVersionInstance
         :rtype: twilio.rest.events.v1.schema.schema_version.SchemaVersionInstance

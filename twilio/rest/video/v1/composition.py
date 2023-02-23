@@ -47,6 +47,7 @@ class CompositionList(ListResource):
     def create(self, room_sid, video_layout=values.unset, audio_sources=values.unset, audio_sources_excluded=values.unset, resolution=values.unset, format=values.unset, status_callback=values.unset, status_callback_method=values.unset, trim=values.unset):
         """
         Create the CompositionInstance
+
         :param str room_sid: The SID of the Group Room with the media tracks to be used as composition sources.
         :param object video_layout: An object that describes the video layout of the composition in terms of regions. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info. Please, be aware that either video_layout or audio_sources have to be provided to get a valid creation request
         :param list[str] audio_sources: An array of track names from the same group room to merge into the new composition. Can include zero or more track names. The new composition includes all audio sources specified in `audio_sources` except for those specified in `audio_sources_excluded`. The track names in this parameter can include an asterisk as a wild card character, which will match zero or more characters in a track name. For example, `student*` includes `student` as well as `studentTeam`. Please, be aware that either video_layout or audio_sources have to be provided to get a valid creation request
@@ -71,8 +72,9 @@ class CompositionList(ListResource):
             'StatusCallbackMethod': status_callback_method,
             'Trim': trim,
         })
+        
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return CompositionInstance(self._version, payload)
     
     
@@ -278,26 +280,29 @@ class CompositionContext(InstanceContext):
         self._solution = { 
             'sid': sid,
         }
-        self._uri = '/Compositions/${sid}'.format(**self._solution)
+        self._uri = '/Compositions/{sid}'.format(**self._solution)
         
     
     def delete(self):
         """
         Deletes the CompositionInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
     def fetch(self):
         """
         Fetch the CompositionInstance
+        
 
         :returns: The fetched CompositionInstance
         :rtype: twilio.rest.video.v1.composition.CompositionInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return CompositionInstance(
             self._version,
@@ -537,6 +542,7 @@ class CompositionInstance(InstanceResource):
     def delete(self):
         """
         Deletes the CompositionInstance
+        
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -546,6 +552,7 @@ class CompositionInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the CompositionInstance
+        
 
         :returns: The fetched CompositionInstance
         :rtype: twilio.rest.video.v1.composition.CompositionInstance

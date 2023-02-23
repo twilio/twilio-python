@@ -40,7 +40,7 @@ class UserChannelList(ListResource):
 
         # Path Solution
         self._solution = { 'service_sid': service_sid, 'user_sid': user_sid,  }
-        self._uri = '/Services/${service_sid}/Users/${user_sid}/Channels'.format(**self._solution)
+        self._uri = '/Services/{service_sid}/Users/{user_sid}/Channels'.format(**self._solution)
         
         
     

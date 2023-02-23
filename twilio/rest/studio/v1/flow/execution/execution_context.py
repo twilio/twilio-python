@@ -90,17 +90,19 @@ class ExecutionContextContext(InstanceContext):
             'flow_sid': flow_sid,
             'execution_sid': execution_sid,
         }
-        self._uri = '/Flows/${flow_sid}/Executions/${execution_sid}/Context'.format(**self._solution)
+        self._uri = '/Flows/{flow_sid}/Executions/{execution_sid}/Context'.format(**self._solution)
         
     
     def fetch(self):
         """
         Fetch the ExecutionContextInstance
+        
 
         :returns: The fetched ExecutionContextInstance
         :rtype: twilio.rest.studio.v1.flow.execution.execution_context.ExecutionContextInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return ExecutionContextInstance(
             self._version,
@@ -197,6 +199,7 @@ class ExecutionContextInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the ExecutionContextInstance
+        
 
         :returns: The fetched ExecutionContextInstance
         :rtype: twilio.rest.studio.v1.flow.execution.execution_context.ExecutionContextInstance

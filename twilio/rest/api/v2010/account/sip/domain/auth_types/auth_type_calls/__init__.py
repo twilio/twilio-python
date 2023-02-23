@@ -42,7 +42,7 @@ class AuthTypeCallsList(ListResource):
 
         # Path Solution
         self._solution = { 'account_sid': account_sid, 'domain_sid': domain_sid,  }
-        self._uri = '/Accounts/${account_sid}/SIP/Domains/${domain_sid}/Auth/Calls.json'.format(**self._solution)
+        self._uri = '/Accounts/{account_sid}/SIP/Domains/{domain_sid}/Auth/Calls.json'.format(**self._solution)
         
         self._credential_list_mappings = None
         self._ip_access_control_list_mappings = None

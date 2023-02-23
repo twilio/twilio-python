@@ -91,17 +91,23 @@ class NumberContext(InstanceContext):
         self._solution = { 
             'destination_number': destination_number,
         }
-        self._uri = '/Trunking/Numbers/${destination_number}'.format(**self._solution)
+        self._uri = '/Trunking/Numbers/{destination_number}'.format(**self._solution)
         
     
     def fetch(self, origination_number=values.unset):
         """
         Fetch the NumberInstance
+        
+        :params str origination_number: The origination phone number, in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, for which to fetch the origin-based voice pricing information. E.164 format consists of a + followed by the country code and subscriber number.
 
         :returns: The fetched NumberInstance
         :rtype: twilio.rest.pricing.v2.number.NumberInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        data = values.of({ 
+            'OriginationNumber': origination_number,
+        })
+        payload = self._version.fetch(method='GET', uri=self._uri, params=data)
 
         return NumberInstance(
             self._version,
@@ -224,11 +230,13 @@ class NumberInstance(InstanceResource):
     def fetch(self, origination_number=values.unset):
         """
         Fetch the NumberInstance
+        
+        :params str origination_number: The origination phone number, in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, for which to fetch the origin-based voice pricing information. E.164 format consists of a + followed by the country code and subscriber number.
 
         :returns: The fetched NumberInstance
         :rtype: twilio.rest.pricing.v2.number.NumberInstance
         """
-        return self._proxy.fetch()
+        return self._proxy.fetch(origination_number=origination_number, )
     
     def __repr__(self):
         """

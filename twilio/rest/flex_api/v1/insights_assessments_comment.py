@@ -45,6 +45,7 @@ class InsightsAssessmentsCommentList(ListResource):
     def create(self, category_id, category_name, comment, segment_id, user_name, user_email, agent_id, offset, token=values.unset):
         """
         Create the InsightsAssessmentsCommentInstance
+
         :param str category_id: The ID of the category
         :param str category_name: The name of the category
         :param str comment: The Assessment comment.
@@ -67,10 +68,10 @@ class InsightsAssessmentsCommentList(ListResource):
             'UserEmail': user_email,
             'AgentId': agent_id,
             'Offset': offset,
-            'Token': token,
         })
+        headers = values.of({'Token': token, })
+        payload = self._version.create(method='POST', uri=self._uri, data=data, headers=headers)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return InsightsAssessmentsCommentInstance(self._version, payload)
     
     

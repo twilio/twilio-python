@@ -39,7 +39,7 @@ class ActivityList(ListResource):
 
         # Path Solution
         self._solution = { 'workspace_sid': workspace_sid,  }
-        self._uri = '/Workspaces/${workspace_sid}/Activities'.format(**self._solution)
+        self._uri = '/Workspaces/{workspace_sid}/Activities'.format(**self._solution)
         
         
     
@@ -49,6 +49,7 @@ class ActivityList(ListResource):
     def create(self, friendly_name, available=values.unset):
         """
         Create the ActivityInstance
+
         :param str friendly_name: A descriptive string that you create to describe the Activity resource. It can be up to 64 characters long. These names are used to calculate and expose statistics about Workers, and provide visibility into the state of each Worker. Examples of friendly names include: `on-call`, `break`, and `email`.
         :param bool available: Whether the Worker should be eligible to receive a Task when it occupies the Activity. A value of `true`, `1`, or `yes` specifies the Activity is available. All other values specify that it is not. The value cannot be changed after the Activity is created.
         
@@ -59,8 +60,9 @@ class ActivityList(ListResource):
             'FriendlyName': friendly_name,
             'Available': available,
         })
+        
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return ActivityInstance(self._version, payload, workspace_sid=self._solution['workspace_sid'])
     
     
@@ -257,26 +259,29 @@ class ActivityContext(InstanceContext):
             'workspace_sid': workspace_sid,
             'sid': sid,
         }
-        self._uri = '/Workspaces/${workspace_sid}/Activities/${sid}'.format(**self._solution)
+        self._uri = '/Workspaces/{workspace_sid}/Activities/{sid}'.format(**self._solution)
         
     
     def delete(self):
         """
         Deletes the ActivityInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
     def fetch(self):
         """
         Fetch the ActivityInstance
+        
 
         :returns: The fetched ActivityInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.activity.ActivityInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return ActivityInstance(
             self._version,
@@ -298,8 +303,9 @@ class ActivityContext(InstanceContext):
         data = values.of({ 
             'FriendlyName': friendly_name,
         })
+        
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return ActivityInstance(
             self._version,
@@ -431,6 +437,7 @@ class ActivityInstance(InstanceResource):
     def delete(self):
         """
         Deletes the ActivityInstance
+        
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -440,6 +447,7 @@ class ActivityInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the ActivityInstance
+        
 
         :returns: The fetched ActivityInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.activity.ActivityInstance

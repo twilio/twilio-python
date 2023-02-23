@@ -39,7 +39,7 @@ class ApplicationList(ListResource):
 
         # Path Solution
         self._solution = { 'account_sid': account_sid,  }
-        self._uri = '/Accounts/${account_sid}/Applications.json'.format(**self._solution)
+        self._uri = '/Accounts/{account_sid}/Applications.json'.format(**self._solution)
         
         
     
@@ -49,6 +49,7 @@ class ApplicationList(ListResource):
     def create(self, api_version=values.unset, voice_url=values.unset, voice_method=values.unset, voice_fallback_url=values.unset, voice_fallback_method=values.unset, status_callback=values.unset, status_callback_method=values.unset, voice_caller_id_lookup=values.unset, sms_url=values.unset, sms_method=values.unset, sms_fallback_url=values.unset, sms_fallback_method=values.unset, sms_status_callback=values.unset, message_status_callback=values.unset, friendly_name=values.unset, public_application_connect_enabled=values.unset):
         """
         Create the ApplicationInstance
+
         :param str api_version: The API version to use to start a new TwiML session. Can be: `2010-04-01` or `2008-08-01`. The default value is the account's default API version.
         :param str voice_url: The URL we should call when the phone number assigned to this application receives a call.
         :param str voice_method: The HTTP method we should use to call `voice_url`. Can be: `GET` or `POST`.
@@ -87,8 +88,9 @@ class ApplicationList(ListResource):
             'FriendlyName': friendly_name,
             'PublicApplicationConnectEnabled': public_application_connect_enabled,
         })
+        
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return ApplicationInstance(self._version, payload, account_sid=self._solution['account_sid'])
     
     
@@ -279,26 +281,29 @@ class ApplicationContext(InstanceContext):
             'account_sid': account_sid,
             'sid': sid,
         }
-        self._uri = '/Accounts/${account_sid}/Applications/${sid}.json'.format(**self._solution)
+        self._uri = '/Accounts/{account_sid}/Applications/{sid}.json'.format(**self._solution)
         
     
     def delete(self):
         """
         Deletes the ApplicationInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
     def fetch(self):
         """
         Fetch the ApplicationInstance
+        
 
         :returns: The fetched ApplicationInstance
         :rtype: twilio.rest.api.v2010.account.application.ApplicationInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return ApplicationInstance(
             self._version,
@@ -350,8 +355,9 @@ class ApplicationContext(InstanceContext):
             'MessageStatusCallback': message_status_callback,
             'PublicApplicationConnectEnabled': public_application_connect_enabled,
         })
+        
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return ApplicationInstance(
             self._version,
@@ -591,6 +597,7 @@ class ApplicationInstance(InstanceResource):
     def delete(self):
         """
         Deletes the ApplicationInstance
+        
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -600,6 +607,7 @@ class ApplicationInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the ApplicationInstance
+        
 
         :returns: The fetched ApplicationInstance
         :rtype: twilio.rest.api.v2010.account.application.ApplicationInstance

@@ -41,7 +41,7 @@ class SessionList(ListResource):
 
         # Path Solution
         self._solution = { 'service_sid': service_sid,  }
-        self._uri = '/Services/${service_sid}/Sessions'.format(**self._solution)
+        self._uri = '/Services/{service_sid}/Sessions'.format(**self._solution)
         
         
     
@@ -51,6 +51,7 @@ class SessionList(ListResource):
     def create(self, unique_name=values.unset, date_expiry=values.unset, ttl=values.unset, mode=values.unset, status=values.unset, participants=values.unset):
         """
         Create the SessionInstance
+
         :param str unique_name: An application-defined string that uniquely identifies the resource. This value must be 191 characters or fewer in length and be unique. **This value should not have PII.**
         :param datetime date_expiry: The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date when the Session should expire. If this is value is present, it overrides the `ttl` value.
         :param int ttl: The time, in seconds, when the session will expire. The time is measured from the last Session create or the Session's last Interaction.
@@ -69,8 +70,9 @@ class SessionList(ListResource):
             'Status': status,
             'Participants': serialize.map(participants, lambda e: e),
         })
+        
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return SessionInstance(self._version, payload, service_sid=self._solution['service_sid'])
     
     
@@ -255,7 +257,7 @@ class SessionContext(InstanceContext):
             'service_sid': service_sid,
             'sid': sid,
         }
-        self._uri = '/Services/${service_sid}/Sessions/${sid}'.format(**self._solution)
+        self._uri = '/Services/{service_sid}/Sessions/{sid}'.format(**self._solution)
         
         self._interactions = None
         self._participants = None
@@ -264,19 +266,22 @@ class SessionContext(InstanceContext):
         """
         Deletes the SessionInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
     def fetch(self):
         """
         Fetch the SessionInstance
+        
 
         :returns: The fetched SessionInstance
         :rtype: twilio.rest.proxy.v1.service.session.SessionInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return SessionInstance(
             self._version,
@@ -302,8 +307,9 @@ class SessionContext(InstanceContext):
             'Ttl': ttl,
             'Status': status,
         })
+        
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return SessionInstance(
             self._version,
@@ -524,6 +530,7 @@ class SessionInstance(InstanceResource):
     def delete(self):
         """
         Deletes the SessionInstance
+        
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -533,6 +540,7 @@ class SessionInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the SessionInstance
+        
 
         :returns: The fetched SessionInstance
         :rtype: twilio.rest.proxy.v1.service.session.SessionInstance

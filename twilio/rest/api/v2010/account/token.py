@@ -39,13 +39,14 @@ class TokenList(ListResource):
 
         # Path Solution
         self._solution = { 'account_sid': account_sid,  }
-        self._uri = '/Accounts/${account_sid}/Tokens.json'.format(**self._solution)
+        self._uri = '/Accounts/{account_sid}/Tokens.json'.format(**self._solution)
         
         
     
     def create(self, ttl=values.unset):
         """
         Create the TokenInstance
+
         :param int ttl: The duration in seconds for which the generated credentials are valid. The default value is 86400 (24 hours).
         
         :returns: The created TokenInstance
@@ -54,8 +55,9 @@ class TokenList(ListResource):
         data = values.of({ 
             'Ttl': ttl,
         })
+        
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return TokenInstance(self._version, payload, account_sid=self._solution['account_sid'])
     
 

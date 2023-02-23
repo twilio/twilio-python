@@ -40,7 +40,7 @@ class InteractionChannelParticipantList(ListResource):
 
         # Path Solution
         self._solution = { 'interaction_sid': interaction_sid, 'channel_sid': channel_sid,  }
-        self._uri = '/Interactions/${interaction_sid}/Channels/${channel_sid}/Participants'.format(**self._solution)
+        self._uri = '/Interactions/{interaction_sid}/Channels/{channel_sid}/Participants'.format(**self._solution)
         
         
     
@@ -48,6 +48,7 @@ class InteractionChannelParticipantList(ListResource):
     def create(self, type, media_properties):
         """
         Create the InteractionChannelParticipantInstance
+
         :param InteractionChannelParticipantType type: 
         :param object media_properties: JSON representing the Media Properties for the new Participant.
         
@@ -58,8 +59,9 @@ class InteractionChannelParticipantList(ListResource):
             'Type': type,
             'MediaProperties': serialize.object(media_properties),
         })
+        
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return InteractionChannelParticipantInstance(self._version, payload, interaction_sid=self._solution['interaction_sid'], channel_sid=self._solution['channel_sid'])
     
     
@@ -241,10 +243,10 @@ class InteractionChannelParticipantContext(InstanceContext):
             'channel_sid': channel_sid,
             'sid': sid,
         }
-        self._uri = '/Interactions/${interaction_sid}/Channels/${channel_sid}/Participants/${sid}'.format(**self._solution)
+        self._uri = '/Interactions/{interaction_sid}/Channels/{channel_sid}/Participants/{sid}'.format(**self._solution)
         
     
-    def update(self, status=values.unset):
+    def update(self, status):
         """
         Update the InteractionChannelParticipantInstance
         
@@ -256,8 +258,9 @@ class InteractionChannelParticipantContext(InstanceContext):
         data = values.of({ 
             'Status': status,
         })
+        
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return InteractionChannelParticipantInstance(
             self._version,
@@ -351,7 +354,7 @@ class InteractionChannelParticipantInstance(InstanceResource):
         """
         return self._properties['url']
     
-    def update(self, status=values.unset):
+    def update(self, status):
         """
         Update the InteractionChannelParticipantInstance
         

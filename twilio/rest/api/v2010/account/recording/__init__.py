@@ -41,7 +41,7 @@ class RecordingList(ListResource):
 
         # Path Solution
         self._solution = { 'account_sid': account_sid,  }
-        self._uri = '/Accounts/${account_sid}/Recordings.json'.format(**self._solution)
+        self._uri = '/Accounts/{account_sid}/Recordings.json'.format(**self._solution)
         
         
     
@@ -260,7 +260,7 @@ class RecordingContext(InstanceContext):
             'account_sid': account_sid,
             'sid': sid,
         }
-        self._uri = '/Accounts/${account_sid}/Recordings/${sid}.json'.format(**self._solution)
+        self._uri = '/Accounts/{account_sid}/Recordings/{sid}.json'.format(**self._solution)
         
         self._add_on_results = None
         self._transcriptions = None
@@ -269,19 +269,26 @@ class RecordingContext(InstanceContext):
         """
         Deletes the RecordingInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
     def fetch(self, include_soft_deleted=values.unset):
         """
         Fetch the RecordingInstance
+        
+        :params bool include_soft_deleted: A boolean parameter indicating whether to retrieve soft deleted recordings or not. Recordings metadata are kept after deletion for a retention period of 40 days.
 
         :returns: The fetched RecordingInstance
         :rtype: twilio.rest.api.v2010.account.recording.RecordingInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        data = values.of({ 
+            'IncludeSoftDeleted': include_soft_deleted,
+        })
+        payload = self._version.fetch(method='GET', uri=self._uri, params=data)
 
         return RecordingInstance(
             self._version,
@@ -530,6 +537,7 @@ class RecordingInstance(InstanceResource):
     def delete(self):
         """
         Deletes the RecordingInstance
+        
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -539,11 +547,13 @@ class RecordingInstance(InstanceResource):
     def fetch(self, include_soft_deleted=values.unset):
         """
         Fetch the RecordingInstance
+        
+        :params bool include_soft_deleted: A boolean parameter indicating whether to retrieve soft deleted recordings or not. Recordings metadata are kept after deletion for a retention period of 40 days.
 
         :returns: The fetched RecordingInstance
         :rtype: twilio.rest.api.v2010.account.recording.RecordingInstance
         """
-        return self._proxy.fetch()
+        return self._proxy.fetch(include_soft_deleted=include_soft_deleted, )
     
     @property
     def add_on_results(self):

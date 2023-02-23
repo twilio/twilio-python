@@ -39,13 +39,14 @@ class SinkValidateList(ListResource):
 
         # Path Solution
         self._solution = { 'sid': sid,  }
-        self._uri = '/Sinks/${sid}/Validate'.format(**self._solution)
+        self._uri = '/Sinks/{sid}/Validate'.format(**self._solution)
         
         
     
     def create(self, test_id):
         """
         Create the SinkValidateInstance
+
         :param str test_id: A 34 character string that uniquely identifies the test event for a Sink being validated.
         
         :returns: The created SinkValidateInstance
@@ -54,8 +55,9 @@ class SinkValidateList(ListResource):
         data = values.of({ 
             'TestId': test_id,
         })
+        
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return SinkValidateInstance(self._version, payload, sid=self._solution['sid'])
     
 

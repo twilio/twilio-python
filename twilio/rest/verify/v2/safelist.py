@@ -47,6 +47,7 @@ class SafelistList(ListResource):
     def create(self, phone_number):
         """
         Create the SafelistInstance
+
         :param str phone_number: The phone number to be added in SafeList. Phone numbers must be in [E.164 format](https://www.twilio.com/docs/glossary/what-e164).
         
         :returns: The created SafelistInstance
@@ -55,8 +56,9 @@ class SafelistList(ListResource):
         data = values.of({ 
             'PhoneNumber': phone_number,
         })
+        
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return SafelistInstance(self._version, payload)
     
 
@@ -108,26 +110,29 @@ class SafelistContext(InstanceContext):
         self._solution = { 
             'phone_number': phone_number,
         }
-        self._uri = '/SafeList/Numbers/${phone_number}'.format(**self._solution)
+        self._uri = '/SafeList/Numbers/{phone_number}'.format(**self._solution)
         
     
     def delete(self):
         """
         Deletes the SafelistInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
     def fetch(self):
         """
         Fetch the SafelistInstance
+        
 
         :returns: The fetched SafelistInstance
         :rtype: twilio.rest.verify.v2.safelist.SafelistInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return SafelistInstance(
             self._version,
@@ -205,6 +210,7 @@ class SafelistInstance(InstanceResource):
     def delete(self):
         """
         Deletes the SafelistInstance
+        
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -214,6 +220,7 @@ class SafelistInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the SafelistInstance
+        
 
         :returns: The fetched SafelistInstance
         :rtype: twilio.rest.verify.v2.safelist.SafelistInstance

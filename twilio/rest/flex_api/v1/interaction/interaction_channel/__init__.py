@@ -41,7 +41,7 @@ class InteractionChannelList(ListResource):
 
         # Path Solution
         self._solution = { 'interaction_sid': interaction_sid,  }
-        self._uri = '/Interactions/${interaction_sid}/Channels'.format(**self._solution)
+        self._uri = '/Interactions/{interaction_sid}/Channels'.format(**self._solution)
         
         
     
@@ -224,7 +224,7 @@ class InteractionChannelContext(InstanceContext):
             'interaction_sid': interaction_sid,
             'sid': sid,
         }
-        self._uri = '/Interactions/${interaction_sid}/Channels/${sid}'.format(**self._solution)
+        self._uri = '/Interactions/{interaction_sid}/Channels/{sid}'.format(**self._solution)
         
         self._invites = None
         self._participants = None
@@ -232,11 +232,13 @@ class InteractionChannelContext(InstanceContext):
     def fetch(self):
         """
         Fetch the InteractionChannelInstance
+        
 
         :returns: The fetched InteractionChannelInstance
         :rtype: twilio.rest.flex_api.v1.interaction.interaction_channel.InteractionChannelInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return InteractionChannelInstance(
             self._version,
@@ -246,7 +248,7 @@ class InteractionChannelContext(InstanceContext):
             
         )
         
-    def update(self, status=values.unset, routing=values.unset):
+    def update(self, status, routing=values.unset):
         """
         Update the InteractionChannelInstance
         
@@ -260,8 +262,9 @@ class InteractionChannelContext(InstanceContext):
             'Status': status,
             'Routing': serialize.object(routing),
         })
+        
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return InteractionChannelInstance(
             self._version,
@@ -410,13 +413,14 @@ class InteractionChannelInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the InteractionChannelInstance
+        
 
         :returns: The fetched InteractionChannelInstance
         :rtype: twilio.rest.flex_api.v1.interaction.interaction_channel.InteractionChannelInstance
         """
         return self._proxy.fetch()
     
-    def update(self, status=values.unset, routing=values.unset):
+    def update(self, status, routing=values.unset):
         """
         Update the InteractionChannelInstance
         

@@ -39,7 +39,7 @@ class NotificationList(ListResource):
 
         # Path Solution
         self._solution = { 'account_sid': account_sid,  }
-        self._uri = '/Accounts/${account_sid}/Notifications.json'.format(**self._solution)
+        self._uri = '/Accounts/{account_sid}/Notifications.json'.format(**self._solution)
         
         
     
@@ -243,17 +243,19 @@ class NotificationContext(InstanceContext):
             'account_sid': account_sid,
             'sid': sid,
         }
-        self._uri = '/Accounts/${account_sid}/Notifications/${sid}.json'.format(**self._solution)
+        self._uri = '/Accounts/{account_sid}/Notifications/{sid}.json'.format(**self._solution)
         
     
     def fetch(self):
         """
         Fetch the NotificationInstance
+        
 
         :returns: The fetched NotificationInstance
         :rtype: twilio.rest.api.v2010.account.notification.NotificationInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return NotificationInstance(
             self._version,
@@ -458,6 +460,7 @@ class NotificationInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the NotificationInstance
+        
 
         :returns: The fetched NotificationInstance
         :rtype: twilio.rest.api.v2010.account.notification.NotificationInstance

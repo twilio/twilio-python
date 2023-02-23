@@ -91,17 +91,19 @@ class FeedbackContext(InstanceContext):
             'account_sid': account_sid,
             'call_sid': call_sid,
         }
-        self._uri = '/Accounts/${account_sid}/Calls/${call_sid}/Feedback.json'.format(**self._solution)
+        self._uri = '/Accounts/{account_sid}/Calls/{call_sid}/Feedback.json'.format(**self._solution)
         
     
     def fetch(self):
         """
         Fetch the FeedbackInstance
+        
 
         :returns: The fetched FeedbackInstance
         :rtype: twilio.rest.api.v2010.account.call.feedback.FeedbackInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return FeedbackInstance(
             self._version,
@@ -125,8 +127,9 @@ class FeedbackContext(InstanceContext):
             'QualityScore': quality_score,
             'Issue': serialize.map(issue, lambda e: e),
         })
+        
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return FeedbackInstance(
             self._version,
@@ -231,6 +234,7 @@ class FeedbackInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the FeedbackInstance
+        
 
         :returns: The fetched FeedbackInstance
         :rtype: twilio.rest.api.v2010.account.call.feedback.FeedbackInstance

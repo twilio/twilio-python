@@ -39,7 +39,7 @@ class TrustProductsChannelEndpointAssignmentList(ListResource):
 
         # Path Solution
         self._solution = { 'trust_product_sid': trust_product_sid,  }
-        self._uri = '/TrustProducts/${trust_product_sid}/ChannelEndpointAssignments'.format(**self._solution)
+        self._uri = '/TrustProducts/{trust_product_sid}/ChannelEndpointAssignments'.format(**self._solution)
         
         
     
@@ -48,6 +48,7 @@ class TrustProductsChannelEndpointAssignmentList(ListResource):
     def create(self, channel_endpoint_type, channel_endpoint_sid):
         """
         Create the TrustProductsChannelEndpointAssignmentInstance
+
         :param str channel_endpoint_type: The type of channel endpoint. eg: phone-number
         :param str channel_endpoint_sid: The SID of an channel endpoint
         
@@ -58,8 +59,9 @@ class TrustProductsChannelEndpointAssignmentList(ListResource):
             'ChannelEndpointType': channel_endpoint_type,
             'ChannelEndpointSid': channel_endpoint_sid,
         })
+        
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return TrustProductsChannelEndpointAssignmentInstance(self._version, payload, trust_product_sid=self._solution['trust_product_sid'])
     
     
@@ -254,26 +256,29 @@ class TrustProductsChannelEndpointAssignmentContext(InstanceContext):
             'trust_product_sid': trust_product_sid,
             'sid': sid,
         }
-        self._uri = '/TrustProducts/${trust_product_sid}/ChannelEndpointAssignments/${sid}'.format(**self._solution)
+        self._uri = '/TrustProducts/{trust_product_sid}/ChannelEndpointAssignments/{sid}'.format(**self._solution)
         
     
     def delete(self):
         """
         Deletes the TrustProductsChannelEndpointAssignmentInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
     def fetch(self):
         """
         Fetch the TrustProductsChannelEndpointAssignmentInstance
+        
 
         :returns: The fetched TrustProductsChannelEndpointAssignmentInstance
         :rtype: twilio.rest.trusthub.v1.trust_products.trust_products_channel_endpoint_assignment.TrustProductsChannelEndpointAssignmentInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return TrustProductsChannelEndpointAssignmentInstance(
             self._version,
@@ -388,6 +393,7 @@ class TrustProductsChannelEndpointAssignmentInstance(InstanceResource):
     def delete(self):
         """
         Deletes the TrustProductsChannelEndpointAssignmentInstance
+        
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -397,6 +403,7 @@ class TrustProductsChannelEndpointAssignmentInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the TrustProductsChannelEndpointAssignmentInstance
+        
 
         :returns: The fetched TrustProductsChannelEndpointAssignmentInstance
         :rtype: twilio.rest.trusthub.v1.trust_products.trust_products_channel_endpoint_assignment.TrustProductsChannelEndpointAssignmentInstance

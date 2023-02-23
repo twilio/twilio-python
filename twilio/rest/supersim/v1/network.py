@@ -235,17 +235,19 @@ class NetworkContext(InstanceContext):
         self._solution = { 
             'sid': sid,
         }
-        self._uri = '/Networks/${sid}'.format(**self._solution)
+        self._uri = '/Networks/{sid}'.format(**self._solution)
         
     
     def fetch(self):
         """
         Fetch the NetworkInstance
+        
 
         :returns: The fetched NetworkInstance
         :rtype: twilio.rest.supersim.v1.network.NetworkInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return NetworkInstance(
             self._version,
@@ -341,6 +343,7 @@ class NetworkInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the NetworkInstance
+        
 
         :returns: The fetched NetworkInstance
         :rtype: twilio.rest.supersim.v1.network.NetworkInstance

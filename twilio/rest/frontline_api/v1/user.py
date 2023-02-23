@@ -92,17 +92,19 @@ class UserContext(InstanceContext):
         self._solution = { 
             'sid': sid,
         }
-        self._uri = '/Users/${sid}'.format(**self._solution)
+        self._uri = '/Users/{sid}'.format(**self._solution)
         
     
     def fetch(self):
         """
         Fetch the UserInstance
+        
 
         :returns: The fetched UserInstance
         :rtype: twilio.rest.frontline_api.v1.user.UserInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return UserInstance(
             self._version,
@@ -129,8 +131,9 @@ class UserContext(InstanceContext):
             'State': state,
             'IsAvailable': is_available,
         })
+        
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return UserInstance(
             self._version,
@@ -243,6 +246,7 @@ class UserInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the UserInstance
+        
 
         :returns: The fetched UserInstance
         :rtype: twilio.rest.frontline_api.v1.user.UserInstance

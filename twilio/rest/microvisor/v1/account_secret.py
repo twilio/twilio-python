@@ -47,6 +47,7 @@ class AccountSecretList(ListResource):
     def create(self, key, value):
         """
         Create the AccountSecretInstance
+
         :param str key: The secret key; up to 100 characters.
         :param str value: The secret value; up to 4096 characters.
         
@@ -57,8 +58,9 @@ class AccountSecretList(ListResource):
             'Key': key,
             'Value': value,
         })
+        
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return AccountSecretInstance(self._version, payload)
     
     
@@ -240,26 +242,29 @@ class AccountSecretContext(InstanceContext):
         self._solution = { 
             'key': key,
         }
-        self._uri = '/Secrets/${key}'.format(**self._solution)
+        self._uri = '/Secrets/{key}'.format(**self._solution)
         
     
     def delete(self):
         """
         Deletes the AccountSecretInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
     def fetch(self):
         """
         Fetch the AccountSecretInstance
+        
 
         :returns: The fetched AccountSecretInstance
         :rtype: twilio.rest.microvisor.v1.account_secret.AccountSecretInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return AccountSecretInstance(
             self._version,
@@ -337,6 +342,7 @@ class AccountSecretInstance(InstanceResource):
     def delete(self):
         """
         Deletes the AccountSecretInstance
+        
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -346,6 +352,7 @@ class AccountSecretInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the AccountSecretInstance
+        
 
         :returns: The fetched AccountSecretInstance
         :rtype: twilio.rest.microvisor.v1.account_secret.AccountSecretInstance

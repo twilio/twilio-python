@@ -48,6 +48,7 @@ class SourceIpMappingList(ListResource):
     def create(self, ip_record_sid, sip_domain_sid):
         """
         Create the SourceIpMappingInstance
+
         :param str ip_record_sid: The Twilio-provided string that uniquely identifies the IP Record resource to map from.
         :param str sip_domain_sid: The SID of the SIP Domain that the IP Record should be mapped to.
         
@@ -58,8 +59,9 @@ class SourceIpMappingList(ListResource):
             'IpRecordSid': ip_record_sid,
             'SipDomainSid': sip_domain_sid,
         })
+        
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return SourceIpMappingInstance(self._version, payload)
     
     
@@ -243,26 +245,29 @@ class SourceIpMappingContext(InstanceContext):
         self._solution = { 
             'sid': sid,
         }
-        self._uri = '/SourceIpMappings/${sid}'.format(**self._solution)
+        self._uri = '/SourceIpMappings/{sid}'.format(**self._solution)
         
     
     def delete(self):
         """
         Deletes the SourceIpMappingInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
     def fetch(self):
         """
         Fetch the SourceIpMappingInstance
+        
 
         :returns: The fetched SourceIpMappingInstance
         :rtype: twilio.rest.voice.v1.source_ip_mapping.SourceIpMappingInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return SourceIpMappingInstance(
             self._version,
@@ -271,7 +276,7 @@ class SourceIpMappingContext(InstanceContext):
             
         )
         
-    def update(self, sip_domain_sid=values.unset):
+    def update(self, sip_domain_sid):
         """
         Update the SourceIpMappingInstance
         
@@ -283,8 +288,9 @@ class SourceIpMappingContext(InstanceContext):
         data = values.of({ 
             'SipDomainSid': sip_domain_sid,
         })
+        
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return SourceIpMappingInstance(
             self._version,
@@ -388,6 +394,7 @@ class SourceIpMappingInstance(InstanceResource):
     def delete(self):
         """
         Deletes the SourceIpMappingInstance
+        
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -397,13 +404,14 @@ class SourceIpMappingInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the SourceIpMappingInstance
+        
 
         :returns: The fetched SourceIpMappingInstance
         :rtype: twilio.rest.voice.v1.source_ip_mapping.SourceIpMappingInstance
         """
         return self._proxy.fetch()
     
-    def update(self, sip_domain_sid=values.unset):
+    def update(self, sip_domain_sid):
         """
         Update the SourceIpMappingInstance
         

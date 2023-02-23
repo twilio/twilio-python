@@ -40,7 +40,7 @@ class RecordingList(ListResource):
 
         # Path Solution
         self._solution = { 'account_sid': account_sid, 'conference_sid': conference_sid,  }
-        self._uri = '/Accounts/${account_sid}/Conferences/${conference_sid}/Recordings.json'.format(**self._solution)
+        self._uri = '/Accounts/{account_sid}/Conferences/{conference_sid}/Recordings.json'.format(**self._solution)
         
         
     
@@ -245,26 +245,29 @@ class RecordingContext(InstanceContext):
             'conference_sid': conference_sid,
             'sid': sid,
         }
-        self._uri = '/Accounts/${account_sid}/Conferences/${conference_sid}/Recordings/${sid}.json'.format(**self._solution)
+        self._uri = '/Accounts/{account_sid}/Conferences/{conference_sid}/Recordings/{sid}.json'.format(**self._solution)
         
     
     def delete(self):
         """
         Deletes the RecordingInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
     def fetch(self):
         """
         Fetch the RecordingInstance
+        
 
         :returns: The fetched RecordingInstance
         :rtype: twilio.rest.api.v2010.account.conference.recording.RecordingInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return RecordingInstance(
             self._version,
@@ -275,7 +278,7 @@ class RecordingContext(InstanceContext):
             
         )
         
-    def update(self, status=values.unset, pause_behavior=values.unset):
+    def update(self, status, pause_behavior=values.unset):
         """
         Update the RecordingInstance
         
@@ -289,8 +292,9 @@ class RecordingContext(InstanceContext):
             'Status': status,
             'PauseBehavior': pause_behavior,
         })
+        
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return RecordingInstance(
             self._version,
@@ -495,6 +499,7 @@ class RecordingInstance(InstanceResource):
     def delete(self):
         """
         Deletes the RecordingInstance
+        
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -504,13 +509,14 @@ class RecordingInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the RecordingInstance
+        
 
         :returns: The fetched RecordingInstance
         :rtype: twilio.rest.api.v2010.account.conference.recording.RecordingInstance
         """
         return self._proxy.fetch()
     
-    def update(self, status=values.unset, pause_behavior=values.unset):
+    def update(self, status, pause_behavior=values.unset):
         """
         Update the RecordingInstance
         

@@ -39,7 +39,7 @@ class ModelBuildList(ListResource):
 
         # Path Solution
         self._solution = { 'assistant_sid': assistant_sid,  }
-        self._uri = '/Assistants/${assistant_sid}/ModelBuilds'.format(**self._solution)
+        self._uri = '/Assistants/{assistant_sid}/ModelBuilds'.format(**self._solution)
         
         
     
@@ -49,6 +49,7 @@ class ModelBuildList(ListResource):
     def create(self, status_callback=values.unset, unique_name=values.unset):
         """
         Create the ModelBuildInstance
+
         :param str status_callback: The URL we should call using a POST method to send status information to your application.
         :param str unique_name: An application-defined string that uniquely identifies the new resource. This value must be a unique string of no more than 64 characters. It can be used as an alternative to the `sid` in the URL path to address the resource.
         
@@ -59,8 +60,9 @@ class ModelBuildList(ListResource):
             'StatusCallback': status_callback,
             'UniqueName': unique_name,
         })
+        
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return ModelBuildInstance(self._version, payload, assistant_sid=self._solution['assistant_sid'])
     
     
@@ -245,26 +247,29 @@ class ModelBuildContext(InstanceContext):
             'assistant_sid': assistant_sid,
             'sid': sid,
         }
-        self._uri = '/Assistants/${assistant_sid}/ModelBuilds/${sid}'.format(**self._solution)
+        self._uri = '/Assistants/{assistant_sid}/ModelBuilds/{sid}'.format(**self._solution)
         
     
     def delete(self):
         """
         Deletes the ModelBuildInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
     def fetch(self):
         """
         Fetch the ModelBuildInstance
+        
 
         :returns: The fetched ModelBuildInstance
         :rtype: twilio.rest.autopilot.v1.assistant.model_build.ModelBuildInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return ModelBuildInstance(
             self._version,
@@ -286,8 +291,9 @@ class ModelBuildContext(InstanceContext):
         data = values.of({ 
             'UniqueName': unique_name,
         })
+        
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return ModelBuildInstance(
             self._version,
@@ -428,6 +434,7 @@ class ModelBuildInstance(InstanceResource):
     def delete(self):
         """
         Deletes the ModelBuildInstance
+        
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -437,6 +444,7 @@ class ModelBuildInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the ModelBuildInstance
+        
 
         :returns: The fetched ModelBuildInstance
         :rtype: twilio.rest.autopilot.v1.assistant.model_build.ModelBuildInstance

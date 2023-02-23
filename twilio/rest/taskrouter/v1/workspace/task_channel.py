@@ -39,7 +39,7 @@ class TaskChannelList(ListResource):
 
         # Path Solution
         self._solution = { 'workspace_sid': workspace_sid,  }
-        self._uri = '/Workspaces/${workspace_sid}/TaskChannels'.format(**self._solution)
+        self._uri = '/Workspaces/{workspace_sid}/TaskChannels'.format(**self._solution)
         
         
     
@@ -49,6 +49,7 @@ class TaskChannelList(ListResource):
     def create(self, friendly_name, unique_name, channel_optimized_routing=values.unset):
         """
         Create the TaskChannelInstance
+
         :param str friendly_name: A descriptive string that you create to describe the Task Channel. It can be up to 64 characters long.
         :param str unique_name: An application-defined string that uniquely identifies the Task Channel, such as `voice` or `sms`.
         :param bool channel_optimized_routing: Whether the Task Channel should prioritize Workers that have been idle. If `true`, Workers that have been idle the longest are prioritized.
@@ -61,8 +62,9 @@ class TaskChannelList(ListResource):
             'UniqueName': unique_name,
             'ChannelOptimizedRouting': channel_optimized_routing,
         })
+        
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return TaskChannelInstance(self._version, payload, workspace_sid=self._solution['workspace_sid'])
     
     
@@ -247,26 +249,29 @@ class TaskChannelContext(InstanceContext):
             'workspace_sid': workspace_sid,
             'sid': sid,
         }
-        self._uri = '/Workspaces/${workspace_sid}/TaskChannels/${sid}'.format(**self._solution)
+        self._uri = '/Workspaces/{workspace_sid}/TaskChannels/{sid}'.format(**self._solution)
         
     
     def delete(self):
         """
         Deletes the TaskChannelInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
     def fetch(self):
         """
         Fetch the TaskChannelInstance
+        
 
         :returns: The fetched TaskChannelInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.task_channel.TaskChannelInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return TaskChannelInstance(
             self._version,
@@ -290,8 +295,9 @@ class TaskChannelContext(InstanceContext):
             'FriendlyName': friendly_name,
             'ChannelOptimizedRouting': channel_optimized_routing,
         })
+        
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return TaskChannelInstance(
             self._version,
@@ -432,6 +438,7 @@ class TaskChannelInstance(InstanceResource):
     def delete(self):
         """
         Deletes the TaskChannelInstance
+        
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -441,6 +448,7 @@ class TaskChannelInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the TaskChannelInstance
+        
 
         :returns: The fetched TaskChannelInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.task_channel.TaskChannelInstance

@@ -39,7 +39,7 @@ class ParticipantList(ListResource):
 
         # Path Solution
         self._solution = { 'conversation_sid': conversation_sid,  }
-        self._uri = '/Conversations/${conversation_sid}/Participants'.format(**self._solution)
+        self._uri = '/Conversations/{conversation_sid}/Participants'.format(**self._solution)
         
         
     
@@ -49,6 +49,7 @@ class ParticipantList(ListResource):
     def create(self, x_twilio_webhook_enabled=values.unset, identity=values.unset, messaging_binding_address=values.unset, messaging_binding_proxy_address=values.unset, date_created=values.unset, date_updated=values.unset, attributes=values.unset, messaging_binding_projected_address=values.unset, role_sid=values.unset):
         """
         Create the ParticipantInstance
+
         :param ConversationParticipantWebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
         :param str identity: A unique string identifier for the conversation participant as [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource). This parameter is non-null if (and only if) the participant is using the Conversations SDK to communicate. Limited to 256 characters.
         :param str messaging_binding_address: The address of the participant's device, e.g. a phone or WhatsApp number. Together with the Proxy address, this determines a participant uniquely. This field (with proxy_address) is only null when the participant is interacting from an SDK endpoint (see the 'identity' field).
@@ -63,7 +64,6 @@ class ParticipantList(ListResource):
         :rtype: twilio.rest.conversations.v1.conversation.participant.ParticipantInstance
         """
         data = values.of({ 
-            'X-Twilio-Webhook-Enabled': x_twilio_webhook_enabled,
             'Identity': identity,
             'MessagingBinding.Address': messaging_binding_address,
             'MessagingBinding.ProxyAddress': messaging_binding_proxy_address,
@@ -73,8 +73,9 @@ class ParticipantList(ListResource):
             'MessagingBinding.ProjectedAddress': messaging_binding_projected_address,
             'RoleSid': role_sid,
         })
+        headers = values.of({'X-Twilio-Webhook-Enabled': x_twilio_webhook_enabled, })
+        payload = self._version.create(method='POST', uri=self._uri, data=data, headers=headers)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return ParticipantInstance(self._version, payload, conversation_sid=self._solution['conversation_sid'])
     
     
@@ -259,26 +260,32 @@ class ParticipantContext(InstanceContext):
             'conversation_sid': conversation_sid,
             'sid': sid,
         }
-        self._uri = '/Conversations/${conversation_sid}/Participants/${sid}'.format(**self._solution)
+        self._uri = '/Conversations/{conversation_sid}/Participants/{sid}'.format(**self._solution)
         
     
     def delete(self, x_twilio_webhook_enabled=values.unset):
         """
         Deletes the ParticipantInstance
 
+        :param ConversationParticipantWebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        headers = values.of({'X-Twilio-Webhook-Enabled': x_twilio_webhook_enabled, })
+        
+        return self._version.delete(method='DELETE', uri=self._uri, headers=headers)
         
     def fetch(self):
         """
         Fetch the ParticipantInstance
+        
 
         :returns: The fetched ParticipantInstance
         :rtype: twilio.rest.conversations.v1.conversation.participant.ParticipantInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return ParticipantInstance(
             self._version,
@@ -307,7 +314,6 @@ class ParticipantContext(InstanceContext):
         :rtype: twilio.rest.conversations.v1.conversation.participant.ParticipantInstance
         """
         data = values.of({ 
-            'X-Twilio-Webhook-Enabled': x_twilio_webhook_enabled,
             'DateCreated': serialize.iso8601_datetime(date_created),
             'DateUpdated': serialize.iso8601_datetime(date_updated),
             'Attributes': attributes,
@@ -318,8 +324,9 @@ class ParticipantContext(InstanceContext):
             'LastReadMessageIndex': last_read_message_index,
             'LastReadTimestamp': last_read_timestamp,
         })
+        headers = values.of({'X-Twilio-Webhook-Enabled': x_twilio_webhook_enabled, })
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data, headers=headers)
 
         return ParticipantInstance(
             self._version,
@@ -478,15 +485,18 @@ class ParticipantInstance(InstanceResource):
     def delete(self, x_twilio_webhook_enabled=values.unset):
         """
         Deletes the ParticipantInstance
+        
+        :params ConversationParticipantWebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._proxy.delete()
+        return self._proxy.delete(x_twilio_webhook_enabled=x_twilio_webhook_enabled, )
     
     def fetch(self):
         """
         Fetch the ParticipantInstance
+        
 
         :returns: The fetched ParticipantInstance
         :rtype: twilio.rest.conversations.v1.conversation.participant.ParticipantInstance

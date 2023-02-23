@@ -41,7 +41,7 @@ class ParticipantList(ListResource):
 
         # Path Solution
         self._solution = { 'service_sid': service_sid, 'session_sid': session_sid,  }
-        self._uri = '/Services/${service_sid}/Sessions/${session_sid}/Participants'.format(**self._solution)
+        self._uri = '/Services/{service_sid}/Sessions/{session_sid}/Participants'.format(**self._solution)
         
         
     
@@ -50,6 +50,7 @@ class ParticipantList(ListResource):
     def create(self, identifier, friendly_name=values.unset, proxy_identifier=values.unset, proxy_identifier_sid=values.unset):
         """
         Create the ParticipantInstance
+
         :param str identifier: The phone number of the Participant.
         :param str friendly_name: The string that you assigned to describe the participant. This value must be 255 characters or fewer. **This value should not have PII.**
         :param str proxy_identifier: The proxy phone number to use for the Participant. If not specified, Proxy will select a number from the pool.
@@ -64,8 +65,9 @@ class ParticipantList(ListResource):
             'ProxyIdentifier': proxy_identifier,
             'ProxyIdentifierSid': proxy_identifier_sid,
         })
+        
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return ParticipantInstance(self._version, payload, service_sid=self._solution['service_sid'], session_sid=self._solution['session_sid'])
     
     
@@ -249,7 +251,7 @@ class ParticipantContext(InstanceContext):
             'session_sid': session_sid,
             'sid': sid,
         }
-        self._uri = '/Services/${service_sid}/Sessions/${session_sid}/Participants/${sid}'.format(**self._solution)
+        self._uri = '/Services/{service_sid}/Sessions/{session_sid}/Participants/{sid}'.format(**self._solution)
         
         self._message_interactions = None
     
@@ -257,19 +259,22 @@ class ParticipantContext(InstanceContext):
         """
         Deletes the ParticipantInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
     def fetch(self):
         """
         Fetch the ParticipantInstance
+        
 
         :returns: The fetched ParticipantInstance
         :rtype: twilio.rest.proxy.v1.service.session.participant.ParticipantInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return ParticipantInstance(
             self._version,
@@ -452,6 +457,7 @@ class ParticipantInstance(InstanceResource):
     def delete(self):
         """
         Deletes the ParticipantInstance
+        
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -461,6 +467,7 @@ class ParticipantInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the ParticipantInstance
+        
 
         :returns: The fetched ParticipantInstance
         :rtype: twilio.rest.proxy.v1.service.session.participant.ParticipantInstance

@@ -91,17 +91,23 @@ class InsightsSegmentsContext(InstanceContext):
         self._solution = { 
             'segment_id': segment_id,
         }
-        self._uri = '/Insights/Segments/${segment_id}'.format(**self._solution)
+        self._uri = '/Insights/Segments/{segment_id}'.format(**self._solution)
         
     
     def fetch(self, token=values.unset):
         """
         Fetch the InsightsSegmentsInstance
+        
+        :params str token: The Token HTTP request header
 
         :returns: The fetched InsightsSegmentsInstance
         :rtype: twilio.rest.flex_api.v1.insights_segments.InsightsSegmentsInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        data = values.of({ 
+            'Token': token,
+        })
+        payload = self._version.fetch(method='GET', uri=self._uri, params=data)
 
         return InsightsSegmentsInstance(
             self._version,
@@ -350,11 +356,13 @@ class InsightsSegmentsInstance(InstanceResource):
     def fetch(self, token=values.unset):
         """
         Fetch the InsightsSegmentsInstance
+        
+        :params str token: The Token HTTP request header
 
         :returns: The fetched InsightsSegmentsInstance
         :rtype: twilio.rest.flex_api.v1.insights_segments.InsightsSegmentsInstance
         """
-        return self._proxy.fetch()
+        return self._proxy.fetch(token=token, )
     
     def __repr__(self):
         """

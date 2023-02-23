@@ -40,7 +40,7 @@ class FieldValueList(ListResource):
 
         # Path Solution
         self._solution = { 'assistant_sid': assistant_sid, 'field_type_sid': field_type_sid,  }
-        self._uri = '/Assistants/${assistant_sid}/FieldTypes/${field_type_sid}/FieldValues'.format(**self._solution)
+        self._uri = '/Assistants/{assistant_sid}/FieldTypes/{field_type_sid}/FieldValues'.format(**self._solution)
         
         
     
@@ -49,6 +49,7 @@ class FieldValueList(ListResource):
     def create(self, language, value, synonym_of=values.unset):
         """
         Create the FieldValueInstance
+
         :param str language: An ISO language-country string of the value.
         :param str value: A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
         :param str synonym_of: A value that indicates this field value is a synonym of. Empty if the value is not a synonym.
@@ -61,8 +62,9 @@ class FieldValueList(ListResource):
             'Value': value,
             'SynonymOf': synonym_of,
         })
+        
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return FieldValueInstance(self._version, payload, assistant_sid=self._solution['assistant_sid'], field_type_sid=self._solution['field_type_sid'])
     
     
@@ -252,26 +254,29 @@ class FieldValueContext(InstanceContext):
             'field_type_sid': field_type_sid,
             'sid': sid,
         }
-        self._uri = '/Assistants/${assistant_sid}/FieldTypes/${field_type_sid}/FieldValues/${sid}'.format(**self._solution)
+        self._uri = '/Assistants/{assistant_sid}/FieldTypes/{field_type_sid}/FieldValues/{sid}'.format(**self._solution)
         
     
     def delete(self):
         """
         Deletes the FieldValueInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
     def fetch(self):
         """
         Fetch the FieldValueInstance
+        
 
         :returns: The fetched FieldValueInstance
         :rtype: twilio.rest.preview.understand.assistant.field_type.field_value.FieldValueInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return FieldValueInstance(
             self._version,
@@ -414,6 +419,7 @@ class FieldValueInstance(InstanceResource):
     def delete(self):
         """
         Deletes the FieldValueInstance
+        
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -423,6 +429,7 @@ class FieldValueInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the FieldValueInstance
+        
 
         :returns: The fetched FieldValueInstance
         :rtype: twilio.rest.preview.understand.assistant.field_type.field_value.FieldValueInstance

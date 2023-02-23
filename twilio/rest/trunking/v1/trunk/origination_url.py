@@ -39,7 +39,7 @@ class OriginationUrlList(ListResource):
 
         # Path Solution
         self._solution = { 'trunk_sid': trunk_sid,  }
-        self._uri = '/Trunks/${trunk_sid}/OriginationUrls'.format(**self._solution)
+        self._uri = '/Trunks/{trunk_sid}/OriginationUrls'.format(**self._solution)
         
         
     
@@ -49,6 +49,7 @@ class OriginationUrlList(ListResource):
     def create(self, weight, priority, enabled, friendly_name, sip_url):
         """
         Create the OriginationUrlInstance
+
         :param int weight: The value that determines the relative share of the load the URI should receive compared to other URIs with the same priority. Can be an integer from 1 to 65535, inclusive, and the default is 10. URLs with higher values receive more load than those with lower ones with the same priority.
         :param int priority: The relative importance of the URI. Can be an integer from 0 to 65535, inclusive, and the default is 10. The lowest number represents the most important URI.
         :param bool enabled: Whether the URL is enabled. The default is `true`.
@@ -65,8 +66,9 @@ class OriginationUrlList(ListResource):
             'FriendlyName': friendly_name,
             'SipUrl': sip_url,
         })
+        
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return OriginationUrlInstance(self._version, payload, trunk_sid=self._solution['trunk_sid'])
     
     
@@ -251,26 +253,29 @@ class OriginationUrlContext(InstanceContext):
             'trunk_sid': trunk_sid,
             'sid': sid,
         }
-        self._uri = '/Trunks/${trunk_sid}/OriginationUrls/${sid}'.format(**self._solution)
+        self._uri = '/Trunks/{trunk_sid}/OriginationUrls/{sid}'.format(**self._solution)
         
     
     def delete(self):
         """
         Deletes the OriginationUrlInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
     def fetch(self):
         """
         Fetch the OriginationUrlInstance
+        
 
         :returns: The fetched OriginationUrlInstance
         :rtype: twilio.rest.trunking.v1.trunk.origination_url.OriginationUrlInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return OriginationUrlInstance(
             self._version,
@@ -300,8 +305,9 @@ class OriginationUrlContext(InstanceContext):
             'FriendlyName': friendly_name,
             'SipUrl': sip_url,
         })
+        
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return OriginationUrlInstance(
             self._version,
@@ -451,6 +457,7 @@ class OriginationUrlInstance(InstanceResource):
     def delete(self):
         """
         Deletes the OriginationUrlInstance
+        
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -460,6 +467,7 @@ class OriginationUrlInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the OriginationUrlInstance
+        
 
         :returns: The fetched OriginationUrlInstance
         :rtype: twilio.rest.trunking.v1.trunk.origination_url.OriginationUrlInstance

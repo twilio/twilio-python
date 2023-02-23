@@ -39,7 +39,7 @@ class RecordingRulesList(ListResource):
 
         # Path Solution
         self._solution = { 'room_sid': room_sid,  }
-        self._uri = '/Rooms/${room_sid}/RecordingRules'.format(**self._solution)
+        self._uri = '/Rooms/{room_sid}/RecordingRules'.format(**self._solution)
         
         
     

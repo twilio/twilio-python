@@ -48,6 +48,7 @@ class PlayerStreamerList(ListResource):
     def create(self, video=values.unset, status_callback=values.unset, status_callback_method=values.unset, max_duration=values.unset):
         """
         Create the PlayerStreamerInstance
+
         :param bool video: Specifies whether the PlayerStreamer is configured to stream video. Defaults to `true`.
         :param str status_callback: The URL to which Twilio will send asynchronous webhook requests for every PlayerStreamer event. See [Status Callbacks](/docs/live/status-callbacks) for more details.
         :param str status_callback_method: The HTTP method Twilio should use to call the `status_callback` URL. Can be `POST` or `GET` and the default is `POST`.
@@ -62,8 +63,9 @@ class PlayerStreamerList(ListResource):
             'StatusCallbackMethod': status_callback_method,
             'MaxDuration': max_duration,
         })
+        
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return PlayerStreamerInstance(self._version, payload)
     
     
@@ -257,18 +259,20 @@ class PlayerStreamerContext(InstanceContext):
         self._solution = { 
             'sid': sid,
         }
-        self._uri = '/PlayerStreamers/${sid}'.format(**self._solution)
+        self._uri = '/PlayerStreamers/{sid}'.format(**self._solution)
         
         self._playback_grant = None
     
     def fetch(self):
         """
         Fetch the PlayerStreamerInstance
+        
 
         :returns: The fetched PlayerStreamerInstance
         :rtype: twilio.rest.media.v1.player_streamer.PlayerStreamerInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return PlayerStreamerInstance(
             self._version,
@@ -277,7 +281,7 @@ class PlayerStreamerContext(InstanceContext):
             
         )
         
-    def update(self, status=values.unset):
+    def update(self, status):
         """
         Update the PlayerStreamerInstance
         
@@ -289,8 +293,9 @@ class PlayerStreamerContext(InstanceContext):
         data = values.of({ 
             'Status': status,
         })
+        
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return PlayerStreamerInstance(
             self._version,
@@ -461,13 +466,14 @@ class PlayerStreamerInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the PlayerStreamerInstance
+        
 
         :returns: The fetched PlayerStreamerInstance
         :rtype: twilio.rest.media.v1.player_streamer.PlayerStreamerInstance
         """
         return self._proxy.fetch()
     
-    def update(self, status=values.unset):
+    def update(self, status):
         """
         Update the PlayerStreamerInstance
         

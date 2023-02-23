@@ -220,26 +220,29 @@ class AppContext(InstanceContext):
         self._solution = { 
             'sid': sid,
         }
-        self._uri = '/Apps/${sid}'.format(**self._solution)
+        self._uri = '/Apps/{sid}'.format(**self._solution)
         
     
     def delete(self):
         """
         Deletes the AppInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
     def fetch(self):
         """
         Fetch the AppInstance
+        
 
         :returns: The fetched AppInstance
         :rtype: twilio.rest.microvisor.v1.app.AppInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return AppInstance(
             self._version,
@@ -353,6 +356,7 @@ class AppInstance(InstanceResource):
     def delete(self):
         """
         Deletes the AppInstance
+        
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -362,6 +366,7 @@ class AppInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the AppInstance
+        
 
         :returns: The fetched AppInstance
         :rtype: twilio.rest.microvisor.v1.app.AppInstance

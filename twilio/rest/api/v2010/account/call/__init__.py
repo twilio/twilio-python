@@ -49,7 +49,7 @@ class CallList(ListResource):
 
         # Path Solution
         self._solution = { 'account_sid': account_sid,  }
-        self._uri = '/Accounts/${account_sid}/Calls.json'.format(**self._solution)
+        self._uri = '/Accounts/{account_sid}/Calls.json'.format(**self._solution)
         
         self._feedback_summaries = None
         
@@ -60,6 +60,7 @@ class CallList(ListResource):
     def create(self, to, from_, method=values.unset, fallback_url=values.unset, fallback_method=values.unset, status_callback=values.unset, status_callback_event=values.unset, status_callback_method=values.unset, send_digits=values.unset, timeout=values.unset, record=values.unset, recording_channels=values.unset, recording_status_callback=values.unset, recording_status_callback_method=values.unset, sip_auth_username=values.unset, sip_auth_password=values.unset, machine_detection=values.unset, machine_detection_timeout=values.unset, recording_status_callback_event=values.unset, trim=values.unset, caller_id=values.unset, machine_detection_speech_threshold=values.unset, machine_detection_speech_end_threshold=values.unset, machine_detection_silence_timeout=values.unset, async_amd=values.unset, async_amd_status_callback=values.unset, async_amd_status_callback_method=values.unset, byoc=values.unset, call_reason=values.unset, call_token=values.unset, recording_track=values.unset, time_limit=values.unset, url=values.unset, twiml=values.unset, application_sid=values.unset):
         """
         Create the CallInstance
+
         :param str to: The phone number, SIP address, or client identifier to call.
         :param str from_: The phone number or client identifier to use as the caller id. If using a phone number, it must be a Twilio number or a Verified [outgoing caller id](https://www.twilio.com/docs/voice/api/outgoing-caller-ids) for your account. If the `to` parameter is a phone number, `From` must also be a phone number.
         :param str method: The HTTP method we should use when calling the `url` parameter's value. Can be: `GET` or `POST` and the default is `POST`. If an `application_sid` parameter is present, this parameter is ignored.
@@ -136,8 +137,9 @@ class CallList(ListResource):
             'Twiml': twiml,
             'ApplicationSid': application_sid,
         })
+        
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return CallInstance(self._version, payload, account_sid=self._solution['account_sid'])
     
     
@@ -394,7 +396,7 @@ class CallContext(InstanceContext):
             'account_sid': account_sid,
             'sid': sid,
         }
-        self._uri = '/Accounts/${account_sid}/Calls/${sid}.json'.format(**self._solution)
+        self._uri = '/Accounts/{account_sid}/Calls/{sid}.json'.format(**self._solution)
         
         self._events = None
         self._feedback = None
@@ -410,19 +412,22 @@ class CallContext(InstanceContext):
         """
         Deletes the CallInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
     def fetch(self):
         """
         Fetch the CallInstance
+        
 
         :returns: The fetched CallInstance
         :rtype: twilio.rest.api.v2010.account.call.CallInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return CallInstance(
             self._version,
@@ -460,8 +465,9 @@ class CallContext(InstanceContext):
             'Twiml': twiml,
             'TimeLimit': time_limit,
         })
+        
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return CallInstance(
             self._version,
@@ -863,6 +869,7 @@ class CallInstance(InstanceResource):
     def delete(self):
         """
         Deletes the CallInstance
+        
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -872,6 +879,7 @@ class CallInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the CallInstance
+        
 
         :returns: The fetched CallInstance
         :rtype: twilio.rest.api.v2010.account.call.CallInstance

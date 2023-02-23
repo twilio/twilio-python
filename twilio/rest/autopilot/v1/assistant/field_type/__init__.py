@@ -40,7 +40,7 @@ class FieldTypeList(ListResource):
 
         # Path Solution
         self._solution = { 'assistant_sid': assistant_sid,  }
-        self._uri = '/Assistants/${assistant_sid}/FieldTypes'.format(**self._solution)
+        self._uri = '/Assistants/{assistant_sid}/FieldTypes'.format(**self._solution)
         
         
     
@@ -50,6 +50,7 @@ class FieldTypeList(ListResource):
     def create(self, unique_name, friendly_name=values.unset):
         """
         Create the FieldTypeInstance
+
         :param str unique_name: An application-defined string that uniquely identifies the new resource. It can be used as an alternative to the `sid` in the URL path to address the resource. The first 64 characters must be unique.
         :param str friendly_name: A descriptive string that you create to describe the new resource. It is not unique and can be up to 255 characters long.
         
@@ -60,8 +61,9 @@ class FieldTypeList(ListResource):
             'UniqueName': unique_name,
             'FriendlyName': friendly_name,
         })
+        
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return FieldTypeInstance(self._version, payload, assistant_sid=self._solution['assistant_sid'])
     
     
@@ -246,7 +248,7 @@ class FieldTypeContext(InstanceContext):
             'assistant_sid': assistant_sid,
             'sid': sid,
         }
-        self._uri = '/Assistants/${assistant_sid}/FieldTypes/${sid}'.format(**self._solution)
+        self._uri = '/Assistants/{assistant_sid}/FieldTypes/{sid}'.format(**self._solution)
         
         self._field_values = None
     
@@ -254,19 +256,22 @@ class FieldTypeContext(InstanceContext):
         """
         Deletes the FieldTypeInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
     def fetch(self):
         """
         Fetch the FieldTypeInstance
+        
 
         :returns: The fetched FieldTypeInstance
         :rtype: twilio.rest.autopilot.v1.assistant.field_type.FieldTypeInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return FieldTypeInstance(
             self._version,
@@ -290,8 +295,9 @@ class FieldTypeContext(InstanceContext):
             'FriendlyName': friendly_name,
             'UniqueName': unique_name,
         })
+        
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return FieldTypeInstance(
             self._version,
@@ -436,6 +442,7 @@ class FieldTypeInstance(InstanceResource):
     def delete(self):
         """
         Deletes the FieldTypeInstance
+        
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -445,6 +452,7 @@ class FieldTypeInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the FieldTypeInstance
+        
 
         :returns: The fetched FieldTypeInstance
         :rtype: twilio.rest.autopilot.v1.assistant.field_type.FieldTypeInstance

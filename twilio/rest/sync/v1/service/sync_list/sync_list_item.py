@@ -40,7 +40,7 @@ class SyncListItemList(ListResource):
 
         # Path Solution
         self._solution = { 'service_sid': service_sid, 'list_sid': list_sid,  }
-        self._uri = '/Services/${service_sid}/Lists/${list_sid}/Items'.format(**self._solution)
+        self._uri = '/Services/{service_sid}/Lists/{list_sid}/Items'.format(**self._solution)
         
         
     
@@ -50,6 +50,7 @@ class SyncListItemList(ListResource):
     def create(self, data, ttl=values.unset, item_ttl=values.unset, collection_ttl=values.unset):
         """
         Create the SyncListItemInstance
+
         :param object data: A JSON string that represents an arbitrary, schema-less object that the List Item stores. Can be up to 16 KiB in length.
         :param int ttl: An alias for `item_ttl`. If both parameters are provided, this value is ignored.
         :param int item_ttl: How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the List Item expires (time-to-live) and is deleted.
@@ -64,8 +65,9 @@ class SyncListItemList(ListResource):
             'ItemTtl': item_ttl,
             'CollectionTtl': collection_ttl,
         })
+        
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return SyncListItemInstance(self._version, payload, service_sid=self._solution['service_sid'], list_sid=self._solution['list_sid'])
     
     
@@ -269,26 +271,32 @@ class SyncListItemContext(InstanceContext):
             'list_sid': list_sid,
             'index': index,
         }
-        self._uri = '/Services/${service_sid}/Lists/${list_sid}/Items/${index}'.format(**self._solution)
+        self._uri = '/Services/{service_sid}/Lists/{list_sid}/Items/{index}'.format(**self._solution)
         
     
     def delete(self, if_match=values.unset):
         """
         Deletes the SyncListItemInstance
 
+        :param str if_match: If provided, applies this mutation if (and only if) the “revision” field of this [map item] matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match).
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        headers = values.of({'If-Match': if_match, })
+        
+        return self._version.delete(method='DELETE', uri=self._uri, headers=headers)
         
     def fetch(self):
         """
         Fetch the SyncListItemInstance
+        
 
         :returns: The fetched SyncListItemInstance
         :rtype: twilio.rest.sync.v1.service.sync_list.sync_list_item.SyncListItemInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return SyncListItemInstance(
             self._version,
@@ -313,14 +321,14 @@ class SyncListItemContext(InstanceContext):
         :rtype: twilio.rest.sync.v1.service.sync_list.sync_list_item.SyncListItemInstance
         """
         data = values.of({ 
-            'If-Match': if_match,
             'Data': serialize.object(data),
             'Ttl': ttl,
             'ItemTtl': item_ttl,
             'CollectionTtl': collection_ttl,
         })
+        headers = values.of({'If-Match': if_match, })
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data, headers=headers)
 
         return SyncListItemInstance(
             self._version,
@@ -471,15 +479,18 @@ class SyncListItemInstance(InstanceResource):
     def delete(self, if_match=values.unset):
         """
         Deletes the SyncListItemInstance
+        
+        :params str if_match: If provided, applies this mutation if (and only if) the “revision” field of this [map item] matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match).
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._proxy.delete()
+        return self._proxy.delete(if_match=if_match, )
     
     def fetch(self):
         """
         Fetch the SyncListItemInstance
+        
 
         :returns: The fetched SyncListItemInstance
         :rtype: twilio.rest.sync.v1.service.sync_list.sync_list_item.SyncListItemInstance

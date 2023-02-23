@@ -43,7 +43,7 @@ class TaskList(ListResource):
 
         # Path Solution
         self._solution = { 'assistant_sid': assistant_sid,  }
-        self._uri = '/Assistants/${assistant_sid}/Tasks'.format(**self._solution)
+        self._uri = '/Assistants/{assistant_sid}/Tasks'.format(**self._solution)
         
         
     
@@ -53,6 +53,7 @@ class TaskList(ListResource):
     def create(self, unique_name, friendly_name=values.unset, actions=values.unset, actions_url=values.unset):
         """
         Create the TaskInstance
+
         :param str unique_name: An application-defined string that uniquely identifies the new resource. It can be used as an alternative to the `sid` in the URL path to address the resource. This value must be unique and 64 characters or less in length.
         :param str friendly_name: A descriptive string that you create to describe the new resource. It is not unique and can be up to 255 characters long.
         :param object actions: The JSON string that specifies the [actions](https://www.twilio.com/docs/autopilot/actions) that instruct the Assistant on how to perform the task. It is optional and not unique.
@@ -67,8 +68,9 @@ class TaskList(ListResource):
             'Actions': serialize.object(actions),
             'ActionsUrl': actions_url,
         })
+        
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return TaskInstance(self._version, payload, assistant_sid=self._solution['assistant_sid'])
     
     
@@ -253,7 +255,7 @@ class TaskContext(InstanceContext):
             'assistant_sid': assistant_sid,
             'sid': sid,
         }
-        self._uri = '/Assistants/${assistant_sid}/Tasks/${sid}'.format(**self._solution)
+        self._uri = '/Assistants/{assistant_sid}/Tasks/{sid}'.format(**self._solution)
         
         self._fields = None
         self._samples = None
@@ -264,19 +266,22 @@ class TaskContext(InstanceContext):
         """
         Deletes the TaskInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
     def fetch(self):
         """
         Fetch the TaskInstance
+        
 
         :returns: The fetched TaskInstance
         :rtype: twilio.rest.autopilot.v1.assistant.task.TaskInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return TaskInstance(
             self._version,
@@ -304,8 +309,9 @@ class TaskContext(InstanceContext):
             'Actions': serialize.object(actions),
             'ActionsUrl': actions_url,
         })
+        
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return TaskInstance(
             self._version,
@@ -498,6 +504,7 @@ class TaskInstance(InstanceResource):
     def delete(self):
         """
         Deletes the TaskInstance
+        
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -507,6 +514,7 @@ class TaskInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the TaskInstance
+        
 
         :returns: The fetched TaskInstance
         :rtype: twilio.rest.autopilot.v1.assistant.task.TaskInstance

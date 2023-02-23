@@ -47,6 +47,7 @@ class InteractionList(ListResource):
     def create(self, channel, routing):
         """
         Create the InteractionInstance
+
         :param object channel: The Interaction's channel.
         :param object routing: The Interaction's routing logic.
         
@@ -57,8 +58,9 @@ class InteractionList(ListResource):
             'Channel': serialize.object(channel),
             'Routing': serialize.object(routing),
         })
+        
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return InteractionInstance(self._version, payload)
     
 
@@ -110,18 +112,20 @@ class InteractionContext(InstanceContext):
         self._solution = { 
             'sid': sid,
         }
-        self._uri = '/Interactions/${sid}'.format(**self._solution)
+        self._uri = '/Interactions/{sid}'.format(**self._solution)
         
         self._channels = None
     
     def fetch(self):
         """
         Fetch the InteractionInstance
+        
 
         :returns: The fetched InteractionInstance
         :rtype: twilio.rest.flex_api.v1.interaction.InteractionInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return InteractionInstance(
             self._version,
@@ -230,6 +234,7 @@ class InteractionInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the InteractionInstance
+        
 
         :returns: The fetched InteractionInstance
         :rtype: twilio.rest.flex_api.v1.interaction.InteractionInstance

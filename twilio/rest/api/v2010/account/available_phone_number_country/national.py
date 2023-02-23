@@ -40,7 +40,7 @@ class NationalList(ListResource):
 
         # Path Solution
         self._solution = { 'account_sid': account_sid, 'country_code': country_code,  }
-        self._uri = '/Accounts/${account_sid}/AvailablePhoneNumbers/${country_code}/National.json'.format(**self._solution)
+        self._uri = '/Accounts/{account_sid}/AvailablePhoneNumbers/{country_code}/National.json'.format(**self._solution)
         
         
     

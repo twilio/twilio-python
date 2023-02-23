@@ -39,7 +39,7 @@ class PhoneNumberList(ListResource):
 
         # Path Solution
         self._solution = { 'trunk_sid': trunk_sid,  }
-        self._uri = '/Trunks/${trunk_sid}/PhoneNumbers'.format(**self._solution)
+        self._uri = '/Trunks/{trunk_sid}/PhoneNumbers'.format(**self._solution)
         
         
     
@@ -48,6 +48,7 @@ class PhoneNumberList(ListResource):
     def create(self, phone_number_sid):
         """
         Create the PhoneNumberInstance
+
         :param str phone_number_sid: The SID of the [Incoming Phone Number](https://www.twilio.com/docs/phone-numbers/api/incomingphonenumber-resource) that you want to associate with the trunk.
         
         :returns: The created PhoneNumberInstance
@@ -56,8 +57,9 @@ class PhoneNumberList(ListResource):
         data = values.of({ 
             'PhoneNumberSid': phone_number_sid,
         })
+        
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return PhoneNumberInstance(self._version, payload, trunk_sid=self._solution['trunk_sid'])
     
     
@@ -240,26 +242,29 @@ class PhoneNumberContext(InstanceContext):
             'trunk_sid': trunk_sid,
             'sid': sid,
         }
-        self._uri = '/Trunks/${trunk_sid}/PhoneNumbers/${sid}'.format(**self._solution)
+        self._uri = '/Trunks/{trunk_sid}/PhoneNumbers/{sid}'.format(**self._solution)
         
     
     def delete(self):
         """
         Deletes the PhoneNumberInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
     def fetch(self):
         """
         Fetch the PhoneNumberInstance
+        
 
         :returns: The fetched PhoneNumberInstance
         :rtype: twilio.rest.trunking.v1.trunk.phone_number.PhoneNumberInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return PhoneNumberInstance(
             self._version,
@@ -545,6 +550,7 @@ class PhoneNumberInstance(InstanceResource):
     def delete(self):
         """
         Deletes the PhoneNumberInstance
+        
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -554,6 +560,7 @@ class PhoneNumberInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the PhoneNumberInstance
+        
 
         :returns: The fetched PhoneNumberInstance
         :rtype: twilio.rest.trunking.v1.trunk.phone_number.PhoneNumberInstance

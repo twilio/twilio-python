@@ -39,7 +39,7 @@ class BindingList(ListResource):
 
         # Path Solution
         self._solution = { 'chat_service_sid': chat_service_sid,  }
-        self._uri = '/Services/${chat_service_sid}/Bindings'.format(**self._solution)
+        self._uri = '/Services/{chat_service_sid}/Bindings'.format(**self._solution)
         
         
     
@@ -234,26 +234,29 @@ class BindingContext(InstanceContext):
             'chat_service_sid': chat_service_sid,
             'sid': sid,
         }
-        self._uri = '/Services/${chat_service_sid}/Bindings/${sid}'.format(**self._solution)
+        self._uri = '/Services/{chat_service_sid}/Bindings/{sid}'.format(**self._solution)
         
     
     def delete(self):
         """
         Deletes the BindingInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
     def fetch(self):
         """
         Fetch the BindingInstance
+        
 
         :returns: The fetched BindingInstance
         :rtype: twilio.rest.conversations.v1.service.binding.BindingInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return BindingInstance(
             self._version,
@@ -404,6 +407,7 @@ class BindingInstance(InstanceResource):
     def delete(self):
         """
         Deletes the BindingInstance
+        
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -413,6 +417,7 @@ class BindingInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the BindingInstance
+        
 
         :returns: The fetched BindingInstance
         :rtype: twilio.rest.conversations.v1.service.binding.BindingInstance

@@ -217,17 +217,19 @@ class PoliciesContext(InstanceContext):
         self._solution = { 
             'sid': sid,
         }
-        self._uri = '/Policies/${sid}'.format(**self._solution)
+        self._uri = '/Policies/{sid}'.format(**self._solution)
         
     
     def fetch(self):
         """
         Fetch the PoliciesInstance
+        
 
         :returns: The fetched PoliciesInstance
         :rtype: twilio.rest.trusthub.v1.policies.PoliciesInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return PoliciesInstance(
             self._version,
@@ -314,6 +316,7 @@ class PoliciesInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the PoliciesInstance
+        
 
         :returns: The fetched PoliciesInstance
         :rtype: twilio.rest.trusthub.v1.policies.PoliciesInstance

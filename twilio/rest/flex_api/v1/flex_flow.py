@@ -48,6 +48,7 @@ class FlexFlowList(ListResource):
     def create(self, friendly_name, chat_service_sid, channel_type, contact_identity=values.unset, enabled=values.unset, integration_type=values.unset, integration_flow_sid=values.unset, integration_url=values.unset, integration_workspace_sid=values.unset, integration_workflow_sid=values.unset, integration_channel=values.unset, integration_timeout=values.unset, integration_priority=values.unset, integration_creation_on_message=values.unset, long_lived=values.unset, janitor_enabled=values.unset, integration_retry_count=values.unset):
         """
         Create the FlexFlowInstance
+
         :param str friendly_name: A descriptive string that you create to describe the Flex Flow resource.
         :param str chat_service_sid: The SID of the chat service.
         :param FlexFlowChannelType channel_type: 
@@ -88,8 +89,9 @@ class FlexFlowList(ListResource):
             'JanitorEnabled': janitor_enabled,
             'Integration.RetryCount': integration_retry_count,
         })
+        
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return FlexFlowInstance(self._version, payload)
     
     
@@ -279,26 +281,29 @@ class FlexFlowContext(InstanceContext):
         self._solution = { 
             'sid': sid,
         }
-        self._uri = '/FlexFlows/${sid}'.format(**self._solution)
+        self._uri = '/FlexFlows/{sid}'.format(**self._solution)
         
     
     def delete(self):
         """
         Deletes the FlexFlowInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
     def fetch(self):
         """
         Fetch the FlexFlowInstance
+        
 
         :returns: The fetched FlexFlowInstance
         :rtype: twilio.rest.flex_api.v1.flex_flow.FlexFlowInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return FlexFlowInstance(
             self._version,
@@ -351,8 +356,9 @@ class FlexFlowContext(InstanceContext):
             'JanitorEnabled': janitor_enabled,
             'Integration.RetryCount': integration_retry_count,
         })
+        
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return FlexFlowInstance(
             self._version,
@@ -528,6 +534,7 @@ class FlexFlowInstance(InstanceResource):
     def delete(self):
         """
         Deletes the FlexFlowInstance
+        
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -537,6 +544,7 @@ class FlexFlowInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the FlexFlowInstance
+        
 
         :returns: The fetched FlexFlowInstance
         :rtype: twilio.rest.flex_api.v1.flex_flow.FlexFlowInstance

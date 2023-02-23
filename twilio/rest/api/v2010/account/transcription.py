@@ -39,7 +39,7 @@ class TranscriptionList(ListResource):
 
         # Path Solution
         self._solution = { 'account_sid': account_sid,  }
-        self._uri = '/Accounts/${account_sid}/Transcriptions.json'.format(**self._solution)
+        self._uri = '/Accounts/{account_sid}/Transcriptions.json'.format(**self._solution)
         
         
     
@@ -222,26 +222,29 @@ class TranscriptionContext(InstanceContext):
             'account_sid': account_sid,
             'sid': sid,
         }
-        self._uri = '/Accounts/${account_sid}/Transcriptions/${sid}.json'.format(**self._solution)
+        self._uri = '/Accounts/{account_sid}/Transcriptions/{sid}.json'.format(**self._solution)
         
     
     def delete(self):
         """
         Deletes the TranscriptionInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
     def fetch(self):
         """
         Fetch the TranscriptionInstance
+        
 
         :returns: The fetched TranscriptionInstance
         :rtype: twilio.rest.api.v2010.account.transcription.TranscriptionInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return TranscriptionInstance(
             self._version,
@@ -410,6 +413,7 @@ class TranscriptionInstance(InstanceResource):
     def delete(self):
         """
         Deletes the TranscriptionInstance
+        
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -419,6 +423,7 @@ class TranscriptionInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the TranscriptionInstance
+        
 
         :returns: The fetched TranscriptionInstance
         :rtype: twilio.rest.api.v2010.account.transcription.TranscriptionInstance

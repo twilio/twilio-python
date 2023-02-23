@@ -39,7 +39,7 @@ class EventList(ListResource):
 
         # Path Solution
         self._solution = { 'workspace_sid': workspace_sid,  }
-        self._uri = '/Workspaces/${workspace_sid}/Events'.format(**self._solution)
+        self._uri = '/Workspaces/{workspace_sid}/Events'.format(**self._solution)
         
         
     
@@ -285,17 +285,19 @@ class EventContext(InstanceContext):
             'workspace_sid': workspace_sid,
             'sid': sid,
         }
-        self._uri = '/Workspaces/${workspace_sid}/Events/${sid}'.format(**self._solution)
+        self._uri = '/Workspaces/{workspace_sid}/Events/{sid}'.format(**self._solution)
         
     
     def fetch(self):
         """
         Fetch the EventInstance
+        
 
         :returns: The fetched EventInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.event.EventInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return EventInstance(
             self._version,
@@ -500,6 +502,7 @@ class EventInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the EventInstance
+        
 
         :returns: The fetched EventInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.event.EventInstance

@@ -89,17 +89,19 @@ class StyleSheetContext(InstanceContext):
         self._solution = { 
             'assistant_sid': assistant_sid,
         }
-        self._uri = '/Assistants/${assistant_sid}/StyleSheet'.format(**self._solution)
+        self._uri = '/Assistants/{assistant_sid}/StyleSheet'.format(**self._solution)
         
     
     def fetch(self):
         """
         Fetch the StyleSheetInstance
+        
 
         :returns: The fetched StyleSheetInstance
         :rtype: twilio.rest.autopilot.v1.assistant.style_sheet.StyleSheetInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return StyleSheetInstance(
             self._version,
@@ -120,8 +122,9 @@ class StyleSheetContext(InstanceContext):
         data = values.of({ 
             'StyleSheet': serialize.object(style_sheet),
         })
+        
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return StyleSheetInstance(
             self._version,
@@ -207,6 +210,7 @@ class StyleSheetInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the StyleSheetInstance
+        
 
         :returns: The fetched StyleSheetInstance
         :rtype: twilio.rest.autopilot.v1.assistant.style_sheet.StyleSheetInstance

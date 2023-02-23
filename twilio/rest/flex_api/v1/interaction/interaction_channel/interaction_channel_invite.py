@@ -40,13 +40,14 @@ class InteractionChannelInviteList(ListResource):
 
         # Path Solution
         self._solution = { 'interaction_sid': interaction_sid, 'channel_sid': channel_sid,  }
-        self._uri = '/Interactions/${interaction_sid}/Channels/${channel_sid}/Invites'.format(**self._solution)
+        self._uri = '/Interactions/{interaction_sid}/Channels/{channel_sid}/Invites'.format(**self._solution)
         
         
     
     def create(self, routing):
         """
         Create the InteractionChannelInviteInstance
+
         :param object routing: The Interaction's routing logic.
         
         :returns: The created InteractionChannelInviteInstance
@@ -55,8 +56,9 @@ class InteractionChannelInviteList(ListResource):
         data = values.of({ 
             'Routing': serialize.object(routing),
         })
+        
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return InteractionChannelInviteInstance(self._version, payload, interaction_sid=self._solution['interaction_sid'], channel_sid=self._solution['channel_sid'])
     
     

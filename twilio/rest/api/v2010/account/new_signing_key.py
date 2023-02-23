@@ -39,13 +39,14 @@ class NewSigningKeyList(ListResource):
 
         # Path Solution
         self._solution = { 'account_sid': account_sid,  }
-        self._uri = '/Accounts/${account_sid}/SigningKeys.json'.format(**self._solution)
+        self._uri = '/Accounts/{account_sid}/SigningKeys.json'.format(**self._solution)
         
         
     
     def create(self, friendly_name=values.unset):
         """
         Create the NewSigningKeyInstance
+
         :param str friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
         
         :returns: The created NewSigningKeyInstance
@@ -54,8 +55,9 @@ class NewSigningKeyList(ListResource):
         data = values.of({ 
             'FriendlyName': friendly_name,
         })
+        
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return NewSigningKeyInstance(self._version, payload, account_sid=self._solution['account_sid'])
     
 

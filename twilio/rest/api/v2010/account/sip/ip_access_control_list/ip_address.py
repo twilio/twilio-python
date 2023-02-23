@@ -40,7 +40,7 @@ class IpAddressList(ListResource):
 
         # Path Solution
         self._solution = { 'account_sid': account_sid, 'ip_access_control_list_sid': ip_access_control_list_sid,  }
-        self._uri = '/Accounts/${account_sid}/SIP/IpAccessControlLists/${ip_access_control_list_sid}/IpAddresses.json'.format(**self._solution)
+        self._uri = '/Accounts/{account_sid}/SIP/IpAccessControlLists/{ip_access_control_list_sid}/IpAddresses.json'.format(**self._solution)
         
         
     
@@ -50,6 +50,7 @@ class IpAddressList(ListResource):
     def create(self, friendly_name, ip_address, cidr_prefix_length=values.unset):
         """
         Create the IpAddressInstance
+
         :param str friendly_name: A human readable descriptive text for this resource, up to 255 characters long.
         :param str ip_address: An IP address in dotted decimal notation from which you want to accept traffic. Any SIP requests from this IP address will be allowed by Twilio. IPv4 only supported today.
         :param int cidr_prefix_length: An integer representing the length of the CIDR prefix to use with this IP address when accepting traffic. By default the entire IP address is used.
@@ -62,8 +63,9 @@ class IpAddressList(ListResource):
             'IpAddress': ip_address,
             'CidrPrefixLength': cidr_prefix_length,
         })
+        
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return IpAddressInstance(self._version, payload, account_sid=self._solution['account_sid'], ip_access_control_list_sid=self._solution['ip_access_control_list_sid'])
     
     
@@ -249,26 +251,29 @@ class IpAddressContext(InstanceContext):
             'ip_access_control_list_sid': ip_access_control_list_sid,
             'sid': sid,
         }
-        self._uri = '/Accounts/${account_sid}/SIP/IpAccessControlLists/${ip_access_control_list_sid}/IpAddresses/${sid}.json'.format(**self._solution)
+        self._uri = '/Accounts/{account_sid}/SIP/IpAccessControlLists/{ip_access_control_list_sid}/IpAddresses/{sid}.json'.format(**self._solution)
         
     
     def delete(self):
         """
         Deletes the IpAddressInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
     def fetch(self):
         """
         Fetch the IpAddressInstance
+        
 
         :returns: The fetched IpAddressInstance
         :rtype: twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address.IpAddressInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return IpAddressInstance(
             self._version,
@@ -295,8 +300,9 @@ class IpAddressContext(InstanceContext):
             'FriendlyName': friendly_name,
             'CidrPrefixLength': cidr_prefix_length,
         })
+        
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return IpAddressInstance(
             self._version,
@@ -429,6 +435,7 @@ class IpAddressInstance(InstanceResource):
     def delete(self):
         """
         Deletes the IpAddressInstance
+        
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -438,6 +445,7 @@ class IpAddressInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the IpAddressInstance
+        
 
         :returns: The fetched IpAddressInstance
         :rtype: twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address.IpAddressInstance

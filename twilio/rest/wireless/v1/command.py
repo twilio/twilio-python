@@ -47,6 +47,7 @@ class CommandList(ListResource):
     def create(self, command, sim=values.unset, callback_method=values.unset, callback_url=values.unset, command_mode=values.unset, include_sid=values.unset, delivery_receipt_requested=values.unset):
         """
         Create the CommandInstance
+
         :param str command: The message body of the Command. Can be plain text in text mode or a Base64 encoded byte string in binary mode.
         :param str sim: The `sid` or `unique_name` of the [SIM](https://www.twilio.com/docs/wireless/api/sim-resource) to send the Command to.
         :param str callback_method: The HTTP method we use to call `callback_url`. Can be: `POST` or `GET`, and the default is `POST`.
@@ -67,8 +68,9 @@ class CommandList(ListResource):
             'IncludeSid': include_sid,
             'DeliveryReceiptRequested': delivery_receipt_requested,
         })
+        
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return CommandInstance(self._version, payload)
     
     
@@ -274,26 +276,29 @@ class CommandContext(InstanceContext):
         self._solution = { 
             'sid': sid,
         }
-        self._uri = '/Commands/${sid}'.format(**self._solution)
+        self._uri = '/Commands/{sid}'.format(**self._solution)
         
     
     def delete(self):
         """
         Deletes the CommandInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
     def fetch(self):
         """
         Fetch the CommandInstance
+        
 
         :returns: The fetched CommandInstance
         :rtype: twilio.rest.wireless.v1.command.CommandInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return CommandInstance(
             self._version,
@@ -452,6 +457,7 @@ class CommandInstance(InstanceResource):
     def delete(self):
         """
         Deletes the CommandInstance
+        
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -461,6 +467,7 @@ class CommandInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the CommandInstance
+        
 
         :returns: The fetched CommandInstance
         :rtype: twilio.rest.wireless.v1.command.CommandInstance

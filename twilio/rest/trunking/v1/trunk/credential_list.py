@@ -39,7 +39,7 @@ class CredentialListList(ListResource):
 
         # Path Solution
         self._solution = { 'trunk_sid': trunk_sid,  }
-        self._uri = '/Trunks/${trunk_sid}/CredentialLists'.format(**self._solution)
+        self._uri = '/Trunks/{trunk_sid}/CredentialLists'.format(**self._solution)
         
         
     
@@ -48,6 +48,7 @@ class CredentialListList(ListResource):
     def create(self, credential_list_sid):
         """
         Create the CredentialListInstance
+
         :param str credential_list_sid: The SID of the [Credential List](https://www.twilio.com/docs/voice/sip/api/sip-credentiallist-resource) that you want to associate with the trunk. Once associated, we will authenticate access to the trunk against this list.
         
         :returns: The created CredentialListInstance
@@ -56,8 +57,9 @@ class CredentialListList(ListResource):
         data = values.of({ 
             'CredentialListSid': credential_list_sid,
         })
+        
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return CredentialListInstance(self._version, payload, trunk_sid=self._solution['trunk_sid'])
     
     
@@ -240,26 +242,29 @@ class CredentialListContext(InstanceContext):
             'trunk_sid': trunk_sid,
             'sid': sid,
         }
-        self._uri = '/Trunks/${trunk_sid}/CredentialLists/${sid}'.format(**self._solution)
+        self._uri = '/Trunks/{trunk_sid}/CredentialLists/{sid}'.format(**self._solution)
         
     
     def delete(self):
         """
         Deletes the CredentialListInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
     def fetch(self):
         """
         Fetch the CredentialListInstance
+        
 
         :returns: The fetched CredentialListInstance
         :rtype: twilio.rest.trunking.v1.trunk.credential_list.CredentialListInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return CredentialListInstance(
             self._version,
@@ -374,6 +379,7 @@ class CredentialListInstance(InstanceResource):
     def delete(self):
         """
         Deletes the CredentialListInstance
+        
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -383,6 +389,7 @@ class CredentialListInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the CredentialListInstance
+        
 
         :returns: The fetched CredentialListInstance
         :rtype: twilio.rest.trunking.v1.trunk.credential_list.CredentialListInstance

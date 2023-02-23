@@ -39,7 +39,7 @@ class AuthorizedConnectAppList(ListResource):
 
         # Path Solution
         self._solution = { 'account_sid': account_sid,  }
-        self._uri = '/Accounts/${account_sid}/AuthorizedConnectApps.json'.format(**self._solution)
+        self._uri = '/Accounts/{account_sid}/AuthorizedConnectApps.json'.format(**self._solution)
         
         
     
@@ -219,17 +219,19 @@ class AuthorizedConnectAppContext(InstanceContext):
             'account_sid': account_sid,
             'connect_app_sid': connect_app_sid,
         }
-        self._uri = '/Accounts/${account_sid}/AuthorizedConnectApps/${connect_app_sid}.json'.format(**self._solution)
+        self._uri = '/Accounts/{account_sid}/AuthorizedConnectApps/{connect_app_sid}.json'.format(**self._solution)
         
     
     def fetch(self):
         """
         Fetch the AuthorizedConnectAppInstance
+        
 
         :returns: The fetched AuthorizedConnectAppInstance
         :rtype: twilio.rest.api.v2010.account.authorized_connect_app.AuthorizedConnectAppInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return AuthorizedConnectAppInstance(
             self._version,
@@ -371,6 +373,7 @@ class AuthorizedConnectAppInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the AuthorizedConnectAppInstance
+        
 
         :returns: The fetched AuthorizedConnectAppInstance
         :rtype: twilio.rest.api.v2010.account.authorized_connect_app.AuthorizedConnectAppInstance

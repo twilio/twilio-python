@@ -41,7 +41,7 @@ class SyncListList(ListResource):
 
         # Path Solution
         self._solution = { 'service_sid': service_sid,  }
-        self._uri = '/Services/${service_sid}/Lists'.format(**self._solution)
+        self._uri = '/Services/{service_sid}/Lists'.format(**self._solution)
         
         
     
@@ -50,6 +50,7 @@ class SyncListList(ListResource):
     def create(self, unique_name=values.unset):
         """
         Create the SyncListInstance
+
         :param str unique_name: 
         
         :returns: The created SyncListInstance
@@ -58,8 +59,9 @@ class SyncListList(ListResource):
         data = values.of({ 
             'UniqueName': unique_name,
         })
+        
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return SyncListInstance(self._version, payload, service_sid=self._solution['service_sid'])
     
     
@@ -242,7 +244,7 @@ class SyncListContext(InstanceContext):
             'service_sid': service_sid,
             'sid': sid,
         }
-        self._uri = '/Services/${service_sid}/Lists/${sid}'.format(**self._solution)
+        self._uri = '/Services/{service_sid}/Lists/{sid}'.format(**self._solution)
         
         self._sync_list_items = None
         self._sync_list_permissions = None
@@ -251,19 +253,22 @@ class SyncListContext(InstanceContext):
         """
         Deletes the SyncListInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
     def fetch(self):
         """
         Fetch the SyncListInstance
+        
 
         :returns: The fetched SyncListInstance
         :rtype: twilio.rest.preview.sync.service.sync_list.SyncListInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return SyncListInstance(
             self._version,
@@ -431,6 +436,7 @@ class SyncListInstance(InstanceResource):
     def delete(self):
         """
         Deletes the SyncListInstance
+        
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -440,6 +446,7 @@ class SyncListInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the SyncListInstance
+        
 
         :returns: The fetched SyncListInstance
         :rtype: twilio.rest.preview.sync.service.sync_list.SyncListInstance

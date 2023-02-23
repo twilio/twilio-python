@@ -91,17 +91,19 @@ class FormContext(InstanceContext):
         self._solution = { 
             'form_type': form_type,
         }
-        self._uri = '/Forms/${form_type}'.format(**self._solution)
+        self._uri = '/Forms/{form_type}'.format(**self._solution)
         
     
     def fetch(self):
         """
         Fetch the FormInstance
+        
 
         :returns: The fetched FormInstance
         :rtype: twilio.rest.verify.v2.form.FormInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return FormInstance(
             self._version,
@@ -188,6 +190,7 @@ class FormInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the FormInstance
+        
 
         :returns: The fetched FormInstance
         :rtype: twilio.rest.verify.v2.form.FormInstance

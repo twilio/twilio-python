@@ -39,7 +39,7 @@ class DeploymentList(ListResource):
 
         # Path Solution
         self._solution = { 'fleet_sid': fleet_sid,  }
-        self._uri = '/Fleets/${fleet_sid}/Deployments'.format(**self._solution)
+        self._uri = '/Fleets/{fleet_sid}/Deployments'.format(**self._solution)
         
         
     
@@ -49,6 +49,7 @@ class DeploymentList(ListResource):
     def create(self, friendly_name=values.unset, sync_service_sid=values.unset):
         """
         Create the DeploymentInstance
+
         :param str friendly_name: Provides a human readable descriptive text for this Deployment, up to 256 characters long.
         :param str sync_service_sid: Provides the unique string identifier of the Twilio Sync service instance that will be linked to and accessible by this Deployment.
         
@@ -59,8 +60,9 @@ class DeploymentList(ListResource):
             'FriendlyName': friendly_name,
             'SyncServiceSid': sync_service_sid,
         })
+        
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return DeploymentInstance(self._version, payload, fleet_sid=self._solution['fleet_sid'])
     
     
@@ -245,26 +247,29 @@ class DeploymentContext(InstanceContext):
             'fleet_sid': fleet_sid,
             'sid': sid,
         }
-        self._uri = '/Fleets/${fleet_sid}/Deployments/${sid}'.format(**self._solution)
+        self._uri = '/Fleets/{fleet_sid}/Deployments/{sid}'.format(**self._solution)
         
     
     def delete(self):
         """
         Deletes the DeploymentInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
     def fetch(self):
         """
         Fetch the DeploymentInstance
+        
 
         :returns: The fetched DeploymentInstance
         :rtype: twilio.rest.preview.deployed_devices.fleet.deployment.DeploymentInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return DeploymentInstance(
             self._version,
@@ -288,8 +293,9 @@ class DeploymentContext(InstanceContext):
             'FriendlyName': friendly_name,
             'SyncServiceSid': sync_service_sid,
         })
+        
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return DeploymentInstance(
             self._version,
@@ -412,6 +418,7 @@ class DeploymentInstance(InstanceResource):
     def delete(self):
         """
         Deletes the DeploymentInstance
+        
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -421,6 +428,7 @@ class DeploymentInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the DeploymentInstance
+        
 
         :returns: The fetched DeploymentInstance
         :rtype: twilio.rest.preview.deployed_devices.fleet.deployment.DeploymentInstance

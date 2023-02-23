@@ -39,7 +39,7 @@ class CertificateList(ListResource):
 
         # Path Solution
         self._solution = { 'fleet_sid': fleet_sid,  }
-        self._uri = '/Fleets/${fleet_sid}/Certificates'.format(**self._solution)
+        self._uri = '/Fleets/{fleet_sid}/Certificates'.format(**self._solution)
         
         
     
@@ -49,6 +49,7 @@ class CertificateList(ListResource):
     def create(self, certificate_data, friendly_name=values.unset, device_sid=values.unset):
         """
         Create the CertificateInstance
+
         :param str certificate_data: Provides a URL encoded representation of the public certificate in PEM format.
         :param str friendly_name: Provides a human readable descriptive text for this Certificate credential, up to 256 characters long.
         :param str device_sid: Provides the unique string identifier of an existing Device to become authenticated with this Certificate credential.
@@ -61,8 +62,9 @@ class CertificateList(ListResource):
             'FriendlyName': friendly_name,
             'DeviceSid': device_sid,
         })
+        
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return CertificateInstance(self._version, payload, fleet_sid=self._solution['fleet_sid'])
     
     
@@ -253,26 +255,29 @@ class CertificateContext(InstanceContext):
             'fleet_sid': fleet_sid,
             'sid': sid,
         }
-        self._uri = '/Fleets/${fleet_sid}/Certificates/${sid}'.format(**self._solution)
+        self._uri = '/Fleets/{fleet_sid}/Certificates/{sid}'.format(**self._solution)
         
     
     def delete(self):
         """
         Deletes the CertificateInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
     def fetch(self):
         """
         Fetch the CertificateInstance
+        
 
         :returns: The fetched CertificateInstance
         :rtype: twilio.rest.preview.deployed_devices.fleet.certificate.CertificateInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return CertificateInstance(
             self._version,
@@ -296,8 +301,9 @@ class CertificateContext(InstanceContext):
             'FriendlyName': friendly_name,
             'DeviceSid': device_sid,
         })
+        
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return CertificateInstance(
             self._version,
@@ -429,6 +435,7 @@ class CertificateInstance(InstanceResource):
     def delete(self):
         """
         Deletes the CertificateInstance
+        
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -438,6 +445,7 @@ class CertificateInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the CertificateInstance
+        
 
         :returns: The fetched CertificateInstance
         :rtype: twilio.rest.preview.deployed_devices.fleet.certificate.CertificateInstance

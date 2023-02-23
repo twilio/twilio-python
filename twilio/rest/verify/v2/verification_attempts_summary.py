@@ -92,11 +92,27 @@ class VerificationAttemptsSummaryContext(InstanceContext):
     def fetch(self, verify_service_sid=values.unset, date_created_after=values.unset, date_created_before=values.unset, country=values.unset, channel=values.unset, destination_prefix=values.unset):
         """
         Fetch the VerificationAttemptsSummaryInstance
+        
+        :params str verify_service_sid: Filter used to consider only Verification Attempts of the given verify service on the summary aggregation.
+        :params datetime date_created_after: Datetime filter used to consider only Verification Attempts created after this datetime on the summary aggregation. Given as GMT in RFC 2822 format.
+        :params datetime date_created_before: Datetime filter used to consider only Verification Attempts created before this datetime on the summary aggregation. Given as GMT in RFC 2822 format.
+        :params str country: Filter used to consider only Verification Attempts sent to the specified destination country on the summary aggregation.
+        :params VerificationAttemptsSummaryChannels channel: Filter Verification Attempts considered on the summary aggregation by communication channel. Valid values are `SMS` and `CALL`
+        :params str destination_prefix: Filter the Verification Attempts considered on the summary aggregation by Destination prefix. It is the prefix of a phone number in E.164 format.
 
         :returns: The fetched VerificationAttemptsSummaryInstance
         :rtype: twilio.rest.verify.v2.verification_attempts_summary.VerificationAttemptsSummaryInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        data = values.of({ 
+            'VerifyServiceSid': verify_service_sid,
+            'DateCreatedAfter': serialize.iso8601_datetime(date_created_after),
+            'DateCreatedBefore': serialize.iso8601_datetime(date_created_before),
+            'Country': country,
+            'Channel': channel,
+            'DestinationPrefix': destination_prefix,
+        })
+        payload = self._version.fetch(method='GET', uri=self._uri, params=data)
 
         return VerificationAttemptsSummaryInstance(
             self._version,
@@ -191,11 +207,18 @@ class VerificationAttemptsSummaryInstance(InstanceResource):
     def fetch(self, verify_service_sid=values.unset, date_created_after=values.unset, date_created_before=values.unset, country=values.unset, channel=values.unset, destination_prefix=values.unset):
         """
         Fetch the VerificationAttemptsSummaryInstance
+        
+        :params str verify_service_sid: Filter used to consider only Verification Attempts of the given verify service on the summary aggregation.
+        :params datetime date_created_after: Datetime filter used to consider only Verification Attempts created after this datetime on the summary aggregation. Given as GMT in RFC 2822 format.
+        :params datetime date_created_before: Datetime filter used to consider only Verification Attempts created before this datetime on the summary aggregation. Given as GMT in RFC 2822 format.
+        :params str country: Filter used to consider only Verification Attempts sent to the specified destination country on the summary aggregation.
+        :params VerificationAttemptsSummaryChannels channel: Filter Verification Attempts considered on the summary aggregation by communication channel. Valid values are `SMS` and `CALL`
+        :params str destination_prefix: Filter the Verification Attempts considered on the summary aggregation by Destination prefix. It is the prefix of a phone number in E.164 format.
 
         :returns: The fetched VerificationAttemptsSummaryInstance
         :rtype: twilio.rest.verify.v2.verification_attempts_summary.VerificationAttemptsSummaryInstance
         """
-        return self._proxy.fetch()
+        return self._proxy.fetch(verify_service_sid=verify_service_sid, date_created_after=date_created_after, date_created_before=date_created_before, country=country, channel=channel, destination_prefix=destination_prefix, )
     
     def __repr__(self):
         """

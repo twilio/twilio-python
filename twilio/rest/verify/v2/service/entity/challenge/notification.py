@@ -41,13 +41,14 @@ class NotificationList(ListResource):
 
         # Path Solution
         self._solution = { 'service_sid': service_sid, 'identity': identity, 'challenge_sid': challenge_sid,  }
-        self._uri = '/Services/${service_sid}/Entities/${identity}/Challenges/${challenge_sid}/Notifications'.format(**self._solution)
+        self._uri = '/Services/{service_sid}/Entities/{identity}/Challenges/{challenge_sid}/Notifications'.format(**self._solution)
         
         
     
     def create(self, ttl=values.unset):
         """
         Create the NotificationInstance
+
         :param int ttl: How long, in seconds, the notification is valid. Can be an integer between 0 and 300. Default is 300. Delivery is attempted until the TTL elapses, even if the device is offline. 0 means that the notification delivery is attempted immediately, only once, and is not stored for future delivery.
         
         :returns: The created NotificationInstance
@@ -56,8 +57,9 @@ class NotificationList(ListResource):
         data = values.of({ 
             'Ttl': ttl,
         })
+        
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return NotificationInstance(self._version, payload, service_sid=self._solution['service_sid'], identity=self._solution['identity'], challenge_sid=self._solution['challenge_sid'])
     
 

@@ -93,11 +93,13 @@ class SettingsContext(InstanceContext):
     def fetch(self):
         """
         Fetch the SettingsInstance
+        
 
         :returns: The fetched SettingsInstance
         :rtype: twilio.rest.voice.v1.dialing_permissions.settings.SettingsInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return SettingsInstance(
             self._version,
@@ -117,8 +119,9 @@ class SettingsContext(InstanceContext):
         data = values.of({ 
             'DialingPermissionsInheritance': dialing_permissions_inheritance,
         })
+        
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return SettingsInstance(
             self._version,
@@ -185,6 +188,7 @@ class SettingsInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the SettingsInstance
+        
 
         :returns: The fetched SettingsInstance
         :rtype: twilio.rest.voice.v1.dialing_permissions.settings.SettingsInstance

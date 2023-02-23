@@ -39,7 +39,7 @@ class ItemAssignmentList(ListResource):
 
         # Path Solution
         self._solution = { 'bundle_sid': bundle_sid,  }
-        self._uri = '/RegulatoryCompliance/Bundles/${bundle_sid}/ItemAssignments'.format(**self._solution)
+        self._uri = '/RegulatoryCompliance/Bundles/{bundle_sid}/ItemAssignments'.format(**self._solution)
         
         
     
@@ -48,6 +48,7 @@ class ItemAssignmentList(ListResource):
     def create(self, object_sid):
         """
         Create the ItemAssignmentInstance
+
         :param str object_sid: The SID of an object bag that holds information of the different items.
         
         :returns: The created ItemAssignmentInstance
@@ -56,8 +57,9 @@ class ItemAssignmentList(ListResource):
         data = values.of({ 
             'ObjectSid': object_sid,
         })
+        
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return ItemAssignmentInstance(self._version, payload, bundle_sid=self._solution['bundle_sid'])
     
     
@@ -240,26 +242,29 @@ class ItemAssignmentContext(InstanceContext):
             'bundle_sid': bundle_sid,
             'sid': sid,
         }
-        self._uri = '/RegulatoryCompliance/Bundles/${bundle_sid}/ItemAssignments/${sid}'.format(**self._solution)
+        self._uri = '/RegulatoryCompliance/Bundles/{bundle_sid}/ItemAssignments/{sid}'.format(**self._solution)
         
     
     def delete(self):
         """
         Deletes the ItemAssignmentInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
     def fetch(self):
         """
         Fetch the ItemAssignmentInstance
+        
 
         :returns: The fetched ItemAssignmentInstance
         :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.item_assignment.ItemAssignmentInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return ItemAssignmentInstance(
             self._version,
@@ -365,6 +370,7 @@ class ItemAssignmentInstance(InstanceResource):
     def delete(self):
         """
         Deletes the ItemAssignmentInstance
+        
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -374,6 +380,7 @@ class ItemAssignmentInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the ItemAssignmentInstance
+        
 
         :returns: The fetched ItemAssignmentInstance
         :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.item_assignment.ItemAssignmentInstance

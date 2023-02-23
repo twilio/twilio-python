@@ -46,6 +46,7 @@ class IpCommandList(ListResource):
     def create(self, sim, payload, device_port, payload_type=values.unset, callback_url=values.unset, callback_method=values.unset):
         """
         Create the IpCommandInstance
+
         :param str sim: The `sid` or `unique_name` of the [Super SIM](https://www.twilio.com/docs/iot/supersim/api/sim-resource) to send the IP Command to.
         :param str payload: The data that will be sent to the device. The payload cannot exceed 1300 bytes. If the PayloadType is set to text, the payload is encoded in UTF-8. If PayloadType is set to binary, the payload is encoded in Base64.
         :param int device_port: The device port to which the IP Command will be sent.
@@ -64,8 +65,9 @@ class IpCommandList(ListResource):
             'CallbackUrl': callback_url,
             'CallbackMethod': callback_method,
         })
+        
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return IpCommandInstance(self._version, payload)
     
     
@@ -269,17 +271,19 @@ class IpCommandContext(InstanceContext):
         self._solution = { 
             'sid': sid,
         }
-        self._uri = '/IpCommands/${sid}'.format(**self._solution)
+        self._uri = '/IpCommands/{sid}'.format(**self._solution)
         
     
     def fetch(self):
         """
         Fetch the IpCommandInstance
+        
 
         :returns: The fetched IpCommandInstance
         :rtype: twilio.rest.supersim.v1.ip_command.IpCommandInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return IpCommandInstance(
             self._version,
@@ -447,6 +451,7 @@ class IpCommandInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the IpCommandInstance
+        
 
         :returns: The fetched IpCommandInstance
         :rtype: twilio.rest.supersim.v1.ip_command.IpCommandInstance

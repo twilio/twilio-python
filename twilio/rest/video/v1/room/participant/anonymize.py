@@ -90,7 +90,7 @@ class AnonymizeContext(InstanceContext):
             'room_sid': room_sid,
             'sid': sid,
         }
-        self._uri = '/Rooms/${room_sid}/Participants/${sid}/Anonymize'.format(**self._solution)
+        self._uri = '/Rooms/{room_sid}/Participants/{sid}/Anonymize'.format(**self._solution)
         
     
     def update(self):
@@ -103,8 +103,9 @@ class AnonymizeContext(InstanceContext):
         """
         data = values.of({ 
         })
+        
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return AnonymizeInstance(
             self._version,

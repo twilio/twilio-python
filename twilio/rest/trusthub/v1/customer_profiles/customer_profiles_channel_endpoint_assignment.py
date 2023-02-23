@@ -39,7 +39,7 @@ class CustomerProfilesChannelEndpointAssignmentList(ListResource):
 
         # Path Solution
         self._solution = { 'customer_profile_sid': customer_profile_sid,  }
-        self._uri = '/CustomerProfiles/${customer_profile_sid}/ChannelEndpointAssignments'.format(**self._solution)
+        self._uri = '/CustomerProfiles/{customer_profile_sid}/ChannelEndpointAssignments'.format(**self._solution)
         
         
     
@@ -48,6 +48,7 @@ class CustomerProfilesChannelEndpointAssignmentList(ListResource):
     def create(self, channel_endpoint_type, channel_endpoint_sid):
         """
         Create the CustomerProfilesChannelEndpointAssignmentInstance
+
         :param str channel_endpoint_type: The type of channel endpoint. eg: phone-number
         :param str channel_endpoint_sid: The SID of an channel endpoint
         
@@ -58,8 +59,9 @@ class CustomerProfilesChannelEndpointAssignmentList(ListResource):
             'ChannelEndpointType': channel_endpoint_type,
             'ChannelEndpointSid': channel_endpoint_sid,
         })
+        
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return CustomerProfilesChannelEndpointAssignmentInstance(self._version, payload, customer_profile_sid=self._solution['customer_profile_sid'])
     
     
@@ -254,26 +256,29 @@ class CustomerProfilesChannelEndpointAssignmentContext(InstanceContext):
             'customer_profile_sid': customer_profile_sid,
             'sid': sid,
         }
-        self._uri = '/CustomerProfiles/${customer_profile_sid}/ChannelEndpointAssignments/${sid}'.format(**self._solution)
+        self._uri = '/CustomerProfiles/{customer_profile_sid}/ChannelEndpointAssignments/{sid}'.format(**self._solution)
         
     
     def delete(self):
         """
         Deletes the CustomerProfilesChannelEndpointAssignmentInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
     def fetch(self):
         """
         Fetch the CustomerProfilesChannelEndpointAssignmentInstance
+        
 
         :returns: The fetched CustomerProfilesChannelEndpointAssignmentInstance
         :rtype: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_channel_endpoint_assignment.CustomerProfilesChannelEndpointAssignmentInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return CustomerProfilesChannelEndpointAssignmentInstance(
             self._version,
@@ -388,6 +393,7 @@ class CustomerProfilesChannelEndpointAssignmentInstance(InstanceResource):
     def delete(self):
         """
         Deletes the CustomerProfilesChannelEndpointAssignmentInstance
+        
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -397,6 +403,7 @@ class CustomerProfilesChannelEndpointAssignmentInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the CustomerProfilesChannelEndpointAssignmentInstance
+        
 
         :returns: The fetched CustomerProfilesChannelEndpointAssignmentInstance
         :rtype: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_channel_endpoint_assignment.CustomerProfilesChannelEndpointAssignmentInstance

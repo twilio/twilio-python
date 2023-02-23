@@ -40,7 +40,7 @@ class UserDefinedMessageSubscriptionList(ListResource):
 
         # Path Solution
         self._solution = { 'account_sid': account_sid, 'call_sid': call_sid,  }
-        self._uri = '/Accounts/${account_sid}/Calls/${call_sid}/UserDefinedMessageSubscriptions.json'.format(**self._solution)
+        self._uri = '/Accounts/{account_sid}/Calls/{call_sid}/UserDefinedMessageSubscriptions.json'.format(**self._solution)
         
         
     
@@ -48,6 +48,7 @@ class UserDefinedMessageSubscriptionList(ListResource):
     def create(self, callback, idempotency_key=values.unset, method=values.unset):
         """
         Create the UserDefinedMessageSubscriptionInstance
+
         :param str callback: The URL we should call using the `method` to send user defined events to your application. URLs must contain a valid hostname (underscores are not permitted).
         :param str idempotency_key: A unique string value to identify API call. This should be a unique string value per API call and can be a randomly generated.
         :param str method: The HTTP method Twilio will use when requesting the above `Url`. Either `GET` or `POST`. Default is `POST`.
@@ -60,8 +61,9 @@ class UserDefinedMessageSubscriptionList(ListResource):
             'IdempotencyKey': idempotency_key,
             'Method': method,
         })
+        
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return UserDefinedMessageSubscriptionInstance(self._version, payload, account_sid=self._solution['account_sid'], call_sid=self._solution['call_sid'])
     
 
@@ -115,17 +117,18 @@ class UserDefinedMessageSubscriptionContext(InstanceContext):
             'call_sid': call_sid,
             'sid': sid,
         }
-        self._uri = '/Accounts/${account_sid}/Calls/${call_sid}/UserDefinedMessageSubscriptions/${sid}.json'.format(**self._solution)
+        self._uri = '/Accounts/{account_sid}/Calls/{call_sid}/UserDefinedMessageSubscriptions/{sid}.json'.format(**self._solution)
         
     
     def delete(self):
         """
         Deletes the UserDefinedMessageSubscriptionInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
     
     def __repr__(self):
@@ -214,6 +217,7 @@ class UserDefinedMessageSubscriptionInstance(InstanceResource):
     def delete(self):
         """
         Deletes the UserDefinedMessageSubscriptionInstance
+        
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool

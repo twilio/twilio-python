@@ -40,7 +40,7 @@ class QueueList(ListResource):
 
         # Path Solution
         self._solution = { 'account_sid': account_sid,  }
-        self._uri = '/Accounts/${account_sid}/Queues.json'.format(**self._solution)
+        self._uri = '/Accounts/{account_sid}/Queues.json'.format(**self._solution)
         
         
     
@@ -50,6 +50,7 @@ class QueueList(ListResource):
     def create(self, friendly_name, max_size=values.unset):
         """
         Create the QueueInstance
+
         :param str friendly_name: A descriptive string that you created to describe this resource. It can be up to 64 characters long.
         :param int max_size: The maximum number of calls allowed to be in the queue. The default is 100. The maximum is 5000.
         
@@ -60,8 +61,9 @@ class QueueList(ListResource):
             'FriendlyName': friendly_name,
             'MaxSize': max_size,
         })
+        
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return QueueInstance(self._version, payload, account_sid=self._solution['account_sid'])
     
     
@@ -246,7 +248,7 @@ class QueueContext(InstanceContext):
             'account_sid': account_sid,
             'sid': sid,
         }
-        self._uri = '/Accounts/${account_sid}/Queues/${sid}.json'.format(**self._solution)
+        self._uri = '/Accounts/{account_sid}/Queues/{sid}.json'.format(**self._solution)
         
         self._members = None
     
@@ -254,19 +256,22 @@ class QueueContext(InstanceContext):
         """
         Deletes the QueueInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
     def fetch(self):
         """
         Fetch the QueueInstance
+        
 
         :returns: The fetched QueueInstance
         :rtype: twilio.rest.api.v2010.account.queue.QueueInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return QueueInstance(
             self._version,
@@ -290,8 +295,9 @@ class QueueContext(InstanceContext):
             'FriendlyName': friendly_name,
             'MaxSize': max_size,
         })
+        
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return QueueInstance(
             self._version,
@@ -436,6 +442,7 @@ class QueueInstance(InstanceResource):
     def delete(self):
         """
         Deletes the QueueInstance
+        
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -445,6 +452,7 @@ class QueueInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the QueueInstance
+        
 
         :returns: The fetched QueueInstance
         :rtype: twilio.rest.api.v2010.account.queue.QueueInstance

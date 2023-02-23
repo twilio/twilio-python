@@ -40,7 +40,7 @@ class DocumentList(ListResource):
 
         # Path Solution
         self._solution = { 'service_sid': service_sid,  }
-        self._uri = '/Services/${service_sid}/Documents'.format(**self._solution)
+        self._uri = '/Services/{service_sid}/Documents'.format(**self._solution)
         
         
     
@@ -50,6 +50,7 @@ class DocumentList(ListResource):
     def create(self, unique_name=values.unset, data=values.unset):
         """
         Create the DocumentInstance
+
         :param str unique_name: 
         :param object data: 
         
@@ -60,8 +61,9 @@ class DocumentList(ListResource):
             'UniqueName': unique_name,
             'Data': serialize.object(data),
         })
+        
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return DocumentInstance(self._version, payload, service_sid=self._solution['service_sid'])
     
     
@@ -246,7 +248,7 @@ class DocumentContext(InstanceContext):
             'service_sid': service_sid,
             'sid': sid,
         }
-        self._uri = '/Services/${service_sid}/Documents/${sid}'.format(**self._solution)
+        self._uri = '/Services/{service_sid}/Documents/{sid}'.format(**self._solution)
         
         self._document_permissions = None
     
@@ -254,19 +256,22 @@ class DocumentContext(InstanceContext):
         """
         Deletes the DocumentInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
     def fetch(self):
         """
         Fetch the DocumentInstance
+        
 
         :returns: The fetched DocumentInstance
         :rtype: twilio.rest.preview.sync.service.document.DocumentInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return DocumentInstance(
             self._version,
@@ -276,7 +281,7 @@ class DocumentContext(InstanceContext):
             
         )
         
-    def update(self, data=values.unset, if_match=values.unset):
+    def update(self, data, if_match=values.unset):
         """
         Update the DocumentInstance
         
@@ -288,10 +293,10 @@ class DocumentContext(InstanceContext):
         """
         data = values.of({ 
             'Data': serialize.object(data),
-            'If-Match': if_match,
         })
+        headers = values.of({'If-Match': if_match, })
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data, headers=headers)
 
         return DocumentInstance(
             self._version,
@@ -454,6 +459,7 @@ class DocumentInstance(InstanceResource):
     def delete(self):
         """
         Deletes the DocumentInstance
+        
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -463,13 +469,14 @@ class DocumentInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the DocumentInstance
+        
 
         :returns: The fetched DocumentInstance
         :rtype: twilio.rest.preview.sync.service.document.DocumentInstance
         """
         return self._proxy.fetch()
     
-    def update(self, data=values.unset, if_match=values.unset):
+    def update(self, data, if_match=values.unset):
         """
         Update the DocumentInstance
         

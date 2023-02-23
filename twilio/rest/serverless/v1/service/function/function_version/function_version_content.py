@@ -92,17 +92,19 @@ class FunctionVersionContentContext(InstanceContext):
             'function_sid': function_sid,
             'sid': sid,
         }
-        self._uri = '/Services/${service_sid}/Functions/${function_sid}/Versions/${sid}/Content'.format(**self._solution)
+        self._uri = '/Services/{service_sid}/Functions/{function_sid}/Versions/{sid}/Content'.format(**self._solution)
         
     
     def fetch(self):
         """
         Fetch the FunctionVersionContentInstance
+        
 
         :returns: The fetched FunctionVersionContentInstance
         :rtype: twilio.rest.serverless.v1.service.function.function_version.function_version_content.FunctionVersionContentInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return FunctionVersionContentInstance(
             self._version,
@@ -209,6 +211,7 @@ class FunctionVersionContentInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the FunctionVersionContentInstance
+        
 
         :returns: The fetched FunctionVersionContentInstance
         :rtype: twilio.rest.serverless.v1.service.function.function_version.function_version_content.FunctionVersionContentInstance

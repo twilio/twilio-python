@@ -92,11 +92,13 @@ class OpenidDiscoveryContext(InstanceContext):
     def fetch(self):
         """
         Fetch the OpenidDiscoveryInstance
+        
 
         :returns: The fetched OpenidDiscoveryInstance
         :rtype: twilio.rest.oauth.v1.openid_discovery.OpenidDiscoveryInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return OpenidDiscoveryInstance(
             self._version,
@@ -263,6 +265,7 @@ class OpenidDiscoveryInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the OpenidDiscoveryInstance
+        
 
         :returns: The fetched OpenidDiscoveryInstance
         :rtype: twilio.rest.oauth.v1.openid_discovery.OpenidDiscoveryInstance

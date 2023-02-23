@@ -117,17 +117,19 @@ class ConfigurationContext(InstanceContext):
         self._solution = { 
             'chat_service_sid': chat_service_sid,
         }
-        self._uri = '/Services/${chat_service_sid}/Configuration'.format(**self._solution)
+        self._uri = '/Services/{chat_service_sid}/Configuration'.format(**self._solution)
         
     
     def fetch(self):
         """
         Fetch the ConfigurationInstance
+        
 
         :returns: The fetched ConfigurationInstance
         :rtype: twilio.rest.conversations.v1.service.configuration.ConfigurationInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return ConfigurationInstance(
             self._version,
@@ -154,8 +156,9 @@ class ConfigurationContext(InstanceContext):
             'DefaultChatServiceRoleSid': default_chat_service_role_sid,
             'ReachabilityEnabled': reachability_enabled,
         })
+        
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return ConfigurationInstance(
             self._version,
@@ -268,6 +271,7 @@ class ConfigurationInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the ConfigurationInstance
+        
 
         :returns: The fetched ConfigurationInstance
         :rtype: twilio.rest.conversations.v1.service.configuration.ConfigurationInstance

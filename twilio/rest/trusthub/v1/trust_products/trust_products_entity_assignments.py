@@ -39,7 +39,7 @@ class TrustProductsEntityAssignmentsList(ListResource):
 
         # Path Solution
         self._solution = { 'trust_product_sid': trust_product_sid,  }
-        self._uri = '/TrustProducts/${trust_product_sid}/EntityAssignments'.format(**self._solution)
+        self._uri = '/TrustProducts/{trust_product_sid}/EntityAssignments'.format(**self._solution)
         
         
     
@@ -48,6 +48,7 @@ class TrustProductsEntityAssignmentsList(ListResource):
     def create(self, object_sid):
         """
         Create the TrustProductsEntityAssignmentsInstance
+
         :param str object_sid: The SID of an object bag that holds information of the different items.
         
         :returns: The created TrustProductsEntityAssignmentsInstance
@@ -56,8 +57,9 @@ class TrustProductsEntityAssignmentsList(ListResource):
         data = values.of({ 
             'ObjectSid': object_sid,
         })
+        
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return TrustProductsEntityAssignmentsInstance(self._version, payload, trust_product_sid=self._solution['trust_product_sid'])
     
     
@@ -240,26 +242,29 @@ class TrustProductsEntityAssignmentsContext(InstanceContext):
             'trust_product_sid': trust_product_sid,
             'sid': sid,
         }
-        self._uri = '/TrustProducts/${trust_product_sid}/EntityAssignments/${sid}'.format(**self._solution)
+        self._uri = '/TrustProducts/{trust_product_sid}/EntityAssignments/{sid}'.format(**self._solution)
         
     
     def delete(self):
         """
         Deletes the TrustProductsEntityAssignmentsInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
     def fetch(self):
         """
         Fetch the TrustProductsEntityAssignmentsInstance
+        
 
         :returns: The fetched TrustProductsEntityAssignmentsInstance
         :rtype: twilio.rest.trusthub.v1.trust_products.trust_products_entity_assignments.TrustProductsEntityAssignmentsInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return TrustProductsEntityAssignmentsInstance(
             self._version,
@@ -365,6 +370,7 @@ class TrustProductsEntityAssignmentsInstance(InstanceResource):
     def delete(self):
         """
         Deletes the TrustProductsEntityAssignmentsInstance
+        
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -374,6 +380,7 @@ class TrustProductsEntityAssignmentsInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the TrustProductsEntityAssignmentsInstance
+        
 
         :returns: The fetched TrustProductsEntityAssignmentsInstance
         :rtype: twilio.rest.trusthub.v1.trust_products.trust_products_entity_assignments.TrustProductsEntityAssignmentsInstance

@@ -53,6 +53,7 @@ class TrunkList(ListResource):
     def create(self, friendly_name=values.unset, domain_name=values.unset, disaster_recovery_url=values.unset, disaster_recovery_method=values.unset, transfer_mode=values.unset, secure=values.unset, cnam_lookup_enabled=values.unset, transfer_caller_id=values.unset):
         """
         Create the TrunkInstance
+
         :param str friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
         :param str domain_name: The unique address you reserve on Twilio to which you route your SIP traffic. Domain names can contain letters, digits, and `-` and must end with `pstn.twilio.com`. See [Termination Settings](https://www.twilio.com/docs/sip-trunking#termination) for more information.
         :param str disaster_recovery_url: The URL we should call using the `disaster_recovery_method` if an error occurs while sending SIP traffic towards the configured Origination URL. We retrieve TwiML from the URL and execute the instructions like any other normal TwiML call. See [Disaster Recovery](https://www.twilio.com/docs/sip-trunking#disaster-recovery) for more information.
@@ -75,8 +76,9 @@ class TrunkList(ListResource):
             'CnamLookupEnabled': cnam_lookup_enabled,
             'TransferCallerId': transfer_caller_id,
         })
+        
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return TrunkInstance(self._version, payload)
     
     
@@ -260,7 +262,7 @@ class TrunkContext(InstanceContext):
         self._solution = { 
             'sid': sid,
         }
-        self._uri = '/Trunks/${sid}'.format(**self._solution)
+        self._uri = '/Trunks/{sid}'.format(**self._solution)
         
         self._credentials_lists = None
         self._ip_access_control_lists = None
@@ -272,19 +274,22 @@ class TrunkContext(InstanceContext):
         """
         Deletes the TrunkInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
     def fetch(self):
         """
         Fetch the TrunkInstance
+        
 
         :returns: The fetched TrunkInstance
         :rtype: twilio.rest.trunking.v1.trunk.TrunkInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return TrunkInstance(
             self._version,
@@ -319,8 +324,9 @@ class TrunkContext(InstanceContext):
             'CnamLookupEnabled': cnam_lookup_enabled,
             'TransferCallerId': transfer_caller_id,
         })
+        
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return TrunkInstance(
             self._version,
@@ -588,6 +594,7 @@ class TrunkInstance(InstanceResource):
     def delete(self):
         """
         Deletes the TrunkInstance
+        
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -597,6 +604,7 @@ class TrunkInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the TrunkInstance
+        
 
         :returns: The fetched TrunkInstance
         :rtype: twilio.rest.trunking.v1.trunk.TrunkInstance

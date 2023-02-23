@@ -40,7 +40,7 @@ class SyncMapPermissionList(ListResource):
 
         # Path Solution
         self._solution = { 'service_sid': service_sid, 'map_sid': map_sid,  }
-        self._uri = '/Services/${service_sid}/Maps/${map_sid}/Permissions'.format(**self._solution)
+        self._uri = '/Services/{service_sid}/Maps/{map_sid}/Permissions'.format(**self._solution)
         
         
     
@@ -227,26 +227,29 @@ class SyncMapPermissionContext(InstanceContext):
             'map_sid': map_sid,
             'identity': identity,
         }
-        self._uri = '/Services/${service_sid}/Maps/${map_sid}/Permissions/${identity}'.format(**self._solution)
+        self._uri = '/Services/{service_sid}/Maps/{map_sid}/Permissions/{identity}'.format(**self._solution)
         
     
     def delete(self):
         """
         Deletes the SyncMapPermissionInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
     def fetch(self):
         """
         Fetch the SyncMapPermissionInstance
+        
 
         :returns: The fetched SyncMapPermissionInstance
         :rtype: twilio.rest.sync.v1.service.sync_map.sync_map_permission.SyncMapPermissionInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return SyncMapPermissionInstance(
             self._version,
@@ -257,7 +260,7 @@ class SyncMapPermissionContext(InstanceContext):
             
         )
         
-    def update(self, read=values.unset, write=values.unset, manage=values.unset):
+    def update(self, read, write, manage):
         """
         Update the SyncMapPermissionInstance
         
@@ -273,8 +276,9 @@ class SyncMapPermissionContext(InstanceContext):
             'Write': write,
             'Manage': manage,
         })
+        
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return SyncMapPermissionInstance(
             self._version,
@@ -398,6 +402,7 @@ class SyncMapPermissionInstance(InstanceResource):
     def delete(self):
         """
         Deletes the SyncMapPermissionInstance
+        
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -407,13 +412,14 @@ class SyncMapPermissionInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the SyncMapPermissionInstance
+        
 
         :returns: The fetched SyncMapPermissionInstance
         :rtype: twilio.rest.sync.v1.service.sync_map.sync_map_permission.SyncMapPermissionInstance
         """
         return self._proxy.fetch()
     
-    def update(self, read=values.unset, write=values.unset, manage=values.unset):
+    def update(self, read, write, manage):
         """
         Update the SyncMapPermissionInstance
         

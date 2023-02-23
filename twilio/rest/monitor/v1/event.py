@@ -253,17 +253,19 @@ class EventContext(InstanceContext):
         self._solution = { 
             'sid': sid,
         }
-        self._uri = '/Events/${sid}'.format(**self._solution)
+        self._uri = '/Events/{sid}'.format(**self._solution)
         
     
     def fetch(self):
         """
         Fetch the EventInstance
+        
 
         :returns: The fetched EventInstance
         :rtype: twilio.rest.monitor.v1.event.EventInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return EventInstance(
             self._version,
@@ -440,6 +442,7 @@ class EventInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the EventInstance
+        
 
         :returns: The fetched EventInstance
         :rtype: twilio.rest.monitor.v1.event.EventInstance

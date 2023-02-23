@@ -107,7 +107,7 @@ class ExportContext(InstanceContext):
         self._solution = { 
             'resource_type': resource_type,
         }
-        self._uri = '/Exports/${resource_type}'.format(**self._solution)
+        self._uri = '/Exports/{resource_type}'.format(**self._solution)
         
         self._days = None
         self._export_custom_jobs = None
@@ -115,11 +115,13 @@ class ExportContext(InstanceContext):
     def fetch(self):
         """
         Fetch the ExportInstance
+        
 
         :returns: The fetched ExportInstance
         :rtype: twilio.rest.bulkexports.v1.export.ExportInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return ExportInstance(
             self._version,
@@ -223,6 +225,7 @@ class ExportInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the ExportInstance
+        
 
         :returns: The fetched ExportInstance
         :rtype: twilio.rest.bulkexports.v1.export.ExportInstance

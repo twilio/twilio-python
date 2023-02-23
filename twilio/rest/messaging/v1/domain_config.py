@@ -92,17 +92,19 @@ class DomainConfigContext(InstanceContext):
         self._solution = { 
             'domain_sid': domain_sid,
         }
-        self._uri = '/LinkShortening/Domains/${domain_sid}/Config'.format(**self._solution)
+        self._uri = '/LinkShortening/Domains/{domain_sid}/Config'.format(**self._solution)
         
     
     def fetch(self):
         """
         Fetch the DomainConfigInstance
+        
 
         :returns: The fetched DomainConfigInstance
         :rtype: twilio.rest.messaging.v1.domain_config.DomainConfigInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return DomainConfigInstance(
             self._version,
@@ -111,7 +113,7 @@ class DomainConfigContext(InstanceContext):
             
         )
         
-    def update(self, messaging_service_sids=values.unset, fallback_url=values.unset, callback_url=values.unset, messaging_service_sids_action=values.unset):
+    def update(self, messaging_service_sids, fallback_url=values.unset, callback_url=values.unset, messaging_service_sids_action=values.unset):
         """
         Update the DomainConfigInstance
         
@@ -129,8 +131,9 @@ class DomainConfigContext(InstanceContext):
             'CallbackUrl': callback_url,
             'MessagingServiceSidsAction': messaging_service_sids_action,
         })
+        
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return DomainConfigInstance(
             self._version,
@@ -252,13 +255,14 @@ class DomainConfigInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the DomainConfigInstance
+        
 
         :returns: The fetched DomainConfigInstance
         :rtype: twilio.rest.messaging.v1.domain_config.DomainConfigInstance
         """
         return self._proxy.fetch()
     
-    def update(self, messaging_service_sids=values.unset, fallback_url=values.unset, callback_url=values.unset, messaging_service_sids_action=values.unset):
+    def update(self, messaging_service_sids, fallback_url=values.unset, callback_url=values.unset, messaging_service_sids_action=values.unset):
         """
         Update the DomainConfigInstance
         

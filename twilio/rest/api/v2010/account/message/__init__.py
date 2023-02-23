@@ -41,7 +41,7 @@ class MessageList(ListResource):
 
         # Path Solution
         self._solution = { 'account_sid': account_sid,  }
-        self._uri = '/Accounts/${account_sid}/Messages.json'.format(**self._solution)
+        self._uri = '/Accounts/{account_sid}/Messages.json'.format(**self._solution)
         
         
     
@@ -51,6 +51,7 @@ class MessageList(ListResource):
     def create(self, to, status_callback=values.unset, application_sid=values.unset, max_price=values.unset, provide_feedback=values.unset, attempt=values.unset, validity_period=values.unset, force_delivery=values.unset, content_retention=values.unset, address_retention=values.unset, smart_encoded=values.unset, persistent_action=values.unset, shorten_urls=values.unset, schedule_type=values.unset, send_at=values.unset, send_as_mms=values.unset, content_sid=values.unset, content_variables=values.unset, from_=values.unset, messaging_service_sid=values.unset, body=values.unset, media_url=values.unset):
         """
         Create the MessageInstance
+
         :param str to: The destination phone number in [E.164](https://www.twilio.com/docs/glossary/what-e164) format for SMS/MMS or [Channel user address](https://www.twilio.com/docs/sms/channels#channel-addresses) for other 3rd-party channels.
         :param str status_callback: The URL we should call using the `status_callback_method` to send status information to your application. If specified, we POST these message status changes to the URL: `queued`, `failed`, `sent`, `delivered`, or `undelivered`. Twilio will POST its [standard request parameters](https://www.twilio.com/docs/sms/twiml#request-parameters) as well as some additional parameters including `MessageSid`, `MessageStatus`, and `ErrorCode`. If you include this parameter with the `messaging_service_sid`, we use this URL instead of the Status Callback URL of the [Messaging Service](https://www.twilio.com/docs/sms/services/api). URLs must contain a valid hostname and underscores are not allowed.
         :param str application_sid: The SID of the application that should receive message status. We POST a `message_sid` parameter and a `message_status` parameter with a value of `sent` or `failed` to the [application](https://www.twilio.com/docs/usage/api/applications)'s `message_status_callback`. If a `status_callback` parameter is also passed, it will be ignored and the application's `message_status_callback` parameter will be used.
@@ -101,8 +102,9 @@ class MessageList(ListResource):
             'Body': body,
             'MediaUrl': serialize.map(media_url, lambda e: e),
         })
+        
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return MessageInstance(self._version, payload, account_sid=self._solution['account_sid'])
     
     
@@ -317,7 +319,7 @@ class MessageContext(InstanceContext):
             'account_sid': account_sid,
             'sid': sid,
         }
-        self._uri = '/Accounts/${account_sid}/Messages/${sid}.json'.format(**self._solution)
+        self._uri = '/Accounts/{account_sid}/Messages/{sid}.json'.format(**self._solution)
         
         self._feedback = None
         self._media = None
@@ -326,19 +328,22 @@ class MessageContext(InstanceContext):
         """
         Deletes the MessageInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
     def fetch(self):
         """
         Fetch the MessageInstance
+        
 
         :returns: The fetched MessageInstance
         :rtype: twilio.rest.api.v2010.account.message.MessageInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return MessageInstance(
             self._version,
@@ -362,8 +367,9 @@ class MessageContext(InstanceContext):
             'Body': body,
             'Status': status,
         })
+        
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return MessageInstance(
             self._version,
@@ -620,6 +626,7 @@ class MessageInstance(InstanceResource):
     def delete(self):
         """
         Deletes the MessageInstance
+        
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -629,6 +636,7 @@ class MessageInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the MessageInstance
+        
 
         :returns: The fetched MessageInstance
         :rtype: twilio.rest.api.v2010.account.message.MessageInstance

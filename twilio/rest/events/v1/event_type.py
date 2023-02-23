@@ -223,17 +223,19 @@ class EventTypeContext(InstanceContext):
         self._solution = { 
             'type': type,
         }
-        self._uri = '/Types/${type}'.format(**self._solution)
+        self._uri = '/Types/{type}'.format(**self._solution)
         
     
     def fetch(self):
         """
         Fetch the EventTypeInstance
+        
 
         :returns: The fetched EventTypeInstance
         :rtype: twilio.rest.events.v1.event_type.EventTypeInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return EventTypeInstance(
             self._version,
@@ -347,6 +349,7 @@ class EventTypeInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the EventTypeInstance
+        
 
         :returns: The fetched EventTypeInstance
         :rtype: twilio.rest.events.v1.event_type.EventTypeInstance

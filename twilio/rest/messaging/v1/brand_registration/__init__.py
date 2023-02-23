@@ -48,6 +48,7 @@ class BrandRegistrationList(ListResource):
     def create(self, customer_profile_bundle_sid, a2_p_profile_bundle_sid, brand_type=values.unset, mock=values.unset, skip_automatic_sec_vet=values.unset):
         """
         Create the BrandRegistrationInstance
+
         :param str customer_profile_bundle_sid: Customer Profile Bundle Sid.
         :param str a2_p_profile_bundle_sid: A2P Messaging Profile Bundle Sid.
         :param str brand_type: Type of brand being created. One of: \\\"STANDARD\\\", \\\"STARTER\\\". STARTER is for low volume, starter use cases. STANDARD is for all other use cases.
@@ -64,8 +65,9 @@ class BrandRegistrationList(ListResource):
             'Mock': mock,
             'SkipAutomaticSecVet': skip_automatic_sec_vet,
         })
+        
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return BrandRegistrationInstance(self._version, payload)
     
     
@@ -247,18 +249,20 @@ class BrandRegistrationContext(InstanceContext):
         self._solution = { 
             'sid': sid,
         }
-        self._uri = '/a2p/BrandRegistrations/${sid}'.format(**self._solution)
+        self._uri = '/a2p/BrandRegistrations/{sid}'.format(**self._solution)
         
         self._brand_vettings = None
     
     def fetch(self):
         """
         Fetch the BrandRegistrationInstance
+        
 
         :returns: The fetched BrandRegistrationInstance
         :rtype: twilio.rest.messaging.v1.brand_registration.BrandRegistrationInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return BrandRegistrationInstance(
             self._version,
@@ -277,8 +281,9 @@ class BrandRegistrationContext(InstanceContext):
         """
         data = values.of({ 
         })
+        
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return BrandRegistrationInstance(
             self._version,
@@ -521,6 +526,7 @@ class BrandRegistrationInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the BrandRegistrationInstance
+        
 
         :returns: The fetched BrandRegistrationInstance
         :rtype: twilio.rest.messaging.v1.brand_registration.BrandRegistrationInstance

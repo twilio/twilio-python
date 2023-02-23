@@ -92,18 +92,20 @@ class SchemaContext(InstanceContext):
         self._solution = { 
             'id': id,
         }
-        self._uri = '/Schemas/${id}'.format(**self._solution)
+        self._uri = '/Schemas/{id}'.format(**self._solution)
         
         self._versions = None
     
     def fetch(self):
         """
         Fetch the SchemaInstance
+        
 
         :returns: The fetched SchemaInstance
         :rtype: twilio.rest.events.v1.schema.SchemaInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return SchemaInstance(
             self._version,
@@ -212,6 +214,7 @@ class SchemaInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the SchemaInstance
+        
 
         :returns: The fetched SchemaInstance
         :rtype: twilio.rest.events.v1.schema.SchemaInstance

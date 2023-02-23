@@ -40,7 +40,7 @@ class UserList(ListResource):
 
         # Path Solution
         self._solution = { 'chat_service_sid': chat_service_sid,  }
-        self._uri = '/Services/${chat_service_sid}/Users'.format(**self._solution)
+        self._uri = '/Services/{chat_service_sid}/Users'.format(**self._solution)
         
         
     
@@ -50,6 +50,7 @@ class UserList(ListResource):
     def create(self, identity, x_twilio_webhook_enabled=values.unset, friendly_name=values.unset, attributes=values.unset, role_sid=values.unset):
         """
         Create the UserInstance
+
         :param str identity: The application-defined string that uniquely identifies the resource's User within the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource). This value is often a username or an email address, and is case-sensitive.
         :param ServiceUserWebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
         :param str friendly_name: The string that you assigned to describe the resource.
@@ -61,13 +62,13 @@ class UserList(ListResource):
         """
         data = values.of({ 
             'Identity': identity,
-            'X-Twilio-Webhook-Enabled': x_twilio_webhook_enabled,
             'FriendlyName': friendly_name,
             'Attributes': attributes,
             'RoleSid': role_sid,
         })
+        headers = values.of({'X-Twilio-Webhook-Enabled': x_twilio_webhook_enabled, })
+        payload = self._version.create(method='POST', uri=self._uri, data=data, headers=headers)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return UserInstance(self._version, payload, chat_service_sid=self._solution['chat_service_sid'])
     
     
@@ -252,7 +253,7 @@ class UserContext(InstanceContext):
             'chat_service_sid': chat_service_sid,
             'sid': sid,
         }
-        self._uri = '/Services/${chat_service_sid}/Users/${sid}'.format(**self._solution)
+        self._uri = '/Services/{chat_service_sid}/Users/{sid}'.format(**self._solution)
         
         self._user_conversations = None
     
@@ -260,19 +261,25 @@ class UserContext(InstanceContext):
         """
         Deletes the UserInstance
 
+        :param ServiceUserWebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        headers = values.of({'X-Twilio-Webhook-Enabled': x_twilio_webhook_enabled, })
+        
+        return self._version.delete(method='DELETE', uri=self._uri, headers=headers)
         
     def fetch(self):
         """
         Fetch the UserInstance
+        
 
         :returns: The fetched UserInstance
         :rtype: twilio.rest.conversations.v1.service.user.UserInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return UserInstance(
             self._version,
@@ -295,13 +302,13 @@ class UserContext(InstanceContext):
         :rtype: twilio.rest.conversations.v1.service.user.UserInstance
         """
         data = values.of({ 
-            'X-Twilio-Webhook-Enabled': x_twilio_webhook_enabled,
             'FriendlyName': friendly_name,
             'Attributes': attributes,
             'RoleSid': role_sid,
         })
+        headers = values.of({'X-Twilio-Webhook-Enabled': x_twilio_webhook_enabled, })
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data, headers=headers)
 
         return UserInstance(
             self._version,
@@ -482,15 +489,18 @@ class UserInstance(InstanceResource):
     def delete(self, x_twilio_webhook_enabled=values.unset):
         """
         Deletes the UserInstance
+        
+        :params ServiceUserWebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._proxy.delete()
+        return self._proxy.delete(x_twilio_webhook_enabled=x_twilio_webhook_enabled, )
     
     def fetch(self):
         """
         Fetch the UserInstance
+        
 
         :returns: The fetched UserInstance
         :rtype: twilio.rest.conversations.v1.service.user.UserInstance

@@ -39,7 +39,7 @@ class TriggerList(ListResource):
 
         # Path Solution
         self._solution = { 'account_sid': account_sid,  }
-        self._uri = '/Accounts/${account_sid}/Usage/Triggers.json'.format(**self._solution)
+        self._uri = '/Accounts/{account_sid}/Usage/Triggers.json'.format(**self._solution)
         
         
     
@@ -49,6 +49,7 @@ class TriggerList(ListResource):
     def create(self, callback_url, trigger_value, usage_category, callback_method=values.unset, friendly_name=values.unset, recurring=values.unset, trigger_by=values.unset):
         """
         Create the TriggerInstance
+
         :param str callback_url: The URL we should call using `callback_method` when the trigger fires.
         :param str trigger_value: The usage value at which the trigger should fire.  For convenience, you can use an offset value such as `+30` to specify a trigger_value that is 30 units more than the current usage value. Be sure to urlencode a `+` as `%2B`.
         :param UsageTriggerUsageCategory usage_category: 
@@ -69,8 +70,9 @@ class TriggerList(ListResource):
             'Recurring': recurring,
             'TriggerBy': trigger_by,
         })
+        
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return TriggerInstance(self._version, payload, account_sid=self._solution['account_sid'])
     
     
@@ -273,26 +275,29 @@ class TriggerContext(InstanceContext):
             'account_sid': account_sid,
             'sid': sid,
         }
-        self._uri = '/Accounts/${account_sid}/Usage/Triggers/${sid}.json'.format(**self._solution)
+        self._uri = '/Accounts/{account_sid}/Usage/Triggers/{sid}.json'.format(**self._solution)
         
     
     def delete(self):
         """
         Deletes the TriggerInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
     def fetch(self):
         """
         Fetch the TriggerInstance
+        
 
         :returns: The fetched TriggerInstance
         :rtype: twilio.rest.api.v2010.account.usage.trigger.TriggerInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return TriggerInstance(
             self._version,
@@ -318,8 +323,9 @@ class TriggerContext(InstanceContext):
             'CallbackUrl': callback_url,
             'FriendlyName': friendly_name,
         })
+        
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return TriggerInstance(
             self._version,
@@ -514,6 +520,7 @@ class TriggerInstance(InstanceResource):
     def delete(self):
         """
         Deletes the TriggerInstance
+        
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -523,6 +530,7 @@ class TriggerInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the TriggerInstance
+        
 
         :returns: The fetched TriggerInstance
         :rtype: twilio.rest.api.v2010.account.usage.trigger.TriggerInstance

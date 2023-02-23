@@ -41,7 +41,7 @@ class AssignedAddOnExtensionList(ListResource):
 
         # Path Solution
         self._solution = { 'account_sid': account_sid, 'resource_sid': resource_sid, 'assigned_add_on_sid': assigned_add_on_sid,  }
-        self._uri = '/Accounts/${account_sid}/IncomingPhoneNumbers/${resource_sid}/AssignedAddOns/${assigned_add_on_sid}/Extensions.json'.format(**self._solution)
+        self._uri = '/Accounts/{account_sid}/IncomingPhoneNumbers/{resource_sid}/AssignedAddOns/{assigned_add_on_sid}/Extensions.json'.format(**self._solution)
         
         
     
@@ -223,17 +223,19 @@ class AssignedAddOnExtensionContext(InstanceContext):
             'assigned_add_on_sid': assigned_add_on_sid,
             'sid': sid,
         }
-        self._uri = '/Accounts/${account_sid}/IncomingPhoneNumbers/${resource_sid}/AssignedAddOns/${assigned_add_on_sid}/Extensions/${sid}.json'.format(**self._solution)
+        self._uri = '/Accounts/{account_sid}/IncomingPhoneNumbers/{resource_sid}/AssignedAddOns/{assigned_add_on_sid}/Extensions/{sid}.json'.format(**self._solution)
         
     
     def fetch(self):
         """
         Fetch the AssignedAddOnExtensionInstance
+        
 
         :returns: The fetched AssignedAddOnExtensionInstance
         :rtype: twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.assigned_add_on_extension.AssignedAddOnExtensionInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return AssignedAddOnExtensionInstance(
             self._version,
@@ -368,6 +370,7 @@ class AssignedAddOnExtensionInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the AssignedAddOnExtensionInstance
+        
 
         :returns: The fetched AssignedAddOnExtensionInstance
         :rtype: twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.assigned_add_on_extension.AssignedAddOnExtensionInstance

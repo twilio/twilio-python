@@ -40,7 +40,7 @@ class ParticipantList(ListResource):
 
         # Path Solution
         self._solution = { 'account_sid': account_sid, 'conference_sid': conference_sid,  }
-        self._uri = '/Accounts/${account_sid}/Conferences/${conference_sid}/Participants.json'.format(**self._solution)
+        self._uri = '/Accounts/{account_sid}/Conferences/{conference_sid}/Participants.json'.format(**self._solution)
         
         
     
@@ -50,6 +50,7 @@ class ParticipantList(ListResource):
     def create(self, from_, to, status_callback=values.unset, status_callback_method=values.unset, status_callback_event=values.unset, label=values.unset, timeout=values.unset, record=values.unset, muted=values.unset, beep=values.unset, start_conference_on_enter=values.unset, end_conference_on_exit=values.unset, wait_url=values.unset, wait_method=values.unset, early_media=values.unset, max_participants=values.unset, conference_record=values.unset, conference_trim=values.unset, conference_status_callback=values.unset, conference_status_callback_method=values.unset, conference_status_callback_event=values.unset, recording_channels=values.unset, recording_status_callback=values.unset, recording_status_callback_method=values.unset, sip_auth_username=values.unset, sip_auth_password=values.unset, region=values.unset, conference_recording_status_callback=values.unset, conference_recording_status_callback_method=values.unset, recording_status_callback_event=values.unset, conference_recording_status_callback_event=values.unset, coaching=values.unset, call_sid_to_coach=values.unset, jitter_buffer_size=values.unset, byoc=values.unset, caller_id=values.unset, call_reason=values.unset, recording_track=values.unset, time_limit=values.unset, machine_detection=values.unset, machine_detection_timeout=values.unset, machine_detection_speech_threshold=values.unset, machine_detection_speech_end_threshold=values.unset, machine_detection_silence_timeout=values.unset, amd_status_callback=values.unset, amd_status_callback_method=values.unset):
         """
         Create the ParticipantInstance
+
         :param str from_: The phone number, Client identifier, or username portion of SIP address that made this call. Phone numbers are in [E.164](https://www.twilio.com/docs/glossary/what-e164) format (e.g., +16175551212). Client identifiers are formatted `client:name`. If using a phone number, it must be a Twilio number or a Verified [outgoing caller id](https://www.twilio.com/docs/voice/api/outgoing-caller-ids) for your account. If the `to` parameter is a phone number, `from` must also be a phone number. If `to` is sip address, this value of `from` should be a username portion to be used to populate the P-Asserted-Identity header that is passed to the SIP endpoint.
         :param str to: The phone number, SIP address, or Client identifier that received this call. Phone numbers are in [E.164](https://www.twilio.com/docs/glossary/what-e164) format (e.g., +16175551212). SIP addresses are formatted as `sip:name@company.com`. Client identifiers are formatted `client:name`. [Custom parameters](https://www.twilio.com/docs/voice/api/conference-participant-resource#custom-parameters) may also be specified.
         :param str status_callback: The URL we should call using the `status_callback_method` to send status information to your application.
@@ -148,8 +149,9 @@ class ParticipantList(ListResource):
             'AmdStatusCallback': amd_status_callback,
             'AmdStatusCallbackMethod': amd_status_callback_method,
         })
+        
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return ParticipantInstance(self._version, payload, account_sid=self._solution['account_sid'], conference_sid=self._solution['conference_sid'])
     
     
@@ -353,26 +355,29 @@ class ParticipantContext(InstanceContext):
             'conference_sid': conference_sid,
             'call_sid': call_sid,
         }
-        self._uri = '/Accounts/${account_sid}/Conferences/${conference_sid}/Participants/${call_sid}.json'.format(**self._solution)
+        self._uri = '/Accounts/{account_sid}/Conferences/{conference_sid}/Participants/{call_sid}.json'.format(**self._solution)
         
     
     def delete(self):
         """
         Deletes the ParticipantInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
     def fetch(self):
         """
         Fetch the ParticipantInstance
+        
 
         :returns: The fetched ParticipantInstance
         :rtype: twilio.rest.api.v2010.account.conference.participant.ParticipantInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return ParticipantInstance(
             self._version,
@@ -417,8 +422,9 @@ class ParticipantContext(InstanceContext):
             'Coaching': coaching,
             'CallSidToCoach': call_sid_to_coach,
         })
+        
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return ParticipantInstance(
             self._version,
@@ -596,6 +602,7 @@ class ParticipantInstance(InstanceResource):
     def delete(self):
         """
         Deletes the ParticipantInstance
+        
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -605,6 +612,7 @@ class ParticipantInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the ParticipantInstance
+        
 
         :returns: The fetched ParticipantInstance
         :rtype: twilio.rest.api.v2010.account.conference.participant.ParticipantInstance

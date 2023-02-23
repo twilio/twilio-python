@@ -48,6 +48,7 @@ class RatePlanList(ListResource):
     def create(self, unique_name=values.unset, friendly_name=values.unset, data_enabled=values.unset, data_limit=values.unset, data_metering=values.unset, messaging_enabled=values.unset, voice_enabled=values.unset, national_roaming_enabled=values.unset, international_roaming=values.unset, national_roaming_data_limit=values.unset, international_roaming_data_limit=values.unset):
         """
         Create the RatePlanInstance
+
         :param str unique_name: An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
         :param str friendly_name: A descriptive string that you create to describe the resource. It does not have to be unique.
         :param bool data_enabled: Whether SIMs can use GPRS/3G/4G/LTE data connectivity.
@@ -76,8 +77,9 @@ class RatePlanList(ListResource):
             'NationalRoamingDataLimit': national_roaming_data_limit,
             'InternationalRoamingDataLimit': international_roaming_data_limit,
         })
+        
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return RatePlanInstance(self._version, payload)
     
     
@@ -261,26 +263,29 @@ class RatePlanContext(InstanceContext):
         self._solution = { 
             'sid': sid,
         }
-        self._uri = '/RatePlans/${sid}'.format(**self._solution)
+        self._uri = '/RatePlans/{sid}'.format(**self._solution)
         
     
     def delete(self):
         """
         Deletes the RatePlanInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
     def fetch(self):
         """
         Fetch the RatePlanInstance
+        
 
         :returns: The fetched RatePlanInstance
         :rtype: twilio.rest.wireless.v1.rate_plan.RatePlanInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return RatePlanInstance(
             self._version,
@@ -303,8 +308,9 @@ class RatePlanContext(InstanceContext):
             'UniqueName': unique_name,
             'FriendlyName': friendly_name,
         })
+        
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return RatePlanInstance(
             self._version,
@@ -498,6 +504,7 @@ class RatePlanInstance(InstanceResource):
     def delete(self):
         """
         Deletes the RatePlanInstance
+        
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -507,6 +514,7 @@ class RatePlanInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the RatePlanInstance
+        
 
         :returns: The fetched RatePlanInstance
         :rtype: twilio.rest.wireless.v1.rate_plan.RatePlanInstance

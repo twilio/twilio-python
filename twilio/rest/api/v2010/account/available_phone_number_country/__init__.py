@@ -46,7 +46,7 @@ class AvailablePhoneNumberCountryList(ListResource):
 
         # Path Solution
         self._solution = { 'account_sid': account_sid,  }
-        self._uri = '/Accounts/${account_sid}/AvailablePhoneNumbers.json'.format(**self._solution)
+        self._uri = '/Accounts/{account_sid}/AvailablePhoneNumbers.json'.format(**self._solution)
         
         
     
@@ -226,7 +226,7 @@ class AvailablePhoneNumberCountryContext(InstanceContext):
             'account_sid': account_sid,
             'country_code': country_code,
         }
-        self._uri = '/Accounts/${account_sid}/AvailablePhoneNumbers/${country_code}.json'.format(**self._solution)
+        self._uri = '/Accounts/{account_sid}/AvailablePhoneNumbers/{country_code}.json'.format(**self._solution)
         
         self._local = None
         self._machine_to_machine = None
@@ -239,11 +239,13 @@ class AvailablePhoneNumberCountryContext(InstanceContext):
     def fetch(self):
         """
         Fetch the AvailablePhoneNumberCountryInstance
+        
 
         :returns: The fetched AvailablePhoneNumberCountryInstance
         :rtype: twilio.rest.api.v2010.account.available_phone_number_country.AvailablePhoneNumberCountryInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return AvailablePhoneNumberCountryInstance(
             self._version,
@@ -431,6 +433,7 @@ class AvailablePhoneNumberCountryInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the AvailablePhoneNumberCountryInstance
+        
 
         :returns: The fetched AvailablePhoneNumberCountryInstance
         :rtype: twilio.rest.api.v2010.account.available_phone_number_country.AvailablePhoneNumberCountryInstance

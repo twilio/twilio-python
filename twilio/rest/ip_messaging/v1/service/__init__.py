@@ -51,6 +51,7 @@ class ServiceList(ListResource):
     def create(self, friendly_name):
         """
         Create the ServiceInstance
+
         :param str friendly_name: 
         
         :returns: The created ServiceInstance
@@ -59,8 +60,9 @@ class ServiceList(ListResource):
         data = values.of({ 
             'FriendlyName': friendly_name,
         })
+        
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return ServiceInstance(self._version, payload)
     
     
@@ -244,7 +246,7 @@ class ServiceContext(InstanceContext):
         self._solution = { 
             'sid': sid,
         }
-        self._uri = '/Services/${sid}'.format(**self._solution)
+        self._uri = '/Services/{sid}'.format(**self._solution)
         
         self._channels = None
         self._roles = None
@@ -254,19 +256,22 @@ class ServiceContext(InstanceContext):
         """
         Deletes the ServiceInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
     def fetch(self):
         """
         Fetch the ServiceInstance
+        
 
         :returns: The fetched ServiceInstance
         :rtype: twilio.rest.ip_messaging.v1.service.ServiceInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return ServiceInstance(
             self._version,
@@ -393,8 +398,9 @@ class ServiceContext(InstanceContext):
             'Limits.ChannelMembers': limits_channel_members,
             'Limits.UserChannels': limits_user_channels,
         })
+        
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return ServiceInstance(
             self._version,
@@ -672,6 +678,7 @@ class ServiceInstance(InstanceResource):
     def delete(self):
         """
         Deletes the ServiceInstance
+        
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -681,6 +688,7 @@ class ServiceInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the ServiceInstance
+        
 
         :returns: The fetched ServiceInstance
         :rtype: twilio.rest.ip_messaging.v1.service.ServiceInstance

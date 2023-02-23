@@ -39,7 +39,7 @@ class UsageRecordList(ListResource):
 
         # Path Solution
         self._solution = { 'sim_sid': sim_sid,  }
-        self._uri = '/Sims/${sim_sid}/UsageRecords'.format(**self._solution)
+        self._uri = '/Sims/{sim_sid}/UsageRecords'.format(**self._solution)
         
         
     

@@ -92,17 +92,19 @@ class SipDomainContext(InstanceContext):
         self._solution = { 
             'sip_domain': sip_domain,
         }
-        self._uri = '/SipDomains/${sip_domain}'.format(**self._solution)
+        self._uri = '/SipDomains/{sip_domain}'.format(**self._solution)
         
     
     def fetch(self):
         """
         Fetch the SipDomainInstance
+        
 
         :returns: The fetched SipDomainInstance
         :rtype: twilio.rest.routes.v2.sip_domain.SipDomainInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return SipDomainInstance(
             self._version,
@@ -125,8 +127,9 @@ class SipDomainContext(InstanceContext):
             'VoiceRegion': voice_region,
             'FriendlyName': friendly_name,
         })
+        
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return SipDomainInstance(
             self._version,
@@ -248,6 +251,7 @@ class SipDomainInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the SipDomainInstance
+        
 
         :returns: The fetched SipDomainInstance
         :rtype: twilio.rest.routes.v2.sip_domain.SipDomainInstance

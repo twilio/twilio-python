@@ -40,7 +40,7 @@ class InteractionList(ListResource):
 
         # Path Solution
         self._solution = { 'service_sid': service_sid, 'session_sid': session_sid,  }
-        self._uri = '/Services/${service_sid}/Sessions/${session_sid}/Interactions'.format(**self._solution)
+        self._uri = '/Services/{service_sid}/Sessions/{session_sid}/Interactions'.format(**self._solution)
         
         
     
@@ -224,26 +224,29 @@ class InteractionContext(InstanceContext):
             'session_sid': session_sid,
             'sid': sid,
         }
-        self._uri = '/Services/${service_sid}/Sessions/${session_sid}/Interactions/${sid}'.format(**self._solution)
+        self._uri = '/Services/{service_sid}/Sessions/{session_sid}/Interactions/{sid}'.format(**self._solution)
         
     
     def delete(self):
         """
         Deletes the InteractionInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
     def fetch(self):
         """
         Fetch the InteractionInstance
+        
 
         :returns: The fetched InteractionInstance
         :rtype: twilio.rest.proxy.v1.service.session.interaction.InteractionInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return InteractionInstance(
             self._version,
@@ -467,6 +470,7 @@ class InteractionInstance(InstanceResource):
     def delete(self):
         """
         Deletes the InteractionInstance
+        
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -476,6 +480,7 @@ class InteractionInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the InteractionInstance
+        
 
         :returns: The fetched InteractionInstance
         :rtype: twilio.rest.proxy.v1.service.session.interaction.InteractionInstance

@@ -39,7 +39,7 @@ class UsAppToPersonList(ListResource):
 
         # Path Solution
         self._solution = { 'messaging_service_sid': messaging_service_sid,  }
-        self._uri = '/Services/${messaging_service_sid}/Compliance/Usa2p'.format(**self._solution)
+        self._uri = '/Services/{messaging_service_sid}/Compliance/Usa2p'.format(**self._solution)
         
         
     
@@ -48,6 +48,7 @@ class UsAppToPersonList(ListResource):
     def create(self, brand_registration_sid, description, message_flow, message_samples, us_app_to_person_usecase, has_embedded_links, has_embedded_phone, opt_in_message=values.unset, opt_out_message=values.unset, help_message=values.unset, opt_in_keywords=values.unset, opt_out_keywords=values.unset, help_keywords=values.unset):
         """
         Create the UsAppToPersonInstance
+
         :param str brand_registration_sid: A2P Brand Registration SID
         :param str description: A short description of what this SMS campaign does. Min length: 40 characters. Max length: 4096 characters.
         :param str message_flow: Required for all Campaigns. Details around how a consumer opts-in to their campaign, therefore giving consent to receive their messages. If multiple opt-in methods can be used for the same campaign, they must all be listed. 40 character minimum. 2048 character maximum.
@@ -80,8 +81,9 @@ class UsAppToPersonList(ListResource):
             'OptOutKeywords': serialize.map(opt_out_keywords, lambda e: e),
             'HelpKeywords': serialize.map(help_keywords, lambda e: e),
         })
+        
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return UsAppToPersonInstance(self._version, payload, messaging_service_sid=self._solution['messaging_service_sid'])
     
     
@@ -264,26 +266,29 @@ class UsAppToPersonContext(InstanceContext):
             'messaging_service_sid': messaging_service_sid,
             'sid': sid,
         }
-        self._uri = '/Services/${messaging_service_sid}/Compliance/Usa2p/${sid}'.format(**self._solution)
+        self._uri = '/Services/{messaging_service_sid}/Compliance/Usa2p/{sid}'.format(**self._solution)
         
     
     def delete(self):
         """
         Deletes the UsAppToPersonInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
     def fetch(self):
         """
         Fetch the UsAppToPersonInstance
+        
 
         :returns: The fetched UsAppToPersonInstance
         :rtype: twilio.rest.messaging.v1.service.us_app_to_person.UsAppToPersonInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return UsAppToPersonInstance(
             self._version,
@@ -551,6 +556,7 @@ class UsAppToPersonInstance(InstanceResource):
     def delete(self):
         """
         Deletes the UsAppToPersonInstance
+        
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -560,6 +566,7 @@ class UsAppToPersonInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the UsAppToPersonInstance
+        
 
         :returns: The fetched UsAppToPersonInstance
         :rtype: twilio.rest.messaging.v1.service.us_app_to_person.UsAppToPersonInstance

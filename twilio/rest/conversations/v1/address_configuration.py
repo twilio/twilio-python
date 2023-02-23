@@ -48,6 +48,7 @@ class AddressConfigurationList(ListResource):
     def create(self, type, address, friendly_name=values.unset, auto_creation_enabled=values.unset, auto_creation_type=values.unset, auto_creation_conversation_service_sid=values.unset, auto_creation_webhook_url=values.unset, auto_creation_webhook_method=values.unset, auto_creation_webhook_filters=values.unset, auto_creation_studio_flow_sid=values.unset, auto_creation_studio_retry_count=values.unset):
         """
         Create the AddressConfigurationInstance
+
         :param ConfigurationAddressType type: 
         :param str address: The unique address to be configured. The address can be a whatsapp address or phone number
         :param str friendly_name: The human-readable name of this configuration, limited to 256 characters. Optional.
@@ -76,8 +77,9 @@ class AddressConfigurationList(ListResource):
             'AutoCreation.StudioFlowSid': auto_creation_studio_flow_sid,
             'AutoCreation.StudioRetryCount': auto_creation_studio_retry_count,
         })
+        
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return AddressConfigurationInstance(self._version, payload)
     
     
@@ -267,26 +269,29 @@ class AddressConfigurationContext(InstanceContext):
         self._solution = { 
             'sid': sid,
         }
-        self._uri = '/Configuration/Addresses/${sid}'.format(**self._solution)
+        self._uri = '/Configuration/Addresses/{sid}'.format(**self._solution)
         
     
     def delete(self):
         """
         Deletes the AddressConfigurationInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
     def fetch(self):
         """
         Fetch the AddressConfigurationInstance
+        
 
         :returns: The fetched AddressConfigurationInstance
         :rtype: twilio.rest.conversations.v1.address_configuration.AddressConfigurationInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return AddressConfigurationInstance(
             self._version,
@@ -323,8 +328,9 @@ class AddressConfigurationContext(InstanceContext):
             'AutoCreation.StudioFlowSid': auto_creation_studio_flow_sid,
             'AutoCreation.StudioRetryCount': auto_creation_studio_retry_count,
         })
+        
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return AddressConfigurationInstance(
             self._version,
@@ -455,6 +461,7 @@ class AddressConfigurationInstance(InstanceResource):
     def delete(self):
         """
         Deletes the AddressConfigurationInstance
+        
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -464,6 +471,7 @@ class AddressConfigurationInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the AddressConfigurationInstance
+        
 
         :returns: The fetched AddressConfigurationInstance
         :rtype: twilio.rest.conversations.v1.address_configuration.AddressConfigurationInstance

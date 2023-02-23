@@ -256,26 +256,29 @@ class RecordingContext(InstanceContext):
         self._solution = { 
             'sid': sid,
         }
-        self._uri = '/Recordings/${sid}'.format(**self._solution)
+        self._uri = '/Recordings/{sid}'.format(**self._solution)
         
     
     def delete(self):
         """
         Deletes the RecordingInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
     def fetch(self):
         """
         Fetch the RecordingInstance
+        
 
         :returns: The fetched RecordingInstance
         :rtype: twilio.rest.video.v1.recording.RecordingInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return RecordingInstance(
             self._version,
@@ -488,6 +491,7 @@ class RecordingInstance(InstanceResource):
     def delete(self):
         """
         Deletes the RecordingInstance
+        
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -497,6 +501,7 @@ class RecordingInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the RecordingInstance
+        
 
         :returns: The fetched RecordingInstance
         :rtype: twilio.rest.video.v1.recording.RecordingInstance

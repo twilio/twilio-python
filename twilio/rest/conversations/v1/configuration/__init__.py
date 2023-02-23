@@ -107,11 +107,13 @@ class ConfigurationContext(InstanceContext):
     def fetch(self):
         """
         Fetch the ConfigurationInstance
+        
 
         :returns: The fetched ConfigurationInstance
         :rtype: twilio.rest.conversations.v1.configuration.ConfigurationInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return ConfigurationInstance(
             self._version,
@@ -137,8 +139,9 @@ class ConfigurationContext(InstanceContext):
             'DefaultInactiveTimer': default_inactive_timer,
             'DefaultClosedTimer': default_closed_timer,
         })
+        
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return ConfigurationInstance(
             self._version,
@@ -250,6 +253,7 @@ class ConfigurationInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the ConfigurationInstance
+        
 
         :returns: The fetched ConfigurationInstance
         :rtype: twilio.rest.conversations.v1.configuration.ConfigurationInstance

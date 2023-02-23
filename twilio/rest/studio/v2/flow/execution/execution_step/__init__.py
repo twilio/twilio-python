@@ -41,7 +41,7 @@ class ExecutionStepList(ListResource):
 
         # Path Solution
         self._solution = { 'flow_sid': flow_sid, 'execution_sid': execution_sid,  }
-        self._uri = '/Flows/${flow_sid}/Executions/${execution_sid}/Steps'.format(**self._solution)
+        self._uri = '/Flows/{flow_sid}/Executions/{execution_sid}/Steps'.format(**self._solution)
         
         
     
@@ -222,18 +222,20 @@ class ExecutionStepContext(InstanceContext):
             'execution_sid': execution_sid,
             'sid': sid,
         }
-        self._uri = '/Flows/${flow_sid}/Executions/${execution_sid}/Steps/${sid}'.format(**self._solution)
+        self._uri = '/Flows/{flow_sid}/Executions/{execution_sid}/Steps/{sid}'.format(**self._solution)
         
         self._step_context = None
     
     def fetch(self):
         """
         Fetch the ExecutionStepInstance
+        
 
         :returns: The fetched ExecutionStepInstance
         :rtype: twilio.rest.studio.v2.flow.execution.execution_step.ExecutionStepInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return ExecutionStepInstance(
             self._version,
@@ -407,6 +409,7 @@ class ExecutionStepInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the ExecutionStepInstance
+        
 
         :returns: The fetched ExecutionStepInstance
         :rtype: twilio.rest.studio.v2.flow.execution.execution_step.ExecutionStepInstance

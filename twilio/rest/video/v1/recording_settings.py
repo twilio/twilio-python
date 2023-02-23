@@ -45,6 +45,7 @@ class RecordingSettingsList(ListResource):
     def create(self, friendly_name, aws_credentials_sid=values.unset, encryption_key_sid=values.unset, aws_s3_url=values.unset, aws_storage_enabled=values.unset, encryption_enabled=values.unset):
         """
         Create the RecordingSettingsInstance
+
         :param str friendly_name: A descriptive string that you create to describe the resource and be shown to users in the console
         :param str aws_credentials_sid: The SID of the stored Credential resource.
         :param str encryption_key_sid: The SID of the Public Key resource to use for encryption.
@@ -63,8 +64,9 @@ class RecordingSettingsList(ListResource):
             'AwsStorageEnabled': aws_storage_enabled,
             'EncryptionEnabled': encryption_enabled,
         })
+        
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return RecordingSettingsInstance(self._version, payload)
     
     
@@ -115,7 +117,7 @@ class RecordingSettingsContext(InstanceContext):
         self._uri = '/RecordingSettings/Default'.format(**self._solution)
         
     
-    def create(self, friendly_name=values.unset, aws_credentials_sid=values.unset, encryption_key_sid=values.unset, aws_s3_url=values.unset, aws_storage_enabled=values.unset, encryption_enabled=values.unset):
+    def create(self, friendly_name, aws_credentials_sid=values.unset, encryption_key_sid=values.unset, aws_s3_url=values.unset, aws_storage_enabled=values.unset, encryption_enabled=values.unset):
         """
         Create the RecordingSettingsInstance
         
@@ -148,11 +150,13 @@ class RecordingSettingsContext(InstanceContext):
     def fetch(self):
         """
         Fetch the RecordingSettingsInstance
+        
 
         :returns: The fetched RecordingSettingsInstance
         :rtype: twilio.rest.video.v1.recording_settings.RecordingSettingsInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return RecordingSettingsInstance(
             self._version,
@@ -271,7 +275,7 @@ class RecordingSettingsInstance(InstanceResource):
         """
         return self._properties['url']
     
-    def create(self, friendly_name=values.unset, aws_credentials_sid=values.unset, encryption_key_sid=values.unset, aws_s3_url=values.unset, aws_storage_enabled=values.unset, encryption_enabled=values.unset):
+    def create(self, friendly_name, aws_credentials_sid=values.unset, encryption_key_sid=values.unset, aws_s3_url=values.unset, aws_storage_enabled=values.unset, encryption_enabled=values.unset):
         """
         Create the RecordingSettingsInstance
         
@@ -285,11 +289,12 @@ class RecordingSettingsInstance(InstanceResource):
         :returns: The created RecordingSettingsInstance
         :rtype: twilio.rest.video.v1.recording_settings.RecordingSettingsInstance
         """
-        return self._proxy.create(friendly_name,aws_credentials_sid,encryption_key_sid,aws_s3_url,aws_storage_enabled,encryption_enabled,)
+        return self._proxy.create(friendly_name, aws_credentials_sid=aws_credentials_sid, encryption_key_sid=encryption_key_sid, aws_s3_url=aws_s3_url, aws_storage_enabled=aws_storage_enabled, encryption_enabled=encryption_enabled, )
     
     def fetch(self):
         """
         Fetch the RecordingSettingsInstance
+        
 
         :returns: The fetched RecordingSettingsInstance
         :rtype: twilio.rest.video.v1.recording_settings.RecordingSettingsInstance

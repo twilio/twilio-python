@@ -41,7 +41,7 @@ class ChallengeList(ListResource):
 
         # Path Solution
         self._solution = { 'service_sid': service_sid, 'identity': identity,  }
-        self._uri = '/Services/${service_sid}/Entities/${identity}/Challenges'.format(**self._solution)
+        self._uri = '/Services/{service_sid}/Entities/{identity}/Challenges'.format(**self._solution)
         
         
     
@@ -50,6 +50,7 @@ class ChallengeList(ListResource):
     def create(self, factor_sid, expiration_date=values.unset, details_message=values.unset, details_fields=values.unset, hidden_details=values.unset, auth_payload=values.unset):
         """
         Create the ChallengeInstance
+
         :param str factor_sid: The unique SID identifier of the Factor.
         :param datetime expiration_date: The date-time when this Challenge expires, given in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. The default value is five (5) minutes after Challenge creation. The max value is sixty (60) minutes after creation.
         :param str details_message: Shown to the user when the push notification arrives. Required when `factor_type` is `push`. Can be up to 256 characters in length
@@ -68,8 +69,9 @@ class ChallengeList(ListResource):
             'HiddenDetails': serialize.object(hidden_details),
             'AuthPayload': auth_payload,
         })
+        
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return ChallengeInstance(self._version, payload, service_sid=self._solution['service_sid'], identity=self._solution['identity'])
     
     
@@ -271,18 +273,20 @@ class ChallengeContext(InstanceContext):
             'identity': identity,
             'sid': sid,
         }
-        self._uri = '/Services/${service_sid}/Entities/${identity}/Challenges/${sid}'.format(**self._solution)
+        self._uri = '/Services/{service_sid}/Entities/{identity}/Challenges/{sid}'.format(**self._solution)
         
         self._notifications = None
     
     def fetch(self):
         """
         Fetch the ChallengeInstance
+        
 
         :returns: The fetched ChallengeInstance
         :rtype: twilio.rest.verify.v2.service.entity.challenge.ChallengeInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return ChallengeInstance(
             self._version,
@@ -307,8 +311,9 @@ class ChallengeContext(InstanceContext):
             'AuthPayload': auth_payload,
             'Metadata': serialize.object(metadata),
         })
+        
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return ChallengeInstance(
             self._version,
@@ -535,6 +540,7 @@ class ChallengeInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the ChallengeInstance
+        
 
         :returns: The fetched ChallengeInstance
         :rtype: twilio.rest.verify.v2.service.entity.challenge.ChallengeInstance

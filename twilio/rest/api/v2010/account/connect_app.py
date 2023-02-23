@@ -39,7 +39,7 @@ class ConnectAppList(ListResource):
 
         # Path Solution
         self._solution = { 'account_sid': account_sid,  }
-        self._uri = '/Accounts/${account_sid}/ConnectApps.json'.format(**self._solution)
+        self._uri = '/Accounts/{account_sid}/ConnectApps.json'.format(**self._solution)
         
         
     
@@ -225,26 +225,29 @@ class ConnectAppContext(InstanceContext):
             'account_sid': account_sid,
             'sid': sid,
         }
-        self._uri = '/Accounts/${account_sid}/ConnectApps/${sid}.json'.format(**self._solution)
+        self._uri = '/Accounts/{account_sid}/ConnectApps/{sid}.json'.format(**self._solution)
         
     
     def delete(self):
         """
         Deletes the ConnectAppInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
     def fetch(self):
         """
         Fetch the ConnectAppInstance
+        
 
         :returns: The fetched ConnectAppInstance
         :rtype: twilio.rest.api.v2010.account.connect_app.ConnectAppInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return ConnectAppInstance(
             self._version,
@@ -280,8 +283,9 @@ class ConnectAppContext(InstanceContext):
             'HomepageUrl': homepage_url,
             'Permissions': serialize.map(permissions, lambda e: e),
         })
+        
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return ConnectAppInstance(
             self._version,
@@ -431,6 +435,7 @@ class ConnectAppInstance(InstanceResource):
     def delete(self):
         """
         Deletes the ConnectAppInstance
+        
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -440,6 +445,7 @@ class ConnectAppInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the ConnectAppInstance
+        
 
         :returns: The fetched ConnectAppInstance
         :rtype: twilio.rest.api.v2010.account.connect_app.ConnectAppInstance

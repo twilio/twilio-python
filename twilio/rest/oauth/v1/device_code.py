@@ -45,6 +45,7 @@ class DeviceCodeList(ListResource):
     def create(self, client_sid, scopes, audiences=values.unset):
         """
         Create the DeviceCodeInstance
+
         :param str client_sid: A 34 character string that uniquely identifies this OAuth App.
         :param list[str] scopes: An Array of scopes for authorization request
         :param list[str] audiences: An array of intended audiences for token requests
@@ -57,8 +58,9 @@ class DeviceCodeList(ListResource):
             'Scopes': serialize.map(scopes, lambda e: e),
             'Audiences': serialize.map(audiences, lambda e: e),
         })
+        
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return DeviceCodeInstance(self._version, payload)
     
 

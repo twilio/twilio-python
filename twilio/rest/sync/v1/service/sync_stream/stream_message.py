@@ -40,13 +40,14 @@ class StreamMessageList(ListResource):
 
         # Path Solution
         self._solution = { 'service_sid': service_sid, 'stream_sid': stream_sid,  }
-        self._uri = '/Services/${service_sid}/Streams/${stream_sid}/Messages'.format(**self._solution)
+        self._uri = '/Services/{service_sid}/Streams/{stream_sid}/Messages'.format(**self._solution)
         
         
     
     def create(self, data):
         """
         Create the StreamMessageInstance
+
         :param object data: A JSON string that represents an arbitrary, schema-less object that makes up the Stream Message body. Can be up to 4 KiB in length.
         
         :returns: The created StreamMessageInstance
@@ -55,8 +56,9 @@ class StreamMessageList(ListResource):
         data = values.of({ 
             'Data': serialize.object(data),
         })
+        
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return StreamMessageInstance(self._version, payload, service_sid=self._solution['service_sid'], stream_sid=self._solution['stream_sid'])
     
 

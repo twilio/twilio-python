@@ -40,7 +40,7 @@ class RateLimitList(ListResource):
 
         # Path Solution
         self._solution = { 'service_sid': service_sid,  }
-        self._uri = '/Services/${service_sid}/RateLimits'.format(**self._solution)
+        self._uri = '/Services/{service_sid}/RateLimits'.format(**self._solution)
         
         
     
@@ -50,6 +50,7 @@ class RateLimitList(ListResource):
     def create(self, unique_name, description=values.unset):
         """
         Create the RateLimitInstance
+
         :param str unique_name: Provides a unique and addressable name to be assigned to this Rate Limit, assigned by the developer, to be optionally used in addition to SID. **This value should not contain PII.**
         :param str description: Description of this Rate Limit
         
@@ -60,8 +61,9 @@ class RateLimitList(ListResource):
             'UniqueName': unique_name,
             'Description': description,
         })
+        
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return RateLimitInstance(self._version, payload, service_sid=self._solution['service_sid'])
     
     
@@ -246,7 +248,7 @@ class RateLimitContext(InstanceContext):
             'service_sid': service_sid,
             'sid': sid,
         }
-        self._uri = '/Services/${service_sid}/RateLimits/${sid}'.format(**self._solution)
+        self._uri = '/Services/{service_sid}/RateLimits/{sid}'.format(**self._solution)
         
         self._buckets = None
     
@@ -254,19 +256,22 @@ class RateLimitContext(InstanceContext):
         """
         Deletes the RateLimitInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
     def fetch(self):
         """
         Fetch the RateLimitInstance
+        
 
         :returns: The fetched RateLimitInstance
         :rtype: twilio.rest.verify.v2.service.rate_limit.RateLimitInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return RateLimitInstance(
             self._version,
@@ -288,8 +293,9 @@ class RateLimitContext(InstanceContext):
         data = values.of({ 
             'Description': description,
         })
+        
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return RateLimitInstance(
             self._version,
@@ -434,6 +440,7 @@ class RateLimitInstance(InstanceResource):
     def delete(self):
         """
         Deletes the RateLimitInstance
+        
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -443,6 +450,7 @@ class RateLimitInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the RateLimitInstance
+        
 
         :returns: The fetched RateLimitInstance
         :rtype: twilio.rest.verify.v2.service.rate_limit.RateLimitInstance

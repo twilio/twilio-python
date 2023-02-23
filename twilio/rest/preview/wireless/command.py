@@ -46,6 +46,7 @@ class CommandList(ListResource):
     def create(self, command, device=values.unset, sim=values.unset, callback_method=values.unset, callback_url=values.unset, command_mode=values.unset, include_sid=values.unset):
         """
         Create the CommandInstance
+
         :param str command: 
         :param str device: 
         :param str sim: 
@@ -66,8 +67,9 @@ class CommandList(ListResource):
             'CommandMode': command_mode,
             'IncludeSid': include_sid,
         })
+        
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return CommandInstance(self._version, payload)
     
     
@@ -271,17 +273,19 @@ class CommandContext(InstanceContext):
         self._solution = { 
             'sid': sid,
         }
-        self._uri = '/Commands/${sid}'.format(**self._solution)
+        self._uri = '/Commands/{sid}'.format(**self._solution)
         
     
     def fetch(self):
         """
         Fetch the CommandInstance
+        
 
         :returns: The fetched CommandInstance
         :rtype: twilio.rest.preview.wireless.command.CommandInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return CommandInstance(
             self._version,
@@ -431,6 +435,7 @@ class CommandInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the CommandInstance
+        
 
         :returns: The fetched CommandInstance
         :rtype: twilio.rest.preview.wireless.command.CommandInstance

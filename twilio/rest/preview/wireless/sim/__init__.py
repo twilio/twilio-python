@@ -251,18 +251,20 @@ class SimContext(InstanceContext):
         self._solution = { 
             'sid': sid,
         }
-        self._uri = '/Sims/${sid}'.format(**self._solution)
+        self._uri = '/Sims/{sid}'.format(**self._solution)
         
         self._usage = None
     
     def fetch(self):
         """
         Fetch the SimInstance
+        
 
         :returns: The fetched SimInstance
         :rtype: twilio.rest.preview.wireless.sim.SimInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return SimInstance(
             self._version,
@@ -313,8 +315,9 @@ class SimContext(InstanceContext):
             'VoiceMethod': voice_method,
             'VoiceUrl': voice_url,
         })
+        
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return SimInstance(
             self._version,
@@ -575,6 +578,7 @@ class SimInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the SimInstance
+        
 
         :returns: The fetched SimInstance
         :rtype: twilio.rest.preview.wireless.sim.SimInstance

@@ -39,7 +39,7 @@ class UserConversationList(ListResource):
 
         # Path Solution
         self._solution = { 'user_sid': user_sid,  }
-        self._uri = '/Users/${user_sid}/Conversations'.format(**self._solution)
+        self._uri = '/Users/{user_sid}/Conversations'.format(**self._solution)
         
         
     
@@ -225,26 +225,29 @@ class UserConversationContext(InstanceContext):
             'user_sid': user_sid,
             'conversation_sid': conversation_sid,
         }
-        self._uri = '/Users/${user_sid}/Conversations/${conversation_sid}'.format(**self._solution)
+        self._uri = '/Users/{user_sid}/Conversations/{conversation_sid}'.format(**self._solution)
         
     
     def delete(self):
         """
         Deletes the UserConversationInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
     def fetch(self):
         """
         Fetch the UserConversationInstance
+        
 
         :returns: The fetched UserConversationInstance
         :rtype: twilio.rest.conversations.v1.user.user_conversation.UserConversationInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return UserConversationInstance(
             self._version,
@@ -270,8 +273,9 @@ class UserConversationContext(InstanceContext):
             'LastReadTimestamp': serialize.iso8601_datetime(last_read_timestamp),
             'LastReadMessageIndex': last_read_message_index,
         })
+        
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return UserConversationInstance(
             self._version,
@@ -484,6 +488,7 @@ class UserConversationInstance(InstanceResource):
     def delete(self):
         """
         Deletes the UserConversationInstance
+        
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -493,6 +498,7 @@ class UserConversationInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the UserConversationInstance
+        
 
         :returns: The fetched UserConversationInstance
         :rtype: twilio.rest.conversations.v1.user.user_conversation.UserConversationInstance

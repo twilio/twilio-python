@@ -39,13 +39,14 @@ class ExportCustomJobList(ListResource):
 
         # Path Solution
         self._solution = { 'resource_type': resource_type,  }
-        self._uri = '/Exports/${resource_type}/Jobs'.format(**self._solution)
+        self._uri = '/Exports/{resource_type}/Jobs'.format(**self._solution)
         
         
     
     def create(self, start_day, end_day, friendly_name, webhook_url=values.unset, webhook_method=values.unset, email=values.unset):
         """
         Create the ExportCustomJobInstance
+
         :param str start_day: The start day for the custom export specified as a string in the format of yyyy-mm-dd
         :param str end_day: The end day for the custom export specified as a string in the format of yyyy-mm-dd. End day is inclusive and must be 2 days earlier than the current UTC day.
         :param str friendly_name: The friendly name specified when creating the job
@@ -64,8 +65,9 @@ class ExportCustomJobList(ListResource):
             'WebhookMethod': webhook_method,
             'Email': email,
         })
+        
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return ExportCustomJobInstance(self._version, payload, resource_type=self._solution['resource_type'])
     
     

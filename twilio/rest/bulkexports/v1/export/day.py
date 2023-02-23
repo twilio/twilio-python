@@ -39,7 +39,7 @@ class DayList(ListResource):
 
         # Path Solution
         self._solution = { 'resource_type': resource_type,  }
-        self._uri = '/Exports/${resource_type}/Days'.format(**self._solution)
+        self._uri = '/Exports/{resource_type}/Days'.format(**self._solution)
         
         
     
@@ -219,17 +219,19 @@ class DayContext(InstanceContext):
             'resource_type': resource_type,
             'day': day,
         }
-        self._uri = '/Exports/${resource_type}/Days/${day}'.format(**self._solution)
+        self._uri = '/Exports/{resource_type}/Days/{day}'.format(**self._solution)
         
     
     def fetch(self):
         """
         Fetch the DayInstance
+        
 
         :returns: The fetched DayInstance
         :rtype: twilio.rest.bulkexports.v1.export.day.DayInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return DayInstance(
             self._version,
@@ -335,6 +337,7 @@ class DayInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the DayInstance
+        
 
         :returns: The fetched DayInstance
         :rtype: twilio.rest.bulkexports.v1.export.day.DayInstance

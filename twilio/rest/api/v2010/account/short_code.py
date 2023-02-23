@@ -39,7 +39,7 @@ class ShortCodeList(ListResource):
 
         # Path Solution
         self._solution = { 'account_sid': account_sid,  }
-        self._uri = '/Accounts/${account_sid}/SMS/ShortCodes.json'.format(**self._solution)
+        self._uri = '/Accounts/{account_sid}/SMS/ShortCodes.json'.format(**self._solution)
         
         
     
@@ -234,17 +234,19 @@ class ShortCodeContext(InstanceContext):
             'account_sid': account_sid,
             'sid': sid,
         }
-        self._uri = '/Accounts/${account_sid}/SMS/ShortCodes/${sid}.json'.format(**self._solution)
+        self._uri = '/Accounts/{account_sid}/SMS/ShortCodes/{sid}.json'.format(**self._solution)
         
     
     def fetch(self):
         """
         Fetch the ShortCodeInstance
+        
 
         :returns: The fetched ShortCodeInstance
         :rtype: twilio.rest.api.v2010.account.short_code.ShortCodeInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return ShortCodeInstance(
             self._version,
@@ -276,8 +278,9 @@ class ShortCodeContext(InstanceContext):
             'SmsFallbackUrl': sms_fallback_url,
             'SmsFallbackMethod': sms_fallback_method,
         })
+        
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return ShortCodeInstance(
             self._version,
@@ -436,6 +439,7 @@ class ShortCodeInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the ShortCodeInstance
+        
 
         :returns: The fetched ShortCodeInstance
         :rtype: twilio.rest.api.v2010.account.short_code.ShortCodeInstance

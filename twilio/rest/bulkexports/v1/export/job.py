@@ -92,26 +92,29 @@ class JobContext(InstanceContext):
         self._solution = { 
             'job_sid': job_sid,
         }
-        self._uri = '/Exports/Jobs/${job_sid}'.format(**self._solution)
+        self._uri = '/Exports/Jobs/{job_sid}'.format(**self._solution)
         
     
     def delete(self):
         """
         Deletes the JobInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
     def fetch(self):
         """
         Fetch the JobInstance
+        
 
         :returns: The fetched JobInstance
         :rtype: twilio.rest.bulkexports.v1.export.job.JobInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return JobInstance(
             self._version,
@@ -270,6 +273,7 @@ class JobInstance(InstanceResource):
     def delete(self):
         """
         Deletes the JobInstance
+        
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -279,6 +283,7 @@ class JobInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the JobInstance
+        
 
         :returns: The fetched JobInstance
         :rtype: twilio.rest.bulkexports.v1.export.job.JobInstance

@@ -40,7 +40,7 @@ class SyncStreamList(ListResource):
 
         # Path Solution
         self._solution = { 'service_sid': service_sid,  }
-        self._uri = '/Services/${service_sid}/Streams'.format(**self._solution)
+        self._uri = '/Services/{service_sid}/Streams'.format(**self._solution)
         
         
     
@@ -50,6 +50,7 @@ class SyncStreamList(ListResource):
     def create(self, unique_name=values.unset, ttl=values.unset):
         """
         Create the SyncStreamInstance
+
         :param str unique_name: An application-defined string that uniquely identifies the resource. This value must be unique within its Service and it can be up to 320 characters long. The `unique_name` value can be used as an alternative to the `sid` in the URL path to address the resource.
         :param int ttl: How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Stream expires and is deleted (time-to-live).
         
@@ -60,8 +61,9 @@ class SyncStreamList(ListResource):
             'UniqueName': unique_name,
             'Ttl': ttl,
         })
+        
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return SyncStreamInstance(self._version, payload, service_sid=self._solution['service_sid'])
     
     
@@ -246,7 +248,7 @@ class SyncStreamContext(InstanceContext):
             'service_sid': service_sid,
             'sid': sid,
         }
-        self._uri = '/Services/${service_sid}/Streams/${sid}'.format(**self._solution)
+        self._uri = '/Services/{service_sid}/Streams/{sid}'.format(**self._solution)
         
         self._stream_messages = None
     
@@ -254,19 +256,22 @@ class SyncStreamContext(InstanceContext):
         """
         Deletes the SyncStreamInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
     def fetch(self):
         """
         Fetch the SyncStreamInstance
+        
 
         :returns: The fetched SyncStreamInstance
         :rtype: twilio.rest.sync.v1.service.sync_stream.SyncStreamInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return SyncStreamInstance(
             self._version,
@@ -288,8 +293,9 @@ class SyncStreamContext(InstanceContext):
         data = values.of({ 
             'Ttl': ttl,
         })
+        
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return SyncStreamInstance(
             self._version,
@@ -443,6 +449,7 @@ class SyncStreamInstance(InstanceResource):
     def delete(self):
         """
         Deletes the SyncStreamInstance
+        
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -452,6 +459,7 @@ class SyncStreamInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the SyncStreamInstance
+        
 
         :returns: The fetched SyncStreamInstance
         :rtype: twilio.rest.sync.v1.service.sync_stream.SyncStreamInstance

@@ -89,17 +89,19 @@ class FlowTestUserContext(InstanceContext):
         self._solution = { 
             'sid': sid,
         }
-        self._uri = '/Flows/${sid}/TestUsers'.format(**self._solution)
+        self._uri = '/Flows/{sid}/TestUsers'.format(**self._solution)
         
     
     def fetch(self):
         """
         Fetch the FlowTestUserInstance
+        
 
         :returns: The fetched FlowTestUserInstance
         :rtype: twilio.rest.studio.v2.flow.flow_test_user.FlowTestUserInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return FlowTestUserInstance(
             self._version,
@@ -108,7 +110,7 @@ class FlowTestUserContext(InstanceContext):
             
         )
         
-    def update(self, test_users=values.unset):
+    def update(self, test_users):
         """
         Update the FlowTestUserInstance
         
@@ -120,8 +122,9 @@ class FlowTestUserContext(InstanceContext):
         data = values.of({ 
             'TestUsers': serialize.map(test_users, lambda e: e),
         })
+        
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return FlowTestUserInstance(
             self._version,
@@ -198,13 +201,14 @@ class FlowTestUserInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the FlowTestUserInstance
+        
 
         :returns: The fetched FlowTestUserInstance
         :rtype: twilio.rest.studio.v2.flow.flow_test_user.FlowTestUserInstance
         """
         return self._proxy.fetch()
     
-    def update(self, test_users=values.unset):
+    def update(self, test_users):
         """
         Update the FlowTestUserInstance
         

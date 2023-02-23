@@ -39,7 +39,7 @@ class MessagingConfigurationList(ListResource):
 
         # Path Solution
         self._solution = { 'service_sid': service_sid,  }
-        self._uri = '/Services/${service_sid}/MessagingConfigurations'.format(**self._solution)
+        self._uri = '/Services/{service_sid}/MessagingConfigurations'.format(**self._solution)
         
         
     
@@ -49,6 +49,7 @@ class MessagingConfigurationList(ListResource):
     def create(self, country, messaging_service_sid):
         """
         Create the MessagingConfigurationInstance
+
         :param str country: The [ISO-3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code of the country this configuration will be applied to. If this is a global configuration, Country will take the value `all`.
         :param str messaging_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) to be used to send SMS to the country of this configuration.
         
@@ -59,8 +60,9 @@ class MessagingConfigurationList(ListResource):
             'Country': country,
             'MessagingServiceSid': messaging_service_sid,
         })
+        
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return MessagingConfigurationInstance(self._version, payload, service_sid=self._solution['service_sid'])
     
     
@@ -245,26 +247,29 @@ class MessagingConfigurationContext(InstanceContext):
             'service_sid': service_sid,
             'country': country,
         }
-        self._uri = '/Services/${service_sid}/MessagingConfigurations/${country}'.format(**self._solution)
+        self._uri = '/Services/{service_sid}/MessagingConfigurations/{country}'.format(**self._solution)
         
     
     def delete(self):
         """
         Deletes the MessagingConfigurationInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
     def fetch(self):
         """
         Fetch the MessagingConfigurationInstance
+        
 
         :returns: The fetched MessagingConfigurationInstance
         :rtype: twilio.rest.verify.v2.service.messaging_configuration.MessagingConfigurationInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return MessagingConfigurationInstance(
             self._version,
@@ -274,7 +279,7 @@ class MessagingConfigurationContext(InstanceContext):
             
         )
         
-    def update(self, messaging_service_sid=values.unset):
+    def update(self, messaging_service_sid):
         """
         Update the MessagingConfigurationInstance
         
@@ -286,8 +291,9 @@ class MessagingConfigurationContext(InstanceContext):
         data = values.of({ 
             'MessagingServiceSid': messaging_service_sid,
         })
+        
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return MessagingConfigurationInstance(
             self._version,
@@ -401,6 +407,7 @@ class MessagingConfigurationInstance(InstanceResource):
     def delete(self):
         """
         Deletes the MessagingConfigurationInstance
+        
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -410,13 +417,14 @@ class MessagingConfigurationInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the MessagingConfigurationInstance
+        
 
         :returns: The fetched MessagingConfigurationInstance
         :rtype: twilio.rest.verify.v2.service.messaging_configuration.MessagingConfigurationInstance
         """
         return self._proxy.fetch()
     
-    def update(self, messaging_service_sid=values.unset):
+    def update(self, messaging_service_sid):
         """
         Update the MessagingConfigurationInstance
         

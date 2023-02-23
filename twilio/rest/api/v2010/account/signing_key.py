@@ -39,7 +39,7 @@ class SigningKeyList(ListResource):
 
         # Path Solution
         self._solution = { 'account_sid': account_sid,  }
-        self._uri = '/Accounts/${account_sid}/SigningKeys.json'.format(**self._solution)
+        self._uri = '/Accounts/{account_sid}/SigningKeys.json'.format(**self._solution)
         
         
     
@@ -225,26 +225,29 @@ class SigningKeyContext(InstanceContext):
             'account_sid': account_sid,
             'sid': sid,
         }
-        self._uri = '/Accounts/${account_sid}/SigningKeys/${sid}.json'.format(**self._solution)
+        self._uri = '/Accounts/{account_sid}/SigningKeys/{sid}.json'.format(**self._solution)
         
     
     def delete(self):
         """
         Deletes the SigningKeyInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
     def fetch(self):
         """
         Fetch the SigningKeyInstance
+        
 
         :returns: The fetched SigningKeyInstance
         :rtype: twilio.rest.api.v2010.account.signing_key.SigningKeyInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return SigningKeyInstance(
             self._version,
@@ -266,8 +269,9 @@ class SigningKeyContext(InstanceContext):
         data = values.of({ 
             'FriendlyName': friendly_name,
         })
+        
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return SigningKeyInstance(
             self._version,
@@ -354,6 +358,7 @@ class SigningKeyInstance(InstanceResource):
     def delete(self):
         """
         Deletes the SigningKeyInstance
+        
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -363,6 +368,7 @@ class SigningKeyInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the SigningKeyInstance
+        
 
         :returns: The fetched SigningKeyInstance
         :rtype: twilio.rest.api.v2010.account.signing_key.SigningKeyInstance

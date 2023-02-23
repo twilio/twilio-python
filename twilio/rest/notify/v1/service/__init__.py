@@ -50,6 +50,7 @@ class ServiceList(ListResource):
     def create(self, friendly_name=values.unset, apn_credential_sid=values.unset, gcm_credential_sid=values.unset, messaging_service_sid=values.unset, facebook_messenger_page_id=values.unset, default_apn_notification_protocol_version=values.unset, default_gcm_notification_protocol_version=values.unset, fcm_credential_sid=values.unset, default_fcm_notification_protocol_version=values.unset, log_enabled=values.unset, alexa_skill_id=values.unset, default_alexa_notification_protocol_version=values.unset, delivery_callback_url=values.unset, delivery_callback_enabled=values.unset):
         """
         Create the ServiceInstance
+
         :param str friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
         :param str apn_credential_sid: The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for APN Bindings.
         :param str gcm_credential_sid: The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for GCM Bindings.
@@ -84,8 +85,9 @@ class ServiceList(ListResource):
             'DeliveryCallbackUrl': delivery_callback_url,
             'DeliveryCallbackEnabled': delivery_callback_enabled,
         })
+        
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return ServiceInstance(self._version, payload)
     
     
@@ -275,7 +277,7 @@ class ServiceContext(InstanceContext):
         self._solution = { 
             'sid': sid,
         }
-        self._uri = '/Services/${sid}'.format(**self._solution)
+        self._uri = '/Services/{sid}'.format(**self._solution)
         
         self._bindings = None
         self._notifications = None
@@ -284,19 +286,22 @@ class ServiceContext(InstanceContext):
         """
         Deletes the ServiceInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
     def fetch(self):
         """
         Fetch the ServiceInstance
+        
 
         :returns: The fetched ServiceInstance
         :rtype: twilio.rest.notify.v1.service.ServiceInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return ServiceInstance(
             self._version,
@@ -343,8 +348,9 @@ class ServiceContext(InstanceContext):
             'DeliveryCallbackUrl': delivery_callback_url,
             'DeliveryCallbackEnabled': delivery_callback_enabled,
         })
+        
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return ServiceInstance(
             self._version,
@@ -600,6 +606,7 @@ class ServiceInstance(InstanceResource):
     def delete(self):
         """
         Deletes the ServiceInstance
+        
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -609,6 +616,7 @@ class ServiceInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the ServiceInstance
+        
 
         :returns: The fetched ServiceInstance
         :rtype: twilio.rest.notify.v1.service.ServiceInstance

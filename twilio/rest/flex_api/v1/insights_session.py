@@ -45,16 +45,17 @@ class InsightsSessionList(ListResource):
     def create(self, authorization=values.unset):
         """
         Create the InsightsSessionInstance
+
         :param str authorization: The Authorization HTTP request header
         
         :returns: The created InsightsSessionInstance
         :rtype: twilio.rest.flex_api.v1.insights_session.InsightsSessionInstance
         """
         data = values.of({ 
-            'Authorization': authorization,
         })
+        headers = values.of({'Authorization': authorization, })
+        payload = self._version.create(method='POST', uri=self._uri, data=data, headers=headers)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return InsightsSessionInstance(self._version, payload)
     
 
@@ -217,7 +218,7 @@ class InsightsSessionInstance(InstanceResource):
         :returns: The created InsightsSessionInstance
         :rtype: twilio.rest.flex_api.v1.insights_session.InsightsSessionInstance
         """
-        return self._proxy.create(authorization,)
+        return self._proxy.create(authorization=authorization, )
     
     def __repr__(self):
         """

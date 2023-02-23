@@ -41,7 +41,7 @@ class UserList(ListResource):
 
         # Path Solution
         self._solution = { 'service_sid': service_sid,  }
-        self._uri = '/Services/${service_sid}/Users'.format(**self._solution)
+        self._uri = '/Services/{service_sid}/Users'.format(**self._solution)
         
         
     
@@ -51,6 +51,7 @@ class UserList(ListResource):
     def create(self, identity, x_twilio_webhook_enabled=values.unset, role_sid=values.unset, attributes=values.unset, friendly_name=values.unset):
         """
         Create the UserInstance
+
         :param str identity: The `identity` value that uniquely identifies the new resource's [User](https://www.twilio.com/docs/chat/rest/user-resource) within the [Service](https://www.twilio.com/docs/chat/rest/service-resource). This value is often a username or email address. See the Identity documentation for more info.
         :param UserWebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
         :param str role_sid: The SID of the [Role](https://www.twilio.com/docs/chat/rest/role-resource) to assign to the new User.
@@ -62,13 +63,13 @@ class UserList(ListResource):
         """
         data = values.of({ 
             'Identity': identity,
-            'X-Twilio-Webhook-Enabled': x_twilio_webhook_enabled,
             'RoleSid': role_sid,
             'Attributes': attributes,
             'FriendlyName': friendly_name,
         })
+        headers = values.of({'X-Twilio-Webhook-Enabled': x_twilio_webhook_enabled, })
+        payload = self._version.create(method='POST', uri=self._uri, data=data, headers=headers)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return UserInstance(self._version, payload, service_sid=self._solution['service_sid'])
     
     
@@ -253,7 +254,7 @@ class UserContext(InstanceContext):
             'service_sid': service_sid,
             'sid': sid,
         }
-        self._uri = '/Services/${service_sid}/Users/${sid}'.format(**self._solution)
+        self._uri = '/Services/{service_sid}/Users/{sid}'.format(**self._solution)
         
         self._user_bindings = None
         self._user_channels = None
@@ -262,19 +263,22 @@ class UserContext(InstanceContext):
         """
         Deletes the UserInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
     def fetch(self):
         """
         Fetch the UserInstance
+        
 
         :returns: The fetched UserInstance
         :rtype: twilio.rest.chat.v2.service.user.UserInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return UserInstance(
             self._version,
@@ -297,13 +301,13 @@ class UserContext(InstanceContext):
         :rtype: twilio.rest.chat.v2.service.user.UserInstance
         """
         data = values.of({ 
-            'X-Twilio-Webhook-Enabled': x_twilio_webhook_enabled,
             'RoleSid': role_sid,
             'Attributes': attributes,
             'FriendlyName': friendly_name,
         })
+        headers = values.of({'X-Twilio-Webhook-Enabled': x_twilio_webhook_enabled, })
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data, headers=headers)
 
         return UserInstance(
             self._version,
@@ -506,6 +510,7 @@ class UserInstance(InstanceResource):
     def delete(self):
         """
         Deletes the UserInstance
+        
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -515,6 +520,7 @@ class UserInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the UserInstance
+        
 
         :returns: The fetched UserInstance
         :rtype: twilio.rest.chat.v2.service.user.UserInstance

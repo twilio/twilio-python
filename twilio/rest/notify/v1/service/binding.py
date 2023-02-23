@@ -39,7 +39,7 @@ class BindingList(ListResource):
 
         # Path Solution
         self._solution = { 'service_sid': service_sid,  }
-        self._uri = '/Services/${service_sid}/Bindings'.format(**self._solution)
+        self._uri = '/Services/{service_sid}/Bindings'.format(**self._solution)
         
         
     
@@ -48,6 +48,7 @@ class BindingList(ListResource):
     def create(self, identity, binding_type, address, tag=values.unset, notification_protocol_version=values.unset, credential_sid=values.unset, endpoint=values.unset):
         """
         Create the BindingInstance
+
         :param str identity: The `identity` value that uniquely identifies the new resource's [User](https://www.twilio.com/docs/chat/rest/user-resource) within the [Service](https://www.twilio.com/docs/notify/api/service-resource). Up to 20 Bindings can be created for the same Identity in a given Service.
         :param BindingBindingType binding_type: 
         :param str address: The channel-specific address. For APNS, the device token. For FCM and GCM, the registration token. For SMS, a phone number in E.164 format. For Facebook Messenger, the Messenger ID of the user or a phone number in E.164 format.
@@ -68,8 +69,9 @@ class BindingList(ListResource):
             'CredentialSid': credential_sid,
             'Endpoint': endpoint,
         })
+        
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return BindingInstance(self._version, payload, service_sid=self._solution['service_sid'])
     
     
@@ -276,26 +278,29 @@ class BindingContext(InstanceContext):
             'service_sid': service_sid,
             'sid': sid,
         }
-        self._uri = '/Services/${service_sid}/Bindings/${sid}'.format(**self._solution)
+        self._uri = '/Services/{service_sid}/Bindings/{sid}'.format(**self._solution)
         
     
     def delete(self):
         """
         Deletes the BindingInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
     def fetch(self):
         """
         Fetch the BindingInstance
+        
 
         :returns: The fetched BindingInstance
         :rtype: twilio.rest.notify.v1.service.binding.BindingInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return BindingInstance(
             self._version,
@@ -473,6 +478,7 @@ class BindingInstance(InstanceResource):
     def delete(self):
         """
         Deletes the BindingInstance
+        
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -482,6 +488,7 @@ class BindingInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the BindingInstance
+        
 
         :returns: The fetched BindingInstance
         :rtype: twilio.rest.notify.v1.service.binding.BindingInstance

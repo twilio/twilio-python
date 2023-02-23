@@ -39,7 +39,7 @@ class TaskQueuesStatisticsList(ListResource):
 
         # Path Solution
         self._solution = { 'workspace_sid': workspace_sid,  }
-        self._uri = '/Workspaces/${workspace_sid}/TaskQueues/Statistics'.format(**self._solution)
+        self._uri = '/Workspaces/{workspace_sid}/TaskQueues/Statistics'.format(**self._solution)
         
         
     
