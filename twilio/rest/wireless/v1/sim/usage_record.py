@@ -16,7 +16,7 @@
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
-from twilio.base.instance_context import InstanceContext
+
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
@@ -195,34 +195,68 @@ class UsageRecordPage(Page):
 
 
 
-
 class UsageRecordInstance(InstanceResource):
+
     def __init__(self, version, payload, sim_sid: str):
+        """
+        Initialize the UsageRecordInstance
+        :returns: twilio.rest.wireless.v1.sim.usage_record.UsageRecordInstance
+        :rtype: twilio.rest.wireless.v1.sim.usage_record.UsageRecordInstance
+        """
         super().__init__(version)
+
         self._properties = { 
-            'sim_sid' : payload.get('sim_sid'),
-            'account_sid' : payload.get('account_sid'),
-            'period' : payload.get('period'),
-            'commands' : payload.get('commands'),
-            'data' : payload.get('data'),
+            'sim_sid': payload.get('sim_sid'),
+            'account_sid': payload.get('account_sid'),
+            'period': payload.get('period'),
+            'commands': payload.get('commands'),
+            'data': payload.get('data'),
         }
 
         self._context = None
-        self._solution = {
-            'sim_sid': sim_sid or self._properties['sim_sid'],
-        }
-
-    @property
-    def _proxy(self):
-        if self._context is None:
-            self._context = UsageRecordContext(
-                self._version,
-                sim_sid=self._solution['sim_sid'],
-            )
-        return self._context
-
+        self._solution = { 'sim_sid': sim_sid,  }
     
-
+    
+    @property
+    def sim_sid(self):
+        """
+        :returns: The SID of the [Sim resource](https://www.twilio.com/docs/wireless/api/sim-resource) that this Usage Record is for.
+        :rtype: str
+        """
+        return self._properties['sim_sid']
+    
+    @property
+    def account_sid(self):
+        """
+        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the UsageRecord resource.
+        :rtype: str
+        """
+        return self._properties['account_sid']
+    
+    @property
+    def period(self):
+        """
+        :returns: The time period for which the usage is reported. Contains `start` and `end` datetime values given as GMT in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format.
+        :rtype: dict
+        """
+        return self._properties['period']
+    
+    @property
+    def commands(self):
+        """
+        :returns: An object that describes the SIM's usage of Commands during the specified period. See [Commands Usage Object](https://www.twilio.com/docs/wireless/api/sim-usagerecord-resource#commands-usage-object).
+        :rtype: dict
+        """
+        return self._properties['commands']
+    
+    @property
+    def data(self):
+        """
+        :returns: An object that describes the SIM's data usage during the specified period. See [Data Usage Object](https://www.twilio.com/docs/wireless/api/sim-usagerecord-resource#data-usage-object).
+        :rtype: dict
+        """
+        return self._properties['data']
+    
     def __repr__(self):
         """
         Provide a friendly representation
@@ -231,6 +265,5 @@ class UsageRecordInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Wireless.V1.UsageRecordInstance {}>'.format(context)
-
 
 

@@ -16,7 +16,7 @@
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
-from twilio.base.instance_context import InstanceContext
+
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
@@ -284,51 +284,221 @@ class CallSummariesPage(Page):
 
 
 
-
 class CallSummariesInstance(InstanceResource):
+
     def __init__(self, version, payload):
+        """
+        Initialize the CallSummariesInstance
+        :returns: twilio.rest.insights.v1.call_summaries.CallSummariesInstance
+        :rtype: twilio.rest.insights.v1.call_summaries.CallSummariesInstance
+        """
         super().__init__(version)
+
         self._properties = { 
-            'account_sid' : payload.get('account_sid'),
-            'call_sid' : payload.get('call_sid'),
-            'answered_by' : payload.get('answered_by'),
-            'call_type' : payload.get('call_type'),
-            'call_state' : payload.get('call_state'),
-            'processing_state' : payload.get('processing_state'),
-            'created_time' : payload.get('created_time'),
-            'start_time' : payload.get('start_time'),
-            'end_time' : payload.get('end_time'),
-            'duration' : payload.get('duration'),
-            'connect_duration' : payload.get('connect_duration'),
-            '_from' : payload.get('from'),
-            'to' : payload.get('to'),
-            'carrier_edge' : payload.get('carrier_edge'),
-            'client_edge' : payload.get('client_edge'),
-            'sdk_edge' : payload.get('sdk_edge'),
-            'sip_edge' : payload.get('sip_edge'),
-            'tags' : payload.get('tags'),
-            'url' : payload.get('url'),
-            'attributes' : payload.get('attributes'),
-            'properties' : payload.get('properties'),
-            'trust' : payload.get('trust'),
+            'account_sid': payload.get('account_sid'),
+            'call_sid': payload.get('call_sid'),
+            'answered_by': payload.get('answered_by'),
+            'call_type': payload.get('call_type'),
+            'call_state': payload.get('call_state'),
+            'processing_state': payload.get('processing_state'),
+            'created_time': deserialize.iso8601_datetime(payload.get('created_time')),
+            'start_time': deserialize.iso8601_datetime(payload.get('start_time')),
+            'end_time': deserialize.iso8601_datetime(payload.get('end_time')),
+            'duration': deserialize.integer(payload.get('duration')),
+            'connect_duration': deserialize.integer(payload.get('connect_duration')),
+            '_from': payload.get('from'),
+            'to': payload.get('to'),
+            'carrier_edge': payload.get('carrier_edge'),
+            'client_edge': payload.get('client_edge'),
+            'sdk_edge': payload.get('sdk_edge'),
+            'sip_edge': payload.get('sip_edge'),
+            'tags': payload.get('tags'),
+            'url': payload.get('url'),
+            'attributes': payload.get('attributes'),
+            'properties': payload.get('properties'),
+            'trust': payload.get('trust'),
         }
 
         self._context = None
-        self._solution = {
-            
-        }
-
-    @property
-    def _proxy(self):
-        if self._context is None:
-            self._context = CallSummariesContext(
-                self._version,
-                
-            )
-        return self._context
-
+        self._solution = {  }
     
-
+    
+    @property
+    def account_sid(self):
+        """
+        :returns: 
+        :rtype: str
+        """
+        return self._properties['account_sid']
+    
+    @property
+    def call_sid(self):
+        """
+        :returns: 
+        :rtype: str
+        """
+        return self._properties['call_sid']
+    
+    @property
+    def answered_by(self):
+        """
+        :returns: 
+        :rtype: CallSummariesAnsweredBy
+        """
+        return self._properties['answered_by']
+    
+    @property
+    def call_type(self):
+        """
+        :returns: 
+        :rtype: CallSummariesCallType
+        """
+        return self._properties['call_type']
+    
+    @property
+    def call_state(self):
+        """
+        :returns: 
+        :rtype: CallSummariesCallState
+        """
+        return self._properties['call_state']
+    
+    @property
+    def processing_state(self):
+        """
+        :returns: 
+        :rtype: CallSummariesProcessingState
+        """
+        return self._properties['processing_state']
+    
+    @property
+    def created_time(self):
+        """
+        :returns: 
+        :rtype: datetime
+        """
+        return self._properties['created_time']
+    
+    @property
+    def start_time(self):
+        """
+        :returns: 
+        :rtype: datetime
+        """
+        return self._properties['start_time']
+    
+    @property
+    def end_time(self):
+        """
+        :returns: 
+        :rtype: datetime
+        """
+        return self._properties['end_time']
+    
+    @property
+    def duration(self):
+        """
+        :returns: 
+        :rtype: int
+        """
+        return self._properties['duration']
+    
+    @property
+    def connect_duration(self):
+        """
+        :returns: 
+        :rtype: int
+        """
+        return self._properties['connect_duration']
+    
+    @property
+    def _from(self):
+        """
+        :returns: 
+        :rtype: dict
+        """
+        return self._properties['_from']
+    
+    @property
+    def to(self):
+        """
+        :returns: 
+        :rtype: dict
+        """
+        return self._properties['to']
+    
+    @property
+    def carrier_edge(self):
+        """
+        :returns: 
+        :rtype: dict
+        """
+        return self._properties['carrier_edge']
+    
+    @property
+    def client_edge(self):
+        """
+        :returns: 
+        :rtype: dict
+        """
+        return self._properties['client_edge']
+    
+    @property
+    def sdk_edge(self):
+        """
+        :returns: 
+        :rtype: dict
+        """
+        return self._properties['sdk_edge']
+    
+    @property
+    def sip_edge(self):
+        """
+        :returns: 
+        :rtype: dict
+        """
+        return self._properties['sip_edge']
+    
+    @property
+    def tags(self):
+        """
+        :returns: 
+        :rtype: list[str]
+        """
+        return self._properties['tags']
+    
+    @property
+    def url(self):
+        """
+        :returns: 
+        :rtype: str
+        """
+        return self._properties['url']
+    
+    @property
+    def attributes(self):
+        """
+        :returns: 
+        :rtype: dict
+        """
+        return self._properties['attributes']
+    
+    @property
+    def properties(self):
+        """
+        :returns: 
+        :rtype: dict
+        """
+        return self._properties['properties']
+    
+    @property
+    def trust(self):
+        """
+        :returns: 
+        :rtype: dict
+        """
+        return self._properties['trust']
+    
     def __repr__(self):
         """
         Provide a friendly representation
@@ -337,6 +507,5 @@ class CallSummariesInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Insights.V1.CallSummariesInstance {}>'.format(context)
-
 
 

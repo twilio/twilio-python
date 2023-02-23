@@ -16,7 +16,7 @@
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
-from twilio.base.instance_context import InstanceContext
+
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
@@ -213,34 +213,68 @@ class TaskQueuesStatisticsPage(Page):
 
 
 
-
 class TaskQueuesStatisticsInstance(InstanceResource):
+
     def __init__(self, version, payload, workspace_sid: str):
+        """
+        Initialize the TaskQueuesStatisticsInstance
+        :returns: twilio.rest.taskrouter.v1.workspace.task_queue.task_queues_statistics.TaskQueuesStatisticsInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.task_queues_statistics.TaskQueuesStatisticsInstance
+        """
         super().__init__(version)
+
         self._properties = { 
-            'account_sid' : payload.get('account_sid'),
-            'cumulative' : payload.get('cumulative'),
-            'realtime' : payload.get('realtime'),
-            'task_queue_sid' : payload.get('task_queue_sid'),
-            'workspace_sid' : payload.get('workspace_sid'),
+            'account_sid': payload.get('account_sid'),
+            'cumulative': payload.get('cumulative'),
+            'realtime': payload.get('realtime'),
+            'task_queue_sid': payload.get('task_queue_sid'),
+            'workspace_sid': payload.get('workspace_sid'),
         }
 
         self._context = None
-        self._solution = {
-            'workspace_sid': workspace_sid or self._properties['workspace_sid'],
-        }
-
-    @property
-    def _proxy(self):
-        if self._context is None:
-            self._context = TaskQueuesStatisticsContext(
-                self._version,
-                workspace_sid=self._solution['workspace_sid'],
-            )
-        return self._context
-
+        self._solution = { 'workspace_sid': workspace_sid,  }
     
-
+    
+    @property
+    def account_sid(self):
+        """
+        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the TaskQueue resource.
+        :rtype: str
+        """
+        return self._properties['account_sid']
+    
+    @property
+    def cumulative(self):
+        """
+        :returns: An object that contains the cumulative statistics for the TaskQueues.
+        :rtype: dict
+        """
+        return self._properties['cumulative']
+    
+    @property
+    def realtime(self):
+        """
+        :returns: An object that contains the real-time statistics for the TaskQueues.
+        :rtype: dict
+        """
+        return self._properties['realtime']
+    
+    @property
+    def task_queue_sid(self):
+        """
+        :returns: The SID of the TaskQueue from which these statistics were calculated.
+        :rtype: str
+        """
+        return self._properties['task_queue_sid']
+    
+    @property
+    def workspace_sid(self):
+        """
+        :returns: The SID of the Workspace that contains the TaskQueues.
+        :rtype: str
+        """
+        return self._properties['workspace_sid']
+    
     def __repr__(self):
         """
         Provide a friendly representation
@@ -249,6 +283,5 @@ class TaskQueuesStatisticsInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Taskrouter.V1.TaskQueuesStatisticsInstance {}>'.format(context)
-
 
 

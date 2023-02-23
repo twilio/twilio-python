@@ -16,17 +16,17 @@
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
-from twilio.base.instance_context import InstanceContext
-from twilio.base.instance_resource import InstanceResource
+
+
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 
-from twilio.rest.numbers.v2.regulatory_compliance.bundles import BundleList
-from twilio.rest.numbers.v2.regulatory_compliance.end_users import EndUserList
-from twilio.rest.numbers.v2.regulatory_compliance.end_user_types import EndUserTypeList
-from twilio.rest.numbers.v2.regulatory_compliance.regulations import RegulationList
-from twilio.rest.numbers.v2.regulatory_compliance.supporting_documents import SupportingDocumentList
-from twilio.rest.numbers.v2.regulatory_compliance.supporting_document_types import SupportingDocumentTypeList
+from twilio.rest.numbers.v2.regulatory_compliance.bundle import BundleList
+from twilio.rest.numbers.v2.regulatory_compliance.end_user import EndUserList
+from twilio.rest.numbers.v2.regulatory_compliance.end_user_type import EndUserTypeList
+from twilio.rest.numbers.v2.regulatory_compliance.regulation import RegulationList
+from twilio.rest.numbers.v2.regulatory_compliance.supporting_document import SupportingDocumentList
+from twilio.rest.numbers.v2.regulatory_compliance.supporting_document_type import SupportingDocumentTypeList
 
 
 class RegulatoryComplianceList(ListResource):

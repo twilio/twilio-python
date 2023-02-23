@@ -16,12 +16,12 @@
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
-from twilio.base.instance_context import InstanceContext
-from twilio.base.instance_resource import InstanceResource
+
+
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 
-from twilio.rest.pricing.v1.messaging.countries import CountryList
+from twilio.rest.pricing.v1.messaging.country import CountryList
 
 
 class MessagingList(ListResource):

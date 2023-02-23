@@ -16,14 +16,14 @@
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
-from twilio.base.instance_context import InstanceContext
-from twilio.base.instance_resource import InstanceResource
+
+
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 
-from twilio.rest.api.v2010.sip.credential_lists import CredentialListList
-from twilio.rest.api.v2010.sip.domains import DomainList
-from twilio.rest.api.v2010.sip.ip_access_control_lists import IpAccessControlListList
+from twilio.rest.api.v2010.account.sip.credential_list import CredentialListList
+from twilio.rest.api.v2010.account.sip.domain import DomainList
+from twilio.rest.api.v2010.account.sip.ip_access_control_list import IpAccessControlListList
 
 
 class SipList(ListResource):

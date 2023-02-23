@@ -16,13 +16,13 @@
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
-from twilio.base.instance_context import InstanceContext
-from twilio.base.instance_resource import InstanceResource
+
+
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 
-from twilio.rest.pricing.v2.voice.countries import CountryList
-from twilio.rest.pricing.v2.voice.numbers import NumberList
+from twilio.rest.pricing.v2.voice.country import CountryList
+from twilio.rest.pricing.v2.voice.number import NumberList
 
 
 class VoiceList(ListResource):

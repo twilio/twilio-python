@@ -16,7 +16,7 @@
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
-from twilio.base.instance_context import InstanceContext
+
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
@@ -70,31 +70,41 @@ class StreamMessageList(ListResource):
         return '<Twilio.Sync.V1.StreamMessageList>'
 
 
-
 class StreamMessageInstance(InstanceResource):
+
     def __init__(self, version, payload, service_sid: str, stream_sid: str):
+        """
+        Initialize the StreamMessageInstance
+        :returns: twilio.rest.sync.v1.service.sync_stream.stream_message.StreamMessageInstance
+        :rtype: twilio.rest.sync.v1.service.sync_stream.stream_message.StreamMessageInstance
+        """
         super().__init__(version)
+
         self._properties = { 
-            'sid' : payload.get('sid'),
-            'data' : payload.get('data'),
+            'sid': payload.get('sid'),
+            'data': payload.get('data'),
         }
 
         self._context = None
-        self._solution = {
-            'service_sid': service_sid or self._properties['service_sid'],'stream_sid': stream_sid or self._properties['stream_sid'],
-        }
-
-    @property
-    def _proxy(self):
-        if self._context is None:
-            self._context = StreamMessageContext(
-                self._version,
-                service_sid=self._solution['service_sid'],stream_sid=self._solution['stream_sid'],
-            )
-        return self._context
-
+        self._solution = { 'service_sid': service_sid, 'stream_sid': stream_sid,  }
     
-
+    
+    @property
+    def sid(self):
+        """
+        :returns: The unique string that we created to identify the Stream Message resource.
+        :rtype: str
+        """
+        return self._properties['sid']
+    
+    @property
+    def data(self):
+        """
+        :returns: An arbitrary, schema-less object that contains the Stream Message body. Can be up to 4 KiB in length.
+        :rtype: dict
+        """
+        return self._properties['data']
+    
     def __repr__(self):
         """
         Provide a friendly representation
@@ -103,6 +113,5 @@ class StreamMessageInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Sync.V1.StreamMessageInstance {}>'.format(context)
-
 
 

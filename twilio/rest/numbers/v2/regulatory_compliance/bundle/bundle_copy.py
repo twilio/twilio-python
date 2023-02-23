@@ -16,7 +16,7 @@
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
-from twilio.base.instance_context import InstanceContext
+
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
@@ -195,39 +195,113 @@ class BundleCopyPage(Page):
 
 
 
-
 class BundleCopyInstance(InstanceResource):
+
     def __init__(self, version, payload, bundle_sid: str):
+        """
+        Initialize the BundleCopyInstance
+        :returns: twilio.rest.numbers.v2.regulatory_compliance.bundle.bundle_copy.BundleCopyInstance
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.bundle_copy.BundleCopyInstance
+        """
         super().__init__(version)
+
         self._properties = { 
-            'sid' : payload.get('sid'),
-            'account_sid' : payload.get('account_sid'),
-            'regulation_sid' : payload.get('regulation_sid'),
-            'friendly_name' : payload.get('friendly_name'),
-            'status' : payload.get('status'),
-            'valid_until' : payload.get('valid_until'),
-            'email' : payload.get('email'),
-            'status_callback' : payload.get('status_callback'),
-            'date_created' : payload.get('date_created'),
-            'date_updated' : payload.get('date_updated'),
+            'sid': payload.get('sid'),
+            'account_sid': payload.get('account_sid'),
+            'regulation_sid': payload.get('regulation_sid'),
+            'friendly_name': payload.get('friendly_name'),
+            'status': payload.get('status'),
+            'valid_until': deserialize.iso8601_datetime(payload.get('valid_until')),
+            'email': payload.get('email'),
+            'status_callback': payload.get('status_callback'),
+            'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
+            'date_updated': deserialize.iso8601_datetime(payload.get('date_updated')),
         }
 
         self._context = None
-        self._solution = {
-            'bundle_sid': bundle_sid or self._properties['bundle_sid'],
-        }
-
-    @property
-    def _proxy(self):
-        if self._context is None:
-            self._context = BundleCopyContext(
-                self._version,
-                bundle_sid=self._solution['bundle_sid'],
-            )
-        return self._context
-
+        self._solution = { 'bundle_sid': bundle_sid,  }
     
-
+    
+    @property
+    def sid(self):
+        """
+        :returns: The unique string that we created to identify the Bundle resource.
+        :rtype: str
+        """
+        return self._properties['sid']
+    
+    @property
+    def account_sid(self):
+        """
+        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Bundle resource.
+        :rtype: str
+        """
+        return self._properties['account_sid']
+    
+    @property
+    def regulation_sid(self):
+        """
+        :returns: The unique string of a regulation that is associated to the Bundle resource.
+        :rtype: str
+        """
+        return self._properties['regulation_sid']
+    
+    @property
+    def friendly_name(self):
+        """
+        :returns: The string that you assigned to describe the resource.
+        :rtype: str
+        """
+        return self._properties['friendly_name']
+    
+    @property
+    def status(self):
+        """
+        :returns: 
+        :rtype: BundleCopyStatus
+        """
+        return self._properties['status']
+    
+    @property
+    def valid_until(self):
+        """
+        :returns: The date and time in GMT in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format when the resource will be valid until.
+        :rtype: datetime
+        """
+        return self._properties['valid_until']
+    
+    @property
+    def email(self):
+        """
+        :returns: The email address that will receive updates when the Bundle resource changes status.
+        :rtype: str
+        """
+        return self._properties['email']
+    
+    @property
+    def status_callback(self):
+        """
+        :returns: The URL we call to inform your application of status changes.
+        :rtype: str
+        """
+        return self._properties['status_callback']
+    
+    @property
+    def date_created(self):
+        """
+        :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+        :rtype: datetime
+        """
+        return self._properties['date_created']
+    
+    @property
+    def date_updated(self):
+        """
+        :returns: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+        :rtype: datetime
+        """
+        return self._properties['date_updated']
+    
     def __repr__(self):
         """
         Provide a friendly representation
@@ -236,6 +310,5 @@ class BundleCopyInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Numbers.V2.BundleCopyInstance {}>'.format(context)
-
 
 

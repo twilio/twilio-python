@@ -16,7 +16,7 @@
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
-from twilio.base.instance_context import InstanceContext
+
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
@@ -72,33 +72,59 @@ class UserDefinedMessageList(ListResource):
         return '<Twilio.Api.V2010.UserDefinedMessageList>'
 
 
-
 class UserDefinedMessageInstance(InstanceResource):
+
     def __init__(self, version, payload, account_sid: str, call_sid: str):
+        """
+        Initialize the UserDefinedMessageInstance
+        :returns: twilio.rest.api.v2010.account.call.user_defined_message.UserDefinedMessageInstance
+        :rtype: twilio.rest.api.v2010.account.call.user_defined_message.UserDefinedMessageInstance
+        """
         super().__init__(version)
+
         self._properties = { 
-            'account_sid' : payload.get('account_sid'),
-            'call_sid' : payload.get('call_sid'),
-            'sid' : payload.get('sid'),
-            'date_created' : payload.get('date_created'),
+            'account_sid': payload.get('account_sid'),
+            'call_sid': payload.get('call_sid'),
+            'sid': payload.get('sid'),
+            'date_created': deserialize.rfc2822_datetime(payload.get('date_created')),
         }
 
         self._context = None
-        self._solution = {
-            'account_sid': account_sid or self._properties['account_sid'],'call_sid': call_sid or self._properties['call_sid'],
-        }
-
-    @property
-    def _proxy(self):
-        if self._context is None:
-            self._context = UserDefinedMessageContext(
-                self._version,
-                account_sid=self._solution['account_sid'],call_sid=self._solution['call_sid'],
-            )
-        return self._context
-
+        self._solution = { 'account_sid': account_sid, 'call_sid': call_sid,  }
     
-
+    
+    @property
+    def account_sid(self):
+        """
+        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created User Defined Message.
+        :rtype: str
+        """
+        return self._properties['account_sid']
+    
+    @property
+    def call_sid(self):
+        """
+        :returns: The SID of the [Call](https://www.twilio.com/docs/voice/api/call-resource) the User Defined Message is associated with.
+        :rtype: str
+        """
+        return self._properties['call_sid']
+    
+    @property
+    def sid(self):
+        """
+        :returns: The SID that uniquely identifies this User Defined Message.
+        :rtype: str
+        """
+        return self._properties['sid']
+    
+    @property
+    def date_created(self):
+        """
+        :returns: The date that this User Defined Message was created, given in RFC 2822 format.
+        :rtype: datetime
+        """
+        return self._properties['date_created']
+    
     def __repr__(self):
         """
         Provide a friendly representation
@@ -107,6 +133,5 @@ class UserDefinedMessageInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Api.V2010.UserDefinedMessageInstance {}>'.format(context)
-
 
 

@@ -16,13 +16,13 @@
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
-from twilio.base.instance_context import InstanceContext
-from twilio.base.instance_resource import InstanceResource
+
+
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 
-from twilio.rest.api.v2010.auth_type_calls.credential_list_mappings import AuthCallsCredentialListMappingList
-from twilio.rest.api.v2010.auth_type_calls.ip_access_control_list_mappings import AuthCallsIpAccessControlListMappingList
+from twilio.rest.api.v2010.account.sip.domain.auth_types.auth_type_calls.auth_calls_credential_list_mapping import AuthCallsCredentialListMappingList
+from twilio.rest.api.v2010.account.sip.domain.auth_types.auth_type_calls.auth_calls_ip_access_control_list_mapping import AuthCallsIpAccessControlListMappingList
 
 
 class AuthTypeCallsList(ListResource):

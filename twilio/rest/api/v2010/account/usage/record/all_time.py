@@ -16,7 +16,7 @@
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
-from twilio.base.instance_context import InstanceContext
+
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
@@ -201,44 +201,158 @@ class AllTimePage(Page):
 
 
 
-
 class AllTimeInstance(InstanceResource):
+
     def __init__(self, version, payload, account_sid: str):
+        """
+        Initialize the AllTimeInstance
+        :returns: twilio.rest.api.v2010.account.usage.record.all_time.AllTimeInstance
+        :rtype: twilio.rest.api.v2010.account.usage.record.all_time.AllTimeInstance
+        """
         super().__init__(version)
+
         self._properties = { 
-            'account_sid' : payload.get('account_sid'),
-            'api_version' : payload.get('api_version'),
-            'as_of' : payload.get('as_of'),
-            'category' : payload.get('category'),
-            'count' : payload.get('count'),
-            'count_unit' : payload.get('count_unit'),
-            'description' : payload.get('description'),
-            'end_date' : payload.get('end_date'),
-            'price' : payload.get('price'),
-            'price_unit' : payload.get('price_unit'),
-            'start_date' : payload.get('start_date'),
-            'subresource_uris' : payload.get('subresource_uris'),
-            'uri' : payload.get('uri'),
-            'usage' : payload.get('usage'),
-            'usage_unit' : payload.get('usage_unit'),
+            'account_sid': payload.get('account_sid'),
+            'api_version': payload.get('api_version'),
+            'as_of': payload.get('as_of'),
+            'category': payload.get('category'),
+            'count': payload.get('count'),
+            'count_unit': payload.get('count_unit'),
+            'description': payload.get('description'),
+            'end_date': deserialize.iso8601_date(payload.get('end_date')),
+            'price': deserialize.decimal(payload.get('price')),
+            'price_unit': payload.get('price_unit'),
+            'start_date': deserialize.iso8601_date(payload.get('start_date')),
+            'subresource_uris': payload.get('subresource_uris'),
+            'uri': payload.get('uri'),
+            'usage': payload.get('usage'),
+            'usage_unit': payload.get('usage_unit'),
         }
 
         self._context = None
-        self._solution = {
-            'account_sid': account_sid or self._properties['account_sid'],
-        }
-
-    @property
-    def _proxy(self):
-        if self._context is None:
-            self._context = AllTimeContext(
-                self._version,
-                account_sid=self._solution['account_sid'],
-            )
-        return self._context
-
+        self._solution = { 'account_sid': account_sid,  }
     
-
+    
+    @property
+    def account_sid(self):
+        """
+        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that accrued the usage.
+        :rtype: str
+        """
+        return self._properties['account_sid']
+    
+    @property
+    def api_version(self):
+        """
+        :returns: The API version used to create the resource.
+        :rtype: str
+        """
+        return self._properties['api_version']
+    
+    @property
+    def as_of(self):
+        """
+        :returns: Usage records up to date as of this timestamp, formatted as YYYY-MM-DDTHH:MM:SS+00:00. All timestamps are in GMT
+        :rtype: str
+        """
+        return self._properties['as_of']
+    
+    @property
+    def category(self):
+        """
+        :returns: 
+        :rtype: UsageRecordAllTimeCategory
+        """
+        return self._properties['category']
+    
+    @property
+    def count(self):
+        """
+        :returns: The number of usage events, such as the number of calls.
+        :rtype: str
+        """
+        return self._properties['count']
+    
+    @property
+    def count_unit(self):
+        """
+        :returns: The units in which `count` is measured, such as `calls` for calls or `messages` for SMS.
+        :rtype: str
+        """
+        return self._properties['count_unit']
+    
+    @property
+    def description(self):
+        """
+        :returns: A plain-language description of the usage category.
+        :rtype: str
+        """
+        return self._properties['description']
+    
+    @property
+    def end_date(self):
+        """
+        :returns: The last date for which usage is included in the UsageRecord. The date is specified in GMT and formatted as `YYYY-MM-DD`.
+        :rtype: date
+        """
+        return self._properties['end_date']
+    
+    @property
+    def price(self):
+        """
+        :returns: The total price of the usage in the currency specified in `price_unit` and associated with the account.
+        :rtype: float
+        """
+        return self._properties['price']
+    
+    @property
+    def price_unit(self):
+        """
+        :returns: The currency in which `price` is measured, in [ISO 4127](https://www.iso.org/iso/home/standards/currency_codes.htm) format, such as `usd`, `eur`, and `jpy`.
+        :rtype: str
+        """
+        return self._properties['price_unit']
+    
+    @property
+    def start_date(self):
+        """
+        :returns: The first date for which usage is included in this UsageRecord. The date is specified in GMT and formatted as `YYYY-MM-DD`.
+        :rtype: date
+        """
+        return self._properties['start_date']
+    
+    @property
+    def subresource_uris(self):
+        """
+        :returns: A list of related resources identified by their URIs. For more information, see [List Subresources](https://www.twilio.com/docs/usage/api/usage-record#list-subresources).
+        :rtype: dict
+        """
+        return self._properties['subresource_uris']
+    
+    @property
+    def uri(self):
+        """
+        :returns: The URI of the resource, relative to `https://api.twilio.com`.
+        :rtype: str
+        """
+        return self._properties['uri']
+    
+    @property
+    def usage(self):
+        """
+        :returns: The amount used to bill usage and measured in units described in `usage_unit`.
+        :rtype: str
+        """
+        return self._properties['usage']
+    
+    @property
+    def usage_unit(self):
+        """
+        :returns: The units in which `usage` is measured, such as `minutes` for calls or `messages` for SMS.
+        :rtype: str
+        """
+        return self._properties['usage_unit']
+    
     def __repr__(self):
         """
         Provide a friendly representation
@@ -247,6 +361,5 @@ class AllTimeInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Api.V2010.AllTimeInstance {}>'.format(context)
-
 
 

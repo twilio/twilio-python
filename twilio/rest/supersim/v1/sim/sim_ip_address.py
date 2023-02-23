@@ -16,7 +16,7 @@
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
-from twilio.base.instance_context import InstanceContext
+
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
@@ -177,31 +177,41 @@ class SimIpAddressPage(Page):
 
 
 
-
 class SimIpAddressInstance(InstanceResource):
+
     def __init__(self, version, payload, sim_sid: str):
+        """
+        Initialize the SimIpAddressInstance
+        :returns: twilio.rest.supersim.v1.sim.sim_ip_address.SimIpAddressInstance
+        :rtype: twilio.rest.supersim.v1.sim.sim_ip_address.SimIpAddressInstance
+        """
         super().__init__(version)
+
         self._properties = { 
-            'ip_address' : payload.get('ip_address'),
-            'ip_address_version' : payload.get('ip_address_version'),
+            'ip_address': payload.get('ip_address'),
+            'ip_address_version': payload.get('ip_address_version'),
         }
 
         self._context = None
-        self._solution = {
-            'sim_sid': sim_sid or self._properties['sim_sid'],
-        }
-
-    @property
-    def _proxy(self):
-        if self._context is None:
-            self._context = SimIpAddressContext(
-                self._version,
-                sim_sid=self._solution['sim_sid'],
-            )
-        return self._context
-
+        self._solution = { 'sim_sid': sim_sid,  }
     
-
+    
+    @property
+    def ip_address(self):
+        """
+        :returns: IP address assigned to the given Super SIM
+        :rtype: str
+        """
+        return self._properties['ip_address']
+    
+    @property
+    def ip_address_version(self):
+        """
+        :returns: 
+        :rtype: SimIpAddressIpAddressVersion
+        """
+        return self._properties['ip_address_version']
+    
     def __repr__(self):
         """
         Provide a friendly representation
@@ -210,6 +220,5 @@ class SimIpAddressInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Supersim.V1.SimIpAddressInstance {}>'.format(context)
-
 
 

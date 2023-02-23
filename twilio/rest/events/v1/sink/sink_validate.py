@@ -16,7 +16,7 @@
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
-from twilio.base.instance_context import InstanceContext
+
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
@@ -69,30 +69,32 @@ class SinkValidateList(ListResource):
         return '<Twilio.Events.V1.SinkValidateList>'
 
 
-
 class SinkValidateInstance(InstanceResource):
+
     def __init__(self, version, payload, sid: str):
+        """
+        Initialize the SinkValidateInstance
+        :returns: twilio.rest.events.v1.sink.sink_validate.SinkValidateInstance
+        :rtype: twilio.rest.events.v1.sink.sink_validate.SinkValidateInstance
+        """
         super().__init__(version)
+
         self._properties = { 
-            'result' : payload.get('result'),
+            'result': payload.get('result'),
         }
 
         self._context = None
-        self._solution = {
-            'sid': sid or self._properties['sid'],
-        }
-
-    @property
-    def _proxy(self):
-        if self._context is None:
-            self._context = SinkValidateContext(
-                self._version,
-                sid=self._solution['sid'],
-            )
-        return self._context
-
+        self._solution = { 'sid': sid,  }
     
-
+    
+    @property
+    def result(self):
+        """
+        :returns: Feedback indicating whether the given Sink was validated.
+        :rtype: str
+        """
+        return self._properties['result']
+    
     def __repr__(self):
         """
         Provide a friendly representation
@@ -101,6 +103,5 @@ class SinkValidateInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Events.V1.SinkValidateInstance {}>'.format(context)
-
 
 

@@ -16,7 +16,7 @@
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
-from twilio.base.instance_context import InstanceContext
+
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
@@ -53,30 +53,32 @@ class UsecaseList(ListResource):
         return '<Twilio.Messaging.V1.UsecaseList>'
 
 
-
 class UsecaseInstance(InstanceResource):
+
     def __init__(self, version, payload):
+        """
+        Initialize the UsecaseInstance
+        :returns: twilio.rest.messaging.v1.usecase.UsecaseInstance
+        :rtype: twilio.rest.messaging.v1.usecase.UsecaseInstance
+        """
         super().__init__(version)
+
         self._properties = { 
-            'usecases' : payload.get('usecases'),
+            'usecases': payload.get('usecases'),
         }
 
         self._context = None
-        self._solution = {
-            
-        }
-
-    @property
-    def _proxy(self):
-        if self._context is None:
-            self._context = UsecaseContext(
-                self._version,
-                
-            )
-        return self._context
-
+        self._solution = {  }
     
-
+    
+    @property
+    def usecases(self):
+        """
+        :returns: Human readable use case details (usecase, description and purpose) of Messaging Service Use Cases.
+        :rtype: list[object]
+        """
+        return self._properties['usecases']
+    
     def __repr__(self):
         """
         Provide a friendly representation
@@ -85,6 +87,5 @@ class UsecaseInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Messaging.V1.UsecaseInstance {}>'.format(context)
-
 
 
