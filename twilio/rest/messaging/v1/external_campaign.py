@@ -16,7 +16,7 @@
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
-from twilio.base.instance_context import InstanceContext
+
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
@@ -70,34 +70,68 @@ class ExternalCampaignList(ListResource):
         return '<Twilio.Messaging.V1.ExternalCampaignList>'
 
 
-
 class ExternalCampaignInstance(InstanceResource):
+
     def __init__(self, version, payload):
+        """
+        Initialize the ExternalCampaignInstance
+        :returns: twilio.rest.messaging.v1.external_campaign.ExternalCampaignInstance
+        :rtype: twilio.rest.messaging.v1.external_campaign.ExternalCampaignInstance
+        """
         super().__init__(version)
+
         self._properties = { 
-            'sid' : payload.get('sid'),
-            'account_sid' : payload.get('account_sid'),
-            'campaign_id' : payload.get('campaign_id'),
-            'messaging_service_sid' : payload.get('messaging_service_sid'),
-            'date_created' : payload.get('date_created'),
+            'sid': payload.get('sid'),
+            'account_sid': payload.get('account_sid'),
+            'campaign_id': payload.get('campaign_id'),
+            'messaging_service_sid': payload.get('messaging_service_sid'),
+            'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
         }
 
         self._context = None
-        self._solution = {
-            
-        }
-
-    @property
-    def _proxy(self):
-        if self._context is None:
-            self._context = ExternalCampaignContext(
-                self._version,
-                
-            )
-        return self._context
-
+        self._solution = {  }
     
-
+    
+    @property
+    def sid(self):
+        """
+        :returns: The unique string that identifies a US A2P Compliance resource `QE2c6890da8086d771620e9b13fadeba0b`.
+        :rtype: str
+        """
+        return self._properties['sid']
+    
+    @property
+    def account_sid(self):
+        """
+        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that the Campaign belongs to.
+        :rtype: str
+        """
+        return self._properties['account_sid']
+    
+    @property
+    def campaign_id(self):
+        """
+        :returns: ID of the preregistered campaign.
+        :rtype: str
+        """
+        return self._properties['campaign_id']
+    
+    @property
+    def messaging_service_sid(self):
+        """
+        :returns: The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/services/api) that the resource is associated with.
+        :rtype: str
+        """
+        return self._properties['messaging_service_sid']
+    
+    @property
+    def date_created(self):
+        """
+        :returns: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+        :rtype: datetime
+        """
+        return self._properties['date_created']
+    
     def __repr__(self):
         """
         Provide a friendly representation
@@ -106,6 +140,5 @@ class ExternalCampaignInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Messaging.V1.ExternalCampaignInstance {}>'.format(context)
-
 
 

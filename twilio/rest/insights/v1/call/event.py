@@ -16,7 +16,7 @@
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
-from twilio.base.instance_context import InstanceContext
+
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
@@ -183,40 +183,122 @@ class EventPage(Page):
 
 
 
-
 class EventInstance(InstanceResource):
+
     def __init__(self, version, payload, call_sid: str):
+        """
+        Initialize the EventInstance
+        :returns: twilio.rest.insights.v1.call.event.EventInstance
+        :rtype: twilio.rest.insights.v1.call.event.EventInstance
+        """
         super().__init__(version)
+
         self._properties = { 
-            'timestamp' : payload.get('timestamp'),
-            'call_sid' : payload.get('call_sid'),
-            'account_sid' : payload.get('account_sid'),
-            'edge' : payload.get('edge'),
-            'group' : payload.get('group'),
-            'level' : payload.get('level'),
-            'name' : payload.get('name'),
-            'carrier_edge' : payload.get('carrier_edge'),
-            'sip_edge' : payload.get('sip_edge'),
-            'sdk_edge' : payload.get('sdk_edge'),
-            'client_edge' : payload.get('client_edge'),
+            'timestamp': payload.get('timestamp'),
+            'call_sid': payload.get('call_sid'),
+            'account_sid': payload.get('account_sid'),
+            'edge': payload.get('edge'),
+            'group': payload.get('group'),
+            'level': payload.get('level'),
+            'name': payload.get('name'),
+            'carrier_edge': payload.get('carrier_edge'),
+            'sip_edge': payload.get('sip_edge'),
+            'sdk_edge': payload.get('sdk_edge'),
+            'client_edge': payload.get('client_edge'),
         }
 
         self._context = None
-        self._solution = {
-            'call_sid': call_sid or self._properties['call_sid'],
-        }
-
-    @property
-    def _proxy(self):
-        if self._context is None:
-            self._context = EventContext(
-                self._version,
-                call_sid=self._solution['call_sid'],
-            )
-        return self._context
-
+        self._solution = { 'call_sid': call_sid,  }
     
-
+    
+    @property
+    def timestamp(self):
+        """
+        :returns: 
+        :rtype: str
+        """
+        return self._properties['timestamp']
+    
+    @property
+    def call_sid(self):
+        """
+        :returns: 
+        :rtype: str
+        """
+        return self._properties['call_sid']
+    
+    @property
+    def account_sid(self):
+        """
+        :returns: 
+        :rtype: str
+        """
+        return self._properties['account_sid']
+    
+    @property
+    def edge(self):
+        """
+        :returns: 
+        :rtype: EventTwilioEdge
+        """
+        return self._properties['edge']
+    
+    @property
+    def group(self):
+        """
+        :returns: 
+        :rtype: str
+        """
+        return self._properties['group']
+    
+    @property
+    def level(self):
+        """
+        :returns: 
+        :rtype: EventLevel
+        """
+        return self._properties['level']
+    
+    @property
+    def name(self):
+        """
+        :returns: 
+        :rtype: str
+        """
+        return self._properties['name']
+    
+    @property
+    def carrier_edge(self):
+        """
+        :returns: 
+        :rtype: dict
+        """
+        return self._properties['carrier_edge']
+    
+    @property
+    def sip_edge(self):
+        """
+        :returns: 
+        :rtype: dict
+        """
+        return self._properties['sip_edge']
+    
+    @property
+    def sdk_edge(self):
+        """
+        :returns: 
+        :rtype: dict
+        """
+        return self._properties['sdk_edge']
+    
+    @property
+    def client_edge(self):
+        """
+        :returns: 
+        :rtype: dict
+        """
+        return self._properties['client_edge']
+    
     def __repr__(self):
         """
         Provide a friendly representation
@@ -225,6 +307,5 @@ class EventInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Insights.V1.EventInstance {}>'.format(context)
-
 
 

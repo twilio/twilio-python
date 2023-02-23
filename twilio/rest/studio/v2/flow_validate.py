@@ -16,7 +16,7 @@
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
-from twilio.base.instance_context import InstanceContext
+
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
@@ -53,30 +53,32 @@ class FlowValidateList(ListResource):
         return '<Twilio.Studio.V2.FlowValidateList>'
 
 
-
 class FlowValidateInstance(InstanceResource):
+
     def __init__(self, version, payload):
+        """
+        Initialize the FlowValidateInstance
+        :returns: twilio.rest.studio.v2.flow_validate.FlowValidateInstance
+        :rtype: twilio.rest.studio.v2.flow_validate.FlowValidateInstance
+        """
         super().__init__(version)
+
         self._properties = { 
-            'valid' : payload.get('valid'),
+            'valid': payload.get('valid'),
         }
 
         self._context = None
-        self._solution = {
-            
-        }
-
-    @property
-    def _proxy(self):
-        if self._context is None:
-            self._context = FlowValidateContext(
-                self._version,
-                
-            )
-        return self._context
-
+        self._solution = {  }
     
-
+    
+    @property
+    def valid(self):
+        """
+        :returns: Boolean if the flow definition is valid.
+        :rtype: bool
+        """
+        return self._properties['valid']
+    
     def __repr__(self):
         """
         Provide a friendly representation
@@ -85,6 +87,5 @@ class FlowValidateInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Studio.V2.FlowValidateInstance {}>'.format(context)
-
 
 

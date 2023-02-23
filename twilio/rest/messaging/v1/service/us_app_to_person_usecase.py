@@ -16,7 +16,7 @@
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
-from twilio.base.instance_context import InstanceContext
+
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
@@ -54,30 +54,32 @@ class UsAppToPersonUsecaseList(ListResource):
         return '<Twilio.Messaging.V1.UsAppToPersonUsecaseList>'
 
 
-
 class UsAppToPersonUsecaseInstance(InstanceResource):
+
     def __init__(self, version, payload, messaging_service_sid: str):
+        """
+        Initialize the UsAppToPersonUsecaseInstance
+        :returns: twilio.rest.messaging.v1.service.us_app_to_person_usecase.UsAppToPersonUsecaseInstance
+        :rtype: twilio.rest.messaging.v1.service.us_app_to_person_usecase.UsAppToPersonUsecaseInstance
+        """
         super().__init__(version)
+
         self._properties = { 
-            'us_app_to_person_usecases' : payload.get('us_app_to_person_usecases'),
+            'us_app_to_person_usecases': payload.get('us_app_to_person_usecases'),
         }
 
         self._context = None
-        self._solution = {
-            'messaging_service_sid': messaging_service_sid or self._properties['messaging_service_sid'],
-        }
-
-    @property
-    def _proxy(self):
-        if self._context is None:
-            self._context = UsAppToPersonUsecaseContext(
-                self._version,
-                messaging_service_sid=self._solution['messaging_service_sid'],
-            )
-        return self._context
-
+        self._solution = { 'messaging_service_sid': messaging_service_sid,  }
     
-
+    
+    @property
+    def us_app_to_person_usecases(self):
+        """
+        :returns: Human readable name, code, description and post_approval_required (indicates whether or not post approval is required for this Use Case) of A2P Campaign Use Cases.
+        :rtype: list[object]
+        """
+        return self._properties['us_app_to_person_usecases']
+    
     def __repr__(self):
         """
         Provide a friendly representation
@@ -86,6 +88,5 @@ class UsAppToPersonUsecaseInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Messaging.V1.UsAppToPersonUsecaseInstance {}>'.format(context)
-
 
 

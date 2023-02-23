@@ -16,7 +16,7 @@
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
-from twilio.base.instance_context import InstanceContext
+
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
@@ -188,37 +188,95 @@ class SettingsUpdatePage(Page):
 
 
 
-
 class SettingsUpdateInstance(InstanceResource):
+
     def __init__(self, version, payload):
+        """
+        Initialize the SettingsUpdateInstance
+        :returns: twilio.rest.supersim.v1.settings_update.SettingsUpdateInstance
+        :rtype: twilio.rest.supersim.v1.settings_update.SettingsUpdateInstance
+        """
         super().__init__(version)
+
         self._properties = { 
-            'sid' : payload.get('sid'),
-            'iccid' : payload.get('iccid'),
-            'sim_sid' : payload.get('sim_sid'),
-            'status' : payload.get('status'),
-            'packages' : payload.get('packages'),
-            'date_completed' : payload.get('date_completed'),
-            'date_created' : payload.get('date_created'),
-            'date_updated' : payload.get('date_updated'),
+            'sid': payload.get('sid'),
+            'iccid': payload.get('iccid'),
+            'sim_sid': payload.get('sim_sid'),
+            'status': payload.get('status'),
+            'packages': payload.get('packages'),
+            'date_completed': deserialize.iso8601_datetime(payload.get('date_completed')),
+            'date_created': deserialize.iso8601_datetime(payload.get('date_created')),
+            'date_updated': deserialize.iso8601_datetime(payload.get('date_updated')),
         }
 
         self._context = None
-        self._solution = {
-            
-        }
-
-    @property
-    def _proxy(self):
-        if self._context is None:
-            self._context = SettingsUpdateContext(
-                self._version,
-                
-            )
-        return self._context
-
+        self._solution = {  }
     
-
+    
+    @property
+    def sid(self):
+        """
+        :returns: The unique identifier of this Settings Update.
+        :rtype: str
+        """
+        return self._properties['sid']
+    
+    @property
+    def iccid(self):
+        """
+        :returns: The [ICCID](https://en.wikipedia.org/wiki/SIM_card#ICCID) associated with the SIM.
+        :rtype: str
+        """
+        return self._properties['iccid']
+    
+    @property
+    def sim_sid(self):
+        """
+        :returns: The SID of the Super SIM to which this Settings Update was applied.
+        :rtype: str
+        """
+        return self._properties['sim_sid']
+    
+    @property
+    def status(self):
+        """
+        :returns: 
+        :rtype: SettingsUpdateStatus
+        """
+        return self._properties['status']
+    
+    @property
+    def packages(self):
+        """
+        :returns: Array containing the different Settings Packages that will be applied to the SIM after the update completes. Each object within the array indicates the name and the version of the Settings Package that will be on the SIM if the update is successful.
+        :rtype: list[object]
+        """
+        return self._properties['packages']
+    
+    @property
+    def date_completed(self):
+        """
+        :returns: The time, given in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format, when the update successfully completed and the new settings were applied to the SIM.
+        :rtype: datetime
+        """
+        return self._properties['date_completed']
+    
+    @property
+    def date_created(self):
+        """
+        :returns: The date that this Settings Update was created, given in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+        :rtype: datetime
+        """
+        return self._properties['date_created']
+    
+    @property
+    def date_updated(self):
+        """
+        :returns: The date that this Settings Update was updated, given in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+        :rtype: datetime
+        """
+        return self._properties['date_updated']
+    
     def __repr__(self):
         """
         Provide a friendly representation
@@ -227,6 +285,5 @@ class SettingsUpdateInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Supersim.V1.SettingsUpdateInstance {}>'.format(context)
-
 
 

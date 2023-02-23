@@ -16,7 +16,7 @@
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
-from twilio.base.instance_context import InstanceContext
+
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
@@ -177,30 +177,32 @@ class HighriskSpecialPrefixPage(Page):
 
 
 
-
 class HighriskSpecialPrefixInstance(InstanceResource):
+
     def __init__(self, version, payload, iso_code: str):
+        """
+        Initialize the HighriskSpecialPrefixInstance
+        :returns: twilio.rest.voice.v1.dialing_permissions.country.highrisk_special_prefix.HighriskSpecialPrefixInstance
+        :rtype: twilio.rest.voice.v1.dialing_permissions.country.highrisk_special_prefix.HighriskSpecialPrefixInstance
+        """
         super().__init__(version)
+
         self._properties = { 
-            'prefix' : payload.get('prefix'),
+            'prefix': payload.get('prefix'),
         }
 
         self._context = None
-        self._solution = {
-            'iso_code': iso_code or self._properties['iso_code'],
-        }
-
-    @property
-    def _proxy(self):
-        if self._context is None:
-            self._context = HighriskSpecialPrefixContext(
-                self._version,
-                iso_code=self._solution['iso_code'],
-            )
-        return self._context
-
+        self._solution = { 'iso_code': iso_code,  }
     
-
+    
+    @property
+    def prefix(self):
+        """
+        :returns: A prefix is a contiguous number range for a block of E.164 numbers that includes the E.164 assigned country code. For example, a North American Numbering Plan prefix like `+1510720` written like `+1(510) 720` matches all numbers inclusive from `+1(510) 720-0000` to `+1(510) 720-9999`.
+        :rtype: str
+        """
+        return self._properties['prefix']
+    
     def __repr__(self):
         """
         Provide a friendly representation
@@ -209,6 +211,5 @@ class HighriskSpecialPrefixInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Voice.V1.HighriskSpecialPrefixInstance {}>'.format(context)
-
 
 

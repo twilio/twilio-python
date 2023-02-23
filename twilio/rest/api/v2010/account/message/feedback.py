@@ -16,7 +16,7 @@
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
-from twilio.base.instance_context import InstanceContext
+
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
@@ -70,35 +70,77 @@ class FeedbackList(ListResource):
         return '<Twilio.Api.V2010.FeedbackList>'
 
 
-
 class FeedbackInstance(InstanceResource):
+
     def __init__(self, version, payload, account_sid: str, message_sid: str):
+        """
+        Initialize the FeedbackInstance
+        :returns: twilio.rest.api.v2010.account.message.feedback.FeedbackInstance
+        :rtype: twilio.rest.api.v2010.account.message.feedback.FeedbackInstance
+        """
         super().__init__(version)
+
         self._properties = { 
-            'account_sid' : payload.get('account_sid'),
-            'message_sid' : payload.get('message_sid'),
-            'outcome' : payload.get('outcome'),
-            'date_created' : payload.get('date_created'),
-            'date_updated' : payload.get('date_updated'),
-            'uri' : payload.get('uri'),
+            'account_sid': payload.get('account_sid'),
+            'message_sid': payload.get('message_sid'),
+            'outcome': payload.get('outcome'),
+            'date_created': deserialize.rfc2822_datetime(payload.get('date_created')),
+            'date_updated': deserialize.rfc2822_datetime(payload.get('date_updated')),
+            'uri': payload.get('uri'),
         }
 
         self._context = None
-        self._solution = {
-            'account_sid': account_sid or self._properties['account_sid'],'message_sid': message_sid or self._properties['message_sid'],
-        }
-
-    @property
-    def _proxy(self):
-        if self._context is None:
-            self._context = FeedbackContext(
-                self._version,
-                account_sid=self._solution['account_sid'],message_sid=self._solution['message_sid'],
-            )
-        return self._context
-
+        self._solution = { 'account_sid': account_sid, 'message_sid': message_sid,  }
     
-
+    
+    @property
+    def account_sid(self):
+        """
+        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the MessageFeedback resource.
+        :rtype: str
+        """
+        return self._properties['account_sid']
+    
+    @property
+    def message_sid(self):
+        """
+        :returns: The SID of the Message resource for which the feedback was provided.
+        :rtype: str
+        """
+        return self._properties['message_sid']
+    
+    @property
+    def outcome(self):
+        """
+        :returns: 
+        :rtype: MessageFeedbackOutcome
+        """
+        return self._properties['outcome']
+    
+    @property
+    def date_created(self):
+        """
+        :returns: The date and time in GMT that the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
+        :rtype: datetime
+        """
+        return self._properties['date_created']
+    
+    @property
+    def date_updated(self):
+        """
+        :returns: The date and time in GMT that the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
+        :rtype: datetime
+        """
+        return self._properties['date_updated']
+    
+    @property
+    def uri(self):
+        """
+        :returns: The URI of the resource, relative to `https://api.twilio.com`.
+        :rtype: str
+        """
+        return self._properties['uri']
+    
     def __repr__(self):
         """
         Provide a friendly representation
@@ -107,6 +149,5 @@ class FeedbackInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Api.V2010.FeedbackInstance {}>'.format(context)
-
 
 

@@ -16,7 +16,7 @@
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
-from twilio.base.instance_context import InstanceContext
+
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
@@ -194,33 +194,59 @@ class UsageRecordPage(Page):
 
 
 
-
 class UsageRecordInstance(InstanceResource):
+
     def __init__(self, version, payload):
+        """
+        Initialize the UsageRecordInstance
+        :returns: twilio.rest.wireless.v1.usage_record.UsageRecordInstance
+        :rtype: twilio.rest.wireless.v1.usage_record.UsageRecordInstance
+        """
         super().__init__(version)
+
         self._properties = { 
-            'account_sid' : payload.get('account_sid'),
-            'period' : payload.get('period'),
-            'commands' : payload.get('commands'),
-            'data' : payload.get('data'),
+            'account_sid': payload.get('account_sid'),
+            'period': payload.get('period'),
+            'commands': payload.get('commands'),
+            'data': payload.get('data'),
         }
 
         self._context = None
-        self._solution = {
-            
-        }
-
-    @property
-    def _proxy(self):
-        if self._context is None:
-            self._context = UsageRecordContext(
-                self._version,
-                
-            )
-        return self._context
-
+        self._solution = {  }
     
-
+    
+    @property
+    def account_sid(self):
+        """
+        :returns: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the AccountUsageRecord resource.
+        :rtype: str
+        """
+        return self._properties['account_sid']
+    
+    @property
+    def period(self):
+        """
+        :returns: The time period for which usage is reported. Contains `start` and `end` properties that describe the period using GMT date-time values specified in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format.
+        :rtype: dict
+        """
+        return self._properties['period']
+    
+    @property
+    def commands(self):
+        """
+        :returns: An object that describes the aggregated Commands usage for all SIMs during the specified period. See [Commands Usage Object](https://www.twilio.com/docs/wireless/api/account-usagerecord-resource#commands-usage-object).
+        :rtype: dict
+        """
+        return self._properties['commands']
+    
+    @property
+    def data(self):
+        """
+        :returns: An object that describes the aggregated Data usage for all SIMs over the period. See [Data Usage Object](https://www.twilio.com/docs/wireless/api/account-usagerecord-resource#data-usage-object).
+        :rtype: dict
+        """
+        return self._properties['data']
+    
     def __repr__(self):
         """
         Provide a friendly representation
@@ -229,6 +255,5 @@ class UsageRecordInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Wireless.V1.UsageRecordInstance {}>'.format(context)
-
 
 

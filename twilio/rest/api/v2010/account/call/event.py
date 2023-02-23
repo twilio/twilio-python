@@ -16,7 +16,7 @@
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
-from twilio.base.instance_context import InstanceContext
+
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
@@ -178,31 +178,41 @@ class EventPage(Page):
 
 
 
-
 class EventInstance(InstanceResource):
+
     def __init__(self, version, payload, account_sid: str, call_sid: str):
+        """
+        Initialize the EventInstance
+        :returns: twilio.rest.api.v2010.account.call.event.EventInstance
+        :rtype: twilio.rest.api.v2010.account.call.event.EventInstance
+        """
         super().__init__(version)
+
         self._properties = { 
-            'request' : payload.get('request'),
-            'response' : payload.get('response'),
+            'request': payload.get('request'),
+            'response': payload.get('response'),
         }
 
         self._context = None
-        self._solution = {
-            'account_sid': account_sid or self._properties['account_sid'],'call_sid': call_sid or self._properties['call_sid'],
-        }
-
-    @property
-    def _proxy(self):
-        if self._context is None:
-            self._context = EventContext(
-                self._version,
-                account_sid=self._solution['account_sid'],call_sid=self._solution['call_sid'],
-            )
-        return self._context
-
+        self._solution = { 'account_sid': account_sid, 'call_sid': call_sid,  }
     
-
+    
+    @property
+    def request(self):
+        """
+        :returns: Contains a dictionary representing the request of the call.
+        :rtype: dict
+        """
+        return self._properties['request']
+    
+    @property
+    def response(self):
+        """
+        :returns: Contains a dictionary representing the call response, including a list of the call events.
+        :rtype: dict
+        """
+        return self._properties['response']
+    
     def __repr__(self):
         """
         Provide a friendly representation
@@ -211,6 +221,5 @@ class EventInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Api.V2010.EventInstance {}>'.format(context)
-
 
 
