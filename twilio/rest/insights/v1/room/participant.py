@@ -39,7 +39,7 @@ class ParticipantList(ListResource):
 
         # Path Solution
         self._solution = { 'room_sid': room_sid,  }
-        self._uri = '/Video/Rooms/${room_sid}/Participants'.format(**self._solution)
+        self._uri = '/Video/Rooms/{room_sid}/Participants'.format(**self._solution)
         
         
     
@@ -219,17 +219,19 @@ class ParticipantContext(InstanceContext):
             'room_sid': room_sid,
             'participant_sid': participant_sid,
         }
-        self._uri = '/Video/Rooms/${room_sid}/Participants/${participant_sid}'.format(**self._solution)
+        self._uri = '/Video/Rooms/{room_sid}/Participants/{participant_sid}'.format(**self._solution)
         
     
     def fetch(self):
         """
         Fetch the ParticipantInstance
+        
 
         :returns: The fetched ParticipantInstance
         :rtype: twilio.rest.insights.v1.room.participant.ParticipantInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return ParticipantInstance(
             self._version,
@@ -434,6 +436,7 @@ class ParticipantInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the ParticipantInstance
+        
 
         :returns: The fetched ParticipantInstance
         :rtype: twilio.rest.insights.v1.room.participant.ParticipantInstance

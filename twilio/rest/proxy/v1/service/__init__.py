@@ -51,6 +51,7 @@ class ServiceList(ListResource):
     def create(self, unique_name, default_ttl=values.unset, callback_url=values.unset, geo_match_level=values.unset, number_selection_behavior=values.unset, intercept_callback_url=values.unset, out_of_session_callback_url=values.unset, chat_instance_sid=values.unset):
         """
         Create the ServiceInstance
+
         :param str unique_name: An application-defined string that uniquely identifies the resource. This value must be 191 characters or fewer in length and be unique. **This value should not have PII.**
         :param int default_ttl: The default `ttl` value to set for Sessions created in the Service. The TTL (time to live) is measured in seconds after the Session's last create or last Interaction. The default value of `0` indicates an unlimited Session length. You can override a Session's default TTL value by setting its `ttl` value.
         :param str callback_url: The URL we should call when the interaction status changes.
@@ -73,8 +74,9 @@ class ServiceList(ListResource):
             'OutOfSessionCallbackUrl': out_of_session_callback_url,
             'ChatInstanceSid': chat_instance_sid,
         })
+        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return ServiceInstance(self._version, payload)
     
     
@@ -258,7 +260,7 @@ class ServiceContext(InstanceContext):
         self._solution = { 
             'sid': sid,
         }
-        self._uri = '/Services/${sid}'.format(**self._solution)
+        self._uri = '/Services/{sid}'.format(**self._solution)
         
         self._phone_numbers = None
         self._sessions = None
@@ -268,19 +270,22 @@ class ServiceContext(InstanceContext):
         """
         Deletes the ServiceInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
     def fetch(self):
         """
         Fetch the ServiceInstance
+        
 
         :returns: The fetched ServiceInstance
         :rtype: twilio.rest.proxy.v1.service.ServiceInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return ServiceInstance(
             self._version,
@@ -315,8 +320,9 @@ class ServiceContext(InstanceContext):
             'OutOfSessionCallbackUrl': out_of_session_callback_url,
             'ChatInstanceSid': chat_instance_sid,
         })
+        
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return ServiceInstance(
             self._version,
@@ -531,6 +537,7 @@ class ServiceInstance(InstanceResource):
     def delete(self):
         """
         Deletes the ServiceInstance
+        
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -540,6 +547,7 @@ class ServiceInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the ServiceInstance
+        
 
         :returns: The fetched ServiceInstance
         :rtype: twilio.rest.proxy.v1.service.ServiceInstance

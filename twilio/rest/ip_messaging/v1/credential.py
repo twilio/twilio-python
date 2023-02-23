@@ -48,6 +48,7 @@ class CredentialList(ListResource):
     def create(self, type, friendly_name=values.unset, certificate=values.unset, private_key=values.unset, sandbox=values.unset, api_key=values.unset, secret=values.unset):
         """
         Create the CredentialInstance
+
         :param CredentialPushService type: 
         :param str friendly_name: 
         :param str certificate: 
@@ -68,8 +69,9 @@ class CredentialList(ListResource):
             'ApiKey': api_key,
             'Secret': secret,
         })
+        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return CredentialInstance(self._version, payload)
     
     
@@ -253,26 +255,29 @@ class CredentialContext(InstanceContext):
         self._solution = { 
             'sid': sid,
         }
-        self._uri = '/Credentials/${sid}'.format(**self._solution)
+        self._uri = '/Credentials/{sid}'.format(**self._solution)
         
     
     def delete(self):
         """
         Deletes the CredentialInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
     def fetch(self):
         """
         Fetch the CredentialInstance
+        
 
         :returns: The fetched CredentialInstance
         :rtype: twilio.rest.ip_messaging.v1.credential.CredentialInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return CredentialInstance(
             self._version,
@@ -303,8 +308,9 @@ class CredentialContext(InstanceContext):
             'ApiKey': api_key,
             'Secret': secret,
         })
+        
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return CredentialInstance(
             self._version,
@@ -426,6 +432,7 @@ class CredentialInstance(InstanceResource):
     def delete(self):
         """
         Deletes the CredentialInstance
+        
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -435,6 +442,7 @@ class CredentialInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the CredentialInstance
+        
 
         :returns: The fetched CredentialInstance
         :rtype: twilio.rest.ip_messaging.v1.credential.CredentialInstance

@@ -51,6 +51,7 @@ class ServiceList(ListResource):
     def create(self, friendly_name=values.unset, webhook_url=values.unset, reachability_webhooks_enabled=values.unset, acl_enabled=values.unset):
         """
         Create the ServiceInstance
+
         :param str friendly_name: 
         :param str webhook_url: 
         :param bool reachability_webhooks_enabled: 
@@ -65,8 +66,9 @@ class ServiceList(ListResource):
             'ReachabilityWebhooksEnabled': reachability_webhooks_enabled,
             'AclEnabled': acl_enabled,
         })
+        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return ServiceInstance(self._version, payload)
     
     
@@ -250,7 +252,7 @@ class ServiceContext(InstanceContext):
         self._solution = { 
             'sid': sid,
         }
-        self._uri = '/Services/${sid}'.format(**self._solution)
+        self._uri = '/Services/{sid}'.format(**self._solution)
         
         self._documents = None
         self._sync_lists = None
@@ -260,19 +262,22 @@ class ServiceContext(InstanceContext):
         """
         Deletes the ServiceInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
     def fetch(self):
         """
         Fetch the ServiceInstance
+        
 
         :returns: The fetched ServiceInstance
         :rtype: twilio.rest.preview.sync.service.ServiceInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return ServiceInstance(
             self._version,
@@ -299,8 +304,9 @@ class ServiceContext(InstanceContext):
             'ReachabilityWebhooksEnabled': reachability_webhooks_enabled,
             'AclEnabled': acl_enabled,
         })
+        
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return ServiceInstance(
             self._version,
@@ -479,6 +485,7 @@ class ServiceInstance(InstanceResource):
     def delete(self):
         """
         Deletes the ServiceInstance
+        
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -488,6 +495,7 @@ class ServiceInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the ServiceInstance
+        
 
         :returns: The fetched ServiceInstance
         :rtype: twilio.rest.preview.sync.service.ServiceInstance

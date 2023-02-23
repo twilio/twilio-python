@@ -48,6 +48,7 @@ class InsightsQuestionnairesList(ListResource):
     def create(self, name, token=values.unset, description=values.unset, active=values.unset, question_ids=values.unset):
         """
         Create the InsightsQuestionnairesInstance
+
         :param str name: The name of this questionnaire
         :param str token: The Token HTTP request header
         :param str description: The description of this questionnaire
@@ -59,13 +60,13 @@ class InsightsQuestionnairesList(ListResource):
         """
         data = values.of({ 
             'Name': name,
-            'Token': token,
             'Description': description,
             'Active': active,
             'QuestionIds': serialize.map(question_ids, lambda e: e),
         })
+        headers = values.of({'Token': token, })
+        payload = self._version.create(method='POST', uri=self._uri, data=data, headers=headers)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return InsightsQuestionnairesInstance(self._version, payload)
     
     
@@ -261,26 +262,36 @@ class InsightsQuestionnairesContext(InstanceContext):
         self._solution = { 
             'id': id,
         }
-        self._uri = '/Insights/QM/Questionnaires/${id}'.format(**self._solution)
+        self._uri = '/Insights/QM/Questionnaires/{id}'.format(**self._solution)
         
     
     def delete(self, token=values.unset):
         """
         Deletes the InsightsQuestionnairesInstance
 
+        :param str token: The Token HTTP request header
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        headers = values.of({'Token': token, })
+        
+        return self._version.delete(method='DELETE', uri=self._uri, headers=headers)
         
     def fetch(self, token=values.unset):
         """
         Fetch the InsightsQuestionnairesInstance
+        
+        :params str token: The Token HTTP request header
 
         :returns: The fetched InsightsQuestionnairesInstance
         :rtype: twilio.rest.flex_api.v1.insights_questionnaires.InsightsQuestionnairesInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        data = values.of({ 
+            'Token': token,
+        })
+        payload = self._version.fetch(method='GET', uri=self._uri, params=data)
 
         return InsightsQuestionnairesInstance(
             self._version,
@@ -289,7 +300,7 @@ class InsightsQuestionnairesContext(InstanceContext):
             
         )
         
-    def update(self, active=values.unset, token=values.unset, name=values.unset, description=values.unset, question_ids=values.unset):
+    def update(self, active, token=values.unset, name=values.unset, description=values.unset, question_ids=values.unset):
         """
         Update the InsightsQuestionnairesInstance
         
@@ -304,13 +315,13 @@ class InsightsQuestionnairesContext(InstanceContext):
         """
         data = values.of({ 
             'Active': active,
-            'Token': token,
             'Name': name,
             'Description': description,
             'QuestionIds': serialize.map(question_ids, lambda e: e),
         })
+        headers = values.of({'Token': token, })
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data, headers=headers)
 
         return InsightsQuestionnairesInstance(
             self._version,
@@ -423,22 +434,26 @@ class InsightsQuestionnairesInstance(InstanceResource):
     def delete(self, token=values.unset):
         """
         Deletes the InsightsQuestionnairesInstance
+        
+        :params str token: The Token HTTP request header
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._proxy.delete()
+        return self._proxy.delete(token=token, )
     
     def fetch(self, token=values.unset):
         """
         Fetch the InsightsQuestionnairesInstance
+        
+        :params str token: The Token HTTP request header
 
         :returns: The fetched InsightsQuestionnairesInstance
         :rtype: twilio.rest.flex_api.v1.insights_questionnaires.InsightsQuestionnairesInstance
         """
-        return self._proxy.fetch()
+        return self._proxy.fetch(token=token, )
     
-    def update(self, active=values.unset, token=values.unset, name=values.unset, description=values.unset, question_ids=values.unset):
+    def update(self, active, token=values.unset, name=values.unset, description=values.unset, question_ids=values.unset):
         """
         Update the InsightsQuestionnairesInstance
         

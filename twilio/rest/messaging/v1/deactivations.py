@@ -92,11 +92,17 @@ class DeactivationsContext(InstanceContext):
     def fetch(self, date=values.unset):
         """
         Fetch the DeactivationsInstance
+        
+        :params date date: The request will return a list of all United States Phone Numbers that were deactivated on the day specified by this parameter. This date should be specified in YYYY-MM-DD format.
 
         :returns: The fetched DeactivationsInstance
         :rtype: twilio.rest.messaging.v1.deactivations.DeactivationsInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        data = values.of({ 
+            'Date': serialize.iso8601_date(date),
+        })
+        payload = self._version.fetch(method='GET', uri=self._uri, params=data)
 
         return DeactivationsInstance(
             self._version,
@@ -155,11 +161,13 @@ class DeactivationsInstance(InstanceResource):
     def fetch(self, date=values.unset):
         """
         Fetch the DeactivationsInstance
+        
+        :params date date: The request will return a list of all United States Phone Numbers that were deactivated on the day specified by this parameter. This date should be specified in YYYY-MM-DD format.
 
         :returns: The fetched DeactivationsInstance
         :rtype: twilio.rest.messaging.v1.deactivations.DeactivationsInstance
         """
-        return self._proxy.fetch()
+        return self._proxy.fetch(date=date, )
     
     def __repr__(self):
         """

@@ -50,6 +50,7 @@ class SinkList(ListResource):
     def create(self, description, sink_configuration, sink_type):
         """
         Create the SinkInstance
+
         :param str description: A human readable description for the Sink **This value should not contain PII.**
         :param object sink_configuration: The information required for Twilio to connect to the provided Sink encoded as JSON.
         :param SinkSinkType sink_type: 
@@ -62,8 +63,9 @@ class SinkList(ListResource):
             'SinkConfiguration': serialize.object(sink_configuration),
             'SinkType': sink_type,
         })
+        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return SinkInstance(self._version, payload)
     
     
@@ -259,7 +261,7 @@ class SinkContext(InstanceContext):
         self._solution = { 
             'sid': sid,
         }
-        self._uri = '/Sinks/${sid}'.format(**self._solution)
+        self._uri = '/Sinks/{sid}'.format(**self._solution)
         
         self._sink_test = None
         self._sink_validate = None
@@ -268,19 +270,22 @@ class SinkContext(InstanceContext):
         """
         Deletes the SinkInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
     def fetch(self):
         """
         Fetch the SinkInstance
+        
 
         :returns: The fetched SinkInstance
         :rtype: twilio.rest.events.v1.sink.SinkInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return SinkInstance(
             self._version,
@@ -289,7 +294,7 @@ class SinkContext(InstanceContext):
             
         )
         
-    def update(self, description=values.unset):
+    def update(self, description):
         """
         Update the SinkInstance
         
@@ -301,8 +306,9 @@ class SinkContext(InstanceContext):
         data = values.of({ 
             'Description': description,
         })
+        
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return SinkInstance(
             self._version,
@@ -459,6 +465,7 @@ class SinkInstance(InstanceResource):
     def delete(self):
         """
         Deletes the SinkInstance
+        
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -468,13 +475,14 @@ class SinkInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the SinkInstance
+        
 
         :returns: The fetched SinkInstance
         :rtype: twilio.rest.events.v1.sink.SinkInstance
         """
         return self._proxy.fetch()
     
-    def update(self, description=values.unset):
+    def update(self, description):
         """
         Update the SinkInstance
         

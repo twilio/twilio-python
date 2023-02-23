@@ -40,7 +40,7 @@ class BucketList(ListResource):
 
         # Path Solution
         self._solution = { 'service_sid': service_sid, 'rate_limit_sid': rate_limit_sid,  }
-        self._uri = '/Services/${service_sid}/RateLimits/${rate_limit_sid}/Buckets'.format(**self._solution)
+        self._uri = '/Services/{service_sid}/RateLimits/{rate_limit_sid}/Buckets'.format(**self._solution)
         
         
     
@@ -50,6 +50,7 @@ class BucketList(ListResource):
     def create(self, max, interval):
         """
         Create the BucketInstance
+
         :param int max: Maximum number of requests permitted in during the interval.
         :param int interval: Number of seconds that the rate limit will be enforced over.
         
@@ -60,8 +61,9 @@ class BucketList(ListResource):
             'Max': max,
             'Interval': interval,
         })
+        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return BucketInstance(self._version, payload, service_sid=self._solution['service_sid'], rate_limit_sid=self._solution['rate_limit_sid'])
     
     
@@ -247,26 +249,29 @@ class BucketContext(InstanceContext):
             'rate_limit_sid': rate_limit_sid,
             'sid': sid,
         }
-        self._uri = '/Services/${service_sid}/RateLimits/${rate_limit_sid}/Buckets/${sid}'.format(**self._solution)
+        self._uri = '/Services/{service_sid}/RateLimits/{rate_limit_sid}/Buckets/{sid}'.format(**self._solution)
         
     
     def delete(self):
         """
         Deletes the BucketInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
     def fetch(self):
         """
         Fetch the BucketInstance
+        
 
         :returns: The fetched BucketInstance
         :rtype: twilio.rest.verify.v2.service.rate_limit.bucket.BucketInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return BucketInstance(
             self._version,
@@ -291,8 +296,9 @@ class BucketContext(InstanceContext):
             'Max': max,
             'Interval': interval,
         })
+        
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return BucketInstance(
             self._version,
@@ -425,6 +431,7 @@ class BucketInstance(InstanceResource):
     def delete(self):
         """
         Deletes the BucketInstance
+        
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -434,6 +441,7 @@ class BucketInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the BucketInstance
+        
 
         :returns: The fetched BucketInstance
         :rtype: twilio.rest.verify.v2.service.rate_limit.bucket.BucketInstance

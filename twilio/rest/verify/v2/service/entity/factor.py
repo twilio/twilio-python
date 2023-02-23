@@ -40,7 +40,7 @@ class FactorList(ListResource):
 
         # Path Solution
         self._solution = { 'service_sid': service_sid, 'identity': identity,  }
-        self._uri = '/Services/${service_sid}/Entities/${identity}/Factors'.format(**self._solution)
+        self._uri = '/Services/{service_sid}/Entities/{identity}/Factors'.format(**self._solution)
         
         
     
@@ -227,26 +227,29 @@ class FactorContext(InstanceContext):
             'identity': identity,
             'sid': sid,
         }
-        self._uri = '/Services/${service_sid}/Entities/${identity}/Factors/${sid}'.format(**self._solution)
+        self._uri = '/Services/{service_sid}/Entities/{identity}/Factors/{sid}'.format(**self._solution)
         
     
     def delete(self):
         """
         Deletes the FactorInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
     def fetch(self):
         """
         Fetch the FactorInstance
+        
 
         :returns: The fetched FactorInstance
         :rtype: twilio.rest.verify.v2.service.entity.factor.FactorInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return FactorInstance(
             self._version,
@@ -285,8 +288,9 @@ class FactorContext(InstanceContext):
             'Config.Alg': config_alg,
             'Config.NotificationPlatform': config_notification_platform,
         })
+        
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return FactorInstance(
             self._version,
@@ -455,6 +459,7 @@ class FactorInstance(InstanceResource):
     def delete(self):
         """
         Deletes the FactorInstance
+        
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -464,6 +469,7 @@ class FactorInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the FactorInstance
+        
 
         :returns: The fetched FactorInstance
         :rtype: twilio.rest.verify.v2.service.entity.factor.FactorInstance

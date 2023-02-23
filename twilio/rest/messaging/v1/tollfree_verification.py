@@ -47,6 +47,7 @@ class TollfreeVerificationList(ListResource):
     def create(self, business_name, business_website, notification_email, use_case_categories, use_case_summary, production_message_sample, opt_in_image_urls, opt_in_type, message_volume, tollfree_phone_number_sid, customer_profile_sid=values.unset, business_street_address=values.unset, business_street_address2=values.unset, business_city=values.unset, business_state_province_region=values.unset, business_postal_code=values.unset, business_country=values.unset, additional_information=values.unset, business_contact_first_name=values.unset, business_contact_last_name=values.unset, business_contact_email=values.unset, business_contact_phone=values.unset, external_reference_id=values.unset):
         """
         Create the TollfreeVerificationInstance
+
         :param str business_name: The name of the business or organization using the Tollfree number.
         :param str business_website: The website of the business or organization using the Tollfree number.
         :param str notification_email: The email address to receive the notification about the verification result. .
@@ -99,8 +100,9 @@ class TollfreeVerificationList(ListResource):
             'BusinessContactPhone': business_contact_phone,
             'ExternalReferenceId': external_reference_id,
         })
+        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return TollfreeVerificationInstance(self._version, payload)
     
     
@@ -294,17 +296,19 @@ class TollfreeVerificationContext(InstanceContext):
         self._solution = { 
             'sid': sid,
         }
-        self._uri = '/Tollfree/Verifications/${sid}'.format(**self._solution)
+        self._uri = '/Tollfree/Verifications/{sid}'.format(**self._solution)
         
     
     def fetch(self):
         """
         Fetch the TollfreeVerificationInstance
+        
 
         :returns: The fetched TollfreeVerificationInstance
         :rtype: twilio.rest.messaging.v1.tollfree_verification.TollfreeVerificationInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return TollfreeVerificationInstance(
             self._version,
@@ -363,8 +367,9 @@ class TollfreeVerificationContext(InstanceContext):
             'BusinessContactEmail': business_contact_email,
             'BusinessContactPhone': business_contact_phone,
         })
+        
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return TollfreeVerificationInstance(
             self._version,
@@ -702,6 +707,7 @@ class TollfreeVerificationInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the TollfreeVerificationInstance
+        
 
         :returns: The fetched TollfreeVerificationInstance
         :rtype: twilio.rest.messaging.v1.tollfree_verification.TollfreeVerificationInstance

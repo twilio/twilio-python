@@ -48,6 +48,7 @@ class NetworkAccessProfileList(ListResource):
     def create(self, unique_name=values.unset, networks=values.unset):
         """
         Create the NetworkAccessProfileInstance
+
         :param str unique_name: An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
         :param list[str] networks: List of Network SIDs that this Network Access Profile will allow connections to.
         
@@ -58,8 +59,9 @@ class NetworkAccessProfileList(ListResource):
             'UniqueName': unique_name,
             'Networks': serialize.map(networks, lambda e: e),
         })
+        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return NetworkAccessProfileInstance(self._version, payload)
     
     
@@ -241,18 +243,20 @@ class NetworkAccessProfileContext(InstanceContext):
         self._solution = { 
             'sid': sid,
         }
-        self._uri = '/NetworkAccessProfiles/${sid}'.format(**self._solution)
+        self._uri = '/NetworkAccessProfiles/{sid}'.format(**self._solution)
         
         self._networks = None
     
     def fetch(self):
         """
         Fetch the NetworkAccessProfileInstance
+        
 
         :returns: The fetched NetworkAccessProfileInstance
         :rtype: twilio.rest.supersim.v1.network_access_profile.NetworkAccessProfileInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return NetworkAccessProfileInstance(
             self._version,
@@ -273,8 +277,9 @@ class NetworkAccessProfileContext(InstanceContext):
         data = values.of({ 
             'UniqueName': unique_name,
         })
+        
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return NetworkAccessProfileInstance(
             self._version,
@@ -400,6 +405,7 @@ class NetworkAccessProfileInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the NetworkAccessProfileInstance
+        
 
         :returns: The fetched NetworkAccessProfileInstance
         :rtype: twilio.rest.supersim.v1.network_access_profile.NetworkAccessProfileInstance

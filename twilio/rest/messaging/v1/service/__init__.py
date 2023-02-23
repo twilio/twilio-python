@@ -53,6 +53,7 @@ class ServiceList(ListResource):
     def create(self, friendly_name, inbound_request_url=values.unset, inbound_method=values.unset, fallback_url=values.unset, fallback_method=values.unset, status_callback=values.unset, sticky_sender=values.unset, mms_converter=values.unset, smart_encoding=values.unset, scan_message_content=values.unset, fallback_to_long_code=values.unset, area_code_geomatch=values.unset, validity_period=values.unset, synchronous_validation=values.unset, usecase=values.unset, use_inbound_webhook_on_number=values.unset):
         """
         Create the ServiceInstance
+
         :param str friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
         :param str inbound_request_url: The URL we call using `inbound_method` when a message is received by any phone number or short code in the Service. When this property is `null`, receiving inbound messages is disabled. All messages sent to the Twilio phone number or short code will not be logged and received on the Account. If the `use_inbound_webhook_on_number` field is enabled then the webhook url defined on the phone number will override the `inbound_request_url` defined for the Messaging Service.
         :param str inbound_method: The HTTP method we should use to call `inbound_request_url`. Can be `GET` or `POST` and the default is `POST`.
@@ -91,8 +92,9 @@ class ServiceList(ListResource):
             'Usecase': usecase,
             'UseInboundWebhookOnNumber': use_inbound_webhook_on_number,
         })
+        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return ServiceInstance(self._version, payload)
     
     
@@ -276,7 +278,7 @@ class ServiceContext(InstanceContext):
         self._solution = { 
             'sid': sid,
         }
-        self._uri = '/Services/${sid}'.format(**self._solution)
+        self._uri = '/Services/{sid}'.format(**self._solution)
         
         self._alpha_senders = None
         self._phone_numbers = None
@@ -288,19 +290,22 @@ class ServiceContext(InstanceContext):
         """
         Deletes the ServiceInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
     def fetch(self):
         """
         Fetch the ServiceInstance
+        
 
         :returns: The fetched ServiceInstance
         :rtype: twilio.rest.messaging.v1.service.ServiceInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return ServiceInstance(
             self._version,
@@ -351,8 +356,9 @@ class ServiceContext(InstanceContext):
             'Usecase': usecase,
             'UseInboundWebhookOnNumber': use_inbound_webhook_on_number,
         })
+        
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return ServiceInstance(
             self._version,
@@ -674,6 +680,7 @@ class ServiceInstance(InstanceResource):
     def delete(self):
         """
         Deletes the ServiceInstance
+        
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -683,6 +690,7 @@ class ServiceInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the ServiceInstance
+        
 
         :returns: The fetched ServiceInstance
         :rtype: twilio.rest.messaging.v1.service.ServiceInstance

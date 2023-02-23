@@ -88,17 +88,29 @@ class WorkersCumulativeStatisticsContext(InstanceContext):
         self._solution = { 
             'workspace_sid': workspace_sid,
         }
-        self._uri = '/Workspaces/${workspace_sid}/Workers/CumulativeStatistics'.format(**self._solution)
+        self._uri = '/Workspaces/{workspace_sid}/Workers/CumulativeStatistics'.format(**self._solution)
         
     
     def fetch(self, end_date=values.unset, minutes=values.unset, start_date=values.unset, task_channel=values.unset):
         """
         Fetch the WorkersCumulativeStatisticsInstance
+        
+        :params datetime end_date: Only calculate statistics from this date and time and earlier, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+        :params int minutes: Only calculate statistics since this many minutes in the past. The default 15 minutes. This is helpful for displaying statistics for the last 15 minutes, 240 minutes (4 hours), and 480 minutes (8 hours) to see trends.
+        :params datetime start_date: Only calculate statistics from this date and time and later, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+        :params str task_channel: Only calculate cumulative statistics on this TaskChannel. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
 
         :returns: The fetched WorkersCumulativeStatisticsInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.worker.workers_cumulative_statistics.WorkersCumulativeStatisticsInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        data = values.of({ 
+            'EndDate': serialize.iso8601_datetime(end_date),
+            'Minutes': minutes,
+            'StartDate': serialize.iso8601_datetime(start_date),
+            'TaskChannel': task_channel,
+        })
+        payload = self._version.fetch(method='GET', uri=self._uri, params=data)
 
         return WorkersCumulativeStatisticsInstance(
             self._version,
@@ -257,11 +269,16 @@ class WorkersCumulativeStatisticsInstance(InstanceResource):
     def fetch(self, end_date=values.unset, minutes=values.unset, start_date=values.unset, task_channel=values.unset):
         """
         Fetch the WorkersCumulativeStatisticsInstance
+        
+        :params datetime end_date: Only calculate statistics from this date and time and earlier, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+        :params int minutes: Only calculate statistics since this many minutes in the past. The default 15 minutes. This is helpful for displaying statistics for the last 15 minutes, 240 minutes (4 hours), and 480 minutes (8 hours) to see trends.
+        :params datetime start_date: Only calculate statistics from this date and time and later, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+        :params str task_channel: Only calculate cumulative statistics on this TaskChannel. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
 
         :returns: The fetched WorkersCumulativeStatisticsInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.worker.workers_cumulative_statistics.WorkersCumulativeStatisticsInstance
         """
-        return self._proxy.fetch()
+        return self._proxy.fetch(end_date=end_date, minutes=minutes, start_date=start_date, task_channel=task_channel, )
     
     def __repr__(self):
         """

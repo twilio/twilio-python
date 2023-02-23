@@ -41,7 +41,7 @@ class ConferenceList(ListResource):
 
         # Path Solution
         self._solution = { 'account_sid': account_sid,  }
-        self._uri = '/Accounts/${account_sid}/Conferences.json'.format(**self._solution)
+        self._uri = '/Accounts/{account_sid}/Conferences.json'.format(**self._solution)
         
         
     
@@ -272,7 +272,7 @@ class ConferenceContext(InstanceContext):
             'account_sid': account_sid,
             'sid': sid,
         }
-        self._uri = '/Accounts/${account_sid}/Conferences/${sid}.json'.format(**self._solution)
+        self._uri = '/Accounts/{account_sid}/Conferences/{sid}.json'.format(**self._solution)
         
         self._participants = None
         self._recordings = None
@@ -280,11 +280,13 @@ class ConferenceContext(InstanceContext):
     def fetch(self):
         """
         Fetch the ConferenceInstance
+        
 
         :returns: The fetched ConferenceInstance
         :rtype: twilio.rest.api.v2010.account.conference.ConferenceInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return ConferenceInstance(
             self._version,
@@ -310,8 +312,9 @@ class ConferenceContext(InstanceContext):
             'AnnounceUrl': announce_url,
             'AnnounceMethod': announce_method,
         })
+        
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return ConferenceInstance(
             self._version,
@@ -496,6 +499,7 @@ class ConferenceInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the ConferenceInstance
+        
 
         :returns: The fetched ConferenceInstance
         :rtype: twilio.rest.api.v2010.account.conference.ConferenceInstance

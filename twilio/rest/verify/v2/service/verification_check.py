@@ -39,13 +39,14 @@ class VerificationCheckList(ListResource):
 
         # Path Solution
         self._solution = { 'service_sid': service_sid,  }
-        self._uri = '/Services/${service_sid}/VerificationCheck'.format(**self._solution)
+        self._uri = '/Services/{service_sid}/VerificationCheck'.format(**self._solution)
         
         
     
     def create(self, code=values.unset, to=values.unset, verification_sid=values.unset, amount=values.unset, payee=values.unset):
         """
         Create the VerificationCheckInstance
+
         :param str code: The 4-10 character string being verified.
         :param str to: The phone number or [email](https://www.twilio.com/docs/verify/email) to verify. Either this parameter or the `verification_sid` must be specified. Phone numbers must be in [E.164 format](https://www.twilio.com/docs/glossary/what-e164).
         :param str verification_sid: A SID that uniquely identifies the Verification Check. Either this parameter or the `to` phone number/[email](https://www.twilio.com/docs/verify/email) must be specified.
@@ -62,8 +63,9 @@ class VerificationCheckList(ListResource):
             'Amount': amount,
             'Payee': payee,
         })
+        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return VerificationCheckInstance(self._version, payload, service_sid=self._solution['service_sid'])
     
 

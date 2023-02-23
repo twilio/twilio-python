@@ -39,7 +39,7 @@ class NetworkAccessProfileNetworkList(ListResource):
 
         # Path Solution
         self._solution = { 'network_access_profile_sid': network_access_profile_sid,  }
-        self._uri = '/NetworkAccessProfiles/${network_access_profile_sid}/Networks'.format(**self._solution)
+        self._uri = '/NetworkAccessProfiles/{network_access_profile_sid}/Networks'.format(**self._solution)
         
         
     
@@ -48,6 +48,7 @@ class NetworkAccessProfileNetworkList(ListResource):
     def create(self, network):
         """
         Create the NetworkAccessProfileNetworkInstance
+
         :param str network: The SID of the Network resource to be added to the Network Access Profile resource.
         
         :returns: The created NetworkAccessProfileNetworkInstance
@@ -56,8 +57,9 @@ class NetworkAccessProfileNetworkList(ListResource):
         data = values.of({ 
             'Network': network,
         })
+        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return NetworkAccessProfileNetworkInstance(self._version, payload, network_access_profile_sid=self._solution['network_access_profile_sid'])
     
     
@@ -240,26 +242,29 @@ class NetworkAccessProfileNetworkContext(InstanceContext):
             'network_access_profile_sid': network_access_profile_sid,
             'sid': sid,
         }
-        self._uri = '/NetworkAccessProfiles/${network_access_profile_sid}/Networks/${sid}'.format(**self._solution)
+        self._uri = '/NetworkAccessProfiles/{network_access_profile_sid}/Networks/{sid}'.format(**self._solution)
         
     
     def delete(self):
         """
         Deletes the NetworkAccessProfileNetworkInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
     def fetch(self):
         """
         Fetch the NetworkAccessProfileNetworkInstance
+        
 
         :returns: The fetched NetworkAccessProfileNetworkInstance
         :rtype: twilio.rest.supersim.v1.network_access_profile.network_access_profile_network.NetworkAccessProfileNetworkInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return NetworkAccessProfileNetworkInstance(
             self._version,
@@ -365,6 +370,7 @@ class NetworkAccessProfileNetworkInstance(InstanceResource):
     def delete(self):
         """
         Deletes the NetworkAccessProfileNetworkInstance
+        
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -374,6 +380,7 @@ class NetworkAccessProfileNetworkInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the NetworkAccessProfileNetworkInstance
+        
 
         :returns: The fetched NetworkAccessProfileNetworkInstance
         :rtype: twilio.rest.supersim.v1.network_access_profile.network_access_profile_network.NetworkAccessProfileNetworkInstance

@@ -39,7 +39,7 @@ class SinkTestList(ListResource):
 
         # Path Solution
         self._solution = { 'sid': sid,  }
-        self._uri = '/Sinks/${sid}/Test'.format(**self._solution)
+        self._uri = '/Sinks/{sid}/Test'.format(**self._solution)
         
         
     

@@ -52,6 +52,7 @@ class ServiceList(ListResource):
     def create(self, unique_name, friendly_name, include_credentials=values.unset, ui_editable=values.unset):
         """
         Create the ServiceInstance
+
         :param str unique_name: A user-defined string that uniquely identifies the Service resource. It can be used as an alternative to the `sid` in the URL path to address the Service resource. This value must be 50 characters or less in length and be unique.
         :param str friendly_name: A descriptive string that you create to describe the Service resource. It can be a maximum of 255 characters.
         :param bool include_credentials: Whether to inject Account credentials into a function invocation context. The default value is `true`.
@@ -66,8 +67,9 @@ class ServiceList(ListResource):
             'IncludeCredentials': include_credentials,
             'UiEditable': ui_editable,
         })
+        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return ServiceInstance(self._version, payload)
     
     
@@ -251,7 +253,7 @@ class ServiceContext(InstanceContext):
         self._solution = { 
             'sid': sid,
         }
-        self._uri = '/Services/${sid}'.format(**self._solution)
+        self._uri = '/Services/{sid}'.format(**self._solution)
         
         self._assets = None
         self._builds = None
@@ -262,19 +264,22 @@ class ServiceContext(InstanceContext):
         """
         Deletes the ServiceInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
     def fetch(self):
         """
         Fetch the ServiceInstance
+        
 
         :returns: The fetched ServiceInstance
         :rtype: twilio.rest.serverless.v1.service.ServiceInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return ServiceInstance(
             self._version,
@@ -299,8 +304,9 @@ class ServiceContext(InstanceContext):
             'FriendlyName': friendly_name,
             'UiEditable': ui_editable,
         })
+        
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return ServiceInstance(
             self._version,
@@ -501,6 +507,7 @@ class ServiceInstance(InstanceResource):
     def delete(self):
         """
         Deletes the ServiceInstance
+        
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -510,6 +517,7 @@ class ServiceInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the ServiceInstance
+        
 
         :returns: The fetched ServiceInstance
         :rtype: twilio.rest.serverless.v1.service.ServiceInstance

@@ -48,6 +48,7 @@ class AwsList(ListResource):
     def create(self, credentials, friendly_name=values.unset, account_sid=values.unset):
         """
         Create the AwsInstance
+
         :param str credentials: A string that contains the AWS access credentials in the format `<AWS_ACCESS_KEY_ID>:<AWS_SECRET_ACCESS_KEY>`. For example, `AKIAIOSFODNN7EXAMPLE:wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY`
         :param str friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
         :param str account_sid: The SID of the Subaccount that this Credential should be associated with. Must be a valid Subaccount of the account issuing the request.
@@ -60,8 +61,9 @@ class AwsList(ListResource):
             'FriendlyName': friendly_name,
             'AccountSid': account_sid,
         })
+        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return AwsInstance(self._version, payload)
     
     
@@ -245,26 +247,29 @@ class AwsContext(InstanceContext):
         self._solution = { 
             'sid': sid,
         }
-        self._uri = '/Credentials/AWS/${sid}'.format(**self._solution)
+        self._uri = '/Credentials/AWS/{sid}'.format(**self._solution)
         
     
     def delete(self):
         """
         Deletes the AwsInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
     def fetch(self):
         """
         Fetch the AwsInstance
+        
 
         :returns: The fetched AwsInstance
         :rtype: twilio.rest.accounts.v1.credential.aws.AwsInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return AwsInstance(
             self._version,
@@ -285,8 +290,9 @@ class AwsContext(InstanceContext):
         data = values.of({ 
             'FriendlyName': friendly_name,
         })
+        
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return AwsInstance(
             self._version,
@@ -390,6 +396,7 @@ class AwsInstance(InstanceResource):
     def delete(self):
         """
         Deletes the AwsInstance
+        
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -399,6 +406,7 @@ class AwsInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the AwsInstance
+        
 
         :returns: The fetched AwsInstance
         :rtype: twilio.rest.accounts.v1.credential.aws.AwsInstance

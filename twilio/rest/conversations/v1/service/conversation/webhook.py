@@ -40,7 +40,7 @@ class WebhookList(ListResource):
 
         # Path Solution
         self._solution = { 'chat_service_sid': chat_service_sid, 'conversation_sid': conversation_sid,  }
-        self._uri = '/Services/${chat_service_sid}/Conversations/${conversation_sid}/Webhooks'.format(**self._solution)
+        self._uri = '/Services/{chat_service_sid}/Conversations/{conversation_sid}/Webhooks'.format(**self._solution)
         
         
     
@@ -50,6 +50,7 @@ class WebhookList(ListResource):
     def create(self, target, configuration_url=values.unset, configuration_method=values.unset, configuration_filters=values.unset, configuration_triggers=values.unset, configuration_flow_sid=values.unset, configuration_replay_after=values.unset):
         """
         Create the WebhookInstance
+
         :param ServiceConversationScopedWebhookTarget target: 
         :param str configuration_url: The absolute url the webhook request should be sent to.
         :param ServiceConversationScopedWebhookMethod configuration_method: 
@@ -70,8 +71,9 @@ class WebhookList(ListResource):
             'Configuration.FlowSid': configuration_flow_sid,
             'Configuration.ReplayAfter': configuration_replay_after,
         })
+        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return WebhookInstance(self._version, payload, chat_service_sid=self._solution['chat_service_sid'], conversation_sid=self._solution['conversation_sid'])
     
     
@@ -257,26 +259,29 @@ class WebhookContext(InstanceContext):
             'conversation_sid': conversation_sid,
             'sid': sid,
         }
-        self._uri = '/Services/${chat_service_sid}/Conversations/${conversation_sid}/Webhooks/${sid}'.format(**self._solution)
+        self._uri = '/Services/{chat_service_sid}/Conversations/{conversation_sid}/Webhooks/{sid}'.format(**self._solution)
         
     
     def delete(self):
         """
         Deletes the WebhookInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
     def fetch(self):
         """
         Fetch the WebhookInstance
+        
 
         :returns: The fetched WebhookInstance
         :rtype: twilio.rest.conversations.v1.service.conversation.webhook.WebhookInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return WebhookInstance(
             self._version,
@@ -307,8 +312,9 @@ class WebhookContext(InstanceContext):
             'Configuration.Triggers': serialize.map(configuration_triggers, lambda e: e),
             'Configuration.FlowSid': configuration_flow_sid,
         })
+        
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return WebhookInstance(
             self._version,
@@ -441,6 +447,7 @@ class WebhookInstance(InstanceResource):
     def delete(self):
         """
         Deletes the WebhookInstance
+        
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -450,6 +457,7 @@ class WebhookInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the WebhookInstance
+        
 
         :returns: The fetched WebhookInstance
         :rtype: twilio.rest.conversations.v1.service.conversation.webhook.WebhookInstance

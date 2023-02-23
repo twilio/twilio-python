@@ -42,7 +42,7 @@ class ChannelList(ListResource):
 
         # Path Solution
         self._solution = { 'service_sid': service_sid,  }
-        self._uri = '/Services/${service_sid}/Channels'.format(**self._solution)
+        self._uri = '/Services/{service_sid}/Channels'.format(**self._solution)
         
         
     
@@ -52,6 +52,7 @@ class ChannelList(ListResource):
     def create(self, friendly_name=values.unset, unique_name=values.unset, attributes=values.unset, type=values.unset):
         """
         Create the ChannelInstance
+
         :param str friendly_name: A descriptive string that you create to describe the new resource. It can be up to 64 characters long.
         :param str unique_name: An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource's `sid` in the URL. This value must be 64 characters or less in length and be unique within the Service.
         :param str attributes: A valid JSON string that contains application-specific data.
@@ -66,8 +67,9 @@ class ChannelList(ListResource):
             'Attributes': attributes,
             'Type': type,
         })
+        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return ChannelInstance(self._version, payload, service_sid=self._solution['service_sid'])
     
     
@@ -258,7 +260,7 @@ class ChannelContext(InstanceContext):
             'service_sid': service_sid,
             'sid': sid,
         }
-        self._uri = '/Services/${service_sid}/Channels/${sid}'.format(**self._solution)
+        self._uri = '/Services/{service_sid}/Channels/{sid}'.format(**self._solution)
         
         self._invites = None
         self._members = None
@@ -268,19 +270,22 @@ class ChannelContext(InstanceContext):
         """
         Deletes the ChannelInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
     def fetch(self):
         """
         Fetch the ChannelInstance
+        
 
         :returns: The fetched ChannelInstance
         :rtype: twilio.rest.chat.v1.service.channel.ChannelInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return ChannelInstance(
             self._version,
@@ -306,8 +311,9 @@ class ChannelContext(InstanceContext):
             'UniqueName': unique_name,
             'Attributes': attributes,
         })
+        
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return ChannelInstance(
             self._version,
@@ -523,6 +529,7 @@ class ChannelInstance(InstanceResource):
     def delete(self):
         """
         Deletes the ChannelInstance
+        
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -532,6 +539,7 @@ class ChannelInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the ChannelInstance
+        
 
         :returns: The fetched ChannelInstance
         :rtype: twilio.rest.chat.v1.service.channel.ChannelInstance

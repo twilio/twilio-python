@@ -41,7 +41,7 @@ class FunctionVersionList(ListResource):
 
         # Path Solution
         self._solution = { 'service_sid': service_sid, 'function_sid': function_sid,  }
-        self._uri = '/Services/${service_sid}/Functions/${function_sid}/Versions'.format(**self._solution)
+        self._uri = '/Services/{service_sid}/Functions/{function_sid}/Versions'.format(**self._solution)
         
         
     
@@ -222,18 +222,20 @@ class FunctionVersionContext(InstanceContext):
             'function_sid': function_sid,
             'sid': sid,
         }
-        self._uri = '/Services/${service_sid}/Functions/${function_sid}/Versions/${sid}'.format(**self._solution)
+        self._uri = '/Services/{service_sid}/Functions/{function_sid}/Versions/{sid}'.format(**self._solution)
         
         self._function_version_content = None
     
     def fetch(self):
         """
         Fetch the FunctionVersionInstance
+        
 
         :returns: The fetched FunctionVersionInstance
         :rtype: twilio.rest.serverless.v1.service.function.function_version.FunctionVersionInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return FunctionVersionInstance(
             self._version,
@@ -380,6 +382,7 @@ class FunctionVersionInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the FunctionVersionInstance
+        
 
         :returns: The fetched FunctionVersionInstance
         :rtype: twilio.rest.serverless.v1.service.function.function_version.FunctionVersionInstance

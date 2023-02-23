@@ -39,7 +39,7 @@ class RoomRecordingList(ListResource):
 
         # Path Solution
         self._solution = { 'room_sid': room_sid,  }
-        self._uri = '/Rooms/${room_sid}/Recordings'.format(**self._solution)
+        self._uri = '/Rooms/{room_sid}/Recordings'.format(**self._solution)
         
         
     
@@ -246,26 +246,29 @@ class RoomRecordingContext(InstanceContext):
             'room_sid': room_sid,
             'sid': sid,
         }
-        self._uri = '/Rooms/${room_sid}/Recordings/${sid}'.format(**self._solution)
+        self._uri = '/Rooms/{room_sid}/Recordings/{sid}'.format(**self._solution)
         
     
     def delete(self):
         """
         Deletes the RoomRecordingInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
     def fetch(self):
         """
         Fetch the RoomRecordingInstance
+        
 
         :returns: The fetched RoomRecordingInstance
         :rtype: twilio.rest.video.v1.room.room_recording.RoomRecordingInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return RoomRecordingInstance(
             self._version,
@@ -470,6 +473,7 @@ class RoomRecordingInstance(InstanceResource):
     def delete(self):
         """
         Deletes the RoomRecordingInstance
+        
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -479,6 +483,7 @@ class RoomRecordingInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the RoomRecordingInstance
+        
 
         :returns: The fetched RoomRecordingInstance
         :rtype: twilio.rest.video.v1.room.room_recording.RoomRecordingInstance

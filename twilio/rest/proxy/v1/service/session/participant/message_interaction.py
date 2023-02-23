@@ -41,7 +41,7 @@ class MessageInteractionList(ListResource):
 
         # Path Solution
         self._solution = { 'service_sid': service_sid, 'session_sid': session_sid, 'participant_sid': participant_sid,  }
-        self._uri = '/Services/${service_sid}/Sessions/${session_sid}/Participants/${participant_sid}/MessageInteractions'.format(**self._solution)
+        self._uri = '/Services/{service_sid}/Sessions/{session_sid}/Participants/{participant_sid}/MessageInteractions'.format(**self._solution)
         
         
     
@@ -49,6 +49,7 @@ class MessageInteractionList(ListResource):
     def create(self, body=values.unset, media_url=values.unset):
         """
         Create the MessageInteractionInstance
+
         :param str body: The message to send to the participant
         :param list[str] media_url: Reserved. Not currently supported.
         
@@ -59,8 +60,9 @@ class MessageInteractionList(ListResource):
             'Body': body,
             'MediaUrl': serialize.map(media_url, lambda e: e),
         })
+        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return MessageInteractionInstance(self._version, payload, service_sid=self._solution['service_sid'], session_sid=self._solution['session_sid'], participant_sid=self._solution['participant_sid'])
     
     
@@ -243,17 +245,19 @@ class MessageInteractionContext(InstanceContext):
             'participant_sid': participant_sid,
             'sid': sid,
         }
-        self._uri = '/Services/${service_sid}/Sessions/${session_sid}/Participants/${participant_sid}/MessageInteractions/${sid}'.format(**self._solution)
+        self._uri = '/Services/{service_sid}/Sessions/{session_sid}/Participants/{participant_sid}/MessageInteractions/{sid}'.format(**self._solution)
         
     
     def fetch(self):
         """
         Fetch the MessageInteractionInstance
+        
 
         :returns: The fetched MessageInteractionInstance
         :rtype: twilio.rest.proxy.v1.service.session.participant.message_interaction.MessageInteractionInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return MessageInteractionInstance(
             self._version,
@@ -487,6 +491,7 @@ class MessageInteractionInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the MessageInteractionInstance
+        
 
         :returns: The fetched MessageInteractionInstance
         :rtype: twilio.rest.proxy.v1.service.session.participant.message_interaction.MessageInteractionInstance

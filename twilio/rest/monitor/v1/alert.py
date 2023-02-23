@@ -235,17 +235,19 @@ class AlertContext(InstanceContext):
         self._solution = { 
             'sid': sid,
         }
-        self._uri = '/Alerts/${sid}'.format(**self._solution)
+        self._uri = '/Alerts/{sid}'.format(**self._solution)
         
     
     def fetch(self):
         """
         Fetch the AlertInstance
+        
 
         :returns: The fetched AlertInstance
         :rtype: twilio.rest.monitor.v1.alert.AlertInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return AlertInstance(
             self._version,
@@ -467,6 +469,7 @@ class AlertInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the AlertInstance
+        
 
         :returns: The fetched AlertInstance
         :rtype: twilio.rest.monitor.v1.alert.AlertInstance

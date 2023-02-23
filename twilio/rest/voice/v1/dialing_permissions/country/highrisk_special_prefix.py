@@ -39,7 +39,7 @@ class HighriskSpecialPrefixList(ListResource):
 
         # Path Solution
         self._solution = { 'iso_code': iso_code,  }
-        self._uri = '/DialingPermissions/Countries/${iso_code}/HighRiskSpecialPrefixes'.format(**self._solution)
+        self._uri = '/DialingPermissions/Countries/{iso_code}/HighRiskSpecialPrefixes'.format(**self._solution)
         
         
     

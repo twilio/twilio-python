@@ -40,7 +40,7 @@ class CredentialListList(ListResource):
 
         # Path Solution
         self._solution = { 'account_sid': account_sid,  }
-        self._uri = '/Accounts/${account_sid}/SIP/CredentialLists.json'.format(**self._solution)
+        self._uri = '/Accounts/{account_sid}/SIP/CredentialLists.json'.format(**self._solution)
         
         
     
@@ -50,6 +50,7 @@ class CredentialListList(ListResource):
     def create(self, friendly_name):
         """
         Create the CredentialListInstance
+
         :param str friendly_name: A human readable descriptive text that describes the CredentialList, up to 64 characters long.
         
         :returns: The created CredentialListInstance
@@ -58,8 +59,9 @@ class CredentialListList(ListResource):
         data = values.of({ 
             'FriendlyName': friendly_name,
         })
+        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return CredentialListInstance(self._version, payload, account_sid=self._solution['account_sid'])
     
     
@@ -244,7 +246,7 @@ class CredentialListContext(InstanceContext):
             'account_sid': account_sid,
             'sid': sid,
         }
-        self._uri = '/Accounts/${account_sid}/SIP/CredentialLists/${sid}.json'.format(**self._solution)
+        self._uri = '/Accounts/{account_sid}/SIP/CredentialLists/{sid}.json'.format(**self._solution)
         
         self._credentials = None
     
@@ -252,19 +254,22 @@ class CredentialListContext(InstanceContext):
         """
         Deletes the CredentialListInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
     def fetch(self):
         """
         Fetch the CredentialListInstance
+        
 
         :returns: The fetched CredentialListInstance
         :rtype: twilio.rest.api.v2010.account.sip.credential_list.CredentialListInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return CredentialListInstance(
             self._version,
@@ -274,7 +279,7 @@ class CredentialListContext(InstanceContext):
             
         )
         
-    def update(self, friendly_name=values.unset):
+    def update(self, friendly_name):
         """
         Update the CredentialListInstance
         
@@ -286,8 +291,9 @@ class CredentialListContext(InstanceContext):
         data = values.of({ 
             'FriendlyName': friendly_name,
         })
+        
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return CredentialListInstance(
             self._version,
@@ -414,6 +420,7 @@ class CredentialListInstance(InstanceResource):
     def delete(self):
         """
         Deletes the CredentialListInstance
+        
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -423,13 +430,14 @@ class CredentialListInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the CredentialListInstance
+        
 
         :returns: The fetched CredentialListInstance
         :rtype: twilio.rest.api.v2010.account.sip.credential_list.CredentialListInstance
         """
         return self._proxy.fetch()
     
-    def update(self, friendly_name=values.unset):
+    def update(self, friendly_name):
         """
         Update the CredentialListInstance
         

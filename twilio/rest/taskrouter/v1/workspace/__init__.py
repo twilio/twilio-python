@@ -58,6 +58,7 @@ class WorkspaceList(ListResource):
     def create(self, friendly_name, event_callback_url=values.unset, events_filter=values.unset, multi_task_enabled=values.unset, template=values.unset, prioritize_queue_order=values.unset):
         """
         Create the WorkspaceInstance
+
         :param str friendly_name: A descriptive string that you create to describe the Workspace resource. It can be up to 64 characters long. For example: `Customer Support` or `2014 Election Campaign`.
         :param str event_callback_url: The URL we should call when an event occurs. If provided, the Workspace will publish events to this URL, for example, to collect data for reporting. See [Workspace Events](https://www.twilio.com/docs/taskrouter/api/event) for more information. This parameter supports Twilio's [Webhooks (HTTP callbacks) Connection Overrides](https://www.twilio.com/docs/usage/webhooks/webhooks-connection-overrides).
         :param str events_filter: The list of Workspace events for which to call event_callback_url. For example, if `EventsFilter=task.created, task.canceled, worker.activity.update`, then TaskRouter will call event_callback_url only when a task is created, canceled, or a Worker activity is updated.
@@ -76,8 +77,9 @@ class WorkspaceList(ListResource):
             'Template': template,
             'PrioritizeQueueOrder': prioritize_queue_order,
         })
+        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return WorkspaceInstance(self._version, payload)
     
     
@@ -267,7 +269,7 @@ class WorkspaceContext(InstanceContext):
         self._solution = { 
             'sid': sid,
         }
-        self._uri = '/Workspaces/${sid}'.format(**self._solution)
+        self._uri = '/Workspaces/{sid}'.format(**self._solution)
         
         self._activities = None
         self._events = None
@@ -284,19 +286,22 @@ class WorkspaceContext(InstanceContext):
         """
         Deletes the WorkspaceInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
     def fetch(self):
         """
         Fetch the WorkspaceInstance
+        
 
         :returns: The fetched WorkspaceInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.WorkspaceInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return WorkspaceInstance(
             self._version,
@@ -329,8 +334,9 @@ class WorkspaceContext(InstanceContext):
             'TimeoutActivitySid': timeout_activity_sid,
             'PrioritizeQueueOrder': prioritize_queue_order,
         })
+        
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return WorkspaceInstance(
             self._version,
@@ -645,6 +651,7 @@ class WorkspaceInstance(InstanceResource):
     def delete(self):
         """
         Deletes the WorkspaceInstance
+        
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -654,6 +661,7 @@ class WorkspaceInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the WorkspaceInstance
+        
 
         :returns: The fetched WorkspaceInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.WorkspaceInstance

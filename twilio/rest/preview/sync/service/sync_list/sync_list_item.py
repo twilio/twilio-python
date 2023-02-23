@@ -40,7 +40,7 @@ class SyncListItemList(ListResource):
 
         # Path Solution
         self._solution = { 'service_sid': service_sid, 'list_sid': list_sid,  }
-        self._uri = '/Services/${service_sid}/Lists/${list_sid}/Items'.format(**self._solution)
+        self._uri = '/Services/{service_sid}/Lists/{list_sid}/Items'.format(**self._solution)
         
         
     
@@ -50,6 +50,7 @@ class SyncListItemList(ListResource):
     def create(self, data):
         """
         Create the SyncListItemInstance
+
         :param object data: 
         
         :returns: The created SyncListItemInstance
@@ -58,8 +59,9 @@ class SyncListItemList(ListResource):
         data = values.of({ 
             'Data': serialize.object(data),
         })
+        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return SyncListItemInstance(self._version, payload, service_sid=self._solution['service_sid'], list_sid=self._solution['list_sid'])
     
     
@@ -263,26 +265,32 @@ class SyncListItemContext(InstanceContext):
             'list_sid': list_sid,
             'index': index,
         }
-        self._uri = '/Services/${service_sid}/Lists/${list_sid}/Items/${index}'.format(**self._solution)
+        self._uri = '/Services/{service_sid}/Lists/{list_sid}/Items/{index}'.format(**self._solution)
         
     
     def delete(self, if_match=values.unset):
         """
         Deletes the SyncListItemInstance
 
+        :param str if_match: The If-Match HTTP request header
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        headers = values.of({'If-Match': if_match, })
+        
+        return self._version.delete(method='DELETE', uri=self._uri, headers=headers)
         
     def fetch(self):
         """
         Fetch the SyncListItemInstance
+        
 
         :returns: The fetched SyncListItemInstance
         :rtype: twilio.rest.preview.sync.service.sync_list.sync_list_item.SyncListItemInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return SyncListItemInstance(
             self._version,
@@ -293,7 +301,7 @@ class SyncListItemContext(InstanceContext):
             
         )
         
-    def update(self, data=values.unset, if_match=values.unset):
+    def update(self, data, if_match=values.unset):
         """
         Update the SyncListItemInstance
         
@@ -305,10 +313,10 @@ class SyncListItemContext(InstanceContext):
         """
         data = values.of({ 
             'Data': serialize.object(data),
-            'If-Match': if_match,
         })
+        headers = values.of({'If-Match': if_match, })
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data, headers=headers)
 
         return SyncListItemInstance(
             self._version,
@@ -450,22 +458,25 @@ class SyncListItemInstance(InstanceResource):
     def delete(self, if_match=values.unset):
         """
         Deletes the SyncListItemInstance
+        
+        :params str if_match: The If-Match HTTP request header
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._proxy.delete()
+        return self._proxy.delete(if_match=if_match, )
     
     def fetch(self):
         """
         Fetch the SyncListItemInstance
+        
 
         :returns: The fetched SyncListItemInstance
         :rtype: twilio.rest.preview.sync.service.sync_list.sync_list_item.SyncListItemInstance
         """
         return self._proxy.fetch()
     
-    def update(self, data=values.unset, if_match=values.unset):
+    def update(self, data, if_match=values.unset):
         """
         Update the SyncListItemInstance
         

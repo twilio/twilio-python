@@ -93,11 +93,13 @@ class WebhookContext(InstanceContext):
     def fetch(self):
         """
         Fetch the WebhookInstance
+        
 
         :returns: The fetched WebhookInstance
         :rtype: twilio.rest.conversations.v1.configuration.webhook.WebhookInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return WebhookInstance(
             self._version,
@@ -125,8 +127,9 @@ class WebhookContext(InstanceContext):
             'PostWebhookUrl': post_webhook_url,
             'Target': target,
         })
+        
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return WebhookInstance(
             self._version,
@@ -238,6 +241,7 @@ class WebhookInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the WebhookInstance
+        
 
         :returns: The fetched WebhookInstance
         :rtype: twilio.rest.conversations.v1.configuration.webhook.WebhookInstance

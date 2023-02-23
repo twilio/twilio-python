@@ -92,11 +92,13 @@ class UserInfoContext(InstanceContext):
     def fetch(self):
         """
         Fetch the UserInfoInstance
+        
 
         :returns: The fetched UserInfoInstance
         :rtype: twilio.rest.oauth.v1.user_info.UserInfoInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return UserInfoInstance(
             self._version,
@@ -200,6 +202,7 @@ class UserInfoInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the UserInfoInstance
+        
 
         :returns: The fetched UserInfoInstance
         :rtype: twilio.rest.oauth.v1.user_info.UserInfoInstance

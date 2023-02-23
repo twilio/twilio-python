@@ -39,7 +39,7 @@ class FlowRevisionList(ListResource):
 
         # Path Solution
         self._solution = { 'sid': sid,  }
-        self._uri = '/Flows/${sid}/Revisions'.format(**self._solution)
+        self._uri = '/Flows/{sid}/Revisions'.format(**self._solution)
         
         
     
@@ -219,17 +219,19 @@ class FlowRevisionContext(InstanceContext):
             'sid': sid,
             'revision': revision,
         }
-        self._uri = '/Flows/${sid}/Revisions/${revision}'.format(**self._solution)
+        self._uri = '/Flows/{sid}/Revisions/{revision}'.format(**self._solution)
         
     
     def fetch(self):
         """
         Fetch the FlowRevisionInstance
+        
 
         :returns: The fetched FlowRevisionInstance
         :rtype: twilio.rest.studio.v2.flow.flow_revision.FlowRevisionInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return FlowRevisionInstance(
             self._version,
@@ -389,6 +391,7 @@ class FlowRevisionInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the FlowRevisionInstance
+        
 
         :returns: The fetched FlowRevisionInstance
         :rtype: twilio.rest.studio.v2.flow.flow_revision.FlowRevisionInstance

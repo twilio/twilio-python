@@ -40,7 +40,7 @@ class BuildList(ListResource):
 
         # Path Solution
         self._solution = { 'service_sid': service_sid,  }
-        self._uri = '/Services/${service_sid}/Builds'.format(**self._solution)
+        self._uri = '/Services/{service_sid}/Builds'.format(**self._solution)
         
         
     
@@ -49,6 +49,7 @@ class BuildList(ListResource):
     def create(self, asset_versions=values.unset, function_versions=values.unset, dependencies=values.unset, runtime=values.unset):
         """
         Create the BuildInstance
+
         :param list[str] asset_versions: The list of Asset Version resource SIDs to include in the Build.
         :param list[str] function_versions: The list of the Function Version resource SIDs to include in the Build.
         :param str dependencies: A list of objects that describe the Dependencies included in the Build. Each object contains the `name` and `version` of the dependency.
@@ -63,8 +64,9 @@ class BuildList(ListResource):
             'Dependencies': dependencies,
             'Runtime': runtime,
         })
+        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return BuildInstance(self._version, payload, service_sid=self._solution['service_sid'])
     
     
@@ -247,7 +249,7 @@ class BuildContext(InstanceContext):
             'service_sid': service_sid,
             'sid': sid,
         }
-        self._uri = '/Services/${service_sid}/Builds/${sid}'.format(**self._solution)
+        self._uri = '/Services/{service_sid}/Builds/{sid}'.format(**self._solution)
         
         self._build_status = None
     
@@ -255,19 +257,22 @@ class BuildContext(InstanceContext):
         """
         Deletes the BuildInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
     def fetch(self):
         """
         Fetch the BuildInstance
+        
 
         :returns: The fetched BuildInstance
         :rtype: twilio.rest.serverless.v1.service.build.BuildInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return BuildInstance(
             self._version,
@@ -440,6 +445,7 @@ class BuildInstance(InstanceResource):
     def delete(self):
         """
         Deletes the BuildInstance
+        
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -449,6 +455,7 @@ class BuildInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the BuildInstance
+        
 
         :returns: The fetched BuildInstance
         :rtype: twilio.rest.serverless.v1.service.build.BuildInstance

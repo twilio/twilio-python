@@ -40,7 +40,7 @@ class MessageList(ListResource):
 
         # Path Solution
         self._solution = { 'service_sid': service_sid, 'channel_sid': channel_sid,  }
-        self._uri = '/Services/${service_sid}/Channels/${channel_sid}/Messages'.format(**self._solution)
+        self._uri = '/Services/{service_sid}/Channels/{channel_sid}/Messages'.format(**self._solution)
         
         
     
@@ -50,6 +50,7 @@ class MessageList(ListResource):
     def create(self, x_twilio_webhook_enabled=values.unset, from_=values.unset, attributes=values.unset, date_created=values.unset, date_updated=values.unset, last_updated_by=values.unset, body=values.unset, media_sid=values.unset):
         """
         Create the MessageInstance
+
         :param MessageWebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
         :param str from_: The [Identity](https://www.twilio.com/docs/chat/identity) of the new message's author. The default value is `system`.
         :param str attributes: A valid JSON string that contains application-specific data.
@@ -63,7 +64,6 @@ class MessageList(ListResource):
         :rtype: twilio.rest.chat.v2.service.channel.message.MessageInstance
         """
         data = values.of({ 
-            'X-Twilio-Webhook-Enabled': x_twilio_webhook_enabled,
             'From': from_,
             'Attributes': attributes,
             'DateCreated': serialize.iso8601_datetime(date_created),
@@ -72,8 +72,9 @@ class MessageList(ListResource):
             'Body': body,
             'MediaSid': media_sid,
         })
+        headers = values.of({'X-Twilio-Webhook-Enabled': x_twilio_webhook_enabled, })
+        payload = self._version.create(method='POST', uri=self._uri, data=data, headers=headers)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return MessageInstance(self._version, payload, service_sid=self._solution['service_sid'], channel_sid=self._solution['channel_sid'])
     
     
@@ -265,26 +266,32 @@ class MessageContext(InstanceContext):
             'channel_sid': channel_sid,
             'sid': sid,
         }
-        self._uri = '/Services/${service_sid}/Channels/${channel_sid}/Messages/${sid}'.format(**self._solution)
+        self._uri = '/Services/{service_sid}/Channels/{channel_sid}/Messages/{sid}'.format(**self._solution)
         
     
     def delete(self, x_twilio_webhook_enabled=values.unset):
         """
         Deletes the MessageInstance
 
+        :param MessageWebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        headers = values.of({'X-Twilio-Webhook-Enabled': x_twilio_webhook_enabled, })
+        
+        return self._version.delete(method='DELETE', uri=self._uri, headers=headers)
         
     def fetch(self):
         """
         Fetch the MessageInstance
+        
 
         :returns: The fetched MessageInstance
         :rtype: twilio.rest.chat.v2.service.channel.message.MessageInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return MessageInstance(
             self._version,
@@ -311,7 +318,6 @@ class MessageContext(InstanceContext):
         :rtype: twilio.rest.chat.v2.service.channel.message.MessageInstance
         """
         data = values.of({ 
-            'X-Twilio-Webhook-Enabled': x_twilio_webhook_enabled,
             'Body': body,
             'Attributes': attributes,
             'DateCreated': serialize.iso8601_datetime(date_created),
@@ -319,8 +325,9 @@ class MessageContext(InstanceContext):
             'LastUpdatedBy': last_updated_by,
             'From': from_,
         })
+        headers = values.of({'X-Twilio-Webhook-Enabled': x_twilio_webhook_enabled, })
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data, headers=headers)
 
         return MessageInstance(
             self._version,
@@ -516,15 +523,18 @@ class MessageInstance(InstanceResource):
     def delete(self, x_twilio_webhook_enabled=values.unset):
         """
         Deletes the MessageInstance
+        
+        :params MessageWebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._proxy.delete()
+        return self._proxy.delete(x_twilio_webhook_enabled=x_twilio_webhook_enabled, )
     
     def fetch(self):
         """
         Fetch the MessageInstance
+        
 
         :returns: The fetched MessageInstance
         :rtype: twilio.rest.chat.v2.service.channel.message.MessageInstance

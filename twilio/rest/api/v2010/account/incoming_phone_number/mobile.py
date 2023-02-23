@@ -39,13 +39,14 @@ class MobileList(ListResource):
 
         # Path Solution
         self._solution = { 'account_sid': account_sid,  }
-        self._uri = '/Accounts/${account_sid}/IncomingPhoneNumbers/Mobile.json'.format(**self._solution)
+        self._uri = '/Accounts/{account_sid}/IncomingPhoneNumbers/Mobile.json'.format(**self._solution)
         
         
     
     def create(self, phone_number, api_version=values.unset, friendly_name=values.unset, sms_application_sid=values.unset, sms_fallback_method=values.unset, sms_fallback_url=values.unset, sms_method=values.unset, sms_url=values.unset, status_callback=values.unset, status_callback_method=values.unset, voice_application_sid=values.unset, voice_caller_id_lookup=values.unset, voice_fallback_method=values.unset, voice_fallback_url=values.unset, voice_method=values.unset, voice_url=values.unset, identity_sid=values.unset, address_sid=values.unset, emergency_status=values.unset, emergency_address_sid=values.unset, trunk_sid=values.unset, voice_receive_mode=values.unset, bundle_sid=values.unset):
         """
         Create the MobileInstance
+
         :param str phone_number: The phone number to purchase specified in [E.164](https://www.twilio.com/docs/glossary/what-e164) format.  E.164 phone numbers consist of a + followed by the country code and subscriber number without punctuation characters. For example, +14155551234.
         :param str api_version: The API version to use for incoming calls made to the new phone number. The default is `2010-04-01`.
         :param str friendly_name: A descriptive string that you created to describe the new phone number. It can be up to 64 characters long. By default, the is a formatted version of the phone number.
@@ -98,8 +99,9 @@ class MobileList(ListResource):
             'VoiceReceiveMode': voice_receive_mode,
             'BundleSid': bundle_sid,
         })
+        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return MobileInstance(self._version, payload, account_sid=self._solution['account_sid'])
     
     

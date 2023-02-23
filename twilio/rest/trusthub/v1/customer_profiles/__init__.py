@@ -51,6 +51,7 @@ class CustomerProfilesList(ListResource):
     def create(self, friendly_name, email, policy_sid, status_callback=values.unset):
         """
         Create the CustomerProfilesInstance
+
         :param str friendly_name: The string that you assigned to describe the resource.
         :param str email: The email address that will receive updates when the Customer-Profile resource changes status.
         :param str policy_sid: The unique string of a policy that is associated to the Customer-Profile resource.
@@ -65,8 +66,9 @@ class CustomerProfilesList(ListResource):
             'PolicySid': policy_sid,
             'StatusCallback': status_callback,
         })
+        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return CustomerProfilesInstance(self._version, payload)
     
     
@@ -268,7 +270,7 @@ class CustomerProfilesContext(InstanceContext):
         self._solution = { 
             'sid': sid,
         }
-        self._uri = '/CustomerProfiles/${sid}'.format(**self._solution)
+        self._uri = '/CustomerProfiles/{sid}'.format(**self._solution)
         
         self._customer_profiles_channel_endpoint_assignment = None
         self._customer_profiles_entity_assignments = None
@@ -278,19 +280,22 @@ class CustomerProfilesContext(InstanceContext):
         """
         Deletes the CustomerProfilesInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
     def fetch(self):
         """
         Fetch the CustomerProfilesInstance
+        
 
         :returns: The fetched CustomerProfilesInstance
         :rtype: twilio.rest.trusthub.v1.customer_profiles.CustomerProfilesInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return CustomerProfilesInstance(
             self._version,
@@ -317,8 +322,9 @@ class CustomerProfilesContext(InstanceContext):
             'FriendlyName': friendly_name,
             'Email': email,
         })
+        
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return CustomerProfilesInstance(
             self._version,
@@ -515,6 +521,7 @@ class CustomerProfilesInstance(InstanceResource):
     def delete(self):
         """
         Deletes the CustomerProfilesInstance
+        
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -524,6 +531,7 @@ class CustomerProfilesInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the CustomerProfilesInstance
+        
 
         :returns: The fetched CustomerProfilesInstance
         :rtype: twilio.rest.trusthub.v1.customer_profiles.CustomerProfilesInstance

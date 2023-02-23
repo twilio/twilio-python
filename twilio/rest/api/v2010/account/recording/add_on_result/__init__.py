@@ -41,7 +41,7 @@ class AddOnResultList(ListResource):
 
         # Path Solution
         self._solution = { 'account_sid': account_sid, 'reference_sid': reference_sid,  }
-        self._uri = '/Accounts/${account_sid}/Recordings/${reference_sid}/AddOnResults.json'.format(**self._solution)
+        self._uri = '/Accounts/{account_sid}/Recordings/{reference_sid}/AddOnResults.json'.format(**self._solution)
         
         
     
@@ -225,7 +225,7 @@ class AddOnResultContext(InstanceContext):
             'reference_sid': reference_sid,
             'sid': sid,
         }
-        self._uri = '/Accounts/${account_sid}/Recordings/${reference_sid}/AddOnResults/${sid}.json'.format(**self._solution)
+        self._uri = '/Accounts/{account_sid}/Recordings/{reference_sid}/AddOnResults/{sid}.json'.format(**self._solution)
         
         self._payloads = None
     
@@ -233,19 +233,22 @@ class AddOnResultContext(InstanceContext):
         """
         Deletes the AddOnResultInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
     def fetch(self):
         """
         Fetch the AddOnResultInstance
+        
 
         :returns: The fetched AddOnResultInstance
         :rtype: twilio.rest.api.v2010.account.recording.add_on_result.AddOnResultInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return AddOnResultInstance(
             self._version,
@@ -401,6 +404,7 @@ class AddOnResultInstance(InstanceResource):
     def delete(self):
         """
         Deletes the AddOnResultInstance
+        
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -410,6 +414,7 @@ class AddOnResultInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the AddOnResultInstance
+        
 
         :returns: The fetched AddOnResultInstance
         :rtype: twilio.rest.api.v2010.account.recording.add_on_result.AddOnResultInstance

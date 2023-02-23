@@ -48,6 +48,7 @@ class ByocTrunkList(ListResource):
     def create(self, friendly_name=values.unset, voice_url=values.unset, voice_method=values.unset, voice_fallback_url=values.unset, voice_fallback_method=values.unset, status_callback_url=values.unset, status_callback_method=values.unset, cnam_lookup_enabled=values.unset, connection_policy_sid=values.unset, from_domain_sid=values.unset):
         """
         Create the ByocTrunkInstance
+
         :param str friendly_name: A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
         :param str voice_url: The URL we should call when the BYOC Trunk receives a call.
         :param str voice_method: The HTTP method we should use to call `voice_url`. Can be: `GET` or `POST`.
@@ -74,8 +75,9 @@ class ByocTrunkList(ListResource):
             'ConnectionPolicySid': connection_policy_sid,
             'FromDomainSid': from_domain_sid,
         })
+        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return ByocTrunkInstance(self._version, payload)
     
     
@@ -259,26 +261,29 @@ class ByocTrunkContext(InstanceContext):
         self._solution = { 
             'sid': sid,
         }
-        self._uri = '/ByocTrunks/${sid}'.format(**self._solution)
+        self._uri = '/ByocTrunks/{sid}'.format(**self._solution)
         
     
     def delete(self):
         """
         Deletes the ByocTrunkInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
     def fetch(self):
         """
         Fetch the ByocTrunkInstance
+        
 
         :returns: The fetched ByocTrunkInstance
         :rtype: twilio.rest.voice.v1.byoc_trunk.ByocTrunkInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return ByocTrunkInstance(
             self._version,
@@ -317,8 +322,9 @@ class ByocTrunkContext(InstanceContext):
             'ConnectionPolicySid': connection_policy_sid,
             'FromDomainSid': from_domain_sid,
         })
+        
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return ByocTrunkInstance(
             self._version,
@@ -503,6 +509,7 @@ class ByocTrunkInstance(InstanceResource):
     def delete(self):
         """
         Deletes the ByocTrunkInstance
+        
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -512,6 +519,7 @@ class ByocTrunkInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the ByocTrunkInstance
+        
 
         :returns: The fetched ByocTrunkInstance
         :rtype: twilio.rest.voice.v1.byoc_trunk.ByocTrunkInstance

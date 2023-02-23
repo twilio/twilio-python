@@ -39,7 +39,7 @@ class QueryList(ListResource):
 
         # Path Solution
         self._solution = { 'assistant_sid': assistant_sid,  }
-        self._uri = '/Assistants/${assistant_sid}/Queries'.format(**self._solution)
+        self._uri = '/Assistants/{assistant_sid}/Queries'.format(**self._solution)
         
         
     
@@ -49,6 +49,7 @@ class QueryList(ListResource):
     def create(self, language, query, tasks=values.unset, model_build=values.unset, field=values.unset):
         """
         Create the QueryInstance
+
         :param str language: An ISO language-country string of the sample.
         :param str query: A user-provided string that uniquely identifies this resource as an alternative to the sid. It can be up to 2048 characters long.
         :param str tasks: Constraints the query to a set of tasks. Useful when you need to constrain the paths the user can take. Tasks should be comma separated *task-unique-name-1*, *task-unique-name-2*
@@ -65,8 +66,9 @@ class QueryList(ListResource):
             'ModelBuild': model_build,
             'Field': field,
         })
+        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return QueryInstance(self._version, payload, assistant_sid=self._solution['assistant_sid'])
     
     
@@ -269,26 +271,29 @@ class QueryContext(InstanceContext):
             'assistant_sid': assistant_sid,
             'sid': sid,
         }
-        self._uri = '/Assistants/${assistant_sid}/Queries/${sid}'.format(**self._solution)
+        self._uri = '/Assistants/{assistant_sid}/Queries/{sid}'.format(**self._solution)
         
     
     def delete(self):
         """
         Deletes the QueryInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
     def fetch(self):
         """
         Fetch the QueryInstance
+        
 
         :returns: The fetched QueryInstance
         :rtype: twilio.rest.preview.understand.assistant.query.QueryInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return QueryInstance(
             self._version,
@@ -312,8 +317,9 @@ class QueryContext(InstanceContext):
             'SampleSid': sample_sid,
             'Status': status,
         })
+        
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return QueryInstance(
             self._version,
@@ -481,6 +487,7 @@ class QueryInstance(InstanceResource):
     def delete(self):
         """
         Deletes the QueryInstance
+        
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -490,6 +497,7 @@ class QueryInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the QueryInstance
+        
 
         :returns: The fetched QueryInstance
         :rtype: twilio.rest.preview.understand.assistant.query.QueryInstance

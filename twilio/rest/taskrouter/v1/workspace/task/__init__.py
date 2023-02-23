@@ -40,7 +40,7 @@ class TaskList(ListResource):
 
         # Path Solution
         self._solution = { 'workspace_sid': workspace_sid,  }
-        self._uri = '/Workspaces/${workspace_sid}/Tasks'.format(**self._solution)
+        self._uri = '/Workspaces/{workspace_sid}/Tasks'.format(**self._solution)
         
         
     
@@ -50,6 +50,7 @@ class TaskList(ListResource):
     def create(self, timeout=values.unset, priority=values.unset, task_channel=values.unset, workflow_sid=values.unset, attributes=values.unset):
         """
         Create the TaskInstance
+
         :param int timeout: The amount of time in seconds the new task can live before being assigned. Can be up to a maximum of 2 weeks (1,209,600 seconds). The default value is 24 hours (86,400 seconds). On timeout, the `task.canceled` event will fire with description `Task TTL Exceeded`.
         :param int priority: The priority to assign the new task and override the default. When supplied, the new Task will have this priority unless it matches a Workflow Target with a Priority set. When not supplied, the new Task will have the priority of the matching Workflow Target. Value can be 0 to 2^31^ (2,147,483,647).
         :param str task_channel: When MultiTasking is enabled, specify the TaskChannel by passing either its `unique_name` or `sid`. Default value is `default`.
@@ -66,8 +67,9 @@ class TaskList(ListResource):
             'WorkflowSid': workflow_sid,
             'Attributes': attributes,
         })
+        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return TaskInstance(self._version, payload, workspace_sid=self._solution['workspace_sid'])
     
     
@@ -306,7 +308,7 @@ class TaskContext(InstanceContext):
             'workspace_sid': workspace_sid,
             'sid': sid,
         }
-        self._uri = '/Workspaces/${workspace_sid}/Tasks/${sid}'.format(**self._solution)
+        self._uri = '/Workspaces/{workspace_sid}/Tasks/{sid}'.format(**self._solution)
         
         self._reservations = None
     
@@ -314,19 +316,25 @@ class TaskContext(InstanceContext):
         """
         Deletes the TaskInstance
 
+        :param str if_match: If provided, deletes this Task if (and only if) the [ETag](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/ETag) header of the Task matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match).
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        headers = values.of({'If-Match': if_match, })
+        
+        return self._version.delete(method='DELETE', uri=self._uri, headers=headers)
         
     def fetch(self):
         """
         Fetch the TaskInstance
+        
 
         :returns: The fetched TaskInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.task.TaskInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return TaskInstance(
             self._version,
@@ -351,15 +359,15 @@ class TaskContext(InstanceContext):
         :rtype: twilio.rest.taskrouter.v1.workspace.task.TaskInstance
         """
         data = values.of({ 
-            'If-Match': if_match,
             'Attributes': attributes,
             'AssignmentStatus': assignment_status,
             'Reason': reason,
             'Priority': priority,
             'TaskChannel': task_channel,
         })
+        headers = values.of({'If-Match': if_match, })
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data, headers=headers)
 
         return TaskInstance(
             self._version,
@@ -612,15 +620,18 @@ class TaskInstance(InstanceResource):
     def delete(self, if_match=values.unset):
         """
         Deletes the TaskInstance
+        
+        :params str if_match: If provided, deletes this Task if (and only if) the [ETag](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/ETag) header of the Task matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match).
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._proxy.delete()
+        return self._proxy.delete(if_match=if_match, )
     
     def fetch(self):
         """
         Fetch the TaskInstance
+        
 
         :returns: The fetched TaskInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.task.TaskInstance

@@ -88,17 +88,23 @@ class WorkersRealTimeStatisticsContext(InstanceContext):
         self._solution = { 
             'workspace_sid': workspace_sid,
         }
-        self._uri = '/Workspaces/${workspace_sid}/Workers/RealTimeStatistics'.format(**self._solution)
+        self._uri = '/Workspaces/{workspace_sid}/Workers/RealTimeStatistics'.format(**self._solution)
         
     
     def fetch(self, task_channel=values.unset):
         """
         Fetch the WorkersRealTimeStatisticsInstance
+        
+        :params str task_channel: Only calculate real-time statistics on this TaskChannel. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
 
         :returns: The fetched WorkersRealTimeStatisticsInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.worker.workers_real_time_statistics.WorkersRealTimeStatisticsInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        data = values.of({ 
+            'TaskChannel': task_channel,
+        })
+        payload = self._version.fetch(method='GET', uri=self._uri, params=data)
 
         return WorkersRealTimeStatisticsInstance(
             self._version,
@@ -194,11 +200,13 @@ class WorkersRealTimeStatisticsInstance(InstanceResource):
     def fetch(self, task_channel=values.unset):
         """
         Fetch the WorkersRealTimeStatisticsInstance
+        
+        :params str task_channel: Only calculate real-time statistics on this TaskChannel. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
 
         :returns: The fetched WorkersRealTimeStatisticsInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.worker.workers_real_time_statistics.WorkersRealTimeStatisticsInstance
         """
-        return self._proxy.fetch()
+        return self._proxy.fetch(task_channel=task_channel, )
     
     def __repr__(self):
         """

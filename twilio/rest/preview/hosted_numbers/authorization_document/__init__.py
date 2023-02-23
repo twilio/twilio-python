@@ -48,6 +48,7 @@ class AuthorizationDocumentList(ListResource):
     def create(self, hosted_number_order_sids, address_sid, email, contact_title, contact_phone_number, cc_emails=values.unset):
         """
         Create the AuthorizationDocumentInstance
+
         :param list[str] hosted_number_order_sids: A list of HostedNumberOrder sids that this AuthorizationDocument will authorize for hosting phone number capabilities on Twilio's platform.
         :param str address_sid: A 34 character string that uniquely identifies the Address resource that is associated with this AuthorizationDocument.
         :param str email: Email that this AuthorizationDocument will be sent to for signing.
@@ -66,8 +67,9 @@ class AuthorizationDocumentList(ListResource):
             'ContactPhoneNumber': contact_phone_number,
             'CcEmails': serialize.map(cc_emails, lambda e: e),
         })
+        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return AuthorizationDocumentInstance(self._version, payload)
     
     
@@ -261,18 +263,20 @@ class AuthorizationDocumentContext(InstanceContext):
         self._solution = { 
             'sid': sid,
         }
-        self._uri = '/AuthorizationDocuments/${sid}'.format(**self._solution)
+        self._uri = '/AuthorizationDocuments/{sid}'.format(**self._solution)
         
         self._dependent_hosted_number_orders = None
     
     def fetch(self):
         """
         Fetch the AuthorizationDocumentInstance
+        
 
         :returns: The fetched AuthorizationDocumentInstance
         :rtype: twilio.rest.preview.hosted_numbers.authorization_document.AuthorizationDocumentInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return AuthorizationDocumentInstance(
             self._version,
@@ -305,8 +309,9 @@ class AuthorizationDocumentContext(InstanceContext):
             'ContactTitle': contact_title,
             'ContactPhoneNumber': contact_phone_number,
         })
+        
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return AuthorizationDocumentInstance(
             self._version,
@@ -450,6 +455,7 @@ class AuthorizationDocumentInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the AuthorizationDocumentInstance
+        
 
         :returns: The fetched AuthorizationDocumentInstance
         :rtype: twilio.rest.preview.hosted_numbers.authorization_document.AuthorizationDocumentInstance

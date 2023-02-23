@@ -40,7 +40,7 @@ class UserList(ListResource):
 
         # Path Solution
         self._solution = { 'service_sid': service_sid,  }
-        self._uri = '/Services/${service_sid}/Users'.format(**self._solution)
+        self._uri = '/Services/{service_sid}/Users'.format(**self._solution)
         
         
     
@@ -50,6 +50,7 @@ class UserList(ListResource):
     def create(self, identity, role_sid=values.unset, attributes=values.unset, friendly_name=values.unset):
         """
         Create the UserInstance
+
         :param str identity: The `identity` value that uniquely identifies the new resource's [User](https://www.twilio.com/docs/api/chat/rest/v1/user) within the [Service](https://www.twilio.com/docs/api/chat/rest/v1/service). This value is often a username or email address. See the Identity documentation for more details.
         :param str role_sid: The SID of the [Role](https://www.twilio.com/docs/api/chat/rest/roles) assigned to the new User.
         :param str attributes: A valid JSON string that contains application-specific data.
@@ -64,8 +65,9 @@ class UserList(ListResource):
             'Attributes': attributes,
             'FriendlyName': friendly_name,
         })
+        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return UserInstance(self._version, payload, service_sid=self._solution['service_sid'])
     
     
@@ -250,7 +252,7 @@ class UserContext(InstanceContext):
             'service_sid': service_sid,
             'sid': sid,
         }
-        self._uri = '/Services/${service_sid}/Users/${sid}'.format(**self._solution)
+        self._uri = '/Services/{service_sid}/Users/{sid}'.format(**self._solution)
         
         self._user_channels = None
     
@@ -258,19 +260,22 @@ class UserContext(InstanceContext):
         """
         Deletes the UserInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
     def fetch(self):
         """
         Fetch the UserInstance
+        
 
         :returns: The fetched UserInstance
         :rtype: twilio.rest.chat.v1.service.user.UserInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return UserInstance(
             self._version,
@@ -296,8 +301,9 @@ class UserContext(InstanceContext):
             'Attributes': attributes,
             'FriendlyName': friendly_name,
         })
+        
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return UserInstance(
             self._version,
@@ -487,6 +493,7 @@ class UserInstance(InstanceResource):
     def delete(self):
         """
         Deletes the UserInstance
+        
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -496,6 +503,7 @@ class UserInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the UserInstance
+        
 
         :returns: The fetched UserInstance
         :rtype: twilio.rest.chat.v1.service.user.UserInstance

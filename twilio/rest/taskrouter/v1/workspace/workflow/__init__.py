@@ -42,7 +42,7 @@ class WorkflowList(ListResource):
 
         # Path Solution
         self._solution = { 'workspace_sid': workspace_sid,  }
-        self._uri = '/Workspaces/${workspace_sid}/Workflows'.format(**self._solution)
+        self._uri = '/Workspaces/{workspace_sid}/Workflows'.format(**self._solution)
         
         
     
@@ -52,6 +52,7 @@ class WorkflowList(ListResource):
     def create(self, friendly_name, configuration, assignment_callback_url=values.unset, fallback_assignment_callback_url=values.unset, task_reservation_timeout=values.unset):
         """
         Create the WorkflowInstance
+
         :param str friendly_name: A descriptive string that you create to describe the Workflow resource. For example, `Inbound Call Workflow` or `2014 Outbound Campaign`.
         :param str configuration: A JSON string that contains the rules to apply to the Workflow. See [Configuring Workflows](https://www.twilio.com/docs/taskrouter/workflow-configuration) for more information.
         :param str assignment_callback_url: The URL from your application that will process task assignment events. See [Handling Task Assignment Callback](https://www.twilio.com/docs/taskrouter/handle-assignment-callbacks) for more details.
@@ -68,8 +69,9 @@ class WorkflowList(ListResource):
             'FallbackAssignmentCallbackUrl': fallback_assignment_callback_url,
             'TaskReservationTimeout': task_reservation_timeout,
         })
+        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return WorkflowInstance(self._version, payload, workspace_sid=self._solution['workspace_sid'])
     
     
@@ -260,7 +262,7 @@ class WorkflowContext(InstanceContext):
             'workspace_sid': workspace_sid,
             'sid': sid,
         }
-        self._uri = '/Workspaces/${workspace_sid}/Workflows/${sid}'.format(**self._solution)
+        self._uri = '/Workspaces/{workspace_sid}/Workflows/{sid}'.format(**self._solution)
         
         self._cumulative_statistics = None
         self._real_time_statistics = None
@@ -270,19 +272,22 @@ class WorkflowContext(InstanceContext):
         """
         Deletes the WorkflowInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
     def fetch(self):
         """
         Fetch the WorkflowInstance
+        
 
         :returns: The fetched WorkflowInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return WorkflowInstance(
             self._version,
@@ -314,8 +319,9 @@ class WorkflowContext(InstanceContext):
             'TaskReservationTimeout': task_reservation_timeout,
             'ReEvaluateTasks': re_evaluate_tasks,
         })
+        
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return WorkflowInstance(
             self._version,
@@ -522,6 +528,7 @@ class WorkflowInstance(InstanceResource):
     def delete(self):
         """
         Deletes the WorkflowInstance
+        
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -531,6 +538,7 @@ class WorkflowInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the WorkflowInstance
+        
 
         :returns: The fetched WorkflowInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowInstance

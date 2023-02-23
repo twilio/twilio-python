@@ -40,7 +40,7 @@ class MemberList(ListResource):
 
         # Path Solution
         self._solution = { 'service_sid': service_sid, 'channel_sid': channel_sid,  }
-        self._uri = '/Services/${service_sid}/Channels/${channel_sid}/Members'.format(**self._solution)
+        self._uri = '/Services/{service_sid}/Channels/{channel_sid}/Members'.format(**self._solution)
         
         
     
@@ -50,6 +50,7 @@ class MemberList(ListResource):
     def create(self, identity, role_sid=values.unset):
         """
         Create the MemberInstance
+
         :param str identity: The `identity` value that uniquely identifies the new resource's [User](https://www.twilio.com/docs/api/chat/rest/v1/user) within the [Service](https://www.twilio.com/docs/api/chat/rest/services). See [access tokens](https://www.twilio.com/docs/api/chat/guides/create-tokens) for more details.
         :param str role_sid: The SID of the [Role](https://www.twilio.com/docs/api/chat/rest/roles) to assign to the member. The default roles are those specified on the [Service](https://www.twilio.com/docs/chat/api/services).
         
@@ -60,8 +61,9 @@ class MemberList(ListResource):
             'Identity': identity,
             'RoleSid': role_sid,
         })
+        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return MemberInstance(self._version, payload, service_sid=self._solution['service_sid'], channel_sid=self._solution['channel_sid'])
     
     
@@ -253,26 +255,29 @@ class MemberContext(InstanceContext):
             'channel_sid': channel_sid,
             'sid': sid,
         }
-        self._uri = '/Services/${service_sid}/Channels/${channel_sid}/Members/${sid}'.format(**self._solution)
+        self._uri = '/Services/{service_sid}/Channels/{channel_sid}/Members/{sid}'.format(**self._solution)
         
     
     def delete(self):
         """
         Deletes the MemberInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
     def fetch(self):
         """
         Fetch the MemberInstance
+        
 
         :returns: The fetched MemberInstance
         :rtype: twilio.rest.chat.v1.service.channel.member.MemberInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return MemberInstance(
             self._version,
@@ -297,8 +302,9 @@ class MemberContext(InstanceContext):
             'RoleSid': role_sid,
             'LastConsumedMessageIndex': last_consumed_message_index,
         })
+        
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return MemberInstance(
             self._version,
@@ -449,6 +455,7 @@ class MemberInstance(InstanceResource):
     def delete(self):
         """
         Deletes the MemberInstance
+        
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -458,6 +465,7 @@ class MemberInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the MemberInstance
+        
 
         :returns: The fetched MemberInstance
         :rtype: twilio.rest.chat.v1.service.channel.member.MemberInstance

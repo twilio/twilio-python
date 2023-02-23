@@ -89,17 +89,19 @@ class DefaultsContext(InstanceContext):
         self._solution = { 
             'assistant_sid': assistant_sid,
         }
-        self._uri = '/Assistants/${assistant_sid}/Defaults'.format(**self._solution)
+        self._uri = '/Assistants/{assistant_sid}/Defaults'.format(**self._solution)
         
     
     def fetch(self):
         """
         Fetch the DefaultsInstance
+        
 
         :returns: The fetched DefaultsInstance
         :rtype: twilio.rest.autopilot.v1.assistant.defaults.DefaultsInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return DefaultsInstance(
             self._version,
@@ -120,8 +122,9 @@ class DefaultsContext(InstanceContext):
         data = values.of({ 
             'Defaults': serialize.object(defaults),
         })
+        
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return DefaultsInstance(
             self._version,
@@ -207,6 +210,7 @@ class DefaultsInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the DefaultsInstance
+        
 
         :returns: The fetched DefaultsInstance
         :rtype: twilio.rest.autopilot.v1.assistant.defaults.DefaultsInstance

@@ -40,7 +40,7 @@ class MediaList(ListResource):
 
         # Path Solution
         self._solution = { 'account_sid': account_sid, 'message_sid': message_sid,  }
-        self._uri = '/Accounts/${account_sid}/Messages/${message_sid}/Media.json'.format(**self._solution)
+        self._uri = '/Accounts/{account_sid}/Messages/{message_sid}/Media.json'.format(**self._solution)
         
         
     
@@ -242,26 +242,29 @@ class MediaContext(InstanceContext):
             'message_sid': message_sid,
             'sid': sid,
         }
-        self._uri = '/Accounts/${account_sid}/Messages/${message_sid}/Media/${sid}.json'.format(**self._solution)
+        self._uri = '/Accounts/{account_sid}/Messages/{message_sid}/Media/{sid}.json'.format(**self._solution)
         
     
     def delete(self):
         """
         Deletes the MediaInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
     def fetch(self):
         """
         Fetch the MediaInstance
+        
 
         :returns: The fetched MediaInstance
         :rtype: twilio.rest.api.v2010.account.message.media.MediaInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return MediaInstance(
             self._version,
@@ -377,6 +380,7 @@ class MediaInstance(InstanceResource):
     def delete(self):
         """
         Deletes the MediaInstance
+        
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -386,6 +390,7 @@ class MediaInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the MediaInstance
+        
 
         :returns: The fetched MediaInstance
         :rtype: twilio.rest.api.v2010.account.message.media.MediaInstance

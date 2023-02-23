@@ -48,6 +48,7 @@ class CompositionHookList(ListResource):
     def create(self, friendly_name, enabled=values.unset, video_layout=values.unset, audio_sources=values.unset, audio_sources_excluded=values.unset, resolution=values.unset, format=values.unset, status_callback=values.unset, status_callback_method=values.unset, trim=values.unset):
         """
         Create the CompositionHookInstance
+
         :param str friendly_name: A descriptive string that you create to describe the resource. It can be up to  100 characters long and it must be unique within the account.
         :param bool enabled: Whether the composition hook is active. When `true`, the composition hook will be triggered for every completed Group Room in the account. When `false`, the composition hook will never be triggered.
         :param object video_layout: An object that describes the video layout of the composition hook in terms of regions. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info.
@@ -74,8 +75,9 @@ class CompositionHookList(ListResource):
             'StatusCallbackMethod': status_callback_method,
             'Trim': trim,
         })
+        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return CompositionHookInstance(self._version, payload)
     
     
@@ -283,26 +285,29 @@ class CompositionHookContext(InstanceContext):
         self._solution = { 
             'sid': sid,
         }
-        self._uri = '/CompositionHooks/${sid}'.format(**self._solution)
+        self._uri = '/CompositionHooks/{sid}'.format(**self._solution)
         
     
     def delete(self):
         """
         Deletes the CompositionHookInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
     def fetch(self):
         """
         Fetch the CompositionHookInstance
+        
 
         :returns: The fetched CompositionHookInstance
         :rtype: twilio.rest.video.v1.composition_hook.CompositionHookInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return CompositionHookInstance(
             self._version,
@@ -311,7 +316,7 @@ class CompositionHookContext(InstanceContext):
             
         )
         
-    def update(self, friendly_name=values.unset, enabled=values.unset, video_layout=values.unset, audio_sources=values.unset, audio_sources_excluded=values.unset, trim=values.unset, format=values.unset, resolution=values.unset, status_callback=values.unset, status_callback_method=values.unset):
+    def update(self, friendly_name, enabled=values.unset, video_layout=values.unset, audio_sources=values.unset, audio_sources_excluded=values.unset, trim=values.unset, format=values.unset, resolution=values.unset, status_callback=values.unset, status_callback_method=values.unset):
         """
         Update the CompositionHookInstance
         
@@ -341,8 +346,9 @@ class CompositionHookContext(InstanceContext):
             'StatusCallback': status_callback,
             'StatusCallbackMethod': status_callback_method,
         })
+        
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return CompositionHookInstance(
             self._version,
@@ -527,6 +533,7 @@ class CompositionHookInstance(InstanceResource):
     def delete(self):
         """
         Deletes the CompositionHookInstance
+        
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -536,13 +543,14 @@ class CompositionHookInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the CompositionHookInstance
+        
 
         :returns: The fetched CompositionHookInstance
         :rtype: twilio.rest.video.v1.composition_hook.CompositionHookInstance
         """
         return self._proxy.fetch()
     
-    def update(self, friendly_name=values.unset, enabled=values.unset, video_layout=values.unset, audio_sources=values.unset, audio_sources_excluded=values.unset, trim=values.unset, format=values.unset, resolution=values.unset, status_callback=values.unset, status_callback_method=values.unset):
+    def update(self, friendly_name, enabled=values.unset, video_layout=values.unset, audio_sources=values.unset, audio_sources_excluded=values.unset, trim=values.unset, format=values.unset, resolution=values.unset, status_callback=values.unset, status_callback_method=values.unset):
         """
         Update the CompositionHookInstance
         

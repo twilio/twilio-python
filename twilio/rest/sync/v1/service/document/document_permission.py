@@ -40,7 +40,7 @@ class DocumentPermissionList(ListResource):
 
         # Path Solution
         self._solution = { 'service_sid': service_sid, 'document_sid': document_sid,  }
-        self._uri = '/Services/${service_sid}/Documents/${document_sid}/Permissions'.format(**self._solution)
+        self._uri = '/Services/{service_sid}/Documents/{document_sid}/Permissions'.format(**self._solution)
         
         
     
@@ -227,26 +227,29 @@ class DocumentPermissionContext(InstanceContext):
             'document_sid': document_sid,
             'identity': identity,
         }
-        self._uri = '/Services/${service_sid}/Documents/${document_sid}/Permissions/${identity}'.format(**self._solution)
+        self._uri = '/Services/{service_sid}/Documents/{document_sid}/Permissions/{identity}'.format(**self._solution)
         
     
     def delete(self):
         """
         Deletes the DocumentPermissionInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
     def fetch(self):
         """
         Fetch the DocumentPermissionInstance
+        
 
         :returns: The fetched DocumentPermissionInstance
         :rtype: twilio.rest.sync.v1.service.document.document_permission.DocumentPermissionInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return DocumentPermissionInstance(
             self._version,
@@ -257,7 +260,7 @@ class DocumentPermissionContext(InstanceContext):
             
         )
         
-    def update(self, read=values.unset, write=values.unset, manage=values.unset):
+    def update(self, read, write, manage):
         """
         Update the DocumentPermissionInstance
         
@@ -273,8 +276,9 @@ class DocumentPermissionContext(InstanceContext):
             'Write': write,
             'Manage': manage,
         })
+        
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return DocumentPermissionInstance(
             self._version,
@@ -398,6 +402,7 @@ class DocumentPermissionInstance(InstanceResource):
     def delete(self):
         """
         Deletes the DocumentPermissionInstance
+        
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -407,13 +412,14 @@ class DocumentPermissionInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the DocumentPermissionInstance
+        
 
         :returns: The fetched DocumentPermissionInstance
         :rtype: twilio.rest.sync.v1.service.document.document_permission.DocumentPermissionInstance
         """
         return self._proxy.fetch()
     
-    def update(self, read=values.unset, write=values.unset, manage=values.unset):
+    def update(self, read, write, manage):
         """
         Update the DocumentPermissionInstance
         

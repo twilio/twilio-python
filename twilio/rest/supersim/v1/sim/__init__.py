@@ -49,6 +49,7 @@ class SimList(ListResource):
     def create(self, iccid, registration_code):
         """
         Create the SimInstance
+
         :param str iccid: The [ICCID](https://en.wikipedia.org/wiki/Subscriber_identity_module#ICCID) of the Super SIM to be added to your Account.
         :param str registration_code: The 10-digit code required to claim the Super SIM for your Account.
         
@@ -59,8 +60,9 @@ class SimList(ListResource):
             'Iccid': iccid,
             'RegistrationCode': registration_code,
         })
+        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return SimInstance(self._version, payload)
     
     
@@ -260,7 +262,7 @@ class SimContext(InstanceContext):
         self._solution = { 
             'sid': sid,
         }
-        self._uri = '/Sims/${sid}'.format(**self._solution)
+        self._uri = '/Sims/{sid}'.format(**self._solution)
         
         self._billing_periods = None
         self._sim_ip_addresses = None
@@ -268,11 +270,13 @@ class SimContext(InstanceContext):
     def fetch(self):
         """
         Fetch the SimInstance
+        
 
         :returns: The fetched SimInstance
         :rtype: twilio.rest.supersim.v1.sim.SimInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return SimInstance(
             self._version,
@@ -303,8 +307,9 @@ class SimContext(InstanceContext):
             'CallbackMethod': callback_method,
             'AccountSid': account_sid,
         })
+        
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return SimInstance(
             self._version,
@@ -470,6 +475,7 @@ class SimInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the SimInstance
+        
 
         :returns: The fetched SimInstance
         :rtype: twilio.rest.supersim.v1.sim.SimInstance

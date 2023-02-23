@@ -39,7 +39,7 @@ class DeviceSecretList(ListResource):
 
         # Path Solution
         self._solution = { 'device_sid': device_sid,  }
-        self._uri = '/Devices/${device_sid}/Secrets'.format(**self._solution)
+        self._uri = '/Devices/{device_sid}/Secrets'.format(**self._solution)
         
         
     
@@ -48,6 +48,7 @@ class DeviceSecretList(ListResource):
     def create(self, key, value):
         """
         Create the DeviceSecretInstance
+
         :param str key: The secret key; up to 100 characters.
         :param str value: The secret value; up to 4096 characters.
         
@@ -58,8 +59,9 @@ class DeviceSecretList(ListResource):
             'Key': key,
             'Value': value,
         })
+        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return DeviceSecretInstance(self._version, payload, device_sid=self._solution['device_sid'])
     
     
@@ -242,26 +244,29 @@ class DeviceSecretContext(InstanceContext):
             'device_sid': device_sid,
             'key': key,
         }
-        self._uri = '/Devices/${device_sid}/Secrets/${key}'.format(**self._solution)
+        self._uri = '/Devices/{device_sid}/Secrets/{key}'.format(**self._solution)
         
     
     def delete(self):
         """
         Deletes the DeviceSecretInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
     def fetch(self):
         """
         Fetch the DeviceSecretInstance
+        
 
         :returns: The fetched DeviceSecretInstance
         :rtype: twilio.rest.microvisor.v1.device.device_secret.DeviceSecretInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return DeviceSecretInstance(
             self._version,
@@ -349,6 +354,7 @@ class DeviceSecretInstance(InstanceResource):
     def delete(self):
         """
         Deletes the DeviceSecretInstance
+        
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -358,6 +364,7 @@ class DeviceSecretInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the DeviceSecretInstance
+        
 
         :returns: The fetched DeviceSecretInstance
         :rtype: twilio.rest.microvisor.v1.device.device_secret.DeviceSecretInstance

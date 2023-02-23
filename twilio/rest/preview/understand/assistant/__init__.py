@@ -56,6 +56,7 @@ class AssistantList(ListResource):
     def create(self, friendly_name=values.unset, log_queries=values.unset, unique_name=values.unset, callback_url=values.unset, callback_events=values.unset, fallback_actions=values.unset, initiation_actions=values.unset, style_sheet=values.unset):
         """
         Create the AssistantInstance
+
         :param str friendly_name: A text description for the Assistant. It is non-unique and can up to 255 characters long.
         :param bool log_queries: A boolean that specifies whether queries should be logged for 30 days further training. If false, no queries will be stored, if true, queries will be stored for 30 days and deleted thereafter. Defaults to true if no value is provided.
         :param str unique_name: A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
@@ -78,8 +79,9 @@ class AssistantList(ListResource):
             'InitiationActions': serialize.object(initiation_actions),
             'StyleSheet': serialize.object(style_sheet),
         })
+        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return AssistantInstance(self._version, payload)
     
     
@@ -263,7 +265,7 @@ class AssistantContext(InstanceContext):
         self._solution = { 
             'sid': sid,
         }
-        self._uri = '/Assistants/${sid}'.format(**self._solution)
+        self._uri = '/Assistants/{sid}'.format(**self._solution)
         
         self._assistant_fallback_actions = None
         self._assistant_initiation_actions = None
@@ -278,19 +280,22 @@ class AssistantContext(InstanceContext):
         """
         Deletes the AssistantInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
     def fetch(self):
         """
         Fetch the AssistantInstance
+        
 
         :returns: The fetched AssistantInstance
         :rtype: twilio.rest.preview.understand.assistant.AssistantInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return AssistantInstance(
             self._version,
@@ -325,8 +330,9 @@ class AssistantContext(InstanceContext):
             'InitiationActions': serialize.object(initiation_actions),
             'StyleSheet': serialize.object(style_sheet),
         })
+        
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return AssistantInstance(
             self._version,
@@ -588,6 +594,7 @@ class AssistantInstance(InstanceResource):
     def delete(self):
         """
         Deletes the AssistantInstance
+        
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -597,6 +604,7 @@ class AssistantInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the AssistantInstance
+        
 
         :returns: The fetched AssistantInstance
         :rtype: twilio.rest.preview.understand.assistant.AssistantInstance

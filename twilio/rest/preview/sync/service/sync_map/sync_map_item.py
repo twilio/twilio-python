@@ -40,7 +40,7 @@ class SyncMapItemList(ListResource):
 
         # Path Solution
         self._solution = { 'service_sid': service_sid, 'map_sid': map_sid,  }
-        self._uri = '/Services/${service_sid}/Maps/${map_sid}/Items'.format(**self._solution)
+        self._uri = '/Services/{service_sid}/Maps/{map_sid}/Items'.format(**self._solution)
         
         
     
@@ -50,6 +50,7 @@ class SyncMapItemList(ListResource):
     def create(self, key, data):
         """
         Create the SyncMapItemInstance
+
         :param str key: 
         :param object data: 
         
@@ -60,8 +61,9 @@ class SyncMapItemList(ListResource):
             'Key': key,
             'Data': serialize.object(data),
         })
+        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return SyncMapItemInstance(self._version, payload, service_sid=self._solution['service_sid'], map_sid=self._solution['map_sid'])
     
     
@@ -265,26 +267,32 @@ class SyncMapItemContext(InstanceContext):
             'map_sid': map_sid,
             'key': key,
         }
-        self._uri = '/Services/${service_sid}/Maps/${map_sid}/Items/${key}'.format(**self._solution)
+        self._uri = '/Services/{service_sid}/Maps/{map_sid}/Items/{key}'.format(**self._solution)
         
     
     def delete(self, if_match=values.unset):
         """
         Deletes the SyncMapItemInstance
 
+        :param str if_match: The If-Match HTTP request header
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        headers = values.of({'If-Match': if_match, })
+        
+        return self._version.delete(method='DELETE', uri=self._uri, headers=headers)
         
     def fetch(self):
         """
         Fetch the SyncMapItemInstance
+        
 
         :returns: The fetched SyncMapItemInstance
         :rtype: twilio.rest.preview.sync.service.sync_map.sync_map_item.SyncMapItemInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return SyncMapItemInstance(
             self._version,
@@ -295,7 +303,7 @@ class SyncMapItemContext(InstanceContext):
             
         )
         
-    def update(self, data=values.unset, if_match=values.unset):
+    def update(self, data, if_match=values.unset):
         """
         Update the SyncMapItemInstance
         
@@ -307,10 +315,10 @@ class SyncMapItemContext(InstanceContext):
         """
         data = values.of({ 
             'Data': serialize.object(data),
-            'If-Match': if_match,
         })
+        headers = values.of({'If-Match': if_match, })
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data, headers=headers)
 
         return SyncMapItemInstance(
             self._version,
@@ -452,22 +460,25 @@ class SyncMapItemInstance(InstanceResource):
     def delete(self, if_match=values.unset):
         """
         Deletes the SyncMapItemInstance
+        
+        :params str if_match: The If-Match HTTP request header
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._proxy.delete()
+        return self._proxy.delete(if_match=if_match, )
     
     def fetch(self):
         """
         Fetch the SyncMapItemInstance
+        
 
         :returns: The fetched SyncMapItemInstance
         :rtype: twilio.rest.preview.sync.service.sync_map.sync_map_item.SyncMapItemInstance
         """
         return self._proxy.fetch()
     
-    def update(self, data=values.unset, if_match=values.unset):
+    def update(self, data, if_match=values.unset):
         """
         Update the SyncMapItemInstance
         

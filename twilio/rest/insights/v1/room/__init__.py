@@ -248,18 +248,20 @@ class RoomContext(InstanceContext):
         self._solution = { 
             'room_sid': room_sid,
         }
-        self._uri = '/Video/Rooms/${room_sid}'.format(**self._solution)
+        self._uri = '/Video/Rooms/{room_sid}'.format(**self._solution)
         
         self._participants = None
     
     def fetch(self):
         """
         Fetch the RoomInstance
+        
 
         :returns: The fetched RoomInstance
         :rtype: twilio.rest.insights.v1.room.RoomInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return RoomInstance(
             self._version,
@@ -557,6 +559,7 @@ class RoomInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the RoomInstance
+        
 
         :returns: The fetched RoomInstance
         :rtype: twilio.rest.insights.v1.room.RoomInstance

@@ -218,18 +218,20 @@ class AvailableAddOnContext(InstanceContext):
         self._solution = { 
             'sid': sid,
         }
-        self._uri = '/AvailableAddOns/${sid}'.format(**self._solution)
+        self._uri = '/AvailableAddOns/{sid}'.format(**self._solution)
         
         self._extensions = None
     
     def fetch(self):
         """
         Fetch the AvailableAddOnInstance
+        
 
         :returns: The fetched AvailableAddOnInstance
         :rtype: twilio.rest.preview.marketplace.available_add_on.AvailableAddOnInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return AvailableAddOnInstance(
             self._version,
@@ -356,6 +358,7 @@ class AvailableAddOnInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the AvailableAddOnInstance
+        
 
         :returns: The fetched AvailableAddOnInstance
         :rtype: twilio.rest.preview.marketplace.available_add_on.AvailableAddOnInstance

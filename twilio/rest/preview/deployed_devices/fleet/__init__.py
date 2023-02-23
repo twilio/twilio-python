@@ -52,6 +52,7 @@ class FleetList(ListResource):
     def create(self, friendly_name=values.unset):
         """
         Create the FleetInstance
+
         :param str friendly_name: Provides a human readable descriptive text for this Fleet, up to 256 characters long.
         
         :returns: The created FleetInstance
@@ -60,8 +61,9 @@ class FleetList(ListResource):
         data = values.of({ 
             'FriendlyName': friendly_name,
         })
+        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return FleetInstance(self._version, payload)
     
     
@@ -245,7 +247,7 @@ class FleetContext(InstanceContext):
         self._solution = { 
             'sid': sid,
         }
-        self._uri = '/Fleets/${sid}'.format(**self._solution)
+        self._uri = '/Fleets/{sid}'.format(**self._solution)
         
         self._certificates = None
         self._deployments = None
@@ -256,19 +258,22 @@ class FleetContext(InstanceContext):
         """
         Deletes the FleetInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
     def fetch(self):
         """
         Fetch the FleetInstance
+        
 
         :returns: The fetched FleetInstance
         :rtype: twilio.rest.preview.deployed_devices.fleet.FleetInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return FleetInstance(
             self._version,
@@ -291,8 +296,9 @@ class FleetContext(InstanceContext):
             'FriendlyName': friendly_name,
             'DefaultDeploymentSid': default_deployment_sid,
         })
+        
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return FleetInstance(
             self._version,
@@ -475,6 +481,7 @@ class FleetInstance(InstanceResource):
     def delete(self):
         """
         Deletes the FleetInstance
+        
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -484,6 +491,7 @@ class FleetInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the FleetInstance
+        
 
         :returns: The fetched FleetInstance
         :rtype: twilio.rest.preview.deployed_devices.fleet.FleetInstance

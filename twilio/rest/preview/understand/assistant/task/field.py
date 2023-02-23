@@ -40,7 +40,7 @@ class FieldList(ListResource):
 
         # Path Solution
         self._solution = { 'assistant_sid': assistant_sid, 'task_sid': task_sid,  }
-        self._uri = '/Assistants/${assistant_sid}/Tasks/${task_sid}/Fields'.format(**self._solution)
+        self._uri = '/Assistants/{assistant_sid}/Tasks/{task_sid}/Fields'.format(**self._solution)
         
         
     
@@ -49,6 +49,7 @@ class FieldList(ListResource):
     def create(self, field_type, unique_name):
         """
         Create the FieldInstance
+
         :param str field_type: The unique name or sid of the FieldType. It can be any [Built-in Field Type](https://www.twilio.com/docs/assistant/api/built-in-field-types) or the unique_name or the Field Type sid of a custom Field Type.
         :param str unique_name: A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
         
@@ -59,8 +60,9 @@ class FieldList(ListResource):
             'FieldType': field_type,
             'UniqueName': unique_name,
         })
+        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return FieldInstance(self._version, payload, assistant_sid=self._solution['assistant_sid'], task_sid=self._solution['task_sid'])
     
     
@@ -244,26 +246,29 @@ class FieldContext(InstanceContext):
             'task_sid': task_sid,
             'sid': sid,
         }
-        self._uri = '/Assistants/${assistant_sid}/Tasks/${task_sid}/Fields/${sid}'.format(**self._solution)
+        self._uri = '/Assistants/{assistant_sid}/Tasks/{task_sid}/Fields/{sid}'.format(**self._solution)
         
     
     def delete(self):
         """
         Deletes the FieldInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
     def fetch(self):
         """
         Fetch the FieldInstance
+        
 
         :returns: The fetched FieldInstance
         :rtype: twilio.rest.preview.understand.assistant.task.field.FieldInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return FieldInstance(
             self._version,
@@ -397,6 +402,7 @@ class FieldInstance(InstanceResource):
     def delete(self):
         """
         Deletes the FieldInstance
+        
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -406,6 +412,7 @@ class FieldInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the FieldInstance
+        
 
         :returns: The fetched FieldInstance
         :rtype: twilio.rest.preview.understand.assistant.task.field.FieldInstance

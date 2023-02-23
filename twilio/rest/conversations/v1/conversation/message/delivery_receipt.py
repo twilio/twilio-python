@@ -40,7 +40,7 @@ class DeliveryReceiptList(ListResource):
 
         # Path Solution
         self._solution = { 'conversation_sid': conversation_sid, 'message_sid': message_sid,  }
-        self._uri = '/Conversations/${conversation_sid}/Messages/${message_sid}/Receipts'.format(**self._solution)
+        self._uri = '/Conversations/{conversation_sid}/Messages/{message_sid}/Receipts'.format(**self._solution)
         
         
     
@@ -221,17 +221,19 @@ class DeliveryReceiptContext(InstanceContext):
             'message_sid': message_sid,
             'sid': sid,
         }
-        self._uri = '/Conversations/${conversation_sid}/Messages/${message_sid}/Receipts/${sid}'.format(**self._solution)
+        self._uri = '/Conversations/{conversation_sid}/Messages/{message_sid}/Receipts/{sid}'.format(**self._solution)
         
     
     def fetch(self):
         """
         Fetch the DeliveryReceiptInstance
+        
 
         :returns: The fetched DeliveryReceiptInstance
         :rtype: twilio.rest.conversations.v1.conversation.message.delivery_receipt.DeliveryReceiptInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return DeliveryReceiptInstance(
             self._version,
@@ -383,6 +385,7 @@ class DeliveryReceiptInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the DeliveryReceiptInstance
+        
 
         :returns: The fetched DeliveryReceiptInstance
         :rtype: twilio.rest.conversations.v1.conversation.message.delivery_receipt.DeliveryReceiptInstance

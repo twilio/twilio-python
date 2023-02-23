@@ -48,6 +48,7 @@ class HostedNumberOrderList(ListResource):
     def create(self, phone_number, sms_capability, account_sid=values.unset, friendly_name=values.unset, unique_name=values.unset, cc_emails=values.unset, sms_url=values.unset, sms_method=values.unset, sms_fallback_url=values.unset, sms_fallback_method=values.unset, status_callback_url=values.unset, status_callback_method=values.unset, sms_application_sid=values.unset, address_sid=values.unset, email=values.unset, verification_type=values.unset, verification_document_sid=values.unset):
         """
         Create the HostedNumberOrderInstance
+
         :param str phone_number: The number to host in [+E.164](https://en.wikipedia.org/wiki/E.164) format
         :param bool sms_capability: Used to specify that the SMS capability will be hosted on Twilio's platform.
         :param str account_sid: This defaults to the AccountSid of the authorization the user is using. This can be provided to specify a subaccount to add the HostedNumberOrder to.
@@ -88,8 +89,9 @@ class HostedNumberOrderList(ListResource):
             'VerificationType': verification_type,
             'VerificationDocumentSid': verification_document_sid,
         })
+        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return HostedNumberOrderInstance(self._version, payload)
     
     
@@ -303,26 +305,29 @@ class HostedNumberOrderContext(InstanceContext):
         self._solution = { 
             'sid': sid,
         }
-        self._uri = '/HostedNumberOrders/${sid}'.format(**self._solution)
+        self._uri = '/HostedNumberOrders/{sid}'.format(**self._solution)
         
     
     def delete(self):
         """
         Deletes the HostedNumberOrderInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
     def fetch(self):
         """
         Fetch the HostedNumberOrderInstance
+        
 
         :returns: The fetched HostedNumberOrderInstance
         :rtype: twilio.rest.preview.hosted_numbers.hosted_number_order.HostedNumberOrderInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return HostedNumberOrderInstance(
             self._version,
@@ -361,8 +366,9 @@ class HostedNumberOrderContext(InstanceContext):
             'Extension': extension,
             'CallDelay': call_delay,
         })
+        
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return HostedNumberOrderInstance(
             self._version,
@@ -619,6 +625,7 @@ class HostedNumberOrderInstance(InstanceResource):
     def delete(self):
         """
         Deletes the HostedNumberOrderInstance
+        
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -628,6 +635,7 @@ class HostedNumberOrderInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the HostedNumberOrderInstance
+        
 
         :returns: The fetched HostedNumberOrderInstance
         :rtype: twilio.rest.preview.hosted_numbers.hosted_number_order.HostedNumberOrderInstance

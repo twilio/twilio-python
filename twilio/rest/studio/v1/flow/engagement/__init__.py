@@ -41,7 +41,7 @@ class EngagementList(ListResource):
 
         # Path Solution
         self._solution = { 'flow_sid': flow_sid,  }
-        self._uri = '/Flows/${flow_sid}/Engagements'.format(**self._solution)
+        self._uri = '/Flows/{flow_sid}/Engagements'.format(**self._solution)
         
         
     
@@ -50,6 +50,7 @@ class EngagementList(ListResource):
     def create(self, to, from_, parameters=values.unset):
         """
         Create the EngagementInstance
+
         :param str to: The Contact phone number to start a Studio Flow Engagement, available as variable `{{contact.channel.address}}`.
         :param str from_: The Twilio phone number to send messages or initiate calls from during the Flow Engagement. Available as variable `{{flow.channel.address}}`
         :param object parameters: A JSON string we will add to your flow's context and that you can access as variables inside your flow. For example, if you pass in `Parameters={'name':'Zeke'}` then inside a widget you can reference the variable `{{flow.data.name}}` which will return the string 'Zeke'. Note: the JSON value must explicitly be passed as a string, not as a hash object. Depending on your particular HTTP library, you may need to add quotes or URL encode your JSON string.
@@ -62,8 +63,9 @@ class EngagementList(ListResource):
             'From': from_,
             'Parameters': serialize.object(parameters),
         })
+        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return EngagementInstance(self._version, payload, flow_sid=self._solution['flow_sid'])
     
     
@@ -246,7 +248,7 @@ class EngagementContext(InstanceContext):
             'flow_sid': flow_sid,
             'sid': sid,
         }
-        self._uri = '/Flows/${flow_sid}/Engagements/${sid}'.format(**self._solution)
+        self._uri = '/Flows/{flow_sid}/Engagements/{sid}'.format(**self._solution)
         
         self._engagement_context = None
         self._steps = None
@@ -255,19 +257,22 @@ class EngagementContext(InstanceContext):
         """
         Deletes the EngagementInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
     def fetch(self):
         """
         Fetch the EngagementInstance
+        
 
         :returns: The fetched EngagementInstance
         :rtype: twilio.rest.studio.v1.flow.engagement.EngagementInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return EngagementInstance(
             self._version,
@@ -444,6 +449,7 @@ class EngagementInstance(InstanceResource):
     def delete(self):
         """
         Deletes the EngagementInstance
+        
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -453,6 +459,7 @@ class EngagementInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the EngagementInstance
+        
 
         :returns: The fetched EngagementInstance
         :rtype: twilio.rest.studio.v1.flow.engagement.EngagementInstance

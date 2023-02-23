@@ -39,7 +39,7 @@ class CustomerProfilesEntityAssignmentsList(ListResource):
 
         # Path Solution
         self._solution = { 'customer_profile_sid': customer_profile_sid,  }
-        self._uri = '/CustomerProfiles/${customer_profile_sid}/EntityAssignments'.format(**self._solution)
+        self._uri = '/CustomerProfiles/{customer_profile_sid}/EntityAssignments'.format(**self._solution)
         
         
     
@@ -48,6 +48,7 @@ class CustomerProfilesEntityAssignmentsList(ListResource):
     def create(self, object_sid):
         """
         Create the CustomerProfilesEntityAssignmentsInstance
+
         :param str object_sid: The SID of an object bag that holds information of the different items.
         
         :returns: The created CustomerProfilesEntityAssignmentsInstance
@@ -56,8 +57,9 @@ class CustomerProfilesEntityAssignmentsList(ListResource):
         data = values.of({ 
             'ObjectSid': object_sid,
         })
+        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return CustomerProfilesEntityAssignmentsInstance(self._version, payload, customer_profile_sid=self._solution['customer_profile_sid'])
     
     
@@ -240,26 +242,29 @@ class CustomerProfilesEntityAssignmentsContext(InstanceContext):
             'customer_profile_sid': customer_profile_sid,
             'sid': sid,
         }
-        self._uri = '/CustomerProfiles/${customer_profile_sid}/EntityAssignments/${sid}'.format(**self._solution)
+        self._uri = '/CustomerProfiles/{customer_profile_sid}/EntityAssignments/{sid}'.format(**self._solution)
         
     
     def delete(self):
         """
         Deletes the CustomerProfilesEntityAssignmentsInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
     def fetch(self):
         """
         Fetch the CustomerProfilesEntityAssignmentsInstance
+        
 
         :returns: The fetched CustomerProfilesEntityAssignmentsInstance
         :rtype: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_entity_assignments.CustomerProfilesEntityAssignmentsInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return CustomerProfilesEntityAssignmentsInstance(
             self._version,
@@ -365,6 +370,7 @@ class CustomerProfilesEntityAssignmentsInstance(InstanceResource):
     def delete(self):
         """
         Deletes the CustomerProfilesEntityAssignmentsInstance
+        
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -374,6 +380,7 @@ class CustomerProfilesEntityAssignmentsInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the CustomerProfilesEntityAssignmentsInstance
+        
 
         :returns: The fetched CustomerProfilesEntityAssignmentsInstance
         :rtype: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_entity_assignments.CustomerProfilesEntityAssignmentsInstance

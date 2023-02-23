@@ -92,17 +92,19 @@ class PhoneNumberContext(InstanceContext):
         self._solution = { 
             'phone_number': phone_number,
         }
-        self._uri = '/PhoneNumbers/${phone_number}'.format(**self._solution)
+        self._uri = '/PhoneNumbers/{phone_number}'.format(**self._solution)
         
     
     def fetch(self):
         """
         Fetch the PhoneNumberInstance
+        
 
         :returns: The fetched PhoneNumberInstance
         :rtype: twilio.rest.routes.v2.phone_number.PhoneNumberInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return PhoneNumberInstance(
             self._version,
@@ -125,8 +127,9 @@ class PhoneNumberContext(InstanceContext):
             'VoiceRegion': voice_region,
             'FriendlyName': friendly_name,
         })
+        
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return PhoneNumberInstance(
             self._version,
@@ -248,6 +251,7 @@ class PhoneNumberInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the PhoneNumberInstance
+        
 
         :returns: The fetched PhoneNumberInstance
         :rtype: twilio.rest.routes.v2.phone_number.PhoneNumberInstance

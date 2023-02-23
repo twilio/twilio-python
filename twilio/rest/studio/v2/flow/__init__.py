@@ -51,6 +51,7 @@ class FlowList(ListResource):
     def create(self, friendly_name, status, definition, commit_message=values.unset):
         """
         Create the FlowInstance
+
         :param str friendly_name: The string that you assigned to describe the Flow.
         :param FlowStatus status: 
         :param object definition: JSON representation of flow definition.
@@ -65,8 +66,9 @@ class FlowList(ListResource):
             'Definition': serialize.object(definition),
             'CommitMessage': commit_message,
         })
+        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return FlowInstance(self._version, payload)
     
     
@@ -250,7 +252,7 @@ class FlowContext(InstanceContext):
         self._solution = { 
             'sid': sid,
         }
-        self._uri = '/Flows/${sid}'.format(**self._solution)
+        self._uri = '/Flows/{sid}'.format(**self._solution)
         
         self._executions = None
         self._revisions = None
@@ -260,19 +262,22 @@ class FlowContext(InstanceContext):
         """
         Deletes the FlowInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
     def fetch(self):
         """
         Fetch the FlowInstance
+        
 
         :returns: The fetched FlowInstance
         :rtype: twilio.rest.studio.v2.flow.FlowInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return FlowInstance(
             self._version,
@@ -281,7 +286,7 @@ class FlowContext(InstanceContext):
             
         )
         
-    def update(self, status=values.unset, friendly_name=values.unset, definition=values.unset, commit_message=values.unset):
+    def update(self, status, friendly_name=values.unset, definition=values.unset, commit_message=values.unset):
         """
         Update the FlowInstance
         
@@ -299,8 +304,9 @@ class FlowContext(InstanceContext):
             'Definition': serialize.object(definition),
             'CommitMessage': commit_message,
         })
+        
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return FlowInstance(
             self._version,
@@ -524,6 +530,7 @@ class FlowInstance(InstanceResource):
     def delete(self):
         """
         Deletes the FlowInstance
+        
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -533,13 +540,14 @@ class FlowInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the FlowInstance
+        
 
         :returns: The fetched FlowInstance
         :rtype: twilio.rest.studio.v2.flow.FlowInstance
         """
         return self._proxy.fetch()
     
-    def update(self, status=values.unset, friendly_name=values.unset, definition=values.unset, commit_message=values.unset):
+    def update(self, status, friendly_name=values.unset, definition=values.unset, commit_message=values.unset):
         """
         Update the FlowInstance
         

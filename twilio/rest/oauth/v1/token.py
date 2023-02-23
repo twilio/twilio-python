@@ -45,6 +45,7 @@ class TokenList(ListResource):
     def create(self, grant_type, client_sid, client_secret=values.unset, code=values.unset, code_verifier=values.unset, device_code=values.unset, refresh_token=values.unset, device_id=values.unset):
         """
         Create the TokenInstance
+
         :param str grant_type: Grant type is a credential representing resource owner's authorization which can be used by client to obtain access token.
         :param str client_sid: A 34 character string that uniquely identifies this OAuth App.
         :param str client_secret: The credential for confidential OAuth App.
@@ -67,8 +68,9 @@ class TokenList(ListResource):
             'RefreshToken': refresh_token,
             'DeviceId': device_id,
         })
+        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return TokenInstance(self._version, payload)
     
 

@@ -43,7 +43,7 @@ class ParticipantList(ListResource):
 
         # Path Solution
         self._solution = { 'room_sid': room_sid,  }
-        self._uri = '/Rooms/${room_sid}/Participants'.format(**self._solution)
+        self._uri = '/Rooms/{room_sid}/Participants'.format(**self._solution)
         
         
     
@@ -250,7 +250,7 @@ class ParticipantContext(InstanceContext):
             'room_sid': room_sid,
             'sid': sid,
         }
-        self._uri = '/Rooms/${room_sid}/Participants/${sid}'.format(**self._solution)
+        self._uri = '/Rooms/{room_sid}/Participants/{sid}'.format(**self._solution)
         
         self._anonymize = None
         self._published_tracks = None
@@ -260,11 +260,13 @@ class ParticipantContext(InstanceContext):
     def fetch(self):
         """
         Fetch the ParticipantInstance
+        
 
         :returns: The fetched ParticipantInstance
         :rtype: twilio.rest.video.v1.room.participant.ParticipantInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return ParticipantInstance(
             self._version,
@@ -286,8 +288,9 @@ class ParticipantContext(InstanceContext):
         data = values.of({ 
             'Status': status,
         })
+        
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return ParticipantInstance(
             self._version,
@@ -498,6 +501,7 @@ class ParticipantInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the ParticipantInstance
+        
 
         :returns: The fetched ParticipantInstance
         :rtype: twilio.rest.video.v1.room.participant.ParticipantInstance

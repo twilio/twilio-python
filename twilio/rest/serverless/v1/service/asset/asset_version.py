@@ -40,7 +40,7 @@ class AssetVersionList(ListResource):
 
         # Path Solution
         self._solution = { 'service_sid': service_sid, 'asset_sid': asset_sid,  }
-        self._uri = '/Services/${service_sid}/Assets/${asset_sid}/Versions'.format(**self._solution)
+        self._uri = '/Services/{service_sid}/Assets/{asset_sid}/Versions'.format(**self._solution)
         
         
     
@@ -221,17 +221,19 @@ class AssetVersionContext(InstanceContext):
             'asset_sid': asset_sid,
             'sid': sid,
         }
-        self._uri = '/Services/${service_sid}/Assets/${asset_sid}/Versions/${sid}'.format(**self._solution)
+        self._uri = '/Services/{service_sid}/Assets/{asset_sid}/Versions/{sid}'.format(**self._solution)
         
     
     def fetch(self):
         """
         Fetch the AssetVersionInstance
+        
 
         :returns: The fetched AssetVersionInstance
         :rtype: twilio.rest.serverless.v1.service.asset.asset_version.AssetVersionInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return AssetVersionInstance(
             self._version,
@@ -356,6 +358,7 @@ class AssetVersionInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the AssetVersionInstance
+        
 
         :returns: The fetched AssetVersionInstance
         :rtype: twilio.rest.serverless.v1.service.asset.asset_version.AssetVersionInstance

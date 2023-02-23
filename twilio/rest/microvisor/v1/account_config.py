@@ -47,6 +47,7 @@ class AccountConfigList(ListResource):
     def create(self, key, value):
         """
         Create the AccountConfigInstance
+
         :param str key: The config key; up to 100 characters.
         :param str value: The config value;  up to 4096 characters.
         
@@ -57,8 +58,9 @@ class AccountConfigList(ListResource):
             'Key': key,
             'Value': value,
         })
+        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return AccountConfigInstance(self._version, payload)
     
     
@@ -240,26 +242,29 @@ class AccountConfigContext(InstanceContext):
         self._solution = { 
             'key': key,
         }
-        self._uri = '/Configs/${key}'.format(**self._solution)
+        self._uri = '/Configs/{key}'.format(**self._solution)
         
     
     def delete(self):
         """
         Deletes the AccountConfigInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
     def fetch(self):
         """
         Fetch the AccountConfigInstance
+        
 
         :returns: The fetched AccountConfigInstance
         :rtype: twilio.rest.microvisor.v1.account_config.AccountConfigInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return AccountConfigInstance(
             self._version,
@@ -346,6 +351,7 @@ class AccountConfigInstance(InstanceResource):
     def delete(self):
         """
         Deletes the AccountConfigInstance
+        
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -355,6 +361,7 @@ class AccountConfigInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the AccountConfigInstance
+        
 
         :returns: The fetched AccountConfigInstance
         :rtype: twilio.rest.microvisor.v1.account_config.AccountConfigInstance

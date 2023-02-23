@@ -89,17 +89,19 @@ class RecordingContext(InstanceContext):
         self._solution = { 
             'trunk_sid': trunk_sid,
         }
-        self._uri = '/Trunks/${trunk_sid}/Recording'.format(**self._solution)
+        self._uri = '/Trunks/{trunk_sid}/Recording'.format(**self._solution)
         
     
     def fetch(self):
         """
         Fetch the RecordingInstance
+        
 
         :returns: The fetched RecordingInstance
         :rtype: twilio.rest.trunking.v1.trunk.recording.RecordingInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return RecordingInstance(
             self._version,
@@ -122,8 +124,9 @@ class RecordingContext(InstanceContext):
             'Mode': mode,
             'Trim': trim,
         })
+        
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return RecordingInstance(
             self._version,
@@ -191,6 +194,7 @@ class RecordingInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the RecordingInstance
+        
 
         :returns: The fetched RecordingInstance
         :rtype: twilio.rest.trunking.v1.trunk.recording.RecordingInstance

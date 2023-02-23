@@ -39,13 +39,14 @@ class BundleCopyList(ListResource):
 
         # Path Solution
         self._solution = { 'bundle_sid': bundle_sid,  }
-        self._uri = '/RegulatoryCompliance/Bundles/${bundle_sid}/Copies'.format(**self._solution)
+        self._uri = '/RegulatoryCompliance/Bundles/{bundle_sid}/Copies'.format(**self._solution)
         
         
     
     def create(self, friendly_name=values.unset):
         """
         Create the BundleCopyInstance
+
         :param str friendly_name: The string that you assigned to describe the copied bundle.
         
         :returns: The created BundleCopyInstance
@@ -54,8 +55,9 @@ class BundleCopyList(ListResource):
         data = values.of({ 
             'FriendlyName': friendly_name,
         })
+        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return BundleCopyInstance(self._version, payload, bundle_sid=self._solution['bundle_sid'])
     
     

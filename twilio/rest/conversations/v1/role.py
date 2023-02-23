@@ -48,6 +48,7 @@ class RoleList(ListResource):
     def create(self, friendly_name, type, permission):
         """
         Create the RoleInstance
+
         :param str friendly_name: A descriptive string that you create to describe the new resource. It can be up to 64 characters long.
         :param RoleRoleType type: 
         :param list[str] permission: A permission that you grant to the new role. Only one permission can be granted per parameter. To assign more than one permission, repeat this parameter for each permission value. The values for this parameter depend on the role's `type`.
@@ -60,8 +61,9 @@ class RoleList(ListResource):
             'Type': type,
             'Permission': serialize.map(permission, lambda e: e),
         })
+        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return RoleInstance(self._version, payload)
     
     
@@ -245,26 +247,29 @@ class RoleContext(InstanceContext):
         self._solution = { 
             'sid': sid,
         }
-        self._uri = '/Roles/${sid}'.format(**self._solution)
+        self._uri = '/Roles/{sid}'.format(**self._solution)
         
     
     def delete(self):
         """
         Deletes the RoleInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
     def fetch(self):
         """
         Fetch the RoleInstance
+        
 
         :returns: The fetched RoleInstance
         :rtype: twilio.rest.conversations.v1.role.RoleInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return RoleInstance(
             self._version,
@@ -273,7 +278,7 @@ class RoleContext(InstanceContext):
             
         )
         
-    def update(self, permission=values.unset):
+    def update(self, permission):
         """
         Update the RoleInstance
         
@@ -285,8 +290,9 @@ class RoleContext(InstanceContext):
         data = values.of({ 
             'Permission': serialize.map(permission, lambda e: e),
         })
+        
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return RoleInstance(
             self._version,
@@ -417,6 +423,7 @@ class RoleInstance(InstanceResource):
     def delete(self):
         """
         Deletes the RoleInstance
+        
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -426,13 +433,14 @@ class RoleInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the RoleInstance
+        
 
         :returns: The fetched RoleInstance
         :rtype: twilio.rest.conversations.v1.role.RoleInstance
         """
         return self._proxy.fetch()
     
-    def update(self, permission=values.unset):
+    def update(self, permission):
         """
         Update the RoleInstance
         

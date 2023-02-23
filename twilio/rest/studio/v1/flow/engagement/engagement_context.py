@@ -90,17 +90,19 @@ class EngagementContextContext(InstanceContext):
             'flow_sid': flow_sid,
             'engagement_sid': engagement_sid,
         }
-        self._uri = '/Flows/${flow_sid}/Engagements/${engagement_sid}/Context'.format(**self._solution)
+        self._uri = '/Flows/{flow_sid}/Engagements/{engagement_sid}/Context'.format(**self._solution)
         
     
     def fetch(self):
         """
         Fetch the EngagementContextInstance
+        
 
         :returns: The fetched EngagementContextInstance
         :rtype: twilio.rest.studio.v1.flow.engagement.engagement_context.EngagementContextInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return EngagementContextInstance(
             self._version,
@@ -197,6 +199,7 @@ class EngagementContextInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the EngagementContextInstance
+        
 
         :returns: The fetched EngagementContextInstance
         :rtype: twilio.rest.studio.v1.flow.engagement.engagement_context.EngagementContextInstance

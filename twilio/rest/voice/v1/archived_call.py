@@ -96,17 +96,18 @@ class ArchivedCallContext(InstanceContext):
             'date': date,
             'sid': sid,
         }
-        self._uri = '/Archives/${date}/Calls/${sid}'.format(**self._solution)
+        self._uri = '/Archives/{date}/Calls/{sid}'.format(**self._solution)
         
     
     def delete(self):
         """
         Deletes the ArchivedCallInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
     
     def __repr__(self):

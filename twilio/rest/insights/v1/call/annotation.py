@@ -89,17 +89,19 @@ class AnnotationContext(InstanceContext):
         self._solution = { 
             'call_sid': call_sid,
         }
-        self._uri = '/Voice/${call_sid}/Annotation'.format(**self._solution)
+        self._uri = '/Voice/{call_sid}/Annotation'.format(**self._solution)
         
     
     def fetch(self):
         """
         Fetch the AnnotationInstance
+        
 
         :returns: The fetched AnnotationInstance
         :rtype: twilio.rest.insights.v1.call.annotation.AnnotationInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return AnnotationInstance(
             self._version,
@@ -132,8 +134,9 @@ class AnnotationContext(InstanceContext):
             'Comment': comment,
             'Incident': incident,
         })
+        
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return AnnotationInstance(
             self._version,
@@ -273,6 +276,7 @@ class AnnotationInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the AnnotationInstance
+        
 
         :returns: The fetched AnnotationInstance
         :rtype: twilio.rest.insights.v1.call.annotation.AnnotationInstance

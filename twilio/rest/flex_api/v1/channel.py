@@ -47,6 +47,7 @@ class ChannelList(ListResource):
     def create(self, flex_flow_sid, identity, chat_user_friendly_name, chat_friendly_name, target=values.unset, chat_unique_name=values.unset, pre_engagement_data=values.unset, task_sid=values.unset, task_attributes=values.unset, long_lived=values.unset):
         """
         Create the ChannelInstance
+
         :param str flex_flow_sid: The SID of the Flex Flow.
         :param str identity: The `identity` value that uniquely identifies the new resource's chat User.
         :param str chat_user_friendly_name: The chat participant's friendly name.
@@ -73,8 +74,9 @@ class ChannelList(ListResource):
             'TaskAttributes': task_attributes,
             'LongLived': long_lived,
         })
+        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return ChannelInstance(self._version, payload)
     
     
@@ -256,26 +258,29 @@ class ChannelContext(InstanceContext):
         self._solution = { 
             'sid': sid,
         }
-        self._uri = '/Channels/${sid}'.format(**self._solution)
+        self._uri = '/Channels/{sid}'.format(**self._solution)
         
     
     def delete(self):
         """
         Deletes the ChannelInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
     def fetch(self):
         """
         Fetch the ChannelInstance
+        
 
         :returns: The fetched ChannelInstance
         :rtype: twilio.rest.flex_api.v1.channel.ChannelInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return ChannelInstance(
             self._version,
@@ -398,6 +403,7 @@ class ChannelInstance(InstanceResource):
     def delete(self):
         """
         Deletes the ChannelInstance
+        
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -407,6 +413,7 @@ class ChannelInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the ChannelInstance
+        
 
         :returns: The fetched ChannelInstance
         :rtype: twilio.rest.flex_api.v1.channel.ChannelInstance

@@ -41,7 +41,7 @@ class UsageList(ListResource):
 
         # Path Solution
         self._solution = { 'account_sid': account_sid,  }
-        self._uri = '/Accounts/${account_sid}/Usage.json'.format(**self._solution)
+        self._uri = '/Accounts/{account_sid}/Usage.json'.format(**self._solution)
         
         self._records = None
         self._triggers = None

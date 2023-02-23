@@ -42,7 +42,7 @@ class DomainList(ListResource):
 
         # Path Solution
         self._solution = { 'account_sid': account_sid,  }
-        self._uri = '/Accounts/${account_sid}/SIP/Domains.json'.format(**self._solution)
+        self._uri = '/Accounts/{account_sid}/SIP/Domains.json'.format(**self._solution)
         
         
     
@@ -52,6 +52,7 @@ class DomainList(ListResource):
     def create(self, domain_name, friendly_name=values.unset, voice_url=values.unset, voice_method=values.unset, voice_fallback_url=values.unset, voice_fallback_method=values.unset, voice_status_callback_url=values.unset, voice_status_callback_method=values.unset, sip_registration=values.unset, emergency_calling_enabled=values.unset, secure=values.unset, byoc_trunk_sid=values.unset, emergency_caller_sid=values.unset):
         """
         Create the DomainInstance
+
         :param str domain_name: The unique address you reserve on Twilio to which you route your SIP traffic. Domain names can contain letters, digits, and \\\"-\\\" and must end with `sip.twilio.com`.
         :param str friendly_name: A descriptive string that you created to describe the resource. It can be up to 64 characters long.
         :param str voice_url: The URL we should when the domain receives a call.
@@ -84,8 +85,9 @@ class DomainList(ListResource):
             'ByocTrunkSid': byoc_trunk_sid,
             'EmergencyCallerSid': emergency_caller_sid,
         })
+        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return DomainInstance(self._version, payload, account_sid=self._solution['account_sid'])
     
     
@@ -270,7 +272,7 @@ class DomainContext(InstanceContext):
             'account_sid': account_sid,
             'sid': sid,
         }
-        self._uri = '/Accounts/${account_sid}/SIP/Domains/${sid}.json'.format(**self._solution)
+        self._uri = '/Accounts/{account_sid}/SIP/Domains/{sid}.json'.format(**self._solution)
         
         self._auth = None
         self._credential_list_mappings = None
@@ -280,19 +282,22 @@ class DomainContext(InstanceContext):
         """
         Deletes the DomainInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
     def fetch(self):
         """
         Fetch the DomainInstance
+        
 
         :returns: The fetched DomainInstance
         :rtype: twilio.rest.api.v2010.account.sip.domain.DomainInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return DomainInstance(
             self._version,
@@ -338,8 +343,9 @@ class DomainContext(InstanceContext):
             'ByocTrunkSid': byoc_trunk_sid,
             'EmergencyCallerSid': emergency_caller_sid,
         })
+        
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return DomainInstance(
             self._version,
@@ -618,6 +624,7 @@ class DomainInstance(InstanceResource):
     def delete(self):
         """
         Deletes the DomainInstance
+        
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -627,6 +634,7 @@ class DomainInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the DomainInstance
+        
 
         :returns: The fetched DomainInstance
         :rtype: twilio.rest.api.v2010.account.sip.domain.DomainInstance

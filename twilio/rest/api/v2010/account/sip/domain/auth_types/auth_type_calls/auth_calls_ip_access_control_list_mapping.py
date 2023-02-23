@@ -40,7 +40,7 @@ class AuthCallsIpAccessControlListMappingList(ListResource):
 
         # Path Solution
         self._solution = { 'account_sid': account_sid, 'domain_sid': domain_sid,  }
-        self._uri = '/Accounts/${account_sid}/SIP/Domains/${domain_sid}/Auth/Calls/IpAccessControlListMappings.json'.format(**self._solution)
+        self._uri = '/Accounts/{account_sid}/SIP/Domains/{domain_sid}/Auth/Calls/IpAccessControlListMappings.json'.format(**self._solution)
         
         
     
@@ -49,6 +49,7 @@ class AuthCallsIpAccessControlListMappingList(ListResource):
     def create(self, ip_access_control_list_sid):
         """
         Create the AuthCallsIpAccessControlListMappingInstance
+
         :param str ip_access_control_list_sid: The SID of the IpAccessControlList resource to map to the SIP domain.
         
         :returns: The created AuthCallsIpAccessControlListMappingInstance
@@ -57,8 +58,9 @@ class AuthCallsIpAccessControlListMappingList(ListResource):
         data = values.of({ 
             'IpAccessControlListSid': ip_access_control_list_sid,
         })
+        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return AuthCallsIpAccessControlListMappingInstance(self._version, payload, account_sid=self._solution['account_sid'], domain_sid=self._solution['domain_sid'])
     
     
@@ -242,26 +244,29 @@ class AuthCallsIpAccessControlListMappingContext(InstanceContext):
             'domain_sid': domain_sid,
             'sid': sid,
         }
-        self._uri = '/Accounts/${account_sid}/SIP/Domains/${domain_sid}/Auth/Calls/IpAccessControlListMappings/${sid}.json'.format(**self._solution)
+        self._uri = '/Accounts/{account_sid}/SIP/Domains/{domain_sid}/Auth/Calls/IpAccessControlListMappings/{sid}.json'.format(**self._solution)
         
     
     def delete(self):
         """
         Deletes the AuthCallsIpAccessControlListMappingInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
     def fetch(self):
         """
         Fetch the AuthCallsIpAccessControlListMappingInstance
+        
 
         :returns: The fetched AuthCallsIpAccessControlListMappingInstance
         :rtype: twilio.rest.api.v2010.account.sip.domain.auth_types.auth_type_calls.auth_calls_ip_access_control_list_mapping.AuthCallsIpAccessControlListMappingInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return AuthCallsIpAccessControlListMappingInstance(
             self._version,
@@ -359,6 +364,7 @@ class AuthCallsIpAccessControlListMappingInstance(InstanceResource):
     def delete(self):
         """
         Deletes the AuthCallsIpAccessControlListMappingInstance
+        
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -368,6 +374,7 @@ class AuthCallsIpAccessControlListMappingInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the AuthCallsIpAccessControlListMappingInstance
+        
 
         :returns: The fetched AuthCallsIpAccessControlListMappingInstance
         :rtype: twilio.rest.api.v2010.account.sip.domain.auth_types.auth_type_calls.auth_calls_ip_access_control_list_mapping.AuthCallsIpAccessControlListMappingInstance

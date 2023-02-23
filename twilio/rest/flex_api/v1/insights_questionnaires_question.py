@@ -47,6 +47,7 @@ class InsightsQuestionnairesQuestionList(ListResource):
     def create(self, category_id, question, description, answer_set_id, allow_na, token=values.unset):
         """
         Create the InsightsQuestionnairesQuestionInstance
+
         :param str category_id: The ID of the category
         :param str question: The question.
         :param str description: The description for the question.
@@ -63,10 +64,10 @@ class InsightsQuestionnairesQuestionList(ListResource):
             'Description': description,
             'AnswerSetId': answer_set_id,
             'AllowNa': allow_na,
-            'Token': token,
         })
+        headers = values.of({'Token': token, })
+        payload = self._version.create(method='POST', uri=self._uri, data=data, headers=headers)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return InsightsQuestionnairesQuestionInstance(self._version, payload)
     
     
@@ -260,19 +261,23 @@ class InsightsQuestionnairesQuestionContext(InstanceContext):
         self._solution = { 
             'question_id': question_id,
         }
-        self._uri = '/Insights/QM/Questions/${question_id}'.format(**self._solution)
+        self._uri = '/Insights/QM/Questions/{question_id}'.format(**self._solution)
         
     
     def delete(self, token=values.unset):
         """
         Deletes the InsightsQuestionnairesQuestionInstance
 
+        :param str token: The Token HTTP request header
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        headers = values.of({'Token': token, })
         
-    def update(self, allow_na=values.unset, token=values.unset, category_id=values.unset, question=values.unset, description=values.unset, answer_set_id=values.unset):
+        return self._version.delete(method='DELETE', uri=self._uri, headers=headers)
+        
+    def update(self, allow_na, token=values.unset, category_id=values.unset, question=values.unset, description=values.unset, answer_set_id=values.unset):
         """
         Update the InsightsQuestionnairesQuestionInstance
         
@@ -288,14 +293,14 @@ class InsightsQuestionnairesQuestionContext(InstanceContext):
         """
         data = values.of({ 
             'AllowNa': allow_na,
-            'Token': token,
             'CategoryId': category_id,
             'Question': question,
             'Description': description,
             'AnswerSetId': answer_set_id,
         })
+        headers = values.of({'Token': token, })
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data, headers=headers)
 
         return InsightsQuestionnairesQuestionInstance(
             self._version,
@@ -426,13 +431,15 @@ class InsightsQuestionnairesQuestionInstance(InstanceResource):
     def delete(self, token=values.unset):
         """
         Deletes the InsightsQuestionnairesQuestionInstance
+        
+        :params str token: The Token HTTP request header
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._proxy.delete()
+        return self._proxy.delete(token=token, )
     
-    def update(self, allow_na=values.unset, token=values.unset, category_id=values.unset, question=values.unset, description=values.unset, answer_set_id=values.unset):
+    def update(self, allow_na, token=values.unset, category_id=values.unset, question=values.unset, description=values.unset, answer_set_id=values.unset):
         """
         Update the InsightsQuestionnairesQuestionInstance
         

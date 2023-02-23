@@ -39,7 +39,7 @@ class PhoneNumberList(ListResource):
 
         # Path Solution
         self._solution = { 'service_sid': service_sid,  }
-        self._uri = '/Services/${service_sid}/PhoneNumbers'.format(**self._solution)
+        self._uri = '/Services/{service_sid}/PhoneNumbers'.format(**self._solution)
         
         
     
@@ -49,6 +49,7 @@ class PhoneNumberList(ListResource):
     def create(self, sid=values.unset, phone_number=values.unset, is_reserved=values.unset):
         """
         Create the PhoneNumberInstance
+
         :param str sid: The SID of a Twilio [IncomingPhoneNumber](https://www.twilio.com/docs/phone-numbers/api/incomingphonenumber-resource) resource that represents the Twilio Number you would like to assign to your Proxy Service.
         :param str phone_number: The phone number in [E.164](https://www.twilio.com/docs/glossary/what-e164) format.  E.164 phone numbers consist of a + followed by the country code and subscriber number without punctuation characters. For example, +14155551234.
         :param bool is_reserved: Whether the new phone number should be reserved and not be assigned to a participant using proxy pool logic. See [Reserved Phone Numbers](https://www.twilio.com/docs/proxy/reserved-phone-numbers) for more information.
@@ -61,8 +62,9 @@ class PhoneNumberList(ListResource):
             'PhoneNumber': phone_number,
             'IsReserved': is_reserved,
         })
+        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return PhoneNumberInstance(self._version, payload, service_sid=self._solution['service_sid'])
     
     
@@ -247,26 +249,29 @@ class PhoneNumberContext(InstanceContext):
             'service_sid': service_sid,
             'sid': sid,
         }
-        self._uri = '/Services/${service_sid}/PhoneNumbers/${sid}'.format(**self._solution)
+        self._uri = '/Services/{service_sid}/PhoneNumbers/{sid}'.format(**self._solution)
         
     
     def delete(self):
         """
         Deletes the PhoneNumberInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
     def fetch(self):
         """
         Fetch the PhoneNumberInstance
+        
 
         :returns: The fetched PhoneNumberInstance
         :rtype: twilio.rest.proxy.v1.service.phone_number.PhoneNumberInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return PhoneNumberInstance(
             self._version,
@@ -288,8 +293,9 @@ class PhoneNumberContext(InstanceContext):
         data = values.of({ 
             'IsReserved': is_reserved,
         })
+        
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return PhoneNumberInstance(
             self._version,
@@ -448,6 +454,7 @@ class PhoneNumberInstance(InstanceResource):
     def delete(self):
         """
         Deletes the PhoneNumberInstance
+        
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -457,6 +464,7 @@ class PhoneNumberInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the PhoneNumberInstance
+        
 
         :returns: The fetched PhoneNumberInstance
         :rtype: twilio.rest.proxy.v1.service.phone_number.PhoneNumberInstance

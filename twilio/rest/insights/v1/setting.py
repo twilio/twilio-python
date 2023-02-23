@@ -93,11 +93,17 @@ class SettingContext(InstanceContext):
     def fetch(self, subaccount_sid=values.unset):
         """
         Fetch the SettingInstance
+        
+        :params str subaccount_sid: 
 
         :returns: The fetched SettingInstance
         :rtype: twilio.rest.insights.v1.setting.SettingInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        data = values.of({ 
+            'SubaccountSid': subaccount_sid,
+        })
+        payload = self._version.fetch(method='GET', uri=self._uri, params=data)
 
         return SettingInstance(
             self._version,
@@ -121,8 +127,9 @@ class SettingContext(InstanceContext):
             'VoiceTrace': voice_trace,
             'SubaccountSid': subaccount_sid,
         })
+        
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return SettingInstance(
             self._version,
@@ -207,11 +214,13 @@ class SettingInstance(InstanceResource):
     def fetch(self, subaccount_sid=values.unset):
         """
         Fetch the SettingInstance
+        
+        :params str subaccount_sid: 
 
         :returns: The fetched SettingInstance
         :rtype: twilio.rest.insights.v1.setting.SettingInstance
         """
-        return self._proxy.fetch()
+        return self._proxy.fetch(subaccount_sid=subaccount_sid, )
     
     def update(self, advanced_features=values.unset, voice_trace=values.unset, subaccount_sid=values.unset):
         """

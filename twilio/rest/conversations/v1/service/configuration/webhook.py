@@ -89,17 +89,19 @@ class WebhookContext(InstanceContext):
         self._solution = { 
             'chat_service_sid': chat_service_sid,
         }
-        self._uri = '/Services/${chat_service_sid}/Configuration/Webhooks'.format(**self._solution)
+        self._uri = '/Services/{chat_service_sid}/Configuration/Webhooks'.format(**self._solution)
         
     
     def fetch(self):
         """
         Fetch the WebhookInstance
+        
 
         :returns: The fetched WebhookInstance
         :rtype: twilio.rest.conversations.v1.service.configuration.webhook.WebhookInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return WebhookInstance(
             self._version,
@@ -126,8 +128,9 @@ class WebhookContext(InstanceContext):
             'Filters': serialize.map(filters, lambda e: e),
             'Method': method,
         })
+        
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return WebhookInstance(
             self._version,
@@ -240,6 +243,7 @@ class WebhookInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the WebhookInstance
+        
 
         :returns: The fetched WebhookInstance
         :rtype: twilio.rest.conversations.v1.service.configuration.webhook.WebhookInstance

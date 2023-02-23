@@ -40,7 +40,7 @@ class ReservationList(ListResource):
 
         # Path Solution
         self._solution = { 'workspace_sid': workspace_sid, 'task_sid': task_sid,  }
-        self._uri = '/Workspaces/${workspace_sid}/Tasks/${task_sid}/Reservations'.format(**self._solution)
+        self._uri = '/Workspaces/{workspace_sid}/Tasks/{task_sid}/Reservations'.format(**self._solution)
         
         
     
@@ -236,17 +236,19 @@ class ReservationContext(InstanceContext):
             'task_sid': task_sid,
             'sid': sid,
         }
-        self._uri = '/Workspaces/${workspace_sid}/Tasks/${task_sid}/Reservations/${sid}'.format(**self._solution)
+        self._uri = '/Workspaces/{workspace_sid}/Tasks/{task_sid}/Reservations/{sid}'.format(**self._solution)
         
     
     def fetch(self):
         """
         Fetch the ReservationInstance
+        
 
         :returns: The fetched ReservationInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.task.reservation.ReservationInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return ReservationInstance(
             self._version,
@@ -320,7 +322,6 @@ class ReservationContext(InstanceContext):
         :rtype: twilio.rest.taskrouter.v1.workspace.task.reservation.ReservationInstance
         """
         data = values.of({ 
-            'If-Match': if_match,
             'ReservationStatus': reservation_status,
             'WorkerActivitySid': worker_activity_sid,
             'Instruction': instruction,
@@ -375,8 +376,9 @@ class ReservationContext(InstanceContext):
             'EndConferenceOnCustomerExit': end_conference_on_customer_exit,
             'BeepOnCustomerEntrance': beep_on_customer_entrance,
         })
+        headers = values.of({'If-Match': if_match, })
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data, headers=headers)
 
         return ReservationInstance(
             self._version,
@@ -527,6 +529,7 @@ class ReservationInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the ReservationInstance
+        
 
         :returns: The fetched ReservationInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.task.reservation.ReservationInstance

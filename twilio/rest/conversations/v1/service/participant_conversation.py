@@ -39,7 +39,7 @@ class ParticipantConversationList(ListResource):
 
         # Path Solution
         self._solution = { 'chat_service_sid': chat_service_sid,  }
-        self._uri = '/Services/${chat_service_sid}/ParticipantConversations'.format(**self._solution)
+        self._uri = '/Services/{chat_service_sid}/ParticipantConversations'.format(**self._solution)
         
         
     

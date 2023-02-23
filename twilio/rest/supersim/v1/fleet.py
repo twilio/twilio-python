@@ -47,6 +47,7 @@ class FleetList(ListResource):
     def create(self, network_access_profile, unique_name=values.unset, data_enabled=values.unset, data_limit=values.unset, ip_commands_url=values.unset, ip_commands_method=values.unset, sms_commands_enabled=values.unset, sms_commands_url=values.unset, sms_commands_method=values.unset):
         """
         Create the FleetInstance
+
         :param str network_access_profile: The SID or unique name of the Network Access Profile that will control which cellular networks the Fleet's SIMs can connect to.
         :param str unique_name: An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
         :param bool data_enabled: Defines whether SIMs in the Fleet are capable of using 2G/3G/4G/LTE/CAT-M data connectivity. Defaults to `true`.
@@ -71,8 +72,9 @@ class FleetList(ListResource):
             'SmsCommandsUrl': sms_commands_url,
             'SmsCommandsMethod': sms_commands_method,
         })
+        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return FleetInstance(self._version, payload)
     
     
@@ -260,17 +262,19 @@ class FleetContext(InstanceContext):
         self._solution = { 
             'sid': sid,
         }
-        self._uri = '/Fleets/${sid}'.format(**self._solution)
+        self._uri = '/Fleets/{sid}'.format(**self._solution)
         
     
     def fetch(self):
         """
         Fetch the FleetInstance
+        
 
         :returns: The fetched FleetInstance
         :rtype: twilio.rest.supersim.v1.fleet.FleetInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return FleetInstance(
             self._version,
@@ -303,8 +307,9 @@ class FleetContext(InstanceContext):
             'SmsCommandsMethod': sms_commands_method,
             'DataLimit': data_limit,
         })
+        
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return FleetInstance(
             self._version,
@@ -489,6 +494,7 @@ class FleetInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the FleetInstance
+        
 
         :returns: The fetched FleetInstance
         :rtype: twilio.rest.supersim.v1.fleet.FleetInstance

@@ -39,7 +39,7 @@ class DependentHostedNumberOrderList(ListResource):
 
         # Path Solution
         self._solution = { 'signing_document_sid': signing_document_sid,  }
-        self._uri = '/AuthorizationDocuments/${signing_document_sid}/DependentHostedNumberOrders'.format(**self._solution)
+        self._uri = '/AuthorizationDocuments/{signing_document_sid}/DependentHostedNumberOrders'.format(**self._solution)
         
         
     

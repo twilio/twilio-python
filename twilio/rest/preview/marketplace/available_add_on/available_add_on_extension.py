@@ -39,7 +39,7 @@ class AvailableAddOnExtensionList(ListResource):
 
         # Path Solution
         self._solution = { 'available_add_on_sid': available_add_on_sid,  }
-        self._uri = '/AvailableAddOns/${available_add_on_sid}/Extensions'.format(**self._solution)
+        self._uri = '/AvailableAddOns/{available_add_on_sid}/Extensions'.format(**self._solution)
         
         
     
@@ -219,17 +219,19 @@ class AvailableAddOnExtensionContext(InstanceContext):
             'available_add_on_sid': available_add_on_sid,
             'sid': sid,
         }
-        self._uri = '/AvailableAddOns/${available_add_on_sid}/Extensions/${sid}'.format(**self._solution)
+        self._uri = '/AvailableAddOns/{available_add_on_sid}/Extensions/{sid}'.format(**self._solution)
         
     
     def fetch(self):
         """
         Fetch the AvailableAddOnExtensionInstance
+        
 
         :returns: The fetched AvailableAddOnExtensionInstance
         :rtype: twilio.rest.preview.marketplace.available_add_on.available_add_on_extension.AvailableAddOnExtensionInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return AvailableAddOnExtensionInstance(
             self._version,
@@ -335,6 +337,7 @@ class AvailableAddOnExtensionInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the AvailableAddOnExtensionInstance
+        
 
         :returns: The fetched AvailableAddOnExtensionInstance
         :rtype: twilio.rest.preview.marketplace.available_add_on.available_add_on_extension.AvailableAddOnExtensionInstance

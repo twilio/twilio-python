@@ -40,7 +40,7 @@ class UserChannelList(ListResource):
 
         # Path Solution
         self._solution = { 'service_sid': service_sid, 'user_sid': user_sid,  }
-        self._uri = '/Services/${service_sid}/Users/${user_sid}/Channels'.format(**self._solution)
+        self._uri = '/Services/{service_sid}/Users/{user_sid}/Channels'.format(**self._solution)
         
         
     
@@ -227,26 +227,29 @@ class UserChannelContext(InstanceContext):
             'user_sid': user_sid,
             'channel_sid': channel_sid,
         }
-        self._uri = '/Services/${service_sid}/Users/${user_sid}/Channels/${channel_sid}'.format(**self._solution)
+        self._uri = '/Services/{service_sid}/Users/{user_sid}/Channels/{channel_sid}'.format(**self._solution)
         
     
     def delete(self):
         """
         Deletes the UserChannelInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
     def fetch(self):
         """
         Fetch the UserChannelInstance
+        
 
         :returns: The fetched UserChannelInstance
         :rtype: twilio.rest.ip_messaging.v2.service.user.user_channel.UserChannelInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return UserChannelInstance(
             self._version,
@@ -273,8 +276,9 @@ class UserChannelContext(InstanceContext):
             'LastConsumedMessageIndex': last_consumed_message_index,
             'LastConsumptionTimestamp': serialize.iso8601_datetime(last_consumption_timestamp),
         })
+        
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return UserChannelInstance(
             self._version,
@@ -425,6 +429,7 @@ class UserChannelInstance(InstanceResource):
     def delete(self):
         """
         Deletes the UserChannelInstance
+        
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -434,6 +439,7 @@ class UserChannelInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the UserChannelInstance
+        
 
         :returns: The fetched UserChannelInstance
         :rtype: twilio.rest.ip_messaging.v2.service.user.user_channel.UserChannelInstance

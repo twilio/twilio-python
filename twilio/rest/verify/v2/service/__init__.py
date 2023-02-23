@@ -55,6 +55,7 @@ class ServiceList(ListResource):
     def create(self, friendly_name, code_length=values.unset, lookup_enabled=values.unset, skip_sms_to_landlines=values.unset, dtmf_input_required=values.unset, tts_name=values.unset, psd2_enabled=values.unset, do_not_share_warning_enabled=values.unset, custom_code_enabled=values.unset, push_include_date=values.unset, push_apn_credential_sid=values.unset, push_fcm_credential_sid=values.unset, totp_issuer=values.unset, totp_time_step=values.unset, totp_code_length=values.unset, totp_skew=values.unset, default_template_sid=values.unset):
         """
         Create the ServiceInstance
+
         :param str friendly_name: A descriptive string that you create to describe the verification service. It can be up to 30 characters long. **This value should not contain PII.**
         :param int code_length: The length of the verification code to generate. Must be an integer value between 4 and 10, inclusive.
         :param bool lookup_enabled: Whether to perform a lookup with each verification started and return info about the phone number.
@@ -95,8 +96,9 @@ class ServiceList(ListResource):
             'Totp.Skew': totp_skew,
             'DefaultTemplateSid': default_template_sid,
         })
+        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return ServiceInstance(self._version, payload)
     
     
@@ -280,7 +282,7 @@ class ServiceContext(InstanceContext):
         self._solution = { 
             'sid': sid,
         }
-        self._uri = '/Services/${sid}'.format(**self._solution)
+        self._uri = '/Services/{sid}'.format(**self._solution)
         
         self._access_tokens = None
         self._entities = None
@@ -294,19 +296,22 @@ class ServiceContext(InstanceContext):
         """
         Deletes the ServiceInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
     def fetch(self):
         """
         Fetch the ServiceInstance
+        
 
         :returns: The fetched ServiceInstance
         :rtype: twilio.rest.verify.v2.service.ServiceInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return ServiceInstance(
             self._version,
@@ -359,8 +364,9 @@ class ServiceContext(InstanceContext):
             'Totp.Skew': totp_skew,
             'DefaultTemplateSid': default_template_sid,
         })
+        
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return ServiceInstance(
             self._version,
@@ -663,6 +669,7 @@ class ServiceInstance(InstanceResource):
     def delete(self):
         """
         Deletes the ServiceInstance
+        
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -672,6 +679,7 @@ class ServiceInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the ServiceInstance
+        
 
         :returns: The fetched ServiceInstance
         :rtype: twilio.rest.verify.v2.service.ServiceInstance

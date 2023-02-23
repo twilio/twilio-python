@@ -95,7 +95,7 @@ class CallContext(InstanceContext):
         self._solution = { 
             'sid': sid,
         }
-        self._uri = '/Voice/${sid}'.format(**self._solution)
+        self._uri = '/Voice/{sid}'.format(**self._solution)
         
         self._annotation = None
         self._summary = None
@@ -105,11 +105,13 @@ class CallContext(InstanceContext):
     def fetch(self):
         """
         Fetch the CallInstance
+        
 
         :returns: The fetched CallInstance
         :rtype: twilio.rest.insights.v1.call.CallInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return CallInstance(
             self._version,
@@ -239,6 +241,7 @@ class CallInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the CallInstance
+        
 
         :returns: The fetched CallInstance
         :rtype: twilio.rest.insights.v1.call.CallInstance

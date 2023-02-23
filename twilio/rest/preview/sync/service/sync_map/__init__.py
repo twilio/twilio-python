@@ -41,7 +41,7 @@ class SyncMapList(ListResource):
 
         # Path Solution
         self._solution = { 'service_sid': service_sid,  }
-        self._uri = '/Services/${service_sid}/Maps'.format(**self._solution)
+        self._uri = '/Services/{service_sid}/Maps'.format(**self._solution)
         
         
     
@@ -50,6 +50,7 @@ class SyncMapList(ListResource):
     def create(self, unique_name=values.unset):
         """
         Create the SyncMapInstance
+
         :param str unique_name: 
         
         :returns: The created SyncMapInstance
@@ -58,8 +59,9 @@ class SyncMapList(ListResource):
         data = values.of({ 
             'UniqueName': unique_name,
         })
+        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return SyncMapInstance(self._version, payload, service_sid=self._solution['service_sid'])
     
     
@@ -242,7 +244,7 @@ class SyncMapContext(InstanceContext):
             'service_sid': service_sid,
             'sid': sid,
         }
-        self._uri = '/Services/${service_sid}/Maps/${sid}'.format(**self._solution)
+        self._uri = '/Services/{service_sid}/Maps/{sid}'.format(**self._solution)
         
         self._sync_map_items = None
         self._sync_map_permissions = None
@@ -251,19 +253,22 @@ class SyncMapContext(InstanceContext):
         """
         Deletes the SyncMapInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
     def fetch(self):
         """
         Fetch the SyncMapInstance
+        
 
         :returns: The fetched SyncMapInstance
         :rtype: twilio.rest.preview.sync.service.sync_map.SyncMapInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return SyncMapInstance(
             self._version,
@@ -431,6 +436,7 @@ class SyncMapInstance(InstanceResource):
     def delete(self):
         """
         Deletes the SyncMapInstance
+        
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -440,6 +446,7 @@ class SyncMapInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the SyncMapInstance
+        
 
         :returns: The fetched SyncMapInstance
         :rtype: twilio.rest.preview.sync.service.sync_map.SyncMapInstance

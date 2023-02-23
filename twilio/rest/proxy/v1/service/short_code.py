@@ -39,7 +39,7 @@ class ShortCodeList(ListResource):
 
         # Path Solution
         self._solution = { 'service_sid': service_sid,  }
-        self._uri = '/Services/${service_sid}/ShortCodes'.format(**self._solution)
+        self._uri = '/Services/{service_sid}/ShortCodes'.format(**self._solution)
         
         
     
@@ -49,6 +49,7 @@ class ShortCodeList(ListResource):
     def create(self, sid):
         """
         Create the ShortCodeInstance
+
         :param str sid: The SID of a Twilio [ShortCode](https://www.twilio.com/docs/sms/api/short-code) resource that represents the short code you would like to assign to your Proxy Service.
         
         :returns: The created ShortCodeInstance
@@ -57,8 +58,9 @@ class ShortCodeList(ListResource):
         data = values.of({ 
             'Sid': sid,
         })
+        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return ShortCodeInstance(self._version, payload, service_sid=self._solution['service_sid'])
     
     
@@ -243,26 +245,29 @@ class ShortCodeContext(InstanceContext):
             'service_sid': service_sid,
             'sid': sid,
         }
-        self._uri = '/Services/${service_sid}/ShortCodes/${sid}'.format(**self._solution)
+        self._uri = '/Services/{service_sid}/ShortCodes/{sid}'.format(**self._solution)
         
     
     def delete(self):
         """
         Deletes the ShortCodeInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
     def fetch(self):
         """
         Fetch the ShortCodeInstance
+        
 
         :returns: The fetched ShortCodeInstance
         :rtype: twilio.rest.proxy.v1.service.short_code.ShortCodeInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return ShortCodeInstance(
             self._version,
@@ -284,8 +289,9 @@ class ShortCodeContext(InstanceContext):
         data = values.of({ 
             'IsReserved': is_reserved,
         })
+        
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return ShortCodeInstance(
             self._version,
@@ -426,6 +432,7 @@ class ShortCodeInstance(InstanceResource):
     def delete(self):
         """
         Deletes the ShortCodeInstance
+        
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -435,6 +442,7 @@ class ShortCodeInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the ShortCodeInstance
+        
 
         :returns: The fetched ShortCodeInstance
         :rtype: twilio.rest.proxy.v1.service.short_code.ShortCodeInstance

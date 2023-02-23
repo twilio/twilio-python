@@ -278,18 +278,20 @@ class ConferenceContext(InstanceContext):
         self._solution = { 
             'conference_sid': conference_sid,
         }
-        self._uri = '/Conferences/${conference_sid}'.format(**self._solution)
+        self._uri = '/Conferences/{conference_sid}'.format(**self._solution)
         
         self._conference_participants = None
     
     def fetch(self):
         """
         Fetch the ConferenceInstance
+        
 
         :returns: The fetched ConferenceInstance
         :rtype: twilio.rest.insights.v1.conference.ConferenceInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return ConferenceInstance(
             self._version,
@@ -560,6 +562,7 @@ class ConferenceInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the ConferenceInstance
+        
 
         :returns: The fetched ConferenceInstance
         :rtype: twilio.rest.insights.v1.conference.ConferenceInstance

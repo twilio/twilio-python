@@ -221,7 +221,7 @@ class ContentContext(InstanceContext):
         self._solution = { 
             'sid': sid,
         }
-        self._uri = '/Content/${sid}'.format(**self._solution)
+        self._uri = '/Content/{sid}'.format(**self._solution)
         
         self._approval_fetch = None
     
@@ -229,19 +229,22 @@ class ContentContext(InstanceContext):
         """
         Deletes the ContentInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
     def fetch(self):
         """
         Fetch the ContentInstance
+        
 
         :returns: The fetched ContentInstance
         :rtype: twilio.rest.content.v1.content.ContentInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return ContentInstance(
             self._version,
@@ -395,6 +398,7 @@ class ContentInstance(InstanceResource):
     def delete(self):
         """
         Deletes the ContentInstance
+        
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -404,6 +408,7 @@ class ContentInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the ContentInstance
+        
 
         :returns: The fetched ContentInstance
         :rtype: twilio.rest.content.v1.content.ContentInstance

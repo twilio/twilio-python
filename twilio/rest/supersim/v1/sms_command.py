@@ -46,6 +46,7 @@ class SmsCommandList(ListResource):
     def create(self, sim, payload, callback_method=values.unset, callback_url=values.unset):
         """
         Create the SmsCommandInstance
+
         :param str sim: The `sid` or `unique_name` of the [SIM](https://www.twilio.com/docs/iot/supersim/api/sim-resource) to send the SMS Command to.
         :param str payload: The message body of the SMS Command.
         :param str callback_method: The HTTP method we should use to call `callback_url`. Can be: `GET` or `POST` and the default is POST.
@@ -60,8 +61,9 @@ class SmsCommandList(ListResource):
             'CallbackMethod': callback_method,
             'CallbackUrl': callback_url,
         })
+        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return SmsCommandInstance(self._version, payload)
     
     
@@ -259,17 +261,19 @@ class SmsCommandContext(InstanceContext):
         self._solution = { 
             'sid': sid,
         }
-        self._uri = '/SmsCommands/${sid}'.format(**self._solution)
+        self._uri = '/SmsCommands/{sid}'.format(**self._solution)
         
     
     def fetch(self):
         """
         Fetch the SmsCommandInstance
+        
 
         :returns: The fetched SmsCommandInstance
         :rtype: twilio.rest.supersim.v1.sms_command.SmsCommandInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return SmsCommandInstance(
             self._version,
@@ -401,6 +405,7 @@ class SmsCommandInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the SmsCommandInstance
+        
 
         :returns: The fetched SmsCommandInstance
         :rtype: twilio.rest.supersim.v1.sms_command.SmsCommandInstance

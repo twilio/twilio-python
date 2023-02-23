@@ -52,6 +52,7 @@ class BundleList(ListResource):
     def create(self, friendly_name, email, status_callback=values.unset, regulation_sid=values.unset, iso_country=values.unset, end_user_type=values.unset, number_type=values.unset):
         """
         Create the BundleInstance
+
         :param str friendly_name: The string that you assigned to describe the resource.
         :param str email: The email address that will receive updates when the Bundle resource changes status.
         :param str status_callback: The URL we call to inform your application of status changes.
@@ -72,8 +73,9 @@ class BundleList(ListResource):
             'EndUserType': end_user_type,
             'NumberType': number_type,
         })
+        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return BundleInstance(self._version, payload)
     
     
@@ -323,7 +325,7 @@ class BundleContext(InstanceContext):
         self._solution = { 
             'sid': sid,
         }
-        self._uri = '/RegulatoryCompliance/Bundles/${sid}'.format(**self._solution)
+        self._uri = '/RegulatoryCompliance/Bundles/{sid}'.format(**self._solution)
         
         self._bundle_copies = None
         self._evaluations = None
@@ -334,19 +336,22 @@ class BundleContext(InstanceContext):
         """
         Deletes the BundleInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
     def fetch(self):
         """
         Fetch the BundleInstance
+        
 
         :returns: The fetched BundleInstance
         :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.BundleInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return BundleInstance(
             self._version,
@@ -373,8 +378,9 @@ class BundleContext(InstanceContext):
             'FriendlyName': friendly_name,
             'Email': email,
         })
+        
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return BundleInstance(
             self._version,
@@ -584,6 +590,7 @@ class BundleInstance(InstanceResource):
     def delete(self):
         """
         Deletes the BundleInstance
+        
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -593,6 +600,7 @@ class BundleInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the BundleInstance
+        
 
         :returns: The fetched BundleInstance
         :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.BundleInstance

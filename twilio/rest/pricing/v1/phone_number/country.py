@@ -217,17 +217,19 @@ class CountryContext(InstanceContext):
         self._solution = { 
             'iso_country': iso_country,
         }
-        self._uri = '/PhoneNumbers/Countries/${iso_country}'.format(**self._solution)
+        self._uri = '/PhoneNumbers/Countries/{iso_country}'.format(**self._solution)
         
     
     def fetch(self):
         """
         Fetch the CountryInstance
+        
 
         :returns: The fetched CountryInstance
         :rtype: twilio.rest.pricing.v1.phone_number.country.CountryInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return CountryInstance(
             self._version,
@@ -323,6 +325,7 @@ class CountryInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the CountryInstance
+        
 
         :returns: The fetched CountryInstance
         :rtype: twilio.rest.pricing.v1.phone_number.country.CountryInstance

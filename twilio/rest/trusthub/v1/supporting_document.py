@@ -48,6 +48,7 @@ class SupportingDocumentList(ListResource):
     def create(self, friendly_name, type, attributes=values.unset):
         """
         Create the SupportingDocumentInstance
+
         :param str friendly_name: The string that you assigned to describe the resource.
         :param str type: The type of the Supporting Document.
         :param object attributes: The set of parameters that are the attributes of the Supporting Documents resource which are derived Supporting Document Types.
@@ -60,8 +61,9 @@ class SupportingDocumentList(ListResource):
             'Type': type,
             'Attributes': serialize.object(attributes),
         })
+        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return SupportingDocumentInstance(self._version, payload)
     
     
@@ -245,26 +247,29 @@ class SupportingDocumentContext(InstanceContext):
         self._solution = { 
             'sid': sid,
         }
-        self._uri = '/SupportingDocuments/${sid}'.format(**self._solution)
+        self._uri = '/SupportingDocuments/{sid}'.format(**self._solution)
         
     
     def delete(self):
         """
         Deletes the SupportingDocumentInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
     def fetch(self):
         """
         Fetch the SupportingDocumentInstance
+        
 
         :returns: The fetched SupportingDocumentInstance
         :rtype: twilio.rest.trusthub.v1.supporting_document.SupportingDocumentInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return SupportingDocumentInstance(
             self._version,
@@ -287,8 +292,9 @@ class SupportingDocumentContext(InstanceContext):
             'FriendlyName': friendly_name,
             'Attributes': serialize.object(attributes),
         })
+        
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return SupportingDocumentInstance(
             self._version,
@@ -428,6 +434,7 @@ class SupportingDocumentInstance(InstanceResource):
     def delete(self):
         """
         Deletes the SupportingDocumentInstance
+        
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -437,6 +444,7 @@ class SupportingDocumentInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the SupportingDocumentInstance
+        
 
         :returns: The fetched SupportingDocumentInstance
         :rtype: twilio.rest.trusthub.v1.supporting_document.SupportingDocumentInstance

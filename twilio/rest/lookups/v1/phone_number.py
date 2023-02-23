@@ -91,17 +91,29 @@ class PhoneNumberContext(InstanceContext):
         self._solution = { 
             'phone_number': phone_number,
         }
-        self._uri = '/PhoneNumbers/${phone_number}'.format(**self._solution)
+        self._uri = '/PhoneNumbers/{phone_number}'.format(**self._solution)
         
     
     def fetch(self, country_code=values.unset, type=values.unset, add_ons=values.unset, add_ons_data=values.unset):
         """
         Fetch the PhoneNumberInstance
+        
+        :params str country_code: The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the phone number to fetch. This is used to specify the country when the phone number is provided in a national format.
+        :params list[str] type: The type of information to return. Can be: `carrier` or `caller-name`. The default is null.  Carrier information costs $0.005 per phone number looked up.  Caller Name information is currently available only in the US and costs $0.01 per phone number looked up.  To retrieve both types on information, specify this parameter twice; once with `carrier` and once with `caller-name` as the value.
+        :params list[str] add_ons: The `unique_name` of an Add-on you would like to invoke. Can be the `unique_name` of an Add-on that is installed on your account. You can specify multiple instances of this parameter to invoke multiple Add-ons. For more information about  Add-ons, see the [Add-ons documentation](https://www.twilio.com/docs/add-ons).
+        :params dict add_ons_data: Data specific to the add-on you would like to invoke. The content and format of this value depends on the add-on.
 
         :returns: The fetched PhoneNumberInstance
         :rtype: twilio.rest.lookups.v1.phone_number.PhoneNumberInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        data = values.of({ 
+            'CountryCode': country_code,
+            'Type': serialize.map(type, lambda e: e),
+            'AddOns': serialize.map(add_ons, lambda e: e),
+            'AddOnsData': serialize.prefixed_collapsible_map(add_ons_data),
+        })
+        payload = self._version.fetch(method='GET', uri=self._uri, params=data)
 
         return PhoneNumberInstance(
             self._version,
@@ -215,11 +227,16 @@ class PhoneNumberInstance(InstanceResource):
     def fetch(self, country_code=values.unset, type=values.unset, add_ons=values.unset, add_ons_data=values.unset):
         """
         Fetch the PhoneNumberInstance
+        
+        :params str country_code: The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the phone number to fetch. This is used to specify the country when the phone number is provided in a national format.
+        :params list[str] type: The type of information to return. Can be: `carrier` or `caller-name`. The default is null.  Carrier information costs $0.005 per phone number looked up.  Caller Name information is currently available only in the US and costs $0.01 per phone number looked up.  To retrieve both types on information, specify this parameter twice; once with `carrier` and once with `caller-name` as the value.
+        :params list[str] add_ons: The `unique_name` of an Add-on you would like to invoke. Can be the `unique_name` of an Add-on that is installed on your account. You can specify multiple instances of this parameter to invoke multiple Add-ons. For more information about  Add-ons, see the [Add-ons documentation](https://www.twilio.com/docs/add-ons).
+        :params dict add_ons_data: Data specific to the add-on you would like to invoke. The content and format of this value depends on the add-on.
 
         :returns: The fetched PhoneNumberInstance
         :rtype: twilio.rest.lookups.v1.phone_number.PhoneNumberInstance
         """
-        return self._proxy.fetch()
+        return self._proxy.fetch(country_code=country_code, type=type, add_ons=add_ons, add_ons_data=add_ons_data, )
     
     def __repr__(self):
         """

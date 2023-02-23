@@ -40,7 +40,7 @@ class SubscribedTrackList(ListResource):
 
         # Path Solution
         self._solution = { 'room_sid': room_sid, 'participant_sid': participant_sid,  }
-        self._uri = '/Rooms/${room_sid}/Participants/${participant_sid}/SubscribedTracks'.format(**self._solution)
+        self._uri = '/Rooms/{room_sid}/Participants/{participant_sid}/SubscribedTracks'.format(**self._solution)
         
         
     
@@ -221,17 +221,19 @@ class SubscribedTrackContext(InstanceContext):
             'participant_sid': participant_sid,
             'sid': sid,
         }
-        self._uri = '/Rooms/${room_sid}/Participants/${participant_sid}/SubscribedTracks/${sid}'.format(**self._solution)
+        self._uri = '/Rooms/{room_sid}/Participants/{participant_sid}/SubscribedTracks/{sid}'.format(**self._solution)
         
     
     def fetch(self):
         """
         Fetch the SubscribedTrackInstance
+        
 
         :returns: The fetched SubscribedTrackInstance
         :rtype: twilio.rest.video.v1.room.participant.subscribed_track.SubscribedTrackInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return SubscribedTrackInstance(
             self._version,
@@ -374,6 +376,7 @@ class SubscribedTrackInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the SubscribedTrackInstance
+        
 
         :returns: The fetched SubscribedTrackInstance
         :rtype: twilio.rest.video.v1.room.participant.subscribed_track.SubscribedTrackInstance

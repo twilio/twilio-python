@@ -92,17 +92,19 @@ class TrunkContext(InstanceContext):
         self._solution = { 
             'sip_trunk_domain': sip_trunk_domain,
         }
-        self._uri = '/Trunks/${sip_trunk_domain}'.format(**self._solution)
+        self._uri = '/Trunks/{sip_trunk_domain}'.format(**self._solution)
         
     
     def fetch(self):
         """
         Fetch the TrunkInstance
+        
 
         :returns: The fetched TrunkInstance
         :rtype: twilio.rest.routes.v2.trunk.TrunkInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return TrunkInstance(
             self._version,
@@ -125,8 +127,9 @@ class TrunkContext(InstanceContext):
             'VoiceRegion': voice_region,
             'FriendlyName': friendly_name,
         })
+        
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return TrunkInstance(
             self._version,
@@ -248,6 +251,7 @@ class TrunkInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the TrunkInstance
+        
 
         :returns: The fetched TrunkInstance
         :rtype: twilio.rest.routes.v2.trunk.TrunkInstance

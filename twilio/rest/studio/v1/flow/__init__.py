@@ -222,7 +222,7 @@ class FlowContext(InstanceContext):
         self._solution = { 
             'sid': sid,
         }
-        self._uri = '/Flows/${sid}'.format(**self._solution)
+        self._uri = '/Flows/{sid}'.format(**self._solution)
         
         self._engagements = None
         self._executions = None
@@ -231,19 +231,22 @@ class FlowContext(InstanceContext):
         """
         Deletes the FlowInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
     def fetch(self):
         """
         Fetch the FlowInstance
+        
 
         :returns: The fetched FlowInstance
         :rtype: twilio.rest.studio.v1.flow.FlowInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return FlowInstance(
             self._version,
@@ -401,6 +404,7 @@ class FlowInstance(InstanceResource):
     def delete(self):
         """
         Deletes the FlowInstance
+        
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -410,6 +414,7 @@ class FlowInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the FlowInstance
+        
 
         :returns: The fetched FlowInstance
         :rtype: twilio.rest.studio.v1.flow.FlowInstance

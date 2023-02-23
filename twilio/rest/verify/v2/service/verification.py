@@ -39,7 +39,7 @@ class VerificationList(ListResource):
 
         # Path Solution
         self._solution = { 'service_sid': service_sid,  }
-        self._uri = '/Services/${service_sid}/Verifications'.format(**self._solution)
+        self._uri = '/Services/{service_sid}/Verifications'.format(**self._solution)
         
         
     
@@ -48,6 +48,7 @@ class VerificationList(ListResource):
     def create(self, to, channel, custom_friendly_name=values.unset, custom_message=values.unset, send_digits=values.unset, locale=values.unset, custom_code=values.unset, amount=values.unset, payee=values.unset, rate_limits=values.unset, channel_configuration=values.unset, app_hash=values.unset, template_sid=values.unset, template_custom_substitutions=values.unset, device_ip=values.unset):
         """
         Create the VerificationInstance
+
         :param str to: The phone number or [email](https://www.twilio.com/docs/verify/email) to verify. Phone numbers must be in [E.164 format](https://www.twilio.com/docs/glossary/what-e164).
         :param str channel: The verification method to use. One of: [`email`](https://www.twilio.com/docs/verify/email), `sms`, `whatsapp`, `call`, `sna` or `auto`.
         :param str custom_friendly_name: A custom user defined friendly name that overwrites the existing one in the verification message
@@ -84,8 +85,9 @@ class VerificationList(ListResource):
             'TemplateCustomSubstitutions': template_custom_substitutions,
             'DeviceIp': device_ip,
         })
+        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return VerificationInstance(self._version, payload, service_sid=self._solution['service_sid'])
     
 
@@ -138,17 +140,19 @@ class VerificationContext(InstanceContext):
             'service_sid': service_sid,
             'sid': sid,
         }
-        self._uri = '/Services/${service_sid}/Verifications/${sid}'.format(**self._solution)
+        self._uri = '/Services/{service_sid}/Verifications/{sid}'.format(**self._solution)
         
     
     def fetch(self):
         """
         Fetch the VerificationInstance
+        
 
         :returns: The fetched VerificationInstance
         :rtype: twilio.rest.verify.v2.service.verification.VerificationInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return VerificationInstance(
             self._version,
@@ -158,7 +162,7 @@ class VerificationContext(InstanceContext):
             
         )
         
-    def update(self, status=values.unset):
+    def update(self, status):
         """
         Update the VerificationInstance
         
@@ -170,8 +174,9 @@ class VerificationContext(InstanceContext):
         data = values.of({ 
             'Status': status,
         })
+        
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return VerificationInstance(
             self._version,
@@ -357,13 +362,14 @@ class VerificationInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the VerificationInstance
+        
 
         :returns: The fetched VerificationInstance
         :rtype: twilio.rest.verify.v2.service.verification.VerificationInstance
         """
         return self._proxy.fetch()
     
-    def update(self, status=values.unset):
+    def update(self, status):
         """
         Update the VerificationInstance
         

@@ -89,17 +89,19 @@ class AssistantFallbackActionsContext(InstanceContext):
         self._solution = { 
             'assistant_sid': assistant_sid,
         }
-        self._uri = '/Assistants/${assistant_sid}/FallbackActions'.format(**self._solution)
+        self._uri = '/Assistants/{assistant_sid}/FallbackActions'.format(**self._solution)
         
     
     def fetch(self):
         """
         Fetch the AssistantFallbackActionsInstance
+        
 
         :returns: The fetched AssistantFallbackActionsInstance
         :rtype: twilio.rest.preview.understand.assistant.assistant_fallback_actions.AssistantFallbackActionsInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return AssistantFallbackActionsInstance(
             self._version,
@@ -120,8 +122,9 @@ class AssistantFallbackActionsContext(InstanceContext):
         data = values.of({ 
             'FallbackActions': serialize.object(fallback_actions),
         })
+        
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return AssistantFallbackActionsInstance(
             self._version,
@@ -207,6 +210,7 @@ class AssistantFallbackActionsInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the AssistantFallbackActionsInstance
+        
 
         :returns: The fetched AssistantFallbackActionsInstance
         :rtype: twilio.rest.preview.understand.assistant.assistant_fallback_actions.AssistantFallbackActionsInstance

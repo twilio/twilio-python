@@ -48,6 +48,7 @@ class PublicKeyList(ListResource):
     def create(self, public_key, friendly_name=values.unset, account_sid=values.unset):
         """
         Create the PublicKeyInstance
+
         :param str public_key: A URL encoded representation of the public key. For example, `-----BEGIN PUBLIC KEY-----MIIBIjANB.pa9xQIDAQAB-----END PUBLIC KEY-----`
         :param str friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
         :param str account_sid: The SID of the Subaccount that this Credential should be associated with. Must be a valid Subaccount of the account issuing the request
@@ -60,8 +61,9 @@ class PublicKeyList(ListResource):
             'FriendlyName': friendly_name,
             'AccountSid': account_sid,
         })
+        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return PublicKeyInstance(self._version, payload)
     
     
@@ -245,26 +247,29 @@ class PublicKeyContext(InstanceContext):
         self._solution = { 
             'sid': sid,
         }
-        self._uri = '/Credentials/PublicKeys/${sid}'.format(**self._solution)
+        self._uri = '/Credentials/PublicKeys/{sid}'.format(**self._solution)
         
     
     def delete(self):
         """
         Deletes the PublicKeyInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
     def fetch(self):
         """
         Fetch the PublicKeyInstance
+        
 
         :returns: The fetched PublicKeyInstance
         :rtype: twilio.rest.accounts.v1.credential.public_key.PublicKeyInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return PublicKeyInstance(
             self._version,
@@ -285,8 +290,9 @@ class PublicKeyContext(InstanceContext):
         data = values.of({ 
             'FriendlyName': friendly_name,
         })
+        
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return PublicKeyInstance(
             self._version,
@@ -390,6 +396,7 @@ class PublicKeyInstance(InstanceResource):
     def delete(self):
         """
         Deletes the PublicKeyInstance
+        
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -399,6 +406,7 @@ class PublicKeyInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the PublicKeyInstance
+        
 
         :returns: The fetched PublicKeyInstance
         :rtype: twilio.rest.accounts.v1.credential.public_key.PublicKeyInstance

@@ -47,6 +47,7 @@ class MediaProcessorList(ListResource):
     def create(self, extension, extension_context, extension_environment=values.unset, status_callback=values.unset, status_callback_method=values.unset, max_duration=values.unset):
         """
         Create the MediaProcessorInstance
+
         :param str extension: The [Media Extension](/docs/live/api/media-extensions-overview) name or URL. Ex: `video-composer-v2`
         :param str extension_context: The context of the Media Extension, represented as a JSON dictionary. See the documentation for the specific [Media Extension](/docs/live/api/media-extensions-overview) you are using for more information about the context to send.
         :param object extension_environment: User-defined environment variables for the Media Extension, represented as a JSON dictionary of key/value strings. See the documentation for the specific [Media Extension](/docs/live/api/media-extensions-overview) you are using for more information about whether you need to provide this.
@@ -65,8 +66,9 @@ class MediaProcessorList(ListResource):
             'StatusCallbackMethod': status_callback_method,
             'MaxDuration': max_duration,
         })
+        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return MediaProcessorInstance(self._version, payload)
     
     
@@ -260,17 +262,19 @@ class MediaProcessorContext(InstanceContext):
         self._solution = { 
             'sid': sid,
         }
-        self._uri = '/MediaProcessors/${sid}'.format(**self._solution)
+        self._uri = '/MediaProcessors/{sid}'.format(**self._solution)
         
     
     def fetch(self):
         """
         Fetch the MediaProcessorInstance
+        
 
         :returns: The fetched MediaProcessorInstance
         :rtype: twilio.rest.media.v1.media_processor.MediaProcessorInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return MediaProcessorInstance(
             self._version,
@@ -279,7 +283,7 @@ class MediaProcessorContext(InstanceContext):
             
         )
         
-    def update(self, status=values.unset):
+    def update(self, status):
         """
         Update the MediaProcessorInstance
         
@@ -291,8 +295,9 @@ class MediaProcessorContext(InstanceContext):
         data = values.of({ 
             'Status': status,
         })
+        
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return MediaProcessorInstance(
             self._version,
@@ -450,13 +455,14 @@ class MediaProcessorInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the MediaProcessorInstance
+        
 
         :returns: The fetched MediaProcessorInstance
         :rtype: twilio.rest.media.v1.media_processor.MediaProcessorInstance
         """
         return self._proxy.fetch()
     
-    def update(self, status=values.unset):
+    def update(self, status):
         """
         Update the MediaProcessorInstance
         

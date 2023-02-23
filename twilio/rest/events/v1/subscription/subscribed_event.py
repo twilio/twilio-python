@@ -39,7 +39,7 @@ class SubscribedEventList(ListResource):
 
         # Path Solution
         self._solution = { 'subscription_sid': subscription_sid,  }
-        self._uri = '/Subscriptions/${subscription_sid}/SubscribedEvents'.format(**self._solution)
+        self._uri = '/Subscriptions/{subscription_sid}/SubscribedEvents'.format(**self._solution)
         
         
     
@@ -49,6 +49,7 @@ class SubscribedEventList(ListResource):
     def create(self, type, schema_version=values.unset):
         """
         Create the SubscribedEventInstance
+
         :param str type: Type of event being subscribed to.
         :param int schema_version: The schema version that the subscription should use.
         
@@ -59,8 +60,9 @@ class SubscribedEventList(ListResource):
             'Type': type,
             'SchemaVersion': schema_version,
         })
+        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return SubscribedEventInstance(self._version, payload, subscription_sid=self._solution['subscription_sid'])
     
     
@@ -245,26 +247,29 @@ class SubscribedEventContext(InstanceContext):
             'subscription_sid': subscription_sid,
             'type': type,
         }
-        self._uri = '/Subscriptions/${subscription_sid}/SubscribedEvents/${type}'.format(**self._solution)
+        self._uri = '/Subscriptions/{subscription_sid}/SubscribedEvents/{type}'.format(**self._solution)
         
     
     def delete(self):
         """
         Deletes the SubscribedEventInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
     def fetch(self):
         """
         Fetch the SubscribedEventInstance
+        
 
         :returns: The fetched SubscribedEventInstance
         :rtype: twilio.rest.events.v1.subscription.subscribed_event.SubscribedEventInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return SubscribedEventInstance(
             self._version,
@@ -286,8 +291,9 @@ class SubscribedEventContext(InstanceContext):
         data = values.of({ 
             'SchemaVersion': schema_version,
         })
+        
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return SubscribedEventInstance(
             self._version,
@@ -383,6 +389,7 @@ class SubscribedEventInstance(InstanceResource):
     def delete(self):
         """
         Deletes the SubscribedEventInstance
+        
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -392,6 +399,7 @@ class SubscribedEventInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the SubscribedEventInstance
+        
 
         :returns: The fetched SubscribedEventInstance
         :rtype: twilio.rest.events.v1.subscription.subscribed_event.SubscribedEventInstance

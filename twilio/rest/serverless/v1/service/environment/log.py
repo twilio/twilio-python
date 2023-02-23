@@ -40,7 +40,7 @@ class LogList(ListResource):
 
         # Path Solution
         self._solution = { 'service_sid': service_sid, 'environment_sid': environment_sid,  }
-        self._uri = '/Services/${service_sid}/Environments/${environment_sid}/Logs'.format(**self._solution)
+        self._uri = '/Services/{service_sid}/Environments/{environment_sid}/Logs'.format(**self._solution)
         
         
     
@@ -239,17 +239,19 @@ class LogContext(InstanceContext):
             'environment_sid': environment_sid,
             'sid': sid,
         }
-        self._uri = '/Services/${service_sid}/Environments/${environment_sid}/Logs/${sid}'.format(**self._solution)
+        self._uri = '/Services/{service_sid}/Environments/{environment_sid}/Logs/{sid}'.format(**self._solution)
         
     
     def fetch(self):
         """
         Fetch the LogInstance
+        
 
         :returns: The fetched LogInstance
         :rtype: twilio.rest.serverless.v1.service.environment.log.LogInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return LogInstance(
             self._version,
@@ -410,6 +412,7 @@ class LogInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the LogInstance
+        
 
         :returns: The fetched LogInstance
         :rtype: twilio.rest.serverless.v1.service.environment.log.LogInstance

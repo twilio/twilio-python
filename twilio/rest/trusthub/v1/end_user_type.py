@@ -217,17 +217,19 @@ class EndUserTypeContext(InstanceContext):
         self._solution = { 
             'sid': sid,
         }
-        self._uri = '/EndUserTypes/${sid}'.format(**self._solution)
+        self._uri = '/EndUserTypes/{sid}'.format(**self._solution)
         
     
     def fetch(self):
         """
         Fetch the EndUserTypeInstance
+        
 
         :returns: The fetched EndUserTypeInstance
         :rtype: twilio.rest.trusthub.v1.end_user_type.EndUserTypeInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return EndUserTypeInstance(
             self._version,
@@ -323,6 +325,7 @@ class EndUserTypeInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the EndUserTypeInstance
+        
 
         :returns: The fetched EndUserTypeInstance
         :rtype: twilio.rest.trusthub.v1.end_user_type.EndUserTypeInstance

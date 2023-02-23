@@ -49,6 +49,7 @@ class ConnectionPolicyList(ListResource):
     def create(self, friendly_name=values.unset):
         """
         Create the ConnectionPolicyInstance
+
         :param str friendly_name: A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
         
         :returns: The created ConnectionPolicyInstance
@@ -57,8 +58,9 @@ class ConnectionPolicyList(ListResource):
         data = values.of({ 
             'FriendlyName': friendly_name,
         })
+        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return ConnectionPolicyInstance(self._version, payload)
     
     
@@ -242,7 +244,7 @@ class ConnectionPolicyContext(InstanceContext):
         self._solution = { 
             'sid': sid,
         }
-        self._uri = '/ConnectionPolicies/${sid}'.format(**self._solution)
+        self._uri = '/ConnectionPolicies/{sid}'.format(**self._solution)
         
         self._targets = None
     
@@ -250,19 +252,22 @@ class ConnectionPolicyContext(InstanceContext):
         """
         Deletes the ConnectionPolicyInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
     def fetch(self):
         """
         Fetch the ConnectionPolicyInstance
+        
 
         :returns: The fetched ConnectionPolicyInstance
         :rtype: twilio.rest.voice.v1.connection_policy.ConnectionPolicyInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return ConnectionPolicyInstance(
             self._version,
@@ -283,8 +288,9 @@ class ConnectionPolicyContext(InstanceContext):
         data = values.of({ 
             'FriendlyName': friendly_name,
         })
+        
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return ConnectionPolicyInstance(
             self._version,
@@ -410,6 +416,7 @@ class ConnectionPolicyInstance(InstanceResource):
     def delete(self):
         """
         Deletes the ConnectionPolicyInstance
+        
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -419,6 +426,7 @@ class ConnectionPolicyInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the ConnectionPolicyInstance
+        
 
         :returns: The fetched ConnectionPolicyInstance
         :rtype: twilio.rest.voice.v1.connection_policy.ConnectionPolicyInstance

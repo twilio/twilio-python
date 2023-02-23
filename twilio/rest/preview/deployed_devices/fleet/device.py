@@ -39,7 +39,7 @@ class DeviceList(ListResource):
 
         # Path Solution
         self._solution = { 'fleet_sid': fleet_sid,  }
-        self._uri = '/Fleets/${fleet_sid}/Devices'.format(**self._solution)
+        self._uri = '/Fleets/{fleet_sid}/Devices'.format(**self._solution)
         
         
     
@@ -49,6 +49,7 @@ class DeviceList(ListResource):
     def create(self, unique_name=values.unset, friendly_name=values.unset, identity=values.unset, deployment_sid=values.unset, enabled=values.unset):
         """
         Create the DeviceInstance
+
         :param str unique_name: Provides a unique and addressable name to be assigned to this Device, to be used in addition to SID, up to 128 characters long.
         :param str friendly_name: Provides a human readable descriptive text to be assigned to this Device, up to 256 characters long.
         :param str identity: Provides an arbitrary string identifier representing a human user to be associated with this Device, up to 256 characters long.
@@ -65,8 +66,9 @@ class DeviceList(ListResource):
             'DeploymentSid': deployment_sid,
             'Enabled': enabled,
         })
+        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return DeviceInstance(self._version, payload, fleet_sid=self._solution['fleet_sid'])
     
     
@@ -257,26 +259,29 @@ class DeviceContext(InstanceContext):
             'fleet_sid': fleet_sid,
             'sid': sid,
         }
-        self._uri = '/Fleets/${fleet_sid}/Devices/${sid}'.format(**self._solution)
+        self._uri = '/Fleets/{fleet_sid}/Devices/{sid}'.format(**self._solution)
         
     
     def delete(self):
         """
         Deletes the DeviceInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
     def fetch(self):
         """
         Fetch the DeviceInstance
+        
 
         :returns: The fetched DeviceInstance
         :rtype: twilio.rest.preview.deployed_devices.fleet.device.DeviceInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return DeviceInstance(
             self._version,
@@ -304,8 +309,9 @@ class DeviceContext(InstanceContext):
             'DeploymentSid': deployment_sid,
             'Enabled': enabled,
         })
+        
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return DeviceInstance(
             self._version,
@@ -464,6 +470,7 @@ class DeviceInstance(InstanceResource):
     def delete(self):
         """
         Deletes the DeviceInstance
+        
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -473,6 +480,7 @@ class DeviceInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the DeviceInstance
+        
 
         :returns: The fetched DeviceInstance
         :rtype: twilio.rest.preview.deployed_devices.fleet.device.DeviceInstance

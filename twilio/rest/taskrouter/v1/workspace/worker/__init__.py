@@ -45,7 +45,7 @@ class WorkerList(ListResource):
 
         # Path Solution
         self._solution = { 'workspace_sid': workspace_sid,  }
-        self._uri = '/Workspaces/${workspace_sid}/Workers'.format(**self._solution)
+        self._uri = '/Workspaces/{workspace_sid}/Workers'.format(**self._solution)
         
         self._cumulative_statistics = None
         self._real_time_statistics = None
@@ -58,6 +58,7 @@ class WorkerList(ListResource):
     def create(self, friendly_name, activity_sid=values.unset, attributes=values.unset):
         """
         Create the WorkerInstance
+
         :param str friendly_name: A descriptive string that you create to describe the new Worker. It can be up to 64 characters long.
         :param str activity_sid: The SID of a valid Activity that will describe the new Worker's initial state. See [Activities](https://www.twilio.com/docs/taskrouter/api/activity) for more information. If not provided, the new Worker's initial state is the `default_activity_sid` configured on the Workspace.
         :param str attributes: A valid JSON string that describes the new Worker. For example: `{ \\\"email\\\": \\\"Bob@example.com\\\", \\\"phone\\\": \\\"+5095551234\\\" }`. This data is passed to the `assignment_callback_url` when TaskRouter assigns a Task to the Worker. Defaults to {}.
@@ -70,8 +71,9 @@ class WorkerList(ListResource):
             'ActivitySid': activity_sid,
             'Attributes': attributes,
         })
+        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return WorkerInstance(self._version, payload, workspace_sid=self._solution['workspace_sid'])
     
     
@@ -340,7 +342,7 @@ class WorkerContext(InstanceContext):
             'workspace_sid': workspace_sid,
             'sid': sid,
         }
-        self._uri = '/Workspaces/${workspace_sid}/Workers/${sid}'.format(**self._solution)
+        self._uri = '/Workspaces/{workspace_sid}/Workers/{sid}'.format(**self._solution)
         
         self._reservations = None
         self._worker_channels = None
@@ -350,19 +352,25 @@ class WorkerContext(InstanceContext):
         """
         Deletes the WorkerInstance
 
+        :param str if_match: The If-Match HTTP request header
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        headers = values.of({'If-Match': if_match, })
+        
+        return self._version.delete(method='DELETE', uri=self._uri, headers=headers)
         
     def fetch(self):
         """
         Fetch the WorkerInstance
+        
 
         :returns: The fetched WorkerInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkerInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return WorkerInstance(
             self._version,
@@ -386,14 +394,14 @@ class WorkerContext(InstanceContext):
         :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkerInstance
         """
         data = values.of({ 
-            'If-Match': if_match,
             'ActivitySid': activity_sid,
             'Attributes': attributes,
             'FriendlyName': friendly_name,
             'RejectPendingReservations': reject_pending_reservations,
         })
+        headers = values.of({'If-Match': if_match, })
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data, headers=headers)
 
         return WorkerInstance(
             self._version,
@@ -600,15 +608,18 @@ class WorkerInstance(InstanceResource):
     def delete(self, if_match=values.unset):
         """
         Deletes the WorkerInstance
+        
+        :params str if_match: The If-Match HTTP request header
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._proxy.delete()
+        return self._proxy.delete(if_match=if_match, )
     
     def fetch(self):
         """
         Fetch the WorkerInstance
+        
 
         :returns: The fetched WorkerInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkerInstance

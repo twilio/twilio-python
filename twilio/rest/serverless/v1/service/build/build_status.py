@@ -90,17 +90,19 @@ class BuildStatusContext(InstanceContext):
             'service_sid': service_sid,
             'sid': sid,
         }
-        self._uri = '/Services/${service_sid}/Builds/${sid}/Status'.format(**self._solution)
+        self._uri = '/Services/{service_sid}/Builds/{sid}/Status'.format(**self._solution)
         
     
     def fetch(self):
         """
         Fetch the BuildStatusInstance
+        
 
         :returns: The fetched BuildStatusInstance
         :rtype: twilio.rest.serverless.v1.service.build.build_status.BuildStatusInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return BuildStatusInstance(
             self._version,
@@ -197,6 +199,7 @@ class BuildStatusInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the BuildStatusInstance
+        
 
         :returns: The fetched BuildStatusInstance
         :rtype: twilio.rest.serverless.v1.service.build.build_status.BuildStatusInstance

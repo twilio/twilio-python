@@ -43,7 +43,7 @@ class TaskQueueList(ListResource):
 
         # Path Solution
         self._solution = { 'workspace_sid': workspace_sid,  }
-        self._uri = '/Workspaces/${workspace_sid}/TaskQueues'.format(**self._solution)
+        self._uri = '/Workspaces/{workspace_sid}/TaskQueues'.format(**self._solution)
         
         self._statistics = None
         
@@ -54,6 +54,7 @@ class TaskQueueList(ListResource):
     def create(self, friendly_name, target_workers=values.unset, max_reserved_workers=values.unset, task_order=values.unset, reservation_activity_sid=values.unset, assignment_activity_sid=values.unset):
         """
         Create the TaskQueueInstance
+
         :param str friendly_name: A descriptive string that you create to describe the TaskQueue. For example `Support-Tier 1`, `Sales`, or `Escalation`.
         :param str target_workers: A string that describes the Worker selection criteria for any Tasks that enter the TaskQueue. For example, `'\\\"language\\\" == \\\"spanish\\\"'`. The default value is `1==1`. If this value is empty, Tasks will wait in the TaskQueue until they are deleted or moved to another TaskQueue. For more information about Worker selection, see [Describing Worker selection criteria](https://www.twilio.com/docs/taskrouter/api/taskqueues#target-workers).
         :param int max_reserved_workers: The maximum number of Workers to reserve for the assignment of a Task in the queue. Can be an integer between 1 and 50, inclusive and defaults to 1.
@@ -72,8 +73,9 @@ class TaskQueueList(ListResource):
             'ReservationActivitySid': reservation_activity_sid,
             'AssignmentActivitySid': assignment_activity_sid,
         })
+        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return TaskQueueInstance(self._version, payload, workspace_sid=self._solution['workspace_sid'])
     
     
@@ -294,7 +296,7 @@ class TaskQueueContext(InstanceContext):
             'workspace_sid': workspace_sid,
             'sid': sid,
         }
-        self._uri = '/Workspaces/${workspace_sid}/TaskQueues/${sid}'.format(**self._solution)
+        self._uri = '/Workspaces/{workspace_sid}/TaskQueues/{sid}'.format(**self._solution)
         
         self._cumulative_statistics = None
         self._real_time_statistics = None
@@ -304,19 +306,22 @@ class TaskQueueContext(InstanceContext):
         """
         Deletes the TaskQueueInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
     def fetch(self):
         """
         Fetch the TaskQueueInstance
+        
 
         :returns: The fetched TaskQueueInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueueInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return TaskQueueInstance(
             self._version,
@@ -348,8 +353,9 @@ class TaskQueueContext(InstanceContext):
             'MaxReservedWorkers': max_reserved_workers,
             'TaskOrder': task_order,
         })
+        
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return TaskQueueInstance(
             self._version,
@@ -574,6 +580,7 @@ class TaskQueueInstance(InstanceResource):
     def delete(self):
         """
         Deletes the TaskQueueInstance
+        
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -583,6 +590,7 @@ class TaskQueueInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the TaskQueueInstance
+        
 
         :returns: The fetched TaskQueueInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueueInstance

@@ -43,7 +43,7 @@ class IncomingPhoneNumberList(ListResource):
 
         # Path Solution
         self._solution = { 'account_sid': account_sid,  }
-        self._uri = '/Accounts/${account_sid}/IncomingPhoneNumbers.json'.format(**self._solution)
+        self._uri = '/Accounts/{account_sid}/IncomingPhoneNumbers.json'.format(**self._solution)
         
         self._local = None
         self._mobile = None
@@ -56,6 +56,7 @@ class IncomingPhoneNumberList(ListResource):
     def create(self, api_version=values.unset, friendly_name=values.unset, sms_application_sid=values.unset, sms_fallback_method=values.unset, sms_fallback_url=values.unset, sms_method=values.unset, sms_url=values.unset, status_callback=values.unset, status_callback_method=values.unset, voice_application_sid=values.unset, voice_caller_id_lookup=values.unset, voice_fallback_method=values.unset, voice_fallback_url=values.unset, voice_method=values.unset, voice_url=values.unset, emergency_status=values.unset, emergency_address_sid=values.unset, trunk_sid=values.unset, identity_sid=values.unset, address_sid=values.unset, voice_receive_mode=values.unset, bundle_sid=values.unset, phone_number=values.unset, area_code=values.unset):
         """
         Create the IncomingPhoneNumberInstance
+
         :param str api_version: The API version to use for incoming calls made to the new phone number. The default is `2010-04-01`.
         :param str friendly_name: A descriptive string that you created to describe the new phone number. It can be up to 64 characters long. By default, this is a formatted version of the new phone number.
         :param str sms_application_sid: The SID of the application that should handle SMS messages sent to the new phone number. If an `sms_application_sid` is present, we ignore all of the `sms_*_url` urls and use those set on the application.
@@ -110,8 +111,9 @@ class IncomingPhoneNumberList(ListResource):
             'PhoneNumber': phone_number,
             'AreaCode': area_code,
         })
+        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return IncomingPhoneNumberInstance(self._version, payload, account_sid=self._solution['account_sid'])
     
     
@@ -356,7 +358,7 @@ class IncomingPhoneNumberContext(InstanceContext):
             'account_sid': account_sid,
             'sid': sid,
         }
-        self._uri = '/Accounts/${account_sid}/IncomingPhoneNumbers/${sid}.json'.format(**self._solution)
+        self._uri = '/Accounts/{account_sid}/IncomingPhoneNumbers/{sid}.json'.format(**self._solution)
         
         self._assigned_add_ons = None
     
@@ -364,19 +366,22 @@ class IncomingPhoneNumberContext(InstanceContext):
         """
         Deletes the IncomingPhoneNumberInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
     def fetch(self):
         """
         Fetch the IncomingPhoneNumberInstance
+        
 
         :returns: The fetched IncomingPhoneNumberInstance
         :rtype: twilio.rest.api.v2010.account.incoming_phone_number.IncomingPhoneNumberInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return IncomingPhoneNumberInstance(
             self._version,
@@ -442,8 +447,9 @@ class IncomingPhoneNumberContext(InstanceContext):
             'AddressSid': address_sid,
             'BundleSid': bundle_sid,
         })
+        
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return IncomingPhoneNumberInstance(
             self._version,
@@ -813,6 +819,7 @@ class IncomingPhoneNumberInstance(InstanceResource):
     def delete(self):
         """
         Deletes the IncomingPhoneNumberInstance
+        
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -822,6 +829,7 @@ class IncomingPhoneNumberInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the IncomingPhoneNumberInstance
+        
 
         :returns: The fetched IncomingPhoneNumberInstance
         :rtype: twilio.rest.api.v2010.account.incoming_phone_number.IncomingPhoneNumberInstance

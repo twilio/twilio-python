@@ -40,7 +40,7 @@ class WorkerChannelList(ListResource):
 
         # Path Solution
         self._solution = { 'workspace_sid': workspace_sid, 'worker_sid': worker_sid,  }
-        self._uri = '/Workspaces/${workspace_sid}/Workers/${worker_sid}/Channels'.format(**self._solution)
+        self._uri = '/Workspaces/{workspace_sid}/Workers/{worker_sid}/Channels'.format(**self._solution)
         
         
     
@@ -224,17 +224,19 @@ class WorkerChannelContext(InstanceContext):
             'worker_sid': worker_sid,
             'sid': sid,
         }
-        self._uri = '/Workspaces/${workspace_sid}/Workers/${worker_sid}/Channels/${sid}'.format(**self._solution)
+        self._uri = '/Workspaces/{workspace_sid}/Workers/{worker_sid}/Channels/{sid}'.format(**self._solution)
         
     
     def fetch(self):
         """
         Fetch the WorkerChannelInstance
+        
 
         :returns: The fetched WorkerChannelInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.worker.worker_channel.WorkerChannelInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return WorkerChannelInstance(
             self._version,
@@ -259,8 +261,9 @@ class WorkerChannelContext(InstanceContext):
             'Capacity': capacity,
             'Available': available,
         })
+        
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return WorkerChannelInstance(
             self._version,
@@ -429,6 +432,7 @@ class WorkerChannelInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the WorkerChannelInstance
+        
 
         :returns: The fetched WorkerChannelInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.worker.worker_channel.WorkerChannelInstance

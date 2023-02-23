@@ -39,7 +39,7 @@ class EvaluationList(ListResource):
 
         # Path Solution
         self._solution = { 'bundle_sid': bundle_sid,  }
-        self._uri = '/RegulatoryCompliance/Bundles/${bundle_sid}/Evaluations'.format(**self._solution)
+        self._uri = '/RegulatoryCompliance/Bundles/{bundle_sid}/Evaluations'.format(**self._solution)
         
         
     
@@ -222,17 +222,19 @@ class EvaluationContext(InstanceContext):
             'bundle_sid': bundle_sid,
             'sid': sid,
         }
-        self._uri = '/RegulatoryCompliance/Bundles/${bundle_sid}/Evaluations/${sid}'.format(**self._solution)
+        self._uri = '/RegulatoryCompliance/Bundles/{bundle_sid}/Evaluations/{sid}'.format(**self._solution)
         
     
     def fetch(self):
         """
         Fetch the EvaluationInstance
+        
 
         :returns: The fetched EvaluationInstance
         :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.evaluation.EvaluationInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return EvaluationInstance(
             self._version,
@@ -356,6 +358,7 @@ class EvaluationInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the EvaluationInstance
+        
 
         :returns: The fetched EvaluationInstance
         :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.evaluation.EvaluationInstance

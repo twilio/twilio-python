@@ -96,7 +96,7 @@ class ChannelContext(InstanceContext):
             'service_sid': service_sid,
             'sid': sid,
         }
-        self._uri = '/Services/${service_sid}/Channels/${sid}'.format(**self._solution)
+        self._uri = '/Services/{service_sid}/Channels/{sid}'.format(**self._solution)
         
     
     def update(self, x_twilio_webhook_enabled=values.unset, type=values.unset, messaging_service_sid=values.unset):
@@ -111,12 +111,12 @@ class ChannelContext(InstanceContext):
         :rtype: twilio.rest.chat.v3.channel.ChannelInstance
         """
         data = values.of({ 
-            'X-Twilio-Webhook-Enabled': x_twilio_webhook_enabled,
             'Type': type,
             'MessagingServiceSid': messaging_service_sid,
         })
+        headers = values.of({'X-Twilio-Webhook-Enabled': x_twilio_webhook_enabled, })
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data, headers=headers)
 
         return ChannelInstance(
             self._version,

@@ -46,6 +46,7 @@ class EsimProfileList(ListResource):
     def create(self, callback_url=values.unset, callback_method=values.unset, eid=values.unset):
         """
         Create the EsimProfileInstance
+
         :param str callback_url: The URL we should call using the `callback_method` when the status of the eSIM Profile changes. At this stage of the eSIM Profile pilot, the a request to the URL will only be called when the ESimProfile resource changes from `reserving` to `available`.
         :param str callback_method: The HTTP method we should use to call `callback_url`. Can be: `GET` or `POST` and the default is POST.
         :param str eid: Identifier of the eUICC that will claim the eSIM Profile.
@@ -58,8 +59,9 @@ class EsimProfileList(ListResource):
             'CallbackMethod': callback_method,
             'Eid': eid,
         })
+        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return EsimProfileInstance(self._version, payload)
     
     
@@ -257,17 +259,19 @@ class EsimProfileContext(InstanceContext):
         self._solution = { 
             'sid': sid,
         }
-        self._uri = '/ESimProfiles/${sid}'.format(**self._solution)
+        self._uri = '/ESimProfiles/{sid}'.format(**self._solution)
         
     
     def fetch(self):
         """
         Fetch the EsimProfileInstance
+        
 
         :returns: The fetched EsimProfileInstance
         :rtype: twilio.rest.supersim.v1.esim_profile.EsimProfileInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return EsimProfileInstance(
             self._version,
@@ -426,6 +430,7 @@ class EsimProfileInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the EsimProfileInstance
+        
 
         :returns: The fetched EsimProfileInstance
         :rtype: twilio.rest.supersim.v1.esim_profile.EsimProfileInstance

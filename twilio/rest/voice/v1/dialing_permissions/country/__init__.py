@@ -254,18 +254,20 @@ class CountryContext(InstanceContext):
         self._solution = { 
             'iso_code': iso_code,
         }
-        self._uri = '/DialingPermissions/Countries/${iso_code}'.format(**self._solution)
+        self._uri = '/DialingPermissions/Countries/{iso_code}'.format(**self._solution)
         
         self._highrisk_special_prefixes = None
     
     def fetch(self):
         """
         Fetch the CountryInstance
+        
 
         :returns: The fetched CountryInstance
         :rtype: twilio.rest.voice.v1.dialing_permissions.country.CountryInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return CountryInstance(
             self._version,
@@ -410,6 +412,7 @@ class CountryInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the CountryInstance
+        
 
         :returns: The fetched CountryInstance
         :rtype: twilio.rest.voice.v1.dialing_permissions.country.CountryInstance

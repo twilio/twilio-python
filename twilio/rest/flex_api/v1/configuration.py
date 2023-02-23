@@ -92,11 +92,17 @@ class ConfigurationContext(InstanceContext):
     def fetch(self, ui_version=values.unset):
         """
         Fetch the ConfigurationInstance
+        
+        :params str ui_version: The Pinned UI version of the Configuration resource to fetch.
 
         :returns: The fetched ConfigurationInstance
         :rtype: twilio.rest.flex_api.v1.configuration.ConfigurationInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        data = values.of({ 
+            'UiVersion': ui_version,
+        })
+        payload = self._version.fetch(method='GET', uri=self._uri, params=data)
 
         return ConfigurationInstance(
             self._version,
@@ -551,11 +557,13 @@ class ConfigurationInstance(InstanceResource):
     def fetch(self, ui_version=values.unset):
         """
         Fetch the ConfigurationInstance
+        
+        :params str ui_version: The Pinned UI version of the Configuration resource to fetch.
 
         :returns: The fetched ConfigurationInstance
         :rtype: twilio.rest.flex_api.v1.configuration.ConfigurationInstance
         """
-        return self._proxy.fetch()
+        return self._proxy.fetch(ui_version=ui_version, )
     
     def __repr__(self):
         """

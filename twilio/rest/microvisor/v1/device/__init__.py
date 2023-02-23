@@ -222,7 +222,7 @@ class DeviceContext(InstanceContext):
         self._solution = { 
             'sid': sid,
         }
-        self._uri = '/Devices/${sid}'.format(**self._solution)
+        self._uri = '/Devices/{sid}'.format(**self._solution)
         
         self._device_configs = None
         self._device_secrets = None
@@ -230,11 +230,13 @@ class DeviceContext(InstanceContext):
     def fetch(self):
         """
         Fetch the DeviceInstance
+        
 
         :returns: The fetched DeviceInstance
         :rtype: twilio.rest.microvisor.v1.device.DeviceInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return DeviceInstance(
             self._version,
@@ -259,8 +261,9 @@ class DeviceContext(InstanceContext):
             'TargetApp': target_app,
             'LoggingEnabled': logging_enabled,
         })
+        
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return DeviceInstance(
             self._version,
@@ -417,6 +420,7 @@ class DeviceInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the DeviceInstance
+        
 
         :returns: The fetched DeviceInstance
         :rtype: twilio.rest.microvisor.v1.device.DeviceInstance

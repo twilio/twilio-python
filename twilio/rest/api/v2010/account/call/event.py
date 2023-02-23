@@ -40,7 +40,7 @@ class EventList(ListResource):
 
         # Path Solution
         self._solution = { 'account_sid': account_sid, 'call_sid': call_sid,  }
-        self._uri = '/Accounts/${account_sid}/Calls/${call_sid}/Events.json'.format(**self._solution)
+        self._uri = '/Accounts/{account_sid}/Calls/{call_sid}/Events.json'.format(**self._solution)
         
         
     

@@ -40,7 +40,7 @@ class UserBindingList(ListResource):
 
         # Path Solution
         self._solution = { 'service_sid': service_sid, 'user_sid': user_sid,  }
-        self._uri = '/Services/${service_sid}/Users/${user_sid}/Bindings'.format(**self._solution)
+        self._uri = '/Services/{service_sid}/Users/{user_sid}/Bindings'.format(**self._solution)
         
         
     
@@ -230,26 +230,29 @@ class UserBindingContext(InstanceContext):
             'user_sid': user_sid,
             'sid': sid,
         }
-        self._uri = '/Services/${service_sid}/Users/${user_sid}/Bindings/${sid}'.format(**self._solution)
+        self._uri = '/Services/{service_sid}/Users/{user_sid}/Bindings/{sid}'.format(**self._solution)
         
     
     def delete(self):
         """
         Deletes the UserBindingInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
     def fetch(self):
         """
         Fetch the UserBindingInstance
+        
 
         :returns: The fetched UserBindingInstance
         :rtype: twilio.rest.ip_messaging.v2.service.user.user_binding.UserBindingInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return UserBindingInstance(
             self._version,
@@ -410,6 +413,7 @@ class UserBindingInstance(InstanceResource):
     def delete(self):
         """
         Deletes the UserBindingInstance
+        
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -419,6 +423,7 @@ class UserBindingInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the UserBindingInstance
+        
 
         :returns: The fetched UserBindingInstance
         :rtype: twilio.rest.ip_messaging.v2.service.user.user_binding.UserBindingInstance

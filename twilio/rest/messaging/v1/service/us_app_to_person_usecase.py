@@ -39,7 +39,7 @@ class UsAppToPersonUsecaseList(ListResource):
 
         # Path Solution
         self._solution = { 'messaging_service_sid': messaging_service_sid,  }
-        self._uri = '/Services/${messaging_service_sid}/Compliance/Usa2p/Usecases'.format(**self._solution)
+        self._uri = '/Services/{messaging_service_sid}/Compliance/Usa2p/Usecases'.format(**self._solution)
         
         
     

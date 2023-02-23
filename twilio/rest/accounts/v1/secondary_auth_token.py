@@ -112,10 +112,11 @@ class SecondaryAuthTokenContext(InstanceContext):
         """
         Deletes the SecondaryAuthTokenInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
     
     def __repr__(self):
@@ -214,6 +215,7 @@ class SecondaryAuthTokenInstance(InstanceResource):
     def delete(self):
         """
         Deletes the SecondaryAuthTokenInstance
+        
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool

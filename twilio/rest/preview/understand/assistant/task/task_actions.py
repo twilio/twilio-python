@@ -91,17 +91,19 @@ class TaskActionsContext(InstanceContext):
             'assistant_sid': assistant_sid,
             'task_sid': task_sid,
         }
-        self._uri = '/Assistants/${assistant_sid}/Tasks/${task_sid}/Actions'.format(**self._solution)
+        self._uri = '/Assistants/{assistant_sid}/Tasks/{task_sid}/Actions'.format(**self._solution)
         
     
     def fetch(self):
         """
         Fetch the TaskActionsInstance
+        
 
         :returns: The fetched TaskActionsInstance
         :rtype: twilio.rest.preview.understand.assistant.task.task_actions.TaskActionsInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return TaskActionsInstance(
             self._version,
@@ -123,8 +125,9 @@ class TaskActionsContext(InstanceContext):
         data = values.of({ 
             'Actions': serialize.object(actions),
         })
+        
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return TaskActionsInstance(
             self._version,
@@ -220,6 +223,7 @@ class TaskActionsInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the TaskActionsInstance
+        
 
         :returns: The fetched TaskActionsInstance
         :rtype: twilio.rest.preview.understand.assistant.task.task_actions.TaskActionsInstance

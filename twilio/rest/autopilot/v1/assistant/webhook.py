@@ -39,7 +39,7 @@ class WebhookList(ListResource):
 
         # Path Solution
         self._solution = { 'assistant_sid': assistant_sid,  }
-        self._uri = '/Assistants/${assistant_sid}/Webhooks'.format(**self._solution)
+        self._uri = '/Assistants/{assistant_sid}/Webhooks'.format(**self._solution)
         
         
     
@@ -49,6 +49,7 @@ class WebhookList(ListResource):
     def create(self, unique_name, events, webhook_url, webhook_method=values.unset):
         """
         Create the WebhookInstance
+
         :param str unique_name: An application-defined string that uniquely identifies the new resource. It can be used as an alternative to the `sid` in the URL path to address the resource. This value must be unique and 64 characters or less in length.
         :param str events: The list of space-separated events that this Webhook will subscribe to.
         :param str webhook_url: The URL associated with this Webhook.
@@ -63,8 +64,9 @@ class WebhookList(ListResource):
             'WebhookUrl': webhook_url,
             'WebhookMethod': webhook_method,
         })
+        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return WebhookInstance(self._version, payload, assistant_sid=self._solution['assistant_sid'])
     
     
@@ -249,26 +251,29 @@ class WebhookContext(InstanceContext):
             'assistant_sid': assistant_sid,
             'sid': sid,
         }
-        self._uri = '/Assistants/${assistant_sid}/Webhooks/${sid}'.format(**self._solution)
+        self._uri = '/Assistants/{assistant_sid}/Webhooks/{sid}'.format(**self._solution)
         
     
     def delete(self):
         """
         Deletes the WebhookInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
     def fetch(self):
         """
         Fetch the WebhookInstance
+        
 
         :returns: The fetched WebhookInstance
         :rtype: twilio.rest.autopilot.v1.assistant.webhook.WebhookInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return WebhookInstance(
             self._version,
@@ -296,8 +301,9 @@ class WebhookContext(InstanceContext):
             'WebhookUrl': webhook_url,
             'WebhookMethod': webhook_method,
         })
+        
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return WebhookInstance(
             self._version,
@@ -438,6 +444,7 @@ class WebhookInstance(InstanceResource):
     def delete(self):
         """
         Deletes the WebhookInstance
+        
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -447,6 +454,7 @@ class WebhookInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the WebhookInstance
+        
 
         :returns: The fetched WebhookInstance
         :rtype: twilio.rest.autopilot.v1.assistant.webhook.WebhookInstance

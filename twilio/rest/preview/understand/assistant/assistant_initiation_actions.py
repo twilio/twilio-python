@@ -89,17 +89,19 @@ class AssistantInitiationActionsContext(InstanceContext):
         self._solution = { 
             'assistant_sid': assistant_sid,
         }
-        self._uri = '/Assistants/${assistant_sid}/InitiationActions'.format(**self._solution)
+        self._uri = '/Assistants/{assistant_sid}/InitiationActions'.format(**self._solution)
         
     
     def fetch(self):
         """
         Fetch the AssistantInitiationActionsInstance
+        
 
         :returns: The fetched AssistantInitiationActionsInstance
         :rtype: twilio.rest.preview.understand.assistant.assistant_initiation_actions.AssistantInitiationActionsInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return AssistantInitiationActionsInstance(
             self._version,
@@ -120,8 +122,9 @@ class AssistantInitiationActionsContext(InstanceContext):
         data = values.of({ 
             'InitiationActions': serialize.object(initiation_actions),
         })
+        
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return AssistantInitiationActionsInstance(
             self._version,
@@ -207,6 +210,7 @@ class AssistantInitiationActionsInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the AssistantInitiationActionsInstance
+        
 
         :returns: The fetched AssistantInitiationActionsInstance
         :rtype: twilio.rest.preview.understand.assistant.assistant_initiation_actions.AssistantInitiationActionsInstance

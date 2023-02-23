@@ -39,7 +39,7 @@ class SimIpAddressList(ListResource):
 
         # Path Solution
         self._solution = { 'sim_sid': sim_sid,  }
-        self._uri = '/Sims/${sim_sid}/IpAddresses'.format(**self._solution)
+        self._uri = '/Sims/{sim_sid}/IpAddresses'.format(**self._solution)
         
         
     

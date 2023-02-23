@@ -99,8 +99,9 @@ class AuthTokenPromotionContext(InstanceContext):
         """
         data = values.of({ 
         })
+        
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return AuthTokenPromotionInstance(
             self._version,

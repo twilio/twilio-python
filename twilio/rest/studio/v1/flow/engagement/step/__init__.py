@@ -41,7 +41,7 @@ class StepList(ListResource):
 
         # Path Solution
         self._solution = { 'flow_sid': flow_sid, 'engagement_sid': engagement_sid,  }
-        self._uri = '/Flows/${flow_sid}/Engagements/${engagement_sid}/Steps'.format(**self._solution)
+        self._uri = '/Flows/{flow_sid}/Engagements/{engagement_sid}/Steps'.format(**self._solution)
         
         
     
@@ -222,18 +222,20 @@ class StepContext(InstanceContext):
             'engagement_sid': engagement_sid,
             'sid': sid,
         }
-        self._uri = '/Flows/${flow_sid}/Engagements/${engagement_sid}/Steps/${sid}'.format(**self._solution)
+        self._uri = '/Flows/{flow_sid}/Engagements/{engagement_sid}/Steps/{sid}'.format(**self._solution)
         
         self._step_context = None
     
     def fetch(self):
         """
         Fetch the StepInstance
+        
 
         :returns: The fetched StepInstance
         :rtype: twilio.rest.studio.v1.flow.engagement.step.StepInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return StepInstance(
             self._version,
@@ -407,6 +409,7 @@ class StepInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the StepInstance
+        
 
         :returns: The fetched StepInstance
         :rtype: twilio.rest.studio.v1.flow.engagement.step.StepInstance

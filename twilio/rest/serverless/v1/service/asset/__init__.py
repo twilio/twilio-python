@@ -40,7 +40,7 @@ class AssetList(ListResource):
 
         # Path Solution
         self._solution = { 'service_sid': service_sid,  }
-        self._uri = '/Services/${service_sid}/Assets'.format(**self._solution)
+        self._uri = '/Services/{service_sid}/Assets'.format(**self._solution)
         
         
     
@@ -50,6 +50,7 @@ class AssetList(ListResource):
     def create(self, friendly_name):
         """
         Create the AssetInstance
+
         :param str friendly_name: A descriptive string that you create to describe the Asset resource. It can be a maximum of 255 characters.
         
         :returns: The created AssetInstance
@@ -58,8 +59,9 @@ class AssetList(ListResource):
         data = values.of({ 
             'FriendlyName': friendly_name,
         })
+        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return AssetInstance(self._version, payload, service_sid=self._solution['service_sid'])
     
     
@@ -244,7 +246,7 @@ class AssetContext(InstanceContext):
             'service_sid': service_sid,
             'sid': sid,
         }
-        self._uri = '/Services/${service_sid}/Assets/${sid}'.format(**self._solution)
+        self._uri = '/Services/{service_sid}/Assets/{sid}'.format(**self._solution)
         
         self._asset_versions = None
     
@@ -252,19 +254,22 @@ class AssetContext(InstanceContext):
         """
         Deletes the AssetInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
     def fetch(self):
         """
         Fetch the AssetInstance
+        
 
         :returns: The fetched AssetInstance
         :rtype: twilio.rest.serverless.v1.service.asset.AssetInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return AssetInstance(
             self._version,
@@ -274,7 +279,7 @@ class AssetContext(InstanceContext):
             
         )
         
-    def update(self, friendly_name=values.unset):
+    def update(self, friendly_name):
         """
         Update the AssetInstance
         
@@ -286,8 +291,9 @@ class AssetContext(InstanceContext):
         data = values.of({ 
             'FriendlyName': friendly_name,
         })
+        
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return AssetInstance(
             self._version,
@@ -423,6 +429,7 @@ class AssetInstance(InstanceResource):
     def delete(self):
         """
         Deletes the AssetInstance
+        
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -432,13 +439,14 @@ class AssetInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the AssetInstance
+        
 
         :returns: The fetched AssetInstance
         :rtype: twilio.rest.serverless.v1.service.asset.AssetInstance
         """
         return self._proxy.fetch()
     
-    def update(self, friendly_name=values.unset):
+    def update(self, friendly_name):
         """
         Update the AssetInstance
         

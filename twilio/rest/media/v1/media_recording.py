@@ -244,26 +244,29 @@ class MediaRecordingContext(InstanceContext):
         self._solution = { 
             'sid': sid,
         }
-        self._uri = '/MediaRecordings/${sid}'.format(**self._solution)
+        self._uri = '/MediaRecordings/{sid}'.format(**self._solution)
         
     
     def delete(self):
         """
         Deletes the MediaRecordingInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
     def fetch(self):
         """
         Fetch the MediaRecordingInstance
+        
 
         :returns: The fetched MediaRecordingInstance
         :rtype: twilio.rest.media.v1.media_recording.MediaRecordingInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return MediaRecordingInstance(
             self._version,
@@ -449,6 +452,7 @@ class MediaRecordingInstance(InstanceResource):
     def delete(self):
         """
         Deletes the MediaRecordingInstance
+        
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -458,6 +462,7 @@ class MediaRecordingInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the MediaRecordingInstance
+        
 
         :returns: The fetched MediaRecordingInstance
         :rtype: twilio.rest.media.v1.media_recording.MediaRecordingInstance

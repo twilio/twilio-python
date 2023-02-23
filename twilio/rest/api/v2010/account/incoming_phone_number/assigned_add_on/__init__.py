@@ -41,7 +41,7 @@ class AssignedAddOnList(ListResource):
 
         # Path Solution
         self._solution = { 'account_sid': account_sid, 'resource_sid': resource_sid,  }
-        self._uri = '/Accounts/${account_sid}/IncomingPhoneNumbers/${resource_sid}/AssignedAddOns.json'.format(**self._solution)
+        self._uri = '/Accounts/{account_sid}/IncomingPhoneNumbers/{resource_sid}/AssignedAddOns.json'.format(**self._solution)
         
         
     
@@ -50,6 +50,7 @@ class AssignedAddOnList(ListResource):
     def create(self, installed_add_on_sid):
         """
         Create the AssignedAddOnInstance
+
         :param str installed_add_on_sid: The SID that identifies the Add-on installation.
         
         :returns: The created AssignedAddOnInstance
@@ -58,8 +59,9 @@ class AssignedAddOnList(ListResource):
         data = values.of({ 
             'InstalledAddOnSid': installed_add_on_sid,
         })
+        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return AssignedAddOnInstance(self._version, payload, account_sid=self._solution['account_sid'], resource_sid=self._solution['resource_sid'])
     
     
@@ -243,7 +245,7 @@ class AssignedAddOnContext(InstanceContext):
             'resource_sid': resource_sid,
             'sid': sid,
         }
-        self._uri = '/Accounts/${account_sid}/IncomingPhoneNumbers/${resource_sid}/AssignedAddOns/${sid}.json'.format(**self._solution)
+        self._uri = '/Accounts/{account_sid}/IncomingPhoneNumbers/{resource_sid}/AssignedAddOns/{sid}.json'.format(**self._solution)
         
         self._extensions = None
     
@@ -251,19 +253,22 @@ class AssignedAddOnContext(InstanceContext):
         """
         Deletes the AssignedAddOnInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
     def fetch(self):
         """
         Fetch the AssignedAddOnInstance
+        
 
         :returns: The fetched AssignedAddOnInstance
         :rtype: twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.AssignedAddOnInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return AssignedAddOnInstance(
             self._version,
@@ -428,6 +433,7 @@ class AssignedAddOnInstance(InstanceResource):
     def delete(self):
         """
         Deletes the AssignedAddOnInstance
+        
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -437,6 +443,7 @@ class AssignedAddOnInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the AssignedAddOnInstance
+        
 
         :returns: The fetched AssignedAddOnInstance
         :rtype: twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.AssignedAddOnInstance

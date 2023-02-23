@@ -235,17 +235,19 @@ class RegulationContext(InstanceContext):
         self._solution = { 
             'sid': sid,
         }
-        self._uri = '/RegulatoryCompliance/Regulations/${sid}'.format(**self._solution)
+        self._uri = '/RegulatoryCompliance/Regulations/{sid}'.format(**self._solution)
         
     
     def fetch(self):
         """
         Fetch the RegulationInstance
+        
 
         :returns: The fetched RegulationInstance
         :rtype: twilio.rest.numbers.v2.regulatory_compliance.regulation.RegulationInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return RegulationInstance(
             self._version,
@@ -359,6 +361,7 @@ class RegulationInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the RegulationInstance
+        
 
         :returns: The fetched RegulationInstance
         :rtype: twilio.rest.numbers.v2.regulatory_compliance.regulation.RegulationInstance

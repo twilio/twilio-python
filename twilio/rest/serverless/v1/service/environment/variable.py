@@ -40,7 +40,7 @@ class VariableList(ListResource):
 
         # Path Solution
         self._solution = { 'service_sid': service_sid, 'environment_sid': environment_sid,  }
-        self._uri = '/Services/${service_sid}/Environments/${environment_sid}/Variables'.format(**self._solution)
+        self._uri = '/Services/{service_sid}/Environments/{environment_sid}/Variables'.format(**self._solution)
         
         
     
@@ -50,6 +50,7 @@ class VariableList(ListResource):
     def create(self, key, value):
         """
         Create the VariableInstance
+
         :param str key: A string by which the Variable resource can be referenced. It can be a maximum of 128 characters.
         :param str value: A string that contains the actual value of the Variable. It can be a maximum of 450 bytes in size.
         
@@ -60,8 +61,9 @@ class VariableList(ListResource):
             'Key': key,
             'Value': value,
         })
+        )
+        payload = self._version.create(method='POST', uri=self._uri, data=data,)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return VariableInstance(self._version, payload, service_sid=self._solution['service_sid'], environment_sid=self._solution['environment_sid'])
     
     
@@ -247,26 +249,29 @@ class VariableContext(InstanceContext):
             'environment_sid': environment_sid,
             'sid': sid,
         }
-        self._uri = '/Services/${service_sid}/Environments/${environment_sid}/Variables/${sid}'.format(**self._solution)
+        self._uri = '/Services/{service_sid}/Environments/{environment_sid}/Variables/{sid}'.format(**self._solution)
         
     
     def delete(self):
         """
         Deletes the VariableInstance
 
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        return self._version.delete(method='DELETE', uri=self._uri,)
         
     def fetch(self):
         """
         Fetch the VariableInstance
+        
 
         :returns: The fetched VariableInstance
         :rtype: twilio.rest.serverless.v1.service.environment.variable.VariableInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return VariableInstance(
             self._version,
@@ -291,8 +296,9 @@ class VariableContext(InstanceContext):
             'Key': key,
             'Value': value,
         })
+        
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return VariableInstance(
             self._version,
@@ -425,6 +431,7 @@ class VariableInstance(InstanceResource):
     def delete(self):
         """
         Deletes the VariableInstance
+        
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -434,6 +441,7 @@ class VariableInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the VariableInstance
+        
 
         :returns: The fetched VariableInstance
         :rtype: twilio.rest.serverless.v1.service.environment.variable.VariableInstance

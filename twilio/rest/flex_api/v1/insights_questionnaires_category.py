@@ -47,6 +47,7 @@ class InsightsQuestionnairesCategoryList(ListResource):
     def create(self, name, token=values.unset):
         """
         Create the InsightsQuestionnairesCategoryInstance
+
         :param str name: The name of this category.
         :param str token: The Token HTTP request header
         
@@ -55,10 +56,10 @@ class InsightsQuestionnairesCategoryList(ListResource):
         """
         data = values.of({ 
             'Name': name,
-            'Token': token,
         })
+        headers = values.of({'Token': token, })
+        payload = self._version.create(method='POST', uri=self._uri, data=data, headers=headers)
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
         return InsightsQuestionnairesCategoryInstance(self._version, payload)
     
     
@@ -246,19 +247,23 @@ class InsightsQuestionnairesCategoryContext(InstanceContext):
         self._solution = { 
             'category_id': category_id,
         }
-        self._uri = '/Insights/QM/Categories/${category_id}'.format(**self._solution)
+        self._uri = '/Insights/QM/Categories/{category_id}'.format(**self._solution)
         
     
     def delete(self, token=values.unset):
         """
         Deletes the InsightsQuestionnairesCategoryInstance
 
+        :param str token: The Token HTTP request header
+        
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._version.delete(method='DELETE', uri=self._uri)
+        headers = values.of({'Token': token, })
         
-    def update(self, name=values.unset, token=values.unset):
+        return self._version.delete(method='DELETE', uri=self._uri, headers=headers)
+        
+    def update(self, name, token=values.unset):
         """
         Update the InsightsQuestionnairesCategoryInstance
         
@@ -270,10 +275,10 @@ class InsightsQuestionnairesCategoryContext(InstanceContext):
         """
         data = values.of({ 
             'Name': name,
-            'Token': token,
         })
+        headers = values.of({'Token': token, })
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data, headers=headers)
 
         return InsightsQuestionnairesCategoryInstance(
             self._version,
@@ -359,13 +364,15 @@ class InsightsQuestionnairesCategoryInstance(InstanceResource):
     def delete(self, token=values.unset):
         """
         Deletes the InsightsQuestionnairesCategoryInstance
+        
+        :params str token: The Token HTTP request header
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
         """
-        return self._proxy.delete()
+        return self._proxy.delete(token=token, )
     
-    def update(self, name=values.unset, token=values.unset):
+    def update(self, name, token=values.unset):
         """
         Update the InsightsQuestionnairesCategoryInstance
         

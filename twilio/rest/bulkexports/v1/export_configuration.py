@@ -92,17 +92,19 @@ class ExportConfigurationContext(InstanceContext):
         self._solution = { 
             'resource_type': resource_type,
         }
-        self._uri = '/Exports/${resource_type}/Configuration'.format(**self._solution)
+        self._uri = '/Exports/{resource_type}/Configuration'.format(**self._solution)
         
     
     def fetch(self):
         """
         Fetch the ExportConfigurationInstance
+        
 
         :returns: The fetched ExportConfigurationInstance
         :rtype: twilio.rest.bulkexports.v1.export_configuration.ExportConfigurationInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return ExportConfigurationInstance(
             self._version,
@@ -127,8 +129,9 @@ class ExportConfigurationContext(InstanceContext):
             'WebhookUrl': webhook_url,
             'WebhookMethod': webhook_method,
         })
+        
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return ExportConfigurationInstance(
             self._version,
@@ -223,6 +226,7 @@ class ExportConfigurationInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the ExportConfigurationInstance
+        
 
         :returns: The fetched ExportConfigurationInstance
         :rtype: twilio.rest.bulkexports.v1.export_configuration.ExportConfigurationInstance

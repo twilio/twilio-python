@@ -89,17 +89,19 @@ class NotificationContext(InstanceContext):
         self._solution = { 
             'chat_service_sid': chat_service_sid,
         }
-        self._uri = '/Services/${chat_service_sid}/Configuration/Notifications'.format(**self._solution)
+        self._uri = '/Services/{chat_service_sid}/Configuration/Notifications'.format(**self._solution)
         
     
     def fetch(self):
         """
         Fetch the NotificationInstance
+        
 
         :returns: The fetched NotificationInstance
         :rtype: twilio.rest.conversations.v1.service.configuration.notification.NotificationInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return NotificationInstance(
             self._version,
@@ -144,8 +146,9 @@ class NotificationContext(InstanceContext):
             'NewMessage.WithMedia.Enabled': new_message_with_media_enabled,
             'NewMessage.WithMedia.Template': new_message_with_media_template,
         })
+        
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data)
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return NotificationInstance(
             self._version,
@@ -258,6 +261,7 @@ class NotificationInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the NotificationInstance
+        
 
         :returns: The fetched NotificationInstance
         :rtype: twilio.rest.conversations.v1.service.configuration.notification.NotificationInstance

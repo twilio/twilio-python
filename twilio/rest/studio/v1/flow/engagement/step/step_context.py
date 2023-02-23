@@ -92,17 +92,19 @@ class StepContextContext(InstanceContext):
             'engagement_sid': engagement_sid,
             'step_sid': step_sid,
         }
-        self._uri = '/Flows/${flow_sid}/Engagements/${engagement_sid}/Steps/${step_sid}/Context'.format(**self._solution)
+        self._uri = '/Flows/{flow_sid}/Engagements/{engagement_sid}/Steps/{step_sid}/Context'.format(**self._solution)
         
     
     def fetch(self):
         """
         Fetch the StepContextInstance
+        
 
         :returns: The fetched StepContextInstance
         :rtype: twilio.rest.studio.v1.flow.engagement.step.step_context.StepContextInstance
         """
-        payload = self._version.fetch(method='GET', uri=self._uri)
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return StepContextInstance(
             self._version,
@@ -209,6 +211,7 @@ class StepContextInstance(InstanceResource):
     def fetch(self):
         """
         Fetch the StepContextInstance
+        
 
         :returns: The fetched StepContextInstance
         :rtype: twilio.rest.studio.v1.flow.engagement.step.step_context.StepContextInstance
