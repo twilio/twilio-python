@@ -296,7 +296,7 @@ class CallList(ListResource):
         """
         if self._feedback_summaries is None:
             self._feedback_summaries = FeedbackSummaryList(self._version, account_sid=self._solution['account_sid'])
-        return self.feedback_summaries
+        return self._feedback_summaries
 
     def get(self, sid):
         """

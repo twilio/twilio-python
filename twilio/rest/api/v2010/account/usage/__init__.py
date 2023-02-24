@@ -57,7 +57,7 @@ class UsageList(ListResource):
         """
         if self._records is None:
             self._records = RecordList(self._version, account_sid=self._solution['account_sid'])
-        return self.records
+        return self._records
 
     @property
     def triggers(self):
@@ -69,7 +69,7 @@ class UsageList(ListResource):
         """
         if self._triggers is None:
             self._triggers = TriggerList(self._version, account_sid=self._solution['account_sid'])
-        return self.triggers
+        return self._triggers
 
 
     def __repr__(self):

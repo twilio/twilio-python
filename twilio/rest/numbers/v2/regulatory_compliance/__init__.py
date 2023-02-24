@@ -64,7 +64,7 @@ class RegulatoryComplianceList(ListResource):
         """
         if self._bundles is None:
             self._bundles = BundleList(self._version)
-        return self.bundles
+        return self._bundles
 
     @property
     def end_users(self):
@@ -76,7 +76,7 @@ class RegulatoryComplianceList(ListResource):
         """
         if self._end_users is None:
             self._end_users = EndUserList(self._version)
-        return self.end_users
+        return self._end_users
 
     @property
     def end_user_types(self):
@@ -88,7 +88,7 @@ class RegulatoryComplianceList(ListResource):
         """
         if self._end_user_types is None:
             self._end_user_types = EndUserTypeList(self._version)
-        return self.end_user_types
+        return self._end_user_types
 
     @property
     def regulations(self):
@@ -100,7 +100,7 @@ class RegulatoryComplianceList(ListResource):
         """
         if self._regulations is None:
             self._regulations = RegulationList(self._version)
-        return self.regulations
+        return self._regulations
 
     @property
     def supporting_documents(self):
@@ -112,7 +112,7 @@ class RegulatoryComplianceList(ListResource):
         """
         if self._supporting_documents is None:
             self._supporting_documents = SupportingDocumentList(self._version)
-        return self.supporting_documents
+        return self._supporting_documents
 
     @property
     def supporting_document_types(self):
@@ -124,7 +124,7 @@ class RegulatoryComplianceList(ListResource):
         """
         if self._supporting_document_types is None:
             self._supporting_document_types = SupportingDocumentTypeList(self._version)
-        return self.supporting_document_types
+        return self._supporting_document_types
 
 
     def __repr__(self):

@@ -59,7 +59,7 @@ class SipList(ListResource):
         """
         if self._credential_lists is None:
             self._credential_lists = CredentialListList(self._version, account_sid=self._solution['account_sid'])
-        return self.credential_lists
+        return self._credential_lists
 
     @property
     def domains(self):
@@ -71,7 +71,7 @@ class SipList(ListResource):
         """
         if self._domains is None:
             self._domains = DomainList(self._version, account_sid=self._solution['account_sid'])
-        return self.domains
+        return self._domains
 
     @property
     def ip_access_control_lists(self):
@@ -83,7 +83,7 @@ class SipList(ListResource):
         """
         if self._ip_access_control_lists is None:
             self._ip_access_control_lists = IpAccessControlListList(self._version, account_sid=self._solution['account_sid'])
-        return self.ip_access_control_lists
+        return self._ip_access_control_lists
 
 
     def __repr__(self):

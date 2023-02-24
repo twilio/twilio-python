@@ -176,7 +176,7 @@ class RecordList(ListResource):
         """
         if self._all_time is None:
             self._all_time = AllTimeList(self._version, account_sid=self._solution['account_sid'])
-        return self.all_time
+        return self._all_time
 
     @property
     def daily(self):
@@ -188,7 +188,7 @@ class RecordList(ListResource):
         """
         if self._daily is None:
             self._daily = DailyList(self._version, account_sid=self._solution['account_sid'])
-        return self.daily
+        return self._daily
 
     @property
     def last_month(self):
@@ -200,7 +200,7 @@ class RecordList(ListResource):
         """
         if self._last_month is None:
             self._last_month = LastMonthList(self._version, account_sid=self._solution['account_sid'])
-        return self.last_month
+        return self._last_month
 
     @property
     def monthly(self):
@@ -212,7 +212,7 @@ class RecordList(ListResource):
         """
         if self._monthly is None:
             self._monthly = MonthlyList(self._version, account_sid=self._solution['account_sid'])
-        return self.monthly
+        return self._monthly
 
     @property
     def this_month(self):
@@ -224,7 +224,7 @@ class RecordList(ListResource):
         """
         if self._this_month is None:
             self._this_month = ThisMonthList(self._version, account_sid=self._solution['account_sid'])
-        return self.this_month
+        return self._this_month
 
     @property
     def today(self):
@@ -236,7 +236,7 @@ class RecordList(ListResource):
         """
         if self._today is None:
             self._today = TodayList(self._version, account_sid=self._solution['account_sid'])
-        return self.today
+        return self._today
 
     @property
     def yearly(self):
@@ -248,7 +248,7 @@ class RecordList(ListResource):
         """
         if self._yearly is None:
             self._yearly = YearlyList(self._version, account_sid=self._solution['account_sid'])
-        return self.yearly
+        return self._yearly
 
     @property
     def yesterday(self):
@@ -260,7 +260,7 @@ class RecordList(ListResource):
         """
         if self._yesterday is None:
             self._yesterday = YesterdayList(self._version, account_sid=self._solution['account_sid'])
-        return self.yesterday
+        return self._yesterday
 
 
     def __repr__(self):

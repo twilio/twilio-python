@@ -59,7 +59,7 @@ class ConfigurationList(ListResource):
         """
         if self._notifications is None:
             self._notifications = NotificationList(self._version, chat_service_sid=self._solution['chat_service_sid'])
-        return self.notifications
+        return self._notifications
 
     @property
     def webhooks(self):
@@ -71,7 +71,7 @@ class ConfigurationList(ListResource):
         """
         if self._webhooks is None:
             self._webhooks = WebhookList(self._version, chat_service_sid=self._solution['chat_service_sid'])
-        return self.webhooks
+        return self._webhooks
 
     def get(self):
         """

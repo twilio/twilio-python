@@ -58,7 +58,7 @@ class DialingPermissionsList(ListResource):
         """
         if self._bulk_country_updates is None:
             self._bulk_country_updates = BulkCountryUpdateList(self._version)
-        return self.bulk_country_updates
+        return self._bulk_country_updates
 
     @property
     def countries(self):
@@ -70,7 +70,7 @@ class DialingPermissionsList(ListResource):
         """
         if self._countries is None:
             self._countries = CountryList(self._version)
-        return self.countries
+        return self._countries
 
     @property
     def settings(self):
@@ -82,7 +82,7 @@ class DialingPermissionsList(ListResource):
         """
         if self._settings is None:
             self._settings = SettingsList(self._version)
-        return self.settings
+        return self._settings
 
 
     def __repr__(self):

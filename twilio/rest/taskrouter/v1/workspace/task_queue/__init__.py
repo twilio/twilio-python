@@ -196,7 +196,7 @@ class TaskQueueList(ListResource):
         """
         if self._statistics is None:
             self._statistics = TaskQueuesStatisticsList(self._version, workspace_sid=self._solution['workspace_sid'])
-        return self.statistics
+        return self._statistics
 
     def get(self, sid):
         """

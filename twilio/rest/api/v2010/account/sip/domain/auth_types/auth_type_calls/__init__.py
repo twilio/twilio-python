@@ -58,7 +58,7 @@ class AuthTypeCallsList(ListResource):
         """
         if self._credential_list_mappings is None:
             self._credential_list_mappings = AuthCallsCredentialListMappingList(self._version, account_sid=self._solution['account_sid'], domain_sid=self._solution['domain_sid'])
-        return self.credential_list_mappings
+        return self._credential_list_mappings
 
     @property
     def ip_access_control_list_mappings(self):
@@ -70,7 +70,7 @@ class AuthTypeCallsList(ListResource):
         """
         if self._ip_access_control_list_mappings is None:
             self._ip_access_control_list_mappings = AuthCallsIpAccessControlListMappingList(self._version, account_sid=self._solution['account_sid'], domain_sid=self._solution['domain_sid'])
-        return self.ip_access_control_list_mappings
+        return self._ip_access_control_list_mappings
 
 
     def __repr__(self):

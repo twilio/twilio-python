@@ -56,7 +56,7 @@ class ConfigurationList(ListResource):
         """
         if self._webhooks is None:
             self._webhooks = WebhookList(self._version)
-        return self.webhooks
+        return self._webhooks
 
     def get(self):
         """

@@ -56,7 +56,7 @@ class CredentialList(ListResource):
         """
         if self._aws is None:
             self._aws = AwsList(self._version)
-        return self.aws
+        return self._aws
 
     @property
     def public_key(self):
@@ -68,7 +68,7 @@ class CredentialList(ListResource):
         """
         if self._public_key is None:
             self._public_key = PublicKeyList(self._version)
-        return self.public_key
+        return self._public_key
 
 
     def __repr__(self):
