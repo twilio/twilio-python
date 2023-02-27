@@ -288,6 +288,7 @@ class RecordingContext(InstanceContext):
         data = values.of({ 
             'IncludeSoftDeleted': include_soft_deleted,
         })
+        
         payload = self._version.fetch(method='GET', uri=self._uri, params=data)
 
         return RecordingInstance(

@@ -102,6 +102,7 @@ class ConfigurationContext(InstanceContext):
         data = values.of({ 
             'UiVersion': ui_version,
         })
+        
         payload = self._version.fetch(method='GET', uri=self._uri, params=data)
 
         return ConfigurationInstance(

@@ -104,6 +104,7 @@ class CallSummaryContext(InstanceContext):
         data = values.of({ 
             'ProcessingState': processing_state,
         })
+        
         payload = self._version.fetch(method='GET', uri=self._uri, params=data)
 
         return CallSummaryInstance(

@@ -112,6 +112,7 @@ class WorkspaceCumulativeStatisticsContext(InstanceContext):
             'TaskChannel': task_channel,
             'SplitByWaitTime': split_by_wait_time,
         })
+        
         payload = self._version.fetch(method='GET', uri=self._uri, params=data)
 
         return WorkspaceCumulativeStatisticsInstance(

@@ -116,6 +116,7 @@ class WorkersStatisticsContext(InstanceContext):
             'FriendlyName': friendly_name,
             'TaskChannel': task_channel,
         })
+        
         payload = self._version.fetch(method='GET', uri=self._uri, params=data)
 
         return WorkersStatisticsInstance(

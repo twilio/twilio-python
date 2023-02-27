@@ -107,6 +107,7 @@ class InsightsSegmentsContext(InstanceContext):
         data = values.of({ 
             'Token': token,
         })
+        
         payload = self._version.fetch(method='GET', uri=self._uri, params=data)
 
         return InsightsSegmentsInstance(

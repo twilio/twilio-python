@@ -104,6 +104,7 @@ class WorkersRealTimeStatisticsContext(InstanceContext):
         data = values.of({ 
             'TaskChannel': task_channel,
         })
+        
         payload = self._version.fetch(method='GET', uri=self._uri, params=data)
 
         return WorkersRealTimeStatisticsInstance(

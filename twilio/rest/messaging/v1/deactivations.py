@@ -102,6 +102,7 @@ class DeactivationsContext(InstanceContext):
         data = values.of({ 
             'Date': serialize.iso8601_date(date),
         })
+        
         payload = self._version.fetch(method='GET', uri=self._uri, params=data)
 
         return DeactivationsInstance(
