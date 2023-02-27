@@ -54,7 +54,7 @@ class MessagingList(ListResource):
         """
         if self._countries is None:
             self._countries = CountryList(self._version)
-        return self.countries
+        return self._countries
 
 
     def __repr__(self):

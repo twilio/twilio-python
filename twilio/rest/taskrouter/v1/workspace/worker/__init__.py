@@ -218,7 +218,7 @@ class WorkerList(ListResource):
         """
         if self._cumulative_statistics is None:
             self._cumulative_statistics = WorkersCumulativeStatisticsList(self._version, workspace_sid=self._solution['workspace_sid'])
-        return self.cumulative_statistics
+        return self._cumulative_statistics
 
     @property
     def real_time_statistics(self):
@@ -230,7 +230,7 @@ class WorkerList(ListResource):
         """
         if self._real_time_statistics is None:
             self._real_time_statistics = WorkersRealTimeStatisticsList(self._version, workspace_sid=self._solution['workspace_sid'])
-        return self.real_time_statistics
+        return self._real_time_statistics
 
     @property
     def statistics(self):
@@ -242,7 +242,7 @@ class WorkerList(ListResource):
         """
         if self._statistics is None:
             self._statistics = WorkersStatisticsList(self._version, workspace_sid=self._solution['workspace_sid'])
-        return self.statistics
+        return self._statistics
 
     def get(self, sid):
         """

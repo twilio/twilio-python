@@ -56,7 +56,7 @@ class AuthTypeRegistrationsList(ListResource):
         """
         if self._credential_list_mappings is None:
             self._credential_list_mappings = AuthRegistrationsCredentialListMappingList(self._version, account_sid=self._solution['account_sid'], domain_sid=self._solution['domain_sid'])
-        return self.credential_list_mappings
+        return self._credential_list_mappings
 
 
     def __repr__(self):

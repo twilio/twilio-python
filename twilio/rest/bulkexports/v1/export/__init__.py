@@ -57,7 +57,7 @@ class ExportList(ListResource):
         """
         if self._jobs is None:
             self._jobs = JobList(self._version)
-        return self.jobs
+        return self._jobs
 
     def get(self, resource_type):
         """

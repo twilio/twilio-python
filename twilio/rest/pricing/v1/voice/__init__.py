@@ -56,7 +56,7 @@ class VoiceList(ListResource):
         """
         if self._countries is None:
             self._countries = CountryList(self._version)
-        return self.countries
+        return self._countries
 
     @property
     def numbers(self):
@@ -68,7 +68,7 @@ class VoiceList(ListResource):
         """
         if self._numbers is None:
             self._numbers = NumberList(self._version)
-        return self.numbers
+        return self._numbers
 
 
     def __repr__(self):

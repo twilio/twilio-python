@@ -58,7 +58,7 @@ class AuthTypesList(ListResource):
         """
         if self._calls is None:
             self._calls = AuthTypeCallsList(self._version, account_sid=self._solution['account_sid'], domain_sid=self._solution['domain_sid'])
-        return self.calls
+        return self._calls
 
     @property
     def registrations(self):
@@ -70,7 +70,7 @@ class AuthTypesList(ListResource):
         """
         if self._registrations is None:
             self._registrations = AuthTypeRegistrationsList(self._version, account_sid=self._solution['account_sid'], domain_sid=self._solution['domain_sid'])
-        return self.registrations
+        return self._registrations
 
 
     def __repr__(self):

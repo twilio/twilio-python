@@ -234,7 +234,7 @@ class IncomingPhoneNumberList(ListResource):
         """
         if self._local is None:
             self._local = LocalList(self._version, account_sid=self._solution['account_sid'])
-        return self.local
+        return self._local
 
     @property
     def mobile(self):
@@ -246,7 +246,7 @@ class IncomingPhoneNumberList(ListResource):
         """
         if self._mobile is None:
             self._mobile = MobileList(self._version, account_sid=self._solution['account_sid'])
-        return self.mobile
+        return self._mobile
 
     @property
     def toll_free(self):
@@ -258,7 +258,7 @@ class IncomingPhoneNumberList(ListResource):
         """
         if self._toll_free is None:
             self._toll_free = TollFreeList(self._version, account_sid=self._solution['account_sid'])
-        return self.toll_free
+        return self._toll_free
 
     def get(self, sid):
         """
