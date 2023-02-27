@@ -103,6 +103,7 @@ class SettingContext(InstanceContext):
         data = values.of({ 
             'SubaccountSid': subaccount_sid,
         })
+        
         payload = self._version.fetch(method='GET', uri=self._uri, params=data)
 
         return SettingInstance(

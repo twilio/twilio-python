@@ -112,6 +112,7 @@ class VerificationAttemptsSummaryContext(InstanceContext):
             'Channel': channel,
             'DestinationPrefix': destination_prefix,
         })
+        
         payload = self._version.fetch(method='GET', uri=self._uri, params=data)
 
         return VerificationAttemptsSummaryInstance(

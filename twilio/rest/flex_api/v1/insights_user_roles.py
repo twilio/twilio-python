@@ -102,6 +102,7 @@ class InsightsUserRolesContext(InstanceContext):
         data = values.of({ 
             'Authorization': authorization,
         })
+        
         payload = self._version.fetch(method='GET', uri=self._uri, params=data)
 
         return InsightsUserRolesInstance(

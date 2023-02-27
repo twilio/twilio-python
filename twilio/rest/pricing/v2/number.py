@@ -107,6 +107,7 @@ class NumberContext(InstanceContext):
         data = values.of({ 
             'OriginationNumber': origination_number,
         })
+        
         payload = self._version.fetch(method='GET', uri=self._uri, params=data)
 
         return NumberInstance(

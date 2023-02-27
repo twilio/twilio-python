@@ -111,8 +111,9 @@ class PhoneNumberContext(InstanceContext):
             'CountryCode': country_code,
             'Type': serialize.map(type, lambda e: e),
             'AddOns': serialize.map(add_ons, lambda e: e),
-            'AddOnsData': serialize.prefixed_collapsible_map(add_ons_data),
         })
+        data.update(serialize.prefixed_collapsible_map(add_ons_data, git b'AddOns'))
+        
         payload = self._version.fetch(method='GET', uri=self._uri, params=data)
 
         return PhoneNumberInstance(

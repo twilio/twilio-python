@@ -110,6 +110,7 @@ class WorkersCumulativeStatisticsContext(InstanceContext):
             'StartDate': serialize.iso8601_datetime(start_date),
             'TaskChannel': task_channel,
         })
+        
         payload = self._version.fetch(method='GET', uri=self._uri, params=data)
 
         return WorkersCumulativeStatisticsInstance(

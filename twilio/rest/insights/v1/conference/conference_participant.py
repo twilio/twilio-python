@@ -255,6 +255,7 @@ class ConferenceParticipantContext(InstanceContext):
             'Events': events,
             'Metrics': metrics,
         })
+        
         payload = self._version.fetch(method='GET', uri=self._uri, params=data)
 
         return ConferenceParticipantInstance(

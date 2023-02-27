@@ -112,6 +112,7 @@ class WorkerStatisticsContext(InstanceContext):
             'EndDate': serialize.iso8601_datetime(end_date),
             'TaskChannel': task_channel,
         })
+        
         payload = self._version.fetch(method='GET', uri=self._uri, params=data)
 
         return WorkerStatisticsInstance(

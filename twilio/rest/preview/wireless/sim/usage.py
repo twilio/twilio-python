@@ -106,6 +106,7 @@ class UsageContext(InstanceContext):
             'End': end,
             'Start': start,
         })
+        
         payload = self._version.fetch(method='GET', uri=self._uri, params=data)
 
         return UsageInstance(
