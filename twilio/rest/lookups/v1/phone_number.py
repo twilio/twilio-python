@@ -112,7 +112,7 @@ class PhoneNumberContext(InstanceContext):
             'Type': serialize.map(type, lambda e: e),
             'AddOns': serialize.map(add_ons, lambda e: e),
         })
-        data.update(serialize.prefixed_collapsible_map(add_ons_data, git b'AddOns'))
+        data.update(serialize.prefixed_collapsible_map(add_ons_data, 'AddOns'))
         
         payload = self._version.fetch(method='GET', uri=self._uri, params=data)
 
