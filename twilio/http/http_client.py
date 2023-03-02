@@ -28,6 +28,7 @@ class TwilioHttpClient(HttpClient):
         :param dict proxy: Http proxy for the requests session
         :param int max_retries: Maximum number of retries each request should attempt
         """
+        self.is_async = False
         self.session = Session() if pool_connections else None
         if self.session and max_retries is not None:
             self.session.mount('https://', HTTPAdapter(max_retries=max_retries))
