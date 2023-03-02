@@ -1,6 +1,6 @@
 from warnings import warn
 
-from twilio.rest.media import MediaBase
+from twilio.rest.media.MediaBase import MediaBase
 from twilio.rest.media.v1.media_processor import MediaProcessorList
 from twilio.rest.media.v1.media_recording import MediaRecordingList
 from twilio.rest.media.v1.player_streamer import PlayerStreamerList

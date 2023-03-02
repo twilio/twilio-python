@@ -1,6 +1,6 @@
 from warnings import warn
 
-from twilio.rest.pricing import PricingBase
+from twilio.rest.pricing.PricingBase import PricingBase
 from twilio.rest.pricing.v1.messaging import MessagingList
 from twilio.rest.pricing.v1.phone_number import PhoneNumberList
 from twilio.rest.pricing.v2.country import CountryList

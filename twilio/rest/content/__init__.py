@@ -1,6 +1,6 @@
 from warnings import warn
 
-from twilio.rest.content import ContentBase
+from twilio.rest.content.ContentBase import ContentBase
 from twilio.rest.content.v1.content import ContentList
 from twilio.rest.content.v1.legacy_content import LegacyContentList
 

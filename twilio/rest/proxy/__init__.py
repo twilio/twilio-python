@@ -1,6 +1,6 @@
 from warnings import warn
 
-from twilio.rest.proxy import ProxyBase
+from twilio.rest.proxy.ProxyBase import ProxyBase
 from twilio.rest.proxy.v1.service import ServiceList
 
 

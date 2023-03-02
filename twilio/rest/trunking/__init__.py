@@ -1,6 +1,6 @@
 from warnings import warn
 
-from twilio.rest.trunking import TrunkingBase
+from twilio.rest.trunking.TrunkingBase import TrunkingBase
 from twilio.rest.trunking.v1.trunk import TrunkList
 
 

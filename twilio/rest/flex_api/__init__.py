@@ -1,6 +1,6 @@
 from warnings import warn
 
-from twilio.rest.flex_api import FlexApiBase
+from twilio.rest.flex_api.FlexApiBase import FlexApiBase
 from twilio.rest.flex_api.v1.assessments import AssessmentsList
 from twilio.rest.flex_api.v1.channel import ChannelList
 from twilio.rest.flex_api.v1.configuration import ConfigurationList

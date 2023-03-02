@@ -1,6 +1,6 @@
 from warnings import warn
 
-from twilio.rest.chat import ChatBase
+from twilio.rest.chat.ChatBase import ChatBase
 from twilio.rest.chat.v2.credential import CredentialList
 from twilio.rest.chat.v2.service import ServiceList
 from twilio.rest.chat.v3.channel import ChannelList

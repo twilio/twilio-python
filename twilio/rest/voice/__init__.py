@@ -1,6 +1,6 @@
 from warnings import warn
 
-from twilio.rest.voice import VoiceBase
+from twilio.rest.voice.VoiceBase import VoiceBase
 from twilio.rest.voice.v1.archived_call import ArchivedCallList
 from twilio.rest.voice.v1.byoc_trunk import ByocTrunkList
 from twilio.rest.voice.v1.connection_policy import ConnectionPolicyList

@@ -1,6 +1,6 @@
 from warnings import warn
 
-from twilio.rest.trusthub import TrusthubBase
+from twilio.rest.trusthub.TrusthubBase import TrusthubBase
 from twilio.rest.trusthub.v1.customer_profiles import CustomerProfilesList
 from twilio.rest.trusthub.v1.end_user import EndUserList
 from twilio.rest.trusthub.v1.end_user_type import EndUserTypeList

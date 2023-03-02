@@ -1,6 +1,6 @@
 from warnings import warn
 
-from twilio.rest.frontline_api import FrontlineApiBase
+from twilio.rest.frontline_api.FrontlineApiBase import FrontlineApiBase
 from twilio.rest.frontline_api.v1.user import UserList
 
 

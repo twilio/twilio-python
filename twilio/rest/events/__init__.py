@@ -1,6 +1,6 @@
 from warnings import warn
 
-from twilio.rest.events import EventsBase
+from twilio.rest.events.EventsBase import EventsBase
 from twilio.rest.events.v1.event_type import EventTypeList
 from twilio.rest.events.v1.schema import SchemaList
 from twilio.rest.events.v1.sink import SinkList
