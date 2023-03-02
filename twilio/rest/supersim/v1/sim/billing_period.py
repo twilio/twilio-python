@@ -179,6 +179,10 @@ class BillingPeriodPage(Page):
 
 class BillingPeriodInstance(InstanceResource):
 
+    class BillingPeriodBpType(object):
+        READY = "ready"
+        ACTIVE = "active"
+
     def __init__(self, version, payload, sim_sid: str):
         """
         Initialize the BillingPeriodInstance

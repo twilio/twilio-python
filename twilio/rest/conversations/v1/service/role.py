@@ -316,6 +316,10 @@ class RoleContext(InstanceContext):
 
 class RoleInstance(InstanceResource):
 
+    class ServiceRoleRoleType(object):
+        CONVERSATION = "conversation"
+        SERVICE = "service"
+
     def __init__(self, version, payload, chat_service_sid: str, sid: str=None):
         """
         Initialize the RoleInstance

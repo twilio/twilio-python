@@ -317,6 +317,15 @@ class MediaProcessorContext(InstanceContext):
 
 class MediaProcessorInstance(InstanceResource):
 
+    class MediaProcessorOrder(object):
+        ASC = "asc"
+        DESC = "desc"
+
+    class MediaProcessorStatus(object):
+        FAILED = "failed"
+        STARTED = "started"
+        ENDED = "ended"
+
     def __init__(self, version, payload, sid: str=None):
         """
         Initialize the MediaProcessorInstance

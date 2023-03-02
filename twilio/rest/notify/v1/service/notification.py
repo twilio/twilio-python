@@ -107,6 +107,10 @@ class NotificationList(ListResource):
 
 class NotificationInstance(InstanceResource):
 
+    class NotificationPriority(object):
+        HIGH = "high"
+        LOW = "low"
+
     def __init__(self, version, payload, service_sid: str):
         """
         Initialize the NotificationInstance

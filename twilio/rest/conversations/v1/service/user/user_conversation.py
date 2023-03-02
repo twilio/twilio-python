@@ -300,6 +300,15 @@ class UserConversationContext(InstanceContext):
 
 class UserConversationInstance(InstanceResource):
 
+    class ServiceUserConversationNotificationLevel(object):
+        DEFAULT = "default"
+        MUTED = "muted"
+
+    class ServiceUserConversationState(object):
+        INACTIVE = "inactive"
+        ACTIVE = "active"
+        CLOSED = "closed"
+
     def __init__(self, version, payload, chat_service_sid: str, user_sid: str, conversation_sid: str=None):
         """
         Initialize the UserConversationInstance

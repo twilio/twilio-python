@@ -303,6 +303,19 @@ class UserChannelContext(InstanceContext):
 
 class UserChannelInstance(InstanceResource):
 
+    class UserChannelChannelStatus(object):
+        JOINED = "joined"
+        INVITED = "invited"
+        NOT_PARTICIPATING = "not_participating"
+
+    class UserChannelNotificationLevel(object):
+        DEFAULT = "default"
+        MUTED = "muted"
+
+    class UserChannelWebhookEnabledType(object):
+        TRUE = "true"
+        FALSE = "false"
+
     def __init__(self, version, payload, service_sid: str, user_sid: str, channel_sid: str=None):
         """
         Initialize the UserChannelInstance

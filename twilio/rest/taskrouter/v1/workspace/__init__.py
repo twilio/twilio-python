@@ -486,6 +486,10 @@ class WorkspaceContext(InstanceContext):
 
 class WorkspaceInstance(InstanceResource):
 
+    class WorkspaceQueueOrder(object):
+        FIFO = "FIFO"
+        LIFO = "LIFO"
+
     def __init__(self, version, payload, sid: str=None):
         """
         Initialize the WorkspaceInstance

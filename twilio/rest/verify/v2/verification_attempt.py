@@ -298,6 +298,16 @@ class VerificationAttemptContext(InstanceContext):
 
 class VerificationAttemptInstance(InstanceResource):
 
+    class VerificationAttemptChannels(object):
+        SMS = "sms"
+        CALL = "call"
+        EMAIL = "email"
+        WHATSAPP = "whatsapp"
+
+    class VerificationAttemptConversionStatus(object):
+        CONVERTED = "converted"
+        UNCONVERTED = "unconverted"
+
     def __init__(self, version, payload, sid: str=None):
         """
         Initialize the VerificationAttemptInstance

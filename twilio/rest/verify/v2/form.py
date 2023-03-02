@@ -124,6 +124,9 @@ class FormContext(InstanceContext):
 
 class FormInstance(InstanceResource):
 
+    class FormFormTypes(object):
+        FORM_PUSH = "form-push"
+
     def __init__(self, version, payload, form_type: FormFormTypes=None):
         """
         Initialize the FormInstance

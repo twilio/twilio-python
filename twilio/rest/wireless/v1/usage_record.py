@@ -196,6 +196,11 @@ class UsageRecordPage(Page):
 
 class UsageRecordInstance(InstanceResource):
 
+    class AccountUsageRecordGranularity(object):
+        HOURLY = "hourly"
+        DAILY = "daily"
+        ALL = "all"
+
     def __init__(self, version, payload):
         """
         Initialize the UsageRecordInstance

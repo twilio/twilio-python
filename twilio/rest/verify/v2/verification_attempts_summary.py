@@ -133,6 +133,12 @@ class VerificationAttemptsSummaryContext(InstanceContext):
 
 class VerificationAttemptsSummaryInstance(InstanceResource):
 
+    class VerificationAttemptsSummaryChannels(object):
+        SMS = "sms"
+        CALL = "call"
+        EMAIL = "email"
+        WHATSAPP = "whatsapp"
+
     def __init__(self, version, payload):
         """
         Initialize the VerificationAttemptsSummaryInstance

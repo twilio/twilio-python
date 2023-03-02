@@ -126,6 +126,35 @@ class CallSummaryContext(InstanceContext):
 
 class CallSummaryInstance(InstanceResource):
 
+    class SummaryAnsweredBy(object):
+        UNKNOWN = "unknown"
+        MACHINE_START = "machine_start"
+        MACHINE_END_BEEP = "machine_end_beep"
+        MACHINE_END_SILENCE = "machine_end_silence"
+        MACHINE_END_OTHER = "machine_end_other"
+        HUMAN = "human"
+        FAX = "fax"
+
+    class SummaryCallState(object):
+        RINGING = "ringing"
+        COMPLETED = "completed"
+        BUSY = "busy"
+        FAIL = "fail"
+        NOANSWER = "noanswer"
+        CANCELED = "canceled"
+        ANSWERED = "answered"
+        UNDIALED = "undialed"
+
+    class SummaryCallType(object):
+        CARRIER = "carrier"
+        SIP = "sip"
+        TRUNKING = "trunking"
+        CLIENT = "client"
+
+    class SummaryProcessingState(object):
+        COMPLETE = "complete"
+        PARTIAL = "partial"
+
     def __init__(self, version, payload, call_sid: str):
         """
         Initialize the CallSummaryInstance

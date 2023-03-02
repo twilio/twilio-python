@@ -151,6 +151,9 @@ class AccessTokenContext(InstanceContext):
 
 class AccessTokenInstance(InstanceResource):
 
+    class AccessTokenFactorTypes(object):
+        PUSH = "push"
+
     def __init__(self, version, payload, service_sid: str, sid: str=None):
         """
         Initialize the AccessTokenInstance

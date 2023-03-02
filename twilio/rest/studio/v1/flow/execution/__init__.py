@@ -358,6 +358,10 @@ class ExecutionContext(InstanceContext):
 
 class ExecutionInstance(InstanceResource):
 
+    class ExecutionStatus(object):
+        ACTIVE = "active"
+        ENDED = "ended"
+
     def __init__(self, version, payload, flow_sid: str, sid: str=None):
         """
         Initialize the ExecutionInstance

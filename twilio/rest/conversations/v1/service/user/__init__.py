@@ -342,6 +342,10 @@ class UserContext(InstanceContext):
 
 class UserInstance(InstanceResource):
 
+    class ServiceUserWebhookEnabledType(object):
+        TRUE = "true"
+        FALSE = "false"
+
     def __init__(self, version, payload, chat_service_sid: str, sid: str=None):
         """
         Initialize the UserInstance

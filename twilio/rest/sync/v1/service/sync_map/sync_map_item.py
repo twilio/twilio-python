@@ -352,6 +352,14 @@ class SyncMapItemContext(InstanceContext):
 
 class SyncMapItemInstance(InstanceResource):
 
+    class SyncMapItemQueryFromBoundType(object):
+        INCLUSIVE = "inclusive"
+        EXCLUSIVE = "exclusive"
+
+    class SyncMapItemQueryResultOrder(object):
+        ASC = "asc"
+        DESC = "desc"
+
     def __init__(self, version, payload, service_sid: str, map_sid: str, key: str=None):
         """
         Initialize the SyncMapItemInstance

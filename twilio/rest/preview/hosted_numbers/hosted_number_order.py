@@ -388,6 +388,21 @@ class HostedNumberOrderContext(InstanceContext):
 
 class HostedNumberOrderInstance(InstanceResource):
 
+    class HostedNumberOrderStatus(object):
+        RECEIVED = "received"
+        PENDING_VERIFICATION = "pending-verification"
+        VERIFIED = "verified"
+        PENDING_LOA = "pending-loa"
+        CARRIER_PROCESSING = "carrier-processing"
+        TESTING = "testing"
+        COMPLETED = "completed"
+        FAILED = "failed"
+        ACTION_REQUIRED = "action-required"
+
+    class HostedNumberOrderVerificationType(object):
+        PHONE_CALL = "phone-call"
+        PHONE_BILL = "phone-bill"
+
     def __init__(self, version, payload, sid: str=None):
         """
         Initialize the HostedNumberOrderInstance

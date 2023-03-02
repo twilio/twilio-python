@@ -281,6 +281,9 @@ class BrandVettingContext(InstanceContext):
 
 class BrandVettingInstance(InstanceResource):
 
+    class BrandVettingVettingProvider(object):
+        CAMPAIGN_VERIFY = "campaign-verify"
+
     def __init__(self, version, payload, brand_sid: str, brand_vetting_sid: str=None):
         """
         Initialize the BrandVettingInstance

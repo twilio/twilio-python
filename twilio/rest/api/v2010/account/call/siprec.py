@@ -556,6 +556,10 @@ class SiprecContext(InstanceContext):
 
 class SiprecInstance(InstanceResource):
 
+    class SiprecStatus(object):
+        IN_PROGRESS = "in-progress"
+        STOPPED = "stopped"
+
     def __init__(self, version, payload, account_sid: str, call_sid: str, sid: str=None):
         """
         Initialize the SiprecInstance

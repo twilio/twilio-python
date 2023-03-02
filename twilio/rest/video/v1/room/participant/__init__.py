@@ -363,6 +363,10 @@ class ParticipantContext(InstanceContext):
 
 class ParticipantInstance(InstanceResource):
 
+    class RoomParticipantStatus(object):
+        CONNECTED = "connected"
+        DISCONNECTED = "disconnected"
+
     def __init__(self, version, payload, room_sid: str, sid: str=None):
         """
         Initialize the ParticipantInstance

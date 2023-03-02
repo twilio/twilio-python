@@ -314,6 +314,13 @@ class ModelBuildContext(InstanceContext):
 
 class ModelBuildInstance(InstanceResource):
 
+    class ModelBuildStatus(object):
+        ENQUEUED = "enqueued"
+        BUILDING = "building"
+        COMPLETED = "completed"
+        FAILED = "failed"
+        CANCELED = "canceled"
+
     def __init__(self, version, payload, assistant_sid: str, sid: str=None):
         """
         Initialize the ModelBuildInstance

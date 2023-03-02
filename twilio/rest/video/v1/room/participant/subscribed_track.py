@@ -256,6 +256,11 @@ class SubscribedTrackContext(InstanceContext):
 
 class SubscribedTrackInstance(InstanceResource):
 
+    class RoomParticipantSubscribedTrackKind(object):
+        AUDIO = "audio"
+        VIDEO = "video"
+        DATA = "data"
+
     def __init__(self, version, payload, room_sid: str, participant_sid: str, sid: str=None):
         """
         Initialize the SubscribedTrackInstance

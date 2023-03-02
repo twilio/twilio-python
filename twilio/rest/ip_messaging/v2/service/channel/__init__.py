@@ -405,6 +405,14 @@ class ChannelContext(InstanceContext):
 
 class ChannelInstance(InstanceResource):
 
+    class ChannelChannelType(object):
+        PUBLIC = "public"
+        PRIVATE = "private"
+
+    class ChannelWebhookEnabledType(object):
+        TRUE = "true"
+        FALSE = "false"
+
     def __init__(self, version, payload, service_sid: str, sid: str=None):
         """
         Initialize the ChannelInstance

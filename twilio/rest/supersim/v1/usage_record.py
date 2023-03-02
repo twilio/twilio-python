@@ -226,6 +226,17 @@ class UsageRecordPage(Page):
 
 class UsageRecordInstance(InstanceResource):
 
+    class UsageRecordGranularity(object):
+        HOUR = "hour"
+        DAY = "day"
+        ALL = "all"
+
+    class UsageRecordGroup(object):
+        SIM = "sim"
+        FLEET = "fleet"
+        NETWORK = "network"
+        ISOCOUNTRY = "isoCountry"
+
     def __init__(self, version, payload):
         """
         Initialize the UsageRecordInstance

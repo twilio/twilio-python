@@ -452,6 +452,22 @@ class BundleContext(InstanceContext):
 
 class BundleInstance(InstanceResource):
 
+    class BundleSortBy(object):
+        VALID_UNTIL = "valid-until"
+        DATE_UPDATED = "date-updated"
+
+    class BundleSortDirection(object):
+        ASC = "ASC"
+        DESC = "DESC"
+
+    class BundleStatus(object):
+        DRAFT = "draft"
+        PENDING_REVIEW = "pending-review"
+        IN_REVIEW = "in-review"
+        TWILIO_REJECTED = "twilio-rejected"
+        TWILIO_APPROVED = "twilio-approved"
+        PROVISIONALLY_APPROVED = "provisionally-approved"
+
     def __init__(self, version, payload, sid: str=None):
         """
         Initialize the BundleInstance

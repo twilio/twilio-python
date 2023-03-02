@@ -274,6 +274,11 @@ class LogContext(InstanceContext):
 
 class LogInstance(InstanceResource):
 
+    class LogLevel(object):
+        INFO = "info"
+        WARN = "warn"
+        ERROR = "error"
+
     def __init__(self, version, payload, service_sid: str, environment_sid: str, sid: str=None):
         """
         Initialize the LogInstance

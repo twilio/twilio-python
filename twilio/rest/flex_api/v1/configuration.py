@@ -123,6 +123,11 @@ class ConfigurationContext(InstanceContext):
 
 class ConfigurationInstance(InstanceResource):
 
+    class ConfigurationStatus(object):
+        OK = "ok"
+        INPROGRESS = "inprogress"
+        NOTSTARTED = "notstarted"
+
     def __init__(self, version, payload):
         """
         Initialize the ConfigurationInstance

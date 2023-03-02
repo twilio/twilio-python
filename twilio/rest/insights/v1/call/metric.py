@@ -191,6 +191,19 @@ class MetricPage(Page):
 
 class MetricInstance(InstanceResource):
 
+    class MetricStreamDirection(object):
+        UNKNOWN = "unknown"
+        INBOUND = "inbound"
+        OUTBOUND = "outbound"
+        BOTH = "both"
+
+    class MetricTwilioEdge(object):
+        UNKNOWN_EDGE = "unknown_edge"
+        CARRIER_EDGE = "carrier_edge"
+        SIP_EDGE = "sip_edge"
+        SDK_EDGE = "sdk_edge"
+        CLIENT_EDGE = "client_edge"
+
     def __init__(self, version, payload, call_sid: str):
         """
         Initialize the MetricInstance

@@ -209,6 +209,21 @@ class DependentHostedNumberOrderPage(Page):
 
 class DependentHostedNumberOrderInstance(InstanceResource):
 
+    class DependentHostedNumberOrderStatus(object):
+        RECEIVED = "received"
+        PENDING_VERIFICATION = "pending-verification"
+        VERIFIED = "verified"
+        PENDING_LOA = "pending-loa"
+        CARRIER_PROCESSING = "carrier-processing"
+        TESTING = "testing"
+        COMPLETED = "completed"
+        FAILED = "failed"
+        ACTION_REQUIRED = "action-required"
+
+    class DependentHostedNumberOrderVerificationType(object):
+        PHONE_CALL = "phone-call"
+        PHONE_BILL = "phone-bill"
+
     def __init__(self, version, payload, signing_document_sid: str):
         """
         Initialize the DependentHostedNumberOrderInstance

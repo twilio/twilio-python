@@ -179,6 +179,10 @@ class SimIpAddressPage(Page):
 
 class SimIpAddressInstance(InstanceResource):
 
+    class SimIpAddressIpAddressVersion(object):
+        IPV4 = "IPv4"
+        IPV6 = "IPv6"
+
     def __init__(self, version, payload, sim_sid: str):
         """
         Initialize the SimIpAddressInstance

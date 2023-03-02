@@ -349,6 +349,10 @@ class MemberContext(InstanceContext):
 
 class MemberInstance(InstanceResource):
 
+    class MemberWebhookEnabledType(object):
+        TRUE = "true"
+        FALSE = "false"
+
     def __init__(self, version, payload, service_sid: str, channel_sid: str, sid: str=None):
         """
         Initialize the MemberInstance

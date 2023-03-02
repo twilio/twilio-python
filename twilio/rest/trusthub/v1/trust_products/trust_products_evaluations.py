@@ -273,6 +273,10 @@ class TrustProductsEvaluationsContext(InstanceContext):
 
 class TrustProductsEvaluationsInstance(InstanceResource):
 
+    class TrustProductEvaluationStatus(object):
+        COMPLIANT = "compliant"
+        NONCOMPLIANT = "noncompliant"
+
     def __init__(self, version, payload, trust_product_sid: str, sid: str=None):
         """
         Initialize the TrustProductsEvaluationsInstance

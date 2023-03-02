@@ -253,6 +253,10 @@ class AuthorizedConnectAppContext(InstanceContext):
 
 class AuthorizedConnectAppInstance(InstanceResource):
 
+    class AuthorizedConnectAppPermission(object):
+        GET_ALL = "get-all"
+        POST_ALL = "post-all"
+
     def __init__(self, version, payload, account_sid: str, connect_app_sid: str=None):
         """
         Initialize the AuthorizedConnectAppInstance

@@ -197,6 +197,11 @@ class UsageRecordPage(Page):
 
 class UsageRecordInstance(InstanceResource):
 
+    class UsageRecordGranularity(object):
+        HOURLY = "hourly"
+        DAILY = "daily"
+        ALL = "all"
+
     def __init__(self, version, payload, sim_sid: str):
         """
         Initialize the UsageRecordInstance

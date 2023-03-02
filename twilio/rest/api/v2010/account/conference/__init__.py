@@ -361,6 +361,18 @@ class ConferenceContext(InstanceContext):
 
 class ConferenceInstance(InstanceResource):
 
+    class ConferenceReasonConferenceEnded(object):
+        CONFERENCE_ENDED_VIA_API = "conference-ended-via-api"
+        PARTICIPANT_WITH_END_CONFERENCE_ON_EXIT_LEFT = "participant-with-end-conference-on-exit-left"
+        PARTICIPANT_WITH_END_CONFERENCE_ON_EXIT_KICKED = "participant-with-end-conference-on-exit-kicked"
+        LAST_PARTICIPANT_KICKED = "last-participant-kicked"
+        LAST_PARTICIPANT_LEFT = "last-participant-left"
+
+    class ConferenceStatus(object):
+        INIT = "init"
+        IN_PROGRESS = "in-progress"
+        COMPLETED = "completed"
+
     def __init__(self, version, payload, account_sid: str, sid: str=None):
         """
         Initialize the ConferenceInstance

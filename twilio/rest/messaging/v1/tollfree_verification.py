@@ -389,6 +389,19 @@ class TollfreeVerificationContext(InstanceContext):
 
 class TollfreeVerificationInstance(InstanceResource):
 
+    class TollfreeVerificationOptInType(object):
+        VERBAL = "VERBAL"
+        WEB_FORM = "WEB_FORM"
+        PAPER_FORM = "PAPER_FORM"
+        VIA_TEXT = "VIA_TEXT"
+        MOBILE_QR_CODE = "MOBILE_QR_CODE"
+
+    class TollfreeVerificationStatus(object):
+        PENDING_REVIEW = "PENDING_REVIEW"
+        IN_REVIEW = "IN_REVIEW"
+        TWILIO_APPROVED = "TWILIO_APPROVED"
+        TWILIO_REJECTED = "TWILIO_REJECTED"
+
     def __init__(self, version, payload, sid: str=None):
         """
         Initialize the TollfreeVerificationInstance

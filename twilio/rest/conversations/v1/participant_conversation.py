@@ -190,6 +190,11 @@ class ParticipantConversationPage(Page):
 
 class ParticipantConversationInstance(InstanceResource):
 
+    class ParticipantConversationState(object):
+        INACTIVE = "inactive"
+        ACTIVE = "active"
+        CLOSED = "closed"
+
     def __init__(self, version, payload):
         """
         Initialize the ParticipantConversationInstance

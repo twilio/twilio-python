@@ -378,6 +378,19 @@ class FlexFlowContext(InstanceContext):
 
 class FlexFlowInstance(InstanceResource):
 
+    class FlexFlowChannelType(object):
+        WEB = "web"
+        SMS = "sms"
+        FACEBOOK = "facebook"
+        WHATSAPP = "whatsapp"
+        LINE = "line"
+        CUSTOM = "custom"
+
+    class FlexFlowIntegrationType(object):
+        STUDIO = "studio"
+        EXTERNAL = "external"
+        TASK = "task"
+
     def __init__(self, version, payload, sid: str=None):
         """
         Initialize the FlexFlowInstance

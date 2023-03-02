@@ -180,6 +180,16 @@ class DependentPhoneNumberPage(Page):
 
 class DependentPhoneNumberInstance(InstanceResource):
 
+    class DependentPhoneNumberAddressRequirement(object):
+        NONE = "none"
+        ANY = "any"
+        LOCAL = "local"
+        FOREIGN = "foreign"
+
+    class DependentPhoneNumberEmergencyStatus(object):
+        ACTIVE = "Active"
+        INACTIVE = "Inactive"
+
     def __init__(self, version, payload, account_sid: str, address_sid: str):
         """
         Initialize the DependentPhoneNumberInstance

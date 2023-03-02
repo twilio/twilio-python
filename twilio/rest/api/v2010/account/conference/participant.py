@@ -446,6 +446,14 @@ class ParticipantContext(InstanceContext):
 
 class ParticipantInstance(InstanceResource):
 
+    class ParticipantStatus(object):
+        QUEUED = "queued"
+        CONNECTING = "connecting"
+        RINGING = "ringing"
+        CONNECTED = "connected"
+        COMPLETE = "complete"
+        FAILED = "failed"
+
     def __init__(self, version, payload, account_sid: str, conference_sid: str, call_sid: str=None):
         """
         Initialize the ParticipantInstance

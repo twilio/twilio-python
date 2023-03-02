@@ -411,6 +411,15 @@ class TrunkContext(InstanceContext):
 
 class TrunkInstance(InstanceResource):
 
+    class TrunkTransferCallerId(object):
+        FROM_TRANSFEREE = "from-transferee"
+        FROM_TRANSFEROR = "from-transferor"
+
+    class TrunkTransferSetting(object):
+        DISABLE_ALL = "disable-all"
+        ENABLE_ALL = "enable-all"
+        SIP_ONLY = "sip-only"
+
     def __init__(self, version, payload, sid: str=None):
         """
         Initialize the TrunkInstance

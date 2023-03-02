@@ -338,6 +338,10 @@ class UserContext(InstanceContext):
 
 class UserInstance(InstanceResource):
 
+    class UserWebhookEnabledType(object):
+        TRUE = "true"
+        FALSE = "false"
+
     def __init__(self, version, payload, sid: str=None):
         """
         Initialize the UserInstance

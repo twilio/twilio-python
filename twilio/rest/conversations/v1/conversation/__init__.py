@@ -390,6 +390,15 @@ class ConversationContext(InstanceContext):
 
 class ConversationInstance(InstanceResource):
 
+    class ConversationState(object):
+        INACTIVE = "inactive"
+        ACTIVE = "active"
+        CLOSED = "closed"
+
+    class ConversationWebhookEnabledType(object):
+        TRUE = "true"
+        FALSE = "false"
+
     def __init__(self, version, payload, sid: str=None):
         """
         Initialize the ConversationInstance

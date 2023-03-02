@@ -278,6 +278,11 @@ class BindingContext(InstanceContext):
 
 class BindingInstance(InstanceResource):
 
+    class BindingBindingType(object):
+        GCM = "gcm"
+        APN = "apn"
+        FCM = "fcm"
+
     def __init__(self, version, payload, service_sid: str, sid: str=None):
         """
         Initialize the BindingInstance

@@ -269,6 +269,34 @@ class InteractionContext(InstanceContext):
 
 class InteractionInstance(InstanceResource):
 
+    class InteractionResourceStatus(object):
+        ACCEPTED = "accepted"
+        ANSWERED = "answered"
+        BUSY = "busy"
+        CANCELED = "canceled"
+        COMPLETED = "completed"
+        DELETED = "deleted"
+        DELIVERED = "delivered"
+        DELIVERY_UNKNOWN = "delivery-unknown"
+        FAILED = "failed"
+        IN_PROGRESS = "in-progress"
+        INITIATED = "initiated"
+        NO_ANSWER = "no-answer"
+        QUEUED = "queued"
+        RECEIVED = "received"
+        RECEIVING = "receiving"
+        RINGING = "ringing"
+        SCHEDULED = "scheduled"
+        SENDING = "sending"
+        SENT = "sent"
+        UNDELIVERED = "undelivered"
+        UNKNOWN = "unknown"
+
+    class InteractionType(object):
+        MESSAGE = "message"
+        VOICE = "voice"
+        UNKNOWN = "unknown"
+
     def __init__(self, version, payload, service_sid: str, session_sid: str, sid: str=None):
         """
         Initialize the InteractionInstance

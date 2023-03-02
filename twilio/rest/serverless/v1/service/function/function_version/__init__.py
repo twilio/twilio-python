@@ -271,6 +271,11 @@ class FunctionVersionContext(InstanceContext):
 
 class FunctionVersionInstance(InstanceResource):
 
+    class FunctionVersionVisibility(object):
+        PUBLIC = "public"
+        PRIVATE = "private"
+        PROTECTED = "protected"
+
     def __init__(self, version, payload, service_sid: str, function_sid: str, sid: str=None):
         """
         Initialize the FunctionVersionInstance

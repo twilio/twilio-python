@@ -81,6 +81,13 @@ class VerificationCheckList(ListResource):
 
 class VerificationCheckInstance(InstanceResource):
 
+    class VerificationCheckChannel(object):
+        SMS = "sms"
+        CALL = "call"
+        EMAIL = "email"
+        WHATSAPP = "whatsapp"
+        SNA = "sna"
+
     def __init__(self, version, payload, service_sid: str):
         """
         Initialize the VerificationCheckInstance

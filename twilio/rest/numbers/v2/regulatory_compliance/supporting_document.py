@@ -314,6 +314,14 @@ class SupportingDocumentContext(InstanceContext):
 
 class SupportingDocumentInstance(InstanceResource):
 
+    class SupportingDocumentStatus(object):
+        DRAFT = "draft"
+        PENDING_REVIEW = "pending-review"
+        REJECTED = "rejected"
+        APPROVED = "approved"
+        EXPIRED = "expired"
+        PROVISIONALLY_APPROVED = "provisionally-approved"
+
     def __init__(self, version, payload, sid: str=None):
         """
         Initialize the SupportingDocumentInstance

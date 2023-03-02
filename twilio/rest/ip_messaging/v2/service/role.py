@@ -316,6 +316,10 @@ class RoleContext(InstanceContext):
 
 class RoleInstance(InstanceResource):
 
+    class RoleRoleType(object):
+        CHANNEL = "channel"
+        DEPLOYMENT = "deployment"
+
     def __init__(self, version, payload, service_sid: str, sid: str=None):
         """
         Initialize the RoleInstance

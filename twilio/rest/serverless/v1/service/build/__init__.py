@@ -307,6 +307,18 @@ class BuildContext(InstanceContext):
 
 class BuildInstance(InstanceResource):
 
+    class BuildRuntime(object):
+        NODE8 = "node8"
+        NODE10 = "node10"
+        NODE12 = "node12"
+        NODE14 = "node14"
+        NODE16 = "node16"
+
+    class BuildStatus(object):
+        BUILDING = "building"
+        COMPLETED = "completed"
+        FAILED = "failed"
+
     def __init__(self, version, payload, service_sid: str, sid: str=None):
         """
         Initialize the BuildInstance

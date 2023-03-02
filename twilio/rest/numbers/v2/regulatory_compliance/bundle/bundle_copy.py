@@ -199,6 +199,14 @@ class BundleCopyPage(Page):
 
 class BundleCopyInstance(InstanceResource):
 
+    class BundleCopyStatus(object):
+        DRAFT = "draft"
+        PENDING_REVIEW = "pending-review"
+        IN_REVIEW = "in-review"
+        TWILIO_REJECTED = "twilio-rejected"
+        TWILIO_APPROVED = "twilio-approved"
+        PROVISIONALLY_APPROVED = "provisionally-approved"
+
     def __init__(self, version, payload, bundle_sid: str):
         """
         Initialize the BundleCopyInstance

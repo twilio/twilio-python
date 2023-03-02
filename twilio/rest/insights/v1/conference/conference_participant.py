@@ -278,6 +278,45 @@ class ConferenceParticipantContext(InstanceContext):
 
 class ConferenceParticipantInstance(InstanceResource):
 
+    class ConferenceParticipantCallDirection(object):
+        INBOUND = "inbound"
+        OUTBOUND = "outbound"
+
+    class ConferenceParticipantCallStatus(object):
+        ANSWERED = "answered"
+        COMPLETED = "completed"
+        BUSY = "busy"
+        FAIL = "fail"
+        NOANSWER = "noanswer"
+        RINGING = "ringing"
+        CANCELED = "canceled"
+
+    class ConferenceParticipantCallType(object):
+        CARRIER = "carrier"
+        CLIENT = "client"
+        SIP = "sip"
+
+    class ConferenceParticipantJitterBufferSize(object):
+        LARGE = "large"
+        SMALL = "small"
+        MEDIUM = "medium"
+        OFF = "off"
+
+    class ConferenceParticipantProcessingState(object):
+        COMPLETE = "complete"
+        IN_PROGRESS = "in_progress"
+        TIMEOUT = "timeout"
+
+    class ConferenceParticipantRegion(object):
+        US1 = "us1"
+        US2 = "us2"
+        AU1 = "au1"
+        BR1 = "br1"
+        IE1 = "ie1"
+        JP1 = "jp1"
+        SG1 = "sg1"
+        DE1 = "de1"
+
     def __init__(self, version, payload, conference_sid: str, participant_sid: str=None):
         """
         Initialize the ConferenceParticipantInstance

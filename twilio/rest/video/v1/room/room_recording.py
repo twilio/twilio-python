@@ -290,6 +290,27 @@ class RoomRecordingContext(InstanceContext):
 
 class RoomRecordingInstance(InstanceResource):
 
+    class RoomRecordingCodec(object):
+        VP8 = "VP8"
+        H264 = "H264"
+        OPUS = "OPUS"
+        PCMU = "PCMU"
+
+    class RoomRecordingFormat(object):
+        MKA = "mka"
+        MKV = "mkv"
+
+    class RoomRecordingStatus(object):
+        PROCESSING = "processing"
+        COMPLETED = "completed"
+        DELETED = "deleted"
+        FAILED = "failed"
+
+    class RoomRecordingType(object):
+        AUDIO = "audio"
+        VIDEO = "video"
+        DATA = "data"
+
     def __init__(self, version, payload, room_sid: str, sid: str=None):
         """
         Initialize the RoomRecordingInstance

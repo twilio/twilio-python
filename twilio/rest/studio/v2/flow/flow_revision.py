@@ -253,6 +253,10 @@ class FlowRevisionContext(InstanceContext):
 
 class FlowRevisionInstance(InstanceResource):
 
+    class FlowRevisionStatus(object):
+        DRAFT = "draft"
+        PUBLISHED = "published"
+
     def __init__(self, version, payload, sid: str, revision: str=None):
         """
         Initialize the FlowRevisionInstance

@@ -282,6 +282,13 @@ class InteractionChannelParticipantContext(InstanceContext):
 
 class InteractionChannelParticipantInstance(InstanceResource):
 
+    class InteractionChannelParticipantType(object):
+        SUPERVISOR = "supervisor"
+        CUSTOMER = "customer"
+        EXTERNAL = "external"
+        AGENT = "agent"
+        UNKNOWN = "unknown"
+
     def __init__(self, version, payload, interaction_sid: str, channel_sid: str, sid: str=None):
         """
         Initialize the InteractionChannelParticipantInstance

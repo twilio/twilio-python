@@ -381,6 +381,16 @@ class ServiceContext(InstanceContext):
 
 class ServiceInstance(InstanceResource):
 
+    class ServiceGeoMatchLevel(object):
+        AREA_CODE = "area-code"
+        OVERLAY = "overlay"
+        RADIUS = "radius"
+        COUNTRY = "country"
+
+    class ServiceNumberSelectionBehavior(object):
+        AVOID_STICKY = "avoid-sticky"
+        PREFER_STICKY = "prefer-sticky"
+
     def __init__(self, version, payload, sid: str=None):
         """
         Initialize the ServiceInstance

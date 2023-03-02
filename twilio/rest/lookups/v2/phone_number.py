@@ -151,6 +151,14 @@ class PhoneNumberContext(InstanceContext):
 
 class PhoneNumberInstance(InstanceResource):
 
+    class PhoneNumberValidationError(object):
+        TOO_SHORT = "TOO_SHORT"
+        TOO_LONG = "TOO_LONG"
+        INVALID_BUT_POSSIBLE = "INVALID_BUT_POSSIBLE"
+        INVALID_COUNTRY_CODE = "INVALID_COUNTRY_CODE"
+        INVALID_LENGTH = "INVALID_LENGTH"
+        NOT_A_NUMBER = "NOT_A_NUMBER"
+
     def __init__(self, version, payload, phone_number: str=None):
         """
         Initialize the PhoneNumberInstance

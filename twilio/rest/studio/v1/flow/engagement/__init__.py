@@ -320,6 +320,10 @@ class EngagementContext(InstanceContext):
 
 class EngagementInstance(InstanceResource):
 
+    class EngagementStatus(object):
+        ACTIVE = "active"
+        ENDED = "ended"
+
     def __init__(self, version, payload, flow_sid: str, sid: str=None):
         """
         Initialize the EngagementInstance

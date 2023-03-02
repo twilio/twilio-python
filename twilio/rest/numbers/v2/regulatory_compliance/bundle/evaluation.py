@@ -256,6 +256,10 @@ class EvaluationContext(InstanceContext):
 
 class EvaluationInstance(InstanceResource):
 
+    class EvaluationStatus(object):
+        COMPLIANT = "compliant"
+        NONCOMPLIANT = "noncompliant"
+
     def __init__(self, version, payload, bundle_sid: str, sid: str=None):
         """
         Initialize the EvaluationInstance

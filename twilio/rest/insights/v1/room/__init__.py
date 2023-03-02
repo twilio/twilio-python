@@ -295,6 +295,57 @@ class RoomContext(InstanceContext):
 
 class RoomInstance(InstanceResource):
 
+    class VideoRoomSummaryCodec(object):
+        VP8 = "VP8"
+        H264 = "H264"
+        VP9 = "VP9"
+
+    class VideoRoomSummaryCreatedMethod(object):
+        SDK = "sdk"
+        AD_HOC = "ad_hoc"
+        API = "api"
+
+    class VideoRoomSummaryEdgeLocation(object):
+        ASHBURN = "ashburn"
+        DUBLIN = "dublin"
+        FRANKFURT = "frankfurt"
+        SINGAPORE = "singapore"
+        SYDNEY = "sydney"
+        SAO_PAULO = "sao_paulo"
+        ROAMING = "roaming"
+        UMATILLA = "umatilla"
+        TOKYO = "tokyo"
+
+    class VideoRoomSummaryEndReason(object):
+        ROOM_ENDED_VIA_API = "room_ended_via_api"
+        TIMEOUT = "timeout"
+
+    class VideoRoomSummaryProcessingState(object):
+        COMPLETE = "complete"
+        IN_PROGRESS = "in_progress"
+
+    class VideoRoomSummaryRoomStatus(object):
+        IN_PROGRESS = "in_progress"
+        COMPLETED = "completed"
+
+    class VideoRoomSummaryRoomType(object):
+        GO = "go"
+        PEER_TO_PEER = "peer_to_peer"
+        GROUP = "group"
+        GROUP_SMALL = "group_small"
+
+    class VideoRoomSummaryTwilioRealm(object):
+        US1 = "us1"
+        US2 = "us2"
+        AU1 = "au1"
+        BR1 = "br1"
+        IE1 = "ie1"
+        JP1 = "jp1"
+        SG1 = "sg1"
+        IN1 = "in1"
+        DE1 = "de1"
+        GLL = "gll"
+
     def __init__(self, version, payload, room_sid: str=None):
         """
         Initialize the RoomInstance

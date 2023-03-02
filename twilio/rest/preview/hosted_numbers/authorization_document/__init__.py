@@ -344,6 +344,13 @@ class AuthorizationDocumentContext(InstanceContext):
 
 class AuthorizationDocumentInstance(InstanceResource):
 
+    class AuthorizationDocumentStatus(object):
+        OPENED = "opened"
+        SIGNING = "signing"
+        SIGNED = "signed"
+        CANCELED = "canceled"
+        FAILED = "failed"
+
     def __init__(self, version, payload, sid: str=None):
         """
         Initialize the AuthorizationDocumentInstance
