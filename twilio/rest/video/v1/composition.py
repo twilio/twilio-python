@@ -323,6 +323,17 @@ class CompositionContext(InstanceContext):
 
 class CompositionInstance(InstanceResource):
 
+    class CompositionFormat(object):
+        MP4 = "mp4"
+        WEBM = "webm"
+
+    class CompositionStatus(object):
+        ENQUEUED = "enqueued"
+        PROCESSING = "processing"
+        COMPLETED = "completed"
+        DELETED = "deleted"
+        FAILED = "failed"
+
     def __init__(self, version, payload, sid: str=None):
         """
         Initialize the CompositionInstance

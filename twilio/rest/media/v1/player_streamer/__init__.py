@@ -328,6 +328,22 @@ class PlayerStreamerContext(InstanceContext):
 
 class PlayerStreamerInstance(InstanceResource):
 
+    class PlayerStreamerEndedReason(object):
+        ENDED_VIA_API = "ended-via-api"
+        MAX_DURATION_EXCEEDED = "max-duration-exceeded"
+        STREAM_DISCONNECTED_BY_SOURCE = "stream-disconnected-by-source"
+        UNEXPECTED_FAILURE = "unexpected-failure"
+
+    class PlayerStreamerOrder(object):
+        ASC = "asc"
+        DESC = "desc"
+
+    class PlayerStreamerStatus(object):
+        CREATED = "created"
+        STARTED = "started"
+        ENDED = "ended"
+        FAILED = "failed"
+
     def __init__(self, version, payload, sid: str=None):
         """
         Initialize the PlayerStreamerInstance

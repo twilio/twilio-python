@@ -292,6 +292,14 @@ class EsimProfileContext(InstanceContext):
 
 class EsimProfileInstance(InstanceResource):
 
+    class EsimProfileStatus(object):
+        NEW = "new"
+        RESERVING = "reserving"
+        AVAILABLE = "available"
+        DOWNLOADED = "downloaded"
+        INSTALLED = "installed"
+        FAILED = "failed"
+
     def __init__(self, version, payload, sid: str=None):
         """
         Initialize the EsimProfileInstance

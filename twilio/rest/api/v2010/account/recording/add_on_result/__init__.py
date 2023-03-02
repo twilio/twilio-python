@@ -284,6 +284,16 @@ class AddOnResultContext(InstanceContext):
 
 class AddOnResultInstance(InstanceResource):
 
+    class RecordingAddOnResultStatus(object):
+        CANCELED = "canceled"
+        COMPLETED = "completed"
+        DELETED = "deleted"
+        FAILED = "failed"
+        IN_PROGRESS = "in-progress"
+        INIT = "init"
+        PROCESSING = "processing"
+        QUEUED = "queued"
+
     def __init__(self, version, payload, account_sid: str, reference_sid: str, sid: str=None):
         """
         Initialize the AddOnResultInstance

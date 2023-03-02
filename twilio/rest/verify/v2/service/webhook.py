@@ -328,6 +328,18 @@ class WebhookContext(InstanceContext):
 
 class WebhookInstance(InstanceResource):
 
+    class WebhookMethods(object):
+        GET = "GET"
+        POST = "POST"
+
+    class WebhookStatus(object):
+        ENABLED = "enabled"
+        DISABLED = "disabled"
+
+    class WebhookVersion(object):
+        V1 = "v1"
+        V2 = "v2"
+
     def __init__(self, version, payload, service_sid: str, sid: str=None):
         """
         Initialize the WebhookInstance

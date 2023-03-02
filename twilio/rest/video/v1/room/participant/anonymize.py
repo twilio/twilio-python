@@ -126,6 +126,10 @@ class AnonymizeContext(InstanceContext):
 
 class AnonymizeInstance(InstanceResource):
 
+    class RoomParticipantAnonymizeStatus(object):
+        CONNECTED = "connected"
+        DISCONNECTED = "disconnected"
+
     def __init__(self, version, payload, room_sid: str, sid: str):
         """
         Initialize the AnonymizeInstance

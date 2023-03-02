@@ -253,6 +253,38 @@ class ParticipantContext(InstanceContext):
 
 class ParticipantInstance(InstanceResource):
 
+    class VideoParticipantSummaryCodec(object):
+        VP8 = "VP8"
+        H264 = "H264"
+        VP9 = "VP9"
+
+    class VideoParticipantSummaryEdgeLocation(object):
+        ASHBURN = "ashburn"
+        DUBLIN = "dublin"
+        FRANKFURT = "frankfurt"
+        SINGAPORE = "singapore"
+        SYDNEY = "sydney"
+        SAO_PAULO = "sao_paulo"
+        ROAMING = "roaming"
+        UMATILLA = "umatilla"
+        TOKYO = "tokyo"
+
+    class VideoParticipantSummaryRoomStatus(object):
+        IN_PROGRESS = "in_progress"
+        COMPLETED = "completed"
+
+    class VideoParticipantSummaryTwilioRealm(object):
+        US1 = "us1"
+        US2 = "us2"
+        AU1 = "au1"
+        BR1 = "br1"
+        IE1 = "ie1"
+        JP1 = "jp1"
+        SG1 = "sg1"
+        IN1 = "in1"
+        DE1 = "de1"
+        GLL = "gll"
+
     def __init__(self, version, payload, room_sid: str, participant_sid: str=None):
         """
         Initialize the ParticipantInstance

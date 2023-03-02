@@ -148,6 +148,14 @@ class WebhookContext(InstanceContext):
 
 class WebhookInstance(InstanceResource):
 
+    class ConfigurationWebhookMethod(object):
+        GET = "GET"
+        POST = "POST"
+
+    class ConfigurationWebhookTarget(object):
+        WEBHOOK = "webhook"
+        FLEX = "flex"
+
     def __init__(self, version, payload):
         """
         Initialize the WebhookInstance

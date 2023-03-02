@@ -153,6 +153,10 @@ class UserContext(InstanceContext):
 
 class UserInstance(InstanceResource):
 
+    class UserStateType(object):
+        ACTIVE = "active"
+        DEACTIVATED = "deactivated"
+
     def __init__(self, version, payload, sid: str=None):
         """
         Initialize the UserInstance

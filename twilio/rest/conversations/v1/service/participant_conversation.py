@@ -191,6 +191,11 @@ class ParticipantConversationPage(Page):
 
 class ParticipantConversationInstance(InstanceResource):
 
+    class ServiceParticipantConversationState(object):
+        INACTIVE = "inactive"
+        ACTIVE = "active"
+        CLOSED = "closed"
+
     def __init__(self, version, payload, chat_service_sid: str):
         """
         Initialize the ParticipantConversationInstance

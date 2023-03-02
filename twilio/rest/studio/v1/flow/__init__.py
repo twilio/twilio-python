@@ -293,6 +293,10 @@ class FlowContext(InstanceContext):
 
 class FlowInstance(InstanceResource):
 
+    class FlowStatus(object):
+        DRAFT = "draft"
+        PUBLISHED = "published"
+
     def __init__(self, version, payload, sid: str=None):
         """
         Initialize the FlowInstance

@@ -267,6 +267,28 @@ class TollFreePage(Page):
 
 class TollFreeInstance(InstanceResource):
 
+    class IncomingPhoneNumberTollFreeAddressRequirement(object):
+        NONE = "none"
+        ANY = "any"
+        LOCAL = "local"
+        FOREIGN = "foreign"
+
+    class IncomingPhoneNumberTollFreeEmergencyAddressStatus(object):
+        REGISTERED = "registered"
+        UNREGISTERED = "unregistered"
+        PENDING_REGISTRATION = "pending-registration"
+        REGISTRATION_FAILURE = "registration-failure"
+        PENDING_UNREGISTRATION = "pending-unregistration"
+        UNREGISTRATION_FAILURE = "unregistration-failure"
+
+    class IncomingPhoneNumberTollFreeEmergencyStatus(object):
+        ACTIVE = "Active"
+        INACTIVE = "Inactive"
+
+    class IncomingPhoneNumberTollFreeVoiceReceiveMode(object):
+        VOICE = "voice"
+        FAX = "fax"
+
     def __init__(self, version, payload, account_sid: str):
         """
         Initialize the TollFreeInstance

@@ -197,6 +197,13 @@ class VerificationContext(InstanceContext):
 
 class VerificationInstance(InstanceResource):
 
+    class VerificationChannel(object):
+        SMS = "sms"
+        CALL = "call"
+        EMAIL = "email"
+        WHATSAPP = "whatsapp"
+        SNA = "sna"
+
     def __init__(self, version, payload, service_sid: str, sid: str=None):
         """
         Initialize the VerificationInstance

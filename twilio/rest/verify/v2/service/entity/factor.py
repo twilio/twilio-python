@@ -312,6 +312,14 @@ class FactorContext(InstanceContext):
 
 class FactorInstance(InstanceResource):
 
+    class FactorFactorStatuses(object):
+        UNVERIFIED = "unverified"
+        VERIFIED = "verified"
+
+    class FactorFactorTypes(object):
+        PUSH = "push"
+        TOTP = "totp"
+
     def __init__(self, version, payload, service_sid: str, identity: str, sid: str=None):
         """
         Initialize the FactorInstance

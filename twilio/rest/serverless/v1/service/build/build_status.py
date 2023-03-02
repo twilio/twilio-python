@@ -124,6 +124,11 @@ class BuildStatusContext(InstanceContext):
 
 class BuildStatusInstance(InstanceResource):
 
+    class BuildStatusStatus(object):
+        BUILDING = "building"
+        COMPLETED = "completed"
+        FAILED = "failed"
+
     def __init__(self, version, payload, service_sid: str, sid: str):
         """
         Initialize the BuildStatusInstance

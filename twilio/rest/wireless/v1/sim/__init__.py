@@ -382,6 +382,19 @@ class SimContext(InstanceContext):
 
 class SimInstance(InstanceResource):
 
+    class SimResetStatus(object):
+        RESETTING = "resetting"
+
+    class SimStatus(object):
+        NEW = "new"
+        READY = "ready"
+        ACTIVE = "active"
+        SUSPENDED = "suspended"
+        DEACTIVATED = "deactivated"
+        CANCELED = "canceled"
+        SCHEDULED = "scheduled"
+        UPDATING = "updating"
+
     def __init__(self, version, payload, sid: str=None):
         """
         Initialize the SimInstance

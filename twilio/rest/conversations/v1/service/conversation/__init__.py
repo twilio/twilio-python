@@ -394,6 +394,15 @@ class ConversationContext(InstanceContext):
 
 class ConversationInstance(InstanceResource):
 
+    class ServiceConversationState(object):
+        INACTIVE = "inactive"
+        ACTIVE = "active"
+        CLOSED = "closed"
+
+    class ServiceConversationWebhookEnabledType(object):
+        TRUE = "true"
+        FALSE = "false"
+
     def __init__(self, version, payload, chat_service_sid: str, sid: str=None):
         """
         Initialize the ConversationInstance

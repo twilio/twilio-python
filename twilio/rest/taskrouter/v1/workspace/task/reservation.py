@@ -400,6 +400,16 @@ class ReservationContext(InstanceContext):
 
 class ReservationInstance(InstanceResource):
 
+    class TaskReservationStatus(object):
+        PENDING = "pending"
+        ACCEPTED = "accepted"
+        REJECTED = "rejected"
+        TIMEOUT = "timeout"
+        CANCELED = "canceled"
+        RESCINDED = "rescinded"
+        WRAPPING = "wrapping"
+        COMPLETED = "completed"
+
     def __init__(self, version, payload, workspace_sid: str, task_sid: str, sid: str=None):
         """
         Initialize the ReservationInstance

@@ -286,6 +286,45 @@ class CallSummariesPage(Page):
 
 class CallSummariesInstance(InstanceResource):
 
+    class CallSummariesAnsweredBy(object):
+        UNKNOWN = "unknown"
+        MACHINE_START = "machine_start"
+        MACHINE_END_BEEP = "machine_end_beep"
+        MACHINE_END_SILENCE = "machine_end_silence"
+        MACHINE_END_OTHER = "machine_end_other"
+        HUMAN = "human"
+        FAX = "fax"
+
+    class CallSummariesCallState(object):
+        RINGING = "ringing"
+        COMPLETED = "completed"
+        BUSY = "busy"
+        FAIL = "fail"
+        NOANSWER = "noanswer"
+        CANCELED = "canceled"
+        ANSWERED = "answered"
+        UNDIALED = "undialed"
+
+    class CallSummariesCallType(object):
+        CARRIER = "carrier"
+        SIP = "sip"
+        TRUNKING = "trunking"
+        CLIENT = "client"
+
+    class CallSummariesProcessingState(object):
+        COMPLETE = "complete"
+        PARTIAL = "partial"
+
+    class CallSummariesProcessingStateRequest(object):
+        COMPLETED = "completed"
+        STARTED = "started"
+        PARTIAL = "partial"
+        ALL = "all"
+
+    class CallSummariesSortBy(object):
+        START_TIME = "start_time"
+        END_TIME = "end_time"
+
     def __init__(self, version, payload):
         """
         Initialize the CallSummariesInstance

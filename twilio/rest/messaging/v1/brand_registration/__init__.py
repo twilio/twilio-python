@@ -316,6 +316,26 @@ class BrandRegistrationContext(InstanceContext):
 
 class BrandRegistrationInstance(InstanceResource):
 
+    class BrandRegistrationsBrandFeedback(object):
+        TAX_ID = "TAX_ID"
+        STOCK_SYMBOL = "STOCK_SYMBOL"
+        NONPROFIT = "NONPROFIT"
+        GOVERNMENT_ENTITY = "GOVERNMENT_ENTITY"
+        OTHERS = "OTHERS"
+
+    class BrandRegistrationsIdentityStatus(object):
+        SELF_DECLARED = "SELF_DECLARED"
+        UNVERIFIED = "UNVERIFIED"
+        VERIFIED = "VERIFIED"
+        VETTED_VERIFIED = "VETTED_VERIFIED"
+
+    class BrandRegistrationsStatus(object):
+        PENDING = "PENDING"
+        APPROVED = "APPROVED"
+        FAILED = "FAILED"
+        IN_REVIEW = "IN_REVIEW"
+        DELETED = "DELETED"
+
     def __init__(self, version, payload, sid: str=None):
         """
         Initialize the BrandRegistrationInstance

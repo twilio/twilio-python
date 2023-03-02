@@ -267,6 +267,28 @@ class MobilePage(Page):
 
 class MobileInstance(InstanceResource):
 
+    class IncomingPhoneNumberMobileAddressRequirement(object):
+        NONE = "none"
+        ANY = "any"
+        LOCAL = "local"
+        FOREIGN = "foreign"
+
+    class IncomingPhoneNumberMobileEmergencyAddressStatus(object):
+        REGISTERED = "registered"
+        UNREGISTERED = "unregistered"
+        PENDING_REGISTRATION = "pending-registration"
+        REGISTRATION_FAILURE = "registration-failure"
+        PENDING_UNREGISTRATION = "pending-unregistration"
+        UNREGISTRATION_FAILURE = "unregistration-failure"
+
+    class IncomingPhoneNumberMobileEmergencyStatus(object):
+        ACTIVE = "Active"
+        INACTIVE = "Inactive"
+
+    class IncomingPhoneNumberMobileVoiceReceiveMode(object):
+        VOICE = "voice"
+        FAX = "fax"
+
     def __init__(self, version, payload, account_sid: str):
         """
         Initialize the MobileInstance

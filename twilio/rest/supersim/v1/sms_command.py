@@ -294,6 +294,17 @@ class SmsCommandContext(InstanceContext):
 
 class SmsCommandInstance(InstanceResource):
 
+    class SmsCommandDirection(object):
+        TO_SIM = "to_sim"
+        FROM_SIM = "from_sim"
+
+    class SmsCommandStatus(object):
+        QUEUED = "queued"
+        SENT = "sent"
+        DELIVERED = "delivered"
+        RECEIVED = "received"
+        FAILED = "failed"
+
     def __init__(self, version, payload, sid: str=None):
         """
         Initialize the SmsCommandInstance

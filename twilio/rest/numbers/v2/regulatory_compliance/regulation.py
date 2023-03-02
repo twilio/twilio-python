@@ -268,6 +268,10 @@ class RegulationContext(InstanceContext):
 
 class RegulationInstance(InstanceResource):
 
+    class RegulationEndUserType(object):
+        INDIVIDUAL = "individual"
+        BUSINESS = "business"
+
     def __init__(self, version, payload, sid: str=None):
         """
         Initialize the RegulationInstance

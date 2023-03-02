@@ -348,6 +348,25 @@ class ChallengeContext(InstanceContext):
 
 class ChallengeInstance(InstanceResource):
 
+    class ChallengeChallengeReasons(object):
+        NONE = "none"
+        NOT_NEEDED = "not_needed"
+        NOT_REQUESTED = "not_requested"
+
+    class ChallengeChallengeStatuses(object):
+        PENDING = "pending"
+        EXPIRED = "expired"
+        APPROVED = "approved"
+        DENIED = "denied"
+
+    class ChallengeFactorTypes(object):
+        PUSH = "push"
+        TOTP = "totp"
+
+    class ChallengeListOrders(object):
+        ASC = "asc"
+        DESC = "desc"
+
     def __init__(self, version, payload, service_sid: str, identity: str, sid: str=None):
         """
         Initialize the ChallengeInstance

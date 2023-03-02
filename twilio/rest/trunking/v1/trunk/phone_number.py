@@ -286,6 +286,12 @@ class PhoneNumberContext(InstanceContext):
 
 class PhoneNumberInstance(InstanceResource):
 
+    class PhoneNumberAddressRequirement(object):
+        NONE = "none"
+        ANY = "any"
+        LOCAL = "local"
+        FOREIGN = "foreign"
+
     def __init__(self, version, payload, trunk_sid: str, sid: str=None):
         """
         Initialize the PhoneNumberInstance

@@ -150,6 +150,10 @@ class WebhookContext(InstanceContext):
 
 class WebhookInstance(InstanceResource):
 
+    class ServiceWebhookConfigurationMethod(object):
+        GET = "GET"
+        POST = "POST"
+
     def __init__(self, version, payload, chat_service_sid: str):
         """
         Initialize the WebhookInstance

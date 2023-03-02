@@ -360,6 +360,14 @@ class MessageContext(InstanceContext):
 
 class MessageInstance(InstanceResource):
 
+    class ConversationMessageOrderType(object):
+        ASC = "asc"
+        DESC = "desc"
+
+    class ConversationMessageWebhookEnabledType(object):
+        TRUE = "true"
+        FALSE = "false"
+
     def __init__(self, version, payload, conversation_sid: str, sid: str=None):
         """
         Initialize the MessageInstance

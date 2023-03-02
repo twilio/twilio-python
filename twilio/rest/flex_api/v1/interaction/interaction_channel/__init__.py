@@ -311,6 +311,22 @@ class InteractionChannelContext(InstanceContext):
 
 class InteractionChannelInstance(InstanceResource):
 
+    class InteractionChannelChannelStatus(object):
+        SETUP = "setup"
+        ACTIVE = "active"
+        FAILED = "failed"
+        CLOSED = "closed"
+
+    class InteractionChannelType(object):
+        VOICE = "voice"
+        SMS = "sms"
+        EMAIL = "email"
+        WEB = "web"
+        WHATSAPP = "whatsapp"
+        CHAT = "chat"
+        MESSENGER = "messenger"
+        GBM = "gbm"
+
     def __init__(self, version, payload, interaction_sid: str, sid: str=None):
         """
         Initialize the InteractionChannelInstance

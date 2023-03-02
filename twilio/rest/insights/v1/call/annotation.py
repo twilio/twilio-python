@@ -156,6 +156,19 @@ class AnnotationContext(InstanceContext):
 
 class AnnotationInstance(InstanceResource):
 
+    class AnnotationAnsweredBy(object):
+        UNKNOWN_ANSWERED_BY = "unknown_answered_by"
+        HUMAN = "human"
+        MACHINE = "machine"
+
+    class AnnotationConnectivityIssue(object):
+        UNKNOWN_CONNECTIVITY_ISSUE = "unknown_connectivity_issue"
+        NO_CONNECTIVITY_ISSUE = "no_connectivity_issue"
+        INVALID_NUMBER = "invalid_number"
+        CALLER_ID = "caller_id"
+        DROPPED_CALL = "dropped_call"
+        NUMBER_REACHABILITY = "number_reachability"
+
     def __init__(self, version, payload, call_sid: str):
         """
         Initialize the AnnotationInstance

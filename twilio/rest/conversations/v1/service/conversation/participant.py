@@ -351,6 +351,10 @@ class ParticipantContext(InstanceContext):
 
 class ParticipantInstance(InstanceResource):
 
+    class ServiceConversationParticipantWebhookEnabledType(object):
+        TRUE = "true"
+        FALSE = "false"
+
     def __init__(self, version, payload, chat_service_sid: str, conversation_sid: str, sid: str=None):
         """
         Initialize the ParticipantInstance

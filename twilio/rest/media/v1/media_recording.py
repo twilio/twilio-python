@@ -287,6 +287,20 @@ class MediaRecordingContext(InstanceContext):
 
 class MediaRecordingInstance(InstanceResource):
 
+    class MediaRecordingFormat(object):
+        MP4 = "mp4"
+        WEBM = "webm"
+
+    class MediaRecordingOrder(object):
+        ASC = "asc"
+        DESC = "desc"
+
+    class MediaRecordingStatus(object):
+        PROCESSING = "processing"
+        COMPLETED = "completed"
+        DELETED = "deleted"
+        FAILED = "failed"
+
     def __init__(self, version, payload, sid: str=None):
         """
         Initialize the MediaRecordingInstance

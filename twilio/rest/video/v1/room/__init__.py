@@ -392,6 +392,21 @@ class RoomContext(InstanceContext):
 
 class RoomInstance(InstanceResource):
 
+    class RoomRoomStatus(object):
+        IN_PROGRESS = "in-progress"
+        COMPLETED = "completed"
+        FAILED = "failed"
+
+    class RoomRoomType(object):
+        GO = "go"
+        PEER_TO_PEER = "peer-to-peer"
+        GROUP = "group"
+        GROUP_SMALL = "group-small"
+
+    class RoomVideoCodec(object):
+        VP8 = "VP8"
+        H264 = "H264"
+
     def __init__(self, version, payload, sid: str=None):
         """
         Initialize the RoomInstance

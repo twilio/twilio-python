@@ -443,6 +443,11 @@ class ServiceContext(InstanceContext):
 
 class ServiceInstance(InstanceResource):
 
+    class ServiceScanMessageContent(object):
+        INHERIT = "inherit"
+        ENABLE = "enable"
+        DISABLE = "disable"
+
     def __init__(self, version, payload, sid: str=None):
         """
         Initialize the ServiceInstance

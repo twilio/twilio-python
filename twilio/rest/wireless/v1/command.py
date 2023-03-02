@@ -319,6 +319,25 @@ class CommandContext(InstanceContext):
 
 class CommandInstance(InstanceResource):
 
+    class CommandCommandMode(object):
+        TEXT = "text"
+        BINARY = "binary"
+
+    class CommandDirection(object):
+        FROM_SIM = "from_sim"
+        TO_SIM = "to_sim"
+
+    class CommandStatus(object):
+        QUEUED = "queued"
+        SENT = "sent"
+        DELIVERED = "delivered"
+        RECEIVED = "received"
+        FAILED = "failed"
+
+    class CommandTransport(object):
+        SMS = "sms"
+        IP = "ip"
+
     def __init__(self, version, payload, sid: str=None):
         """
         Initialize the CommandInstance

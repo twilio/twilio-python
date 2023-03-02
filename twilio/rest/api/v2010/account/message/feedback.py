@@ -74,6 +74,10 @@ class FeedbackList(ListResource):
 
 class FeedbackInstance(InstanceResource):
 
+    class MessageFeedbackOutcome(object):
+        CONFIRMED = "confirmed"
+        UNCONFIRMED = "unconfirmed"
+
     def __init__(self, version, payload, account_sid: str, message_sid: str):
         """
         Initialize the FeedbackInstance

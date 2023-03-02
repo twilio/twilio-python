@@ -146,6 +146,17 @@ class RecordingContext(InstanceContext):
 
 class RecordingInstance(InstanceResource):
 
+    class RecordingRecordingMode(object):
+        DO_NOT_RECORD = "do-not-record"
+        RECORD_FROM_RINGING = "record-from-ringing"
+        RECORD_FROM_ANSWER = "record-from-answer"
+        RECORD_FROM_RINGING_DUAL = "record-from-ringing-dual"
+        RECORD_FROM_ANSWER_DUAL = "record-from-answer-dual"
+
+    class RecordingRecordingTrim(object):
+        TRIM_SILENCE = "trim-silence"
+        DO_NOT_TRIM = "do-not-trim"
+
     def __init__(self, version, payload, trunk_sid: str):
         """
         Initialize the RecordingInstance

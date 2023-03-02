@@ -190,6 +190,12 @@ class SettingsUpdatePage(Page):
 
 class SettingsUpdateInstance(InstanceResource):
 
+    class SettingsUpdateStatus(object):
+        SCHEDULED = "scheduled"
+        IN_PROGRESS = "in-progress"
+        SUCCESSFUL = "successful"
+        FAILED = "failed"
+
     def __init__(self, version, payload):
         """
         Initialize the SettingsUpdateInstance

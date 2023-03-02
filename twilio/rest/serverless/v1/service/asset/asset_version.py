@@ -256,6 +256,11 @@ class AssetVersionContext(InstanceContext):
 
 class AssetVersionInstance(InstanceResource):
 
+    class AssetVersionVisibility(object):
+        PUBLIC = "public"
+        PRIVATE = "private"
+        PROTECTED = "protected"
+
     def __init__(self, version, payload, service_sid: str, asset_sid: str, sid: str=None):
         """
         Initialize the AssetVersionInstance

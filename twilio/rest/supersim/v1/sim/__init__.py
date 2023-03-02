@@ -355,6 +355,13 @@ class SimContext(InstanceContext):
 
 class SimInstance(InstanceResource):
 
+    class SimStatus(object):
+        NEW = "new"
+        READY = "ready"
+        ACTIVE = "active"
+        INACTIVE = "inactive"
+        SCHEDULED = "scheduled"
+
     def __init__(self, version, payload, sid: str=None):
         """
         Initialize the SimInstance

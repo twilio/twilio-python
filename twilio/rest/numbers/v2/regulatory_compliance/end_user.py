@@ -314,6 +314,10 @@ class EndUserContext(InstanceContext):
 
 class EndUserInstance(InstanceResource):
 
+    class EndUserType(object):
+        INDIVIDUAL = "individual"
+        BUSINESS = "business"
+
     def __init__(self, version, payload, sid: str=None):
         """
         Initialize the EndUserInstance

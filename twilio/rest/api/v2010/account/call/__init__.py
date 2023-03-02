@@ -605,6 +605,16 @@ class CallContext(InstanceContext):
 
 class CallInstance(InstanceResource):
 
+    class CallStatus(object):
+        QUEUED = "queued"
+        RINGING = "ringing"
+        IN_PROGRESS = "in-progress"
+        COMPLETED = "completed"
+        BUSY = "busy"
+        FAILED = "failed"
+        NO_ANSWER = "no-answer"
+        CANCELED = "canceled"
+
     def __init__(self, version, payload, account_sid: str, sid: str=None):
         """
         Initialize the CallInstance

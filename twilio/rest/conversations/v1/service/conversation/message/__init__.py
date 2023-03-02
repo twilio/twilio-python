@@ -364,6 +364,14 @@ class MessageContext(InstanceContext):
 
 class MessageInstance(InstanceResource):
 
+    class ServiceConversationMessageOrderType(object):
+        ASC = "asc"
+        DESC = "desc"
+
+    class ServiceConversationMessageWebhookEnabledType(object):
+        TRUE = "true"
+        FALSE = "false"
+
     def __init__(self, version, payload, chat_service_sid: str, conversation_sid: str, sid: str=None):
         """
         Initialize the MessageInstance

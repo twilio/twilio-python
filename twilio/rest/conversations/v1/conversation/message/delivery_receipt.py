@@ -256,6 +256,13 @@ class DeliveryReceiptContext(InstanceContext):
 
 class DeliveryReceiptInstance(InstanceResource):
 
+    class ConversationMessageReceiptDeliveryStatus(object):
+        READ = "read"
+        FAILED = "failed"
+        DELIVERED = "delivered"
+        UNDELIVERED = "undelivered"
+        SENT = "sent"
+
     def __init__(self, version, payload, conversation_sid: str, message_sid: str, sid: str=None):
         """
         Initialize the DeliveryReceiptInstance

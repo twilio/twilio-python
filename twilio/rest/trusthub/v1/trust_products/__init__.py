@@ -383,6 +383,13 @@ class TrustProductsContext(InstanceContext):
 
 class TrustProductsInstance(InstanceResource):
 
+    class TrustProductStatus(object):
+        DRAFT = "draft"
+        PENDING_REVIEW = "pending-review"
+        IN_REVIEW = "in-review"
+        TWILIO_REJECTED = "twilio-rejected"
+        TWILIO_APPROVED = "twilio-approved"
+
     def __init__(self, version, payload, sid: str=None):
         """
         Initialize the TrustProductsInstance

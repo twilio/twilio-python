@@ -415,6 +415,10 @@ class TaskQueueContext(InstanceContext):
 
 class TaskQueueInstance(InstanceResource):
 
+    class TaskQueueTaskOrder(object):
+        FIFO = "FIFO"
+        LIFO = "LIFO"
+
     def __init__(self, version, payload, workspace_sid: str, sid: str=None):
         """
         Initialize the TaskQueueInstance

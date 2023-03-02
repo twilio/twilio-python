@@ -354,6 +354,17 @@ class SinkContext(InstanceContext):
 
 class SinkInstance(InstanceResource):
 
+    class SinkSinkType(object):
+        KINESIS = "kinesis"
+        WEBHOOK = "webhook"
+        SEGMENT = "segment"
+
+    class SinkStatus(object):
+        INITIALIZED = "initialized"
+        VALIDATING = "validating"
+        ACTIVE = "active"
+        FAILED = "failed"
+
     def __init__(self, version, payload, sid: str=None):
         """
         Initialize the SinkInstance

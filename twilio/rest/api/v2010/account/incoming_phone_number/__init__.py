@@ -483,6 +483,28 @@ class IncomingPhoneNumberContext(InstanceContext):
 
 class IncomingPhoneNumberInstance(InstanceResource):
 
+    class IncomingPhoneNumberAddressRequirement(object):
+        NONE = "none"
+        ANY = "any"
+        LOCAL = "local"
+        FOREIGN = "foreign"
+
+    class IncomingPhoneNumberEmergencyAddressStatus(object):
+        REGISTERED = "registered"
+        UNREGISTERED = "unregistered"
+        PENDING_REGISTRATION = "pending-registration"
+        REGISTRATION_FAILURE = "registration-failure"
+        PENDING_UNREGISTRATION = "pending-unregistration"
+        UNREGISTRATION_FAILURE = "unregistration-failure"
+
+    class IncomingPhoneNumberEmergencyStatus(object):
+        ACTIVE = "Active"
+        INACTIVE = "Inactive"
+
+    class IncomingPhoneNumberVoiceReceiveMode(object):
+        VOICE = "voice"
+        FAX = "fax"
+
     def __init__(self, version, payload, account_sid: str, sid: str=None):
         """
         Initialize the IncomingPhoneNumberInstance

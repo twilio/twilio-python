@@ -299,6 +299,27 @@ class RecordingContext(InstanceContext):
 
 class RecordingInstance(InstanceResource):
 
+    class RecordingCodec(object):
+        VP8 = "VP8"
+        H264 = "H264"
+        OPUS = "OPUS"
+        PCMU = "PCMU"
+
+    class RecordingFormat(object):
+        MKA = "mka"
+        MKV = "mkv"
+
+    class RecordingStatus(object):
+        PROCESSING = "processing"
+        COMPLETED = "completed"
+        DELETED = "deleted"
+        FAILED = "failed"
+
+    class RecordingType(object):
+        AUDIO = "audio"
+        VIDEO = "video"
+        DATA = "data"
+
     def __init__(self, version, payload, sid: str=None):
         """
         Initialize the RecordingInstance

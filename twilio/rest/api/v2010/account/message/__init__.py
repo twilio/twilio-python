@@ -416,6 +416,27 @@ class MessageContext(InstanceContext):
 
 class MessageInstance(InstanceResource):
 
+    class MessageDirection(object):
+        INBOUND = "inbound"
+        OUTBOUND_API = "outbound-api"
+        OUTBOUND_CALL = "outbound-call"
+        OUTBOUND_REPLY = "outbound-reply"
+
+    class MessageStatus(object):
+        QUEUED = "queued"
+        SENDING = "sending"
+        SENT = "sent"
+        FAILED = "failed"
+        DELIVERED = "delivered"
+        UNDELIVERED = "undelivered"
+        RECEIVING = "receiving"
+        RECEIVED = "received"
+        ACCEPTED = "accepted"
+        SCHEDULED = "scheduled"
+        READ = "read"
+        PARTIALLY_DELIVERED = "partially_delivered"
+        CANCELED = "canceled"
+
     def __init__(self, version, payload, account_sid: str, sid: str=None):
         """
         Initialize the MessageInstance

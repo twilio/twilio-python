@@ -273,6 +273,10 @@ class CustomerProfilesEvaluationsContext(InstanceContext):
 
 class CustomerProfilesEvaluationsInstance(InstanceResource):
 
+    class CustomerProfileEvaluationStatus(object):
+        COMPLIANT = "compliant"
+        NONCOMPLIANT = "noncompliant"
+
     def __init__(self, version, payload, customer_profile_sid: str, sid: str=None):
         """
         Initialize the CustomerProfilesEvaluationsInstance

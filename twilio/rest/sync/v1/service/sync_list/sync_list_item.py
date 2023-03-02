@@ -350,6 +350,14 @@ class SyncListItemContext(InstanceContext):
 
 class SyncListItemInstance(InstanceResource):
 
+    class SyncListItemQueryFromBoundType(object):
+        INCLUSIVE = "inclusive"
+        EXCLUSIVE = "exclusive"
+
+    class SyncListItemQueryResultOrder(object):
+        ASC = "asc"
+        DESC = "desc"
+
     def __init__(self, version, payload, service_sid: str, list_sid: str, index: int=None):
         """
         Initialize the SyncListItemInstance

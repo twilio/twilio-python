@@ -669,6 +669,15 @@ class AccountContext(InstanceContext):
 
 class AccountInstance(InstanceResource):
 
+    class AccountStatus(object):
+        ACTIVE = "active"
+        SUSPENDED = "suspended"
+        CLOSED = "closed"
+
+    class AccountType(object):
+        TRIAL = "Trial"
+        FULL = "Full"
+
     def __init__(self, version, payload, sid: str=None):
         """
         Initialize the AccountInstance

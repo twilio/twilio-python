@@ -329,6 +329,9 @@ class FleetContext(InstanceContext):
 
 class FleetInstance(InstanceResource):
 
+    class FleetDataMetering(object):
+        PAYG = "payg"
+
     def __init__(self, version, payload, sid: str=None):
         """
         Initialize the FleetInstance

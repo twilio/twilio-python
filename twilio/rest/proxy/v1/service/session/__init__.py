@@ -356,6 +356,18 @@ class SessionContext(InstanceContext):
 
 class SessionInstance(InstanceResource):
 
+    class SessionMode(object):
+        MESSAGE_ONLY = "message-only"
+        VOICE_ONLY = "voice-only"
+        VOICE_AND_MESSAGE = "voice-and-message"
+
+    class SessionStatus(object):
+        OPEN = "open"
+        IN_PROGRESS = "in-progress"
+        CLOSED = "closed"
+        FAILED = "failed"
+        UNKNOWN = "unknown"
+
     def __init__(self, version, payload, service_sid: str, sid: str=None):
         """
         Initialize the SessionInstance

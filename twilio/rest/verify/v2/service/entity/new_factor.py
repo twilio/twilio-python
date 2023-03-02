@@ -100,6 +100,14 @@ class NewFactorList(ListResource):
 
 class NewFactorInstance(InstanceResource):
 
+    class NewFactorFactorStatuses(object):
+        UNVERIFIED = "unverified"
+        VERIFIED = "verified"
+
+    class NewFactorFactorTypes(object):
+        PUSH = "push"
+        TOTP = "totp"
+
     def __init__(self, version, payload, service_sid: str, identity: str):
         """
         Initialize the NewFactorInstance

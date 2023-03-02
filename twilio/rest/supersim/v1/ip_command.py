@@ -304,6 +304,20 @@ class IpCommandContext(InstanceContext):
 
 class IpCommandInstance(InstanceResource):
 
+    class IpCommandDirection(object):
+        TO_SIM = "to_sim"
+        FROM_SIM = "from_sim"
+
+    class IpCommandPayloadType(object):
+        TEXT = "text"
+        BINARY = "binary"
+
+    class IpCommandStatus(object):
+        QUEUED = "queued"
+        SENT = "sent"
+        RECEIVED = "received"
+        FAILED = "failed"
+
     def __init__(self, version, payload, sid: str=None):
         """
         Initialize the IpCommandInstance
