@@ -45,6 +45,7 @@ class DeviceSecretList(ListResource):
     
     
     
+    
     def create(self, key, value):
         """
         Create the DeviceSecretInstance
@@ -185,6 +186,8 @@ class DeviceSecretList(ListResource):
 
 
 
+
+
 class DeviceSecretPage(Page):
 
     def __init__(self, version, response, solution):
@@ -274,6 +277,29 @@ class DeviceSecretContext(InstanceContext):
             device_sid=self._solution['device_sid'],
             key=self._solution['key'],
             
+        )
+        
+    def update(self, value):
+        """
+        Update the DeviceSecretInstance
+        
+        :params str value: The secret value; up to 4096 characters.
+
+        :returns: The updated DeviceSecretInstance
+        :rtype: twilio.rest.microvisor.v1.device.device_secret.DeviceSecretInstance
+        """
+        data = values.of({ 
+            'Value': value,
+        })
+        
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return DeviceSecretInstance(
+            self._version,
+            payload,
+            device_sid=self._solution['device_sid'],
+            key=self._solution['key']
         )
         
     
@@ -370,6 +396,17 @@ class DeviceSecretInstance(InstanceResource):
         :rtype: twilio.rest.microvisor.v1.device.device_secret.DeviceSecretInstance
         """
         return self._proxy.fetch()
+    
+    def update(self, value):
+        """
+        Update the DeviceSecretInstance
+        
+        :params str value: The secret value; up to 4096 characters.
+
+        :returns: The updated DeviceSecretInstance
+        :rtype: twilio.rest.microvisor.v1.device.device_secret.DeviceSecretInstance
+        """
+        return self._proxy.update(value=value, )
     
     def __repr__(self):
         """

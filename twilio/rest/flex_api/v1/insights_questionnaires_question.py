@@ -337,6 +337,7 @@ class InsightsQuestionnairesQuestionInstance(InstanceResource):
             'answer_set_id': payload.get('answer_set_id'),
             'allow_na': payload.get('allow_na'),
             'usage': deserialize.integer(payload.get('usage')),
+            'answer_set': payload.get('answer_set'),
             'url': payload.get('url'),
         }
 
@@ -419,6 +420,14 @@ class InsightsQuestionnairesQuestionInstance(InstanceResource):
         :rtype: int
         """
         return self._properties['usage']
+    
+    @property
+    def answer_set(self):
+        """
+        :returns: Set of answers for the question
+        :rtype: dict
+        """
+        return self._properties['answer_set']
     
     @property
     def url(self):
