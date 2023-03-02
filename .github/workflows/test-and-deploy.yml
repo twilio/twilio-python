@@ -35,7 +35,7 @@ jobs:
           make install test-install
 
       - name: Run the tests
-        run: make test-with-coverage
+        run: make test
 
       - name: Verify docs generation
         run: make docs
