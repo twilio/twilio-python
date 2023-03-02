@@ -124,7 +124,7 @@ class BuildStatusContext(InstanceContext):
 
 class BuildStatusInstance(InstanceResource):
 
-    class BuildStatusStatus(object):
+    class Status(object):
         BUILDING = "building"
         COMPLETED = "completed"
         FAILED = "failed"
@@ -189,7 +189,7 @@ class BuildStatusInstance(InstanceResource):
     def status(self):
         """
         :returns: 
-        :rtype: BuildStatusStatus
+        :rtype: Status
         """
         return self._properties['status']
     

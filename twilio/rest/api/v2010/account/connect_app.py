@@ -268,7 +268,7 @@ class ConnectAppContext(InstanceContext):
         :params str description: A description of the Connect App.
         :params str friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
         :params str homepage_url: A public URL where users can obtain more information about this Connect App.
-        :params list[ConnectAppPermission] permissions: A comma-separated list of the permissions you will request from the users of this ConnectApp.  Can include: `get-all` and `post-all`.
+        :params list[Permission] permissions: A comma-separated list of the permissions you will request from the users of this ConnectApp.  Can include: `get-all` and `post-all`.
 
         :returns: The updated ConnectAppInstance
         :rtype: twilio.rest.api.v2010.account.connect_app.ConnectAppInstance
@@ -306,7 +306,7 @@ class ConnectAppContext(InstanceContext):
 
 class ConnectAppInstance(InstanceResource):
 
-    class ConnectAppPermission(object):
+    class Permission(object):
         GET_ALL = "get-all"
         POST_ALL = "post-all"
 
@@ -416,7 +416,7 @@ class ConnectAppInstance(InstanceResource):
     def permissions(self):
         """
         :returns: The set of permissions that your ConnectApp requests.
-        :rtype: list[ConnectAppPermission]
+        :rtype: list[Permission]
         """
         return self._properties['permissions']
     
@@ -467,7 +467,7 @@ class ConnectAppInstance(InstanceResource):
         :params str description: A description of the Connect App.
         :params str friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
         :params str homepage_url: A public URL where users can obtain more information about this Connect App.
-        :params list[ConnectAppPermission] permissions: A comma-separated list of the permissions you will request from the users of this ConnectApp.  Can include: `get-all` and `post-all`.
+        :params list[Permission] permissions: A comma-separated list of the permissions you will request from the users of this ConnectApp.  Can include: `get-all` and `post-all`.
 
         :returns: The updated ConnectAppInstance
         :rtype: twilio.rest.api.v2010.account.connect_app.ConnectAppInstance

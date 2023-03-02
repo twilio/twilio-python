@@ -256,7 +256,7 @@ class AssetVersionContext(InstanceContext):
 
 class AssetVersionInstance(InstanceResource):
 
-    class AssetVersionVisibility(object):
+    class Visibility(object):
         PUBLIC = "public"
         PRIVATE = "private"
         PROTECTED = "protected"
@@ -340,7 +340,7 @@ class AssetVersionInstance(InstanceResource):
     def visibility(self):
         """
         :returns: 
-        :rtype: AssetVersionVisibility
+        :rtype: Visibility
         """
         return self._properties['visibility']
     

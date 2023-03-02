@@ -278,11 +278,11 @@ class ConferenceParticipantContext(InstanceContext):
 
 class ConferenceParticipantInstance(InstanceResource):
 
-    class ConferenceParticipantCallDirection(object):
+    class CallDirection(object):
         INBOUND = "inbound"
         OUTBOUND = "outbound"
 
-    class ConferenceParticipantCallStatus(object):
+    class CallStatus(object):
         ANSWERED = "answered"
         COMPLETED = "completed"
         BUSY = "busy"
@@ -291,23 +291,23 @@ class ConferenceParticipantInstance(InstanceResource):
         RINGING = "ringing"
         CANCELED = "canceled"
 
-    class ConferenceParticipantCallType(object):
+    class CallType(object):
         CARRIER = "carrier"
         CLIENT = "client"
         SIP = "sip"
 
-    class ConferenceParticipantJitterBufferSize(object):
+    class JitterBufferSize(object):
         LARGE = "large"
         SMALL = "small"
         MEDIUM = "medium"
         OFF = "off"
 
-    class ConferenceParticipantProcessingState(object):
+    class ProcessingState(object):
         COMPLETE = "complete"
         IN_PROGRESS = "in_progress"
         TIMEOUT = "timeout"
 
-    class ConferenceParticipantRegion(object):
+    class Region(object):
         US1 = "us1"
         US2 = "us2"
         AU1 = "au1"
@@ -415,7 +415,7 @@ class ConferenceParticipantInstance(InstanceResource):
     def call_direction(self):
         """
         :returns: 
-        :rtype: ConferenceParticipantCallDirection
+        :rtype: CallDirection
         """
         return self._properties['call_direction']
     
@@ -439,7 +439,7 @@ class ConferenceParticipantInstance(InstanceResource):
     def call_status(self):
         """
         :returns: 
-        :rtype: ConferenceParticipantCallStatus
+        :rtype: CallStatus
         """
         return self._properties['call_status']
     
@@ -503,7 +503,7 @@ class ConferenceParticipantInstance(InstanceResource):
     def jitter_buffer_size(self):
         """
         :returns: 
-        :rtype: ConferenceParticipantJitterBufferSize
+        :rtype: JitterBufferSize
         """
         return self._properties['jitter_buffer_size']
     
@@ -527,7 +527,7 @@ class ConferenceParticipantInstance(InstanceResource):
     def participant_region(self):
         """
         :returns: 
-        :rtype: ConferenceParticipantRegion
+        :rtype: Region
         """
         return self._properties['participant_region']
     
@@ -535,7 +535,7 @@ class ConferenceParticipantInstance(InstanceResource):
     def conference_region(self):
         """
         :returns: 
-        :rtype: ConferenceParticipantRegion
+        :rtype: Region
         """
         return self._properties['conference_region']
     
@@ -543,7 +543,7 @@ class ConferenceParticipantInstance(InstanceResource):
     def call_type(self):
         """
         :returns: 
-        :rtype: ConferenceParticipantCallType
+        :rtype: CallType
         """
         return self._properties['call_type']
     
@@ -551,7 +551,7 @@ class ConferenceParticipantInstance(InstanceResource):
     def processing_state(self):
         """
         :returns: 
-        :rtype: ConferenceParticipantProcessingState
+        :rtype: ProcessingState
         """
         return self._properties['processing_state']
     

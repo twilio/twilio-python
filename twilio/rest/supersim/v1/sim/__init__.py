@@ -73,7 +73,7 @@ class SimList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
         
-        :param SimStatus status: The status of the Sim resources to read. Can be `new`, `ready`, `active`, `inactive`, or `scheduled`.
+        :param Status status: The status of the Sim resources to read. Can be `new`, `ready`, `active`, `inactive`, or `scheduled`.
         :param str fleet: The SID or unique name of the Fleet to which a list of Sims are assigned.
         :param str iccid: The [ICCID](https://en.wikipedia.org/wiki/Subscriber_identity_module#ICCID) associated with a Super SIM to filter the list by. Passing this parameter will always return a list containing zero or one SIMs.
         :param int limit: Upper limit for the number of records to return. stream()
@@ -102,7 +102,7 @@ class SimList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
-        :param SimStatus status: The status of the Sim resources to read. Can be `new`, `ready`, `active`, `inactive`, or `scheduled`.
+        :param Status status: The status of the Sim resources to read. Can be `new`, `ready`, `active`, `inactive`, or `scheduled`.
         :param str fleet: The SID or unique name of the Fleet to which a list of Sims are assigned.
         :param str iccid: The [ICCID](https://en.wikipedia.org/wiki/Subscriber_identity_module#ICCID) associated with a Super SIM to filter the list by. Passing this parameter will always return a list containing zero or one SIMs.
         :param int limit: Upper limit for the number of records to return. list() guarantees
@@ -128,7 +128,7 @@ class SimList(ListResource):
         Retrieve a single page of SimInstance records from the API.
         Request is executed immediately
         
-        :param SimStatus status: The status of the Sim resources to read. Can be `new`, `ready`, `active`, `inactive`, or `scheduled`.
+        :param Status status: The status of the Sim resources to read. Can be `new`, `ready`, `active`, `inactive`, or `scheduled`.
         :param str fleet: The SID or unique name of the Fleet to which a list of Sims are assigned.
         :param str iccid: The [ICCID](https://en.wikipedia.org/wiki/Subscriber_identity_module#ICCID) associated with a Super SIM to filter the list by. Passing this parameter will always return a list containing zero or one SIMs.
         :param str page_token: PageToken provided by the API
@@ -290,7 +290,7 @@ class SimContext(InstanceContext):
         Update the SimInstance
         
         :params str unique_name: An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
-        :params SimStatusUpdate status: 
+        :params StatusUpdate status: 
         :params str fleet: The SID or unique name of the Fleet to which the SIM resource should be assigned.
         :params str callback_url: The URL we should call using the `callback_method` after an asynchronous update has finished.
         :params str callback_method: The HTTP method we should use to call `callback_url`. Can be: `GET` or `POST` and the default is POST.
@@ -355,7 +355,7 @@ class SimContext(InstanceContext):
 
 class SimInstance(InstanceResource):
 
-    class SimStatus(object):
+    class Status(object):
         NEW = "new"
         READY = "ready"
         ACTIVE = "active"
@@ -435,7 +435,7 @@ class SimInstance(InstanceResource):
     def status(self):
         """
         :returns: 
-        :rtype: SimStatus
+        :rtype: Status
         """
         return self._properties['status']
     
@@ -494,7 +494,7 @@ class SimInstance(InstanceResource):
         Update the SimInstance
         
         :params str unique_name: An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
-        :params SimStatusUpdate status: 
+        :params StatusUpdate status: 
         :params str fleet: The SID or unique name of the Fleet to which the SIM resource should be assigned.
         :params str callback_url: The URL we should call using the `callback_method` after an asynchronous update has finished.
         :params str callback_method: The HTTP method we should use to call `callback_url`. Can be: `GET` or `POST` and the default is POST.

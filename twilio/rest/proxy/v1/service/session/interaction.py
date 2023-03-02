@@ -269,7 +269,7 @@ class InteractionContext(InstanceContext):
 
 class InteractionInstance(InstanceResource):
 
-    class InteractionResourceStatus(object):
+    class ResourceStatus(object):
         ACCEPTED = "accepted"
         ANSWERED = "answered"
         BUSY = "busy"
@@ -292,7 +292,7 @@ class InteractionInstance(InstanceResource):
         UNDELIVERED = "undelivered"
         UNKNOWN = "unknown"
 
-    class InteractionType(object):
+    class Type(object):
         MESSAGE = "message"
         VOICE = "voice"
         UNKNOWN = "unknown"
@@ -387,7 +387,7 @@ class InteractionInstance(InstanceResource):
     def type(self):
         """
         :returns: 
-        :rtype: InteractionType
+        :rtype: Type
         """
         return self._properties['type']
     
@@ -411,7 +411,7 @@ class InteractionInstance(InstanceResource):
     def inbound_resource_status(self):
         """
         :returns: 
-        :rtype: InteractionResourceStatus
+        :rtype: ResourceStatus
         """
         return self._properties['inbound_resource_status']
     
@@ -451,7 +451,7 @@ class InteractionInstance(InstanceResource):
     def outbound_resource_status(self):
         """
         :returns: 
-        :rtype: InteractionResourceStatus
+        :rtype: ResourceStatus
         """
         return self._properties['outbound_resource_status']
     

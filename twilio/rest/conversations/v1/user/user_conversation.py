@@ -261,7 +261,7 @@ class UserConversationContext(InstanceContext):
         """
         Update the UserConversationInstance
         
-        :params UserConversationNotificationLevel notification_level: 
+        :params NotificationLevel notification_level: 
         :params datetime last_read_timestamp: The date of the last message read in conversation by the user, given in ISO 8601 format.
         :params int last_read_message_index: The index of the last Message in the Conversation that the Participant has read.
 
@@ -296,11 +296,11 @@ class UserConversationContext(InstanceContext):
 
 class UserConversationInstance(InstanceResource):
 
-    class UserConversationNotificationLevel(object):
+    class NotificationLevel(object):
         DEFAULT = "default"
         MUTED = "muted"
 
-    class UserConversationState(object):
+    class State(object):
         INACTIVE = "inactive"
         ACTIVE = "active"
         CLOSED = "closed"
@@ -418,7 +418,7 @@ class UserConversationInstance(InstanceResource):
     def conversation_state(self):
         """
         :returns: 
-        :rtype: UserConversationState
+        :rtype: State
         """
         return self._properties['conversation_state']
     
@@ -466,7 +466,7 @@ class UserConversationInstance(InstanceResource):
     def notification_level(self):
         """
         :returns: 
-        :rtype: UserConversationNotificationLevel
+        :rtype: NotificationLevel
         """
         return self._properties['notification_level']
     
@@ -518,7 +518,7 @@ class UserConversationInstance(InstanceResource):
         """
         Update the UserConversationInstance
         
-        :params UserConversationNotificationLevel notification_level: 
+        :params NotificationLevel notification_level: 
         :params datetime last_read_timestamp: The date of the last message read in conversation by the user, given in ISO 8601 format.
         :params int last_read_message_index: The index of the last Message in the Conversation that the Participant has read.
 

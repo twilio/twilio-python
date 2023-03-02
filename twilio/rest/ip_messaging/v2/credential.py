@@ -49,7 +49,7 @@ class CredentialList(ListResource):
         """
         Create the CredentialInstance
 
-        :param CredentialPushService type: 
+        :param PushService type: 
         :param str friendly_name: 
         :param str certificate: 
         :param str private_key: 
@@ -330,7 +330,7 @@ class CredentialContext(InstanceContext):
 
 class CredentialInstance(InstanceResource):
 
-    class CredentialPushService(object):
+    class PushService(object):
         GCM = "gcm"
         APN = "apn"
         FCM = "fcm"
@@ -398,7 +398,7 @@ class CredentialInstance(InstanceResource):
     def type(self):
         """
         :returns: 
-        :rtype: CredentialPushService
+        :rtype: PushService
         """
         return self._properties['type']
     

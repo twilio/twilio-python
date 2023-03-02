@@ -49,7 +49,7 @@ class InteractionChannelParticipantList(ListResource):
         """
         Create the InteractionChannelParticipantInstance
 
-        :param InteractionChannelParticipantType type: 
+        :param Type type: 
         :param object media_properties: JSON representing the Media Properties for the new Participant.
         
         :returns: The created InteractionChannelParticipantInstance
@@ -250,7 +250,7 @@ class InteractionChannelParticipantContext(InstanceContext):
         """
         Update the InteractionChannelParticipantInstance
         
-        :params InteractionChannelParticipantStatus status: 
+        :params Status status: 
 
         :returns: The updated InteractionChannelParticipantInstance
         :rtype: twilio.rest.flex_api.v1.interaction.interaction_channel.interaction_channel_participant.InteractionChannelParticipantInstance
@@ -282,7 +282,7 @@ class InteractionChannelParticipantContext(InstanceContext):
 
 class InteractionChannelParticipantInstance(InstanceResource):
 
-    class InteractionChannelParticipantType(object):
+    class Type(object):
         SUPERVISOR = "supervisor"
         CUSTOMER = "customer"
         EXTERNAL = "external"
@@ -333,7 +333,7 @@ class InteractionChannelParticipantInstance(InstanceResource):
     def type(self):
         """
         :returns: 
-        :rtype: InteractionChannelParticipantType
+        :rtype: Type
         """
         return self._properties['type']
     
@@ -365,7 +365,7 @@ class InteractionChannelParticipantInstance(InstanceResource):
         """
         Update the InteractionChannelParticipantInstance
         
-        :params InteractionChannelParticipantStatus status: 
+        :params Status status: 
 
         :returns: The updated InteractionChannelParticipantInstance
         :rtype: twilio.rest.flex_api.v1.interaction.interaction_channel.interaction_channel_participant.InteractionChannelParticipantInstance

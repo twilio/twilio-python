@@ -76,7 +76,7 @@ class MessageList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
         
-        :param MessageOrderType order: 
+        :param OrderType order: 
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -101,7 +101,7 @@ class MessageList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
-        :param MessageOrderType order: 
+        :param OrderType order: 
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -123,7 +123,7 @@ class MessageList(ListResource):
         Retrieve a single page of MessageInstance records from the API.
         Request is executed immediately
         
-        :param MessageOrderType order: 
+        :param OrderType order: 
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -328,7 +328,7 @@ class MessageContext(InstanceContext):
 
 class MessageInstance(InstanceResource):
 
-    class MessageOrderType(object):
+    class OrderType(object):
         ASC = "asc"
         DESC = "desc"
 

@@ -48,7 +48,7 @@ class NotificationList(ListResource):
         Create the NotificationInstance
 
         :param str body: The notification text. For FCM and GCM, translates to `data.twi_body`. For APNS, translates to `aps.alert.body`. For SMS, translates to `body`. SMS requires either this `body` value, or `media_urls` attribute defined in the `sms` parameter of the notification.
-        :param NotificationPriority priority: 
+        :param Priority priority: 
         :param int ttl: How long, in seconds, the notification is valid. Can be an integer between 0 and 2,419,200, which is 4 weeks, the default and the maximum supported time to live (TTL). Delivery should be attempted if the device is offline until the TTL elapses. Zero means that the notification delivery is attempted immediately, only once, and is not stored for future delivery. SMS does not support this property.
         :param str title: The notification title. For FCM and GCM, this translates to the `data.twi_title` value. For APNS, this translates to the `aps.alert.title` value. SMS does not support this property. This field is not visible on iOS phones and tablets but appears on Apple Watch and Android devices.
         :param str sound: The name of the sound to be played for the notification. For FCM and GCM, this Translates to `data.twi_sound`.  For APNS, this translates to `aps.sound`.  SMS does not support this property.
@@ -107,7 +107,7 @@ class NotificationList(ListResource):
 
 class NotificationInstance(InstanceResource):
 
-    class NotificationPriority(object):
+    class Priority(object):
         HIGH = "high"
         LOW = "low"
 
@@ -206,7 +206,7 @@ class NotificationInstance(InstanceResource):
     def priority(self):
         """
         :returns: 
-        :rtype: NotificationPriority
+        :rtype: Priority
         """
         return self._properties['priority']
     

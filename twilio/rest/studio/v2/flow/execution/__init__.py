@@ -301,7 +301,7 @@ class ExecutionContext(InstanceContext):
         """
         Update the ExecutionInstance
         
-        :params ExecutionStatus status: 
+        :params Status status: 
 
         :returns: The updated ExecutionInstance
         :rtype: twilio.rest.studio.v2.flow.execution.ExecutionInstance
@@ -358,7 +358,7 @@ class ExecutionContext(InstanceContext):
 
 class ExecutionInstance(InstanceResource):
 
-    class ExecutionStatus(object):
+    class Status(object):
         ACTIVE = "active"
         ENDED = "ended"
 
@@ -443,7 +443,7 @@ class ExecutionInstance(InstanceResource):
     def status(self):
         """
         :returns: 
-        :rtype: ExecutionStatus
+        :rtype: Status
         """
         return self._properties['status']
     
@@ -503,7 +503,7 @@ class ExecutionInstance(InstanceResource):
         """
         Update the ExecutionInstance
         
-        :params ExecutionStatus status: 
+        :params Status status: 
 
         :returns: The updated ExecutionInstance
         :rtype: twilio.rest.studio.v2.flow.execution.ExecutionInstance

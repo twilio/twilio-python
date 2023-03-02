@@ -51,9 +51,9 @@ class WebhookList(ListResource):
         """
         Create the WebhookInstance
 
-        :param ChannelWebhookType type: 
+        :param Type type: 
         :param str configuration_url: 
-        :param ChannelWebhookMethod configuration_method: 
+        :param Method configuration_method: 
         :param list[str] configuration_filters: 
         :param list[str] configuration_triggers: 
         :param str configuration_flow_sid: 
@@ -297,7 +297,7 @@ class WebhookContext(InstanceContext):
         Update the WebhookInstance
         
         :params str configuration_url: 
-        :params ChannelWebhookMethod configuration_method: 
+        :params Method configuration_method: 
         :params list[str] configuration_filters: 
         :params list[str] configuration_triggers: 
         :params str configuration_flow_sid: 
@@ -471,7 +471,7 @@ class WebhookInstance(InstanceResource):
         Update the WebhookInstance
         
         :params str configuration_url: 
-        :params ChannelWebhookMethod configuration_method: 
+        :params Method configuration_method: 
         :params list[str] configuration_filters: 
         :params list[str] configuration_triggers: 
         :params str configuration_flow_sid: 

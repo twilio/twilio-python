@@ -264,7 +264,7 @@ class UserChannelContext(InstanceContext):
         """
         Update the UserChannelInstance
         
-        :params UserChannelNotificationLevel notification_level: 
+        :params NotificationLevel notification_level: 
         :params int last_consumed_message_index: 
         :params datetime last_consumption_timestamp: 
 
@@ -300,12 +300,12 @@ class UserChannelContext(InstanceContext):
 
 class UserChannelInstance(InstanceResource):
 
-    class UserChannelChannelStatus(object):
+    class ChannelStatus(object):
         JOINED = "joined"
         INVITED = "invited"
         NOT_PARTICIPATING = "not_participating"
 
-    class UserChannelNotificationLevel(object):
+    class NotificationLevel(object):
         DEFAULT = "default"
         MUTED = "muted"
 
@@ -391,7 +391,7 @@ class UserChannelInstance(InstanceResource):
     def status(self):
         """
         :returns: 
-        :rtype: UserChannelChannelStatus
+        :rtype: ChannelStatus
         """
         return self._properties['status']
     
@@ -431,7 +431,7 @@ class UserChannelInstance(InstanceResource):
     def notification_level(self):
         """
         :returns: 
-        :rtype: UserChannelNotificationLevel
+        :rtype: NotificationLevel
         """
         return self._properties['notification_level']
     
@@ -459,7 +459,7 @@ class UserChannelInstance(InstanceResource):
         """
         Update the UserChannelInstance
         
-        :params UserChannelNotificationLevel notification_level: 
+        :params NotificationLevel notification_level: 
         :params int last_consumed_message_index: 
         :params datetime last_consumption_timestamp: 
 

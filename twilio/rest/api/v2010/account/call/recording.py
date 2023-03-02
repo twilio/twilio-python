@@ -312,7 +312,7 @@ class RecordingContext(InstanceContext):
         """
         Update the RecordingInstance
         
-        :params CallRecordingStatus status: 
+        :params Status status: 
         :params str pause_behavior: Whether to record during a pause. Can be: `skip` or `silence` and the default is `silence`. `skip` does not record during the pause period, while `silence` will replace the actual audio of the call with silence during the pause period. This parameter only applies when setting `status` is set to `paused`.
 
         :returns: The updated RecordingInstance
@@ -346,7 +346,7 @@ class RecordingContext(InstanceContext):
 
 class RecordingInstance(InstanceResource):
 
-    class CallRecordingSource(object):
+    class Source(object):
         DIALVERB = "DialVerb"
         CONFERENCE = "Conference"
         OUTBOUNDAPI = "OutboundAPI"
@@ -355,7 +355,7 @@ class RecordingInstance(InstanceResource):
         STARTCALLRECORDINGAPI = "StartCallRecordingAPI"
         STARTCONFERENCERECORDINGAPI = "StartConferenceRecordingAPI"
 
-    class CallRecordingStatus(object):
+    class Status(object):
         IN_PROGRESS = "in-progress"
         PAUSED = "paused"
         STOPPED = "stopped"
@@ -516,7 +516,7 @@ class RecordingInstance(InstanceResource):
     def status(self):
         """
         :returns: 
-        :rtype: CallRecordingStatus
+        :rtype: Status
         """
         return self._properties['status']
     
@@ -532,7 +532,7 @@ class RecordingInstance(InstanceResource):
     def source(self):
         """
         :returns: 
-        :rtype: CallRecordingSource
+        :rtype: Source
         """
         return self._properties['source']
     
@@ -576,7 +576,7 @@ class RecordingInstance(InstanceResource):
         """
         Update the RecordingInstance
         
-        :params CallRecordingStatus status: 
+        :params Status status: 
         :params str pause_behavior: Whether to record during a pause. Can be: `skip` or `silence` and the default is `silence`. `skip` does not record during the pause period, while `silence` will replace the actual audio of the call with silence during the pause period. This parameter only applies when setting `status` is set to `paused`.
 
         :returns: The updated RecordingInstance

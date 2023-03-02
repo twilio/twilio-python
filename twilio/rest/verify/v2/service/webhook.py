@@ -53,8 +53,8 @@ class WebhookList(ListResource):
         :param str friendly_name: The string that you assigned to describe the webhook. **This value should not contain PII.**
         :param list[str] event_types: The array of events that this Webhook is subscribed to. Possible event types: `*, factor.deleted, factor.created, factor.verified, challenge.approved, challenge.denied`
         :param str webhook_url: The URL associated with this Webhook.
-        :param WebhookStatus status: 
-        :param WebhookVersion version: 
+        :param Status status: 
+        :param Version version: 
         
         :returns: The created WebhookInstance
         :rtype: twilio.rest.verify.v2.service.webhook.WebhookInstance
@@ -292,8 +292,8 @@ class WebhookContext(InstanceContext):
         :params str friendly_name: The string that you assigned to describe the webhook. **This value should not contain PII.**
         :params list[str] event_types: The array of events that this Webhook is subscribed to. Possible event types: `*, factor.deleted, factor.created, factor.verified, challenge.approved, challenge.denied`
         :params str webhook_url: The URL associated with this Webhook.
-        :params WebhookStatus status: 
-        :params WebhookVersion version: 
+        :params Status status: 
+        :params Version version: 
 
         :returns: The updated WebhookInstance
         :rtype: twilio.rest.verify.v2.service.webhook.WebhookInstance
@@ -328,15 +328,15 @@ class WebhookContext(InstanceContext):
 
 class WebhookInstance(InstanceResource):
 
-    class WebhookMethods(object):
+    class Methods(object):
         GET = "GET"
         POST = "POST"
 
-    class WebhookStatus(object):
+    class Status(object):
         ENABLED = "enabled"
         DISABLED = "disabled"
 
-    class WebhookVersion(object):
+    class Version(object):
         V1 = "v1"
         V2 = "v2"
 
@@ -423,7 +423,7 @@ class WebhookInstance(InstanceResource):
     def status(self):
         """
         :returns: 
-        :rtype: WebhookStatus
+        :rtype: Status
         """
         return self._properties['status']
     
@@ -431,7 +431,7 @@ class WebhookInstance(InstanceResource):
     def version(self):
         """
         :returns: 
-        :rtype: WebhookVersion
+        :rtype: Version
         """
         return self._properties['version']
     
@@ -447,7 +447,7 @@ class WebhookInstance(InstanceResource):
     def webhook_method(self):
         """
         :returns: 
-        :rtype: WebhookMethods
+        :rtype: Methods
         """
         return self._properties['webhook_method']
     
@@ -502,8 +502,8 @@ class WebhookInstance(InstanceResource):
         :params str friendly_name: The string that you assigned to describe the webhook. **This value should not contain PII.**
         :params list[str] event_types: The array of events that this Webhook is subscribed to. Possible event types: `*, factor.deleted, factor.created, factor.verified, challenge.approved, challenge.denied`
         :params str webhook_url: The URL associated with this Webhook.
-        :params WebhookStatus status: 
-        :params WebhookVersion version: 
+        :params Status status: 
+        :params Version version: 
 
         :returns: The updated WebhookInstance
         :rtype: twilio.rest.verify.v2.service.webhook.WebhookInstance
