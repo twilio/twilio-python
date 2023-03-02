@@ -37,6 +37,17 @@ jobs:
       - name: Run the tests
         run: make test-with-coverage
 
+      - name: Run Cluster Tests
+        if: (!github.event.pull_request.head.repo.fork)
+        env:
+          TWILIO_ACCOUNT_SID: ${{ secrets.TWILIO_ACCOUNT_SID }}
+          TWILIO_API_KEY: ${{ secrets.TWILIO_CLUSTER_TEST_API_KEY}}
+          TWILIO_API_SECRET: ${{ secrets.TWILIO_CLUSTER_TEST_API_KEY_SECRET }}
+          TWILIO_FROM_NUMBER: ${{ secrets.TWILIO_FROM_NUMBER }}
+          TWILIO_TO_NUMBER: ${{ secrets.TWILIO_TO_NUMBER }}
+          TWILIO_AUTH_TOKEN: ${{ secrets.TWILIO_AUTH_TOKEN }}
+        run: make cluster-test 
+
       - name: Verify docs generation
         run: make docs
 
