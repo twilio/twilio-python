@@ -27,7 +27,7 @@ test: analysis
 
 test-with-coverage:
 	. venv/bin/activate; \
-  pytest --cov=twilio tests; \
+  pytest --cov=twilio tests --no-cov-on-fail; \
   coverage xml --omit 'twilio/rest/*' -o coverage.xml
 
 docs-install:
