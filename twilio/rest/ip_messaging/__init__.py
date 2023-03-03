@@ -1,6 +1,6 @@
 from warnings import warn
 
-from twilio.rest.ip_messaging import IpMessagingBase
+from twilio.rest.ip_messaging.IpMessagingBase import IpMessagingBase
 from twilio.rest.ip_messaging.v2.credential import CredentialList
 from twilio.rest.ip_messaging.v2.service import ServiceList
 

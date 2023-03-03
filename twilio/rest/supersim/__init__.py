@@ -1,6 +1,6 @@
 from warnings import warn
 
-from twilio.rest.supersim import SupersimBase
+from twilio.rest.supersim.SupersimBase import SupersimBase
 from twilio.rest.supersim.v1.esim_profile import EsimProfileList
 from twilio.rest.supersim.v1.fleet import FleetList
 from twilio.rest.supersim.v1.ip_command import IpCommandList

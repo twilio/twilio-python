@@ -1,6 +1,6 @@
 from warnings import warn
 
-from twilio.rest.api import ApiBase
+from twilio.rest.api.ApiBase import ApiBase
 from twilio.rest.api.v2010.account import AccountContext, AccountList
 from twilio.rest.api.v2010.account.address import AddressList
 from twilio.rest.api.v2010.account.application import ApplicationList

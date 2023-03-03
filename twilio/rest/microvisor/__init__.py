@@ -1,6 +1,6 @@
 from warnings import warn
 
-from twilio.rest.microvisor import MicrovisorBase
+from twilio.rest.microvisor.MicrovisorBase import MicrovisorBase
 from twilio.rest.microvisor.v1.account_config import AccountConfigList
 from twilio.rest.microvisor.v1.account_secret import AccountSecretList
 from twilio.rest.microvisor.v1.app import AppList

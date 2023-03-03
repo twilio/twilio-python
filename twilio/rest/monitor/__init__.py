@@ -1,6 +1,6 @@
 from warnings import warn
 
-from twilio.rest.monitor import MonitorBase
+from twilio.rest.monitor.MonitorBase import MonitorBase
 from twilio.rest.monitor.v1.alert import AlertList
 from twilio.rest.monitor.v1.event import EventList
 

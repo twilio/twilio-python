@@ -1,6 +1,6 @@
 from warnings import warn
 
-from twilio.rest.routes import RoutesBase
+from twilio.rest.routes.RoutesBase import RoutesBase
 from twilio.rest.routes.v2.phone_number import PhoneNumberList
 from twilio.rest.routes.v2.sip_domain import SipDomainList
 from twilio.rest.routes.v2.trunk import TrunkList

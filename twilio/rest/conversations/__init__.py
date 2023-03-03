@@ -1,6 +1,6 @@
 from warnings import warn
 
-from twilio.rest.conversations import ConversationsBase
+from twilio.rest.conversations.ConversationsBase import ConversationsBase
 from twilio.rest.conversations.v1.address_configuration import AddressConfigurationList
 from twilio.rest.conversations.v1.configuration import ConfigurationList
 from twilio.rest.conversations.v1.conversation import ConversationList
