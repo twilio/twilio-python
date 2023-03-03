@@ -3,6 +3,7 @@ mock
 pytest
 pytest-cov
 coverage
+importlib_metadata<5
 flake8
 wheel>=0.22.0
 cryptography
