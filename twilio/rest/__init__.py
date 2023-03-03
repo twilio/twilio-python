@@ -8,7 +8,7 @@
   https://openapi-generator.tech
   Do not edit the class manually.
 """
-from twilio.base import ClientBase
+from twilio.base.client_base import ClientBase
 
 
 class Client(ClientBase):
@@ -526,7 +526,6 @@ class Client(ClientBase):
             self._wireless = Wireless(self)
         return self._wireless
 
-
     @property
     def addresses(self):
         """
@@ -694,4 +693,3 @@ class Client(ClientBase):
         :rtype: twilio.rest.api.v2010.account.usage.UsageList
         """
         return self.api.account.usage
-

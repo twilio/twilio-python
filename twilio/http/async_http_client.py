@@ -16,8 +16,8 @@ class AsyncTwilioHttpClient(AsyncHttpClient):
     General purpose asynchronous HTTP Client for interacting with the Twilio API
     """
 
-    def ___init___(self, pool_connections=True, trace_configs=None, timeout=None, logger=_logger, proxy_url=None,
-                   max_retries=None):
+    def __init__(self, pool_connections=True, trace_configs=None, timeout=None, logger=_logger, proxy_url=None,
+                 max_retries=None):
         """
         Constructor for the AsyncTwilioHttpClient
 
@@ -77,7 +77,7 @@ class AsyncTwilioHttpClient(AsyncHttpClient):
             'data': data,
             'headers': headers,
             'auth': basic_auth,
-            'timeout': timeout or self.timeout,
+            'timeout': timeout,
             'allow_redirects': allow_redirects
         }
 
@@ -119,7 +119,13 @@ class AsyncTwilioHttpClient(AsyncHttpClient):
         self.logger.info('Response Headers: {}'.format(response.headers))
 
     async def __aenter__(self):
+        """
+        Async context manager setup
+        """
         return self
 
     async def __aexit__(self, *excinfo):
+        """
+        Async context manager exit
+        """
         await self.session.close()
