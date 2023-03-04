@@ -13,6 +13,7 @@
 """
 
 
+from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -240,100 +241,6 @@ class RecordingPage(Page):
 
 
 
-
-class RecordingContext(InstanceContext):
-
-    def __init__(self, version: Version, account_sid: str, sid: str):
-        """
-        Initialize the RecordingContext
-
-        :param Version version: Version that contains the resource
-        :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording resource to fetch.:param sid: The Twilio-provided string that uniquely identifies the Recording resource to fetch.
-
-        :returns: twilio.rest.api.v2010.account.recording.RecordingContext
-        :rtype: twilio.rest.api.v2010.account.recording.RecordingContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'account_sid': account_sid,
-            'sid': sid,
-        }
-        self._uri = '/Accounts/{account_sid}/Recordings/{sid}.json'.format(**self._solution)
-        
-        self._add_on_results = None
-        self._transcriptions = None
-    
-    def delete(self):
-        """
-        Deletes the RecordingInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(method='DELETE', uri=self._uri,)
-        
-    def fetch(self, include_soft_deleted=values.unset):
-        """
-        Fetch the RecordingInstance
-        
-        :params bool include_soft_deleted: A boolean parameter indicating whether to retrieve soft deleted recordings or not. Recordings metadata are kept after deletion for a retention period of 40 days.
-
-        :returns: The fetched RecordingInstance
-        :rtype: twilio.rest.api.v2010.account.recording.RecordingInstance
-        """
-        
-        data = values.of({ 
-            'IncludeSoftDeleted': include_soft_deleted,
-        })
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, params=data)
-
-        return RecordingInstance(
-            self._version,
-            payload,
-            account_sid=self._solution['account_sid'],
-            sid=self._solution['sid'],
-            
-        )
-        
-    
-    @property
-    def add_on_results(self):
-        """
-        Access the add_on_results
-
-        :returns: twilio.rest.api.v2010.account.recording.AddOnResultList
-        :rtype: twilio.rest.api.v2010.account.recording.AddOnResultList
-        """
-        if self._add_on_results is None:
-            self._add_on_results = AddOnResultList(self._version, self._solution['account_sid'], self._solution['sid'],
-            )
-        return self._add_on_results
-    
-    @property
-    def transcriptions(self):
-        """
-        Access the transcriptions
-
-        :returns: twilio.rest.api.v2010.account.recording.TranscriptionList
-        :rtype: twilio.rest.api.v2010.account.recording.TranscriptionList
-        """
-        if self._transcriptions is None:
-            self._transcriptions = TranscriptionList(self._version, self._solution['account_sid'], self._solution['sid'],
-            )
-        return self._transcriptions
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Api.V2010.RecordingContext {}>'.format(context)
 
 class RecordingInstance(InstanceResource):
 
@@ -602,5 +509,99 @@ class RecordingInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Api.V2010.RecordingInstance {}>'.format(context)
+
+class RecordingContext(InstanceContext):
+
+    def __init__(self, version: Version, account_sid: str, sid: str):
+        """
+        Initialize the RecordingContext
+
+        :param Version version: Version that contains the resource
+        :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording resource to fetch.:param sid: The Twilio-provided string that uniquely identifies the Recording resource to fetch.
+
+        :returns: twilio.rest.api.v2010.account.recording.RecordingContext
+        :rtype: twilio.rest.api.v2010.account.recording.RecordingContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'account_sid': account_sid,
+            'sid': sid,
+        }
+        self._uri = '/Accounts/{account_sid}/Recordings/{sid}.json'.format(**self._solution)
+        
+        self._add_on_results = None
+        self._transcriptions = None
+    
+    def delete(self):
+        """
+        Deletes the RecordingInstance
+
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(method='DELETE', uri=self._uri,)
+        
+    def fetch(self, include_soft_deleted=values.unset):
+        """
+        Fetch the RecordingInstance
+        
+        :params bool include_soft_deleted: A boolean parameter indicating whether to retrieve soft deleted recordings or not. Recordings metadata are kept after deletion for a retention period of 40 days.
+
+        :returns: The fetched RecordingInstance
+        :rtype: twilio.rest.api.v2010.account.recording.RecordingInstance
+        """
+        
+        data = values.of({ 
+            'IncludeSoftDeleted': include_soft_deleted,
+        })
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, params=data)
+
+        return RecordingInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+            sid=self._solution['sid'],
+            
+        )
+        
+    
+    @property
+    def add_on_results(self):
+        """
+        Access the add_on_results
+
+        :returns: twilio.rest.api.v2010.account.recording.AddOnResultList
+        :rtype: twilio.rest.api.v2010.account.recording.AddOnResultList
+        """
+        if self._add_on_results is None:
+            self._add_on_results = AddOnResultList(self._version, self._solution['account_sid'], self._solution['sid'],
+            )
+        return self._add_on_results
+    
+    @property
+    def transcriptions(self):
+        """
+        Access the transcriptions
+
+        :returns: twilio.rest.api.v2010.account.recording.TranscriptionList
+        :rtype: twilio.rest.api.v2010.account.recording.TranscriptionList
+        """
+        if self._transcriptions is None:
+            self._transcriptions = TranscriptionList(self._version, self._solution['account_sid'], self._solution['sid'],
+            )
+        return self._transcriptions
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Api.V2010.RecordingContext {}>'.format(context)
 
 

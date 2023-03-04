@@ -13,6 +13,7 @@
 """
 
 
+from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -234,98 +235,6 @@ class ConnectionPolicyTargetPage(Page):
 
 
 
-class ConnectionPolicyTargetContext(InstanceContext):
-
-    def __init__(self, version: Version, connection_policy_sid: str, sid: str):
-        """
-        Initialize the ConnectionPolicyTargetContext
-
-        :param Version version: Version that contains the resource
-        :param connection_policy_sid: The SID of the Connection Policy that owns the Target.:param sid: The unique string that we created to identify the Target resource to update.
-
-        :returns: twilio.rest.voice.v1.connection_policy.connection_policy_target.ConnectionPolicyTargetContext
-        :rtype: twilio.rest.voice.v1.connection_policy.connection_policy_target.ConnectionPolicyTargetContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'connection_policy_sid': connection_policy_sid,
-            'sid': sid,
-        }
-        self._uri = '/ConnectionPolicies/{connection_policy_sid}/Targets/{sid}'.format(**self._solution)
-        
-    
-    def delete(self):
-        """
-        Deletes the ConnectionPolicyTargetInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(method='DELETE', uri=self._uri,)
-        
-    def fetch(self):
-        """
-        Fetch the ConnectionPolicyTargetInstance
-        
-
-        :returns: The fetched ConnectionPolicyTargetInstance
-        :rtype: twilio.rest.voice.v1.connection_policy.connection_policy_target.ConnectionPolicyTargetInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return ConnectionPolicyTargetInstance(
-            self._version,
-            payload,
-            connection_policy_sid=self._solution['connection_policy_sid'],
-            sid=self._solution['sid'],
-            
-        )
-        
-    def update(self, friendly_name=values.unset, target=values.unset, priority=values.unset, weight=values.unset, enabled=values.unset):
-        """
-        Update the ConnectionPolicyTargetInstance
-        
-        :params str friendly_name: A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
-        :params str target: The SIP address you want Twilio to route your calls to. This must be a `sip:` schema. `sips` is NOT supported.
-        :params int priority: The relative importance of the target. Can be an integer from 0 to 65535, inclusive. The lowest number represents the most important target.
-        :params int weight: The value that determines the relative share of the load the Target should receive compared to other Targets with the same priority. Can be an integer from 1 to 65535, inclusive. Targets with higher values receive more load than those with lower ones with the same priority.
-        :params bool enabled: Whether the Target is enabled.
-
-        :returns: The updated ConnectionPolicyTargetInstance
-        :rtype: twilio.rest.voice.v1.connection_policy.connection_policy_target.ConnectionPolicyTargetInstance
-        """
-        data = values.of({ 
-            'FriendlyName': friendly_name,
-            'Target': target,
-            'Priority': priority,
-            'Weight': weight,
-            'Enabled': enabled,
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return ConnectionPolicyTargetInstance(
-            self._version,
-            payload,
-            connection_policy_sid=self._solution['connection_policy_sid'],
-            sid=self._solution['sid']
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Voice.V1.ConnectionPolicyTargetContext {}>'.format(context)
-
 class ConnectionPolicyTargetInstance(InstanceResource):
 
     def __init__(self, version, payload, connection_policy_sid: str, sid: str=None):
@@ -497,5 +406,97 @@ class ConnectionPolicyTargetInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Voice.V1.ConnectionPolicyTargetInstance {}>'.format(context)
+
+class ConnectionPolicyTargetContext(InstanceContext):
+
+    def __init__(self, version: Version, connection_policy_sid: str, sid: str):
+        """
+        Initialize the ConnectionPolicyTargetContext
+
+        :param Version version: Version that contains the resource
+        :param connection_policy_sid: The SID of the Connection Policy that owns the Target.:param sid: The unique string that we created to identify the Target resource to update.
+
+        :returns: twilio.rest.voice.v1.connection_policy.connection_policy_target.ConnectionPolicyTargetContext
+        :rtype: twilio.rest.voice.v1.connection_policy.connection_policy_target.ConnectionPolicyTargetContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'connection_policy_sid': connection_policy_sid,
+            'sid': sid,
+        }
+        self._uri = '/ConnectionPolicies/{connection_policy_sid}/Targets/{sid}'.format(**self._solution)
+        
+    
+    def delete(self):
+        """
+        Deletes the ConnectionPolicyTargetInstance
+
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(method='DELETE', uri=self._uri,)
+        
+    def fetch(self):
+        """
+        Fetch the ConnectionPolicyTargetInstance
+        
+
+        :returns: The fetched ConnectionPolicyTargetInstance
+        :rtype: twilio.rest.voice.v1.connection_policy.connection_policy_target.ConnectionPolicyTargetInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return ConnectionPolicyTargetInstance(
+            self._version,
+            payload,
+            connection_policy_sid=self._solution['connection_policy_sid'],
+            sid=self._solution['sid'],
+            
+        )
+        
+    def update(self, friendly_name=values.unset, target=values.unset, priority=values.unset, weight=values.unset, enabled=values.unset):
+        """
+        Update the ConnectionPolicyTargetInstance
+        
+        :params str friendly_name: A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
+        :params str target: The SIP address you want Twilio to route your calls to. This must be a `sip:` schema. `sips` is NOT supported.
+        :params int priority: The relative importance of the target. Can be an integer from 0 to 65535, inclusive. The lowest number represents the most important target.
+        :params int weight: The value that determines the relative share of the load the Target should receive compared to other Targets with the same priority. Can be an integer from 1 to 65535, inclusive. Targets with higher values receive more load than those with lower ones with the same priority.
+        :params bool enabled: Whether the Target is enabled.
+
+        :returns: The updated ConnectionPolicyTargetInstance
+        :rtype: twilio.rest.voice.v1.connection_policy.connection_policy_target.ConnectionPolicyTargetInstance
+        """
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+            'Target': target,
+            'Priority': priority,
+            'Weight': weight,
+            'Enabled': enabled,
+        })
+        
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return ConnectionPolicyTargetInstance(
+            self._version,
+            payload,
+            connection_policy_sid=self._solution['connection_policy_sid'],
+            sid=self._solution['sid']
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Voice.V1.ConnectionPolicyTargetContext {}>'.format(context)
 
 

@@ -13,6 +13,7 @@
 """
 
 
+from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -42,7 +43,6 @@ class DeviceConfigList(ListResource):
         self._uri = '/Devices/{device_sid}/Configs'.format(**self._solution)
         
         
-    
     
     
     
@@ -186,8 +186,6 @@ class DeviceConfigList(ListResource):
 
 
 
-
-
 class DeviceConfigPage(Page):
 
     def __init__(self, version, response, solution):
@@ -227,90 +225,6 @@ class DeviceConfigPage(Page):
 
 
 
-
-class DeviceConfigContext(InstanceContext):
-
-    def __init__(self, version: Version, device_sid: str, key: str):
-        """
-        Initialize the DeviceConfigContext
-
-        :param Version version: Version that contains the resource
-        :param device_sid: A 34-character string that uniquely identifies the Device.:param key: The config key; up to 100 characters.
-
-        :returns: twilio.rest.microvisor.v1.device.device_config.DeviceConfigContext
-        :rtype: twilio.rest.microvisor.v1.device.device_config.DeviceConfigContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'device_sid': device_sid,
-            'key': key,
-        }
-        self._uri = '/Devices/{device_sid}/Configs/{key}'.format(**self._solution)
-        
-    
-    def delete(self):
-        """
-        Deletes the DeviceConfigInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(method='DELETE', uri=self._uri,)
-        
-    def fetch(self):
-        """
-        Fetch the DeviceConfigInstance
-        
-
-        :returns: The fetched DeviceConfigInstance
-        :rtype: twilio.rest.microvisor.v1.device.device_config.DeviceConfigInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return DeviceConfigInstance(
-            self._version,
-            payload,
-            device_sid=self._solution['device_sid'],
-            key=self._solution['key'],
-            
-        )
-        
-    def update(self, value):
-        """
-        Update the DeviceConfigInstance
-        
-        :params str value: The config value; up to 4096 characters.
-
-        :returns: The updated DeviceConfigInstance
-        :rtype: twilio.rest.microvisor.v1.device.device_config.DeviceConfigInstance
-        """
-        data = values.of({ 
-            'Value': value,
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return DeviceConfigInstance(
-            self._version,
-            payload,
-            device_sid=self._solution['device_sid'],
-            key=self._solution['key']
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Microvisor.V1.DeviceConfigContext {}>'.format(context)
 
 class DeviceConfigInstance(InstanceResource):
 
@@ -406,17 +320,6 @@ class DeviceConfigInstance(InstanceResource):
         """
         return self._proxy.fetch()
     
-    def update(self, value):
-        """
-        Update the DeviceConfigInstance
-        
-        :params str value: The config value; up to 4096 characters.
-
-        :returns: The updated DeviceConfigInstance
-        :rtype: twilio.rest.microvisor.v1.device.device_config.DeviceConfigInstance
-        """
-        return self._proxy.update(value=value, )
-    
     def __repr__(self):
         """
         Provide a friendly representation
@@ -425,5 +328,66 @@ class DeviceConfigInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Microvisor.V1.DeviceConfigInstance {}>'.format(context)
+
+class DeviceConfigContext(InstanceContext):
+
+    def __init__(self, version: Version, device_sid: str, key: str):
+        """
+        Initialize the DeviceConfigContext
+
+        :param Version version: Version that contains the resource
+        :param device_sid: A 34-character string that uniquely identifies the Device.:param key: The config key; up to 100 characters.
+
+        :returns: twilio.rest.microvisor.v1.device.device_config.DeviceConfigContext
+        :rtype: twilio.rest.microvisor.v1.device.device_config.DeviceConfigContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'device_sid': device_sid,
+            'key': key,
+        }
+        self._uri = '/Devices/{device_sid}/Configs/{key}'.format(**self._solution)
+        
+    
+    def delete(self):
+        """
+        Deletes the DeviceConfigInstance
+
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(method='DELETE', uri=self._uri,)
+        
+    def fetch(self):
+        """
+        Fetch the DeviceConfigInstance
+        
+
+        :returns: The fetched DeviceConfigInstance
+        :rtype: twilio.rest.microvisor.v1.device.device_config.DeviceConfigInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return DeviceConfigInstance(
+            self._version,
+            payload,
+            device_sid=self._solution['device_sid'],
+            key=self._solution['key'],
+            
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Microvisor.V1.DeviceConfigContext {}>'.format(context)
 
 

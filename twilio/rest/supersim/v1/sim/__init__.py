@@ -13,6 +13,7 @@
 """
 
 
+from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -244,115 +245,6 @@ class SimPage(Page):
 
 
 
-class SimContext(InstanceContext):
-
-    def __init__(self, version: Version, sid: str):
-        """
-        Initialize the SimContext
-
-        :param Version version: Version that contains the resource
-        :param sid: The SID of the Sim resource to update.
-
-        :returns: twilio.rest.supersim.v1.sim.SimContext
-        :rtype: twilio.rest.supersim.v1.sim.SimContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'sid': sid,
-        }
-        self._uri = '/Sims/{sid}'.format(**self._solution)
-        
-        self._billing_periods = None
-        self._sim_ip_addresses = None
-    
-    def fetch(self):
-        """
-        Fetch the SimInstance
-        
-
-        :returns: The fetched SimInstance
-        :rtype: twilio.rest.supersim.v1.sim.SimInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return SimInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid'],
-            
-        )
-        
-    def update(self, unique_name=values.unset, status=values.unset, fleet=values.unset, callback_url=values.unset, callback_method=values.unset, account_sid=values.unset):
-        """
-        Update the SimInstance
-        
-        :params str unique_name: An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
-        :params SimStatusUpdate status: 
-        :params str fleet: The SID or unique name of the Fleet to which the SIM resource should be assigned.
-        :params str callback_url: The URL we should call using the `callback_method` after an asynchronous update has finished.
-        :params str callback_method: The HTTP method we should use to call `callback_url`. Can be: `GET` or `POST` and the default is POST.
-        :params str account_sid: The SID of the Account to which the Sim resource should belong. The Account SID can only be that of the requesting Account or that of a Subaccount of the requesting Account. Only valid when the Sim resource's status is new.
-
-        :returns: The updated SimInstance
-        :rtype: twilio.rest.supersim.v1.sim.SimInstance
-        """
-        data = values.of({ 
-            'UniqueName': unique_name,
-            'Status': status,
-            'Fleet': fleet,
-            'CallbackUrl': callback_url,
-            'CallbackMethod': callback_method,
-            'AccountSid': account_sid,
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return SimInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid']
-        )
-        
-    
-    @property
-    def billing_periods(self):
-        """
-        Access the billing_periods
-
-        :returns: twilio.rest.supersim.v1.sim.BillingPeriodList
-        :rtype: twilio.rest.supersim.v1.sim.BillingPeriodList
-        """
-        if self._billing_periods is None:
-            self._billing_periods = BillingPeriodList(self._version, self._solution['sid'],
-            )
-        return self._billing_periods
-    
-    @property
-    def sim_ip_addresses(self):
-        """
-        Access the sim_ip_addresses
-
-        :returns: twilio.rest.supersim.v1.sim.SimIpAddressList
-        :rtype: twilio.rest.supersim.v1.sim.SimIpAddressList
-        """
-        if self._sim_ip_addresses is None:
-            self._sim_ip_addresses = SimIpAddressList(self._version, self._solution['sid'],
-            )
-        return self._sim_ip_addresses
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Supersim.V1.SimContext {}>'.format(context)
-
 class SimInstance(InstanceResource):
 
     class SimStatus(object):
@@ -533,5 +425,114 @@ class SimInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Supersim.V1.SimInstance {}>'.format(context)
+
+class SimContext(InstanceContext):
+
+    def __init__(self, version: Version, sid: str):
+        """
+        Initialize the SimContext
+
+        :param Version version: Version that contains the resource
+        :param sid: The SID of the Sim resource to update.
+
+        :returns: twilio.rest.supersim.v1.sim.SimContext
+        :rtype: twilio.rest.supersim.v1.sim.SimContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'sid': sid,
+        }
+        self._uri = '/Sims/{sid}'.format(**self._solution)
+        
+        self._billing_periods = None
+        self._sim_ip_addresses = None
+    
+    def fetch(self):
+        """
+        Fetch the SimInstance
+        
+
+        :returns: The fetched SimInstance
+        :rtype: twilio.rest.supersim.v1.sim.SimInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return SimInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid'],
+            
+        )
+        
+    def update(self, unique_name=values.unset, status=values.unset, fleet=values.unset, callback_url=values.unset, callback_method=values.unset, account_sid=values.unset):
+        """
+        Update the SimInstance
+        
+        :params str unique_name: An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
+        :params SimStatusUpdate status: 
+        :params str fleet: The SID or unique name of the Fleet to which the SIM resource should be assigned.
+        :params str callback_url: The URL we should call using the `callback_method` after an asynchronous update has finished.
+        :params str callback_method: The HTTP method we should use to call `callback_url`. Can be: `GET` or `POST` and the default is POST.
+        :params str account_sid: The SID of the Account to which the Sim resource should belong. The Account SID can only be that of the requesting Account or that of a Subaccount of the requesting Account. Only valid when the Sim resource's status is new.
+
+        :returns: The updated SimInstance
+        :rtype: twilio.rest.supersim.v1.sim.SimInstance
+        """
+        data = values.of({ 
+            'UniqueName': unique_name,
+            'Status': status,
+            'Fleet': fleet,
+            'CallbackUrl': callback_url,
+            'CallbackMethod': callback_method,
+            'AccountSid': account_sid,
+        })
+        
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return SimInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid']
+        )
+        
+    
+    @property
+    def billing_periods(self):
+        """
+        Access the billing_periods
+
+        :returns: twilio.rest.supersim.v1.sim.BillingPeriodList
+        :rtype: twilio.rest.supersim.v1.sim.BillingPeriodList
+        """
+        if self._billing_periods is None:
+            self._billing_periods = BillingPeriodList(self._version, self._solution['sid'],
+            )
+        return self._billing_periods
+    
+    @property
+    def sim_ip_addresses(self):
+        """
+        Access the sim_ip_addresses
+
+        :returns: twilio.rest.supersim.v1.sim.SimIpAddressList
+        :rtype: twilio.rest.supersim.v1.sim.SimIpAddressList
+        """
+        if self._sim_ip_addresses is None:
+            self._sim_ip_addresses = SimIpAddressList(self._version, self._solution['sid'],
+            )
+        return self._sim_ip_addresses
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Supersim.V1.SimContext {}>'.format(context)
 
 

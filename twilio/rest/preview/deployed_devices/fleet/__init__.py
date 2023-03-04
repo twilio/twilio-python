@@ -13,6 +13,7 @@
 """
 
 
+from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -229,145 +230,6 @@ class FleetPage(Page):
 
 
 
-class FleetContext(InstanceContext):
-
-    def __init__(self, version: Version, sid: str):
-        """
-        Initialize the FleetContext
-
-        :param Version version: Version that contains the resource
-        :param sid: Provides a 34 character string that uniquely identifies the requested Fleet resource.
-
-        :returns: twilio.rest.preview.deployed_devices.fleet.FleetContext
-        :rtype: twilio.rest.preview.deployed_devices.fleet.FleetContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'sid': sid,
-        }
-        self._uri = '/Fleets/{sid}'.format(**self._solution)
-        
-        self._certificates = None
-        self._deployments = None
-        self._devices = None
-        self._keys = None
-    
-    def delete(self):
-        """
-        Deletes the FleetInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(method='DELETE', uri=self._uri,)
-        
-    def fetch(self):
-        """
-        Fetch the FleetInstance
-        
-
-        :returns: The fetched FleetInstance
-        :rtype: twilio.rest.preview.deployed_devices.fleet.FleetInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return FleetInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid'],
-            
-        )
-        
-    def update(self, friendly_name=values.unset, default_deployment_sid=values.unset):
-        """
-        Update the FleetInstance
-        
-        :params str friendly_name: Provides a human readable descriptive text for this Fleet, up to 256 characters long.
-        :params str default_deployment_sid: Provides a string identifier of a Deployment that is going to be used as a default one for this Fleet.
-
-        :returns: The updated FleetInstance
-        :rtype: twilio.rest.preview.deployed_devices.fleet.FleetInstance
-        """
-        data = values.of({ 
-            'FriendlyName': friendly_name,
-            'DefaultDeploymentSid': default_deployment_sid,
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return FleetInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid']
-        )
-        
-    
-    @property
-    def certificates(self):
-        """
-        Access the certificates
-
-        :returns: twilio.rest.preview.deployed_devices.fleet.CertificateList
-        :rtype: twilio.rest.preview.deployed_devices.fleet.CertificateList
-        """
-        if self._certificates is None:
-            self._certificates = CertificateList(self._version, self._solution['sid'],
-            )
-        return self._certificates
-    
-    @property
-    def deployments(self):
-        """
-        Access the deployments
-
-        :returns: twilio.rest.preview.deployed_devices.fleet.DeploymentList
-        :rtype: twilio.rest.preview.deployed_devices.fleet.DeploymentList
-        """
-        if self._deployments is None:
-            self._deployments = DeploymentList(self._version, self._solution['sid'],
-            )
-        return self._deployments
-    
-    @property
-    def devices(self):
-        """
-        Access the devices
-
-        :returns: twilio.rest.preview.deployed_devices.fleet.DeviceList
-        :rtype: twilio.rest.preview.deployed_devices.fleet.DeviceList
-        """
-        if self._devices is None:
-            self._devices = DeviceList(self._version, self._solution['sid'],
-            )
-        return self._devices
-    
-    @property
-    def keys(self):
-        """
-        Access the keys
-
-        :returns: twilio.rest.preview.deployed_devices.fleet.KeyList
-        :rtype: twilio.rest.preview.deployed_devices.fleet.KeyList
-        """
-        if self._keys is None:
-            self._keys = KeyList(self._version, self._solution['sid'],
-            )
-        return self._keys
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Preview.DeployedDevices.FleetContext {}>'.format(context)
-
 class FleetInstance(InstanceResource):
 
     def __init__(self, version, payload, sid: str=None):
@@ -558,5 +420,144 @@ class FleetInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Preview.DeployedDevices.FleetInstance {}>'.format(context)
+
+class FleetContext(InstanceContext):
+
+    def __init__(self, version: Version, sid: str):
+        """
+        Initialize the FleetContext
+
+        :param Version version: Version that contains the resource
+        :param sid: Provides a 34 character string that uniquely identifies the requested Fleet resource.
+
+        :returns: twilio.rest.preview.deployed_devices.fleet.FleetContext
+        :rtype: twilio.rest.preview.deployed_devices.fleet.FleetContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'sid': sid,
+        }
+        self._uri = '/Fleets/{sid}'.format(**self._solution)
+        
+        self._certificates = None
+        self._deployments = None
+        self._devices = None
+        self._keys = None
+    
+    def delete(self):
+        """
+        Deletes the FleetInstance
+
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(method='DELETE', uri=self._uri,)
+        
+    def fetch(self):
+        """
+        Fetch the FleetInstance
+        
+
+        :returns: The fetched FleetInstance
+        :rtype: twilio.rest.preview.deployed_devices.fleet.FleetInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return FleetInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid'],
+            
+        )
+        
+    def update(self, friendly_name=values.unset, default_deployment_sid=values.unset):
+        """
+        Update the FleetInstance
+        
+        :params str friendly_name: Provides a human readable descriptive text for this Fleet, up to 256 characters long.
+        :params str default_deployment_sid: Provides a string identifier of a Deployment that is going to be used as a default one for this Fleet.
+
+        :returns: The updated FleetInstance
+        :rtype: twilio.rest.preview.deployed_devices.fleet.FleetInstance
+        """
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+            'DefaultDeploymentSid': default_deployment_sid,
+        })
+        
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return FleetInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid']
+        )
+        
+    
+    @property
+    def certificates(self):
+        """
+        Access the certificates
+
+        :returns: twilio.rest.preview.deployed_devices.fleet.CertificateList
+        :rtype: twilio.rest.preview.deployed_devices.fleet.CertificateList
+        """
+        if self._certificates is None:
+            self._certificates = CertificateList(self._version, self._solution['sid'],
+            )
+        return self._certificates
+    
+    @property
+    def deployments(self):
+        """
+        Access the deployments
+
+        :returns: twilio.rest.preview.deployed_devices.fleet.DeploymentList
+        :rtype: twilio.rest.preview.deployed_devices.fleet.DeploymentList
+        """
+        if self._deployments is None:
+            self._deployments = DeploymentList(self._version, self._solution['sid'],
+            )
+        return self._deployments
+    
+    @property
+    def devices(self):
+        """
+        Access the devices
+
+        :returns: twilio.rest.preview.deployed_devices.fleet.DeviceList
+        :rtype: twilio.rest.preview.deployed_devices.fleet.DeviceList
+        """
+        if self._devices is None:
+            self._devices = DeviceList(self._version, self._solution['sid'],
+            )
+        return self._devices
+    
+    @property
+    def keys(self):
+        """
+        Access the keys
+
+        :returns: twilio.rest.preview.deployed_devices.fleet.KeyList
+        :rtype: twilio.rest.preview.deployed_devices.fleet.KeyList
+        """
+        if self._keys is None:
+            self._keys = KeyList(self._version, self._solution['sid'],
+            )
+        return self._keys
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Preview.DeployedDevices.FleetContext {}>'.format(context)
 
 

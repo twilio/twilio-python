@@ -13,6 +13,7 @@
 """
 
 
+from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -54,7 +55,6 @@ class SubscribeRulesList(ListResource):
         :rtype: str
         """
         return '<Twilio.Video.V1.SubscribeRulesList>'
-
 
 class SubscribeRulesInstance(InstanceResource):
 
@@ -126,5 +126,6 @@ class SubscribeRulesInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Video.V1.SubscribeRulesInstance {}>'.format(context)
+
 
 

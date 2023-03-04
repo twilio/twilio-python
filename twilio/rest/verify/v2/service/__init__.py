@@ -13,6 +13,7 @@
 """
 
 
+from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -263,217 +264,6 @@ class ServicePage(Page):
 
 
 
-
-class ServiceContext(InstanceContext):
-
-    def __init__(self, version: Version, sid: str):
-        """
-        Initialize the ServiceContext
-
-        :param Version version: Version that contains the resource
-        :param sid: The Twilio-provided string that uniquely identifies the Service resource to update.
-
-        :returns: twilio.rest.verify.v2.service.ServiceContext
-        :rtype: twilio.rest.verify.v2.service.ServiceContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'sid': sid,
-        }
-        self._uri = '/Services/{sid}'.format(**self._solution)
-        
-        self._access_tokens = None
-        self._entities = None
-        self._messaging_configurations = None
-        self._rate_limits = None
-        self._verifications = None
-        self._verification_checks = None
-        self._webhooks = None
-    
-    def delete(self):
-        """
-        Deletes the ServiceInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(method='DELETE', uri=self._uri,)
-        
-    def fetch(self):
-        """
-        Fetch the ServiceInstance
-        
-
-        :returns: The fetched ServiceInstance
-        :rtype: twilio.rest.verify.v2.service.ServiceInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return ServiceInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid'],
-            
-        )
-        
-    def update(self, friendly_name=values.unset, code_length=values.unset, lookup_enabled=values.unset, skip_sms_to_landlines=values.unset, dtmf_input_required=values.unset, tts_name=values.unset, psd2_enabled=values.unset, do_not_share_warning_enabled=values.unset, custom_code_enabled=values.unset, push_include_date=values.unset, push_apn_credential_sid=values.unset, push_fcm_credential_sid=values.unset, totp_issuer=values.unset, totp_time_step=values.unset, totp_code_length=values.unset, totp_skew=values.unset, default_template_sid=values.unset):
-        """
-        Update the ServiceInstance
-        
-        :params str friendly_name: A descriptive string that you create to describe the verification service. It can be up to 30 characters long. **This value should not contain PII.**
-        :params int code_length: The length of the verification code to generate. Must be an integer value between 4 and 10, inclusive.
-        :params bool lookup_enabled: Whether to perform a lookup with each verification started and return info about the phone number.
-        :params bool skip_sms_to_landlines: Whether to skip sending SMS verifications to landlines. Requires `lookup_enabled`.
-        :params bool dtmf_input_required: Whether to ask the user to press a number before delivering the verify code in a phone call.
-        :params str tts_name: The name of an alternative text-to-speech service to use in phone calls. Applies only to TTS languages.
-        :params bool psd2_enabled: Whether to pass PSD2 transaction parameters when starting a verification.
-        :params bool do_not_share_warning_enabled: Whether to add a privacy warning at the end of an SMS. **Disabled by default and applies only for SMS.**
-        :params bool custom_code_enabled: Whether to allow sending verifications with a custom code instead of a randomly generated one. Not available for all customers.
-        :params bool push_include_date: Optional configuration for the Push factors. If true, include the date in the Challenge's response. Otherwise, the date is omitted from the response. See [Challenge](https://www.twilio.com/docs/verify/api/challenge) resource’s details parameter for more info. Default: false. **Deprecated** do not use this parameter.
-        :params str push_apn_credential_sid: Optional configuration for the Push factors. Set the APN Credential for this service. This will allow to send push notifications to iOS devices. See [Credential Resource](https://www.twilio.com/docs/notify/api/credential-resource)
-        :params str push_fcm_credential_sid: Optional configuration for the Push factors. Set the FCM Credential for this service. This will allow to send push notifications to Android devices. See [Credential Resource](https://www.twilio.com/docs/notify/api/credential-resource)
-        :params str totp_issuer: Optional configuration for the TOTP factors. Set TOTP Issuer for this service. This will allow to configure the issuer of the TOTP URI.
-        :params int totp_time_step: Optional configuration for the TOTP factors. Defines how often, in seconds, are TOTP codes generated. i.e, a new TOTP code is generated every time_step seconds. Must be between 20 and 60 seconds, inclusive. Defaults to 30 seconds
-        :params int totp_code_length: Optional configuration for the TOTP factors. Number of digits for generated TOTP codes. Must be between 3 and 8, inclusive. Defaults to 6
-        :params int totp_skew: Optional configuration for the TOTP factors. The number of time-steps, past and future, that are valid for validation of TOTP codes. Must be between 0 and 2, inclusive. Defaults to 1
-        :params str default_template_sid: The default message [template](https://www.twilio.com/docs/verify/api/templates). Will be used for all SMS verifications unless explicitly overriden. SMS channel only.
-
-        :returns: The updated ServiceInstance
-        :rtype: twilio.rest.verify.v2.service.ServiceInstance
-        """
-        data = values.of({ 
-            'FriendlyName': friendly_name,
-            'CodeLength': code_length,
-            'LookupEnabled': lookup_enabled,
-            'SkipSmsToLandlines': skip_sms_to_landlines,
-            'DtmfInputRequired': dtmf_input_required,
-            'TtsName': tts_name,
-            'Psd2Enabled': psd2_enabled,
-            'DoNotShareWarningEnabled': do_not_share_warning_enabled,
-            'CustomCodeEnabled': custom_code_enabled,
-            'Push.IncludeDate': push_include_date,
-            'Push.ApnCredentialSid': push_apn_credential_sid,
-            'Push.FcmCredentialSid': push_fcm_credential_sid,
-            'Totp.Issuer': totp_issuer,
-            'Totp.TimeStep': totp_time_step,
-            'Totp.CodeLength': totp_code_length,
-            'Totp.Skew': totp_skew,
-            'DefaultTemplateSid': default_template_sid,
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return ServiceInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid']
-        )
-        
-    
-    @property
-    def access_tokens(self):
-        """
-        Access the access_tokens
-
-        :returns: twilio.rest.verify.v2.service.AccessTokenList
-        :rtype: twilio.rest.verify.v2.service.AccessTokenList
-        """
-        if self._access_tokens is None:
-            self._access_tokens = AccessTokenList(self._version, self._solution['sid'],
-            )
-        return self._access_tokens
-    
-    @property
-    def entities(self):
-        """
-        Access the entities
-
-        :returns: twilio.rest.verify.v2.service.EntityList
-        :rtype: twilio.rest.verify.v2.service.EntityList
-        """
-        if self._entities is None:
-            self._entities = EntityList(self._version, self._solution['sid'],
-            )
-        return self._entities
-    
-    @property
-    def messaging_configurations(self):
-        """
-        Access the messaging_configurations
-
-        :returns: twilio.rest.verify.v2.service.MessagingConfigurationList
-        :rtype: twilio.rest.verify.v2.service.MessagingConfigurationList
-        """
-        if self._messaging_configurations is None:
-            self._messaging_configurations = MessagingConfigurationList(self._version, self._solution['sid'],
-            )
-        return self._messaging_configurations
-    
-    @property
-    def rate_limits(self):
-        """
-        Access the rate_limits
-
-        :returns: twilio.rest.verify.v2.service.RateLimitList
-        :rtype: twilio.rest.verify.v2.service.RateLimitList
-        """
-        if self._rate_limits is None:
-            self._rate_limits = RateLimitList(self._version, self._solution['sid'],
-            )
-        return self._rate_limits
-    
-    @property
-    def verifications(self):
-        """
-        Access the verifications
-
-        :returns: twilio.rest.verify.v2.service.VerificationList
-        :rtype: twilio.rest.verify.v2.service.VerificationList
-        """
-        if self._verifications is None:
-            self._verifications = VerificationList(self._version, self._solution['sid'],
-            )
-        return self._verifications
-    
-    @property
-    def verification_checks(self):
-        """
-        Access the verification_checks
-
-        :returns: twilio.rest.verify.v2.service.VerificationCheckList
-        :rtype: twilio.rest.verify.v2.service.VerificationCheckList
-        """
-        if self._verification_checks is None:
-            self._verification_checks = VerificationCheckList(self._version, self._solution['sid'],
-            )
-        return self._verification_checks
-    
-    @property
-    def webhooks(self):
-        """
-        Access the webhooks
-
-        :returns: twilio.rest.verify.v2.service.WebhookList
-        :rtype: twilio.rest.verify.v2.service.WebhookList
-        """
-        if self._webhooks is None:
-            self._webhooks = WebhookList(self._version, self._solution['sid'],
-            )
-        return self._webhooks
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Verify.V2.ServiceContext {}>'.format(context)
 
 class ServiceInstance(InstanceResource):
 
@@ -791,5 +581,216 @@ class ServiceInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Verify.V2.ServiceInstance {}>'.format(context)
+
+class ServiceContext(InstanceContext):
+
+    def __init__(self, version: Version, sid: str):
+        """
+        Initialize the ServiceContext
+
+        :param Version version: Version that contains the resource
+        :param sid: The Twilio-provided string that uniquely identifies the Service resource to update.
+
+        :returns: twilio.rest.verify.v2.service.ServiceContext
+        :rtype: twilio.rest.verify.v2.service.ServiceContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'sid': sid,
+        }
+        self._uri = '/Services/{sid}'.format(**self._solution)
+        
+        self._access_tokens = None
+        self._entities = None
+        self._messaging_configurations = None
+        self._rate_limits = None
+        self._verifications = None
+        self._verification_checks = None
+        self._webhooks = None
+    
+    def delete(self):
+        """
+        Deletes the ServiceInstance
+
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(method='DELETE', uri=self._uri,)
+        
+    def fetch(self):
+        """
+        Fetch the ServiceInstance
+        
+
+        :returns: The fetched ServiceInstance
+        :rtype: twilio.rest.verify.v2.service.ServiceInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return ServiceInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid'],
+            
+        )
+        
+    def update(self, friendly_name=values.unset, code_length=values.unset, lookup_enabled=values.unset, skip_sms_to_landlines=values.unset, dtmf_input_required=values.unset, tts_name=values.unset, psd2_enabled=values.unset, do_not_share_warning_enabled=values.unset, custom_code_enabled=values.unset, push_include_date=values.unset, push_apn_credential_sid=values.unset, push_fcm_credential_sid=values.unset, totp_issuer=values.unset, totp_time_step=values.unset, totp_code_length=values.unset, totp_skew=values.unset, default_template_sid=values.unset):
+        """
+        Update the ServiceInstance
+        
+        :params str friendly_name: A descriptive string that you create to describe the verification service. It can be up to 30 characters long. **This value should not contain PII.**
+        :params int code_length: The length of the verification code to generate. Must be an integer value between 4 and 10, inclusive.
+        :params bool lookup_enabled: Whether to perform a lookup with each verification started and return info about the phone number.
+        :params bool skip_sms_to_landlines: Whether to skip sending SMS verifications to landlines. Requires `lookup_enabled`.
+        :params bool dtmf_input_required: Whether to ask the user to press a number before delivering the verify code in a phone call.
+        :params str tts_name: The name of an alternative text-to-speech service to use in phone calls. Applies only to TTS languages.
+        :params bool psd2_enabled: Whether to pass PSD2 transaction parameters when starting a verification.
+        :params bool do_not_share_warning_enabled: Whether to add a privacy warning at the end of an SMS. **Disabled by default and applies only for SMS.**
+        :params bool custom_code_enabled: Whether to allow sending verifications with a custom code instead of a randomly generated one. Not available for all customers.
+        :params bool push_include_date: Optional configuration for the Push factors. If true, include the date in the Challenge's response. Otherwise, the date is omitted from the response. See [Challenge](https://www.twilio.com/docs/verify/api/challenge) resource’s details parameter for more info. Default: false. **Deprecated** do not use this parameter.
+        :params str push_apn_credential_sid: Optional configuration for the Push factors. Set the APN Credential for this service. This will allow to send push notifications to iOS devices. See [Credential Resource](https://www.twilio.com/docs/notify/api/credential-resource)
+        :params str push_fcm_credential_sid: Optional configuration for the Push factors. Set the FCM Credential for this service. This will allow to send push notifications to Android devices. See [Credential Resource](https://www.twilio.com/docs/notify/api/credential-resource)
+        :params str totp_issuer: Optional configuration for the TOTP factors. Set TOTP Issuer for this service. This will allow to configure the issuer of the TOTP URI.
+        :params int totp_time_step: Optional configuration for the TOTP factors. Defines how often, in seconds, are TOTP codes generated. i.e, a new TOTP code is generated every time_step seconds. Must be between 20 and 60 seconds, inclusive. Defaults to 30 seconds
+        :params int totp_code_length: Optional configuration for the TOTP factors. Number of digits for generated TOTP codes. Must be between 3 and 8, inclusive. Defaults to 6
+        :params int totp_skew: Optional configuration for the TOTP factors. The number of time-steps, past and future, that are valid for validation of TOTP codes. Must be between 0 and 2, inclusive. Defaults to 1
+        :params str default_template_sid: The default message [template](https://www.twilio.com/docs/verify/api/templates). Will be used for all SMS verifications unless explicitly overriden. SMS channel only.
+
+        :returns: The updated ServiceInstance
+        :rtype: twilio.rest.verify.v2.service.ServiceInstance
+        """
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+            'CodeLength': code_length,
+            'LookupEnabled': lookup_enabled,
+            'SkipSmsToLandlines': skip_sms_to_landlines,
+            'DtmfInputRequired': dtmf_input_required,
+            'TtsName': tts_name,
+            'Psd2Enabled': psd2_enabled,
+            'DoNotShareWarningEnabled': do_not_share_warning_enabled,
+            'CustomCodeEnabled': custom_code_enabled,
+            'Push.IncludeDate': push_include_date,
+            'Push.ApnCredentialSid': push_apn_credential_sid,
+            'Push.FcmCredentialSid': push_fcm_credential_sid,
+            'Totp.Issuer': totp_issuer,
+            'Totp.TimeStep': totp_time_step,
+            'Totp.CodeLength': totp_code_length,
+            'Totp.Skew': totp_skew,
+            'DefaultTemplateSid': default_template_sid,
+        })
+        
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return ServiceInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid']
+        )
+        
+    
+    @property
+    def access_tokens(self):
+        """
+        Access the access_tokens
+
+        :returns: twilio.rest.verify.v2.service.AccessTokenList
+        :rtype: twilio.rest.verify.v2.service.AccessTokenList
+        """
+        if self._access_tokens is None:
+            self._access_tokens = AccessTokenList(self._version, self._solution['sid'],
+            )
+        return self._access_tokens
+    
+    @property
+    def entities(self):
+        """
+        Access the entities
+
+        :returns: twilio.rest.verify.v2.service.EntityList
+        :rtype: twilio.rest.verify.v2.service.EntityList
+        """
+        if self._entities is None:
+            self._entities = EntityList(self._version, self._solution['sid'],
+            )
+        return self._entities
+    
+    @property
+    def messaging_configurations(self):
+        """
+        Access the messaging_configurations
+
+        :returns: twilio.rest.verify.v2.service.MessagingConfigurationList
+        :rtype: twilio.rest.verify.v2.service.MessagingConfigurationList
+        """
+        if self._messaging_configurations is None:
+            self._messaging_configurations = MessagingConfigurationList(self._version, self._solution['sid'],
+            )
+        return self._messaging_configurations
+    
+    @property
+    def rate_limits(self):
+        """
+        Access the rate_limits
+
+        :returns: twilio.rest.verify.v2.service.RateLimitList
+        :rtype: twilio.rest.verify.v2.service.RateLimitList
+        """
+        if self._rate_limits is None:
+            self._rate_limits = RateLimitList(self._version, self._solution['sid'],
+            )
+        return self._rate_limits
+    
+    @property
+    def verifications(self):
+        """
+        Access the verifications
+
+        :returns: twilio.rest.verify.v2.service.VerificationList
+        :rtype: twilio.rest.verify.v2.service.VerificationList
+        """
+        if self._verifications is None:
+            self._verifications = VerificationList(self._version, self._solution['sid'],
+            )
+        return self._verifications
+    
+    @property
+    def verification_checks(self):
+        """
+        Access the verification_checks
+
+        :returns: twilio.rest.verify.v2.service.VerificationCheckList
+        :rtype: twilio.rest.verify.v2.service.VerificationCheckList
+        """
+        if self._verification_checks is None:
+            self._verification_checks = VerificationCheckList(self._version, self._solution['sid'],
+            )
+        return self._verification_checks
+    
+    @property
+    def webhooks(self):
+        """
+        Access the webhooks
+
+        :returns: twilio.rest.verify.v2.service.WebhookList
+        :rtype: twilio.rest.verify.v2.service.WebhookList
+        """
+        if self._webhooks is None:
+            self._webhooks = WebhookList(self._version, self._solution['sid'],
+            )
+        return self._webhooks
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Verify.V2.ServiceContext {}>'.format(context)
 
 

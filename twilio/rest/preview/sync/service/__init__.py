@@ -13,6 +13,7 @@
 """
 
 
+from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -234,135 +235,6 @@ class ServicePage(Page):
 
 
 
-class ServiceContext(InstanceContext):
-
-    def __init__(self, version: Version, sid: str):
-        """
-        Initialize the ServiceContext
-
-        :param Version version: Version that contains the resource
-        :param sid: 
-
-        :returns: twilio.rest.preview.sync.service.ServiceContext
-        :rtype: twilio.rest.preview.sync.service.ServiceContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'sid': sid,
-        }
-        self._uri = '/Services/{sid}'.format(**self._solution)
-        
-        self._documents = None
-        self._sync_lists = None
-        self._sync_maps = None
-    
-    def delete(self):
-        """
-        Deletes the ServiceInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(method='DELETE', uri=self._uri,)
-        
-    def fetch(self):
-        """
-        Fetch the ServiceInstance
-        
-
-        :returns: The fetched ServiceInstance
-        :rtype: twilio.rest.preview.sync.service.ServiceInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return ServiceInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid'],
-            
-        )
-        
-    def update(self, webhook_url=values.unset, friendly_name=values.unset, reachability_webhooks_enabled=values.unset, acl_enabled=values.unset):
-        """
-        Update the ServiceInstance
-        
-        :params str webhook_url: 
-        :params str friendly_name: 
-        :params bool reachability_webhooks_enabled: 
-        :params bool acl_enabled: 
-
-        :returns: The updated ServiceInstance
-        :rtype: twilio.rest.preview.sync.service.ServiceInstance
-        """
-        data = values.of({ 
-            'WebhookUrl': webhook_url,
-            'FriendlyName': friendly_name,
-            'ReachabilityWebhooksEnabled': reachability_webhooks_enabled,
-            'AclEnabled': acl_enabled,
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return ServiceInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid']
-        )
-        
-    
-    @property
-    def documents(self):
-        """
-        Access the documents
-
-        :returns: twilio.rest.preview.sync.service.DocumentList
-        :rtype: twilio.rest.preview.sync.service.DocumentList
-        """
-        if self._documents is None:
-            self._documents = DocumentList(self._version, self._solution['sid'],
-            )
-        return self._documents
-    
-    @property
-    def sync_lists(self):
-        """
-        Access the sync_lists
-
-        :returns: twilio.rest.preview.sync.service.SyncListList
-        :rtype: twilio.rest.preview.sync.service.SyncListList
-        """
-        if self._sync_lists is None:
-            self._sync_lists = SyncListList(self._version, self._solution['sid'],
-            )
-        return self._sync_lists
-    
-    @property
-    def sync_maps(self):
-        """
-        Access the sync_maps
-
-        :returns: twilio.rest.preview.sync.service.SyncMapList
-        :rtype: twilio.rest.preview.sync.service.SyncMapList
-        """
-        if self._sync_maps is None:
-            self._sync_maps = SyncMapList(self._version, self._solution['sid'],
-            )
-        return self._sync_maps
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Preview.Sync.ServiceContext {}>'.format(context)
-
 class ServiceInstance(InstanceResource):
 
     def __init__(self, version, payload, sid: str=None):
@@ -554,5 +426,134 @@ class ServiceInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Preview.Sync.ServiceInstance {}>'.format(context)
+
+class ServiceContext(InstanceContext):
+
+    def __init__(self, version: Version, sid: str):
+        """
+        Initialize the ServiceContext
+
+        :param Version version: Version that contains the resource
+        :param sid: 
+
+        :returns: twilio.rest.preview.sync.service.ServiceContext
+        :rtype: twilio.rest.preview.sync.service.ServiceContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'sid': sid,
+        }
+        self._uri = '/Services/{sid}'.format(**self._solution)
+        
+        self._documents = None
+        self._sync_lists = None
+        self._sync_maps = None
+    
+    def delete(self):
+        """
+        Deletes the ServiceInstance
+
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(method='DELETE', uri=self._uri,)
+        
+    def fetch(self):
+        """
+        Fetch the ServiceInstance
+        
+
+        :returns: The fetched ServiceInstance
+        :rtype: twilio.rest.preview.sync.service.ServiceInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return ServiceInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid'],
+            
+        )
+        
+    def update(self, webhook_url=values.unset, friendly_name=values.unset, reachability_webhooks_enabled=values.unset, acl_enabled=values.unset):
+        """
+        Update the ServiceInstance
+        
+        :params str webhook_url: 
+        :params str friendly_name: 
+        :params bool reachability_webhooks_enabled: 
+        :params bool acl_enabled: 
+
+        :returns: The updated ServiceInstance
+        :rtype: twilio.rest.preview.sync.service.ServiceInstance
+        """
+        data = values.of({ 
+            'WebhookUrl': webhook_url,
+            'FriendlyName': friendly_name,
+            'ReachabilityWebhooksEnabled': reachability_webhooks_enabled,
+            'AclEnabled': acl_enabled,
+        })
+        
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return ServiceInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid']
+        )
+        
+    
+    @property
+    def documents(self):
+        """
+        Access the documents
+
+        :returns: twilio.rest.preview.sync.service.DocumentList
+        :rtype: twilio.rest.preview.sync.service.DocumentList
+        """
+        if self._documents is None:
+            self._documents = DocumentList(self._version, self._solution['sid'],
+            )
+        return self._documents
+    
+    @property
+    def sync_lists(self):
+        """
+        Access the sync_lists
+
+        :returns: twilio.rest.preview.sync.service.SyncListList
+        :rtype: twilio.rest.preview.sync.service.SyncListList
+        """
+        if self._sync_lists is None:
+            self._sync_lists = SyncListList(self._version, self._solution['sid'],
+            )
+        return self._sync_lists
+    
+    @property
+    def sync_maps(self):
+        """
+        Access the sync_maps
+
+        :returns: twilio.rest.preview.sync.service.SyncMapList
+        :rtype: twilio.rest.preview.sync.service.SyncMapList
+        """
+        if self._sync_maps is None:
+            self._sync_maps = SyncMapList(self._version, self._solution['sid'],
+            )
+        return self._sync_maps
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Preview.Sync.ServiceContext {}>'.format(context)
 
 

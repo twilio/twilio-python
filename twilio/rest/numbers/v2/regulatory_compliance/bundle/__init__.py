@@ -13,6 +13,7 @@
 """
 
 
+from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -307,149 +308,6 @@ class BundlePage(Page):
 
 
 
-class BundleContext(InstanceContext):
-
-    def __init__(self, version: Version, sid: str):
-        """
-        Initialize the BundleContext
-
-        :param Version version: Version that contains the resource
-        :param sid: The unique string that we created to identify the Bundle resource.
-
-        :returns: twilio.rest.numbers.v2.regulatory_compliance.bundle.BundleContext
-        :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.BundleContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'sid': sid,
-        }
-        self._uri = '/RegulatoryCompliance/Bundles/{sid}'.format(**self._solution)
-        
-        self._bundle_copies = None
-        self._evaluations = None
-        self._item_assignments = None
-        self._replace_items = None
-    
-    def delete(self):
-        """
-        Deletes the BundleInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(method='DELETE', uri=self._uri,)
-        
-    def fetch(self):
-        """
-        Fetch the BundleInstance
-        
-
-        :returns: The fetched BundleInstance
-        :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.BundleInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return BundleInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid'],
-            
-        )
-        
-    def update(self, status=values.unset, status_callback=values.unset, friendly_name=values.unset, email=values.unset):
-        """
-        Update the BundleInstance
-        
-        :params BundleStatus status: 
-        :params str status_callback: The URL we call to inform your application of status changes.
-        :params str friendly_name: The string that you assigned to describe the resource.
-        :params str email: The email address that will receive updates when the Bundle resource changes status.
-
-        :returns: The updated BundleInstance
-        :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.BundleInstance
-        """
-        data = values.of({ 
-            'Status': status,
-            'StatusCallback': status_callback,
-            'FriendlyName': friendly_name,
-            'Email': email,
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return BundleInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid']
-        )
-        
-    
-    @property
-    def bundle_copies(self):
-        """
-        Access the bundle_copies
-
-        :returns: twilio.rest.numbers.v2.regulatory_compliance.bundle.BundleCopyList
-        :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.BundleCopyList
-        """
-        if self._bundle_copies is None:
-            self._bundle_copies = BundleCopyList(self._version, self._solution['sid'],
-            )
-        return self._bundle_copies
-    
-    @property
-    def evaluations(self):
-        """
-        Access the evaluations
-
-        :returns: twilio.rest.numbers.v2.regulatory_compliance.bundle.EvaluationList
-        :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.EvaluationList
-        """
-        if self._evaluations is None:
-            self._evaluations = EvaluationList(self._version, self._solution['sid'],
-            )
-        return self._evaluations
-    
-    @property
-    def item_assignments(self):
-        """
-        Access the item_assignments
-
-        :returns: twilio.rest.numbers.v2.regulatory_compliance.bundle.ItemAssignmentList
-        :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.ItemAssignmentList
-        """
-        if self._item_assignments is None:
-            self._item_assignments = ItemAssignmentList(self._version, self._solution['sid'],
-            )
-        return self._item_assignments
-    
-    @property
-    def replace_items(self):
-        """
-        Access the replace_items
-
-        :returns: twilio.rest.numbers.v2.regulatory_compliance.bundle.ReplaceItemsList
-        :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.ReplaceItemsList
-        """
-        if self._replace_items is None:
-            self._replace_items = ReplaceItemsList(self._version, self._solution['sid'],
-            )
-        return self._replace_items
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Numbers.V2.BundleContext {}>'.format(context)
-
 class BundleInstance(InstanceResource):
 
     class BundleSortBy(object):
@@ -685,5 +543,148 @@ class BundleInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Numbers.V2.BundleInstance {}>'.format(context)
+
+class BundleContext(InstanceContext):
+
+    def __init__(self, version: Version, sid: str):
+        """
+        Initialize the BundleContext
+
+        :param Version version: Version that contains the resource
+        :param sid: The unique string that we created to identify the Bundle resource.
+
+        :returns: twilio.rest.numbers.v2.regulatory_compliance.bundle.BundleContext
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.BundleContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'sid': sid,
+        }
+        self._uri = '/RegulatoryCompliance/Bundles/{sid}'.format(**self._solution)
+        
+        self._bundle_copies = None
+        self._evaluations = None
+        self._item_assignments = None
+        self._replace_items = None
+    
+    def delete(self):
+        """
+        Deletes the BundleInstance
+
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(method='DELETE', uri=self._uri,)
+        
+    def fetch(self):
+        """
+        Fetch the BundleInstance
+        
+
+        :returns: The fetched BundleInstance
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.BundleInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return BundleInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid'],
+            
+        )
+        
+    def update(self, status=values.unset, status_callback=values.unset, friendly_name=values.unset, email=values.unset):
+        """
+        Update the BundleInstance
+        
+        :params BundleStatus status: 
+        :params str status_callback: The URL we call to inform your application of status changes.
+        :params str friendly_name: The string that you assigned to describe the resource.
+        :params str email: The email address that will receive updates when the Bundle resource changes status.
+
+        :returns: The updated BundleInstance
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.BundleInstance
+        """
+        data = values.of({ 
+            'Status': status,
+            'StatusCallback': status_callback,
+            'FriendlyName': friendly_name,
+            'Email': email,
+        })
+        
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return BundleInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid']
+        )
+        
+    
+    @property
+    def bundle_copies(self):
+        """
+        Access the bundle_copies
+
+        :returns: twilio.rest.numbers.v2.regulatory_compliance.bundle.BundleCopyList
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.BundleCopyList
+        """
+        if self._bundle_copies is None:
+            self._bundle_copies = BundleCopyList(self._version, self._solution['sid'],
+            )
+        return self._bundle_copies
+    
+    @property
+    def evaluations(self):
+        """
+        Access the evaluations
+
+        :returns: twilio.rest.numbers.v2.regulatory_compliance.bundle.EvaluationList
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.EvaluationList
+        """
+        if self._evaluations is None:
+            self._evaluations = EvaluationList(self._version, self._solution['sid'],
+            )
+        return self._evaluations
+    
+    @property
+    def item_assignments(self):
+        """
+        Access the item_assignments
+
+        :returns: twilio.rest.numbers.v2.regulatory_compliance.bundle.ItemAssignmentList
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.ItemAssignmentList
+        """
+        if self._item_assignments is None:
+            self._item_assignments = ItemAssignmentList(self._version, self._solution['sid'],
+            )
+        return self._item_assignments
+    
+    @property
+    def replace_items(self):
+        """
+        Access the replace_items
+
+        :returns: twilio.rest.numbers.v2.regulatory_compliance.bundle.ReplaceItemsList
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.ReplaceItemsList
+        """
+        if self._replace_items is None:
+            self._replace_items = ReplaceItemsList(self._version, self._solution['sid'],
+            )
+        return self._replace_items
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Numbers.V2.BundleContext {}>'.format(context)
 
 

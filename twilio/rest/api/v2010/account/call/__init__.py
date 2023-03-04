@@ -13,6 +13,7 @@
 """
 
 
+from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -376,232 +377,6 @@ class CallPage(Page):
 
 
 
-
-class CallContext(InstanceContext):
-
-    def __init__(self, version: Version, account_sid: str, sid: str):
-        """
-        Initialize the CallContext
-
-        :param Version version: Version that contains the resource
-        :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Call resource(s) to update.:param sid: The Twilio-provided string that uniquely identifies the Call resource to update
-
-        :returns: twilio.rest.api.v2010.account.call.CallContext
-        :rtype: twilio.rest.api.v2010.account.call.CallContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'account_sid': account_sid,
-            'sid': sid,
-        }
-        self._uri = '/Accounts/{account_sid}/Calls/{sid}.json'.format(**self._solution)
-        
-        self._events = None
-        self._feedback = None
-        self._notifications = None
-        self._payments = None
-        self._recordings = None
-        self._siprec = None
-        self._streams = None
-        self._user_defined_messages = None
-        self._user_defined_message_subscriptions = None
-    
-    def delete(self):
-        """
-        Deletes the CallInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(method='DELETE', uri=self._uri,)
-        
-    def fetch(self):
-        """
-        Fetch the CallInstance
-        
-
-        :returns: The fetched CallInstance
-        :rtype: twilio.rest.api.v2010.account.call.CallInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return CallInstance(
-            self._version,
-            payload,
-            account_sid=self._solution['account_sid'],
-            sid=self._solution['sid'],
-            
-        )
-        
-    def update(self, url=values.unset, method=values.unset, status=values.unset, fallback_url=values.unset, fallback_method=values.unset, status_callback=values.unset, status_callback_method=values.unset, twiml=values.unset, time_limit=values.unset):
-        """
-        Update the CallInstance
-        
-        :params str url: The absolute URL that returns the TwiML instructions for the call. We will call this URL using the `method` when the call connects. For more information, see the [Url Parameter](https://www.twilio.com/docs/voice/make-calls#specify-a-url-parameter) section in [Making Calls](https://www.twilio.com/docs/voice/make-calls).
-        :params str method: The HTTP method we should use when calling the `url`. Can be: `GET` or `POST` and the default is `POST`. If an `application_sid` parameter is present, this parameter is ignored.
-        :params CallUpdateStatus status: 
-        :params str fallback_url: The URL that we call using the `fallback_method` if an error occurs when requesting or executing the TwiML at `url`. If an `application_sid` parameter is present, this parameter is ignored.
-        :params str fallback_method: The HTTP method that we should use to request the `fallback_url`. Can be: `GET` or `POST` and the default is `POST`. If an `application_sid` parameter is present, this parameter is ignored.
-        :params str status_callback: The URL we should call using the `status_callback_method` to send status information to your application. If no `status_callback_event` is specified, we will send the `completed` status. If an `application_sid` parameter is present, this parameter is ignored. URLs must contain a valid hostname (underscores are not permitted).
-        :params str status_callback_method: The HTTP method we should use when requesting the `status_callback` URL. Can be: `GET` or `POST` and the default is `POST`. If an `application_sid` parameter is present, this parameter is ignored.
-        :params str twiml: TwiML instructions for the call Twilio will use without fetching Twiml from url. Twiml and url parameters are mutually exclusive
-        :params int time_limit: The maximum duration of the call in seconds. Constraints depend on account and configuration.
-
-        :returns: The updated CallInstance
-        :rtype: twilio.rest.api.v2010.account.call.CallInstance
-        """
-        data = values.of({ 
-            'Url': url,
-            'Method': method,
-            'Status': status,
-            'FallbackUrl': fallback_url,
-            'FallbackMethod': fallback_method,
-            'StatusCallback': status_callback,
-            'StatusCallbackMethod': status_callback_method,
-            'Twiml': twiml,
-            'TimeLimit': time_limit,
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return CallInstance(
-            self._version,
-            payload,
-            account_sid=self._solution['account_sid'],
-            sid=self._solution['sid']
-        )
-        
-    
-    @property
-    def events(self):
-        """
-        Access the events
-
-        :returns: twilio.rest.api.v2010.account.call.EventList
-        :rtype: twilio.rest.api.v2010.account.call.EventList
-        """
-        if self._events is None:
-            self._events = EventList(self._version, self._solution['account_sid'], self._solution['sid'],
-            )
-        return self._events
-    
-    @property
-    def feedback(self):
-        """
-        Access the feedback
-
-        :returns: twilio.rest.api.v2010.account.call.FeedbackList
-        :rtype: twilio.rest.api.v2010.account.call.FeedbackList
-        """
-        if self._feedback is None:
-            self._feedback = FeedbackList(self._version, self._solution['account_sid'], self._solution['sid'],
-            )
-        return self._feedback
-    
-    @property
-    def notifications(self):
-        """
-        Access the notifications
-
-        :returns: twilio.rest.api.v2010.account.call.NotificationList
-        :rtype: twilio.rest.api.v2010.account.call.NotificationList
-        """
-        if self._notifications is None:
-            self._notifications = NotificationList(self._version, self._solution['account_sid'], self._solution['sid'],
-            )
-        return self._notifications
-    
-    @property
-    def payments(self):
-        """
-        Access the payments
-
-        :returns: twilio.rest.api.v2010.account.call.PaymentList
-        :rtype: twilio.rest.api.v2010.account.call.PaymentList
-        """
-        if self._payments is None:
-            self._payments = PaymentList(self._version, self._solution['account_sid'], self._solution['sid'],
-            )
-        return self._payments
-    
-    @property
-    def recordings(self):
-        """
-        Access the recordings
-
-        :returns: twilio.rest.api.v2010.account.call.RecordingList
-        :rtype: twilio.rest.api.v2010.account.call.RecordingList
-        """
-        if self._recordings is None:
-            self._recordings = RecordingList(self._version, self._solution['account_sid'], self._solution['sid'],
-            )
-        return self._recordings
-    
-    @property
-    def siprec(self):
-        """
-        Access the siprec
-
-        :returns: twilio.rest.api.v2010.account.call.SiprecList
-        :rtype: twilio.rest.api.v2010.account.call.SiprecList
-        """
-        if self._siprec is None:
-            self._siprec = SiprecList(self._version, self._solution['account_sid'], self._solution['sid'],
-            )
-        return self._siprec
-    
-    @property
-    def streams(self):
-        """
-        Access the streams
-
-        :returns: twilio.rest.api.v2010.account.call.StreamList
-        :rtype: twilio.rest.api.v2010.account.call.StreamList
-        """
-        if self._streams is None:
-            self._streams = StreamList(self._version, self._solution['account_sid'], self._solution['sid'],
-            )
-        return self._streams
-    
-    @property
-    def user_defined_messages(self):
-        """
-        Access the user_defined_messages
-
-        :returns: twilio.rest.api.v2010.account.call.UserDefinedMessageList
-        :rtype: twilio.rest.api.v2010.account.call.UserDefinedMessageList
-        """
-        if self._user_defined_messages is None:
-            self._user_defined_messages = UserDefinedMessageList(self._version, self._solution['account_sid'], self._solution['sid'],
-            )
-        return self._user_defined_messages
-    
-    @property
-    def user_defined_message_subscriptions(self):
-        """
-        Access the user_defined_message_subscriptions
-
-        :returns: twilio.rest.api.v2010.account.call.UserDefinedMessageSubscriptionList
-        :rtype: twilio.rest.api.v2010.account.call.UserDefinedMessageSubscriptionList
-        """
-        if self._user_defined_message_subscriptions is None:
-            self._user_defined_message_subscriptions = UserDefinedMessageSubscriptionList(self._version, self._solution['account_sid'], self._solution['sid'],
-            )
-        return self._user_defined_message_subscriptions
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Api.V2010.CallContext {}>'.format(context)
 
 class CallInstance(InstanceResource):
 
@@ -1013,5 +788,231 @@ class CallInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Api.V2010.CallInstance {}>'.format(context)
+
+class CallContext(InstanceContext):
+
+    def __init__(self, version: Version, account_sid: str, sid: str):
+        """
+        Initialize the CallContext
+
+        :param Version version: Version that contains the resource
+        :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Call resource(s) to update.:param sid: The Twilio-provided string that uniquely identifies the Call resource to update
+
+        :returns: twilio.rest.api.v2010.account.call.CallContext
+        :rtype: twilio.rest.api.v2010.account.call.CallContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'account_sid': account_sid,
+            'sid': sid,
+        }
+        self._uri = '/Accounts/{account_sid}/Calls/{sid}.json'.format(**self._solution)
+        
+        self._events = None
+        self._feedback = None
+        self._notifications = None
+        self._payments = None
+        self._recordings = None
+        self._siprec = None
+        self._streams = None
+        self._user_defined_messages = None
+        self._user_defined_message_subscriptions = None
+    
+    def delete(self):
+        """
+        Deletes the CallInstance
+
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(method='DELETE', uri=self._uri,)
+        
+    def fetch(self):
+        """
+        Fetch the CallInstance
+        
+
+        :returns: The fetched CallInstance
+        :rtype: twilio.rest.api.v2010.account.call.CallInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return CallInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+            sid=self._solution['sid'],
+            
+        )
+        
+    def update(self, url=values.unset, method=values.unset, status=values.unset, fallback_url=values.unset, fallback_method=values.unset, status_callback=values.unset, status_callback_method=values.unset, twiml=values.unset, time_limit=values.unset):
+        """
+        Update the CallInstance
+        
+        :params str url: The absolute URL that returns the TwiML instructions for the call. We will call this URL using the `method` when the call connects. For more information, see the [Url Parameter](https://www.twilio.com/docs/voice/make-calls#specify-a-url-parameter) section in [Making Calls](https://www.twilio.com/docs/voice/make-calls).
+        :params str method: The HTTP method we should use when calling the `url`. Can be: `GET` or `POST` and the default is `POST`. If an `application_sid` parameter is present, this parameter is ignored.
+        :params CallUpdateStatus status: 
+        :params str fallback_url: The URL that we call using the `fallback_method` if an error occurs when requesting or executing the TwiML at `url`. If an `application_sid` parameter is present, this parameter is ignored.
+        :params str fallback_method: The HTTP method that we should use to request the `fallback_url`. Can be: `GET` or `POST` and the default is `POST`. If an `application_sid` parameter is present, this parameter is ignored.
+        :params str status_callback: The URL we should call using the `status_callback_method` to send status information to your application. If no `status_callback_event` is specified, we will send the `completed` status. If an `application_sid` parameter is present, this parameter is ignored. URLs must contain a valid hostname (underscores are not permitted).
+        :params str status_callback_method: The HTTP method we should use when requesting the `status_callback` URL. Can be: `GET` or `POST` and the default is `POST`. If an `application_sid` parameter is present, this parameter is ignored.
+        :params str twiml: TwiML instructions for the call Twilio will use without fetching Twiml from url. Twiml and url parameters are mutually exclusive
+        :params int time_limit: The maximum duration of the call in seconds. Constraints depend on account and configuration.
+
+        :returns: The updated CallInstance
+        :rtype: twilio.rest.api.v2010.account.call.CallInstance
+        """
+        data = values.of({ 
+            'Url': url,
+            'Method': method,
+            'Status': status,
+            'FallbackUrl': fallback_url,
+            'FallbackMethod': fallback_method,
+            'StatusCallback': status_callback,
+            'StatusCallbackMethod': status_callback_method,
+            'Twiml': twiml,
+            'TimeLimit': time_limit,
+        })
+        
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return CallInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+            sid=self._solution['sid']
+        )
+        
+    
+    @property
+    def events(self):
+        """
+        Access the events
+
+        :returns: twilio.rest.api.v2010.account.call.EventList
+        :rtype: twilio.rest.api.v2010.account.call.EventList
+        """
+        if self._events is None:
+            self._events = EventList(self._version, self._solution['account_sid'], self._solution['sid'],
+            )
+        return self._events
+    
+    @property
+    def feedback(self):
+        """
+        Access the feedback
+
+        :returns: twilio.rest.api.v2010.account.call.FeedbackList
+        :rtype: twilio.rest.api.v2010.account.call.FeedbackList
+        """
+        if self._feedback is None:
+            self._feedback = FeedbackList(self._version, self._solution['account_sid'], self._solution['sid'],
+            )
+        return self._feedback
+    
+    @property
+    def notifications(self):
+        """
+        Access the notifications
+
+        :returns: twilio.rest.api.v2010.account.call.NotificationList
+        :rtype: twilio.rest.api.v2010.account.call.NotificationList
+        """
+        if self._notifications is None:
+            self._notifications = NotificationList(self._version, self._solution['account_sid'], self._solution['sid'],
+            )
+        return self._notifications
+    
+    @property
+    def payments(self):
+        """
+        Access the payments
+
+        :returns: twilio.rest.api.v2010.account.call.PaymentList
+        :rtype: twilio.rest.api.v2010.account.call.PaymentList
+        """
+        if self._payments is None:
+            self._payments = PaymentList(self._version, self._solution['account_sid'], self._solution['sid'],
+            )
+        return self._payments
+    
+    @property
+    def recordings(self):
+        """
+        Access the recordings
+
+        :returns: twilio.rest.api.v2010.account.call.RecordingList
+        :rtype: twilio.rest.api.v2010.account.call.RecordingList
+        """
+        if self._recordings is None:
+            self._recordings = RecordingList(self._version, self._solution['account_sid'], self._solution['sid'],
+            )
+        return self._recordings
+    
+    @property
+    def siprec(self):
+        """
+        Access the siprec
+
+        :returns: twilio.rest.api.v2010.account.call.SiprecList
+        :rtype: twilio.rest.api.v2010.account.call.SiprecList
+        """
+        if self._siprec is None:
+            self._siprec = SiprecList(self._version, self._solution['account_sid'], self._solution['sid'],
+            )
+        return self._siprec
+    
+    @property
+    def streams(self):
+        """
+        Access the streams
+
+        :returns: twilio.rest.api.v2010.account.call.StreamList
+        :rtype: twilio.rest.api.v2010.account.call.StreamList
+        """
+        if self._streams is None:
+            self._streams = StreamList(self._version, self._solution['account_sid'], self._solution['sid'],
+            )
+        return self._streams
+    
+    @property
+    def user_defined_messages(self):
+        """
+        Access the user_defined_messages
+
+        :returns: twilio.rest.api.v2010.account.call.UserDefinedMessageList
+        :rtype: twilio.rest.api.v2010.account.call.UserDefinedMessageList
+        """
+        if self._user_defined_messages is None:
+            self._user_defined_messages = UserDefinedMessageList(self._version, self._solution['account_sid'], self._solution['sid'],
+            )
+        return self._user_defined_messages
+    
+    @property
+    def user_defined_message_subscriptions(self):
+        """
+        Access the user_defined_message_subscriptions
+
+        :returns: twilio.rest.api.v2010.account.call.UserDefinedMessageSubscriptionList
+        :rtype: twilio.rest.api.v2010.account.call.UserDefinedMessageSubscriptionList
+        """
+        if self._user_defined_message_subscriptions is None:
+            self._user_defined_message_subscriptions = UserDefinedMessageSubscriptionList(self._version, self._solution['account_sid'], self._solution['sid'],
+            )
+        return self._user_defined_message_subscriptions
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Api.V2010.CallContext {}>'.format(context)
 
 

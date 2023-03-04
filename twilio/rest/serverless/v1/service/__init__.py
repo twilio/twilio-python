@@ -13,6 +13,7 @@
 """
 
 
+from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -235,147 +236,6 @@ class ServicePage(Page):
 
 
 
-class ServiceContext(InstanceContext):
-
-    def __init__(self, version: Version, sid: str):
-        """
-        Initialize the ServiceContext
-
-        :param Version version: Version that contains the resource
-        :param sid: The `sid` or `unique_name` of the Service resource to update.
-
-        :returns: twilio.rest.serverless.v1.service.ServiceContext
-        :rtype: twilio.rest.serverless.v1.service.ServiceContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'sid': sid,
-        }
-        self._uri = '/Services/{sid}'.format(**self._solution)
-        
-        self._assets = None
-        self._builds = None
-        self._environments = None
-        self._functions = None
-    
-    def delete(self):
-        """
-        Deletes the ServiceInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(method='DELETE', uri=self._uri,)
-        
-    def fetch(self):
-        """
-        Fetch the ServiceInstance
-        
-
-        :returns: The fetched ServiceInstance
-        :rtype: twilio.rest.serverless.v1.service.ServiceInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return ServiceInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid'],
-            
-        )
-        
-    def update(self, include_credentials=values.unset, friendly_name=values.unset, ui_editable=values.unset):
-        """
-        Update the ServiceInstance
-        
-        :params bool include_credentials: Whether to inject Account credentials into a function invocation context.
-        :params str friendly_name: A descriptive string that you create to describe the Service resource. It can be a maximum of 255 characters.
-        :params bool ui_editable: Whether the Service resource's properties and subresources can be edited via the UI. The default value is `false`.
-
-        :returns: The updated ServiceInstance
-        :rtype: twilio.rest.serverless.v1.service.ServiceInstance
-        """
-        data = values.of({ 
-            'IncludeCredentials': include_credentials,
-            'FriendlyName': friendly_name,
-            'UiEditable': ui_editable,
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return ServiceInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid']
-        )
-        
-    
-    @property
-    def assets(self):
-        """
-        Access the assets
-
-        :returns: twilio.rest.serverless.v1.service.AssetList
-        :rtype: twilio.rest.serverless.v1.service.AssetList
-        """
-        if self._assets is None:
-            self._assets = AssetList(self._version, self._solution['sid'],
-            )
-        return self._assets
-    
-    @property
-    def builds(self):
-        """
-        Access the builds
-
-        :returns: twilio.rest.serverless.v1.service.BuildList
-        :rtype: twilio.rest.serverless.v1.service.BuildList
-        """
-        if self._builds is None:
-            self._builds = BuildList(self._version, self._solution['sid'],
-            )
-        return self._builds
-    
-    @property
-    def environments(self):
-        """
-        Access the environments
-
-        :returns: twilio.rest.serverless.v1.service.EnvironmentList
-        :rtype: twilio.rest.serverless.v1.service.EnvironmentList
-        """
-        if self._environments is None:
-            self._environments = EnvironmentList(self._version, self._solution['sid'],
-            )
-        return self._environments
-    
-    @property
-    def functions(self):
-        """
-        Access the functions
-
-        :returns: twilio.rest.serverless.v1.service.FunctionList
-        :rtype: twilio.rest.serverless.v1.service.FunctionList
-        """
-        if self._functions is None:
-            self._functions = FunctionList(self._version, self._solution['sid'],
-            )
-        return self._functions
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Serverless.V1.ServiceContext {}>'.format(context)
-
 class ServiceInstance(InstanceResource):
 
     def __init__(self, version, payload, sid: str=None):
@@ -585,5 +445,146 @@ class ServiceInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Serverless.V1.ServiceInstance {}>'.format(context)
+
+class ServiceContext(InstanceContext):
+
+    def __init__(self, version: Version, sid: str):
+        """
+        Initialize the ServiceContext
+
+        :param Version version: Version that contains the resource
+        :param sid: The `sid` or `unique_name` of the Service resource to update.
+
+        :returns: twilio.rest.serverless.v1.service.ServiceContext
+        :rtype: twilio.rest.serverless.v1.service.ServiceContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'sid': sid,
+        }
+        self._uri = '/Services/{sid}'.format(**self._solution)
+        
+        self._assets = None
+        self._builds = None
+        self._environments = None
+        self._functions = None
+    
+    def delete(self):
+        """
+        Deletes the ServiceInstance
+
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(method='DELETE', uri=self._uri,)
+        
+    def fetch(self):
+        """
+        Fetch the ServiceInstance
+        
+
+        :returns: The fetched ServiceInstance
+        :rtype: twilio.rest.serverless.v1.service.ServiceInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return ServiceInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid'],
+            
+        )
+        
+    def update(self, include_credentials=values.unset, friendly_name=values.unset, ui_editable=values.unset):
+        """
+        Update the ServiceInstance
+        
+        :params bool include_credentials: Whether to inject Account credentials into a function invocation context.
+        :params str friendly_name: A descriptive string that you create to describe the Service resource. It can be a maximum of 255 characters.
+        :params bool ui_editable: Whether the Service resource's properties and subresources can be edited via the UI. The default value is `false`.
+
+        :returns: The updated ServiceInstance
+        :rtype: twilio.rest.serverless.v1.service.ServiceInstance
+        """
+        data = values.of({ 
+            'IncludeCredentials': include_credentials,
+            'FriendlyName': friendly_name,
+            'UiEditable': ui_editable,
+        })
+        
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return ServiceInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid']
+        )
+        
+    
+    @property
+    def assets(self):
+        """
+        Access the assets
+
+        :returns: twilio.rest.serverless.v1.service.AssetList
+        :rtype: twilio.rest.serverless.v1.service.AssetList
+        """
+        if self._assets is None:
+            self._assets = AssetList(self._version, self._solution['sid'],
+            )
+        return self._assets
+    
+    @property
+    def builds(self):
+        """
+        Access the builds
+
+        :returns: twilio.rest.serverless.v1.service.BuildList
+        :rtype: twilio.rest.serverless.v1.service.BuildList
+        """
+        if self._builds is None:
+            self._builds = BuildList(self._version, self._solution['sid'],
+            )
+        return self._builds
+    
+    @property
+    def environments(self):
+        """
+        Access the environments
+
+        :returns: twilio.rest.serverless.v1.service.EnvironmentList
+        :rtype: twilio.rest.serverless.v1.service.EnvironmentList
+        """
+        if self._environments is None:
+            self._environments = EnvironmentList(self._version, self._solution['sid'],
+            )
+        return self._environments
+    
+    @property
+    def functions(self):
+        """
+        Access the functions
+
+        :returns: twilio.rest.serverless.v1.service.FunctionList
+        :rtype: twilio.rest.serverless.v1.service.FunctionList
+        """
+        if self._functions is None:
+            self._functions = FunctionList(self._version, self._solution['sid'],
+            )
+        return self._functions
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Serverless.V1.ServiceContext {}>'.format(context)
 
 

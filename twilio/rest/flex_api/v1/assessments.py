@@ -13,6 +13,7 @@
 """
 
 
+from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -38,73 +39,28 @@ class AssessmentsList(ListResource):
 
         # Path Solution
         self._solution = {  }
-        self._uri = '/Insights/QM/Assessments'.format(**self._solution)
+        
         
         
     
-    
-    def create(self, category_id, category_name, segment_id, user_name, user_email, agent_id, offset, metric_id, metric_name, answer_text, answer_id, questionnaire_id, token=values.unset):
-        """
-        Create the AssessmentsInstance
 
-        :param str category_id: The id of the category 
-        :param str category_name: The name of the category
-        :param str segment_id: Segment Id of the conversation
-        :param str user_name: Name of the user assessing conversation
-        :param str user_email: Email of the user assessing conversation
-        :param str agent_id: The id of the Agent
-        :param float offset: The offset of the conversation.
-        :param str metric_id: The question Id selected for assessment
-        :param str metric_name: The question name of the assessment
-        :param str answer_text: The answer text selected by user
-        :param str answer_id: The id of the answer selected by user
-        :param str questionnaire_id: Questionnaire Id of the associated question
-        :param str token: The Token HTTP request header
-        
-        :returns: The created AssessmentsInstance
-        :rtype: twilio.rest.flex_api.v1.assessments.AssessmentsInstance
-        """
-        data = values.of({ 
-            'CategoryId': category_id,
-            'CategoryName': category_name,
-            'SegmentId': segment_id,
-            'UserName': user_name,
-            'UserEmail': user_email,
-            'AgentId': agent_id,
-            'Offset': offset,
-            'MetricId': metric_id,
-            'MetricName': metric_name,
-            'AnswerText': answer_text,
-            'AnswerId': answer_id,
-            'QuestionnaireId': questionnaire_id,
-        })
-        headers = values.of({'Token': token, })
-        payload = self._version.create(method='POST', uri=self._uri, data=data, headers=headers)
-
-        return AssessmentsInstance(self._version, payload)
-    
-
-    def get(self, assessment_id):
+    def get(self):
         """
         Constructs a AssessmentsContext
-        
-        :param assessment_id: The id of the assessment to be modified
         
         :returns: twilio.rest.flex_api.v1.assessments.AssessmentsContext
         :rtype: twilio.rest.flex_api.v1.assessments.AssessmentsContext
         """
-        return AssessmentsContext(self._version, assessment_id=assessment_id)
+        return AssessmentsContext(self._version)
 
-    def __call__(self, assessment_id):
+    def __call__(self):
         """
         Constructs a AssessmentsContext
-        
-        :param assessment_id: The id of the assessment to be modified
         
         :returns: twilio.rest.flex_api.v1.assessments.AssessmentsContext
         :rtype: twilio.rest.flex_api.v1.assessments.AssessmentsContext
         """
-        return AssessmentsContext(self._version, assessment_id=assessment_id)
+        return AssessmentsContext(self._version)
 
     def __repr__(self):
         """
@@ -114,67 +70,9 @@ class AssessmentsList(ListResource):
         """
         return '<Twilio.FlexApi.V1.AssessmentsList>'
 
-class AssessmentsContext(InstanceContext):
-
-    def __init__(self, version: Version, assessment_id: str):
-        """
-        Initialize the AssessmentsContext
-
-        :param Version version: Version that contains the resource
-        :param assessment_id: The id of the assessment to be modified
-
-        :returns: twilio.rest.flex_api.v1.assessments.AssessmentsContext
-        :rtype: twilio.rest.flex_api.v1.assessments.AssessmentsContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'assessment_id': assessment_id,
-        }
-        self._uri = '/Insights/QM/Assessments/{assessment_id}'.format(**self._solution)
-        
-    
-    def update(self, offset, answer_text, answer_id, token=values.unset):
-        """
-        Update the AssessmentsInstance
-        
-        :params float offset: The offset of the conversation
-        :params str answer_text: The answer text selected by user
-        :params str answer_id: The id of the answer selected by user
-        :params str token: The Token HTTP request header
-
-        :returns: The updated AssessmentsInstance
-        :rtype: twilio.rest.flex_api.v1.assessments.AssessmentsInstance
-        """
-        data = values.of({ 
-            'Offset': offset,
-            'AnswerText': answer_text,
-            'AnswerId': answer_id,
-        })
-        headers = values.of({'Token': token, })
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data, headers=headers)
-
-        return AssessmentsInstance(
-            self._version,
-            payload,
-            assessment_id=self._solution['assessment_id']
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.FlexApi.V1.AssessmentsContext {}>'.format(context)
-
 class AssessmentsInstance(InstanceResource):
 
-    def __init__(self, version, payload, assessment_id: str=None):
+    def __init__(self, version, payload):
         """
         Initialize the AssessmentsInstance
         :returns: twilio.rest.flex_api.v1.assessments.AssessmentsInstance
@@ -183,24 +81,11 @@ class AssessmentsInstance(InstanceResource):
         super().__init__(version)
 
         self._properties = { 
-            'account_sid': payload.get('account_sid'),
-            'assessment_id': payload.get('assessment_id'),
-            'offset': deserialize.decimal(payload.get('offset')),
-            'report': payload.get('report'),
-            'weight': deserialize.decimal(payload.get('weight')),
-            'agent_id': payload.get('agent_id'),
-            'segment_id': payload.get('segment_id'),
-            'user_name': payload.get('user_name'),
-            'user_email': payload.get('user_email'),
-            'answer_text': payload.get('answer_text'),
-            'answer_id': payload.get('answer_id'),
-            'assessment': payload.get('assessment'),
-            'timestamp': deserialize.decimal(payload.get('timestamp')),
             'url': payload.get('url'),
         }
 
         self._context = None
-        self._solution = { 'assessment_id': assessment_id or self._properties['assessment_id'],  }
+        self._solution = {  }
     
     @property
     def _proxy(self):
@@ -212,134 +97,26 @@ class AssessmentsInstance(InstanceResource):
         :rtype: twilio.rest.flex_api.v1.assessments.AssessmentsContext
         """
         if self._context is None:
-            self._context = AssessmentsContext(self._version, assessment_id=self._solution['assessment_id'],)
+            self._context = AssessmentsContext(self._version,)
         return self._context
-    
-    @property
-    def account_sid(self):
-        """
-        :returns: The unique SID identifier of the Account.
-        :rtype: str
-        """
-        return self._properties['account_sid']
-    
-    @property
-    def assessment_id(self):
-        """
-        :returns: The unique id of the assessment
-        :rtype: str
-        """
-        return self._properties['assessment_id']
-    
-    @property
-    def offset(self):
-        """
-        :returns: Offset of the conversation
-        :rtype: float
-        """
-        return self._properties['offset']
-    
-    @property
-    def report(self):
-        """
-        :returns: The flag indicating if this assessment is part of report 
-        :rtype: bool
-        """
-        return self._properties['report']
-    
-    @property
-    def weight(self):
-        """
-        :returns: The weightage given to this comment
-        :rtype: float
-        """
-        return self._properties['weight']
-    
-    @property
-    def agent_id(self):
-        """
-        :returns: The id of the Agent
-        :rtype: str
-        """
-        return self._properties['agent_id']
-    
-    @property
-    def segment_id(self):
-        """
-        :returns: Segment Id of conversation
-        :rtype: str
-        """
-        return self._properties['segment_id']
-    
-    @property
-    def user_name(self):
-        """
-        :returns: The name of the user.
-        :rtype: str
-        """
-        return self._properties['user_name']
-    
-    @property
-    def user_email(self):
-        """
-        :returns: The email id of the user.
-        :rtype: str
-        """
-        return self._properties['user_email']
-    
-    @property
-    def answer_text(self):
-        """
-        :returns: The answer text selected by user
-        :rtype: str
-        """
-        return self._properties['answer_text']
-    
-    @property
-    def answer_id(self):
-        """
-        :returns: The id of the answer selected by user
-        :rtype: str
-        """
-        return self._properties['answer_id']
-    
-    @property
-    def assessment(self):
-        """
-        :returns: Assessment Details associated with an assessment
-        :rtype: dict
-        """
-        return self._properties['assessment']
-    
-    @property
-    def timestamp(self):
-        """
-        :returns: 
-        :rtype: float
-        """
-        return self._properties['timestamp']
     
     @property
     def url(self):
         """
-        :returns: 
+        :returns: The URL of this resource.
         :rtype: str
         """
         return self._properties['url']
     
-    def update(self, offset, answer_text, answer_id, token=values.unset):
+    def create(self):
         """
-        Update the AssessmentsInstance
+        Create the AssessmentsInstance
         
-        :params float offset: The offset of the conversation
-        :params str answer_text: The answer text selected by user
-        :params str answer_id: The id of the answer selected by user
-        :params str token: The Token HTTP request header
 
-        :returns: The updated AssessmentsInstance
+        :returns: The created AssessmentsInstance
         :rtype: twilio.rest.flex_api.v1.assessments.AssessmentsInstance
         """
-        return self._proxy.update(offset=offset, answer_text=answer_text, answer_id=answer_id, token=token, )
+        return self._proxy.create()
     
     def __repr__(self):
         """
@@ -349,5 +126,53 @@ class AssessmentsInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.FlexApi.V1.AssessmentsInstance {}>'.format(context)
+
+class AssessmentsContext(InstanceContext):
+
+    def __init__(self, version: Version):
+        """
+        Initialize the AssessmentsContext
+
+        :param Version version: Version that contains the resource
+        
+
+        :returns: twilio.rest.flex_api.v1.assessments.AssessmentsContext
+        :rtype: twilio.rest.flex_api.v1.assessments.AssessmentsContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+        }
+        self._uri = '/Accounts/Assessments'.format(**self._solution)
+        
+    
+    def create(self):
+        """
+        Create the AssessmentsInstance
+        
+
+        :returns: The created AssessmentsInstance
+        :rtype: twilio.rest.flex_api.v1.assessments.AssessmentsInstance
+        """
+        data = values.of({ 
+        })
+
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+
+        return AssessmentsInstance(
+            self._version,
+            payload
+        )
+    
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.FlexApi.V1.AssessmentsContext {}>'.format(context)
 
 

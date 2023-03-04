@@ -13,6 +13,7 @@
 """
 
 
+from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -228,90 +229,6 @@ class SubscribedEventPage(Page):
 
 
 
-class SubscribedEventContext(InstanceContext):
-
-    def __init__(self, version: Version, subscription_sid: str, type: str):
-        """
-        Initialize the SubscribedEventContext
-
-        :param Version version: Version that contains the resource
-        :param subscription_sid: The unique SID identifier of the Subscription.:param type: Type of event being subscribed to.
-
-        :returns: twilio.rest.events.v1.subscription.subscribed_event.SubscribedEventContext
-        :rtype: twilio.rest.events.v1.subscription.subscribed_event.SubscribedEventContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'subscription_sid': subscription_sid,
-            'type': type,
-        }
-        self._uri = '/Subscriptions/{subscription_sid}/SubscribedEvents/{type}'.format(**self._solution)
-        
-    
-    def delete(self):
-        """
-        Deletes the SubscribedEventInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(method='DELETE', uri=self._uri,)
-        
-    def fetch(self):
-        """
-        Fetch the SubscribedEventInstance
-        
-
-        :returns: The fetched SubscribedEventInstance
-        :rtype: twilio.rest.events.v1.subscription.subscribed_event.SubscribedEventInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return SubscribedEventInstance(
-            self._version,
-            payload,
-            subscription_sid=self._solution['subscription_sid'],
-            type=self._solution['type'],
-            
-        )
-        
-    def update(self, schema_version=values.unset):
-        """
-        Update the SubscribedEventInstance
-        
-        :params int schema_version: The schema version that the subscription should use.
-
-        :returns: The updated SubscribedEventInstance
-        :rtype: twilio.rest.events.v1.subscription.subscribed_event.SubscribedEventInstance
-        """
-        data = values.of({ 
-            'SchemaVersion': schema_version,
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return SubscribedEventInstance(
-            self._version,
-            payload,
-            subscription_sid=self._solution['subscription_sid'],
-            type=self._solution['type']
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Events.V1.SubscribedEventContext {}>'.format(context)
-
 class SubscribedEventInstance(InstanceResource):
 
     def __init__(self, version, payload, subscription_sid: str, type: str=None):
@@ -425,5 +342,89 @@ class SubscribedEventInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Events.V1.SubscribedEventInstance {}>'.format(context)
+
+class SubscribedEventContext(InstanceContext):
+
+    def __init__(self, version: Version, subscription_sid: str, type: str):
+        """
+        Initialize the SubscribedEventContext
+
+        :param Version version: Version that contains the resource
+        :param subscription_sid: The unique SID identifier of the Subscription.:param type: Type of event being subscribed to.
+
+        :returns: twilio.rest.events.v1.subscription.subscribed_event.SubscribedEventContext
+        :rtype: twilio.rest.events.v1.subscription.subscribed_event.SubscribedEventContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'subscription_sid': subscription_sid,
+            'type': type,
+        }
+        self._uri = '/Subscriptions/{subscription_sid}/SubscribedEvents/{type}'.format(**self._solution)
+        
+    
+    def delete(self):
+        """
+        Deletes the SubscribedEventInstance
+
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(method='DELETE', uri=self._uri,)
+        
+    def fetch(self):
+        """
+        Fetch the SubscribedEventInstance
+        
+
+        :returns: The fetched SubscribedEventInstance
+        :rtype: twilio.rest.events.v1.subscription.subscribed_event.SubscribedEventInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return SubscribedEventInstance(
+            self._version,
+            payload,
+            subscription_sid=self._solution['subscription_sid'],
+            type=self._solution['type'],
+            
+        )
+        
+    def update(self, schema_version=values.unset):
+        """
+        Update the SubscribedEventInstance
+        
+        :params int schema_version: The schema version that the subscription should use.
+
+        :returns: The updated SubscribedEventInstance
+        :rtype: twilio.rest.events.v1.subscription.subscribed_event.SubscribedEventInstance
+        """
+        data = values.of({ 
+            'SchemaVersion': schema_version,
+        })
+        
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return SubscribedEventInstance(
+            self._version,
+            payload,
+            subscription_sid=self._solution['subscription_sid'],
+            type=self._solution['type']
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Events.V1.SubscribedEventContext {}>'.format(context)
 
 

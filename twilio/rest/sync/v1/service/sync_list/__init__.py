@@ -13,6 +13,7 @@
 """
 
 
+from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -232,120 +233,6 @@ class SyncListPage(Page):
 
 
 
-class SyncListContext(InstanceContext):
-
-    def __init__(self, version: Version, service_sid: str, sid: str):
-        """
-        Initialize the SyncListContext
-
-        :param Version version: Version that contains the resource
-        :param service_sid: The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Sync List resource to update.:param sid: The SID of the Sync List resource to update. Can be the Sync List resource's `sid` or its `unique_name`.
-
-        :returns: twilio.rest.sync.v1.service.sync_list.SyncListContext
-        :rtype: twilio.rest.sync.v1.service.sync_list.SyncListContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'service_sid': service_sid,
-            'sid': sid,
-        }
-        self._uri = '/Services/{service_sid}/Lists/{sid}'.format(**self._solution)
-        
-        self._sync_list_items = None
-        self._sync_list_permissions = None
-    
-    def delete(self):
-        """
-        Deletes the SyncListInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(method='DELETE', uri=self._uri,)
-        
-    def fetch(self):
-        """
-        Fetch the SyncListInstance
-        
-
-        :returns: The fetched SyncListInstance
-        :rtype: twilio.rest.sync.v1.service.sync_list.SyncListInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return SyncListInstance(
-            self._version,
-            payload,
-            service_sid=self._solution['service_sid'],
-            sid=self._solution['sid'],
-            
-        )
-        
-    def update(self, ttl=values.unset, collection_ttl=values.unset):
-        """
-        Update the SyncListInstance
-        
-        :params int ttl: An alias for `collection_ttl`. If both are provided, this value is ignored.
-        :params int collection_ttl: How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Sync List expires (time-to-live) and is deleted.
-
-        :returns: The updated SyncListInstance
-        :rtype: twilio.rest.sync.v1.service.sync_list.SyncListInstance
-        """
-        data = values.of({ 
-            'Ttl': ttl,
-            'CollectionTtl': collection_ttl,
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return SyncListInstance(
-            self._version,
-            payload,
-            service_sid=self._solution['service_sid'],
-            sid=self._solution['sid']
-        )
-        
-    
-    @property
-    def sync_list_items(self):
-        """
-        Access the sync_list_items
-
-        :returns: twilio.rest.sync.v1.service.sync_list.SyncListItemList
-        :rtype: twilio.rest.sync.v1.service.sync_list.SyncListItemList
-        """
-        if self._sync_list_items is None:
-            self._sync_list_items = SyncListItemList(self._version, self._solution['service_sid'], self._solution['sid'],
-            )
-        return self._sync_list_items
-    
-    @property
-    def sync_list_permissions(self):
-        """
-        Access the sync_list_permissions
-
-        :returns: twilio.rest.sync.v1.service.sync_list.SyncListPermissionList
-        :rtype: twilio.rest.sync.v1.service.sync_list.SyncListPermissionList
-        """
-        if self._sync_list_permissions is None:
-            self._sync_list_permissions = SyncListPermissionList(self._version, self._solution['service_sid'], self._solution['sid'],
-            )
-        return self._sync_list_permissions
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Sync.V1.SyncListContext {}>'.format(context)
-
 class SyncListInstance(InstanceResource):
 
     def __init__(self, version, payload, service_sid: str, sid: str=None):
@@ -534,5 +421,119 @@ class SyncListInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Sync.V1.SyncListInstance {}>'.format(context)
+
+class SyncListContext(InstanceContext):
+
+    def __init__(self, version: Version, service_sid: str, sid: str):
+        """
+        Initialize the SyncListContext
+
+        :param Version version: Version that contains the resource
+        :param service_sid: The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Sync List resource to update.:param sid: The SID of the Sync List resource to update. Can be the Sync List resource's `sid` or its `unique_name`.
+
+        :returns: twilio.rest.sync.v1.service.sync_list.SyncListContext
+        :rtype: twilio.rest.sync.v1.service.sync_list.SyncListContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'service_sid': service_sid,
+            'sid': sid,
+        }
+        self._uri = '/Services/{service_sid}/Lists/{sid}'.format(**self._solution)
+        
+        self._sync_list_items = None
+        self._sync_list_permissions = None
+    
+    def delete(self):
+        """
+        Deletes the SyncListInstance
+
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(method='DELETE', uri=self._uri,)
+        
+    def fetch(self):
+        """
+        Fetch the SyncListInstance
+        
+
+        :returns: The fetched SyncListInstance
+        :rtype: twilio.rest.sync.v1.service.sync_list.SyncListInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return SyncListInstance(
+            self._version,
+            payload,
+            service_sid=self._solution['service_sid'],
+            sid=self._solution['sid'],
+            
+        )
+        
+    def update(self, ttl=values.unset, collection_ttl=values.unset):
+        """
+        Update the SyncListInstance
+        
+        :params int ttl: An alias for `collection_ttl`. If both are provided, this value is ignored.
+        :params int collection_ttl: How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Sync List expires (time-to-live) and is deleted.
+
+        :returns: The updated SyncListInstance
+        :rtype: twilio.rest.sync.v1.service.sync_list.SyncListInstance
+        """
+        data = values.of({ 
+            'Ttl': ttl,
+            'CollectionTtl': collection_ttl,
+        })
+        
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return SyncListInstance(
+            self._version,
+            payload,
+            service_sid=self._solution['service_sid'],
+            sid=self._solution['sid']
+        )
+        
+    
+    @property
+    def sync_list_items(self):
+        """
+        Access the sync_list_items
+
+        :returns: twilio.rest.sync.v1.service.sync_list.SyncListItemList
+        :rtype: twilio.rest.sync.v1.service.sync_list.SyncListItemList
+        """
+        if self._sync_list_items is None:
+            self._sync_list_items = SyncListItemList(self._version, self._solution['service_sid'], self._solution['sid'],
+            )
+        return self._sync_list_items
+    
+    @property
+    def sync_list_permissions(self):
+        """
+        Access the sync_list_permissions
+
+        :returns: twilio.rest.sync.v1.service.sync_list.SyncListPermissionList
+        :rtype: twilio.rest.sync.v1.service.sync_list.SyncListPermissionList
+        """
+        if self._sync_list_permissions is None:
+            self._sync_list_permissions = SyncListPermissionList(self._version, self._solution['service_sid'], self._solution['sid'],
+            )
+        return self._sync_list_permissions
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Sync.V1.SyncListContext {}>'.format(context)
 
 

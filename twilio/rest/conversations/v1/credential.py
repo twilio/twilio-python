@@ -13,6 +13,7 @@
 """
 
 
+from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -237,99 +238,6 @@ class CredentialPage(Page):
 
 
 
-class CredentialContext(InstanceContext):
-
-    def __init__(self, version: Version, sid: str):
-        """
-        Initialize the CredentialContext
-
-        :param Version version: Version that contains the resource
-        :param sid: A 34 character string that uniquely identifies this resource.
-
-        :returns: twilio.rest.conversations.v1.credential.CredentialContext
-        :rtype: twilio.rest.conversations.v1.credential.CredentialContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'sid': sid,
-        }
-        self._uri = '/Credentials/{sid}'.format(**self._solution)
-        
-    
-    def delete(self):
-        """
-        Deletes the CredentialInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(method='DELETE', uri=self._uri,)
-        
-    def fetch(self):
-        """
-        Fetch the CredentialInstance
-        
-
-        :returns: The fetched CredentialInstance
-        :rtype: twilio.rest.conversations.v1.credential.CredentialInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return CredentialInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid'],
-            
-        )
-        
-    def update(self, type=values.unset, friendly_name=values.unset, certificate=values.unset, private_key=values.unset, sandbox=values.unset, api_key=values.unset, secret=values.unset):
-        """
-        Update the CredentialInstance
-        
-        :params CredentialPushType type: 
-        :params str friendly_name: A descriptive string that you create to describe the new resource. It can be up to 64 characters long.
-        :params str certificate: [APN only] The URL encoded representation of the certificate. For example,  `-----BEGIN CERTIFICATE----- MIIFnTCCBIWgAwIBAgIIAjy9H849+E8wDQYJKoZIhvcNAQEF.....A== -----END CERTIFICATE-----`.
-        :params str private_key: [APN only] The URL encoded representation of the private key. For example, `-----BEGIN RSA PRIVATE KEY----- MIIEpQIBAAKCAQEAuyf/lNrH9ck8DmNyo3fG... -----END RSA PRIVATE KEY-----`.
-        :params bool sandbox: [APN only] Whether to send the credential to sandbox APNs. Can be `true` to send to sandbox APNs or `false` to send to production.
-        :params str api_key: [GCM only] The API key for the project that was obtained from the Google Developer console for your GCM Service application credential.
-        :params str secret: [FCM only] The **Server key** of your project from the Firebase console, found under Settings / Cloud messaging.
-
-        :returns: The updated CredentialInstance
-        :rtype: twilio.rest.conversations.v1.credential.CredentialInstance
-        """
-        data = values.of({ 
-            'Type': type,
-            'FriendlyName': friendly_name,
-            'Certificate': certificate,
-            'PrivateKey': private_key,
-            'Sandbox': sandbox,
-            'ApiKey': api_key,
-            'Secret': secret,
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return CredentialInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid']
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Conversations.V1.CredentialContext {}>'.format(context)
-
 class CredentialInstance(InstanceResource):
 
     class CredentialPushType(object):
@@ -481,5 +389,98 @@ class CredentialInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Conversations.V1.CredentialInstance {}>'.format(context)
+
+class CredentialContext(InstanceContext):
+
+    def __init__(self, version: Version, sid: str):
+        """
+        Initialize the CredentialContext
+
+        :param Version version: Version that contains the resource
+        :param sid: A 34 character string that uniquely identifies this resource.
+
+        :returns: twilio.rest.conversations.v1.credential.CredentialContext
+        :rtype: twilio.rest.conversations.v1.credential.CredentialContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'sid': sid,
+        }
+        self._uri = '/Credentials/{sid}'.format(**self._solution)
+        
+    
+    def delete(self):
+        """
+        Deletes the CredentialInstance
+
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(method='DELETE', uri=self._uri,)
+        
+    def fetch(self):
+        """
+        Fetch the CredentialInstance
+        
+
+        :returns: The fetched CredentialInstance
+        :rtype: twilio.rest.conversations.v1.credential.CredentialInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return CredentialInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid'],
+            
+        )
+        
+    def update(self, type=values.unset, friendly_name=values.unset, certificate=values.unset, private_key=values.unset, sandbox=values.unset, api_key=values.unset, secret=values.unset):
+        """
+        Update the CredentialInstance
+        
+        :params CredentialPushType type: 
+        :params str friendly_name: A descriptive string that you create to describe the new resource. It can be up to 64 characters long.
+        :params str certificate: [APN only] The URL encoded representation of the certificate. For example,  `-----BEGIN CERTIFICATE----- MIIFnTCCBIWgAwIBAgIIAjy9H849+E8wDQYJKoZIhvcNAQEF.....A== -----END CERTIFICATE-----`.
+        :params str private_key: [APN only] The URL encoded representation of the private key. For example, `-----BEGIN RSA PRIVATE KEY----- MIIEpQIBAAKCAQEAuyf/lNrH9ck8DmNyo3fG... -----END RSA PRIVATE KEY-----`.
+        :params bool sandbox: [APN only] Whether to send the credential to sandbox APNs. Can be `true` to send to sandbox APNs or `false` to send to production.
+        :params str api_key: [GCM only] The API key for the project that was obtained from the Google Developer console for your GCM Service application credential.
+        :params str secret: [FCM only] The **Server key** of your project from the Firebase console, found under Settings / Cloud messaging.
+
+        :returns: The updated CredentialInstance
+        :rtype: twilio.rest.conversations.v1.credential.CredentialInstance
+        """
+        data = values.of({ 
+            'Type': type,
+            'FriendlyName': friendly_name,
+            'Certificate': certificate,
+            'PrivateKey': private_key,
+            'Sandbox': sandbox,
+            'ApiKey': api_key,
+            'Secret': secret,
+        })
+        
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return CredentialInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid']
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Conversations.V1.CredentialContext {}>'.format(context)
 
 

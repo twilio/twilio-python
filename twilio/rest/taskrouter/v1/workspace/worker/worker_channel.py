@@ -13,6 +13,7 @@
 """
 
 
+from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -204,85 +205,6 @@ class WorkerChannelPage(Page):
 
 
 
-class WorkerChannelContext(InstanceContext):
-
-    def __init__(self, version: Version, workspace_sid: str, worker_sid: str, sid: str):
-        """
-        Initialize the WorkerChannelContext
-
-        :param Version version: Version that contains the resource
-        :param workspace_sid: The SID of the Workspace with the WorkerChannel to update.:param worker_sid: The SID of the Worker with the WorkerChannel to update.:param sid: The SID of the WorkerChannel to update.
-
-        :returns: twilio.rest.taskrouter.v1.workspace.worker.worker_channel.WorkerChannelContext
-        :rtype: twilio.rest.taskrouter.v1.workspace.worker.worker_channel.WorkerChannelContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'workspace_sid': workspace_sid,
-            'worker_sid': worker_sid,
-            'sid': sid,
-        }
-        self._uri = '/Workspaces/{workspace_sid}/Workers/{worker_sid}/Channels/{sid}'.format(**self._solution)
-        
-    
-    def fetch(self):
-        """
-        Fetch the WorkerChannelInstance
-        
-
-        :returns: The fetched WorkerChannelInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.worker.worker_channel.WorkerChannelInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return WorkerChannelInstance(
-            self._version,
-            payload,
-            workspace_sid=self._solution['workspace_sid'],
-            worker_sid=self._solution['worker_sid'],
-            sid=self._solution['sid'],
-            
-        )
-        
-    def update(self, capacity=values.unset, available=values.unset):
-        """
-        Update the WorkerChannelInstance
-        
-        :params int capacity: The total number of Tasks that the Worker should handle for the TaskChannel type. TaskRouter creates reservations for Tasks of this TaskChannel type up to the specified capacity. If the capacity is 0, no new reservations will be created.
-        :params bool available: Whether the WorkerChannel is available. Set to `false` to prevent the Worker from receiving any new Tasks of this TaskChannel type.
-
-        :returns: The updated WorkerChannelInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.worker.worker_channel.WorkerChannelInstance
-        """
-        data = values.of({ 
-            'Capacity': capacity,
-            'Available': available,
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return WorkerChannelInstance(
-            self._version,
-            payload,
-            workspace_sid=self._solution['workspace_sid'],
-            worker_sid=self._solution['worker_sid'],
-            sid=self._solution['sid']
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Taskrouter.V1.WorkerChannelContext {}>'.format(context)
-
 class WorkerChannelInstance(InstanceResource):
 
     def __init__(self, version, payload, workspace_sid: str, worker_sid: str, sid: str=None):
@@ -459,5 +381,84 @@ class WorkerChannelInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Taskrouter.V1.WorkerChannelInstance {}>'.format(context)
+
+class WorkerChannelContext(InstanceContext):
+
+    def __init__(self, version: Version, workspace_sid: str, worker_sid: str, sid: str):
+        """
+        Initialize the WorkerChannelContext
+
+        :param Version version: Version that contains the resource
+        :param workspace_sid: The SID of the Workspace with the WorkerChannel to update.:param worker_sid: The SID of the Worker with the WorkerChannel to update.:param sid: The SID of the WorkerChannel to update.
+
+        :returns: twilio.rest.taskrouter.v1.workspace.worker.worker_channel.WorkerChannelContext
+        :rtype: twilio.rest.taskrouter.v1.workspace.worker.worker_channel.WorkerChannelContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'workspace_sid': workspace_sid,
+            'worker_sid': worker_sid,
+            'sid': sid,
+        }
+        self._uri = '/Workspaces/{workspace_sid}/Workers/{worker_sid}/Channels/{sid}'.format(**self._solution)
+        
+    
+    def fetch(self):
+        """
+        Fetch the WorkerChannelInstance
+        
+
+        :returns: The fetched WorkerChannelInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.worker.worker_channel.WorkerChannelInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return WorkerChannelInstance(
+            self._version,
+            payload,
+            workspace_sid=self._solution['workspace_sid'],
+            worker_sid=self._solution['worker_sid'],
+            sid=self._solution['sid'],
+            
+        )
+        
+    def update(self, capacity=values.unset, available=values.unset):
+        """
+        Update the WorkerChannelInstance
+        
+        :params int capacity: The total number of Tasks that the Worker should handle for the TaskChannel type. TaskRouter creates reservations for Tasks of this TaskChannel type up to the specified capacity. If the capacity is 0, no new reservations will be created.
+        :params bool available: Whether the WorkerChannel is available. Set to `false` to prevent the Worker from receiving any new Tasks of this TaskChannel type.
+
+        :returns: The updated WorkerChannelInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.worker.worker_channel.WorkerChannelInstance
+        """
+        data = values.of({ 
+            'Capacity': capacity,
+            'Available': available,
+        })
+        
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return WorkerChannelInstance(
+            self._version,
+            payload,
+            workspace_sid=self._solution['workspace_sid'],
+            worker_sid=self._solution['worker_sid'],
+            sid=self._solution['sid']
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Taskrouter.V1.WorkerChannelContext {}>'.format(context)
 
 

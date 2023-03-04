@@ -13,6 +13,7 @@
 """
 
 
+from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -196,7 +197,6 @@ class AllTimePage(Page):
         :rtype: str
         """
         return '<Twilio.Api.V2010.AllTimePage>'
-
 
 
 
@@ -608,5 +608,6 @@ class AllTimeInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Api.V2010.AllTimeInstance {}>'.format(context)
+
 
 

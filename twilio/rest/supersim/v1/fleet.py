@@ -13,6 +13,7 @@
 """
 
 
+from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -244,89 +245,6 @@ class FleetPage(Page):
 
 
 
-class FleetContext(InstanceContext):
-
-    def __init__(self, version: Version, sid: str):
-        """
-        Initialize the FleetContext
-
-        :param Version version: Version that contains the resource
-        :param sid: The SID of the Fleet resource to update.
-
-        :returns: twilio.rest.supersim.v1.fleet.FleetContext
-        :rtype: twilio.rest.supersim.v1.fleet.FleetContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'sid': sid,
-        }
-        self._uri = '/Fleets/{sid}'.format(**self._solution)
-        
-    
-    def fetch(self):
-        """
-        Fetch the FleetInstance
-        
-
-        :returns: The fetched FleetInstance
-        :rtype: twilio.rest.supersim.v1.fleet.FleetInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return FleetInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid'],
-            
-        )
-        
-    def update(self, unique_name=values.unset, network_access_profile=values.unset, ip_commands_url=values.unset, ip_commands_method=values.unset, sms_commands_url=values.unset, sms_commands_method=values.unset, data_limit=values.unset):
-        """
-        Update the FleetInstance
-        
-        :params str unique_name: An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
-        :params str network_access_profile: The SID or unique name of the Network Access Profile that will control which cellular networks the Fleet's SIMs can connect to.
-        :params str ip_commands_url: The URL that will receive a webhook when a Super SIM in the Fleet is used to send an IP Command from your device to a special IP address. Your server should respond with an HTTP status code in the 200 range; any response body will be ignored.
-        :params str ip_commands_method: A string representing the HTTP method to use when making a request to `ip_commands_url`. Can be one of `POST` or `GET`. Defaults to `POST`.
-        :params str sms_commands_url: The URL that will receive a webhook when a Super SIM in the Fleet is used to send an SMS from your device to the SMS Commands number. Your server should respond with an HTTP status code in the 200 range; any response body will be ignored.
-        :params str sms_commands_method: A string representing the HTTP method to use when making a request to `sms_commands_url`. Can be one of `POST` or `GET`. Defaults to `POST`.
-        :params int data_limit: The total data usage (download and upload combined) in Megabytes that each Super SIM assigned to the Fleet can consume during a billing period (normally one month). Value must be between 1MB (1) and 2TB (2,000,000). Defaults to 1GB (1,000).
-
-        :returns: The updated FleetInstance
-        :rtype: twilio.rest.supersim.v1.fleet.FleetInstance
-        """
-        data = values.of({ 
-            'UniqueName': unique_name,
-            'NetworkAccessProfile': network_access_profile,
-            'IpCommandsUrl': ip_commands_url,
-            'IpCommandsMethod': ip_commands_method,
-            'SmsCommandsUrl': sms_commands_url,
-            'SmsCommandsMethod': sms_commands_method,
-            'DataLimit': data_limit,
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return FleetInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid']
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Supersim.V1.FleetContext {}>'.format(context)
-
 class FleetInstance(InstanceResource):
 
     class FleetDataMetering(object):
@@ -529,5 +447,88 @@ class FleetInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Supersim.V1.FleetInstance {}>'.format(context)
+
+class FleetContext(InstanceContext):
+
+    def __init__(self, version: Version, sid: str):
+        """
+        Initialize the FleetContext
+
+        :param Version version: Version that contains the resource
+        :param sid: The SID of the Fleet resource to update.
+
+        :returns: twilio.rest.supersim.v1.fleet.FleetContext
+        :rtype: twilio.rest.supersim.v1.fleet.FleetContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'sid': sid,
+        }
+        self._uri = '/Fleets/{sid}'.format(**self._solution)
+        
+    
+    def fetch(self):
+        """
+        Fetch the FleetInstance
+        
+
+        :returns: The fetched FleetInstance
+        :rtype: twilio.rest.supersim.v1.fleet.FleetInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return FleetInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid'],
+            
+        )
+        
+    def update(self, unique_name=values.unset, network_access_profile=values.unset, ip_commands_url=values.unset, ip_commands_method=values.unset, sms_commands_url=values.unset, sms_commands_method=values.unset, data_limit=values.unset):
+        """
+        Update the FleetInstance
+        
+        :params str unique_name: An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
+        :params str network_access_profile: The SID or unique name of the Network Access Profile that will control which cellular networks the Fleet's SIMs can connect to.
+        :params str ip_commands_url: The URL that will receive a webhook when a Super SIM in the Fleet is used to send an IP Command from your device to a special IP address. Your server should respond with an HTTP status code in the 200 range; any response body will be ignored.
+        :params str ip_commands_method: A string representing the HTTP method to use when making a request to `ip_commands_url`. Can be one of `POST` or `GET`. Defaults to `POST`.
+        :params str sms_commands_url: The URL that will receive a webhook when a Super SIM in the Fleet is used to send an SMS from your device to the SMS Commands number. Your server should respond with an HTTP status code in the 200 range; any response body will be ignored.
+        :params str sms_commands_method: A string representing the HTTP method to use when making a request to `sms_commands_url`. Can be one of `POST` or `GET`. Defaults to `POST`.
+        :params int data_limit: The total data usage (download and upload combined) in Megabytes that each Super SIM assigned to the Fleet can consume during a billing period (normally one month). Value must be between 1MB (1) and 2TB (2,000,000). Defaults to 1GB (1,000).
+
+        :returns: The updated FleetInstance
+        :rtype: twilio.rest.supersim.v1.fleet.FleetInstance
+        """
+        data = values.of({ 
+            'UniqueName': unique_name,
+            'NetworkAccessProfile': network_access_profile,
+            'IpCommandsUrl': ip_commands_url,
+            'IpCommandsMethod': ip_commands_method,
+            'SmsCommandsUrl': sms_commands_url,
+            'SmsCommandsMethod': sms_commands_method,
+            'DataLimit': data_limit,
+        })
+        
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return FleetInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid']
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Supersim.V1.FleetContext {}>'.format(context)
 
 

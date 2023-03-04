@@ -13,6 +13,7 @@
 """
 
 
+from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -207,97 +208,6 @@ class DocumentPermissionPage(Page):
 
 
 
-class DocumentPermissionContext(InstanceContext):
-
-    def __init__(self, version: Version, service_sid: str, document_sid: str, identity: str):
-        """
-        Initialize the DocumentPermissionContext
-
-        :param Version version: Version that contains the resource
-        :param service_sid: The unique SID identifier of the Sync Service Instance.:param document_sid: Identifier of the Sync Document. Either a SID or a unique name.:param identity: Arbitrary string identifier representing a human user associated with an FPA token, assigned by the developer.
-
-        :returns: twilio.rest.preview.sync.service.document.document_permission.DocumentPermissionContext
-        :rtype: twilio.rest.preview.sync.service.document.document_permission.DocumentPermissionContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'service_sid': service_sid,
-            'document_sid': document_sid,
-            'identity': identity,
-        }
-        self._uri = '/Services/{service_sid}/Documents/{document_sid}/Permissions/{identity}'.format(**self._solution)
-        
-    
-    def delete(self):
-        """
-        Deletes the DocumentPermissionInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(method='DELETE', uri=self._uri,)
-        
-    def fetch(self):
-        """
-        Fetch the DocumentPermissionInstance
-        
-
-        :returns: The fetched DocumentPermissionInstance
-        :rtype: twilio.rest.preview.sync.service.document.document_permission.DocumentPermissionInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return DocumentPermissionInstance(
-            self._version,
-            payload,
-            service_sid=self._solution['service_sid'],
-            document_sid=self._solution['document_sid'],
-            identity=self._solution['identity'],
-            
-        )
-        
-    def update(self, read, write, manage):
-        """
-        Update the DocumentPermissionInstance
-        
-        :params bool read: Boolean flag specifying whether the identity can read the Sync Document.
-        :params bool write: Boolean flag specifying whether the identity can update the Sync Document.
-        :params bool manage: Boolean flag specifying whether the identity can delete the Sync Document.
-
-        :returns: The updated DocumentPermissionInstance
-        :rtype: twilio.rest.preview.sync.service.document.document_permission.DocumentPermissionInstance
-        """
-        data = values.of({ 
-            'Read': read,
-            'Write': write,
-            'Manage': manage,
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return DocumentPermissionInstance(
-            self._version,
-            payload,
-            service_sid=self._solution['service_sid'],
-            document_sid=self._solution['document_sid'],
-            identity=self._solution['identity']
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Preview.Sync.DocumentPermissionContext {}>'.format(context)
-
 class DocumentPermissionInstance(InstanceResource):
 
     def __init__(self, version, payload, service_sid: str, document_sid: str, identity: str=None):
@@ -440,5 +350,96 @@ class DocumentPermissionInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Preview.Sync.DocumentPermissionInstance {}>'.format(context)
+
+class DocumentPermissionContext(InstanceContext):
+
+    def __init__(self, version: Version, service_sid: str, document_sid: str, identity: str):
+        """
+        Initialize the DocumentPermissionContext
+
+        :param Version version: Version that contains the resource
+        :param service_sid: The unique SID identifier of the Sync Service Instance.:param document_sid: Identifier of the Sync Document. Either a SID or a unique name.:param identity: Arbitrary string identifier representing a human user associated with an FPA token, assigned by the developer.
+
+        :returns: twilio.rest.preview.sync.service.document.document_permission.DocumentPermissionContext
+        :rtype: twilio.rest.preview.sync.service.document.document_permission.DocumentPermissionContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'service_sid': service_sid,
+            'document_sid': document_sid,
+            'identity': identity,
+        }
+        self._uri = '/Services/{service_sid}/Documents/{document_sid}/Permissions/{identity}'.format(**self._solution)
+        
+    
+    def delete(self):
+        """
+        Deletes the DocumentPermissionInstance
+
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(method='DELETE', uri=self._uri,)
+        
+    def fetch(self):
+        """
+        Fetch the DocumentPermissionInstance
+        
+
+        :returns: The fetched DocumentPermissionInstance
+        :rtype: twilio.rest.preview.sync.service.document.document_permission.DocumentPermissionInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return DocumentPermissionInstance(
+            self._version,
+            payload,
+            service_sid=self._solution['service_sid'],
+            document_sid=self._solution['document_sid'],
+            identity=self._solution['identity'],
+            
+        )
+        
+    def update(self, read, write, manage):
+        """
+        Update the DocumentPermissionInstance
+        
+        :params bool read: Boolean flag specifying whether the identity can read the Sync Document.
+        :params bool write: Boolean flag specifying whether the identity can update the Sync Document.
+        :params bool manage: Boolean flag specifying whether the identity can delete the Sync Document.
+
+        :returns: The updated DocumentPermissionInstance
+        :rtype: twilio.rest.preview.sync.service.document.document_permission.DocumentPermissionInstance
+        """
+        data = values.of({ 
+            'Read': read,
+            'Write': write,
+            'Manage': manage,
+        })
+        
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return DocumentPermissionInstance(
+            self._version,
+            payload,
+            service_sid=self._solution['service_sid'],
+            document_sid=self._solution['document_sid'],
+            identity=self._solution['identity']
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Preview.Sync.DocumentPermissionContext {}>'.format(context)
 
 

@@ -13,6 +13,7 @@
 """
 
 
+from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -257,6 +258,405 @@ class AccountPage(Page):
 
 
 
+
+class AccountInstance(InstanceResource):
+
+    class AccountStatus(object):
+        ACTIVE = "active"
+        SUSPENDED = "suspended"
+        CLOSED = "closed"
+
+    class AccountType(object):
+        TRIAL = "Trial"
+        FULL = "Full"
+
+    def __init__(self, version, payload, sid: str=None):
+        """
+        Initialize the AccountInstance
+        :returns: twilio.rest.api.v2010.account.AccountInstance
+        :rtype: twilio.rest.api.v2010.account.AccountInstance
+        """
+        super().__init__(version)
+
+        self._properties = { 
+            'auth_token': payload.get('auth_token'),
+            'date_created': deserialize.rfc2822_datetime(payload.get('date_created')),
+            'date_updated': deserialize.rfc2822_datetime(payload.get('date_updated')),
+            'friendly_name': payload.get('friendly_name'),
+            'owner_account_sid': payload.get('owner_account_sid'),
+            'sid': payload.get('sid'),
+            'status': payload.get('status'),
+            'subresource_uris': payload.get('subresource_uris'),
+            'type': payload.get('type'),
+            'uri': payload.get('uri'),
+        }
+
+        self._context = None
+        self._solution = { 'sid': sid or self._properties['sid'],  }
+    
+    @property
+    def _proxy(self):
+        """
+        Generate an instance context for the instance, the context is capable of
+        performing various actions. All instance actions are proxied to the context
+
+        :returns: AccountContext for this AccountInstance
+        :rtype: twilio.rest.api.v2010.account.AccountContext
+        """
+        if self._context is None:
+            self._context = AccountContext(self._version, sid=self._solution['sid'],)
+        return self._context
+    
+    @property
+    def auth_token(self):
+        """
+        :returns: The authorization token for this account. This token should be kept a secret, so no sharing.
+        :rtype: str
+        """
+        return self._properties['auth_token']
+    
+    @property
+    def date_created(self):
+        """
+        :returns: The date that this account was created, in GMT in RFC 2822 format
+        :rtype: datetime
+        """
+        return self._properties['date_created']
+    
+    @property
+    def date_updated(self):
+        """
+        :returns: The date that this account was last updated, in GMT in RFC 2822 format.
+        :rtype: datetime
+        """
+        return self._properties['date_updated']
+    
+    @property
+    def friendly_name(self):
+        """
+        :returns: A human readable description of this account, up to 64 characters long. By default the FriendlyName is your email address.
+        :rtype: str
+        """
+        return self._properties['friendly_name']
+    
+    @property
+    def owner_account_sid(self):
+        """
+        :returns: The unique 34 character id that represents the parent of this account. The OwnerAccountSid of a parent account is it's own sid.
+        :rtype: str
+        """
+        return self._properties['owner_account_sid']
+    
+    @property
+    def sid(self):
+        """
+        :returns: A 34 character string that uniquely identifies this resource.
+        :rtype: str
+        """
+        return self._properties['sid']
+    
+    @property
+    def status(self):
+        """
+        :returns: 
+        :rtype: AccountStatus
+        """
+        return self._properties['status']
+    
+    @property
+    def subresource_uris(self):
+        """
+        :returns: A Map of various subresources available for the given Account Instance
+        :rtype: dict
+        """
+        return self._properties['subresource_uris']
+    
+    @property
+    def type(self):
+        """
+        :returns: 
+        :rtype: AccountType
+        """
+        return self._properties['type']
+    
+    @property
+    def uri(self):
+        """
+        :returns: The URI for this resource, relative to `https://api.twilio.com`
+        :rtype: str
+        """
+        return self._properties['uri']
+    
+    def fetch(self):
+        """
+        Fetch the AccountInstance
+        
+
+        :returns: The fetched AccountInstance
+        :rtype: twilio.rest.api.v2010.account.AccountInstance
+        """
+        return self._proxy.fetch()
+    
+    def update(self, friendly_name=values.unset, status=values.unset):
+        """
+        Update the AccountInstance
+        
+        :params str friendly_name: Update the human-readable description of this Account
+        :params AccountStatus status: 
+
+        :returns: The updated AccountInstance
+        :rtype: twilio.rest.api.v2010.account.AccountInstance
+        """
+        return self._proxy.update(friendly_name=friendly_name, status=status, )
+    
+    @property
+    def addresses(self):
+        """
+        Access the addresses
+
+        :returns: twilio.rest.api.v2010.account.AddressList
+        :rtype: twilio.rest.api.v2010.account.AddressList
+        """
+        return self._proxy.addresses
+    
+    @property
+    def applications(self):
+        """
+        Access the applications
+
+        :returns: twilio.rest.api.v2010.account.ApplicationList
+        :rtype: twilio.rest.api.v2010.account.ApplicationList
+        """
+        return self._proxy.applications
+    
+    @property
+    def authorized_connect_apps(self):
+        """
+        Access the authorized_connect_apps
+
+        :returns: twilio.rest.api.v2010.account.AuthorizedConnectAppList
+        :rtype: twilio.rest.api.v2010.account.AuthorizedConnectAppList
+        """
+        return self._proxy.authorized_connect_apps
+    
+    @property
+    def available_phone_numbers(self):
+        """
+        Access the available_phone_numbers
+
+        :returns: twilio.rest.api.v2010.account.AvailablePhoneNumberCountryList
+        :rtype: twilio.rest.api.v2010.account.AvailablePhoneNumberCountryList
+        """
+        return self._proxy.available_phone_numbers
+    
+    @property
+    def balance(self):
+        """
+        Access the balance
+
+        :returns: twilio.rest.api.v2010.account.BalanceList
+        :rtype: twilio.rest.api.v2010.account.BalanceList
+        """
+        return self._proxy.balance
+    
+    @property
+    def calls(self):
+        """
+        Access the calls
+
+        :returns: twilio.rest.api.v2010.account.CallList
+        :rtype: twilio.rest.api.v2010.account.CallList
+        """
+        return self._proxy.calls
+    
+    @property
+    def conferences(self):
+        """
+        Access the conferences
+
+        :returns: twilio.rest.api.v2010.account.ConferenceList
+        :rtype: twilio.rest.api.v2010.account.ConferenceList
+        """
+        return self._proxy.conferences
+    
+    @property
+    def connect_apps(self):
+        """
+        Access the connect_apps
+
+        :returns: twilio.rest.api.v2010.account.ConnectAppList
+        :rtype: twilio.rest.api.v2010.account.ConnectAppList
+        """
+        return self._proxy.connect_apps
+    
+    @property
+    def incoming_phone_numbers(self):
+        """
+        Access the incoming_phone_numbers
+
+        :returns: twilio.rest.api.v2010.account.IncomingPhoneNumberList
+        :rtype: twilio.rest.api.v2010.account.IncomingPhoneNumberList
+        """
+        return self._proxy.incoming_phone_numbers
+    
+    @property
+    def keys(self):
+        """
+        Access the keys
+
+        :returns: twilio.rest.api.v2010.account.KeyList
+        :rtype: twilio.rest.api.v2010.account.KeyList
+        """
+        return self._proxy.keys
+    
+    @property
+    def messages(self):
+        """
+        Access the messages
+
+        :returns: twilio.rest.api.v2010.account.MessageList
+        :rtype: twilio.rest.api.v2010.account.MessageList
+        """
+        return self._proxy.messages
+    
+    @property
+    def new_keys(self):
+        """
+        Access the new_keys
+
+        :returns: twilio.rest.api.v2010.account.NewKeyList
+        :rtype: twilio.rest.api.v2010.account.NewKeyList
+        """
+        return self._proxy.new_keys
+    
+    @property
+    def new_signing_keys(self):
+        """
+        Access the new_signing_keys
+
+        :returns: twilio.rest.api.v2010.account.NewSigningKeyList
+        :rtype: twilio.rest.api.v2010.account.NewSigningKeyList
+        """
+        return self._proxy.new_signing_keys
+    
+    @property
+    def notifications(self):
+        """
+        Access the notifications
+
+        :returns: twilio.rest.api.v2010.account.NotificationList
+        :rtype: twilio.rest.api.v2010.account.NotificationList
+        """
+        return self._proxy.notifications
+    
+    @property
+    def outgoing_caller_ids(self):
+        """
+        Access the outgoing_caller_ids
+
+        :returns: twilio.rest.api.v2010.account.OutgoingCallerIdList
+        :rtype: twilio.rest.api.v2010.account.OutgoingCallerIdList
+        """
+        return self._proxy.outgoing_caller_ids
+    
+    @property
+    def queues(self):
+        """
+        Access the queues
+
+        :returns: twilio.rest.api.v2010.account.QueueList
+        :rtype: twilio.rest.api.v2010.account.QueueList
+        """
+        return self._proxy.queues
+    
+    @property
+    def recordings(self):
+        """
+        Access the recordings
+
+        :returns: twilio.rest.api.v2010.account.RecordingList
+        :rtype: twilio.rest.api.v2010.account.RecordingList
+        """
+        return self._proxy.recordings
+    
+    @property
+    def short_codes(self):
+        """
+        Access the short_codes
+
+        :returns: twilio.rest.api.v2010.account.ShortCodeList
+        :rtype: twilio.rest.api.v2010.account.ShortCodeList
+        """
+        return self._proxy.short_codes
+    
+    @property
+    def signing_keys(self):
+        """
+        Access the signing_keys
+
+        :returns: twilio.rest.api.v2010.account.SigningKeyList
+        :rtype: twilio.rest.api.v2010.account.SigningKeyList
+        """
+        return self._proxy.signing_keys
+    
+    @property
+    def sip(self):
+        """
+        Access the sip
+
+        :returns: twilio.rest.api.v2010.account.SipList
+        :rtype: twilio.rest.api.v2010.account.SipList
+        """
+        return self._proxy.sip
+    
+    @property
+    def tokens(self):
+        """
+        Access the tokens
+
+        :returns: twilio.rest.api.v2010.account.TokenList
+        :rtype: twilio.rest.api.v2010.account.TokenList
+        """
+        return self._proxy.tokens
+    
+    @property
+    def transcriptions(self):
+        """
+        Access the transcriptions
+
+        :returns: twilio.rest.api.v2010.account.TranscriptionList
+        :rtype: twilio.rest.api.v2010.account.TranscriptionList
+        """
+        return self._proxy.transcriptions
+    
+    @property
+    def usage(self):
+        """
+        Access the usage
+
+        :returns: twilio.rest.api.v2010.account.UsageList
+        :rtype: twilio.rest.api.v2010.account.UsageList
+        """
+        return self._proxy.usage
+    
+    @property
+    def validation_requests(self):
+        """
+        Access the validation_requests
+
+        :returns: twilio.rest.api.v2010.account.ValidationRequestList
+        :rtype: twilio.rest.api.v2010.account.ValidationRequestList
+        """
+        return self._proxy.validation_requests
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Api.V2010.AccountInstance {}>'.format(context)
 
 class AccountContext(InstanceContext):
 
@@ -666,404 +1066,5 @@ class AccountContext(InstanceContext):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Api.V2010.AccountContext {}>'.format(context)
-
-class AccountInstance(InstanceResource):
-
-    class AccountStatus(object):
-        ACTIVE = "active"
-        SUSPENDED = "suspended"
-        CLOSED = "closed"
-
-    class AccountType(object):
-        TRIAL = "Trial"
-        FULL = "Full"
-
-    def __init__(self, version, payload, sid: str=None):
-        """
-        Initialize the AccountInstance
-        :returns: twilio.rest.api.v2010.account.AccountInstance
-        :rtype: twilio.rest.api.v2010.account.AccountInstance
-        """
-        super().__init__(version)
-
-        self._properties = { 
-            'auth_token': payload.get('auth_token'),
-            'date_created': deserialize.rfc2822_datetime(payload.get('date_created')),
-            'date_updated': deserialize.rfc2822_datetime(payload.get('date_updated')),
-            'friendly_name': payload.get('friendly_name'),
-            'owner_account_sid': payload.get('owner_account_sid'),
-            'sid': payload.get('sid'),
-            'status': payload.get('status'),
-            'subresource_uris': payload.get('subresource_uris'),
-            'type': payload.get('type'),
-            'uri': payload.get('uri'),
-        }
-
-        self._context = None
-        self._solution = { 'sid': sid or self._properties['sid'],  }
-    
-    @property
-    def _proxy(self):
-        """
-        Generate an instance context for the instance, the context is capable of
-        performing various actions. All instance actions are proxied to the context
-
-        :returns: AccountContext for this AccountInstance
-        :rtype: twilio.rest.api.v2010.account.AccountContext
-        """
-        if self._context is None:
-            self._context = AccountContext(self._version, sid=self._solution['sid'],)
-        return self._context
-    
-    @property
-    def auth_token(self):
-        """
-        :returns: The authorization token for this account. This token should be kept a secret, so no sharing.
-        :rtype: str
-        """
-        return self._properties['auth_token']
-    
-    @property
-    def date_created(self):
-        """
-        :returns: The date that this account was created, in GMT in RFC 2822 format
-        :rtype: datetime
-        """
-        return self._properties['date_created']
-    
-    @property
-    def date_updated(self):
-        """
-        :returns: The date that this account was last updated, in GMT in RFC 2822 format.
-        :rtype: datetime
-        """
-        return self._properties['date_updated']
-    
-    @property
-    def friendly_name(self):
-        """
-        :returns: A human readable description of this account, up to 64 characters long. By default the FriendlyName is your email address.
-        :rtype: str
-        """
-        return self._properties['friendly_name']
-    
-    @property
-    def owner_account_sid(self):
-        """
-        :returns: The unique 34 character id that represents the parent of this account. The OwnerAccountSid of a parent account is it's own sid.
-        :rtype: str
-        """
-        return self._properties['owner_account_sid']
-    
-    @property
-    def sid(self):
-        """
-        :returns: A 34 character string that uniquely identifies this resource.
-        :rtype: str
-        """
-        return self._properties['sid']
-    
-    @property
-    def status(self):
-        """
-        :returns: 
-        :rtype: AccountStatus
-        """
-        return self._properties['status']
-    
-    @property
-    def subresource_uris(self):
-        """
-        :returns: A Map of various subresources available for the given Account Instance
-        :rtype: dict
-        """
-        return self._properties['subresource_uris']
-    
-    @property
-    def type(self):
-        """
-        :returns: 
-        :rtype: AccountType
-        """
-        return self._properties['type']
-    
-    @property
-    def uri(self):
-        """
-        :returns: The URI for this resource, relative to `https://api.twilio.com`
-        :rtype: str
-        """
-        return self._properties['uri']
-    
-    def fetch(self):
-        """
-        Fetch the AccountInstance
-        
-
-        :returns: The fetched AccountInstance
-        :rtype: twilio.rest.api.v2010.account.AccountInstance
-        """
-        return self._proxy.fetch()
-    
-    def update(self, friendly_name=values.unset, status=values.unset):
-        """
-        Update the AccountInstance
-        
-        :params str friendly_name: Update the human-readable description of this Account
-        :params AccountStatus status: 
-
-        :returns: The updated AccountInstance
-        :rtype: twilio.rest.api.v2010.account.AccountInstance
-        """
-        return self._proxy.update(friendly_name=friendly_name, status=status, )
-    
-    @property
-    def addresses(self):
-        """
-        Access the addresses
-
-        :returns: twilio.rest.api.v2010.account.AddressList
-        :rtype: twilio.rest.api.v2010.account.AddressList
-        """
-        return self._proxy.addresses
-    
-    @property
-    def applications(self):
-        """
-        Access the applications
-
-        :returns: twilio.rest.api.v2010.account.ApplicationList
-        :rtype: twilio.rest.api.v2010.account.ApplicationList
-        """
-        return self._proxy.applications
-    
-    @property
-    def authorized_connect_apps(self):
-        """
-        Access the authorized_connect_apps
-
-        :returns: twilio.rest.api.v2010.account.AuthorizedConnectAppList
-        :rtype: twilio.rest.api.v2010.account.AuthorizedConnectAppList
-        """
-        return self._proxy.authorized_connect_apps
-    
-    @property
-    def available_phone_numbers(self):
-        """
-        Access the available_phone_numbers
-
-        :returns: twilio.rest.api.v2010.account.AvailablePhoneNumberCountryList
-        :rtype: twilio.rest.api.v2010.account.AvailablePhoneNumberCountryList
-        """
-        return self._proxy.available_phone_numbers
-    
-    @property
-    def balance(self):
-        """
-        Access the balance
-
-        :returns: twilio.rest.api.v2010.account.BalanceList
-        :rtype: twilio.rest.api.v2010.account.BalanceList
-        """
-        return self._proxy.balance
-    
-    @property
-    def calls(self):
-        """
-        Access the calls
-
-        :returns: twilio.rest.api.v2010.account.CallList
-        :rtype: twilio.rest.api.v2010.account.CallList
-        """
-        return self._proxy.calls
-    
-    @property
-    def conferences(self):
-        """
-        Access the conferences
-
-        :returns: twilio.rest.api.v2010.account.ConferenceList
-        :rtype: twilio.rest.api.v2010.account.ConferenceList
-        """
-        return self._proxy.conferences
-    
-    @property
-    def connect_apps(self):
-        """
-        Access the connect_apps
-
-        :returns: twilio.rest.api.v2010.account.ConnectAppList
-        :rtype: twilio.rest.api.v2010.account.ConnectAppList
-        """
-        return self._proxy.connect_apps
-    
-    @property
-    def incoming_phone_numbers(self):
-        """
-        Access the incoming_phone_numbers
-
-        :returns: twilio.rest.api.v2010.account.IncomingPhoneNumberList
-        :rtype: twilio.rest.api.v2010.account.IncomingPhoneNumberList
-        """
-        return self._proxy.incoming_phone_numbers
-    
-    @property
-    def keys(self):
-        """
-        Access the keys
-
-        :returns: twilio.rest.api.v2010.account.KeyList
-        :rtype: twilio.rest.api.v2010.account.KeyList
-        """
-        return self._proxy.keys
-    
-    @property
-    def messages(self):
-        """
-        Access the messages
-
-        :returns: twilio.rest.api.v2010.account.MessageList
-        :rtype: twilio.rest.api.v2010.account.MessageList
-        """
-        return self._proxy.messages
-    
-    @property
-    def new_keys(self):
-        """
-        Access the new_keys
-
-        :returns: twilio.rest.api.v2010.account.NewKeyList
-        :rtype: twilio.rest.api.v2010.account.NewKeyList
-        """
-        return self._proxy.new_keys
-    
-    @property
-    def new_signing_keys(self):
-        """
-        Access the new_signing_keys
-
-        :returns: twilio.rest.api.v2010.account.NewSigningKeyList
-        :rtype: twilio.rest.api.v2010.account.NewSigningKeyList
-        """
-        return self._proxy.new_signing_keys
-    
-    @property
-    def notifications(self):
-        """
-        Access the notifications
-
-        :returns: twilio.rest.api.v2010.account.NotificationList
-        :rtype: twilio.rest.api.v2010.account.NotificationList
-        """
-        return self._proxy.notifications
-    
-    @property
-    def outgoing_caller_ids(self):
-        """
-        Access the outgoing_caller_ids
-
-        :returns: twilio.rest.api.v2010.account.OutgoingCallerIdList
-        :rtype: twilio.rest.api.v2010.account.OutgoingCallerIdList
-        """
-        return self._proxy.outgoing_caller_ids
-    
-    @property
-    def queues(self):
-        """
-        Access the queues
-
-        :returns: twilio.rest.api.v2010.account.QueueList
-        :rtype: twilio.rest.api.v2010.account.QueueList
-        """
-        return self._proxy.queues
-    
-    @property
-    def recordings(self):
-        """
-        Access the recordings
-
-        :returns: twilio.rest.api.v2010.account.RecordingList
-        :rtype: twilio.rest.api.v2010.account.RecordingList
-        """
-        return self._proxy.recordings
-    
-    @property
-    def short_codes(self):
-        """
-        Access the short_codes
-
-        :returns: twilio.rest.api.v2010.account.ShortCodeList
-        :rtype: twilio.rest.api.v2010.account.ShortCodeList
-        """
-        return self._proxy.short_codes
-    
-    @property
-    def signing_keys(self):
-        """
-        Access the signing_keys
-
-        :returns: twilio.rest.api.v2010.account.SigningKeyList
-        :rtype: twilio.rest.api.v2010.account.SigningKeyList
-        """
-        return self._proxy.signing_keys
-    
-    @property
-    def sip(self):
-        """
-        Access the sip
-
-        :returns: twilio.rest.api.v2010.account.SipList
-        :rtype: twilio.rest.api.v2010.account.SipList
-        """
-        return self._proxy.sip
-    
-    @property
-    def tokens(self):
-        """
-        Access the tokens
-
-        :returns: twilio.rest.api.v2010.account.TokenList
-        :rtype: twilio.rest.api.v2010.account.TokenList
-        """
-        return self._proxy.tokens
-    
-    @property
-    def transcriptions(self):
-        """
-        Access the transcriptions
-
-        :returns: twilio.rest.api.v2010.account.TranscriptionList
-        :rtype: twilio.rest.api.v2010.account.TranscriptionList
-        """
-        return self._proxy.transcriptions
-    
-    @property
-    def usage(self):
-        """
-        Access the usage
-
-        :returns: twilio.rest.api.v2010.account.UsageList
-        :rtype: twilio.rest.api.v2010.account.UsageList
-        """
-        return self._proxy.usage
-    
-    @property
-    def validation_requests(self):
-        """
-        Access the validation_requests
-
-        :returns: twilio.rest.api.v2010.account.ValidationRequestList
-        :rtype: twilio.rest.api.v2010.account.ValidationRequestList
-        """
-        return self._proxy.validation_requests
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Api.V2010.AccountInstance {}>'.format(context)
 
 

@@ -13,6 +13,7 @@
 """
 
 
+from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -225,91 +226,6 @@ class NetworkAccessProfilePage(Page):
 
 
 
-class NetworkAccessProfileContext(InstanceContext):
-
-    def __init__(self, version: Version, sid: str):
-        """
-        Initialize the NetworkAccessProfileContext
-
-        :param Version version: Version that contains the resource
-        :param sid: The SID of the Network Access Profile to update.
-
-        :returns: twilio.rest.supersim.v1.network_access_profile.NetworkAccessProfileContext
-        :rtype: twilio.rest.supersim.v1.network_access_profile.NetworkAccessProfileContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'sid': sid,
-        }
-        self._uri = '/NetworkAccessProfiles/{sid}'.format(**self._solution)
-        
-        self._networks = None
-    
-    def fetch(self):
-        """
-        Fetch the NetworkAccessProfileInstance
-        
-
-        :returns: The fetched NetworkAccessProfileInstance
-        :rtype: twilio.rest.supersim.v1.network_access_profile.NetworkAccessProfileInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return NetworkAccessProfileInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid'],
-            
-        )
-        
-    def update(self, unique_name=values.unset):
-        """
-        Update the NetworkAccessProfileInstance
-        
-        :params str unique_name: The new unique name of the Network Access Profile.
-
-        :returns: The updated NetworkAccessProfileInstance
-        :rtype: twilio.rest.supersim.v1.network_access_profile.NetworkAccessProfileInstance
-        """
-        data = values.of({ 
-            'UniqueName': unique_name,
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return NetworkAccessProfileInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid']
-        )
-        
-    
-    @property
-    def networks(self):
-        """
-        Access the networks
-
-        :returns: twilio.rest.supersim.v1.network_access_profile.NetworkAccessProfileNetworkList
-        :rtype: twilio.rest.supersim.v1.network_access_profile.NetworkAccessProfileNetworkList
-        """
-        if self._networks is None:
-            self._networks = NetworkAccessProfileNetworkList(self._version, self._solution['sid'],
-            )
-        return self._networks
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Supersim.V1.NetworkAccessProfileContext {}>'.format(context)
-
 class NetworkAccessProfileInstance(InstanceResource):
 
     def __init__(self, version, payload, sid: str=None):
@@ -441,5 +357,90 @@ class NetworkAccessProfileInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Supersim.V1.NetworkAccessProfileInstance {}>'.format(context)
+
+class NetworkAccessProfileContext(InstanceContext):
+
+    def __init__(self, version: Version, sid: str):
+        """
+        Initialize the NetworkAccessProfileContext
+
+        :param Version version: Version that contains the resource
+        :param sid: The SID of the Network Access Profile to update.
+
+        :returns: twilio.rest.supersim.v1.network_access_profile.NetworkAccessProfileContext
+        :rtype: twilio.rest.supersim.v1.network_access_profile.NetworkAccessProfileContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'sid': sid,
+        }
+        self._uri = '/NetworkAccessProfiles/{sid}'.format(**self._solution)
+        
+        self._networks = None
+    
+    def fetch(self):
+        """
+        Fetch the NetworkAccessProfileInstance
+        
+
+        :returns: The fetched NetworkAccessProfileInstance
+        :rtype: twilio.rest.supersim.v1.network_access_profile.NetworkAccessProfileInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return NetworkAccessProfileInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid'],
+            
+        )
+        
+    def update(self, unique_name=values.unset):
+        """
+        Update the NetworkAccessProfileInstance
+        
+        :params str unique_name: The new unique name of the Network Access Profile.
+
+        :returns: The updated NetworkAccessProfileInstance
+        :rtype: twilio.rest.supersim.v1.network_access_profile.NetworkAccessProfileInstance
+        """
+        data = values.of({ 
+            'UniqueName': unique_name,
+        })
+        
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return NetworkAccessProfileInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid']
+        )
+        
+    
+    @property
+    def networks(self):
+        """
+        Access the networks
+
+        :returns: twilio.rest.supersim.v1.network_access_profile.NetworkAccessProfileNetworkList
+        :rtype: twilio.rest.supersim.v1.network_access_profile.NetworkAccessProfileNetworkList
+        """
+        if self._networks is None:
+            self._networks = NetworkAccessProfileNetworkList(self._version, self._solution['sid'],
+            )
+        return self._networks
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Supersim.V1.NetworkAccessProfileContext {}>'.format(context)
 
 

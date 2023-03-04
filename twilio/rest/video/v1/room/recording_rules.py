@@ -13,6 +13,7 @@
 """
 
 
+from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -53,7 +54,6 @@ class RecordingRulesList(ListResource):
         :rtype: str
         """
         return '<Twilio.Video.V1.RecordingRulesList>'
-
 
 class RecordingRulesInstance(InstanceResource):
 
@@ -116,5 +116,6 @@ class RecordingRulesInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Video.V1.RecordingRulesInstance {}>'.format(context)
+
 
 

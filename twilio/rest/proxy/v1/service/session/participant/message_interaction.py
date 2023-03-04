@@ -13,6 +13,7 @@
 """
 
 
+from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -223,61 +224,6 @@ class MessageInteractionPage(Page):
 
 
 
-
-class MessageInteractionContext(InstanceContext):
-
-    def __init__(self, version: Version, service_sid: str, session_sid: str, participant_sid: str, sid: str):
-        """
-        Initialize the MessageInteractionContext
-
-        :param Version version: Version that contains the resource
-        :param service_sid: The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) of the resource to fetch.:param session_sid: The SID of the parent [Session](https://www.twilio.com/docs/proxy/api/session) of the resource to fetch.:param participant_sid: The SID of the [Participant](https://www.twilio.com/docs/proxy/api/participant) resource.:param sid: The Twilio-provided string that uniquely identifies the MessageInteraction resource to fetch.
-
-        :returns: twilio.rest.proxy.v1.service.session.participant.message_interaction.MessageInteractionContext
-        :rtype: twilio.rest.proxy.v1.service.session.participant.message_interaction.MessageInteractionContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'service_sid': service_sid,
-            'session_sid': session_sid,
-            'participant_sid': participant_sid,
-            'sid': sid,
-        }
-        self._uri = '/Services/{service_sid}/Sessions/{session_sid}/Participants/{participant_sid}/MessageInteractions/{sid}'.format(**self._solution)
-        
-    
-    def fetch(self):
-        """
-        Fetch the MessageInteractionInstance
-        
-
-        :returns: The fetched MessageInteractionInstance
-        :rtype: twilio.rest.proxy.v1.service.session.participant.message_interaction.MessageInteractionInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return MessageInteractionInstance(
-            self._version,
-            payload,
-            service_sid=self._solution['service_sid'],
-            session_sid=self._solution['session_sid'],
-            participant_sid=self._solution['participant_sid'],
-            sid=self._solution['sid'],
-            
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Proxy.V1.MessageInteractionContext {}>'.format(context)
 
 class MessageInteractionInstance(InstanceResource):
 
@@ -534,5 +480,60 @@ class MessageInteractionInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Proxy.V1.MessageInteractionInstance {}>'.format(context)
+
+class MessageInteractionContext(InstanceContext):
+
+    def __init__(self, version: Version, service_sid: str, session_sid: str, participant_sid: str, sid: str):
+        """
+        Initialize the MessageInteractionContext
+
+        :param Version version: Version that contains the resource
+        :param service_sid: The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) of the resource to fetch.:param session_sid: The SID of the parent [Session](https://www.twilio.com/docs/proxy/api/session) of the resource to fetch.:param participant_sid: The SID of the [Participant](https://www.twilio.com/docs/proxy/api/participant) resource.:param sid: The Twilio-provided string that uniquely identifies the MessageInteraction resource to fetch.
+
+        :returns: twilio.rest.proxy.v1.service.session.participant.message_interaction.MessageInteractionContext
+        :rtype: twilio.rest.proxy.v1.service.session.participant.message_interaction.MessageInteractionContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'service_sid': service_sid,
+            'session_sid': session_sid,
+            'participant_sid': participant_sid,
+            'sid': sid,
+        }
+        self._uri = '/Services/{service_sid}/Sessions/{session_sid}/Participants/{participant_sid}/MessageInteractions/{sid}'.format(**self._solution)
+        
+    
+    def fetch(self):
+        """
+        Fetch the MessageInteractionInstance
+        
+
+        :returns: The fetched MessageInteractionInstance
+        :rtype: twilio.rest.proxy.v1.service.session.participant.message_interaction.MessageInteractionInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return MessageInteractionInstance(
+            self._version,
+            payload,
+            service_sid=self._solution['service_sid'],
+            session_sid=self._solution['session_sid'],
+            participant_sid=self._solution['participant_sid'],
+            sid=self._solution['sid'],
+            
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Proxy.V1.MessageInteractionContext {}>'.format(context)
 
 

@@ -13,6 +13,7 @@
 """
 
 
+from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -255,94 +256,6 @@ class TriggerPage(Page):
 
 
 
-
-class TriggerContext(InstanceContext):
-
-    def __init__(self, version: Version, account_sid: str, sid: str):
-        """
-        Initialize the TriggerContext
-
-        :param Version version: Version that contains the resource
-        :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the UsageTrigger resources to update.:param sid: The Twilio-provided string that uniquely identifies the UsageTrigger resource to update.
-
-        :returns: twilio.rest.api.v2010.account.usage.trigger.TriggerContext
-        :rtype: twilio.rest.api.v2010.account.usage.trigger.TriggerContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'account_sid': account_sid,
-            'sid': sid,
-        }
-        self._uri = '/Accounts/{account_sid}/Usage/Triggers/{sid}.json'.format(**self._solution)
-        
-    
-    def delete(self):
-        """
-        Deletes the TriggerInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(method='DELETE', uri=self._uri,)
-        
-    def fetch(self):
-        """
-        Fetch the TriggerInstance
-        
-
-        :returns: The fetched TriggerInstance
-        :rtype: twilio.rest.api.v2010.account.usage.trigger.TriggerInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return TriggerInstance(
-            self._version,
-            payload,
-            account_sid=self._solution['account_sid'],
-            sid=self._solution['sid'],
-            
-        )
-        
-    def update(self, callback_method=values.unset, callback_url=values.unset, friendly_name=values.unset):
-        """
-        Update the TriggerInstance
-        
-        :params str callback_method: The HTTP method we should use to call `callback_url`. Can be: `GET` or `POST` and the default is `POST`.
-        :params str callback_url: The URL we should call using `callback_method` when the trigger fires.
-        :params str friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
-
-        :returns: The updated TriggerInstance
-        :rtype: twilio.rest.api.v2010.account.usage.trigger.TriggerInstance
-        """
-        data = values.of({ 
-            'CallbackMethod': callback_method,
-            'CallbackUrl': callback_url,
-            'FriendlyName': friendly_name,
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return TriggerInstance(
-            self._version,
-            payload,
-            account_sid=self._solution['account_sid'],
-            sid=self._solution['sid']
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Api.V2010.TriggerContext {}>'.format(context)
 
 class TriggerInstance(InstanceResource):
 
@@ -816,5 +729,93 @@ class TriggerInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Api.V2010.TriggerInstance {}>'.format(context)
+
+class TriggerContext(InstanceContext):
+
+    def __init__(self, version: Version, account_sid: str, sid: str):
+        """
+        Initialize the TriggerContext
+
+        :param Version version: Version that contains the resource
+        :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the UsageTrigger resources to update.:param sid: The Twilio-provided string that uniquely identifies the UsageTrigger resource to update.
+
+        :returns: twilio.rest.api.v2010.account.usage.trigger.TriggerContext
+        :rtype: twilio.rest.api.v2010.account.usage.trigger.TriggerContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'account_sid': account_sid,
+            'sid': sid,
+        }
+        self._uri = '/Accounts/{account_sid}/Usage/Triggers/{sid}.json'.format(**self._solution)
+        
+    
+    def delete(self):
+        """
+        Deletes the TriggerInstance
+
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(method='DELETE', uri=self._uri,)
+        
+    def fetch(self):
+        """
+        Fetch the TriggerInstance
+        
+
+        :returns: The fetched TriggerInstance
+        :rtype: twilio.rest.api.v2010.account.usage.trigger.TriggerInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return TriggerInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+            sid=self._solution['sid'],
+            
+        )
+        
+    def update(self, callback_method=values.unset, callback_url=values.unset, friendly_name=values.unset):
+        """
+        Update the TriggerInstance
+        
+        :params str callback_method: The HTTP method we should use to call `callback_url`. Can be: `GET` or `POST` and the default is `POST`.
+        :params str callback_url: The URL we should call using `callback_method` when the trigger fires.
+        :params str friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+
+        :returns: The updated TriggerInstance
+        :rtype: twilio.rest.api.v2010.account.usage.trigger.TriggerInstance
+        """
+        data = values.of({ 
+            'CallbackMethod': callback_method,
+            'CallbackUrl': callback_url,
+            'FriendlyName': friendly_name,
+        })
+        
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return TriggerInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+            sid=self._solution['sid']
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Api.V2010.TriggerContext {}>'.format(context)
 
 

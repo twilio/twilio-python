@@ -13,6 +13,7 @@
 """
 
 
+from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -236,92 +237,6 @@ class CertificatePage(Page):
 
 
 
-class CertificateContext(InstanceContext):
-
-    def __init__(self, version: Version, fleet_sid: str, sid: str):
-        """
-        Initialize the CertificateContext
-
-        :param Version version: Version that contains the resource
-        :param fleet_sid: :param sid: Provides a 34 character string that uniquely identifies the requested Certificate credential resource.
-
-        :returns: twilio.rest.preview.deployed_devices.fleet.certificate.CertificateContext
-        :rtype: twilio.rest.preview.deployed_devices.fleet.certificate.CertificateContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'fleet_sid': fleet_sid,
-            'sid': sid,
-        }
-        self._uri = '/Fleets/{fleet_sid}/Certificates/{sid}'.format(**self._solution)
-        
-    
-    def delete(self):
-        """
-        Deletes the CertificateInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(method='DELETE', uri=self._uri,)
-        
-    def fetch(self):
-        """
-        Fetch the CertificateInstance
-        
-
-        :returns: The fetched CertificateInstance
-        :rtype: twilio.rest.preview.deployed_devices.fleet.certificate.CertificateInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return CertificateInstance(
-            self._version,
-            payload,
-            fleet_sid=self._solution['fleet_sid'],
-            sid=self._solution['sid'],
-            
-        )
-        
-    def update(self, friendly_name=values.unset, device_sid=values.unset):
-        """
-        Update the CertificateInstance
-        
-        :params str friendly_name: Provides a human readable descriptive text for this Certificate credential, up to 256 characters long.
-        :params str device_sid: Provides the unique string identifier of an existing Device to become authenticated with this Certificate credential.
-
-        :returns: The updated CertificateInstance
-        :rtype: twilio.rest.preview.deployed_devices.fleet.certificate.CertificateInstance
-        """
-        data = values.of({ 
-            'FriendlyName': friendly_name,
-            'DeviceSid': device_sid,
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return CertificateInstance(
-            self._version,
-            payload,
-            fleet_sid=self._solution['fleet_sid'],
-            sid=self._solution['sid']
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Preview.DeployedDevices.CertificateContext {}>'.format(context)
-
 class CertificateInstance(InstanceResource):
 
     def __init__(self, version, payload, fleet_sid: str, sid: str=None):
@@ -472,5 +387,91 @@ class CertificateInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Preview.DeployedDevices.CertificateInstance {}>'.format(context)
+
+class CertificateContext(InstanceContext):
+
+    def __init__(self, version: Version, fleet_sid: str, sid: str):
+        """
+        Initialize the CertificateContext
+
+        :param Version version: Version that contains the resource
+        :param fleet_sid: :param sid: Provides a 34 character string that uniquely identifies the requested Certificate credential resource.
+
+        :returns: twilio.rest.preview.deployed_devices.fleet.certificate.CertificateContext
+        :rtype: twilio.rest.preview.deployed_devices.fleet.certificate.CertificateContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'fleet_sid': fleet_sid,
+            'sid': sid,
+        }
+        self._uri = '/Fleets/{fleet_sid}/Certificates/{sid}'.format(**self._solution)
+        
+    
+    def delete(self):
+        """
+        Deletes the CertificateInstance
+
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(method='DELETE', uri=self._uri,)
+        
+    def fetch(self):
+        """
+        Fetch the CertificateInstance
+        
+
+        :returns: The fetched CertificateInstance
+        :rtype: twilio.rest.preview.deployed_devices.fleet.certificate.CertificateInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return CertificateInstance(
+            self._version,
+            payload,
+            fleet_sid=self._solution['fleet_sid'],
+            sid=self._solution['sid'],
+            
+        )
+        
+    def update(self, friendly_name=values.unset, device_sid=values.unset):
+        """
+        Update the CertificateInstance
+        
+        :params str friendly_name: Provides a human readable descriptive text for this Certificate credential, up to 256 characters long.
+        :params str device_sid: Provides the unique string identifier of an existing Device to become authenticated with this Certificate credential.
+
+        :returns: The updated CertificateInstance
+        :rtype: twilio.rest.preview.deployed_devices.fleet.certificate.CertificateInstance
+        """
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+            'DeviceSid': device_sid,
+        })
+        
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return CertificateInstance(
+            self._version,
+            payload,
+            fleet_sid=self._solution['fleet_sid'],
+            sid=self._solution['sid']
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Preview.DeployedDevices.CertificateContext {}>'.format(context)
 
 

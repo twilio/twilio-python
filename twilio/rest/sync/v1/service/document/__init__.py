@@ -13,6 +13,7 @@
 """
 
 
+from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -231,107 +232,6 @@ class DocumentPage(Page):
 
 
 
-class DocumentContext(InstanceContext):
-
-    def __init__(self, version: Version, service_sid: str, sid: str):
-        """
-        Initialize the DocumentContext
-
-        :param Version version: Version that contains the resource
-        :param service_sid: The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Document resource to update.:param sid: The SID of the Document resource to update. Can be the Document resource's `sid` or its `unique_name`.
-
-        :returns: twilio.rest.sync.v1.service.document.DocumentContext
-        :rtype: twilio.rest.sync.v1.service.document.DocumentContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'service_sid': service_sid,
-            'sid': sid,
-        }
-        self._uri = '/Services/{service_sid}/Documents/{sid}'.format(**self._solution)
-        
-        self._document_permissions = None
-    
-    def delete(self):
-        """
-        Deletes the DocumentInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(method='DELETE', uri=self._uri,)
-        
-    def fetch(self):
-        """
-        Fetch the DocumentInstance
-        
-
-        :returns: The fetched DocumentInstance
-        :rtype: twilio.rest.sync.v1.service.document.DocumentInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return DocumentInstance(
-            self._version,
-            payload,
-            service_sid=self._solution['service_sid'],
-            sid=self._solution['sid'],
-            
-        )
-        
-    def update(self, if_match=values.unset, data=values.unset, ttl=values.unset):
-        """
-        Update the DocumentInstance
-        
-        :params str if_match: The If-Match HTTP request header
-        :params object data: A JSON string that represents an arbitrary, schema-less object that the Sync Document stores. Can be up to 16 KiB in length.
-        :params int ttl: How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Sync Document expires and is deleted (time-to-live).
-
-        :returns: The updated DocumentInstance
-        :rtype: twilio.rest.sync.v1.service.document.DocumentInstance
-        """
-        data = values.of({ 
-            'Data': serialize.object(data),
-            'Ttl': ttl,
-        })
-        headers = values.of({'If-Match': if_match, })
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data, headers=headers)
-
-        return DocumentInstance(
-            self._version,
-            payload,
-            service_sid=self._solution['service_sid'],
-            sid=self._solution['sid']
-        )
-        
-    
-    @property
-    def document_permissions(self):
-        """
-        Access the document_permissions
-
-        :returns: twilio.rest.sync.v1.service.document.DocumentPermissionList
-        :rtype: twilio.rest.sync.v1.service.document.DocumentPermissionList
-        """
-        if self._document_permissions is None:
-            self._document_permissions = DocumentPermissionList(self._version, self._solution['service_sid'], self._solution['sid'],
-            )
-        return self._document_permissions
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Sync.V1.DocumentContext {}>'.format(context)
-
 class DocumentInstance(InstanceResource):
 
     def __init__(self, version, payload, service_sid: str, sid: str=None):
@@ -520,5 +420,106 @@ class DocumentInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Sync.V1.DocumentInstance {}>'.format(context)
+
+class DocumentContext(InstanceContext):
+
+    def __init__(self, version: Version, service_sid: str, sid: str):
+        """
+        Initialize the DocumentContext
+
+        :param Version version: Version that contains the resource
+        :param service_sid: The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Document resource to update.:param sid: The SID of the Document resource to update. Can be the Document resource's `sid` or its `unique_name`.
+
+        :returns: twilio.rest.sync.v1.service.document.DocumentContext
+        :rtype: twilio.rest.sync.v1.service.document.DocumentContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'service_sid': service_sid,
+            'sid': sid,
+        }
+        self._uri = '/Services/{service_sid}/Documents/{sid}'.format(**self._solution)
+        
+        self._document_permissions = None
+    
+    def delete(self):
+        """
+        Deletes the DocumentInstance
+
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(method='DELETE', uri=self._uri,)
+        
+    def fetch(self):
+        """
+        Fetch the DocumentInstance
+        
+
+        :returns: The fetched DocumentInstance
+        :rtype: twilio.rest.sync.v1.service.document.DocumentInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return DocumentInstance(
+            self._version,
+            payload,
+            service_sid=self._solution['service_sid'],
+            sid=self._solution['sid'],
+            
+        )
+        
+    def update(self, if_match=values.unset, data=values.unset, ttl=values.unset):
+        """
+        Update the DocumentInstance
+        
+        :params str if_match: The If-Match HTTP request header
+        :params object data: A JSON string that represents an arbitrary, schema-less object that the Sync Document stores. Can be up to 16 KiB in length.
+        :params int ttl: How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Sync Document expires and is deleted (time-to-live).
+
+        :returns: The updated DocumentInstance
+        :rtype: twilio.rest.sync.v1.service.document.DocumentInstance
+        """
+        data = values.of({ 
+            'Data': serialize.object(data),
+            'Ttl': ttl,
+        })
+        headers = values.of({'If-Match': if_match, })
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data, headers=headers)
+
+        return DocumentInstance(
+            self._version,
+            payload,
+            service_sid=self._solution['service_sid'],
+            sid=self._solution['sid']
+        )
+        
+    
+    @property
+    def document_permissions(self):
+        """
+        Access the document_permissions
+
+        :returns: twilio.rest.sync.v1.service.document.DocumentPermissionList
+        :rtype: twilio.rest.sync.v1.service.document.DocumentPermissionList
+        """
+        if self._document_permissions is None:
+            self._document_permissions = DocumentPermissionList(self._version, self._solution['service_sid'], self._solution['sid'],
+            )
+        return self._document_permissions
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Sync.V1.DocumentContext {}>'.format(context)
 
 

@@ -13,6 +13,7 @@
 """
 
 
+from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -69,64 +70,6 @@ class SecondaryAuthTokenList(ListResource):
         :rtype: str
         """
         return '<Twilio.Accounts.V1.SecondaryAuthTokenList>'
-
-class SecondaryAuthTokenContext(InstanceContext):
-
-    def __init__(self, version: Version):
-        """
-        Initialize the SecondaryAuthTokenContext
-
-        :param Version version: Version that contains the resource
-        
-
-        :returns: twilio.rest.accounts.v1.secondary_auth_token.SecondaryAuthTokenContext
-        :rtype: twilio.rest.accounts.v1.secondary_auth_token.SecondaryAuthTokenContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-        }
-        self._uri = '/AuthTokens/Secondary'.format(**self._solution)
-        
-    
-    def create(self):
-        """
-        Create the SecondaryAuthTokenInstance
-        
-
-        :returns: The created SecondaryAuthTokenInstance
-        :rtype: twilio.rest.accounts.v1.secondary_auth_token.SecondaryAuthTokenInstance
-        """
-        data = values.of({ 
-        })
-
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
-
-        return SecondaryAuthTokenInstance(
-            self._version,
-            payload
-        )
-    
-    def delete(self):
-        """
-        Deletes the SecondaryAuthTokenInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(method='DELETE', uri=self._uri,)
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Accounts.V1.SecondaryAuthTokenContext {}>'.format(context)
 
 class SecondaryAuthTokenInstance(InstanceResource):
 
@@ -230,5 +173,63 @@ class SecondaryAuthTokenInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Accounts.V1.SecondaryAuthTokenInstance {}>'.format(context)
+
+class SecondaryAuthTokenContext(InstanceContext):
+
+    def __init__(self, version: Version):
+        """
+        Initialize the SecondaryAuthTokenContext
+
+        :param Version version: Version that contains the resource
+        
+
+        :returns: twilio.rest.accounts.v1.secondary_auth_token.SecondaryAuthTokenContext
+        :rtype: twilio.rest.accounts.v1.secondary_auth_token.SecondaryAuthTokenContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+        }
+        self._uri = '/AuthTokens/Secondary'.format(**self._solution)
+        
+    
+    def create(self):
+        """
+        Create the SecondaryAuthTokenInstance
+        
+
+        :returns: The created SecondaryAuthTokenInstance
+        :rtype: twilio.rest.accounts.v1.secondary_auth_token.SecondaryAuthTokenInstance
+        """
+        data = values.of({ 
+        })
+
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+
+        return SecondaryAuthTokenInstance(
+            self._version,
+            payload
+        )
+    
+    def delete(self):
+        """
+        Deletes the SecondaryAuthTokenInstance
+
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(method='DELETE', uri=self._uri,)
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Accounts.V1.SecondaryAuthTokenContext {}>'.format(context)
 
 

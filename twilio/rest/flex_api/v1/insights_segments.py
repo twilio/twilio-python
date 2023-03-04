@@ -13,6 +13,7 @@
 """
 
 
+from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -20,7 +21,7 @@ from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
-from twilio.base.page import Page
+
 
 
 class InsightsSegmentsList(ListResource):
@@ -38,105 +39,10 @@ class InsightsSegmentsList(ListResource):
 
         # Path Solution
         self._solution = {  }
-        self._uri = '/Insights/Segments'.format(**self._solution)
+        
         
         
     
-    
-    def stream(self, token=values.unset, reservation_id=values.unset, limit=None, page_size=None):
-        """
-        Streams InsightsSegmentsInstance records from the API as a generator stream.
-        This operation lazily loads records as efficiently as possible until the limit
-        is reached.
-        The results are returned as a generator, so this operation is memory efficient.
-        
-        :param str token: The Token HTTP request header
-        :param list[str] reservation_id: The list of reservation Ids
-        :param int limit: Upper limit for the number of records to return. stream()
-                          guarantees to never return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, stream() will attempt to read the
-                              limit with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.flex_api.v1.insights_segments.InsightsSegmentsInstance]
-        """
-        limits = self._version.read_limits(limit, page_size)
-        page = self.page(
-            token=token,
-            reservation_id=reservation_id,
-            page_size=limits['page_size']
-        )
-
-        return self._version.stream(page, limits['limit'])
-
-    def list(self, token=values.unset, reservation_id=values.unset, limit=None, page_size=None):
-        """
-        Lists InsightsSegmentsInstance records from the API as a list.
-        Unlike stream(), this operation is eager and will load `limit` records into
-        memory before returning.
-        
-        :param str token: The Token HTTP request header
-        :param list[str] reservation_id: The list of reservation Ids
-        :param int limit: Upper limit for the number of records to return. list() guarantees
-                          never to return more than limit.  Default is no limit
-        :param int page_size: Number of records to fetch per request, when not set will use
-                              the default value of 50 records.  If no page_size is defined
-                              but a limit is defined, list() will attempt to read the limit
-                              with the most efficient page size, i.e. min(limit, 1000)
-
-        :returns: Generator that will yield up to limit results
-        :rtype: list[twilio.rest.flex_api.v1.insights_segments.InsightsSegmentsInstance]
-        """
-        return list(self.stream(
-            token=token,
-            reservation_id=reservation_id,
-            limit=limit,
-            page_size=page_size,
-        ))
-
-    def page(self, token=values.unset, reservation_id=values.unset, page_token=values.unset, page_number=values.unset, page_size=values.unset):
-        """
-        Retrieve a single page of InsightsSegmentsInstance records from the API.
-        Request is executed immediately
-        
-        :param str token: The Token HTTP request header
-        :param list[str] reservation_id: The list of reservation Ids
-        :param str page_token: PageToken provided by the API
-        :param int page_number: Page Number, this value is simply for client state
-        :param int page_size: Number of records to return, defaults to 50
-
-        :returns: Page of InsightsSegmentsInstance
-        :rtype: twilio.rest.flex_api.v1.insights_segments.InsightsSegmentsPage
-        """
-        data = values.of({ 
-            'Token': token,
-            'ReservationId': serialize.map(reservation_id),
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
-
-        response = self._version.page(method='GET', uri=self._uri, params=data)
-        return InsightsSegmentsPage(self._version, response, self._solution)
-
-    def get_page(self, target_url):
-        """
-        Retrieve a specific page of InsightsSegmentsInstance records from the API.
-        Request is executed immediately
-
-        :param str target_url: API-generated URL for the requested results page
-
-        :returns: Page of InsightsSegmentsInstance
-        :rtype: twilio.rest.flex_api.v1.insights_segments.InsightsSegmentsPage
-        """
-        response = self._version.domain.twilio.request(
-            'GET',
-            target_url
-        )
-        return InsightsSegmentsPage(self._version, response, self._solution)
-
 
     def get(self, segment_id):
         """
@@ -167,103 +73,6 @@ class InsightsSegmentsList(ListResource):
         :rtype: str
         """
         return '<Twilio.FlexApi.V1.InsightsSegmentsList>'
-
-
-
-
-class InsightsSegmentsPage(Page):
-
-    def __init__(self, version, response, solution):
-        """
-        Initialize the InsightsSegmentsPage
-
-        :param Version version: Version that contains the resource
-        :param Response response: Response from the API
-
-        :returns: twilio.rest.flex_api.v1.insights_segments.InsightsSegmentsPage
-        :rtype: twilio.rest.flex_api.v1.insights_segments.InsightsSegmentsPage
-        """
-        super().__init__(version, response)
-
-        # Path solution
-        self._solution = solution
-
-    def get_instance(self, payload):
-        """
-        Build an instance of InsightsSegmentsInstance
-
-        :param dict payload: Payload response from the API
-
-        :returns: twilio.rest.flex_api.v1.insights_segments.InsightsSegmentsInstance
-        :rtype: twilio.rest.flex_api.v1.insights_segments.InsightsSegmentsInstance
-        """
-        return InsightsSegmentsInstance(self._version, payload)
-
-    def __repr__(self):
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        return '<Twilio.FlexApi.V1.InsightsSegmentsPage>'
-
-
-
-
-class InsightsSegmentsContext(InstanceContext):
-
-    def __init__(self, version: Version, segment_id: str):
-        """
-        Initialize the InsightsSegmentsContext
-
-        :param Version version: Version that contains the resource
-        :param segment_id: To unique id of the segment
-
-        :returns: twilio.rest.flex_api.v1.insights_segments.InsightsSegmentsContext
-        :rtype: twilio.rest.flex_api.v1.insights_segments.InsightsSegmentsContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'segment_id': segment_id,
-        }
-        self._uri = '/Insights/Segments/{segment_id}'.format(**self._solution)
-        
-    
-    def fetch(self, token=values.unset):
-        """
-        Fetch the InsightsSegmentsInstance
-        
-        :params str token: The Token HTTP request header
-
-        :returns: The fetched InsightsSegmentsInstance
-        :rtype: twilio.rest.flex_api.v1.insights_segments.InsightsSegmentsInstance
-        """
-        
-        data = values.of({ 
-            'Token': token,
-        })
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, params=data)
-
-        return InsightsSegmentsInstance(
-            self._version,
-            payload,
-            segment_id=self._solution['segment_id'],
-            
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.FlexApi.V1.InsightsSegmentsContext {}>'.format(context)
 
 class InsightsSegmentsInstance(InstanceResource):
 
@@ -463,8 +272,8 @@ class InsightsSegmentsInstance(InstanceResource):
     @property
     def media(self):
         """
-        :returns: The media identifiers of the conversation.
-        :rtype: dict
+        :returns: The link for the conversation.
+        :rtype: str
         """
         return self._properties['media']
     
@@ -511,5 +320,59 @@ class InsightsSegmentsInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.FlexApi.V1.InsightsSegmentsInstance {}>'.format(context)
+
+class InsightsSegmentsContext(InstanceContext):
+
+    def __init__(self, version: Version, segment_id: str):
+        """
+        Initialize the InsightsSegmentsContext
+
+        :param Version version: Version that contains the resource
+        :param segment_id: To unique id of the segment
+
+        :returns: twilio.rest.flex_api.v1.insights_segments.InsightsSegmentsContext
+        :rtype: twilio.rest.flex_api.v1.insights_segments.InsightsSegmentsContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'segment_id': segment_id,
+        }
+        self._uri = '/Insights/Segments/{segment_id}'.format(**self._solution)
+        
+    
+    def fetch(self, token=values.unset):
+        """
+        Fetch the InsightsSegmentsInstance
+        
+        :params str token: The Token HTTP request header
+
+        :returns: The fetched InsightsSegmentsInstance
+        :rtype: twilio.rest.flex_api.v1.insights_segments.InsightsSegmentsInstance
+        """
+        
+        data = values.of({ 
+            'Token': token,
+        })
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, params=data)
+
+        return InsightsSegmentsInstance(
+            self._version,
+            payload,
+            segment_id=self._solution['segment_id'],
+            
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.FlexApi.V1.InsightsSegmentsContext {}>'.format(context)
 
 

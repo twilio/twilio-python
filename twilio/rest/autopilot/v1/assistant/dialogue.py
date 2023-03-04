@@ -13,6 +13,7 @@
 """
 
 
+from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -73,57 +74,6 @@ class DialogueList(ListResource):
         :rtype: str
         """
         return '<Twilio.Autopilot.V1.DialogueList>'
-
-class DialogueContext(InstanceContext):
-
-    def __init__(self, version: Version, assistant_sid: str, sid: str):
-        """
-        Initialize the DialogueContext
-
-        :param Version version: Version that contains the resource
-        :param assistant_sid: The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the resource to fetch.:param sid: The Twilio-provided string that uniquely identifies the Dialogue resource to fetch.
-
-        :returns: twilio.rest.autopilot.v1.assistant.dialogue.DialogueContext
-        :rtype: twilio.rest.autopilot.v1.assistant.dialogue.DialogueContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'assistant_sid': assistant_sid,
-            'sid': sid,
-        }
-        self._uri = '/Assistants/{assistant_sid}/Dialogues/{sid}'.format(**self._solution)
-        
-    
-    def fetch(self):
-        """
-        Fetch the DialogueInstance
-        
-
-        :returns: The fetched DialogueInstance
-        :rtype: twilio.rest.autopilot.v1.assistant.dialogue.DialogueInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return DialogueInstance(
-            self._version,
-            payload,
-            assistant_sid=self._solution['assistant_sid'],
-            sid=self._solution['sid'],
-            
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Autopilot.V1.DialogueContext {}>'.format(context)
 
 class DialogueInstance(InstanceResource):
 
@@ -217,5 +167,56 @@ class DialogueInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Autopilot.V1.DialogueInstance {}>'.format(context)
+
+class DialogueContext(InstanceContext):
+
+    def __init__(self, version: Version, assistant_sid: str, sid: str):
+        """
+        Initialize the DialogueContext
+
+        :param Version version: Version that contains the resource
+        :param assistant_sid: The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the resource to fetch.:param sid: The Twilio-provided string that uniquely identifies the Dialogue resource to fetch.
+
+        :returns: twilio.rest.autopilot.v1.assistant.dialogue.DialogueContext
+        :rtype: twilio.rest.autopilot.v1.assistant.dialogue.DialogueContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'assistant_sid': assistant_sid,
+            'sid': sid,
+        }
+        self._uri = '/Assistants/{assistant_sid}/Dialogues/{sid}'.format(**self._solution)
+        
+    
+    def fetch(self):
+        """
+        Fetch the DialogueInstance
+        
+
+        :returns: The fetched DialogueInstance
+        :rtype: twilio.rest.autopilot.v1.assistant.dialogue.DialogueInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return DialogueInstance(
+            self._version,
+            payload,
+            assistant_sid=self._solution['assistant_sid'],
+            sid=self._solution['sid'],
+            
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Autopilot.V1.DialogueContext {}>'.format(context)
 
 

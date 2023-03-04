@@ -13,6 +13,7 @@
 """
 
 
+from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -223,67 +224,6 @@ class ShortCodePage(Page):
 
 
 
-class ShortCodeContext(InstanceContext):
-
-    def __init__(self, version: Version, service_sid: str, sid: str):
-        """
-        Initialize the ShortCodeContext
-
-        :param Version version: Version that contains the resource
-        :param service_sid: The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to fetch the resource from.:param sid: The SID of the ShortCode resource to fetch.
-
-        :returns: twilio.rest.messaging.v1.service.short_code.ShortCodeContext
-        :rtype: twilio.rest.messaging.v1.service.short_code.ShortCodeContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'service_sid': service_sid,
-            'sid': sid,
-        }
-        self._uri = '/Services/{service_sid}/ShortCodes/{sid}'.format(**self._solution)
-        
-    
-    def delete(self):
-        """
-        Deletes the ShortCodeInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(method='DELETE', uri=self._uri,)
-        
-    def fetch(self):
-        """
-        Fetch the ShortCodeInstance
-        
-
-        :returns: The fetched ShortCodeInstance
-        :rtype: twilio.rest.messaging.v1.service.short_code.ShortCodeInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return ShortCodeInstance(
-            self._version,
-            payload,
-            service_sid=self._solution['service_sid'],
-            sid=self._solution['sid'],
-            
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Messaging.V1.ShortCodeContext {}>'.format(context)
-
 class ShortCodeInstance(InstanceResource):
 
     def __init__(self, version, payload, service_sid: str, sid: str=None):
@@ -422,5 +362,66 @@ class ShortCodeInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Messaging.V1.ShortCodeInstance {}>'.format(context)
+
+class ShortCodeContext(InstanceContext):
+
+    def __init__(self, version: Version, service_sid: str, sid: str):
+        """
+        Initialize the ShortCodeContext
+
+        :param Version version: Version that contains the resource
+        :param service_sid: The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to fetch the resource from.:param sid: The SID of the ShortCode resource to fetch.
+
+        :returns: twilio.rest.messaging.v1.service.short_code.ShortCodeContext
+        :rtype: twilio.rest.messaging.v1.service.short_code.ShortCodeContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'service_sid': service_sid,
+            'sid': sid,
+        }
+        self._uri = '/Services/{service_sid}/ShortCodes/{sid}'.format(**self._solution)
+        
+    
+    def delete(self):
+        """
+        Deletes the ShortCodeInstance
+
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(method='DELETE', uri=self._uri,)
+        
+    def fetch(self):
+        """
+        Fetch the ShortCodeInstance
+        
+
+        :returns: The fetched ShortCodeInstance
+        :rtype: twilio.rest.messaging.v1.service.short_code.ShortCodeInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return ShortCodeInstance(
+            self._version,
+            payload,
+            service_sid=self._solution['service_sid'],
+            sid=self._solution['sid'],
+            
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Messaging.V1.ShortCodeContext {}>'.format(context)
 
 

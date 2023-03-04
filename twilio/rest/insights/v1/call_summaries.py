@@ -13,6 +13,7 @@
 """
 
 
+from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -283,7 +284,6 @@ class CallSummariesPage(Page):
 
 
 
-
 class CallSummariesInstance(InstanceResource):
 
     class CallSummariesAnsweredBy(object):
@@ -546,5 +546,6 @@ class CallSummariesInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Insights.V1.CallSummariesInstance {}>'.format(context)
+
 
 

@@ -13,6 +13,7 @@
 """
 
 
+from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -228,149 +229,6 @@ class ServicePage(Page):
 
 
 
-class ServiceContext(InstanceContext):
-
-    def __init__(self, version: Version, sid: str):
-        """
-        Initialize the ServiceContext
-
-        :param Version version: Version that contains the resource
-        :param sid: A 34 character string that uniquely identifies this resource.
-
-        :returns: twilio.rest.conversations.v1.service.ServiceContext
-        :rtype: twilio.rest.conversations.v1.service.ServiceContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'sid': sid,
-        }
-        self._uri = '/Services/{sid}'.format(**self._solution)
-        
-        self._bindings = None
-        self._configuration = None
-        self._conversations = None
-        self._participant_conversations = None
-        self._roles = None
-        self._users = None
-    
-    def delete(self):
-        """
-        Deletes the ServiceInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(method='DELETE', uri=self._uri,)
-        
-    def fetch(self):
-        """
-        Fetch the ServiceInstance
-        
-
-        :returns: The fetched ServiceInstance
-        :rtype: twilio.rest.conversations.v1.service.ServiceInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return ServiceInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid'],
-            
-        )
-        
-    
-    @property
-    def bindings(self):
-        """
-        Access the bindings
-
-        :returns: twilio.rest.conversations.v1.service.BindingList
-        :rtype: twilio.rest.conversations.v1.service.BindingList
-        """
-        if self._bindings is None:
-            self._bindings = BindingList(self._version, self._solution['sid'],
-            )
-        return self._bindings
-    
-    @property
-    def configuration(self):
-        """
-        Access the configuration
-
-        :returns: twilio.rest.conversations.v1.service.ConfigurationList
-        :rtype: twilio.rest.conversations.v1.service.ConfigurationList
-        """
-        if self._configuration is None:
-            self._configuration = ConfigurationList(self._version, self._solution['sid'],
-            )
-        return self._configuration
-    
-    @property
-    def conversations(self):
-        """
-        Access the conversations
-
-        :returns: twilio.rest.conversations.v1.service.ConversationList
-        :rtype: twilio.rest.conversations.v1.service.ConversationList
-        """
-        if self._conversations is None:
-            self._conversations = ConversationList(self._version, self._solution['sid'],
-            )
-        return self._conversations
-    
-    @property
-    def participant_conversations(self):
-        """
-        Access the participant_conversations
-
-        :returns: twilio.rest.conversations.v1.service.ParticipantConversationList
-        :rtype: twilio.rest.conversations.v1.service.ParticipantConversationList
-        """
-        if self._participant_conversations is None:
-            self._participant_conversations = ParticipantConversationList(self._version, self._solution['sid'],
-            )
-        return self._participant_conversations
-    
-    @property
-    def roles(self):
-        """
-        Access the roles
-
-        :returns: twilio.rest.conversations.v1.service.RoleList
-        :rtype: twilio.rest.conversations.v1.service.RoleList
-        """
-        if self._roles is None:
-            self._roles = RoleList(self._version, self._solution['sid'],
-            )
-        return self._roles
-    
-    @property
-    def users(self):
-        """
-        Access the users
-
-        :returns: twilio.rest.conversations.v1.service.UserList
-        :rtype: twilio.rest.conversations.v1.service.UserList
-        """
-        if self._users is None:
-            self._users = UserList(self._version, self._solution['sid'],
-            )
-        return self._users
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Conversations.V1.ServiceContext {}>'.format(context)
-
 class ServiceInstance(InstanceResource):
 
     def __init__(self, version, payload, sid: str=None):
@@ -551,5 +409,148 @@ class ServiceInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Conversations.V1.ServiceInstance {}>'.format(context)
+
+class ServiceContext(InstanceContext):
+
+    def __init__(self, version: Version, sid: str):
+        """
+        Initialize the ServiceContext
+
+        :param Version version: Version that contains the resource
+        :param sid: A 34 character string that uniquely identifies this resource.
+
+        :returns: twilio.rest.conversations.v1.service.ServiceContext
+        :rtype: twilio.rest.conversations.v1.service.ServiceContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'sid': sid,
+        }
+        self._uri = '/Services/{sid}'.format(**self._solution)
+        
+        self._bindings = None
+        self._configuration = None
+        self._conversations = None
+        self._participant_conversations = None
+        self._roles = None
+        self._users = None
+    
+    def delete(self):
+        """
+        Deletes the ServiceInstance
+
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(method='DELETE', uri=self._uri,)
+        
+    def fetch(self):
+        """
+        Fetch the ServiceInstance
+        
+
+        :returns: The fetched ServiceInstance
+        :rtype: twilio.rest.conversations.v1.service.ServiceInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return ServiceInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid'],
+            
+        )
+        
+    
+    @property
+    def bindings(self):
+        """
+        Access the bindings
+
+        :returns: twilio.rest.conversations.v1.service.BindingList
+        :rtype: twilio.rest.conversations.v1.service.BindingList
+        """
+        if self._bindings is None:
+            self._bindings = BindingList(self._version, self._solution['sid'],
+            )
+        return self._bindings
+    
+    @property
+    def configuration(self):
+        """
+        Access the configuration
+
+        :returns: twilio.rest.conversations.v1.service.ConfigurationList
+        :rtype: twilio.rest.conversations.v1.service.ConfigurationList
+        """
+        if self._configuration is None:
+            self._configuration = ConfigurationList(self._version, self._solution['sid'],
+            )
+        return self._configuration
+    
+    @property
+    def conversations(self):
+        """
+        Access the conversations
+
+        :returns: twilio.rest.conversations.v1.service.ConversationList
+        :rtype: twilio.rest.conversations.v1.service.ConversationList
+        """
+        if self._conversations is None:
+            self._conversations = ConversationList(self._version, self._solution['sid'],
+            )
+        return self._conversations
+    
+    @property
+    def participant_conversations(self):
+        """
+        Access the participant_conversations
+
+        :returns: twilio.rest.conversations.v1.service.ParticipantConversationList
+        :rtype: twilio.rest.conversations.v1.service.ParticipantConversationList
+        """
+        if self._participant_conversations is None:
+            self._participant_conversations = ParticipantConversationList(self._version, self._solution['sid'],
+            )
+        return self._participant_conversations
+    
+    @property
+    def roles(self):
+        """
+        Access the roles
+
+        :returns: twilio.rest.conversations.v1.service.RoleList
+        :rtype: twilio.rest.conversations.v1.service.RoleList
+        """
+        if self._roles is None:
+            self._roles = RoleList(self._version, self._solution['sid'],
+            )
+        return self._roles
+    
+    @property
+    def users(self):
+        """
+        Access the users
+
+        :returns: twilio.rest.conversations.v1.service.UserList
+        :rtype: twilio.rest.conversations.v1.service.UserList
+        """
+        if self._users is None:
+            self._users = UserList(self._version, self._solution['sid'],
+            )
+        return self._users
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Conversations.V1.ServiceContext {}>'.format(context)
 
 

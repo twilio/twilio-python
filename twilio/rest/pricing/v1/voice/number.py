@@ -13,6 +13,7 @@
 """
 
 
+from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -72,55 +73,6 @@ class NumberList(ListResource):
         :rtype: str
         """
         return '<Twilio.Pricing.V1.NumberList>'
-
-class NumberContext(InstanceContext):
-
-    def __init__(self, version: Version, number: str):
-        """
-        Initialize the NumberContext
-
-        :param Version version: Version that contains the resource
-        :param number: The phone number to fetch.
-
-        :returns: twilio.rest.pricing.v1.voice.number.NumberContext
-        :rtype: twilio.rest.pricing.v1.voice.number.NumberContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'number': number,
-        }
-        self._uri = '/Voice/Numbers/{number}'.format(**self._solution)
-        
-    
-    def fetch(self):
-        """
-        Fetch the NumberInstance
-        
-
-        :returns: The fetched NumberInstance
-        :rtype: twilio.rest.pricing.v1.voice.number.NumberInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return NumberInstance(
-            self._version,
-            payload,
-            number=self._solution['number'],
-            
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Pricing.V1.NumberContext {}>'.format(context)
 
 class NumberInstance(InstanceResource):
 
@@ -232,5 +184,54 @@ class NumberInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Pricing.V1.NumberInstance {}>'.format(context)
+
+class NumberContext(InstanceContext):
+
+    def __init__(self, version: Version, number: str):
+        """
+        Initialize the NumberContext
+
+        :param Version version: Version that contains the resource
+        :param number: The phone number to fetch.
+
+        :returns: twilio.rest.pricing.v1.voice.number.NumberContext
+        :rtype: twilio.rest.pricing.v1.voice.number.NumberContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'number': number,
+        }
+        self._uri = '/Voice/Numbers/{number}'.format(**self._solution)
+        
+    
+    def fetch(self):
+        """
+        Fetch the NumberInstance
+        
+
+        :returns: The fetched NumberInstance
+        :rtype: twilio.rest.pricing.v1.voice.number.NumberInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return NumberInstance(
+            self._version,
+            payload,
+            number=self._solution['number'],
+            
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Pricing.V1.NumberContext {}>'.format(context)
 
 
