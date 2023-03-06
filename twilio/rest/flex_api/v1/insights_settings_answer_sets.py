@@ -43,7 +43,7 @@ class InsightsSettingsAnswerSetsList(ListResource):
         
         
     
-        def fetch(self):
+    def fetch(self):
         """
         Fetch the InsightsSettingsAnswerSetsInstance
 

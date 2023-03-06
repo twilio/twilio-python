@@ -44,7 +44,7 @@ class BalanceList(ListResource):
         
         
     
-        def fetch(self):
+    def fetch(self):
         """
         Fetch the BalanceInstance
 

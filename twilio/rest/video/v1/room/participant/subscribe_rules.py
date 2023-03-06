@@ -45,7 +45,7 @@ class SubscribeRulesList(ListResource):
         
         
     
-        def fetch(self):
+    def fetch(self):
         """
         Fetch the SubscribeRulesInstance
 
@@ -57,7 +57,7 @@ class SubscribeRulesList(ListResource):
         return SubscribeRulesInstance(self._version, payload, room_sid=self._solution['room_sid'], participant_sid=self._solution['participant_sid'])
     
     
-        def update(self, rules=values.unset):
+    def update(self, rules=values.unset):
         """
         Update the SubscribeRulesInstance
 

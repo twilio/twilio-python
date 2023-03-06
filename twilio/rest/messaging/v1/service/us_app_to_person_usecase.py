@@ -44,7 +44,7 @@ class UsAppToPersonUsecaseList(ListResource):
         
         
     
-        def fetch(self):
+    def fetch(self):
         """
         Fetch the UsAppToPersonUsecaseInstance
 

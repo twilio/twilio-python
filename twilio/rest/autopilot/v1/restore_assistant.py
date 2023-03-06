@@ -43,7 +43,7 @@ class RestoreAssistantList(ListResource):
         
         
     
-        def update(self, assistant):
+    def update(self, assistant):
         """
         Update the RestoreAssistantInstance
 

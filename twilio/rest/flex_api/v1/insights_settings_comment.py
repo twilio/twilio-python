@@ -43,7 +43,7 @@ class InsightsSettingsCommentList(ListResource):
         
         
     
-        def fetch(self):
+    def fetch(self):
         """
         Fetch the InsightsSettingsCommentInstance
 

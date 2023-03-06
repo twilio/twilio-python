@@ -43,7 +43,7 @@ class FlowValidateList(ListResource):
         
         
     
-        def update(self, friendly_name, status, definition, commit_message=values.unset):
+    def update(self, friendly_name, status, definition, commit_message=values.unset):
         """
         Update the FlowValidateInstance
 

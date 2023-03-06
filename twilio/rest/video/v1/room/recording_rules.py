@@ -44,7 +44,7 @@ class RecordingRulesList(ListResource):
         
         
     
-        def fetch(self):
+    def fetch(self):
         """
         Fetch the RecordingRulesInstance
 
@@ -56,7 +56,7 @@ class RecordingRulesList(ListResource):
         return RecordingRulesInstance(self._version, payload, room_sid=self._solution['room_sid'])
     
     
-        def update(self, rules=values.unset):
+    def update(self, rules=values.unset):
         """
         Update the RecordingRulesInstance
 
