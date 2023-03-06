@@ -401,7 +401,7 @@ class MessageInteractionInstance(InstanceResource):
     def type(self):
         """
         :returns: 
-        :rtype: Type
+        :rtype: MessageInteractionInstance.Type
         """
         return self._properties['type']
     
@@ -433,7 +433,7 @@ class MessageInteractionInstance(InstanceResource):
     def inbound_resource_status(self):
         """
         :returns: 
-        :rtype: ResourceStatus
+        :rtype: MessageInteractionInstance.ResourceStatus
         """
         return self._properties['inbound_resource_status']
     
@@ -473,7 +473,7 @@ class MessageInteractionInstance(InstanceResource):
     def outbound_resource_status(self):
         """
         :returns: 
-        :rtype: ResourceStatus
+        :rtype: MessageInteractionInstance.ResourceStatus
         """
         return self._properties['outbound_resource_status']
     

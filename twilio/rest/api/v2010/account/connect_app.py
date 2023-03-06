@@ -269,7 +269,7 @@ class ConnectAppContext(InstanceContext):
         :params str description: A description of the Connect App.
         :params str friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
         :params str homepage_url: A public URL where users can obtain more information about this Connect App.
-        :params list[Permission] permissions: A comma-separated list of the permissions you will request from the users of this ConnectApp.  Can include: `get-all` and `post-all`.
+        :params list[ConnectAppInstance.Permission] permissions: A comma-separated list of the permissions you will request from the users of this ConnectApp.  Can include: `get-all` and `post-all`.
 
         :returns: The updated ConnectAppInstance
         :rtype: twilio.rest.api.v2010.account.connect_app.ConnectAppInstance
@@ -417,7 +417,7 @@ class ConnectAppInstance(InstanceResource):
     def permissions(self):
         """
         :returns: The set of permissions that your ConnectApp requests.
-        :rtype: list[Permission]
+        :rtype: list[ConnectAppInstance.Permission]
         """
         return self._properties['permissions']
     
@@ -468,7 +468,7 @@ class ConnectAppInstance(InstanceResource):
         :params str description: A description of the Connect App.
         :params str friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
         :params str homepage_url: A public URL where users can obtain more information about this Connect App.
-        :params list[Permission] permissions: A comma-separated list of the permissions you will request from the users of this ConnectApp.  Can include: `get-all` and `post-all`.
+        :params list[ConnectAppInstance.Permission] permissions: A comma-separated list of the permissions you will request from the users of this ConnectApp.  Can include: `get-all` and `post-all`.
 
         :returns: The updated ConnectAppInstance
         :rtype: twilio.rest.api.v2010.account.connect_app.ConnectAppInstance

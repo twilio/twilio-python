@@ -53,7 +53,7 @@ class RoomRecordingList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
         
-        :param Status status: Read only the recordings with this status. Can be: `processing`, `completed`, or `deleted`.
+        :param RoomRecordingInstance.Status status: Read only the recordings with this status. Can be: `processing`, `completed`, or `deleted`.
         :param str source_sid: Read only the recordings that have this `source_sid`.
         :param datetime date_created_after: Read only recordings that started on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) datetime with time zone.
         :param datetime date_created_before: Read only Recordings that started before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) datetime with time zone.
@@ -84,7 +84,7 @@ class RoomRecordingList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
-        :param Status status: Read only the recordings with this status. Can be: `processing`, `completed`, or `deleted`.
+        :param RoomRecordingInstance.Status status: Read only the recordings with this status. Can be: `processing`, `completed`, or `deleted`.
         :param str source_sid: Read only the recordings that have this `source_sid`.
         :param datetime date_created_after: Read only recordings that started on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) datetime with time zone.
         :param datetime date_created_before: Read only Recordings that started before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) datetime with time zone.
@@ -112,7 +112,7 @@ class RoomRecordingList(ListResource):
         Retrieve a single page of RoomRecordingInstance records from the API.
         Request is executed immediately
         
-        :param Status status: Read only the recordings with this status. Can be: `processing`, `completed`, or `deleted`.
+        :param RoomRecordingInstance.Status status: Read only the recordings with this status. Can be: `processing`, `completed`, or `deleted`.
         :param str source_sid: Read only the recordings that have this `source_sid`.
         :param datetime date_created_after: Read only recordings that started on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) datetime with time zone.
         :param datetime date_created_before: Read only Recordings that started before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) datetime with time zone.
@@ -368,7 +368,7 @@ class RoomRecordingInstance(InstanceResource):
     def status(self):
         """
         :returns: 
-        :rtype: Status
+        :rtype: RoomRecordingInstance.Status
         """
         return self._properties['status']
     
@@ -416,7 +416,7 @@ class RoomRecordingInstance(InstanceResource):
     def type(self):
         """
         :returns: 
-        :rtype: Type
+        :rtype: RoomRecordingInstance.Type
         """
         return self._properties['type']
     
@@ -432,7 +432,7 @@ class RoomRecordingInstance(InstanceResource):
     def container_format(self):
         """
         :returns: 
-        :rtype: Format
+        :rtype: RoomRecordingInstance.Format
         """
         return self._properties['container_format']
     
@@ -440,7 +440,7 @@ class RoomRecordingInstance(InstanceResource):
     def codec(self):
         """
         :returns: 
-        :rtype: Codec
+        :rtype: RoomRecordingInstance.Codec
         """
         return self._properties['codec']
     

@@ -119,7 +119,7 @@ class FeedbackContext(InstanceContext):
         Update the FeedbackInstance
         
         :params int quality_score: The call quality expressed as an integer from `1` to `5` where `1` represents very poor call quality and `5` represents a perfect call.
-        :params list[Issues] issue: One or more issues experienced during the call. The issues can be: `imperfect-audio`, `dropped-call`, `incorrect-caller-id`, `post-dial-delay`, `digits-not-captured`, `audio-latency`, `unsolicited-call`, or `one-way-audio`.
+        :params list[FeedbackInstance.Issues] issue: One or more issues experienced during the call. The issues can be: `imperfect-audio`, `dropped-call`, `incorrect-caller-id`, `post-dial-delay`, `digits-not-captured`, `audio-latency`, `unsolicited-call`, or `one-way-audio`.
 
         :returns: The updated FeedbackInstance
         :rtype: twilio.rest.api.v2010.account.call.feedback.FeedbackInstance
@@ -222,7 +222,7 @@ class FeedbackInstance(InstanceResource):
     def issues(self):
         """
         :returns: A list of issues experienced during the call. The issues can be: `imperfect-audio`, `dropped-call`, `incorrect-caller-id`, `post-dial-delay`, `digits-not-captured`, `audio-latency`, `unsolicited-call`, or `one-way-audio`.
-        :rtype: list[Issues]
+        :rtype: list[FeedbackInstance.Issues]
         """
         return self._properties['issues']
     
@@ -257,7 +257,7 @@ class FeedbackInstance(InstanceResource):
         Update the FeedbackInstance
         
         :params int quality_score: The call quality expressed as an integer from `1` to `5` where `1` represents very poor call quality and `5` represents a perfect call.
-        :params list[Issues] issue: One or more issues experienced during the call. The issues can be: `imperfect-audio`, `dropped-call`, `incorrect-caller-id`, `post-dial-delay`, `digits-not-captured`, `audio-latency`, `unsolicited-call`, or `one-way-audio`.
+        :params list[FeedbackInstance.Issues] issue: One or more issues experienced during the call. The issues can be: `imperfect-audio`, `dropped-call`, `incorrect-caller-id`, `post-dial-delay`, `digits-not-captured`, `audio-latency`, `unsolicited-call`, or `one-way-audio`.
 
         :returns: The updated FeedbackInstance
         :rtype: twilio.rest.api.v2010.account.call.feedback.FeedbackInstance

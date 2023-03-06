@@ -367,7 +367,7 @@ class SubscribedTrackInstance(InstanceResource):
     def kind(self):
         """
         :returns: 
-        :rtype: Kind
+        :rtype: SubscribedTrackInstance.Kind
         """
         return self._properties['kind']
     

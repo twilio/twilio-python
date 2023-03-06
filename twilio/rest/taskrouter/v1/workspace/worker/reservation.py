@@ -54,7 +54,7 @@ class ReservationList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
         
-        :param Status reservation_status: Returns the list of reservations for a worker with a specified ReservationStatus. Can be: `pending`, `accepted`, `rejected`, `timeout`, `canceled`, or `rescinded`.
+        :param ReservationInstance.Status reservation_status: Returns the list of reservations for a worker with a specified ReservationStatus. Can be: `pending`, `accepted`, `rejected`, `timeout`, `canceled`, or `rescinded`.
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -79,7 +79,7 @@ class ReservationList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
-        :param Status reservation_status: Returns the list of reservations for a worker with a specified ReservationStatus. Can be: `pending`, `accepted`, `rejected`, `timeout`, `canceled`, or `rescinded`.
+        :param ReservationInstance.Status reservation_status: Returns the list of reservations for a worker with a specified ReservationStatus. Can be: `pending`, `accepted`, `rejected`, `timeout`, `canceled`, or `rescinded`.
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -101,7 +101,7 @@ class ReservationList(ListResource):
         Retrieve a single page of ReservationInstance records from the API.
         Request is executed immediately
         
-        :param Status reservation_status: Returns the list of reservations for a worker with a specified ReservationStatus. Can be: `pending`, `accepted`, `rejected`, `timeout`, `canceled`, or `rescinded`.
+        :param ReservationInstance.Status reservation_status: Returns the list of reservations for a worker with a specified ReservationStatus. Can be: `pending`, `accepted`, `rejected`, `timeout`, `canceled`, or `rescinded`.
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -259,7 +259,7 @@ class ReservationContext(InstanceContext):
         Update the ReservationInstance
         
         :params str if_match: The If-Match HTTP request header
-        :params Status reservation_status: 
+        :params ReservationInstance.Status reservation_status: 
         :params str worker_activity_sid: The new worker activity SID if rejecting a reservation.
         :params str instruction: The assignment instruction for the reservation.
         :params str dequeue_post_work_activity_sid: The SID of the Activity resource to start after executing a Dequeue instruction.
@@ -282,7 +282,7 @@ class ReservationContext(InstanceContext):
         :params str from_: The caller ID of the call to the worker when executing a Conference instruction.
         :params str status_callback: The URL we should call using the `status_callback_method` to send status information to your application.
         :params str status_callback_method: The HTTP method we should use to call `status_callback`. Can be: `POST` or `GET` and the default is `POST`.
-        :params list[CallStatus] status_callback_event: The call progress events that we will send to `status_callback`. Can be: `initiated`, `ringing`, `answered`, or `completed`.
+        :params list[ReservationInstance.CallStatus] status_callback_event: The call progress events that we will send to `status_callback`. Can be: `initiated`, `ringing`, `answered`, or `completed`.
         :params int timeout: The timeout for a call when executing a Conference instruction.
         :params bool record: Whether to record the participant and their conferences, including the time between conferences. Can be `true` or `false` and the default is `false`.
         :params bool muted: Whether the agent is muted in the conference. Defaults to `false`.
@@ -295,7 +295,7 @@ class ReservationContext(InstanceContext):
         :params int max_participants: The maximum number of participants allowed in the conference. Can be a positive integer from `2` to `250`. The default value is `250`.
         :params str conference_status_callback: The URL we should call using the `conference_status_callback_method` when the conference events in `conference_status_callback_event` occur. Only the value set by the first participant to join the conference is used. Subsequent `conference_status_callback` values are ignored.
         :params str conference_status_callback_method: The HTTP method we should use to call `conference_status_callback`. Can be: `GET` or `POST` and defaults to `POST`.
-        :params list[ConferenceEvent] conference_status_callback_event: The conference status events that we will send to `conference_status_callback`. Can be: `start`, `end`, `join`, `leave`, `mute`, `hold`, `speaker`.
+        :params list[ReservationInstance.ConferenceEvent] conference_status_callback_event: The conference status events that we will send to `conference_status_callback`. Can be: `start`, `end`, `join`, `leave`, `mute`, `hold`, `speaker`.
         :params str conference_record: Whether to record the conference the participant is joining or when to record the conference. Can be: `true`, `false`, `record-from-start`, and `do-not-record`. The default value is `false`.
         :params str conference_trim: Whether to trim leading and trailing silence from your recorded conference audio files. Can be: `trim-silence` or `do-not-trim` and defaults to `trim-silence`.
         :params str recording_channels: The recording channels for the final recording. Can be: `mono` or `dual` and the default is `mono`.
@@ -467,7 +467,7 @@ class ReservationInstance(InstanceResource):
     def reservation_status(self):
         """
         :returns: 
-        :rtype: Status
+        :rtype: ReservationInstance.Status
         """
         return self._properties['reservation_status']
     
@@ -542,7 +542,7 @@ class ReservationInstance(InstanceResource):
         Update the ReservationInstance
         
         :params str if_match: The If-Match HTTP request header
-        :params Status reservation_status: 
+        :params ReservationInstance.Status reservation_status: 
         :params str worker_activity_sid: The new worker activity SID if rejecting a reservation.
         :params str instruction: The assignment instruction for the reservation.
         :params str dequeue_post_work_activity_sid: The SID of the Activity resource to start after executing a Dequeue instruction.
@@ -565,7 +565,7 @@ class ReservationInstance(InstanceResource):
         :params str from_: The caller ID of the call to the worker when executing a Conference instruction.
         :params str status_callback: The URL we should call using the `status_callback_method` to send status information to your application.
         :params str status_callback_method: The HTTP method we should use to call `status_callback`. Can be: `POST` or `GET` and the default is `POST`.
-        :params list[CallStatus] status_callback_event: The call progress events that we will send to `status_callback`. Can be: `initiated`, `ringing`, `answered`, or `completed`.
+        :params list[ReservationInstance.CallStatus] status_callback_event: The call progress events that we will send to `status_callback`. Can be: `initiated`, `ringing`, `answered`, or `completed`.
         :params int timeout: The timeout for a call when executing a Conference instruction.
         :params bool record: Whether to record the participant and their conferences, including the time between conferences. Can be `true` or `false` and the default is `false`.
         :params bool muted: Whether the agent is muted in the conference. Defaults to `false`.
@@ -578,7 +578,7 @@ class ReservationInstance(InstanceResource):
         :params int max_participants: The maximum number of participants allowed in the conference. Can be a positive integer from `2` to `250`. The default value is `250`.
         :params str conference_status_callback: The URL we should call using the `conference_status_callback_method` when the conference events in `conference_status_callback_event` occur. Only the value set by the first participant to join the conference is used. Subsequent `conference_status_callback` values are ignored.
         :params str conference_status_callback_method: The HTTP method we should use to call `conference_status_callback`. Can be: `GET` or `POST` and defaults to `POST`.
-        :params list[ConferenceEvent] conference_status_callback_event: The conference status events that we will send to `conference_status_callback`. Can be: `start`, `end`, `join`, `leave`, `mute`, `hold`, `speaker`.
+        :params list[ReservationInstance.ConferenceEvent] conference_status_callback_event: The conference status events that we will send to `conference_status_callback`. Can be: `start`, `end`, `join`, `leave`, `mute`, `hold`, `speaker`.
         :params str conference_record: Whether to record the conference the participant is joining or when to record the conference. Can be: `true`, `false`, `record-from-start`, and `do-not-record`. The default value is `false`.
         :params str conference_trim: Whether to trim leading and trailing silence from your recorded conference audio files. Can be: `trim-silence` or `do-not-trim` and defaults to `trim-silence`.
         :params str recording_channels: The recording channels for the final recording. Can be: `mono` or `dual` and the default is `mono`.

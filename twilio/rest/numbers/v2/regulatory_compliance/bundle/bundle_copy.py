@@ -269,7 +269,7 @@ class BundleCopyInstance(InstanceResource):
     def status(self):
         """
         :returns: 
-        :rtype: Status
+        :rtype: BundleCopyInstance.Status
         """
         return self._properties['status']
     

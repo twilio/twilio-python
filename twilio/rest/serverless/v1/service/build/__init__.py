@@ -387,7 +387,7 @@ class BuildInstance(InstanceResource):
     def status(self):
         """
         :returns: 
-        :rtype: Status
+        :rtype: BuildInstance.Status
         """
         return self._properties['status']
     
@@ -419,7 +419,7 @@ class BuildInstance(InstanceResource):
     def runtime(self):
         """
         :returns: 
-        :rtype: Runtime
+        :rtype: BuildInstance.Runtime
         """
         return self._properties['runtime']
     

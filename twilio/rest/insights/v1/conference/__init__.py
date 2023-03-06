@@ -484,7 +484,7 @@ class ConferenceInstance(InstanceResource):
     def status(self):
         """
         :returns: 
-        :rtype: ConferenceStatus
+        :rtype: ConferenceInstance.ConferenceStatus
         """
         return self._properties['status']
     
@@ -516,7 +516,7 @@ class ConferenceInstance(InstanceResource):
     def end_reason(self):
         """
         :returns: 
-        :rtype: ConferenceEndReason
+        :rtype: ConferenceInstance.ConferenceEndReason
         """
         return self._properties['end_reason']
     
@@ -532,7 +532,7 @@ class ConferenceInstance(InstanceResource):
     def mixer_region(self):
         """
         :returns: 
-        :rtype: Region
+        :rtype: ConferenceInstance.Region
         """
         return self._properties['mixer_region']
     
@@ -540,7 +540,7 @@ class ConferenceInstance(InstanceResource):
     def mixer_region_requested(self):
         """
         :returns: 
-        :rtype: Region
+        :rtype: ConferenceInstance.Region
         """
         return self._properties['mixer_region_requested']
     
@@ -564,7 +564,7 @@ class ConferenceInstance(InstanceResource):
     def tags(self):
         """
         :returns: Tags for detected conference conditions and participant behaviors which may be of interest.
-        :rtype: list[Tag]
+        :rtype: list[ConferenceInstance.Tag]
         """
         return self._properties['tags']
     
@@ -580,7 +580,7 @@ class ConferenceInstance(InstanceResource):
     def processing_state(self):
         """
         :returns: 
-        :rtype: ProcessingState
+        :rtype: ConferenceInstance.ProcessingState
         """
         return self._properties['processing_state']
     

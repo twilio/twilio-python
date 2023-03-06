@@ -65,7 +65,7 @@ class HostedNumberOrderList(ListResource):
         :param str sms_application_sid: Optional. The 34 character sid of the application Twilio should use to handle SMS messages sent to this number. If a `SmsApplicationSid` is present, Twilio will ignore all of the SMS urls above and use those set on the application.
         :param str address_sid: Optional. A 34 character string that uniquely identifies the Address resource that represents the address of the owner of this phone number.
         :param str email: Optional. Email of the owner of this phone number that is being hosted.
-        :param VerificationType verification_type: 
+        :param HostedNumberOrderInstance.VerificationType verification_type: 
         :param str verification_document_sid: Optional. The unique sid identifier of the Identity Document that represents the document for verifying ownership of the number to be hosted. Required when VerificationType is phone-bill.
         
         :returns: The created HostedNumberOrderInstance
@@ -103,7 +103,7 @@ class HostedNumberOrderList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
         
-        :param Status status: The Status of this HostedNumberOrder. One of `received`, `pending-verification`, `verified`, `pending-loa`, `carrier-processing`, `testing`, `completed`, `failed`, or `action-required`.
+        :param HostedNumberOrderInstance.Status status: The Status of this HostedNumberOrder. One of `received`, `pending-verification`, `verified`, `pending-loa`, `carrier-processing`, `testing`, `completed`, `failed`, or `action-required`.
         :param str phone_number: An E164 formatted phone number hosted by this HostedNumberOrder.
         :param str incoming_phone_number_sid: A 34 character string that uniquely identifies the IncomingPhoneNumber resource created by this HostedNumberOrder.
         :param str friendly_name: A human readable description of this resource, up to 64 characters.
@@ -136,7 +136,7 @@ class HostedNumberOrderList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
-        :param Status status: The Status of this HostedNumberOrder. One of `received`, `pending-verification`, `verified`, `pending-loa`, `carrier-processing`, `testing`, `completed`, `failed`, or `action-required`.
+        :param HostedNumberOrderInstance.Status status: The Status of this HostedNumberOrder. One of `received`, `pending-verification`, `verified`, `pending-loa`, `carrier-processing`, `testing`, `completed`, `failed`, or `action-required`.
         :param str phone_number: An E164 formatted phone number hosted by this HostedNumberOrder.
         :param str incoming_phone_number_sid: A 34 character string that uniquely identifies the IncomingPhoneNumber resource created by this HostedNumberOrder.
         :param str friendly_name: A human readable description of this resource, up to 64 characters.
@@ -166,7 +166,7 @@ class HostedNumberOrderList(ListResource):
         Retrieve a single page of HostedNumberOrderInstance records from the API.
         Request is executed immediately
         
-        :param Status status: The Status of this HostedNumberOrder. One of `received`, `pending-verification`, `verified`, `pending-loa`, `carrier-processing`, `testing`, `completed`, `failed`, or `action-required`.
+        :param HostedNumberOrderInstance.Status status: The Status of this HostedNumberOrder. One of `received`, `pending-verification`, `verified`, `pending-loa`, `carrier-processing`, `testing`, `completed`, `failed`, or `action-required`.
         :param str phone_number: An E164 formatted phone number hosted by this HostedNumberOrder.
         :param str incoming_phone_number_sid: A 34 character string that uniquely identifies the IncomingPhoneNumber resource created by this HostedNumberOrder.
         :param str friendly_name: A human readable description of this resource, up to 64 characters.
@@ -345,9 +345,9 @@ class HostedNumberOrderContext(InstanceContext):
         :params str unique_name: Provides a unique and addressable name to be assigned to this HostedNumberOrder, assigned by the developer, to be optionally used in addition to SID.
         :params str email: Email of the owner of this phone number that is being hosted.
         :params list[str] cc_emails: Optional. A list of emails that LOA document for this HostedNumberOrder will be carbon copied to.
-        :params Status status: 
+        :params HostedNumberOrderInstance.Status status: 
         :params str verification_code: A verification code that is given to the user via a phone call to the phone number that is being hosted.
-        :params VerificationType verification_type: 
+        :params HostedNumberOrderInstance.VerificationType verification_type: 
         :params str verification_document_sid: Optional. The unique sid identifier of the Identity Document that represents the document for verifying ownership of the number to be hosted. Required when VerificationType is phone-bill.
         :params str extension: Digits to dial after connecting the verification call.
         :params int call_delay: The number of seconds, between 0 and 60, to delay before initiating the verification call. Defaults to 0.
@@ -530,7 +530,7 @@ class HostedNumberOrderInstance(InstanceResource):
     def status(self):
         """
         :returns: 
-        :rtype: Status
+        :rtype: HostedNumberOrderInstance.Status
         """
         return self._properties['status']
     
@@ -594,7 +594,7 @@ class HostedNumberOrderInstance(InstanceResource):
     def verification_type(self):
         """
         :returns: 
-        :rtype: VerificationType
+        :rtype: HostedNumberOrderInstance.VerificationType
         """
         return self._properties['verification_type']
     
@@ -666,9 +666,9 @@ class HostedNumberOrderInstance(InstanceResource):
         :params str unique_name: Provides a unique and addressable name to be assigned to this HostedNumberOrder, assigned by the developer, to be optionally used in addition to SID.
         :params str email: Email of the owner of this phone number that is being hosted.
         :params list[str] cc_emails: Optional. A list of emails that LOA document for this HostedNumberOrder will be carbon copied to.
-        :params Status status: 
+        :params HostedNumberOrderInstance.Status status: 
         :params str verification_code: A verification code that is given to the user via a phone call to the phone number that is being hosted.
-        :params VerificationType verification_type: 
+        :params HostedNumberOrderInstance.VerificationType verification_type: 
         :params str verification_document_sid: Optional. The unique sid identifier of the Identity Document that represents the document for verifying ownership of the number to be hosted. Required when VerificationType is phone-bill.
         :params str extension: Digits to dial after connecting the verification call.
         :params int call_delay: The number of seconds, between 0 and 60, to delay before initiating the verification call. Defaults to 0.

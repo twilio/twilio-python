@@ -357,7 +357,7 @@ class FunctionVersionInstance(InstanceResource):
     def visibility(self):
         """
         :returns: 
-        :rtype: Visibility
+        :rtype: FunctionVersionInstance.Visibility
         """
         return self._properties['visibility']
     

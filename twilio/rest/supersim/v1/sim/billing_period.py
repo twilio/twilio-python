@@ -251,7 +251,7 @@ class BillingPeriodInstance(InstanceResource):
     def period_type(self):
         """
         :returns: 
-        :rtype: BpType
+        :rtype: BillingPeriodInstance.BpType
         """
         return self._properties['period_type']
     

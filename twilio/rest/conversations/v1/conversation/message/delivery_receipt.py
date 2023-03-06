@@ -354,7 +354,7 @@ class DeliveryReceiptInstance(InstanceResource):
     def status(self):
         """
         :returns: 
-        :rtype: DeliveryStatus
+        :rtype: DeliveryReceiptInstance.DeliveryStatus
         """
         return self._properties['status']
     

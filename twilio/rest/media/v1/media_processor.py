@@ -80,8 +80,8 @@ class MediaProcessorList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
         
-        :param Order order: The sort order of the list by `date_created`. Can be: `asc` (ascending) or `desc` (descending) with `desc` as the default.
-        :param Status status: Status to filter by, with possible values `started`, `ended` or `failed`.
+        :param MediaProcessorInstance.Order order: The sort order of the list by `date_created`. Can be: `asc` (ascending) or `desc` (descending) with `desc` as the default.
+        :param MediaProcessorInstance.Status status: Status to filter by, with possible values `started`, `ended` or `failed`.
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -107,8 +107,8 @@ class MediaProcessorList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
-        :param Order order: The sort order of the list by `date_created`. Can be: `asc` (ascending) or `desc` (descending) with `desc` as the default.
-        :param Status status: Status to filter by, with possible values `started`, `ended` or `failed`.
+        :param MediaProcessorInstance.Order order: The sort order of the list by `date_created`. Can be: `asc` (ascending) or `desc` (descending) with `desc` as the default.
+        :param MediaProcessorInstance.Status status: Status to filter by, with possible values `started`, `ended` or `failed`.
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -131,8 +131,8 @@ class MediaProcessorList(ListResource):
         Retrieve a single page of MediaProcessorInstance records from the API.
         Request is executed immediately
         
-        :param Order order: The sort order of the list by `date_created`. Can be: `asc` (ascending) or `desc` (descending) with `desc` as the default.
-        :param Status status: Status to filter by, with possible values `started`, `ended` or `failed`.
+        :param MediaProcessorInstance.Order order: The sort order of the list by `date_created`. Can be: `asc` (ascending) or `desc` (descending) with `desc` as the default.
+        :param MediaProcessorInstance.Status status: Status to filter by, with possible values `started`, `ended` or `failed`.
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -288,7 +288,7 @@ class MediaProcessorContext(InstanceContext):
         """
         Update the MediaProcessorInstance
         
-        :params UpdateStatus status: 
+        :params MediaProcessorInstance.UpdateStatus status: 
 
         :returns: The updated MediaProcessorInstance
         :rtype: twilio.rest.media.v1.media_processor.MediaProcessorInstance
@@ -418,7 +418,7 @@ class MediaProcessorInstance(InstanceResource):
     def status(self):
         """
         :returns: 
-        :rtype: Status
+        :rtype: MediaProcessorInstance.Status
         """
         return self._properties['status']
     
@@ -476,7 +476,7 @@ class MediaProcessorInstance(InstanceResource):
         """
         Update the MediaProcessorInstance
         
-        :params UpdateStatus status: 
+        :params MediaProcessorInstance.UpdateStatus status: 
 
         :returns: The updated MediaProcessorInstance
         :rtype: twilio.rest.media.v1.media_processor.MediaProcessorInstance

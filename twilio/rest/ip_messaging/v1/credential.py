@@ -50,7 +50,7 @@ class CredentialList(ListResource):
         """
         Create the CredentialInstance
 
-        :param PushService type: 
+        :param CredentialInstance.PushService type: 
         :param str friendly_name: 
         :param str certificate: 
         :param str private_key: 
@@ -399,7 +399,7 @@ class CredentialInstance(InstanceResource):
     def type(self):
         """
         :returns: 
-        :rtype: PushService
+        :rtype: CredentialInstance.PushService
         """
         return self._properties['type']
     

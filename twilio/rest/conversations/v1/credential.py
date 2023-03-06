@@ -50,7 +50,7 @@ class CredentialList(ListResource):
         """
         Create the CredentialInstance
 
-        :param PushType type: 
+        :param CredentialInstance.PushType type: 
         :param str friendly_name: A descriptive string that you create to describe the new resource. It can be up to 64 characters long.
         :param str certificate: [APN only] The URL encoded representation of the certificate. For example,  `-----BEGIN CERTIFICATE----- MIIFnTCCBIWgAwIBAgIIAjy9H849+E8wDQYJKoZIhvcNAQEF.....A== -----END CERTIFICATE-----`.
         :param str private_key: [APN only] The URL encoded representation of the private key. For example, `-----BEGIN RSA PRIVATE KEY----- MIIEpQIBAAKCAQEAuyf/lNrH9ck8DmNyo3fG... -----END RSA PRIVATE KEY-----`.
@@ -291,7 +291,7 @@ class CredentialContext(InstanceContext):
         """
         Update the CredentialInstance
         
-        :params PushType type: 
+        :params CredentialInstance.PushType type: 
         :params str friendly_name: A descriptive string that you create to describe the new resource. It can be up to 64 characters long.
         :params str certificate: [APN only] The URL encoded representation of the certificate. For example,  `-----BEGIN CERTIFICATE----- MIIFnTCCBIWgAwIBAgIIAjy9H849+E8wDQYJKoZIhvcNAQEF.....A== -----END CERTIFICATE-----`.
         :params str private_key: [APN only] The URL encoded representation of the private key. For example, `-----BEGIN RSA PRIVATE KEY----- MIIEpQIBAAKCAQEAuyf/lNrH9ck8DmNyo3fG... -----END RSA PRIVATE KEY-----`.
@@ -401,7 +401,7 @@ class CredentialInstance(InstanceResource):
     def type(self):
         """
         :returns: 
-        :rtype: PushType
+        :rtype: CredentialInstance.PushType
         """
         return self._properties['type']
     
@@ -461,7 +461,7 @@ class CredentialInstance(InstanceResource):
         """
         Update the CredentialInstance
         
-        :params PushType type: 
+        :params CredentialInstance.PushType type: 
         :params str friendly_name: A descriptive string that you create to describe the new resource. It can be up to 64 characters long.
         :params str certificate: [APN only] The URL encoded representation of the certificate. For example,  `-----BEGIN CERTIFICATE----- MIIFnTCCBIWgAwIBAgIIAjy9H849+E8wDQYJKoZIhvcNAQEF.....A== -----END CERTIFICATE-----`.
         :params str private_key: [APN only] The URL encoded representation of the private key. For example, `-----BEGIN RSA PRIVATE KEY----- MIIEpQIBAAKCAQEAuyf/lNrH9ck8DmNyo3fG... -----END RSA PRIVATE KEY-----`.

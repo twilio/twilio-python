@@ -116,7 +116,7 @@ class WebhookContext(InstanceContext):
         :params list[str] filters: The list of webhook event triggers that are enabled for this Service: `onMessageAdded`, `onMessageUpdated`, `onMessageRemoved`, `onConversationUpdated`, `onConversationRemoved`, `onParticipantAdded`, `onParticipantUpdated`, `onParticipantRemoved`
         :params str pre_webhook_url: The absolute url the pre-event webhook request should be sent to.
         :params str post_webhook_url: The absolute url the post-event webhook request should be sent to.
-        :params Target target: 
+        :params WebhookInstance.Target target: 
 
         :returns: The updated WebhookInstance
         :rtype: twilio.rest.conversations.v1.configuration.webhook.WebhookInstance
@@ -203,7 +203,7 @@ class WebhookInstance(InstanceResource):
     def method(self):
         """
         :returns: 
-        :rtype: Method
+        :rtype: WebhookInstance.Method
         """
         return self._properties['method']
     
@@ -235,7 +235,7 @@ class WebhookInstance(InstanceResource):
     def target(self):
         """
         :returns: 
-        :rtype: Target
+        :rtype: WebhookInstance.Target
         """
         return self._properties['target']
     
@@ -265,7 +265,7 @@ class WebhookInstance(InstanceResource):
         :params list[str] filters: The list of webhook event triggers that are enabled for this Service: `onMessageAdded`, `onMessageUpdated`, `onMessageRemoved`, `onConversationUpdated`, `onConversationRemoved`, `onParticipantAdded`, `onParticipantUpdated`, `onParticipantRemoved`
         :params str pre_webhook_url: The absolute url the pre-event webhook request should be sent to.
         :params str post_webhook_url: The absolute url the post-event webhook request should be sent to.
-        :params Target target: 
+        :params WebhookInstance.Target target: 
 
         :returns: The updated WebhookInstance
         :rtype: twilio.rest.conversations.v1.configuration.webhook.WebhookInstance

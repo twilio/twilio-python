@@ -349,7 +349,7 @@ class TrustProductsEvaluationsInstance(InstanceResource):
     def status(self):
         """
         :returns: 
-        :rtype: Status
+        :rtype: TrustProductsEvaluationsInstance.Status
         """
         return self._properties['status']
     

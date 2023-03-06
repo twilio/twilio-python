@@ -49,7 +49,7 @@ class FeedbackList(ListResource):
         """
         Create the FeedbackInstance
 
-        :param Outcome outcome: 
+        :param FeedbackInstance.Outcome outcome: 
         
         :returns: The created FeedbackInstance
         :rtype: twilio.rest.api.v2010.account.message.feedback.FeedbackInstance
@@ -120,7 +120,7 @@ class FeedbackInstance(InstanceResource):
     def outcome(self):
         """
         :returns: 
-        :rtype: Outcome
+        :rtype: FeedbackInstance.Outcome
         """
         return self._properties['outcome']
     

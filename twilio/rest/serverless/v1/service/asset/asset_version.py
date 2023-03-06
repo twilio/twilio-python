@@ -341,7 +341,7 @@ class AssetVersionInstance(InstanceResource):
     def visibility(self):
         """
         :returns: 
-        :rtype: Visibility
+        :rtype: AssetVersionInstance.Visibility
         """
         return self._properties['visibility']
     

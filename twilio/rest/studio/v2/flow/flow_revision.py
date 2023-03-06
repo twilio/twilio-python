@@ -333,7 +333,7 @@ class FlowRevisionInstance(InstanceResource):
     def status(self):
         """
         :returns: 
-        :rtype: Status
+        :rtype: FlowRevisionInstance.Status
         """
         return self._properties['status']
     

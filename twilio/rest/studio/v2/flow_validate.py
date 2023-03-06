@@ -48,7 +48,7 @@ class FlowValidateList(ListResource):
         Update the FlowValidateInstance
 
         :param str friendly_name: The string that you assigned to describe the Flow.
-        :param Status status: 
+        :param FlowValidateInstance.Status status: 
         :param object definition: JSON representation of flow definition.
         :param str commit_message: Description of change made in the revision.
         

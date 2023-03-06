@@ -59,10 +59,10 @@ class TrunkList(ListResource):
         :param str domain_name: The unique address you reserve on Twilio to which you route your SIP traffic. Domain names can contain letters, digits, and `-` and must end with `pstn.twilio.com`. See [Termination Settings](https://www.twilio.com/docs/sip-trunking#termination) for more information.
         :param str disaster_recovery_url: The URL we should call using the `disaster_recovery_method` if an error occurs while sending SIP traffic towards the configured Origination URL. We retrieve TwiML from the URL and execute the instructions like any other normal TwiML call. See [Disaster Recovery](https://www.twilio.com/docs/sip-trunking#disaster-recovery) for more information.
         :param str disaster_recovery_method: The HTTP method we should use to call the `disaster_recovery_url`. Can be: `GET` or `POST`.
-        :param TransferSetting transfer_mode: 
+        :param TrunkInstance.TransferSetting transfer_mode: 
         :param bool secure: Whether Secure Trunking is enabled for the trunk. If enabled, all calls going through the trunk will be secure using SRTP for media and TLS for signaling. If disabled, then RTP will be used for media. See [Secure Trunking](https://www.twilio.com/docs/sip-trunking#securetrunking) for more information.
         :param bool cnam_lookup_enabled: Whether Caller ID Name (CNAM) lookup should be enabled for the trunk. If enabled, all inbound calls to the SIP Trunk from the United States and Canada automatically perform a CNAM Lookup and display Caller ID data on your phone. See [CNAM Lookups](https://www.twilio.com/docs/sip-trunking#CNAM) for more information.
-        :param TransferCallerId transfer_caller_id: 
+        :param TrunkInstance.TransferCallerId transfer_caller_id: 
         
         :returns: The created TrunkInstance
         :rtype: twilio.rest.trunking.v1.trunk.TrunkInstance
@@ -307,10 +307,10 @@ class TrunkContext(InstanceContext):
         :params str domain_name: The unique address you reserve on Twilio to which you route your SIP traffic. Domain names can contain letters, digits, and `-` and must end with `pstn.twilio.com`. See [Termination Settings](https://www.twilio.com/docs/sip-trunking#termination) for more information.
         :params str disaster_recovery_url: The URL we should call using the `disaster_recovery_method` if an error occurs while sending SIP traffic towards the configured Origination URL. We retrieve TwiML from the URL and execute the instructions like any other normal TwiML call. See [Disaster Recovery](https://www.twilio.com/docs/sip-trunking#disaster-recovery) for more information.
         :params str disaster_recovery_method: The HTTP method we should use to call the `disaster_recovery_url`. Can be: `GET` or `POST`.
-        :params TransferSetting transfer_mode: 
+        :params TrunkInstance.TransferSetting transfer_mode: 
         :params bool secure: Whether Secure Trunking is enabled for the trunk. If enabled, all calls going through the trunk will be secure using SRTP for media and TLS for signaling. If disabled, then RTP will be used for media. See [Secure Trunking](https://www.twilio.com/docs/sip-trunking#securetrunking) for more information.
         :params bool cnam_lookup_enabled: Whether Caller ID Name (CNAM) lookup should be enabled for the trunk. If enabled, all inbound calls to the SIP Trunk from the United States and Canada automatically perform a CNAM Lookup and display Caller ID data on your phone. See [CNAM Lookups](https://www.twilio.com/docs/sip-trunking#CNAM) for more information.
-        :params TransferCallerId transfer_caller_id: 
+        :params TrunkInstance.TransferCallerId transfer_caller_id: 
 
         :returns: The updated TrunkInstance
         :rtype: twilio.rest.trunking.v1.trunk.TrunkInstance
@@ -525,7 +525,7 @@ class TrunkInstance(InstanceResource):
     def transfer_mode(self):
         """
         :returns: 
-        :rtype: TransferSetting
+        :rtype: TrunkInstance.TransferSetting
         """
         return self._properties['transfer_mode']
     
@@ -533,7 +533,7 @@ class TrunkInstance(InstanceResource):
     def transfer_caller_id(self):
         """
         :returns: 
-        :rtype: TransferCallerId
+        :rtype: TrunkInstance.TransferCallerId
         """
         return self._properties['transfer_caller_id']
     
@@ -629,10 +629,10 @@ class TrunkInstance(InstanceResource):
         :params str domain_name: The unique address you reserve on Twilio to which you route your SIP traffic. Domain names can contain letters, digits, and `-` and must end with `pstn.twilio.com`. See [Termination Settings](https://www.twilio.com/docs/sip-trunking#termination) for more information.
         :params str disaster_recovery_url: The URL we should call using the `disaster_recovery_method` if an error occurs while sending SIP traffic towards the configured Origination URL. We retrieve TwiML from the URL and execute the instructions like any other normal TwiML call. See [Disaster Recovery](https://www.twilio.com/docs/sip-trunking#disaster-recovery) for more information.
         :params str disaster_recovery_method: The HTTP method we should use to call the `disaster_recovery_url`. Can be: `GET` or `POST`.
-        :params TransferSetting transfer_mode: 
+        :params TrunkInstance.TransferSetting transfer_mode: 
         :params bool secure: Whether Secure Trunking is enabled for the trunk. If enabled, all calls going through the trunk will be secure using SRTP for media and TLS for signaling. If disabled, then RTP will be used for media. See [Secure Trunking](https://www.twilio.com/docs/sip-trunking#securetrunking) for more information.
         :params bool cnam_lookup_enabled: Whether Caller ID Name (CNAM) lookup should be enabled for the trunk. If enabled, all inbound calls to the SIP Trunk from the United States and Canada automatically perform a CNAM Lookup and display Caller ID data on your phone. See [CNAM Lookups](https://www.twilio.com/docs/sip-trunking#CNAM) for more information.
-        :params TransferCallerId transfer_caller_id: 
+        :params TrunkInstance.TransferCallerId transfer_caller_id: 
 
         :returns: The updated TrunkInstance
         :rtype: twilio.rest.trunking.v1.trunk.TrunkInstance

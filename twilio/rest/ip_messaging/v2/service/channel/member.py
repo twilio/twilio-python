@@ -53,7 +53,7 @@ class MemberList(ListResource):
         Create the MemberInstance
 
         :param str identity: 
-        :param WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :param MemberInstance.WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
         :param str role_sid: 
         :param int last_consumed_message_index: 
         :param datetime last_consumption_timestamp: 
@@ -274,7 +274,7 @@ class MemberContext(InstanceContext):
         """
         Deletes the MemberInstance
 
-        :param WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :param MemberInstance.WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
         
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -307,7 +307,7 @@ class MemberContext(InstanceContext):
         """
         Update the MemberInstance
         
-        :params WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :params MemberInstance.WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
         :params str role_sid: 
         :params int last_consumed_message_index: 
         :params datetime last_consumption_timestamp: 
@@ -493,7 +493,7 @@ class MemberInstance(InstanceResource):
         """
         Deletes the MemberInstance
         
-        :params WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :params MemberInstance.WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -514,7 +514,7 @@ class MemberInstance(InstanceResource):
         """
         Update the MemberInstance
         
-        :params WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :params MemberInstance.WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
         :params str role_sid: 
         :params int last_consumed_message_index: 
         :params datetime last_consumption_timestamp: 

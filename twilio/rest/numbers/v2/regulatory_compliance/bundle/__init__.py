@@ -59,7 +59,7 @@ class BundleList(ListResource):
         :param str status_callback: The URL we call to inform your application of status changes.
         :param str regulation_sid: The unique string of a regulation that is associated to the Bundle resource.
         :param str iso_country: The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the Bundle's phone number country ownership request.
-        :param EndUserType end_user_type: 
+        :param BundleInstance.EndUserType end_user_type: 
         :param str number_type: The type of phone number of the Bundle's ownership request. Can be `local`, `mobile`, `national`, or `toll free`.
         
         :returns: The created BundleInstance
@@ -87,14 +87,14 @@ class BundleList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
         
-        :param Status status: The verification status of the Bundle resource. Please refer to [Bundle Statuses](https://www.twilio.com/docs/phone-numbers/regulatory/api/bundles#bundle-statuses) for more details.
+        :param BundleInstance.Status status: The verification status of the Bundle resource. Please refer to [Bundle Statuses](https://www.twilio.com/docs/phone-numbers/regulatory/api/bundles#bundle-statuses) for more details.
         :param str friendly_name: The string that you assigned to describe the resource. The column can contain 255 variable characters.
         :param str regulation_sid: The unique string of a [Regulation resource](https://www.twilio.com/docs/phone-numbers/regulatory/api/regulations) that is associated to the Bundle resource.
         :param str iso_country: The 2-digit [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the Bundle's phone number country ownership request.
         :param str number_type: The type of phone number of the Bundle's ownership request. Can be `local`, `mobile`, `national`, or `tollfree`.
         :param bool has_valid_until_date: Indicates that the Bundle is a valid Bundle until a specified expiration date.
-        :param SortBy sort_by: Can be `valid-until` or `date-updated`. Defaults to `date-created`.
-        :param SortDirection sort_direction: Default is `DESC`. Can be `ASC` or `DESC`.
+        :param BundleInstance.SortBy sort_by: Can be `valid-until` or `date-updated`. Defaults to `date-created`.
+        :param BundleInstance.SortDirection sort_direction: Default is `DESC`. Can be `ASC` or `DESC`.
         :param datetime valid_until_date: Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format.
         :param datetime valid_until_date_before: Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format.
         :param datetime valid_until_date_after: Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format.
@@ -132,14 +132,14 @@ class BundleList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
-        :param Status status: The verification status of the Bundle resource. Please refer to [Bundle Statuses](https://www.twilio.com/docs/phone-numbers/regulatory/api/bundles#bundle-statuses) for more details.
+        :param BundleInstance.Status status: The verification status of the Bundle resource. Please refer to [Bundle Statuses](https://www.twilio.com/docs/phone-numbers/regulatory/api/bundles#bundle-statuses) for more details.
         :param str friendly_name: The string that you assigned to describe the resource. The column can contain 255 variable characters.
         :param str regulation_sid: The unique string of a [Regulation resource](https://www.twilio.com/docs/phone-numbers/regulatory/api/regulations) that is associated to the Bundle resource.
         :param str iso_country: The 2-digit [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the Bundle's phone number country ownership request.
         :param str number_type: The type of phone number of the Bundle's ownership request. Can be `local`, `mobile`, `national`, or `tollfree`.
         :param bool has_valid_until_date: Indicates that the Bundle is a valid Bundle until a specified expiration date.
-        :param SortBy sort_by: Can be `valid-until` or `date-updated`. Defaults to `date-created`.
-        :param SortDirection sort_direction: Default is `DESC`. Can be `ASC` or `DESC`.
+        :param BundleInstance.SortBy sort_by: Can be `valid-until` or `date-updated`. Defaults to `date-created`.
+        :param BundleInstance.SortDirection sort_direction: Default is `DESC`. Can be `ASC` or `DESC`.
         :param datetime valid_until_date: Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format.
         :param datetime valid_until_date_before: Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format.
         :param datetime valid_until_date_after: Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format.
@@ -174,14 +174,14 @@ class BundleList(ListResource):
         Retrieve a single page of BundleInstance records from the API.
         Request is executed immediately
         
-        :param Status status: The verification status of the Bundle resource. Please refer to [Bundle Statuses](https://www.twilio.com/docs/phone-numbers/regulatory/api/bundles#bundle-statuses) for more details.
+        :param BundleInstance.Status status: The verification status of the Bundle resource. Please refer to [Bundle Statuses](https://www.twilio.com/docs/phone-numbers/regulatory/api/bundles#bundle-statuses) for more details.
         :param str friendly_name: The string that you assigned to describe the resource. The column can contain 255 variable characters.
         :param str regulation_sid: The unique string of a [Regulation resource](https://www.twilio.com/docs/phone-numbers/regulatory/api/regulations) that is associated to the Bundle resource.
         :param str iso_country: The 2-digit [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the Bundle's phone number country ownership request.
         :param str number_type: The type of phone number of the Bundle's ownership request. Can be `local`, `mobile`, `national`, or `tollfree`.
         :param bool has_valid_until_date: Indicates that the Bundle is a valid Bundle until a specified expiration date.
-        :param SortBy sort_by: Can be `valid-until` or `date-updated`. Defaults to `date-created`.
-        :param SortDirection sort_direction: Default is `DESC`. Can be `ASC` or `DESC`.
+        :param BundleInstance.SortBy sort_by: Can be `valid-until` or `date-updated`. Defaults to `date-created`.
+        :param BundleInstance.SortDirection sort_direction: Default is `DESC`. Can be `ASC` or `DESC`.
         :param datetime valid_until_date: Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format.
         :param datetime valid_until_date_before: Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format.
         :param datetime valid_until_date_after: Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format.
@@ -365,7 +365,7 @@ class BundleContext(InstanceContext):
         """
         Update the BundleInstance
         
-        :params Status status: 
+        :params BundleInstance.Status status: 
         :params str status_callback: The URL we call to inform your application of status changes.
         :params str friendly_name: The string that you assigned to describe the resource.
         :params str email: The email address that will receive updates when the Bundle resource changes status.
@@ -544,7 +544,7 @@ class BundleInstance(InstanceResource):
     def status(self):
         """
         :returns: 
-        :rtype: Status
+        :rtype: BundleInstance.Status
         """
         return self._properties['status']
     
@@ -628,7 +628,7 @@ class BundleInstance(InstanceResource):
         """
         Update the BundleInstance
         
-        :params Status status: 
+        :params BundleInstance.Status status: 
         :params str status_callback: The URL we call to inform your application of status changes.
         :params str friendly_name: The string that you assigned to describe the resource.
         :params str email: The email address that will receive updates when the Bundle resource changes status.

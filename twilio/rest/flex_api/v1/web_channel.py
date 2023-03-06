@@ -289,7 +289,7 @@ class WebChannelContext(InstanceContext):
         """
         Update the WebChannelInstance
         
-        :params ChatStatus chat_status: 
+        :params WebChannelInstance.ChatStatus chat_status: 
         :params str post_engagement_data: The post-engagement data.
 
         :returns: The updated WebChannelInstance
@@ -426,7 +426,7 @@ class WebChannelInstance(InstanceResource):
         """
         Update the WebChannelInstance
         
-        :params ChatStatus chat_status: 
+        :params WebChannelInstance.ChatStatus chat_status: 
         :params str post_engagement_data: The post-engagement data.
 
         :returns: The updated WebChannelInstance

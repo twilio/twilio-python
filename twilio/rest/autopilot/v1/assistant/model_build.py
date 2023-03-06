@@ -403,7 +403,7 @@ class ModelBuildInstance(InstanceResource):
     def status(self):
         """
         :returns: 
-        :rtype: Status
+        :rtype: ModelBuildInstance.Status
         """
         return self._properties['status']
     

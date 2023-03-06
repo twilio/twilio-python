@@ -49,7 +49,7 @@ class BrandVettingList(ListResource):
         """
         Create the BrandVettingInstance
 
-        :param VettingProvider vetting_provider: 
+        :param BrandVettingInstance.VettingProvider vetting_provider: 
         :param str vetting_id: The unique ID of the vetting
         
         :returns: The created BrandVettingInstance
@@ -72,7 +72,7 @@ class BrandVettingList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
         
-        :param VettingProvider vetting_provider: The third-party provider of the vettings to read
+        :param BrandVettingInstance.VettingProvider vetting_provider: The third-party provider of the vettings to read
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -97,7 +97,7 @@ class BrandVettingList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
-        :param VettingProvider vetting_provider: The third-party provider of the vettings to read
+        :param BrandVettingInstance.VettingProvider vetting_provider: The third-party provider of the vettings to read
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -119,7 +119,7 @@ class BrandVettingList(ListResource):
         Retrieve a single page of BrandVettingInstance records from the API.
         Request is executed immediately
         
-        :param VettingProvider vetting_provider: The third-party provider of the vettings to read
+        :param BrandVettingInstance.VettingProvider vetting_provider: The third-party provider of the vettings to read
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -390,7 +390,7 @@ class BrandVettingInstance(InstanceResource):
     def vetting_provider(self):
         """
         :returns: 
-        :rtype: VettingProvider
+        :rtype: BrandVettingInstance.VettingProvider
         """
         return self._properties['vetting_provider']
     

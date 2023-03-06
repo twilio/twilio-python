@@ -320,7 +320,7 @@ class FeedbackSummaryInstance(InstanceResource):
     def status(self):
         """
         :returns: 
-        :rtype: Status
+        :rtype: FeedbackSummaryInstance.Status
         """
         return self._properties['status']
     

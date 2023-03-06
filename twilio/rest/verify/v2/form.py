@@ -76,7 +76,7 @@ class FormList(ListResource):
 
 class FormContext(InstanceContext):
 
-    def __init__(self, version: Version, form_type: FormTypes):
+    def __init__(self, version: Version, form_type: FormInstance.FormTypes):
         """
         Initialize the FormContext
 
@@ -128,7 +128,7 @@ class FormInstance(InstanceResource):
     class FormTypes(object):
         FORM_PUSH = "form-push"
 
-    def __init__(self, version, payload, form_type: FormTypes=None):
+    def __init__(self, version, payload, form_type: FormInstance.FormTypes=None):
         """
         Initialize the FormInstance
         :returns: twilio.rest.verify.v2.form.FormInstance
@@ -163,7 +163,7 @@ class FormInstance(InstanceResource):
     def form_type(self):
         """
         :returns: 
-        :rtype: FormTypes
+        :rtype: FormInstance.FormTypes
         """
         return self._properties['form_type']
     

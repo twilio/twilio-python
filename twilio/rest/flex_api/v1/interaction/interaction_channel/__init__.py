@@ -253,7 +253,7 @@ class InteractionChannelContext(InstanceContext):
         """
         Update the InteractionChannelInstance
         
-        :params Status status: 
+        :params InteractionChannelInstance.Status status: 
         :params object routing: Optional. The state of associated tasks. If not specified, all tasks will be set to `wrapping`.
 
         :returns: The updated InteractionChannelInstance
@@ -383,7 +383,7 @@ class InteractionChannelInstance(InstanceResource):
     def type(self):
         """
         :returns: 
-        :rtype: Type
+        :rtype: InteractionChannelInstance.Type
         """
         return self._properties['type']
     
@@ -391,7 +391,7 @@ class InteractionChannelInstance(InstanceResource):
     def status(self):
         """
         :returns: 
-        :rtype: ChannelStatus
+        :rtype: InteractionChannelInstance.ChannelStatus
         """
         return self._properties['status']
     
@@ -441,7 +441,7 @@ class InteractionChannelInstance(InstanceResource):
         """
         Update the InteractionChannelInstance
         
-        :params Status status: 
+        :params InteractionChannelInstance.Status status: 
         :params object routing: Optional. The state of associated tasks. If not specified, all tasks will be set to `wrapping`.
 
         :returns: The updated InteractionChannelInstance

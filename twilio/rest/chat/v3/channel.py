@@ -104,8 +104,8 @@ class ChannelContext(InstanceContext):
         """
         Update the ChannelInstance
         
-        :params WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
-        :params ChannelType type: 
+        :params ChannelInstance.WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :params ChannelInstance.ChannelType type: 
         :params str messaging_service_sid: The unique ID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) this channel belongs to.
 
         :returns: The updated ChannelInstance
@@ -239,7 +239,7 @@ class ChannelInstance(InstanceResource):
     def type(self):
         """
         :returns: 
-        :rtype: ChannelType
+        :rtype: ChannelInstance.ChannelType
         """
         return self._properties['type']
     
@@ -303,8 +303,8 @@ class ChannelInstance(InstanceResource):
         """
         Update the ChannelInstance
         
-        :params WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
-        :params ChannelType type: 
+        :params ChannelInstance.WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :params ChannelInstance.ChannelType type: 
         :params str messaging_service_sid: The unique ID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) this channel belongs to.
 
         :returns: The updated ChannelInstance

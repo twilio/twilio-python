@@ -52,7 +52,7 @@ class StreamList(ListResource):
 
         :param str url: Relative or absolute url where WebSocket connection will be established.
         :param str name: The user-specified name of this Stream, if one was given when the Stream was created. This may be used to stop the Stream.
-        :param Track track: 
+        :param StreamInstance.Track track: 
         :param str status_callback: Absolute URL of the status callback.
         :param str status_callback_method: The http method for the status_callback (one of GET, POST).
         :param str parameter1_name: Parameter name
@@ -525,7 +525,7 @@ class StreamContext(InstanceContext):
         """
         Update the StreamInstance
         
-        :params UpdateStatus status: 
+        :params StreamInstance.UpdateStatus status: 
 
         :returns: The updated StreamInstance
         :rtype: twilio.rest.api.v2010.account.call.stream.StreamInstance
@@ -631,7 +631,7 @@ class StreamInstance(InstanceResource):
     def status(self):
         """
         :returns: 
-        :rtype: Status
+        :rtype: StreamInstance.Status
         """
         return self._properties['status']
     
@@ -655,7 +655,7 @@ class StreamInstance(InstanceResource):
         """
         Update the StreamInstance
         
-        :params UpdateStatus status: 
+        :params StreamInstance.UpdateStatus status: 
 
         :returns: The updated StreamInstance
         :rtype: twilio.rest.api.v2010.account.call.stream.StreamInstance

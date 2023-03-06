@@ -332,7 +332,7 @@ class EvaluationInstance(InstanceResource):
     def status(self):
         """
         :returns: 
-        :rtype: Status
+        :rtype: EvaluationInstance.Status
         """
         return self._properties['status']
     
