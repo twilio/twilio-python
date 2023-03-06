@@ -53,7 +53,7 @@ class UserList(ListResource):
         Create the UserInstance
 
         :param str identity: 
-        :param UserWebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :param WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
         :param str role_sid: 
         :param str attributes: 
         :param str friendly_name: 
@@ -292,7 +292,7 @@ class UserContext(InstanceContext):
         """
         Update the UserInstance
         
-        :params UserWebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :params WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
         :params str role_sid: 
         :params str attributes: 
         :params str friendly_name: 
@@ -354,7 +354,7 @@ class UserContext(InstanceContext):
 
 class UserInstance(InstanceResource):
 
-    class UserWebhookEnabledType(object):
+    class WebhookEnabledType(object):
         TRUE = "true"
         FALSE = "false"
 
@@ -535,7 +535,7 @@ class UserInstance(InstanceResource):
         """
         Update the UserInstance
         
-        :params UserWebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :params WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
         :params str role_sid: 
         :params str attributes: 
         :params str friendly_name: 

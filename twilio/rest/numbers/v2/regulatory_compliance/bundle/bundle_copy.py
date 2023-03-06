@@ -199,7 +199,7 @@ class BundleCopyPage(Page):
 
 class BundleCopyInstance(InstanceResource):
 
-    class BundleCopyStatus(object):
+    class Status(object):
         DRAFT = "draft"
         PENDING_REVIEW = "pending-review"
         IN_REVIEW = "in-review"
@@ -268,7 +268,7 @@ class BundleCopyInstance(InstanceResource):
     def status(self):
         """
         :returns: 
-        :rtype: BundleCopyStatus
+        :rtype: Status
         """
         return self._properties['status']
     

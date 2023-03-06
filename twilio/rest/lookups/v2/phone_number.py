@@ -151,7 +151,7 @@ class PhoneNumberContext(InstanceContext):
 
 class PhoneNumberInstance(InstanceResource):
 
-    class PhoneNumberValidationError(object):
+    class ValidationError(object):
         TOO_SHORT = "TOO_SHORT"
         TOO_LONG = "TOO_LONG"
         INVALID_BUT_POSSIBLE = "INVALID_BUT_POSSIBLE"
@@ -245,7 +245,7 @@ class PhoneNumberInstance(InstanceResource):
     def validation_errors(self):
         """
         :returns: Contains reasons why a phone number is invalid. Possible values: TOO_SHORT, TOO_LONG, INVALID_BUT_POSSIBLE, INVALID_COUNTRY_CODE, INVALID_LENGTH, NOT_A_NUMBER.
-        :rtype: list[PhoneNumberValidationError]
+        :rtype: list[ValidationError]
         """
         return self._properties['validation_errors']
     

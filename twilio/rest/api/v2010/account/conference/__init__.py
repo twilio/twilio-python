@@ -61,7 +61,7 @@ class ConferenceList(ListResource):
         :param date date_updated_before: The `date_updated` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that were last updated on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify conferences that were last updated on or after midnight on a given date, use  `>=YYYY-MM-DD`.
         :param date date_updated_after: The `date_updated` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that were last updated on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify conferences that were last updated on or after midnight on a given date, use  `>=YYYY-MM-DD`.
         :param str friendly_name: The string that identifies the Conference resources to read.
-        :param ConferenceStatus status: The status of the resources to read. Can be: `init`, `in-progress`, or `completed`.
+        :param Status status: The status of the resources to read. Can be: `init`, `in-progress`, or `completed`.
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -100,7 +100,7 @@ class ConferenceList(ListResource):
         :param date date_updated_before: The `date_updated` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that were last updated on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify conferences that were last updated on or after midnight on a given date, use  `>=YYYY-MM-DD`.
         :param date date_updated_after: The `date_updated` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that were last updated on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify conferences that were last updated on or after midnight on a given date, use  `>=YYYY-MM-DD`.
         :param str friendly_name: The string that identifies the Conference resources to read.
-        :param ConferenceStatus status: The status of the resources to read. Can be: `init`, `in-progress`, or `completed`.
+        :param Status status: The status of the resources to read. Can be: `init`, `in-progress`, or `completed`.
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -136,7 +136,7 @@ class ConferenceList(ListResource):
         :param date date_updated_before: The `date_updated` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that were last updated on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify conferences that were last updated on or after midnight on a given date, use  `>=YYYY-MM-DD`.
         :param date date_updated_after: The `date_updated` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that were last updated on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify conferences that were last updated on or after midnight on a given date, use  `>=YYYY-MM-DD`.
         :param str friendly_name: The string that identifies the Conference resources to read.
-        :param ConferenceStatus status: The status of the resources to read. Can be: `init`, `in-progress`, or `completed`.
+        :param Status status: The status of the resources to read. Can be: `init`, `in-progress`, or `completed`.
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -300,7 +300,7 @@ class ConferenceContext(InstanceContext):
         """
         Update the ConferenceInstance
         
-        :params ConferenceUpdateStatus status: 
+        :params UpdateStatus status: 
         :params str announce_url: The URL we should call to announce something into the conference. The URL may return an MP3 file, a WAV file, or a TwiML document that contains `<Play>`, `<Say>`, `<Pause>`, or `<Redirect>` verbs.
         :params str announce_method: The HTTP method used to call `announce_url`. Can be: `GET` or `POST` and the default is `POST`
 
@@ -361,14 +361,14 @@ class ConferenceContext(InstanceContext):
 
 class ConferenceInstance(InstanceResource):
 
-    class ConferenceReasonConferenceEnded(object):
+    class ReasonConferenceEnded(object):
         CONFERENCE_ENDED_VIA_API = "conference-ended-via-api"
         PARTICIPANT_WITH_END_CONFERENCE_ON_EXIT_LEFT = "participant-with-end-conference-on-exit-left"
         PARTICIPANT_WITH_END_CONFERENCE_ON_EXIT_KICKED = "participant-with-end-conference-on-exit-kicked"
         LAST_PARTICIPANT_KICKED = "last-participant-kicked"
         LAST_PARTICIPANT_LEFT = "last-participant-left"
 
-    class ConferenceStatus(object):
+    class Status(object):
         INIT = "init"
         IN_PROGRESS = "in-progress"
         COMPLETED = "completed"
@@ -472,7 +472,7 @@ class ConferenceInstance(InstanceResource):
     def status(self):
         """
         :returns: 
-        :rtype: ConferenceStatus
+        :rtype: Status
         """
         return self._properties['status']
     
@@ -496,7 +496,7 @@ class ConferenceInstance(InstanceResource):
     def reason_conference_ended(self):
         """
         :returns: 
-        :rtype: ConferenceReasonConferenceEnded
+        :rtype: ReasonConferenceEnded
         """
         return self._properties['reason_conference_ended']
     
@@ -522,7 +522,7 @@ class ConferenceInstance(InstanceResource):
         """
         Update the ConferenceInstance
         
-        :params ConferenceUpdateStatus status: 
+        :params UpdateStatus status: 
         :params str announce_url: The URL we should call to announce something into the conference. The URL may return an MP3 file, a WAV file, or a TwiML document that contains `<Play>`, `<Say>`, `<Pause>`, or `<Redirect>` verbs.
         :params str announce_method: The HTTP method used to call `announce_url`. Can be: `GET` or `POST` and the default is `POST`
 

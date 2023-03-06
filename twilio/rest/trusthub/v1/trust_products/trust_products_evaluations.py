@@ -273,7 +273,7 @@ class TrustProductsEvaluationsContext(InstanceContext):
 
 class TrustProductsEvaluationsInstance(InstanceResource):
 
-    class TrustProductEvaluationStatus(object):
+    class Status(object):
         COMPLIANT = "compliant"
         NONCOMPLIANT = "noncompliant"
 
@@ -348,7 +348,7 @@ class TrustProductsEvaluationsInstance(InstanceResource):
     def status(self):
         """
         :returns: 
-        :rtype: TrustProductEvaluationStatus
+        :rtype: Status
         """
         return self._properties['status']
     

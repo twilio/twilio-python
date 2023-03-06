@@ -274,7 +274,7 @@ class LogContext(InstanceContext):
 
 class LogInstance(InstanceResource):
 
-    class LogLevel(object):
+    class Level(object):
         INFO = "info"
         WARN = "warn"
         ERROR = "error"
@@ -386,7 +386,7 @@ class LogInstance(InstanceResource):
     def level(self):
         """
         :returns: 
-        :rtype: LogLevel
+        :rtype: Level
         """
         return self._properties['level']
     

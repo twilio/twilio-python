@@ -63,7 +63,7 @@ class ServiceList(ListResource):
         :param bool sticky_sender: Whether to enable [Sticky Sender](https://www.twilio.com/docs/sms/services#sticky-sender) on the Service instance.
         :param bool mms_converter: Whether to enable the [MMS Converter](https://www.twilio.com/docs/sms/services#mms-converter) for messages sent through the Service instance.
         :param bool smart_encoding: Whether to enable [Smart Encoding](https://www.twilio.com/docs/sms/services#smart-encoding) for messages sent through the Service instance.
-        :param ServiceScanMessageContent scan_message_content: 
+        :param ScanMessageContent scan_message_content: 
         :param bool fallback_to_long_code: Whether to enable [Fallback to Long Code](https://www.twilio.com/docs/sms/services#fallback-to-long-code) for messages sent through the Service instance.
         :param bool area_code_geomatch: Whether to enable [Area Code Geomatch](https://www.twilio.com/docs/sms/services#area-code-geomatch) on the Service Instance.
         :param int validity_period: How long, in seconds, messages sent from the Service are valid. Can be an integer from `1` to `14,400`.
@@ -327,7 +327,7 @@ class ServiceContext(InstanceContext):
         :params bool sticky_sender: Whether to enable [Sticky Sender](https://www.twilio.com/docs/sms/services#sticky-sender) on the Service instance.
         :params bool mms_converter: Whether to enable the [MMS Converter](https://www.twilio.com/docs/sms/services#mms-converter) for messages sent through the Service instance.
         :params bool smart_encoding: Whether to enable [Smart Encoding](https://www.twilio.com/docs/sms/services#smart-encoding) for messages sent through the Service instance.
-        :params ServiceScanMessageContent scan_message_content: 
+        :params ScanMessageContent scan_message_content: 
         :params bool fallback_to_long_code: Whether to enable [Fallback to Long Code](https://www.twilio.com/docs/sms/services#fallback-to-long-code) for messages sent through the Service instance.
         :params bool area_code_geomatch: Whether to enable [Area Code Geomatch](https://www.twilio.com/docs/sms/services#area-code-geomatch) on the Service Instance.
         :params int validity_period: How long, in seconds, messages sent from the Service are valid. Can be an integer from `1` to `14,400`.
@@ -443,7 +443,7 @@ class ServiceContext(InstanceContext):
 
 class ServiceInstance(InstanceResource):
 
-    class ServiceScanMessageContent(object):
+    class ScanMessageContent(object):
         INHERIT = "inherit"
         ENABLE = "enable"
         DISABLE = "disable"
@@ -606,7 +606,7 @@ class ServiceInstance(InstanceResource):
     def scan_message_content(self):
         """
         :returns: 
-        :rtype: ServiceScanMessageContent
+        :rtype: ScanMessageContent
         """
         return self._properties['scan_message_content']
     
@@ -715,7 +715,7 @@ class ServiceInstance(InstanceResource):
         :params bool sticky_sender: Whether to enable [Sticky Sender](https://www.twilio.com/docs/sms/services#sticky-sender) on the Service instance.
         :params bool mms_converter: Whether to enable the [MMS Converter](https://www.twilio.com/docs/sms/services#mms-converter) for messages sent through the Service instance.
         :params bool smart_encoding: Whether to enable [Smart Encoding](https://www.twilio.com/docs/sms/services#smart-encoding) for messages sent through the Service instance.
-        :params ServiceScanMessageContent scan_message_content: 
+        :params ScanMessageContent scan_message_content: 
         :params bool fallback_to_long_code: Whether to enable [Fallback to Long Code](https://www.twilio.com/docs/sms/services#fallback-to-long-code) for messages sent through the Service instance.
         :params bool area_code_geomatch: Whether to enable [Area Code Geomatch](https://www.twilio.com/docs/sms/services#area-code-geomatch) on the Service Instance.
         :params int validity_period: How long, in seconds, messages sent from the Service are valid. Can be an integer from `1` to `14,400`.

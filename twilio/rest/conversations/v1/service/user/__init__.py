@@ -52,7 +52,7 @@ class UserList(ListResource):
         Create the UserInstance
 
         :param str identity: The application-defined string that uniquely identifies the resource's User within the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource). This value is often a username or an email address, and is case-sensitive.
-        :param ServiceUserWebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :param WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
         :param str friendly_name: The string that you assigned to describe the resource.
         :param str attributes: The JSON Object string that stores application-specific data. If attributes have not been set, `{}` is returned.
         :param str role_sid: The SID of a service-level [Role](https://www.twilio.com/docs/conversations/api/role-resource) to assign to the user.
@@ -261,7 +261,7 @@ class UserContext(InstanceContext):
         """
         Deletes the UserInstance
 
-        :param ServiceUserWebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :param WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
         
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -293,7 +293,7 @@ class UserContext(InstanceContext):
         """
         Update the UserInstance
         
-        :params ServiceUserWebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :params WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
         :params str friendly_name: The string that you assigned to describe the resource.
         :params str attributes: The JSON Object string that stores application-specific data. If attributes have not been set, `{}` is returned.
         :params str role_sid: The SID of a service-level [Role](https://www.twilio.com/docs/conversations/api/role-resource) to assign to the user.
@@ -342,7 +342,7 @@ class UserContext(InstanceContext):
 
 class UserInstance(InstanceResource):
 
-    class ServiceUserWebhookEnabledType(object):
+    class WebhookEnabledType(object):
         TRUE = "true"
         FALSE = "false"
 
@@ -494,7 +494,7 @@ class UserInstance(InstanceResource):
         """
         Deletes the UserInstance
         
-        :params ServiceUserWebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :params WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -515,7 +515,7 @@ class UserInstance(InstanceResource):
         """
         Update the UserInstance
         
-        :params ServiceUserWebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :params WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
         :params str friendly_name: The string that you assigned to describe the resource.
         :params str attributes: The JSON Object string that stores application-specific data. If attributes have not been set, `{}` is returned.
         :params str role_sid: The SID of a service-level [Role](https://www.twilio.com/docs/conversations/api/role-resource) to assign to the user.

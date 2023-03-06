@@ -53,7 +53,7 @@ class FlowList(ListResource):
         Create the FlowInstance
 
         :param str friendly_name: The string that you assigned to describe the Flow.
-        :param FlowStatus status: 
+        :param Status status: 
         :param object definition: JSON representation of flow definition.
         :param str commit_message: Description of change made in the revision.
         
@@ -290,7 +290,7 @@ class FlowContext(InstanceContext):
         """
         Update the FlowInstance
         
-        :params FlowStatus status: 
+        :params Status status: 
         :params str friendly_name: The string that you assigned to describe the Flow.
         :params object definition: JSON representation of flow definition.
         :params str commit_message: Description of change made in the revision.
@@ -365,7 +365,7 @@ class FlowContext(InstanceContext):
 
 class FlowInstance(InstanceResource):
 
-    class FlowStatus(object):
+    class Status(object):
         DRAFT = "draft"
         PUBLISHED = "published"
 
@@ -447,7 +447,7 @@ class FlowInstance(InstanceResource):
     def status(self):
         """
         :returns: 
-        :rtype: FlowStatus
+        :rtype: Status
         """
         return self._properties['status']
     
@@ -555,7 +555,7 @@ class FlowInstance(InstanceResource):
         """
         Update the FlowInstance
         
-        :params FlowStatus status: 
+        :params Status status: 
         :params str friendly_name: The string that you assigned to describe the Flow.
         :params object definition: JSON representation of flow definition.
         :params str commit_message: Description of change made in the revision.

@@ -337,7 +337,7 @@ class RecordingContext(InstanceContext):
 
 class RecordingInstance(InstanceResource):
 
-    class RecordingSource(object):
+    class Source(object):
         DIALVERB = "DialVerb"
         CONFERENCE = "Conference"
         OUTBOUNDAPI = "OutboundAPI"
@@ -346,7 +346,7 @@ class RecordingInstance(InstanceResource):
         STARTCALLRECORDINGAPI = "StartCallRecordingAPI"
         STARTCONFERENCERECORDINGAPI = "StartConferenceRecordingAPI"
 
-    class RecordingStatus(object):
+    class Status(object):
         IN_PROGRESS = "in-progress"
         PAUSED = "paused"
         STOPPED = "stopped"
@@ -493,7 +493,7 @@ class RecordingInstance(InstanceResource):
     def status(self):
         """
         :returns: 
-        :rtype: RecordingStatus
+        :rtype: Status
         """
         return self._properties['status']
     
@@ -509,7 +509,7 @@ class RecordingInstance(InstanceResource):
     def source(self):
         """
         :returns: 
-        :rtype: RecordingSource
+        :rtype: Source
         """
         return self._properties['source']
     

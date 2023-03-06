@@ -256,7 +256,7 @@ class PublishedTrackContext(InstanceContext):
 
 class PublishedTrackInstance(InstanceResource):
 
-    class RoomParticipantPublishedTrackKind(object):
+    class Kind(object):
         AUDIO = "audio"
         VIDEO = "video"
         DATA = "data"
@@ -357,7 +357,7 @@ class PublishedTrackInstance(InstanceResource):
     def kind(self):
         """
         :returns: 
-        :rtype: RoomParticipantPublishedTrackKind
+        :rtype: Kind
         """
         return self._properties['kind']
     

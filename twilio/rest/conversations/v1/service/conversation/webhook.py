@@ -51,9 +51,9 @@ class WebhookList(ListResource):
         """
         Create the WebhookInstance
 
-        :param ServiceConversationScopedWebhookTarget target: 
+        :param Target target: 
         :param str configuration_url: The absolute url the webhook request should be sent to.
-        :param ServiceConversationScopedWebhookMethod configuration_method: 
+        :param Method configuration_method: 
         :param list[str] configuration_filters: The list of events, firing webhook event for this Conversation.
         :param list[str] configuration_triggers: The list of keywords, firing webhook event for this Conversation.
         :param str configuration_flow_sid: The studio flow SID, where the webhook should be sent to.
@@ -297,7 +297,7 @@ class WebhookContext(InstanceContext):
         Update the WebhookInstance
         
         :params str configuration_url: The absolute url the webhook request should be sent to.
-        :params ServiceConversationScopedWebhookMethod configuration_method: 
+        :params Method configuration_method: 
         :params list[str] configuration_filters: The list of events, firing webhook event for this Conversation.
         :params list[str] configuration_triggers: The list of keywords, firing webhook event for this Conversation.
         :params str configuration_flow_sid: The studio flow SID, where the webhook should be sent to.
@@ -469,7 +469,7 @@ class WebhookInstance(InstanceResource):
         Update the WebhookInstance
         
         :params str configuration_url: The absolute url the webhook request should be sent to.
-        :params ServiceConversationScopedWebhookMethod configuration_method: 
+        :params Method configuration_method: 
         :params list[str] configuration_filters: The list of events, firing webhook event for this Conversation.
         :params list[str] configuration_triggers: The list of keywords, firing webhook event for this Conversation.
         :params str configuration_flow_sid: The studio flow SID, where the webhook should be sent to.

@@ -95,7 +95,7 @@ class CallSummaryContext(InstanceContext):
         """
         Fetch the CallSummaryInstance
         
-        :params SummaryProcessingState processing_state: 
+        :params ProcessingState processing_state: 
 
         :returns: The fetched CallSummaryInstance
         :rtype: twilio.rest.insights.v1.call.call_summary.CallSummaryInstance
@@ -126,7 +126,7 @@ class CallSummaryContext(InstanceContext):
 
 class CallSummaryInstance(InstanceResource):
 
-    class SummaryAnsweredBy(object):
+    class AnsweredBy(object):
         UNKNOWN = "unknown"
         MACHINE_START = "machine_start"
         MACHINE_END_BEEP = "machine_end_beep"
@@ -135,7 +135,7 @@ class CallSummaryInstance(InstanceResource):
         HUMAN = "human"
         FAX = "fax"
 
-    class SummaryCallState(object):
+    class CallState(object):
         RINGING = "ringing"
         COMPLETED = "completed"
         BUSY = "busy"
@@ -145,13 +145,13 @@ class CallSummaryInstance(InstanceResource):
         ANSWERED = "answered"
         UNDIALED = "undialed"
 
-    class SummaryCallType(object):
+    class CallType(object):
         CARRIER = "carrier"
         SIP = "sip"
         TRUNKING = "trunking"
         CLIENT = "client"
 
-    class SummaryProcessingState(object):
+    class ProcessingState(object):
         COMPLETE = "complete"
         PARTIAL = "partial"
 
@@ -225,7 +225,7 @@ class CallSummaryInstance(InstanceResource):
     def call_type(self):
         """
         :returns: 
-        :rtype: SummaryCallType
+        :rtype: CallType
         """
         return self._properties['call_type']
     
@@ -233,7 +233,7 @@ class CallSummaryInstance(InstanceResource):
     def call_state(self):
         """
         :returns: 
-        :rtype: SummaryCallState
+        :rtype: CallState
         """
         return self._properties['call_state']
     
@@ -241,7 +241,7 @@ class CallSummaryInstance(InstanceResource):
     def answered_by(self):
         """
         :returns: 
-        :rtype: SummaryAnsweredBy
+        :rtype: AnsweredBy
         """
         return self._properties['answered_by']
     
@@ -249,7 +249,7 @@ class CallSummaryInstance(InstanceResource):
     def processing_state(self):
         """
         :returns: 
-        :rtype: SummaryProcessingState
+        :rtype: ProcessingState
         """
         return self._properties['processing_state']
     
@@ -393,7 +393,7 @@ class CallSummaryInstance(InstanceResource):
         """
         Fetch the CallSummaryInstance
         
-        :params SummaryProcessingState processing_state: 
+        :params ProcessingState processing_state: 
 
         :returns: The fetched CallSummaryInstance
         :rtype: twilio.rest.insights.v1.call.call_summary.CallSummaryInstance

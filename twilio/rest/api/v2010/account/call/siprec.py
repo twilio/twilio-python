@@ -51,7 +51,7 @@ class SiprecList(ListResource):
 
         :param str name: The user-specified name of this Siprec, if one was given when the Siprec was created. This may be used to stop the Siprec.
         :param str connector_name: Unique name used when configuring the connector via Marketplace Add-on.
-        :param SiprecTrack track: 
+        :param Track track: 
         :param str status_callback: Absolute URL of the status callback.
         :param str status_callback_method: The http method for the status_callback (one of GET, POST).
         :param str parameter1_name: Parameter name
@@ -524,7 +524,7 @@ class SiprecContext(InstanceContext):
         """
         Update the SiprecInstance
         
-        :params SiprecUpdateStatus status: 
+        :params UpdateStatus status: 
 
         :returns: The updated SiprecInstance
         :rtype: twilio.rest.api.v2010.account.call.siprec.SiprecInstance
@@ -556,7 +556,7 @@ class SiprecContext(InstanceContext):
 
 class SiprecInstance(InstanceResource):
 
-    class SiprecStatus(object):
+    class Status(object):
         IN_PROGRESS = "in-progress"
         STOPPED = "stopped"
 
@@ -630,7 +630,7 @@ class SiprecInstance(InstanceResource):
     def status(self):
         """
         :returns: 
-        :rtype: SiprecStatus
+        :rtype: Status
         """
         return self._properties['status']
     
@@ -654,7 +654,7 @@ class SiprecInstance(InstanceResource):
         """
         Update the SiprecInstance
         
-        :params SiprecUpdateStatus status: 
+        :params UpdateStatus status: 
 
         :returns: The updated SiprecInstance
         :rtype: twilio.rest.api.v2010.account.call.siprec.SiprecInstance

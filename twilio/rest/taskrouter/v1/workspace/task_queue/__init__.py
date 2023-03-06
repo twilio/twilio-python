@@ -58,7 +58,7 @@ class TaskQueueList(ListResource):
         :param str friendly_name: A descriptive string that you create to describe the TaskQueue. For example `Support-Tier 1`, `Sales`, or `Escalation`.
         :param str target_workers: A string that describes the Worker selection criteria for any Tasks that enter the TaskQueue. For example, `'\\\"language\\\" == \\\"spanish\\\"'`. The default value is `1==1`. If this value is empty, Tasks will wait in the TaskQueue until they are deleted or moved to another TaskQueue. For more information about Worker selection, see [Describing Worker selection criteria](https://www.twilio.com/docs/taskrouter/api/taskqueues#target-workers).
         :param int max_reserved_workers: The maximum number of Workers to reserve for the assignment of a Task in the queue. Can be an integer between 1 and 50, inclusive and defaults to 1.
-        :param TaskQueueTaskOrder task_order: 
+        :param TaskOrder task_order: 
         :param str reservation_activity_sid: The SID of the Activity to assign Workers when a task is reserved for them.
         :param str assignment_activity_sid: The SID of the Activity to assign Workers when a task is assigned to them.
         
@@ -340,7 +340,7 @@ class TaskQueueContext(InstanceContext):
         :params str reservation_activity_sid: The SID of the Activity to assign Workers when a task is reserved for them.
         :params str assignment_activity_sid: The SID of the Activity to assign Workers when a task is assigned for them.
         :params int max_reserved_workers: The maximum number of Workers to create reservations for the assignment of a task while in the queue. Maximum of 50.
-        :params TaskQueueTaskOrder task_order: 
+        :params TaskOrder task_order: 
 
         :returns: The updated TaskQueueInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueueInstance
@@ -415,7 +415,7 @@ class TaskQueueContext(InstanceContext):
 
 class TaskQueueInstance(InstanceResource):
 
-    class TaskQueueTaskOrder(object):
+    class TaskOrder(object):
         FIFO = "FIFO"
         LIFO = "LIFO"
 
@@ -553,7 +553,7 @@ class TaskQueueInstance(InstanceResource):
     def task_order(self):
         """
         :returns: 
-        :rtype: TaskQueueTaskOrder
+        :rtype: TaskOrder
         """
         return self._properties['task_order']
     
@@ -610,7 +610,7 @@ class TaskQueueInstance(InstanceResource):
         :params str reservation_activity_sid: The SID of the Activity to assign Workers when a task is reserved for them.
         :params str assignment_activity_sid: The SID of the Activity to assign Workers when a task is assigned for them.
         :params int max_reserved_workers: The maximum number of Workers to create reservations for the assignment of a task while in the queue. Maximum of 50.
-        :params TaskQueueTaskOrder task_order: 
+        :params TaskOrder task_order: 
 
         :returns: The updated TaskQueueInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueueInstance

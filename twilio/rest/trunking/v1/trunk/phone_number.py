@@ -286,7 +286,7 @@ class PhoneNumberContext(InstanceContext):
 
 class PhoneNumberInstance(InstanceResource):
 
-    class PhoneNumberAddressRequirement(object):
+    class AddressRequirement(object):
         NONE = "none"
         ANY = "any"
         LOCAL = "local"
@@ -357,7 +357,7 @@ class PhoneNumberInstance(InstanceResource):
     def address_requirements(self):
         """
         :returns: 
-        :rtype: PhoneNumberAddressRequirement
+        :rtype: AddressRequirement
         """
         return self._properties['address_requirements']
     

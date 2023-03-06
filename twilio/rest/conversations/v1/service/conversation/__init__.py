@@ -53,14 +53,14 @@ class ConversationList(ListResource):
         """
         Create the ConversationInstance
 
-        :param ServiceConversationWebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :param WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
         :param str friendly_name: The human-readable name of this conversation, limited to 256 characters. Optional.
         :param str unique_name: An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource's `sid` in the URL.
         :param str attributes: An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
         :param str messaging_service_sid: The unique ID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) this conversation belongs to.
         :param datetime date_created: The date that this resource was created.
         :param datetime date_updated: The date that this resource was last updated.
-        :param ServiceConversationState state: 
+        :param State state: 
         :param str timers_inactive: ISO8601 duration when conversation will be switched to `inactive` state. Minimum value for this timer is 1 minute.
         :param str timers_closed: ISO8601 duration when conversation will be switched to `closed` state. Minimum value for this timer is 10 minutes.
         
@@ -275,7 +275,7 @@ class ConversationContext(InstanceContext):
         """
         Deletes the ConversationInstance
 
-        :param ServiceConversationWebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :param WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
         
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -307,13 +307,13 @@ class ConversationContext(InstanceContext):
         """
         Update the ConversationInstance
         
-        :params ServiceConversationWebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :params WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
         :params str friendly_name: The human-readable name of this conversation, limited to 256 characters. Optional.
         :params datetime date_created: The date that this resource was created.
         :params datetime date_updated: The date that this resource was last updated.
         :params str attributes: An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
         :params str messaging_service_sid: The unique ID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) this conversation belongs to.
-        :params ServiceConversationState state: 
+        :params State state: 
         :params str timers_inactive: ISO8601 duration when conversation will be switched to `inactive` state. Minimum value for this timer is 1 minute.
         :params str timers_closed: ISO8601 duration when conversation will be switched to `closed` state. Minimum value for this timer is 10 minutes.
         :params str unique_name: An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource's `sid` in the URL.
@@ -394,12 +394,12 @@ class ConversationContext(InstanceContext):
 
 class ConversationInstance(InstanceResource):
 
-    class ServiceConversationState(object):
+    class State(object):
         INACTIVE = "inactive"
         ACTIVE = "active"
         CLOSED = "closed"
 
-    class ServiceConversationWebhookEnabledType(object):
+    class WebhookEnabledType(object):
         TRUE = "true"
         FALSE = "false"
 
@@ -504,7 +504,7 @@ class ConversationInstance(InstanceResource):
     def state(self):
         """
         :returns: 
-        :rtype: ServiceConversationState
+        :rtype: State
         """
         return self._properties['state']
     
@@ -560,7 +560,7 @@ class ConversationInstance(InstanceResource):
         """
         Deletes the ConversationInstance
         
-        :params ServiceConversationWebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :params WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -581,13 +581,13 @@ class ConversationInstance(InstanceResource):
         """
         Update the ConversationInstance
         
-        :params ServiceConversationWebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :params WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
         :params str friendly_name: The human-readable name of this conversation, limited to 256 characters. Optional.
         :params datetime date_created: The date that this resource was created.
         :params datetime date_updated: The date that this resource was last updated.
         :params str attributes: An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
         :params str messaging_service_sid: The unique ID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) this conversation belongs to.
-        :params ServiceConversationState state: 
+        :params State state: 
         :params str timers_inactive: ISO8601 duration when conversation will be switched to `inactive` state. Minimum value for this timer is 1 minute.
         :params str timers_closed: ISO8601 duration when conversation will be switched to `closed` state. Minimum value for this timer is 10 minutes.
         :params str unique_name: An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource's `sid` in the URL.

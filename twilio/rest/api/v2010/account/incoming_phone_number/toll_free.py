@@ -65,10 +65,10 @@ class TollFreeList(ListResource):
         :param str voice_url: The URL that we should call to answer a call to the new phone number. The `voice_url` will not be called if a `voice_application_sid` or a `trunk_sid` is set.
         :param str identity_sid: The SID of the Identity resource that we should associate with the new phone number. Some regions require an Identity to meet local regulations.
         :param str address_sid: The SID of the Address resource we should associate with the new phone number. Some regions require addresses to meet local regulations.
-        :param IncomingPhoneNumberTollFreeEmergencyStatus emergency_status: 
+        :param EmergencyStatus emergency_status: 
         :param str emergency_address_sid: The SID of the emergency address configuration to use for emergency calling from the new phone number.
         :param str trunk_sid: The SID of the Trunk we should use to handle calls to the new phone number. If a `trunk_sid` is present, we ignore all of the voice urls and voice applications and use only those set on the Trunk. Setting a `trunk_sid` will automatically delete your `voice_application_sid` and vice versa.
-        :param IncomingPhoneNumberTollFreeVoiceReceiveMode voice_receive_mode: 
+        :param VoiceReceiveMode voice_receive_mode: 
         :param str bundle_sid: The SID of the Bundle resource that you associate with the phone number. Some regions require a Bundle to meet local Regulations.
         
         :returns: The created TollFreeInstance
@@ -267,13 +267,13 @@ class TollFreePage(Page):
 
 class TollFreeInstance(InstanceResource):
 
-    class IncomingPhoneNumberTollFreeAddressRequirement(object):
+    class AddressRequirement(object):
         NONE = "none"
         ANY = "any"
         LOCAL = "local"
         FOREIGN = "foreign"
 
-    class IncomingPhoneNumberTollFreeEmergencyAddressStatus(object):
+    class EmergencyAddressStatus(object):
         REGISTERED = "registered"
         UNREGISTERED = "unregistered"
         PENDING_REGISTRATION = "pending-registration"
@@ -281,11 +281,11 @@ class TollFreeInstance(InstanceResource):
         PENDING_UNREGISTRATION = "pending-unregistration"
         UNREGISTRATION_FAILURE = "unregistration-failure"
 
-    class IncomingPhoneNumberTollFreeEmergencyStatus(object):
+    class EmergencyStatus(object):
         ACTIVE = "Active"
         INACTIVE = "Inactive"
 
-    class IncomingPhoneNumberTollFreeVoiceReceiveMode(object):
+    class VoiceReceiveMode(object):
         VOICE = "voice"
         FAX = "fax"
 
@@ -358,7 +358,7 @@ class TollFreeInstance(InstanceResource):
     def address_requirements(self):
         """
         :returns: 
-        :rtype: IncomingPhoneNumberTollFreeAddressRequirement
+        :rtype: AddressRequirement
         """
         return self._properties['address_requirements']
     
@@ -518,7 +518,7 @@ class TollFreeInstance(InstanceResource):
     def voice_receive_mode(self):
         """
         :returns: 
-        :rtype: IncomingPhoneNumberTollFreeVoiceReceiveMode
+        :rtype: VoiceReceiveMode
         """
         return self._properties['voice_receive_mode']
     
@@ -574,7 +574,7 @@ class TollFreeInstance(InstanceResource):
     def emergency_status(self):
         """
         :returns: 
-        :rtype: IncomingPhoneNumberTollFreeEmergencyStatus
+        :rtype: EmergencyStatus
         """
         return self._properties['emergency_status']
     
@@ -590,7 +590,7 @@ class TollFreeInstance(InstanceResource):
     def emergency_address_status(self):
         """
         :returns: 
-        :rtype: IncomingPhoneNumberTollFreeEmergencyAddressStatus
+        :rtype: EmergencyAddressStatus
         """
         return self._properties['emergency_address_status']
     

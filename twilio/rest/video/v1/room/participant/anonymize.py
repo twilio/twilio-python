@@ -126,7 +126,7 @@ class AnonymizeContext(InstanceContext):
 
 class AnonymizeInstance(InstanceResource):
 
-    class RoomParticipantAnonymizeStatus(object):
+    class Status(object):
         CONNECTED = "connected"
         DISCONNECTED = "disconnected"
 
@@ -196,7 +196,7 @@ class AnonymizeInstance(InstanceResource):
     def status(self):
         """
         :returns: 
-        :rtype: RoomParticipantAnonymizeStatus
+        :rtype: Status
         """
         return self._properties['status']
     

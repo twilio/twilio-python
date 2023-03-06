@@ -97,7 +97,7 @@ class VerificationAttemptsSummaryContext(InstanceContext):
         :params datetime date_created_after: Datetime filter used to consider only Verification Attempts created after this datetime on the summary aggregation. Given as GMT in RFC 2822 format.
         :params datetime date_created_before: Datetime filter used to consider only Verification Attempts created before this datetime on the summary aggregation. Given as GMT in RFC 2822 format.
         :params str country: Filter used to consider only Verification Attempts sent to the specified destination country on the summary aggregation.
-        :params VerificationAttemptsSummaryChannels channel: Filter Verification Attempts considered on the summary aggregation by communication channel. Valid values are `SMS` and `CALL`
+        :params Channels channel: Filter Verification Attempts considered on the summary aggregation by communication channel. Valid values are `SMS` and `CALL`
         :params str destination_prefix: Filter the Verification Attempts considered on the summary aggregation by Destination prefix. It is the prefix of a phone number in E.164 format.
 
         :returns: The fetched VerificationAttemptsSummaryInstance
@@ -133,7 +133,7 @@ class VerificationAttemptsSummaryContext(InstanceContext):
 
 class VerificationAttemptsSummaryInstance(InstanceResource):
 
-    class VerificationAttemptsSummaryChannels(object):
+    class Channels(object):
         SMS = "sms"
         CALL = "call"
         EMAIL = "email"
@@ -219,7 +219,7 @@ class VerificationAttemptsSummaryInstance(InstanceResource):
         :params datetime date_created_after: Datetime filter used to consider only Verification Attempts created after this datetime on the summary aggregation. Given as GMT in RFC 2822 format.
         :params datetime date_created_before: Datetime filter used to consider only Verification Attempts created before this datetime on the summary aggregation. Given as GMT in RFC 2822 format.
         :params str country: Filter used to consider only Verification Attempts sent to the specified destination country on the summary aggregation.
-        :params VerificationAttemptsSummaryChannels channel: Filter Verification Attempts considered on the summary aggregation by communication channel. Valid values are `SMS` and `CALL`
+        :params Channels channel: Filter Verification Attempts considered on the summary aggregation by communication channel. Valid values are `SMS` and `CALL`
         :params str destination_prefix: Filter the Verification Attempts considered on the summary aggregation by Destination prefix. It is the prefix of a phone number in E.164 format.
 
         :returns: The fetched VerificationAttemptsSummaryInstance

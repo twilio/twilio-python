@@ -51,10 +51,10 @@ class FlexFlowList(ListResource):
 
         :param str friendly_name: A descriptive string that you create to describe the Flex Flow resource.
         :param str chat_service_sid: The SID of the chat service.
-        :param FlexFlowChannelType channel_type: 
+        :param ChannelType channel_type: 
         :param str contact_identity: The channel contact's Identity.
         :param bool enabled: Whether the new Flex Flow is enabled.
-        :param FlexFlowIntegrationType integration_type: 
+        :param IntegrationType integration_type: 
         :param str integration_flow_sid: The SID of the Studio Flow. Required when `integrationType` is `studio`.
         :param str integration_url: The URL of the external webhook. Required when `integrationType` is `external`.
         :param str integration_workspace_sid: The Workspace SID for a new Task. Required when `integrationType` is `task`.
@@ -318,10 +318,10 @@ class FlexFlowContext(InstanceContext):
         
         :params str friendly_name: A descriptive string that you create to describe the Flex Flow resource.
         :params str chat_service_sid: The SID of the chat service.
-        :params FlexFlowChannelType channel_type: 
+        :params ChannelType channel_type: 
         :params str contact_identity: The channel contact's Identity.
         :params bool enabled: Whether the new Flex Flow is enabled.
-        :params FlexFlowIntegrationType integration_type: 
+        :params IntegrationType integration_type: 
         :params str integration_flow_sid: The SID of the Studio Flow. Required when `integrationType` is `studio`.
         :params str integration_url: The URL of the external webhook. Required when `integrationType` is `external`.
         :params str integration_workspace_sid: The Workspace SID for a new Task. Required when `integrationType` is `task`.
@@ -378,7 +378,7 @@ class FlexFlowContext(InstanceContext):
 
 class FlexFlowInstance(InstanceResource):
 
-    class FlexFlowChannelType(object):
+    class ChannelType(object):
         WEB = "web"
         SMS = "sms"
         FACEBOOK = "facebook"
@@ -386,7 +386,7 @@ class FlexFlowInstance(InstanceResource):
         LINE = "line"
         CUSTOM = "custom"
 
-    class FlexFlowIntegrationType(object):
+    class IntegrationType(object):
         STUDIO = "studio"
         EXTERNAL = "external"
         TASK = "task"
@@ -484,7 +484,7 @@ class FlexFlowInstance(InstanceResource):
     def channel_type(self):
         """
         :returns: 
-        :rtype: FlexFlowChannelType
+        :rtype: ChannelType
         """
         return self._properties['channel_type']
     
@@ -508,7 +508,7 @@ class FlexFlowInstance(InstanceResource):
     def integration_type(self):
         """
         :returns: 
-        :rtype: FlexFlowIntegrationType
+        :rtype: IntegrationType
         """
         return self._properties['integration_type']
     
@@ -570,10 +570,10 @@ class FlexFlowInstance(InstanceResource):
         
         :params str friendly_name: A descriptive string that you create to describe the Flex Flow resource.
         :params str chat_service_sid: The SID of the chat service.
-        :params FlexFlowChannelType channel_type: 
+        :params ChannelType channel_type: 
         :params str contact_identity: The channel contact's Identity.
         :params bool enabled: Whether the new Flex Flow is enabled.
-        :params FlexFlowIntegrationType integration_type: 
+        :params IntegrationType integration_type: 
         :params str integration_flow_sid: The SID of the Studio Flow. Required when `integrationType` is `studio`.
         :params str integration_url: The URL of the external webhook. Required when `integrationType` is `external`.
         :params str integration_workspace_sid: The Workspace SID for a new Task. Required when `integrationType` is `task`.

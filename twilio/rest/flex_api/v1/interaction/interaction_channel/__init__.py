@@ -252,7 +252,7 @@ class InteractionChannelContext(InstanceContext):
         """
         Update the InteractionChannelInstance
         
-        :params InteractionChannelStatus status: 
+        :params Status status: 
         :params object routing: Optional. The state of associated tasks. If not specified, all tasks will be set to `wrapping`.
 
         :returns: The updated InteractionChannelInstance
@@ -311,13 +311,13 @@ class InteractionChannelContext(InstanceContext):
 
 class InteractionChannelInstance(InstanceResource):
 
-    class InteractionChannelChannelStatus(object):
+    class ChannelStatus(object):
         SETUP = "setup"
         ACTIVE = "active"
         FAILED = "failed"
         CLOSED = "closed"
 
-    class InteractionChannelType(object):
+    class Type(object):
         VOICE = "voice"
         SMS = "sms"
         EMAIL = "email"
@@ -382,7 +382,7 @@ class InteractionChannelInstance(InstanceResource):
     def type(self):
         """
         :returns: 
-        :rtype: InteractionChannelType
+        :rtype: Type
         """
         return self._properties['type']
     
@@ -390,7 +390,7 @@ class InteractionChannelInstance(InstanceResource):
     def status(self):
         """
         :returns: 
-        :rtype: InteractionChannelChannelStatus
+        :rtype: ChannelStatus
         """
         return self._properties['status']
     
@@ -440,7 +440,7 @@ class InteractionChannelInstance(InstanceResource):
         """
         Update the InteractionChannelInstance
         
-        :params InteractionChannelStatus status: 
+        :params Status status: 
         :params object routing: Optional. The state of associated tasks. If not specified, all tasks will be set to `wrapping`.
 
         :returns: The updated InteractionChannelInstance

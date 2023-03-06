@@ -234,7 +234,7 @@ class UserChannelContext(InstanceContext):
         """
         Deletes the UserChannelInstance
 
-        :param UserChannelWebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :param WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
         
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -267,7 +267,7 @@ class UserChannelContext(InstanceContext):
         """
         Update the UserChannelInstance
         
-        :params UserChannelNotificationLevel notification_level: 
+        :params NotificationLevel notification_level: 
         :params int last_consumed_message_index: The index of the last [Message](https://www.twilio.com/docs/chat/rest/message-resource) in the [Channel](https://www.twilio.com/docs/chat/channels) that the Member has read.
         :params datetime last_consumption_timestamp: The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp of the last [Message](https://www.twilio.com/docs/chat/rest/message-resource) read event for the Member within the [Channel](https://www.twilio.com/docs/chat/channels).
 
@@ -303,16 +303,16 @@ class UserChannelContext(InstanceContext):
 
 class UserChannelInstance(InstanceResource):
 
-    class UserChannelChannelStatus(object):
+    class ChannelStatus(object):
         JOINED = "joined"
         INVITED = "invited"
         NOT_PARTICIPATING = "not_participating"
 
-    class UserChannelNotificationLevel(object):
+    class NotificationLevel(object):
         DEFAULT = "default"
         MUTED = "muted"
 
-    class UserChannelWebhookEnabledType(object):
+    class WebhookEnabledType(object):
         TRUE = "true"
         FALSE = "false"
 
@@ -398,7 +398,7 @@ class UserChannelInstance(InstanceResource):
     def status(self):
         """
         :returns: 
-        :rtype: UserChannelChannelStatus
+        :rtype: ChannelStatus
         """
         return self._properties['status']
     
@@ -438,7 +438,7 @@ class UserChannelInstance(InstanceResource):
     def notification_level(self):
         """
         :returns: 
-        :rtype: UserChannelNotificationLevel
+        :rtype: NotificationLevel
         """
         return self._properties['notification_level']
     
@@ -446,7 +446,7 @@ class UserChannelInstance(InstanceResource):
         """
         Deletes the UserChannelInstance
         
-        :params UserChannelWebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :params WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -467,7 +467,7 @@ class UserChannelInstance(InstanceResource):
         """
         Update the UserChannelInstance
         
-        :params UserChannelNotificationLevel notification_level: 
+        :params NotificationLevel notification_level: 
         :params int last_consumed_message_index: The index of the last [Message](https://www.twilio.com/docs/chat/rest/message-resource) in the [Channel](https://www.twilio.com/docs/chat/channels) that the Member has read.
         :params datetime last_consumption_timestamp: The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp of the last [Message](https://www.twilio.com/docs/chat/rest/message-resource) read event for the Member within the [Channel](https://www.twilio.com/docs/chat/channels).
 

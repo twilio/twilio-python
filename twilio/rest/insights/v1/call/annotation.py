@@ -114,8 +114,8 @@ class AnnotationContext(InstanceContext):
         """
         Update the AnnotationInstance
         
-        :params AnnotationAnsweredBy answered_by: 
-        :params AnnotationConnectivityIssue connectivity_issue: 
+        :params AnsweredBy answered_by: 
+        :params ConnectivityIssue connectivity_issue: 
         :params str quality_issues: Specify if the call had any subjective quality issues. Possible values, one or more of:  no_quality_issue, low_volume, choppy_robotic, echo, dtmf, latency, owa, static_noise. Use comma separated values to indicate multiple quality issues for the same call
         :params bool spam: Specify if the call was a spam call. Use this to provide feedback on whether calls placed from your account were marked as spam, or if inbound calls received by your account were unwanted spam. Is of type Boolean: true, false. Use true if the call was a spam call.
         :params int call_score: Specify the call score. This is of type integer. Use a range of 1-5 to indicate the call experience score, with the following mapping as a reference for rating the call [5: Excellent, 4: Good, 3 : Fair, 2 : Poor, 1: Bad].
@@ -156,12 +156,12 @@ class AnnotationContext(InstanceContext):
 
 class AnnotationInstance(InstanceResource):
 
-    class AnnotationAnsweredBy(object):
+    class AnsweredBy(object):
         UNKNOWN_ANSWERED_BY = "unknown_answered_by"
         HUMAN = "human"
         MACHINE = "machine"
 
-    class AnnotationConnectivityIssue(object):
+    class ConnectivityIssue(object):
         UNKNOWN_CONNECTIVITY_ISSUE = "unknown_connectivity_issue"
         NO_CONNECTIVITY_ISSUE = "no_connectivity_issue"
         INVALID_NUMBER = "invalid_number"
@@ -226,7 +226,7 @@ class AnnotationInstance(InstanceResource):
     def answered_by(self):
         """
         :returns: 
-        :rtype: AnnotationAnsweredBy
+        :rtype: AnsweredBy
         """
         return self._properties['answered_by']
     
@@ -234,7 +234,7 @@ class AnnotationInstance(InstanceResource):
     def connectivity_issue(self):
         """
         :returns: 
-        :rtype: AnnotationConnectivityIssue
+        :rtype: ConnectivityIssue
         """
         return self._properties['connectivity_issue']
     
@@ -300,8 +300,8 @@ class AnnotationInstance(InstanceResource):
         """
         Update the AnnotationInstance
         
-        :params AnnotationAnsweredBy answered_by: 
-        :params AnnotationConnectivityIssue connectivity_issue: 
+        :params AnsweredBy answered_by: 
+        :params ConnectivityIssue connectivity_issue: 
         :params str quality_issues: Specify if the call had any subjective quality issues. Possible values, one or more of:  no_quality_issue, low_volume, choppy_robotic, echo, dtmf, latency, owa, static_noise. Use comma separated values to indicate multiple quality issues for the same call
         :params bool spam: Specify if the call was a spam call. Use this to provide feedback on whether calls placed from your account were marked as spam, or if inbound calls received by your account were unwanted spam. Is of type Boolean: true, false. Use true if the call was a spam call.
         :params int call_score: Specify the call score. This is of type integer. Use a range of 1-5 to indicate the call experience score, with the following mapping as a reference for rating the call [5: Excellent, 4: Good, 3 : Fair, 2 : Poor, 1: Bad].

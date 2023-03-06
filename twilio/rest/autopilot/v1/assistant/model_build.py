@@ -314,7 +314,7 @@ class ModelBuildContext(InstanceContext):
 
 class ModelBuildInstance(InstanceResource):
 
-    class ModelBuildStatus(object):
+    class Status(object):
         ENQUEUED = "enqueued"
         BUILDING = "building"
         COMPLETED = "completed"
@@ -402,7 +402,7 @@ class ModelBuildInstance(InstanceResource):
     def status(self):
         """
         :returns: 
-        :rtype: ModelBuildStatus
+        :rtype: Status
         """
         return self._properties['status']
     

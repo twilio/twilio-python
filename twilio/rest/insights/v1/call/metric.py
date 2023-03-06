@@ -50,8 +50,8 @@ class MetricList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
         
-        :param MetricTwilioEdge edge: 
-        :param MetricStreamDirection direction: 
+        :param TwilioEdge edge: 
+        :param StreamDirection direction: 
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -77,8 +77,8 @@ class MetricList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
-        :param MetricTwilioEdge edge: 
-        :param MetricStreamDirection direction: 
+        :param TwilioEdge edge: 
+        :param StreamDirection direction: 
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -101,8 +101,8 @@ class MetricList(ListResource):
         Retrieve a single page of MetricInstance records from the API.
         Request is executed immediately
         
-        :param MetricTwilioEdge edge: 
-        :param MetricStreamDirection direction: 
+        :param TwilioEdge edge: 
+        :param StreamDirection direction: 
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -191,13 +191,13 @@ class MetricPage(Page):
 
 class MetricInstance(InstanceResource):
 
-    class MetricStreamDirection(object):
+    class StreamDirection(object):
         UNKNOWN = "unknown"
         INBOUND = "inbound"
         OUTBOUND = "outbound"
         BOTH = "both"
 
-    class MetricTwilioEdge(object):
+    class TwilioEdge(object):
         UNKNOWN_EDGE = "unknown_edge"
         CARRIER_EDGE = "carrier_edge"
         SIP_EDGE = "sip_edge"
@@ -256,7 +256,7 @@ class MetricInstance(InstanceResource):
     def edge(self):
         """
         :returns: 
-        :rtype: MetricTwilioEdge
+        :rtype: TwilioEdge
         """
         return self._properties['edge']
     
@@ -264,7 +264,7 @@ class MetricInstance(InstanceResource):
     def direction(self):
         """
         :returns: 
-        :rtype: MetricStreamDirection
+        :rtype: StreamDirection
         """
         return self._properties['direction']
     

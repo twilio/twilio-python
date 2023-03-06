@@ -179,7 +179,7 @@ class BillingPeriodPage(Page):
 
 class BillingPeriodInstance(InstanceResource):
 
-    class BillingPeriodBpType(object):
+    class BpType(object):
         READY = "ready"
         ACTIVE = "active"
 
@@ -250,7 +250,7 @@ class BillingPeriodInstance(InstanceResource):
     def period_type(self):
         """
         :returns: 
-        :rtype: BillingPeriodBpType
+        :rtype: BpType
         """
         return self._properties['period_type']
     
