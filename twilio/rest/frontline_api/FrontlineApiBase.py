@@ -23,7 +23,7 @@ class FrontlineApiBase(Domain):
         :rtype: twilio.rest.frontline_api.FrontlineApi
         """
         super().__init__(twilio)
-        self.base_url = 'https://frontline_api.twilio.com'
+        self.base_url = 'https://frontline-api.twilio.com'
         self._v1 = None
 
     @property
