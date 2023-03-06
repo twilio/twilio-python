@@ -55,7 +55,7 @@ class AsyncTwilioHttpClient(AsyncHttpClient):
         :param dict params: Query parameters to append to the URL
         :param dict data: Parameters to go in the body of the HTTP request
         :param dict headers: HTTP Headers to send with the request
-        :param tuple auth: Basic Auth arguments (username, password entries)
+        :param tuple(str, str) auth: Basic Auth arguments (username, password entries)
         :param float timeout: Socket/Read timeout for the request. Overrides the timeout if set on the client.
         :param boolean allow_redirects: Whether or not to allow redirects
         See the requests documentation for explanation of all these parameters

@@ -72,30 +72,8 @@ class ClientBase(object):
         :returns: Response from the Twilio API
         :rtype: twilio.http.response.Response
         """
-        auth = auth or self.auth
-        headers = headers or {}
-
-        pkg_version = __version__
-        os_name = platform.system()
-        os_arch = platform.machine()
-        python_version = platform.python_version()
-        headers['User-Agent'] = 'twilio-python/{} ({} {}) Python/{}'.format(
-            pkg_version,
-            os_name,
-            os_arch,
-            python_version,
-        )
-        for extension in self.user_agent_extensions:
-            headers['User-Agent'] += ' {}'.format(extension)
-        headers['X-Twilio-Client'] = 'python-{}'.format(__version__)
-        headers['Accept-Charset'] = 'utf-8'
-
-        if method == 'POST' and 'Content-Type' not in headers:
-            headers['Content-Type'] = 'application/x-www-form-urlencoded'
-
-        if 'Accept' not in headers:
-            headers['Accept'] = 'application/json'
-
+        auth = self.get_auth(auth)
+        headers = self.get_headers(method, headers)
         uri = self.get_hostname(uri)
 
         return self.http_client.request(
@@ -108,6 +86,89 @@ class ClientBase(object):
             timeout=timeout,
             allow_redirects=allow_redirects
         )
+
+    async def request_async(self, method, uri, params=None, data=None, headers=None, auth=None,
+                            timeout=None, allow_redirects=False):
+        """
+        Asynchronously makes a request to the Twilio API  using the configured http client
+        The configured http client must be an asynchronous http client
+        Authentication information is automatically added if none is provided
+
+        :param str method: HTTP Method
+        :param str uri: Fully qualified url
+        :param dict[str, str] params: Query string parameters
+        :param dict[str, str] data: POST body data
+        :param dict[str, str] headers: HTTP Headers
+        :param tuple(str, str) auth: Authentication
+        :param int timeout: Timeout in seconds
+        :param bool allow_redirects: Should the client follow redirects
+
+        :returns: Response from the Twilio API
+        :rtype: twilio.http.response.Response
+        """
+        print('Called ClientBase.request_async method...')
+
+        if not self.http_client.is_async:
+            raise RuntimeError('http_client must be asynchronous to support async API requests')
+
+        auth = self.get_auth(auth)
+        headers = self.get_headers(method, headers)
+        uri = self.get_hostname(uri)
+
+        return await self.http_client.request(
+            method,
+            uri,
+            params=params,
+            data=data,
+            headers=headers,
+            auth=auth,
+            timeout=timeout,
+            allow_redirects=allow_redirects
+        )
+
+    def get_auth(self, auth):
+        """
+        Get the request authentication object
+        :param tuple(str, str) auth: Authentication (username, password)
+        :returns: The authentication object
+        :rtype: tuple(str, str)
+        """
+        return auth or self.auth
+
+    def get_headers(self, method, headers):
+        """
+        Get the request headers including user-agent, extensions, encoding, content-type, MIME type
+        :param str method: HTTP method
+        :param dict[str, str] headers: HTTP headers
+        :returns: HTTP headers
+        :rtype: dict[str, str]
+        """
+        headers = headers or {}
+
+        # Set User-Agent
+        pkg_version = __version__
+        os_name = platform.system()
+        os_arch = platform.machine()
+        python_version = platform.python_version()
+        headers['User-Agent'] = 'twilio-python/{} ({} {}) Python/{}'.format(
+            pkg_version,
+            os_name,
+            os_arch,
+            python_version,
+        )
+        # Extensions
+        for extension in self.user_agent_extensions:
+            headers['User-Agent'] += ' {}'.format(extension)
+        headers['X-Twilio-Client'] = 'python-{}'.format(__version__)
+
+        # Types, encodings, etc.
+        headers['Accept-Charset'] = 'utf-8'
+        if method == 'POST' and 'Content-Type' not in headers:
+            headers['Content-Type'] = 'application/x-www-form-urlencoded'
+        if 'Accept' not in headers:
+            headers['Accept'] = 'application/json'
+
+        return headers
 
     def get_hostname(self, uri):
         """

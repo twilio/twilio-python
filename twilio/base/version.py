@@ -47,6 +47,25 @@ class Version(object):
             allow_redirects=allow_redirects
         )
 
+    async def request_async(self, method, uri, params=None, data=None, headers=None,
+                            auth=None, timeout=None, allow_redirects=False):
+        """
+        Make an asynchronous HTTP request
+        """
+        print('Called Version.request_async method...')
+
+        url = self.relative_uri(uri)
+        return await self.domain.request(
+            method,
+            url,
+            params=params,
+            data=data,
+            headers=headers,
+            auth=auth,
+            timeout=timeout,
+            allow_redirects=allow_redirects
+        )
+
     @classmethod
     def exception(cls, method, uri, response, message):
         """
