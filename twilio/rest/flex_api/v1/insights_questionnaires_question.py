@@ -141,7 +141,7 @@ class InsightsQuestionnairesQuestionList(ListResource):
         """
         data = values.of({ 
             'Token': token,
-            'CategoryId': serialize.map(category_id),
+            'CategoryId': serialize.map(category_id, lambda e: e),
             'PageToken': page_token,
             'Page': page_number,
             'PageSize': page_size,

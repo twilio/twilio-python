@@ -142,7 +142,7 @@ class MemberList(ListResource):
         :rtype: twilio.rest.chat.v2.service.channel.member.MemberPage
         """
         data = values.of({ 
-            'Identity': serialize.map(identity),
+            'Identity': serialize.map(identity, lambda e: e),
             'PageToken': page_token,
             'Page': page_number,
             'PageSize': page_size,

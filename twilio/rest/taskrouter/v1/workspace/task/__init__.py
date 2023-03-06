@@ -178,7 +178,7 @@ class TaskList(ListResource):
         """
         data = values.of({ 
             'Priority': priority,
-            'AssignmentStatus': serialize.map(assignment_status),
+            'AssignmentStatus': serialize.map(assignment_status, lambda e: e),
             'WorkflowSid': workflow_sid,
             'WorkflowName': workflow_name,
             'TaskQueueSid': task_queue_sid,

@@ -128,8 +128,8 @@ class RoomList(ListResource):
         :rtype: twilio.rest.insights.v1.room.RoomPage
         """
         data = values.of({ 
-            'RoomType': serialize.map(room_type),
-            'Codec': serialize.map(codec),
+            'RoomType': serialize.map(room_type, lambda e: e),
+            'Codec': serialize.map(codec, lambda e: e),
             'RoomName': room_name,
             'CreatedAfter': serialize.iso8601_datetime(created_after),
             'CreatedBefore': serialize.iso8601_datetime(created_before),

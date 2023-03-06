@@ -156,8 +156,8 @@ class BindingList(ListResource):
         data = values.of({ 
             'StartDate': serialize.iso8601_date(start_date),
             'EndDate': serialize.iso8601_date(end_date),
-            'Identity': serialize.map(identity),
-            'Tag': serialize.map(tag),
+            'Identity': serialize.map(identity, lambda e: e),
+            'Tag': serialize.map(tag, lambda e: e),
             'PageToken': page_token,
             'Page': page_number,
             'PageSize': page_size,

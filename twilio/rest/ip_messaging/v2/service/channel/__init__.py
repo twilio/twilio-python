@@ -145,7 +145,7 @@ class ChannelList(ListResource):
         :rtype: twilio.rest.ip_messaging.v2.service.channel.ChannelPage
         """
         data = values.of({ 
-            'Type': serialize.map(type),
+            'Type': serialize.map(type, lambda e: e),
             'PageToken': page_token,
             'Page': page_number,
             'PageSize': page_size,

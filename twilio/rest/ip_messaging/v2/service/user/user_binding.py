@@ -110,7 +110,7 @@ class UserBindingList(ListResource):
         :rtype: twilio.rest.ip_messaging.v2.service.user.user_binding.UserBindingPage
         """
         data = values.of({ 
-            'BindingType': serialize.map(binding_type),
+            'BindingType': serialize.map(binding_type, lambda e: e),
             'PageToken': page_token,
             'Page': page_number,
             'PageSize': page_size,

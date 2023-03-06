@@ -114,8 +114,8 @@ class BindingList(ListResource):
         :rtype: twilio.rest.conversations.v1.service.binding.BindingPage
         """
         data = values.of({ 
-            'BindingType': serialize.map(binding_type),
-            'Identity': serialize.map(identity),
+            'BindingType': serialize.map(binding_type, lambda e: e),
+            'Identity': serialize.map(identity, lambda e: e),
             'PageToken': page_token,
             'Page': page_number,
             'PageSize': page_size,

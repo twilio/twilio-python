@@ -44,6 +44,17 @@ class UsAppToPersonUsecaseList(ListResource):
         
         
     
+        def fetch(self):
+        """
+        Fetch the UsAppToPersonUsecaseInstance
+
+        :returns: The fetched UsAppToPersonUsecaseInstance
+        :rtype: twilio.rest.messaging.v1.service.us_app_to_person_usecase.UsAppToPersonUsecaseInstance
+        """
+        payload = self._version.create(method='GET', uri=self._uri)
+
+        return UsAppToPersonUsecaseInstance(self._version, payload, messaging_service_sid=self._solution['messaging_service_sid'])
+    
 
 
     def __repr__(self):

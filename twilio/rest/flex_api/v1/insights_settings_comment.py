@@ -43,6 +43,17 @@ class InsightsSettingsCommentList(ListResource):
         
         
     
+        def fetch(self):
+        """
+        Fetch the InsightsSettingsCommentInstance
+
+        :returns: The fetched InsightsSettingsCommentInstance
+        :rtype: twilio.rest.flex_api.v1.insights_settings_comment.InsightsSettingsCommentInstance
+        """
+        payload = self._version.create(method='GET', uri=self._uri)
+
+        return InsightsSettingsCommentInstance(self._version, payload)
+    
 
 
     def __repr__(self):
