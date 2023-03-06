@@ -201,6 +201,7 @@ class TodayPage(Page):
 
 
 
+
 class TodayInstance(InstanceResource):
 
     class Category(object):
@@ -608,6 +609,5 @@ class TodayInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Api.V2010.TodayInstance {}>'.format(context)
-
 
 

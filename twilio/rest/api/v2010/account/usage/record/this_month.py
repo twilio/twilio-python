@@ -201,6 +201,7 @@ class ThisMonthPage(Page):
 
 
 
+
 class ThisMonthInstance(InstanceResource):
 
     class Category(object):
@@ -608,6 +609,5 @@ class ThisMonthInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Api.V2010.ThisMonthInstance {}>'.format(context)
-
 
 

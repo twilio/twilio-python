@@ -224,6 +224,67 @@ class AlphaSenderPage(Page):
 
 
 
+class AlphaSenderContext(InstanceContext):
+
+    def __init__(self, version: Version, service_sid: str, sid: str):
+        """
+        Initialize the AlphaSenderContext
+
+        :param Version version: Version that contains the resource
+        :param service_sid: The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to fetch the resource from.:param sid: The SID of the AlphaSender resource to fetch.
+
+        :returns: twilio.rest.messaging.v1.service.alpha_sender.AlphaSenderContext
+        :rtype: twilio.rest.messaging.v1.service.alpha_sender.AlphaSenderContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'service_sid': service_sid,
+            'sid': sid,
+        }
+        self._uri = '/Services/{service_sid}/AlphaSenders/{sid}'.format(**self._solution)
+        
+    
+    def delete(self):
+        """
+        Deletes the AlphaSenderInstance
+
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(method='DELETE', uri=self._uri,)
+        
+    def fetch(self):
+        """
+        Fetch the AlphaSenderInstance
+        
+
+        :returns: The fetched AlphaSenderInstance
+        :rtype: twilio.rest.messaging.v1.service.alpha_sender.AlphaSenderInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return AlphaSenderInstance(
+            self._version,
+            payload,
+            service_sid=self._solution['service_sid'],
+            sid=self._solution['sid'],
+            
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Messaging.V1.AlphaSenderContext {}>'.format(context)
+
 class AlphaSenderInstance(InstanceResource):
 
     def __init__(self, version, payload, service_sid: str, sid: str=None):
@@ -353,66 +414,5 @@ class AlphaSenderInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Messaging.V1.AlphaSenderInstance {}>'.format(context)
-
-class AlphaSenderContext(InstanceContext):
-
-    def __init__(self, version: Version, service_sid: str, sid: str):
-        """
-        Initialize the AlphaSenderContext
-
-        :param Version version: Version that contains the resource
-        :param service_sid: The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to fetch the resource from.:param sid: The SID of the AlphaSender resource to fetch.
-
-        :returns: twilio.rest.messaging.v1.service.alpha_sender.AlphaSenderContext
-        :rtype: twilio.rest.messaging.v1.service.alpha_sender.AlphaSenderContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'service_sid': service_sid,
-            'sid': sid,
-        }
-        self._uri = '/Services/{service_sid}/AlphaSenders/{sid}'.format(**self._solution)
-        
-    
-    def delete(self):
-        """
-        Deletes the AlphaSenderInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(method='DELETE', uri=self._uri,)
-        
-    def fetch(self):
-        """
-        Fetch the AlphaSenderInstance
-        
-
-        :returns: The fetched AlphaSenderInstance
-        :rtype: twilio.rest.messaging.v1.service.alpha_sender.AlphaSenderInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return AlphaSenderInstance(
-            self._version,
-            payload,
-            service_sid=self._solution['service_sid'],
-            sid=self._solution['sid'],
-            
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Messaging.V1.AlphaSenderContext {}>'.format(context)
 
 

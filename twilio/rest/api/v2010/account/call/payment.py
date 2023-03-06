@@ -124,6 +124,69 @@ class PaymentList(ListResource):
         """
         return '<Twilio.Api.V2010.PaymentList>'
 
+class PaymentContext(InstanceContext):
+
+    def __init__(self, version: Version, account_sid: str, call_sid: str, sid: str):
+        """
+        Initialize the PaymentContext
+
+        :param Version version: Version that contains the resource
+        :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will update the resource.:param call_sid: The SID of the call that will update the resource. This should be the same call sid that was used to create payments resource.:param sid: The SID of Payments session that needs to be updated.
+
+        :returns: twilio.rest.api.v2010.account.call.payment.PaymentContext
+        :rtype: twilio.rest.api.v2010.account.call.payment.PaymentContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'account_sid': account_sid,
+            'call_sid': call_sid,
+            'sid': sid,
+        }
+        self._uri = '/Accounts/{account_sid}/Calls/{call_sid}/Payments/{sid}.json'.format(**self._solution)
+        
+    
+    def update(self, idempotency_key, status_callback, capture=values.unset, status=values.unset):
+        """
+        Update the PaymentInstance
+        
+        :params str idempotency_key: A unique token that will be used to ensure that multiple API calls with the same information do not result in multiple transactions. This should be a unique string value per API call and can be a randomly generated.
+        :params str status_callback: Provide an absolute or relative URL to receive status updates regarding your Pay session. Read more about the [Update](https://www.twilio.com/docs/voice/api/payment-resource#statuscallback-update) and [Complete/Cancel](https://www.twilio.com/docs/voice/api/payment-resource#statuscallback-cancelcomplete) POST requests.
+        :params Capture capture: 
+        :params Status status: 
+
+        :returns: The updated PaymentInstance
+        :rtype: twilio.rest.api.v2010.account.call.payment.PaymentInstance
+        """
+        data = values.of({ 
+            'IdempotencyKey': idempotency_key,
+            'StatusCallback': status_callback,
+            'Capture': capture,
+            'Status': status,
+        })
+        
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return PaymentInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+            call_sid=self._solution['call_sid'],
+            sid=self._solution['sid']
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Api.V2010.PaymentContext {}>'.format(context)
+
 class PaymentInstance(InstanceResource):
 
     def __init__(self, version, payload, account_sid: str, call_sid: str, sid: str=None):
@@ -229,68 +292,5 @@ class PaymentInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Api.V2010.PaymentInstance {}>'.format(context)
-
-class PaymentContext(InstanceContext):
-
-    def __init__(self, version: Version, account_sid: str, call_sid: str, sid: str):
-        """
-        Initialize the PaymentContext
-
-        :param Version version: Version that contains the resource
-        :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will update the resource.:param call_sid: The SID of the call that will update the resource. This should be the same call sid that was used to create payments resource.:param sid: The SID of Payments session that needs to be updated.
-
-        :returns: twilio.rest.api.v2010.account.call.payment.PaymentContext
-        :rtype: twilio.rest.api.v2010.account.call.payment.PaymentContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'account_sid': account_sid,
-            'call_sid': call_sid,
-            'sid': sid,
-        }
-        self._uri = '/Accounts/{account_sid}/Calls/{call_sid}/Payments/{sid}.json'.format(**self._solution)
-        
-    
-    def update(self, idempotency_key, status_callback, capture=values.unset, status=values.unset):
-        """
-        Update the PaymentInstance
-        
-        :params str idempotency_key: A unique token that will be used to ensure that multiple API calls with the same information do not result in multiple transactions. This should be a unique string value per API call and can be a randomly generated.
-        :params str status_callback: Provide an absolute or relative URL to receive status updates regarding your Pay session. Read more about the [Update](https://www.twilio.com/docs/voice/api/payment-resource#statuscallback-update) and [Complete/Cancel](https://www.twilio.com/docs/voice/api/payment-resource#statuscallback-cancelcomplete) POST requests.
-        :params Capture capture: 
-        :params Status status: 
-
-        :returns: The updated PaymentInstance
-        :rtype: twilio.rest.api.v2010.account.call.payment.PaymentInstance
-        """
-        data = values.of({ 
-            'IdempotencyKey': idempotency_key,
-            'StatusCallback': status_callback,
-            'Capture': capture,
-            'Status': status,
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return PaymentInstance(
-            self._version,
-            payload,
-            account_sid=self._solution['account_sid'],
-            call_sid=self._solution['call_sid'],
-            sid=self._solution['sid']
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Api.V2010.PaymentContext {}>'.format(context)
 
 

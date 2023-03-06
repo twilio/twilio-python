@@ -265,6 +265,7 @@ class TollFreePage(Page):
 
 
 
+
 class TollFreeInstance(InstanceResource):
 
     class AddressRequirement(object):
@@ -618,6 +619,5 @@ class TollFreeInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Api.V2010.TollFreeInstance {}>'.format(context)
-
 
 

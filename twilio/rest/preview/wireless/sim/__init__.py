@@ -234,6 +234,121 @@ class SimPage(Page):
 
 
 
+class SimContext(InstanceContext):
+
+    def __init__(self, version: Version, sid: str):
+        """
+        Initialize the SimContext
+
+        :param Version version: Version that contains the resource
+        :param sid: 
+
+        :returns: twilio.rest.preview.wireless.sim.SimContext
+        :rtype: twilio.rest.preview.wireless.sim.SimContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'sid': sid,
+        }
+        self._uri = '/Sims/{sid}'.format(**self._solution)
+        
+        self._usage = None
+    
+    def fetch(self):
+        """
+        Fetch the SimInstance
+        
+
+        :returns: The fetched SimInstance
+        :rtype: twilio.rest.preview.wireless.sim.SimInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return SimInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid'],
+            
+        )
+        
+    def update(self, unique_name=values.unset, callback_method=values.unset, callback_url=values.unset, friendly_name=values.unset, rate_plan=values.unset, status=values.unset, commands_callback_method=values.unset, commands_callback_url=values.unset, sms_fallback_method=values.unset, sms_fallback_url=values.unset, sms_method=values.unset, sms_url=values.unset, voice_fallback_method=values.unset, voice_fallback_url=values.unset, voice_method=values.unset, voice_url=values.unset):
+        """
+        Update the SimInstance
+        
+        :params str unique_name: 
+        :params str callback_method: 
+        :params str callback_url: 
+        :params str friendly_name: 
+        :params str rate_plan: 
+        :params str status: 
+        :params str commands_callback_method: 
+        :params str commands_callback_url: 
+        :params str sms_fallback_method: 
+        :params str sms_fallback_url: 
+        :params str sms_method: 
+        :params str sms_url: 
+        :params str voice_fallback_method: 
+        :params str voice_fallback_url: 
+        :params str voice_method: 
+        :params str voice_url: 
+
+        :returns: The updated SimInstance
+        :rtype: twilio.rest.preview.wireless.sim.SimInstance
+        """
+        data = values.of({ 
+            'UniqueName': unique_name,
+            'CallbackMethod': callback_method,
+            'CallbackUrl': callback_url,
+            'FriendlyName': friendly_name,
+            'RatePlan': rate_plan,
+            'Status': status,
+            'CommandsCallbackMethod': commands_callback_method,
+            'CommandsCallbackUrl': commands_callback_url,
+            'SmsFallbackMethod': sms_fallback_method,
+            'SmsFallbackUrl': sms_fallback_url,
+            'SmsMethod': sms_method,
+            'SmsUrl': sms_url,
+            'VoiceFallbackMethod': voice_fallback_method,
+            'VoiceFallbackUrl': voice_fallback_url,
+            'VoiceMethod': voice_method,
+            'VoiceUrl': voice_url,
+        })
+        
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return SimInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid']
+        )
+        
+    
+    @property
+    def usage(self):
+        """
+        Access the usage
+
+        :returns: twilio.rest.preview.wireless.sim.UsageList
+        :rtype: twilio.rest.preview.wireless.sim.UsageList
+        """
+        if self._usage is None:
+            self._usage = UsageList(self._version, self._solution['sid'],
+            )
+        return self._usage
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Preview.Wireless.SimContext {}>'.format(context)
+
 class SimInstance(InstanceResource):
 
     def __init__(self, version, payload, sid: str=None):
@@ -515,120 +630,5 @@ class SimInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Preview.Wireless.SimInstance {}>'.format(context)
-
-class SimContext(InstanceContext):
-
-    def __init__(self, version: Version, sid: str):
-        """
-        Initialize the SimContext
-
-        :param Version version: Version that contains the resource
-        :param sid: 
-
-        :returns: twilio.rest.preview.wireless.sim.SimContext
-        :rtype: twilio.rest.preview.wireless.sim.SimContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'sid': sid,
-        }
-        self._uri = '/Sims/{sid}'.format(**self._solution)
-        
-        self._usage = None
-    
-    def fetch(self):
-        """
-        Fetch the SimInstance
-        
-
-        :returns: The fetched SimInstance
-        :rtype: twilio.rest.preview.wireless.sim.SimInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return SimInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid'],
-            
-        )
-        
-    def update(self, unique_name=values.unset, callback_method=values.unset, callback_url=values.unset, friendly_name=values.unset, rate_plan=values.unset, status=values.unset, commands_callback_method=values.unset, commands_callback_url=values.unset, sms_fallback_method=values.unset, sms_fallback_url=values.unset, sms_method=values.unset, sms_url=values.unset, voice_fallback_method=values.unset, voice_fallback_url=values.unset, voice_method=values.unset, voice_url=values.unset):
-        """
-        Update the SimInstance
-        
-        :params str unique_name: 
-        :params str callback_method: 
-        :params str callback_url: 
-        :params str friendly_name: 
-        :params str rate_plan: 
-        :params str status: 
-        :params str commands_callback_method: 
-        :params str commands_callback_url: 
-        :params str sms_fallback_method: 
-        :params str sms_fallback_url: 
-        :params str sms_method: 
-        :params str sms_url: 
-        :params str voice_fallback_method: 
-        :params str voice_fallback_url: 
-        :params str voice_method: 
-        :params str voice_url: 
-
-        :returns: The updated SimInstance
-        :rtype: twilio.rest.preview.wireless.sim.SimInstance
-        """
-        data = values.of({ 
-            'UniqueName': unique_name,
-            'CallbackMethod': callback_method,
-            'CallbackUrl': callback_url,
-            'FriendlyName': friendly_name,
-            'RatePlan': rate_plan,
-            'Status': status,
-            'CommandsCallbackMethod': commands_callback_method,
-            'CommandsCallbackUrl': commands_callback_url,
-            'SmsFallbackMethod': sms_fallback_method,
-            'SmsFallbackUrl': sms_fallback_url,
-            'SmsMethod': sms_method,
-            'SmsUrl': sms_url,
-            'VoiceFallbackMethod': voice_fallback_method,
-            'VoiceFallbackUrl': voice_fallback_url,
-            'VoiceMethod': voice_method,
-            'VoiceUrl': voice_url,
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return SimInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid']
-        )
-        
-    
-    @property
-    def usage(self):
-        """
-        Access the usage
-
-        :returns: twilio.rest.preview.wireless.sim.UsageList
-        :rtype: twilio.rest.preview.wireless.sim.UsageList
-        """
-        if self._usage is None:
-            self._usage = UsageList(self._version, self._solution['sid'],
-            )
-        return self._usage
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Preview.Wireless.SimContext {}>'.format(context)
 
 

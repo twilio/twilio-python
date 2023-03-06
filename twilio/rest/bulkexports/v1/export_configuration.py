@@ -75,6 +75,81 @@ class ExportConfigurationList(ListResource):
         """
         return '<Twilio.Bulkexports.V1.ExportConfigurationList>'
 
+class ExportConfigurationContext(InstanceContext):
+
+    def __init__(self, version: Version, resource_type: str):
+        """
+        Initialize the ExportConfigurationContext
+
+        :param Version version: Version that contains the resource
+        :param resource_type: The type of communication – Messages, Calls, Conferences, and Participants
+
+        :returns: twilio.rest.bulkexports.v1.export_configuration.ExportConfigurationContext
+        :rtype: twilio.rest.bulkexports.v1.export_configuration.ExportConfigurationContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'resource_type': resource_type,
+        }
+        self._uri = '/Exports/{resource_type}/Configuration'.format(**self._solution)
+        
+    
+    def fetch(self):
+        """
+        Fetch the ExportConfigurationInstance
+        
+
+        :returns: The fetched ExportConfigurationInstance
+        :rtype: twilio.rest.bulkexports.v1.export_configuration.ExportConfigurationInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return ExportConfigurationInstance(
+            self._version,
+            payload,
+            resource_type=self._solution['resource_type'],
+            
+        )
+        
+    def update(self, enabled=values.unset, webhook_url=values.unset, webhook_method=values.unset):
+        """
+        Update the ExportConfigurationInstance
+        
+        :params bool enabled: If true, Twilio will automatically generate every day's file when the day is over.
+        :params str webhook_url: Stores the URL destination for the method specified in webhook_method.
+        :params str webhook_method: Sets whether Twilio should call a webhook URL when the automatic generation is complete, using GET or POST. The actual destination is set in the webhook_url
+
+        :returns: The updated ExportConfigurationInstance
+        :rtype: twilio.rest.bulkexports.v1.export_configuration.ExportConfigurationInstance
+        """
+        data = values.of({ 
+            'Enabled': enabled,
+            'WebhookUrl': webhook_url,
+            'WebhookMethod': webhook_method,
+        })
+        
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return ExportConfigurationInstance(
+            self._version,
+            payload,
+            resource_type=self._solution['resource_type']
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Bulkexports.V1.ExportConfigurationContext {}>'.format(context)
+
 class ExportConfigurationInstance(InstanceResource):
 
     def __init__(self, version, payload, resource_type: str=None):
@@ -180,80 +255,5 @@ class ExportConfigurationInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Bulkexports.V1.ExportConfigurationInstance {}>'.format(context)
-
-class ExportConfigurationContext(InstanceContext):
-
-    def __init__(self, version: Version, resource_type: str):
-        """
-        Initialize the ExportConfigurationContext
-
-        :param Version version: Version that contains the resource
-        :param resource_type: The type of communication – Messages, Calls, Conferences, and Participants
-
-        :returns: twilio.rest.bulkexports.v1.export_configuration.ExportConfigurationContext
-        :rtype: twilio.rest.bulkexports.v1.export_configuration.ExportConfigurationContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'resource_type': resource_type,
-        }
-        self._uri = '/Exports/{resource_type}/Configuration'.format(**self._solution)
-        
-    
-    def fetch(self):
-        """
-        Fetch the ExportConfigurationInstance
-        
-
-        :returns: The fetched ExportConfigurationInstance
-        :rtype: twilio.rest.bulkexports.v1.export_configuration.ExportConfigurationInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return ExportConfigurationInstance(
-            self._version,
-            payload,
-            resource_type=self._solution['resource_type'],
-            
-        )
-        
-    def update(self, enabled=values.unset, webhook_url=values.unset, webhook_method=values.unset):
-        """
-        Update the ExportConfigurationInstance
-        
-        :params bool enabled: If true, Twilio will automatically generate every day's file when the day is over.
-        :params str webhook_url: Stores the URL destination for the method specified in webhook_method.
-        :params str webhook_method: Sets whether Twilio should call a webhook URL when the automatic generation is complete, using GET or POST. The actual destination is set in the webhook_url
-
-        :returns: The updated ExportConfigurationInstance
-        :rtype: twilio.rest.bulkexports.v1.export_configuration.ExportConfigurationInstance
-        """
-        data = values.of({ 
-            'Enabled': enabled,
-            'WebhookUrl': webhook_url,
-            'WebhookMethod': webhook_method,
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return ExportConfigurationInstance(
-            self._version,
-            payload,
-            resource_type=self._solution['resource_type']
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Bulkexports.V1.ExportConfigurationContext {}>'.format(context)
 
 

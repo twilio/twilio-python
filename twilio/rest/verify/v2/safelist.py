@@ -93,6 +93,65 @@ class SafelistList(ListResource):
         """
         return '<Twilio.Verify.V2.SafelistList>'
 
+class SafelistContext(InstanceContext):
+
+    def __init__(self, version: Version, phone_number: str):
+        """
+        Initialize the SafelistContext
+
+        :param Version version: Version that contains the resource
+        :param phone_number: The phone number to be fetched from SafeList. Phone numbers must be in [E.164 format](https://www.twilio.com/docs/glossary/what-e164).
+
+        :returns: twilio.rest.verify.v2.safelist.SafelistContext
+        :rtype: twilio.rest.verify.v2.safelist.SafelistContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'phone_number': phone_number,
+        }
+        self._uri = '/SafeList/Numbers/{phone_number}'.format(**self._solution)
+        
+    
+    def delete(self):
+        """
+        Deletes the SafelistInstance
+
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(method='DELETE', uri=self._uri,)
+        
+    def fetch(self):
+        """
+        Fetch the SafelistInstance
+        
+
+        :returns: The fetched SafelistInstance
+        :rtype: twilio.rest.verify.v2.safelist.SafelistInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return SafelistInstance(
+            self._version,
+            payload,
+            phone_number=self._solution['phone_number'],
+            
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Verify.V2.SafelistContext {}>'.format(context)
+
 class SafelistInstance(InstanceResource):
 
     def __init__(self, version, payload, phone_number: str=None):
@@ -177,64 +236,5 @@ class SafelistInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Verify.V2.SafelistInstance {}>'.format(context)
-
-class SafelistContext(InstanceContext):
-
-    def __init__(self, version: Version, phone_number: str):
-        """
-        Initialize the SafelistContext
-
-        :param Version version: Version that contains the resource
-        :param phone_number: The phone number to be fetched from SafeList. Phone numbers must be in [E.164 format](https://www.twilio.com/docs/glossary/what-e164).
-
-        :returns: twilio.rest.verify.v2.safelist.SafelistContext
-        :rtype: twilio.rest.verify.v2.safelist.SafelistContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'phone_number': phone_number,
-        }
-        self._uri = '/SafeList/Numbers/{phone_number}'.format(**self._solution)
-        
-    
-    def delete(self):
-        """
-        Deletes the SafelistInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(method='DELETE', uri=self._uri,)
-        
-    def fetch(self):
-        """
-        Fetch the SafelistInstance
-        
-
-        :returns: The fetched SafelistInstance
-        :rtype: twilio.rest.verify.v2.safelist.SafelistInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return SafelistInstance(
-            self._version,
-            payload,
-            phone_number=self._solution['phone_number'],
-            
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Verify.V2.SafelistContext {}>'.format(context)
 
 

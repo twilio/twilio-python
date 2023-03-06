@@ -231,6 +231,69 @@ class RoomPage(Page):
 
 
 
+class RoomContext(InstanceContext):
+
+    def __init__(self, version: Version, room_sid: str):
+        """
+        Initialize the RoomContext
+
+        :param Version version: Version that contains the resource
+        :param room_sid: The SID of the Room resource.
+
+        :returns: twilio.rest.insights.v1.room.RoomContext
+        :rtype: twilio.rest.insights.v1.room.RoomContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'room_sid': room_sid,
+        }
+        self._uri = '/Video/Rooms/{room_sid}'.format(**self._solution)
+        
+        self._participants = None
+    
+    def fetch(self):
+        """
+        Fetch the RoomInstance
+        
+
+        :returns: The fetched RoomInstance
+        :rtype: twilio.rest.insights.v1.room.RoomInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return RoomInstance(
+            self._version,
+            payload,
+            room_sid=self._solution['room_sid'],
+            
+        )
+        
+    
+    @property
+    def participants(self):
+        """
+        Access the participants
+
+        :returns: twilio.rest.insights.v1.room.ParticipantList
+        :rtype: twilio.rest.insights.v1.room.ParticipantList
+        """
+        if self._participants is None:
+            self._participants = ParticipantList(self._version, self._solution['room_sid'],
+            )
+        return self._participants
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Insights.V1.RoomContext {}>'.format(context)
+
 class RoomInstance(InstanceResource):
 
     class Codec(object):
@@ -573,68 +636,5 @@ class RoomInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Insights.V1.RoomInstance {}>'.format(context)
-
-class RoomContext(InstanceContext):
-
-    def __init__(self, version: Version, room_sid: str):
-        """
-        Initialize the RoomContext
-
-        :param Version version: Version that contains the resource
-        :param room_sid: The SID of the Room resource.
-
-        :returns: twilio.rest.insights.v1.room.RoomContext
-        :rtype: twilio.rest.insights.v1.room.RoomContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'room_sid': room_sid,
-        }
-        self._uri = '/Video/Rooms/{room_sid}'.format(**self._solution)
-        
-        self._participants = None
-    
-    def fetch(self):
-        """
-        Fetch the RoomInstance
-        
-
-        :returns: The fetched RoomInstance
-        :rtype: twilio.rest.insights.v1.room.RoomInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return RoomInstance(
-            self._version,
-            payload,
-            room_sid=self._solution['room_sid'],
-            
-        )
-        
-    
-    @property
-    def participants(self):
-        """
-        Access the participants
-
-        :returns: twilio.rest.insights.v1.room.ParticipantList
-        :rtype: twilio.rest.insights.v1.room.ParticipantList
-        """
-        if self._participants is None:
-            self._participants = ParticipantList(self._version, self._solution['room_sid'],
-            )
-        return self._participants
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Insights.V1.RoomContext {}>'.format(context)
 
 

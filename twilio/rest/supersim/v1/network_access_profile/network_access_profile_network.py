@@ -224,6 +224,67 @@ class NetworkAccessProfileNetworkPage(Page):
 
 
 
+class NetworkAccessProfileNetworkContext(InstanceContext):
+
+    def __init__(self, version: Version, network_access_profile_sid: str, sid: str):
+        """
+        Initialize the NetworkAccessProfileNetworkContext
+
+        :param Version version: Version that contains the resource
+        :param network_access_profile_sid: The unique string that identifies the Network Access Profile resource.:param sid: The SID of the Network resource to fetch.
+
+        :returns: twilio.rest.supersim.v1.network_access_profile.network_access_profile_network.NetworkAccessProfileNetworkContext
+        :rtype: twilio.rest.supersim.v1.network_access_profile.network_access_profile_network.NetworkAccessProfileNetworkContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'network_access_profile_sid': network_access_profile_sid,
+            'sid': sid,
+        }
+        self._uri = '/NetworkAccessProfiles/{network_access_profile_sid}/Networks/{sid}'.format(**self._solution)
+        
+    
+    def delete(self):
+        """
+        Deletes the NetworkAccessProfileNetworkInstance
+
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(method='DELETE', uri=self._uri,)
+        
+    def fetch(self):
+        """
+        Fetch the NetworkAccessProfileNetworkInstance
+        
+
+        :returns: The fetched NetworkAccessProfileNetworkInstance
+        :rtype: twilio.rest.supersim.v1.network_access_profile.network_access_profile_network.NetworkAccessProfileNetworkInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return NetworkAccessProfileNetworkInstance(
+            self._version,
+            payload,
+            network_access_profile_sid=self._solution['network_access_profile_sid'],
+            sid=self._solution['sid'],
+            
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Supersim.V1.NetworkAccessProfileNetworkContext {}>'.format(context)
+
 class NetworkAccessProfileNetworkInstance(InstanceResource):
 
     def __init__(self, version, payload, network_access_profile_sid: str, sid: str=None):
@@ -335,66 +396,5 @@ class NetworkAccessProfileNetworkInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Supersim.V1.NetworkAccessProfileNetworkInstance {}>'.format(context)
-
-class NetworkAccessProfileNetworkContext(InstanceContext):
-
-    def __init__(self, version: Version, network_access_profile_sid: str, sid: str):
-        """
-        Initialize the NetworkAccessProfileNetworkContext
-
-        :param Version version: Version that contains the resource
-        :param network_access_profile_sid: The unique string that identifies the Network Access Profile resource.:param sid: The SID of the Network resource to fetch.
-
-        :returns: twilio.rest.supersim.v1.network_access_profile.network_access_profile_network.NetworkAccessProfileNetworkContext
-        :rtype: twilio.rest.supersim.v1.network_access_profile.network_access_profile_network.NetworkAccessProfileNetworkContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'network_access_profile_sid': network_access_profile_sid,
-            'sid': sid,
-        }
-        self._uri = '/NetworkAccessProfiles/{network_access_profile_sid}/Networks/{sid}'.format(**self._solution)
-        
-    
-    def delete(self):
-        """
-        Deletes the NetworkAccessProfileNetworkInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(method='DELETE', uri=self._uri,)
-        
-    def fetch(self):
-        """
-        Fetch the NetworkAccessProfileNetworkInstance
-        
-
-        :returns: The fetched NetworkAccessProfileNetworkInstance
-        :rtype: twilio.rest.supersim.v1.network_access_profile.network_access_profile_network.NetworkAccessProfileNetworkInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return NetworkAccessProfileNetworkInstance(
-            self._version,
-            payload,
-            network_access_profile_sid=self._solution['network_access_profile_sid'],
-            sid=self._solution['sid'],
-            
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Supersim.V1.NetworkAccessProfileNetworkContext {}>'.format(context)
 
 

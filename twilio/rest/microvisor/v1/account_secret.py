@@ -225,6 +225,65 @@ class AccountSecretPage(Page):
 
 
 
+class AccountSecretContext(InstanceContext):
+
+    def __init__(self, version: Version, key: str):
+        """
+        Initialize the AccountSecretContext
+
+        :param Version version: Version that contains the resource
+        :param key: The secret key; up to 100 characters.
+
+        :returns: twilio.rest.microvisor.v1.account_secret.AccountSecretContext
+        :rtype: twilio.rest.microvisor.v1.account_secret.AccountSecretContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'key': key,
+        }
+        self._uri = '/Secrets/{key}'.format(**self._solution)
+        
+    
+    def delete(self):
+        """
+        Deletes the AccountSecretInstance
+
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(method='DELETE', uri=self._uri,)
+        
+    def fetch(self):
+        """
+        Fetch the AccountSecretInstance
+        
+
+        :returns: The fetched AccountSecretInstance
+        :rtype: twilio.rest.microvisor.v1.account_secret.AccountSecretInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return AccountSecretInstance(
+            self._version,
+            payload,
+            key=self._solution['key'],
+            
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Microvisor.V1.AccountSecretContext {}>'.format(context)
+
 class AccountSecretInstance(InstanceResource):
 
     def __init__(self, version, payload, key: str=None):
@@ -309,64 +368,5 @@ class AccountSecretInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Microvisor.V1.AccountSecretInstance {}>'.format(context)
-
-class AccountSecretContext(InstanceContext):
-
-    def __init__(self, version: Version, key: str):
-        """
-        Initialize the AccountSecretContext
-
-        :param Version version: Version that contains the resource
-        :param key: The secret key; up to 100 characters.
-
-        :returns: twilio.rest.microvisor.v1.account_secret.AccountSecretContext
-        :rtype: twilio.rest.microvisor.v1.account_secret.AccountSecretContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'key': key,
-        }
-        self._uri = '/Secrets/{key}'.format(**self._solution)
-        
-    
-    def delete(self):
-        """
-        Deletes the AccountSecretInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(method='DELETE', uri=self._uri,)
-        
-    def fetch(self):
-        """
-        Fetch the AccountSecretInstance
-        
-
-        :returns: The fetched AccountSecretInstance
-        :rtype: twilio.rest.microvisor.v1.account_secret.AccountSecretInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return AccountSecretInstance(
-            self._version,
-            payload,
-            key=self._solution['key'],
-            
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Microvisor.V1.AccountSecretContext {}>'.format(context)
 
 

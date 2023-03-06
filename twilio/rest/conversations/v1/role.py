@@ -230,6 +230,87 @@ class RolePage(Page):
 
 
 
+class RoleContext(InstanceContext):
+
+    def __init__(self, version: Version, sid: str):
+        """
+        Initialize the RoleContext
+
+        :param Version version: Version that contains the resource
+        :param sid: The SID of the Role resource to update.
+
+        :returns: twilio.rest.conversations.v1.role.RoleContext
+        :rtype: twilio.rest.conversations.v1.role.RoleContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'sid': sid,
+        }
+        self._uri = '/Roles/{sid}'.format(**self._solution)
+        
+    
+    def delete(self):
+        """
+        Deletes the RoleInstance
+
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(method='DELETE', uri=self._uri,)
+        
+    def fetch(self):
+        """
+        Fetch the RoleInstance
+        
+
+        :returns: The fetched RoleInstance
+        :rtype: twilio.rest.conversations.v1.role.RoleInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return RoleInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid'],
+            
+        )
+        
+    def update(self, permission):
+        """
+        Update the RoleInstance
+        
+        :params list[str] permission: A permission that you grant to the role. Only one permission can be granted per parameter. To assign more than one permission, repeat this parameter for each permission value. Note that the update action replaces all previously assigned permissions with those defined in the update action. To remove a permission, do not include it in the subsequent update action. The values for this parameter depend on the role's `type`.
+
+        :returns: The updated RoleInstance
+        :rtype: twilio.rest.conversations.v1.role.RoleInstance
+        """
+        data = values.of({ 
+            'Permission': serialize.map(permission, lambda e: e),
+        })
+        
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return RoleInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid']
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Conversations.V1.RoleContext {}>'.format(context)
+
 class RoleInstance(InstanceResource):
 
     class RoleType(object):
@@ -383,86 +464,5 @@ class RoleInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Conversations.V1.RoleInstance {}>'.format(context)
-
-class RoleContext(InstanceContext):
-
-    def __init__(self, version: Version, sid: str):
-        """
-        Initialize the RoleContext
-
-        :param Version version: Version that contains the resource
-        :param sid: The SID of the Role resource to update.
-
-        :returns: twilio.rest.conversations.v1.role.RoleContext
-        :rtype: twilio.rest.conversations.v1.role.RoleContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'sid': sid,
-        }
-        self._uri = '/Roles/{sid}'.format(**self._solution)
-        
-    
-    def delete(self):
-        """
-        Deletes the RoleInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(method='DELETE', uri=self._uri,)
-        
-    def fetch(self):
-        """
-        Fetch the RoleInstance
-        
-
-        :returns: The fetched RoleInstance
-        :rtype: twilio.rest.conversations.v1.role.RoleInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return RoleInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid'],
-            
-        )
-        
-    def update(self, permission):
-        """
-        Update the RoleInstance
-        
-        :params list[str] permission: A permission that you grant to the role. Only one permission can be granted per parameter. To assign more than one permission, repeat this parameter for each permission value. Note that the update action replaces all previously assigned permissions with those defined in the update action. To remove a permission, do not include it in the subsequent update action. The values for this parameter depend on the role's `type`.
-
-        :returns: The updated RoleInstance
-        :rtype: twilio.rest.conversations.v1.role.RoleInstance
-        """
-        data = values.of({ 
-            'Permission': serialize.map(permission, lambda e: e),
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return RoleInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid']
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Conversations.V1.RoleContext {}>'.format(context)
 
 

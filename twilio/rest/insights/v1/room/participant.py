@@ -201,6 +201,57 @@ class ParticipantPage(Page):
 
 
 
+class ParticipantContext(InstanceContext):
+
+    def __init__(self, version: Version, room_sid: str, participant_sid: str):
+        """
+        Initialize the ParticipantContext
+
+        :param Version version: Version that contains the resource
+        :param room_sid: The SID of the Room resource.:param participant_sid: The SID of the Participant resource.
+
+        :returns: twilio.rest.insights.v1.room.participant.ParticipantContext
+        :rtype: twilio.rest.insights.v1.room.participant.ParticipantContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'room_sid': room_sid,
+            'participant_sid': participant_sid,
+        }
+        self._uri = '/Video/Rooms/{room_sid}/Participants/{participant_sid}'.format(**self._solution)
+        
+    
+    def fetch(self):
+        """
+        Fetch the ParticipantInstance
+        
+
+        :returns: The fetched ParticipantInstance
+        :rtype: twilio.rest.insights.v1.room.participant.ParticipantInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return ParticipantInstance(
+            self._version,
+            payload,
+            room_sid=self._solution['room_sid'],
+            participant_sid=self._solution['participant_sid'],
+            
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Insights.V1.ParticipantContext {}>'.format(context)
+
 class ParticipantInstance(InstanceResource):
 
     class Codec(object):
@@ -433,56 +484,5 @@ class ParticipantInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Insights.V1.ParticipantInstance {}>'.format(context)
-
-class ParticipantContext(InstanceContext):
-
-    def __init__(self, version: Version, room_sid: str, participant_sid: str):
-        """
-        Initialize the ParticipantContext
-
-        :param Version version: Version that contains the resource
-        :param room_sid: The SID of the Room resource.:param participant_sid: The SID of the Participant resource.
-
-        :returns: twilio.rest.insights.v1.room.participant.ParticipantContext
-        :rtype: twilio.rest.insights.v1.room.participant.ParticipantContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'room_sid': room_sid,
-            'participant_sid': participant_sid,
-        }
-        self._uri = '/Video/Rooms/{room_sid}/Participants/{participant_sid}'.format(**self._solution)
-        
-    
-    def fetch(self):
-        """
-        Fetch the ParticipantInstance
-        
-
-        :returns: The fetched ParticipantInstance
-        :rtype: twilio.rest.insights.v1.room.participant.ParticipantInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return ParticipantInstance(
-            self._version,
-            payload,
-            room_sid=self._solution['room_sid'],
-            participant_sid=self._solution['participant_sid'],
-            
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Insights.V1.ParticipantContext {}>'.format(context)
 
 

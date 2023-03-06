@@ -72,6 +72,77 @@ class AssistantFallbackActionsList(ListResource):
         """
         return '<Twilio.Preview.Understand.AssistantFallbackActionsList>'
 
+class AssistantFallbackActionsContext(InstanceContext):
+
+    def __init__(self, version: Version, assistant_sid: str):
+        """
+        Initialize the AssistantFallbackActionsContext
+
+        :param Version version: Version that contains the resource
+        :param assistant_sid: 
+
+        :returns: twilio.rest.preview.understand.assistant.assistant_fallback_actions.AssistantFallbackActionsContext
+        :rtype: twilio.rest.preview.understand.assistant.assistant_fallback_actions.AssistantFallbackActionsContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'assistant_sid': assistant_sid,
+        }
+        self._uri = '/Assistants/{assistant_sid}/FallbackActions'.format(**self._solution)
+        
+    
+    def fetch(self):
+        """
+        Fetch the AssistantFallbackActionsInstance
+        
+
+        :returns: The fetched AssistantFallbackActionsInstance
+        :rtype: twilio.rest.preview.understand.assistant.assistant_fallback_actions.AssistantFallbackActionsInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return AssistantFallbackActionsInstance(
+            self._version,
+            payload,
+            assistant_sid=self._solution['assistant_sid'],
+            
+        )
+        
+    def update(self, fallback_actions=values.unset):
+        """
+        Update the AssistantFallbackActionsInstance
+        
+        :params object fallback_actions: 
+
+        :returns: The updated AssistantFallbackActionsInstance
+        :rtype: twilio.rest.preview.understand.assistant.assistant_fallback_actions.AssistantFallbackActionsInstance
+        """
+        data = values.of({ 
+            'FallbackActions': serialize.object(fallback_actions),
+        })
+        
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return AssistantFallbackActionsInstance(
+            self._version,
+            payload,
+            assistant_sid=self._solution['assistant_sid']
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Preview.Understand.AssistantFallbackActionsContext {}>'.format(context)
+
 class AssistantFallbackActionsInstance(InstanceResource):
 
     def __init__(self, version, payload, assistant_sid: str):
@@ -166,76 +237,5 @@ class AssistantFallbackActionsInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Preview.Understand.AssistantFallbackActionsInstance {}>'.format(context)
-
-class AssistantFallbackActionsContext(InstanceContext):
-
-    def __init__(self, version: Version, assistant_sid: str):
-        """
-        Initialize the AssistantFallbackActionsContext
-
-        :param Version version: Version that contains the resource
-        :param assistant_sid: 
-
-        :returns: twilio.rest.preview.understand.assistant.assistant_fallback_actions.AssistantFallbackActionsContext
-        :rtype: twilio.rest.preview.understand.assistant.assistant_fallback_actions.AssistantFallbackActionsContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'assistant_sid': assistant_sid,
-        }
-        self._uri = '/Assistants/{assistant_sid}/FallbackActions'.format(**self._solution)
-        
-    
-    def fetch(self):
-        """
-        Fetch the AssistantFallbackActionsInstance
-        
-
-        :returns: The fetched AssistantFallbackActionsInstance
-        :rtype: twilio.rest.preview.understand.assistant.assistant_fallback_actions.AssistantFallbackActionsInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return AssistantFallbackActionsInstance(
-            self._version,
-            payload,
-            assistant_sid=self._solution['assistant_sid'],
-            
-        )
-        
-    def update(self, fallback_actions=values.unset):
-        """
-        Update the AssistantFallbackActionsInstance
-        
-        :params object fallback_actions: 
-
-        :returns: The updated AssistantFallbackActionsInstance
-        :rtype: twilio.rest.preview.understand.assistant.assistant_fallback_actions.AssistantFallbackActionsInstance
-        """
-        data = values.of({ 
-            'FallbackActions': serialize.object(fallback_actions),
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return AssistantFallbackActionsInstance(
-            self._version,
-            payload,
-            assistant_sid=self._solution['assistant_sid']
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Preview.Understand.AssistantFallbackActionsContext {}>'.format(context)
 
 

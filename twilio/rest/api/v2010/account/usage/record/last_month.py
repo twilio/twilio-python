@@ -201,6 +201,7 @@ class LastMonthPage(Page):
 
 
 
+
 class LastMonthInstance(InstanceResource):
 
     class Category(object):
@@ -608,6 +609,5 @@ class LastMonthInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Api.V2010.LastMonthInstance {}>'.format(context)
-
 
 

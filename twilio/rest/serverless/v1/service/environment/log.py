@@ -220,6 +220,59 @@ class LogPage(Page):
 
 
 
+class LogContext(InstanceContext):
+
+    def __init__(self, version: Version, service_sid: str, environment_sid: str, sid: str):
+        """
+        Initialize the LogContext
+
+        :param Version version: Version that contains the resource
+        :param service_sid: The SID of the Service to fetch the Log resource from.:param environment_sid: The SID of the environment with the Log resource to fetch.:param sid: The SID of the Log resource to fetch.
+
+        :returns: twilio.rest.serverless.v1.service.environment.log.LogContext
+        :rtype: twilio.rest.serverless.v1.service.environment.log.LogContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'service_sid': service_sid,
+            'environment_sid': environment_sid,
+            'sid': sid,
+        }
+        self._uri = '/Services/{service_sid}/Environments/{environment_sid}/Logs/{sid}'.format(**self._solution)
+        
+    
+    def fetch(self):
+        """
+        Fetch the LogInstance
+        
+
+        :returns: The fetched LogInstance
+        :rtype: twilio.rest.serverless.v1.service.environment.log.LogInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return LogInstance(
+            self._version,
+            payload,
+            service_sid=self._solution['service_sid'],
+            environment_sid=self._solution['environment_sid'],
+            sid=self._solution['sid'],
+            
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Serverless.V1.LogContext {}>'.format(context)
+
 class LogInstance(InstanceResource):
 
     class Level(object):
@@ -380,58 +433,5 @@ class LogInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Serverless.V1.LogInstance {}>'.format(context)
-
-class LogContext(InstanceContext):
-
-    def __init__(self, version: Version, service_sid: str, environment_sid: str, sid: str):
-        """
-        Initialize the LogContext
-
-        :param Version version: Version that contains the resource
-        :param service_sid: The SID of the Service to fetch the Log resource from.:param environment_sid: The SID of the environment with the Log resource to fetch.:param sid: The SID of the Log resource to fetch.
-
-        :returns: twilio.rest.serverless.v1.service.environment.log.LogContext
-        :rtype: twilio.rest.serverless.v1.service.environment.log.LogContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'service_sid': service_sid,
-            'environment_sid': environment_sid,
-            'sid': sid,
-        }
-        self._uri = '/Services/{service_sid}/Environments/{environment_sid}/Logs/{sid}'.format(**self._solution)
-        
-    
-    def fetch(self):
-        """
-        Fetch the LogInstance
-        
-
-        :returns: The fetched LogInstance
-        :rtype: twilio.rest.serverless.v1.service.environment.log.LogInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return LogInstance(
-            self._version,
-            payload,
-            service_sid=self._solution['service_sid'],
-            environment_sid=self._solution['environment_sid'],
-            sid=self._solution['sid'],
-            
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Serverless.V1.LogContext {}>'.format(context)
 
 

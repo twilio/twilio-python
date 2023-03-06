@@ -188,6 +188,7 @@ class SettingsUpdatePage(Page):
 
 
 
+
 class SettingsUpdateInstance(InstanceResource):
 
     class Status(object):
@@ -291,6 +292,5 @@ class SettingsUpdateInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Supersim.V1.SettingsUpdateInstance {}>'.format(context)
-
 
 

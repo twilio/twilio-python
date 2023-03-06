@@ -70,6 +70,58 @@ class ConfigurationList(ListResource):
         """
         return '<Twilio.FlexApi.V1.ConfigurationList>'
 
+class ConfigurationContext(InstanceContext):
+
+    def __init__(self, version: Version):
+        """
+        Initialize the ConfigurationContext
+
+        :param Version version: Version that contains the resource
+        
+
+        :returns: twilio.rest.flex_api.v1.configuration.ConfigurationContext
+        :rtype: twilio.rest.flex_api.v1.configuration.ConfigurationContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+        }
+        self._uri = '/Configuration'.format(**self._solution)
+        
+    
+    def fetch(self, ui_version=values.unset):
+        """
+        Fetch the ConfigurationInstance
+        
+        :params str ui_version: The Pinned UI version of the Configuration resource to fetch.
+
+        :returns: The fetched ConfigurationInstance
+        :rtype: twilio.rest.flex_api.v1.configuration.ConfigurationInstance
+        """
+        
+        data = values.of({ 
+            'UiVersion': ui_version,
+        })
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, params=data)
+
+        return ConfigurationInstance(
+            self._version,
+            payload,
+            
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.FlexApi.V1.ConfigurationContext {}>'.format(context)
+
 class ConfigurationInstance(InstanceResource):
 
     class Status(object):
@@ -528,57 +580,5 @@ class ConfigurationInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.FlexApi.V1.ConfigurationInstance {}>'.format(context)
-
-class ConfigurationContext(InstanceContext):
-
-    def __init__(self, version: Version):
-        """
-        Initialize the ConfigurationContext
-
-        :param Version version: Version that contains the resource
-        
-
-        :returns: twilio.rest.flex_api.v1.configuration.ConfigurationContext
-        :rtype: twilio.rest.flex_api.v1.configuration.ConfigurationContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-        }
-        self._uri = '/Configuration'.format(**self._solution)
-        
-    
-    def fetch(self, ui_version=values.unset):
-        """
-        Fetch the ConfigurationInstance
-        
-        :params str ui_version: The Pinned UI version of the Configuration resource to fetch.
-
-        :returns: The fetched ConfigurationInstance
-        :rtype: twilio.rest.flex_api.v1.configuration.ConfigurationInstance
-        """
-        
-        data = values.of({ 
-            'UiVersion': ui_version,
-        })
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, params=data)
-
-        return ConfigurationInstance(
-            self._version,
-            payload,
-            
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.FlexApi.V1.ConfigurationContext {}>'.format(context)
 
 

@@ -207,6 +207,7 @@ class ExportCustomJobPage(Page):
 
 
 
+
 class ExportCustomJobInstance(InstanceResource):
 
     def __init__(self, version, payload, resource_type: str):
@@ -331,6 +332,5 @@ class ExportCustomJobInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Bulkexports.V1.ExportCustomJobInstance {}>'.format(context)
-
 
 

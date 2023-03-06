@@ -248,6 +248,97 @@ class SyncMapItemPage(Page):
 
 
 
+class SyncMapItemContext(InstanceContext):
+
+    def __init__(self, version: Version, service_sid: str, map_sid: str, key: str):
+        """
+        Initialize the SyncMapItemContext
+
+        :param Version version: Version that contains the resource
+        :param service_sid: :param map_sid: :param key: 
+
+        :returns: twilio.rest.preview.sync.service.sync_map.sync_map_item.SyncMapItemContext
+        :rtype: twilio.rest.preview.sync.service.sync_map.sync_map_item.SyncMapItemContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'service_sid': service_sid,
+            'map_sid': map_sid,
+            'key': key,
+        }
+        self._uri = '/Services/{service_sid}/Maps/{map_sid}/Items/{key}'.format(**self._solution)
+        
+    
+    def delete(self, if_match=values.unset):
+        """
+        Deletes the SyncMapItemInstance
+
+        :param str if_match: The If-Match HTTP request header
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        headers = values.of({'If-Match': if_match, })
+        
+        return self._version.delete(method='DELETE', uri=self._uri, headers=headers)
+        
+    def fetch(self):
+        """
+        Fetch the SyncMapItemInstance
+        
+
+        :returns: The fetched SyncMapItemInstance
+        :rtype: twilio.rest.preview.sync.service.sync_map.sync_map_item.SyncMapItemInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return SyncMapItemInstance(
+            self._version,
+            payload,
+            service_sid=self._solution['service_sid'],
+            map_sid=self._solution['map_sid'],
+            key=self._solution['key'],
+            
+        )
+        
+    def update(self, data, if_match=values.unset):
+        """
+        Update the SyncMapItemInstance
+        
+        :params object data: 
+        :params str if_match: The If-Match HTTP request header
+
+        :returns: The updated SyncMapItemInstance
+        :rtype: twilio.rest.preview.sync.service.sync_map.sync_map_item.SyncMapItemInstance
+        """
+        data = values.of({ 
+            'Data': serialize.object(data),
+        })
+        headers = values.of({'If-Match': if_match, })
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data, headers=headers)
+
+        return SyncMapItemInstance(
+            self._version,
+            payload,
+            service_sid=self._solution['service_sid'],
+            map_sid=self._solution['map_sid'],
+            key=self._solution['key']
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Preview.Sync.SyncMapItemContext {}>'.format(context)
+
 class SyncMapItemInstance(InstanceResource):
 
     class QueryFromBoundType(object):
@@ -416,96 +507,5 @@ class SyncMapItemInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Preview.Sync.SyncMapItemInstance {}>'.format(context)
-
-class SyncMapItemContext(InstanceContext):
-
-    def __init__(self, version: Version, service_sid: str, map_sid: str, key: str):
-        """
-        Initialize the SyncMapItemContext
-
-        :param Version version: Version that contains the resource
-        :param service_sid: :param map_sid: :param key: 
-
-        :returns: twilio.rest.preview.sync.service.sync_map.sync_map_item.SyncMapItemContext
-        :rtype: twilio.rest.preview.sync.service.sync_map.sync_map_item.SyncMapItemContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'service_sid': service_sid,
-            'map_sid': map_sid,
-            'key': key,
-        }
-        self._uri = '/Services/{service_sid}/Maps/{map_sid}/Items/{key}'.format(**self._solution)
-        
-    
-    def delete(self, if_match=values.unset):
-        """
-        Deletes the SyncMapItemInstance
-
-        :param str if_match: The If-Match HTTP request header
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        headers = values.of({'If-Match': if_match, })
-        
-        return self._version.delete(method='DELETE', uri=self._uri, headers=headers)
-        
-    def fetch(self):
-        """
-        Fetch the SyncMapItemInstance
-        
-
-        :returns: The fetched SyncMapItemInstance
-        :rtype: twilio.rest.preview.sync.service.sync_map.sync_map_item.SyncMapItemInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return SyncMapItemInstance(
-            self._version,
-            payload,
-            service_sid=self._solution['service_sid'],
-            map_sid=self._solution['map_sid'],
-            key=self._solution['key'],
-            
-        )
-        
-    def update(self, data, if_match=values.unset):
-        """
-        Update the SyncMapItemInstance
-        
-        :params object data: 
-        :params str if_match: The If-Match HTTP request header
-
-        :returns: The updated SyncMapItemInstance
-        :rtype: twilio.rest.preview.sync.service.sync_map.sync_map_item.SyncMapItemInstance
-        """
-        data = values.of({ 
-            'Data': serialize.object(data),
-        })
-        headers = values.of({'If-Match': if_match, })
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data, headers=headers)
-
-        return SyncMapItemInstance(
-            self._version,
-            payload,
-            service_sid=self._solution['service_sid'],
-            map_sid=self._solution['map_sid'],
-            key=self._solution['key']
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Preview.Sync.SyncMapItemContext {}>'.format(context)
 
 

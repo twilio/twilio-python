@@ -226,6 +226,95 @@ class RecordingPage(Page):
 
 
 
+class RecordingContext(InstanceContext):
+
+    def __init__(self, version: Version, account_sid: str, conference_sid: str, sid: str):
+        """
+        Initialize the RecordingContext
+
+        :param Version version: Version that contains the resource
+        :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Conference Recording resource to update.:param conference_sid: The Conference SID that identifies the conference associated with the recording to update.:param sid: The Twilio-provided string that uniquely identifies the Conference Recording resource to update. Use `Twilio.CURRENT` to reference the current active recording.
+
+        :returns: twilio.rest.api.v2010.account.conference.recording.RecordingContext
+        :rtype: twilio.rest.api.v2010.account.conference.recording.RecordingContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'account_sid': account_sid,
+            'conference_sid': conference_sid,
+            'sid': sid,
+        }
+        self._uri = '/Accounts/{account_sid}/Conferences/{conference_sid}/Recordings/{sid}.json'.format(**self._solution)
+        
+    
+    def delete(self):
+        """
+        Deletes the RecordingInstance
+
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(method='DELETE', uri=self._uri,)
+        
+    def fetch(self):
+        """
+        Fetch the RecordingInstance
+        
+
+        :returns: The fetched RecordingInstance
+        :rtype: twilio.rest.api.v2010.account.conference.recording.RecordingInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return RecordingInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+            conference_sid=self._solution['conference_sid'],
+            sid=self._solution['sid'],
+            
+        )
+        
+    def update(self, status, pause_behavior=values.unset):
+        """
+        Update the RecordingInstance
+        
+        :params Status status: 
+        :params str pause_behavior: Whether to record during a pause. Can be: `skip` or `silence` and the default is `silence`. `skip` does not record during the pause period, while `silence` will replace the actual audio of the call with silence during the pause period. This parameter only applies when setting `status` is set to `paused`.
+
+        :returns: The updated RecordingInstance
+        :rtype: twilio.rest.api.v2010.account.conference.recording.RecordingInstance
+        """
+        data = values.of({ 
+            'Status': status,
+            'PauseBehavior': pause_behavior,
+        })
+        
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return RecordingInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+            conference_sid=self._solution['conference_sid'],
+            sid=self._solution['sid']
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Api.V2010.RecordingContext {}>'.format(context)
+
 class RecordingInstance(InstanceResource):
 
     class Source(object):
@@ -465,94 +554,5 @@ class RecordingInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Api.V2010.RecordingInstance {}>'.format(context)
-
-class RecordingContext(InstanceContext):
-
-    def __init__(self, version: Version, account_sid: str, conference_sid: str, sid: str):
-        """
-        Initialize the RecordingContext
-
-        :param Version version: Version that contains the resource
-        :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Conference Recording resource to update.:param conference_sid: The Conference SID that identifies the conference associated with the recording to update.:param sid: The Twilio-provided string that uniquely identifies the Conference Recording resource to update. Use `Twilio.CURRENT` to reference the current active recording.
-
-        :returns: twilio.rest.api.v2010.account.conference.recording.RecordingContext
-        :rtype: twilio.rest.api.v2010.account.conference.recording.RecordingContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'account_sid': account_sid,
-            'conference_sid': conference_sid,
-            'sid': sid,
-        }
-        self._uri = '/Accounts/{account_sid}/Conferences/{conference_sid}/Recordings/{sid}.json'.format(**self._solution)
-        
-    
-    def delete(self):
-        """
-        Deletes the RecordingInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(method='DELETE', uri=self._uri,)
-        
-    def fetch(self):
-        """
-        Fetch the RecordingInstance
-        
-
-        :returns: The fetched RecordingInstance
-        :rtype: twilio.rest.api.v2010.account.conference.recording.RecordingInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return RecordingInstance(
-            self._version,
-            payload,
-            account_sid=self._solution['account_sid'],
-            conference_sid=self._solution['conference_sid'],
-            sid=self._solution['sid'],
-            
-        )
-        
-    def update(self, status, pause_behavior=values.unset):
-        """
-        Update the RecordingInstance
-        
-        :params Status status: 
-        :params str pause_behavior: Whether to record during a pause. Can be: `skip` or `silence` and the default is `silence`. `skip` does not record during the pause period, while `silence` will replace the actual audio of the call with silence during the pause period. This parameter only applies when setting `status` is set to `paused`.
-
-        :returns: The updated RecordingInstance
-        :rtype: twilio.rest.api.v2010.account.conference.recording.RecordingInstance
-        """
-        data = values.of({ 
-            'Status': status,
-            'PauseBehavior': pause_behavior,
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return RecordingInstance(
-            self._version,
-            payload,
-            account_sid=self._solution['account_sid'],
-            conference_sid=self._solution['conference_sid'],
-            sid=self._solution['sid']
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Api.V2010.RecordingContext {}>'.format(context)
 
 

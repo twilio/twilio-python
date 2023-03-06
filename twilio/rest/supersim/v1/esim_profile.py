@@ -242,6 +242,55 @@ class EsimProfilePage(Page):
 
 
 
+class EsimProfileContext(InstanceContext):
+
+    def __init__(self, version: Version, sid: str):
+        """
+        Initialize the EsimProfileContext
+
+        :param Version version: Version that contains the resource
+        :param sid: The SID of the eSIM Profile resource to fetch.
+
+        :returns: twilio.rest.supersim.v1.esim_profile.EsimProfileContext
+        :rtype: twilio.rest.supersim.v1.esim_profile.EsimProfileContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'sid': sid,
+        }
+        self._uri = '/ESimProfiles/{sid}'.format(**self._solution)
+        
+    
+    def fetch(self):
+        """
+        Fetch the EsimProfileInstance
+        
+
+        :returns: The fetched EsimProfileInstance
+        :rtype: twilio.rest.supersim.v1.esim_profile.EsimProfileInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return EsimProfileInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid'],
+            
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Supersim.V1.EsimProfileContext {}>'.format(context)
+
 class EsimProfileInstance(InstanceResource):
 
     class Status(object):
@@ -405,54 +454,5 @@ class EsimProfileInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Supersim.V1.EsimProfileInstance {}>'.format(context)
-
-class EsimProfileContext(InstanceContext):
-
-    def __init__(self, version: Version, sid: str):
-        """
-        Initialize the EsimProfileContext
-
-        :param Version version: Version that contains the resource
-        :param sid: The SID of the eSIM Profile resource to fetch.
-
-        :returns: twilio.rest.supersim.v1.esim_profile.EsimProfileContext
-        :rtype: twilio.rest.supersim.v1.esim_profile.EsimProfileContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'sid': sid,
-        }
-        self._uri = '/ESimProfiles/{sid}'.format(**self._solution)
-        
-    
-    def fetch(self):
-        """
-        Fetch the EsimProfileInstance
-        
-
-        :returns: The fetched EsimProfileInstance
-        :rtype: twilio.rest.supersim.v1.esim_profile.EsimProfileInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return EsimProfileInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid'],
-            
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Supersim.V1.EsimProfileContext {}>'.format(context)
 
 

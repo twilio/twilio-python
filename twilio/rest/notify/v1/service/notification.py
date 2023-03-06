@@ -105,6 +105,7 @@ class NotificationList(ListResource):
         """
         return '<Twilio.Notify.V1.NotificationList>'
 
+
 class NotificationInstance(InstanceResource):
 
     class Priority(object):
@@ -314,6 +315,5 @@ class NotificationInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Notify.V1.NotificationInstance {}>'.format(context)
-
 
 

@@ -245,6 +245,102 @@ class InsightsQuestionnairesPage(Page):
 
 
 
+class InsightsQuestionnairesContext(InstanceContext):
+
+    def __init__(self, version: Version, id: str):
+        """
+        Initialize the InsightsQuestionnairesContext
+
+        :param Version version: Version that contains the resource
+        :param id: The unique ID of the questionnaire
+
+        :returns: twilio.rest.flex_api.v1.insights_questionnaires.InsightsQuestionnairesContext
+        :rtype: twilio.rest.flex_api.v1.insights_questionnaires.InsightsQuestionnairesContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'id': id,
+        }
+        self._uri = '/Insights/QM/Questionnaires/{id}'.format(**self._solution)
+        
+    
+    def delete(self, token=values.unset):
+        """
+        Deletes the InsightsQuestionnairesInstance
+
+        :param str token: The Token HTTP request header
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        headers = values.of({'Token': token, })
+        
+        return self._version.delete(method='DELETE', uri=self._uri, headers=headers)
+        
+    def fetch(self, token=values.unset):
+        """
+        Fetch the InsightsQuestionnairesInstance
+        
+        :params str token: The Token HTTP request header
+
+        :returns: The fetched InsightsQuestionnairesInstance
+        :rtype: twilio.rest.flex_api.v1.insights_questionnaires.InsightsQuestionnairesInstance
+        """
+        
+        data = values.of({ 
+            'Token': token,
+        })
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, params=data)
+
+        return InsightsQuestionnairesInstance(
+            self._version,
+            payload,
+            id=self._solution['id'],
+            
+        )
+        
+    def update(self, active, token=values.unset, name=values.unset, description=values.unset, question_ids=values.unset):
+        """
+        Update the InsightsQuestionnairesInstance
+        
+        :params bool active: The flag to enable or disable questionnaire
+        :params str token: The Token HTTP request header
+        :params str name: The name of this questionnaire
+        :params str description: The description of this questionnaire
+        :params list[str] question_ids: The list of questions ids under a questionnaire
+
+        :returns: The updated InsightsQuestionnairesInstance
+        :rtype: twilio.rest.flex_api.v1.insights_questionnaires.InsightsQuestionnairesInstance
+        """
+        data = values.of({ 
+            'Active': active,
+            'Name': name,
+            'Description': description,
+            'QuestionIds': serialize.map(question_ids, lambda e: e),
+        })
+        headers = values.of({'Token': token, })
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data, headers=headers)
+
+        return InsightsQuestionnairesInstance(
+            self._version,
+            payload,
+            id=self._solution['id']
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.FlexApi.V1.InsightsQuestionnairesContext {}>'.format(context)
+
 class InsightsQuestionnairesInstance(InstanceResource):
 
     def __init__(self, version, payload, id: str=None):
@@ -382,101 +478,5 @@ class InsightsQuestionnairesInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.FlexApi.V1.InsightsQuestionnairesInstance {}>'.format(context)
-
-class InsightsQuestionnairesContext(InstanceContext):
-
-    def __init__(self, version: Version, id: str):
-        """
-        Initialize the InsightsQuestionnairesContext
-
-        :param Version version: Version that contains the resource
-        :param id: The unique ID of the questionnaire
-
-        :returns: twilio.rest.flex_api.v1.insights_questionnaires.InsightsQuestionnairesContext
-        :rtype: twilio.rest.flex_api.v1.insights_questionnaires.InsightsQuestionnairesContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'id': id,
-        }
-        self._uri = '/Insights/QM/Questionnaires/{id}'.format(**self._solution)
-        
-    
-    def delete(self, token=values.unset):
-        """
-        Deletes the InsightsQuestionnairesInstance
-
-        :param str token: The Token HTTP request header
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        headers = values.of({'Token': token, })
-        
-        return self._version.delete(method='DELETE', uri=self._uri, headers=headers)
-        
-    def fetch(self, token=values.unset):
-        """
-        Fetch the InsightsQuestionnairesInstance
-        
-        :params str token: The Token HTTP request header
-
-        :returns: The fetched InsightsQuestionnairesInstance
-        :rtype: twilio.rest.flex_api.v1.insights_questionnaires.InsightsQuestionnairesInstance
-        """
-        
-        data = values.of({ 
-            'Token': token,
-        })
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, params=data)
-
-        return InsightsQuestionnairesInstance(
-            self._version,
-            payload,
-            id=self._solution['id'],
-            
-        )
-        
-    def update(self, active, token=values.unset, name=values.unset, description=values.unset, question_ids=values.unset):
-        """
-        Update the InsightsQuestionnairesInstance
-        
-        :params bool active: The flag to enable or disable questionnaire
-        :params str token: The Token HTTP request header
-        :params str name: The name of this questionnaire
-        :params str description: The description of this questionnaire
-        :params list[str] question_ids: The list of questions ids under a questionnaire
-
-        :returns: The updated InsightsQuestionnairesInstance
-        :rtype: twilio.rest.flex_api.v1.insights_questionnaires.InsightsQuestionnairesInstance
-        """
-        data = values.of({ 
-            'Active': active,
-            'Name': name,
-            'Description': description,
-            'QuestionIds': serialize.map(question_ids, lambda e: e),
-        })
-        headers = values.of({'Token': token, })
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data, headers=headers)
-
-        return InsightsQuestionnairesInstance(
-            self._version,
-            payload,
-            id=self._solution['id']
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.FlexApi.V1.InsightsQuestionnairesContext {}>'.format(context)
 
 

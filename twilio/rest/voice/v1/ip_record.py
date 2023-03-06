@@ -230,6 +230,87 @@ class IpRecordPage(Page):
 
 
 
+class IpRecordContext(InstanceContext):
+
+    def __init__(self, version: Version, sid: str):
+        """
+        Initialize the IpRecordContext
+
+        :param Version version: Version that contains the resource
+        :param sid: The Twilio-provided string that uniquely identifies the IP Record resource to update.
+
+        :returns: twilio.rest.voice.v1.ip_record.IpRecordContext
+        :rtype: twilio.rest.voice.v1.ip_record.IpRecordContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'sid': sid,
+        }
+        self._uri = '/IpRecords/{sid}'.format(**self._solution)
+        
+    
+    def delete(self):
+        """
+        Deletes the IpRecordInstance
+
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(method='DELETE', uri=self._uri,)
+        
+    def fetch(self):
+        """
+        Fetch the IpRecordInstance
+        
+
+        :returns: The fetched IpRecordInstance
+        :rtype: twilio.rest.voice.v1.ip_record.IpRecordInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return IpRecordInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid'],
+            
+        )
+        
+    def update(self, friendly_name=values.unset):
+        """
+        Update the IpRecordInstance
+        
+        :params str friendly_name: A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
+
+        :returns: The updated IpRecordInstance
+        :rtype: twilio.rest.voice.v1.ip_record.IpRecordInstance
+        """
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+        })
+        
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return IpRecordInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid']
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Voice.V1.IpRecordContext {}>'.format(context)
+
 class IpRecordInstance(InstanceResource):
 
     def __init__(self, version, payload, sid: str=None):
@@ -370,86 +451,5 @@ class IpRecordInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Voice.V1.IpRecordInstance {}>'.format(context)
-
-class IpRecordContext(InstanceContext):
-
-    def __init__(self, version: Version, sid: str):
-        """
-        Initialize the IpRecordContext
-
-        :param Version version: Version that contains the resource
-        :param sid: The Twilio-provided string that uniquely identifies the IP Record resource to update.
-
-        :returns: twilio.rest.voice.v1.ip_record.IpRecordContext
-        :rtype: twilio.rest.voice.v1.ip_record.IpRecordContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'sid': sid,
-        }
-        self._uri = '/IpRecords/{sid}'.format(**self._solution)
-        
-    
-    def delete(self):
-        """
-        Deletes the IpRecordInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(method='DELETE', uri=self._uri,)
-        
-    def fetch(self):
-        """
-        Fetch the IpRecordInstance
-        
-
-        :returns: The fetched IpRecordInstance
-        :rtype: twilio.rest.voice.v1.ip_record.IpRecordInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return IpRecordInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid'],
-            
-        )
-        
-    def update(self, friendly_name=values.unset):
-        """
-        Update the IpRecordInstance
-        
-        :params str friendly_name: A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
-
-        :returns: The updated IpRecordInstance
-        :rtype: twilio.rest.voice.v1.ip_record.IpRecordInstance
-        """
-        data = values.of({ 
-            'FriendlyName': friendly_name,
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return IpRecordInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid']
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Voice.V1.IpRecordContext {}>'.format(context)
 
 

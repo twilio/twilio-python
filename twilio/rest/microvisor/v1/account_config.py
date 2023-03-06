@@ -225,6 +225,65 @@ class AccountConfigPage(Page):
 
 
 
+class AccountConfigContext(InstanceContext):
+
+    def __init__(self, version: Version, key: str):
+        """
+        Initialize the AccountConfigContext
+
+        :param Version version: Version that contains the resource
+        :param key: The config key; up to 100 characters.
+
+        :returns: twilio.rest.microvisor.v1.account_config.AccountConfigContext
+        :rtype: twilio.rest.microvisor.v1.account_config.AccountConfigContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'key': key,
+        }
+        self._uri = '/Configs/{key}'.format(**self._solution)
+        
+    
+    def delete(self):
+        """
+        Deletes the AccountConfigInstance
+
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(method='DELETE', uri=self._uri,)
+        
+    def fetch(self):
+        """
+        Fetch the AccountConfigInstance
+        
+
+        :returns: The fetched AccountConfigInstance
+        :rtype: twilio.rest.microvisor.v1.account_config.AccountConfigInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return AccountConfigInstance(
+            self._version,
+            payload,
+            key=self._solution['key'],
+            
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Microvisor.V1.AccountConfigContext {}>'.format(context)
+
 class AccountConfigInstance(InstanceResource):
 
     def __init__(self, version, payload, key: str=None):
@@ -318,64 +377,5 @@ class AccountConfigInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Microvisor.V1.AccountConfigInstance {}>'.format(context)
-
-class AccountConfigContext(InstanceContext):
-
-    def __init__(self, version: Version, key: str):
-        """
-        Initialize the AccountConfigContext
-
-        :param Version version: Version that contains the resource
-        :param key: The config key; up to 100 characters.
-
-        :returns: twilio.rest.microvisor.v1.account_config.AccountConfigContext
-        :rtype: twilio.rest.microvisor.v1.account_config.AccountConfigContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'key': key,
-        }
-        self._uri = '/Configs/{key}'.format(**self._solution)
-        
-    
-    def delete(self):
-        """
-        Deletes the AccountConfigInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(method='DELETE', uri=self._uri,)
-        
-    def fetch(self):
-        """
-        Fetch the AccountConfigInstance
-        
-
-        :returns: The fetched AccountConfigInstance
-        :rtype: twilio.rest.microvisor.v1.account_config.AccountConfigInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return AccountConfigInstance(
-            self._version,
-            payload,
-            key=self._solution['key'],
-            
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Microvisor.V1.AccountConfigContext {}>'.format(context)
 
 

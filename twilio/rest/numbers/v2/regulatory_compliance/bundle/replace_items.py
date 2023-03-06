@@ -71,6 +71,7 @@ class ReplaceItemsList(ListResource):
         """
         return '<Twilio.Numbers.V2.ReplaceItemsList>'
 
+
 class ReplaceItemsInstance(InstanceResource):
 
     class Status(object):
@@ -194,6 +195,5 @@ class ReplaceItemsInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Numbers.V2.ReplaceItemsInstance {}>'.format(context)
-
 
 

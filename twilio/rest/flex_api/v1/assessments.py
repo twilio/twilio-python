@@ -70,6 +70,54 @@ class AssessmentsList(ListResource):
         """
         return '<Twilio.FlexApi.V1.AssessmentsList>'
 
+class AssessmentsContext(InstanceContext):
+
+    def __init__(self, version: Version):
+        """
+        Initialize the AssessmentsContext
+
+        :param Version version: Version that contains the resource
+        
+
+        :returns: twilio.rest.flex_api.v1.assessments.AssessmentsContext
+        :rtype: twilio.rest.flex_api.v1.assessments.AssessmentsContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+        }
+        self._uri = '/Accounts/Assessments'.format(**self._solution)
+        
+    
+    def create(self):
+        """
+        Create the AssessmentsInstance
+        
+
+        :returns: The created AssessmentsInstance
+        :rtype: twilio.rest.flex_api.v1.assessments.AssessmentsInstance
+        """
+        data = values.of({ 
+        })
+
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
+
+        return AssessmentsInstance(
+            self._version,
+            payload
+        )
+    
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.FlexApi.V1.AssessmentsContext {}>'.format(context)
+
 class AssessmentsInstance(InstanceResource):
 
     def __init__(self, version, payload):
@@ -126,53 +174,5 @@ class AssessmentsInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.FlexApi.V1.AssessmentsInstance {}>'.format(context)
-
-class AssessmentsContext(InstanceContext):
-
-    def __init__(self, version: Version):
-        """
-        Initialize the AssessmentsContext
-
-        :param Version version: Version that contains the resource
-        
-
-        :returns: twilio.rest.flex_api.v1.assessments.AssessmentsContext
-        :rtype: twilio.rest.flex_api.v1.assessments.AssessmentsContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-        }
-        self._uri = '/Accounts/Assessments'.format(**self._solution)
-        
-    
-    def create(self):
-        """
-        Create the AssessmentsInstance
-        
-
-        :returns: The created AssessmentsInstance
-        :rtype: twilio.rest.flex_api.v1.assessments.AssessmentsInstance
-        """
-        data = values.of({ 
-        })
-
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
-
-        return AssessmentsInstance(
-            self._version,
-            payload
-        )
-    
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.FlexApi.V1.AssessmentsContext {}>'.format(context)
 
 

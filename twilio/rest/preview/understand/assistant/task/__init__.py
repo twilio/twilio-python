@@ -237,6 +237,152 @@ class TaskPage(Page):
 
 
 
+class TaskContext(InstanceContext):
+
+    def __init__(self, version: Version, assistant_sid: str, sid: str):
+        """
+        Initialize the TaskContext
+
+        :param Version version: Version that contains the resource
+        :param assistant_sid: The unique ID of the Assistant.:param sid: A 34 character string that uniquely identifies this resource.
+
+        :returns: twilio.rest.preview.understand.assistant.task.TaskContext
+        :rtype: twilio.rest.preview.understand.assistant.task.TaskContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'assistant_sid': assistant_sid,
+            'sid': sid,
+        }
+        self._uri = '/Assistants/{assistant_sid}/Tasks/{sid}'.format(**self._solution)
+        
+        self._fields = None
+        self._samples = None
+        self._task_actions = None
+        self._statistics = None
+    
+    def delete(self):
+        """
+        Deletes the TaskInstance
+
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(method='DELETE', uri=self._uri,)
+        
+    def fetch(self):
+        """
+        Fetch the TaskInstance
+        
+
+        :returns: The fetched TaskInstance
+        :rtype: twilio.rest.preview.understand.assistant.task.TaskInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return TaskInstance(
+            self._version,
+            payload,
+            assistant_sid=self._solution['assistant_sid'],
+            sid=self._solution['sid'],
+            
+        )
+        
+    def update(self, friendly_name=values.unset, unique_name=values.unset, actions=values.unset, actions_url=values.unset):
+        """
+        Update the TaskInstance
+        
+        :params str friendly_name: A user-provided string that identifies this resource. It is non-unique and can up to 255 characters long.
+        :params str unique_name: A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
+        :params object actions: A user-provided JSON object encoded as a string to specify the actions for this task. It is optional and non-unique.
+        :params str actions_url: User-provided HTTP endpoint where from the assistant fetches actions
+
+        :returns: The updated TaskInstance
+        :rtype: twilio.rest.preview.understand.assistant.task.TaskInstance
+        """
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+            'UniqueName': unique_name,
+            'Actions': serialize.object(actions),
+            'ActionsUrl': actions_url,
+        })
+        
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return TaskInstance(
+            self._version,
+            payload,
+            assistant_sid=self._solution['assistant_sid'],
+            sid=self._solution['sid']
+        )
+        
+    
+    @property
+    def fields(self):
+        """
+        Access the fields
+
+        :returns: twilio.rest.preview.understand.assistant.task.FieldList
+        :rtype: twilio.rest.preview.understand.assistant.task.FieldList
+        """
+        if self._fields is None:
+            self._fields = FieldList(self._version, self._solution['assistant_sid'], self._solution['sid'],
+            )
+        return self._fields
+    
+    @property
+    def samples(self):
+        """
+        Access the samples
+
+        :returns: twilio.rest.preview.understand.assistant.task.SampleList
+        :rtype: twilio.rest.preview.understand.assistant.task.SampleList
+        """
+        if self._samples is None:
+            self._samples = SampleList(self._version, self._solution['assistant_sid'], self._solution['sid'],
+            )
+        return self._samples
+    
+    @property
+    def task_actions(self):
+        """
+        Access the task_actions
+
+        :returns: twilio.rest.preview.understand.assistant.task.TaskActionsList
+        :rtype: twilio.rest.preview.understand.assistant.task.TaskActionsList
+        """
+        if self._task_actions is None:
+            self._task_actions = TaskActionsList(self._version, self._solution['assistant_sid'], self._solution['sid'],
+            )
+        return self._task_actions
+    
+    @property
+    def statistics(self):
+        """
+        Access the statistics
+
+        :returns: twilio.rest.preview.understand.assistant.task.TaskStatisticsList
+        :rtype: twilio.rest.preview.understand.assistant.task.TaskStatisticsList
+        """
+        if self._statistics is None:
+            self._statistics = TaskStatisticsList(self._version, self._solution['assistant_sid'], self._solution['sid'],
+            )
+        return self._statistics
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Preview.Understand.TaskContext {}>'.format(context)
+
 class TaskInstance(InstanceResource):
 
     def __init__(self, version, payload, assistant_sid: str, sid: str=None):
@@ -438,151 +584,5 @@ class TaskInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Preview.Understand.TaskInstance {}>'.format(context)
-
-class TaskContext(InstanceContext):
-
-    def __init__(self, version: Version, assistant_sid: str, sid: str):
-        """
-        Initialize the TaskContext
-
-        :param Version version: Version that contains the resource
-        :param assistant_sid: The unique ID of the Assistant.:param sid: A 34 character string that uniquely identifies this resource.
-
-        :returns: twilio.rest.preview.understand.assistant.task.TaskContext
-        :rtype: twilio.rest.preview.understand.assistant.task.TaskContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'assistant_sid': assistant_sid,
-            'sid': sid,
-        }
-        self._uri = '/Assistants/{assistant_sid}/Tasks/{sid}'.format(**self._solution)
-        
-        self._fields = None
-        self._samples = None
-        self._task_actions = None
-        self._statistics = None
-    
-    def delete(self):
-        """
-        Deletes the TaskInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(method='DELETE', uri=self._uri,)
-        
-    def fetch(self):
-        """
-        Fetch the TaskInstance
-        
-
-        :returns: The fetched TaskInstance
-        :rtype: twilio.rest.preview.understand.assistant.task.TaskInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return TaskInstance(
-            self._version,
-            payload,
-            assistant_sid=self._solution['assistant_sid'],
-            sid=self._solution['sid'],
-            
-        )
-        
-    def update(self, friendly_name=values.unset, unique_name=values.unset, actions=values.unset, actions_url=values.unset):
-        """
-        Update the TaskInstance
-        
-        :params str friendly_name: A user-provided string that identifies this resource. It is non-unique and can up to 255 characters long.
-        :params str unique_name: A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
-        :params object actions: A user-provided JSON object encoded as a string to specify the actions for this task. It is optional and non-unique.
-        :params str actions_url: User-provided HTTP endpoint where from the assistant fetches actions
-
-        :returns: The updated TaskInstance
-        :rtype: twilio.rest.preview.understand.assistant.task.TaskInstance
-        """
-        data = values.of({ 
-            'FriendlyName': friendly_name,
-            'UniqueName': unique_name,
-            'Actions': serialize.object(actions),
-            'ActionsUrl': actions_url,
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return TaskInstance(
-            self._version,
-            payload,
-            assistant_sid=self._solution['assistant_sid'],
-            sid=self._solution['sid']
-        )
-        
-    
-    @property
-    def fields(self):
-        """
-        Access the fields
-
-        :returns: twilio.rest.preview.understand.assistant.task.FieldList
-        :rtype: twilio.rest.preview.understand.assistant.task.FieldList
-        """
-        if self._fields is None:
-            self._fields = FieldList(self._version, self._solution['assistant_sid'], self._solution['sid'],
-            )
-        return self._fields
-    
-    @property
-    def samples(self):
-        """
-        Access the samples
-
-        :returns: twilio.rest.preview.understand.assistant.task.SampleList
-        :rtype: twilio.rest.preview.understand.assistant.task.SampleList
-        """
-        if self._samples is None:
-            self._samples = SampleList(self._version, self._solution['assistant_sid'], self._solution['sid'],
-            )
-        return self._samples
-    
-    @property
-    def task_actions(self):
-        """
-        Access the task_actions
-
-        :returns: twilio.rest.preview.understand.assistant.task.TaskActionsList
-        :rtype: twilio.rest.preview.understand.assistant.task.TaskActionsList
-        """
-        if self._task_actions is None:
-            self._task_actions = TaskActionsList(self._version, self._solution['assistant_sid'], self._solution['sid'],
-            )
-        return self._task_actions
-    
-    @property
-    def statistics(self):
-        """
-        Access the statistics
-
-        :returns: twilio.rest.preview.understand.assistant.task.TaskStatisticsList
-        :rtype: twilio.rest.preview.understand.assistant.task.TaskStatisticsList
-        """
-        if self._statistics is None:
-            self._statistics = TaskStatisticsList(self._version, self._solution['assistant_sid'], self._solution['sid'],
-            )
-        return self._statistics
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Preview.Understand.TaskContext {}>'.format(context)
 
 

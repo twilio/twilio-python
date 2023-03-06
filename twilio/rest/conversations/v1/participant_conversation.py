@@ -188,6 +188,7 @@ class ParticipantConversationPage(Page):
 
 
 
+
 class ParticipantConversationInstance(InstanceResource):
 
     class State(object):
@@ -362,6 +363,5 @@ class ParticipantConversationInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Conversations.V1.ParticipantConversationInstance {}>'.format(context)
-
 
 

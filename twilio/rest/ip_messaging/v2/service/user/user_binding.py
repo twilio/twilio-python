@@ -211,6 +211,69 @@ class UserBindingPage(Page):
 
 
 
+class UserBindingContext(InstanceContext):
+
+    def __init__(self, version: Version, service_sid: str, user_sid: str, sid: str):
+        """
+        Initialize the UserBindingContext
+
+        :param Version version: Version that contains the resource
+        :param service_sid: :param user_sid: :param sid: 
+
+        :returns: twilio.rest.ip_messaging.v2.service.user.user_binding.UserBindingContext
+        :rtype: twilio.rest.ip_messaging.v2.service.user.user_binding.UserBindingContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'service_sid': service_sid,
+            'user_sid': user_sid,
+            'sid': sid,
+        }
+        self._uri = '/Services/{service_sid}/Users/{user_sid}/Bindings/{sid}'.format(**self._solution)
+        
+    
+    def delete(self):
+        """
+        Deletes the UserBindingInstance
+
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(method='DELETE', uri=self._uri,)
+        
+    def fetch(self):
+        """
+        Fetch the UserBindingInstance
+        
+
+        :returns: The fetched UserBindingInstance
+        :rtype: twilio.rest.ip_messaging.v2.service.user.user_binding.UserBindingInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return UserBindingInstance(
+            self._version,
+            payload,
+            service_sid=self._solution['service_sid'],
+            user_sid=self._solution['user_sid'],
+            sid=self._solution['sid'],
+            
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.IpMessaging.V2.UserBindingContext {}>'.format(context)
+
 class UserBindingInstance(InstanceResource):
 
     class BindingType(object):
@@ -381,68 +444,5 @@ class UserBindingInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.IpMessaging.V2.UserBindingInstance {}>'.format(context)
-
-class UserBindingContext(InstanceContext):
-
-    def __init__(self, version: Version, service_sid: str, user_sid: str, sid: str):
-        """
-        Initialize the UserBindingContext
-
-        :param Version version: Version that contains the resource
-        :param service_sid: :param user_sid: :param sid: 
-
-        :returns: twilio.rest.ip_messaging.v2.service.user.user_binding.UserBindingContext
-        :rtype: twilio.rest.ip_messaging.v2.service.user.user_binding.UserBindingContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'service_sid': service_sid,
-            'user_sid': user_sid,
-            'sid': sid,
-        }
-        self._uri = '/Services/{service_sid}/Users/{user_sid}/Bindings/{sid}'.format(**self._solution)
-        
-    
-    def delete(self):
-        """
-        Deletes the UserBindingInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(method='DELETE', uri=self._uri,)
-        
-    def fetch(self):
-        """
-        Fetch the UserBindingInstance
-        
-
-        :returns: The fetched UserBindingInstance
-        :rtype: twilio.rest.ip_messaging.v2.service.user.user_binding.UserBindingInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return UserBindingInstance(
-            self._version,
-            payload,
-            service_sid=self._solution['service_sid'],
-            user_sid=self._solution['user_sid'],
-            sid=self._solution['sid'],
-            
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.IpMessaging.V2.UserBindingContext {}>'.format(context)
 
 

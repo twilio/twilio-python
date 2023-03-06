@@ -206,6 +206,83 @@ class AddOnResultPage(Page):
 
 
 
+class AddOnResultContext(InstanceContext):
+
+    def __init__(self, version: Version, account_sid: str, reference_sid: str, sid: str):
+        """
+        Initialize the AddOnResultContext
+
+        :param Version version: Version that contains the resource
+        :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording AddOnResult resource to fetch.:param reference_sid: The SID of the recording to which the result to fetch belongs.:param sid: The Twilio-provided string that uniquely identifies the Recording AddOnResult resource to fetch.
+
+        :returns: twilio.rest.api.v2010.account.recording.add_on_result.AddOnResultContext
+        :rtype: twilio.rest.api.v2010.account.recording.add_on_result.AddOnResultContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'account_sid': account_sid,
+            'reference_sid': reference_sid,
+            'sid': sid,
+        }
+        self._uri = '/Accounts/{account_sid}/Recordings/{reference_sid}/AddOnResults/{sid}.json'.format(**self._solution)
+        
+        self._payloads = None
+    
+    def delete(self):
+        """
+        Deletes the AddOnResultInstance
+
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(method='DELETE', uri=self._uri,)
+        
+    def fetch(self):
+        """
+        Fetch the AddOnResultInstance
+        
+
+        :returns: The fetched AddOnResultInstance
+        :rtype: twilio.rest.api.v2010.account.recording.add_on_result.AddOnResultInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return AddOnResultInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+            reference_sid=self._solution['reference_sid'],
+            sid=self._solution['sid'],
+            
+        )
+        
+    
+    @property
+    def payloads(self):
+        """
+        Access the payloads
+
+        :returns: twilio.rest.api.v2010.account.recording.add_on_result.PayloadList
+        :rtype: twilio.rest.api.v2010.account.recording.add_on_result.PayloadList
+        """
+        if self._payloads is None:
+            self._payloads = PayloadList(self._version, self._solution['account_sid'], self._solution['reference_sid'], self._solution['sid'],
+            )
+        return self._payloads
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Api.V2010.AddOnResultContext {}>'.format(context)
+
 class AddOnResultInstance(InstanceResource):
 
     class Status(object):
@@ -373,82 +450,5 @@ class AddOnResultInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Api.V2010.AddOnResultInstance {}>'.format(context)
-
-class AddOnResultContext(InstanceContext):
-
-    def __init__(self, version: Version, account_sid: str, reference_sid: str, sid: str):
-        """
-        Initialize the AddOnResultContext
-
-        :param Version version: Version that contains the resource
-        :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording AddOnResult resource to fetch.:param reference_sid: The SID of the recording to which the result to fetch belongs.:param sid: The Twilio-provided string that uniquely identifies the Recording AddOnResult resource to fetch.
-
-        :returns: twilio.rest.api.v2010.account.recording.add_on_result.AddOnResultContext
-        :rtype: twilio.rest.api.v2010.account.recording.add_on_result.AddOnResultContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'account_sid': account_sid,
-            'reference_sid': reference_sid,
-            'sid': sid,
-        }
-        self._uri = '/Accounts/{account_sid}/Recordings/{reference_sid}/AddOnResults/{sid}.json'.format(**self._solution)
-        
-        self._payloads = None
-    
-    def delete(self):
-        """
-        Deletes the AddOnResultInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(method='DELETE', uri=self._uri,)
-        
-    def fetch(self):
-        """
-        Fetch the AddOnResultInstance
-        
-
-        :returns: The fetched AddOnResultInstance
-        :rtype: twilio.rest.api.v2010.account.recording.add_on_result.AddOnResultInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return AddOnResultInstance(
-            self._version,
-            payload,
-            account_sid=self._solution['account_sid'],
-            reference_sid=self._solution['reference_sid'],
-            sid=self._solution['sid'],
-            
-        )
-        
-    
-    @property
-    def payloads(self):
-        """
-        Access the payloads
-
-        :returns: twilio.rest.api.v2010.account.recording.add_on_result.PayloadList
-        :rtype: twilio.rest.api.v2010.account.recording.add_on_result.PayloadList
-        """
-        if self._payloads is None:
-            self._payloads = PayloadList(self._version, self._solution['account_sid'], self._solution['reference_sid'], self._solution['sid'],
-            )
-        return self._payloads
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Api.V2010.AddOnResultContext {}>'.format(context)
 
 

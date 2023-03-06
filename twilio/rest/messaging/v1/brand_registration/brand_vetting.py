@@ -229,6 +229,57 @@ class BrandVettingPage(Page):
 
 
 
+class BrandVettingContext(InstanceContext):
+
+    def __init__(self, version: Version, brand_sid: str, brand_vetting_sid: str):
+        """
+        Initialize the BrandVettingContext
+
+        :param Version version: Version that contains the resource
+        :param brand_sid: The SID of the Brand Registration resource of the vettings to read .:param brand_vetting_sid: The Twilio SID of the third-party vetting record.
+
+        :returns: twilio.rest.messaging.v1.brand_registration.brand_vetting.BrandVettingContext
+        :rtype: twilio.rest.messaging.v1.brand_registration.brand_vetting.BrandVettingContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'brand_sid': brand_sid,
+            'brand_vetting_sid': brand_vetting_sid,
+        }
+        self._uri = '/a2p/BrandRegistrations/{brand_sid}/Vettings/{brand_vetting_sid}'.format(**self._solution)
+        
+    
+    def fetch(self):
+        """
+        Fetch the BrandVettingInstance
+        
+
+        :returns: The fetched BrandVettingInstance
+        :rtype: twilio.rest.messaging.v1.brand_registration.brand_vetting.BrandVettingInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return BrandVettingInstance(
+            self._version,
+            payload,
+            brand_sid=self._solution['brand_sid'],
+            brand_vetting_sid=self._solution['brand_vetting_sid'],
+            
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Messaging.V1.BrandVettingContext {}>'.format(context)
+
 class BrandVettingInstance(InstanceResource):
 
     class VettingProvider(object):
@@ -369,56 +420,5 @@ class BrandVettingInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Messaging.V1.BrandVettingInstance {}>'.format(context)
-
-class BrandVettingContext(InstanceContext):
-
-    def __init__(self, version: Version, brand_sid: str, brand_vetting_sid: str):
-        """
-        Initialize the BrandVettingContext
-
-        :param Version version: Version that contains the resource
-        :param brand_sid: The SID of the Brand Registration resource of the vettings to read .:param brand_vetting_sid: The Twilio SID of the third-party vetting record.
-
-        :returns: twilio.rest.messaging.v1.brand_registration.brand_vetting.BrandVettingContext
-        :rtype: twilio.rest.messaging.v1.brand_registration.brand_vetting.BrandVettingContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'brand_sid': brand_sid,
-            'brand_vetting_sid': brand_vetting_sid,
-        }
-        self._uri = '/a2p/BrandRegistrations/{brand_sid}/Vettings/{brand_vetting_sid}'.format(**self._solution)
-        
-    
-    def fetch(self):
-        """
-        Fetch the BrandVettingInstance
-        
-
-        :returns: The fetched BrandVettingInstance
-        :rtype: twilio.rest.messaging.v1.brand_registration.brand_vetting.BrandVettingInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return BrandVettingInstance(
-            self._version,
-            payload,
-            brand_sid=self._solution['brand_sid'],
-            brand_vetting_sid=self._solution['brand_vetting_sid'],
-            
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Messaging.V1.BrandVettingContext {}>'.format(context)
 
 

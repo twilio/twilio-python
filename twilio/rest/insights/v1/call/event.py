@@ -183,6 +183,7 @@ class EventPage(Page):
 
 
 
+
 class EventInstance(InstanceResource):
 
     class Level(object):
@@ -321,6 +322,5 @@ class EventInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Insights.V1.EventInstance {}>'.format(context)
-
 
 

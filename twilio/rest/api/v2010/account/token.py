@@ -71,6 +71,7 @@ class TokenList(ListResource):
         """
         return '<Twilio.Api.V2010.TokenList>'
 
+
 class TokenInstance(InstanceResource):
 
     def __init__(self, version, payload, account_sid: str):
@@ -159,6 +160,5 @@ class TokenInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Api.V2010.TokenInstance {}>'.format(context)
-
 
 

@@ -72,6 +72,77 @@ class AssistantInitiationActionsList(ListResource):
         """
         return '<Twilio.Preview.Understand.AssistantInitiationActionsList>'
 
+class AssistantInitiationActionsContext(InstanceContext):
+
+    def __init__(self, version: Version, assistant_sid: str):
+        """
+        Initialize the AssistantInitiationActionsContext
+
+        :param Version version: Version that contains the resource
+        :param assistant_sid: 
+
+        :returns: twilio.rest.preview.understand.assistant.assistant_initiation_actions.AssistantInitiationActionsContext
+        :rtype: twilio.rest.preview.understand.assistant.assistant_initiation_actions.AssistantInitiationActionsContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'assistant_sid': assistant_sid,
+        }
+        self._uri = '/Assistants/{assistant_sid}/InitiationActions'.format(**self._solution)
+        
+    
+    def fetch(self):
+        """
+        Fetch the AssistantInitiationActionsInstance
+        
+
+        :returns: The fetched AssistantInitiationActionsInstance
+        :rtype: twilio.rest.preview.understand.assistant.assistant_initiation_actions.AssistantInitiationActionsInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return AssistantInitiationActionsInstance(
+            self._version,
+            payload,
+            assistant_sid=self._solution['assistant_sid'],
+            
+        )
+        
+    def update(self, initiation_actions=values.unset):
+        """
+        Update the AssistantInitiationActionsInstance
+        
+        :params object initiation_actions: 
+
+        :returns: The updated AssistantInitiationActionsInstance
+        :rtype: twilio.rest.preview.understand.assistant.assistant_initiation_actions.AssistantInitiationActionsInstance
+        """
+        data = values.of({ 
+            'InitiationActions': serialize.object(initiation_actions),
+        })
+        
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return AssistantInitiationActionsInstance(
+            self._version,
+            payload,
+            assistant_sid=self._solution['assistant_sid']
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Preview.Understand.AssistantInitiationActionsContext {}>'.format(context)
+
 class AssistantInitiationActionsInstance(InstanceResource):
 
     def __init__(self, version, payload, assistant_sid: str):
@@ -166,76 +237,5 @@ class AssistantInitiationActionsInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Preview.Understand.AssistantInitiationActionsInstance {}>'.format(context)
-
-class AssistantInitiationActionsContext(InstanceContext):
-
-    def __init__(self, version: Version, assistant_sid: str):
-        """
-        Initialize the AssistantInitiationActionsContext
-
-        :param Version version: Version that contains the resource
-        :param assistant_sid: 
-
-        :returns: twilio.rest.preview.understand.assistant.assistant_initiation_actions.AssistantInitiationActionsContext
-        :rtype: twilio.rest.preview.understand.assistant.assistant_initiation_actions.AssistantInitiationActionsContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'assistant_sid': assistant_sid,
-        }
-        self._uri = '/Assistants/{assistant_sid}/InitiationActions'.format(**self._solution)
-        
-    
-    def fetch(self):
-        """
-        Fetch the AssistantInitiationActionsInstance
-        
-
-        :returns: The fetched AssistantInitiationActionsInstance
-        :rtype: twilio.rest.preview.understand.assistant.assistant_initiation_actions.AssistantInitiationActionsInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return AssistantInitiationActionsInstance(
-            self._version,
-            payload,
-            assistant_sid=self._solution['assistant_sid'],
-            
-        )
-        
-    def update(self, initiation_actions=values.unset):
-        """
-        Update the AssistantInitiationActionsInstance
-        
-        :params object initiation_actions: 
-
-        :returns: The updated AssistantInitiationActionsInstance
-        :rtype: twilio.rest.preview.understand.assistant.assistant_initiation_actions.AssistantInitiationActionsInstance
-        """
-        data = values.of({ 
-            'InitiationActions': serialize.object(initiation_actions),
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return AssistantInitiationActionsInstance(
-            self._version,
-            payload,
-            assistant_sid=self._solution['assistant_sid']
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Preview.Understand.AssistantInitiationActionsContext {}>'.format(context)
 
 

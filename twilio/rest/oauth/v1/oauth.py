@@ -70,6 +70,53 @@ class OauthList(ListResource):
         """
         return '<Twilio.Oauth.V1.OauthList>'
 
+class OauthContext(InstanceContext):
+
+    def __init__(self, version: Version):
+        """
+        Initialize the OauthContext
+
+        :param Version version: Version that contains the resource
+        
+
+        :returns: twilio.rest.oauth.v1.oauth.OauthContext
+        :rtype: twilio.rest.oauth.v1.oauth.OauthContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+        }
+        self._uri = '/certs'.format(**self._solution)
+        
+    
+    def fetch(self):
+        """
+        Fetch the OauthInstance
+        
+
+        :returns: The fetched OauthInstance
+        :rtype: twilio.rest.oauth.v1.oauth.OauthInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return OauthInstance(
+            self._version,
+            payload,
+            
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Oauth.V1.OauthContext {}>'.format(context)
+
 class OauthInstance(InstanceResource):
 
     def __init__(self, version, payload):
@@ -135,52 +182,5 @@ class OauthInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Oauth.V1.OauthInstance {}>'.format(context)
-
-class OauthContext(InstanceContext):
-
-    def __init__(self, version: Version):
-        """
-        Initialize the OauthContext
-
-        :param Version version: Version that contains the resource
-        
-
-        :returns: twilio.rest.oauth.v1.oauth.OauthContext
-        :rtype: twilio.rest.oauth.v1.oauth.OauthContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-        }
-        self._uri = '/certs'.format(**self._solution)
-        
-    
-    def fetch(self):
-        """
-        Fetch the OauthInstance
-        
-
-        :returns: The fetched OauthInstance
-        :rtype: twilio.rest.oauth.v1.oauth.OauthInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return OauthInstance(
-            self._version,
-            payload,
-            
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Oauth.V1.OauthContext {}>'.format(context)
 
 

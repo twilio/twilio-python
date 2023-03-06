@@ -79,6 +79,7 @@ class VerificationCheckList(ListResource):
         """
         return '<Twilio.Verify.V2.VerificationCheckList>'
 
+
 class VerificationCheckInstance(InstanceResource):
 
     class Channel(object):
@@ -219,6 +220,5 @@ class VerificationCheckInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Verify.V2.VerificationCheckInstance {}>'.format(context)
-
 
 

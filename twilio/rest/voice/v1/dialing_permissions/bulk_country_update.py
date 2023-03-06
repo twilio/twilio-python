@@ -70,6 +70,7 @@ class BulkCountryUpdateList(ListResource):
         """
         return '<Twilio.Voice.V1.BulkCountryUpdateList>'
 
+
 class BulkCountryUpdateInstance(InstanceResource):
 
     def __init__(self, version, payload):
@@ -113,6 +114,5 @@ class BulkCountryUpdateInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Voice.V1.BulkCountryUpdateInstance {}>'.format(context)
-
 
 

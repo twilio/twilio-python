@@ -230,6 +230,87 @@ class PublicKeyPage(Page):
 
 
 
+class PublicKeyContext(InstanceContext):
+
+    def __init__(self, version: Version, sid: str):
+        """
+        Initialize the PublicKeyContext
+
+        :param Version version: Version that contains the resource
+        :param sid: The Twilio-provided string that uniquely identifies the PublicKey resource to update.
+
+        :returns: twilio.rest.accounts.v1.credential.public_key.PublicKeyContext
+        :rtype: twilio.rest.accounts.v1.credential.public_key.PublicKeyContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'sid': sid,
+        }
+        self._uri = '/Credentials/PublicKeys/{sid}'.format(**self._solution)
+        
+    
+    def delete(self):
+        """
+        Deletes the PublicKeyInstance
+
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(method='DELETE', uri=self._uri,)
+        
+    def fetch(self):
+        """
+        Fetch the PublicKeyInstance
+        
+
+        :returns: The fetched PublicKeyInstance
+        :rtype: twilio.rest.accounts.v1.credential.public_key.PublicKeyInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return PublicKeyInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid'],
+            
+        )
+        
+    def update(self, friendly_name=values.unset):
+        """
+        Update the PublicKeyInstance
+        
+        :params str friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+
+        :returns: The updated PublicKeyInstance
+        :rtype: twilio.rest.accounts.v1.credential.public_key.PublicKeyInstance
+        """
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+        })
+        
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return PublicKeyInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid']
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Accounts.V1.PublicKeyContext {}>'.format(context)
+
 class PublicKeyInstance(InstanceResource):
 
     def __init__(self, version, payload, sid: str=None):
@@ -352,86 +433,5 @@ class PublicKeyInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Accounts.V1.PublicKeyInstance {}>'.format(context)
-
-class PublicKeyContext(InstanceContext):
-
-    def __init__(self, version: Version, sid: str):
-        """
-        Initialize the PublicKeyContext
-
-        :param Version version: Version that contains the resource
-        :param sid: The Twilio-provided string that uniquely identifies the PublicKey resource to update.
-
-        :returns: twilio.rest.accounts.v1.credential.public_key.PublicKeyContext
-        :rtype: twilio.rest.accounts.v1.credential.public_key.PublicKeyContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'sid': sid,
-        }
-        self._uri = '/Credentials/PublicKeys/{sid}'.format(**self._solution)
-        
-    
-    def delete(self):
-        """
-        Deletes the PublicKeyInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(method='DELETE', uri=self._uri,)
-        
-    def fetch(self):
-        """
-        Fetch the PublicKeyInstance
-        
-
-        :returns: The fetched PublicKeyInstance
-        :rtype: twilio.rest.accounts.v1.credential.public_key.PublicKeyInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return PublicKeyInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid'],
-            
-        )
-        
-    def update(self, friendly_name=values.unset):
-        """
-        Update the PublicKeyInstance
-        
-        :params str friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
-
-        :returns: The updated PublicKeyInstance
-        :rtype: twilio.rest.accounts.v1.credential.public_key.PublicKeyInstance
-        """
-        data = values.of({ 
-            'FriendlyName': friendly_name,
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return PublicKeyInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid']
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Accounts.V1.PublicKeyContext {}>'.format(context)
 
 

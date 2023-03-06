@@ -73,6 +73,82 @@ class FeedbackList(ListResource):
         """
         return '<Twilio.Api.V2010.FeedbackList>'
 
+class FeedbackContext(InstanceContext):
+
+    def __init__(self, version: Version, account_sid: str, call_sid: str):
+        """
+        Initialize the FeedbackContext
+
+        :param Version version: Version that contains the resource
+        :param account_sid: The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.:param call_sid: The call sid that uniquely identifies the call
+
+        :returns: twilio.rest.api.v2010.account.call.feedback.FeedbackContext
+        :rtype: twilio.rest.api.v2010.account.call.feedback.FeedbackContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'account_sid': account_sid,
+            'call_sid': call_sid,
+        }
+        self._uri = '/Accounts/{account_sid}/Calls/{call_sid}/Feedback.json'.format(**self._solution)
+        
+    
+    def fetch(self):
+        """
+        Fetch the FeedbackInstance
+        
+
+        :returns: The fetched FeedbackInstance
+        :rtype: twilio.rest.api.v2010.account.call.feedback.FeedbackInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return FeedbackInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+            call_sid=self._solution['call_sid'],
+            
+        )
+        
+    def update(self, quality_score=values.unset, issue=values.unset):
+        """
+        Update the FeedbackInstance
+        
+        :params int quality_score: The call quality expressed as an integer from `1` to `5` where `1` represents very poor call quality and `5` represents a perfect call.
+        :params list[Issues] issue: One or more issues experienced during the call. The issues can be: `imperfect-audio`, `dropped-call`, `incorrect-caller-id`, `post-dial-delay`, `digits-not-captured`, `audio-latency`, `unsolicited-call`, or `one-way-audio`.
+
+        :returns: The updated FeedbackInstance
+        :rtype: twilio.rest.api.v2010.account.call.feedback.FeedbackInstance
+        """
+        data = values.of({ 
+            'QualityScore': quality_score,
+            'Issue': serialize.map(issue, lambda e: e),
+        })
+        
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return FeedbackInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+            call_sid=self._solution['call_sid']
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Api.V2010.FeedbackContext {}>'.format(context)
+
 class FeedbackInstance(InstanceResource):
 
     class Issues(object):
@@ -196,81 +272,5 @@ class FeedbackInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Api.V2010.FeedbackInstance {}>'.format(context)
-
-class FeedbackContext(InstanceContext):
-
-    def __init__(self, version: Version, account_sid: str, call_sid: str):
-        """
-        Initialize the FeedbackContext
-
-        :param Version version: Version that contains the resource
-        :param account_sid: The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.:param call_sid: The call sid that uniquely identifies the call
-
-        :returns: twilio.rest.api.v2010.account.call.feedback.FeedbackContext
-        :rtype: twilio.rest.api.v2010.account.call.feedback.FeedbackContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'account_sid': account_sid,
-            'call_sid': call_sid,
-        }
-        self._uri = '/Accounts/{account_sid}/Calls/{call_sid}/Feedback.json'.format(**self._solution)
-        
-    
-    def fetch(self):
-        """
-        Fetch the FeedbackInstance
-        
-
-        :returns: The fetched FeedbackInstance
-        :rtype: twilio.rest.api.v2010.account.call.feedback.FeedbackInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return FeedbackInstance(
-            self._version,
-            payload,
-            account_sid=self._solution['account_sid'],
-            call_sid=self._solution['call_sid'],
-            
-        )
-        
-    def update(self, quality_score=values.unset, issue=values.unset):
-        """
-        Update the FeedbackInstance
-        
-        :params int quality_score: The call quality expressed as an integer from `1` to `5` where `1` represents very poor call quality and `5` represents a perfect call.
-        :params list[Issues] issue: One or more issues experienced during the call. The issues can be: `imperfect-audio`, `dropped-call`, `incorrect-caller-id`, `post-dial-delay`, `digits-not-captured`, `audio-latency`, `unsolicited-call`, or `one-way-audio`.
-
-        :returns: The updated FeedbackInstance
-        :rtype: twilio.rest.api.v2010.account.call.feedback.FeedbackInstance
-        """
-        data = values.of({ 
-            'QualityScore': quality_score,
-            'Issue': serialize.map(issue, lambda e: e),
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return FeedbackInstance(
-            self._version,
-            payload,
-            account_sid=self._solution['account_sid'],
-            call_sid=self._solution['call_sid']
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Api.V2010.FeedbackContext {}>'.format(context)
 
 

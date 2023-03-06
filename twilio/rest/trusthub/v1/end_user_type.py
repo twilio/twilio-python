@@ -200,6 +200,55 @@ class EndUserTypePage(Page):
 
 
 
+class EndUserTypeContext(InstanceContext):
+
+    def __init__(self, version: Version, sid: str):
+        """
+        Initialize the EndUserTypeContext
+
+        :param Version version: Version that contains the resource
+        :param sid: The unique string that identifies the End-User Type resource.
+
+        :returns: twilio.rest.trusthub.v1.end_user_type.EndUserTypeContext
+        :rtype: twilio.rest.trusthub.v1.end_user_type.EndUserTypeContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'sid': sid,
+        }
+        self._uri = '/EndUserTypes/{sid}'.format(**self._solution)
+        
+    
+    def fetch(self):
+        """
+        Fetch the EndUserTypeInstance
+        
+
+        :returns: The fetched EndUserTypeInstance
+        :rtype: twilio.rest.trusthub.v1.end_user_type.EndUserTypeInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return EndUserTypeInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid'],
+            
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Trusthub.V1.EndUserTypeContext {}>'.format(context)
+
 class EndUserTypeInstance(InstanceResource):
 
     def __init__(self, version, payload, sid: str=None):
@@ -292,54 +341,5 @@ class EndUserTypeInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Trusthub.V1.EndUserTypeInstance {}>'.format(context)
-
-class EndUserTypeContext(InstanceContext):
-
-    def __init__(self, version: Version, sid: str):
-        """
-        Initialize the EndUserTypeContext
-
-        :param Version version: Version that contains the resource
-        :param sid: The unique string that identifies the End-User Type resource.
-
-        :returns: twilio.rest.trusthub.v1.end_user_type.EndUserTypeContext
-        :rtype: twilio.rest.trusthub.v1.end_user_type.EndUserTypeContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'sid': sid,
-        }
-        self._uri = '/EndUserTypes/{sid}'.format(**self._solution)
-        
-    
-    def fetch(self):
-        """
-        Fetch the EndUserTypeInstance
-        
-
-        :returns: The fetched EndUserTypeInstance
-        :rtype: twilio.rest.trusthub.v1.end_user_type.EndUserTypeInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return EndUserTypeInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid'],
-            
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Trusthub.V1.EndUserTypeContext {}>'.format(context)
 
 

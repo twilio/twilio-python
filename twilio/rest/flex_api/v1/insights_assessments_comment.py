@@ -229,6 +229,7 @@ class InsightsAssessmentsCommentPage(Page):
 
 
 
+
 class InsightsAssessmentsCommentInstance(InstanceResource):
 
     def __init__(self, version, payload):
@@ -362,6 +363,5 @@ class InsightsAssessmentsCommentInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.FlexApi.V1.InsightsAssessmentsCommentInstance {}>'.format(context)
-
 
 

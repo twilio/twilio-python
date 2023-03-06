@@ -177,6 +177,7 @@ class BillingPeriodPage(Page):
 
 
 
+
 class BillingPeriodInstance(InstanceResource):
 
     class BpType(object):
@@ -278,6 +279,5 @@ class BillingPeriodInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Supersim.V1.BillingPeriodInstance {}>'.format(context)
-
 
 

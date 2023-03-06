@@ -72,6 +72,7 @@ class ExternalCampaignList(ListResource):
         """
         return '<Twilio.Messaging.V1.ExternalCampaignList>'
 
+
 class ExternalCampaignInstance(InstanceResource):
 
     def __init__(self, version, payload):
@@ -142,6 +143,5 @@ class ExternalCampaignInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Messaging.V1.ExternalCampaignInstance {}>'.format(context)
-
 
 

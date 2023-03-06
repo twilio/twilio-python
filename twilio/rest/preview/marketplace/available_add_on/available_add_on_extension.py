@@ -201,6 +201,57 @@ class AvailableAddOnExtensionPage(Page):
 
 
 
+class AvailableAddOnExtensionContext(InstanceContext):
+
+    def __init__(self, version: Version, available_add_on_sid: str, sid: str):
+        """
+        Initialize the AvailableAddOnExtensionContext
+
+        :param Version version: Version that contains the resource
+        :param available_add_on_sid: The SID of the AvailableAddOn resource with the extension to fetch.:param sid: The SID of the AvailableAddOn Extension resource to fetch.
+
+        :returns: twilio.rest.preview.marketplace.available_add_on.available_add_on_extension.AvailableAddOnExtensionContext
+        :rtype: twilio.rest.preview.marketplace.available_add_on.available_add_on_extension.AvailableAddOnExtensionContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'available_add_on_sid': available_add_on_sid,
+            'sid': sid,
+        }
+        self._uri = '/AvailableAddOns/{available_add_on_sid}/Extensions/{sid}'.format(**self._solution)
+        
+    
+    def fetch(self):
+        """
+        Fetch the AvailableAddOnExtensionInstance
+        
+
+        :returns: The fetched AvailableAddOnExtensionInstance
+        :rtype: twilio.rest.preview.marketplace.available_add_on.available_add_on_extension.AvailableAddOnExtensionInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return AvailableAddOnExtensionInstance(
+            self._version,
+            payload,
+            available_add_on_sid=self._solution['available_add_on_sid'],
+            sid=self._solution['sid'],
+            
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Preview.Marketplace.AvailableAddOnExtensionContext {}>'.format(context)
+
 class AvailableAddOnExtensionInstance(InstanceResource):
 
     def __init__(self, version, payload, available_add_on_sid: str, sid: str=None):
@@ -302,56 +353,5 @@ class AvailableAddOnExtensionInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Preview.Marketplace.AvailableAddOnExtensionInstance {}>'.format(context)
-
-class AvailableAddOnExtensionContext(InstanceContext):
-
-    def __init__(self, version: Version, available_add_on_sid: str, sid: str):
-        """
-        Initialize the AvailableAddOnExtensionContext
-
-        :param Version version: Version that contains the resource
-        :param available_add_on_sid: The SID of the AvailableAddOn resource with the extension to fetch.:param sid: The SID of the AvailableAddOn Extension resource to fetch.
-
-        :returns: twilio.rest.preview.marketplace.available_add_on.available_add_on_extension.AvailableAddOnExtensionContext
-        :rtype: twilio.rest.preview.marketplace.available_add_on.available_add_on_extension.AvailableAddOnExtensionContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'available_add_on_sid': available_add_on_sid,
-            'sid': sid,
-        }
-        self._uri = '/AvailableAddOns/{available_add_on_sid}/Extensions/{sid}'.format(**self._solution)
-        
-    
-    def fetch(self):
-        """
-        Fetch the AvailableAddOnExtensionInstance
-        
-
-        :returns: The fetched AvailableAddOnExtensionInstance
-        :rtype: twilio.rest.preview.marketplace.available_add_on.available_add_on_extension.AvailableAddOnExtensionInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return AvailableAddOnExtensionInstance(
-            self._version,
-            payload,
-            available_add_on_sid=self._solution['available_add_on_sid'],
-            sid=self._solution['sid'],
-            
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Preview.Marketplace.AvailableAddOnExtensionContext {}>'.format(context)
 
 

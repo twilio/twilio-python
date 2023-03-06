@@ -286,6 +286,7 @@ class NationalPage(Page):
 
 
 
+
 class NationalInstance(InstanceResource):
 
     def __init__(self, version, payload, account_sid: str, country_code: str):
@@ -428,6 +429,5 @@ class NationalInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Api.V2010.NationalInstance {}>'.format(context)
-
 
 

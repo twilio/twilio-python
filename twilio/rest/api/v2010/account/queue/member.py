@@ -205,6 +205,85 @@ class MemberPage(Page):
 
 
 
+class MemberContext(InstanceContext):
+
+    def __init__(self, version: Version, account_sid: str, queue_sid: str, call_sid: str):
+        """
+        Initialize the MemberContext
+
+        :param Version version: Version that contains the resource
+        :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Member resource(s) to update.:param queue_sid: The SID of the Queue in which to find the members to update.:param call_sid: The [Call](https://www.twilio.com/docs/voice/api/call-resource) SID of the resource(s) to update.
+
+        :returns: twilio.rest.api.v2010.account.queue.member.MemberContext
+        :rtype: twilio.rest.api.v2010.account.queue.member.MemberContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'account_sid': account_sid,
+            'queue_sid': queue_sid,
+            'call_sid': call_sid,
+        }
+        self._uri = '/Accounts/{account_sid}/Queues/{queue_sid}/Members/{call_sid}.json'.format(**self._solution)
+        
+    
+    def fetch(self):
+        """
+        Fetch the MemberInstance
+        
+
+        :returns: The fetched MemberInstance
+        :rtype: twilio.rest.api.v2010.account.queue.member.MemberInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return MemberInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+            queue_sid=self._solution['queue_sid'],
+            call_sid=self._solution['call_sid'],
+            
+        )
+        
+    def update(self, url, method=values.unset):
+        """
+        Update the MemberInstance
+        
+        :params str url: The absolute URL of the Queue resource.
+        :params str method: How to pass the update request data. Can be `GET` or `POST` and the default is `POST`. `POST` sends the data as encoded form data and `GET` sends the data as query parameters.
+
+        :returns: The updated MemberInstance
+        :rtype: twilio.rest.api.v2010.account.queue.member.MemberInstance
+        """
+        data = values.of({ 
+            'Url': url,
+            'Method': method,
+        })
+        
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return MemberInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+            queue_sid=self._solution['queue_sid'],
+            call_sid=self._solution['call_sid']
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Api.V2010.MemberContext {}>'.format(context)
+
 class MemberInstance(InstanceResource):
 
     def __init__(self, version, payload, account_sid: str, queue_sid: str, call_sid: str=None):
@@ -318,84 +397,5 @@ class MemberInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Api.V2010.MemberInstance {}>'.format(context)
-
-class MemberContext(InstanceContext):
-
-    def __init__(self, version: Version, account_sid: str, queue_sid: str, call_sid: str):
-        """
-        Initialize the MemberContext
-
-        :param Version version: Version that contains the resource
-        :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Member resource(s) to update.:param queue_sid: The SID of the Queue in which to find the members to update.:param call_sid: The [Call](https://www.twilio.com/docs/voice/api/call-resource) SID of the resource(s) to update.
-
-        :returns: twilio.rest.api.v2010.account.queue.member.MemberContext
-        :rtype: twilio.rest.api.v2010.account.queue.member.MemberContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'account_sid': account_sid,
-            'queue_sid': queue_sid,
-            'call_sid': call_sid,
-        }
-        self._uri = '/Accounts/{account_sid}/Queues/{queue_sid}/Members/{call_sid}.json'.format(**self._solution)
-        
-    
-    def fetch(self):
-        """
-        Fetch the MemberInstance
-        
-
-        :returns: The fetched MemberInstance
-        :rtype: twilio.rest.api.v2010.account.queue.member.MemberInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return MemberInstance(
-            self._version,
-            payload,
-            account_sid=self._solution['account_sid'],
-            queue_sid=self._solution['queue_sid'],
-            call_sid=self._solution['call_sid'],
-            
-        )
-        
-    def update(self, url, method=values.unset):
-        """
-        Update the MemberInstance
-        
-        :params str url: The absolute URL of the Queue resource.
-        :params str method: How to pass the update request data. Can be `GET` or `POST` and the default is `POST`. `POST` sends the data as encoded form data and `GET` sends the data as query parameters.
-
-        :returns: The updated MemberInstance
-        :rtype: twilio.rest.api.v2010.account.queue.member.MemberInstance
-        """
-        data = values.of({ 
-            'Url': url,
-            'Method': method,
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return MemberInstance(
-            self._version,
-            payload,
-            account_sid=self._solution['account_sid'],
-            queue_sid=self._solution['queue_sid'],
-            call_sid=self._solution['call_sid']
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Api.V2010.MemberContext {}>'.format(context)
 
 

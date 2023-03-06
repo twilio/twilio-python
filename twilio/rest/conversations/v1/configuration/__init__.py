@@ -85,6 +85,80 @@ class ConfigurationList(ListResource):
         """
         return '<Twilio.Conversations.V1.ConfigurationList>'
 
+class ConfigurationContext(InstanceContext):
+
+    def __init__(self, version: Version):
+        """
+        Initialize the ConfigurationContext
+
+        :param Version version: Version that contains the resource
+        
+
+        :returns: twilio.rest.conversations.v1.configuration.ConfigurationContext
+        :rtype: twilio.rest.conversations.v1.configuration.ConfigurationContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+        }
+        self._uri = '/Configuration'.format(**self._solution)
+        
+    
+    def fetch(self):
+        """
+        Fetch the ConfigurationInstance
+        
+
+        :returns: The fetched ConfigurationInstance
+        :rtype: twilio.rest.conversations.v1.configuration.ConfigurationInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return ConfigurationInstance(
+            self._version,
+            payload,
+            
+        )
+        
+    def update(self, default_chat_service_sid=values.unset, default_messaging_service_sid=values.unset, default_inactive_timer=values.unset, default_closed_timer=values.unset):
+        """
+        Update the ConfigurationInstance
+        
+        :params str default_chat_service_sid: The SID of the default [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) to use when creating a conversation.
+        :params str default_messaging_service_sid: The SID of the default [Messaging Service](https://www.twilio.com/docs/sms/services/api) to use when creating a conversation.
+        :params str default_inactive_timer: Default ISO8601 duration when conversation will be switched to `inactive` state. Minimum value for this timer is 1 minute.
+        :params str default_closed_timer: Default ISO8601 duration when conversation will be switched to `closed` state. Minimum value for this timer is 10 minutes.
+
+        :returns: The updated ConfigurationInstance
+        :rtype: twilio.rest.conversations.v1.configuration.ConfigurationInstance
+        """
+        data = values.of({ 
+            'DefaultChatServiceSid': default_chat_service_sid,
+            'DefaultMessagingServiceSid': default_messaging_service_sid,
+            'DefaultInactiveTimer': default_inactive_timer,
+            'DefaultClosedTimer': default_closed_timer,
+        })
+        
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return ConfigurationInstance(
+            self._version,
+            payload
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Conversations.V1.ConfigurationContext {}>'.format(context)
+
 class ConfigurationInstance(InstanceResource):
 
     def __init__(self, version, payload):
@@ -209,79 +283,5 @@ class ConfigurationInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Conversations.V1.ConfigurationInstance {}>'.format(context)
-
-class ConfigurationContext(InstanceContext):
-
-    def __init__(self, version: Version):
-        """
-        Initialize the ConfigurationContext
-
-        :param Version version: Version that contains the resource
-        
-
-        :returns: twilio.rest.conversations.v1.configuration.ConfigurationContext
-        :rtype: twilio.rest.conversations.v1.configuration.ConfigurationContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-        }
-        self._uri = '/Configuration'.format(**self._solution)
-        
-    
-    def fetch(self):
-        """
-        Fetch the ConfigurationInstance
-        
-
-        :returns: The fetched ConfigurationInstance
-        :rtype: twilio.rest.conversations.v1.configuration.ConfigurationInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return ConfigurationInstance(
-            self._version,
-            payload,
-            
-        )
-        
-    def update(self, default_chat_service_sid=values.unset, default_messaging_service_sid=values.unset, default_inactive_timer=values.unset, default_closed_timer=values.unset):
-        """
-        Update the ConfigurationInstance
-        
-        :params str default_chat_service_sid: The SID of the default [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) to use when creating a conversation.
-        :params str default_messaging_service_sid: The SID of the default [Messaging Service](https://www.twilio.com/docs/sms/services/api) to use when creating a conversation.
-        :params str default_inactive_timer: Default ISO8601 duration when conversation will be switched to `inactive` state. Minimum value for this timer is 1 minute.
-        :params str default_closed_timer: Default ISO8601 duration when conversation will be switched to `closed` state. Minimum value for this timer is 10 minutes.
-
-        :returns: The updated ConfigurationInstance
-        :rtype: twilio.rest.conversations.v1.configuration.ConfigurationInstance
-        """
-        data = values.of({ 
-            'DefaultChatServiceSid': default_chat_service_sid,
-            'DefaultMessagingServiceSid': default_messaging_service_sid,
-            'DefaultInactiveTimer': default_inactive_timer,
-            'DefaultClosedTimer': default_closed_timer,
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return ConfigurationInstance(
-            self._version,
-            payload
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Conversations.V1.ConfigurationContext {}>'.format(context)
 
 

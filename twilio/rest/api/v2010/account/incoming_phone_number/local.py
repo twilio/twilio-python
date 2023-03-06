@@ -265,6 +265,7 @@ class LocalPage(Page):
 
 
 
+
 class LocalInstance(InstanceResource):
 
     class AddressRequirement(object):
@@ -618,6 +619,5 @@ class LocalInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Api.V2010.LocalInstance {}>'.format(context)
-
 
 

@@ -206,6 +206,55 @@ class EventTypePage(Page):
 
 
 
+class EventTypeContext(InstanceContext):
+
+    def __init__(self, version: Version, type: str):
+        """
+        Initialize the EventTypeContext
+
+        :param Version version: Version that contains the resource
+        :param type: A string that uniquely identifies this Event Type.
+
+        :returns: twilio.rest.events.v1.event_type.EventTypeContext
+        :rtype: twilio.rest.events.v1.event_type.EventTypeContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'type': type,
+        }
+        self._uri = '/Types/{type}'.format(**self._solution)
+        
+    
+    def fetch(self):
+        """
+        Fetch the EventTypeInstance
+        
+
+        :returns: The fetched EventTypeInstance
+        :rtype: twilio.rest.events.v1.event_type.EventTypeInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return EventTypeInstance(
+            self._version,
+            payload,
+            type=self._solution['type'],
+            
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Events.V1.EventTypeContext {}>'.format(context)
+
 class EventTypeInstance(InstanceResource):
 
     def __init__(self, version, payload, type: str=None):
@@ -316,54 +365,5 @@ class EventTypeInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Events.V1.EventTypeInstance {}>'.format(context)
-
-class EventTypeContext(InstanceContext):
-
-    def __init__(self, version: Version, type: str):
-        """
-        Initialize the EventTypeContext
-
-        :param Version version: Version that contains the resource
-        :param type: A string that uniquely identifies this Event Type.
-
-        :returns: twilio.rest.events.v1.event_type.EventTypeContext
-        :rtype: twilio.rest.events.v1.event_type.EventTypeContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'type': type,
-        }
-        self._uri = '/Types/{type}'.format(**self._solution)
-        
-    
-    def fetch(self):
-        """
-        Fetch the EventTypeInstance
-        
-
-        :returns: The fetched EventTypeInstance
-        :rtype: twilio.rest.events.v1.event_type.EventTypeInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return EventTypeInstance(
-            self._version,
-            payload,
-            type=self._solution['type'],
-            
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Events.V1.EventTypeContext {}>'.format(context)
 
 

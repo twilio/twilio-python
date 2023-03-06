@@ -70,6 +70,58 @@ class InsightsUserRolesList(ListResource):
         """
         return '<Twilio.FlexApi.V1.InsightsUserRolesList>'
 
+class InsightsUserRolesContext(InstanceContext):
+
+    def __init__(self, version: Version):
+        """
+        Initialize the InsightsUserRolesContext
+
+        :param Version version: Version that contains the resource
+        
+
+        :returns: twilio.rest.flex_api.v1.insights_user_roles.InsightsUserRolesContext
+        :rtype: twilio.rest.flex_api.v1.insights_user_roles.InsightsUserRolesContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+        }
+        self._uri = '/Insights/UserRoles'.format(**self._solution)
+        
+    
+    def fetch(self, authorization=values.unset):
+        """
+        Fetch the InsightsUserRolesInstance
+        
+        :params str authorization: The Authorization HTTP request header
+
+        :returns: The fetched InsightsUserRolesInstance
+        :rtype: twilio.rest.flex_api.v1.insights_user_roles.InsightsUserRolesInstance
+        """
+        
+        data = values.of({ 
+            'Authorization': authorization,
+        })
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, params=data)
+
+        return InsightsUserRolesInstance(
+            self._version,
+            payload,
+            
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.FlexApi.V1.InsightsUserRolesContext {}>'.format(context)
+
 class InsightsUserRolesInstance(InstanceResource):
 
     def __init__(self, version, payload):
@@ -136,57 +188,5 @@ class InsightsUserRolesInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.FlexApi.V1.InsightsUserRolesInstance {}>'.format(context)
-
-class InsightsUserRolesContext(InstanceContext):
-
-    def __init__(self, version: Version):
-        """
-        Initialize the InsightsUserRolesContext
-
-        :param Version version: Version that contains the resource
-        
-
-        :returns: twilio.rest.flex_api.v1.insights_user_roles.InsightsUserRolesContext
-        :rtype: twilio.rest.flex_api.v1.insights_user_roles.InsightsUserRolesContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-        }
-        self._uri = '/Insights/UserRoles'.format(**self._solution)
-        
-    
-    def fetch(self, authorization=values.unset):
-        """
-        Fetch the InsightsUserRolesInstance
-        
-        :params str authorization: The Authorization HTTP request header
-
-        :returns: The fetched InsightsUserRolesInstance
-        :rtype: twilio.rest.flex_api.v1.insights_user_roles.InsightsUserRolesInstance
-        """
-        
-        data = values.of({ 
-            'Authorization': authorization,
-        })
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, params=data)
-
-        return InsightsUserRolesInstance(
-            self._version,
-            payload,
-            
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.FlexApi.V1.InsightsUserRolesContext {}>'.format(context)
 
 

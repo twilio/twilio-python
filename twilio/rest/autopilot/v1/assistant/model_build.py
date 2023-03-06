@@ -229,6 +229,90 @@ class ModelBuildPage(Page):
 
 
 
+class ModelBuildContext(InstanceContext):
+
+    def __init__(self, version: Version, assistant_sid: str, sid: str):
+        """
+        Initialize the ModelBuildContext
+
+        :param Version version: Version that contains the resource
+        :param assistant_sid: The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the resource to update.:param sid: The Twilio-provided string that uniquely identifies the ModelBuild resource to update.
+
+        :returns: twilio.rest.autopilot.v1.assistant.model_build.ModelBuildContext
+        :rtype: twilio.rest.autopilot.v1.assistant.model_build.ModelBuildContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'assistant_sid': assistant_sid,
+            'sid': sid,
+        }
+        self._uri = '/Assistants/{assistant_sid}/ModelBuilds/{sid}'.format(**self._solution)
+        
+    
+    def delete(self):
+        """
+        Deletes the ModelBuildInstance
+
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(method='DELETE', uri=self._uri,)
+        
+    def fetch(self):
+        """
+        Fetch the ModelBuildInstance
+        
+
+        :returns: The fetched ModelBuildInstance
+        :rtype: twilio.rest.autopilot.v1.assistant.model_build.ModelBuildInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return ModelBuildInstance(
+            self._version,
+            payload,
+            assistant_sid=self._solution['assistant_sid'],
+            sid=self._solution['sid'],
+            
+        )
+        
+    def update(self, unique_name=values.unset):
+        """
+        Update the ModelBuildInstance
+        
+        :params str unique_name: An application-defined string that uniquely identifies the resource. This value must be a unique string of no more than 64 characters. It can be used as an alternative to the `sid` in the URL path to address the resource.
+
+        :returns: The updated ModelBuildInstance
+        :rtype: twilio.rest.autopilot.v1.assistant.model_build.ModelBuildInstance
+        """
+        data = values.of({ 
+            'UniqueName': unique_name,
+        })
+        
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return ModelBuildInstance(
+            self._version,
+            payload,
+            assistant_sid=self._solution['assistant_sid'],
+            sid=self._solution['sid']
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Autopilot.V1.ModelBuildContext {}>'.format(context)
+
 class ModelBuildInstance(InstanceResource):
 
     class Status(object):
@@ -394,89 +478,5 @@ class ModelBuildInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Autopilot.V1.ModelBuildInstance {}>'.format(context)
-
-class ModelBuildContext(InstanceContext):
-
-    def __init__(self, version: Version, assistant_sid: str, sid: str):
-        """
-        Initialize the ModelBuildContext
-
-        :param Version version: Version that contains the resource
-        :param assistant_sid: The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the resource to update.:param sid: The Twilio-provided string that uniquely identifies the ModelBuild resource to update.
-
-        :returns: twilio.rest.autopilot.v1.assistant.model_build.ModelBuildContext
-        :rtype: twilio.rest.autopilot.v1.assistant.model_build.ModelBuildContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'assistant_sid': assistant_sid,
-            'sid': sid,
-        }
-        self._uri = '/Assistants/{assistant_sid}/ModelBuilds/{sid}'.format(**self._solution)
-        
-    
-    def delete(self):
-        """
-        Deletes the ModelBuildInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(method='DELETE', uri=self._uri,)
-        
-    def fetch(self):
-        """
-        Fetch the ModelBuildInstance
-        
-
-        :returns: The fetched ModelBuildInstance
-        :rtype: twilio.rest.autopilot.v1.assistant.model_build.ModelBuildInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return ModelBuildInstance(
-            self._version,
-            payload,
-            assistant_sid=self._solution['assistant_sid'],
-            sid=self._solution['sid'],
-            
-        )
-        
-    def update(self, unique_name=values.unset):
-        """
-        Update the ModelBuildInstance
-        
-        :params str unique_name: An application-defined string that uniquely identifies the resource. This value must be a unique string of no more than 64 characters. It can be used as an alternative to the `sid` in the URL path to address the resource.
-
-        :returns: The updated ModelBuildInstance
-        :rtype: twilio.rest.autopilot.v1.assistant.model_build.ModelBuildInstance
-        """
-        data = values.of({ 
-            'UniqueName': unique_name,
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return ModelBuildInstance(
-            self._version,
-            payload,
-            assistant_sid=self._solution['assistant_sid'],
-            sid=self._solution['sid']
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Autopilot.V1.ModelBuildContext {}>'.format(context)
 
 

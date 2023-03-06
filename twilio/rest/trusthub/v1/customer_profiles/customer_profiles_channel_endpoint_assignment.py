@@ -238,6 +238,67 @@ class CustomerProfilesChannelEndpointAssignmentPage(Page):
 
 
 
+class CustomerProfilesChannelEndpointAssignmentContext(InstanceContext):
+
+    def __init__(self, version: Version, customer_profile_sid: str, sid: str):
+        """
+        Initialize the CustomerProfilesChannelEndpointAssignmentContext
+
+        :param Version version: Version that contains the resource
+        :param customer_profile_sid: The unique string that we created to identify the CustomerProfile resource.:param sid: The unique string that we created to identify the resource.
+
+        :returns: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_channel_endpoint_assignment.CustomerProfilesChannelEndpointAssignmentContext
+        :rtype: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_channel_endpoint_assignment.CustomerProfilesChannelEndpointAssignmentContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'customer_profile_sid': customer_profile_sid,
+            'sid': sid,
+        }
+        self._uri = '/CustomerProfiles/{customer_profile_sid}/ChannelEndpointAssignments/{sid}'.format(**self._solution)
+        
+    
+    def delete(self):
+        """
+        Deletes the CustomerProfilesChannelEndpointAssignmentInstance
+
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(method='DELETE', uri=self._uri,)
+        
+    def fetch(self):
+        """
+        Fetch the CustomerProfilesChannelEndpointAssignmentInstance
+        
+
+        :returns: The fetched CustomerProfilesChannelEndpointAssignmentInstance
+        :rtype: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_channel_endpoint_assignment.CustomerProfilesChannelEndpointAssignmentInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return CustomerProfilesChannelEndpointAssignmentInstance(
+            self._version,
+            payload,
+            customer_profile_sid=self._solution['customer_profile_sid'],
+            sid=self._solution['sid'],
+            
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Trusthub.V1.CustomerProfilesChannelEndpointAssignmentContext {}>'.format(context)
+
 class CustomerProfilesChannelEndpointAssignmentInstance(InstanceResource):
 
     def __init__(self, version, payload, customer_profile_sid: str, sid: str=None):
@@ -358,66 +419,5 @@ class CustomerProfilesChannelEndpointAssignmentInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Trusthub.V1.CustomerProfilesChannelEndpointAssignmentInstance {}>'.format(context)
-
-class CustomerProfilesChannelEndpointAssignmentContext(InstanceContext):
-
-    def __init__(self, version: Version, customer_profile_sid: str, sid: str):
-        """
-        Initialize the CustomerProfilesChannelEndpointAssignmentContext
-
-        :param Version version: Version that contains the resource
-        :param customer_profile_sid: The unique string that we created to identify the CustomerProfile resource.:param sid: The unique string that we created to identify the resource.
-
-        :returns: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_channel_endpoint_assignment.CustomerProfilesChannelEndpointAssignmentContext
-        :rtype: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_channel_endpoint_assignment.CustomerProfilesChannelEndpointAssignmentContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'customer_profile_sid': customer_profile_sid,
-            'sid': sid,
-        }
-        self._uri = '/CustomerProfiles/{customer_profile_sid}/ChannelEndpointAssignments/{sid}'.format(**self._solution)
-        
-    
-    def delete(self):
-        """
-        Deletes the CustomerProfilesChannelEndpointAssignmentInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(method='DELETE', uri=self._uri,)
-        
-    def fetch(self):
-        """
-        Fetch the CustomerProfilesChannelEndpointAssignmentInstance
-        
-
-        :returns: The fetched CustomerProfilesChannelEndpointAssignmentInstance
-        :rtype: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_channel_endpoint_assignment.CustomerProfilesChannelEndpointAssignmentInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return CustomerProfilesChannelEndpointAssignmentInstance(
-            self._version,
-            payload,
-            customer_profile_sid=self._solution['customer_profile_sid'],
-            sid=self._solution['sid'],
-            
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Trusthub.V1.CustomerProfilesChannelEndpointAssignmentContext {}>'.format(context)
 
 

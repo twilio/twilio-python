@@ -241,6 +241,90 @@ class ActivityPage(Page):
 
 
 
+class ActivityContext(InstanceContext):
+
+    def __init__(self, version: Version, workspace_sid: str, sid: str):
+        """
+        Initialize the ActivityContext
+
+        :param Version version: Version that contains the resource
+        :param workspace_sid: The SID of the Workspace with the Activity resources to update.:param sid: The SID of the Activity resource to update.
+
+        :returns: twilio.rest.taskrouter.v1.workspace.activity.ActivityContext
+        :rtype: twilio.rest.taskrouter.v1.workspace.activity.ActivityContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'workspace_sid': workspace_sid,
+            'sid': sid,
+        }
+        self._uri = '/Workspaces/{workspace_sid}/Activities/{sid}'.format(**self._solution)
+        
+    
+    def delete(self):
+        """
+        Deletes the ActivityInstance
+
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(method='DELETE', uri=self._uri,)
+        
+    def fetch(self):
+        """
+        Fetch the ActivityInstance
+        
+
+        :returns: The fetched ActivityInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.activity.ActivityInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return ActivityInstance(
+            self._version,
+            payload,
+            workspace_sid=self._solution['workspace_sid'],
+            sid=self._solution['sid'],
+            
+        )
+        
+    def update(self, friendly_name=values.unset):
+        """
+        Update the ActivityInstance
+        
+        :params str friendly_name: A descriptive string that you create to describe the Activity resource. It can be up to 64 characters long. These names are used to calculate and expose statistics about Workers, and provide visibility into the state of each Worker. Examples of friendly names include: `on-call`, `break`, and `email`.
+
+        :returns: The updated ActivityInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.activity.ActivityInstance
+        """
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+        })
+        
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return ActivityInstance(
+            self._version,
+            payload,
+            workspace_sid=self._solution['workspace_sid'],
+            sid=self._solution['sid']
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Taskrouter.V1.ActivityContext {}>'.format(context)
+
 class ActivityInstance(InstanceResource):
 
     def __init__(self, version, payload, workspace_sid: str, sid: str=None):
@@ -390,89 +474,5 @@ class ActivityInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Taskrouter.V1.ActivityInstance {}>'.format(context)
-
-class ActivityContext(InstanceContext):
-
-    def __init__(self, version: Version, workspace_sid: str, sid: str):
-        """
-        Initialize the ActivityContext
-
-        :param Version version: Version that contains the resource
-        :param workspace_sid: The SID of the Workspace with the Activity resources to update.:param sid: The SID of the Activity resource to update.
-
-        :returns: twilio.rest.taskrouter.v1.workspace.activity.ActivityContext
-        :rtype: twilio.rest.taskrouter.v1.workspace.activity.ActivityContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'workspace_sid': workspace_sid,
-            'sid': sid,
-        }
-        self._uri = '/Workspaces/{workspace_sid}/Activities/{sid}'.format(**self._solution)
-        
-    
-    def delete(self):
-        """
-        Deletes the ActivityInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(method='DELETE', uri=self._uri,)
-        
-    def fetch(self):
-        """
-        Fetch the ActivityInstance
-        
-
-        :returns: The fetched ActivityInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.activity.ActivityInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return ActivityInstance(
-            self._version,
-            payload,
-            workspace_sid=self._solution['workspace_sid'],
-            sid=self._solution['sid'],
-            
-        )
-        
-    def update(self, friendly_name=values.unset):
-        """
-        Update the ActivityInstance
-        
-        :params str friendly_name: A descriptive string that you create to describe the Activity resource. It can be up to 64 characters long. These names are used to calculate and expose statistics about Workers, and provide visibility into the state of each Worker. Examples of friendly names include: `on-call`, `break`, and `email`.
-
-        :returns: The updated ActivityInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.activity.ActivityInstance
-        """
-        data = values.of({ 
-            'FriendlyName': friendly_name,
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return ActivityInstance(
-            self._version,
-            payload,
-            workspace_sid=self._solution['workspace_sid'],
-            sid=self._solution['sid']
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Taskrouter.V1.ActivityContext {}>'.format(context)
 
 

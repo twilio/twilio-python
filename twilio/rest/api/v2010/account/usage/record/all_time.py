@@ -201,6 +201,7 @@ class AllTimePage(Page):
 
 
 
+
 class AllTimeInstance(InstanceResource):
 
     class Category(object):
@@ -608,6 +609,5 @@ class AllTimeInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Api.V2010.AllTimeInstance {}>'.format(context)
-
 
 

@@ -242,6 +242,91 @@ class PlayerStreamerPage(Page):
 
 
 
+class PlayerStreamerContext(InstanceContext):
+
+    def __init__(self, version: Version, sid: str):
+        """
+        Initialize the PlayerStreamerContext
+
+        :param Version version: Version that contains the resource
+        :param sid: The SID of the PlayerStreamer resource to update.
+
+        :returns: twilio.rest.media.v1.player_streamer.PlayerStreamerContext
+        :rtype: twilio.rest.media.v1.player_streamer.PlayerStreamerContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'sid': sid,
+        }
+        self._uri = '/PlayerStreamers/{sid}'.format(**self._solution)
+        
+        self._playback_grant = None
+    
+    def fetch(self):
+        """
+        Fetch the PlayerStreamerInstance
+        
+
+        :returns: The fetched PlayerStreamerInstance
+        :rtype: twilio.rest.media.v1.player_streamer.PlayerStreamerInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return PlayerStreamerInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid'],
+            
+        )
+        
+    def update(self, status):
+        """
+        Update the PlayerStreamerInstance
+        
+        :params UpdateStatus status: 
+
+        :returns: The updated PlayerStreamerInstance
+        :rtype: twilio.rest.media.v1.player_streamer.PlayerStreamerInstance
+        """
+        data = values.of({ 
+            'Status': status,
+        })
+        
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return PlayerStreamerInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid']
+        )
+        
+    
+    @property
+    def playback_grant(self):
+        """
+        Access the playback_grant
+
+        :returns: twilio.rest.media.v1.player_streamer.PlaybackGrantList
+        :rtype: twilio.rest.media.v1.player_streamer.PlaybackGrantList
+        """
+        if self._playback_grant is None:
+            self._playback_grant = PlaybackGrantList(self._version, self._solution['sid'],
+            )
+        return self._playback_grant
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Media.V1.PlayerStreamerContext {}>'.format(context)
+
 class PlayerStreamerInstance(InstanceResource):
 
     class EndedReason(object):
@@ -434,90 +519,5 @@ class PlayerStreamerInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Media.V1.PlayerStreamerInstance {}>'.format(context)
-
-class PlayerStreamerContext(InstanceContext):
-
-    def __init__(self, version: Version, sid: str):
-        """
-        Initialize the PlayerStreamerContext
-
-        :param Version version: Version that contains the resource
-        :param sid: The SID of the PlayerStreamer resource to update.
-
-        :returns: twilio.rest.media.v1.player_streamer.PlayerStreamerContext
-        :rtype: twilio.rest.media.v1.player_streamer.PlayerStreamerContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'sid': sid,
-        }
-        self._uri = '/PlayerStreamers/{sid}'.format(**self._solution)
-        
-        self._playback_grant = None
-    
-    def fetch(self):
-        """
-        Fetch the PlayerStreamerInstance
-        
-
-        :returns: The fetched PlayerStreamerInstance
-        :rtype: twilio.rest.media.v1.player_streamer.PlayerStreamerInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return PlayerStreamerInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid'],
-            
-        )
-        
-    def update(self, status):
-        """
-        Update the PlayerStreamerInstance
-        
-        :params UpdateStatus status: 
-
-        :returns: The updated PlayerStreamerInstance
-        :rtype: twilio.rest.media.v1.player_streamer.PlayerStreamerInstance
-        """
-        data = values.of({ 
-            'Status': status,
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return PlayerStreamerInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid']
-        )
-        
-    
-    @property
-    def playback_grant(self):
-        """
-        Access the playback_grant
-
-        :returns: twilio.rest.media.v1.player_streamer.PlaybackGrantList
-        :rtype: twilio.rest.media.v1.player_streamer.PlaybackGrantList
-        """
-        if self._playback_grant is None:
-            self._playback_grant = PlaybackGrantList(self._version, self._solution['sid'],
-            )
-        return self._playback_grant
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Media.V1.PlayerStreamerContext {}>'.format(context)
 
 

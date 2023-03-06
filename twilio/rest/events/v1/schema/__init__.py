@@ -75,6 +75,69 @@ class SchemaList(ListResource):
         """
         return '<Twilio.Events.V1.SchemaList>'
 
+class SchemaContext(InstanceContext):
+
+    def __init__(self, version: Version, id: str):
+        """
+        Initialize the SchemaContext
+
+        :param Version version: Version that contains the resource
+        :param id: The unique identifier of the schema. Each schema can have multiple versions, that share the same id.
+
+        :returns: twilio.rest.events.v1.schema.SchemaContext
+        :rtype: twilio.rest.events.v1.schema.SchemaContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'id': id,
+        }
+        self._uri = '/Schemas/{id}'.format(**self._solution)
+        
+        self._versions = None
+    
+    def fetch(self):
+        """
+        Fetch the SchemaInstance
+        
+
+        :returns: The fetched SchemaInstance
+        :rtype: twilio.rest.events.v1.schema.SchemaInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return SchemaInstance(
+            self._version,
+            payload,
+            id=self._solution['id'],
+            
+        )
+        
+    
+    @property
+    def versions(self):
+        """
+        Access the versions
+
+        :returns: twilio.rest.events.v1.schema.SchemaVersionList
+        :rtype: twilio.rest.events.v1.schema.SchemaVersionList
+        """
+        if self._versions is None:
+            self._versions = SchemaVersionList(self._version, self._solution['id'],
+            )
+        return self._versions
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Events.V1.SchemaContext {}>'.format(context)
+
 class SchemaInstance(InstanceResource):
 
     def __init__(self, version, payload, id: str=None):
@@ -177,68 +240,5 @@ class SchemaInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Events.V1.SchemaInstance {}>'.format(context)
-
-class SchemaContext(InstanceContext):
-
-    def __init__(self, version: Version, id: str):
-        """
-        Initialize the SchemaContext
-
-        :param Version version: Version that contains the resource
-        :param id: The unique identifier of the schema. Each schema can have multiple versions, that share the same id.
-
-        :returns: twilio.rest.events.v1.schema.SchemaContext
-        :rtype: twilio.rest.events.v1.schema.SchemaContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'id': id,
-        }
-        self._uri = '/Schemas/{id}'.format(**self._solution)
-        
-        self._versions = None
-    
-    def fetch(self):
-        """
-        Fetch the SchemaInstance
-        
-
-        :returns: The fetched SchemaInstance
-        :rtype: twilio.rest.events.v1.schema.SchemaInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return SchemaInstance(
-            self._version,
-            payload,
-            id=self._solution['id'],
-            
-        )
-        
-    
-    @property
-    def versions(self):
-        """
-        Access the versions
-
-        :returns: twilio.rest.events.v1.schema.SchemaVersionList
-        :rtype: twilio.rest.events.v1.schema.SchemaVersionList
-        """
-        if self._versions is None:
-            self._versions = SchemaVersionList(self._version, self._solution['id'],
-            )
-        return self._versions
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Events.V1.SchemaContext {}>'.format(context)
 
 

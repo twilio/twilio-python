@@ -72,6 +72,59 @@ class AnonymizeList(ListResource):
         """
         return '<Twilio.Video.V1.AnonymizeList>'
 
+class AnonymizeContext(InstanceContext):
+
+    def __init__(self, version: Version, room_sid: str, sid: str):
+        """
+        Initialize the AnonymizeContext
+
+        :param Version version: Version that contains the resource
+        :param room_sid: The SID of the room with the participant to update.:param sid: The SID of the RoomParticipant resource to update.
+
+        :returns: twilio.rest.video.v1.room.participant.anonymize.AnonymizeContext
+        :rtype: twilio.rest.video.v1.room.participant.anonymize.AnonymizeContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'room_sid': room_sid,
+            'sid': sid,
+        }
+        self._uri = '/Rooms/{room_sid}/Participants/{sid}/Anonymize'.format(**self._solution)
+        
+    
+    def update(self):
+        """
+        Update the AnonymizeInstance
+        
+
+        :returns: The updated AnonymizeInstance
+        :rtype: twilio.rest.video.v1.room.participant.anonymize.AnonymizeInstance
+        """
+        data = values.of({ 
+        })
+        
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return AnonymizeInstance(
+            self._version,
+            payload,
+            room_sid=self._solution['room_sid'],
+            sid=self._solution['sid']
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Video.V1.AnonymizeContext {}>'.format(context)
+
 class AnonymizeInstance(InstanceResource):
 
     class Status(object):
@@ -222,58 +275,5 @@ class AnonymizeInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Video.V1.AnonymizeInstance {}>'.format(context)
-
-class AnonymizeContext(InstanceContext):
-
-    def __init__(self, version: Version, room_sid: str, sid: str):
-        """
-        Initialize the AnonymizeContext
-
-        :param Version version: Version that contains the resource
-        :param room_sid: The SID of the room with the participant to update.:param sid: The SID of the RoomParticipant resource to update.
-
-        :returns: twilio.rest.video.v1.room.participant.anonymize.AnonymizeContext
-        :rtype: twilio.rest.video.v1.room.participant.anonymize.AnonymizeContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'room_sid': room_sid,
-            'sid': sid,
-        }
-        self._uri = '/Rooms/{room_sid}/Participants/{sid}/Anonymize'.format(**self._solution)
-        
-    
-    def update(self):
-        """
-        Update the AnonymizeInstance
-        
-
-        :returns: The updated AnonymizeInstance
-        :rtype: twilio.rest.video.v1.room.participant.anonymize.AnonymizeInstance
-        """
-        data = values.of({ 
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return AnonymizeInstance(
-            self._version,
-            payload,
-            room_sid=self._solution['room_sid'],
-            sid=self._solution['sid']
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Video.V1.AnonymizeContext {}>'.format(context)
 
 

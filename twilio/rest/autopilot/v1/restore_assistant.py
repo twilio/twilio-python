@@ -70,6 +70,7 @@ class RestoreAssistantList(ListResource):
         """
         return '<Twilio.Autopilot.V1.RestoreAssistantList>'
 
+
 class RestoreAssistantInstance(InstanceResource):
 
     def __init__(self, version, payload):
@@ -203,6 +204,5 @@ class RestoreAssistantInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Autopilot.V1.RestoreAssistantInstance {}>'.format(context)
-
 
 

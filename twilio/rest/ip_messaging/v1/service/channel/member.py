@@ -236,6 +236,95 @@ class MemberPage(Page):
 
 
 
+class MemberContext(InstanceContext):
+
+    def __init__(self, version: Version, service_sid: str, channel_sid: str, sid: str):
+        """
+        Initialize the MemberContext
+
+        :param Version version: Version that contains the resource
+        :param service_sid: :param channel_sid: :param sid: 
+
+        :returns: twilio.rest.ip_messaging.v1.service.channel.member.MemberContext
+        :rtype: twilio.rest.ip_messaging.v1.service.channel.member.MemberContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'service_sid': service_sid,
+            'channel_sid': channel_sid,
+            'sid': sid,
+        }
+        self._uri = '/Services/{service_sid}/Channels/{channel_sid}/Members/{sid}'.format(**self._solution)
+        
+    
+    def delete(self):
+        """
+        Deletes the MemberInstance
+
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(method='DELETE', uri=self._uri,)
+        
+    def fetch(self):
+        """
+        Fetch the MemberInstance
+        
+
+        :returns: The fetched MemberInstance
+        :rtype: twilio.rest.ip_messaging.v1.service.channel.member.MemberInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return MemberInstance(
+            self._version,
+            payload,
+            service_sid=self._solution['service_sid'],
+            channel_sid=self._solution['channel_sid'],
+            sid=self._solution['sid'],
+            
+        )
+        
+    def update(self, role_sid=values.unset, last_consumed_message_index=values.unset):
+        """
+        Update the MemberInstance
+        
+        :params str role_sid: 
+        :params int last_consumed_message_index: 
+
+        :returns: The updated MemberInstance
+        :rtype: twilio.rest.ip_messaging.v1.service.channel.member.MemberInstance
+        """
+        data = values.of({ 
+            'RoleSid': role_sid,
+            'LastConsumedMessageIndex': last_consumed_message_index,
+        })
+        
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return MemberInstance(
+            self._version,
+            payload,
+            service_sid=self._solution['service_sid'],
+            channel_sid=self._solution['channel_sid'],
+            sid=self._solution['sid']
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.IpMessaging.V1.MemberContext {}>'.format(context)
+
 class MemberInstance(InstanceResource):
 
     def __init__(self, version, payload, service_sid: str, channel_sid: str, sid: str=None):
@@ -404,94 +493,5 @@ class MemberInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.IpMessaging.V1.MemberInstance {}>'.format(context)
-
-class MemberContext(InstanceContext):
-
-    def __init__(self, version: Version, service_sid: str, channel_sid: str, sid: str):
-        """
-        Initialize the MemberContext
-
-        :param Version version: Version that contains the resource
-        :param service_sid: :param channel_sid: :param sid: 
-
-        :returns: twilio.rest.ip_messaging.v1.service.channel.member.MemberContext
-        :rtype: twilio.rest.ip_messaging.v1.service.channel.member.MemberContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'service_sid': service_sid,
-            'channel_sid': channel_sid,
-            'sid': sid,
-        }
-        self._uri = '/Services/{service_sid}/Channels/{channel_sid}/Members/{sid}'.format(**self._solution)
-        
-    
-    def delete(self):
-        """
-        Deletes the MemberInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(method='DELETE', uri=self._uri,)
-        
-    def fetch(self):
-        """
-        Fetch the MemberInstance
-        
-
-        :returns: The fetched MemberInstance
-        :rtype: twilio.rest.ip_messaging.v1.service.channel.member.MemberInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return MemberInstance(
-            self._version,
-            payload,
-            service_sid=self._solution['service_sid'],
-            channel_sid=self._solution['channel_sid'],
-            sid=self._solution['sid'],
-            
-        )
-        
-    def update(self, role_sid=values.unset, last_consumed_message_index=values.unset):
-        """
-        Update the MemberInstance
-        
-        :params str role_sid: 
-        :params int last_consumed_message_index: 
-
-        :returns: The updated MemberInstance
-        :rtype: twilio.rest.ip_messaging.v1.service.channel.member.MemberInstance
-        """
-        data = values.of({ 
-            'RoleSid': role_sid,
-            'LastConsumedMessageIndex': last_consumed_message_index,
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return MemberInstance(
-            self._version,
-            payload,
-            service_sid=self._solution['service_sid'],
-            channel_sid=self._solution['channel_sid'],
-            sid=self._solution['sid']
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.IpMessaging.V1.MemberContext {}>'.format(context)
 
 

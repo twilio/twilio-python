@@ -98,6 +98,7 @@ class NewFactorList(ListResource):
         """
         return '<Twilio.Verify.V2.NewFactorList>'
 
+
 class NewFactorInstance(InstanceResource):
 
     class FactorStatuses(object):
@@ -257,6 +258,5 @@ class NewFactorInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Verify.V2.NewFactorInstance {}>'.format(context)
-
 
 

@@ -230,6 +230,89 @@ class SupportingDocumentPage(Page):
 
 
 
+class SupportingDocumentContext(InstanceContext):
+
+    def __init__(self, version: Version, sid: str):
+        """
+        Initialize the SupportingDocumentContext
+
+        :param Version version: Version that contains the resource
+        :param sid: The unique string created by Twilio to identify the Supporting Document resource.
+
+        :returns: twilio.rest.trusthub.v1.supporting_document.SupportingDocumentContext
+        :rtype: twilio.rest.trusthub.v1.supporting_document.SupportingDocumentContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'sid': sid,
+        }
+        self._uri = '/SupportingDocuments/{sid}'.format(**self._solution)
+        
+    
+    def delete(self):
+        """
+        Deletes the SupportingDocumentInstance
+
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(method='DELETE', uri=self._uri,)
+        
+    def fetch(self):
+        """
+        Fetch the SupportingDocumentInstance
+        
+
+        :returns: The fetched SupportingDocumentInstance
+        :rtype: twilio.rest.trusthub.v1.supporting_document.SupportingDocumentInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return SupportingDocumentInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid'],
+            
+        )
+        
+    def update(self, friendly_name=values.unset, attributes=values.unset):
+        """
+        Update the SupportingDocumentInstance
+        
+        :params str friendly_name: The string that you assigned to describe the resource.
+        :params object attributes: The set of parameters that are the attributes of the Supporting Document resource which are derived Supporting Document Types.
+
+        :returns: The updated SupportingDocumentInstance
+        :rtype: twilio.rest.trusthub.v1.supporting_document.SupportingDocumentInstance
+        """
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+            'Attributes': serialize.object(attributes),
+        })
+        
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return SupportingDocumentInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid']
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Trusthub.V1.SupportingDocumentContext {}>'.format(context)
+
 class SupportingDocumentInstance(InstanceResource):
 
     class Status(object):
@@ -397,88 +480,5 @@ class SupportingDocumentInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Trusthub.V1.SupportingDocumentInstance {}>'.format(context)
-
-class SupportingDocumentContext(InstanceContext):
-
-    def __init__(self, version: Version, sid: str):
-        """
-        Initialize the SupportingDocumentContext
-
-        :param Version version: Version that contains the resource
-        :param sid: The unique string created by Twilio to identify the Supporting Document resource.
-
-        :returns: twilio.rest.trusthub.v1.supporting_document.SupportingDocumentContext
-        :rtype: twilio.rest.trusthub.v1.supporting_document.SupportingDocumentContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'sid': sid,
-        }
-        self._uri = '/SupportingDocuments/{sid}'.format(**self._solution)
-        
-    
-    def delete(self):
-        """
-        Deletes the SupportingDocumentInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(method='DELETE', uri=self._uri,)
-        
-    def fetch(self):
-        """
-        Fetch the SupportingDocumentInstance
-        
-
-        :returns: The fetched SupportingDocumentInstance
-        :rtype: twilio.rest.trusthub.v1.supporting_document.SupportingDocumentInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return SupportingDocumentInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid'],
-            
-        )
-        
-    def update(self, friendly_name=values.unset, attributes=values.unset):
-        """
-        Update the SupportingDocumentInstance
-        
-        :params str friendly_name: The string that you assigned to describe the resource.
-        :params object attributes: The set of parameters that are the attributes of the Supporting Document resource which are derived Supporting Document Types.
-
-        :returns: The updated SupportingDocumentInstance
-        :rtype: twilio.rest.trusthub.v1.supporting_document.SupportingDocumentInstance
-        """
-        data = values.of({ 
-            'FriendlyName': friendly_name,
-            'Attributes': serialize.object(attributes),
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return SupportingDocumentInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid']
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Trusthub.V1.SupportingDocumentContext {}>'.format(context)
 
 
