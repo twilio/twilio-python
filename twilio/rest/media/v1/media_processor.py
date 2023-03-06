@@ -13,7 +13,6 @@
 """
 
 
-from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -80,8 +79,8 @@ class MediaProcessorList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
         
-        :param MediaProcessorOrder order: The sort order of the list by `date_created`. Can be: `asc` (ascending) or `desc` (descending) with `desc` as the default.
-        :param MediaProcessorStatus status: Status to filter by, with possible values `started`, `ended` or `failed`.
+        :param Order order: The sort order of the list by `date_created`. Can be: `asc` (ascending) or `desc` (descending) with `desc` as the default.
+        :param Status status: Status to filter by, with possible values `started`, `ended` or `failed`.
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -107,8 +106,8 @@ class MediaProcessorList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
-        :param MediaProcessorOrder order: The sort order of the list by `date_created`. Can be: `asc` (ascending) or `desc` (descending) with `desc` as the default.
-        :param MediaProcessorStatus status: Status to filter by, with possible values `started`, `ended` or `failed`.
+        :param Order order: The sort order of the list by `date_created`. Can be: `asc` (ascending) or `desc` (descending) with `desc` as the default.
+        :param Status status: Status to filter by, with possible values `started`, `ended` or `failed`.
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -131,8 +130,8 @@ class MediaProcessorList(ListResource):
         Retrieve a single page of MediaProcessorInstance records from the API.
         Request is executed immediately
         
-        :param MediaProcessorOrder order: The sort order of the list by `date_created`. Can be: `asc` (ascending) or `desc` (descending) with `desc` as the default.
-        :param MediaProcessorStatus status: Status to filter by, with possible values `started`, `ended` or `failed`.
+        :param Order order: The sort order of the list by `date_created`. Can be: `asc` (ascending) or `desc` (descending) with `desc` as the default.
+        :param Status status: Status to filter by, with possible values `started`, `ended` or `failed`.
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -245,13 +244,84 @@ class MediaProcessorPage(Page):
 
 
 
+class MediaProcessorContext(InstanceContext):
+
+    def __init__(self, version: Version, sid: str):
+        """
+        Initialize the MediaProcessorContext
+
+        :param Version version: Version that contains the resource
+        :param sid: The SID of the MediaProcessor resource to update.
+
+        :returns: twilio.rest.media.v1.media_processor.MediaProcessorContext
+        :rtype: twilio.rest.media.v1.media_processor.MediaProcessorContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'sid': sid,
+        }
+        self._uri = '/MediaProcessors/{sid}'.format(**self._solution)
+        
+    
+    def fetch(self):
+        """
+        Fetch the MediaProcessorInstance
+        
+
+        :returns: The fetched MediaProcessorInstance
+        :rtype: twilio.rest.media.v1.media_processor.MediaProcessorInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return MediaProcessorInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid'],
+            
+        )
+        
+    def update(self, status):
+        """
+        Update the MediaProcessorInstance
+        
+        :params UpdateStatus status: 
+
+        :returns: The updated MediaProcessorInstance
+        :rtype: twilio.rest.media.v1.media_processor.MediaProcessorInstance
+        """
+        data = values.of({ 
+            'Status': status,
+        })
+        
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return MediaProcessorInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid']
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Media.V1.MediaProcessorContext {}>'.format(context)
+
 class MediaProcessorInstance(InstanceResource):
 
-    class MediaProcessorOrder(object):
+    class Order(object):
         ASC = "asc"
         DESC = "desc"
 
-    class MediaProcessorStatus(object):
+    class Status(object):
         FAILED = "failed"
         STARTED = "started"
         ENDED = "ended"
@@ -347,7 +417,7 @@ class MediaProcessorInstance(InstanceResource):
     def status(self):
         """
         :returns: 
-        :rtype: MediaProcessorStatus
+        :rtype: Status
         """
         return self._properties['status']
     
@@ -405,7 +475,7 @@ class MediaProcessorInstance(InstanceResource):
         """
         Update the MediaProcessorInstance
         
-        :params MediaProcessorUpdateStatus status: 
+        :params UpdateStatus status: 
 
         :returns: The updated MediaProcessorInstance
         :rtype: twilio.rest.media.v1.media_processor.MediaProcessorInstance
@@ -420,76 +490,5 @@ class MediaProcessorInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Media.V1.MediaProcessorInstance {}>'.format(context)
-
-class MediaProcessorContext(InstanceContext):
-
-    def __init__(self, version: Version, sid: str):
-        """
-        Initialize the MediaProcessorContext
-
-        :param Version version: Version that contains the resource
-        :param sid: The SID of the MediaProcessor resource to update.
-
-        :returns: twilio.rest.media.v1.media_processor.MediaProcessorContext
-        :rtype: twilio.rest.media.v1.media_processor.MediaProcessorContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'sid': sid,
-        }
-        self._uri = '/MediaProcessors/{sid}'.format(**self._solution)
-        
-    
-    def fetch(self):
-        """
-        Fetch the MediaProcessorInstance
-        
-
-        :returns: The fetched MediaProcessorInstance
-        :rtype: twilio.rest.media.v1.media_processor.MediaProcessorInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return MediaProcessorInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid'],
-            
-        )
-        
-    def update(self, status):
-        """
-        Update the MediaProcessorInstance
-        
-        :params MediaProcessorUpdateStatus status: 
-
-        :returns: The updated MediaProcessorInstance
-        :rtype: twilio.rest.media.v1.media_processor.MediaProcessorInstance
-        """
-        data = values.of({ 
-            'Status': status,
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return MediaProcessorInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid']
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Media.V1.MediaProcessorContext {}>'.format(context)
 
 

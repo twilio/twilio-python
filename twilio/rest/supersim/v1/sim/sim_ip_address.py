@@ -179,7 +179,7 @@ class SimIpAddressPage(Page):
 
 class SimIpAddressInstance(InstanceResource):
 
-    class SimIpAddressIpAddressVersion(object):
+    class IpAddressVersion(object):
         IPV4 = "IPv4"
         IPV6 = "IPv6"
 
@@ -212,7 +212,7 @@ class SimIpAddressInstance(InstanceResource):
     def ip_address_version(self):
         """
         :returns: 
-        :rtype: SimIpAddressIpAddressVersion
+        :rtype: IpAddressVersion
         """
         return self._properties['ip_address_version']
     

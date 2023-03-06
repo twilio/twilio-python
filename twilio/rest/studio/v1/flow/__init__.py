@@ -207,7 +207,7 @@ class FlowPage(Page):
 
 class FlowInstance(InstanceResource):
 
-    class FlowStatus(object):
+    class Status(object):
         DRAFT = "draft"
         PUBLISHED = "published"
 
@@ -275,7 +275,7 @@ class FlowInstance(InstanceResource):
     def status(self):
         """
         :returns: 
-        :rtype: FlowStatus
+        :rtype: Status
         """
         return self._properties['status']
     

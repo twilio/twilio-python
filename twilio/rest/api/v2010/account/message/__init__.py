@@ -13,7 +13,6 @@
 """
 
 
-from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -61,12 +60,12 @@ class MessageList(ListResource):
         :param int attempt: Total number of attempts made ( including this ) to send out the message regardless of the provider used
         :param int validity_period: How long in seconds the message can remain in our outgoing message queue. After this period elapses, the message fails and we call your status callback. Can be between 1 and the default value of 14,400 seconds. After a message has been accepted by a carrier, however, we cannot guarantee that the message will not be queued after this period. We recommend that this value be at least 5 seconds.
         :param bool force_delivery: Reserved
-        :param MessageContentRetention content_retention: 
-        :param MessageAddressRetention address_retention: 
+        :param ContentRetention content_retention: 
+        :param AddressRetention address_retention: 
         :param bool smart_encoded: Whether to detect Unicode characters that have a similar GSM-7 character and replace them. Can be: `true` or `false`.
         :param list[str] persistent_action: Rich actions for Channels Messages.
         :param bool shorten_urls: Determines the usage of Click Tracking. Setting it to `true` will instruct Twilio to replace all links in the Message with a shortened version based on the associated Domain Sid and track clicks on them. If this parameter is not set on an API call, we will use the value set on the Messaging Service. If this parameter is not set and the value is not configured on the Messaging Service used this will default to `false`.
-        :param MessageScheduleType schedule_type: 
+        :param ScheduleType schedule_type: 
         :param datetime send_at: The time that Twilio will send the message. Must be in ISO 8601 format.
         :param bool send_as_mms: If set to True, Twilio will deliver the message as a single MMS message, regardless of the presence of media.
         :param str content_sid: The SID of the Content object returned at Content API content create time (https://www.twilio.com/docs/content-api/create-and-send-your-first-content-api-template#create-a-template). If this parameter is not specified, then the Content API will not be utilized.
@@ -301,15 +300,129 @@ class MessagePage(Page):
 
 
 
+class MessageContext(InstanceContext):
+
+    def __init__(self, version: Version, account_sid: str, sid: str):
+        """
+        Initialize the MessageContext
+
+        :param Version version: Version that contains the resource
+        :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Message resources to update.:param sid: The Twilio-provided string that uniquely identifies the Message resource to update.
+
+        :returns: twilio.rest.api.v2010.account.message.MessageContext
+        :rtype: twilio.rest.api.v2010.account.message.MessageContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'account_sid': account_sid,
+            'sid': sid,
+        }
+        self._uri = '/Accounts/{account_sid}/Messages/{sid}.json'.format(**self._solution)
+        
+        self._feedback = None
+        self._media = None
+    
+    def delete(self):
+        """
+        Deletes the MessageInstance
+
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(method='DELETE', uri=self._uri,)
+        
+    def fetch(self):
+        """
+        Fetch the MessageInstance
+        
+
+        :returns: The fetched MessageInstance
+        :rtype: twilio.rest.api.v2010.account.message.MessageInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return MessageInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+            sid=self._solution['sid'],
+            
+        )
+        
+    def update(self, body=values.unset, status=values.unset):
+        """
+        Update the MessageInstance
+        
+        :params str body: The text of the message you want to send. Can be up to 1,600 characters long.
+        :params UpdateStatus status: 
+
+        :returns: The updated MessageInstance
+        :rtype: twilio.rest.api.v2010.account.message.MessageInstance
+        """
+        data = values.of({ 
+            'Body': body,
+            'Status': status,
+        })
+        
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return MessageInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+            sid=self._solution['sid']
+        )
+        
+    
+    @property
+    def feedback(self):
+        """
+        Access the feedback
+
+        :returns: twilio.rest.api.v2010.account.message.FeedbackList
+        :rtype: twilio.rest.api.v2010.account.message.FeedbackList
+        """
+        if self._feedback is None:
+            self._feedback = FeedbackList(self._version, self._solution['account_sid'], self._solution['sid'],
+            )
+        return self._feedback
+    
+    @property
+    def media(self):
+        """
+        Access the media
+
+        :returns: twilio.rest.api.v2010.account.message.MediaList
+        :rtype: twilio.rest.api.v2010.account.message.MediaList
+        """
+        if self._media is None:
+            self._media = MediaList(self._version, self._solution['account_sid'], self._solution['sid'],
+            )
+        return self._media
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Api.V2010.MessageContext {}>'.format(context)
+
 class MessageInstance(InstanceResource):
 
-    class MessageDirection(object):
+    class Direction(object):
         INBOUND = "inbound"
         OUTBOUND_API = "outbound-api"
         OUTBOUND_CALL = "outbound-call"
         OUTBOUND_REPLY = "outbound-reply"
 
-    class MessageStatus(object):
+    class Status(object):
         QUEUED = "queued"
         SENDING = "sending"
         SENT = "sent"
@@ -391,7 +504,7 @@ class MessageInstance(InstanceResource):
     def direction(self):
         """
         :returns: 
-        :rtype: MessageDirection
+        :rtype: Direction
         """
         return self._properties['direction']
     
@@ -463,7 +576,7 @@ class MessageInstance(InstanceResource):
     def status(self):
         """
         :returns: 
-        :rtype: MessageStatus
+        :rtype: Status
         """
         return self._properties['status']
     
@@ -556,7 +669,7 @@ class MessageInstance(InstanceResource):
         Update the MessageInstance
         
         :params str body: The text of the message you want to send. Can be up to 1,600 characters long.
-        :params MessageUpdateStatus status: 
+        :params UpdateStatus status: 
 
         :returns: The updated MessageInstance
         :rtype: twilio.rest.api.v2010.account.message.MessageInstance
@@ -591,119 +704,5 @@ class MessageInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Api.V2010.MessageInstance {}>'.format(context)
-
-class MessageContext(InstanceContext):
-
-    def __init__(self, version: Version, account_sid: str, sid: str):
-        """
-        Initialize the MessageContext
-
-        :param Version version: Version that contains the resource
-        :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Message resources to update.:param sid: The Twilio-provided string that uniquely identifies the Message resource to update.
-
-        :returns: twilio.rest.api.v2010.account.message.MessageContext
-        :rtype: twilio.rest.api.v2010.account.message.MessageContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'account_sid': account_sid,
-            'sid': sid,
-        }
-        self._uri = '/Accounts/{account_sid}/Messages/{sid}.json'.format(**self._solution)
-        
-        self._feedback = None
-        self._media = None
-    
-    def delete(self):
-        """
-        Deletes the MessageInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(method='DELETE', uri=self._uri,)
-        
-    def fetch(self):
-        """
-        Fetch the MessageInstance
-        
-
-        :returns: The fetched MessageInstance
-        :rtype: twilio.rest.api.v2010.account.message.MessageInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return MessageInstance(
-            self._version,
-            payload,
-            account_sid=self._solution['account_sid'],
-            sid=self._solution['sid'],
-            
-        )
-        
-    def update(self, body=values.unset, status=values.unset):
-        """
-        Update the MessageInstance
-        
-        :params str body: The text of the message you want to send. Can be up to 1,600 characters long.
-        :params MessageUpdateStatus status: 
-
-        :returns: The updated MessageInstance
-        :rtype: twilio.rest.api.v2010.account.message.MessageInstance
-        """
-        data = values.of({ 
-            'Body': body,
-            'Status': status,
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return MessageInstance(
-            self._version,
-            payload,
-            account_sid=self._solution['account_sid'],
-            sid=self._solution['sid']
-        )
-        
-    
-    @property
-    def feedback(self):
-        """
-        Access the feedback
-
-        :returns: twilio.rest.api.v2010.account.message.FeedbackList
-        :rtype: twilio.rest.api.v2010.account.message.FeedbackList
-        """
-        if self._feedback is None:
-            self._feedback = FeedbackList(self._version, self._solution['account_sid'], self._solution['sid'],
-            )
-        return self._feedback
-    
-    @property
-    def media(self):
-        """
-        Access the media
-
-        :returns: twilio.rest.api.v2010.account.message.MediaList
-        :rtype: twilio.rest.api.v2010.account.message.MediaList
-        """
-        if self._media is None:
-            self._media = MediaList(self._version, self._solution['account_sid'], self._solution['sid'],
-            )
-        return self._media
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Api.V2010.MessageContext {}>'.format(context)
 
 

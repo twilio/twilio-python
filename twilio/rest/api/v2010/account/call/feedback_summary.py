@@ -104,7 +104,7 @@ class FeedbackSummaryList(ListResource):
 
 class FeedbackSummaryInstance(InstanceResource):
 
-    class CallFeedbackSummaryStatus(object):
+    class Status(object):
         QUEUED = "queued"
         IN_PROGRESS = "in-progress"
         COMPLETED = "completed"
@@ -259,7 +259,7 @@ class FeedbackSummaryInstance(InstanceResource):
     def status(self):
         """
         :returns: 
-        :rtype: CallFeedbackSummaryStatus
+        :rtype: Status
         """
         return self._properties['status']
     

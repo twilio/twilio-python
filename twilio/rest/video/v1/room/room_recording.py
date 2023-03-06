@@ -53,7 +53,7 @@ class RoomRecordingList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
         
-        :param RoomRecordingStatus status: Read only the recordings with this status. Can be: `processing`, `completed`, or `deleted`.
+        :param Status status: Read only the recordings with this status. Can be: `processing`, `completed`, or `deleted`.
         :param str source_sid: Read only the recordings that have this `source_sid`.
         :param datetime date_created_after: Read only recordings that started on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) datetime with time zone.
         :param datetime date_created_before: Read only Recordings that started before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) datetime with time zone.
@@ -84,7 +84,7 @@ class RoomRecordingList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
-        :param RoomRecordingStatus status: Read only the recordings with this status. Can be: `processing`, `completed`, or `deleted`.
+        :param Status status: Read only the recordings with this status. Can be: `processing`, `completed`, or `deleted`.
         :param str source_sid: Read only the recordings that have this `source_sid`.
         :param datetime date_created_after: Read only recordings that started on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) datetime with time zone.
         :param datetime date_created_before: Read only Recordings that started before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) datetime with time zone.
@@ -112,7 +112,7 @@ class RoomRecordingList(ListResource):
         Retrieve a single page of RoomRecordingInstance records from the API.
         Request is executed immediately
         
-        :param RoomRecordingStatus status: Read only the recordings with this status. Can be: `processing`, `completed`, or `deleted`.
+        :param Status status: Read only the recordings with this status. Can be: `processing`, `completed`, or `deleted`.
         :param str source_sid: Read only the recordings that have this `source_sid`.
         :param datetime date_created_after: Read only recordings that started on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) datetime with time zone.
         :param datetime date_created_before: Read only Recordings that started before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) datetime with time zone.
@@ -230,23 +230,23 @@ class RoomRecordingPage(Page):
 
 class RoomRecordingInstance(InstanceResource):
 
-    class RoomRecordingCodec(object):
+    class Codec(object):
         VP8 = "VP8"
         H264 = "H264"
         OPUS = "OPUS"
         PCMU = "PCMU"
 
-    class RoomRecordingFormat(object):
+    class Format(object):
         MKA = "mka"
         MKV = "mkv"
 
-    class RoomRecordingStatus(object):
+    class Status(object):
         PROCESSING = "processing"
         COMPLETED = "completed"
         DELETED = "deleted"
         FAILED = "failed"
 
-    class RoomRecordingType(object):
+    class Type(object):
         AUDIO = "audio"
         VIDEO = "video"
         DATA = "data"
@@ -307,7 +307,7 @@ class RoomRecordingInstance(InstanceResource):
     def status(self):
         """
         :returns: 
-        :rtype: RoomRecordingStatus
+        :rtype: Status
         """
         return self._properties['status']
     
@@ -355,7 +355,7 @@ class RoomRecordingInstance(InstanceResource):
     def type(self):
         """
         :returns: 
-        :rtype: RoomRecordingType
+        :rtype: Type
         """
         return self._properties['type']
     
@@ -371,7 +371,7 @@ class RoomRecordingInstance(InstanceResource):
     def container_format(self):
         """
         :returns: 
-        :rtype: RoomRecordingFormat
+        :rtype: Format
         """
         return self._properties['container_format']
     
@@ -379,7 +379,7 @@ class RoomRecordingInstance(InstanceResource):
     def codec(self):
         """
         :returns: 
-        :rtype: RoomRecordingCodec
+        :rtype: Codec
         """
         return self._properties['codec']
     

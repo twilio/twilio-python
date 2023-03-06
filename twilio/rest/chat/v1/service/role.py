@@ -52,7 +52,7 @@ class RoleList(ListResource):
         Create the RoleInstance
 
         :param str friendly_name: A descriptive string that you create to describe the new resource. It can be up to 64 characters long.
-        :param RoleRoleType type: 
+        :param RoleType type: 
         :param list[str] permission: A permission that you grant to the new role. Only one permission can be granted per parameter. To assign more than one permission, repeat this parameter for each permission value. The values for this parameter depend on the role's `type` and are described in the documentation.
         
         :returns: The created RoleInstance
@@ -233,7 +233,7 @@ class RolePage(Page):
 
 class RoleInstance(InstanceResource):
 
-    class RoleRoleType(object):
+    class RoleType(object):
         CHANNEL = "channel"
         DEPLOYMENT = "deployment"
 
@@ -309,7 +309,7 @@ class RoleInstance(InstanceResource):
     def type(self):
         """
         :returns: 
-        :rtype: RoleRoleType
+        :rtype: RoleType
         """
         return self._properties['type']
     

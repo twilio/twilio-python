@@ -13,7 +13,6 @@
 """
 
 
-from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -57,7 +56,7 @@ class ParticipantList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
         
-        :param RoomParticipantStatus status: Read only the participants with this status. Can be: `connected` or `disconnected`. For `in-progress` Rooms the default Status is `connected`, for `completed` Rooms only `disconnected` Participants are returned.
+        :param Status status: Read only the participants with this status. Can be: `connected` or `disconnected`. For `in-progress` Rooms the default Status is `connected`, for `completed` Rooms only `disconnected` Participants are returned.
         :param str identity: Read only the Participants with this [User](https://www.twilio.com/docs/chat/rest/user-resource) `identity` value.
         :param datetime date_created_after: Read only Participants that started after this date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#UTC) format.
         :param datetime date_created_before: Read only Participants that started before this date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#UTC) format.
@@ -88,7 +87,7 @@ class ParticipantList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
-        :param RoomParticipantStatus status: Read only the participants with this status. Can be: `connected` or `disconnected`. For `in-progress` Rooms the default Status is `connected`, for `completed` Rooms only `disconnected` Participants are returned.
+        :param Status status: Read only the participants with this status. Can be: `connected` or `disconnected`. For `in-progress` Rooms the default Status is `connected`, for `completed` Rooms only `disconnected` Participants are returned.
         :param str identity: Read only the Participants with this [User](https://www.twilio.com/docs/chat/rest/user-resource) `identity` value.
         :param datetime date_created_after: Read only Participants that started after this date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#UTC) format.
         :param datetime date_created_before: Read only Participants that started before this date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#UTC) format.
@@ -116,7 +115,7 @@ class ParticipantList(ListResource):
         Retrieve a single page of ParticipantInstance records from the API.
         Request is executed immediately
         
-        :param RoomParticipantStatus status: Read only the participants with this status. Can be: `connected` or `disconnected`. For `in-progress` Rooms the default Status is `connected`, for `completed` Rooms only `disconnected` Participants are returned.
+        :param Status status: Read only the participants with this status. Can be: `connected` or `disconnected`. For `in-progress` Rooms the default Status is `connected`, for `completed` Rooms only `disconnected` Participants are returned.
         :param str identity: Read only the Participants with this [User](https://www.twilio.com/docs/chat/rest/user-resource) `identity` value.
         :param datetime date_created_after: Read only Participants that started after this date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#UTC) format.
         :param datetime date_created_before: Read only Participants that started before this date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#UTC) format.
@@ -232,9 +231,139 @@ class ParticipantPage(Page):
 
 
 
+class ParticipantContext(InstanceContext):
+
+    def __init__(self, version: Version, room_sid: str, sid: str):
+        """
+        Initialize the ParticipantContext
+
+        :param Version version: Version that contains the resource
+        :param room_sid: The SID of the room with the participant to update.:param sid: The SID of the RoomParticipant resource to update.
+
+        :returns: twilio.rest.video.v1.room.participant.ParticipantContext
+        :rtype: twilio.rest.video.v1.room.participant.ParticipantContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'room_sid': room_sid,
+            'sid': sid,
+        }
+        self._uri = '/Rooms/{room_sid}/Participants/{sid}'.format(**self._solution)
+        
+        self._anonymize = None
+        self._published_tracks = None
+        self._subscribe_rules = None
+        self._subscribed_tracks = None
+    
+    def fetch(self):
+        """
+        Fetch the ParticipantInstance
+        
+
+        :returns: The fetched ParticipantInstance
+        :rtype: twilio.rest.video.v1.room.participant.ParticipantInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return ParticipantInstance(
+            self._version,
+            payload,
+            room_sid=self._solution['room_sid'],
+            sid=self._solution['sid'],
+            
+        )
+        
+    def update(self, status=values.unset):
+        """
+        Update the ParticipantInstance
+        
+        :params Status status: 
+
+        :returns: The updated ParticipantInstance
+        :rtype: twilio.rest.video.v1.room.participant.ParticipantInstance
+        """
+        data = values.of({ 
+            'Status': status,
+        })
+        
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return ParticipantInstance(
+            self._version,
+            payload,
+            room_sid=self._solution['room_sid'],
+            sid=self._solution['sid']
+        )
+        
+    
+    @property
+    def anonymize(self):
+        """
+        Access the anonymize
+
+        :returns: twilio.rest.video.v1.room.participant.AnonymizeList
+        :rtype: twilio.rest.video.v1.room.participant.AnonymizeList
+        """
+        if self._anonymize is None:
+            self._anonymize = AnonymizeList(self._version, self._solution['room_sid'], self._solution['sid'],
+            )
+        return self._anonymize
+    
+    @property
+    def published_tracks(self):
+        """
+        Access the published_tracks
+
+        :returns: twilio.rest.video.v1.room.participant.PublishedTrackList
+        :rtype: twilio.rest.video.v1.room.participant.PublishedTrackList
+        """
+        if self._published_tracks is None:
+            self._published_tracks = PublishedTrackList(self._version, self._solution['room_sid'], self._solution['sid'],
+            )
+        return self._published_tracks
+    
+    @property
+    def subscribe_rules(self):
+        """
+        Access the subscribe_rules
+
+        :returns: twilio.rest.video.v1.room.participant.SubscribeRulesList
+        :rtype: twilio.rest.video.v1.room.participant.SubscribeRulesList
+        """
+        if self._subscribe_rules is None:
+            self._subscribe_rules = SubscribeRulesList(self._version, self._solution['room_sid'], self._solution['sid'],
+            )
+        return self._subscribe_rules
+    
+    @property
+    def subscribed_tracks(self):
+        """
+        Access the subscribed_tracks
+
+        :returns: twilio.rest.video.v1.room.participant.SubscribedTrackList
+        :rtype: twilio.rest.video.v1.room.participant.SubscribedTrackList
+        """
+        if self._subscribed_tracks is None:
+            self._subscribed_tracks = SubscribedTrackList(self._version, self._solution['room_sid'], self._solution['sid'],
+            )
+        return self._subscribed_tracks
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Video.V1.ParticipantContext {}>'.format(context)
+
 class ParticipantInstance(InstanceResource):
 
-    class RoomParticipantStatus(object):
+    class Status(object):
         CONNECTED = "connected"
         DISCONNECTED = "disconnected"
 
@@ -305,7 +434,7 @@ class ParticipantInstance(InstanceResource):
     def status(self):
         """
         :returns: 
-        :rtype: RoomParticipantStatus
+        :rtype: Status
         """
         return self._properties['status']
     
@@ -387,7 +516,7 @@ class ParticipantInstance(InstanceResource):
         """
         Update the ParticipantInstance
         
-        :params RoomParticipantStatus status: 
+        :params Status status: 
 
         :returns: The updated ParticipantInstance
         :rtype: twilio.rest.video.v1.room.participant.ParticipantInstance
@@ -442,135 +571,5 @@ class ParticipantInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Video.V1.ParticipantInstance {}>'.format(context)
-
-class ParticipantContext(InstanceContext):
-
-    def __init__(self, version: Version, room_sid: str, sid: str):
-        """
-        Initialize the ParticipantContext
-
-        :param Version version: Version that contains the resource
-        :param room_sid: The SID of the room with the participant to update.:param sid: The SID of the RoomParticipant resource to update.
-
-        :returns: twilio.rest.video.v1.room.participant.ParticipantContext
-        :rtype: twilio.rest.video.v1.room.participant.ParticipantContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'room_sid': room_sid,
-            'sid': sid,
-        }
-        self._uri = '/Rooms/{room_sid}/Participants/{sid}'.format(**self._solution)
-        
-        self._anonymize = None
-        self._published_tracks = None
-        self._subscribe_rules = None
-        self._subscribed_tracks = None
-    
-    def fetch(self):
-        """
-        Fetch the ParticipantInstance
-        
-
-        :returns: The fetched ParticipantInstance
-        :rtype: twilio.rest.video.v1.room.participant.ParticipantInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return ParticipantInstance(
-            self._version,
-            payload,
-            room_sid=self._solution['room_sid'],
-            sid=self._solution['sid'],
-            
-        )
-        
-    def update(self, status=values.unset):
-        """
-        Update the ParticipantInstance
-        
-        :params RoomParticipantStatus status: 
-
-        :returns: The updated ParticipantInstance
-        :rtype: twilio.rest.video.v1.room.participant.ParticipantInstance
-        """
-        data = values.of({ 
-            'Status': status,
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return ParticipantInstance(
-            self._version,
-            payload,
-            room_sid=self._solution['room_sid'],
-            sid=self._solution['sid']
-        )
-        
-    
-    @property
-    def anonymize(self):
-        """
-        Access the anonymize
-
-        :returns: twilio.rest.video.v1.room.participant.AnonymizeList
-        :rtype: twilio.rest.video.v1.room.participant.AnonymizeList
-        """
-        if self._anonymize is None:
-            self._anonymize = AnonymizeList(self._version, self._solution['room_sid'], self._solution['sid'],
-            )
-        return self._anonymize
-    
-    @property
-    def published_tracks(self):
-        """
-        Access the published_tracks
-
-        :returns: twilio.rest.video.v1.room.participant.PublishedTrackList
-        :rtype: twilio.rest.video.v1.room.participant.PublishedTrackList
-        """
-        if self._published_tracks is None:
-            self._published_tracks = PublishedTrackList(self._version, self._solution['room_sid'], self._solution['sid'],
-            )
-        return self._published_tracks
-    
-    @property
-    def subscribe_rules(self):
-        """
-        Access the subscribe_rules
-
-        :returns: twilio.rest.video.v1.room.participant.SubscribeRulesList
-        :rtype: twilio.rest.video.v1.room.participant.SubscribeRulesList
-        """
-        if self._subscribe_rules is None:
-            self._subscribe_rules = SubscribeRulesList(self._version, self._solution['room_sid'], self._solution['sid'],
-            )
-        return self._subscribe_rules
-    
-    @property
-    def subscribed_tracks(self):
-        """
-        Access the subscribed_tracks
-
-        :returns: twilio.rest.video.v1.room.participant.SubscribedTrackList
-        :rtype: twilio.rest.video.v1.room.participant.SubscribedTrackList
-        """
-        if self._subscribed_tracks is None:
-            self._subscribed_tracks = SubscribedTrackList(self._version, self._solution['room_sid'], self._solution['sid'],
-            )
-        return self._subscribed_tracks
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Video.V1.ParticipantContext {}>'.format(context)
 
 

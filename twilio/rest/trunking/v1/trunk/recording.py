@@ -13,7 +13,6 @@
 """
 
 
-from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -72,95 +71,6 @@ class RecordingList(ListResource):
         """
         return '<Twilio.Trunking.V1.RecordingList>'
 
-class RecordingInstance(InstanceResource):
-
-    class RecordingRecordingMode(object):
-        DO_NOT_RECORD = "do-not-record"
-        RECORD_FROM_RINGING = "record-from-ringing"
-        RECORD_FROM_ANSWER = "record-from-answer"
-        RECORD_FROM_RINGING_DUAL = "record-from-ringing-dual"
-        RECORD_FROM_ANSWER_DUAL = "record-from-answer-dual"
-
-    class RecordingRecordingTrim(object):
-        TRIM_SILENCE = "trim-silence"
-        DO_NOT_TRIM = "do-not-trim"
-
-    def __init__(self, version, payload, trunk_sid: str):
-        """
-        Initialize the RecordingInstance
-        :returns: twilio.rest.trunking.v1.trunk.recording.RecordingInstance
-        :rtype: twilio.rest.trunking.v1.trunk.recording.RecordingInstance
-        """
-        super().__init__(version)
-
-        self._properties = { 
-            'mode': payload.get('mode'),
-            'trim': payload.get('trim'),
-        }
-
-        self._context = None
-        self._solution = { 'trunk_sid': trunk_sid,  }
-    
-    @property
-    def _proxy(self):
-        """
-        Generate an instance context for the instance, the context is capable of
-        performing various actions. All instance actions are proxied to the context
-
-        :returns: RecordingContext for this RecordingInstance
-        :rtype: twilio.rest.trunking.v1.trunk.recording.RecordingContext
-        """
-        if self._context is None:
-            self._context = RecordingContext(self._version, trunk_sid=self._solution['trunk_sid'],)
-        return self._context
-    
-    @property
-    def mode(self):
-        """
-        :returns: 
-        :rtype: RecordingRecordingMode
-        """
-        return self._properties['mode']
-    
-    @property
-    def trim(self):
-        """
-        :returns: 
-        :rtype: RecordingRecordingTrim
-        """
-        return self._properties['trim']
-    
-    def fetch(self):
-        """
-        Fetch the RecordingInstance
-        
-
-        :returns: The fetched RecordingInstance
-        :rtype: twilio.rest.trunking.v1.trunk.recording.RecordingInstance
-        """
-        return self._proxy.fetch()
-    
-    def update(self, mode=values.unset, trim=values.unset):
-        """
-        Update the RecordingInstance
-        
-        :params RecordingRecordingMode mode: 
-        :params RecordingRecordingTrim trim: 
-
-        :returns: The updated RecordingInstance
-        :rtype: twilio.rest.trunking.v1.trunk.recording.RecordingInstance
-        """
-        return self._proxy.update(mode=mode, trim=trim, )
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Trunking.V1.RecordingInstance {}>'.format(context)
-
 class RecordingContext(InstanceContext):
 
     def __init__(self, version: Version, trunk_sid: str):
@@ -204,8 +114,8 @@ class RecordingContext(InstanceContext):
         """
         Update the RecordingInstance
         
-        :params RecordingRecordingMode mode: 
-        :params RecordingRecordingTrim trim: 
+        :params RecordingMode mode: 
+        :params RecordingTrim trim: 
 
         :returns: The updated RecordingInstance
         :rtype: twilio.rest.trunking.v1.trunk.recording.RecordingInstance
@@ -233,5 +143,94 @@ class RecordingContext(InstanceContext):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Trunking.V1.RecordingContext {}>'.format(context)
+
+class RecordingInstance(InstanceResource):
+
+    class RecordingMode(object):
+        DO_NOT_RECORD = "do-not-record"
+        RECORD_FROM_RINGING = "record-from-ringing"
+        RECORD_FROM_ANSWER = "record-from-answer"
+        RECORD_FROM_RINGING_DUAL = "record-from-ringing-dual"
+        RECORD_FROM_ANSWER_DUAL = "record-from-answer-dual"
+
+    class RecordingTrim(object):
+        TRIM_SILENCE = "trim-silence"
+        DO_NOT_TRIM = "do-not-trim"
+
+    def __init__(self, version, payload, trunk_sid: str):
+        """
+        Initialize the RecordingInstance
+        :returns: twilio.rest.trunking.v1.trunk.recording.RecordingInstance
+        :rtype: twilio.rest.trunking.v1.trunk.recording.RecordingInstance
+        """
+        super().__init__(version)
+
+        self._properties = { 
+            'mode': payload.get('mode'),
+            'trim': payload.get('trim'),
+        }
+
+        self._context = None
+        self._solution = { 'trunk_sid': trunk_sid,  }
+    
+    @property
+    def _proxy(self):
+        """
+        Generate an instance context for the instance, the context is capable of
+        performing various actions. All instance actions are proxied to the context
+
+        :returns: RecordingContext for this RecordingInstance
+        :rtype: twilio.rest.trunking.v1.trunk.recording.RecordingContext
+        """
+        if self._context is None:
+            self._context = RecordingContext(self._version, trunk_sid=self._solution['trunk_sid'],)
+        return self._context
+    
+    @property
+    def mode(self):
+        """
+        :returns: 
+        :rtype: RecordingMode
+        """
+        return self._properties['mode']
+    
+    @property
+    def trim(self):
+        """
+        :returns: 
+        :rtype: RecordingTrim
+        """
+        return self._properties['trim']
+    
+    def fetch(self):
+        """
+        Fetch the RecordingInstance
+        
+
+        :returns: The fetched RecordingInstance
+        :rtype: twilio.rest.trunking.v1.trunk.recording.RecordingInstance
+        """
+        return self._proxy.fetch()
+    
+    def update(self, mode=values.unset, trim=values.unset):
+        """
+        Update the RecordingInstance
+        
+        :params RecordingMode mode: 
+        :params RecordingTrim trim: 
+
+        :returns: The updated RecordingInstance
+        :rtype: twilio.rest.trunking.v1.trunk.recording.RecordingInstance
+        """
+        return self._proxy.update(mode=mode, trim=trim, )
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Trunking.V1.RecordingInstance {}>'.format(context)
 
 

@@ -73,7 +73,7 @@ class ReplaceItemsList(ListResource):
 
 class ReplaceItemsInstance(InstanceResource):
 
-    class ReplaceItemsStatus(object):
+    class Status(object):
         DRAFT = "draft"
         PENDING_REVIEW = "pending-review"
         IN_REVIEW = "in-review"
@@ -142,7 +142,7 @@ class ReplaceItemsInstance(InstanceResource):
     def status(self):
         """
         :returns: 
-        :rtype: ReplaceItemsStatus
+        :rtype: Status
         """
         return self._properties['status']
     

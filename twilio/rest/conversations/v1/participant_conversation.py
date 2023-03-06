@@ -190,7 +190,7 @@ class ParticipantConversationPage(Page):
 
 class ParticipantConversationInstance(InstanceResource):
 
-    class ParticipantConversationState(object):
+    class State(object):
         INACTIVE = "inactive"
         ACTIVE = "active"
         CLOSED = "closed"
@@ -334,7 +334,7 @@ class ParticipantConversationInstance(InstanceResource):
     def conversation_state(self):
         """
         :returns: 
-        :rtype: ParticipantConversationState
+        :rtype: State
         """
         return self._properties['conversation_state']
     

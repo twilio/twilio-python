@@ -227,7 +227,7 @@ class MessageInteractionPage(Page):
 
 class MessageInteractionInstance(InstanceResource):
 
-    class MessageInteractionResourceStatus(object):
+    class ResourceStatus(object):
         ACCEPTED = "accepted"
         ANSWERED = "answered"
         BUSY = "busy"
@@ -250,7 +250,7 @@ class MessageInteractionInstance(InstanceResource):
         UNDELIVERED = "undelivered"
         UNKNOWN = "unknown"
 
-    class MessageInteractionType(object):
+    class Type(object):
         MESSAGE = "message"
         VOICE = "voice"
         UNKNOWN = "unknown"
@@ -346,7 +346,7 @@ class MessageInteractionInstance(InstanceResource):
     def type(self):
         """
         :returns: 
-        :rtype: MessageInteractionType
+        :rtype: Type
         """
         return self._properties['type']
     
@@ -378,7 +378,7 @@ class MessageInteractionInstance(InstanceResource):
     def inbound_resource_status(self):
         """
         :returns: 
-        :rtype: MessageInteractionResourceStatus
+        :rtype: ResourceStatus
         """
         return self._properties['inbound_resource_status']
     
@@ -418,7 +418,7 @@ class MessageInteractionInstance(InstanceResource):
     def outbound_resource_status(self):
         """
         :returns: 
-        :rtype: MessageInteractionResourceStatus
+        :rtype: ResourceStatus
         """
         return self._properties['outbound_resource_status']
     

@@ -207,7 +207,7 @@ class TranscriptionPage(Page):
 
 class TranscriptionInstance(InstanceResource):
 
-    class RecordingTranscriptionStatus(object):
+    class Status(object):
         IN_PROGRESS = "in-progress"
         COMPLETED = "completed"
         FAILED = "failed"
@@ -328,7 +328,7 @@ class TranscriptionInstance(InstanceResource):
     def status(self):
         """
         :returns: 
-        :rtype: RecordingTranscriptionStatus
+        :rtype: Status
         """
         return self._properties['status']
     

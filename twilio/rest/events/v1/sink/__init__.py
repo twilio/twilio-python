@@ -54,7 +54,7 @@ class SinkList(ListResource):
 
         :param str description: A human readable description for the Sink **This value should not contain PII.**
         :param object sink_configuration: The information required for Twilio to connect to the provided Sink encoded as JSON.
-        :param SinkSinkType sink_type: 
+        :param SinkType sink_type: 
         
         :returns: The created SinkInstance
         :rtype: twilio.rest.events.v1.sink.SinkInstance
@@ -246,12 +246,12 @@ class SinkPage(Page):
 
 class SinkInstance(InstanceResource):
 
-    class SinkSinkType(object):
+    class SinkType(object):
         KINESIS = "kinesis"
         WEBHOOK = "webhook"
         SEGMENT = "segment"
 
-    class SinkStatus(object):
+    class Status(object):
         INITIALIZED = "initialized"
         VALIDATING = "validating"
         ACTIVE = "active"
@@ -337,7 +337,7 @@ class SinkInstance(InstanceResource):
     def sink_type(self):
         """
         :returns: 
-        :rtype: SinkSinkType
+        :rtype: SinkType
         """
         return self._properties['sink_type']
     
@@ -345,7 +345,7 @@ class SinkInstance(InstanceResource):
     def status(self):
         """
         :returns: 
-        :rtype: SinkStatus
+        :rtype: Status
         """
         return self._properties['status']
     

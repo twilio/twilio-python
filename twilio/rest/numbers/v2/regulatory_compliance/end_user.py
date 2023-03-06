@@ -51,7 +51,7 @@ class EndUserList(ListResource):
         Create the EndUserInstance
 
         :param str friendly_name: The string that you assigned to describe the resource.
-        :param EndUserType type: 
+        :param Type type: 
         :param object attributes: The set of parameters that are the attributes of the End User resource which are derived End User Types.
         
         :returns: The created EndUserInstance
@@ -232,7 +232,7 @@ class EndUserPage(Page):
 
 class EndUserInstance(InstanceResource):
 
-    class EndUserType(object):
+    class Type(object):
         INDIVIDUAL = "individual"
         BUSINESS = "business"
 
@@ -299,7 +299,7 @@ class EndUserInstance(InstanceResource):
     def type(self):
         """
         :returns: 
-        :rtype: EndUserType
+        :rtype: Type
         """
         return self._properties['type']
     

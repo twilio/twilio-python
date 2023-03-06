@@ -50,7 +50,7 @@ class CredentialList(ListResource):
         """
         Create the CredentialInstance
 
-        :param CredentialPushService type: 
+        :param PushService type: 
         :param str friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
         :param str certificate: [APN only] The URL-encoded representation of the certificate. Strip everything outside of the headers, e.g. `-----BEGIN CERTIFICATE-----MIIFnTCCBIWgAwIBAgIIAjy9H849+E8wDQYJKoZIhvcNAQEFBQAwgZYxCzAJBgNV.....A==-----END CERTIFICATE-----`
         :param str private_key: [APN only] The URL-encoded representation of the private key. Strip everything outside of the headers, e.g. `-----BEGIN RSA PRIVATE KEY-----MIIEpQIBAAKCAQEAuyf/lNrH9ck8DmNyo3fGgvCI1l9s+cmBY3WIz+cUDqmxiieR\\\\n.-----END RSA PRIVATE KEY-----`
@@ -240,7 +240,7 @@ class CredentialPage(Page):
 
 class CredentialInstance(InstanceResource):
 
-    class CredentialPushService(object):
+    class PushService(object):
         GCM = "gcm"
         APN = "apn"
         FCM = "fcm"
@@ -308,7 +308,7 @@ class CredentialInstance(InstanceResource):
     def type(self):
         """
         :returns: 
-        :rtype: CredentialPushService
+        :rtype: PushService
         """
         return self._properties['type']
     

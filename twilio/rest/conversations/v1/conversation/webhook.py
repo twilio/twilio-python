@@ -13,7 +13,6 @@
 """
 
 
-from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -51,9 +50,9 @@ class WebhookList(ListResource):
         """
         Create the WebhookInstance
 
-        :param ConversationScopedWebhookTarget target: 
+        :param Target target: 
         :param str configuration_url: The absolute url the webhook request should be sent to.
-        :param ConversationScopedWebhookMethod configuration_method: 
+        :param Method configuration_method: 
         :param list[str] configuration_filters: The list of events, firing webhook event for this Conversation.
         :param list[str] configuration_triggers: The list of keywords, firing webhook event for this Conversation.
         :param str configuration_flow_sid: The studio flow SID, where the webhook should be sent to.
@@ -239,6 +238,98 @@ class WebhookPage(Page):
 
 
 
+class WebhookContext(InstanceContext):
+
+    def __init__(self, version: Version, conversation_sid: str, sid: str):
+        """
+        Initialize the WebhookContext
+
+        :param Version version: Version that contains the resource
+        :param conversation_sid: The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this webhook.:param sid: A 34 character string that uniquely identifies this resource.
+
+        :returns: twilio.rest.conversations.v1.conversation.webhook.WebhookContext
+        :rtype: twilio.rest.conversations.v1.conversation.webhook.WebhookContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'conversation_sid': conversation_sid,
+            'sid': sid,
+        }
+        self._uri = '/Conversations/{conversation_sid}/Webhooks/{sid}'.format(**self._solution)
+        
+    
+    def delete(self):
+        """
+        Deletes the WebhookInstance
+
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(method='DELETE', uri=self._uri,)
+        
+    def fetch(self):
+        """
+        Fetch the WebhookInstance
+        
+
+        :returns: The fetched WebhookInstance
+        :rtype: twilio.rest.conversations.v1.conversation.webhook.WebhookInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return WebhookInstance(
+            self._version,
+            payload,
+            conversation_sid=self._solution['conversation_sid'],
+            sid=self._solution['sid'],
+            
+        )
+        
+    def update(self, configuration_url=values.unset, configuration_method=values.unset, configuration_filters=values.unset, configuration_triggers=values.unset, configuration_flow_sid=values.unset):
+        """
+        Update the WebhookInstance
+        
+        :params str configuration_url: The absolute url the webhook request should be sent to.
+        :params Method configuration_method: 
+        :params list[str] configuration_filters: The list of events, firing webhook event for this Conversation.
+        :params list[str] configuration_triggers: The list of keywords, firing webhook event for this Conversation.
+        :params str configuration_flow_sid: The studio flow SID, where the webhook should be sent to.
+
+        :returns: The updated WebhookInstance
+        :rtype: twilio.rest.conversations.v1.conversation.webhook.WebhookInstance
+        """
+        data = values.of({ 
+            'Configuration.Url': configuration_url,
+            'Configuration.Method': configuration_method,
+            'Configuration.Filters': serialize.map(configuration_filters, lambda e: e),
+            'Configuration.Triggers': serialize.map(configuration_triggers, lambda e: e),
+            'Configuration.FlowSid': configuration_flow_sid,
+        })
+        
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return WebhookInstance(
+            self._version,
+            payload,
+            conversation_sid=self._solution['conversation_sid'],
+            sid=self._solution['sid']
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Conversations.V1.WebhookContext {}>'.format(context)
+
 class WebhookInstance(InstanceResource):
 
     def __init__(self, version, payload, conversation_sid: str, sid: str=None):
@@ -365,7 +456,7 @@ class WebhookInstance(InstanceResource):
         Update the WebhookInstance
         
         :params str configuration_url: The absolute url the webhook request should be sent to.
-        :params ConversationScopedWebhookMethod configuration_method: 
+        :params Method configuration_method: 
         :params list[str] configuration_filters: The list of events, firing webhook event for this Conversation.
         :params list[str] configuration_triggers: The list of keywords, firing webhook event for this Conversation.
         :params str configuration_flow_sid: The studio flow SID, where the webhook should be sent to.
@@ -383,97 +474,5 @@ class WebhookInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Conversations.V1.WebhookInstance {}>'.format(context)
-
-class WebhookContext(InstanceContext):
-
-    def __init__(self, version: Version, conversation_sid: str, sid: str):
-        """
-        Initialize the WebhookContext
-
-        :param Version version: Version that contains the resource
-        :param conversation_sid: The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this webhook.:param sid: A 34 character string that uniquely identifies this resource.
-
-        :returns: twilio.rest.conversations.v1.conversation.webhook.WebhookContext
-        :rtype: twilio.rest.conversations.v1.conversation.webhook.WebhookContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'conversation_sid': conversation_sid,
-            'sid': sid,
-        }
-        self._uri = '/Conversations/{conversation_sid}/Webhooks/{sid}'.format(**self._solution)
-        
-    
-    def delete(self):
-        """
-        Deletes the WebhookInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(method='DELETE', uri=self._uri,)
-        
-    def fetch(self):
-        """
-        Fetch the WebhookInstance
-        
-
-        :returns: The fetched WebhookInstance
-        :rtype: twilio.rest.conversations.v1.conversation.webhook.WebhookInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return WebhookInstance(
-            self._version,
-            payload,
-            conversation_sid=self._solution['conversation_sid'],
-            sid=self._solution['sid'],
-            
-        )
-        
-    def update(self, configuration_url=values.unset, configuration_method=values.unset, configuration_filters=values.unset, configuration_triggers=values.unset, configuration_flow_sid=values.unset):
-        """
-        Update the WebhookInstance
-        
-        :params str configuration_url: The absolute url the webhook request should be sent to.
-        :params ConversationScopedWebhookMethod configuration_method: 
-        :params list[str] configuration_filters: The list of events, firing webhook event for this Conversation.
-        :params list[str] configuration_triggers: The list of keywords, firing webhook event for this Conversation.
-        :params str configuration_flow_sid: The studio flow SID, where the webhook should be sent to.
-
-        :returns: The updated WebhookInstance
-        :rtype: twilio.rest.conversations.v1.conversation.webhook.WebhookInstance
-        """
-        data = values.of({ 
-            'Configuration.Url': configuration_url,
-            'Configuration.Method': configuration_method,
-            'Configuration.Filters': serialize.map(configuration_filters, lambda e: e),
-            'Configuration.Triggers': serialize.map(configuration_triggers, lambda e: e),
-            'Configuration.FlowSid': configuration_flow_sid,
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return WebhookInstance(
-            self._version,
-            payload,
-            conversation_sid=self._solution['conversation_sid'],
-            sid=self._solution['sid']
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Conversations.V1.WebhookContext {}>'.format(context)
 
 

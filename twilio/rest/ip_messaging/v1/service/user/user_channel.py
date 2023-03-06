@@ -180,7 +180,7 @@ class UserChannelPage(Page):
 
 class UserChannelInstance(InstanceResource):
 
-    class UserChannelChannelStatus(object):
+    class ChannelStatus(object):
         JOINED = "joined"
         INVITED = "invited"
         NOT_PARTICIPATING = "not_participating"
@@ -244,7 +244,7 @@ class UserChannelInstance(InstanceResource):
     def status(self):
         """
         :returns: 
-        :rtype: UserChannelChannelStatus
+        :rtype: ChannelStatus
         """
         return self._properties['status']
     

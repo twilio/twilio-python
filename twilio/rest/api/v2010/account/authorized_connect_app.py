@@ -203,7 +203,7 @@ class AuthorizedConnectAppPage(Page):
 
 class AuthorizedConnectAppInstance(InstanceResource):
 
-    class AuthorizedConnectAppPermission(object):
+    class Permission(object):
         GET_ALL = "get-all"
         POST_ALL = "post-all"
 
@@ -312,7 +312,7 @@ class AuthorizedConnectAppInstance(InstanceResource):
     def permissions(self):
         """
         :returns: The set of permissions that you authorized for the Connect App.  Can be: `get-all` or `post-all`.
-        :rtype: list[AuthorizedConnectAppPermission]
+        :rtype: list[Permission]
         """
         return self._properties['permissions']
     

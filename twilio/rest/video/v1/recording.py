@@ -52,12 +52,12 @@ class RecordingList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
         
-        :param RecordingStatus status: Read only the recordings that have this status. Can be: `processing`, `completed`, or `deleted`.
+        :param Status status: Read only the recordings that have this status. Can be: `processing`, `completed`, or `deleted`.
         :param str source_sid: Read only the recordings that have this `source_sid`.
         :param list[str] grouping_sid: Read only recordings with this `grouping_sid`, which may include a `participant_sid` and/or a `room_sid`.
         :param datetime date_created_after: Read only recordings that started on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time with time zone.
         :param datetime date_created_before: Read only recordings that started before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time with time zone, given as `YYYY-MM-DDThh:mm:ss+|-hh:mm` or `YYYY-MM-DDThh:mm:ssZ`.
-        :param RecordingType media_type: Read only recordings that have this media type. Can be either `audio` or `video`.
+        :param Type media_type: Read only recordings that have this media type. Can be either `audio` or `video`.
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -87,12 +87,12 @@ class RecordingList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
-        :param RecordingStatus status: Read only the recordings that have this status. Can be: `processing`, `completed`, or `deleted`.
+        :param Status status: Read only the recordings that have this status. Can be: `processing`, `completed`, or `deleted`.
         :param str source_sid: Read only the recordings that have this `source_sid`.
         :param list[str] grouping_sid: Read only recordings with this `grouping_sid`, which may include a `participant_sid` and/or a `room_sid`.
         :param datetime date_created_after: Read only recordings that started on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time with time zone.
         :param datetime date_created_before: Read only recordings that started before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time with time zone, given as `YYYY-MM-DDThh:mm:ss+|-hh:mm` or `YYYY-MM-DDThh:mm:ssZ`.
-        :param RecordingType media_type: Read only recordings that have this media type. Can be either `audio` or `video`.
+        :param Type media_type: Read only recordings that have this media type. Can be either `audio` or `video`.
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -119,12 +119,12 @@ class RecordingList(ListResource):
         Retrieve a single page of RecordingInstance records from the API.
         Request is executed immediately
         
-        :param RecordingStatus status: Read only the recordings that have this status. Can be: `processing`, `completed`, or `deleted`.
+        :param Status status: Read only the recordings that have this status. Can be: `processing`, `completed`, or `deleted`.
         :param str source_sid: Read only the recordings that have this `source_sid`.
         :param list[str] grouping_sid: Read only recordings with this `grouping_sid`, which may include a `participant_sid` and/or a `room_sid`.
         :param datetime date_created_after: Read only recordings that started on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time with time zone.
         :param datetime date_created_before: Read only recordings that started before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time with time zone, given as `YYYY-MM-DDThh:mm:ss+|-hh:mm` or `YYYY-MM-DDThh:mm:ssZ`.
-        :param RecordingType media_type: Read only recordings that have this media type. Can be either `audio` or `video`.
+        :param Type media_type: Read only recordings that have this media type. Can be either `audio` or `video`.
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -241,23 +241,23 @@ class RecordingPage(Page):
 
 class RecordingInstance(InstanceResource):
 
-    class RecordingCodec(object):
+    class Codec(object):
         VP8 = "VP8"
         H264 = "H264"
         OPUS = "OPUS"
         PCMU = "PCMU"
 
-    class RecordingFormat(object):
+    class Format(object):
         MKA = "mka"
         MKV = "mkv"
 
-    class RecordingStatus(object):
+    class Status(object):
         PROCESSING = "processing"
         COMPLETED = "completed"
         DELETED = "deleted"
         FAILED = "failed"
 
-    class RecordingType(object):
+    class Type(object):
         AUDIO = "audio"
         VIDEO = "video"
         DATA = "data"
@@ -319,7 +319,7 @@ class RecordingInstance(InstanceResource):
     def status(self):
         """
         :returns: 
-        :rtype: RecordingStatus
+        :rtype: Status
         """
         return self._properties['status']
     
@@ -367,7 +367,7 @@ class RecordingInstance(InstanceResource):
     def type(self):
         """
         :returns: 
-        :rtype: RecordingType
+        :rtype: Type
         """
         return self._properties['type']
     
@@ -383,7 +383,7 @@ class RecordingInstance(InstanceResource):
     def container_format(self):
         """
         :returns: 
-        :rtype: RecordingFormat
+        :rtype: Format
         """
         return self._properties['container_format']
     
@@ -391,7 +391,7 @@ class RecordingInstance(InstanceResource):
     def codec(self):
         """
         :returns: 
-        :rtype: RecordingCodec
+        :rtype: Codec
         """
         return self._properties['codec']
     

@@ -75,7 +75,7 @@ class EsimProfileList(ListResource):
         
         :param str eid: List the eSIM Profiles that have been associated with an EId.
         :param str sim_sid: Find the eSIM Profile resource related to a [Sim](https://www.twilio.com/docs/wireless/api/sim-resource) resource by providing the SIM SID. Will always return an array with either 1 or 0 records.
-        :param EsimProfileStatus status: List the eSIM Profiles that are in a given status.
+        :param Status status: List the eSIM Profiles that are in a given status.
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -104,7 +104,7 @@ class EsimProfileList(ListResource):
         
         :param str eid: List the eSIM Profiles that have been associated with an EId.
         :param str sim_sid: Find the eSIM Profile resource related to a [Sim](https://www.twilio.com/docs/wireless/api/sim-resource) resource by providing the SIM SID. Will always return an array with either 1 or 0 records.
-        :param EsimProfileStatus status: List the eSIM Profiles that are in a given status.
+        :param Status status: List the eSIM Profiles that are in a given status.
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -130,7 +130,7 @@ class EsimProfileList(ListResource):
         
         :param str eid: List the eSIM Profiles that have been associated with an EId.
         :param str sim_sid: Find the eSIM Profile resource related to a [Sim](https://www.twilio.com/docs/wireless/api/sim-resource) resource by providing the SIM SID. Will always return an array with either 1 or 0 records.
-        :param EsimProfileStatus status: List the eSIM Profiles that are in a given status.
+        :param Status status: List the eSIM Profiles that are in a given status.
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -244,7 +244,7 @@ class EsimProfilePage(Page):
 
 class EsimProfileInstance(InstanceResource):
 
-    class EsimProfileStatus(object):
+    class Status(object):
         NEW = "new"
         RESERVING = "reserving"
         AVAILABLE = "available"
@@ -327,7 +327,7 @@ class EsimProfileInstance(InstanceResource):
     def status(self):
         """
         :returns: 
-        :rtype: EsimProfileStatus
+        :rtype: Status
         """
         return self._properties['status']
     

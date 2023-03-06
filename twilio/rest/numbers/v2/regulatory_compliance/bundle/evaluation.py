@@ -206,7 +206,7 @@ class EvaluationPage(Page):
 
 class EvaluationInstance(InstanceResource):
 
-    class EvaluationStatus(object):
+    class Status(object):
         COMPLIANT = "compliant"
         NONCOMPLIANT = "noncompliant"
 
@@ -281,7 +281,7 @@ class EvaluationInstance(InstanceResource):
     def status(self):
         """
         :returns: 
-        :rtype: EvaluationStatus
+        :rtype: Status
         """
         return self._properties['status']
     

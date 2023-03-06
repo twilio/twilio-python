@@ -13,7 +13,6 @@
 """
 
 
-from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -52,7 +51,7 @@ class SiprecList(ListResource):
 
         :param str name: The user-specified name of this Siprec, if one was given when the Siprec was created. This may be used to stop the Siprec.
         :param str connector_name: Unique name used when configuring the connector via Marketplace Add-on.
-        :param SiprecTrack track: 
+        :param Track track: 
         :param str status_callback: Absolute URL of the status callback.
         :param str status_callback_method: The http method for the status_callback (one of GET, POST).
         :param str parameter1_name: Parameter name
@@ -498,9 +497,66 @@ class SiprecList(ListResource):
         """
         return '<Twilio.Api.V2010.SiprecList>'
 
+class SiprecContext(InstanceContext):
+
+    def __init__(self, version: Version, account_sid: str, call_sid: str, sid: str):
+        """
+        Initialize the SiprecContext
+
+        :param Version version: Version that contains the resource
+        :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created this Siprec resource.:param call_sid: The SID of the [Call](https://www.twilio.com/docs/voice/api/call-resource) the Siprec resource is associated with.:param sid: The SID of the Siprec resource, or the `name` used when creating the resource
+
+        :returns: twilio.rest.api.v2010.account.call.siprec.SiprecContext
+        :rtype: twilio.rest.api.v2010.account.call.siprec.SiprecContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'account_sid': account_sid,
+            'call_sid': call_sid,
+            'sid': sid,
+        }
+        self._uri = '/Accounts/{account_sid}/Calls/{call_sid}/Siprec/{sid}.json'.format(**self._solution)
+        
+    
+    def update(self, status):
+        """
+        Update the SiprecInstance
+        
+        :params UpdateStatus status: 
+
+        :returns: The updated SiprecInstance
+        :rtype: twilio.rest.api.v2010.account.call.siprec.SiprecInstance
+        """
+        data = values.of({ 
+            'Status': status,
+        })
+        
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return SiprecInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+            call_sid=self._solution['call_sid'],
+            sid=self._solution['sid']
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Api.V2010.SiprecContext {}>'.format(context)
+
 class SiprecInstance(InstanceResource):
 
-    class SiprecStatus(object):
+    class Status(object):
         IN_PROGRESS = "in-progress"
         STOPPED = "stopped"
 
@@ -574,7 +630,7 @@ class SiprecInstance(InstanceResource):
     def status(self):
         """
         :returns: 
-        :rtype: SiprecStatus
+        :rtype: Status
         """
         return self._properties['status']
     
@@ -598,7 +654,7 @@ class SiprecInstance(InstanceResource):
         """
         Update the SiprecInstance
         
-        :params SiprecUpdateStatus status: 
+        :params UpdateStatus status: 
 
         :returns: The updated SiprecInstance
         :rtype: twilio.rest.api.v2010.account.call.siprec.SiprecInstance
@@ -613,62 +669,5 @@ class SiprecInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Api.V2010.SiprecInstance {}>'.format(context)
-
-class SiprecContext(InstanceContext):
-
-    def __init__(self, version: Version, account_sid: str, call_sid: str, sid: str):
-        """
-        Initialize the SiprecContext
-
-        :param Version version: Version that contains the resource
-        :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created this Siprec resource.:param call_sid: The SID of the [Call](https://www.twilio.com/docs/voice/api/call-resource) the Siprec resource is associated with.:param sid: The SID of the Siprec resource, or the `name` used when creating the resource
-
-        :returns: twilio.rest.api.v2010.account.call.siprec.SiprecContext
-        :rtype: twilio.rest.api.v2010.account.call.siprec.SiprecContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'account_sid': account_sid,
-            'call_sid': call_sid,
-            'sid': sid,
-        }
-        self._uri = '/Accounts/{account_sid}/Calls/{call_sid}/Siprec/{sid}.json'.format(**self._solution)
-        
-    
-    def update(self, status):
-        """
-        Update the SiprecInstance
-        
-        :params SiprecUpdateStatus status: 
-
-        :returns: The updated SiprecInstance
-        :rtype: twilio.rest.api.v2010.account.call.siprec.SiprecInstance
-        """
-        data = values.of({ 
-            'Status': status,
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return SiprecInstance(
-            self._version,
-            payload,
-            account_sid=self._solution['account_sid'],
-            call_sid=self._solution['call_sid'],
-            sid=self._solution['sid']
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Api.V2010.SiprecContext {}>'.format(context)
 
 

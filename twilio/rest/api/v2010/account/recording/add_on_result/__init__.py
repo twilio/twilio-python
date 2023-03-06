@@ -208,7 +208,7 @@ class AddOnResultPage(Page):
 
 class AddOnResultInstance(InstanceResource):
 
-    class RecordingAddOnResultStatus(object):
+    class Status(object):
         CANCELED = "canceled"
         COMPLETED = "completed"
         DELETED = "deleted"
@@ -275,7 +275,7 @@ class AddOnResultInstance(InstanceResource):
     def status(self):
         """
         :returns: 
-        :rtype: RecordingAddOnResultStatus
+        :rtype: Status
         """
         return self._properties['status']
     

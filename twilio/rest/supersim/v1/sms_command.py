@@ -76,8 +76,8 @@ class SmsCommandList(ListResource):
         The results are returned as a generator, so this operation is memory efficient.
         
         :param str sim: The SID or unique name of the Sim resource that SMS Command was sent to or from.
-        :param SmsCommandStatus status: The status of the SMS Command. Can be: `queued`, `sent`, `delivered`, `received` or `failed`. See the [SMS Command Status Values](https://www.twilio.com/docs/iot/supersim/api/smscommand-resource#status-values) for a description of each.
-        :param SmsCommandDirection direction: The direction of the SMS Command. Can be `to_sim` or `from_sim`. The value of `to_sim` is synonymous with the term `mobile terminated`, and `from_sim` is synonymous with the term `mobile originated`.
+        :param Status status: The status of the SMS Command. Can be: `queued`, `sent`, `delivered`, `received` or `failed`. See the [SMS Command Status Values](https://www.twilio.com/docs/iot/supersim/api/smscommand-resource#status-values) for a description of each.
+        :param Direction direction: The direction of the SMS Command. Can be `to_sim` or `from_sim`. The value of `to_sim` is synonymous with the term `mobile terminated`, and `from_sim` is synonymous with the term `mobile originated`.
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -105,8 +105,8 @@ class SmsCommandList(ListResource):
         memory before returning.
         
         :param str sim: The SID or unique name of the Sim resource that SMS Command was sent to or from.
-        :param SmsCommandStatus status: The status of the SMS Command. Can be: `queued`, `sent`, `delivered`, `received` or `failed`. See the [SMS Command Status Values](https://www.twilio.com/docs/iot/supersim/api/smscommand-resource#status-values) for a description of each.
-        :param SmsCommandDirection direction: The direction of the SMS Command. Can be `to_sim` or `from_sim`. The value of `to_sim` is synonymous with the term `mobile terminated`, and `from_sim` is synonymous with the term `mobile originated`.
+        :param Status status: The status of the SMS Command. Can be: `queued`, `sent`, `delivered`, `received` or `failed`. See the [SMS Command Status Values](https://www.twilio.com/docs/iot/supersim/api/smscommand-resource#status-values) for a description of each.
+        :param Direction direction: The direction of the SMS Command. Can be `to_sim` or `from_sim`. The value of `to_sim` is synonymous with the term `mobile terminated`, and `from_sim` is synonymous with the term `mobile originated`.
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -131,8 +131,8 @@ class SmsCommandList(ListResource):
         Request is executed immediately
         
         :param str sim: The SID or unique name of the Sim resource that SMS Command was sent to or from.
-        :param SmsCommandStatus status: The status of the SMS Command. Can be: `queued`, `sent`, `delivered`, `received` or `failed`. See the [SMS Command Status Values](https://www.twilio.com/docs/iot/supersim/api/smscommand-resource#status-values) for a description of each.
-        :param SmsCommandDirection direction: The direction of the SMS Command. Can be `to_sim` or `from_sim`. The value of `to_sim` is synonymous with the term `mobile terminated`, and `from_sim` is synonymous with the term `mobile originated`.
+        :param Status status: The status of the SMS Command. Can be: `queued`, `sent`, `delivered`, `received` or `failed`. See the [SMS Command Status Values](https://www.twilio.com/docs/iot/supersim/api/smscommand-resource#status-values) for a description of each.
+        :param Direction direction: The direction of the SMS Command. Can be `to_sim` or `from_sim`. The value of `to_sim` is synonymous with the term `mobile terminated`, and `from_sim` is synonymous with the term `mobile originated`.
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -246,11 +246,11 @@ class SmsCommandPage(Page):
 
 class SmsCommandInstance(InstanceResource):
 
-    class SmsCommandDirection(object):
+    class Direction(object):
         TO_SIM = "to_sim"
         FROM_SIM = "from_sim"
 
-    class SmsCommandStatus(object):
+    class Status(object):
         QUEUED = "queued"
         SENT = "sent"
         DELIVERED = "delivered"
@@ -329,7 +329,7 @@ class SmsCommandInstance(InstanceResource):
     def status(self):
         """
         :returns: 
-        :rtype: SmsCommandStatus
+        :rtype: Status
         """
         return self._properties['status']
     
@@ -337,7 +337,7 @@ class SmsCommandInstance(InstanceResource):
     def direction(self):
         """
         :returns: 
-        :rtype: SmsCommandDirection
+        :rtype: Direction
         """
         return self._properties['direction']
     

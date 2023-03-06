@@ -13,7 +13,6 @@
 """
 
 
-from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -70,9 +69,71 @@ class VerificationAttemptsSummaryList(ListResource):
         """
         return '<Twilio.Verify.V2.VerificationAttemptsSummaryList>'
 
+class VerificationAttemptsSummaryContext(InstanceContext):
+
+    def __init__(self, version: Version):
+        """
+        Initialize the VerificationAttemptsSummaryContext
+
+        :param Version version: Version that contains the resource
+        
+
+        :returns: twilio.rest.verify.v2.verification_attempts_summary.VerificationAttemptsSummaryContext
+        :rtype: twilio.rest.verify.v2.verification_attempts_summary.VerificationAttemptsSummaryContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+        }
+        self._uri = '/Attempts/Summary'.format(**self._solution)
+        
+    
+    def fetch(self, verify_service_sid=values.unset, date_created_after=values.unset, date_created_before=values.unset, country=values.unset, channel=values.unset, destination_prefix=values.unset):
+        """
+        Fetch the VerificationAttemptsSummaryInstance
+        
+        :params str verify_service_sid: Filter used to consider only Verification Attempts of the given verify service on the summary aggregation.
+        :params datetime date_created_after: Datetime filter used to consider only Verification Attempts created after this datetime on the summary aggregation. Given as GMT in RFC 2822 format.
+        :params datetime date_created_before: Datetime filter used to consider only Verification Attempts created before this datetime on the summary aggregation. Given as GMT in RFC 2822 format.
+        :params str country: Filter used to consider only Verification Attempts sent to the specified destination country on the summary aggregation.
+        :params Channels channel: Filter Verification Attempts considered on the summary aggregation by communication channel. Valid values are `SMS` and `CALL`
+        :params str destination_prefix: Filter the Verification Attempts considered on the summary aggregation by Destination prefix. It is the prefix of a phone number in E.164 format.
+
+        :returns: The fetched VerificationAttemptsSummaryInstance
+        :rtype: twilio.rest.verify.v2.verification_attempts_summary.VerificationAttemptsSummaryInstance
+        """
+        
+        data = values.of({ 
+            'VerifyServiceSid': verify_service_sid,
+            'DateCreatedAfter': serialize.iso8601_datetime(date_created_after),
+            'DateCreatedBefore': serialize.iso8601_datetime(date_created_before),
+            'Country': country,
+            'Channel': channel,
+            'DestinationPrefix': destination_prefix,
+        })
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, params=data)
+
+        return VerificationAttemptsSummaryInstance(
+            self._version,
+            payload,
+            
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Verify.V2.VerificationAttemptsSummaryContext {}>'.format(context)
+
 class VerificationAttemptsSummaryInstance(InstanceResource):
 
-    class VerificationAttemptsSummaryChannels(object):
+    class Channels(object):
         SMS = "sms"
         CALL = "call"
         EMAIL = "email"
@@ -158,7 +219,7 @@ class VerificationAttemptsSummaryInstance(InstanceResource):
         :params datetime date_created_after: Datetime filter used to consider only Verification Attempts created after this datetime on the summary aggregation. Given as GMT in RFC 2822 format.
         :params datetime date_created_before: Datetime filter used to consider only Verification Attempts created before this datetime on the summary aggregation. Given as GMT in RFC 2822 format.
         :params str country: Filter used to consider only Verification Attempts sent to the specified destination country on the summary aggregation.
-        :params VerificationAttemptsSummaryChannels channel: Filter Verification Attempts considered on the summary aggregation by communication channel. Valid values are `SMS` and `CALL`
+        :params Channels channel: Filter Verification Attempts considered on the summary aggregation by communication channel. Valid values are `SMS` and `CALL`
         :params str destination_prefix: Filter the Verification Attempts considered on the summary aggregation by Destination prefix. It is the prefix of a phone number in E.164 format.
 
         :returns: The fetched VerificationAttemptsSummaryInstance
@@ -174,67 +235,5 @@ class VerificationAttemptsSummaryInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Verify.V2.VerificationAttemptsSummaryInstance {}>'.format(context)
-
-class VerificationAttemptsSummaryContext(InstanceContext):
-
-    def __init__(self, version: Version):
-        """
-        Initialize the VerificationAttemptsSummaryContext
-
-        :param Version version: Version that contains the resource
-        
-
-        :returns: twilio.rest.verify.v2.verification_attempts_summary.VerificationAttemptsSummaryContext
-        :rtype: twilio.rest.verify.v2.verification_attempts_summary.VerificationAttemptsSummaryContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-        }
-        self._uri = '/Attempts/Summary'.format(**self._solution)
-        
-    
-    def fetch(self, verify_service_sid=values.unset, date_created_after=values.unset, date_created_before=values.unset, country=values.unset, channel=values.unset, destination_prefix=values.unset):
-        """
-        Fetch the VerificationAttemptsSummaryInstance
-        
-        :params str verify_service_sid: Filter used to consider only Verification Attempts of the given verify service on the summary aggregation.
-        :params datetime date_created_after: Datetime filter used to consider only Verification Attempts created after this datetime on the summary aggregation. Given as GMT in RFC 2822 format.
-        :params datetime date_created_before: Datetime filter used to consider only Verification Attempts created before this datetime on the summary aggregation. Given as GMT in RFC 2822 format.
-        :params str country: Filter used to consider only Verification Attempts sent to the specified destination country on the summary aggregation.
-        :params VerificationAttemptsSummaryChannels channel: Filter Verification Attempts considered on the summary aggregation by communication channel. Valid values are `SMS` and `CALL`
-        :params str destination_prefix: Filter the Verification Attempts considered on the summary aggregation by Destination prefix. It is the prefix of a phone number in E.164 format.
-
-        :returns: The fetched VerificationAttemptsSummaryInstance
-        :rtype: twilio.rest.verify.v2.verification_attempts_summary.VerificationAttemptsSummaryInstance
-        """
-        
-        data = values.of({ 
-            'VerifyServiceSid': verify_service_sid,
-            'DateCreatedAfter': serialize.iso8601_datetime(date_created_after),
-            'DateCreatedBefore': serialize.iso8601_datetime(date_created_before),
-            'Country': country,
-            'Channel': channel,
-            'DestinationPrefix': destination_prefix,
-        })
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, params=data)
-
-        return VerificationAttemptsSummaryInstance(
-            self._version,
-            payload,
-            
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Verify.V2.VerificationAttemptsSummaryContext {}>'.format(context)
 
 

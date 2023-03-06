@@ -232,7 +232,7 @@ class SupportingDocumentPage(Page):
 
 class SupportingDocumentInstance(InstanceResource):
 
-    class SupportingDocumentStatus(object):
+    class Status(object):
         DRAFT = "draft"
         PENDING_REVIEW = "pending-review"
         REJECTED = "rejected"
@@ -313,7 +313,7 @@ class SupportingDocumentInstance(InstanceResource):
     def status(self):
         """
         :returns: 
-        :rtype: SupportingDocumentStatus
+        :rtype: Status
         """
         return self._properties['status']
     

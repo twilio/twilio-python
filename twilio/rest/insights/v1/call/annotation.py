@@ -13,7 +13,6 @@
 """
 
 
-from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -72,14 +71,97 @@ class AnnotationList(ListResource):
         """
         return '<Twilio.Insights.V1.AnnotationList>'
 
+class AnnotationContext(InstanceContext):
+
+    def __init__(self, version: Version, call_sid: str):
+        """
+        Initialize the AnnotationContext
+
+        :param Version version: Version that contains the resource
+        :param call_sid: The unique string that Twilio created to identify this Call resource. It always starts with a CA.
+
+        :returns: twilio.rest.insights.v1.call.annotation.AnnotationContext
+        :rtype: twilio.rest.insights.v1.call.annotation.AnnotationContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'call_sid': call_sid,
+        }
+        self._uri = '/Voice/{call_sid}/Annotation'.format(**self._solution)
+        
+    
+    def fetch(self):
+        """
+        Fetch the AnnotationInstance
+        
+
+        :returns: The fetched AnnotationInstance
+        :rtype: twilio.rest.insights.v1.call.annotation.AnnotationInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return AnnotationInstance(
+            self._version,
+            payload,
+            call_sid=self._solution['call_sid'],
+            
+        )
+        
+    def update(self, answered_by=values.unset, connectivity_issue=values.unset, quality_issues=values.unset, spam=values.unset, call_score=values.unset, comment=values.unset, incident=values.unset):
+        """
+        Update the AnnotationInstance
+        
+        :params AnsweredBy answered_by: 
+        :params ConnectivityIssue connectivity_issue: 
+        :params str quality_issues: Specify if the call had any subjective quality issues. Possible values, one or more of:  no_quality_issue, low_volume, choppy_robotic, echo, dtmf, latency, owa, static_noise. Use comma separated values to indicate multiple quality issues for the same call
+        :params bool spam: Specify if the call was a spam call. Use this to provide feedback on whether calls placed from your account were marked as spam, or if inbound calls received by your account were unwanted spam. Is of type Boolean: true, false. Use true if the call was a spam call.
+        :params int call_score: Specify the call score. This is of type integer. Use a range of 1-5 to indicate the call experience score, with the following mapping as a reference for rating the call [5: Excellent, 4: Good, 3 : Fair, 2 : Poor, 1: Bad].
+        :params str comment: Specify any comments pertaining to the call. This of type string with a max limit of 100 characters. Twilio does not treat this field as PII, so don’t put any PII in here.
+        :params str incident: Associate this call with an incident or support ticket. This is of type string with a max limit of 100 characters. Twilio does not treat this field as PII, so don’t put any PII in here.
+
+        :returns: The updated AnnotationInstance
+        :rtype: twilio.rest.insights.v1.call.annotation.AnnotationInstance
+        """
+        data = values.of({ 
+            'AnsweredBy': answered_by,
+            'ConnectivityIssue': connectivity_issue,
+            'QualityIssues': quality_issues,
+            'Spam': spam,
+            'CallScore': call_score,
+            'Comment': comment,
+            'Incident': incident,
+        })
+        
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return AnnotationInstance(
+            self._version,
+            payload,
+            call_sid=self._solution['call_sid']
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Insights.V1.AnnotationContext {}>'.format(context)
+
 class AnnotationInstance(InstanceResource):
 
-    class AnnotationAnsweredBy(object):
+    class AnsweredBy(object):
         UNKNOWN_ANSWERED_BY = "unknown_answered_by"
         HUMAN = "human"
         MACHINE = "machine"
 
-    class AnnotationConnectivityIssue(object):
+    class ConnectivityIssue(object):
         UNKNOWN_CONNECTIVITY_ISSUE = "unknown_connectivity_issue"
         NO_CONNECTIVITY_ISSUE = "no_connectivity_issue"
         INVALID_NUMBER = "invalid_number"
@@ -144,7 +226,7 @@ class AnnotationInstance(InstanceResource):
     def answered_by(self):
         """
         :returns: 
-        :rtype: AnnotationAnsweredBy
+        :rtype: AnsweredBy
         """
         return self._properties['answered_by']
     
@@ -152,7 +234,7 @@ class AnnotationInstance(InstanceResource):
     def connectivity_issue(self):
         """
         :returns: 
-        :rtype: AnnotationConnectivityIssue
+        :rtype: ConnectivityIssue
         """
         return self._properties['connectivity_issue']
     
@@ -218,8 +300,8 @@ class AnnotationInstance(InstanceResource):
         """
         Update the AnnotationInstance
         
-        :params AnnotationAnsweredBy answered_by: 
-        :params AnnotationConnectivityIssue connectivity_issue: 
+        :params AnsweredBy answered_by: 
+        :params ConnectivityIssue connectivity_issue: 
         :params str quality_issues: Specify if the call had any subjective quality issues. Possible values, one or more of:  no_quality_issue, low_volume, choppy_robotic, echo, dtmf, latency, owa, static_noise. Use comma separated values to indicate multiple quality issues for the same call
         :params bool spam: Specify if the call was a spam call. Use this to provide feedback on whether calls placed from your account were marked as spam, or if inbound calls received by your account were unwanted spam. Is of type Boolean: true, false. Use true if the call was a spam call.
         :params int call_score: Specify the call score. This is of type integer. Use a range of 1-5 to indicate the call experience score, with the following mapping as a reference for rating the call [5: Excellent, 4: Good, 3 : Fair, 2 : Poor, 1: Bad].
@@ -239,88 +321,5 @@ class AnnotationInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Insights.V1.AnnotationInstance {}>'.format(context)
-
-class AnnotationContext(InstanceContext):
-
-    def __init__(self, version: Version, call_sid: str):
-        """
-        Initialize the AnnotationContext
-
-        :param Version version: Version that contains the resource
-        :param call_sid: The unique string that Twilio created to identify this Call resource. It always starts with a CA.
-
-        :returns: twilio.rest.insights.v1.call.annotation.AnnotationContext
-        :rtype: twilio.rest.insights.v1.call.annotation.AnnotationContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'call_sid': call_sid,
-        }
-        self._uri = '/Voice/{call_sid}/Annotation'.format(**self._solution)
-        
-    
-    def fetch(self):
-        """
-        Fetch the AnnotationInstance
-        
-
-        :returns: The fetched AnnotationInstance
-        :rtype: twilio.rest.insights.v1.call.annotation.AnnotationInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return AnnotationInstance(
-            self._version,
-            payload,
-            call_sid=self._solution['call_sid'],
-            
-        )
-        
-    def update(self, answered_by=values.unset, connectivity_issue=values.unset, quality_issues=values.unset, spam=values.unset, call_score=values.unset, comment=values.unset, incident=values.unset):
-        """
-        Update the AnnotationInstance
-        
-        :params AnnotationAnsweredBy answered_by: 
-        :params AnnotationConnectivityIssue connectivity_issue: 
-        :params str quality_issues: Specify if the call had any subjective quality issues. Possible values, one or more of:  no_quality_issue, low_volume, choppy_robotic, echo, dtmf, latency, owa, static_noise. Use comma separated values to indicate multiple quality issues for the same call
-        :params bool spam: Specify if the call was a spam call. Use this to provide feedback on whether calls placed from your account were marked as spam, or if inbound calls received by your account were unwanted spam. Is of type Boolean: true, false. Use true if the call was a spam call.
-        :params int call_score: Specify the call score. This is of type integer. Use a range of 1-5 to indicate the call experience score, with the following mapping as a reference for rating the call [5: Excellent, 4: Good, 3 : Fair, 2 : Poor, 1: Bad].
-        :params str comment: Specify any comments pertaining to the call. This of type string with a max limit of 100 characters. Twilio does not treat this field as PII, so don’t put any PII in here.
-        :params str incident: Associate this call with an incident or support ticket. This is of type string with a max limit of 100 characters. Twilio does not treat this field as PII, so don’t put any PII in here.
-
-        :returns: The updated AnnotationInstance
-        :rtype: twilio.rest.insights.v1.call.annotation.AnnotationInstance
-        """
-        data = values.of({ 
-            'AnsweredBy': answered_by,
-            'ConnectivityIssue': connectivity_issue,
-            'QualityIssues': quality_issues,
-            'Spam': spam,
-            'CallScore': call_score,
-            'Comment': comment,
-            'Incident': incident,
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return AnnotationInstance(
-            self._version,
-            payload,
-            call_sid=self._solution['call_sid']
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Insights.V1.AnnotationContext {}>'.format(context)
 
 

@@ -12,7 +12,7 @@ test-install: install
 
 test-docker:
 	docker build -t twilio/twilio-python .
-	docker run twilio/twilio-python pytest tests
+	docker run twilio/twilio-python pytest tests --ignore=tests/cluster
 
 develop: venv
 	. venv/bin/activate; pip install -e . --use-mirrors
@@ -23,11 +23,15 @@ analysis:
 	. venv/bin/activate; flake8 --ignore=E402,F401,W391,W291,W293 twilio --max-line-length=300
 
 test: analysis
-	. venv/bin/activate; pytest tests
+	. venv/bin/activate; pytest tests --ignore=tests/cluster
 
 test-with-coverage:
 	. venv/bin/activate; \
-  	pytest --cov-config=setup.cfg --cov-report xml --cov=twilio tests
+  pytest --cov=twilio tests --ignore=tests/cluster; \
+  coverage xml --omit 'twilio/rest/*' -o coverage.xml
+
+cluster-test:
+	. venv/bin/activate; pytest tests/cluster
 
 docs-install:
 	. venv/bin/activate; pip install -r tests/requirements.txt

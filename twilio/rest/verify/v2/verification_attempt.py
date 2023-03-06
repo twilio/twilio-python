@@ -55,10 +55,10 @@ class VerificationAttemptList(ListResource):
         :param datetime date_created_before: Datetime filter used to query Verification Attempts created before this datetime. Given as GMT in RFC 2822 format.
         :param str channel_data_to: Destination of a verification. It is phone number in E.164 format.
         :param str country: Filter used to query Verification Attempts sent to the specified destination country.
-        :param VerificationAttemptChannels channel: Filter used to query Verification Attempts by communication channel. Valid values are `SMS` and `CALL`
+        :param Channels channel: Filter used to query Verification Attempts by communication channel. Valid values are `SMS` and `CALL`
         :param str verify_service_sid: Filter used to query Verification Attempts by verify service. Only attempts of the provided SID will be returned.
         :param str verification_sid: Filter used to return all the Verification Attempts of a single verification. Only attempts of the provided verification SID will be returned.
-        :param VerificationAttemptConversionStatus status: Filter used to query Verification Attempts by conversion status. Valid values are `UNCONVERTED`, for attempts that were not converted, and `CONVERTED`, for attempts that were confirmed.
+        :param ConversionStatus status: Filter used to query Verification Attempts by conversion status. Valid values are `UNCONVERTED`, for attempts that were not converted, and `CONVERTED`, for attempts that were confirmed.
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -94,10 +94,10 @@ class VerificationAttemptList(ListResource):
         :param datetime date_created_before: Datetime filter used to query Verification Attempts created before this datetime. Given as GMT in RFC 2822 format.
         :param str channel_data_to: Destination of a verification. It is phone number in E.164 format.
         :param str country: Filter used to query Verification Attempts sent to the specified destination country.
-        :param VerificationAttemptChannels channel: Filter used to query Verification Attempts by communication channel. Valid values are `SMS` and `CALL`
+        :param Channels channel: Filter used to query Verification Attempts by communication channel. Valid values are `SMS` and `CALL`
         :param str verify_service_sid: Filter used to query Verification Attempts by verify service. Only attempts of the provided SID will be returned.
         :param str verification_sid: Filter used to return all the Verification Attempts of a single verification. Only attempts of the provided verification SID will be returned.
-        :param VerificationAttemptConversionStatus status: Filter used to query Verification Attempts by conversion status. Valid values are `UNCONVERTED`, for attempts that were not converted, and `CONVERTED`, for attempts that were confirmed.
+        :param ConversionStatus status: Filter used to query Verification Attempts by conversion status. Valid values are `UNCONVERTED`, for attempts that were not converted, and `CONVERTED`, for attempts that were confirmed.
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -130,10 +130,10 @@ class VerificationAttemptList(ListResource):
         :param datetime date_created_before: Datetime filter used to query Verification Attempts created before this datetime. Given as GMT in RFC 2822 format.
         :param str channel_data_to: Destination of a verification. It is phone number in E.164 format.
         :param str country: Filter used to query Verification Attempts sent to the specified destination country.
-        :param VerificationAttemptChannels channel: Filter used to query Verification Attempts by communication channel. Valid values are `SMS` and `CALL`
+        :param Channels channel: Filter used to query Verification Attempts by communication channel. Valid values are `SMS` and `CALL`
         :param str verify_service_sid: Filter used to query Verification Attempts by verify service. Only attempts of the provided SID will be returned.
         :param str verification_sid: Filter used to return all the Verification Attempts of a single verification. Only attempts of the provided verification SID will be returned.
-        :param VerificationAttemptConversionStatus status: Filter used to query Verification Attempts by conversion status. Valid values are `UNCONVERTED`, for attempts that were not converted, and `CONVERTED`, for attempts that were confirmed.
+        :param ConversionStatus status: Filter used to query Verification Attempts by conversion status. Valid values are `UNCONVERTED`, for attempts that were not converted, and `CONVERTED`, for attempts that were confirmed.
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -250,13 +250,13 @@ class VerificationAttemptPage(Page):
 
 class VerificationAttemptInstance(InstanceResource):
 
-    class VerificationAttemptChannels(object):
+    class Channels(object):
         SMS = "sms"
         CALL = "call"
         EMAIL = "email"
         WHATSAPP = "whatsapp"
 
-    class VerificationAttemptConversionStatus(object):
+    class ConversionStatus(object):
         CONVERTED = "converted"
         UNCONVERTED = "unconverted"
 
@@ -350,7 +350,7 @@ class VerificationAttemptInstance(InstanceResource):
     def conversion_status(self):
         """
         :returns: 
-        :rtype: VerificationAttemptConversionStatus
+        :rtype: ConversionStatus
         """
         return self._properties['conversion_status']
     
@@ -358,7 +358,7 @@ class VerificationAttemptInstance(InstanceResource):
     def channel(self):
         """
         :returns: 
-        :rtype: VerificationAttemptChannels
+        :rtype: Channels
         """
         return self._properties['channel']
     

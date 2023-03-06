@@ -203,12 +203,12 @@ class ParticipantPage(Page):
 
 class ParticipantInstance(InstanceResource):
 
-    class VideoParticipantSummaryCodec(object):
+    class Codec(object):
         VP8 = "VP8"
         H264 = "H264"
         VP9 = "VP9"
 
-    class VideoParticipantSummaryEdgeLocation(object):
+    class EdgeLocation(object):
         ASHBURN = "ashburn"
         DUBLIN = "dublin"
         FRANKFURT = "frankfurt"
@@ -219,11 +219,11 @@ class ParticipantInstance(InstanceResource):
         UMATILLA = "umatilla"
         TOKYO = "tokyo"
 
-    class VideoParticipantSummaryRoomStatus(object):
+    class RoomStatus(object):
         IN_PROGRESS = "in_progress"
         COMPLETED = "completed"
 
-    class VideoParticipantSummaryTwilioRealm(object):
+    class TwilioRealm(object):
         US1 = "us1"
         US2 = "us2"
         AU1 = "au1"
@@ -339,7 +339,7 @@ class ParticipantInstance(InstanceResource):
     def status(self):
         """
         :returns: 
-        :rtype: VideoParticipantSummaryRoomStatus
+        :rtype: RoomStatus
         """
         return self._properties['status']
     
@@ -347,7 +347,7 @@ class ParticipantInstance(InstanceResource):
     def codecs(self):
         """
         :returns: Codecs detected from the participant. Can be `VP8`, `H264`, or `VP9`.
-        :rtype: list[VideoParticipantSummaryCodec]
+        :rtype: list[Codec]
         """
         return self._properties['codecs']
     
@@ -379,7 +379,7 @@ class ParticipantInstance(InstanceResource):
     def media_region(self):
         """
         :returns: 
-        :rtype: VideoParticipantSummaryTwilioRealm
+        :rtype: TwilioRealm
         """
         return self._properties['media_region']
     
@@ -395,7 +395,7 @@ class ParticipantInstance(InstanceResource):
     def edge_location(self):
         """
         :returns: 
-        :rtype: VideoParticipantSummaryEdgeLocation
+        :rtype: EdgeLocation
         """
         return self._properties['edge_location']
     

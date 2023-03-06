@@ -64,8 +64,8 @@ class CallSummariesList(ListResource):
         :param str call_type: 
         :param str call_state: 
         :param str direction: 
-        :param CallSummariesProcessingStateRequest processing_state: 
-        :param CallSummariesSortBy sort_by: 
+        :param ProcessingStateRequest processing_state: 
+        :param SortBy sort_by: 
         :param str subaccount: 
         :param bool abnormal_session: 
         :param int limit: Upper limit for the number of records to return. stream()
@@ -123,8 +123,8 @@ class CallSummariesList(ListResource):
         :param str call_type: 
         :param str call_state: 
         :param str direction: 
-        :param CallSummariesProcessingStateRequest processing_state: 
-        :param CallSummariesSortBy sort_by: 
+        :param ProcessingStateRequest processing_state: 
+        :param SortBy sort_by: 
         :param str subaccount: 
         :param bool abnormal_session: 
         :param int limit: Upper limit for the number of records to return. list() guarantees
@@ -179,8 +179,8 @@ class CallSummariesList(ListResource):
         :param str call_type: 
         :param str call_state: 
         :param str direction: 
-        :param CallSummariesProcessingStateRequest processing_state: 
-        :param CallSummariesSortBy sort_by: 
+        :param ProcessingStateRequest processing_state: 
+        :param SortBy sort_by: 
         :param str subaccount: 
         :param bool abnormal_session: 
         :param str page_token: PageToken provided by the API
@@ -286,7 +286,7 @@ class CallSummariesPage(Page):
 
 class CallSummariesInstance(InstanceResource):
 
-    class CallSummariesAnsweredBy(object):
+    class AnsweredBy(object):
         UNKNOWN = "unknown"
         MACHINE_START = "machine_start"
         MACHINE_END_BEEP = "machine_end_beep"
@@ -295,7 +295,7 @@ class CallSummariesInstance(InstanceResource):
         HUMAN = "human"
         FAX = "fax"
 
-    class CallSummariesCallState(object):
+    class CallState(object):
         RINGING = "ringing"
         COMPLETED = "completed"
         BUSY = "busy"
@@ -305,23 +305,23 @@ class CallSummariesInstance(InstanceResource):
         ANSWERED = "answered"
         UNDIALED = "undialed"
 
-    class CallSummariesCallType(object):
+    class CallType(object):
         CARRIER = "carrier"
         SIP = "sip"
         TRUNKING = "trunking"
         CLIENT = "client"
 
-    class CallSummariesProcessingState(object):
+    class ProcessingState(object):
         COMPLETE = "complete"
         PARTIAL = "partial"
 
-    class CallSummariesProcessingStateRequest(object):
+    class ProcessingStateRequest(object):
         COMPLETED = "completed"
         STARTED = "started"
         PARTIAL = "partial"
         ALL = "all"
 
-    class CallSummariesSortBy(object):
+    class SortBy(object):
         START_TIME = "start_time"
         END_TIME = "end_time"
 
@@ -382,7 +382,7 @@ class CallSummariesInstance(InstanceResource):
     def answered_by(self):
         """
         :returns: 
-        :rtype: CallSummariesAnsweredBy
+        :rtype: AnsweredBy
         """
         return self._properties['answered_by']
     
@@ -390,7 +390,7 @@ class CallSummariesInstance(InstanceResource):
     def call_type(self):
         """
         :returns: 
-        :rtype: CallSummariesCallType
+        :rtype: CallType
         """
         return self._properties['call_type']
     
@@ -398,7 +398,7 @@ class CallSummariesInstance(InstanceResource):
     def call_state(self):
         """
         :returns: 
-        :rtype: CallSummariesCallState
+        :rtype: CallState
         """
         return self._properties['call_state']
     
@@ -406,7 +406,7 @@ class CallSummariesInstance(InstanceResource):
     def processing_state(self):
         """
         :returns: 
-        :rtype: CallSummariesProcessingState
+        :rtype: ProcessingState
         """
         return self._properties['processing_state']
     

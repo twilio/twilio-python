@@ -233,14 +233,14 @@ class BuildPage(Page):
 
 class BuildInstance(InstanceResource):
 
-    class BuildRuntime(object):
+    class Runtime(object):
         NODE8 = "node8"
         NODE10 = "node10"
         NODE12 = "node12"
         NODE14 = "node14"
         NODE16 = "node16"
 
-    class BuildStatus(object):
+    class Status(object):
         BUILDING = "building"
         COMPLETED = "completed"
         FAILED = "failed"
@@ -312,7 +312,7 @@ class BuildInstance(InstanceResource):
     def status(self):
         """
         :returns: 
-        :rtype: BuildStatus
+        :rtype: Status
         """
         return self._properties['status']
     
@@ -344,7 +344,7 @@ class BuildInstance(InstanceResource):
     def runtime(self):
         """
         :returns: 
-        :rtype: BuildRuntime
+        :rtype: Runtime
         """
         return self._properties['runtime']
     

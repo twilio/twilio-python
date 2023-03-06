@@ -13,7 +13,6 @@
 """
 
 
-from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -53,7 +52,7 @@ class MemberList(ListResource):
         Create the MemberInstance
 
         :param str identity: 
-        :param MemberWebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :param WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
         :param str role_sid: 
         :param int last_consumed_message_index: 
         :param datetime last_consumption_timestamp: 
@@ -142,7 +141,7 @@ class MemberList(ListResource):
         :rtype: twilio.rest.ip_messaging.v2.service.channel.member.MemberPage
         """
         data = values.of({ 
-            'Identity': serialize.map(identity, lambda e: e),
+            'Identity': serialize.map(identity),
             'PageToken': page_token,
             'Page': page_number,
             'PageSize': page_size,
@@ -247,9 +246,110 @@ class MemberPage(Page):
 
 
 
+class MemberContext(InstanceContext):
+
+    def __init__(self, version: Version, service_sid: str, channel_sid: str, sid: str):
+        """
+        Initialize the MemberContext
+
+        :param Version version: Version that contains the resource
+        :param service_sid: :param channel_sid: :param sid: 
+
+        :returns: twilio.rest.ip_messaging.v2.service.channel.member.MemberContext
+        :rtype: twilio.rest.ip_messaging.v2.service.channel.member.MemberContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'service_sid': service_sid,
+            'channel_sid': channel_sid,
+            'sid': sid,
+        }
+        self._uri = '/Services/{service_sid}/Channels/{channel_sid}/Members/{sid}'.format(**self._solution)
+        
+    
+    def delete(self, x_twilio_webhook_enabled=values.unset):
+        """
+        Deletes the MemberInstance
+
+        :param WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        headers = values.of({'X-Twilio-Webhook-Enabled': x_twilio_webhook_enabled, })
+        
+        return self._version.delete(method='DELETE', uri=self._uri, headers=headers)
+        
+    def fetch(self):
+        """
+        Fetch the MemberInstance
+        
+
+        :returns: The fetched MemberInstance
+        :rtype: twilio.rest.ip_messaging.v2.service.channel.member.MemberInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return MemberInstance(
+            self._version,
+            payload,
+            service_sid=self._solution['service_sid'],
+            channel_sid=self._solution['channel_sid'],
+            sid=self._solution['sid'],
+            
+        )
+        
+    def update(self, x_twilio_webhook_enabled=values.unset, role_sid=values.unset, last_consumed_message_index=values.unset, last_consumption_timestamp=values.unset, date_created=values.unset, date_updated=values.unset, attributes=values.unset):
+        """
+        Update the MemberInstance
+        
+        :params WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :params str role_sid: 
+        :params int last_consumed_message_index: 
+        :params datetime last_consumption_timestamp: 
+        :params datetime date_created: 
+        :params datetime date_updated: 
+        :params str attributes: 
+
+        :returns: The updated MemberInstance
+        :rtype: twilio.rest.ip_messaging.v2.service.channel.member.MemberInstance
+        """
+        data = values.of({ 
+            'RoleSid': role_sid,
+            'LastConsumedMessageIndex': last_consumed_message_index,
+            'LastConsumptionTimestamp': serialize.iso8601_datetime(last_consumption_timestamp),
+            'DateCreated': serialize.iso8601_datetime(date_created),
+            'DateUpdated': serialize.iso8601_datetime(date_updated),
+            'Attributes': attributes,
+        })
+        headers = values.of({'X-Twilio-Webhook-Enabled': x_twilio_webhook_enabled, })
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data, headers=headers)
+
+        return MemberInstance(
+            self._version,
+            payload,
+            service_sid=self._solution['service_sid'],
+            channel_sid=self._solution['channel_sid'],
+            sid=self._solution['sid']
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.IpMessaging.V2.MemberContext {}>'.format(context)
+
 class MemberInstance(InstanceResource):
 
-    class MemberWebhookEnabledType(object):
+    class WebhookEnabledType(object):
         TRUE = "true"
         FALSE = "false"
 
@@ -392,7 +492,7 @@ class MemberInstance(InstanceResource):
         """
         Deletes the MemberInstance
         
-        :params MemberWebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :params WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -413,7 +513,7 @@ class MemberInstance(InstanceResource):
         """
         Update the MemberInstance
         
-        :params MemberWebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :params WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
         :params str role_sid: 
         :params int last_consumed_message_index: 
         :params datetime last_consumption_timestamp: 
@@ -434,106 +534,5 @@ class MemberInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.IpMessaging.V2.MemberInstance {}>'.format(context)
-
-class MemberContext(InstanceContext):
-
-    def __init__(self, version: Version, service_sid: str, channel_sid: str, sid: str):
-        """
-        Initialize the MemberContext
-
-        :param Version version: Version that contains the resource
-        :param service_sid: :param channel_sid: :param sid: 
-
-        :returns: twilio.rest.ip_messaging.v2.service.channel.member.MemberContext
-        :rtype: twilio.rest.ip_messaging.v2.service.channel.member.MemberContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'service_sid': service_sid,
-            'channel_sid': channel_sid,
-            'sid': sid,
-        }
-        self._uri = '/Services/{service_sid}/Channels/{channel_sid}/Members/{sid}'.format(**self._solution)
-        
-    
-    def delete(self, x_twilio_webhook_enabled=values.unset):
-        """
-        Deletes the MemberInstance
-
-        :param MemberWebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        headers = values.of({'X-Twilio-Webhook-Enabled': x_twilio_webhook_enabled, })
-        
-        return self._version.delete(method='DELETE', uri=self._uri, headers=headers)
-        
-    def fetch(self):
-        """
-        Fetch the MemberInstance
-        
-
-        :returns: The fetched MemberInstance
-        :rtype: twilio.rest.ip_messaging.v2.service.channel.member.MemberInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return MemberInstance(
-            self._version,
-            payload,
-            service_sid=self._solution['service_sid'],
-            channel_sid=self._solution['channel_sid'],
-            sid=self._solution['sid'],
-            
-        )
-        
-    def update(self, x_twilio_webhook_enabled=values.unset, role_sid=values.unset, last_consumed_message_index=values.unset, last_consumption_timestamp=values.unset, date_created=values.unset, date_updated=values.unset, attributes=values.unset):
-        """
-        Update the MemberInstance
-        
-        :params MemberWebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
-        :params str role_sid: 
-        :params int last_consumed_message_index: 
-        :params datetime last_consumption_timestamp: 
-        :params datetime date_created: 
-        :params datetime date_updated: 
-        :params str attributes: 
-
-        :returns: The updated MemberInstance
-        :rtype: twilio.rest.ip_messaging.v2.service.channel.member.MemberInstance
-        """
-        data = values.of({ 
-            'RoleSid': role_sid,
-            'LastConsumedMessageIndex': last_consumed_message_index,
-            'LastConsumptionTimestamp': serialize.iso8601_datetime(last_consumption_timestamp),
-            'DateCreated': serialize.iso8601_datetime(date_created),
-            'DateUpdated': serialize.iso8601_datetime(date_updated),
-            'Attributes': attributes,
-        })
-        headers = values.of({'X-Twilio-Webhook-Enabled': x_twilio_webhook_enabled, })
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data, headers=headers)
-
-        return MemberInstance(
-            self._version,
-            payload,
-            service_sid=self._solution['service_sid'],
-            channel_sid=self._solution['channel_sid'],
-            sid=self._solution['sid']
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.IpMessaging.V2.MemberContext {}>'.format(context)
 
 

@@ -51,7 +51,7 @@ class IpCommandList(ListResource):
         :param str sim: The `sid` or `unique_name` of the [Super SIM](https://www.twilio.com/docs/iot/supersim/api/sim-resource) to send the IP Command to.
         :param str payload: The data that will be sent to the device. The payload cannot exceed 1300 bytes. If the PayloadType is set to text, the payload is encoded in UTF-8. If PayloadType is set to binary, the payload is encoded in Base64.
         :param int device_port: The device port to which the IP Command will be sent.
-        :param IpCommandPayloadType payload_type: 
+        :param PayloadType payload_type: 
         :param str callback_url: The URL we should call using the `callback_method` after we have sent the IP Command.
         :param str callback_method: The HTTP method we should use to call `callback_url`. Can be `GET` or `POST`, and the default is `POST`.
         
@@ -81,8 +81,8 @@ class IpCommandList(ListResource):
         
         :param str sim: The SID or unique name of the Sim resource that IP Command was sent to or from.
         :param str sim_iccid: The ICCID of the Sim resource that IP Command was sent to or from.
-        :param IpCommandStatus status: The status of the IP Command. Can be: `queued`, `sent`, `received` or `failed`. See the [IP Command Status Values](https://www.twilio.com/docs/wireless/api/ipcommand-resource#status-values) for a description of each.
-        :param IpCommandDirection direction: The direction of the IP Command. Can be `to_sim` or `from_sim`. The value of `to_sim` is synonymous with the term `mobile terminated`, and `from_sim` is synonymous with the term `mobile originated`.
+        :param Status status: The status of the IP Command. Can be: `queued`, `sent`, `received` or `failed`. See the [IP Command Status Values](https://www.twilio.com/docs/wireless/api/ipcommand-resource#status-values) for a description of each.
+        :param Direction direction: The direction of the IP Command. Can be `to_sim` or `from_sim`. The value of `to_sim` is synonymous with the term `mobile terminated`, and `from_sim` is synonymous with the term `mobile originated`.
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -112,8 +112,8 @@ class IpCommandList(ListResource):
         
         :param str sim: The SID or unique name of the Sim resource that IP Command was sent to or from.
         :param str sim_iccid: The ICCID of the Sim resource that IP Command was sent to or from.
-        :param IpCommandStatus status: The status of the IP Command. Can be: `queued`, `sent`, `received` or `failed`. See the [IP Command Status Values](https://www.twilio.com/docs/wireless/api/ipcommand-resource#status-values) for a description of each.
-        :param IpCommandDirection direction: The direction of the IP Command. Can be `to_sim` or `from_sim`. The value of `to_sim` is synonymous with the term `mobile terminated`, and `from_sim` is synonymous with the term `mobile originated`.
+        :param Status status: The status of the IP Command. Can be: `queued`, `sent`, `received` or `failed`. See the [IP Command Status Values](https://www.twilio.com/docs/wireless/api/ipcommand-resource#status-values) for a description of each.
+        :param Direction direction: The direction of the IP Command. Can be `to_sim` or `from_sim`. The value of `to_sim` is synonymous with the term `mobile terminated`, and `from_sim` is synonymous with the term `mobile originated`.
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -140,8 +140,8 @@ class IpCommandList(ListResource):
         
         :param str sim: The SID or unique name of the Sim resource that IP Command was sent to or from.
         :param str sim_iccid: The ICCID of the Sim resource that IP Command was sent to or from.
-        :param IpCommandStatus status: The status of the IP Command. Can be: `queued`, `sent`, `received` or `failed`. See the [IP Command Status Values](https://www.twilio.com/docs/wireless/api/ipcommand-resource#status-values) for a description of each.
-        :param IpCommandDirection direction: The direction of the IP Command. Can be `to_sim` or `from_sim`. The value of `to_sim` is synonymous with the term `mobile terminated`, and `from_sim` is synonymous with the term `mobile originated`.
+        :param Status status: The status of the IP Command. Can be: `queued`, `sent`, `received` or `failed`. See the [IP Command Status Values](https://www.twilio.com/docs/wireless/api/ipcommand-resource#status-values) for a description of each.
+        :param Direction direction: The direction of the IP Command. Can be `to_sim` or `from_sim`. The value of `to_sim` is synonymous with the term `mobile terminated`, and `from_sim` is synonymous with the term `mobile originated`.
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -256,15 +256,15 @@ class IpCommandPage(Page):
 
 class IpCommandInstance(InstanceResource):
 
-    class IpCommandDirection(object):
+    class Direction(object):
         TO_SIM = "to_sim"
         FROM_SIM = "from_sim"
 
-    class IpCommandPayloadType(object):
+    class PayloadType(object):
         TEXT = "text"
         BINARY = "binary"
 
-    class IpCommandStatus(object):
+    class Status(object):
         QUEUED = "queued"
         SENT = "sent"
         RECEIVED = "received"
@@ -346,7 +346,7 @@ class IpCommandInstance(InstanceResource):
     def status(self):
         """
         :returns: 
-        :rtype: IpCommandStatus
+        :rtype: Status
         """
         return self._properties['status']
     
@@ -354,7 +354,7 @@ class IpCommandInstance(InstanceResource):
     def direction(self):
         """
         :returns: 
-        :rtype: IpCommandDirection
+        :rtype: Direction
         """
         return self._properties['direction']
     
@@ -378,7 +378,7 @@ class IpCommandInstance(InstanceResource):
     def payload_type(self):
         """
         :returns: 
-        :rtype: IpCommandPayloadType
+        :rtype: PayloadType
         """
         return self._properties['payload_type']
     

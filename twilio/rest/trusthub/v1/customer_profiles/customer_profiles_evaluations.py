@@ -223,7 +223,7 @@ class CustomerProfilesEvaluationsPage(Page):
 
 class CustomerProfilesEvaluationsInstance(InstanceResource):
 
-    class CustomerProfileEvaluationStatus(object):
+    class Status(object):
         COMPLIANT = "compliant"
         NONCOMPLIANT = "noncompliant"
 
@@ -298,7 +298,7 @@ class CustomerProfilesEvaluationsInstance(InstanceResource):
     def status(self):
         """
         :returns: 
-        :rtype: CustomerProfileEvaluationStatus
+        :rtype: Status
         """
         return self._properties['status']
     

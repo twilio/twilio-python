@@ -180,13 +180,13 @@ class DependentPhoneNumberPage(Page):
 
 class DependentPhoneNumberInstance(InstanceResource):
 
-    class DependentPhoneNumberAddressRequirement(object):
+    class AddressRequirement(object):
         NONE = "none"
         ANY = "any"
         LOCAL = "local"
         FOREIGN = "foreign"
 
-    class DependentPhoneNumberEmergencyStatus(object):
+    class EmergencyStatus(object):
         ACTIVE = "Active"
         INACTIVE = "Inactive"
 
@@ -355,7 +355,7 @@ class DependentPhoneNumberInstance(InstanceResource):
     def address_requirements(self):
         """
         :returns: 
-        :rtype: DependentPhoneNumberAddressRequirement
+        :rtype: AddressRequirement
         """
         return self._properties['address_requirements']
     
@@ -419,7 +419,7 @@ class DependentPhoneNumberInstance(InstanceResource):
     def emergency_status(self):
         """
         :returns: 
-        :rtype: DependentPhoneNumberEmergencyStatus
+        :rtype: EmergencyStatus
         """
         return self._properties['emergency_status']
     

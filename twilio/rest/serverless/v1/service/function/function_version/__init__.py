@@ -205,7 +205,7 @@ class FunctionVersionPage(Page):
 
 class FunctionVersionInstance(InstanceResource):
 
-    class FunctionVersionVisibility(object):
+    class Visibility(object):
         PUBLIC = "public"
         PRIVATE = "private"
         PROTECTED = "protected"
@@ -290,7 +290,7 @@ class FunctionVersionInstance(InstanceResource):
     def visibility(self):
         """
         :returns: 
-        :rtype: FunctionVersionVisibility
+        :rtype: Visibility
         """
         return self._properties['visibility']
     

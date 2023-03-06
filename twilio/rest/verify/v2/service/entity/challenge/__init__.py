@@ -84,8 +84,8 @@ class ChallengeList(ListResource):
         The results are returned as a generator, so this operation is memory efficient.
         
         :param str factor_sid: The unique SID identifier of the Factor.
-        :param ChallengeChallengeStatuses status: The Status of the Challenges to fetch. One of `pending`, `expired`, `approved` or `denied`.
-        :param ChallengeListOrders order: The desired sort order of the Challenges list. One of `asc` or `desc` for ascending and descending respectively. Defaults to `asc`.
+        :param ChallengeStatuses status: The Status of the Challenges to fetch. One of `pending`, `expired`, `approved` or `denied`.
+        :param ListOrders order: The desired sort order of the Challenges list. One of `asc` or `desc` for ascending and descending respectively. Defaults to `asc`.
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -113,8 +113,8 @@ class ChallengeList(ListResource):
         memory before returning.
         
         :param str factor_sid: The unique SID identifier of the Factor.
-        :param ChallengeChallengeStatuses status: The Status of the Challenges to fetch. One of `pending`, `expired`, `approved` or `denied`.
-        :param ChallengeListOrders order: The desired sort order of the Challenges list. One of `asc` or `desc` for ascending and descending respectively. Defaults to `asc`.
+        :param ChallengeStatuses status: The Status of the Challenges to fetch. One of `pending`, `expired`, `approved` or `denied`.
+        :param ListOrders order: The desired sort order of the Challenges list. One of `asc` or `desc` for ascending and descending respectively. Defaults to `asc`.
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -139,8 +139,8 @@ class ChallengeList(ListResource):
         Request is executed immediately
         
         :param str factor_sid: The unique SID identifier of the Factor.
-        :param ChallengeChallengeStatuses status: The Status of the Challenges to fetch. One of `pending`, `expired`, `approved` or `denied`.
-        :param ChallengeListOrders order: The desired sort order of the Challenges list. One of `asc` or `desc` for ascending and descending respectively. Defaults to `asc`.
+        :param ChallengeStatuses status: The Status of the Challenges to fetch. One of `pending`, `expired`, `approved` or `denied`.
+        :param ListOrders order: The desired sort order of the Challenges list. One of `asc` or `desc` for ascending and descending respectively. Defaults to `asc`.
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -256,22 +256,22 @@ class ChallengePage(Page):
 
 class ChallengeInstance(InstanceResource):
 
-    class ChallengeChallengeReasons(object):
+    class ChallengeReasons(object):
         NONE = "none"
         NOT_NEEDED = "not_needed"
         NOT_REQUESTED = "not_requested"
 
-    class ChallengeChallengeStatuses(object):
+    class ChallengeStatuses(object):
         PENDING = "pending"
         EXPIRED = "expired"
         APPROVED = "approved"
         DENIED = "denied"
 
-    class ChallengeFactorTypes(object):
+    class FactorTypes(object):
         PUSH = "push"
         TOTP = "totp"
 
-    class ChallengeListOrders(object):
+    class ListOrders(object):
         ASC = "asc"
         DESC = "desc"
 
@@ -404,7 +404,7 @@ class ChallengeInstance(InstanceResource):
     def status(self):
         """
         :returns: 
-        :rtype: ChallengeChallengeStatuses
+        :rtype: ChallengeStatuses
         """
         return self._properties['status']
     
@@ -412,7 +412,7 @@ class ChallengeInstance(InstanceResource):
     def responded_reason(self):
         """
         :returns: 
-        :rtype: ChallengeChallengeReasons
+        :rtype: ChallengeReasons
         """
         return self._properties['responded_reason']
     
@@ -444,7 +444,7 @@ class ChallengeInstance(InstanceResource):
     def factor_type(self):
         """
         :returns: 
-        :rtype: ChallengeFactorTypes
+        :rtype: FactorTypes
         """
         return self._properties['factor_type']
     

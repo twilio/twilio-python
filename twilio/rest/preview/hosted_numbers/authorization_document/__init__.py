@@ -13,7 +13,6 @@
 """
 
 
-from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -82,7 +81,7 @@ class AuthorizationDocumentList(ListResource):
         The results are returned as a generator, so this operation is memory efficient.
         
         :param str email: Email that this AuthorizationDocument will be sent to for signing.
-        :param AuthorizationDocumentStatus status: Status of an instance resource. It can hold one of the values: 1. opened 2. signing, 3. signed LOA, 4. canceled, 5. failed. See the section entitled [Status Values](https://www.twilio.com/docs/api/phone-numbers/hosted-number-authorization-documents#status-values) for more information on each of these statuses.
+        :param Status status: Status of an instance resource. It can hold one of the values: 1. opened 2. signing, 3. signed LOA, 4. canceled, 5. failed. See the section entitled [Status Values](https://www.twilio.com/docs/api/phone-numbers/hosted-number-authorization-documents#status-values) for more information on each of these statuses.
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -109,7 +108,7 @@ class AuthorizationDocumentList(ListResource):
         memory before returning.
         
         :param str email: Email that this AuthorizationDocument will be sent to for signing.
-        :param AuthorizationDocumentStatus status: Status of an instance resource. It can hold one of the values: 1. opened 2. signing, 3. signed LOA, 4. canceled, 5. failed. See the section entitled [Status Values](https://www.twilio.com/docs/api/phone-numbers/hosted-number-authorization-documents#status-values) for more information on each of these statuses.
+        :param Status status: Status of an instance resource. It can hold one of the values: 1. opened 2. signing, 3. signed LOA, 4. canceled, 5. failed. See the section entitled [Status Values](https://www.twilio.com/docs/api/phone-numbers/hosted-number-authorization-documents#status-values) for more information on each of these statuses.
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -133,7 +132,7 @@ class AuthorizationDocumentList(ListResource):
         Request is executed immediately
         
         :param str email: Email that this AuthorizationDocument will be sent to for signing.
-        :param AuthorizationDocumentStatus status: Status of an instance resource. It can hold one of the values: 1. opened 2. signing, 3. signed LOA, 4. canceled, 5. failed. See the section entitled [Status Values](https://www.twilio.com/docs/api/phone-numbers/hosted-number-authorization-documents#status-values) for more information on each of these statuses.
+        :param Status status: Status of an instance resource. It can hold one of the values: 1. opened 2. signing, 3. signed LOA, 4. canceled, 5. failed. See the section entitled [Status Values](https://www.twilio.com/docs/api/phone-numbers/hosted-number-authorization-documents#status-values) for more information on each of these statuses.
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -246,9 +245,106 @@ class AuthorizationDocumentPage(Page):
 
 
 
+class AuthorizationDocumentContext(InstanceContext):
+
+    def __init__(self, version: Version, sid: str):
+        """
+        Initialize the AuthorizationDocumentContext
+
+        :param Version version: Version that contains the resource
+        :param sid: 
+
+        :returns: twilio.rest.preview.hosted_numbers.authorization_document.AuthorizationDocumentContext
+        :rtype: twilio.rest.preview.hosted_numbers.authorization_document.AuthorizationDocumentContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'sid': sid,
+        }
+        self._uri = '/AuthorizationDocuments/{sid}'.format(**self._solution)
+        
+        self._dependent_hosted_number_orders = None
+    
+    def fetch(self):
+        """
+        Fetch the AuthorizationDocumentInstance
+        
+
+        :returns: The fetched AuthorizationDocumentInstance
+        :rtype: twilio.rest.preview.hosted_numbers.authorization_document.AuthorizationDocumentInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return AuthorizationDocumentInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid'],
+            
+        )
+        
+    def update(self, hosted_number_order_sids=values.unset, address_sid=values.unset, email=values.unset, cc_emails=values.unset, status=values.unset, contact_title=values.unset, contact_phone_number=values.unset):
+        """
+        Update the AuthorizationDocumentInstance
+        
+        :params list[str] hosted_number_order_sids: A list of HostedNumberOrder sids that this AuthorizationDocument will authorize for hosting phone number capabilities on Twilio's platform.
+        :params str address_sid: A 34 character string that uniquely identifies the Address resource that is associated with this AuthorizationDocument.
+        :params str email: Email that this AuthorizationDocument will be sent to for signing.
+        :params list[str] cc_emails: Email recipients who will be informed when an Authorization Document has been sent and signed
+        :params Status status: 
+        :params str contact_title: The title of the person authorized to sign the Authorization Document for this phone number.
+        :params str contact_phone_number: The contact phone number of the person authorized to sign the Authorization Document.
+
+        :returns: The updated AuthorizationDocumentInstance
+        :rtype: twilio.rest.preview.hosted_numbers.authorization_document.AuthorizationDocumentInstance
+        """
+        data = values.of({ 
+            'HostedNumberOrderSids': serialize.map(hosted_number_order_sids, lambda e: e),
+            'AddressSid': address_sid,
+            'Email': email,
+            'CcEmails': serialize.map(cc_emails, lambda e: e),
+            'Status': status,
+            'ContactTitle': contact_title,
+            'ContactPhoneNumber': contact_phone_number,
+        })
+        
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return AuthorizationDocumentInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid']
+        )
+        
+    
+    @property
+    def dependent_hosted_number_orders(self):
+        """
+        Access the dependent_hosted_number_orders
+
+        :returns: twilio.rest.preview.hosted_numbers.authorization_document.DependentHostedNumberOrderList
+        :rtype: twilio.rest.preview.hosted_numbers.authorization_document.DependentHostedNumberOrderList
+        """
+        if self._dependent_hosted_number_orders is None:
+            self._dependent_hosted_number_orders = DependentHostedNumberOrderList(self._version, self._solution['sid'],
+            )
+        return self._dependent_hosted_number_orders
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Preview.HostedNumbers.AuthorizationDocumentContext {}>'.format(context)
+
 class AuthorizationDocumentInstance(InstanceResource):
 
-    class AuthorizationDocumentStatus(object):
+    class Status(object):
         OPENED = "opened"
         SIGNING = "signing"
         SIGNED = "signed"
@@ -311,7 +407,7 @@ class AuthorizationDocumentInstance(InstanceResource):
     def status(self):
         """
         :returns: 
-        :rtype: AuthorizationDocumentStatus
+        :rtype: Status
         """
         return self._properties['status']
     
@@ -381,7 +477,7 @@ class AuthorizationDocumentInstance(InstanceResource):
         :params str address_sid: A 34 character string that uniquely identifies the Address resource that is associated with this AuthorizationDocument.
         :params str email: Email that this AuthorizationDocument will be sent to for signing.
         :params list[str] cc_emails: Email recipients who will be informed when an Authorization Document has been sent and signed
-        :params AuthorizationDocumentStatus status: 
+        :params Status status: 
         :params str contact_title: The title of the person authorized to sign the Authorization Document for this phone number.
         :params str contact_phone_number: The contact phone number of the person authorized to sign the Authorization Document.
 
@@ -408,102 +504,5 @@ class AuthorizationDocumentInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Preview.HostedNumbers.AuthorizationDocumentInstance {}>'.format(context)
-
-class AuthorizationDocumentContext(InstanceContext):
-
-    def __init__(self, version: Version, sid: str):
-        """
-        Initialize the AuthorizationDocumentContext
-
-        :param Version version: Version that contains the resource
-        :param sid: 
-
-        :returns: twilio.rest.preview.hosted_numbers.authorization_document.AuthorizationDocumentContext
-        :rtype: twilio.rest.preview.hosted_numbers.authorization_document.AuthorizationDocumentContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'sid': sid,
-        }
-        self._uri = '/AuthorizationDocuments/{sid}'.format(**self._solution)
-        
-        self._dependent_hosted_number_orders = None
-    
-    def fetch(self):
-        """
-        Fetch the AuthorizationDocumentInstance
-        
-
-        :returns: The fetched AuthorizationDocumentInstance
-        :rtype: twilio.rest.preview.hosted_numbers.authorization_document.AuthorizationDocumentInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return AuthorizationDocumentInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid'],
-            
-        )
-        
-    def update(self, hosted_number_order_sids=values.unset, address_sid=values.unset, email=values.unset, cc_emails=values.unset, status=values.unset, contact_title=values.unset, contact_phone_number=values.unset):
-        """
-        Update the AuthorizationDocumentInstance
-        
-        :params list[str] hosted_number_order_sids: A list of HostedNumberOrder sids that this AuthorizationDocument will authorize for hosting phone number capabilities on Twilio's platform.
-        :params str address_sid: A 34 character string that uniquely identifies the Address resource that is associated with this AuthorizationDocument.
-        :params str email: Email that this AuthorizationDocument will be sent to for signing.
-        :params list[str] cc_emails: Email recipients who will be informed when an Authorization Document has been sent and signed
-        :params AuthorizationDocumentStatus status: 
-        :params str contact_title: The title of the person authorized to sign the Authorization Document for this phone number.
-        :params str contact_phone_number: The contact phone number of the person authorized to sign the Authorization Document.
-
-        :returns: The updated AuthorizationDocumentInstance
-        :rtype: twilio.rest.preview.hosted_numbers.authorization_document.AuthorizationDocumentInstance
-        """
-        data = values.of({ 
-            'HostedNumberOrderSids': serialize.map(hosted_number_order_sids, lambda e: e),
-            'AddressSid': address_sid,
-            'Email': email,
-            'CcEmails': serialize.map(cc_emails, lambda e: e),
-            'Status': status,
-            'ContactTitle': contact_title,
-            'ContactPhoneNumber': contact_phone_number,
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return AuthorizationDocumentInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid']
-        )
-        
-    
-    @property
-    def dependent_hosted_number_orders(self):
-        """
-        Access the dependent_hosted_number_orders
-
-        :returns: twilio.rest.preview.hosted_numbers.authorization_document.DependentHostedNumberOrderList
-        :rtype: twilio.rest.preview.hosted_numbers.authorization_document.DependentHostedNumberOrderList
-        """
-        if self._dependent_hosted_number_orders is None:
-            self._dependent_hosted_number_orders = DependentHostedNumberOrderList(self._version, self._solution['sid'],
-            )
-        return self._dependent_hosted_number_orders
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Preview.HostedNumbers.AuthorizationDocumentContext {}>'.format(context)
 
 

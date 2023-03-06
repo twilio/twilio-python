@@ -205,7 +205,7 @@ class DeliveryReceiptPage(Page):
 
 class DeliveryReceiptInstance(InstanceResource):
 
-    class ServiceConversationMessageReceiptDeliveryStatus(object):
+    class DeliveryStatus(object):
         READ = "read"
         FAILED = "failed"
         DELIVERED = "delivered"
@@ -311,7 +311,7 @@ class DeliveryReceiptInstance(InstanceResource):
     def status(self):
         """
         :returns: 
-        :rtype: ServiceConversationMessageReceiptDeliveryStatus
+        :rtype: DeliveryStatus
         """
         return self._properties['status']
     

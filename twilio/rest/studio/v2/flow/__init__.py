@@ -13,7 +13,6 @@
 """
 
 
-from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -54,7 +53,7 @@ class FlowList(ListResource):
         Create the FlowInstance
 
         :param str friendly_name: The string that you assigned to describe the Flow.
-        :param FlowStatus status: 
+        :param Status status: 
         :param object definition: JSON representation of flow definition.
         :param str commit_message: Description of change made in the revision.
         
@@ -235,9 +234,138 @@ class FlowPage(Page):
 
 
 
+class FlowContext(InstanceContext):
+
+    def __init__(self, version: Version, sid: str):
+        """
+        Initialize the FlowContext
+
+        :param Version version: Version that contains the resource
+        :param sid: The SID of the Flow resource to fetch.
+
+        :returns: twilio.rest.studio.v2.flow.FlowContext
+        :rtype: twilio.rest.studio.v2.flow.FlowContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'sid': sid,
+        }
+        self._uri = '/Flows/{sid}'.format(**self._solution)
+        
+        self._executions = None
+        self._revisions = None
+        self._test_users = None
+    
+    def delete(self):
+        """
+        Deletes the FlowInstance
+
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(method='DELETE', uri=self._uri,)
+        
+    def fetch(self):
+        """
+        Fetch the FlowInstance
+        
+
+        :returns: The fetched FlowInstance
+        :rtype: twilio.rest.studio.v2.flow.FlowInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return FlowInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid'],
+            
+        )
+        
+    def update(self, status, friendly_name=values.unset, definition=values.unset, commit_message=values.unset):
+        """
+        Update the FlowInstance
+        
+        :params Status status: 
+        :params str friendly_name: The string that you assigned to describe the Flow.
+        :params object definition: JSON representation of flow definition.
+        :params str commit_message: Description of change made in the revision.
+
+        :returns: The updated FlowInstance
+        :rtype: twilio.rest.studio.v2.flow.FlowInstance
+        """
+        data = values.of({ 
+            'Status': status,
+            'FriendlyName': friendly_name,
+            'Definition': serialize.object(definition),
+            'CommitMessage': commit_message,
+        })
+        
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return FlowInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid']
+        )
+        
+    
+    @property
+    def executions(self):
+        """
+        Access the executions
+
+        :returns: twilio.rest.studio.v2.flow.ExecutionList
+        :rtype: twilio.rest.studio.v2.flow.ExecutionList
+        """
+        if self._executions is None:
+            self._executions = ExecutionList(self._version, self._solution['sid'],
+            )
+        return self._executions
+    
+    @property
+    def revisions(self):
+        """
+        Access the revisions
+
+        :returns: twilio.rest.studio.v2.flow.FlowRevisionList
+        :rtype: twilio.rest.studio.v2.flow.FlowRevisionList
+        """
+        if self._revisions is None:
+            self._revisions = FlowRevisionList(self._version, self._solution['sid'],
+            )
+        return self._revisions
+    
+    @property
+    def test_users(self):
+        """
+        Access the test_users
+
+        :returns: twilio.rest.studio.v2.flow.FlowTestUserList
+        :rtype: twilio.rest.studio.v2.flow.FlowTestUserList
+        """
+        if self._test_users is None:
+            self._test_users = FlowTestUserList(self._version, self._solution['sid'],
+            )
+        return self._test_users
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Studio.V2.FlowContext {}>'.format(context)
+
 class FlowInstance(InstanceResource):
 
-    class FlowStatus(object):
+    class Status(object):
         DRAFT = "draft"
         PUBLISHED = "published"
 
@@ -319,7 +447,7 @@ class FlowInstance(InstanceResource):
     def status(self):
         """
         :returns: 
-        :rtype: FlowStatus
+        :rtype: Status
         """
         return self._properties['status']
     
@@ -427,7 +555,7 @@ class FlowInstance(InstanceResource):
         """
         Update the FlowInstance
         
-        :params FlowStatus status: 
+        :params Status status: 
         :params str friendly_name: The string that you assigned to describe the Flow.
         :params object definition: JSON representation of flow definition.
         :params str commit_message: Description of change made in the revision.
@@ -475,134 +603,5 @@ class FlowInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Studio.V2.FlowInstance {}>'.format(context)
-
-class FlowContext(InstanceContext):
-
-    def __init__(self, version: Version, sid: str):
-        """
-        Initialize the FlowContext
-
-        :param Version version: Version that contains the resource
-        :param sid: The SID of the Flow resource to fetch.
-
-        :returns: twilio.rest.studio.v2.flow.FlowContext
-        :rtype: twilio.rest.studio.v2.flow.FlowContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'sid': sid,
-        }
-        self._uri = '/Flows/{sid}'.format(**self._solution)
-        
-        self._executions = None
-        self._revisions = None
-        self._test_users = None
-    
-    def delete(self):
-        """
-        Deletes the FlowInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(method='DELETE', uri=self._uri,)
-        
-    def fetch(self):
-        """
-        Fetch the FlowInstance
-        
-
-        :returns: The fetched FlowInstance
-        :rtype: twilio.rest.studio.v2.flow.FlowInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return FlowInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid'],
-            
-        )
-        
-    def update(self, status, friendly_name=values.unset, definition=values.unset, commit_message=values.unset):
-        """
-        Update the FlowInstance
-        
-        :params FlowStatus status: 
-        :params str friendly_name: The string that you assigned to describe the Flow.
-        :params object definition: JSON representation of flow definition.
-        :params str commit_message: Description of change made in the revision.
-
-        :returns: The updated FlowInstance
-        :rtype: twilio.rest.studio.v2.flow.FlowInstance
-        """
-        data = values.of({ 
-            'Status': status,
-            'FriendlyName': friendly_name,
-            'Definition': serialize.object(definition),
-            'CommitMessage': commit_message,
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return FlowInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid']
-        )
-        
-    
-    @property
-    def executions(self):
-        """
-        Access the executions
-
-        :returns: twilio.rest.studio.v2.flow.ExecutionList
-        :rtype: twilio.rest.studio.v2.flow.ExecutionList
-        """
-        if self._executions is None:
-            self._executions = ExecutionList(self._version, self._solution['sid'],
-            )
-        return self._executions
-    
-    @property
-    def revisions(self):
-        """
-        Access the revisions
-
-        :returns: twilio.rest.studio.v2.flow.FlowRevisionList
-        :rtype: twilio.rest.studio.v2.flow.FlowRevisionList
-        """
-        if self._revisions is None:
-            self._revisions = FlowRevisionList(self._version, self._solution['sid'],
-            )
-        return self._revisions
-    
-    @property
-    def test_users(self):
-        """
-        Access the test_users
-
-        :returns: twilio.rest.studio.v2.flow.FlowTestUserList
-        :rtype: twilio.rest.studio.v2.flow.FlowTestUserList
-        """
-        if self._test_users is None:
-            self._test_users = FlowTestUserList(self._version, self._solution['sid'],
-            )
-        return self._test_users
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Studio.V2.FlowContext {}>'.format(context)
 
 

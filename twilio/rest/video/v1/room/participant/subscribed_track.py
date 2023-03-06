@@ -204,7 +204,7 @@ class SubscribedTrackPage(Page):
 
 class SubscribedTrackInstance(InstanceResource):
 
-    class RoomParticipantSubscribedTrackKind(object):
+    class Kind(object):
         AUDIO = "audio"
         VIDEO = "video"
         DATA = "data"
@@ -314,7 +314,7 @@ class SubscribedTrackInstance(InstanceResource):
     def kind(self):
         """
         :returns: 
-        :rtype: RoomParticipantSubscribedTrackKind
+        :rtype: Kind
         """
         return self._properties['kind']
     

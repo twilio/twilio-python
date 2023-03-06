@@ -81,7 +81,7 @@ class VerificationCheckList(ListResource):
 
 class VerificationCheckInstance(InstanceResource):
 
-    class VerificationCheckChannel(object):
+    class Channel(object):
         SMS = "sms"
         CALL = "call"
         EMAIL = "email"
@@ -151,7 +151,7 @@ class VerificationCheckInstance(InstanceResource):
     def channel(self):
         """
         :returns: 
-        :rtype: VerificationCheckChannel
+        :rtype: Channel
         """
         return self._properties['channel']
     

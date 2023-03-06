@@ -51,7 +51,7 @@ class DependentHostedNumberOrderList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
         
-        :param DependentHostedNumberOrderStatus status: Status of an instance resource. It can hold one of the values: 1. opened 2. signing, 3. signed LOA, 4. canceled, 5. failed. See the section entitled [Status Values](https://www.twilio.com/docs/api/phone-numbers/hosted-number-authorization-documents#status-values) for more information on each of these statuses.
+        :param Status status: Status of an instance resource. It can hold one of the values: 1. opened 2. signing, 3. signed LOA, 4. canceled, 5. failed. See the section entitled [Status Values](https://www.twilio.com/docs/api/phone-numbers/hosted-number-authorization-documents#status-values) for more information on each of these statuses.
         :param str phone_number: An E164 formatted phone number hosted by this HostedNumberOrder.
         :param str incoming_phone_number_sid: A 34 character string that uniquely identifies the IncomingPhoneNumber resource created by this HostedNumberOrder.
         :param str friendly_name: A human readable description of this resource, up to 64 characters.
@@ -84,7 +84,7 @@ class DependentHostedNumberOrderList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
-        :param DependentHostedNumberOrderStatus status: Status of an instance resource. It can hold one of the values: 1. opened 2. signing, 3. signed LOA, 4. canceled, 5. failed. See the section entitled [Status Values](https://www.twilio.com/docs/api/phone-numbers/hosted-number-authorization-documents#status-values) for more information on each of these statuses.
+        :param Status status: Status of an instance resource. It can hold one of the values: 1. opened 2. signing, 3. signed LOA, 4. canceled, 5. failed. See the section entitled [Status Values](https://www.twilio.com/docs/api/phone-numbers/hosted-number-authorization-documents#status-values) for more information on each of these statuses.
         :param str phone_number: An E164 formatted phone number hosted by this HostedNumberOrder.
         :param str incoming_phone_number_sid: A 34 character string that uniquely identifies the IncomingPhoneNumber resource created by this HostedNumberOrder.
         :param str friendly_name: A human readable description of this resource, up to 64 characters.
@@ -114,7 +114,7 @@ class DependentHostedNumberOrderList(ListResource):
         Retrieve a single page of DependentHostedNumberOrderInstance records from the API.
         Request is executed immediately
         
-        :param DependentHostedNumberOrderStatus status: Status of an instance resource. It can hold one of the values: 1. opened 2. signing, 3. signed LOA, 4. canceled, 5. failed. See the section entitled [Status Values](https://www.twilio.com/docs/api/phone-numbers/hosted-number-authorization-documents#status-values) for more information on each of these statuses.
+        :param Status status: Status of an instance resource. It can hold one of the values: 1. opened 2. signing, 3. signed LOA, 4. canceled, 5. failed. See the section entitled [Status Values](https://www.twilio.com/docs/api/phone-numbers/hosted-number-authorization-documents#status-values) for more information on each of these statuses.
         :param str phone_number: An E164 formatted phone number hosted by this HostedNumberOrder.
         :param str incoming_phone_number_sid: A 34 character string that uniquely identifies the IncomingPhoneNumber resource created by this HostedNumberOrder.
         :param str friendly_name: A human readable description of this resource, up to 64 characters.
@@ -209,7 +209,7 @@ class DependentHostedNumberOrderPage(Page):
 
 class DependentHostedNumberOrderInstance(InstanceResource):
 
-    class DependentHostedNumberOrderStatus(object):
+    class Status(object):
         RECEIVED = "received"
         PENDING_VERIFICATION = "pending-verification"
         VERIFIED = "verified"
@@ -220,7 +220,7 @@ class DependentHostedNumberOrderInstance(InstanceResource):
         FAILED = "failed"
         ACTION_REQUIRED = "action-required"
 
-    class DependentHostedNumberOrderVerificationType(object):
+    class VerificationType(object):
         PHONE_CALL = "phone-call"
         PHONE_BILL = "phone-bill"
 
@@ -337,7 +337,7 @@ class DependentHostedNumberOrderInstance(InstanceResource):
     def status(self):
         """
         :returns: 
-        :rtype: DependentHostedNumberOrderStatus
+        :rtype: Status
         """
         return self._properties['status']
     
@@ -393,7 +393,7 @@ class DependentHostedNumberOrderInstance(InstanceResource):
     def verification_type(self):
         """
         :returns: 
-        :rtype: DependentHostedNumberOrderVerificationType
+        :rtype: VerificationType
         """
         return self._properties['verification_type']
     

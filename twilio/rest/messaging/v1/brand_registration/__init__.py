@@ -234,20 +234,20 @@ class BrandRegistrationPage(Page):
 
 class BrandRegistrationInstance(InstanceResource):
 
-    class BrandRegistrationsBrandFeedback(object):
+    class BrandFeedback(object):
         TAX_ID = "TAX_ID"
         STOCK_SYMBOL = "STOCK_SYMBOL"
         NONPROFIT = "NONPROFIT"
         GOVERNMENT_ENTITY = "GOVERNMENT_ENTITY"
         OTHERS = "OTHERS"
 
-    class BrandRegistrationsIdentityStatus(object):
+    class IdentityStatus(object):
         SELF_DECLARED = "SELF_DECLARED"
         UNVERIFIED = "UNVERIFIED"
         VERIFIED = "VERIFIED"
         VETTED_VERIFIED = "VETTED_VERIFIED"
 
-    class BrandRegistrationsStatus(object):
+    class Status(object):
         PENDING = "PENDING"
         APPROVED = "APPROVED"
         FAILED = "FAILED"
@@ -361,7 +361,7 @@ class BrandRegistrationInstance(InstanceResource):
     def status(self):
         """
         :returns: 
-        :rtype: BrandRegistrationsStatus
+        :rtype: Status
         """
         return self._properties['status']
     
@@ -401,7 +401,7 @@ class BrandRegistrationInstance(InstanceResource):
     def brand_feedback(self):
         """
         :returns: Feedback on how to improve brand score
-        :rtype: list[BrandRegistrationsBrandFeedback]
+        :rtype: list[BrandFeedback]
         """
         return self._properties['brand_feedback']
     
@@ -409,7 +409,7 @@ class BrandRegistrationInstance(InstanceResource):
     def identity_status(self):
         """
         :returns: 
-        :rtype: BrandRegistrationsIdentityStatus
+        :rtype: IdentityStatus
         """
         return self._properties['identity_status']
     

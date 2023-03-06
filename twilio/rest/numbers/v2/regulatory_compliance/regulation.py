@@ -51,7 +51,7 @@ class RegulationList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
         
-        :param RegulationEndUserType end_user_type: The type of End User the regulation requires - can be `individual` or `business`.
+        :param EndUserType end_user_type: The type of End User the regulation requires - can be `individual` or `business`.
         :param str iso_country: The ISO country code of the phone number's country.
         :param str number_type: The type of phone number that the regulatory requiremnt is restricting.
         :param int limit: Upper limit for the number of records to return. stream()
@@ -80,7 +80,7 @@ class RegulationList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
-        :param RegulationEndUserType end_user_type: The type of End User the regulation requires - can be `individual` or `business`.
+        :param EndUserType end_user_type: The type of End User the regulation requires - can be `individual` or `business`.
         :param str iso_country: The ISO country code of the phone number's country.
         :param str number_type: The type of phone number that the regulatory requiremnt is restricting.
         :param int limit: Upper limit for the number of records to return. list() guarantees
@@ -106,7 +106,7 @@ class RegulationList(ListResource):
         Retrieve a single page of RegulationInstance records from the API.
         Request is executed immediately
         
-        :param RegulationEndUserType end_user_type: The type of End User the regulation requires - can be `individual` or `business`.
+        :param EndUserType end_user_type: The type of End User the regulation requires - can be `individual` or `business`.
         :param str iso_country: The ISO country code of the phone number's country.
         :param str number_type: The type of phone number that the regulatory requiremnt is restricting.
         :param str page_token: PageToken provided by the API
@@ -220,7 +220,7 @@ class RegulationPage(Page):
 
 class RegulationInstance(InstanceResource):
 
-    class RegulationEndUserType(object):
+    class EndUserType(object):
         INDIVIDUAL = "individual"
         BUSINESS = "business"
 
@@ -294,7 +294,7 @@ class RegulationInstance(InstanceResource):
     def end_user_type(self):
         """
         :returns: 
-        :rtype: RegulationEndUserType
+        :rtype: EndUserType
         """
         return self._properties['end_user_type']
     

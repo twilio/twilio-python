@@ -247,7 +247,7 @@ class FleetPage(Page):
 
 class FleetInstance(InstanceResource):
 
-    class FleetDataMetering(object):
+    class DataMetering(object):
         PAYG = "payg"
 
     def __init__(self, version, payload, sid: str=None):
@@ -360,7 +360,7 @@ class FleetInstance(InstanceResource):
     def data_metering(self):
         """
         :returns: 
-        :rtype: FleetDataMetering
+        :rtype: DataMetering
         """
         return self._properties['data_metering']
     

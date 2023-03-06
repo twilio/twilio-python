@@ -232,7 +232,7 @@ class EngagementPage(Page):
 
 class EngagementInstance(InstanceResource):
 
-    class EngagementStatus(object):
+    class Status(object):
         ACTIVE = "active"
         ENDED = "ended"
 
@@ -326,7 +326,7 @@ class EngagementInstance(InstanceResource):
     def status(self):
         """
         :returns: 
-        :rtype: EngagementStatus
+        :rtype: Status
         """
         return self._properties['status']
     

@@ -13,7 +13,6 @@
 """
 
 
-from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -71,9 +70,63 @@ class CallSummaryList(ListResource):
         """
         return '<Twilio.Insights.V1.CallSummaryList>'
 
+class CallSummaryContext(InstanceContext):
+
+    def __init__(self, version: Version, call_sid: str):
+        """
+        Initialize the CallSummaryContext
+
+        :param Version version: Version that contains the resource
+        :param call_sid: 
+
+        :returns: twilio.rest.insights.v1.call.call_summary.CallSummaryContext
+        :rtype: twilio.rest.insights.v1.call.call_summary.CallSummaryContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'call_sid': call_sid,
+        }
+        self._uri = '/Voice/{call_sid}/Summary'.format(**self._solution)
+        
+    
+    def fetch(self, processing_state=values.unset):
+        """
+        Fetch the CallSummaryInstance
+        
+        :params ProcessingState processing_state: 
+
+        :returns: The fetched CallSummaryInstance
+        :rtype: twilio.rest.insights.v1.call.call_summary.CallSummaryInstance
+        """
+        
+        data = values.of({ 
+            'ProcessingState': processing_state,
+        })
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, params=data)
+
+        return CallSummaryInstance(
+            self._version,
+            payload,
+            call_sid=self._solution['call_sid'],
+            
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Insights.V1.CallSummaryContext {}>'.format(context)
+
 class CallSummaryInstance(InstanceResource):
 
-    class SummaryAnsweredBy(object):
+    class AnsweredBy(object):
         UNKNOWN = "unknown"
         MACHINE_START = "machine_start"
         MACHINE_END_BEEP = "machine_end_beep"
@@ -82,7 +135,7 @@ class CallSummaryInstance(InstanceResource):
         HUMAN = "human"
         FAX = "fax"
 
-    class SummaryCallState(object):
+    class CallState(object):
         RINGING = "ringing"
         COMPLETED = "completed"
         BUSY = "busy"
@@ -92,13 +145,13 @@ class CallSummaryInstance(InstanceResource):
         ANSWERED = "answered"
         UNDIALED = "undialed"
 
-    class SummaryCallType(object):
+    class CallType(object):
         CARRIER = "carrier"
         SIP = "sip"
         TRUNKING = "trunking"
         CLIENT = "client"
 
-    class SummaryProcessingState(object):
+    class ProcessingState(object):
         COMPLETE = "complete"
         PARTIAL = "partial"
 
@@ -172,7 +225,7 @@ class CallSummaryInstance(InstanceResource):
     def call_type(self):
         """
         :returns: 
-        :rtype: SummaryCallType
+        :rtype: CallType
         """
         return self._properties['call_type']
     
@@ -180,7 +233,7 @@ class CallSummaryInstance(InstanceResource):
     def call_state(self):
         """
         :returns: 
-        :rtype: SummaryCallState
+        :rtype: CallState
         """
         return self._properties['call_state']
     
@@ -188,7 +241,7 @@ class CallSummaryInstance(InstanceResource):
     def answered_by(self):
         """
         :returns: 
-        :rtype: SummaryAnsweredBy
+        :rtype: AnsweredBy
         """
         return self._properties['answered_by']
     
@@ -196,7 +249,7 @@ class CallSummaryInstance(InstanceResource):
     def processing_state(self):
         """
         :returns: 
-        :rtype: SummaryProcessingState
+        :rtype: ProcessingState
         """
         return self._properties['processing_state']
     
@@ -340,7 +393,7 @@ class CallSummaryInstance(InstanceResource):
         """
         Fetch the CallSummaryInstance
         
-        :params SummaryProcessingState processing_state: 
+        :params ProcessingState processing_state: 
 
         :returns: The fetched CallSummaryInstance
         :rtype: twilio.rest.insights.v1.call.call_summary.CallSummaryInstance
@@ -355,59 +408,5 @@ class CallSummaryInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Insights.V1.CallSummaryInstance {}>'.format(context)
-
-class CallSummaryContext(InstanceContext):
-
-    def __init__(self, version: Version, call_sid: str):
-        """
-        Initialize the CallSummaryContext
-
-        :param Version version: Version that contains the resource
-        :param call_sid: 
-
-        :returns: twilio.rest.insights.v1.call.call_summary.CallSummaryContext
-        :rtype: twilio.rest.insights.v1.call.call_summary.CallSummaryContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'call_sid': call_sid,
-        }
-        self._uri = '/Voice/{call_sid}/Summary'.format(**self._solution)
-        
-    
-    def fetch(self, processing_state=values.unset):
-        """
-        Fetch the CallSummaryInstance
-        
-        :params SummaryProcessingState processing_state: 
-
-        :returns: The fetched CallSummaryInstance
-        :rtype: twilio.rest.insights.v1.call.call_summary.CallSummaryInstance
-        """
-        
-        data = values.of({ 
-            'ProcessingState': processing_state,
-        })
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, params=data)
-
-        return CallSummaryInstance(
-            self._version,
-            payload,
-            call_sid=self._solution['call_sid'],
-            
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Insights.V1.CallSummaryContext {}>'.format(context)
 
 

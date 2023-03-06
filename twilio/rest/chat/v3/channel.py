@@ -13,7 +13,6 @@
 """
 
 
-from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -78,13 +77,71 @@ class ChannelList(ListResource):
         """
         return '<Twilio.Chat.V3.ChannelList>'
 
+class ChannelContext(InstanceContext):
+
+    def __init__(self, version: Version, service_sid: str, sid: str):
+        """
+        Initialize the ChannelContext
+
+        :param Version version: Version that contains the resource
+        :param service_sid: The unique SID identifier of the Service.:param sid: A 34 character string that uniquely identifies this Channel.
+
+        :returns: twilio.rest.chat.v3.channel.ChannelContext
+        :rtype: twilio.rest.chat.v3.channel.ChannelContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'service_sid': service_sid,
+            'sid': sid,
+        }
+        self._uri = '/Services/{service_sid}/Channels/{sid}'.format(**self._solution)
+        
+    
+    def update(self, x_twilio_webhook_enabled=values.unset, type=values.unset, messaging_service_sid=values.unset):
+        """
+        Update the ChannelInstance
+        
+        :params WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :params ChannelType type: 
+        :params str messaging_service_sid: The unique ID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) this channel belongs to.
+
+        :returns: The updated ChannelInstance
+        :rtype: twilio.rest.chat.v3.channel.ChannelInstance
+        """
+        data = values.of({ 
+            'Type': type,
+            'MessagingServiceSid': messaging_service_sid,
+        })
+        headers = values.of({'X-Twilio-Webhook-Enabled': x_twilio_webhook_enabled, })
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data, headers=headers)
+
+        return ChannelInstance(
+            self._version,
+            payload,
+            service_sid=self._solution['service_sid'],
+            sid=self._solution['sid']
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Chat.V3.ChannelContext {}>'.format(context)
+
 class ChannelInstance(InstanceResource):
 
-    class ChannelChannelType(object):
+    class ChannelType(object):
         PUBLIC = "public"
         PRIVATE = "private"
 
-    class ChannelWebhookEnabledType(object):
+    class WebhookEnabledType(object):
         TRUE = "true"
         FALSE = "false"
 
@@ -181,7 +238,7 @@ class ChannelInstance(InstanceResource):
     def type(self):
         """
         :returns: 
-        :rtype: ChannelChannelType
+        :rtype: ChannelType
         """
         return self._properties['type']
     
@@ -245,8 +302,8 @@ class ChannelInstance(InstanceResource):
         """
         Update the ChannelInstance
         
-        :params ChannelWebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
-        :params ChannelChannelType type: 
+        :params WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :params ChannelType type: 
         :params str messaging_service_sid: The unique ID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) this channel belongs to.
 
         :returns: The updated ChannelInstance
@@ -262,63 +319,5 @@ class ChannelInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Chat.V3.ChannelInstance {}>'.format(context)
-
-class ChannelContext(InstanceContext):
-
-    def __init__(self, version: Version, service_sid: str, sid: str):
-        """
-        Initialize the ChannelContext
-
-        :param Version version: Version that contains the resource
-        :param service_sid: The unique SID identifier of the Service.:param sid: A 34 character string that uniquely identifies this Channel.
-
-        :returns: twilio.rest.chat.v3.channel.ChannelContext
-        :rtype: twilio.rest.chat.v3.channel.ChannelContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'service_sid': service_sid,
-            'sid': sid,
-        }
-        self._uri = '/Services/{service_sid}/Channels/{sid}'.format(**self._solution)
-        
-    
-    def update(self, x_twilio_webhook_enabled=values.unset, type=values.unset, messaging_service_sid=values.unset):
-        """
-        Update the ChannelInstance
-        
-        :params ChannelWebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
-        :params ChannelChannelType type: 
-        :params str messaging_service_sid: The unique ID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) this channel belongs to.
-
-        :returns: The updated ChannelInstance
-        :rtype: twilio.rest.chat.v3.channel.ChannelInstance
-        """
-        data = values.of({ 
-            'Type': type,
-            'MessagingServiceSid': messaging_service_sid,
-        })
-        headers = values.of({'X-Twilio-Webhook-Enabled': x_twilio_webhook_enabled, })
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data, headers=headers)
-
-        return ChannelInstance(
-            self._version,
-            payload,
-            service_sid=self._solution['service_sid'],
-            sid=self._solution['sid']
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Chat.V3.ChannelContext {}>'.format(context)
 
 

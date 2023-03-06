@@ -203,7 +203,7 @@ class FlowRevisionPage(Page):
 
 class FlowRevisionInstance(InstanceResource):
 
-    class FlowRevisionStatus(object):
+    class Status(object):
         DRAFT = "draft"
         PUBLISHED = "published"
 
@@ -282,7 +282,7 @@ class FlowRevisionInstance(InstanceResource):
     def status(self):
         """
         :returns: 
-        :rtype: FlowRevisionStatus
+        :rtype: Status
         """
         return self._properties['status']
     

@@ -74,7 +74,7 @@ class WebhookList(ListResource):
 
 class WebhookInstance(InstanceResource):
 
-    class ServiceWebhookConfigurationMethod(object):
+    class Method(object):
         GET = "GET"
         POST = "POST"
 
@@ -156,7 +156,7 @@ class WebhookInstance(InstanceResource):
     def method(self):
         """
         :returns: 
-        :rtype: ServiceWebhookConfigurationMethod
+        :rtype: Method
         """
         return self._properties['method']
     

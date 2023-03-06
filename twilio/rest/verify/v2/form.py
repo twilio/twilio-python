@@ -13,7 +13,6 @@
 """
 
 
-from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -74,96 +73,9 @@ class FormList(ListResource):
         """
         return '<Twilio.Verify.V2.FormList>'
 
-class FormInstance(InstanceResource):
-
-    class FormFormTypes(object):
-        FORM_PUSH = "form-push"
-
-    def __init__(self, version, payload, form_type: FormFormTypes=None):
-        """
-        Initialize the FormInstance
-        :returns: twilio.rest.verify.v2.form.FormInstance
-        :rtype: twilio.rest.verify.v2.form.FormInstance
-        """
-        super().__init__(version)
-
-        self._properties = { 
-            'form_type': payload.get('form_type'),
-            'forms': payload.get('forms'),
-            'form_meta': payload.get('form_meta'),
-            'url': payload.get('url'),
-        }
-
-        self._context = None
-        self._solution = { 'form_type': form_type or self._properties['form_type'],  }
-    
-    @property
-    def _proxy(self):
-        """
-        Generate an instance context for the instance, the context is capable of
-        performing various actions. All instance actions are proxied to the context
-
-        :returns: FormContext for this FormInstance
-        :rtype: twilio.rest.verify.v2.form.FormContext
-        """
-        if self._context is None:
-            self._context = FormContext(self._version, form_type=self._solution['form_type'],)
-        return self._context
-    
-    @property
-    def form_type(self):
-        """
-        :returns: 
-        :rtype: FormFormTypes
-        """
-        return self._properties['form_type']
-    
-    @property
-    def forms(self):
-        """
-        :returns: Object that contains the available forms for this type. This available forms are given in the standard [JSON Schema](https://json-schema.org/) format
-        :rtype: dict
-        """
-        return self._properties['forms']
-    
-    @property
-    def form_meta(self):
-        """
-        :returns: Additional information for the available forms for this type. E.g. The separator string used for `binding` in a Factor push.
-        :rtype: dict
-        """
-        return self._properties['form_meta']
-    
-    @property
-    def url(self):
-        """
-        :returns: The URL to access the forms for this type.
-        :rtype: str
-        """
-        return self._properties['url']
-    
-    def fetch(self):
-        """
-        Fetch the FormInstance
-        
-
-        :returns: The fetched FormInstance
-        :rtype: twilio.rest.verify.v2.form.FormInstance
-        """
-        return self._proxy.fetch()
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Verify.V2.FormInstance {}>'.format(context)
-
 class FormContext(InstanceContext):
 
-    def __init__(self, version: Version, form_type: FormInstance.FormFormTypes):
+    def __init__(self, version: Version, form_type: FormTypes):
         """
         Initialize the FormContext
 
@@ -209,5 +121,92 @@ class FormContext(InstanceContext):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Verify.V2.FormContext {}>'.format(context)
+
+class FormInstance(InstanceResource):
+
+    class FormTypes(object):
+        FORM_PUSH = "form-push"
+
+    def __init__(self, version, payload, form_type: FormTypes=None):
+        """
+        Initialize the FormInstance
+        :returns: twilio.rest.verify.v2.form.FormInstance
+        :rtype: twilio.rest.verify.v2.form.FormInstance
+        """
+        super().__init__(version)
+
+        self._properties = { 
+            'form_type': payload.get('form_type'),
+            'forms': payload.get('forms'),
+            'form_meta': payload.get('form_meta'),
+            'url': payload.get('url'),
+        }
+
+        self._context = None
+        self._solution = { 'form_type': form_type or self._properties['form_type'],  }
+    
+    @property
+    def _proxy(self):
+        """
+        Generate an instance context for the instance, the context is capable of
+        performing various actions. All instance actions are proxied to the context
+
+        :returns: FormContext for this FormInstance
+        :rtype: twilio.rest.verify.v2.form.FormContext
+        """
+        if self._context is None:
+            self._context = FormContext(self._version, form_type=self._solution['form_type'],)
+        return self._context
+    
+    @property
+    def form_type(self):
+        """
+        :returns: 
+        :rtype: FormTypes
+        """
+        return self._properties['form_type']
+    
+    @property
+    def forms(self):
+        """
+        :returns: Object that contains the available forms for this type. This available forms are given in the standard [JSON Schema](https://json-schema.org/) format
+        :rtype: dict
+        """
+        return self._properties['forms']
+    
+    @property
+    def form_meta(self):
+        """
+        :returns: Additional information for the available forms for this type. E.g. The separator string used for `binding` in a Factor push.
+        :rtype: dict
+        """
+        return self._properties['form_meta']
+    
+    @property
+    def url(self):
+        """
+        :returns: The URL to access the forms for this type.
+        :rtype: str
+        """
+        return self._properties['url']
+    
+    def fetch(self):
+        """
+        Fetch the FormInstance
+        
+
+        :returns: The fetched FormInstance
+        :rtype: twilio.rest.verify.v2.form.FormInstance
+        """
+        return self._proxy.fetch()
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Verify.V2.FormInstance {}>'.format(context)
 
 

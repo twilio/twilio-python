@@ -13,7 +13,6 @@
 """
 
 
-from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -59,7 +58,7 @@ class TaskQueueList(ListResource):
         :param str friendly_name: A descriptive string that you create to describe the TaskQueue. For example `Support-Tier 1`, `Sales`, or `Escalation`.
         :param str target_workers: A string that describes the Worker selection criteria for any Tasks that enter the TaskQueue. For example, `'\\\"language\\\" == \\\"spanish\\\"'`. The default value is `1==1`. If this value is empty, Tasks will wait in the TaskQueue until they are deleted or moved to another TaskQueue. For more information about Worker selection, see [Describing Worker selection criteria](https://www.twilio.com/docs/taskrouter/api/taskqueues#target-workers).
         :param int max_reserved_workers: The maximum number of Workers to reserve for the assignment of a Task in the queue. Can be an integer between 1 and 50, inclusive and defaults to 1.
-        :param TaskQueueTaskOrder task_order: 
+        :param TaskOrder task_order: 
         :param str reservation_activity_sid: The SID of the Activity to assign Workers when a task is reserved for them.
         :param str assignment_activity_sid: The SID of the Activity to assign Workers when a task is assigned to them.
         
@@ -278,9 +277,145 @@ class TaskQueuePage(Page):
 
 
 
+class TaskQueueContext(InstanceContext):
+
+    def __init__(self, version: Version, workspace_sid: str, sid: str):
+        """
+        Initialize the TaskQueueContext
+
+        :param Version version: Version that contains the resource
+        :param workspace_sid: The SID of the Workspace with the TaskQueue to update.:param sid: The SID of the TaskQueue resource to update.
+
+        :returns: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueueContext
+        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueueContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'workspace_sid': workspace_sid,
+            'sid': sid,
+        }
+        self._uri = '/Workspaces/{workspace_sid}/TaskQueues/{sid}'.format(**self._solution)
+        
+        self._cumulative_statistics = None
+        self._real_time_statistics = None
+        self._statistics = None
+    
+    def delete(self):
+        """
+        Deletes the TaskQueueInstance
+
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(method='DELETE', uri=self._uri,)
+        
+    def fetch(self):
+        """
+        Fetch the TaskQueueInstance
+        
+
+        :returns: The fetched TaskQueueInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueueInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return TaskQueueInstance(
+            self._version,
+            payload,
+            workspace_sid=self._solution['workspace_sid'],
+            sid=self._solution['sid'],
+            
+        )
+        
+    def update(self, friendly_name=values.unset, target_workers=values.unset, reservation_activity_sid=values.unset, assignment_activity_sid=values.unset, max_reserved_workers=values.unset, task_order=values.unset):
+        """
+        Update the TaskQueueInstance
+        
+        :params str friendly_name: A descriptive string that you create to describe the TaskQueue. For example `Support-Tier 1`, `Sales`, or `Escalation`.
+        :params str target_workers: A string describing the Worker selection criteria for any Tasks that enter the TaskQueue. For example '\\\"language\\\" == \\\"spanish\\\"' If no TargetWorkers parameter is provided, Tasks will wait in the queue until they are either deleted or moved to another queue. Additional examples on how to describing Worker selection criteria below.
+        :params str reservation_activity_sid: The SID of the Activity to assign Workers when a task is reserved for them.
+        :params str assignment_activity_sid: The SID of the Activity to assign Workers when a task is assigned for them.
+        :params int max_reserved_workers: The maximum number of Workers to create reservations for the assignment of a task while in the queue. Maximum of 50.
+        :params TaskOrder task_order: 
+
+        :returns: The updated TaskQueueInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueueInstance
+        """
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+            'TargetWorkers': target_workers,
+            'ReservationActivitySid': reservation_activity_sid,
+            'AssignmentActivitySid': assignment_activity_sid,
+            'MaxReservedWorkers': max_reserved_workers,
+            'TaskOrder': task_order,
+        })
+        
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return TaskQueueInstance(
+            self._version,
+            payload,
+            workspace_sid=self._solution['workspace_sid'],
+            sid=self._solution['sid']
+        )
+        
+    
+    @property
+    def cumulative_statistics(self):
+        """
+        Access the cumulative_statistics
+
+        :returns: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueueCumulativeStatisticsList
+        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueueCumulativeStatisticsList
+        """
+        if self._cumulative_statistics is None:
+            self._cumulative_statistics = TaskQueueCumulativeStatisticsList(self._version, self._solution['workspace_sid'], self._solution['sid'],
+            )
+        return self._cumulative_statistics
+    
+    @property
+    def real_time_statistics(self):
+        """
+        Access the real_time_statistics
+
+        :returns: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueueRealTimeStatisticsList
+        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueueRealTimeStatisticsList
+        """
+        if self._real_time_statistics is None:
+            self._real_time_statistics = TaskQueueRealTimeStatisticsList(self._version, self._solution['workspace_sid'], self._solution['sid'],
+            )
+        return self._real_time_statistics
+    
+    @property
+    def statistics(self):
+        """
+        Access the statistics
+
+        :returns: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueueStatisticsList
+        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueueStatisticsList
+        """
+        if self._statistics is None:
+            self._statistics = TaskQueueStatisticsList(self._version, self._solution['workspace_sid'], self._solution['sid'],
+            )
+        return self._statistics
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Taskrouter.V1.TaskQueueContext {}>'.format(context)
+
 class TaskQueueInstance(InstanceResource):
 
-    class TaskQueueTaskOrder(object):
+    class TaskOrder(object):
         FIFO = "FIFO"
         LIFO = "LIFO"
 
@@ -418,7 +553,7 @@ class TaskQueueInstance(InstanceResource):
     def task_order(self):
         """
         :returns: 
-        :rtype: TaskQueueTaskOrder
+        :rtype: TaskOrder
         """
         return self._properties['task_order']
     
@@ -475,7 +610,7 @@ class TaskQueueInstance(InstanceResource):
         :params str reservation_activity_sid: The SID of the Activity to assign Workers when a task is reserved for them.
         :params str assignment_activity_sid: The SID of the Activity to assign Workers when a task is assigned for them.
         :params int max_reserved_workers: The maximum number of Workers to create reservations for the assignment of a task while in the queue. Maximum of 50.
-        :params TaskQueueTaskOrder task_order: 
+        :params TaskOrder task_order: 
 
         :returns: The updated TaskQueueInstance
         :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueueInstance
@@ -520,141 +655,5 @@ class TaskQueueInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Taskrouter.V1.TaskQueueInstance {}>'.format(context)
-
-class TaskQueueContext(InstanceContext):
-
-    def __init__(self, version: Version, workspace_sid: str, sid: str):
-        """
-        Initialize the TaskQueueContext
-
-        :param Version version: Version that contains the resource
-        :param workspace_sid: The SID of the Workspace with the TaskQueue to update.:param sid: The SID of the TaskQueue resource to update.
-
-        :returns: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueueContext
-        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueueContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'workspace_sid': workspace_sid,
-            'sid': sid,
-        }
-        self._uri = '/Workspaces/{workspace_sid}/TaskQueues/{sid}'.format(**self._solution)
-        
-        self._cumulative_statistics = None
-        self._real_time_statistics = None
-        self._statistics = None
-    
-    def delete(self):
-        """
-        Deletes the TaskQueueInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(method='DELETE', uri=self._uri,)
-        
-    def fetch(self):
-        """
-        Fetch the TaskQueueInstance
-        
-
-        :returns: The fetched TaskQueueInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueueInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return TaskQueueInstance(
-            self._version,
-            payload,
-            workspace_sid=self._solution['workspace_sid'],
-            sid=self._solution['sid'],
-            
-        )
-        
-    def update(self, friendly_name=values.unset, target_workers=values.unset, reservation_activity_sid=values.unset, assignment_activity_sid=values.unset, max_reserved_workers=values.unset, task_order=values.unset):
-        """
-        Update the TaskQueueInstance
-        
-        :params str friendly_name: A descriptive string that you create to describe the TaskQueue. For example `Support-Tier 1`, `Sales`, or `Escalation`.
-        :params str target_workers: A string describing the Worker selection criteria for any Tasks that enter the TaskQueue. For example '\\\"language\\\" == \\\"spanish\\\"' If no TargetWorkers parameter is provided, Tasks will wait in the queue until they are either deleted or moved to another queue. Additional examples on how to describing Worker selection criteria below.
-        :params str reservation_activity_sid: The SID of the Activity to assign Workers when a task is reserved for them.
-        :params str assignment_activity_sid: The SID of the Activity to assign Workers when a task is assigned for them.
-        :params int max_reserved_workers: The maximum number of Workers to create reservations for the assignment of a task while in the queue. Maximum of 50.
-        :params TaskQueueTaskOrder task_order: 
-
-        :returns: The updated TaskQueueInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueueInstance
-        """
-        data = values.of({ 
-            'FriendlyName': friendly_name,
-            'TargetWorkers': target_workers,
-            'ReservationActivitySid': reservation_activity_sid,
-            'AssignmentActivitySid': assignment_activity_sid,
-            'MaxReservedWorkers': max_reserved_workers,
-            'TaskOrder': task_order,
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return TaskQueueInstance(
-            self._version,
-            payload,
-            workspace_sid=self._solution['workspace_sid'],
-            sid=self._solution['sid']
-        )
-        
-    
-    @property
-    def cumulative_statistics(self):
-        """
-        Access the cumulative_statistics
-
-        :returns: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueueCumulativeStatisticsList
-        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueueCumulativeStatisticsList
-        """
-        if self._cumulative_statistics is None:
-            self._cumulative_statistics = TaskQueueCumulativeStatisticsList(self._version, self._solution['workspace_sid'], self._solution['sid'],
-            )
-        return self._cumulative_statistics
-    
-    @property
-    def real_time_statistics(self):
-        """
-        Access the real_time_statistics
-
-        :returns: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueueRealTimeStatisticsList
-        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueueRealTimeStatisticsList
-        """
-        if self._real_time_statistics is None:
-            self._real_time_statistics = TaskQueueRealTimeStatisticsList(self._version, self._solution['workspace_sid'], self._solution['sid'],
-            )
-        return self._real_time_statistics
-    
-    @property
-    def statistics(self):
-        """
-        Access the statistics
-
-        :returns: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueueStatisticsList
-        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueueStatisticsList
-        """
-        if self._statistics is None:
-            self._statistics = TaskQueueStatisticsList(self._version, self._solution['workspace_sid'], self._solution['sid'],
-            )
-        return self._statistics
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Taskrouter.V1.TaskQueueContext {}>'.format(context)
 
 

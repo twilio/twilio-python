@@ -72,7 +72,7 @@ class ConfigurationList(ListResource):
 
 class ConfigurationInstance(InstanceResource):
 
-    class ConfigurationStatus(object):
+    class Status(object):
         OK = "ok"
         INPROGRESS = "inprogress"
         NOTSTARTED = "notstarted"
@@ -185,7 +185,7 @@ class ConfigurationInstance(InstanceResource):
     def status(self):
         """
         :returns: 
-        :rtype: ConfigurationStatus
+        :rtype: Status
         """
         return self._properties['status']
     

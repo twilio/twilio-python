@@ -13,7 +13,6 @@
 """
 
 
-from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -53,13 +52,13 @@ class RoomList(ListResource):
         Create the RoomInstance
 
         :param bool enable_turn: Deprecated, now always considered to be true.
-        :param RoomRoomType type: 
+        :param RoomType type: 
         :param str unique_name: An application-defined string that uniquely identifies the resource. It can be used as a `room_sid` in place of the resource's `sid` in the URL to address the resource, assuming it does not contain any [reserved characters](https://tools.ietf.org/html/rfc3986#section-2.2) that would need to be URL encoded. This value is unique for `in-progress` rooms. SDK clients can use this name to connect to the room. REST API clients can use this name in place of the Room SID to interact with the room as long as the room is `in-progress`.
         :param str status_callback: The URL we should call using the `status_callback_method` to send status information to your application on every room event. See [Status Callbacks](https://www.twilio.com/docs/video/api/status-callbacks) for more info.
         :param str status_callback_method: The HTTP method we should use to call `status_callback`. Can be `POST` or `GET`.
         :param int max_participants: The maximum number of concurrent Participants allowed in the room. Peer-to-peer rooms can have up to 10 Participants. Small Group rooms can have up to 4 Participants. Group rooms can have up to 50 Participants.
         :param bool record_participants_on_connect: Whether to start recording when Participants connect. ***This feature is not available in `peer-to-peer` rooms.***
-        :param list[RoomVideoCodec] video_codecs: An array of the video codecs that are supported when publishing a track in the room.  Can be: `VP8` and `H264`.  ***This feature is not available in `peer-to-peer` rooms***
+        :param list[VideoCodec] video_codecs: An array of the video codecs that are supported when publishing a track in the room.  Can be: `VP8` and `H264`.  ***This feature is not available in `peer-to-peer` rooms***
         :param str media_region: The region for the media server in Group Rooms.  Can be: one of the [available Media Regions](https://www.twilio.com/docs/video/ip-address-whitelisting#group-rooms-media-servers). ***This feature is not available in `peer-to-peer` rooms.***
         :param object recording_rules: A collection of Recording Rules that describe how to include or exclude matching tracks for recording
         :param bool audio_only: When set to true, indicates that the participants in the room will only publish audio. No video tracks will be allowed. Group rooms only.
@@ -101,7 +100,7 @@ class RoomList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
         
-        :param RoomRoomStatus status: Read only the rooms with this status. Can be: `in-progress` (default) or `completed`
+        :param RoomStatus status: Read only the rooms with this status. Can be: `in-progress` (default) or `completed`
         :param str unique_name: Read only rooms with the this `unique_name`.
         :param datetime date_created_after: Read only rooms that started on or after this date, given as `YYYY-MM-DD`.
         :param datetime date_created_before: Read only rooms that started before this date, given as `YYYY-MM-DD`.
@@ -132,7 +131,7 @@ class RoomList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
-        :param RoomRoomStatus status: Read only the rooms with this status. Can be: `in-progress` (default) or `completed`
+        :param RoomStatus status: Read only the rooms with this status. Can be: `in-progress` (default) or `completed`
         :param str unique_name: Read only rooms with the this `unique_name`.
         :param datetime date_created_after: Read only rooms that started on or after this date, given as `YYYY-MM-DD`.
         :param datetime date_created_before: Read only rooms that started before this date, given as `YYYY-MM-DD`.
@@ -160,7 +159,7 @@ class RoomList(ListResource):
         Retrieve a single page of RoomInstance records from the API.
         Request is executed immediately
         
-        :param RoomRoomStatus status: Read only the rooms with this status. Can be: `in-progress` (default) or `completed`
+        :param RoomStatus status: Read only the rooms with this status. Can be: `in-progress` (default) or `completed`
         :param str unique_name: Read only rooms with the this `unique_name`.
         :param datetime date_created_after: Read only rooms that started on or after this date, given as `YYYY-MM-DD`.
         :param datetime date_created_before: Read only rooms that started before this date, given as `YYYY-MM-DD`.
@@ -278,20 +277,133 @@ class RoomPage(Page):
 
 
 
+class RoomContext(InstanceContext):
+
+    def __init__(self, version: Version, sid: str):
+        """
+        Initialize the RoomContext
+
+        :param Version version: Version that contains the resource
+        :param sid: The SID of the Room resource to update.
+
+        :returns: twilio.rest.video.v1.room.RoomContext
+        :rtype: twilio.rest.video.v1.room.RoomContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'sid': sid,
+        }
+        self._uri = '/Rooms/{sid}'.format(**self._solution)
+        
+        self._participants = None
+        self._recording_rules = None
+        self._recordings = None
+    
+    def fetch(self):
+        """
+        Fetch the RoomInstance
+        
+
+        :returns: The fetched RoomInstance
+        :rtype: twilio.rest.video.v1.room.RoomInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return RoomInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid'],
+            
+        )
+        
+    def update(self, status):
+        """
+        Update the RoomInstance
+        
+        :params RoomStatus status: 
+
+        :returns: The updated RoomInstance
+        :rtype: twilio.rest.video.v1.room.RoomInstance
+        """
+        data = values.of({ 
+            'Status': status,
+        })
+        
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return RoomInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid']
+        )
+        
+    
+    @property
+    def participants(self):
+        """
+        Access the participants
+
+        :returns: twilio.rest.video.v1.room.ParticipantList
+        :rtype: twilio.rest.video.v1.room.ParticipantList
+        """
+        if self._participants is None:
+            self._participants = ParticipantList(self._version, self._solution['sid'],
+            )
+        return self._participants
+    
+    @property
+    def recording_rules(self):
+        """
+        Access the recording_rules
+
+        :returns: twilio.rest.video.v1.room.RecordingRulesList
+        :rtype: twilio.rest.video.v1.room.RecordingRulesList
+        """
+        if self._recording_rules is None:
+            self._recording_rules = RecordingRulesList(self._version, self._solution['sid'],
+            )
+        return self._recording_rules
+    
+    @property
+    def recordings(self):
+        """
+        Access the recordings
+
+        :returns: twilio.rest.video.v1.room.RoomRecordingList
+        :rtype: twilio.rest.video.v1.room.RoomRecordingList
+        """
+        if self._recordings is None:
+            self._recordings = RoomRecordingList(self._version, self._solution['sid'],
+            )
+        return self._recordings
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Video.V1.RoomContext {}>'.format(context)
+
 class RoomInstance(InstanceResource):
 
-    class RoomRoomStatus(object):
+    class RoomStatus(object):
         IN_PROGRESS = "in-progress"
         COMPLETED = "completed"
         FAILED = "failed"
 
-    class RoomRoomType(object):
+    class RoomType(object):
         GO = "go"
         PEER_TO_PEER = "peer-to-peer"
         GROUP = "group"
         GROUP_SMALL = "group-small"
 
-    class RoomVideoCodec(object):
+    class VideoCodec(object):
         VP8 = "VP8"
         H264 = "H264"
 
@@ -358,7 +470,7 @@ class RoomInstance(InstanceResource):
     def status(self):
         """
         :returns: 
-        :rtype: RoomRoomStatus
+        :rtype: RoomStatus
         """
         return self._properties['status']
     
@@ -438,7 +550,7 @@ class RoomInstance(InstanceResource):
     def type(self):
         """
         :returns: 
-        :rtype: RoomRoomType
+        :rtype: RoomType
         """
         return self._properties['type']
     
@@ -478,7 +590,7 @@ class RoomInstance(InstanceResource):
     def video_codecs(self):
         """
         :returns: An array of the video codecs that are supported when publishing a track in the room.  Can be: `VP8` and `H264`.  ***This feature is not available in `peer-to-peer` rooms***
-        :rtype: list[RoomVideoCodec]
+        :rtype: list[VideoCodec]
         """
         return self._properties['video_codecs']
     
@@ -552,7 +664,7 @@ class RoomInstance(InstanceResource):
         """
         Update the RoomInstance
         
-        :params RoomRoomStatus status: 
+        :params RoomStatus status: 
 
         :returns: The updated RoomInstance
         :rtype: twilio.rest.video.v1.room.RoomInstance
@@ -597,118 +709,5 @@ class RoomInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Video.V1.RoomInstance {}>'.format(context)
-
-class RoomContext(InstanceContext):
-
-    def __init__(self, version: Version, sid: str):
-        """
-        Initialize the RoomContext
-
-        :param Version version: Version that contains the resource
-        :param sid: The SID of the Room resource to update.
-
-        :returns: twilio.rest.video.v1.room.RoomContext
-        :rtype: twilio.rest.video.v1.room.RoomContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'sid': sid,
-        }
-        self._uri = '/Rooms/{sid}'.format(**self._solution)
-        
-        self._participants = None
-        self._recording_rules = None
-        self._recordings = None
-    
-    def fetch(self):
-        """
-        Fetch the RoomInstance
-        
-
-        :returns: The fetched RoomInstance
-        :rtype: twilio.rest.video.v1.room.RoomInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return RoomInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid'],
-            
-        )
-        
-    def update(self, status):
-        """
-        Update the RoomInstance
-        
-        :params RoomRoomStatus status: 
-
-        :returns: The updated RoomInstance
-        :rtype: twilio.rest.video.v1.room.RoomInstance
-        """
-        data = values.of({ 
-            'Status': status,
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return RoomInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid']
-        )
-        
-    
-    @property
-    def participants(self):
-        """
-        Access the participants
-
-        :returns: twilio.rest.video.v1.room.ParticipantList
-        :rtype: twilio.rest.video.v1.room.ParticipantList
-        """
-        if self._participants is None:
-            self._participants = ParticipantList(self._version, self._solution['sid'],
-            )
-        return self._participants
-    
-    @property
-    def recording_rules(self):
-        """
-        Access the recording_rules
-
-        :returns: twilio.rest.video.v1.room.RecordingRulesList
-        :rtype: twilio.rest.video.v1.room.RecordingRulesList
-        """
-        if self._recording_rules is None:
-            self._recording_rules = RecordingRulesList(self._version, self._solution['sid'],
-            )
-        return self._recording_rules
-    
-    @property
-    def recordings(self):
-        """
-        Access the recordings
-
-        :returns: twilio.rest.video.v1.room.RoomRecordingList
-        :rtype: twilio.rest.video.v1.room.RoomRecordingList
-        """
-        if self._recordings is None:
-            self._recordings = RoomRecordingList(self._version, self._solution['sid'],
-            )
-        return self._recordings
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Video.V1.RoomContext {}>'.format(context)
 
 

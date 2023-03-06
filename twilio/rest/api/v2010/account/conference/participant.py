@@ -338,7 +338,7 @@ class ParticipantPage(Page):
 
 class ParticipantInstance(InstanceResource):
 
-    class ParticipantStatus(object):
+    class Status(object):
         QUEUED = "queued"
         CONNECTING = "connecting"
         RINGING = "ringing"
@@ -487,7 +487,7 @@ class ParticipantInstance(InstanceResource):
     def status(self):
         """
         :returns: 
-        :rtype: ParticipantStatus
+        :rtype: Status
         """
         return self._properties['status']
     
