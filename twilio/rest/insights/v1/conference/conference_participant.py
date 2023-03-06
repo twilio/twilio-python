@@ -415,7 +415,7 @@ class ConferenceParticipantInstance(InstanceResource):
     def call_direction(self):
         """
         :returns: 
-        :rtype: CallDirection
+        :rtype: ConferenceParticipantInstance.CallDirection
         """
         return self._properties['call_direction']
     
@@ -439,7 +439,7 @@ class ConferenceParticipantInstance(InstanceResource):
     def call_status(self):
         """
         :returns: 
-        :rtype: CallStatus
+        :rtype: ConferenceParticipantInstance.CallStatus
         """
         return self._properties['call_status']
     
@@ -503,7 +503,7 @@ class ConferenceParticipantInstance(InstanceResource):
     def jitter_buffer_size(self):
         """
         :returns: 
-        :rtype: JitterBufferSize
+        :rtype: ConferenceParticipantInstance.JitterBufferSize
         """
         return self._properties['jitter_buffer_size']
     
@@ -527,7 +527,7 @@ class ConferenceParticipantInstance(InstanceResource):
     def participant_region(self):
         """
         :returns: 
-        :rtype: Region
+        :rtype: ConferenceParticipantInstance.Region
         """
         return self._properties['participant_region']
     
@@ -535,7 +535,7 @@ class ConferenceParticipantInstance(InstanceResource):
     def conference_region(self):
         """
         :returns: 
-        :rtype: Region
+        :rtype: ConferenceParticipantInstance.Region
         """
         return self._properties['conference_region']
     
@@ -543,7 +543,7 @@ class ConferenceParticipantInstance(InstanceResource):
     def call_type(self):
         """
         :returns: 
-        :rtype: CallType
+        :rtype: ConferenceParticipantInstance.CallType
         """
         return self._properties['call_type']
     
@@ -551,7 +551,7 @@ class ConferenceParticipantInstance(InstanceResource):
     def processing_state(self):
         """
         :returns: 
-        :rtype: ProcessingState
+        :rtype: ConferenceParticipantInstance.ProcessingState
         """
         return self._properties['processing_state']
     

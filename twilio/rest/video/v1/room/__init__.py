@@ -52,13 +52,13 @@ class RoomList(ListResource):
         Create the RoomInstance
 
         :param bool enable_turn: Deprecated, now always considered to be true.
-        :param RoomType type: 
+        :param RoomInstance.RoomType type: 
         :param str unique_name: An application-defined string that uniquely identifies the resource. It can be used as a `room_sid` in place of the resource's `sid` in the URL to address the resource, assuming it does not contain any [reserved characters](https://tools.ietf.org/html/rfc3986#section-2.2) that would need to be URL encoded. This value is unique for `in-progress` rooms. SDK clients can use this name to connect to the room. REST API clients can use this name in place of the Room SID to interact with the room as long as the room is `in-progress`.
         :param str status_callback: The URL we should call using the `status_callback_method` to send status information to your application on every room event. See [Status Callbacks](https://www.twilio.com/docs/video/api/status-callbacks) for more info.
         :param str status_callback_method: The HTTP method we should use to call `status_callback`. Can be `POST` or `GET`.
         :param int max_participants: The maximum number of concurrent Participants allowed in the room. Peer-to-peer rooms can have up to 10 Participants. Small Group rooms can have up to 4 Participants. Group rooms can have up to 50 Participants.
         :param bool record_participants_on_connect: Whether to start recording when Participants connect. ***This feature is not available in `peer-to-peer` rooms.***
-        :param list[VideoCodec] video_codecs: An array of the video codecs that are supported when publishing a track in the room.  Can be: `VP8` and `H264`.  ***This feature is not available in `peer-to-peer` rooms***
+        :param list[RoomInstance.VideoCodec] video_codecs: An array of the video codecs that are supported when publishing a track in the room.  Can be: `VP8` and `H264`.  ***This feature is not available in `peer-to-peer` rooms***
         :param str media_region: The region for the media server in Group Rooms.  Can be: one of the [available Media Regions](https://www.twilio.com/docs/video/ip-address-whitelisting#group-rooms-media-servers). ***This feature is not available in `peer-to-peer` rooms.***
         :param object recording_rules: A collection of Recording Rules that describe how to include or exclude matching tracks for recording
         :param bool audio_only: When set to true, indicates that the participants in the room will only publish audio. No video tracks will be allowed. Group rooms only.
@@ -100,7 +100,7 @@ class RoomList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
         
-        :param RoomStatus status: Read only the rooms with this status. Can be: `in-progress` (default) or `completed`
+        :param RoomInstance.RoomStatus status: Read only the rooms with this status. Can be: `in-progress` (default) or `completed`
         :param str unique_name: Read only rooms with the this `unique_name`.
         :param datetime date_created_after: Read only rooms that started on or after this date, given as `YYYY-MM-DD`.
         :param datetime date_created_before: Read only rooms that started before this date, given as `YYYY-MM-DD`.
@@ -131,7 +131,7 @@ class RoomList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
-        :param RoomStatus status: Read only the rooms with this status. Can be: `in-progress` (default) or `completed`
+        :param RoomInstance.RoomStatus status: Read only the rooms with this status. Can be: `in-progress` (default) or `completed`
         :param str unique_name: Read only rooms with the this `unique_name`.
         :param datetime date_created_after: Read only rooms that started on or after this date, given as `YYYY-MM-DD`.
         :param datetime date_created_before: Read only rooms that started before this date, given as `YYYY-MM-DD`.
@@ -159,7 +159,7 @@ class RoomList(ListResource):
         Retrieve a single page of RoomInstance records from the API.
         Request is executed immediately
         
-        :param RoomStatus status: Read only the rooms with this status. Can be: `in-progress` (default) or `completed`
+        :param RoomInstance.RoomStatus status: Read only the rooms with this status. Can be: `in-progress` (default) or `completed`
         :param str unique_name: Read only rooms with the this `unique_name`.
         :param datetime date_created_after: Read only rooms that started on or after this date, given as `YYYY-MM-DD`.
         :param datetime date_created_before: Read only rooms that started before this date, given as `YYYY-MM-DD`.
@@ -323,7 +323,7 @@ class RoomContext(InstanceContext):
         """
         Update the RoomInstance
         
-        :params RoomStatus status: 
+        :params RoomInstance.RoomStatus status: 
 
         :returns: The updated RoomInstance
         :rtype: twilio.rest.video.v1.room.RoomInstance
@@ -470,7 +470,7 @@ class RoomInstance(InstanceResource):
     def status(self):
         """
         :returns: 
-        :rtype: RoomStatus
+        :rtype: RoomInstance.RoomStatus
         """
         return self._properties['status']
     
@@ -550,7 +550,7 @@ class RoomInstance(InstanceResource):
     def type(self):
         """
         :returns: 
-        :rtype: RoomType
+        :rtype: RoomInstance.RoomType
         """
         return self._properties['type']
     
@@ -590,7 +590,7 @@ class RoomInstance(InstanceResource):
     def video_codecs(self):
         """
         :returns: An array of the video codecs that are supported when publishing a track in the room.  Can be: `VP8` and `H264`.  ***This feature is not available in `peer-to-peer` rooms***
-        :rtype: list[VideoCodec]
+        :rtype: list[RoomInstance.VideoCodec]
         """
         return self._properties['video_codecs']
     
@@ -664,7 +664,7 @@ class RoomInstance(InstanceResource):
         """
         Update the RoomInstance
         
-        :params RoomStatus status: 
+        :params RoomInstance.RoomStatus status: 
 
         :returns: The updated RoomInstance
         :rtype: twilio.rest.video.v1.room.RoomInstance

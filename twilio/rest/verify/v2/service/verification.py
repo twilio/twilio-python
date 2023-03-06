@@ -166,7 +166,7 @@ class VerificationContext(InstanceContext):
         """
         Update the VerificationInstance
         
-        :params Status status: 
+        :params VerificationInstance.Status status: 
 
         :returns: The updated VerificationInstance
         :rtype: twilio.rest.verify.v2.service.verification.VerificationInstance
@@ -282,7 +282,7 @@ class VerificationInstance(InstanceResource):
     def channel(self):
         """
         :returns: 
-        :rtype: Channel
+        :rtype: VerificationInstance.Channel
         """
         return self._properties['channel']
     
@@ -380,7 +380,7 @@ class VerificationInstance(InstanceResource):
         """
         Update the VerificationInstance
         
-        :params Status status: 
+        :params VerificationInstance.Status status: 
 
         :returns: The updated VerificationInstance
         :rtype: twilio.rest.verify.v2.service.verification.VerificationInstance

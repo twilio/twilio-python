@@ -51,8 +51,8 @@ class RoomList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
         
-        :param list[RoomType] room_type: Type of room. Can be `go`, `peer_to_peer`, `group`, or `group_small`.
-        :param list[Codec] codec: Codecs used by participants in the room. Can be `VP8`, `H264`, or `VP9`.
+        :param list[RoomInstance.RoomType] room_type: Type of room. Can be `go`, `peer_to_peer`, `group`, or `group_small`.
+        :param list[RoomInstance.Codec] codec: Codecs used by participants in the room. Can be `VP8`, `H264`, or `VP9`.
         :param str room_name: Room friendly name.
         :param datetime created_after: Only read rooms that started on or after this ISO 8601 timestamp.
         :param datetime created_before: Only read rooms that started before this ISO 8601 timestamp.
@@ -84,8 +84,8 @@ class RoomList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
-        :param list[RoomType] room_type: Type of room. Can be `go`, `peer_to_peer`, `group`, or `group_small`.
-        :param list[Codec] codec: Codecs used by participants in the room. Can be `VP8`, `H264`, or `VP9`.
+        :param list[RoomInstance.RoomType] room_type: Type of room. Can be `go`, `peer_to_peer`, `group`, or `group_small`.
+        :param list[RoomInstance.Codec] codec: Codecs used by participants in the room. Can be `VP8`, `H264`, or `VP9`.
         :param str room_name: Room friendly name.
         :param datetime created_after: Only read rooms that started on or after this ISO 8601 timestamp.
         :param datetime created_before: Only read rooms that started before this ISO 8601 timestamp.
@@ -114,8 +114,8 @@ class RoomList(ListResource):
         Retrieve a single page of RoomInstance records from the API.
         Request is executed immediately
         
-        :param list[RoomType] room_type: Type of room. Can be `go`, `peer_to_peer`, `group`, or `group_small`.
-        :param list[Codec] codec: Codecs used by participants in the room. Can be `VP8`, `H264`, or `VP9`.
+        :param list[RoomInstance.RoomType] room_type: Type of room. Can be `go`, `peer_to_peer`, `group`, or `group_small`.
+        :param list[RoomInstance.Codec] codec: Codecs used by participants in the room. Can be `VP8`, `H264`, or `VP9`.
         :param str room_name: Room friendly name.
         :param datetime created_after: Only read rooms that started on or after this ISO 8601 timestamp.
         :param datetime created_before: Only read rooms that started before this ISO 8601 timestamp.
@@ -443,7 +443,7 @@ class RoomInstance(InstanceResource):
     def room_type(self):
         """
         :returns: 
-        :rtype: RoomType
+        :rtype: RoomInstance.RoomType
         """
         return self._properties['room_type']
     
@@ -451,7 +451,7 @@ class RoomInstance(InstanceResource):
     def room_status(self):
         """
         :returns: 
-        :rtype: RoomStatus
+        :rtype: RoomInstance.RoomStatus
         """
         return self._properties['room_status']
     
@@ -475,7 +475,7 @@ class RoomInstance(InstanceResource):
     def created_method(self):
         """
         :returns: 
-        :rtype: CreatedMethod
+        :rtype: RoomInstance.CreatedMethod
         """
         return self._properties['created_method']
     
@@ -483,7 +483,7 @@ class RoomInstance(InstanceResource):
     def end_reason(self):
         """
         :returns: 
-        :rtype: EndReason
+        :rtype: RoomInstance.EndReason
         """
         return self._properties['end_reason']
     
@@ -531,7 +531,7 @@ class RoomInstance(InstanceResource):
     def codecs(self):
         """
         :returns: Codecs used by participants in the room. Can be `VP8`, `H264`, or `VP9`.
-        :rtype: list[Codec]
+        :rtype: list[RoomInstance.Codec]
         """
         return self._properties['codecs']
     
@@ -539,7 +539,7 @@ class RoomInstance(InstanceResource):
     def media_region(self):
         """
         :returns: 
-        :rtype: TwilioRealm
+        :rtype: RoomInstance.TwilioRealm
         """
         return self._properties['media_region']
     
@@ -571,7 +571,7 @@ class RoomInstance(InstanceResource):
     def processing_state(self):
         """
         :returns: 
-        :rtype: ProcessingState
+        :rtype: RoomInstance.ProcessingState
         """
         return self._properties['processing_state']
     
@@ -587,7 +587,7 @@ class RoomInstance(InstanceResource):
     def edge_location(self):
         """
         :returns: 
-        :rtype: EdgeLocation
+        :rtype: RoomInstance.EdgeLocation
         """
         return self._properties['edge_location']
     

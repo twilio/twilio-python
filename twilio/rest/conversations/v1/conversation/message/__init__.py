@@ -51,7 +51,7 @@ class MessageList(ListResource):
         """
         Create the MessageInstance
 
-        :param WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :param MessageInstance.WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
         :param str author: The channel specific identifier of the message's author. Defaults to `system`.
         :param str body: The content of the message, can be up to 1,600 characters long.
         :param datetime date_created: The date that this resource was created.
@@ -87,7 +87,7 @@ class MessageList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
         
-        :param OrderType order: The sort order of the returned messages. Can be: `asc` (ascending) or `desc` (descending), with `asc` as the default.
+        :param MessageInstance.OrderType order: The sort order of the returned messages. Can be: `asc` (ascending) or `desc` (descending), with `asc` as the default.
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -112,7 +112,7 @@ class MessageList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
-        :param OrderType order: The sort order of the returned messages. Can be: `asc` (ascending) or `desc` (descending), with `asc` as the default.
+        :param MessageInstance.OrderType order: The sort order of the returned messages. Can be: `asc` (ascending) or `desc` (descending), with `asc` as the default.
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -134,7 +134,7 @@ class MessageList(ListResource):
         Retrieve a single page of MessageInstance records from the API.
         Request is executed immediately
         
-        :param OrderType order: The sort order of the returned messages. Can be: `asc` (ascending) or `desc` (descending), with `asc` as the default.
+        :param MessageInstance.OrderType order: The sort order of the returned messages. Can be: `asc` (ascending) or `desc` (descending), with `asc` as the default.
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -275,7 +275,7 @@ class MessageContext(InstanceContext):
         """
         Deletes the MessageInstance
 
-        :param WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :param MessageInstance.WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
         
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -307,7 +307,7 @@ class MessageContext(InstanceContext):
         """
         Update the MessageInstance
         
-        :params WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :params MessageInstance.WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
         :params str author: The channel specific identifier of the message's author. Defaults to `system`.
         :params str body: The content of the message, can be up to 1,600 characters long.
         :params datetime date_created: The date that this resource was created.
@@ -534,7 +534,7 @@ class MessageInstance(InstanceResource):
         """
         Deletes the MessageInstance
         
-        :params WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :params MessageInstance.WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -555,7 +555,7 @@ class MessageInstance(InstanceResource):
         """
         Update the MessageInstance
         
-        :params WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :params MessageInstance.WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
         :params str author: The channel specific identifier of the message's author. Defaults to `system`.
         :params str body: The content of the message, can be up to 1,600 characters long.
         :params datetime date_created: The date that this resource was created.

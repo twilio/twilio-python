@@ -271,7 +271,7 @@ class FactorContext(InstanceContext):
         :params int config_time_step: Defines how often, in seconds, are TOTP codes generated. i.e, a new TOTP code is generated every time_step seconds. Must be between 20 and 60 seconds, inclusive
         :params int config_skew: The number of time-steps, past and future, that are valid for validation of TOTP codes. Must be between 0 and 2, inclusive
         :params int config_code_length: Number of digits for generated TOTP codes. Must be between 3 and 8, inclusive
-        :params TotpAlgorithms config_alg: 
+        :params FactorInstance.TotpAlgorithms config_alg: 
         :params str config_notification_platform: The transport technology used to generate the Notification Token. Can be `apn`, `fcm` or `none`.  Required when `factor_type` is `push`.
 
         :returns: The updated FactorInstance
@@ -428,7 +428,7 @@ class FactorInstance(InstanceResource):
     def status(self):
         """
         :returns: 
-        :rtype: FactorStatuses
+        :rtype: FactorInstance.FactorStatuses
         """
         return self._properties['status']
     
@@ -436,7 +436,7 @@ class FactorInstance(InstanceResource):
     def factor_type(self):
         """
         :returns: 
-        :rtype: FactorTypes
+        :rtype: FactorInstance.FactorTypes
         """
         return self._properties['factor_type']
     
@@ -495,7 +495,7 @@ class FactorInstance(InstanceResource):
         :params int config_time_step: Defines how often, in seconds, are TOTP codes generated. i.e, a new TOTP code is generated every time_step seconds. Must be between 20 and 60 seconds, inclusive
         :params int config_skew: The number of time-steps, past and future, that are valid for validation of TOTP codes. Must be between 0 and 2, inclusive
         :params int config_code_length: Number of digits for generated TOTP codes. Must be between 3 and 8, inclusive
-        :params TotpAlgorithms config_alg: 
+        :params FactorInstance.TotpAlgorithms config_alg: 
         :params str config_notification_platform: The transport technology used to generate the Notification Token. Can be `apn`, `fcm` or `none`.  Required when `factor_type` is `push`.
 
         :returns: The updated FactorInstance

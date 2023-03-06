@@ -357,7 +357,7 @@ class PublishedTrackInstance(InstanceResource):
     def kind(self):
         """
         :returns: 
-        :rtype: Kind
+        :rtype: PublishedTrackInstance.Kind
         """
         return self._properties['kind']
     

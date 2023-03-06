@@ -151,7 +151,7 @@ class VerificationCheckInstance(InstanceResource):
     def channel(self):
         """
         :returns: 
-        :rtype: Channel
+        :rtype: VerificationCheckInstance.Channel
         """
         return self._properties['channel']
     

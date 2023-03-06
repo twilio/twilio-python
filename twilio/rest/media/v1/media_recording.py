@@ -51,8 +51,8 @@ class MediaRecordingList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
         
-        :param Order order: The sort order of the list by `date_created`. Can be: `asc` (ascending) or `desc` (descending) with `desc` as the default.
-        :param Status status: Status to filter by, with possible values `processing`, `completed`, `deleted`, or `failed`.
+        :param MediaRecordingInstance.Order order: The sort order of the list by `date_created`. Can be: `asc` (ascending) or `desc` (descending) with `desc` as the default.
+        :param MediaRecordingInstance.Status status: Status to filter by, with possible values `processing`, `completed`, `deleted`, or `failed`.
         :param str processor_sid: SID of a MediaProcessor to filter by.
         :param str source_sid: SID of a MediaRecording source to filter by.
         :param int limit: Upper limit for the number of records to return. stream()
@@ -82,8 +82,8 @@ class MediaRecordingList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
-        :param Order order: The sort order of the list by `date_created`. Can be: `asc` (ascending) or `desc` (descending) with `desc` as the default.
-        :param Status status: Status to filter by, with possible values `processing`, `completed`, `deleted`, or `failed`.
+        :param MediaRecordingInstance.Order order: The sort order of the list by `date_created`. Can be: `asc` (ascending) or `desc` (descending) with `desc` as the default.
+        :param MediaRecordingInstance.Status status: Status to filter by, with possible values `processing`, `completed`, `deleted`, or `failed`.
         :param str processor_sid: SID of a MediaProcessor to filter by.
         :param str source_sid: SID of a MediaRecording source to filter by.
         :param int limit: Upper limit for the number of records to return. list() guarantees
@@ -110,8 +110,8 @@ class MediaRecordingList(ListResource):
         Retrieve a single page of MediaRecordingInstance records from the API.
         Request is executed immediately
         
-        :param Order order: The sort order of the list by `date_created`. Can be: `asc` (ascending) or `desc` (descending) with `desc` as the default.
-        :param Status status: Status to filter by, with possible values `processing`, `completed`, `deleted`, or `failed`.
+        :param MediaRecordingInstance.Order order: The sort order of the list by `date_created`. Can be: `asc` (ascending) or `desc` (descending) with `desc` as the default.
+        :param MediaRecordingInstance.Status status: Status to filter by, with possible values `processing`, `completed`, `deleted`, or `failed`.
         :param str processor_sid: SID of a MediaProcessor to filter by.
         :param str source_sid: SID of a MediaRecording source to filter by.
         :param str page_token: PageToken provided by the API
@@ -379,7 +379,7 @@ class MediaRecordingInstance(InstanceResource):
     def format(self):
         """
         :returns: 
-        :rtype: Format
+        :rtype: MediaRecordingInstance.Format
         """
         return self._properties['format']
     
@@ -435,7 +435,7 @@ class MediaRecordingInstance(InstanceResource):
     def status(self):
         """
         :returns: 
-        :rtype: Status
+        :rtype: MediaRecordingInstance.Status
         """
         return self._properties['status']
     

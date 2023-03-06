@@ -52,7 +52,7 @@ class CommandList(ListResource):
         :param str sim: The `sid` or `unique_name` of the [SIM](https://www.twilio.com/docs/wireless/api/sim-resource) to send the Command to.
         :param str callback_method: The HTTP method we use to call `callback_url`. Can be: `POST` or `GET`, and the default is `POST`.
         :param str callback_url: The URL we call using the `callback_url` when the Command has finished sending, whether the command was delivered or it failed.
-        :param CommandMode command_mode: 
+        :param CommandInstance.CommandMode command_mode: 
         :param str include_sid: Whether to include the SID of the command in the message body. Can be: `none`, `start`, or `end`, and the default behavior is `none`. When sending a Command to a SIM in text mode, we can automatically include the SID of the Command in the message body, which could be used to ensure that the device does not process the same Command more than once.  A value of `start` will prepend the message with the Command SID, and `end` will append it to the end, separating the Command SID from the message body with a space. The length of the Command SID is included in the 160 character limit so the SMS body must be 128 characters or less before the Command SID is included.
         :param bool delivery_receipt_requested: Whether to request delivery receipt from the recipient. For Commands that request delivery receipt, the Command state transitions to 'delivered' once the server has received a delivery receipt from the device. The default value is `true`.
         
@@ -82,9 +82,9 @@ class CommandList(ListResource):
         The results are returned as a generator, so this operation is memory efficient.
         
         :param str sim: The `sid` or `unique_name` of the [Sim resources](https://www.twilio.com/docs/wireless/api/sim-resource) to read.
-        :param Status status: The status of the resources to read. Can be: `queued`, `sent`, `delivered`, `received`, or `failed`.
-        :param Direction direction: Only return Commands with this direction value.
-        :param Transport transport: Only return Commands with this transport value. Can be: `sms` or `ip`.
+        :param CommandInstance.Status status: The status of the resources to read. Can be: `queued`, `sent`, `delivered`, `received`, or `failed`.
+        :param CommandInstance.Direction direction: Only return Commands with this direction value.
+        :param CommandInstance.Transport transport: Only return Commands with this transport value. Can be: `sms` or `ip`.
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -113,9 +113,9 @@ class CommandList(ListResource):
         memory before returning.
         
         :param str sim: The `sid` or `unique_name` of the [Sim resources](https://www.twilio.com/docs/wireless/api/sim-resource) to read.
-        :param Status status: The status of the resources to read. Can be: `queued`, `sent`, `delivered`, `received`, or `failed`.
-        :param Direction direction: Only return Commands with this direction value.
-        :param Transport transport: Only return Commands with this transport value. Can be: `sms` or `ip`.
+        :param CommandInstance.Status status: The status of the resources to read. Can be: `queued`, `sent`, `delivered`, `received`, or `failed`.
+        :param CommandInstance.Direction direction: Only return Commands with this direction value.
+        :param CommandInstance.Transport transport: Only return Commands with this transport value. Can be: `sms` or `ip`.
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -141,9 +141,9 @@ class CommandList(ListResource):
         Request is executed immediately
         
         :param str sim: The `sid` or `unique_name` of the [Sim resources](https://www.twilio.com/docs/wireless/api/sim-resource) to read.
-        :param Status status: The status of the resources to read. Can be: `queued`, `sent`, `delivered`, `received`, or `failed`.
-        :param Direction direction: Only return Commands with this direction value.
-        :param Transport transport: Only return Commands with this transport value. Can be: `sms` or `ip`.
+        :param CommandInstance.Status status: The status of the resources to read. Can be: `queued`, `sent`, `delivered`, `received`, or `failed`.
+        :param CommandInstance.Direction direction: Only return Commands with this direction value.
+        :param CommandInstance.Transport transport: Only return Commands with this transport value. Can be: `sms` or `ip`.
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -413,7 +413,7 @@ class CommandInstance(InstanceResource):
     def command_mode(self):
         """
         :returns: 
-        :rtype: CommandMode
+        :rtype: CommandInstance.CommandMode
         """
         return self._properties['command_mode']
     
@@ -421,7 +421,7 @@ class CommandInstance(InstanceResource):
     def transport(self):
         """
         :returns: 
-        :rtype: Transport
+        :rtype: CommandInstance.Transport
         """
         return self._properties['transport']
     
@@ -437,7 +437,7 @@ class CommandInstance(InstanceResource):
     def status(self):
         """
         :returns: 
-        :rtype: Status
+        :rtype: CommandInstance.Status
         """
         return self._properties['status']
     
@@ -445,7 +445,7 @@ class CommandInstance(InstanceResource):
     def direction(self):
         """
         :returns: 
-        :rtype: Direction
+        :rtype: CommandInstance.Direction
         """
         return self._properties['direction']
     

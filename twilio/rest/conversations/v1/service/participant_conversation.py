@@ -335,7 +335,7 @@ class ParticipantConversationInstance(InstanceResource):
     def conversation_state(self):
         """
         :returns: 
-        :rtype: State
+        :rtype: ParticipantConversationInstance.State
         """
         return self._properties['conversation_state']
     

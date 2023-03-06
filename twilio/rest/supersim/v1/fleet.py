@@ -442,7 +442,7 @@ class FleetInstance(InstanceResource):
     def data_metering(self):
         """
         :returns: 
-        :rtype: DataMetering
+        :rtype: FleetInstance.DataMetering
         """
         return self._properties['data_metering']
     

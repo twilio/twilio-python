@@ -55,8 +55,8 @@ class SessionList(ListResource):
         :param str unique_name: An application-defined string that uniquely identifies the resource. This value must be 191 characters or fewer in length and be unique. **This value should not have PII.**
         :param datetime date_expiry: The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date when the Session should expire. If this is value is present, it overrides the `ttl` value.
         :param int ttl: The time, in seconds, when the session will expire. The time is measured from the last Session create or the Session's last Interaction.
-        :param Mode mode: 
-        :param Status status: 
+        :param SessionInstance.Mode mode: 
+        :param SessionInstance.Status status: 
         :param list[object] participants: The Participant objects to include in the new session.
         
         :returns: The created SessionInstance
@@ -297,7 +297,7 @@ class SessionContext(InstanceContext):
         
         :params datetime date_expiry: The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date when the Session should expire. If this is value is present, it overrides the `ttl` value.
         :params int ttl: The time, in seconds, when the session will expire. The time is measured from the last Session create or the Session's last Interaction.
-        :params Status status: 
+        :params SessionInstance.Status status: 
 
         :returns: The updated SessionInstance
         :rtype: twilio.rest.proxy.v1.service.session.SessionInstance
@@ -479,7 +479,7 @@ class SessionInstance(InstanceResource):
     def status(self):
         """
         :returns: 
-        :rtype: Status
+        :rtype: SessionInstance.Status
         """
         return self._properties['status']
     
@@ -503,7 +503,7 @@ class SessionInstance(InstanceResource):
     def mode(self):
         """
         :returns: 
-        :rtype: Mode
+        :rtype: SessionInstance.Mode
         """
         return self._properties['mode']
     
@@ -565,7 +565,7 @@ class SessionInstance(InstanceResource):
         
         :params datetime date_expiry: The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date when the Session should expire. If this is value is present, it overrides the `ttl` value.
         :params int ttl: The time, in seconds, when the session will expire. The time is measured from the last Session create or the Session's last Interaction.
-        :params Status status: 
+        :params SessionInstance.Status status: 
 
         :returns: The updated SessionInstance
         :rtype: twilio.rest.proxy.v1.service.session.SessionInstance

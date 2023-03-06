@@ -595,7 +595,7 @@ class ParticipantInstance(InstanceResource):
     def status(self):
         """
         :returns: 
-        :rtype: Status
+        :rtype: ParticipantInstance.Status
         """
         return self._properties['status']
     

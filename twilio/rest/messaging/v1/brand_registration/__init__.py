@@ -443,7 +443,7 @@ class BrandRegistrationInstance(InstanceResource):
     def status(self):
         """
         :returns: 
-        :rtype: Status
+        :rtype: BrandRegistrationInstance.Status
         """
         return self._properties['status']
     
@@ -483,7 +483,7 @@ class BrandRegistrationInstance(InstanceResource):
     def brand_feedback(self):
         """
         :returns: Feedback on how to improve brand score
-        :rtype: list[BrandFeedback]
+        :rtype: list[BrandRegistrationInstance.BrandFeedback]
         """
         return self._properties['brand_feedback']
     
@@ -491,7 +491,7 @@ class BrandRegistrationInstance(InstanceResource):
     def identity_status(self):
         """
         :returns: 
-        :rtype: IdentityStatus
+        :rtype: BrandRegistrationInstance.IdentityStatus
         """
         return self._properties['identity_status']
     

@@ -189,7 +189,7 @@ class BuildStatusInstance(InstanceResource):
     def status(self):
         """
         :returns: 
-        :rtype: Status
+        :rtype: BuildStatusInstance.Status
         """
         return self._properties['status']
     

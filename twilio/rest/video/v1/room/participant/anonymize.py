@@ -196,7 +196,7 @@ class AnonymizeInstance(InstanceResource):
     def status(self):
         """
         :returns: 
-        :rtype: Status
+        :rtype: AnonymizeInstance.Status
         """
         return self._properties['status']
     

@@ -54,11 +54,11 @@ class ChannelList(ListResource):
         """
         Create the ChannelInstance
 
-        :param WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :param ChannelInstance.WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
         :param str friendly_name: 
         :param str unique_name: 
         :param str attributes: 
-        :param ChannelType type: 
+        :param ChannelInstance.ChannelType type: 
         :param datetime date_created: 
         :param datetime date_updated: 
         :param str created_by: 
@@ -88,7 +88,7 @@ class ChannelList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
         
-        :param list[ChannelType] type: 
+        :param list[ChannelInstance.ChannelType] type: 
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -113,7 +113,7 @@ class ChannelList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
-        :param list[ChannelType] type: 
+        :param list[ChannelInstance.ChannelType] type: 
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -135,7 +135,7 @@ class ChannelList(ListResource):
         Retrieve a single page of ChannelInstance records from the API.
         Request is executed immediately
         
-        :param list[ChannelType] type: 
+        :param list[ChannelInstance.ChannelType] type: 
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -279,7 +279,7 @@ class ChannelContext(InstanceContext):
         """
         Deletes the ChannelInstance
 
-        :param WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :param ChannelInstance.WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
         
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -311,7 +311,7 @@ class ChannelContext(InstanceContext):
         """
         Update the ChannelInstance
         
-        :params WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :params ChannelInstance.WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
         :params str friendly_name: 
         :params str unique_name: 
         :params str attributes: 
@@ -506,7 +506,7 @@ class ChannelInstance(InstanceResource):
     def type(self):
         """
         :returns: 
-        :rtype: ChannelType
+        :rtype: ChannelInstance.ChannelType
         """
         return self._properties['type']
     
@@ -570,7 +570,7 @@ class ChannelInstance(InstanceResource):
         """
         Deletes the ChannelInstance
         
-        :params WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :params ChannelInstance.WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
 
         :returns: True if delete succeeds, False otherwise
         :rtype: bool
@@ -591,7 +591,7 @@ class ChannelInstance(InstanceResource):
         """
         Update the ChannelInstance
         
-        :params WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :params ChannelInstance.WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
         :params str friendly_name: 
         :params str unique_name: 
         :params str attributes: 

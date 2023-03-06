@@ -60,12 +60,12 @@ class MessageList(ListResource):
         :param int attempt: Total number of attempts made ( including this ) to send out the message regardless of the provider used
         :param int validity_period: How long in seconds the message can remain in our outgoing message queue. After this period elapses, the message fails and we call your status callback. Can be between 1 and the default value of 14,400 seconds. After a message has been accepted by a carrier, however, we cannot guarantee that the message will not be queued after this period. We recommend that this value be at least 5 seconds.
         :param bool force_delivery: Reserved
-        :param ContentRetention content_retention: 
-        :param AddressRetention address_retention: 
+        :param MessageInstance.ContentRetention content_retention: 
+        :param MessageInstance.AddressRetention address_retention: 
         :param bool smart_encoded: Whether to detect Unicode characters that have a similar GSM-7 character and replace them. Can be: `true` or `false`.
         :param list[str] persistent_action: Rich actions for Channels Messages.
         :param bool shorten_urls: Determines the usage of Click Tracking. Setting it to `true` will instruct Twilio to replace all links in the Message with a shortened version based on the associated Domain Sid and track clicks on them. If this parameter is not set on an API call, we will use the value set on the Messaging Service. If this parameter is not set and the value is not configured on the Messaging Service used this will default to `false`.
-        :param ScheduleType schedule_type: 
+        :param MessageInstance.ScheduleType schedule_type: 
         :param datetime send_at: The time that Twilio will send the message. Must be in ISO 8601 format.
         :param bool send_as_mms: If set to True, Twilio will deliver the message as a single MMS message, regardless of the presence of media.
         :param str content_sid: The SID of the Content object returned at Content API content create time (https://www.twilio.com/docs/content-api/create-and-send-your-first-content-api-template#create-a-template). If this parameter is not specified, then the Content API will not be utilized.
@@ -358,7 +358,7 @@ class MessageContext(InstanceContext):
         Update the MessageInstance
         
         :params str body: The text of the message you want to send. Can be up to 1,600 characters long.
-        :params UpdateStatus status: 
+        :params MessageInstance.UpdateStatus status: 
 
         :returns: The updated MessageInstance
         :rtype: twilio.rest.api.v2010.account.message.MessageInstance
@@ -504,7 +504,7 @@ class MessageInstance(InstanceResource):
     def direction(self):
         """
         :returns: 
-        :rtype: Direction
+        :rtype: MessageInstance.Direction
         """
         return self._properties['direction']
     
@@ -576,7 +576,7 @@ class MessageInstance(InstanceResource):
     def status(self):
         """
         :returns: 
-        :rtype: Status
+        :rtype: MessageInstance.Status
         """
         return self._properties['status']
     
@@ -669,7 +669,7 @@ class MessageInstance(InstanceResource):
         Update the MessageInstance
         
         :params str body: The text of the message you want to send. Can be up to 1,600 characters long.
-        :params UpdateStatus status: 
+        :params MessageInstance.UpdateStatus status: 
 
         :returns: The updated MessageInstance
         :rtype: twilio.rest.api.v2010.account.message.MessageInstance
