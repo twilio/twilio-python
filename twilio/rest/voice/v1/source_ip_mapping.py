@@ -44,6 +44,34 @@ class SourceIpMappingList(ListResource):
         
     
     
+    def fetch(self):
+        """
+        Fetch the SourceIpMappingInstance
+
+        :returns: The fetched SourceIpMappingInstance
+        :rtype: twilio.rest.voice.v1.source_ip_mapping.SourceIpMappingInstance
+        """
+        payload = self._version.create(method='GET', uri=self._uri)
+
+        return SourceIpMappingInstance(self._version, payload)
+    
+    
+    def update(self, sip_domain_sid):
+        """
+        Update the SourceIpMappingInstance
+
+        :param str sip_domain_sid: The SID of the SIP Domain that the IP Record should be mapped to.
+        
+        :returns: The created SourceIpMappingInstance
+        :rtype: twilio.rest.voice.v1.source_ip_mapping.SourceIpMappingInstance
+        """
+        data = values.of({ 
+            'SipDomainSid': sip_domain_sid,
+        })
+        
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return SourceIpMappingInstance(self._version, payload)
     
     
     def create(self, ip_record_sid, sip_domain_sid):

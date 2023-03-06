@@ -48,6 +48,36 @@ class FleetList(ListResource):
         
     
     
+    def fetch(self):
+        """
+        Fetch the FleetInstance
+
+        :returns: The fetched FleetInstance
+        :rtype: twilio.rest.preview.deployed_devices.fleet.FleetInstance
+        """
+        payload = self._version.create(method='GET', uri=self._uri)
+
+        return FleetInstance(self._version, payload)
+    
+    
+    def update(self, friendly_name=values.unset, default_deployment_sid=values.unset):
+        """
+        Update the FleetInstance
+
+        :param str friendly_name: Provides a human readable descriptive text for this Fleet, up to 256 characters long.
+        :param str default_deployment_sid: Provides a string identifier of a Deployment that is going to be used as a default one for this Fleet.
+        
+        :returns: The created FleetInstance
+        :rtype: twilio.rest.preview.deployed_devices.fleet.FleetInstance
+        """
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+            'DefaultDeploymentSid': default_deployment_sid,
+        })
+        
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return FleetInstance(self._version, payload)
     
     
     def create(self, friendly_name=values.unset):

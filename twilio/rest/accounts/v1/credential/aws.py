@@ -44,6 +44,34 @@ class AwsList(ListResource):
         
     
     
+    def fetch(self):
+        """
+        Fetch the AwsInstance
+
+        :returns: The fetched AwsInstance
+        :rtype: twilio.rest.accounts.v1.credential.aws.AwsInstance
+        """
+        payload = self._version.create(method='GET', uri=self._uri)
+
+        return AwsInstance(self._version, payload)
+    
+    
+    def update(self, friendly_name=values.unset):
+        """
+        Update the AwsInstance
+
+        :param str friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+        
+        :returns: The created AwsInstance
+        :rtype: twilio.rest.accounts.v1.credential.aws.AwsInstance
+        """
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+        })
+        
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return AwsInstance(self._version, payload)
     
     
     def create(self, credentials, friendly_name=values.unset, account_sid=values.unset):

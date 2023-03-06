@@ -45,6 +45,34 @@ class SigningKeyList(ListResource):
         
     
     
+    def fetch(self):
+        """
+        Fetch the SigningKeyInstance
+
+        :returns: The fetched SigningKeyInstance
+        :rtype: twilio.rest.api.v2010.account.signing_key.SigningKeyInstance
+        """
+        payload = self._version.create(method='GET', uri=self._uri)
+
+        return SigningKeyInstance(self._version, payload, account_sid=self._solution['account_sid'])
+    
+    
+    def update(self, friendly_name=values.unset):
+        """
+        Update the SigningKeyInstance
+
+        :param str friendly_name: 
+        
+        :returns: The created SigningKeyInstance
+        :rtype: twilio.rest.api.v2010.account.signing_key.SigningKeyInstance
+        """
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+        })
+        
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return SigningKeyInstance(self._version, payload, account_sid=self._solution['account_sid'])
     
     
     def stream(self, limit=None, page_size=None):

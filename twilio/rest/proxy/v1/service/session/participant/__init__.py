@@ -47,6 +47,17 @@ class ParticipantList(ListResource):
         
     
     
+    def fetch(self):
+        """
+        Fetch the ParticipantInstance
+
+        :returns: The fetched ParticipantInstance
+        :rtype: twilio.rest.proxy.v1.service.session.participant.ParticipantInstance
+        """
+        payload = self._version.create(method='GET', uri=self._uri)
+
+        return ParticipantInstance(self._version, payload, service_sid=self._solution['service_sid'], session_sid=self._solution['session_sid'])
+    
     
     def create(self, identifier, friendly_name=values.unset, proxy_identifier=values.unset, proxy_identifier_sid=values.unset):
         """

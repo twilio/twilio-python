@@ -43,6 +43,38 @@ class ExportConfigurationList(ListResource):
         
         
     
+    def fetch(self):
+        """
+        Fetch the ExportConfigurationInstance
+
+        :returns: The fetched ExportConfigurationInstance
+        :rtype: twilio.rest.bulkexports.v1.export_configuration.ExportConfigurationInstance
+        """
+        payload = self._version.create(method='GET', uri=self._uri)
+
+        return ExportConfigurationInstance(self._version, payload)
+    
+    
+    def update(self, enabled=values.unset, webhook_url=values.unset, webhook_method=values.unset):
+        """
+        Update the ExportConfigurationInstance
+
+        :param bool enabled: If true, Twilio will automatically generate every day's file when the day is over.
+        :param str webhook_url: Stores the URL destination for the method specified in webhook_method.
+        :param str webhook_method: Sets whether Twilio should call a webhook URL when the automatic generation is complete, using GET or POST. The actual destination is set in the webhook_url
+        
+        :returns: The created ExportConfigurationInstance
+        :rtype: twilio.rest.bulkexports.v1.export_configuration.ExportConfigurationInstance
+        """
+        data = values.of({ 
+            'Enabled': enabled,
+            'WebhookUrl': webhook_url,
+            'WebhookMethod': webhook_method,
+        })
+        
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return ExportConfigurationInstance(self._version, payload)
     
 
     def get(self, resource_type):

@@ -44,6 +44,24 @@ class InsightsQuestionnairesCategoryList(ListResource):
         
     
     
+    def update(self, name, token=values.unset):
+        """
+        Update the InsightsQuestionnairesCategoryInstance
+
+        :param str name: The name of this category.
+        :param str token: The Token HTTP request header
+        
+        :returns: The created InsightsQuestionnairesCategoryInstance
+        :rtype: twilio.rest.flex_api.v1.insights_questionnaires_category.InsightsQuestionnairesCategoryInstance
+        """
+        data = values.of({ 
+            'Name': name,
+        })
+        headers = values.of({'Token': token, })
+        payload = self._version.update(method='POST', uri=self._uri, data=data, headers=headers)
+
+        return InsightsQuestionnairesCategoryInstance(self._version, payload)
+    
     
     def create(self, name, token=values.unset):
         """

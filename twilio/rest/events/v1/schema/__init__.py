@@ -44,6 +44,17 @@ class SchemaList(ListResource):
         
         
     
+    def fetch(self):
+        """
+        Fetch the SchemaInstance
+
+        :returns: The fetched SchemaInstance
+        :rtype: twilio.rest.events.v1.schema.SchemaInstance
+        """
+        payload = self._version.create(method='GET', uri=self._uri)
+
+        return SchemaInstance(self._version, payload)
+    
 
     def get(self, id):
         """

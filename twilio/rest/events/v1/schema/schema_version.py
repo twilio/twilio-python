@@ -44,6 +44,17 @@ class SchemaVersionList(ListResource):
         
         
     
+    def fetch(self):
+        """
+        Fetch the SchemaVersionInstance
+
+        :returns: The fetched SchemaVersionInstance
+        :rtype: twilio.rest.events.v1.schema.schema_version.SchemaVersionInstance
+        """
+        payload = self._version.create(method='GET', uri=self._uri)
+
+        return SchemaVersionInstance(self._version, payload, id=self._solution['id'])
+    
     
     def stream(self, limit=None, page_size=None):
         """

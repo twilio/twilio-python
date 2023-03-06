@@ -46,6 +46,36 @@ class VariableList(ListResource):
         
     
     
+    def fetch(self):
+        """
+        Fetch the VariableInstance
+
+        :returns: The fetched VariableInstance
+        :rtype: twilio.rest.serverless.v1.service.environment.variable.VariableInstance
+        """
+        payload = self._version.create(method='GET', uri=self._uri)
+
+        return VariableInstance(self._version, payload, service_sid=self._solution['service_sid'], environment_sid=self._solution['environment_sid'])
+    
+    
+    def update(self, key=values.unset, value=values.unset):
+        """
+        Update the VariableInstance
+
+        :param str key: A string by which the Variable resource can be referenced. It can be a maximum of 128 characters.
+        :param str value: A string that contains the actual value of the Variable. It can be a maximum of 450 bytes in size.
+        
+        :returns: The created VariableInstance
+        :rtype: twilio.rest.serverless.v1.service.environment.variable.VariableInstance
+        """
+        data = values.of({ 
+            'Key': key,
+            'Value': value,
+        })
+        
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return VariableInstance(self._version, payload, service_sid=self._solution['service_sid'], environment_sid=self._solution['environment_sid'])
     
     
     def create(self, key, value):

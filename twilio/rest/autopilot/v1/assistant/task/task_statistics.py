@@ -45,6 +45,17 @@ class TaskStatisticsList(ListResource):
         
         
     
+    def fetch(self):
+        """
+        Fetch the TaskStatisticsInstance
+
+        :returns: The fetched TaskStatisticsInstance
+        :rtype: twilio.rest.autopilot.v1.assistant.task.task_statistics.TaskStatisticsInstance
+        """
+        payload = self._version.create(method='GET', uri=self._uri)
+
+        return TaskStatisticsInstance(self._version, payload, assistant_sid=self._solution['assistant_sid'], task_sid=self._solution['task_sid'])
+    
 
     def get(self):
         """

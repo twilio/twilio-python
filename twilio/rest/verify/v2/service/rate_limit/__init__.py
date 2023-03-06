@@ -46,6 +46,34 @@ class RateLimitList(ListResource):
         
     
     
+    def fetch(self):
+        """
+        Fetch the RateLimitInstance
+
+        :returns: The fetched RateLimitInstance
+        :rtype: twilio.rest.verify.v2.service.rate_limit.RateLimitInstance
+        """
+        payload = self._version.create(method='GET', uri=self._uri)
+
+        return RateLimitInstance(self._version, payload, service_sid=self._solution['service_sid'])
+    
+    
+    def update(self, description=values.unset):
+        """
+        Update the RateLimitInstance
+
+        :param str description: Description of this Rate Limit
+        
+        :returns: The created RateLimitInstance
+        :rtype: twilio.rest.verify.v2.service.rate_limit.RateLimitInstance
+        """
+        data = values.of({ 
+            'Description': description,
+        })
+        
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return RateLimitInstance(self._version, payload, service_sid=self._solution['service_sid'])
     
     
     def create(self, unique_name, description=values.unset):

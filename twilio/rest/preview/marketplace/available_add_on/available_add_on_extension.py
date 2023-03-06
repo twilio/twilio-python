@@ -44,6 +44,17 @@ class AvailableAddOnExtensionList(ListResource):
         
         
     
+    def fetch(self):
+        """
+        Fetch the AvailableAddOnExtensionInstance
+
+        :returns: The fetched AvailableAddOnExtensionInstance
+        :rtype: twilio.rest.preview.marketplace.available_add_on.available_add_on_extension.AvailableAddOnExtensionInstance
+        """
+        payload = self._version.create(method='GET', uri=self._uri)
+
+        return AvailableAddOnExtensionInstance(self._version, payload, available_add_on_sid=self._solution['available_add_on_sid'])
+    
     
     def stream(self, limit=None, page_size=None):
         """

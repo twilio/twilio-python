@@ -44,6 +44,34 @@ class DomainCertsList(ListResource):
         
     
     
+    def fetch(self):
+        """
+        Fetch the DomainCertsInstance
+
+        :returns: The fetched DomainCertsInstance
+        :rtype: twilio.rest.messaging.v1.domain_certs.DomainCertsInstance
+        """
+        payload = self._version.create(method='GET', uri=self._uri)
+
+        return DomainCertsInstance(self._version, payload)
+    
+    
+    def update(self, tls_cert):
+        """
+        Update the DomainCertsInstance
+
+        :param str tls_cert: Contains the full TLS certificate and private for this domain in PEM format: https://en.wikipedia.org/wiki/Privacy-Enhanced_Mail. Twilio uses this information to process HTTPS traffic sent to your domain.
+        
+        :returns: The created DomainCertsInstance
+        :rtype: twilio.rest.messaging.v1.domain_certs.DomainCertsInstance
+        """
+        data = values.of({ 
+            'TlsCert': tls_cert,
+        })
+        
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return DomainCertsInstance(self._version, payload)
     
 
     def get(self, domain_sid):

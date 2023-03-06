@@ -45,6 +45,36 @@ class MemberList(ListResource):
         
         
     
+    def fetch(self):
+        """
+        Fetch the MemberInstance
+
+        :returns: The fetched MemberInstance
+        :rtype: twilio.rest.api.v2010.account.queue.member.MemberInstance
+        """
+        payload = self._version.create(method='GET', uri=self._uri)
+
+        return MemberInstance(self._version, payload, account_sid=self._solution['account_sid'], queue_sid=self._solution['queue_sid'])
+    
+    
+    def update(self, url, method=values.unset):
+        """
+        Update the MemberInstance
+
+        :param str url: The absolute URL of the Queue resource.
+        :param str method: How to pass the update request data. Can be `GET` or `POST` and the default is `POST`. `POST` sends the data as encoded form data and `GET` sends the data as query parameters.
+        
+        :returns: The created MemberInstance
+        :rtype: twilio.rest.api.v2010.account.queue.member.MemberInstance
+        """
+        data = values.of({ 
+            'Url': url,
+            'Method': method,
+        })
+        
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return MemberInstance(self._version, payload, account_sid=self._solution['account_sid'], queue_sid=self._solution['queue_sid'])
     
     
     def stream(self, limit=None, page_size=None):

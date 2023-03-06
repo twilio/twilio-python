@@ -43,6 +43,17 @@ class EsimProfileList(ListResource):
         
         
     
+    def fetch(self):
+        """
+        Fetch the EsimProfileInstance
+
+        :returns: The fetched EsimProfileInstance
+        :rtype: twilio.rest.supersim.v1.esim_profile.EsimProfileInstance
+        """
+        payload = self._version.create(method='GET', uri=self._uri)
+
+        return EsimProfileInstance(self._version, payload)
+    
     
     def create(self, callback_url=values.unset, callback_method=values.unset, eid=values.unset):
         """

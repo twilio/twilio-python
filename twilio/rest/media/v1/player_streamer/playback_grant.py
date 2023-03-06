@@ -64,6 +64,17 @@ class PlaybackGrantList(ListResource):
         return PlaybackGrantInstance(self._version, payload, sid=self._solution['sid'])
     
     
+    def fetch(self):
+        """
+        Fetch the PlaybackGrantInstance
+
+        :returns: The fetched PlaybackGrantInstance
+        :rtype: twilio.rest.media.v1.player_streamer.playback_grant.PlaybackGrantInstance
+        """
+        payload = self._version.create(method='GET', uri=self._uri)
+
+        return PlaybackGrantInstance(self._version, payload, sid=self._solution['sid'])
+    
 
     def get(self):
         """

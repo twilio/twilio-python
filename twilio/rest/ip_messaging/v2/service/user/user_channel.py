@@ -13,6 +13,7 @@
 """
 
 
+from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -45,6 +46,38 @@ class UserChannelList(ListResource):
         
     
     
+    def fetch(self):
+        """
+        Fetch the UserChannelInstance
+
+        :returns: The fetched UserChannelInstance
+        :rtype: twilio.rest.ip_messaging.v2.service.user.user_channel.UserChannelInstance
+        """
+        payload = self._version.create(method='GET', uri=self._uri)
+
+        return UserChannelInstance(self._version, payload, service_sid=self._solution['service_sid'], user_sid=self._solution['user_sid'])
+    
+    
+    def update(self, notification_level=values.unset, last_consumed_message_index=values.unset, last_consumption_timestamp=values.unset):
+        """
+        Update the UserChannelInstance
+
+        :param NotificationLevel notification_level: 
+        :param int last_consumed_message_index: 
+        :param datetime last_consumption_timestamp: 
+        
+        :returns: The created UserChannelInstance
+        :rtype: twilio.rest.ip_messaging.v2.service.user.user_channel.UserChannelInstance
+        """
+        data = values.of({ 
+            'NotificationLevel': notification_level,
+            'LastConsumedMessageIndex': last_consumed_message_index,
+            'LastConsumptionTimestamp': serialize.iso8601_datetime(last_consumption_timestamp),
+        })
+        
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return UserChannelInstance(self._version, payload, service_sid=self._solution['service_sid'], user_sid=self._solution['user_sid'])
     
     
     def stream(self, limit=None, page_size=None):
@@ -206,97 +239,6 @@ class UserChannelPage(Page):
 
 
 
-
-class UserChannelContext(InstanceContext):
-
-    def __init__(self, version: Version, service_sid: str, user_sid: str, channel_sid: str):
-        """
-        Initialize the UserChannelContext
-
-        :param Version version: Version that contains the resource
-        :param service_sid: :param user_sid: :param channel_sid: 
-
-        :returns: twilio.rest.ip_messaging.v2.service.user.user_channel.UserChannelContext
-        :rtype: twilio.rest.ip_messaging.v2.service.user.user_channel.UserChannelContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'service_sid': service_sid,
-            'user_sid': user_sid,
-            'channel_sid': channel_sid,
-        }
-        self._uri = '/Services/{service_sid}/Users/{user_sid}/Channels/{channel_sid}'.format(**self._solution)
-        
-    
-    def delete(self):
-        """
-        Deletes the UserChannelInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(method='DELETE', uri=self._uri,)
-        
-    def fetch(self):
-        """
-        Fetch the UserChannelInstance
-        
-
-        :returns: The fetched UserChannelInstance
-        :rtype: twilio.rest.ip_messaging.v2.service.user.user_channel.UserChannelInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return UserChannelInstance(
-            self._version,
-            payload,
-            service_sid=self._solution['service_sid'],
-            user_sid=self._solution['user_sid'],
-            channel_sid=self._solution['channel_sid'],
-            
-        )
-        
-    def update(self, notification_level=values.unset, last_consumed_message_index=values.unset, last_consumption_timestamp=values.unset):
-        """
-        Update the UserChannelInstance
-        
-        :params NotificationLevel notification_level: 
-        :params int last_consumed_message_index: 
-        :params datetime last_consumption_timestamp: 
-
-        :returns: The updated UserChannelInstance
-        :rtype: twilio.rest.ip_messaging.v2.service.user.user_channel.UserChannelInstance
-        """
-        data = values.of({ 
-            'NotificationLevel': notification_level,
-            'LastConsumedMessageIndex': last_consumed_message_index,
-            'LastConsumptionTimestamp': serialize.iso8601_datetime(last_consumption_timestamp),
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return UserChannelInstance(
-            self._version,
-            payload,
-            service_sid=self._solution['service_sid'],
-            user_sid=self._solution['user_sid'],
-            channel_sid=self._solution['channel_sid']
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.IpMessaging.V2.UserChannelContext {}>'.format(context)
 
 class UserChannelInstance(InstanceResource):
 
@@ -476,5 +418,96 @@ class UserChannelInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.IpMessaging.V2.UserChannelInstance {}>'.format(context)
+
+class UserChannelContext(InstanceContext):
+
+    def __init__(self, version: Version, service_sid: str, user_sid: str, channel_sid: str):
+        """
+        Initialize the UserChannelContext
+
+        :param Version version: Version that contains the resource
+        :param service_sid: :param user_sid: :param channel_sid: 
+
+        :returns: twilio.rest.ip_messaging.v2.service.user.user_channel.UserChannelContext
+        :rtype: twilio.rest.ip_messaging.v2.service.user.user_channel.UserChannelContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'service_sid': service_sid,
+            'user_sid': user_sid,
+            'channel_sid': channel_sid,
+        }
+        self._uri = '/Services/{service_sid}/Users/{user_sid}/Channels/{channel_sid}'.format(**self._solution)
+        
+    
+    def delete(self):
+        """
+        Deletes the UserChannelInstance
+
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(method='DELETE', uri=self._uri,)
+        
+    def fetch(self):
+        """
+        Fetch the UserChannelInstance
+        
+
+        :returns: The fetched UserChannelInstance
+        :rtype: twilio.rest.ip_messaging.v2.service.user.user_channel.UserChannelInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return UserChannelInstance(
+            self._version,
+            payload,
+            service_sid=self._solution['service_sid'],
+            user_sid=self._solution['user_sid'],
+            channel_sid=self._solution['channel_sid'],
+            
+        )
+        
+    def update(self, notification_level=values.unset, last_consumed_message_index=values.unset, last_consumption_timestamp=values.unset):
+        """
+        Update the UserChannelInstance
+        
+        :params NotificationLevel notification_level: 
+        :params int last_consumed_message_index: 
+        :params datetime last_consumption_timestamp: 
+
+        :returns: The updated UserChannelInstance
+        :rtype: twilio.rest.ip_messaging.v2.service.user.user_channel.UserChannelInstance
+        """
+        data = values.of({ 
+            'NotificationLevel': notification_level,
+            'LastConsumedMessageIndex': last_consumed_message_index,
+            'LastConsumptionTimestamp': serialize.iso8601_datetime(last_consumption_timestamp),
+        })
+        
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return UserChannelInstance(
+            self._version,
+            payload,
+            service_sid=self._solution['service_sid'],
+            user_sid=self._solution['user_sid'],
+            channel_sid=self._solution['channel_sid']
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.IpMessaging.V2.UserChannelContext {}>'.format(context)
 
 

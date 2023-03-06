@@ -13,6 +13,7 @@
 """
 
 
+from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -46,6 +47,39 @@ class UserList(ListResource):
         
     
     
+    def fetch(self):
+        """
+        Fetch the UserInstance
+
+        :returns: The fetched UserInstance
+        :rtype: twilio.rest.chat.v2.service.user.UserInstance
+        """
+        payload = self._version.create(method='GET', uri=self._uri)
+
+        return UserInstance(self._version, payload, service_sid=self._solution['service_sid'])
+    
+    
+    def update(self, x_twilio_webhook_enabled=values.unset, role_sid=values.unset, attributes=values.unset, friendly_name=values.unset):
+        """
+        Update the UserInstance
+
+        :param WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :param str role_sid: The SID of the [Role](https://www.twilio.com/docs/chat/rest/role-resource) to assign to the User.
+        :param str attributes: A valid JSON string that contains application-specific data.
+        :param str friendly_name: A descriptive string that you create to describe the resource. It is often used for display purposes.
+        
+        :returns: The created UserInstance
+        :rtype: twilio.rest.chat.v2.service.user.UserInstance
+        """
+        data = values.of({ 
+            'RoleSid': role_sid,
+            'Attributes': attributes,
+            'FriendlyName': friendly_name,
+        })
+        headers = values.of({'X-Twilio-Webhook-Enabled': x_twilio_webhook_enabled, })
+        payload = self._version.update(method='POST', uri=self._uri, data=data, headers=headers)
+
+        return UserInstance(self._version, payload, service_sid=self._solution['service_sid'])
     
     
     def create(self, identity, x_twilio_webhook_enabled=values.unset, role_sid=values.unset, attributes=values.unset, friendly_name=values.unset):
@@ -234,123 +268,6 @@ class UserPage(Page):
 
 
 
-
-class UserContext(InstanceContext):
-
-    def __init__(self, version: Version, service_sid: str, sid: str):
-        """
-        Initialize the UserContext
-
-        :param Version version: Version that contains the resource
-        :param service_sid: The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to update the User resource in.:param sid: The SID of the User resource to update. This value can be either the `sid` or the `identity` of the User resource to update.
-
-        :returns: twilio.rest.chat.v2.service.user.UserContext
-        :rtype: twilio.rest.chat.v2.service.user.UserContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'service_sid': service_sid,
-            'sid': sid,
-        }
-        self._uri = '/Services/{service_sid}/Users/{sid}'.format(**self._solution)
-        
-        self._user_bindings = None
-        self._user_channels = None
-    
-    def delete(self):
-        """
-        Deletes the UserInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(method='DELETE', uri=self._uri,)
-        
-    def fetch(self):
-        """
-        Fetch the UserInstance
-        
-
-        :returns: The fetched UserInstance
-        :rtype: twilio.rest.chat.v2.service.user.UserInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return UserInstance(
-            self._version,
-            payload,
-            service_sid=self._solution['service_sid'],
-            sid=self._solution['sid'],
-            
-        )
-        
-    def update(self, x_twilio_webhook_enabled=values.unset, role_sid=values.unset, attributes=values.unset, friendly_name=values.unset):
-        """
-        Update the UserInstance
-        
-        :params WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
-        :params str role_sid: The SID of the [Role](https://www.twilio.com/docs/chat/rest/role-resource) to assign to the User.
-        :params str attributes: A valid JSON string that contains application-specific data.
-        :params str friendly_name: A descriptive string that you create to describe the resource. It is often used for display purposes.
-
-        :returns: The updated UserInstance
-        :rtype: twilio.rest.chat.v2.service.user.UserInstance
-        """
-        data = values.of({ 
-            'RoleSid': role_sid,
-            'Attributes': attributes,
-            'FriendlyName': friendly_name,
-        })
-        headers = values.of({'X-Twilio-Webhook-Enabled': x_twilio_webhook_enabled, })
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data, headers=headers)
-
-        return UserInstance(
-            self._version,
-            payload,
-            service_sid=self._solution['service_sid'],
-            sid=self._solution['sid']
-        )
-        
-    
-    @property
-    def user_bindings(self):
-        """
-        Access the user_bindings
-
-        :returns: twilio.rest.chat.v2.service.user.UserBindingList
-        :rtype: twilio.rest.chat.v2.service.user.UserBindingList
-        """
-        if self._user_bindings is None:
-            self._user_bindings = UserBindingList(self._version, self._solution['service_sid'], self._solution['sid'],
-            )
-        return self._user_bindings
-    
-    @property
-    def user_channels(self):
-        """
-        Access the user_channels
-
-        :returns: twilio.rest.chat.v2.service.user.UserChannelList
-        :rtype: twilio.rest.chat.v2.service.user.UserChannelList
-        """
-        if self._user_channels is None:
-            self._user_channels = UserChannelList(self._version, self._solution['service_sid'], self._solution['sid'],
-            )
-        return self._user_channels
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Chat.V2.UserContext {}>'.format(context)
 
 class UserInstance(InstanceResource):
 
@@ -573,5 +490,122 @@ class UserInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Chat.V2.UserInstance {}>'.format(context)
+
+class UserContext(InstanceContext):
+
+    def __init__(self, version: Version, service_sid: str, sid: str):
+        """
+        Initialize the UserContext
+
+        :param Version version: Version that contains the resource
+        :param service_sid: The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to update the User resource in.:param sid: The SID of the User resource to update. This value can be either the `sid` or the `identity` of the User resource to update.
+
+        :returns: twilio.rest.chat.v2.service.user.UserContext
+        :rtype: twilio.rest.chat.v2.service.user.UserContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'service_sid': service_sid,
+            'sid': sid,
+        }
+        self._uri = '/Services/{service_sid}/Users/{sid}'.format(**self._solution)
+        
+        self._user_bindings = None
+        self._user_channels = None
+    
+    def delete(self):
+        """
+        Deletes the UserInstance
+
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(method='DELETE', uri=self._uri,)
+        
+    def fetch(self):
+        """
+        Fetch the UserInstance
+        
+
+        :returns: The fetched UserInstance
+        :rtype: twilio.rest.chat.v2.service.user.UserInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return UserInstance(
+            self._version,
+            payload,
+            service_sid=self._solution['service_sid'],
+            sid=self._solution['sid'],
+            
+        )
+        
+    def update(self, x_twilio_webhook_enabled=values.unset, role_sid=values.unset, attributes=values.unset, friendly_name=values.unset):
+        """
+        Update the UserInstance
+        
+        :params WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :params str role_sid: The SID of the [Role](https://www.twilio.com/docs/chat/rest/role-resource) to assign to the User.
+        :params str attributes: A valid JSON string that contains application-specific data.
+        :params str friendly_name: A descriptive string that you create to describe the resource. It is often used for display purposes.
+
+        :returns: The updated UserInstance
+        :rtype: twilio.rest.chat.v2.service.user.UserInstance
+        """
+        data = values.of({ 
+            'RoleSid': role_sid,
+            'Attributes': attributes,
+            'FriendlyName': friendly_name,
+        })
+        headers = values.of({'X-Twilio-Webhook-Enabled': x_twilio_webhook_enabled, })
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data, headers=headers)
+
+        return UserInstance(
+            self._version,
+            payload,
+            service_sid=self._solution['service_sid'],
+            sid=self._solution['sid']
+        )
+        
+    
+    @property
+    def user_bindings(self):
+        """
+        Access the user_bindings
+
+        :returns: twilio.rest.chat.v2.service.user.UserBindingList
+        :rtype: twilio.rest.chat.v2.service.user.UserBindingList
+        """
+        if self._user_bindings is None:
+            self._user_bindings = UserBindingList(self._version, self._solution['service_sid'], self._solution['sid'],
+            )
+        return self._user_bindings
+    
+    @property
+    def user_channels(self):
+        """
+        Access the user_channels
+
+        :returns: twilio.rest.chat.v2.service.user.UserChannelList
+        :rtype: twilio.rest.chat.v2.service.user.UserChannelList
+        """
+        if self._user_channels is None:
+            self._user_channels = UserChannelList(self._version, self._solution['service_sid'], self._solution['sid'],
+            )
+        return self._user_channels
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Chat.V2.UserContext {}>'.format(context)
 
 

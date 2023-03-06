@@ -43,6 +43,23 @@ class RestoreAssistantList(ListResource):
         
         
     
+    def update(self, assistant):
+        """
+        Update the RestoreAssistantInstance
+
+        :param str assistant: The Twilio-provided string that uniquely identifies the Assistant resource to restore.
+        
+        :returns: The created RestoreAssistantInstance
+        :rtype: twilio.rest.autopilot.v1.restore_assistant.RestoreAssistantInstance
+        """
+        data = values.of({ 
+            'Assistant': assistant,
+        })
+        
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return RestoreAssistantInstance(self._version, payload)
+    
 
 
     def __repr__(self):

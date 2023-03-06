@@ -46,6 +46,17 @@ class CredentialListMappingList(ListResource):
         
     
     
+    def fetch(self):
+        """
+        Fetch the CredentialListMappingInstance
+
+        :returns: The fetched CredentialListMappingInstance
+        :rtype: twilio.rest.api.v2010.account.sip.domain.credential_list_mapping.CredentialListMappingInstance
+        """
+        payload = self._version.create(method='GET', uri=self._uri)
+
+        return CredentialListMappingInstance(self._version, payload, account_sid=self._solution['account_sid'], domain_sid=self._solution['domain_sid'])
+    
     
     def create(self, credential_list_sid):
         """

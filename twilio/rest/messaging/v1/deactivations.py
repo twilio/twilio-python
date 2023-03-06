@@ -43,6 +43,17 @@ class DeactivationsList(ListResource):
         
         
     
+    def fetch(self):
+        """
+        Fetch the DeactivationsInstance
+
+        :returns: The fetched DeactivationsInstance
+        :rtype: twilio.rest.messaging.v1.deactivations.DeactivationsInstance
+        """
+        payload = self._version.create(method='GET', uri=self._uri)
+
+        return DeactivationsInstance(self._version, payload)
+    
 
     def get(self):
         """

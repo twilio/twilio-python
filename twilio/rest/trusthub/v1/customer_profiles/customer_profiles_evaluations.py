@@ -44,6 +44,17 @@ class CustomerProfilesEvaluationsList(ListResource):
         
         
     
+    def fetch(self):
+        """
+        Fetch the CustomerProfilesEvaluationsInstance
+
+        :returns: The fetched CustomerProfilesEvaluationsInstance
+        :rtype: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_evaluations.CustomerProfilesEvaluationsInstance
+        """
+        payload = self._version.create(method='GET', uri=self._uri)
+
+        return CustomerProfilesEvaluationsInstance(self._version, payload, customer_profile_sid=self._solution['customer_profile_sid'])
+    
     
     def create(self, policy_sid):
         """

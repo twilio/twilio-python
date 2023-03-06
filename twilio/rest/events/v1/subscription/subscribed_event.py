@@ -45,6 +45,34 @@ class SubscribedEventList(ListResource):
         
     
     
+    def fetch(self):
+        """
+        Fetch the SubscribedEventInstance
+
+        :returns: The fetched SubscribedEventInstance
+        :rtype: twilio.rest.events.v1.subscription.subscribed_event.SubscribedEventInstance
+        """
+        payload = self._version.create(method='GET', uri=self._uri)
+
+        return SubscribedEventInstance(self._version, payload, subscription_sid=self._solution['subscription_sid'])
+    
+    
+    def update(self, schema_version=values.unset):
+        """
+        Update the SubscribedEventInstance
+
+        :param int schema_version: The schema version that the subscription should use.
+        
+        :returns: The created SubscribedEventInstance
+        :rtype: twilio.rest.events.v1.subscription.subscribed_event.SubscribedEventInstance
+        """
+        data = values.of({ 
+            'SchemaVersion': schema_version,
+        })
+        
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return SubscribedEventInstance(self._version, payload, subscription_sid=self._solution['subscription_sid'])
     
     
     def create(self, type, schema_version=values.unset):

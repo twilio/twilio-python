@@ -45,6 +45,17 @@ class DeliveryReceiptList(ListResource):
         
         
     
+    def fetch(self):
+        """
+        Fetch the DeliveryReceiptInstance
+
+        :returns: The fetched DeliveryReceiptInstance
+        :rtype: twilio.rest.conversations.v1.conversation.message.delivery_receipt.DeliveryReceiptInstance
+        """
+        payload = self._version.create(method='GET', uri=self._uri)
+
+        return DeliveryReceiptInstance(self._version, payload, conversation_sid=self._solution['conversation_sid'], message_sid=self._solution['message_sid'])
+    
     
     def stream(self, limit=None, page_size=None):
         """

@@ -43,6 +43,17 @@ class InsightsSettingsAnswerSetsList(ListResource):
         
         
     
+    def fetch(self):
+        """
+        Fetch the InsightsSettingsAnswerSetsInstance
+
+        :returns: The fetched InsightsSettingsAnswerSetsInstance
+        :rtype: twilio.rest.flex_api.v1.insights_settings_answer_sets.InsightsSettingsAnswerSetsInstance
+        """
+        payload = self._version.create(method='GET', uri=self._uri)
+
+        return InsightsSettingsAnswerSetsInstance(self._version, payload)
+    
 
 
     def __repr__(self):

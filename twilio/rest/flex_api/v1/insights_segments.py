@@ -43,6 +43,17 @@ class InsightsSegmentsList(ListResource):
         
         
     
+    def fetch(self):
+        """
+        Fetch the InsightsSegmentsInstance
+
+        :returns: The fetched InsightsSegmentsInstance
+        :rtype: twilio.rest.flex_api.v1.insights_segments.InsightsSegmentsInstance
+        """
+        payload = self._version.create(method='GET', uri=self._uri)
+
+        return InsightsSegmentsInstance(self._version, payload)
+    
 
     def get(self, segment_id):
         """

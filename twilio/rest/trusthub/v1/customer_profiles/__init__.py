@@ -13,6 +13,7 @@
 """
 
 
+from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -46,6 +47,40 @@ class CustomerProfilesList(ListResource):
         
     
     
+    def fetch(self):
+        """
+        Fetch the CustomerProfilesInstance
+
+        :returns: The fetched CustomerProfilesInstance
+        :rtype: twilio.rest.trusthub.v1.customer_profiles.CustomerProfilesInstance
+        """
+        payload = self._version.create(method='GET', uri=self._uri)
+
+        return CustomerProfilesInstance(self._version, payload)
+    
+    
+    def update(self, status=values.unset, status_callback=values.unset, friendly_name=values.unset, email=values.unset):
+        """
+        Update the CustomerProfilesInstance
+
+        :param Status status: 
+        :param str status_callback: The URL we call to inform your application of status changes.
+        :param str friendly_name: The string that you assigned to describe the resource.
+        :param str email: The email address that will receive updates when the Customer-Profile resource changes status.
+        
+        :returns: The created CustomerProfilesInstance
+        :rtype: twilio.rest.trusthub.v1.customer_profiles.CustomerProfilesInstance
+        """
+        data = values.of({ 
+            'Status': status,
+            'StatusCallback': status_callback,
+            'FriendlyName': friendly_name,
+            'Email': email,
+        })
+        
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return CustomerProfilesInstance(self._version, payload)
     
     
     def create(self, friendly_name, email, policy_sid, status_callback=values.unset):
@@ -251,135 +286,6 @@ class CustomerProfilesPage(Page):
 
 
 
-
-class CustomerProfilesContext(InstanceContext):
-
-    def __init__(self, version: Version, sid: str):
-        """
-        Initialize the CustomerProfilesContext
-
-        :param Version version: Version that contains the resource
-        :param sid: The unique string that we created to identify the Customer-Profile resource.
-
-        :returns: twilio.rest.trusthub.v1.customer_profiles.CustomerProfilesContext
-        :rtype: twilio.rest.trusthub.v1.customer_profiles.CustomerProfilesContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'sid': sid,
-        }
-        self._uri = '/CustomerProfiles/{sid}'.format(**self._solution)
-        
-        self._customer_profiles_channel_endpoint_assignment = None
-        self._customer_profiles_entity_assignments = None
-        self._customer_profiles_evaluations = None
-    
-    def delete(self):
-        """
-        Deletes the CustomerProfilesInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(method='DELETE', uri=self._uri,)
-        
-    def fetch(self):
-        """
-        Fetch the CustomerProfilesInstance
-        
-
-        :returns: The fetched CustomerProfilesInstance
-        :rtype: twilio.rest.trusthub.v1.customer_profiles.CustomerProfilesInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return CustomerProfilesInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid'],
-            
-        )
-        
-    def update(self, status=values.unset, status_callback=values.unset, friendly_name=values.unset, email=values.unset):
-        """
-        Update the CustomerProfilesInstance
-        
-        :params Status status: 
-        :params str status_callback: The URL we call to inform your application of status changes.
-        :params str friendly_name: The string that you assigned to describe the resource.
-        :params str email: The email address that will receive updates when the Customer-Profile resource changes status.
-
-        :returns: The updated CustomerProfilesInstance
-        :rtype: twilio.rest.trusthub.v1.customer_profiles.CustomerProfilesInstance
-        """
-        data = values.of({ 
-            'Status': status,
-            'StatusCallback': status_callback,
-            'FriendlyName': friendly_name,
-            'Email': email,
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return CustomerProfilesInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid']
-        )
-        
-    
-    @property
-    def customer_profiles_channel_endpoint_assignment(self):
-        """
-        Access the customer_profiles_channel_endpoint_assignment
-
-        :returns: twilio.rest.trusthub.v1.customer_profiles.CustomerProfilesChannelEndpointAssignmentList
-        :rtype: twilio.rest.trusthub.v1.customer_profiles.CustomerProfilesChannelEndpointAssignmentList
-        """
-        if self._customer_profiles_channel_endpoint_assignment is None:
-            self._customer_profiles_channel_endpoint_assignment = CustomerProfilesChannelEndpointAssignmentList(self._version, self._solution['sid'],
-            )
-        return self._customer_profiles_channel_endpoint_assignment
-    
-    @property
-    def customer_profiles_entity_assignments(self):
-        """
-        Access the customer_profiles_entity_assignments
-
-        :returns: twilio.rest.trusthub.v1.customer_profiles.CustomerProfilesEntityAssignmentsList
-        :rtype: twilio.rest.trusthub.v1.customer_profiles.CustomerProfilesEntityAssignmentsList
-        """
-        if self._customer_profiles_entity_assignments is None:
-            self._customer_profiles_entity_assignments = CustomerProfilesEntityAssignmentsList(self._version, self._solution['sid'],
-            )
-        return self._customer_profiles_entity_assignments
-    
-    @property
-    def customer_profiles_evaluations(self):
-        """
-        Access the customer_profiles_evaluations
-
-        :returns: twilio.rest.trusthub.v1.customer_profiles.CustomerProfilesEvaluationsList
-        :rtype: twilio.rest.trusthub.v1.customer_profiles.CustomerProfilesEvaluationsList
-        """
-        if self._customer_profiles_evaluations is None:
-            self._customer_profiles_evaluations = CustomerProfilesEvaluationsList(self._version, self._solution['sid'],
-            )
-        return self._customer_profiles_evaluations
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Trusthub.V1.CustomerProfilesContext {}>'.format(context)
 
 class CustomerProfilesInstance(InstanceResource):
 
@@ -597,5 +503,134 @@ class CustomerProfilesInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Trusthub.V1.CustomerProfilesInstance {}>'.format(context)
+
+class CustomerProfilesContext(InstanceContext):
+
+    def __init__(self, version: Version, sid: str):
+        """
+        Initialize the CustomerProfilesContext
+
+        :param Version version: Version that contains the resource
+        :param sid: The unique string that we created to identify the Customer-Profile resource.
+
+        :returns: twilio.rest.trusthub.v1.customer_profiles.CustomerProfilesContext
+        :rtype: twilio.rest.trusthub.v1.customer_profiles.CustomerProfilesContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'sid': sid,
+        }
+        self._uri = '/CustomerProfiles/{sid}'.format(**self._solution)
+        
+        self._customer_profiles_channel_endpoint_assignment = None
+        self._customer_profiles_entity_assignments = None
+        self._customer_profiles_evaluations = None
+    
+    def delete(self):
+        """
+        Deletes the CustomerProfilesInstance
+
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(method='DELETE', uri=self._uri,)
+        
+    def fetch(self):
+        """
+        Fetch the CustomerProfilesInstance
+        
+
+        :returns: The fetched CustomerProfilesInstance
+        :rtype: twilio.rest.trusthub.v1.customer_profiles.CustomerProfilesInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return CustomerProfilesInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid'],
+            
+        )
+        
+    def update(self, status=values.unset, status_callback=values.unset, friendly_name=values.unset, email=values.unset):
+        """
+        Update the CustomerProfilesInstance
+        
+        :params Status status: 
+        :params str status_callback: The URL we call to inform your application of status changes.
+        :params str friendly_name: The string that you assigned to describe the resource.
+        :params str email: The email address that will receive updates when the Customer-Profile resource changes status.
+
+        :returns: The updated CustomerProfilesInstance
+        :rtype: twilio.rest.trusthub.v1.customer_profiles.CustomerProfilesInstance
+        """
+        data = values.of({ 
+            'Status': status,
+            'StatusCallback': status_callback,
+            'FriendlyName': friendly_name,
+            'Email': email,
+        })
+        
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return CustomerProfilesInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid']
+        )
+        
+    
+    @property
+    def customer_profiles_channel_endpoint_assignment(self):
+        """
+        Access the customer_profiles_channel_endpoint_assignment
+
+        :returns: twilio.rest.trusthub.v1.customer_profiles.CustomerProfilesChannelEndpointAssignmentList
+        :rtype: twilio.rest.trusthub.v1.customer_profiles.CustomerProfilesChannelEndpointAssignmentList
+        """
+        if self._customer_profiles_channel_endpoint_assignment is None:
+            self._customer_profiles_channel_endpoint_assignment = CustomerProfilesChannelEndpointAssignmentList(self._version, self._solution['sid'],
+            )
+        return self._customer_profiles_channel_endpoint_assignment
+    
+    @property
+    def customer_profiles_entity_assignments(self):
+        """
+        Access the customer_profiles_entity_assignments
+
+        :returns: twilio.rest.trusthub.v1.customer_profiles.CustomerProfilesEntityAssignmentsList
+        :rtype: twilio.rest.trusthub.v1.customer_profiles.CustomerProfilesEntityAssignmentsList
+        """
+        if self._customer_profiles_entity_assignments is None:
+            self._customer_profiles_entity_assignments = CustomerProfilesEntityAssignmentsList(self._version, self._solution['sid'],
+            )
+        return self._customer_profiles_entity_assignments
+    
+    @property
+    def customer_profiles_evaluations(self):
+        """
+        Access the customer_profiles_evaluations
+
+        :returns: twilio.rest.trusthub.v1.customer_profiles.CustomerProfilesEvaluationsList
+        :rtype: twilio.rest.trusthub.v1.customer_profiles.CustomerProfilesEvaluationsList
+        """
+        if self._customer_profiles_evaluations is None:
+            self._customer_profiles_evaluations = CustomerProfilesEvaluationsList(self._version, self._solution['sid'],
+            )
+        return self._customer_profiles_evaluations
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Trusthub.V1.CustomerProfilesContext {}>'.format(context)
 
 

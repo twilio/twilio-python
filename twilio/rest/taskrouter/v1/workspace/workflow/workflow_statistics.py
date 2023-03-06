@@ -45,6 +45,17 @@ class WorkflowStatisticsList(ListResource):
         
         
     
+    def fetch(self):
+        """
+        Fetch the WorkflowStatisticsInstance
+
+        :returns: The fetched WorkflowStatisticsInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.workflow.workflow_statistics.WorkflowStatisticsInstance
+        """
+        payload = self._version.create(method='GET', uri=self._uri)
+
+        return WorkflowStatisticsInstance(self._version, payload, workspace_sid=self._solution['workspace_sid'], workflow_sid=self._solution['workflow_sid'])
+    
 
     def get(self):
         """

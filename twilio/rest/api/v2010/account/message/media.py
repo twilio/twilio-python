@@ -46,6 +46,17 @@ class MediaList(ListResource):
         
     
     
+    def fetch(self):
+        """
+        Fetch the MediaInstance
+
+        :returns: The fetched MediaInstance
+        :rtype: twilio.rest.api.v2010.account.message.media.MediaInstance
+        """
+        payload = self._version.create(method='GET', uri=self._uri)
+
+        return MediaInstance(self._version, payload, account_sid=self._solution['account_sid'], message_sid=self._solution['message_sid'])
+    
     
     def stream(self, date_created=values.unset, date_created_before=values.unset, date_created_after=values.unset, limit=None, page_size=None):
         """

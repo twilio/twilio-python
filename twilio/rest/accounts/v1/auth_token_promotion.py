@@ -43,6 +43,21 @@ class AuthTokenPromotionList(ListResource):
         
         
     
+    def update(self):
+        """
+        Update the AuthTokenPromotionInstance
+
+        
+        :returns: The created AuthTokenPromotionInstance
+        :rtype: twilio.rest.accounts.v1.auth_token_promotion.AuthTokenPromotionInstance
+        """
+        data = values.of({ 
+        })
+        
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return AuthTokenPromotionInstance(self._version, payload)
+    
 
     def get(self):
         """

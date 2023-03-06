@@ -44,6 +44,44 @@ class CredentialList(ListResource):
         
     
     
+    def fetch(self):
+        """
+        Fetch the CredentialInstance
+
+        :returns: The fetched CredentialInstance
+        :rtype: twilio.rest.notify.v1.credential.CredentialInstance
+        """
+        payload = self._version.create(method='GET', uri=self._uri)
+
+        return CredentialInstance(self._version, payload)
+    
+    
+    def update(self, friendly_name=values.unset, certificate=values.unset, private_key=values.unset, sandbox=values.unset, api_key=values.unset, secret=values.unset):
+        """
+        Update the CredentialInstance
+
+        :param str friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+        :param str certificate: [APN only] The URL-encoded representation of the certificate. Strip everything outside of the headers, e.g. `-----BEGIN CERTIFICATE-----MIIFnTCCBIWgAwIBAgIIAjy9H849+E8wDQYJKoZIhvcNAQEFBQAwgZYxCzAJBgNV.....A==-----END CERTIFICATE-----`
+        :param str private_key: [APN only] The URL-encoded representation of the private key. Strip everything outside of the headers, e.g. `-----BEGIN RSA PRIVATE KEY-----MIIEpQIBAAKCAQEAuyf/lNrH9ck8DmNyo3fGgvCI1l9s+cmBY3WIz+cUDqmxiieR\\\\n.-----END RSA PRIVATE KEY-----`
+        :param bool sandbox: [APN only] Whether to send the credential to sandbox APNs. Can be `true` to send to sandbox APNs or `false` to send to production.
+        :param str api_key: [GCM only] The `Server key` of your project from Firebase console under Settings / Cloud messaging.
+        :param str secret: [FCM only] The `Server key` of your project from Firebase console under Settings / Cloud messaging.
+        
+        :returns: The created CredentialInstance
+        :rtype: twilio.rest.notify.v1.credential.CredentialInstance
+        """
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+            'Certificate': certificate,
+            'PrivateKey': private_key,
+            'Sandbox': sandbox,
+            'ApiKey': api_key,
+            'Secret': secret,
+        })
+        
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return CredentialInstance(self._version, payload)
     
     
     def create(self, type, friendly_name=values.unset, certificate=values.unset, private_key=values.unset, sandbox=values.unset, api_key=values.unset, secret=values.unset):

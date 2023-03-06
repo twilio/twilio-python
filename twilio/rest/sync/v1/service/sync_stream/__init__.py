@@ -46,6 +46,34 @@ class SyncStreamList(ListResource):
         
     
     
+    def fetch(self):
+        """
+        Fetch the SyncStreamInstance
+
+        :returns: The fetched SyncStreamInstance
+        :rtype: twilio.rest.sync.v1.service.sync_stream.SyncStreamInstance
+        """
+        payload = self._version.create(method='GET', uri=self._uri)
+
+        return SyncStreamInstance(self._version, payload, service_sid=self._solution['service_sid'])
+    
+    
+    def update(self, ttl=values.unset):
+        """
+        Update the SyncStreamInstance
+
+        :param int ttl: How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Stream expires and is deleted (time-to-live).
+        
+        :returns: The created SyncStreamInstance
+        :rtype: twilio.rest.sync.v1.service.sync_stream.SyncStreamInstance
+        """
+        data = values.of({ 
+            'Ttl': ttl,
+        })
+        
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return SyncStreamInstance(self._version, payload, service_sid=self._solution['service_sid'])
     
     
     def create(self, unique_name=values.unset, ttl=values.unset):

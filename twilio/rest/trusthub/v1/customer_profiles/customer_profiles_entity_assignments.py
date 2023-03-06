@@ -45,6 +45,17 @@ class CustomerProfilesEntityAssignmentsList(ListResource):
         
     
     
+    def fetch(self):
+        """
+        Fetch the CustomerProfilesEntityAssignmentsInstance
+
+        :returns: The fetched CustomerProfilesEntityAssignmentsInstance
+        :rtype: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_entity_assignments.CustomerProfilesEntityAssignmentsInstance
+        """
+        payload = self._version.create(method='GET', uri=self._uri)
+
+        return CustomerProfilesEntityAssignmentsInstance(self._version, payload, customer_profile_sid=self._solution['customer_profile_sid'])
+    
     
     def create(self, object_sid):
         """

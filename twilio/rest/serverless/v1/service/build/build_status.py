@@ -45,6 +45,17 @@ class BuildStatusList(ListResource):
         
         
     
+    def fetch(self):
+        """
+        Fetch the BuildStatusInstance
+
+        :returns: The fetched BuildStatusInstance
+        :rtype: twilio.rest.serverless.v1.service.build.build_status.BuildStatusInstance
+        """
+        payload = self._version.create(method='GET', uri=self._uri)
+
+        return BuildStatusInstance(self._version, payload, service_sid=self._solution['service_sid'], sid=self._solution['sid'])
+    
 
     def get(self):
         """

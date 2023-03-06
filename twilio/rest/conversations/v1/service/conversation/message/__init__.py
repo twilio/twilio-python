@@ -13,6 +13,7 @@
 """
 
 
+from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -46,6 +47,43 @@ class MessageList(ListResource):
         
     
     
+    def fetch(self):
+        """
+        Fetch the MessageInstance
+
+        :returns: The fetched MessageInstance
+        :rtype: twilio.rest.conversations.v1.service.conversation.message.MessageInstance
+        """
+        payload = self._version.create(method='GET', uri=self._uri)
+
+        return MessageInstance(self._version, payload, chat_service_sid=self._solution['chat_service_sid'], conversation_sid=self._solution['conversation_sid'])
+    
+    
+    def update(self, x_twilio_webhook_enabled=values.unset, author=values.unset, body=values.unset, date_created=values.unset, date_updated=values.unset, attributes=values.unset):
+        """
+        Update the MessageInstance
+
+        :param WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :param str author: The channel specific identifier of the message's author. Defaults to `system`.
+        :param str body: The content of the message, can be up to 1,600 characters long.
+        :param datetime date_created: The date that this resource was created.
+        :param datetime date_updated: The date that this resource was last updated. `null` if the message has not been edited.
+        :param str attributes: A string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
+        
+        :returns: The created MessageInstance
+        :rtype: twilio.rest.conversations.v1.service.conversation.message.MessageInstance
+        """
+        data = values.of({ 
+            'Author': author,
+            'Body': body,
+            'DateCreated': serialize.iso8601_datetime(date_created),
+            'DateUpdated': serialize.iso8601_datetime(date_updated),
+            'Attributes': attributes,
+        })
+        headers = values.of({'X-Twilio-Webhook-Enabled': x_twilio_webhook_enabled, })
+        payload = self._version.update(method='POST', uri=self._uri, data=data, headers=headers)
+
+        return MessageInstance(self._version, payload, chat_service_sid=self._solution['chat_service_sid'], conversation_sid=self._solution['conversation_sid'])
     
     
     def create(self, x_twilio_webhook_enabled=values.unset, author=values.unset, body=values.unset, date_created=values.unset, date_updated=values.unset, attributes=values.unset, media_sid=values.unset, content_sid=values.unset, content_variables=values.unset):
@@ -248,119 +286,6 @@ class MessagePage(Page):
 
 
 
-
-class MessageContext(InstanceContext):
-
-    def __init__(self, version: Version, chat_service_sid: str, conversation_sid: str, sid: str):
-        """
-        Initialize the MessageContext
-
-        :param Version version: Version that contains the resource
-        :param chat_service_sid: The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Participant resource is associated with.:param conversation_sid: The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this message.:param sid: A 34 character string that uniquely identifies this resource.
-
-        :returns: twilio.rest.conversations.v1.service.conversation.message.MessageContext
-        :rtype: twilio.rest.conversations.v1.service.conversation.message.MessageContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'chat_service_sid': chat_service_sid,
-            'conversation_sid': conversation_sid,
-            'sid': sid,
-        }
-        self._uri = '/Services/{chat_service_sid}/Conversations/{conversation_sid}/Messages/{sid}'.format(**self._solution)
-        
-        self._delivery_receipts = None
-    
-    def delete(self, x_twilio_webhook_enabled=values.unset):
-        """
-        Deletes the MessageInstance
-
-        :param WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        headers = values.of({'X-Twilio-Webhook-Enabled': x_twilio_webhook_enabled, })
-        
-        return self._version.delete(method='DELETE', uri=self._uri, headers=headers)
-        
-    def fetch(self):
-        """
-        Fetch the MessageInstance
-        
-
-        :returns: The fetched MessageInstance
-        :rtype: twilio.rest.conversations.v1.service.conversation.message.MessageInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return MessageInstance(
-            self._version,
-            payload,
-            chat_service_sid=self._solution['chat_service_sid'],
-            conversation_sid=self._solution['conversation_sid'],
-            sid=self._solution['sid'],
-            
-        )
-        
-    def update(self, x_twilio_webhook_enabled=values.unset, author=values.unset, body=values.unset, date_created=values.unset, date_updated=values.unset, attributes=values.unset):
-        """
-        Update the MessageInstance
-        
-        :params WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
-        :params str author: The channel specific identifier of the message's author. Defaults to `system`.
-        :params str body: The content of the message, can be up to 1,600 characters long.
-        :params datetime date_created: The date that this resource was created.
-        :params datetime date_updated: The date that this resource was last updated. `null` if the message has not been edited.
-        :params str attributes: A string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
-
-        :returns: The updated MessageInstance
-        :rtype: twilio.rest.conversations.v1.service.conversation.message.MessageInstance
-        """
-        data = values.of({ 
-            'Author': author,
-            'Body': body,
-            'DateCreated': serialize.iso8601_datetime(date_created),
-            'DateUpdated': serialize.iso8601_datetime(date_updated),
-            'Attributes': attributes,
-        })
-        headers = values.of({'X-Twilio-Webhook-Enabled': x_twilio_webhook_enabled, })
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data, headers=headers)
-
-        return MessageInstance(
-            self._version,
-            payload,
-            chat_service_sid=self._solution['chat_service_sid'],
-            conversation_sid=self._solution['conversation_sid'],
-            sid=self._solution['sid']
-        )
-        
-    
-    @property
-    def delivery_receipts(self):
-        """
-        Access the delivery_receipts
-
-        :returns: twilio.rest.conversations.v1.service.conversation.message.DeliveryReceiptList
-        :rtype: twilio.rest.conversations.v1.service.conversation.message.DeliveryReceiptList
-        """
-        if self._delivery_receipts is None:
-            self._delivery_receipts = DeliveryReceiptList(self._version, self._solution['chat_service_sid'], self._solution['conversation_sid'], self._solution['sid'],
-            )
-        return self._delivery_receipts
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Conversations.V1.MessageContext {}>'.format(context)
 
 class MessageInstance(InstanceResource):
 
@@ -598,5 +523,118 @@ class MessageInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Conversations.V1.MessageInstance {}>'.format(context)
+
+class MessageContext(InstanceContext):
+
+    def __init__(self, version: Version, chat_service_sid: str, conversation_sid: str, sid: str):
+        """
+        Initialize the MessageContext
+
+        :param Version version: Version that contains the resource
+        :param chat_service_sid: The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Participant resource is associated with.:param conversation_sid: The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this message.:param sid: A 34 character string that uniquely identifies this resource.
+
+        :returns: twilio.rest.conversations.v1.service.conversation.message.MessageContext
+        :rtype: twilio.rest.conversations.v1.service.conversation.message.MessageContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'chat_service_sid': chat_service_sid,
+            'conversation_sid': conversation_sid,
+            'sid': sid,
+        }
+        self._uri = '/Services/{chat_service_sid}/Conversations/{conversation_sid}/Messages/{sid}'.format(**self._solution)
+        
+        self._delivery_receipts = None
+    
+    def delete(self, x_twilio_webhook_enabled=values.unset):
+        """
+        Deletes the MessageInstance
+
+        :param WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        headers = values.of({'X-Twilio-Webhook-Enabled': x_twilio_webhook_enabled, })
+        
+        return self._version.delete(method='DELETE', uri=self._uri, headers=headers)
+        
+    def fetch(self):
+        """
+        Fetch the MessageInstance
+        
+
+        :returns: The fetched MessageInstance
+        :rtype: twilio.rest.conversations.v1.service.conversation.message.MessageInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return MessageInstance(
+            self._version,
+            payload,
+            chat_service_sid=self._solution['chat_service_sid'],
+            conversation_sid=self._solution['conversation_sid'],
+            sid=self._solution['sid'],
+            
+        )
+        
+    def update(self, x_twilio_webhook_enabled=values.unset, author=values.unset, body=values.unset, date_created=values.unset, date_updated=values.unset, attributes=values.unset):
+        """
+        Update the MessageInstance
+        
+        :params WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :params str author: The channel specific identifier of the message's author. Defaults to `system`.
+        :params str body: The content of the message, can be up to 1,600 characters long.
+        :params datetime date_created: The date that this resource was created.
+        :params datetime date_updated: The date that this resource was last updated. `null` if the message has not been edited.
+        :params str attributes: A string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
+
+        :returns: The updated MessageInstance
+        :rtype: twilio.rest.conversations.v1.service.conversation.message.MessageInstance
+        """
+        data = values.of({ 
+            'Author': author,
+            'Body': body,
+            'DateCreated': serialize.iso8601_datetime(date_created),
+            'DateUpdated': serialize.iso8601_datetime(date_updated),
+            'Attributes': attributes,
+        })
+        headers = values.of({'X-Twilio-Webhook-Enabled': x_twilio_webhook_enabled, })
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data, headers=headers)
+
+        return MessageInstance(
+            self._version,
+            payload,
+            chat_service_sid=self._solution['chat_service_sid'],
+            conversation_sid=self._solution['conversation_sid'],
+            sid=self._solution['sid']
+        )
+        
+    
+    @property
+    def delivery_receipts(self):
+        """
+        Access the delivery_receipts
+
+        :returns: twilio.rest.conversations.v1.service.conversation.message.DeliveryReceiptList
+        :rtype: twilio.rest.conversations.v1.service.conversation.message.DeliveryReceiptList
+        """
+        if self._delivery_receipts is None:
+            self._delivery_receipts = DeliveryReceiptList(self._version, self._solution['chat_service_sid'], self._solution['conversation_sid'], self._solution['sid'],
+            )
+        return self._delivery_receipts
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Conversations.V1.MessageContext {}>'.format(context)
 
 

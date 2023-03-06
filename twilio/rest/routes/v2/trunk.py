@@ -43,6 +43,36 @@ class TrunkList(ListResource):
         
         
     
+    def fetch(self):
+        """
+        Fetch the TrunkInstance
+
+        :returns: The fetched TrunkInstance
+        :rtype: twilio.rest.routes.v2.trunk.TrunkInstance
+        """
+        payload = self._version.create(method='GET', uri=self._uri)
+
+        return TrunkInstance(self._version, payload)
+    
+    
+    def update(self, voice_region=values.unset, friendly_name=values.unset):
+        """
+        Update the TrunkInstance
+
+        :param str voice_region: The Inbound Processing Region used for this SIP Trunk for voice
+        :param str friendly_name: A human readable description of this resource, up to 64 characters.
+        
+        :returns: The created TrunkInstance
+        :rtype: twilio.rest.routes.v2.trunk.TrunkInstance
+        """
+        data = values.of({ 
+            'VoiceRegion': voice_region,
+            'FriendlyName': friendly_name,
+        })
+        
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return TrunkInstance(self._version, payload)
     
 
     def get(self, sip_trunk_domain):

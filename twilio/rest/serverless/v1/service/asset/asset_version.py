@@ -45,6 +45,17 @@ class AssetVersionList(ListResource):
         
         
     
+    def fetch(self):
+        """
+        Fetch the AssetVersionInstance
+
+        :returns: The fetched AssetVersionInstance
+        :rtype: twilio.rest.serverless.v1.service.asset.asset_version.AssetVersionInstance
+        """
+        payload = self._version.create(method='GET', uri=self._uri)
+
+        return AssetVersionInstance(self._version, payload, service_sid=self._solution['service_sid'], asset_sid=self._solution['asset_sid'])
+    
     
     def stream(self, limit=None, page_size=None):
         """

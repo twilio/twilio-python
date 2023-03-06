@@ -48,6 +48,38 @@ class ChannelList(ListResource):
         
     
     
+    def fetch(self):
+        """
+        Fetch the ChannelInstance
+
+        :returns: The fetched ChannelInstance
+        :rtype: twilio.rest.chat.v1.service.channel.ChannelInstance
+        """
+        payload = self._version.create(method='GET', uri=self._uri)
+
+        return ChannelInstance(self._version, payload, service_sid=self._solution['service_sid'])
+    
+    
+    def update(self, friendly_name=values.unset, unique_name=values.unset, attributes=values.unset):
+        """
+        Update the ChannelInstance
+
+        :param str friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+        :param str unique_name: An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource's `sid` in the URL. This value must be 64 characters or less in length and be unique within the Service.
+        :param str attributes: A valid JSON string that contains application-specific data.
+        
+        :returns: The created ChannelInstance
+        :rtype: twilio.rest.chat.v1.service.channel.ChannelInstance
+        """
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+            'UniqueName': unique_name,
+            'Attributes': attributes,
+        })
+        
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return ChannelInstance(self._version, payload, service_sid=self._solution['service_sid'])
     
     
     def create(self, friendly_name=values.unset, unique_name=values.unset, attributes=values.unset, type=values.unset):

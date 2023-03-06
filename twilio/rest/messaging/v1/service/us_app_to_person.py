@@ -45,6 +45,17 @@ class UsAppToPersonList(ListResource):
         
     
     
+    def fetch(self):
+        """
+        Fetch the UsAppToPersonInstance
+
+        :returns: The fetched UsAppToPersonInstance
+        :rtype: twilio.rest.messaging.v1.service.us_app_to_person.UsAppToPersonInstance
+        """
+        payload = self._version.create(method='GET', uri=self._uri)
+
+        return UsAppToPersonInstance(self._version, payload, messaging_service_sid=self._solution['messaging_service_sid'])
+    
     
     def create(self, brand_registration_sid, description, message_flow, message_samples, us_app_to_person_usecase, has_embedded_links, has_embedded_phone, opt_in_message=values.unset, opt_out_message=values.unset, help_message=values.unset, opt_in_keywords=values.unset, opt_out_keywords=values.unset, help_keywords=values.unset):
         """

@@ -43,6 +43,17 @@ class PhoneNumberList(ListResource):
         
         
     
+    def fetch(self):
+        """
+        Fetch the PhoneNumberInstance
+
+        :returns: The fetched PhoneNumberInstance
+        :rtype: twilio.rest.lookups.v2.phone_number.PhoneNumberInstance
+        """
+        payload = self._version.create(method='GET', uri=self._uri)
+
+        return PhoneNumberInstance(self._version, payload)
+    
 
     def get(self, phone_number):
         """

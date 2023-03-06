@@ -48,6 +48,17 @@ class EnvironmentList(ListResource):
         
     
     
+    def fetch(self):
+        """
+        Fetch the EnvironmentInstance
+
+        :returns: The fetched EnvironmentInstance
+        :rtype: twilio.rest.serverless.v1.service.environment.EnvironmentInstance
+        """
+        payload = self._version.create(method='GET', uri=self._uri)
+
+        return EnvironmentInstance(self._version, payload, service_sid=self._solution['service_sid'])
+    
     
     def create(self, unique_name, domain_suffix=values.unset):
         """

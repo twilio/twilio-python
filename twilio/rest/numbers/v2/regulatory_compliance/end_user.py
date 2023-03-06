@@ -44,6 +44,36 @@ class EndUserList(ListResource):
         
     
     
+    def fetch(self):
+        """
+        Fetch the EndUserInstance
+
+        :returns: The fetched EndUserInstance
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.end_user.EndUserInstance
+        """
+        payload = self._version.create(method='GET', uri=self._uri)
+
+        return EndUserInstance(self._version, payload)
+    
+    
+    def update(self, friendly_name=values.unset, attributes=values.unset):
+        """
+        Update the EndUserInstance
+
+        :param str friendly_name: The string that you assigned to describe the resource.
+        :param object attributes: The set of parameters that are the attributes of the End User resource which are derived End User Types.
+        
+        :returns: The created EndUserInstance
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.end_user.EndUserInstance
+        """
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+            'Attributes': serialize.object(attributes),
+        })
+        
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return EndUserInstance(self._version, payload)
     
     
     def create(self, friendly_name, type, attributes=values.unset):

@@ -45,6 +45,34 @@ class TaskActionsList(ListResource):
         
         
     
+    def fetch(self):
+        """
+        Fetch the TaskActionsInstance
+
+        :returns: The fetched TaskActionsInstance
+        :rtype: twilio.rest.preview.understand.assistant.task.task_actions.TaskActionsInstance
+        """
+        payload = self._version.create(method='GET', uri=self._uri)
+
+        return TaskActionsInstance(self._version, payload, assistant_sid=self._solution['assistant_sid'], task_sid=self._solution['task_sid'])
+    
+    
+    def update(self, actions=values.unset):
+        """
+        Update the TaskActionsInstance
+
+        :param object actions: The JSON actions that instruct the Assistant how to perform this task.
+        
+        :returns: The created TaskActionsInstance
+        :rtype: twilio.rest.preview.understand.assistant.task.task_actions.TaskActionsInstance
+        """
+        data = values.of({ 
+            'Actions': serialize.object(actions),
+        })
+        
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return TaskActionsInstance(self._version, payload, assistant_sid=self._solution['assistant_sid'], task_sid=self._solution['task_sid'])
     
 
     def get(self):

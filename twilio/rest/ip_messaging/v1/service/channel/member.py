@@ -46,6 +46,36 @@ class MemberList(ListResource):
         
     
     
+    def fetch(self):
+        """
+        Fetch the MemberInstance
+
+        :returns: The fetched MemberInstance
+        :rtype: twilio.rest.ip_messaging.v1.service.channel.member.MemberInstance
+        """
+        payload = self._version.create(method='GET', uri=self._uri)
+
+        return MemberInstance(self._version, payload, service_sid=self._solution['service_sid'], channel_sid=self._solution['channel_sid'])
+    
+    
+    def update(self, role_sid=values.unset, last_consumed_message_index=values.unset):
+        """
+        Update the MemberInstance
+
+        :param str role_sid: 
+        :param int last_consumed_message_index: 
+        
+        :returns: The created MemberInstance
+        :rtype: twilio.rest.ip_messaging.v1.service.channel.member.MemberInstance
+        """
+        data = values.of({ 
+            'RoleSid': role_sid,
+            'LastConsumedMessageIndex': last_consumed_message_index,
+        })
+        
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return MemberInstance(self._version, payload, service_sid=self._solution['service_sid'], channel_sid=self._solution['channel_sid'])
     
     
     def create(self, identity, role_sid=values.unset):

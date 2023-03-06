@@ -45,6 +45,17 @@ class TrustProductsEntityAssignmentsList(ListResource):
         
     
     
+    def fetch(self):
+        """
+        Fetch the TrustProductsEntityAssignmentsInstance
+
+        :returns: The fetched TrustProductsEntityAssignmentsInstance
+        :rtype: twilio.rest.trusthub.v1.trust_products.trust_products_entity_assignments.TrustProductsEntityAssignmentsInstance
+        """
+        payload = self._version.create(method='GET', uri=self._uri)
+
+        return TrustProductsEntityAssignmentsInstance(self._version, payload, trust_product_sid=self._solution['trust_product_sid'])
+    
     
     def create(self, object_sid):
         """

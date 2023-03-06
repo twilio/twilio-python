@@ -46,6 +46,56 @@ class ParticipantList(ListResource):
         
     
     
+    def fetch(self):
+        """
+        Fetch the ParticipantInstance
+
+        :returns: The fetched ParticipantInstance
+        :rtype: twilio.rest.api.v2010.account.conference.participant.ParticipantInstance
+        """
+        payload = self._version.create(method='GET', uri=self._uri)
+
+        return ParticipantInstance(self._version, payload, account_sid=self._solution['account_sid'], conference_sid=self._solution['conference_sid'])
+    
+    
+    def update(self, muted=values.unset, hold=values.unset, hold_url=values.unset, hold_method=values.unset, announce_url=values.unset, announce_method=values.unset, wait_url=values.unset, wait_method=values.unset, beep_on_exit=values.unset, end_conference_on_exit=values.unset, coaching=values.unset, call_sid_to_coach=values.unset):
+        """
+        Update the ParticipantInstance
+
+        :param bool muted: Whether the participant should be muted. Can be `true` or `false`. `true` will mute the participant, and `false` will un-mute them. Anything value other than `true` or `false` is interpreted as `false`.
+        :param bool hold: Whether the participant should be on hold. Can be: `true` or `false`. `true` puts the participant on hold, and `false` lets them rejoin the conference.
+        :param str hold_url: The URL we call using the `hold_method` for music that plays when the participant is on hold. The URL may return an MP3 file, a WAV file, or a TwiML document that contains `<Play>`, `<Say>`, `<Pause>`, or `<Redirect>` verbs.
+        :param str hold_method: The HTTP method we should use to call `hold_url`. Can be: `GET` or `POST` and the default is `GET`.
+        :param str announce_url: The URL we call using the `announce_method` for an announcement to the participant. The URL may return an MP3 file, a WAV file, or a TwiML document that contains `<Play>`, `<Say>`, `<Pause>`, or `<Redirect>` verbs.
+        :param str announce_method: The HTTP method we should use to call `announce_url`. Can be: `GET` or `POST` and defaults to `POST`.
+        :param str wait_url: The URL we call using the `wait_method` for the music to play while participants are waiting for the conference to start. The URL may return an MP3 file, a WAV file, or a TwiML document that contains `<Play>`, `<Say>`, `<Pause>`, or `<Redirect>` verbs. The default value is the URL of our standard hold music. [Learn more about hold music](https://www.twilio.com/labs/twimlets/holdmusic).
+        :param str wait_method: The HTTP method we should use to call `wait_url`. Can be `GET` or `POST` and the default is `POST`. When using a static audio file, this should be `GET` so that we can cache the file.
+        :param bool beep_on_exit: Whether to play a notification beep to the conference when the participant exits. Can be: `true` or `false`.
+        :param bool end_conference_on_exit: Whether to end the conference when the participant leaves. Can be: `true` or `false` and defaults to `false`.
+        :param bool coaching: Whether the participant is coaching another call. Can be: `true` or `false`. If not present, defaults to `false` unless `call_sid_to_coach` is defined. If `true`, `call_sid_to_coach` must be defined.
+        :param str call_sid_to_coach: The SID of the participant who is being `coached`. The participant being coached is the only participant who can hear the participant who is `coaching`.
+        
+        :returns: The created ParticipantInstance
+        :rtype: twilio.rest.api.v2010.account.conference.participant.ParticipantInstance
+        """
+        data = values.of({ 
+            'Muted': muted,
+            'Hold': hold,
+            'HoldUrl': hold_url,
+            'HoldMethod': hold_method,
+            'AnnounceUrl': announce_url,
+            'AnnounceMethod': announce_method,
+            'WaitUrl': wait_url,
+            'WaitMethod': wait_method,
+            'BeepOnExit': beep_on_exit,
+            'EndConferenceOnExit': end_conference_on_exit,
+            'Coaching': coaching,
+            'CallSidToCoach': call_sid_to_coach,
+        })
+        
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return ParticipantInstance(self._version, payload, account_sid=self._solution['account_sid'], conference_sid=self._solution['conference_sid'])
     
     
     def create(self, from_, to, status_callback=values.unset, status_callback_method=values.unset, status_callback_event=values.unset, label=values.unset, timeout=values.unset, record=values.unset, muted=values.unset, beep=values.unset, start_conference_on_enter=values.unset, end_conference_on_exit=values.unset, wait_url=values.unset, wait_method=values.unset, early_media=values.unset, max_participants=values.unset, conference_record=values.unset, conference_trim=values.unset, conference_status_callback=values.unset, conference_status_callback_method=values.unset, conference_status_callback_event=values.unset, recording_channels=values.unset, recording_status_callback=values.unset, recording_status_callback_method=values.unset, sip_auth_username=values.unset, sip_auth_password=values.unset, region=values.unset, conference_recording_status_callback=values.unset, conference_recording_status_callback_method=values.unset, recording_status_callback_event=values.unset, conference_recording_status_callback_event=values.unset, coaching=values.unset, call_sid_to_coach=values.unset, jitter_buffer_size=values.unset, byoc=values.unset, caller_id=values.unset, call_reason=values.unset, recording_track=values.unset, time_limit=values.unset, machine_detection=values.unset, machine_detection_timeout=values.unset, machine_detection_speech_threshold=values.unset, machine_detection_speech_end_threshold=values.unset, machine_detection_silence_timeout=values.unset, amd_status_callback=values.unset, amd_status_callback_method=values.unset):

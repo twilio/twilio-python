@@ -47,6 +47,140 @@ class ServiceList(ListResource):
         
     
     
+    def fetch(self):
+        """
+        Fetch the ServiceInstance
+
+        :returns: The fetched ServiceInstance
+        :rtype: twilio.rest.ip_messaging.v1.service.ServiceInstance
+        """
+        payload = self._version.create(method='GET', uri=self._uri)
+
+        return ServiceInstance(self._version, payload)
+    
+    
+    def update(self, friendly_name=values.unset, default_service_role_sid=values.unset, default_channel_role_sid=values.unset, default_channel_creator_role_sid=values.unset, read_status_enabled=values.unset, reachability_enabled=values.unset, typing_indicator_timeout=values.unset, consumption_report_interval=values.unset, notifications_new_message_enabled=values.unset, notifications_new_message_template=values.unset, notifications_added_to_channel_enabled=values.unset, notifications_added_to_channel_template=values.unset, notifications_removed_from_channel_enabled=values.unset, notifications_removed_from_channel_template=values.unset, notifications_invited_to_channel_enabled=values.unset, notifications_invited_to_channel_template=values.unset, pre_webhook_url=values.unset, post_webhook_url=values.unset, webhook_method=values.unset, webhook_filters=values.unset, webhooks_on_message_send_url=values.unset, webhooks_on_message_send_method=values.unset, webhooks_on_message_update_url=values.unset, webhooks_on_message_update_method=values.unset, webhooks_on_message_remove_url=values.unset, webhooks_on_message_remove_method=values.unset, webhooks_on_channel_add_url=values.unset, webhooks_on_channel_add_method=values.unset, webhooks_on_channel_destroy_url=values.unset, webhooks_on_channel_destroy_method=values.unset, webhooks_on_channel_update_url=values.unset, webhooks_on_channel_update_method=values.unset, webhooks_on_member_add_url=values.unset, webhooks_on_member_add_method=values.unset, webhooks_on_member_remove_url=values.unset, webhooks_on_member_remove_method=values.unset, webhooks_on_message_sent_url=values.unset, webhooks_on_message_sent_method=values.unset, webhooks_on_message_updated_url=values.unset, webhooks_on_message_updated_method=values.unset, webhooks_on_message_removed_url=values.unset, webhooks_on_message_removed_method=values.unset, webhooks_on_channel_added_url=values.unset, webhooks_on_channel_added_method=values.unset, webhooks_on_channel_destroyed_url=values.unset, webhooks_on_channel_destroyed_method=values.unset, webhooks_on_channel_updated_url=values.unset, webhooks_on_channel_updated_method=values.unset, webhooks_on_member_added_url=values.unset, webhooks_on_member_added_method=values.unset, webhooks_on_member_removed_url=values.unset, webhooks_on_member_removed_method=values.unset, limits_channel_members=values.unset, limits_user_channels=values.unset):
+        """
+        Update the ServiceInstance
+
+        :param str friendly_name: 
+        :param str default_service_role_sid: 
+        :param str default_channel_role_sid: 
+        :param str default_channel_creator_role_sid: 
+        :param bool read_status_enabled: 
+        :param bool reachability_enabled: 
+        :param int typing_indicator_timeout: 
+        :param int consumption_report_interval: 
+        :param bool notifications_new_message_enabled: 
+        :param str notifications_new_message_template: 
+        :param bool notifications_added_to_channel_enabled: 
+        :param str notifications_added_to_channel_template: 
+        :param bool notifications_removed_from_channel_enabled: 
+        :param str notifications_removed_from_channel_template: 
+        :param bool notifications_invited_to_channel_enabled: 
+        :param str notifications_invited_to_channel_template: 
+        :param str pre_webhook_url: 
+        :param str post_webhook_url: 
+        :param str webhook_method: 
+        :param list[str] webhook_filters: 
+        :param str webhooks_on_message_send_url: 
+        :param str webhooks_on_message_send_method: 
+        :param str webhooks_on_message_update_url: 
+        :param str webhooks_on_message_update_method: 
+        :param str webhooks_on_message_remove_url: 
+        :param str webhooks_on_message_remove_method: 
+        :param str webhooks_on_channel_add_url: 
+        :param str webhooks_on_channel_add_method: 
+        :param str webhooks_on_channel_destroy_url: 
+        :param str webhooks_on_channel_destroy_method: 
+        :param str webhooks_on_channel_update_url: 
+        :param str webhooks_on_channel_update_method: 
+        :param str webhooks_on_member_add_url: 
+        :param str webhooks_on_member_add_method: 
+        :param str webhooks_on_member_remove_url: 
+        :param str webhooks_on_member_remove_method: 
+        :param str webhooks_on_message_sent_url: 
+        :param str webhooks_on_message_sent_method: 
+        :param str webhooks_on_message_updated_url: 
+        :param str webhooks_on_message_updated_method: 
+        :param str webhooks_on_message_removed_url: 
+        :param str webhooks_on_message_removed_method: 
+        :param str webhooks_on_channel_added_url: 
+        :param str webhooks_on_channel_added_method: 
+        :param str webhooks_on_channel_destroyed_url: 
+        :param str webhooks_on_channel_destroyed_method: 
+        :param str webhooks_on_channel_updated_url: 
+        :param str webhooks_on_channel_updated_method: 
+        :param str webhooks_on_member_added_url: 
+        :param str webhooks_on_member_added_method: 
+        :param str webhooks_on_member_removed_url: 
+        :param str webhooks_on_member_removed_method: 
+        :param int limits_channel_members: 
+        :param int limits_user_channels: 
+        
+        :returns: The created ServiceInstance
+        :rtype: twilio.rest.ip_messaging.v1.service.ServiceInstance
+        """
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+            'DefaultServiceRoleSid': default_service_role_sid,
+            'DefaultChannelRoleSid': default_channel_role_sid,
+            'DefaultChannelCreatorRoleSid': default_channel_creator_role_sid,
+            'ReadStatusEnabled': read_status_enabled,
+            'ReachabilityEnabled': reachability_enabled,
+            'TypingIndicatorTimeout': typing_indicator_timeout,
+            'ConsumptionReportInterval': consumption_report_interval,
+            'Notifications.NewMessage.Enabled': notifications_new_message_enabled,
+            'Notifications.NewMessage.Template': notifications_new_message_template,
+            'Notifications.AddedToChannel.Enabled': notifications_added_to_channel_enabled,
+            'Notifications.AddedToChannel.Template': notifications_added_to_channel_template,
+            'Notifications.RemovedFromChannel.Enabled': notifications_removed_from_channel_enabled,
+            'Notifications.RemovedFromChannel.Template': notifications_removed_from_channel_template,
+            'Notifications.InvitedToChannel.Enabled': notifications_invited_to_channel_enabled,
+            'Notifications.InvitedToChannel.Template': notifications_invited_to_channel_template,
+            'PreWebhookUrl': pre_webhook_url,
+            'PostWebhookUrl': post_webhook_url,
+            'WebhookMethod': webhook_method,
+            'WebhookFilters': serialize.map(webhook_filters, lambda e: e),
+            'Webhooks.OnMessageSend.Url': webhooks_on_message_send_url,
+            'Webhooks.OnMessageSend.Method': webhooks_on_message_send_method,
+            'Webhooks.OnMessageUpdate.Url': webhooks_on_message_update_url,
+            'Webhooks.OnMessageUpdate.Method': webhooks_on_message_update_method,
+            'Webhooks.OnMessageRemove.Url': webhooks_on_message_remove_url,
+            'Webhooks.OnMessageRemove.Method': webhooks_on_message_remove_method,
+            'Webhooks.OnChannelAdd.Url': webhooks_on_channel_add_url,
+            'Webhooks.OnChannelAdd.Method': webhooks_on_channel_add_method,
+            'Webhooks.OnChannelDestroy.Url': webhooks_on_channel_destroy_url,
+            'Webhooks.OnChannelDestroy.Method': webhooks_on_channel_destroy_method,
+            'Webhooks.OnChannelUpdate.Url': webhooks_on_channel_update_url,
+            'Webhooks.OnChannelUpdate.Method': webhooks_on_channel_update_method,
+            'Webhooks.OnMemberAdd.Url': webhooks_on_member_add_url,
+            'Webhooks.OnMemberAdd.Method': webhooks_on_member_add_method,
+            'Webhooks.OnMemberRemove.Url': webhooks_on_member_remove_url,
+            'Webhooks.OnMemberRemove.Method': webhooks_on_member_remove_method,
+            'Webhooks.OnMessageSent.Url': webhooks_on_message_sent_url,
+            'Webhooks.OnMessageSent.Method': webhooks_on_message_sent_method,
+            'Webhooks.OnMessageUpdated.Url': webhooks_on_message_updated_url,
+            'Webhooks.OnMessageUpdated.Method': webhooks_on_message_updated_method,
+            'Webhooks.OnMessageRemoved.Url': webhooks_on_message_removed_url,
+            'Webhooks.OnMessageRemoved.Method': webhooks_on_message_removed_method,
+            'Webhooks.OnChannelAdded.Url': webhooks_on_channel_added_url,
+            'Webhooks.OnChannelAdded.Method': webhooks_on_channel_added_method,
+            'Webhooks.OnChannelDestroyed.Url': webhooks_on_channel_destroyed_url,
+            'Webhooks.OnChannelDestroyed.Method': webhooks_on_channel_destroyed_method,
+            'Webhooks.OnChannelUpdated.Url': webhooks_on_channel_updated_url,
+            'Webhooks.OnChannelUpdated.Method': webhooks_on_channel_updated_method,
+            'Webhooks.OnMemberAdded.Url': webhooks_on_member_added_url,
+            'Webhooks.OnMemberAdded.Method': webhooks_on_member_added_method,
+            'Webhooks.OnMemberRemoved.Url': webhooks_on_member_removed_url,
+            'Webhooks.OnMemberRemoved.Method': webhooks_on_member_removed_method,
+            'Limits.ChannelMembers': limits_channel_members,
+            'Limits.UserChannels': limits_user_channels,
+        })
+        
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return ServiceInstance(self._version, payload)
     
     
     def create(self, friendly_name):

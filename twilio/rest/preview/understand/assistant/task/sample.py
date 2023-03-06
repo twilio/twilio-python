@@ -46,6 +46,38 @@ class SampleList(ListResource):
         
     
     
+    def fetch(self):
+        """
+        Fetch the SampleInstance
+
+        :returns: The fetched SampleInstance
+        :rtype: twilio.rest.preview.understand.assistant.task.sample.SampleInstance
+        """
+        payload = self._version.create(method='GET', uri=self._uri)
+
+        return SampleInstance(self._version, payload, assistant_sid=self._solution['assistant_sid'], task_sid=self._solution['task_sid'])
+    
+    
+    def update(self, language=values.unset, tagged_text=values.unset, source_channel=values.unset):
+        """
+        Update the SampleInstance
+
+        :param str language: An ISO language-country string of the sample.
+        :param str tagged_text: The text example of how end-users may express this task. The sample may contain Field tag blocks.
+        :param str source_channel: The communication channel the sample was captured. It can be: *voice*, *sms*, *chat*, *alexa*, *google-assistant*, or *slack*. If not included the value will be null
+        
+        :returns: The created SampleInstance
+        :rtype: twilio.rest.preview.understand.assistant.task.sample.SampleInstance
+        """
+        data = values.of({ 
+            'Language': language,
+            'TaggedText': tagged_text,
+            'SourceChannel': source_channel,
+        })
+        
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return SampleInstance(self._version, payload, assistant_sid=self._solution['assistant_sid'], task_sid=self._solution['task_sid'])
     
     
     def create(self, language, tagged_text, source_channel=values.unset):

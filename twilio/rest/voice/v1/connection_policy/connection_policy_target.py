@@ -45,6 +45,42 @@ class ConnectionPolicyTargetList(ListResource):
         
     
     
+    def fetch(self):
+        """
+        Fetch the ConnectionPolicyTargetInstance
+
+        :returns: The fetched ConnectionPolicyTargetInstance
+        :rtype: twilio.rest.voice.v1.connection_policy.connection_policy_target.ConnectionPolicyTargetInstance
+        """
+        payload = self._version.create(method='GET', uri=self._uri)
+
+        return ConnectionPolicyTargetInstance(self._version, payload, connection_policy_sid=self._solution['connection_policy_sid'])
+    
+    
+    def update(self, friendly_name=values.unset, target=values.unset, priority=values.unset, weight=values.unset, enabled=values.unset):
+        """
+        Update the ConnectionPolicyTargetInstance
+
+        :param str friendly_name: A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
+        :param str target: The SIP address you want Twilio to route your calls to. This must be a `sip:` schema. `sips` is NOT supported.
+        :param int priority: The relative importance of the target. Can be an integer from 0 to 65535, inclusive. The lowest number represents the most important target.
+        :param int weight: The value that determines the relative share of the load the Target should receive compared to other Targets with the same priority. Can be an integer from 1 to 65535, inclusive. Targets with higher values receive more load than those with lower ones with the same priority.
+        :param bool enabled: Whether the Target is enabled.
+        
+        :returns: The created ConnectionPolicyTargetInstance
+        :rtype: twilio.rest.voice.v1.connection_policy.connection_policy_target.ConnectionPolicyTargetInstance
+        """
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+            'Target': target,
+            'Priority': priority,
+            'Weight': weight,
+            'Enabled': enabled,
+        })
+        
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return ConnectionPolicyTargetInstance(self._version, payload, connection_policy_sid=self._solution['connection_policy_sid'])
     
     
     def create(self, target, friendly_name=values.unset, priority=values.unset, weight=values.unset, enabled=values.unset):

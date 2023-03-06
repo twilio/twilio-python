@@ -45,6 +45,17 @@ class PhoneNumberList(ListResource):
         
     
     
+    def fetch(self):
+        """
+        Fetch the PhoneNumberInstance
+
+        :returns: The fetched PhoneNumberInstance
+        :rtype: twilio.rest.trunking.v1.trunk.phone_number.PhoneNumberInstance
+        """
+        payload = self._version.create(method='GET', uri=self._uri)
+
+        return PhoneNumberInstance(self._version, payload, trunk_sid=self._solution['trunk_sid'])
+    
     
     def create(self, phone_number_sid):
         """

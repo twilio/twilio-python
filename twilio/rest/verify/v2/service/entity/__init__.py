@@ -48,6 +48,17 @@ class EntityList(ListResource):
         
     
     
+    def fetch(self):
+        """
+        Fetch the EntityInstance
+
+        :returns: The fetched EntityInstance
+        :rtype: twilio.rest.verify.v2.service.entity.EntityInstance
+        """
+        payload = self._version.create(method='GET', uri=self._uri)
+
+        return EntityInstance(self._version, payload, service_sid=self._solution['service_sid'])
+    
     
     def create(self, identity):
         """

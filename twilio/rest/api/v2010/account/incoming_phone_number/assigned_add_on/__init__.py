@@ -47,6 +47,17 @@ class AssignedAddOnList(ListResource):
         
     
     
+    def fetch(self):
+        """
+        Fetch the AssignedAddOnInstance
+
+        :returns: The fetched AssignedAddOnInstance
+        :rtype: twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.AssignedAddOnInstance
+        """
+        payload = self._version.create(method='GET', uri=self._uri)
+
+        return AssignedAddOnInstance(self._version, payload, account_sid=self._solution['account_sid'], resource_sid=self._solution['resource_sid'])
+    
     
     def create(self, installed_add_on_sid):
         """

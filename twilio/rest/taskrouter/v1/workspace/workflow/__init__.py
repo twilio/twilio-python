@@ -48,6 +48,44 @@ class WorkflowList(ListResource):
         
     
     
+    def fetch(self):
+        """
+        Fetch the WorkflowInstance
+
+        :returns: The fetched WorkflowInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowInstance
+        """
+        payload = self._version.create(method='GET', uri=self._uri)
+
+        return WorkflowInstance(self._version, payload, workspace_sid=self._solution['workspace_sid'])
+    
+    
+    def update(self, friendly_name=values.unset, assignment_callback_url=values.unset, fallback_assignment_callback_url=values.unset, configuration=values.unset, task_reservation_timeout=values.unset, re_evaluate_tasks=values.unset):
+        """
+        Update the WorkflowInstance
+
+        :param str friendly_name: A descriptive string that you create to describe the Workflow resource. For example, `Inbound Call Workflow` or `2014 Outbound Campaign`.
+        :param str assignment_callback_url: The URL from your application that will process task assignment events. See [Handling Task Assignment Callback](https://www.twilio.com/docs/taskrouter/handle-assignment-callbacks) for more details.
+        :param str fallback_assignment_callback_url: The URL that we should call when a call to the `assignment_callback_url` fails.
+        :param str configuration: A JSON string that contains the rules to apply to the Workflow. See [Configuring Workflows](https://www.twilio.com/docs/taskrouter/workflow-configuration) for more information.
+        :param int task_reservation_timeout: How long TaskRouter will wait for a confirmation response from your application after it assigns a Task to a Worker. Can be up to `86,400` (24 hours) and the default is `120`.
+        :param str re_evaluate_tasks: Whether or not to re-evaluate Tasks. The default is `false`, which means Tasks in the Workflow will not be processed through the assignment loop again.
+        
+        :returns: The created WorkflowInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.workflow.WorkflowInstance
+        """
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+            'AssignmentCallbackUrl': assignment_callback_url,
+            'FallbackAssignmentCallbackUrl': fallback_assignment_callback_url,
+            'Configuration': configuration,
+            'TaskReservationTimeout': task_reservation_timeout,
+            'ReEvaluateTasks': re_evaluate_tasks,
+        })
+        
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return WorkflowInstance(self._version, payload, workspace_sid=self._solution['workspace_sid'])
     
     
     def create(self, friendly_name, configuration, assignment_callback_url=values.unset, fallback_assignment_callback_url=values.unset, task_reservation_timeout=values.unset):

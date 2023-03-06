@@ -45,6 +45,38 @@ class DeviceList(ListResource):
         
         
     
+    def fetch(self):
+        """
+        Fetch the DeviceInstance
+
+        :returns: The fetched DeviceInstance
+        :rtype: twilio.rest.microvisor.v1.device.DeviceInstance
+        """
+        payload = self._version.create(method='GET', uri=self._uri)
+
+        return DeviceInstance(self._version, payload)
+    
+    
+    def update(self, unique_name=values.unset, target_app=values.unset, logging_enabled=values.unset):
+        """
+        Update the DeviceInstance
+
+        :param str unique_name: A unique and addressable name to be assigned to this Device by the developer. It may be used in place of the Device SID.
+        :param str target_app: The SID or unique name of the App to be targeted to the Device.
+        :param bool logging_enabled: A Boolean flag specifying whether to enable application logging. Logs will be enabled or extended for 24 hours.
+        
+        :returns: The created DeviceInstance
+        :rtype: twilio.rest.microvisor.v1.device.DeviceInstance
+        """
+        data = values.of({ 
+            'UniqueName': unique_name,
+            'TargetApp': target_app,
+            'LoggingEnabled': logging_enabled,
+        })
+        
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return DeviceInstance(self._version, payload)
     
     
     def stream(self, limit=None, page_size=None):

@@ -43,6 +43,17 @@ class CountryList(ListResource):
         
         
     
+    def fetch(self):
+        """
+        Fetch the CountryInstance
+
+        :returns: The fetched CountryInstance
+        :rtype: twilio.rest.pricing.v1.voice.country.CountryInstance
+        """
+        payload = self._version.create(method='GET', uri=self._uri)
+
+        return CountryInstance(self._version, payload)
+    
     
     def stream(self, limit=None, page_size=None):
         """

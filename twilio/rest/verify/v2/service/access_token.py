@@ -44,6 +44,17 @@ class AccessTokenList(ListResource):
         
         
     
+    def fetch(self):
+        """
+        Fetch the AccessTokenInstance
+
+        :returns: The fetched AccessTokenInstance
+        :rtype: twilio.rest.verify.v2.service.access_token.AccessTokenInstance
+        """
+        payload = self._version.create(method='GET', uri=self._uri)
+
+        return AccessTokenInstance(self._version, payload, service_sid=self._solution['service_sid'])
+    
     
     def create(self, identity, factor_type, factor_friendly_name=values.unset, ttl=values.unset):
         """

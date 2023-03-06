@@ -47,6 +47,17 @@ class EngagementList(ListResource):
         
     
     
+    def fetch(self):
+        """
+        Fetch the EngagementInstance
+
+        :returns: The fetched EngagementInstance
+        :rtype: twilio.rest.studio.v1.flow.engagement.EngagementInstance
+        """
+        payload = self._version.create(method='GET', uri=self._uri)
+
+        return EngagementInstance(self._version, payload, flow_sid=self._solution['flow_sid'])
+    
     
     def create(self, to, from_, parameters=values.unset):
         """

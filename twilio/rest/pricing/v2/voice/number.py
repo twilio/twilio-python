@@ -43,6 +43,17 @@ class NumberList(ListResource):
         
         
     
+    def fetch(self):
+        """
+        Fetch the NumberInstance
+
+        :returns: The fetched NumberInstance
+        :rtype: twilio.rest.pricing.v2.voice.number.NumberInstance
+        """
+        payload = self._version.create(method='GET', uri=self._uri)
+
+        return NumberInstance(self._version, payload)
+    
 
     def get(self, destination_number):
         """

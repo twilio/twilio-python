@@ -44,6 +44,17 @@ class AuthorizedConnectAppList(ListResource):
         
         
     
+    def fetch(self):
+        """
+        Fetch the AuthorizedConnectAppInstance
+
+        :returns: The fetched AuthorizedConnectAppInstance
+        :rtype: twilio.rest.api.v2010.account.authorized_connect_app.AuthorizedConnectAppInstance
+        """
+        payload = self._version.create(method='GET', uri=self._uri)
+
+        return AuthorizedConnectAppInstance(self._version, payload, account_sid=self._solution['account_sid'])
+    
     
     def stream(self, limit=None, page_size=None):
         """

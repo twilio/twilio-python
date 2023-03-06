@@ -45,6 +45,17 @@ class DeviceSecretList(ListResource):
         
     
     
+    def fetch(self):
+        """
+        Fetch the DeviceSecretInstance
+
+        :returns: The fetched DeviceSecretInstance
+        :rtype: twilio.rest.microvisor.v1.device.device_secret.DeviceSecretInstance
+        """
+        payload = self._version.create(method='GET', uri=self._uri)
+
+        return DeviceSecretInstance(self._version, payload, device_sid=self._solution['device_sid'])
+    
     
     def create(self, key, value):
         """

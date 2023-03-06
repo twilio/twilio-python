@@ -44,6 +44,17 @@ class RoomList(ListResource):
         
         
     
+    def fetch(self):
+        """
+        Fetch the RoomInstance
+
+        :returns: The fetched RoomInstance
+        :rtype: twilio.rest.insights.v1.room.RoomInstance
+        """
+        payload = self._version.create(method='GET', uri=self._uri)
+
+        return RoomInstance(self._version, payload)
+    
     
     def stream(self, room_type=values.unset, codec=values.unset, room_name=values.unset, created_after=values.unset, created_before=values.unset, limit=None, page_size=None):
         """

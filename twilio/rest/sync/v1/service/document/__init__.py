@@ -46,6 +46,37 @@ class DocumentList(ListResource):
         
     
     
+    def fetch(self):
+        """
+        Fetch the DocumentInstance
+
+        :returns: The fetched DocumentInstance
+        :rtype: twilio.rest.sync.v1.service.document.DocumentInstance
+        """
+        payload = self._version.create(method='GET', uri=self._uri)
+
+        return DocumentInstance(self._version, payload, service_sid=self._solution['service_sid'])
+    
+    
+    def update(self, if_match=values.unset, data=values.unset, ttl=values.unset):
+        """
+        Update the DocumentInstance
+
+        :param str if_match: The If-Match HTTP request header
+        :param object data: A JSON string that represents an arbitrary, schema-less object that the Sync Document stores. Can be up to 16 KiB in length.
+        :param int ttl: How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Sync Document expires and is deleted (time-to-live).
+        
+        :returns: The created DocumentInstance
+        :rtype: twilio.rest.sync.v1.service.document.DocumentInstance
+        """
+        data = values.of({ 
+            'Data': serialize.object(data),
+            'Ttl': ttl,
+        })
+        headers = values.of({'If-Match': if_match, })
+        payload = self._version.update(method='POST', uri=self._uri, data=data, headers=headers)
+
+        return DocumentInstance(self._version, payload, service_sid=self._solution['service_sid'])
     
     
     def create(self, unique_name=values.unset, data=values.unset, ttl=values.unset):

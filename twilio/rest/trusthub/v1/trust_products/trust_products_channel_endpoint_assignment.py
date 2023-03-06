@@ -45,6 +45,17 @@ class TrustProductsChannelEndpointAssignmentList(ListResource):
         
     
     
+    def fetch(self):
+        """
+        Fetch the TrustProductsChannelEndpointAssignmentInstance
+
+        :returns: The fetched TrustProductsChannelEndpointAssignmentInstance
+        :rtype: twilio.rest.trusthub.v1.trust_products.trust_products_channel_endpoint_assignment.TrustProductsChannelEndpointAssignmentInstance
+        """
+        payload = self._version.create(method='GET', uri=self._uri)
+
+        return TrustProductsChannelEndpointAssignmentInstance(self._version, payload, trust_product_sid=self._solution['trust_product_sid'])
+    
     
     def create(self, channel_endpoint_type, channel_endpoint_sid):
         """

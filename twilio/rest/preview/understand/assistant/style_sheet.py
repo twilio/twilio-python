@@ -44,6 +44,34 @@ class StyleSheetList(ListResource):
         
         
     
+    def fetch(self):
+        """
+        Fetch the StyleSheetInstance
+
+        :returns: The fetched StyleSheetInstance
+        :rtype: twilio.rest.preview.understand.assistant.style_sheet.StyleSheetInstance
+        """
+        payload = self._version.create(method='GET', uri=self._uri)
+
+        return StyleSheetInstance(self._version, payload, assistant_sid=self._solution['assistant_sid'])
+    
+    
+    def update(self, style_sheet=values.unset):
+        """
+        Update the StyleSheetInstance
+
+        :param object style_sheet: The JSON Style sheet string
+        
+        :returns: The created StyleSheetInstance
+        :rtype: twilio.rest.preview.understand.assistant.style_sheet.StyleSheetInstance
+        """
+        data = values.of({ 
+            'StyleSheet': serialize.object(style_sheet),
+        })
+        
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return StyleSheetInstance(self._version, payload, assistant_sid=self._solution['assistant_sid'])
     
 
     def get(self):

@@ -45,6 +45,21 @@ class AnonymizeList(ListResource):
         
         
     
+    def update(self):
+        """
+        Update the AnonymizeInstance
+
+        
+        :returns: The created AnonymizeInstance
+        :rtype: twilio.rest.video.v1.room.participant.anonymize.AnonymizeInstance
+        """
+        data = values.of({ 
+        })
+        
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return AnonymizeInstance(self._version, payload, room_sid=self._solution['room_sid'], sid=self._solution['sid'])
+    
 
     def get(self):
         """

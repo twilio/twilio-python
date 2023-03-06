@@ -51,6 +51,66 @@ class ServiceList(ListResource):
         
     
     
+    def fetch(self):
+        """
+        Fetch the ServiceInstance
+
+        :returns: The fetched ServiceInstance
+        :rtype: twilio.rest.verify.v2.service.ServiceInstance
+        """
+        payload = self._version.create(method='GET', uri=self._uri)
+
+        return ServiceInstance(self._version, payload)
+    
+    
+    def update(self, friendly_name=values.unset, code_length=values.unset, lookup_enabled=values.unset, skip_sms_to_landlines=values.unset, dtmf_input_required=values.unset, tts_name=values.unset, psd2_enabled=values.unset, do_not_share_warning_enabled=values.unset, custom_code_enabled=values.unset, push_include_date=values.unset, push_apn_credential_sid=values.unset, push_fcm_credential_sid=values.unset, totp_issuer=values.unset, totp_time_step=values.unset, totp_code_length=values.unset, totp_skew=values.unset, default_template_sid=values.unset):
+        """
+        Update the ServiceInstance
+
+        :param str friendly_name: A descriptive string that you create to describe the verification service. It can be up to 30 characters long. **This value should not contain PII.**
+        :param int code_length: The length of the verification code to generate. Must be an integer value between 4 and 10, inclusive.
+        :param bool lookup_enabled: Whether to perform a lookup with each verification started and return info about the phone number.
+        :param bool skip_sms_to_landlines: Whether to skip sending SMS verifications to landlines. Requires `lookup_enabled`.
+        :param bool dtmf_input_required: Whether to ask the user to press a number before delivering the verify code in a phone call.
+        :param str tts_name: The name of an alternative text-to-speech service to use in phone calls. Applies only to TTS languages.
+        :param bool psd2_enabled: Whether to pass PSD2 transaction parameters when starting a verification.
+        :param bool do_not_share_warning_enabled: Whether to add a privacy warning at the end of an SMS. **Disabled by default and applies only for SMS.**
+        :param bool custom_code_enabled: Whether to allow sending verifications with a custom code instead of a randomly generated one. Not available for all customers.
+        :param bool push_include_date: Optional configuration for the Push factors. If true, include the date in the Challenge's response. Otherwise, the date is omitted from the response. See [Challenge](https://www.twilio.com/docs/verify/api/challenge) resource’s details parameter for more info. Default: false. **Deprecated** do not use this parameter.
+        :param str push_apn_credential_sid: Optional configuration for the Push factors. Set the APN Credential for this service. This will allow to send push notifications to iOS devices. See [Credential Resource](https://www.twilio.com/docs/notify/api/credential-resource)
+        :param str push_fcm_credential_sid: Optional configuration for the Push factors. Set the FCM Credential for this service. This will allow to send push notifications to Android devices. See [Credential Resource](https://www.twilio.com/docs/notify/api/credential-resource)
+        :param str totp_issuer: Optional configuration for the TOTP factors. Set TOTP Issuer for this service. This will allow to configure the issuer of the TOTP URI.
+        :param int totp_time_step: Optional configuration for the TOTP factors. Defines how often, in seconds, are TOTP codes generated. i.e, a new TOTP code is generated every time_step seconds. Must be between 20 and 60 seconds, inclusive. Defaults to 30 seconds
+        :param int totp_code_length: Optional configuration for the TOTP factors. Number of digits for generated TOTP codes. Must be between 3 and 8, inclusive. Defaults to 6
+        :param int totp_skew: Optional configuration for the TOTP factors. The number of time-steps, past and future, that are valid for validation of TOTP codes. Must be between 0 and 2, inclusive. Defaults to 1
+        :param str default_template_sid: The default message [template](https://www.twilio.com/docs/verify/api/templates). Will be used for all SMS verifications unless explicitly overriden. SMS channel only.
+        
+        :returns: The created ServiceInstance
+        :rtype: twilio.rest.verify.v2.service.ServiceInstance
+        """
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+            'CodeLength': code_length,
+            'LookupEnabled': lookup_enabled,
+            'SkipSmsToLandlines': skip_sms_to_landlines,
+            'DtmfInputRequired': dtmf_input_required,
+            'TtsName': tts_name,
+            'Psd2Enabled': psd2_enabled,
+            'DoNotShareWarningEnabled': do_not_share_warning_enabled,
+            'CustomCodeEnabled': custom_code_enabled,
+            'Push.IncludeDate': push_include_date,
+            'Push.ApnCredentialSid': push_apn_credential_sid,
+            'Push.FcmCredentialSid': push_fcm_credential_sid,
+            'Totp.Issuer': totp_issuer,
+            'Totp.TimeStep': totp_time_step,
+            'Totp.CodeLength': totp_code_length,
+            'Totp.Skew': totp_skew,
+            'DefaultTemplateSid': default_template_sid,
+        })
+        
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return ServiceInstance(self._version, payload)
     
     
     def create(self, friendly_name, code_length=values.unset, lookup_enabled=values.unset, skip_sms_to_landlines=values.unset, dtmf_input_required=values.unset, tts_name=values.unset, psd2_enabled=values.unset, do_not_share_warning_enabled=values.unset, custom_code_enabled=values.unset, push_include_date=values.unset, push_apn_credential_sid=values.unset, push_fcm_credential_sid=values.unset, totp_issuer=values.unset, totp_time_step=values.unset, totp_code_length=values.unset, totp_skew=values.unset, default_template_sid=values.unset):

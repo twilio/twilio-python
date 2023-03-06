@@ -45,6 +45,17 @@ class ItemAssignmentList(ListResource):
         
     
     
+    def fetch(self):
+        """
+        Fetch the ItemAssignmentInstance
+
+        :returns: The fetched ItemAssignmentInstance
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.item_assignment.ItemAssignmentInstance
+        """
+        payload = self._version.create(method='GET', uri=self._uri)
+
+        return ItemAssignmentInstance(self._version, payload, bundle_sid=self._solution['bundle_sid'])
+    
     
     def create(self, object_sid):
         """

@@ -45,6 +45,17 @@ class AlphaSenderList(ListResource):
         
     
     
+    def fetch(self):
+        """
+        Fetch the AlphaSenderInstance
+
+        :returns: The fetched AlphaSenderInstance
+        :rtype: twilio.rest.messaging.v1.service.alpha_sender.AlphaSenderInstance
+        """
+        payload = self._version.create(method='GET', uri=self._uri)
+
+        return AlphaSenderInstance(self._version, payload, service_sid=self._solution['service_sid'])
+    
     
     def create(self, alpha_sender):
         """

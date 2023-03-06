@@ -44,6 +44,17 @@ class CommandList(ListResource):
         
     
     
+    def fetch(self):
+        """
+        Fetch the CommandInstance
+
+        :returns: The fetched CommandInstance
+        :rtype: twilio.rest.wireless.v1.command.CommandInstance
+        """
+        payload = self._version.create(method='GET', uri=self._uri)
+
+        return CommandInstance(self._version, payload)
+    
     
     def create(self, command, sim=values.unset, callback_method=values.unset, callback_url=values.unset, command_mode=values.unset, include_sid=values.unset, delivery_receipt_requested=values.unset):
         """

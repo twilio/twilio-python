@@ -44,6 +44,32 @@ class BrandRegistrationList(ListResource):
         
         
     
+    def fetch(self):
+        """
+        Fetch the BrandRegistrationInstance
+
+        :returns: The fetched BrandRegistrationInstance
+        :rtype: twilio.rest.messaging.v1.brand_registration.BrandRegistrationInstance
+        """
+        payload = self._version.create(method='GET', uri=self._uri)
+
+        return BrandRegistrationInstance(self._version, payload)
+    
+    
+    def update(self):
+        """
+        Update the BrandRegistrationInstance
+
+        
+        :returns: The created BrandRegistrationInstance
+        :rtype: twilio.rest.messaging.v1.brand_registration.BrandRegistrationInstance
+        """
+        data = values.of({ 
+        })
+        
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return BrandRegistrationInstance(self._version, payload)
     
     
     def create(self, customer_profile_bundle_sid, a2_p_profile_bundle_sid, brand_type=values.unset, mock=values.unset, skip_automatic_sec_vet=values.unset):

@@ -44,6 +44,36 @@ class RatePlanList(ListResource):
         
     
     
+    def fetch(self):
+        """
+        Fetch the RatePlanInstance
+
+        :returns: The fetched RatePlanInstance
+        :rtype: twilio.rest.preview.wireless.rate_plan.RatePlanInstance
+        """
+        payload = self._version.create(method='GET', uri=self._uri)
+
+        return RatePlanInstance(self._version, payload)
+    
+    
+    def update(self, unique_name=values.unset, friendly_name=values.unset):
+        """
+        Update the RatePlanInstance
+
+        :param str unique_name: 
+        :param str friendly_name: 
+        
+        :returns: The created RatePlanInstance
+        :rtype: twilio.rest.preview.wireless.rate_plan.RatePlanInstance
+        """
+        data = values.of({ 
+            'UniqueName': unique_name,
+            'FriendlyName': friendly_name,
+        })
+        
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return RatePlanInstance(self._version, payload)
     
     
     def create(self, unique_name=values.unset, friendly_name=values.unset, data_enabled=values.unset, data_limit=values.unset, data_metering=values.unset, messaging_enabled=values.unset, voice_enabled=values.unset, commands_enabled=values.unset, national_roaming_enabled=values.unset, international_roaming=values.unset):

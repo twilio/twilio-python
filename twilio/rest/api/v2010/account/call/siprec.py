@@ -13,6 +13,7 @@
 """
 
 
+from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -43,6 +44,23 @@ class SiprecList(ListResource):
         self._uri = '/Accounts/{account_sid}/Calls/{call_sid}/Siprec.json'.format(**self._solution)
         
         
+    
+    def update(self, status):
+        """
+        Update the SiprecInstance
+
+        :param UpdateStatus status: 
+        
+        :returns: The created SiprecInstance
+        :rtype: twilio.rest.api.v2010.account.call.siprec.SiprecInstance
+        """
+        data = values.of({ 
+            'Status': status,
+        })
+        
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return SiprecInstance(self._version, payload, account_sid=self._solution['account_sid'], call_sid=self._solution['call_sid'])
     
     
     def create(self, name=values.unset, connector_name=values.unset, track=values.unset, status_callback=values.unset, status_callback_method=values.unset, parameter1_name=values.unset, parameter1_value=values.unset, parameter2_name=values.unset, parameter2_value=values.unset, parameter3_name=values.unset, parameter3_value=values.unset, parameter4_name=values.unset, parameter4_value=values.unset, parameter5_name=values.unset, parameter5_value=values.unset, parameter6_name=values.unset, parameter6_value=values.unset, parameter7_name=values.unset, parameter7_value=values.unset, parameter8_name=values.unset, parameter8_value=values.unset, parameter9_name=values.unset, parameter9_value=values.unset, parameter10_name=values.unset, parameter10_value=values.unset, parameter11_name=values.unset, parameter11_value=values.unset, parameter12_name=values.unset, parameter12_value=values.unset, parameter13_name=values.unset, parameter13_value=values.unset, parameter14_name=values.unset, parameter14_value=values.unset, parameter15_name=values.unset, parameter15_value=values.unset, parameter16_name=values.unset, parameter16_value=values.unset, parameter17_name=values.unset, parameter17_value=values.unset, parameter18_name=values.unset, parameter18_value=values.unset, parameter19_name=values.unset, parameter19_value=values.unset, parameter20_name=values.unset, parameter20_value=values.unset, parameter21_name=values.unset, parameter21_value=values.unset, parameter22_name=values.unset, parameter22_value=values.unset, parameter23_name=values.unset, parameter23_value=values.unset, parameter24_name=values.unset, parameter24_value=values.unset, parameter25_name=values.unset, parameter25_value=values.unset, parameter26_name=values.unset, parameter26_value=values.unset, parameter27_name=values.unset, parameter27_value=values.unset, parameter28_name=values.unset, parameter28_value=values.unset, parameter29_name=values.unset, parameter29_value=values.unset, parameter30_name=values.unset, parameter30_value=values.unset, parameter31_name=values.unset, parameter31_value=values.unset, parameter32_name=values.unset, parameter32_value=values.unset, parameter33_name=values.unset, parameter33_value=values.unset, parameter34_name=values.unset, parameter34_value=values.unset, parameter35_name=values.unset, parameter35_value=values.unset, parameter36_name=values.unset, parameter36_value=values.unset, parameter37_name=values.unset, parameter37_value=values.unset, parameter38_name=values.unset, parameter38_value=values.unset, parameter39_name=values.unset, parameter39_value=values.unset, parameter40_name=values.unset, parameter40_value=values.unset, parameter41_name=values.unset, parameter41_value=values.unset, parameter42_name=values.unset, parameter42_value=values.unset, parameter43_name=values.unset, parameter43_value=values.unset, parameter44_name=values.unset, parameter44_value=values.unset, parameter45_name=values.unset, parameter45_value=values.unset, parameter46_name=values.unset, parameter46_value=values.unset, parameter47_name=values.unset, parameter47_value=values.unset, parameter48_name=values.unset, parameter48_value=values.unset, parameter49_name=values.unset, parameter49_value=values.unset, parameter50_name=values.unset, parameter50_value=values.unset, parameter51_name=values.unset, parameter51_value=values.unset, parameter52_name=values.unset, parameter52_value=values.unset, parameter53_name=values.unset, parameter53_value=values.unset, parameter54_name=values.unset, parameter54_value=values.unset, parameter55_name=values.unset, parameter55_value=values.unset, parameter56_name=values.unset, parameter56_value=values.unset, parameter57_name=values.unset, parameter57_value=values.unset, parameter58_name=values.unset, parameter58_value=values.unset, parameter59_name=values.unset, parameter59_value=values.unset, parameter60_name=values.unset, parameter60_value=values.unset, parameter61_name=values.unset, parameter61_value=values.unset, parameter62_name=values.unset, parameter62_value=values.unset, parameter63_name=values.unset, parameter63_value=values.unset, parameter64_name=values.unset, parameter64_value=values.unset, parameter65_name=values.unset, parameter65_value=values.unset, parameter66_name=values.unset, parameter66_value=values.unset, parameter67_name=values.unset, parameter67_value=values.unset, parameter68_name=values.unset, parameter68_value=values.unset, parameter69_name=values.unset, parameter69_value=values.unset, parameter70_name=values.unset, parameter70_value=values.unset, parameter71_name=values.unset, parameter71_value=values.unset, parameter72_name=values.unset, parameter72_value=values.unset, parameter73_name=values.unset, parameter73_value=values.unset, parameter74_name=values.unset, parameter74_value=values.unset, parameter75_name=values.unset, parameter75_value=values.unset, parameter76_name=values.unset, parameter76_value=values.unset, parameter77_name=values.unset, parameter77_value=values.unset, parameter78_name=values.unset, parameter78_value=values.unset, parameter79_name=values.unset, parameter79_value=values.unset, parameter80_name=values.unset, parameter80_value=values.unset, parameter81_name=values.unset, parameter81_value=values.unset, parameter82_name=values.unset, parameter82_value=values.unset, parameter83_name=values.unset, parameter83_value=values.unset, parameter84_name=values.unset, parameter84_value=values.unset, parameter85_name=values.unset, parameter85_value=values.unset, parameter86_name=values.unset, parameter86_value=values.unset, parameter87_name=values.unset, parameter87_value=values.unset, parameter88_name=values.unset, parameter88_value=values.unset, parameter89_name=values.unset, parameter89_value=values.unset, parameter90_name=values.unset, parameter90_value=values.unset, parameter91_name=values.unset, parameter91_value=values.unset, parameter92_name=values.unset, parameter92_value=values.unset, parameter93_name=values.unset, parameter93_value=values.unset, parameter94_name=values.unset, parameter94_value=values.unset, parameter95_name=values.unset, parameter95_value=values.unset, parameter96_name=values.unset, parameter96_value=values.unset, parameter97_name=values.unset, parameter97_value=values.unset, parameter98_name=values.unset, parameter98_value=values.unset, parameter99_name=values.unset, parameter99_value=values.unset):
@@ -497,63 +515,6 @@ class SiprecList(ListResource):
         """
         return '<Twilio.Api.V2010.SiprecList>'
 
-class SiprecContext(InstanceContext):
-
-    def __init__(self, version: Version, account_sid: str, call_sid: str, sid: str):
-        """
-        Initialize the SiprecContext
-
-        :param Version version: Version that contains the resource
-        :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created this Siprec resource.:param call_sid: The SID of the [Call](https://www.twilio.com/docs/voice/api/call-resource) the Siprec resource is associated with.:param sid: The SID of the Siprec resource, or the `name` used when creating the resource
-
-        :returns: twilio.rest.api.v2010.account.call.siprec.SiprecContext
-        :rtype: twilio.rest.api.v2010.account.call.siprec.SiprecContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'account_sid': account_sid,
-            'call_sid': call_sid,
-            'sid': sid,
-        }
-        self._uri = '/Accounts/{account_sid}/Calls/{call_sid}/Siprec/{sid}.json'.format(**self._solution)
-        
-    
-    def update(self, status):
-        """
-        Update the SiprecInstance
-        
-        :params UpdateStatus status: 
-
-        :returns: The updated SiprecInstance
-        :rtype: twilio.rest.api.v2010.account.call.siprec.SiprecInstance
-        """
-        data = values.of({ 
-            'Status': status,
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return SiprecInstance(
-            self._version,
-            payload,
-            account_sid=self._solution['account_sid'],
-            call_sid=self._solution['call_sid'],
-            sid=self._solution['sid']
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Api.V2010.SiprecContext {}>'.format(context)
-
 class SiprecInstance(InstanceResource):
 
     class Status(object):
@@ -669,5 +630,62 @@ class SiprecInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Api.V2010.SiprecInstance {}>'.format(context)
+
+class SiprecContext(InstanceContext):
+
+    def __init__(self, version: Version, account_sid: str, call_sid: str, sid: str):
+        """
+        Initialize the SiprecContext
+
+        :param Version version: Version that contains the resource
+        :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created this Siprec resource.:param call_sid: The SID of the [Call](https://www.twilio.com/docs/voice/api/call-resource) the Siprec resource is associated with.:param sid: The SID of the Siprec resource, or the `name` used when creating the resource
+
+        :returns: twilio.rest.api.v2010.account.call.siprec.SiprecContext
+        :rtype: twilio.rest.api.v2010.account.call.siprec.SiprecContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'account_sid': account_sid,
+            'call_sid': call_sid,
+            'sid': sid,
+        }
+        self._uri = '/Accounts/{account_sid}/Calls/{call_sid}/Siprec/{sid}.json'.format(**self._solution)
+        
+    
+    def update(self, status):
+        """
+        Update the SiprecInstance
+        
+        :params UpdateStatus status: 
+
+        :returns: The updated SiprecInstance
+        :rtype: twilio.rest.api.v2010.account.call.siprec.SiprecInstance
+        """
+        data = values.of({ 
+            'Status': status,
+        })
+        
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return SiprecInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+            call_sid=self._solution['call_sid'],
+            sid=self._solution['sid']
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Api.V2010.SiprecContext {}>'.format(context)
 
 

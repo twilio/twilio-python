@@ -45,6 +45,17 @@ class ContentList(ListResource):
         
     
     
+    def fetch(self):
+        """
+        Fetch the ContentInstance
+
+        :returns: The fetched ContentInstance
+        :rtype: twilio.rest.content.v1.content.ContentInstance
+        """
+        payload = self._version.create(method='GET', uri=self._uri)
+
+        return ContentInstance(self._version, payload)
+    
     
     def stream(self, limit=None, page_size=None):
         """

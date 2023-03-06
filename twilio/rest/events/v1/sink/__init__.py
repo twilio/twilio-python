@@ -46,6 +46,34 @@ class SinkList(ListResource):
         
     
     
+    def fetch(self):
+        """
+        Fetch the SinkInstance
+
+        :returns: The fetched SinkInstance
+        :rtype: twilio.rest.events.v1.sink.SinkInstance
+        """
+        payload = self._version.create(method='GET', uri=self._uri)
+
+        return SinkInstance(self._version, payload)
+    
+    
+    def update(self, description):
+        """
+        Update the SinkInstance
+
+        :param str description: A human readable description for the Sink **This value should not contain PII.**
+        
+        :returns: The created SinkInstance
+        :rtype: twilio.rest.events.v1.sink.SinkInstance
+        """
+        data = values.of({ 
+            'Description': description,
+        })
+        
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return SinkInstance(self._version, payload)
     
     
     def create(self, description, sink_configuration, sink_type):

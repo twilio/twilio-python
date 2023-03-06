@@ -44,6 +44,34 @@ class PublicKeyList(ListResource):
         
     
     
+    def fetch(self):
+        """
+        Fetch the PublicKeyInstance
+
+        :returns: The fetched PublicKeyInstance
+        :rtype: twilio.rest.accounts.v1.credential.public_key.PublicKeyInstance
+        """
+        payload = self._version.create(method='GET', uri=self._uri)
+
+        return PublicKeyInstance(self._version, payload)
+    
+    
+    def update(self, friendly_name=values.unset):
+        """
+        Update the PublicKeyInstance
+
+        :param str friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+        
+        :returns: The created PublicKeyInstance
+        :rtype: twilio.rest.accounts.v1.credential.public_key.PublicKeyInstance
+        """
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+        })
+        
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return PublicKeyInstance(self._version, payload)
     
     
     def create(self, public_key, friendly_name=values.unset, account_sid=values.unset):

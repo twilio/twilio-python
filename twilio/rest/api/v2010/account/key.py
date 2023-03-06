@@ -45,6 +45,34 @@ class KeyList(ListResource):
         
     
     
+    def fetch(self):
+        """
+        Fetch the KeyInstance
+
+        :returns: The fetched KeyInstance
+        :rtype: twilio.rest.api.v2010.account.key.KeyInstance
+        """
+        payload = self._version.create(method='GET', uri=self._uri)
+
+        return KeyInstance(self._version, payload, account_sid=self._solution['account_sid'])
+    
+    
+    def update(self, friendly_name=values.unset):
+        """
+        Update the KeyInstance
+
+        :param str friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+        
+        :returns: The created KeyInstance
+        :rtype: twilio.rest.api.v2010.account.key.KeyInstance
+        """
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+        })
+        
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return KeyInstance(self._version, payload, account_sid=self._solution['account_sid'])
     
     
     def stream(self, limit=None, page_size=None):

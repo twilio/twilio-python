@@ -46,6 +46,34 @@ class FunctionList(ListResource):
         
     
     
+    def fetch(self):
+        """
+        Fetch the FunctionInstance
+
+        :returns: The fetched FunctionInstance
+        :rtype: twilio.rest.serverless.v1.service.function.FunctionInstance
+        """
+        payload = self._version.create(method='GET', uri=self._uri)
+
+        return FunctionInstance(self._version, payload, service_sid=self._solution['service_sid'])
+    
+    
+    def update(self, friendly_name):
+        """
+        Update the FunctionInstance
+
+        :param str friendly_name: A descriptive string that you create to describe the Function resource. It can be a maximum of 255 characters.
+        
+        :returns: The created FunctionInstance
+        :rtype: twilio.rest.serverless.v1.service.function.FunctionInstance
+        """
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+        })
+        
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return FunctionInstance(self._version, payload, service_sid=self._solution['service_sid'])
     
     
     def create(self, friendly_name):

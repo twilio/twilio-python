@@ -46,6 +46,17 @@ class FieldValueList(ListResource):
         
     
     
+    def fetch(self):
+        """
+        Fetch the FieldValueInstance
+
+        :returns: The fetched FieldValueInstance
+        :rtype: twilio.rest.preview.understand.assistant.field_type.field_value.FieldValueInstance
+        """
+        payload = self._version.create(method='GET', uri=self._uri)
+
+        return FieldValueInstance(self._version, payload, assistant_sid=self._solution['assistant_sid'], field_type_sid=self._solution['field_type_sid'])
+    
     
     def create(self, language, value, synonym_of=values.unset):
         """

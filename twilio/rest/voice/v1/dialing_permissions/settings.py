@@ -43,6 +43,34 @@ class SettingsList(ListResource):
         
         
     
+    def fetch(self):
+        """
+        Fetch the SettingsInstance
+
+        :returns: The fetched SettingsInstance
+        :rtype: twilio.rest.voice.v1.dialing_permissions.settings.SettingsInstance
+        """
+        payload = self._version.create(method='GET', uri=self._uri)
+
+        return SettingsInstance(self._version, payload)
+    
+    
+    def update(self, dialing_permissions_inheritance=values.unset):
+        """
+        Update the SettingsInstance
+
+        :param bool dialing_permissions_inheritance: `true` for the sub-account to inherit voice dialing permissions from the Master Project; otherwise `false`.
+        
+        :returns: The created SettingsInstance
+        :rtype: twilio.rest.voice.v1.dialing_permissions.settings.SettingsInstance
+        """
+        data = values.of({ 
+            'DialingPermissionsInheritance': dialing_permissions_inheritance,
+        })
+        
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return SettingsInstance(self._version, payload)
     
 
     def get(self):

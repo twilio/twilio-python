@@ -45,6 +45,34 @@ class ActivityList(ListResource):
         
     
     
+    def fetch(self):
+        """
+        Fetch the ActivityInstance
+
+        :returns: The fetched ActivityInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.activity.ActivityInstance
+        """
+        payload = self._version.create(method='GET', uri=self._uri)
+
+        return ActivityInstance(self._version, payload, workspace_sid=self._solution['workspace_sid'])
+    
+    
+    def update(self, friendly_name=values.unset):
+        """
+        Update the ActivityInstance
+
+        :param str friendly_name: A descriptive string that you create to describe the Activity resource. It can be up to 64 characters long. These names are used to calculate and expose statistics about Workers, and provide visibility into the state of each Worker. Examples of friendly names include: `on-call`, `break`, and `email`.
+        
+        :returns: The created ActivityInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.activity.ActivityInstance
+        """
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+        })
+        
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return ActivityInstance(self._version, payload, workspace_sid=self._solution['workspace_sid'])
     
     
     def create(self, friendly_name, available=values.unset):

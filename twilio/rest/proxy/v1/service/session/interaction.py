@@ -46,6 +46,17 @@ class InteractionList(ListResource):
         
     
     
+    def fetch(self):
+        """
+        Fetch the InteractionInstance
+
+        :returns: The fetched InteractionInstance
+        :rtype: twilio.rest.proxy.v1.service.session.interaction.InteractionInstance
+        """
+        payload = self._version.create(method='GET', uri=self._uri)
+
+        return InteractionInstance(self._version, payload, service_sid=self._solution['service_sid'], session_sid=self._solution['session_sid'])
+    
     
     def stream(self, limit=None, page_size=None):
         """

@@ -54,6 +54,41 @@ class WorkerList(ListResource):
         
     
     
+    def fetch(self):
+        """
+        Fetch the WorkerInstance
+
+        :returns: The fetched WorkerInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkerInstance
+        """
+        payload = self._version.create(method='GET', uri=self._uri)
+
+        return WorkerInstance(self._version, payload, workspace_sid=self._solution['workspace_sid'])
+    
+    
+    def update(self, if_match=values.unset, activity_sid=values.unset, attributes=values.unset, friendly_name=values.unset, reject_pending_reservations=values.unset):
+        """
+        Update the WorkerInstance
+
+        :param str if_match: The If-Match HTTP request header
+        :param str activity_sid: The SID of a valid Activity that will describe the Worker's initial state. See [Activities](https://www.twilio.com/docs/taskrouter/api/activity) for more information.
+        :param str attributes: The JSON string that describes the Worker. For example: `{ \\\"email\\\": \\\"Bob@example.com\\\", \\\"phone\\\": \\\"+5095551234\\\" }`. This data is passed to the `assignment_callback_url` when TaskRouter assigns a Task to the Worker. Defaults to {}.
+        :param str friendly_name: A descriptive string that you create to describe the Worker. It can be up to 64 characters long.
+        :param bool reject_pending_reservations: Whether to reject the Worker's pending reservations. This option is only valid if the Worker's new [Activity](https://www.twilio.com/docs/taskrouter/api/activity) resource has its `availability` property set to `False`.
+        
+        :returns: The created WorkerInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.worker.WorkerInstance
+        """
+        data = values.of({ 
+            'ActivitySid': activity_sid,
+            'Attributes': attributes,
+            'FriendlyName': friendly_name,
+            'RejectPendingReservations': reject_pending_reservations,
+        })
+        headers = values.of({'If-Match': if_match, })
+        payload = self._version.update(method='POST', uri=self._uri, data=data, headers=headers)
+
+        return WorkerInstance(self._version, payload, workspace_sid=self._solution['workspace_sid'])
     
     
     def create(self, friendly_name, activity_sid=values.unset, attributes=values.unset):

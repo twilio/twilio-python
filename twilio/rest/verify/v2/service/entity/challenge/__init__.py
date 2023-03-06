@@ -46,6 +46,36 @@ class ChallengeList(ListResource):
         
         
     
+    def fetch(self):
+        """
+        Fetch the ChallengeInstance
+
+        :returns: The fetched ChallengeInstance
+        :rtype: twilio.rest.verify.v2.service.entity.challenge.ChallengeInstance
+        """
+        payload = self._version.create(method='GET', uri=self._uri)
+
+        return ChallengeInstance(self._version, payload, service_sid=self._solution['service_sid'], identity=self._solution['identity'])
+    
+    
+    def update(self, auth_payload=values.unset, metadata=values.unset):
+        """
+        Update the ChallengeInstance
+
+        :param str auth_payload: The optional payload needed to verify the Challenge. E.g., a TOTP would use the numeric code. For `TOTP` this value must be between 3 and 8 characters long. For `Push` this value can be up to 5456 characters in length
+        :param object metadata: Custom metadata associated with the challenge. This is added by the Device/SDK directly to allow for the inclusion of device information. It must be a stringified JSON with only strings values eg. `{\\\"os\\\": \\\"Android\\\"}`. Can be up to 1024 characters in length.
+        
+        :returns: The created ChallengeInstance
+        :rtype: twilio.rest.verify.v2.service.entity.challenge.ChallengeInstance
+        """
+        data = values.of({ 
+            'AuthPayload': auth_payload,
+            'Metadata': serialize.object(metadata),
+        })
+        
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return ChallengeInstance(self._version, payload, service_sid=self._solution['service_sid'], identity=self._solution['identity'])
     
     
     def create(self, factor_sid, expiration_date=values.unset, details_message=values.unset, details_fields=values.unset, hidden_details=values.unset, auth_payload=values.unset):

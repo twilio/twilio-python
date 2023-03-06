@@ -43,6 +43,17 @@ class InsightsUserRolesList(ListResource):
         
         
     
+    def fetch(self):
+        """
+        Fetch the InsightsUserRolesInstance
+
+        :returns: The fetched InsightsUserRolesInstance
+        :rtype: twilio.rest.flex_api.v1.insights_user_roles.InsightsUserRolesInstance
+        """
+        payload = self._version.create(method='GET', uri=self._uri)
+
+        return InsightsUserRolesInstance(self._version, payload)
+    
 
     def get(self):
         """

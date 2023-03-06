@@ -45,6 +45,36 @@ class QueryList(ListResource):
         
     
     
+    def fetch(self):
+        """
+        Fetch the QueryInstance
+
+        :returns: The fetched QueryInstance
+        :rtype: twilio.rest.preview.understand.assistant.query.QueryInstance
+        """
+        payload = self._version.create(method='GET', uri=self._uri)
+
+        return QueryInstance(self._version, payload, assistant_sid=self._solution['assistant_sid'])
+    
+    
+    def update(self, sample_sid=values.unset, status=values.unset):
+        """
+        Update the QueryInstance
+
+        :param str sample_sid: An optional reference to the Sample created from this query.
+        :param str status: A string that described the query status. The values can be: pending_review, reviewed, discarded
+        
+        :returns: The created QueryInstance
+        :rtype: twilio.rest.preview.understand.assistant.query.QueryInstance
+        """
+        data = values.of({ 
+            'SampleSid': sample_sid,
+            'Status': status,
+        })
+        
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return QueryInstance(self._version, payload, assistant_sid=self._solution['assistant_sid'])
     
     
     def create(self, language, query, tasks=values.unset, model_build=values.unset, field=values.unset):

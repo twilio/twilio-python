@@ -46,6 +46,17 @@ class ExecutionStepContextList(ListResource):
         
         
     
+    def fetch(self):
+        """
+        Fetch the ExecutionStepContextInstance
+
+        :returns: The fetched ExecutionStepContextInstance
+        :rtype: twilio.rest.studio.v2.flow.execution.execution_step.execution_step_context.ExecutionStepContextInstance
+        """
+        payload = self._version.create(method='GET', uri=self._uri)
+
+        return ExecutionStepContextInstance(self._version, payload, flow_sid=self._solution['flow_sid'], execution_sid=self._solution['execution_sid'], step_sid=self._solution['step_sid'])
+    
 
     def get(self):
         """

@@ -51,6 +51,17 @@ class AvailablePhoneNumberCountryList(ListResource):
         
         
     
+    def fetch(self):
+        """
+        Fetch the AvailablePhoneNumberCountryInstance
+
+        :returns: The fetched AvailablePhoneNumberCountryInstance
+        :rtype: twilio.rest.api.v2010.account.available_phone_number_country.AvailablePhoneNumberCountryInstance
+        """
+        payload = self._version.create(method='GET', uri=self._uri)
+
+        return AvailablePhoneNumberCountryInstance(self._version, payload, account_sid=self._solution['account_sid'])
+    
     
     def stream(self, limit=None, page_size=None):
         """

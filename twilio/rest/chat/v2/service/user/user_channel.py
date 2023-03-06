@@ -13,6 +13,7 @@
 """
 
 
+from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -45,6 +46,38 @@ class UserChannelList(ListResource):
         
     
     
+    def fetch(self):
+        """
+        Fetch the UserChannelInstance
+
+        :returns: The fetched UserChannelInstance
+        :rtype: twilio.rest.chat.v2.service.user.user_channel.UserChannelInstance
+        """
+        payload = self._version.create(method='GET', uri=self._uri)
+
+        return UserChannelInstance(self._version, payload, service_sid=self._solution['service_sid'], user_sid=self._solution['user_sid'])
+    
+    
+    def update(self, notification_level=values.unset, last_consumed_message_index=values.unset, last_consumption_timestamp=values.unset):
+        """
+        Update the UserChannelInstance
+
+        :param NotificationLevel notification_level: 
+        :param int last_consumed_message_index: The index of the last [Message](https://www.twilio.com/docs/chat/rest/message-resource) in the [Channel](https://www.twilio.com/docs/chat/channels) that the Member has read.
+        :param datetime last_consumption_timestamp: The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp of the last [Message](https://www.twilio.com/docs/chat/rest/message-resource) read event for the Member within the [Channel](https://www.twilio.com/docs/chat/channels).
+        
+        :returns: The created UserChannelInstance
+        :rtype: twilio.rest.chat.v2.service.user.user_channel.UserChannelInstance
+        """
+        data = values.of({ 
+            'NotificationLevel': notification_level,
+            'LastConsumedMessageIndex': last_consumed_message_index,
+            'LastConsumptionTimestamp': serialize.iso8601_datetime(last_consumption_timestamp),
+        })
+        
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return UserChannelInstance(self._version, payload, service_sid=self._solution['service_sid'], user_sid=self._solution['user_sid'])
     
     
     def stream(self, limit=None, page_size=None):
@@ -206,100 +239,6 @@ class UserChannelPage(Page):
 
 
 
-
-class UserChannelContext(InstanceContext):
-
-    def __init__(self, version: Version, service_sid: str, user_sid: str, channel_sid: str):
-        """
-        Initialize the UserChannelContext
-
-        :param Version version: Version that contains the resource
-        :param service_sid: The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to update the User Channel resource in.:param user_sid: The SID of the [User](https://www.twilio.com/docs/chat/rest/user-resource) to update the User Channel resource from. This value can be either the `sid` or the `identity` of the User resource.:param channel_sid: The SID of the [Channel](https://www.twilio.com/docs/chat/channels) with the User Channel resource to update. This value can be the Channel resource's `sid` or `unique_name`.
-
-        :returns: twilio.rest.chat.v2.service.user.user_channel.UserChannelContext
-        :rtype: twilio.rest.chat.v2.service.user.user_channel.UserChannelContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'service_sid': service_sid,
-            'user_sid': user_sid,
-            'channel_sid': channel_sid,
-        }
-        self._uri = '/Services/{service_sid}/Users/{user_sid}/Channels/{channel_sid}'.format(**self._solution)
-        
-    
-    def delete(self, x_twilio_webhook_enabled=values.unset):
-        """
-        Deletes the UserChannelInstance
-
-        :param WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        headers = values.of({'X-Twilio-Webhook-Enabled': x_twilio_webhook_enabled, })
-        
-        return self._version.delete(method='DELETE', uri=self._uri, headers=headers)
-        
-    def fetch(self):
-        """
-        Fetch the UserChannelInstance
-        
-
-        :returns: The fetched UserChannelInstance
-        :rtype: twilio.rest.chat.v2.service.user.user_channel.UserChannelInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return UserChannelInstance(
-            self._version,
-            payload,
-            service_sid=self._solution['service_sid'],
-            user_sid=self._solution['user_sid'],
-            channel_sid=self._solution['channel_sid'],
-            
-        )
-        
-    def update(self, notification_level=values.unset, last_consumed_message_index=values.unset, last_consumption_timestamp=values.unset):
-        """
-        Update the UserChannelInstance
-        
-        :params NotificationLevel notification_level: 
-        :params int last_consumed_message_index: The index of the last [Message](https://www.twilio.com/docs/chat/rest/message-resource) in the [Channel](https://www.twilio.com/docs/chat/channels) that the Member has read.
-        :params datetime last_consumption_timestamp: The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp of the last [Message](https://www.twilio.com/docs/chat/rest/message-resource) read event for the Member within the [Channel](https://www.twilio.com/docs/chat/channels).
-
-        :returns: The updated UserChannelInstance
-        :rtype: twilio.rest.chat.v2.service.user.user_channel.UserChannelInstance
-        """
-        data = values.of({ 
-            'NotificationLevel': notification_level,
-            'LastConsumedMessageIndex': last_consumed_message_index,
-            'LastConsumptionTimestamp': serialize.iso8601_datetime(last_consumption_timestamp),
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return UserChannelInstance(
-            self._version,
-            payload,
-            service_sid=self._solution['service_sid'],
-            user_sid=self._solution['user_sid'],
-            channel_sid=self._solution['channel_sid']
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Chat.V2.UserChannelContext {}>'.format(context)
 
 class UserChannelInstance(InstanceResource):
 
@@ -484,5 +423,99 @@ class UserChannelInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Chat.V2.UserChannelInstance {}>'.format(context)
+
+class UserChannelContext(InstanceContext):
+
+    def __init__(self, version: Version, service_sid: str, user_sid: str, channel_sid: str):
+        """
+        Initialize the UserChannelContext
+
+        :param Version version: Version that contains the resource
+        :param service_sid: The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to update the User Channel resource in.:param user_sid: The SID of the [User](https://www.twilio.com/docs/chat/rest/user-resource) to update the User Channel resource from. This value can be either the `sid` or the `identity` of the User resource.:param channel_sid: The SID of the [Channel](https://www.twilio.com/docs/chat/channels) with the User Channel resource to update. This value can be the Channel resource's `sid` or `unique_name`.
+
+        :returns: twilio.rest.chat.v2.service.user.user_channel.UserChannelContext
+        :rtype: twilio.rest.chat.v2.service.user.user_channel.UserChannelContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'service_sid': service_sid,
+            'user_sid': user_sid,
+            'channel_sid': channel_sid,
+        }
+        self._uri = '/Services/{service_sid}/Users/{user_sid}/Channels/{channel_sid}'.format(**self._solution)
+        
+    
+    def delete(self, x_twilio_webhook_enabled=values.unset):
+        """
+        Deletes the UserChannelInstance
+
+        :param WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        headers = values.of({'X-Twilio-Webhook-Enabled': x_twilio_webhook_enabled, })
+        
+        return self._version.delete(method='DELETE', uri=self._uri, headers=headers)
+        
+    def fetch(self):
+        """
+        Fetch the UserChannelInstance
+        
+
+        :returns: The fetched UserChannelInstance
+        :rtype: twilio.rest.chat.v2.service.user.user_channel.UserChannelInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return UserChannelInstance(
+            self._version,
+            payload,
+            service_sid=self._solution['service_sid'],
+            user_sid=self._solution['user_sid'],
+            channel_sid=self._solution['channel_sid'],
+            
+        )
+        
+    def update(self, notification_level=values.unset, last_consumed_message_index=values.unset, last_consumption_timestamp=values.unset):
+        """
+        Update the UserChannelInstance
+        
+        :params NotificationLevel notification_level: 
+        :params int last_consumed_message_index: The index of the last [Message](https://www.twilio.com/docs/chat/rest/message-resource) in the [Channel](https://www.twilio.com/docs/chat/channels) that the Member has read.
+        :params datetime last_consumption_timestamp: The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp of the last [Message](https://www.twilio.com/docs/chat/rest/message-resource) read event for the Member within the [Channel](https://www.twilio.com/docs/chat/channels).
+
+        :returns: The updated UserChannelInstance
+        :rtype: twilio.rest.chat.v2.service.user.user_channel.UserChannelInstance
+        """
+        data = values.of({ 
+            'NotificationLevel': notification_level,
+            'LastConsumedMessageIndex': last_consumed_message_index,
+            'LastConsumptionTimestamp': serialize.iso8601_datetime(last_consumption_timestamp),
+        })
+        
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return UserChannelInstance(
+            self._version,
+            payload,
+            service_sid=self._solution['service_sid'],
+            user_sid=self._solution['user_sid'],
+            channel_sid=self._solution['channel_sid']
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Chat.V2.UserChannelContext {}>'.format(context)
 
 

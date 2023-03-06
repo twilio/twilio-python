@@ -45,6 +45,36 @@ class SubscriptionList(ListResource):
         
     
     
+    def fetch(self):
+        """
+        Fetch the SubscriptionInstance
+
+        :returns: The fetched SubscriptionInstance
+        :rtype: twilio.rest.events.v1.subscription.SubscriptionInstance
+        """
+        payload = self._version.create(method='GET', uri=self._uri)
+
+        return SubscriptionInstance(self._version, payload)
+    
+    
+    def update(self, description=values.unset, sink_sid=values.unset):
+        """
+        Update the SubscriptionInstance
+
+        :param str description: A human readable description for the Subscription.
+        :param str sink_sid: The SID of the sink that events selected by this subscription should be sent to. Sink must be active for the subscription to be created.
+        
+        :returns: The created SubscriptionInstance
+        :rtype: twilio.rest.events.v1.subscription.SubscriptionInstance
+        """
+        data = values.of({ 
+            'Description': description,
+            'SinkSid': sink_sid,
+        })
+        
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return SubscriptionInstance(self._version, payload)
     
     
     def create(self, description, sink_sid, types):

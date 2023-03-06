@@ -45,6 +45,17 @@ class SubscribedTrackList(ListResource):
         
         
     
+    def fetch(self):
+        """
+        Fetch the SubscribedTrackInstance
+
+        :returns: The fetched SubscribedTrackInstance
+        :rtype: twilio.rest.video.v1.room.participant.subscribed_track.SubscribedTrackInstance
+        """
+        payload = self._version.create(method='GET', uri=self._uri)
+
+        return SubscribedTrackInstance(self._version, payload, room_sid=self._solution['room_sid'], participant_sid=self._solution['participant_sid'])
+    
     
     def stream(self, limit=None, page_size=None):
         """

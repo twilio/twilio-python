@@ -46,6 +46,36 @@ class FieldTypeList(ListResource):
         
     
     
+    def fetch(self):
+        """
+        Fetch the FieldTypeInstance
+
+        :returns: The fetched FieldTypeInstance
+        :rtype: twilio.rest.preview.understand.assistant.field_type.FieldTypeInstance
+        """
+        payload = self._version.create(method='GET', uri=self._uri)
+
+        return FieldTypeInstance(self._version, payload, assistant_sid=self._solution['assistant_sid'])
+    
+    
+    def update(self, friendly_name=values.unset, unique_name=values.unset):
+        """
+        Update the FieldTypeInstance
+
+        :param str friendly_name: A user-provided string that identifies this resource. It is non-unique and can up to 255 characters long.
+        :param str unique_name: A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
+        
+        :returns: The created FieldTypeInstance
+        :rtype: twilio.rest.preview.understand.assistant.field_type.FieldTypeInstance
+        """
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+            'UniqueName': unique_name,
+        })
+        
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return FieldTypeInstance(self._version, payload, assistant_sid=self._solution['assistant_sid'])
     
     
     def create(self, unique_name, friendly_name=values.unset):

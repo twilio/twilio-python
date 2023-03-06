@@ -45,6 +45,40 @@ class ConfigurationList(ListResource):
         self._webhooks = None
         
     
+    def fetch(self):
+        """
+        Fetch the ConfigurationInstance
+
+        :returns: The fetched ConfigurationInstance
+        :rtype: twilio.rest.conversations.v1.configuration.ConfigurationInstance
+        """
+        payload = self._version.create(method='GET', uri=self._uri)
+
+        return ConfigurationInstance(self._version, payload)
+    
+    
+    def update(self, default_chat_service_sid=values.unset, default_messaging_service_sid=values.unset, default_inactive_timer=values.unset, default_closed_timer=values.unset):
+        """
+        Update the ConfigurationInstance
+
+        :param str default_chat_service_sid: The SID of the default [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) to use when creating a conversation.
+        :param str default_messaging_service_sid: The SID of the default [Messaging Service](https://www.twilio.com/docs/sms/services/api) to use when creating a conversation.
+        :param str default_inactive_timer: Default ISO8601 duration when conversation will be switched to `inactive` state. Minimum value for this timer is 1 minute.
+        :param str default_closed_timer: Default ISO8601 duration when conversation will be switched to `closed` state. Minimum value for this timer is 10 minutes.
+        
+        :returns: The created ConfigurationInstance
+        :rtype: twilio.rest.conversations.v1.configuration.ConfigurationInstance
+        """
+        data = values.of({ 
+            'DefaultChatServiceSid': default_chat_service_sid,
+            'DefaultMessagingServiceSid': default_messaging_service_sid,
+            'DefaultInactiveTimer': default_inactive_timer,
+            'DefaultClosedTimer': default_closed_timer,
+        })
+        
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return ConfigurationInstance(self._version, payload)
     
 
     @property

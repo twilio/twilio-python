@@ -13,6 +13,7 @@
 """
 
 
+from datetime import date
 from twilio.base import deserialize
 from twilio.base import serialize
 from twilio.base import values
@@ -48,6 +49,45 @@ class ChannelList(ListResource):
         
     
     
+    def fetch(self):
+        """
+        Fetch the ChannelInstance
+
+        :returns: The fetched ChannelInstance
+        :rtype: twilio.rest.chat.v2.service.channel.ChannelInstance
+        """
+        payload = self._version.create(method='GET', uri=self._uri)
+
+        return ChannelInstance(self._version, payload, service_sid=self._solution['service_sid'])
+    
+    
+    def update(self, x_twilio_webhook_enabled=values.unset, friendly_name=values.unset, unique_name=values.unset, attributes=values.unset, date_created=values.unset, date_updated=values.unset, created_by=values.unset):
+        """
+        Update the ChannelInstance
+
+        :param WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :param str friendly_name: A descriptive string that you create to describe the resource. It can be up to 256 characters long.
+        :param str unique_name: An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource's `sid` in the URL. This value must be 256 characters or less in length and unique within the Service.
+        :param str attributes: A valid JSON string that contains application-specific data.
+        :param datetime date_created: The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format, to assign to the resource as the date it was created. The default value is the current time set by the Chat service.  Note that this should only be used in cases where a Channel is being recreated from a backup/separate source.
+        :param datetime date_updated: The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format, to assign to the resource as the date it was last updated.
+        :param str created_by: The `identity` of the User that created the channel. Default is: `system`.
+        
+        :returns: The created ChannelInstance
+        :rtype: twilio.rest.chat.v2.service.channel.ChannelInstance
+        """
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+            'UniqueName': unique_name,
+            'Attributes': attributes,
+            'DateCreated': serialize.iso8601_datetime(date_created),
+            'DateUpdated': serialize.iso8601_datetime(date_updated),
+            'CreatedBy': created_by,
+        })
+        headers = values.of({'X-Twilio-Webhook-Enabled': x_twilio_webhook_enabled, })
+        payload = self._version.update(method='POST', uri=self._uri, data=data, headers=headers)
+
+        return ChannelInstance(self._version, payload, service_sid=self._solution['service_sid'])
     
     
     def create(self, x_twilio_webhook_enabled=values.unset, friendly_name=values.unset, unique_name=values.unset, attributes=values.unset, type=values.unset, date_created=values.unset, date_updated=values.unset, created_by=values.unset):
@@ -144,7 +184,7 @@ class ChannelList(ListResource):
         :rtype: twilio.rest.chat.v2.service.channel.ChannelPage
         """
         data = values.of({ 
-            'Type': serialize.map(type),
+            'Type': serialize.map(type, lambda e: e),
             'PageToken': page_token,
             'Page': page_number,
             'PageSize': page_size,
@@ -248,160 +288,6 @@ class ChannelPage(Page):
 
 
 
-
-class ChannelContext(InstanceContext):
-
-    def __init__(self, version: Version, service_sid: str, sid: str):
-        """
-        Initialize the ChannelContext
-
-        :param Version version: Version that contains the resource
-        :param service_sid: The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to update the Channel resource in.:param sid: The SID of the Channel resource to update. This value can be either the `sid` or the `unique_name` of the Channel resource to update.
-
-        :returns: twilio.rest.chat.v2.service.channel.ChannelContext
-        :rtype: twilio.rest.chat.v2.service.channel.ChannelContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'service_sid': service_sid,
-            'sid': sid,
-        }
-        self._uri = '/Services/{service_sid}/Channels/{sid}'.format(**self._solution)
-        
-        self._invites = None
-        self._members = None
-        self._messages = None
-        self._webhooks = None
-    
-    def delete(self, x_twilio_webhook_enabled=values.unset):
-        """
-        Deletes the ChannelInstance
-
-        :param WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        headers = values.of({'X-Twilio-Webhook-Enabled': x_twilio_webhook_enabled, })
-        
-        return self._version.delete(method='DELETE', uri=self._uri, headers=headers)
-        
-    def fetch(self):
-        """
-        Fetch the ChannelInstance
-        
-
-        :returns: The fetched ChannelInstance
-        :rtype: twilio.rest.chat.v2.service.channel.ChannelInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return ChannelInstance(
-            self._version,
-            payload,
-            service_sid=self._solution['service_sid'],
-            sid=self._solution['sid'],
-            
-        )
-        
-    def update(self, x_twilio_webhook_enabled=values.unset, friendly_name=values.unset, unique_name=values.unset, attributes=values.unset, date_created=values.unset, date_updated=values.unset, created_by=values.unset):
-        """
-        Update the ChannelInstance
-        
-        :params WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
-        :params str friendly_name: A descriptive string that you create to describe the resource. It can be up to 256 characters long.
-        :params str unique_name: An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource's `sid` in the URL. This value must be 256 characters or less in length and unique within the Service.
-        :params str attributes: A valid JSON string that contains application-specific data.
-        :params datetime date_created: The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format, to assign to the resource as the date it was created. The default value is the current time set by the Chat service.  Note that this should only be used in cases where a Channel is being recreated from a backup/separate source.
-        :params datetime date_updated: The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format, to assign to the resource as the date it was last updated.
-        :params str created_by: The `identity` of the User that created the channel. Default is: `system`.
-
-        :returns: The updated ChannelInstance
-        :rtype: twilio.rest.chat.v2.service.channel.ChannelInstance
-        """
-        data = values.of({ 
-            'FriendlyName': friendly_name,
-            'UniqueName': unique_name,
-            'Attributes': attributes,
-            'DateCreated': serialize.iso8601_datetime(date_created),
-            'DateUpdated': serialize.iso8601_datetime(date_updated),
-            'CreatedBy': created_by,
-        })
-        headers = values.of({'X-Twilio-Webhook-Enabled': x_twilio_webhook_enabled, })
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data, headers=headers)
-
-        return ChannelInstance(
-            self._version,
-            payload,
-            service_sid=self._solution['service_sid'],
-            sid=self._solution['sid']
-        )
-        
-    
-    @property
-    def invites(self):
-        """
-        Access the invites
-
-        :returns: twilio.rest.chat.v2.service.channel.InviteList
-        :rtype: twilio.rest.chat.v2.service.channel.InviteList
-        """
-        if self._invites is None:
-            self._invites = InviteList(self._version, self._solution['service_sid'], self._solution['sid'],
-            )
-        return self._invites
-    
-    @property
-    def members(self):
-        """
-        Access the members
-
-        :returns: twilio.rest.chat.v2.service.channel.MemberList
-        :rtype: twilio.rest.chat.v2.service.channel.MemberList
-        """
-        if self._members is None:
-            self._members = MemberList(self._version, self._solution['service_sid'], self._solution['sid'],
-            )
-        return self._members
-    
-    @property
-    def messages(self):
-        """
-        Access the messages
-
-        :returns: twilio.rest.chat.v2.service.channel.MessageList
-        :rtype: twilio.rest.chat.v2.service.channel.MessageList
-        """
-        if self._messages is None:
-            self._messages = MessageList(self._version, self._solution['service_sid'], self._solution['sid'],
-            )
-        return self._messages
-    
-    @property
-    def webhooks(self):
-        """
-        Access the webhooks
-
-        :returns: twilio.rest.chat.v2.service.channel.WebhookList
-        :rtype: twilio.rest.chat.v2.service.channel.WebhookList
-        """
-        if self._webhooks is None:
-            self._webhooks = WebhookList(self._version, self._solution['service_sid'], self._solution['sid'],
-            )
-        return self._webhooks
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Chat.V2.ChannelContext {}>'.format(context)
 
 class ChannelInstance(InstanceResource):
 
@@ -652,5 +538,159 @@ class ChannelInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Chat.V2.ChannelInstance {}>'.format(context)
+
+class ChannelContext(InstanceContext):
+
+    def __init__(self, version: Version, service_sid: str, sid: str):
+        """
+        Initialize the ChannelContext
+
+        :param Version version: Version that contains the resource
+        :param service_sid: The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to update the Channel resource in.:param sid: The SID of the Channel resource to update. This value can be either the `sid` or the `unique_name` of the Channel resource to update.
+
+        :returns: twilio.rest.chat.v2.service.channel.ChannelContext
+        :rtype: twilio.rest.chat.v2.service.channel.ChannelContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'service_sid': service_sid,
+            'sid': sid,
+        }
+        self._uri = '/Services/{service_sid}/Channels/{sid}'.format(**self._solution)
+        
+        self._invites = None
+        self._members = None
+        self._messages = None
+        self._webhooks = None
+    
+    def delete(self, x_twilio_webhook_enabled=values.unset):
+        """
+        Deletes the ChannelInstance
+
+        :param WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        headers = values.of({'X-Twilio-Webhook-Enabled': x_twilio_webhook_enabled, })
+        
+        return self._version.delete(method='DELETE', uri=self._uri, headers=headers)
+        
+    def fetch(self):
+        """
+        Fetch the ChannelInstance
+        
+
+        :returns: The fetched ChannelInstance
+        :rtype: twilio.rest.chat.v2.service.channel.ChannelInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return ChannelInstance(
+            self._version,
+            payload,
+            service_sid=self._solution['service_sid'],
+            sid=self._solution['sid'],
+            
+        )
+        
+    def update(self, x_twilio_webhook_enabled=values.unset, friendly_name=values.unset, unique_name=values.unset, attributes=values.unset, date_created=values.unset, date_updated=values.unset, created_by=values.unset):
+        """
+        Update the ChannelInstance
+        
+        :params WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :params str friendly_name: A descriptive string that you create to describe the resource. It can be up to 256 characters long.
+        :params str unique_name: An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource's `sid` in the URL. This value must be 256 characters or less in length and unique within the Service.
+        :params str attributes: A valid JSON string that contains application-specific data.
+        :params datetime date_created: The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format, to assign to the resource as the date it was created. The default value is the current time set by the Chat service.  Note that this should only be used in cases where a Channel is being recreated from a backup/separate source.
+        :params datetime date_updated: The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format, to assign to the resource as the date it was last updated.
+        :params str created_by: The `identity` of the User that created the channel. Default is: `system`.
+
+        :returns: The updated ChannelInstance
+        :rtype: twilio.rest.chat.v2.service.channel.ChannelInstance
+        """
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+            'UniqueName': unique_name,
+            'Attributes': attributes,
+            'DateCreated': serialize.iso8601_datetime(date_created),
+            'DateUpdated': serialize.iso8601_datetime(date_updated),
+            'CreatedBy': created_by,
+        })
+        headers = values.of({'X-Twilio-Webhook-Enabled': x_twilio_webhook_enabled, })
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data, headers=headers)
+
+        return ChannelInstance(
+            self._version,
+            payload,
+            service_sid=self._solution['service_sid'],
+            sid=self._solution['sid']
+        )
+        
+    
+    @property
+    def invites(self):
+        """
+        Access the invites
+
+        :returns: twilio.rest.chat.v2.service.channel.InviteList
+        :rtype: twilio.rest.chat.v2.service.channel.InviteList
+        """
+        if self._invites is None:
+            self._invites = InviteList(self._version, self._solution['service_sid'], self._solution['sid'],
+            )
+        return self._invites
+    
+    @property
+    def members(self):
+        """
+        Access the members
+
+        :returns: twilio.rest.chat.v2.service.channel.MemberList
+        :rtype: twilio.rest.chat.v2.service.channel.MemberList
+        """
+        if self._members is None:
+            self._members = MemberList(self._version, self._solution['service_sid'], self._solution['sid'],
+            )
+        return self._members
+    
+    @property
+    def messages(self):
+        """
+        Access the messages
+
+        :returns: twilio.rest.chat.v2.service.channel.MessageList
+        :rtype: twilio.rest.chat.v2.service.channel.MessageList
+        """
+        if self._messages is None:
+            self._messages = MessageList(self._version, self._solution['service_sid'], self._solution['sid'],
+            )
+        return self._messages
+    
+    @property
+    def webhooks(self):
+        """
+        Access the webhooks
+
+        :returns: twilio.rest.chat.v2.service.channel.WebhookList
+        :rtype: twilio.rest.chat.v2.service.channel.WebhookList
+        """
+        if self._webhooks is None:
+            self._webhooks = WebhookList(self._version, self._solution['service_sid'], self._solution['sid'],
+            )
+        return self._webhooks
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Chat.V2.ChannelContext {}>'.format(context)
 
 

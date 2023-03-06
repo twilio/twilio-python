@@ -45,6 +45,38 @@ class TriggerList(ListResource):
         
     
     
+    def fetch(self):
+        """
+        Fetch the TriggerInstance
+
+        :returns: The fetched TriggerInstance
+        :rtype: twilio.rest.api.v2010.account.usage.trigger.TriggerInstance
+        """
+        payload = self._version.create(method='GET', uri=self._uri)
+
+        return TriggerInstance(self._version, payload, account_sid=self._solution['account_sid'])
+    
+    
+    def update(self, callback_method=values.unset, callback_url=values.unset, friendly_name=values.unset):
+        """
+        Update the TriggerInstance
+
+        :param str callback_method: The HTTP method we should use to call `callback_url`. Can be: `GET` or `POST` and the default is `POST`.
+        :param str callback_url: The URL we should call using `callback_method` when the trigger fires.
+        :param str friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+        
+        :returns: The created TriggerInstance
+        :rtype: twilio.rest.api.v2010.account.usage.trigger.TriggerInstance
+        """
+        data = values.of({ 
+            'CallbackMethod': callback_method,
+            'CallbackUrl': callback_url,
+            'FriendlyName': friendly_name,
+        })
+        
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return TriggerInstance(self._version, payload, account_sid=self._solution['account_sid'])
     
     
     def create(self, callback_url, trigger_value, usage_category, callback_method=values.unset, friendly_name=values.unset, recurring=values.unset, trigger_by=values.unset):

@@ -44,6 +44,34 @@ class NetworkAccessProfileList(ListResource):
         
         
     
+    def fetch(self):
+        """
+        Fetch the NetworkAccessProfileInstance
+
+        :returns: The fetched NetworkAccessProfileInstance
+        :rtype: twilio.rest.supersim.v1.network_access_profile.NetworkAccessProfileInstance
+        """
+        payload = self._version.create(method='GET', uri=self._uri)
+
+        return NetworkAccessProfileInstance(self._version, payload)
+    
+    
+    def update(self, unique_name=values.unset):
+        """
+        Update the NetworkAccessProfileInstance
+
+        :param str unique_name: The new unique name of the Network Access Profile.
+        
+        :returns: The created NetworkAccessProfileInstance
+        :rtype: twilio.rest.supersim.v1.network_access_profile.NetworkAccessProfileInstance
+        """
+        data = values.of({ 
+            'UniqueName': unique_name,
+        })
+        
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return NetworkAccessProfileInstance(self._version, payload)
     
     
     def create(self, unique_name=values.unset, networks=values.unset):

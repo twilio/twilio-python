@@ -48,6 +48,58 @@ class DomainList(ListResource):
         
     
     
+    def fetch(self):
+        """
+        Fetch the DomainInstance
+
+        :returns: The fetched DomainInstance
+        :rtype: twilio.rest.api.v2010.account.sip.domain.DomainInstance
+        """
+        payload = self._version.create(method='GET', uri=self._uri)
+
+        return DomainInstance(self._version, payload, account_sid=self._solution['account_sid'])
+    
+    
+    def update(self, friendly_name=values.unset, voice_fallback_method=values.unset, voice_fallback_url=values.unset, voice_method=values.unset, voice_status_callback_method=values.unset, voice_status_callback_url=values.unset, voice_url=values.unset, sip_registration=values.unset, domain_name=values.unset, emergency_calling_enabled=values.unset, secure=values.unset, byoc_trunk_sid=values.unset, emergency_caller_sid=values.unset):
+        """
+        Update the DomainInstance
+
+        :param str friendly_name: A descriptive string that you created to describe the resource. It can be up to 64 characters long.
+        :param str voice_fallback_method: The HTTP method we should use to call `voice_fallback_url`. Can be: `GET` or `POST`.
+        :param str voice_fallback_url: The URL that we should call when an error occurs while retrieving or executing the TwiML requested by `voice_url`.
+        :param str voice_method: The HTTP method we should use to call `voice_url`
+        :param str voice_status_callback_method: The HTTP method we should use to call `voice_status_callback_url`. Can be: `GET` or `POST`.
+        :param str voice_status_callback_url: The URL that we should call to pass status parameters (such as call ended) to your application.
+        :param str voice_url: The URL we should call when the domain receives a call.
+        :param bool sip_registration: Whether to allow SIP Endpoints to register with the domain to receive calls. Can be `true` or `false`. `true` allows SIP Endpoints to register with the domain to receive calls, `false` does not.
+        :param str domain_name: The unique address you reserve on Twilio to which you route your SIP traffic. Domain names can contain letters, digits, and \\\"-\\\" and must end with `sip.twilio.com`.
+        :param bool emergency_calling_enabled: Whether emergency calling is enabled for the domain. If enabled, allows emergency calls on the domain from phone numbers with validated addresses.
+        :param bool secure: Whether secure SIP is enabled for the domain. If enabled, TLS will be enforced and SRTP will be negotiated on all incoming calls to this sip domain.
+        :param str byoc_trunk_sid: The SID of the BYOC Trunk(Bring Your Own Carrier) resource that the Sip Domain will be associated with.
+        :param str emergency_caller_sid: Whether an emergency caller sid is configured for the domain. If present, this phone number will be used as the callback for the emergency call.
+        
+        :returns: The created DomainInstance
+        :rtype: twilio.rest.api.v2010.account.sip.domain.DomainInstance
+        """
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+            'VoiceFallbackMethod': voice_fallback_method,
+            'VoiceFallbackUrl': voice_fallback_url,
+            'VoiceMethod': voice_method,
+            'VoiceStatusCallbackMethod': voice_status_callback_method,
+            'VoiceStatusCallbackUrl': voice_status_callback_url,
+            'VoiceUrl': voice_url,
+            'SipRegistration': sip_registration,
+            'DomainName': domain_name,
+            'EmergencyCallingEnabled': emergency_calling_enabled,
+            'Secure': secure,
+            'ByocTrunkSid': byoc_trunk_sid,
+            'EmergencyCallerSid': emergency_caller_sid,
+        })
+        
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return DomainInstance(self._version, payload, account_sid=self._solution['account_sid'])
     
     
     def create(self, domain_name, friendly_name=values.unset, voice_url=values.unset, voice_method=values.unset, voice_fallback_url=values.unset, voice_fallback_method=values.unset, voice_status_callback_url=values.unset, voice_status_callback_method=values.unset, sip_registration=values.unset, emergency_calling_enabled=values.unset, secure=values.unset, byoc_trunk_sid=values.unset, emergency_caller_sid=values.unset):

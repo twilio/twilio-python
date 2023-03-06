@@ -44,6 +44,17 @@ class UsageList(ListResource):
         
         
     
+    def fetch(self):
+        """
+        Fetch the UsageInstance
+
+        :returns: The fetched UsageInstance
+        :rtype: twilio.rest.preview.wireless.sim.usage.UsageInstance
+        """
+        payload = self._version.create(method='GET', uri=self._uri)
+
+        return UsageInstance(self._version, payload, sim_sid=self._solution['sim_sid'])
+    
 
     def get(self):
         """

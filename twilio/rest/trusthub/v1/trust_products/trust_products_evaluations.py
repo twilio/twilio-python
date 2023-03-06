@@ -44,6 +44,17 @@ class TrustProductsEvaluationsList(ListResource):
         
         
     
+    def fetch(self):
+        """
+        Fetch the TrustProductsEvaluationsInstance
+
+        :returns: The fetched TrustProductsEvaluationsInstance
+        :rtype: twilio.rest.trusthub.v1.trust_products.trust_products_evaluations.TrustProductsEvaluationsInstance
+        """
+        payload = self._version.create(method='GET', uri=self._uri)
+
+        return TrustProductsEvaluationsInstance(self._version, payload, trust_product_sid=self._solution['trust_product_sid'])
+    
     
     def create(self, policy_sid):
         """

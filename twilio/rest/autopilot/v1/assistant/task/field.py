@@ -46,6 +46,17 @@ class FieldList(ListResource):
         
     
     
+    def fetch(self):
+        """
+        Fetch the FieldInstance
+
+        :returns: The fetched FieldInstance
+        :rtype: twilio.rest.autopilot.v1.assistant.task.field.FieldInstance
+        """
+        payload = self._version.create(method='GET', uri=self._uri)
+
+        return FieldInstance(self._version, payload, assistant_sid=self._solution['assistant_sid'], task_sid=self._solution['task_sid'])
+    
     
     def create(self, field_type, unique_name):
         """

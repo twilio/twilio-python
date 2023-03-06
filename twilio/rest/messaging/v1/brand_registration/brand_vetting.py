@@ -44,6 +44,17 @@ class BrandVettingList(ListResource):
         
         
     
+    def fetch(self):
+        """
+        Fetch the BrandVettingInstance
+
+        :returns: The fetched BrandVettingInstance
+        :rtype: twilio.rest.messaging.v1.brand_registration.brand_vetting.BrandVettingInstance
+        """
+        payload = self._version.create(method='GET', uri=self._uri)
+
+        return BrandVettingInstance(self._version, payload, brand_sid=self._solution['brand_sid'])
+    
     
     def create(self, vetting_provider, vetting_id=values.unset):
         """

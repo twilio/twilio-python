@@ -45,6 +45,36 @@ class WorkerChannelList(ListResource):
         
         
     
+    def fetch(self):
+        """
+        Fetch the WorkerChannelInstance
+
+        :returns: The fetched WorkerChannelInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.worker.worker_channel.WorkerChannelInstance
+        """
+        payload = self._version.create(method='GET', uri=self._uri)
+
+        return WorkerChannelInstance(self._version, payload, workspace_sid=self._solution['workspace_sid'], worker_sid=self._solution['worker_sid'])
+    
+    
+    def update(self, capacity=values.unset, available=values.unset):
+        """
+        Update the WorkerChannelInstance
+
+        :param int capacity: The total number of Tasks that the Worker should handle for the TaskChannel type. TaskRouter creates reservations for Tasks of this TaskChannel type up to the specified capacity. If the capacity is 0, no new reservations will be created.
+        :param bool available: Whether the WorkerChannel is available. Set to `false` to prevent the Worker from receiving any new Tasks of this TaskChannel type.
+        
+        :returns: The created WorkerChannelInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.worker.worker_channel.WorkerChannelInstance
+        """
+        data = values.of({ 
+            'Capacity': capacity,
+            'Available': available,
+        })
+        
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return WorkerChannelInstance(self._version, payload, workspace_sid=self._solution['workspace_sid'], worker_sid=self._solution['worker_sid'])
     
     
     def stream(self, limit=None, page_size=None):

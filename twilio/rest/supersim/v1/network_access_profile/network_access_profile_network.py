@@ -45,6 +45,17 @@ class NetworkAccessProfileNetworkList(ListResource):
         
     
     
+    def fetch(self):
+        """
+        Fetch the NetworkAccessProfileNetworkInstance
+
+        :returns: The fetched NetworkAccessProfileNetworkInstance
+        :rtype: twilio.rest.supersim.v1.network_access_profile.network_access_profile_network.NetworkAccessProfileNetworkInstance
+        """
+        payload = self._version.create(method='GET', uri=self._uri)
+
+        return NetworkAccessProfileNetworkInstance(self._version, payload, network_access_profile_sid=self._solution['network_access_profile_sid'])
+    
     
     def create(self, network):
         """
