@@ -43,17 +43,6 @@ class NetworkList(ListResource):
         
         
     
-    def fetch(self):
-        """
-        Fetch the NetworkInstance
-
-        :returns: The fetched NetworkInstance
-        :rtype: twilio.rest.supersim.v1.network.NetworkInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return NetworkInstance(self._version, payload)
-    
     
     def stream(self, iso_country=values.unset, mcc=values.unset, mnc=values.unset, limit=None, page_size=None):
         """

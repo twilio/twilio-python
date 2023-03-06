@@ -49,45 +49,6 @@ class ChannelList(ListResource):
         
     
     
-    def fetch(self):
-        """
-        Fetch the ChannelInstance
-
-        :returns: The fetched ChannelInstance
-        :rtype: twilio.rest.ip_messaging.v2.service.channel.ChannelInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return ChannelInstance(self._version, payload, service_sid=self._solution['service_sid'])
-    
-    
-    def update(self, x_twilio_webhook_enabled=values.unset, friendly_name=values.unset, unique_name=values.unset, attributes=values.unset, date_created=values.unset, date_updated=values.unset, created_by=values.unset):
-        """
-        Update the ChannelInstance
-
-        :param WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
-        :param str friendly_name: 
-        :param str unique_name: 
-        :param str attributes: 
-        :param datetime date_created: 
-        :param datetime date_updated: 
-        :param str created_by: 
-        
-        :returns: The created ChannelInstance
-        :rtype: twilio.rest.ip_messaging.v2.service.channel.ChannelInstance
-        """
-        data = values.of({ 
-            'FriendlyName': friendly_name,
-            'UniqueName': unique_name,
-            'Attributes': attributes,
-            'DateCreated': serialize.iso8601_datetime(date_created),
-            'DateUpdated': serialize.iso8601_datetime(date_updated),
-            'CreatedBy': created_by,
-        })
-        headers = values.of({'X-Twilio-Webhook-Enabled': x_twilio_webhook_enabled, })
-        payload = self._version.update(method='POST', uri=self._uri, data=data, headers=headers)
-
-        return ChannelInstance(self._version, payload, service_sid=self._solution['service_sid'])
     
     
     def create(self, x_twilio_webhook_enabled=values.unset, friendly_name=values.unset, unique_name=values.unset, attributes=values.unset, type=values.unset, date_created=values.unset, date_updated=values.unset, created_by=values.unset):

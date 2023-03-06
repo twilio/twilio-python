@@ -44,17 +44,6 @@ class AccountConfigList(ListResource):
         
     
     
-    def fetch(self):
-        """
-        Fetch the AccountConfigInstance
-
-        :returns: The fetched AccountConfigInstance
-        :rtype: twilio.rest.microvisor.v1.account_config.AccountConfigInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return AccountConfigInstance(self._version, payload)
-    
     
     def create(self, key, value):
         """

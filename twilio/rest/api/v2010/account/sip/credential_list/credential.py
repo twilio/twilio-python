@@ -46,34 +46,6 @@ class CredentialList(ListResource):
         
     
     
-    def fetch(self):
-        """
-        Fetch the CredentialInstance
-
-        :returns: The fetched CredentialInstance
-        :rtype: twilio.rest.api.v2010.account.sip.credential_list.credential.CredentialInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return CredentialInstance(self._version, payload, account_sid=self._solution['account_sid'], credential_list_sid=self._solution['credential_list_sid'])
-    
-    
-    def update(self, password=values.unset):
-        """
-        Update the CredentialInstance
-
-        :param str password: The password that the username will use when authenticating SIP requests. The password must be a minimum of 12 characters, contain at least 1 digit, and have mixed case. (eg `IWasAtSignal2018`)
-        
-        :returns: The created CredentialInstance
-        :rtype: twilio.rest.api.v2010.account.sip.credential_list.credential.CredentialInstance
-        """
-        data = values.of({ 
-            'Password': password,
-        })
-        
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return CredentialInstance(self._version, payload, account_sid=self._solution['account_sid'], credential_list_sid=self._solution['credential_list_sid'])
     
     
     def create(self, username, password):

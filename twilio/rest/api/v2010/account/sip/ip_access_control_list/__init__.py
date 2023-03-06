@@ -46,34 +46,6 @@ class IpAccessControlListList(ListResource):
         
     
     
-    def fetch(self):
-        """
-        Fetch the IpAccessControlListInstance
-
-        :returns: The fetched IpAccessControlListInstance
-        :rtype: twilio.rest.api.v2010.account.sip.ip_access_control_list.IpAccessControlListInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return IpAccessControlListInstance(self._version, payload, account_sid=self._solution['account_sid'])
-    
-    
-    def update(self, friendly_name):
-        """
-        Update the IpAccessControlListInstance
-
-        :param str friendly_name: A human readable descriptive text, up to 255 characters long.
-        
-        :returns: The created IpAccessControlListInstance
-        :rtype: twilio.rest.api.v2010.account.sip.ip_access_control_list.IpAccessControlListInstance
-        """
-        data = values.of({ 
-            'FriendlyName': friendly_name,
-        })
-        
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return IpAccessControlListInstance(self._version, payload, account_sid=self._solution['account_sid'])
     
     
     def create(self, friendly_name):

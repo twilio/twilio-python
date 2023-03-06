@@ -47,36 +47,6 @@ class SyncMapList(ListResource):
         
     
     
-    def fetch(self):
-        """
-        Fetch the SyncMapInstance
-
-        :returns: The fetched SyncMapInstance
-        :rtype: twilio.rest.sync.v1.service.sync_map.SyncMapInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return SyncMapInstance(self._version, payload, service_sid=self._solution['service_sid'])
-    
-    
-    def update(self, ttl=values.unset, collection_ttl=values.unset):
-        """
-        Update the SyncMapInstance
-
-        :param int ttl: An alias for `collection_ttl`. If both parameters are provided, this value is ignored.
-        :param int collection_ttl: How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Sync Map expires (time-to-live) and is deleted.
-        
-        :returns: The created SyncMapInstance
-        :rtype: twilio.rest.sync.v1.service.sync_map.SyncMapInstance
-        """
-        data = values.of({ 
-            'Ttl': ttl,
-            'CollectionTtl': collection_ttl,
-        })
-        
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return SyncMapInstance(self._version, payload, service_sid=self._solution['service_sid'])
     
     
     def create(self, unique_name=values.unset, ttl=values.unset, collection_ttl=values.unset):

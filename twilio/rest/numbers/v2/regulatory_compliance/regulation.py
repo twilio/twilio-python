@@ -43,17 +43,6 @@ class RegulationList(ListResource):
         
         
     
-    def fetch(self):
-        """
-        Fetch the RegulationInstance
-
-        :returns: The fetched RegulationInstance
-        :rtype: twilio.rest.numbers.v2.regulatory_compliance.regulation.RegulationInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return RegulationInstance(self._version, payload)
-    
     
     def stream(self, end_user_type=values.unset, iso_country=values.unset, number_type=values.unset, limit=None, page_size=None):
         """

@@ -44,17 +44,6 @@ class RecordingList(ListResource):
         
     
     
-    def fetch(self):
-        """
-        Fetch the RecordingInstance
-
-        :returns: The fetched RecordingInstance
-        :rtype: twilio.rest.video.v1.recording.RecordingInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return RecordingInstance(self._version, payload)
-    
     
     def stream(self, status=values.unset, source_sid=values.unset, grouping_sid=values.unset, date_created_after=values.unset, date_created_before=values.unset, media_type=values.unset, limit=None, page_size=None):
         """

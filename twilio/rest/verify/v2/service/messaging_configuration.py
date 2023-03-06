@@ -45,34 +45,6 @@ class MessagingConfigurationList(ListResource):
         
     
     
-    def fetch(self):
-        """
-        Fetch the MessagingConfigurationInstance
-
-        :returns: The fetched MessagingConfigurationInstance
-        :rtype: twilio.rest.verify.v2.service.messaging_configuration.MessagingConfigurationInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return MessagingConfigurationInstance(self._version, payload, service_sid=self._solution['service_sid'])
-    
-    
-    def update(self, messaging_service_sid):
-        """
-        Update the MessagingConfigurationInstance
-
-        :param str messaging_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) to be used to send SMS to the country of this configuration.
-        
-        :returns: The created MessagingConfigurationInstance
-        :rtype: twilio.rest.verify.v2.service.messaging_configuration.MessagingConfigurationInstance
-        """
-        data = values.of({ 
-            'MessagingServiceSid': messaging_service_sid,
-        })
-        
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return MessagingConfigurationInstance(self._version, payload, service_sid=self._solution['service_sid'])
     
     
     def create(self, country, messaging_service_sid):

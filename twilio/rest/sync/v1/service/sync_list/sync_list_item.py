@@ -46,41 +46,6 @@ class SyncListItemList(ListResource):
         
     
     
-    def fetch(self):
-        """
-        Fetch the SyncListItemInstance
-
-        :returns: The fetched SyncListItemInstance
-        :rtype: twilio.rest.sync.v1.service.sync_list.sync_list_item.SyncListItemInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return SyncListItemInstance(self._version, payload, service_sid=self._solution['service_sid'], list_sid=self._solution['list_sid'])
-    
-    
-    def update(self, if_match=values.unset, data=values.unset, ttl=values.unset, item_ttl=values.unset, collection_ttl=values.unset):
-        """
-        Update the SyncListItemInstance
-
-        :param str if_match: If provided, applies this mutation if (and only if) the “revision” field of this [map item] matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match).
-        :param object data: A JSON string that represents an arbitrary, schema-less object that the List Item stores. Can be up to 16 KiB in length.
-        :param int ttl: An alias for `item_ttl`. If both parameters are provided, this value is ignored.
-        :param int item_ttl: How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the List Item expires (time-to-live) and is deleted.
-        :param int collection_ttl: How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the List Item's parent Sync List expires (time-to-live) and is deleted. This parameter can only be used when the List Item's `data` or `ttl` is updated in the same request.
-        
-        :returns: The created SyncListItemInstance
-        :rtype: twilio.rest.sync.v1.service.sync_list.sync_list_item.SyncListItemInstance
-        """
-        data = values.of({ 
-            'Data': serialize.object(data),
-            'Ttl': ttl,
-            'ItemTtl': item_ttl,
-            'CollectionTtl': collection_ttl,
-        })
-        headers = values.of({'If-Match': if_match, })
-        payload = self._version.update(method='POST', uri=self._uri, data=data, headers=headers)
-
-        return SyncListItemInstance(self._version, payload, service_sid=self._solution['service_sid'], list_sid=self._solution['list_sid'])
     
     
     def create(self, data, ttl=values.unset, item_ttl=values.unset, collection_ttl=values.unset):

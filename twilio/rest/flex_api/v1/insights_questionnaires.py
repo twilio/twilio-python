@@ -44,41 +44,6 @@ class InsightsQuestionnairesList(ListResource):
         
     
     
-    def fetch(self):
-        """
-        Fetch the InsightsQuestionnairesInstance
-
-        :returns: The fetched InsightsQuestionnairesInstance
-        :rtype: twilio.rest.flex_api.v1.insights_questionnaires.InsightsQuestionnairesInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return InsightsQuestionnairesInstance(self._version, payload)
-    
-    
-    def update(self, active, token=values.unset, name=values.unset, description=values.unset, question_ids=values.unset):
-        """
-        Update the InsightsQuestionnairesInstance
-
-        :param bool active: The flag to enable or disable questionnaire
-        :param str token: The Token HTTP request header
-        :param str name: The name of this questionnaire
-        :param str description: The description of this questionnaire
-        :param list[str] question_ids: The list of questions ids under a questionnaire
-        
-        :returns: The created InsightsQuestionnairesInstance
-        :rtype: twilio.rest.flex_api.v1.insights_questionnaires.InsightsQuestionnairesInstance
-        """
-        data = values.of({ 
-            'Active': active,
-            'Name': name,
-            'Description': description,
-            'QuestionIds': serialize.map(question_ids, lambda e: e),
-        })
-        headers = values.of({'Token': token, })
-        payload = self._version.update(method='POST', uri=self._uri, data=data, headers=headers)
-
-        return InsightsQuestionnairesInstance(self._version, payload)
     
     
     def create(self, name, token=values.unset, description=values.unset, active=values.unset, question_ids=values.unset):

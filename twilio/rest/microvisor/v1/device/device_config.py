@@ -45,17 +45,6 @@ class DeviceConfigList(ListResource):
         
     
     
-    def fetch(self):
-        """
-        Fetch the DeviceConfigInstance
-
-        :returns: The fetched DeviceConfigInstance
-        :rtype: twilio.rest.microvisor.v1.device.device_config.DeviceConfigInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return DeviceConfigInstance(self._version, payload, device_sid=self._solution['device_sid'])
-    
     
     def create(self, key, value):
         """

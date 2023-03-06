@@ -46,50 +46,6 @@ class FactorList(ListResource):
         
     
     
-    def fetch(self):
-        """
-        Fetch the FactorInstance
-
-        :returns: The fetched FactorInstance
-        :rtype: twilio.rest.verify.v2.service.entity.factor.FactorInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return FactorInstance(self._version, payload, service_sid=self._solution['service_sid'], identity=self._solution['identity'])
-    
-    
-    def update(self, auth_payload=values.unset, friendly_name=values.unset, config_notification_token=values.unset, config_sdk_version=values.unset, config_time_step=values.unset, config_skew=values.unset, config_code_length=values.unset, config_alg=values.unset, config_notification_platform=values.unset):
-        """
-        Update the FactorInstance
-
-        :param str auth_payload: The optional payload needed to verify the Factor for the first time. E.g. for a TOTP, the numeric code.
-        :param str friendly_name: The new friendly name of this Factor. It can be up to 64 characters.
-        :param str config_notification_token: For APN, the device token. For FCM, the registration token. It is used to send the push notifications. Required when `factor_type` is `push`. If specified, this value must be between 32 and 255 characters long.
-        :param str config_sdk_version: The Verify Push SDK version used to configure the factor
-        :param int config_time_step: Defines how often, in seconds, are TOTP codes generated. i.e, a new TOTP code is generated every time_step seconds. Must be between 20 and 60 seconds, inclusive
-        :param int config_skew: The number of time-steps, past and future, that are valid for validation of TOTP codes. Must be between 0 and 2, inclusive
-        :param int config_code_length: Number of digits for generated TOTP codes. Must be between 3 and 8, inclusive
-        :param TotpAlgorithms config_alg: 
-        :param str config_notification_platform: The transport technology used to generate the Notification Token. Can be `apn`, `fcm` or `none`.  Required when `factor_type` is `push`.
-        
-        :returns: The created FactorInstance
-        :rtype: twilio.rest.verify.v2.service.entity.factor.FactorInstance
-        """
-        data = values.of({ 
-            'AuthPayload': auth_payload,
-            'FriendlyName': friendly_name,
-            'Config.NotificationToken': config_notification_token,
-            'Config.SdkVersion': config_sdk_version,
-            'Config.TimeStep': config_time_step,
-            'Config.Skew': config_skew,
-            'Config.CodeLength': config_code_length,
-            'Config.Alg': config_alg,
-            'Config.NotificationPlatform': config_notification_platform,
-        })
-        
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return FactorInstance(self._version, payload, service_sid=self._solution['service_sid'], identity=self._solution['identity'])
     
     
     def stream(self, limit=None, page_size=None):

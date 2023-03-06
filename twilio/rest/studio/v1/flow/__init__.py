@@ -46,17 +46,6 @@ class FlowList(ListResource):
         
     
     
-    def fetch(self):
-        """
-        Fetch the FlowInstance
-
-        :returns: The fetched FlowInstance
-        :rtype: twilio.rest.studio.v1.flow.FlowInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return FlowInstance(self._version, payload)
-    
     
     def stream(self, limit=None, page_size=None):
         """

@@ -49,40 +49,6 @@ class TaskList(ListResource):
         
     
     
-    def fetch(self):
-        """
-        Fetch the TaskInstance
-
-        :returns: The fetched TaskInstance
-        :rtype: twilio.rest.preview.understand.assistant.task.TaskInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return TaskInstance(self._version, payload, assistant_sid=self._solution['assistant_sid'])
-    
-    
-    def update(self, friendly_name=values.unset, unique_name=values.unset, actions=values.unset, actions_url=values.unset):
-        """
-        Update the TaskInstance
-
-        :param str friendly_name: A user-provided string that identifies this resource. It is non-unique and can up to 255 characters long.
-        :param str unique_name: A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long.
-        :param object actions: A user-provided JSON object encoded as a string to specify the actions for this task. It is optional and non-unique.
-        :param str actions_url: User-provided HTTP endpoint where from the assistant fetches actions
-        
-        :returns: The created TaskInstance
-        :rtype: twilio.rest.preview.understand.assistant.task.TaskInstance
-        """
-        data = values.of({ 
-            'FriendlyName': friendly_name,
-            'UniqueName': unique_name,
-            'Actions': serialize.object(actions),
-            'ActionsUrl': actions_url,
-        })
-        
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return TaskInstance(self._version, payload, assistant_sid=self._solution['assistant_sid'])
     
     
     def create(self, unique_name, friendly_name=values.unset, actions=values.unset, actions_url=values.unset):

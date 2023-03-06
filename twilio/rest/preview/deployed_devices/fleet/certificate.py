@@ -45,36 +45,6 @@ class CertificateList(ListResource):
         
     
     
-    def fetch(self):
-        """
-        Fetch the CertificateInstance
-
-        :returns: The fetched CertificateInstance
-        :rtype: twilio.rest.preview.deployed_devices.fleet.certificate.CertificateInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return CertificateInstance(self._version, payload, fleet_sid=self._solution['fleet_sid'])
-    
-    
-    def update(self, friendly_name=values.unset, device_sid=values.unset):
-        """
-        Update the CertificateInstance
-
-        :param str friendly_name: Provides a human readable descriptive text for this Certificate credential, up to 256 characters long.
-        :param str device_sid: Provides the unique string identifier of an existing Device to become authenticated with this Certificate credential.
-        
-        :returns: The created CertificateInstance
-        :rtype: twilio.rest.preview.deployed_devices.fleet.certificate.CertificateInstance
-        """
-        data = values.of({ 
-            'FriendlyName': friendly_name,
-            'DeviceSid': device_sid,
-        })
-        
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return CertificateInstance(self._version, payload, fleet_sid=self._solution['fleet_sid'])
     
     
     def create(self, certificate_data, friendly_name=values.unset, device_sid=values.unset):

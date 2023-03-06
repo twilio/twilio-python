@@ -47,34 +47,6 @@ class ExecutionList(ListResource):
         
     
     
-    def fetch(self):
-        """
-        Fetch the ExecutionInstance
-
-        :returns: The fetched ExecutionInstance
-        :rtype: twilio.rest.studio.v2.flow.execution.ExecutionInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return ExecutionInstance(self._version, payload, flow_sid=self._solution['flow_sid'])
-    
-    
-    def update(self, status):
-        """
-        Update the ExecutionInstance
-
-        :param Status status: 
-        
-        :returns: The created ExecutionInstance
-        :rtype: twilio.rest.studio.v2.flow.execution.ExecutionInstance
-        """
-        data = values.of({ 
-            'Status': status,
-        })
-        
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return ExecutionInstance(self._version, payload, flow_sid=self._solution['flow_sid'])
     
     
     def create(self, to, from_, parameters=values.unset):

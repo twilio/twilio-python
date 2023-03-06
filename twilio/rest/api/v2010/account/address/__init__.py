@@ -46,50 +46,6 @@ class AddressList(ListResource):
         
     
     
-    def fetch(self):
-        """
-        Fetch the AddressInstance
-
-        :returns: The fetched AddressInstance
-        :rtype: twilio.rest.api.v2010.account.address.AddressInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return AddressInstance(self._version, payload, account_sid=self._solution['account_sid'])
-    
-    
-    def update(self, friendly_name=values.unset, customer_name=values.unset, street=values.unset, city=values.unset, region=values.unset, postal_code=values.unset, emergency_enabled=values.unset, auto_correct_address=values.unset, street_secondary=values.unset):
-        """
-        Update the AddressInstance
-
-        :param str friendly_name: A descriptive string that you create to describe the address. It can be up to 64 characters long.
-        :param str customer_name: The name to associate with the address.
-        :param str street: The number and street address of the address.
-        :param str city: The city of the address.
-        :param str region: The state or region of the address.
-        :param str postal_code: The postal code of the address.
-        :param bool emergency_enabled: Whether to enable emergency calling on the address. Can be: `true` or `false`.
-        :param bool auto_correct_address: Whether we should automatically correct the address. Can be: `true` or `false` and the default is `true`. If empty or `true`, we will correct the address you provide if necessary. If `false`, we won't alter the address you provide.
-        :param str street_secondary: The additional number and street address of the address.
-        
-        :returns: The created AddressInstance
-        :rtype: twilio.rest.api.v2010.account.address.AddressInstance
-        """
-        data = values.of({ 
-            'FriendlyName': friendly_name,
-            'CustomerName': customer_name,
-            'Street': street,
-            'City': city,
-            'Region': region,
-            'PostalCode': postal_code,
-            'EmergencyEnabled': emergency_enabled,
-            'AutoCorrectAddress': auto_correct_address,
-            'StreetSecondary': street_secondary,
-        })
-        
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return AddressInstance(self._version, payload, account_sid=self._solution['account_sid'])
     
     
     def create(self, customer_name, street, city, region, postal_code, iso_country, friendly_name=values.unset, emergency_enabled=values.unset, auto_correct_address=values.unset, street_secondary=values.unset):

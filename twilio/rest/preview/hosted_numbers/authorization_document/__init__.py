@@ -44,46 +44,6 @@ class AuthorizationDocumentList(ListResource):
         
         
     
-    def fetch(self):
-        """
-        Fetch the AuthorizationDocumentInstance
-
-        :returns: The fetched AuthorizationDocumentInstance
-        :rtype: twilio.rest.preview.hosted_numbers.authorization_document.AuthorizationDocumentInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return AuthorizationDocumentInstance(self._version, payload)
-    
-    
-    def update(self, hosted_number_order_sids=values.unset, address_sid=values.unset, email=values.unset, cc_emails=values.unset, status=values.unset, contact_title=values.unset, contact_phone_number=values.unset):
-        """
-        Update the AuthorizationDocumentInstance
-
-        :param list[str] hosted_number_order_sids: A list of HostedNumberOrder sids that this AuthorizationDocument will authorize for hosting phone number capabilities on Twilio's platform.
-        :param str address_sid: A 34 character string that uniquely identifies the Address resource that is associated with this AuthorizationDocument.
-        :param str email: Email that this AuthorizationDocument will be sent to for signing.
-        :param list[str] cc_emails: Email recipients who will be informed when an Authorization Document has been sent and signed
-        :param Status status: 
-        :param str contact_title: The title of the person authorized to sign the Authorization Document for this phone number.
-        :param str contact_phone_number: The contact phone number of the person authorized to sign the Authorization Document.
-        
-        :returns: The created AuthorizationDocumentInstance
-        :rtype: twilio.rest.preview.hosted_numbers.authorization_document.AuthorizationDocumentInstance
-        """
-        data = values.of({ 
-            'HostedNumberOrderSids': serialize.map(hosted_number_order_sids, lambda e: e),
-            'AddressSid': address_sid,
-            'Email': email,
-            'CcEmails': serialize.map(cc_emails, lambda e: e),
-            'Status': status,
-            'ContactTitle': contact_title,
-            'ContactPhoneNumber': contact_phone_number,
-        })
-        
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return AuthorizationDocumentInstance(self._version, payload)
     
     
     def create(self, hosted_number_order_sids, address_sid, email, contact_title, contact_phone_number, cc_emails=values.unset):

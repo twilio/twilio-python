@@ -45,34 +45,6 @@ class RoleList(ListResource):
         
     
     
-    def fetch(self):
-        """
-        Fetch the RoleInstance
-
-        :returns: The fetched RoleInstance
-        :rtype: twilio.rest.conversations.v1.service.role.RoleInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return RoleInstance(self._version, payload, chat_service_sid=self._solution['chat_service_sid'])
-    
-    
-    def update(self, permission):
-        """
-        Update the RoleInstance
-
-        :param list[str] permission: A permission that you grant to the role. Only one permission can be granted per parameter. To assign more than one permission, repeat this parameter for each permission value. Note that the update action replaces all previously assigned permissions with those defined in the update action. To remove a permission, do not include it in the subsequent update action. The values for this parameter depend on the role's `type`.
-        
-        :returns: The created RoleInstance
-        :rtype: twilio.rest.conversations.v1.service.role.RoleInstance
-        """
-        data = values.of({ 
-            'Permission': serialize.map(permission, lambda e: e),
-        })
-        
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return RoleInstance(self._version, payload, chat_service_sid=self._solution['chat_service_sid'])
     
     
     def create(self, friendly_name, type, permission):

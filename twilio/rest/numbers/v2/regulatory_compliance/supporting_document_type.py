@@ -43,17 +43,6 @@ class SupportingDocumentTypeList(ListResource):
         
         
     
-    def fetch(self):
-        """
-        Fetch the SupportingDocumentTypeInstance
-
-        :returns: The fetched SupportingDocumentTypeInstance
-        :rtype: twilio.rest.numbers.v2.regulatory_compliance.supporting_document_type.SupportingDocumentTypeInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return SupportingDocumentTypeInstance(self._version, payload)
-    
     
     def stream(self, limit=None, page_size=None):
         """

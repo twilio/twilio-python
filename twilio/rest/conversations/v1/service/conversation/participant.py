@@ -46,51 +46,6 @@ class ParticipantList(ListResource):
         
     
     
-    def fetch(self):
-        """
-        Fetch the ParticipantInstance
-
-        :returns: The fetched ParticipantInstance
-        :rtype: twilio.rest.conversations.v1.service.conversation.participant.ParticipantInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return ParticipantInstance(self._version, payload, chat_service_sid=self._solution['chat_service_sid'], conversation_sid=self._solution['conversation_sid'])
-    
-    
-    def update(self, x_twilio_webhook_enabled=values.unset, date_created=values.unset, date_updated=values.unset, identity=values.unset, attributes=values.unset, role_sid=values.unset, messaging_binding_proxy_address=values.unset, messaging_binding_projected_address=values.unset, last_read_message_index=values.unset, last_read_timestamp=values.unset):
-        """
-        Update the ParticipantInstance
-
-        :param WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
-        :param datetime date_created: The date that this resource was created.
-        :param datetime date_updated: The date that this resource was last updated.
-        :param str identity: A unique string identifier for the conversation participant as [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource). This parameter is non-null if (and only if) the participant is using the Conversation SDK to communicate. Limited to 256 characters.
-        :param str attributes: An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
-        :param str role_sid: The SID of a conversation-level [Role](https://www.twilio.com/docs/conversations/api/role-resource) to assign to the participant.
-        :param str messaging_binding_proxy_address: The address of the Twilio phone number that the participant is in contact with. 'null' value will remove it.
-        :param str messaging_binding_projected_address: The address of the Twilio phone number that is used in Group MMS. 'null' value will remove it.
-        :param int last_read_message_index: Index of last “read” message in the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for the Participant.
-        :param str last_read_timestamp: Timestamp of last “read” message in the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for the Participant.
-        
-        :returns: The created ParticipantInstance
-        :rtype: twilio.rest.conversations.v1.service.conversation.participant.ParticipantInstance
-        """
-        data = values.of({ 
-            'DateCreated': serialize.iso8601_datetime(date_created),
-            'DateUpdated': serialize.iso8601_datetime(date_updated),
-            'Identity': identity,
-            'Attributes': attributes,
-            'RoleSid': role_sid,
-            'MessagingBinding.ProxyAddress': messaging_binding_proxy_address,
-            'MessagingBinding.ProjectedAddress': messaging_binding_projected_address,
-            'LastReadMessageIndex': last_read_message_index,
-            'LastReadTimestamp': last_read_timestamp,
-        })
-        headers = values.of({'X-Twilio-Webhook-Enabled': x_twilio_webhook_enabled, })
-        payload = self._version.update(method='POST', uri=self._uri, data=data, headers=headers)
-
-        return ParticipantInstance(self._version, payload, chat_service_sid=self._solution['chat_service_sid'], conversation_sid=self._solution['conversation_sid'])
     
     
     def create(self, x_twilio_webhook_enabled=values.unset, identity=values.unset, messaging_binding_address=values.unset, messaging_binding_proxy_address=values.unset, date_created=values.unset, date_updated=values.unset, attributes=values.unset, messaging_binding_projected_address=values.unset, role_sid=values.unset):

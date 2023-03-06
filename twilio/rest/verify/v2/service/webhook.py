@@ -45,42 +45,6 @@ class WebhookList(ListResource):
         
     
     
-    def fetch(self):
-        """
-        Fetch the WebhookInstance
-
-        :returns: The fetched WebhookInstance
-        :rtype: twilio.rest.verify.v2.service.webhook.WebhookInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return WebhookInstance(self._version, payload, service_sid=self._solution['service_sid'])
-    
-    
-    def update(self, friendly_name=values.unset, event_types=values.unset, webhook_url=values.unset, status=values.unset, version=values.unset):
-        """
-        Update the WebhookInstance
-
-        :param str friendly_name: The string that you assigned to describe the webhook. **This value should not contain PII.**
-        :param list[str] event_types: The array of events that this Webhook is subscribed to. Possible event types: `*, factor.deleted, factor.created, factor.verified, challenge.approved, challenge.denied`
-        :param str webhook_url: The URL associated with this Webhook.
-        :param Status status: 
-        :param Version version: 
-        
-        :returns: The created WebhookInstance
-        :rtype: twilio.rest.verify.v2.service.webhook.WebhookInstance
-        """
-        data = values.of({ 
-            'FriendlyName': friendly_name,
-            'EventTypes': serialize.map(event_types, lambda e: e),
-            'WebhookUrl': webhook_url,
-            'Status': status,
-            'Version': version,
-        })
-        
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return WebhookInstance(self._version, payload, service_sid=self._solution['service_sid'])
     
     
     def create(self, friendly_name, event_types, webhook_url, status=values.unset, version=values.unset):

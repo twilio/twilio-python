@@ -46,36 +46,6 @@ class RecordingList(ListResource):
         
     
     
-    def fetch(self):
-        """
-        Fetch the RecordingInstance
-
-        :returns: The fetched RecordingInstance
-        :rtype: twilio.rest.api.v2010.account.conference.recording.RecordingInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return RecordingInstance(self._version, payload, account_sid=self._solution['account_sid'], conference_sid=self._solution['conference_sid'])
-    
-    
-    def update(self, status, pause_behavior=values.unset):
-        """
-        Update the RecordingInstance
-
-        :param Status status: 
-        :param str pause_behavior: Whether to record during a pause. Can be: `skip` or `silence` and the default is `silence`. `skip` does not record during the pause period, while `silence` will replace the actual audio of the call with silence during the pause period. This parameter only applies when setting `status` is set to `paused`.
-        
-        :returns: The created RecordingInstance
-        :rtype: twilio.rest.api.v2010.account.conference.recording.RecordingInstance
-        """
-        data = values.of({ 
-            'Status': status,
-            'PauseBehavior': pause_behavior,
-        })
-        
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return RecordingInstance(self._version, payload, account_sid=self._solution['account_sid'], conference_sid=self._solution['conference_sid'])
     
     
     def stream(self, date_created=values.unset, date_created_before=values.unset, date_created_after=values.unset, limit=None, page_size=None):

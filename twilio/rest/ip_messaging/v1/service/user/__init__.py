@@ -46,38 +46,6 @@ class UserList(ListResource):
         
     
     
-    def fetch(self):
-        """
-        Fetch the UserInstance
-
-        :returns: The fetched UserInstance
-        :rtype: twilio.rest.ip_messaging.v1.service.user.UserInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return UserInstance(self._version, payload, service_sid=self._solution['service_sid'])
-    
-    
-    def update(self, role_sid=values.unset, attributes=values.unset, friendly_name=values.unset):
-        """
-        Update the UserInstance
-
-        :param str role_sid: 
-        :param str attributes: 
-        :param str friendly_name: 
-        
-        :returns: The created UserInstance
-        :rtype: twilio.rest.ip_messaging.v1.service.user.UserInstance
-        """
-        data = values.of({ 
-            'RoleSid': role_sid,
-            'Attributes': attributes,
-            'FriendlyName': friendly_name,
-        })
-        
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return UserInstance(self._version, payload, service_sid=self._solution['service_sid'])
     
     
     def create(self, identity, role_sid=values.unset, attributes=values.unset, friendly_name=values.unset):

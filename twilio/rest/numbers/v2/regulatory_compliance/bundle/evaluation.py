@@ -44,17 +44,6 @@ class EvaluationList(ListResource):
         
         
     
-    def fetch(self):
-        """
-        Fetch the EvaluationInstance
-
-        :returns: The fetched EvaluationInstance
-        :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.evaluation.EvaluationInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return EvaluationInstance(self._version, payload, bundle_sid=self._solution['bundle_sid'])
-    
     
     
     def stream(self, limit=None, page_size=None):

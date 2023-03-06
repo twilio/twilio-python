@@ -44,17 +44,6 @@ class AccountSecretList(ListResource):
         
     
     
-    def fetch(self):
-        """
-        Fetch the AccountSecretInstance
-
-        :returns: The fetched AccountSecretInstance
-        :rtype: twilio.rest.microvisor.v1.account_secret.AccountSecretInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return AccountSecretInstance(self._version, payload)
-    
     
     def create(self, key, value):
         """

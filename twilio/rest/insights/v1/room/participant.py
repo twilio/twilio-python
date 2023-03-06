@@ -44,17 +44,6 @@ class ParticipantList(ListResource):
         
         
     
-    def fetch(self):
-        """
-        Fetch the ParticipantInstance
-
-        :returns: The fetched ParticipantInstance
-        :rtype: twilio.rest.insights.v1.room.participant.ParticipantInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return ParticipantInstance(self._version, payload, room_sid=self._solution['room_sid'])
-    
     
     def stream(self, limit=None, page_size=None):
         """

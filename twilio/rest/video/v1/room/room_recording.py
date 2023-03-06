@@ -45,17 +45,6 @@ class RoomRecordingList(ListResource):
         
     
     
-    def fetch(self):
-        """
-        Fetch the RoomRecordingInstance
-
-        :returns: The fetched RoomRecordingInstance
-        :rtype: twilio.rest.video.v1.room.room_recording.RoomRecordingInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return RoomRecordingInstance(self._version, payload, room_sid=self._solution['room_sid'])
-    
     
     def stream(self, status=values.unset, source_sid=values.unset, date_created_after=values.unset, date_created_before=values.unset, limit=None, page_size=None):
         """

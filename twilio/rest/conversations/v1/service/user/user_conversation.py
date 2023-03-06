@@ -46,38 +46,6 @@ class UserConversationList(ListResource):
         
     
     
-    def fetch(self):
-        """
-        Fetch the UserConversationInstance
-
-        :returns: The fetched UserConversationInstance
-        :rtype: twilio.rest.conversations.v1.service.user.user_conversation.UserConversationInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return UserConversationInstance(self._version, payload, chat_service_sid=self._solution['chat_service_sid'], user_sid=self._solution['user_sid'])
-    
-    
-    def update(self, notification_level=values.unset, last_read_timestamp=values.unset, last_read_message_index=values.unset):
-        """
-        Update the UserConversationInstance
-
-        :param NotificationLevel notification_level: 
-        :param datetime last_read_timestamp: The date of the last message read in conversation by the user, given in ISO 8601 format.
-        :param int last_read_message_index: The index of the last Message in the Conversation that the Participant has read.
-        
-        :returns: The created UserConversationInstance
-        :rtype: twilio.rest.conversations.v1.service.user.user_conversation.UserConversationInstance
-        """
-        data = values.of({ 
-            'NotificationLevel': notification_level,
-            'LastReadTimestamp': serialize.iso8601_datetime(last_read_timestamp),
-            'LastReadMessageIndex': last_read_message_index,
-        })
-        
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return UserConversationInstance(self._version, payload, chat_service_sid=self._solution['chat_service_sid'], user_sid=self._solution['user_sid'])
     
     
     def stream(self, limit=None, page_size=None):

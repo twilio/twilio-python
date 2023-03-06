@@ -45,34 +45,6 @@ class ConnectionPolicyList(ListResource):
         
     
     
-    def fetch(self):
-        """
-        Fetch the ConnectionPolicyInstance
-
-        :returns: The fetched ConnectionPolicyInstance
-        :rtype: twilio.rest.voice.v1.connection_policy.ConnectionPolicyInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return ConnectionPolicyInstance(self._version, payload)
-    
-    
-    def update(self, friendly_name=values.unset):
-        """
-        Update the ConnectionPolicyInstance
-
-        :param str friendly_name: A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
-        
-        :returns: The created ConnectionPolicyInstance
-        :rtype: twilio.rest.voice.v1.connection_policy.ConnectionPolicyInstance
-        """
-        data = values.of({ 
-            'FriendlyName': friendly_name,
-        })
-        
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return ConnectionPolicyInstance(self._version, payload)
     
     
     def create(self, friendly_name=values.unset):

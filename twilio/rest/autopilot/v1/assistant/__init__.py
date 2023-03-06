@@ -52,48 +52,6 @@ class AssistantList(ListResource):
         
     
     
-    def fetch(self):
-        """
-        Fetch the AssistantInstance
-
-        :returns: The fetched AssistantInstance
-        :rtype: twilio.rest.autopilot.v1.assistant.AssistantInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return AssistantInstance(self._version, payload)
-    
-    
-    def update(self, friendly_name=values.unset, log_queries=values.unset, unique_name=values.unset, callback_url=values.unset, callback_events=values.unset, style_sheet=values.unset, defaults=values.unset, development_stage=values.unset):
-        """
-        Update the AssistantInstance
-
-        :param str friendly_name: A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
-        :param bool log_queries: Whether queries should be logged and kept after training. Can be: `true` or `false` and defaults to `true`. If `true`, queries are stored for 30 days, and then deleted. If `false`, no queries are stored.
-        :param str unique_name: An application-defined string that uniquely identifies the resource. It can be used as an alternative to the `sid` in the URL path to address the resource. The first 64 characters must be unique.
-        :param str callback_url: Reserved.
-        :param str callback_events: Reserved.
-        :param object style_sheet: The JSON string that defines the Assistant's [style sheet](https://www.twilio.com/docs/autopilot/api/assistant/stylesheet)
-        :param object defaults: A JSON object that defines the Assistant's [default tasks](https://www.twilio.com/docs/autopilot/api/assistant/defaults) for various scenarios, including initiation actions and fallback tasks.
-        :param str development_stage: A string describing the state of the assistant.
-        
-        :returns: The created AssistantInstance
-        :rtype: twilio.rest.autopilot.v1.assistant.AssistantInstance
-        """
-        data = values.of({ 
-            'FriendlyName': friendly_name,
-            'LogQueries': log_queries,
-            'UniqueName': unique_name,
-            'CallbackUrl': callback_url,
-            'CallbackEvents': callback_events,
-            'StyleSheet': serialize.object(style_sheet),
-            'Defaults': serialize.object(defaults),
-            'DevelopmentStage': development_stage,
-        })
-        
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return AssistantInstance(self._version, payload)
     
     
     def create(self, friendly_name=values.unset, log_queries=values.unset, unique_name=values.unset, callback_url=values.unset, callback_events=values.unset, style_sheet=values.unset, defaults=values.unset):

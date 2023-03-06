@@ -46,17 +46,6 @@ class StepList(ListResource):
         
         
     
-    def fetch(self):
-        """
-        Fetch the StepInstance
-
-        :returns: The fetched StepInstance
-        :rtype: twilio.rest.studio.v1.flow.engagement.step.StepInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return StepInstance(self._version, payload, flow_sid=self._solution['flow_sid'], engagement_sid=self._solution['engagement_sid'])
-    
     
     def stream(self, limit=None, page_size=None):
         """

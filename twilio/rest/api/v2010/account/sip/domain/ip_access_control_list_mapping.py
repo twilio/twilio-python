@@ -46,17 +46,6 @@ class IpAccessControlListMappingList(ListResource):
         
     
     
-    def fetch(self):
-        """
-        Fetch the IpAccessControlListMappingInstance
-
-        :returns: The fetched IpAccessControlListMappingInstance
-        :rtype: twilio.rest.api.v2010.account.sip.domain.ip_access_control_list_mapping.IpAccessControlListMappingInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return IpAccessControlListMappingInstance(self._version, payload, account_sid=self._solution['account_sid'], domain_sid=self._solution['domain_sid'])
-    
     
     def create(self, ip_access_control_list_sid):
         """

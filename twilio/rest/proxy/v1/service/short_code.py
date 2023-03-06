@@ -45,34 +45,6 @@ class ShortCodeList(ListResource):
         
     
     
-    def fetch(self):
-        """
-        Fetch the ShortCodeInstance
-
-        :returns: The fetched ShortCodeInstance
-        :rtype: twilio.rest.proxy.v1.service.short_code.ShortCodeInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return ShortCodeInstance(self._version, payload, service_sid=self._solution['service_sid'])
-    
-    
-    def update(self, is_reserved=values.unset):
-        """
-        Update the ShortCodeInstance
-
-        :param bool is_reserved: Whether the short code should be reserved and not be assigned to a participant using proxy pool logic. See [Reserved Phone Numbers](https://www.twilio.com/docs/proxy/reserved-phone-numbers) for more information.
-        
-        :returns: The created ShortCodeInstance
-        :rtype: twilio.rest.proxy.v1.service.short_code.ShortCodeInstance
-        """
-        data = values.of({ 
-            'IsReserved': is_reserved,
-        })
-        
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return ShortCodeInstance(self._version, payload, service_sid=self._solution['service_sid'])
     
     
     def create(self, sid):

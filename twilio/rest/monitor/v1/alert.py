@@ -43,17 +43,6 @@ class AlertList(ListResource):
         
         
     
-    def fetch(self):
-        """
-        Fetch the AlertInstance
-
-        :returns: The fetched AlertInstance
-        :rtype: twilio.rest.monitor.v1.alert.AlertInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return AlertInstance(self._version, payload)
-    
     
     def stream(self, log_level=values.unset, start_date=values.unset, end_date=values.unset, limit=None, page_size=None):
         """

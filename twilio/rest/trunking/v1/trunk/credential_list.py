@@ -45,17 +45,6 @@ class CredentialListList(ListResource):
         
     
     
-    def fetch(self):
-        """
-        Fetch the CredentialListInstance
-
-        :returns: The fetched CredentialListInstance
-        :rtype: twilio.rest.trunking.v1.trunk.credential_list.CredentialListInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return CredentialListInstance(self._version, payload, trunk_sid=self._solution['trunk_sid'])
-    
     
     def create(self, credential_list_sid):
         """

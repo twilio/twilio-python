@@ -46,17 +46,6 @@ class ExecutionStepList(ListResource):
         
         
     
-    def fetch(self):
-        """
-        Fetch the ExecutionStepInstance
-
-        :returns: The fetched ExecutionStepInstance
-        :rtype: twilio.rest.studio.v2.flow.execution.execution_step.ExecutionStepInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return ExecutionStepInstance(self._version, payload, flow_sid=self._solution['flow_sid'], execution_sid=self._solution['execution_sid'])
-    
     
     def stream(self, limit=None, page_size=None):
         """

@@ -44,64 +44,6 @@ class SimList(ListResource):
         
         
     
-    def fetch(self):
-        """
-        Fetch the SimInstance
-
-        :returns: The fetched SimInstance
-        :rtype: twilio.rest.preview.wireless.sim.SimInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return SimInstance(self._version, payload)
-    
-    
-    def update(self, unique_name=values.unset, callback_method=values.unset, callback_url=values.unset, friendly_name=values.unset, rate_plan=values.unset, status=values.unset, commands_callback_method=values.unset, commands_callback_url=values.unset, sms_fallback_method=values.unset, sms_fallback_url=values.unset, sms_method=values.unset, sms_url=values.unset, voice_fallback_method=values.unset, voice_fallback_url=values.unset, voice_method=values.unset, voice_url=values.unset):
-        """
-        Update the SimInstance
-
-        :param str unique_name: 
-        :param str callback_method: 
-        :param str callback_url: 
-        :param str friendly_name: 
-        :param str rate_plan: 
-        :param str status: 
-        :param str commands_callback_method: 
-        :param str commands_callback_url: 
-        :param str sms_fallback_method: 
-        :param str sms_fallback_url: 
-        :param str sms_method: 
-        :param str sms_url: 
-        :param str voice_fallback_method: 
-        :param str voice_fallback_url: 
-        :param str voice_method: 
-        :param str voice_url: 
-        
-        :returns: The created SimInstance
-        :rtype: twilio.rest.preview.wireless.sim.SimInstance
-        """
-        data = values.of({ 
-            'UniqueName': unique_name,
-            'CallbackMethod': callback_method,
-            'CallbackUrl': callback_url,
-            'FriendlyName': friendly_name,
-            'RatePlan': rate_plan,
-            'Status': status,
-            'CommandsCallbackMethod': commands_callback_method,
-            'CommandsCallbackUrl': commands_callback_url,
-            'SmsFallbackMethod': sms_fallback_method,
-            'SmsFallbackUrl': sms_fallback_url,
-            'SmsMethod': sms_method,
-            'SmsUrl': sms_url,
-            'VoiceFallbackMethod': voice_fallback_method,
-            'VoiceFallbackUrl': voice_fallback_url,
-            'VoiceMethod': voice_method,
-            'VoiceUrl': voice_url,
-        })
-        
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return SimInstance(self._version, payload)
     
     
     def stream(self, status=values.unset, iccid=values.unset, rate_plan=values.unset, eid=values.unset, sim_registration_code=values.unset, limit=None, page_size=None):

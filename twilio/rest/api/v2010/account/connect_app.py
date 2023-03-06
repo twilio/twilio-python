@@ -45,48 +45,6 @@ class ConnectAppList(ListResource):
         
     
     
-    def fetch(self):
-        """
-        Fetch the ConnectAppInstance
-
-        :returns: The fetched ConnectAppInstance
-        :rtype: twilio.rest.api.v2010.account.connect_app.ConnectAppInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return ConnectAppInstance(self._version, payload, account_sid=self._solution['account_sid'])
-    
-    
-    def update(self, authorize_redirect_url=values.unset, company_name=values.unset, deauthorize_callback_method=values.unset, deauthorize_callback_url=values.unset, description=values.unset, friendly_name=values.unset, homepage_url=values.unset, permissions=values.unset):
-        """
-        Update the ConnectAppInstance
-
-        :param str authorize_redirect_url: The URL to redirect the user to after we authenticate the user and obtain authorization to access the Connect App.
-        :param str company_name: The company name to set for the Connect App.
-        :param str deauthorize_callback_method: The HTTP method to use when calling `deauthorize_callback_url`.
-        :param str deauthorize_callback_url: The URL to call using the `deauthorize_callback_method` to de-authorize the Connect App.
-        :param str description: A description of the Connect App.
-        :param str friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
-        :param str homepage_url: A public URL where users can obtain more information about this Connect App.
-        :param list[Permission] permissions: A comma-separated list of the permissions you will request from the users of this ConnectApp.  Can include: `get-all` and `post-all`.
-        
-        :returns: The created ConnectAppInstance
-        :rtype: twilio.rest.api.v2010.account.connect_app.ConnectAppInstance
-        """
-        data = values.of({ 
-            'AuthorizeRedirectUrl': authorize_redirect_url,
-            'CompanyName': company_name,
-            'DeauthorizeCallbackMethod': deauthorize_callback_method,
-            'DeauthorizeCallbackUrl': deauthorize_callback_url,
-            'Description': description,
-            'FriendlyName': friendly_name,
-            'HomepageUrl': homepage_url,
-            'Permissions': serialize.map(permissions, lambda e: e),
-        })
-        
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return ConnectAppInstance(self._version, payload, account_sid=self._solution['account_sid'])
     
     
     def stream(self, limit=None, page_size=None):

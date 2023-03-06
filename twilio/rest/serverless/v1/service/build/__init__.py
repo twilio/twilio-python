@@ -46,17 +46,6 @@ class BuildList(ListResource):
         
     
     
-    def fetch(self):
-        """
-        Fetch the BuildInstance
-
-        :returns: The fetched BuildInstance
-        :rtype: twilio.rest.serverless.v1.service.build.BuildInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return BuildInstance(self._version, payload, service_sid=self._solution['service_sid'])
-    
     
     def create(self, asset_versions=values.unset, function_versions=values.unset, dependencies=values.unset, runtime=values.unset):
         """

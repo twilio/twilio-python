@@ -44,17 +44,6 @@ class CountryList(ListResource):
         
         
     
-    def fetch(self):
-        """
-        Fetch the CountryInstance
-
-        :returns: The fetched CountryInstance
-        :rtype: twilio.rest.voice.v1.dialing_permissions.country.CountryInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return CountryInstance(self._version, payload)
-    
     
     def stream(self, iso_code=values.unset, continent=values.unset, country_code=values.unset, low_risk_numbers_enabled=values.unset, high_risk_special_numbers_enabled=values.unset, high_risk_tollfraud_numbers_enabled=values.unset, limit=None, page_size=None):
         """

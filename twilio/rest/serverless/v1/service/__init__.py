@@ -48,38 +48,6 @@ class ServiceList(ListResource):
         
     
     
-    def fetch(self):
-        """
-        Fetch the ServiceInstance
-
-        :returns: The fetched ServiceInstance
-        :rtype: twilio.rest.serverless.v1.service.ServiceInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return ServiceInstance(self._version, payload)
-    
-    
-    def update(self, include_credentials=values.unset, friendly_name=values.unset, ui_editable=values.unset):
-        """
-        Update the ServiceInstance
-
-        :param bool include_credentials: Whether to inject Account credentials into a function invocation context.
-        :param str friendly_name: A descriptive string that you create to describe the Service resource. It can be a maximum of 255 characters.
-        :param bool ui_editable: Whether the Service resource's properties and subresources can be edited via the UI. The default value is `false`.
-        
-        :returns: The created ServiceInstance
-        :rtype: twilio.rest.serverless.v1.service.ServiceInstance
-        """
-        data = values.of({ 
-            'IncludeCredentials': include_credentials,
-            'FriendlyName': friendly_name,
-            'UiEditable': ui_editable,
-        })
-        
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return ServiceInstance(self._version, payload)
     
     
     def create(self, unique_name, friendly_name, include_credentials=values.unset, ui_editable=values.unset):

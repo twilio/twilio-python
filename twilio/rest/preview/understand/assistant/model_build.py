@@ -45,34 +45,6 @@ class ModelBuildList(ListResource):
         
     
     
-    def fetch(self):
-        """
-        Fetch the ModelBuildInstance
-
-        :returns: The fetched ModelBuildInstance
-        :rtype: twilio.rest.preview.understand.assistant.model_build.ModelBuildInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return ModelBuildInstance(self._version, payload, assistant_sid=self._solution['assistant_sid'])
-    
-    
-    def update(self, unique_name=values.unset):
-        """
-        Update the ModelBuildInstance
-
-        :param str unique_name: A user-provided string that uniquely identifies this resource as an alternative to the sid. Unique up to 64 characters long. For example: v0.1
-        
-        :returns: The created ModelBuildInstance
-        :rtype: twilio.rest.preview.understand.assistant.model_build.ModelBuildInstance
-        """
-        data = values.of({ 
-            'UniqueName': unique_name,
-        })
-        
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return ModelBuildInstance(self._version, payload, assistant_sid=self._solution['assistant_sid'])
     
     
     def create(self, status_callback=values.unset, unique_name=values.unset):

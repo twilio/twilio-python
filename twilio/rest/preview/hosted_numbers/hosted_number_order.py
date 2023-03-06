@@ -44,52 +44,6 @@ class HostedNumberOrderList(ListResource):
         
     
     
-    def fetch(self):
-        """
-        Fetch the HostedNumberOrderInstance
-
-        :returns: The fetched HostedNumberOrderInstance
-        :rtype: twilio.rest.preview.hosted_numbers.hosted_number_order.HostedNumberOrderInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return HostedNumberOrderInstance(self._version, payload)
-    
-    
-    def update(self, friendly_name=values.unset, unique_name=values.unset, email=values.unset, cc_emails=values.unset, status=values.unset, verification_code=values.unset, verification_type=values.unset, verification_document_sid=values.unset, extension=values.unset, call_delay=values.unset):
-        """
-        Update the HostedNumberOrderInstance
-
-        :param str friendly_name: A 64 character string that is a human readable text that describes this resource.
-        :param str unique_name: Provides a unique and addressable name to be assigned to this HostedNumberOrder, assigned by the developer, to be optionally used in addition to SID.
-        :param str email: Email of the owner of this phone number that is being hosted.
-        :param list[str] cc_emails: Optional. A list of emails that LOA document for this HostedNumberOrder will be carbon copied to.
-        :param Status status: 
-        :param str verification_code: A verification code that is given to the user via a phone call to the phone number that is being hosted.
-        :param VerificationType verification_type: 
-        :param str verification_document_sid: Optional. The unique sid identifier of the Identity Document that represents the document for verifying ownership of the number to be hosted. Required when VerificationType is phone-bill.
-        :param str extension: Digits to dial after connecting the verification call.
-        :param int call_delay: The number of seconds, between 0 and 60, to delay before initiating the verification call. Defaults to 0.
-        
-        :returns: The created HostedNumberOrderInstance
-        :rtype: twilio.rest.preview.hosted_numbers.hosted_number_order.HostedNumberOrderInstance
-        """
-        data = values.of({ 
-            'FriendlyName': friendly_name,
-            'UniqueName': unique_name,
-            'Email': email,
-            'CcEmails': serialize.map(cc_emails, lambda e: e),
-            'Status': status,
-            'VerificationCode': verification_code,
-            'VerificationType': verification_type,
-            'VerificationDocumentSid': verification_document_sid,
-            'Extension': extension,
-            'CallDelay': call_delay,
-        })
-        
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return HostedNumberOrderInstance(self._version, payload)
     
     
     def create(self, phone_number, sms_capability, account_sid=values.unset, friendly_name=values.unset, unique_name=values.unset, cc_emails=values.unset, sms_url=values.unset, sms_method=values.unset, sms_fallback_url=values.unset, sms_fallback_method=values.unset, status_callback_url=values.unset, status_callback_method=values.unset, sms_application_sid=values.unset, address_sid=values.unset, email=values.unset, verification_type=values.unset, verification_document_sid=values.unset):

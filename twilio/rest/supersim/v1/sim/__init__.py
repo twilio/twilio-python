@@ -45,44 +45,6 @@ class SimList(ListResource):
         
         
     
-    def fetch(self):
-        """
-        Fetch the SimInstance
-
-        :returns: The fetched SimInstance
-        :rtype: twilio.rest.supersim.v1.sim.SimInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return SimInstance(self._version, payload)
-    
-    
-    def update(self, unique_name=values.unset, status=values.unset, fleet=values.unset, callback_url=values.unset, callback_method=values.unset, account_sid=values.unset):
-        """
-        Update the SimInstance
-
-        :param str unique_name: An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
-        :param StatusUpdate status: 
-        :param str fleet: The SID or unique name of the Fleet to which the SIM resource should be assigned.
-        :param str callback_url: The URL we should call using the `callback_method` after an asynchronous update has finished.
-        :param str callback_method: The HTTP method we should use to call `callback_url`. Can be: `GET` or `POST` and the default is POST.
-        :param str account_sid: The SID of the Account to which the Sim resource should belong. The Account SID can only be that of the requesting Account or that of a Subaccount of the requesting Account. Only valid when the Sim resource's status is new.
-        
-        :returns: The created SimInstance
-        :rtype: twilio.rest.supersim.v1.sim.SimInstance
-        """
-        data = values.of({ 
-            'UniqueName': unique_name,
-            'Status': status,
-            'Fleet': fleet,
-            'CallbackUrl': callback_url,
-            'CallbackMethod': callback_method,
-            'AccountSid': account_sid,
-        })
-        
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return SimInstance(self._version, payload)
     
     
     def create(self, iccid, registration_code):

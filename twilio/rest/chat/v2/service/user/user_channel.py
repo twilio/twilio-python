@@ -46,38 +46,6 @@ class UserChannelList(ListResource):
         
     
     
-    def fetch(self):
-        """
-        Fetch the UserChannelInstance
-
-        :returns: The fetched UserChannelInstance
-        :rtype: twilio.rest.chat.v2.service.user.user_channel.UserChannelInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return UserChannelInstance(self._version, payload, service_sid=self._solution['service_sid'], user_sid=self._solution['user_sid'])
-    
-    
-    def update(self, notification_level=values.unset, last_consumed_message_index=values.unset, last_consumption_timestamp=values.unset):
-        """
-        Update the UserChannelInstance
-
-        :param NotificationLevel notification_level: 
-        :param int last_consumed_message_index: The index of the last [Message](https://www.twilio.com/docs/chat/rest/message-resource) in the [Channel](https://www.twilio.com/docs/chat/channels) that the Member has read.
-        :param datetime last_consumption_timestamp: The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp of the last [Message](https://www.twilio.com/docs/chat/rest/message-resource) read event for the Member within the [Channel](https://www.twilio.com/docs/chat/channels).
-        
-        :returns: The created UserChannelInstance
-        :rtype: twilio.rest.chat.v2.service.user.user_channel.UserChannelInstance
-        """
-        data = values.of({ 
-            'NotificationLevel': notification_level,
-            'LastConsumedMessageIndex': last_consumed_message_index,
-            'LastConsumptionTimestamp': serialize.iso8601_datetime(last_consumption_timestamp),
-        })
-        
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return UserChannelInstance(self._version, payload, service_sid=self._solution['service_sid'], user_sid=self._solution['user_sid'])
     
     
     def stream(self, limit=None, page_size=None):

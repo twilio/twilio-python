@@ -46,38 +46,6 @@ class DocumentPermissionList(ListResource):
         
     
     
-    def fetch(self):
-        """
-        Fetch the DocumentPermissionInstance
-
-        :returns: The fetched DocumentPermissionInstance
-        :rtype: twilio.rest.preview.sync.service.document.document_permission.DocumentPermissionInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return DocumentPermissionInstance(self._version, payload, service_sid=self._solution['service_sid'], document_sid=self._solution['document_sid'])
-    
-    
-    def update(self, read, write, manage):
-        """
-        Update the DocumentPermissionInstance
-
-        :param bool read: Boolean flag specifying whether the identity can read the Sync Document.
-        :param bool write: Boolean flag specifying whether the identity can update the Sync Document.
-        :param bool manage: Boolean flag specifying whether the identity can delete the Sync Document.
-        
-        :returns: The created DocumentPermissionInstance
-        :rtype: twilio.rest.preview.sync.service.document.document_permission.DocumentPermissionInstance
-        """
-        data = values.of({ 
-            'Read': read,
-            'Write': write,
-            'Manage': manage,
-        })
-        
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return DocumentPermissionInstance(self._version, payload, service_sid=self._solution['service_sid'], document_sid=self._solution['document_sid'])
     
     
     def stream(self, limit=None, page_size=None):

@@ -44,17 +44,6 @@ class CompositionList(ListResource):
         
     
     
-    def fetch(self):
-        """
-        Fetch the CompositionInstance
-
-        :returns: The fetched CompositionInstance
-        :rtype: twilio.rest.video.v1.composition.CompositionInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return CompositionInstance(self._version, payload)
-    
     
     def create(self, room_sid, video_layout=values.unset, audio_sources=values.unset, audio_sources_excluded=values.unset, resolution=values.unset, format=values.unset, status_callback=values.unset, status_callback_method=values.unset, trim=values.unset):
         """

@@ -47,17 +47,6 @@ class SyncMapList(ListResource):
         
     
     
-    def fetch(self):
-        """
-        Fetch the SyncMapInstance
-
-        :returns: The fetched SyncMapInstance
-        :rtype: twilio.rest.preview.sync.service.sync_map.SyncMapInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return SyncMapInstance(self._version, payload, service_sid=self._solution['service_sid'])
-    
     
     def create(self, unique_name=values.unset):
         """

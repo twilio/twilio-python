@@ -46,38 +46,6 @@ class SampleList(ListResource):
         
     
     
-    def fetch(self):
-        """
-        Fetch the SampleInstance
-
-        :returns: The fetched SampleInstance
-        :rtype: twilio.rest.autopilot.v1.assistant.task.sample.SampleInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return SampleInstance(self._version, payload, assistant_sid=self._solution['assistant_sid'], task_sid=self._solution['task_sid'])
-    
-    
-    def update(self, language=values.unset, tagged_text=values.unset, source_channel=values.unset):
-        """
-        Update the SampleInstance
-
-        :param str language: The [ISO language-country](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) string that specifies the language used for the sample. For example: `en-US`.
-        :param str tagged_text: The text example of how end users might express the task. The sample can contain [Field tag blocks](https://www.twilio.com/docs/autopilot/api/task-sample#field-tagging).
-        :param str source_channel: The communication channel from which the sample was captured. Can be: `voice`, `sms`, `chat`, `alexa`, `google-assistant`, `slack`, or null if not included.
-        
-        :returns: The created SampleInstance
-        :rtype: twilio.rest.autopilot.v1.assistant.task.sample.SampleInstance
-        """
-        data = values.of({ 
-            'Language': language,
-            'TaggedText': tagged_text,
-            'SourceChannel': source_channel,
-        })
-        
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return SampleInstance(self._version, payload, assistant_sid=self._solution['assistant_sid'], task_sid=self._solution['task_sid'])
     
     
     def create(self, language, tagged_text, source_channel=values.unset):

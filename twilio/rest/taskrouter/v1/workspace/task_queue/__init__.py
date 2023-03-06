@@ -50,44 +50,6 @@ class TaskQueueList(ListResource):
         
     
     
-    def fetch(self):
-        """
-        Fetch the TaskQueueInstance
-
-        :returns: The fetched TaskQueueInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueueInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return TaskQueueInstance(self._version, payload, workspace_sid=self._solution['workspace_sid'])
-    
-    
-    def update(self, friendly_name=values.unset, target_workers=values.unset, reservation_activity_sid=values.unset, assignment_activity_sid=values.unset, max_reserved_workers=values.unset, task_order=values.unset):
-        """
-        Update the TaskQueueInstance
-
-        :param str friendly_name: A descriptive string that you create to describe the TaskQueue. For example `Support-Tier 1`, `Sales`, or `Escalation`.
-        :param str target_workers: A string describing the Worker selection criteria for any Tasks that enter the TaskQueue. For example '\\\"language\\\" == \\\"spanish\\\"' If no TargetWorkers parameter is provided, Tasks will wait in the queue until they are either deleted or moved to another queue. Additional examples on how to describing Worker selection criteria below.
-        :param str reservation_activity_sid: The SID of the Activity to assign Workers when a task is reserved for them.
-        :param str assignment_activity_sid: The SID of the Activity to assign Workers when a task is assigned for them.
-        :param int max_reserved_workers: The maximum number of Workers to create reservations for the assignment of a task while in the queue. Maximum of 50.
-        :param TaskOrder task_order: 
-        
-        :returns: The created TaskQueueInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.TaskQueueInstance
-        """
-        data = values.of({ 
-            'FriendlyName': friendly_name,
-            'TargetWorkers': target_workers,
-            'ReservationActivitySid': reservation_activity_sid,
-            'AssignmentActivitySid': assignment_activity_sid,
-            'MaxReservedWorkers': max_reserved_workers,
-            'TaskOrder': task_order,
-        })
-        
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return TaskQueueInstance(self._version, payload, workspace_sid=self._solution['workspace_sid'])
     
     
     def create(self, friendly_name, target_workers=values.unset, max_reserved_workers=values.unset, task_order=values.unset, reservation_activity_sid=values.unset, assignment_activity_sid=values.unset):

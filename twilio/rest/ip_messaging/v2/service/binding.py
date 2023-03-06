@@ -45,17 +45,6 @@ class BindingList(ListResource):
         
     
     
-    def fetch(self):
-        """
-        Fetch the BindingInstance
-
-        :returns: The fetched BindingInstance
-        :rtype: twilio.rest.ip_messaging.v2.service.binding.BindingInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return BindingInstance(self._version, payload, service_sid=self._solution['service_sid'])
-    
     
     def stream(self, binding_type=values.unset, identity=values.unset, limit=None, page_size=None):
         """

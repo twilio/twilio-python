@@ -45,64 +45,6 @@ class ApplicationList(ListResource):
         
     
     
-    def fetch(self):
-        """
-        Fetch the ApplicationInstance
-
-        :returns: The fetched ApplicationInstance
-        :rtype: twilio.rest.api.v2010.account.application.ApplicationInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return ApplicationInstance(self._version, payload, account_sid=self._solution['account_sid'])
-    
-    
-    def update(self, friendly_name=values.unset, api_version=values.unset, voice_url=values.unset, voice_method=values.unset, voice_fallback_url=values.unset, voice_fallback_method=values.unset, status_callback=values.unset, status_callback_method=values.unset, voice_caller_id_lookup=values.unset, sms_url=values.unset, sms_method=values.unset, sms_fallback_url=values.unset, sms_fallback_method=values.unset, sms_status_callback=values.unset, message_status_callback=values.unset, public_application_connect_enabled=values.unset):
-        """
-        Update the ApplicationInstance
-
-        :param str friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
-        :param str api_version: The API version to use to start a new TwiML session. Can be: `2010-04-01` or `2008-08-01`. The default value is your account's default API version.
-        :param str voice_url: The URL we should call when the phone number assigned to this application receives a call.
-        :param str voice_method: The HTTP method we should use to call `voice_url`. Can be: `GET` or `POST`.
-        :param str voice_fallback_url: The URL that we should call when an error occurs retrieving or executing the TwiML requested by `url`.
-        :param str voice_fallback_method: The HTTP method we should use to call `voice_fallback_url`. Can be: `GET` or `POST`.
-        :param str status_callback: The URL we should call using the `status_callback_method` to send status information to your application.
-        :param str status_callback_method: The HTTP method we should use to call `status_callback`. Can be: `GET` or `POST`.
-        :param bool voice_caller_id_lookup: Whether we should look up the caller's caller-ID name from the CNAM database (additional charges apply). Can be: `true` or `false`.
-        :param str sms_url: The URL we should call when the phone number receives an incoming SMS message.
-        :param str sms_method: The HTTP method we should use to call `sms_url`. Can be: `GET` or `POST`.
-        :param str sms_fallback_url: The URL that we should call when an error occurs while retrieving or executing the TwiML from `sms_url`.
-        :param str sms_fallback_method: The HTTP method we should use to call `sms_fallback_url`. Can be: `GET` or `POST`.
-        :param str sms_status_callback: Same as message_status_callback: The URL we should call using a POST method to send status information about SMS messages sent by the application. Deprecated, included for backwards compatibility.
-        :param str message_status_callback: The URL we should call using a POST method to send message status information to your application.
-        :param bool public_application_connect_enabled: Whether to allow other Twilio accounts to dial this applicaton using Dial verb. Can be: `true` or `false`.
-        
-        :returns: The created ApplicationInstance
-        :rtype: twilio.rest.api.v2010.account.application.ApplicationInstance
-        """
-        data = values.of({ 
-            'FriendlyName': friendly_name,
-            'ApiVersion': api_version,
-            'VoiceUrl': voice_url,
-            'VoiceMethod': voice_method,
-            'VoiceFallbackUrl': voice_fallback_url,
-            'VoiceFallbackMethod': voice_fallback_method,
-            'StatusCallback': status_callback,
-            'StatusCallbackMethod': status_callback_method,
-            'VoiceCallerIdLookup': voice_caller_id_lookup,
-            'SmsUrl': sms_url,
-            'SmsMethod': sms_method,
-            'SmsFallbackUrl': sms_fallback_url,
-            'SmsFallbackMethod': sms_fallback_method,
-            'SmsStatusCallback': sms_status_callback,
-            'MessageStatusCallback': message_status_callback,
-            'PublicApplicationConnectEnabled': public_application_connect_enabled,
-        })
-        
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return ApplicationInstance(self._version, payload, account_sid=self._solution['account_sid'])
     
     
     def create(self, api_version=values.unset, voice_url=values.unset, voice_method=values.unset, voice_fallback_url=values.unset, voice_fallback_method=values.unset, status_callback=values.unset, status_callback_method=values.unset, voice_caller_id_lookup=values.unset, sms_url=values.unset, sms_method=values.unset, sms_fallback_url=values.unset, sms_fallback_method=values.unset, sms_status_callback=values.unset, message_status_callback=values.unset, friendly_name=values.unset, public_application_connect_enabled=values.unset):

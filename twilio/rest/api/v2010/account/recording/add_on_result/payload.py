@@ -47,17 +47,6 @@ class PayloadList(ListResource):
         
     
     
-    def fetch(self):
-        """
-        Fetch the PayloadInstance
-
-        :returns: The fetched PayloadInstance
-        :rtype: twilio.rest.api.v2010.account.recording.add_on_result.payload.PayloadInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return PayloadInstance(self._version, payload, account_sid=self._solution['account_sid'], reference_sid=self._solution['reference_sid'], add_on_result_sid=self._solution['add_on_result_sid'])
-    
     
     def stream(self, limit=None, page_size=None):
         """

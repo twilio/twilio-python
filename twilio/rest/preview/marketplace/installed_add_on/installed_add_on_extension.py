@@ -44,34 +44,6 @@ class InstalledAddOnExtensionList(ListResource):
         
         
     
-    def fetch(self):
-        """
-        Fetch the InstalledAddOnExtensionInstance
-
-        :returns: The fetched InstalledAddOnExtensionInstance
-        :rtype: twilio.rest.preview.marketplace.installed_add_on.installed_add_on_extension.InstalledAddOnExtensionInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return InstalledAddOnExtensionInstance(self._version, payload, installed_add_on_sid=self._solution['installed_add_on_sid'])
-    
-    
-    def update(self, enabled):
-        """
-        Update the InstalledAddOnExtensionInstance
-
-        :param bool enabled: Whether the Extension should be invoked.
-        
-        :returns: The created InstalledAddOnExtensionInstance
-        :rtype: twilio.rest.preview.marketplace.installed_add_on.installed_add_on_extension.InstalledAddOnExtensionInstance
-        """
-        data = values.of({ 
-            'Enabled': enabled,
-        })
-        
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return InstalledAddOnExtensionInstance(self._version, payload, installed_add_on_sid=self._solution['installed_add_on_sid'])
     
     
     def stream(self, limit=None, page_size=None):

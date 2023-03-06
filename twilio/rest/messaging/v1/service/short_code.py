@@ -45,17 +45,6 @@ class ShortCodeList(ListResource):
         
     
     
-    def fetch(self):
-        """
-        Fetch the ShortCodeInstance
-
-        :returns: The fetched ShortCodeInstance
-        :rtype: twilio.rest.messaging.v1.service.short_code.ShortCodeInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return ShortCodeInstance(self._version, payload, service_sid=self._solution['service_sid'])
-    
     
     def create(self, short_code_sid):
         """

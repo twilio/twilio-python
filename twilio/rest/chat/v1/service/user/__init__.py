@@ -46,38 +46,6 @@ class UserList(ListResource):
         
     
     
-    def fetch(self):
-        """
-        Fetch the UserInstance
-
-        :returns: The fetched UserInstance
-        :rtype: twilio.rest.chat.v1.service.user.UserInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return UserInstance(self._version, payload, service_sid=self._solution['service_sid'])
-    
-    
-    def update(self, role_sid=values.unset, attributes=values.unset, friendly_name=values.unset):
-        """
-        Update the UserInstance
-
-        :param str role_sid: The SID of the [Role](https://www.twilio.com/docs/api/chat/rest/roles) assigned to this user.
-        :param str attributes: A valid JSON string that contains application-specific data.
-        :param str friendly_name: A descriptive string that you create to describe the resource. It is often used for display purposes.
-        
-        :returns: The created UserInstance
-        :rtype: twilio.rest.chat.v1.service.user.UserInstance
-        """
-        data = values.of({ 
-            'RoleSid': role_sid,
-            'Attributes': attributes,
-            'FriendlyName': friendly_name,
-        })
-        
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return UserInstance(self._version, payload, service_sid=self._solution['service_sid'])
     
     
     def create(self, identity, role_sid=values.unset, attributes=values.unset, friendly_name=values.unset):

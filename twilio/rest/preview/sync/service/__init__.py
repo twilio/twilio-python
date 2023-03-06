@@ -47,40 +47,6 @@ class ServiceList(ListResource):
         
     
     
-    def fetch(self):
-        """
-        Fetch the ServiceInstance
-
-        :returns: The fetched ServiceInstance
-        :rtype: twilio.rest.preview.sync.service.ServiceInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return ServiceInstance(self._version, payload)
-    
-    
-    def update(self, webhook_url=values.unset, friendly_name=values.unset, reachability_webhooks_enabled=values.unset, acl_enabled=values.unset):
-        """
-        Update the ServiceInstance
-
-        :param str webhook_url: 
-        :param str friendly_name: 
-        :param bool reachability_webhooks_enabled: 
-        :param bool acl_enabled: 
-        
-        :returns: The created ServiceInstance
-        :rtype: twilio.rest.preview.sync.service.ServiceInstance
-        """
-        data = values.of({ 
-            'WebhookUrl': webhook_url,
-            'FriendlyName': friendly_name,
-            'ReachabilityWebhooksEnabled': reachability_webhooks_enabled,
-            'AclEnabled': acl_enabled,
-        })
-        
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return ServiceInstance(self._version, payload)
     
     
     def create(self, friendly_name=values.unset, webhook_url=values.unset, reachability_webhooks_enabled=values.unset, acl_enabled=values.unset):

@@ -46,35 +46,6 @@ class SyncMapItemList(ListResource):
         
     
     
-    def fetch(self):
-        """
-        Fetch the SyncMapItemInstance
-
-        :returns: The fetched SyncMapItemInstance
-        :rtype: twilio.rest.preview.sync.service.sync_map.sync_map_item.SyncMapItemInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return SyncMapItemInstance(self._version, payload, service_sid=self._solution['service_sid'], map_sid=self._solution['map_sid'])
-    
-    
-    def update(self, data, if_match=values.unset):
-        """
-        Update the SyncMapItemInstance
-
-        :param object data: 
-        :param str if_match: The If-Match HTTP request header
-        
-        :returns: The created SyncMapItemInstance
-        :rtype: twilio.rest.preview.sync.service.sync_map.sync_map_item.SyncMapItemInstance
-        """
-        data = values.of({ 
-            'Data': serialize.object(data),
-        })
-        headers = values.of({'If-Match': if_match, })
-        payload = self._version.update(method='POST', uri=self._uri, data=data, headers=headers)
-
-        return SyncMapItemInstance(self._version, payload, service_sid=self._solution['service_sid'], map_sid=self._solution['map_sid'])
     
     
     def create(self, key, data):

@@ -44,17 +44,6 @@ class FlowRevisionList(ListResource):
         
         
     
-    def fetch(self):
-        """
-        Fetch the FlowRevisionInstance
-
-        :returns: The fetched FlowRevisionInstance
-        :rtype: twilio.rest.studio.v2.flow.flow_revision.FlowRevisionInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return FlowRevisionInstance(self._version, payload, sid=self._solution['sid'])
-    
     
     def stream(self, limit=None, page_size=None):
         """

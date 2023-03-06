@@ -46,35 +46,6 @@ class SyncListItemList(ListResource):
         
     
     
-    def fetch(self):
-        """
-        Fetch the SyncListItemInstance
-
-        :returns: The fetched SyncListItemInstance
-        :rtype: twilio.rest.preview.sync.service.sync_list.sync_list_item.SyncListItemInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return SyncListItemInstance(self._version, payload, service_sid=self._solution['service_sid'], list_sid=self._solution['list_sid'])
-    
-    
-    def update(self, data, if_match=values.unset):
-        """
-        Update the SyncListItemInstance
-
-        :param object data: 
-        :param str if_match: The If-Match HTTP request header
-        
-        :returns: The created SyncListItemInstance
-        :rtype: twilio.rest.preview.sync.service.sync_list.sync_list_item.SyncListItemInstance
-        """
-        data = values.of({ 
-            'Data': serialize.object(data),
-        })
-        headers = values.of({'If-Match': if_match, })
-        payload = self._version.update(method='POST', uri=self._uri, data=data, headers=headers)
-
-        return SyncListItemInstance(self._version, payload, service_sid=self._solution['service_sid'], list_sid=self._solution['list_sid'])
     
     
     def create(self, data):

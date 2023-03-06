@@ -44,17 +44,6 @@ class EventList(ListResource):
         
         
     
-    def fetch(self):
-        """
-        Fetch the EventInstance
-
-        :returns: The fetched EventInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.event.EventInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return EventInstance(self._version, payload, workspace_sid=self._solution['workspace_sid'])
-    
     
     def stream(self, end_date=values.unset, event_type=values.unset, minutes=values.unset, reservation_sid=values.unset, start_date=values.unset, task_queue_sid=values.unset, task_sid=values.unset, worker_sid=values.unset, workflow_sid=values.unset, task_channel=values.unset, sid=values.unset, limit=None, page_size=None):
         """

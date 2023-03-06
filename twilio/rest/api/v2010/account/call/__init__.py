@@ -56,50 +56,6 @@ class CallList(ListResource):
         
     
     
-    def fetch(self):
-        """
-        Fetch the CallInstance
-
-        :returns: The fetched CallInstance
-        :rtype: twilio.rest.api.v2010.account.call.CallInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return CallInstance(self._version, payload, account_sid=self._solution['account_sid'])
-    
-    
-    def update(self, url=values.unset, method=values.unset, status=values.unset, fallback_url=values.unset, fallback_method=values.unset, status_callback=values.unset, status_callback_method=values.unset, twiml=values.unset, time_limit=values.unset):
-        """
-        Update the CallInstance
-
-        :param str url: The absolute URL that returns the TwiML instructions for the call. We will call this URL using the `method` when the call connects. For more information, see the [Url Parameter](https://www.twilio.com/docs/voice/make-calls#specify-a-url-parameter) section in [Making Calls](https://www.twilio.com/docs/voice/make-calls).
-        :param str method: The HTTP method we should use when calling the `url`. Can be: `GET` or `POST` and the default is `POST`. If an `application_sid` parameter is present, this parameter is ignored.
-        :param UpdateStatus status: 
-        :param str fallback_url: The URL that we call using the `fallback_method` if an error occurs when requesting or executing the TwiML at `url`. If an `application_sid` parameter is present, this parameter is ignored.
-        :param str fallback_method: The HTTP method that we should use to request the `fallback_url`. Can be: `GET` or `POST` and the default is `POST`. If an `application_sid` parameter is present, this parameter is ignored.
-        :param str status_callback: The URL we should call using the `status_callback_method` to send status information to your application. If no `status_callback_event` is specified, we will send the `completed` status. If an `application_sid` parameter is present, this parameter is ignored. URLs must contain a valid hostname (underscores are not permitted).
-        :param str status_callback_method: The HTTP method we should use when requesting the `status_callback` URL. Can be: `GET` or `POST` and the default is `POST`. If an `application_sid` parameter is present, this parameter is ignored.
-        :param str twiml: TwiML instructions for the call Twilio will use without fetching Twiml from url. Twiml and url parameters are mutually exclusive
-        :param int time_limit: The maximum duration of the call in seconds. Constraints depend on account and configuration.
-        
-        :returns: The created CallInstance
-        :rtype: twilio.rest.api.v2010.account.call.CallInstance
-        """
-        data = values.of({ 
-            'Url': url,
-            'Method': method,
-            'Status': status,
-            'FallbackUrl': fallback_url,
-            'FallbackMethod': fallback_method,
-            'StatusCallback': status_callback,
-            'StatusCallbackMethod': status_callback_method,
-            'Twiml': twiml,
-            'TimeLimit': time_limit,
-        })
-        
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return CallInstance(self._version, payload, account_sid=self._solution['account_sid'])
     
     
     def create(self, to, from_, method=values.unset, fallback_url=values.unset, fallback_method=values.unset, status_callback=values.unset, status_callback_event=values.unset, status_callback_method=values.unset, send_digits=values.unset, timeout=values.unset, record=values.unset, recording_channels=values.unset, recording_status_callback=values.unset, recording_status_callback_method=values.unset, sip_auth_username=values.unset, sip_auth_password=values.unset, machine_detection=values.unset, machine_detection_timeout=values.unset, recording_status_callback_event=values.unset, trim=values.unset, caller_id=values.unset, machine_detection_speech_threshold=values.unset, machine_detection_speech_end_threshold=values.unset, machine_detection_silence_timeout=values.unset, async_amd=values.unset, async_amd_status_callback=values.unset, async_amd_status_callback_method=values.unset, byoc=values.unset, call_reason=values.unset, call_token=values.unset, recording_track=values.unset, time_limit=values.unset, url=values.unset, twiml=values.unset, application_sid=values.unset):

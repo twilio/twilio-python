@@ -46,43 +46,6 @@ class TaskList(ListResource):
         
     
     
-    def fetch(self):
-        """
-        Fetch the TaskInstance
-
-        :returns: The fetched TaskInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.task.TaskInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return TaskInstance(self._version, payload, workspace_sid=self._solution['workspace_sid'])
-    
-    
-    def update(self, if_match=values.unset, attributes=values.unset, assignment_status=values.unset, reason=values.unset, priority=values.unset, task_channel=values.unset):
-        """
-        Update the TaskInstance
-
-        :param str if_match: If provided, applies this mutation if (and only if) the [ETag](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/ETag) header of the Task matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match).
-        :param str attributes: The JSON string that describes the custom attributes of the task.
-        :param Status assignment_status: 
-        :param str reason: The reason that the Task was canceled or completed. This parameter is required only if the Task is canceled or completed. Setting this value queues the task for deletion and logs the reason.
-        :param int priority: The Task's new priority value. When supplied, the Task takes on the specified priority unless it matches a Workflow Target with a Priority set. Value can be 0 to 2^31^ (2,147,483,647).
-        :param str task_channel: When MultiTasking is enabled, specify the TaskChannel with the task to update. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
-        
-        :returns: The created TaskInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.task.TaskInstance
-        """
-        data = values.of({ 
-            'Attributes': attributes,
-            'AssignmentStatus': assignment_status,
-            'Reason': reason,
-            'Priority': priority,
-            'TaskChannel': task_channel,
-        })
-        headers = values.of({'If-Match': if_match, })
-        payload = self._version.update(method='POST', uri=self._uri, data=data, headers=headers)
-
-        return TaskInstance(self._version, payload, workspace_sid=self._solution['workspace_sid'])
     
     
     def create(self, timeout=values.unset, priority=values.unset, task_channel=values.unset, workflow_sid=values.unset, attributes=values.unset):

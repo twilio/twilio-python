@@ -47,40 +47,6 @@ class CustomerProfilesList(ListResource):
         
     
     
-    def fetch(self):
-        """
-        Fetch the CustomerProfilesInstance
-
-        :returns: The fetched CustomerProfilesInstance
-        :rtype: twilio.rest.trusthub.v1.customer_profiles.CustomerProfilesInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return CustomerProfilesInstance(self._version, payload)
-    
-    
-    def update(self, status=values.unset, status_callback=values.unset, friendly_name=values.unset, email=values.unset):
-        """
-        Update the CustomerProfilesInstance
-
-        :param Status status: 
-        :param str status_callback: The URL we call to inform your application of status changes.
-        :param str friendly_name: The string that you assigned to describe the resource.
-        :param str email: The email address that will receive updates when the Customer-Profile resource changes status.
-        
-        :returns: The created CustomerProfilesInstance
-        :rtype: twilio.rest.trusthub.v1.customer_profiles.CustomerProfilesInstance
-        """
-        data = values.of({ 
-            'Status': status,
-            'StatusCallback': status_callback,
-            'FriendlyName': friendly_name,
-            'Email': email,
-        })
-        
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return CustomerProfilesInstance(self._version, payload)
     
     
     def create(self, friendly_name, email, policy_sid, status_callback=values.unset):

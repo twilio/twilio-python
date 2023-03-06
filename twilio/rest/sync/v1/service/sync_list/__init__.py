@@ -47,36 +47,6 @@ class SyncListList(ListResource):
         
     
     
-    def fetch(self):
-        """
-        Fetch the SyncListInstance
-
-        :returns: The fetched SyncListInstance
-        :rtype: twilio.rest.sync.v1.service.sync_list.SyncListInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return SyncListInstance(self._version, payload, service_sid=self._solution['service_sid'])
-    
-    
-    def update(self, ttl=values.unset, collection_ttl=values.unset):
-        """
-        Update the SyncListInstance
-
-        :param int ttl: An alias for `collection_ttl`. If both are provided, this value is ignored.
-        :param int collection_ttl: How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Sync List expires (time-to-live) and is deleted.
-        
-        :returns: The created SyncListInstance
-        :rtype: twilio.rest.sync.v1.service.sync_list.SyncListInstance
-        """
-        data = values.of({ 
-            'Ttl': ttl,
-            'CollectionTtl': collection_ttl,
-        })
-        
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return SyncListInstance(self._version, payload, service_sid=self._solution['service_sid'])
     
     
     def create(self, unique_name=values.unset, ttl=values.unset, collection_ttl=values.unset):

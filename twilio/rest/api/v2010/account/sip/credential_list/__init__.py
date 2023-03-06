@@ -46,34 +46,6 @@ class CredentialListList(ListResource):
         
     
     
-    def fetch(self):
-        """
-        Fetch the CredentialListInstance
-
-        :returns: The fetched CredentialListInstance
-        :rtype: twilio.rest.api.v2010.account.sip.credential_list.CredentialListInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return CredentialListInstance(self._version, payload, account_sid=self._solution['account_sid'])
-    
-    
-    def update(self, friendly_name):
-        """
-        Update the CredentialListInstance
-
-        :param str friendly_name: A human readable descriptive text for a CredentialList, up to 64 characters long.
-        
-        :returns: The created CredentialListInstance
-        :rtype: twilio.rest.api.v2010.account.sip.credential_list.CredentialListInstance
-        """
-        data = values.of({ 
-            'FriendlyName': friendly_name,
-        })
-        
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return CredentialListInstance(self._version, payload, account_sid=self._solution['account_sid'])
     
     
     def create(self, friendly_name):

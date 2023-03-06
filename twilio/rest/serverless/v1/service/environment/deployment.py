@@ -45,17 +45,6 @@ class DeploymentList(ListResource):
         
         
     
-    def fetch(self):
-        """
-        Fetch the DeploymentInstance
-
-        :returns: The fetched DeploymentInstance
-        :rtype: twilio.rest.serverless.v1.service.environment.deployment.DeploymentInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return DeploymentInstance(self._version, payload, service_sid=self._solution['service_sid'], environment_sid=self._solution['environment_sid'])
-    
     
     def create(self, build_sid=values.unset):
         """

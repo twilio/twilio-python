@@ -44,34 +44,6 @@ class PlayerStreamerList(ListResource):
         
         
     
-    def fetch(self):
-        """
-        Fetch the PlayerStreamerInstance
-
-        :returns: The fetched PlayerStreamerInstance
-        :rtype: twilio.rest.media.v1.player_streamer.PlayerStreamerInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return PlayerStreamerInstance(self._version, payload)
-    
-    
-    def update(self, status):
-        """
-        Update the PlayerStreamerInstance
-
-        :param UpdateStatus status: 
-        
-        :returns: The created PlayerStreamerInstance
-        :rtype: twilio.rest.media.v1.player_streamer.PlayerStreamerInstance
-        """
-        data = values.of({ 
-            'Status': status,
-        })
-        
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return PlayerStreamerInstance(self._version, payload)
     
     
     def create(self, video=values.unset, status_callback=values.unset, status_callback_method=values.unset, max_duration=values.unset):

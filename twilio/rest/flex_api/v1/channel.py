@@ -44,17 +44,6 @@ class ChannelList(ListResource):
         
     
     
-    def fetch(self):
-        """
-        Fetch the ChannelInstance
-
-        :returns: The fetched ChannelInstance
-        :rtype: twilio.rest.flex_api.v1.channel.ChannelInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return ChannelInstance(self._version, payload)
-    
     
     def create(self, flex_flow_sid, identity, chat_user_friendly_name, chat_friendly_name, target=values.unset, chat_unique_name=values.unset, pre_engagement_data=values.unset, task_sid=values.unset, task_attributes=values.unset, long_lived=values.unset):
         """

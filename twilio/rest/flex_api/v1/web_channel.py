@@ -44,36 +44,6 @@ class WebChannelList(ListResource):
         
     
     
-    def fetch(self):
-        """
-        Fetch the WebChannelInstance
-
-        :returns: The fetched WebChannelInstance
-        :rtype: twilio.rest.flex_api.v1.web_channel.WebChannelInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return WebChannelInstance(self._version, payload)
-    
-    
-    def update(self, chat_status=values.unset, post_engagement_data=values.unset):
-        """
-        Update the WebChannelInstance
-
-        :param ChatStatus chat_status: 
-        :param str post_engagement_data: The post-engagement data.
-        
-        :returns: The created WebChannelInstance
-        :rtype: twilio.rest.flex_api.v1.web_channel.WebChannelInstance
-        """
-        data = values.of({ 
-            'ChatStatus': chat_status,
-            'PostEngagementData': post_engagement_data,
-        })
-        
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return WebChannelInstance(self._version, payload)
     
     
     def create(self, flex_flow_sid, identity, customer_friendly_name, chat_friendly_name, chat_unique_name=values.unset, pre_engagement_data=values.unset):

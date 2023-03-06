@@ -45,34 +45,6 @@ class RoleList(ListResource):
         
     
     
-    def fetch(self):
-        """
-        Fetch the RoleInstance
-
-        :returns: The fetched RoleInstance
-        :rtype: twilio.rest.ip_messaging.v1.service.role.RoleInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return RoleInstance(self._version, payload, service_sid=self._solution['service_sid'])
-    
-    
-    def update(self, permission):
-        """
-        Update the RoleInstance
-
-        :param list[str] permission: 
-        
-        :returns: The created RoleInstance
-        :rtype: twilio.rest.ip_messaging.v1.service.role.RoleInstance
-        """
-        data = values.of({ 
-            'Permission': serialize.map(permission, lambda e: e),
-        })
-        
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return RoleInstance(self._version, payload, service_sid=self._solution['service_sid'])
     
     
     def create(self, friendly_name, type, permission):

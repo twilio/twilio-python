@@ -43,17 +43,6 @@ class IpCommandList(ListResource):
         
         
     
-    def fetch(self):
-        """
-        Fetch the IpCommandInstance
-
-        :returns: The fetched IpCommandInstance
-        :rtype: twilio.rest.supersim.v1.ip_command.IpCommandInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return IpCommandInstance(self._version, payload)
-    
     
     def create(self, sim, payload, device_port, payload_type=values.unset, callback_url=values.unset, callback_method=values.unset):
         """

@@ -45,40 +45,6 @@ class DeviceList(ListResource):
         
     
     
-    def fetch(self):
-        """
-        Fetch the DeviceInstance
-
-        :returns: The fetched DeviceInstance
-        :rtype: twilio.rest.preview.deployed_devices.fleet.device.DeviceInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return DeviceInstance(self._version, payload, fleet_sid=self._solution['fleet_sid'])
-    
-    
-    def update(self, friendly_name=values.unset, identity=values.unset, deployment_sid=values.unset, enabled=values.unset):
-        """
-        Update the DeviceInstance
-
-        :param str friendly_name: Provides a human readable descriptive text to be assigned to this Device, up to 256 characters long.
-        :param str identity: Provides an arbitrary string identifier representing a human user to be associated with this Device, up to 256 characters long.
-        :param str deployment_sid: Specifies the unique string identifier of the Deployment group that this Device is going to be associated with.
-        :param bool enabled: 
-        
-        :returns: The created DeviceInstance
-        :rtype: twilio.rest.preview.deployed_devices.fleet.device.DeviceInstance
-        """
-        data = values.of({ 
-            'FriendlyName': friendly_name,
-            'Identity': identity,
-            'DeploymentSid': deployment_sid,
-            'Enabled': enabled,
-        })
-        
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return DeviceInstance(self._version, payload, fleet_sid=self._solution['fleet_sid'])
     
     
     def create(self, unique_name=values.unset, friendly_name=values.unset, identity=values.unset, deployment_sid=values.unset, enabled=values.unset):

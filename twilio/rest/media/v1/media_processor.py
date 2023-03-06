@@ -43,34 +43,6 @@ class MediaProcessorList(ListResource):
         
         
     
-    def fetch(self):
-        """
-        Fetch the MediaProcessorInstance
-
-        :returns: The fetched MediaProcessorInstance
-        :rtype: twilio.rest.media.v1.media_processor.MediaProcessorInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return MediaProcessorInstance(self._version, payload)
-    
-    
-    def update(self, status):
-        """
-        Update the MediaProcessorInstance
-
-        :param UpdateStatus status: 
-        
-        :returns: The created MediaProcessorInstance
-        :rtype: twilio.rest.media.v1.media_processor.MediaProcessorInstance
-        """
-        data = values.of({ 
-            'Status': status,
-        })
-        
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return MediaProcessorInstance(self._version, payload)
     
     
     def create(self, extension, extension_context, extension_environment=values.unset, status_callback=values.unset, status_callback_method=values.unset, max_duration=values.unset):

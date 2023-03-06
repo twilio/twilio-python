@@ -45,23 +45,6 @@ class InteractionChannelParticipantList(ListResource):
         
         
     
-    def update(self, status):
-        """
-        Update the InteractionChannelParticipantInstance
-
-        :param Status status: 
-        
-        :returns: The created InteractionChannelParticipantInstance
-        :rtype: twilio.rest.flex_api.v1.interaction.interaction_channel.interaction_channel_participant.InteractionChannelParticipantInstance
-        """
-        data = values.of({ 
-            'Status': status,
-        })
-        
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return InteractionChannelParticipantInstance(self._version, payload, interaction_sid=self._solution['interaction_sid'], channel_sid=self._solution['channel_sid'])
-    
     
     def create(self, type, media_properties):
         """

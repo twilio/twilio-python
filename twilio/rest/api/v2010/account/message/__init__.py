@@ -47,36 +47,6 @@ class MessageList(ListResource):
         
     
     
-    def fetch(self):
-        """
-        Fetch the MessageInstance
-
-        :returns: The fetched MessageInstance
-        :rtype: twilio.rest.api.v2010.account.message.MessageInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return MessageInstance(self._version, payload, account_sid=self._solution['account_sid'])
-    
-    
-    def update(self, body=values.unset, status=values.unset):
-        """
-        Update the MessageInstance
-
-        :param str body: The text of the message you want to send. Can be up to 1,600 characters long.
-        :param UpdateStatus status: 
-        
-        :returns: The created MessageInstance
-        :rtype: twilio.rest.api.v2010.account.message.MessageInstance
-        """
-        data = values.of({ 
-            'Body': body,
-            'Status': status,
-        })
-        
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return MessageInstance(self._version, payload, account_sid=self._solution['account_sid'])
     
     
     def create(self, to, status_callback=values.unset, application_sid=values.unset, max_price=values.unset, provide_feedback=values.unset, attempt=values.unset, validity_period=values.unset, force_delivery=values.unset, content_retention=values.unset, address_retention=values.unset, smart_encoded=values.unset, persistent_action=values.unset, shorten_urls=values.unset, schedule_type=values.unset, send_at=values.unset, send_as_mms=values.unset, content_sid=values.unset, content_variables=values.unset, from_=values.unset, messaging_service_sid=values.unset, body=values.unset, media_url=values.unset):

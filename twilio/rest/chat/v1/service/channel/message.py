@@ -46,36 +46,6 @@ class MessageList(ListResource):
         
     
     
-    def fetch(self):
-        """
-        Fetch the MessageInstance
-
-        :returns: The fetched MessageInstance
-        :rtype: twilio.rest.chat.v1.service.channel.message.MessageInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return MessageInstance(self._version, payload, service_sid=self._solution['service_sid'], channel_sid=self._solution['channel_sid'])
-    
-    
-    def update(self, body=values.unset, attributes=values.unset):
-        """
-        Update the MessageInstance
-
-        :param str body: The message to send to the channel. Can also be an empty string or `null`, which sets the value as an empty string. You can send structured data in the body by serializing it as a string.
-        :param str attributes: A valid JSON string that contains application-specific data.
-        
-        :returns: The created MessageInstance
-        :rtype: twilio.rest.chat.v1.service.channel.message.MessageInstance
-        """
-        data = values.of({ 
-            'Body': body,
-            'Attributes': attributes,
-        })
-        
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return MessageInstance(self._version, payload, service_sid=self._solution['service_sid'], channel_sid=self._solution['channel_sid'])
     
     
     def create(self, body, from_=values.unset, attributes=values.unset):

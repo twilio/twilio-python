@@ -47,39 +47,6 @@ class UserList(ListResource):
         
     
     
-    def fetch(self):
-        """
-        Fetch the UserInstance
-
-        :returns: The fetched UserInstance
-        :rtype: twilio.rest.ip_messaging.v2.service.user.UserInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return UserInstance(self._version, payload, service_sid=self._solution['service_sid'])
-    
-    
-    def update(self, x_twilio_webhook_enabled=values.unset, role_sid=values.unset, attributes=values.unset, friendly_name=values.unset):
-        """
-        Update the UserInstance
-
-        :param WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
-        :param str role_sid: 
-        :param str attributes: 
-        :param str friendly_name: 
-        
-        :returns: The created UserInstance
-        :rtype: twilio.rest.ip_messaging.v2.service.user.UserInstance
-        """
-        data = values.of({ 
-            'RoleSid': role_sid,
-            'Attributes': attributes,
-            'FriendlyName': friendly_name,
-        })
-        headers = values.of({'X-Twilio-Webhook-Enabled': x_twilio_webhook_enabled, })
-        payload = self._version.update(method='POST', uri=self._uri, data=data, headers=headers)
-
-        return UserInstance(self._version, payload, service_sid=self._solution['service_sid'])
     
     
     def create(self, identity, x_twilio_webhook_enabled=values.unset, role_sid=values.unset, attributes=values.unset, friendly_name=values.unset):

@@ -44,17 +44,6 @@ class AppList(ListResource):
         
     
     
-    def fetch(self):
-        """
-        Fetch the AppInstance
-
-        :returns: The fetched AppInstance
-        :rtype: twilio.rest.microvisor.v1.app.AppInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return AppInstance(self._version, payload)
-    
     
     def stream(self, limit=None, page_size=None):
         """

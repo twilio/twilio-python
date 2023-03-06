@@ -44,36 +44,6 @@ class SupportingDocumentList(ListResource):
         
     
     
-    def fetch(self):
-        """
-        Fetch the SupportingDocumentInstance
-
-        :returns: The fetched SupportingDocumentInstance
-        :rtype: twilio.rest.trusthub.v1.supporting_document.SupportingDocumentInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return SupportingDocumentInstance(self._version, payload)
-    
-    
-    def update(self, friendly_name=values.unset, attributes=values.unset):
-        """
-        Update the SupportingDocumentInstance
-
-        :param str friendly_name: The string that you assigned to describe the resource.
-        :param object attributes: The set of parameters that are the attributes of the Supporting Document resource which are derived Supporting Document Types.
-        
-        :returns: The created SupportingDocumentInstance
-        :rtype: twilio.rest.trusthub.v1.supporting_document.SupportingDocumentInstance
-        """
-        data = values.of({ 
-            'FriendlyName': friendly_name,
-            'Attributes': serialize.object(attributes),
-        })
-        
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return SupportingDocumentInstance(self._version, payload)
     
     
     def create(self, friendly_name, type, attributes=values.unset):

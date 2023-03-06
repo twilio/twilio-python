@@ -46,68 +46,6 @@ class SimList(ListResource):
         
     
     
-    def fetch(self):
-        """
-        Fetch the SimInstance
-
-        :returns: The fetched SimInstance
-        :rtype: twilio.rest.wireless.v1.sim.SimInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return SimInstance(self._version, payload)
-    
-    
-    def update(self, unique_name=values.unset, callback_method=values.unset, callback_url=values.unset, friendly_name=values.unset, rate_plan=values.unset, status=values.unset, commands_callback_method=values.unset, commands_callback_url=values.unset, sms_fallback_method=values.unset, sms_fallback_url=values.unset, sms_method=values.unset, sms_url=values.unset, voice_fallback_method=values.unset, voice_fallback_url=values.unset, voice_method=values.unset, voice_url=values.unset, reset_status=values.unset, account_sid=values.unset):
-        """
-        Update the SimInstance
-
-        :param str unique_name: An application-defined string that uniquely identifies the resource. It can be used in place of the `sid` in the URL path to address the resource.
-        :param str callback_method: The HTTP method we should use to call `callback_url`. Can be: `POST` or `GET`. The default is `POST`.
-        :param str callback_url: The URL we should call using the `callback_url` when the SIM has finished updating. When the SIM transitions from `new` to `ready` or from any status to `deactivated`, we call this URL when the status changes to an intermediate status (`ready` or `deactivated`) and again when the status changes to its final status (`active` or `canceled`).
-        :param str friendly_name: A descriptive string that you create to describe the Sim resource. It does not need to be unique.
-        :param str rate_plan: The SID or unique name of the [RatePlan resource](https://www.twilio.com/docs/wireless/api/rateplan-resource) to which the Sim resource should be assigned.
-        :param Status status: 
-        :param str commands_callback_method: The HTTP method we should use to call `commands_callback_url`. Can be: `POST` or `GET`. The default is `POST`.
-        :param str commands_callback_url: The URL we should call using the `commands_callback_method` when the SIM sends a [Command](https://www.twilio.com/docs/wireless/api/command-resource). Your server should respond with an HTTP status code in the 200 range; any response body is ignored.
-        :param str sms_fallback_method: The HTTP method we should use to call `sms_fallback_url`. Can be: `GET` or `POST`. Default is `POST`.
-        :param str sms_fallback_url: The URL we should call using the `sms_fallback_method` when an error occurs while retrieving or executing the TwiML requested from `sms_url`.
-        :param str sms_method: The HTTP method we should use to call `sms_url`. Can be: `GET` or `POST`. Default is `POST`.
-        :param str sms_url: The URL we should call using the `sms_method` when the SIM-connected device sends an SMS message that is not a [Command](https://www.twilio.com/docs/wireless/api/command-resource).
-        :param str voice_fallback_method: Deprecated.
-        :param str voice_fallback_url: Deprecated.
-        :param str voice_method: Deprecated.
-        :param str voice_url: Deprecated.
-        :param ResetStatus reset_status: 
-        :param str account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) to which the Sim resource should belong. The Account SID can only be that of the requesting Account or that of a [Subaccount](https://www.twilio.com/docs/iam/api/subaccounts) of the requesting Account. Only valid when the Sim resource's status is `new`. For more information, see the [Move SIMs between Subaccounts documentation](https://www.twilio.com/docs/wireless/api/sim-resource#move-sims-between-subaccounts).
-        
-        :returns: The created SimInstance
-        :rtype: twilio.rest.wireless.v1.sim.SimInstance
-        """
-        data = values.of({ 
-            'UniqueName': unique_name,
-            'CallbackMethod': callback_method,
-            'CallbackUrl': callback_url,
-            'FriendlyName': friendly_name,
-            'RatePlan': rate_plan,
-            'Status': status,
-            'CommandsCallbackMethod': commands_callback_method,
-            'CommandsCallbackUrl': commands_callback_url,
-            'SmsFallbackMethod': sms_fallback_method,
-            'SmsFallbackUrl': sms_fallback_url,
-            'SmsMethod': sms_method,
-            'SmsUrl': sms_url,
-            'VoiceFallbackMethod': voice_fallback_method,
-            'VoiceFallbackUrl': voice_fallback_url,
-            'VoiceMethod': voice_method,
-            'VoiceUrl': voice_url,
-            'ResetStatus': reset_status,
-            'AccountSid': account_sid,
-        })
-        
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return SimInstance(self._version, payload)
     
     
     def stream(self, status=values.unset, iccid=values.unset, rate_plan=values.unset, eid=values.unset, sim_registration_code=values.unset, limit=None, page_size=None):

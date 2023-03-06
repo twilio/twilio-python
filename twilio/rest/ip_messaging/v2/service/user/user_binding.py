@@ -46,17 +46,6 @@ class UserBindingList(ListResource):
         
     
     
-    def fetch(self):
-        """
-        Fetch the UserBindingInstance
-
-        :returns: The fetched UserBindingInstance
-        :rtype: twilio.rest.ip_messaging.v2.service.user.user_binding.UserBindingInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return UserBindingInstance(self._version, payload, service_sid=self._solution['service_sid'], user_sid=self._solution['user_sid'])
-    
     
     def stream(self, binding_type=values.unset, limit=None, page_size=None):
         """

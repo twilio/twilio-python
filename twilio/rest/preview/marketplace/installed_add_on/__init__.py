@@ -45,36 +45,6 @@ class InstalledAddOnList(ListResource):
         
     
     
-    def fetch(self):
-        """
-        Fetch the InstalledAddOnInstance
-
-        :returns: The fetched InstalledAddOnInstance
-        :rtype: twilio.rest.preview.marketplace.installed_add_on.InstalledAddOnInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return InstalledAddOnInstance(self._version, payload)
-    
-    
-    def update(self, configuration=values.unset, unique_name=values.unset):
-        """
-        Update the InstalledAddOnInstance
-
-        :param object configuration: Valid JSON object that conform to the configuration schema exposed by the associated AvailableAddOn resource. This is only required by Add-ons that need to be configured
-        :param str unique_name: An application-defined string that uniquely identifies the resource. This value must be unique within the Account.
-        
-        :returns: The created InstalledAddOnInstance
-        :rtype: twilio.rest.preview.marketplace.installed_add_on.InstalledAddOnInstance
-        """
-        data = values.of({ 
-            'Configuration': serialize.object(configuration),
-            'UniqueName': unique_name,
-        })
-        
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return InstalledAddOnInstance(self._version, payload)
     
     
     def create(self, available_add_on_sid, accept_terms_of_service, configuration=values.unset, unique_name=values.unset):

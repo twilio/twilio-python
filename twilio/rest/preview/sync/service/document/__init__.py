@@ -46,35 +46,6 @@ class DocumentList(ListResource):
         
     
     
-    def fetch(self):
-        """
-        Fetch the DocumentInstance
-
-        :returns: The fetched DocumentInstance
-        :rtype: twilio.rest.preview.sync.service.document.DocumentInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return DocumentInstance(self._version, payload, service_sid=self._solution['service_sid'])
-    
-    
-    def update(self, data, if_match=values.unset):
-        """
-        Update the DocumentInstance
-
-        :param object data: 
-        :param str if_match: The If-Match HTTP request header
-        
-        :returns: The created DocumentInstance
-        :rtype: twilio.rest.preview.sync.service.document.DocumentInstance
-        """
-        data = values.of({ 
-            'Data': serialize.object(data),
-        })
-        headers = values.of({'If-Match': if_match, })
-        payload = self._version.update(method='POST', uri=self._uri, data=data, headers=headers)
-
-        return DocumentInstance(self._version, payload, service_sid=self._solution['service_sid'])
     
     
     def create(self, unique_name=values.unset, data=values.unset):

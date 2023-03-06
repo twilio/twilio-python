@@ -44,17 +44,6 @@ class MediaRecordingList(ListResource):
         
     
     
-    def fetch(self):
-        """
-        Fetch the MediaRecordingInstance
-
-        :returns: The fetched MediaRecordingInstance
-        :rtype: twilio.rest.media.v1.media_recording.MediaRecordingInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return MediaRecordingInstance(self._version, payload)
-    
     
     def stream(self, order=values.unset, status=values.unset, processor_sid=values.unset, source_sid=values.unset, limit=None, page_size=None):
         """

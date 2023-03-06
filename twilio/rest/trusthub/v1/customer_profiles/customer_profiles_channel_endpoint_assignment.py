@@ -45,17 +45,6 @@ class CustomerProfilesChannelEndpointAssignmentList(ListResource):
         
     
     
-    def fetch(self):
-        """
-        Fetch the CustomerProfilesChannelEndpointAssignmentInstance
-
-        :returns: The fetched CustomerProfilesChannelEndpointAssignmentInstance
-        :rtype: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_channel_endpoint_assignment.CustomerProfilesChannelEndpointAssignmentInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return CustomerProfilesChannelEndpointAssignmentInstance(self._version, payload, customer_profile_sid=self._solution['customer_profile_sid'])
-    
     
     def create(self, channel_endpoint_type, channel_endpoint_sid):
         """

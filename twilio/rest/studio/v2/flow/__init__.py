@@ -47,40 +47,6 @@ class FlowList(ListResource):
         
     
     
-    def fetch(self):
-        """
-        Fetch the FlowInstance
-
-        :returns: The fetched FlowInstance
-        :rtype: twilio.rest.studio.v2.flow.FlowInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return FlowInstance(self._version, payload)
-    
-    
-    def update(self, status, friendly_name=values.unset, definition=values.unset, commit_message=values.unset):
-        """
-        Update the FlowInstance
-
-        :param Status status: 
-        :param str friendly_name: The string that you assigned to describe the Flow.
-        :param object definition: JSON representation of flow definition.
-        :param str commit_message: Description of change made in the revision.
-        
-        :returns: The created FlowInstance
-        :rtype: twilio.rest.studio.v2.flow.FlowInstance
-        """
-        data = values.of({ 
-            'Status': status,
-            'FriendlyName': friendly_name,
-            'Definition': serialize.object(definition),
-            'CommitMessage': commit_message,
-        })
-        
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return FlowInstance(self._version, payload)
     
     
     def create(self, friendly_name, status, definition, commit_message=values.unset):

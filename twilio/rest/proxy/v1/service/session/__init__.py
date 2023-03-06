@@ -47,38 +47,6 @@ class SessionList(ListResource):
         
     
     
-    def fetch(self):
-        """
-        Fetch the SessionInstance
-
-        :returns: The fetched SessionInstance
-        :rtype: twilio.rest.proxy.v1.service.session.SessionInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return SessionInstance(self._version, payload, service_sid=self._solution['service_sid'])
-    
-    
-    def update(self, date_expiry=values.unset, ttl=values.unset, status=values.unset):
-        """
-        Update the SessionInstance
-
-        :param datetime date_expiry: The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date when the Session should expire. If this is value is present, it overrides the `ttl` value.
-        :param int ttl: The time, in seconds, when the session will expire. The time is measured from the last Session create or the Session's last Interaction.
-        :param Status status: 
-        
-        :returns: The created SessionInstance
-        :rtype: twilio.rest.proxy.v1.service.session.SessionInstance
-        """
-        data = values.of({ 
-            'DateExpiry': serialize.iso8601_datetime(date_expiry),
-            'Ttl': ttl,
-            'Status': status,
-        })
-        
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return SessionInstance(self._version, payload, service_sid=self._solution['service_sid'])
     
     
     def create(self, unique_name=values.unset, date_expiry=values.unset, ttl=values.unset, mode=values.unset, status=values.unset, participants=values.unset):

@@ -47,51 +47,6 @@ class ConversationList(ListResource):
         
     
     
-    def fetch(self):
-        """
-        Fetch the ConversationInstance
-
-        :returns: The fetched ConversationInstance
-        :rtype: twilio.rest.conversations.v1.conversation.ConversationInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return ConversationInstance(self._version, payload)
-    
-    
-    def update(self, x_twilio_webhook_enabled=values.unset, friendly_name=values.unset, date_created=values.unset, date_updated=values.unset, attributes=values.unset, messaging_service_sid=values.unset, state=values.unset, timers_inactive=values.unset, timers_closed=values.unset, unique_name=values.unset):
-        """
-        Update the ConversationInstance
-
-        :param WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
-        :param str friendly_name: The human-readable name of this conversation, limited to 256 characters. Optional.
-        :param datetime date_created: The date that this resource was created.
-        :param datetime date_updated: The date that this resource was last updated.
-        :param str attributes: An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
-        :param str messaging_service_sid: The unique ID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) this conversation belongs to.
-        :param State state: 
-        :param str timers_inactive: ISO8601 duration when conversation will be switched to `inactive` state. Minimum value for this timer is 1 minute.
-        :param str timers_closed: ISO8601 duration when conversation will be switched to `closed` state. Minimum value for this timer is 10 minutes.
-        :param str unique_name: An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource's `sid` in the URL.
-        
-        :returns: The created ConversationInstance
-        :rtype: twilio.rest.conversations.v1.conversation.ConversationInstance
-        """
-        data = values.of({ 
-            'FriendlyName': friendly_name,
-            'DateCreated': serialize.iso8601_datetime(date_created),
-            'DateUpdated': serialize.iso8601_datetime(date_updated),
-            'Attributes': attributes,
-            'MessagingServiceSid': messaging_service_sid,
-            'State': state,
-            'Timers.Inactive': timers_inactive,
-            'Timers.Closed': timers_closed,
-            'UniqueName': unique_name,
-        })
-        headers = values.of({'X-Twilio-Webhook-Enabled': x_twilio_webhook_enabled, })
-        payload = self._version.update(method='POST', uri=self._uri, data=data, headers=headers)
-
-        return ConversationInstance(self._version, payload)
     
     
     def create(self, x_twilio_webhook_enabled=values.unset, friendly_name=values.unset, unique_name=values.unset, date_created=values.unset, date_updated=values.unset, messaging_service_sid=values.unset, attributes=values.unset, state=values.unset, timers_inactive=values.unset, timers_closed=values.unset):

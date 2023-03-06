@@ -46,44 +46,6 @@ class WebhookList(ListResource):
         
     
     
-    def fetch(self):
-        """
-        Fetch the WebhookInstance
-
-        :returns: The fetched WebhookInstance
-        :rtype: twilio.rest.ip_messaging.v2.service.channel.webhook.WebhookInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return WebhookInstance(self._version, payload, service_sid=self._solution['service_sid'], channel_sid=self._solution['channel_sid'])
-    
-    
-    def update(self, configuration_url=values.unset, configuration_method=values.unset, configuration_filters=values.unset, configuration_triggers=values.unset, configuration_flow_sid=values.unset, configuration_retry_count=values.unset):
-        """
-        Update the WebhookInstance
-
-        :param str configuration_url: 
-        :param Method configuration_method: 
-        :param list[str] configuration_filters: 
-        :param list[str] configuration_triggers: 
-        :param str configuration_flow_sid: 
-        :param int configuration_retry_count: 
-        
-        :returns: The created WebhookInstance
-        :rtype: twilio.rest.ip_messaging.v2.service.channel.webhook.WebhookInstance
-        """
-        data = values.of({ 
-            'Configuration.Url': configuration_url,
-            'Configuration.Method': configuration_method,
-            'Configuration.Filters': serialize.map(configuration_filters, lambda e: e),
-            'Configuration.Triggers': serialize.map(configuration_triggers, lambda e: e),
-            'Configuration.FlowSid': configuration_flow_sid,
-            'Configuration.RetryCount': configuration_retry_count,
-        })
-        
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return WebhookInstance(self._version, payload, service_sid=self._solution['service_sid'], channel_sid=self._solution['channel_sid'])
     
     
     def create(self, type, configuration_url=values.unset, configuration_method=values.unset, configuration_filters=values.unset, configuration_triggers=values.unset, configuration_flow_sid=values.unset, configuration_retry_count=values.unset):

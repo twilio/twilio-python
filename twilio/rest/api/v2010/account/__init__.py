@@ -67,36 +67,6 @@ class AccountList(ListResource):
         
         
     
-    def fetch(self):
-        """
-        Fetch the AccountInstance
-
-        :returns: The fetched AccountInstance
-        :rtype: twilio.rest.api.v2010.account.AccountInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return AccountInstance(self._version, payload)
-    
-    
-    def update(self, friendly_name=values.unset, status=values.unset):
-        """
-        Update the AccountInstance
-
-        :param str friendly_name: Update the human-readable description of this Account
-        :param Status status: 
-        
-        :returns: The created AccountInstance
-        :rtype: twilio.rest.api.v2010.account.AccountInstance
-        """
-        data = values.of({ 
-            'FriendlyName': friendly_name,
-            'Status': status,
-        })
-        
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return AccountInstance(self._version, payload)
     
     
     def create(self, friendly_name=values.unset):

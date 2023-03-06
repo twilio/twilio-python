@@ -46,34 +46,6 @@ class AssetList(ListResource):
         
     
     
-    def fetch(self):
-        """
-        Fetch the AssetInstance
-
-        :returns: The fetched AssetInstance
-        :rtype: twilio.rest.serverless.v1.service.asset.AssetInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return AssetInstance(self._version, payload, service_sid=self._solution['service_sid'])
-    
-    
-    def update(self, friendly_name):
-        """
-        Update the AssetInstance
-
-        :param str friendly_name: A descriptive string that you create to describe the Asset resource. It can be a maximum of 255 characters.
-        
-        :returns: The created AssetInstance
-        :rtype: twilio.rest.serverless.v1.service.asset.AssetInstance
-        """
-        data = values.of({ 
-            'FriendlyName': friendly_name,
-        })
-        
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return AssetInstance(self._version, payload, service_sid=self._solution['service_sid'])
     
     
     def create(self, friendly_name):

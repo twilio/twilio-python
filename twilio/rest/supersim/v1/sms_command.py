@@ -43,17 +43,6 @@ class SmsCommandList(ListResource):
         
         
     
-    def fetch(self):
-        """
-        Fetch the SmsCommandInstance
-
-        :returns: The fetched SmsCommandInstance
-        :rtype: twilio.rest.supersim.v1.sms_command.SmsCommandInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return SmsCommandInstance(self._version, payload)
-    
     
     def create(self, sim, payload, callback_method=values.unset, callback_url=values.unset):
         """

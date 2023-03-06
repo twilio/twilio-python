@@ -45,42 +45,6 @@ class WebhookList(ListResource):
         
     
     
-    def fetch(self):
-        """
-        Fetch the WebhookInstance
-
-        :returns: The fetched WebhookInstance
-        :rtype: twilio.rest.conversations.v1.conversation.webhook.WebhookInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return WebhookInstance(self._version, payload, conversation_sid=self._solution['conversation_sid'])
-    
-    
-    def update(self, configuration_url=values.unset, configuration_method=values.unset, configuration_filters=values.unset, configuration_triggers=values.unset, configuration_flow_sid=values.unset):
-        """
-        Update the WebhookInstance
-
-        :param str configuration_url: The absolute url the webhook request should be sent to.
-        :param Method configuration_method: 
-        :param list[str] configuration_filters: The list of events, firing webhook event for this Conversation.
-        :param list[str] configuration_triggers: The list of keywords, firing webhook event for this Conversation.
-        :param str configuration_flow_sid: The studio flow SID, where the webhook should be sent to.
-        
-        :returns: The created WebhookInstance
-        :rtype: twilio.rest.conversations.v1.conversation.webhook.WebhookInstance
-        """
-        data = values.of({ 
-            'Configuration.Url': configuration_url,
-            'Configuration.Method': configuration_method,
-            'Configuration.Filters': serialize.map(configuration_filters, lambda e: e),
-            'Configuration.Triggers': serialize.map(configuration_triggers, lambda e: e),
-            'Configuration.FlowSid': configuration_flow_sid,
-        })
-        
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return WebhookInstance(self._version, payload, conversation_sid=self._solution['conversation_sid'])
     
     
     def create(self, target, configuration_url=values.unset, configuration_method=values.unset, configuration_filters=values.unset, configuration_triggers=values.unset, configuration_flow_sid=values.unset, configuration_replay_after=values.unset):

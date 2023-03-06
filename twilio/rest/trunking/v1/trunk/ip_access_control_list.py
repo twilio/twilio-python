@@ -45,17 +45,6 @@ class IpAccessControlListList(ListResource):
         
     
     
-    def fetch(self):
-        """
-        Fetch the IpAccessControlListInstance
-
-        :returns: The fetched IpAccessControlListInstance
-        :rtype: twilio.rest.trunking.v1.trunk.ip_access_control_list.IpAccessControlListInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return IpAccessControlListInstance(self._version, payload, trunk_sid=self._solution['trunk_sid'])
-    
     
     def create(self, ip_access_control_list_sid):
         """

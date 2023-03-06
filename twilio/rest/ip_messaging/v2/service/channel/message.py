@@ -46,45 +46,6 @@ class MessageList(ListResource):
         
     
     
-    def fetch(self):
-        """
-        Fetch the MessageInstance
-
-        :returns: The fetched MessageInstance
-        :rtype: twilio.rest.ip_messaging.v2.service.channel.message.MessageInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return MessageInstance(self._version, payload, service_sid=self._solution['service_sid'], channel_sid=self._solution['channel_sid'])
-    
-    
-    def update(self, x_twilio_webhook_enabled=values.unset, body=values.unset, attributes=values.unset, date_created=values.unset, date_updated=values.unset, last_updated_by=values.unset, from_=values.unset):
-        """
-        Update the MessageInstance
-
-        :param WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
-        :param str body: 
-        :param str attributes: 
-        :param datetime date_created: 
-        :param datetime date_updated: 
-        :param str last_updated_by: 
-        :param str from_: 
-        
-        :returns: The created MessageInstance
-        :rtype: twilio.rest.ip_messaging.v2.service.channel.message.MessageInstance
-        """
-        data = values.of({ 
-            'Body': body,
-            'Attributes': attributes,
-            'DateCreated': serialize.iso8601_datetime(date_created),
-            'DateUpdated': serialize.iso8601_datetime(date_updated),
-            'LastUpdatedBy': last_updated_by,
-            'From': from_,
-        })
-        headers = values.of({'X-Twilio-Webhook-Enabled': x_twilio_webhook_enabled, })
-        payload = self._version.update(method='POST', uri=self._uri, data=data, headers=headers)
-
-        return MessageInstance(self._version, payload, service_sid=self._solution['service_sid'], channel_sid=self._solution['channel_sid'])
     
     
     def create(self, x_twilio_webhook_enabled=values.unset, from_=values.unset, attributes=values.unset, date_created=values.unset, date_updated=values.unset, last_updated_by=values.unset, body=values.unset, media_sid=values.unset):

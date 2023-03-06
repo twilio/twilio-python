@@ -44,50 +44,6 @@ class AddressConfigurationList(ListResource):
         
     
     
-    def fetch(self):
-        """
-        Fetch the AddressConfigurationInstance
-
-        :returns: The fetched AddressConfigurationInstance
-        :rtype: twilio.rest.conversations.v1.address_configuration.AddressConfigurationInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return AddressConfigurationInstance(self._version, payload)
-    
-    
-    def update(self, friendly_name=values.unset, auto_creation_enabled=values.unset, auto_creation_type=values.unset, auto_creation_conversation_service_sid=values.unset, auto_creation_webhook_url=values.unset, auto_creation_webhook_method=values.unset, auto_creation_webhook_filters=values.unset, auto_creation_studio_flow_sid=values.unset, auto_creation_studio_retry_count=values.unset):
-        """
-        Update the AddressConfigurationInstance
-
-        :param str friendly_name: The human-readable name of this configuration, limited to 256 characters. Optional.
-        :param bool auto_creation_enabled: Enable/Disable auto-creating conversations for messages to this address
-        :param AutoCreationType auto_creation_type: 
-        :param str auto_creation_conversation_service_sid: Conversation Service for the auto-created conversation. If not set, the conversation is created in the default service.
-        :param str auto_creation_webhook_url: For type `webhook`, the url for the webhook request.
-        :param Method auto_creation_webhook_method: 
-        :param list[str] auto_creation_webhook_filters: The list of events, firing webhook event for this Conversation. Values can be any of the following: `onMessageAdded`, `onMessageUpdated`, `onMessageRemoved`, `onConversationUpdated`, `onConversationStateUpdated`, `onConversationRemoved`, `onParticipantAdded`, `onParticipantUpdated`, `onParticipantRemoved`, `onDeliveryUpdated`
-        :param str auto_creation_studio_flow_sid: For type `studio`, the studio flow SID where the webhook should be sent to.
-        :param int auto_creation_studio_retry_count: For type `studio`, number of times to retry the webhook request
-        
-        :returns: The created AddressConfigurationInstance
-        :rtype: twilio.rest.conversations.v1.address_configuration.AddressConfigurationInstance
-        """
-        data = values.of({ 
-            'FriendlyName': friendly_name,
-            'AutoCreation.Enabled': auto_creation_enabled,
-            'AutoCreation.Type': auto_creation_type,
-            'AutoCreation.ConversationServiceSid': auto_creation_conversation_service_sid,
-            'AutoCreation.WebhookUrl': auto_creation_webhook_url,
-            'AutoCreation.WebhookMethod': auto_creation_webhook_method,
-            'AutoCreation.WebhookFilters': serialize.map(auto_creation_webhook_filters, lambda e: e),
-            'AutoCreation.StudioFlowSid': auto_creation_studio_flow_sid,
-            'AutoCreation.StudioRetryCount': auto_creation_studio_retry_count,
-        })
-        
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return AddressConfigurationInstance(self._version, payload)
     
     
     def create(self, type, address, friendly_name=values.unset, auto_creation_enabled=values.unset, auto_creation_type=values.unset, auto_creation_conversation_service_sid=values.unset, auto_creation_webhook_url=values.unset, auto_creation_webhook_method=values.unset, auto_creation_webhook_filters=values.unset, auto_creation_studio_flow_sid=values.unset, auto_creation_studio_retry_count=values.unset):

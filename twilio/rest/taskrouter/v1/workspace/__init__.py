@@ -54,46 +54,6 @@ class WorkspaceList(ListResource):
         
     
     
-    def fetch(self):
-        """
-        Fetch the WorkspaceInstance
-
-        :returns: The fetched WorkspaceInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.WorkspaceInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return WorkspaceInstance(self._version, payload)
-    
-    
-    def update(self, default_activity_sid=values.unset, event_callback_url=values.unset, events_filter=values.unset, friendly_name=values.unset, multi_task_enabled=values.unset, timeout_activity_sid=values.unset, prioritize_queue_order=values.unset):
-        """
-        Update the WorkspaceInstance
-
-        :param str default_activity_sid: The SID of the Activity that will be used when new Workers are created in the Workspace.
-        :param str event_callback_url: The URL we should call when an event occurs. See [Workspace Events](https://www.twilio.com/docs/taskrouter/api/event) for more information. This parameter supports Twilio's [Webhooks (HTTP callbacks) Connection Overrides](https://www.twilio.com/docs/usage/webhooks/webhooks-connection-overrides).
-        :param str events_filter: The list of Workspace events for which to call event_callback_url. For example if `EventsFilter=task.created,task.canceled,worker.activity.update`, then TaskRouter will call event_callback_url only when a task is created, canceled, or a Worker activity is updated.
-        :param str friendly_name: A descriptive string that you create to describe the Workspace resource. For example: `Sales Call Center` or `Customer Support Team`.
-        :param bool multi_task_enabled: Whether to enable multi-tasking. Can be: `true` to enable multi-tasking, or `false` to disable it. However, all workspaces should be maintained as multi-tasking. There is no default when omitting this parameter. A multi-tasking Workspace can't be updated to single-tasking unless it is not a Flex Project and another (legacy) single-tasking Workspace exists. Multi-tasking allows Workers to handle multiple Tasks simultaneously. In multi-tasking mode, each Worker can receive parallel reservations up to the per-channel maximums defined in the Workers section. In single-tasking mode (legacy mode), each Worker will only receive a new reservation when the previous task is completed. Learn more at [Multitasking](https://www.twilio.com/docs/taskrouter/multitasking).
-        :param str timeout_activity_sid: The SID of the Activity that will be assigned to a Worker when a Task reservation times out without a response.
-        :param QueueOrder prioritize_queue_order: 
-        
-        :returns: The created WorkspaceInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.WorkspaceInstance
-        """
-        data = values.of({ 
-            'DefaultActivitySid': default_activity_sid,
-            'EventCallbackUrl': event_callback_url,
-            'EventsFilter': events_filter,
-            'FriendlyName': friendly_name,
-            'MultiTaskEnabled': multi_task_enabled,
-            'TimeoutActivitySid': timeout_activity_sid,
-            'PrioritizeQueueOrder': prioritize_queue_order,
-        })
-        
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return WorkspaceInstance(self._version, payload)
     
     
     def create(self, friendly_name, event_callback_url=values.unset, events_filter=values.unset, multi_task_enabled=values.unset, template=values.unset, prioritize_queue_order=values.unset):

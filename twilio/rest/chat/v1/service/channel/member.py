@@ -46,36 +46,6 @@ class MemberList(ListResource):
         
     
     
-    def fetch(self):
-        """
-        Fetch the MemberInstance
-
-        :returns: The fetched MemberInstance
-        :rtype: twilio.rest.chat.v1.service.channel.member.MemberInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return MemberInstance(self._version, payload, service_sid=self._solution['service_sid'], channel_sid=self._solution['channel_sid'])
-    
-    
-    def update(self, role_sid=values.unset, last_consumed_message_index=values.unset):
-        """
-        Update the MemberInstance
-
-        :param str role_sid: The SID of the [Role](https://www.twilio.com/docs/api/chat/rest/roles) to assign to the member. The default roles are those specified on the [Service](https://www.twilio.com/docs/chat/api/services).
-        :param int last_consumed_message_index: The index of the last [Message](https://www.twilio.com/docs/api/chat/rest/messages) that the Member has read within the [Channel](https://www.twilio.com/docs/api/chat/rest/channels).
-        
-        :returns: The created MemberInstance
-        :rtype: twilio.rest.chat.v1.service.channel.member.MemberInstance
-        """
-        data = values.of({ 
-            'RoleSid': role_sid,
-            'LastConsumedMessageIndex': last_consumed_message_index,
-        })
-        
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return MemberInstance(self._version, payload, service_sid=self._solution['service_sid'], channel_sid=self._solution['channel_sid'])
     
     
     def create(self, identity, role_sid=values.unset):

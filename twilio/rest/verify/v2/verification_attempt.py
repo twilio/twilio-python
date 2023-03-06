@@ -43,17 +43,6 @@ class VerificationAttemptList(ListResource):
         
         
     
-    def fetch(self):
-        """
-        Fetch the VerificationAttemptInstance
-
-        :returns: The fetched VerificationAttemptInstance
-        :rtype: twilio.rest.verify.v2.verification_attempt.VerificationAttemptInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return VerificationAttemptInstance(self._version, payload)
-    
     
     def stream(self, date_created_after=values.unset, date_created_before=values.unset, channel_data_to=values.unset, country=values.unset, channel=values.unset, verify_service_sid=values.unset, verification_sid=values.unset, status=values.unset, limit=None, page_size=None):
         """

@@ -46,36 +46,6 @@ class BucketList(ListResource):
         
     
     
-    def fetch(self):
-        """
-        Fetch the BucketInstance
-
-        :returns: The fetched BucketInstance
-        :rtype: twilio.rest.verify.v2.service.rate_limit.bucket.BucketInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return BucketInstance(self._version, payload, service_sid=self._solution['service_sid'], rate_limit_sid=self._solution['rate_limit_sid'])
-    
-    
-    def update(self, max=values.unset, interval=values.unset):
-        """
-        Update the BucketInstance
-
-        :param int max: Maximum number of requests permitted in during the interval.
-        :param int interval: Number of seconds that the rate limit will be enforced over.
-        
-        :returns: The created BucketInstance
-        :rtype: twilio.rest.verify.v2.service.rate_limit.bucket.BucketInstance
-        """
-        data = values.of({ 
-            'Max': max,
-            'Interval': interval,
-        })
-        
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return BucketInstance(self._version, payload, service_sid=self._solution['service_sid'], rate_limit_sid=self._solution['rate_limit_sid'])
     
     
     def create(self, max, interval):

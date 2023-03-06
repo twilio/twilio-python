@@ -47,17 +47,6 @@ class AddOnResultList(ListResource):
         
     
     
-    def fetch(self):
-        """
-        Fetch the AddOnResultInstance
-
-        :returns: The fetched AddOnResultInstance
-        :rtype: twilio.rest.api.v2010.account.recording.add_on_result.AddOnResultInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return AddOnResultInstance(self._version, payload, account_sid=self._solution['account_sid'], reference_sid=self._solution['reference_sid'])
-    
     
     def stream(self, limit=None, page_size=None):
         """

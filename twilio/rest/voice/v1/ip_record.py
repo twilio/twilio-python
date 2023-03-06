@@ -44,34 +44,6 @@ class IpRecordList(ListResource):
         
     
     
-    def fetch(self):
-        """
-        Fetch the IpRecordInstance
-
-        :returns: The fetched IpRecordInstance
-        :rtype: twilio.rest.voice.v1.ip_record.IpRecordInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return IpRecordInstance(self._version, payload)
-    
-    
-    def update(self, friendly_name=values.unset):
-        """
-        Update the IpRecordInstance
-
-        :param str friendly_name: A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
-        
-        :returns: The created IpRecordInstance
-        :rtype: twilio.rest.voice.v1.ip_record.IpRecordInstance
-        """
-        data = values.of({ 
-            'FriendlyName': friendly_name,
-        })
-        
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return IpRecordInstance(self._version, payload)
     
     
     def create(self, ip_address, friendly_name=values.unset, cidr_prefix_length=values.unset):

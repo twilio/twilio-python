@@ -46,38 +46,6 @@ class ConferenceList(ListResource):
         
         
     
-    def fetch(self):
-        """
-        Fetch the ConferenceInstance
-
-        :returns: The fetched ConferenceInstance
-        :rtype: twilio.rest.api.v2010.account.conference.ConferenceInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return ConferenceInstance(self._version, payload, account_sid=self._solution['account_sid'])
-    
-    
-    def update(self, status=values.unset, announce_url=values.unset, announce_method=values.unset):
-        """
-        Update the ConferenceInstance
-
-        :param UpdateStatus status: 
-        :param str announce_url: The URL we should call to announce something into the conference. The URL may return an MP3 file, a WAV file, or a TwiML document that contains `<Play>`, `<Say>`, `<Pause>`, or `<Redirect>` verbs.
-        :param str announce_method: The HTTP method used to call `announce_url`. Can be: `GET` or `POST` and the default is `POST`
-        
-        :returns: The created ConferenceInstance
-        :rtype: twilio.rest.api.v2010.account.conference.ConferenceInstance
-        """
-        data = values.of({ 
-            'Status': status,
-            'AnnounceUrl': announce_url,
-            'AnnounceMethod': announce_method,
-        })
-        
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return ConferenceInstance(self._version, payload, account_sid=self._solution['account_sid'])
     
     
     def stream(self, date_created=values.unset, date_created_before=values.unset, date_created_after=values.unset, date_updated=values.unset, date_updated_before=values.unset, date_updated_after=values.unset, friendly_name=values.unset, status=values.unset, limit=None, page_size=None):

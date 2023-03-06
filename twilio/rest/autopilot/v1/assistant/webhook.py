@@ -45,40 +45,6 @@ class WebhookList(ListResource):
         
     
     
-    def fetch(self):
-        """
-        Fetch the WebhookInstance
-
-        :returns: The fetched WebhookInstance
-        :rtype: twilio.rest.autopilot.v1.assistant.webhook.WebhookInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return WebhookInstance(self._version, payload, assistant_sid=self._solution['assistant_sid'])
-    
-    
-    def update(self, unique_name=values.unset, events=values.unset, webhook_url=values.unset, webhook_method=values.unset):
-        """
-        Update the WebhookInstance
-
-        :param str unique_name: An application-defined string that uniquely identifies the new resource. It can be used as an alternative to the `sid` in the URL path to address the resource. This value must be unique and 64 characters or less in length.
-        :param str events: The list of space-separated events that this Webhook will subscribe to.
-        :param str webhook_url: The URL associated with this Webhook.
-        :param str webhook_method: The method to be used when calling the webhook's URL.
-        
-        :returns: The created WebhookInstance
-        :rtype: twilio.rest.autopilot.v1.assistant.webhook.WebhookInstance
-        """
-        data = values.of({ 
-            'UniqueName': unique_name,
-            'Events': events,
-            'WebhookUrl': webhook_url,
-            'WebhookMethod': webhook_method,
-        })
-        
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return WebhookInstance(self._version, payload, assistant_sid=self._solution['assistant_sid'])
     
     
     def create(self, unique_name, events, webhook_url, webhook_method=values.unset):

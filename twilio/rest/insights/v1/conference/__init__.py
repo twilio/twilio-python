@@ -44,17 +44,6 @@ class ConferenceList(ListResource):
         
         
     
-    def fetch(self):
-        """
-        Fetch the ConferenceInstance
-
-        :returns: The fetched ConferenceInstance
-        :rtype: twilio.rest.insights.v1.conference.ConferenceInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return ConferenceInstance(self._version, payload)
-    
     
     def stream(self, conference_sid=values.unset, friendly_name=values.unset, status=values.unset, created_after=values.unset, created_before=values.unset, mixer_region=values.unset, tags=values.unset, subaccount=values.unset, detected_issues=values.unset, end_reason=values.unset, limit=None, page_size=None):
         """

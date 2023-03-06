@@ -45,17 +45,6 @@ class LogList(ListResource):
         
         
     
-    def fetch(self):
-        """
-        Fetch the LogInstance
-
-        :returns: The fetched LogInstance
-        :rtype: twilio.rest.serverless.v1.service.environment.log.LogInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return LogInstance(self._version, payload, service_sid=self._solution['service_sid'], environment_sid=self._solution['environment_sid'])
-    
     
     def stream(self, function_sid=values.unset, start_date=values.unset, end_date=values.unset, limit=None, page_size=None):
         """

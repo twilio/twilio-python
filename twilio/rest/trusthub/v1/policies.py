@@ -43,17 +43,6 @@ class PoliciesList(ListResource):
         
         
     
-    def fetch(self):
-        """
-        Fetch the PoliciesInstance
-
-        :returns: The fetched PoliciesInstance
-        :rtype: twilio.rest.trusthub.v1.policies.PoliciesInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return PoliciesInstance(self._version, payload)
-    
     
     def stream(self, limit=None, page_size=None):
         """

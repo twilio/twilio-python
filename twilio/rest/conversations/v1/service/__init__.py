@@ -50,17 +50,6 @@ class ServiceList(ListResource):
         
     
     
-    def fetch(self):
-        """
-        Fetch the ServiceInstance
-
-        :returns: The fetched ServiceInstance
-        :rtype: twilio.rest.conversations.v1.service.ServiceInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return ServiceInstance(self._version, payload)
-    
     
     def create(self, friendly_name):
         """

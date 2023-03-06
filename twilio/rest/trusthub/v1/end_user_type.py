@@ -43,17 +43,6 @@ class EndUserTypeList(ListResource):
         
         
     
-    def fetch(self):
-        """
-        Fetch the EndUserTypeInstance
-
-        :returns: The fetched EndUserTypeInstance
-        :rtype: twilio.rest.trusthub.v1.end_user_type.EndUserTypeInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return EndUserTypeInstance(self._version, payload)
-    
     
     def stream(self, limit=None, page_size=None):
         """

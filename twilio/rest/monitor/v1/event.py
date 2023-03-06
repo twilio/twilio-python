@@ -43,17 +43,6 @@ class EventList(ListResource):
         
         
     
-    def fetch(self):
-        """
-        Fetch the EventInstance
-
-        :returns: The fetched EventInstance
-        :rtype: twilio.rest.monitor.v1.event.EventInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return EventInstance(self._version, payload)
-    
     
     def stream(self, actor_sid=values.unset, event_type=values.unset, resource_sid=values.unset, source_ip_address=values.unset, start_date=values.unset, end_date=values.unset, limit=None, page_size=None):
         """

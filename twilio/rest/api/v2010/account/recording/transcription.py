@@ -46,17 +46,6 @@ class TranscriptionList(ListResource):
         
     
     
-    def fetch(self):
-        """
-        Fetch the TranscriptionInstance
-
-        :returns: The fetched TranscriptionInstance
-        :rtype: twilio.rest.api.v2010.account.recording.transcription.TranscriptionInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return TranscriptionInstance(self._version, payload, account_sid=self._solution['account_sid'], recording_sid=self._solution['recording_sid'])
-    
     
     def stream(self, limit=None, page_size=None):
         """

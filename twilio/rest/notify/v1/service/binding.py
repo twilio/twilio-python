@@ -45,17 +45,6 @@ class BindingList(ListResource):
         
     
     
-    def fetch(self):
-        """
-        Fetch the BindingInstance
-
-        :returns: The fetched BindingInstance
-        :rtype: twilio.rest.notify.v1.service.binding.BindingInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return BindingInstance(self._version, payload, service_sid=self._solution['service_sid'])
-    
     
     def create(self, identity, binding_type, address, tag=values.unset, notification_protocol_version=values.unset, credential_sid=values.unset, endpoint=values.unset):
         """

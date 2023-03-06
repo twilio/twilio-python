@@ -45,36 +45,6 @@ class TaskChannelList(ListResource):
         
     
     
-    def fetch(self):
-        """
-        Fetch the TaskChannelInstance
-
-        :returns: The fetched TaskChannelInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.task_channel.TaskChannelInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return TaskChannelInstance(self._version, payload, workspace_sid=self._solution['workspace_sid'])
-    
-    
-    def update(self, friendly_name=values.unset, channel_optimized_routing=values.unset):
-        """
-        Update the TaskChannelInstance
-
-        :param str friendly_name: A descriptive string that you create to describe the Task Channel. It can be up to 64 characters long.
-        :param bool channel_optimized_routing: Whether the TaskChannel should prioritize Workers that have been idle. If `true`, Workers that have been idle the longest are prioritized.
-        
-        :returns: The created TaskChannelInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.task_channel.TaskChannelInstance
-        """
-        data = values.of({ 
-            'FriendlyName': friendly_name,
-            'ChannelOptimizedRouting': channel_optimized_routing,
-        })
-        
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return TaskChannelInstance(self._version, payload, workspace_sid=self._solution['workspace_sid'])
     
     
     def create(self, friendly_name, unique_name, channel_optimized_routing=values.unset):

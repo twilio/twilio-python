@@ -47,39 +47,6 @@ class UserList(ListResource):
         
     
     
-    def fetch(self):
-        """
-        Fetch the UserInstance
-
-        :returns: The fetched UserInstance
-        :rtype: twilio.rest.chat.v2.service.user.UserInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return UserInstance(self._version, payload, service_sid=self._solution['service_sid'])
-    
-    
-    def update(self, x_twilio_webhook_enabled=values.unset, role_sid=values.unset, attributes=values.unset, friendly_name=values.unset):
-        """
-        Update the UserInstance
-
-        :param WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
-        :param str role_sid: The SID of the [Role](https://www.twilio.com/docs/chat/rest/role-resource) to assign to the User.
-        :param str attributes: A valid JSON string that contains application-specific data.
-        :param str friendly_name: A descriptive string that you create to describe the resource. It is often used for display purposes.
-        
-        :returns: The created UserInstance
-        :rtype: twilio.rest.chat.v2.service.user.UserInstance
-        """
-        data = values.of({ 
-            'RoleSid': role_sid,
-            'Attributes': attributes,
-            'FriendlyName': friendly_name,
-        })
-        headers = values.of({'X-Twilio-Webhook-Enabled': x_twilio_webhook_enabled, })
-        payload = self._version.update(method='POST', uri=self._uri, data=data, headers=headers)
-
-        return UserInstance(self._version, payload, service_sid=self._solution['service_sid'])
     
     
     def create(self, identity, x_twilio_webhook_enabled=values.unset, role_sid=values.unset, attributes=values.unset, friendly_name=values.unset):

@@ -46,36 +46,6 @@ class QueueList(ListResource):
         
     
     
-    def fetch(self):
-        """
-        Fetch the QueueInstance
-
-        :returns: The fetched QueueInstance
-        :rtype: twilio.rest.api.v2010.account.queue.QueueInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return QueueInstance(self._version, payload, account_sid=self._solution['account_sid'])
-    
-    
-    def update(self, friendly_name=values.unset, max_size=values.unset):
-        """
-        Update the QueueInstance
-
-        :param str friendly_name: A descriptive string that you created to describe this resource. It can be up to 64 characters long.
-        :param int max_size: The maximum number of calls allowed to be in the queue. The default is 100. The maximum is 5000.
-        
-        :returns: The created QueueInstance
-        :rtype: twilio.rest.api.v2010.account.queue.QueueInstance
-        """
-        data = values.of({ 
-            'FriendlyName': friendly_name,
-            'MaxSize': max_size,
-        })
-        
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return QueueInstance(self._version, payload, account_sid=self._solution['account_sid'])
     
     
     def create(self, friendly_name, max_size=values.unset):

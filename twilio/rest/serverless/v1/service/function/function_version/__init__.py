@@ -46,17 +46,6 @@ class FunctionVersionList(ListResource):
         
         
     
-    def fetch(self):
-        """
-        Fetch the FunctionVersionInstance
-
-        :returns: The fetched FunctionVersionInstance
-        :rtype: twilio.rest.serverless.v1.service.function.function_version.FunctionVersionInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return FunctionVersionInstance(self._version, payload, service_sid=self._solution['service_sid'], function_sid=self._solution['function_sid'])
-    
     
     def stream(self, limit=None, page_size=None):
         """

@@ -46,17 +46,6 @@ class AssignedAddOnExtensionList(ListResource):
         
         
     
-    def fetch(self):
-        """
-        Fetch the AssignedAddOnExtensionInstance
-
-        :returns: The fetched AssignedAddOnExtensionInstance
-        :rtype: twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.assigned_add_on_extension.AssignedAddOnExtensionInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return AssignedAddOnExtensionInstance(self._version, payload, account_sid=self._solution['account_sid'], resource_sid=self._solution['resource_sid'], assigned_add_on_sid=self._solution['assigned_add_on_sid'])
-    
     
     def stream(self, limit=None, page_size=None):
         """

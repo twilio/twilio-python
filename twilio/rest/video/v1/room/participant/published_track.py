@@ -45,17 +45,6 @@ class PublishedTrackList(ListResource):
         
         
     
-    def fetch(self):
-        """
-        Fetch the PublishedTrackInstance
-
-        :returns: The fetched PublishedTrackInstance
-        :rtype: twilio.rest.video.v1.room.participant.published_track.PublishedTrackInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return PublishedTrackInstance(self._version, payload, room_sid=self._solution['room_sid'], participant_sid=self._solution['participant_sid'])
-    
     
     def stream(self, limit=None, page_size=None):
         """

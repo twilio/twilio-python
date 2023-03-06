@@ -46,17 +46,6 @@ class InviteList(ListResource):
         
     
     
-    def fetch(self):
-        """
-        Fetch the InviteInstance
-
-        :returns: The fetched InviteInstance
-        :rtype: twilio.rest.chat.v1.service.channel.invite.InviteInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return InviteInstance(self._version, payload, service_sid=self._solution['service_sid'], channel_sid=self._solution['channel_sid'])
-    
     
     def create(self, identity, role_sid=values.unset):
         """

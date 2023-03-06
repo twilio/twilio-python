@@ -44,17 +44,6 @@ class DayList(ListResource):
         
         
     
-    def fetch(self):
-        """
-        Fetch the DayInstance
-
-        :returns: The fetched DayInstance
-        :rtype: twilio.rest.bulkexports.v1.export.day.DayInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return DayInstance(self._version, payload, resource_type=self._solution['resource_type'])
-    
     
     def stream(self, limit=None, page_size=None):
         """

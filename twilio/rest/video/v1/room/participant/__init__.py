@@ -48,34 +48,6 @@ class ParticipantList(ListResource):
         
         
     
-    def fetch(self):
-        """
-        Fetch the ParticipantInstance
-
-        :returns: The fetched ParticipantInstance
-        :rtype: twilio.rest.video.v1.room.participant.ParticipantInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return ParticipantInstance(self._version, payload, room_sid=self._solution['room_sid'])
-    
-    
-    def update(self, status=values.unset):
-        """
-        Update the ParticipantInstance
-
-        :param Status status: 
-        
-        :returns: The created ParticipantInstance
-        :rtype: twilio.rest.video.v1.room.participant.ParticipantInstance
-        """
-        data = values.of({ 
-            'Status': status,
-        })
-        
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return ParticipantInstance(self._version, payload, room_sid=self._solution['room_sid'])
     
     
     def stream(self, status=values.unset, identity=values.unset, date_created_after=values.unset, date_created_before=values.unset, limit=None, page_size=None):

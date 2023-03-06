@@ -46,17 +46,6 @@ class MessageInteractionList(ListResource):
         
         
     
-    def fetch(self):
-        """
-        Fetch the MessageInteractionInstance
-
-        :returns: The fetched MessageInteractionInstance
-        :rtype: twilio.rest.proxy.v1.service.session.participant.message_interaction.MessageInteractionInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return MessageInteractionInstance(self._version, payload, service_sid=self._solution['service_sid'], session_sid=self._solution['session_sid'], participant_sid=self._solution['participant_sid'])
-    
     
     def create(self, body=values.unset, media_url=values.unset):
         """

@@ -46,36 +46,6 @@ class InteractionChannelList(ListResource):
         
         
     
-    def fetch(self):
-        """
-        Fetch the InteractionChannelInstance
-
-        :returns: The fetched InteractionChannelInstance
-        :rtype: twilio.rest.flex_api.v1.interaction.interaction_channel.InteractionChannelInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return InteractionChannelInstance(self._version, payload, interaction_sid=self._solution['interaction_sid'])
-    
-    
-    def update(self, status, routing=values.unset):
-        """
-        Update the InteractionChannelInstance
-
-        :param Status status: 
-        :param object routing: Optional. The state of associated tasks. If not specified, all tasks will be set to `wrapping`.
-        
-        :returns: The created InteractionChannelInstance
-        :rtype: twilio.rest.flex_api.v1.interaction.interaction_channel.InteractionChannelInstance
-        """
-        data = values.of({ 
-            'Status': status,
-            'Routing': serialize.object(routing),
-        })
-        
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return InteractionChannelInstance(self._version, payload, interaction_sid=self._solution['interaction_sid'])
     
     
     def stream(self, limit=None, page_size=None):

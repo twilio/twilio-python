@@ -45,17 +45,6 @@ class NotificationList(ListResource):
         
         
     
-    def fetch(self):
-        """
-        Fetch the NotificationInstance
-
-        :returns: The fetched NotificationInstance
-        :rtype: twilio.rest.api.v2010.account.call.notification.NotificationInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return NotificationInstance(self._version, payload, account_sid=self._solution['account_sid'], call_sid=self._solution['call_sid'])
-    
     
     def stream(self, log=values.unset, message_date=values.unset, message_date_before=values.unset, message_date_after=values.unset, limit=None, page_size=None):
         """
