@@ -66,7 +66,7 @@ class ChallengeList(ListResource):
             'FactorSid': factor_sid,
             'ExpirationDate': serialize.iso8601_datetime(expiration_date),
             'Details.Message': details_message,
-            'Details.Fields': serialize.map(details_fields, lambda e: e),
+            'Details.Fields': serialize.map(details_fields, lambda e: serialize.object(e)),
             'HiddenDetails': serialize.object(hidden_details),
             'AuthPayload': auth_payload,
         })

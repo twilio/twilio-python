@@ -61,7 +61,7 @@ class SubscriptionList(ListResource):
         data = values.of({ 
             'Description': description,
             'SinkSid': sink_sid,
-            'Types': serialize.map(types, lambda e: e),
+            'Types': serialize.map(types, lambda e: serialize.object(e)),
         })
         
         payload = self._version.create(method='POST', uri=self._uri, data=data,)

@@ -69,7 +69,7 @@ class SessionList(ListResource):
             'Ttl': ttl,
             'Mode': mode,
             'Status': status,
-            'Participants': serialize.map(participants, lambda e: e),
+            'Participants': serialize.map(participants, lambda e: serialize.object(e)),
         })
         
         payload = self._version.create(method='POST', uri=self._uri, data=data,)
