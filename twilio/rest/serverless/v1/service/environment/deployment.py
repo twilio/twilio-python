@@ -222,59 +222,6 @@ class DeploymentPage(Page):
 
 
 
-class DeploymentContext(InstanceContext):
-
-    def __init__(self, version: Version, service_sid: str, environment_sid: str, sid: str):
-        """
-        Initialize the DeploymentContext
-
-        :param Version version: Version that contains the resource
-        :param service_sid: The SID of the Service to fetch the Deployment resource from.:param environment_sid: The SID of the Environment used by the Deployment to fetch.:param sid: The SID that identifies the Deployment resource to fetch.
-
-        :returns: twilio.rest.serverless.v1.service.environment.deployment.DeploymentContext
-        :rtype: twilio.rest.serverless.v1.service.environment.deployment.DeploymentContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'service_sid': service_sid,
-            'environment_sid': environment_sid,
-            'sid': sid,
-        }
-        self._uri = '/Services/{service_sid}/Environments/{environment_sid}/Deployments/{sid}'.format(**self._solution)
-        
-    
-    def fetch(self):
-        """
-        Fetch the DeploymentInstance
-        
-
-        :returns: The fetched DeploymentInstance
-        :rtype: twilio.rest.serverless.v1.service.environment.deployment.DeploymentInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return DeploymentInstance(
-            self._version,
-            payload,
-            service_sid=self._solution['service_sid'],
-            environment_sid=self._solution['environment_sid'],
-            sid=self._solution['sid'],
-            
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Serverless.V1.DeploymentContext {}>'.format(context)
-
 class DeploymentInstance(InstanceResource):
 
     def __init__(self, version, payload, service_sid: str, environment_sid: str, sid: str=None):
@@ -394,5 +341,58 @@ class DeploymentInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Serverless.V1.DeploymentInstance {}>'.format(context)
+
+class DeploymentContext(InstanceContext):
+
+    def __init__(self, version: Version, service_sid: str, environment_sid: str, sid: str):
+        """
+        Initialize the DeploymentContext
+
+        :param Version version: Version that contains the resource
+        :param service_sid: The SID of the Service to fetch the Deployment resource from.:param environment_sid: The SID of the Environment used by the Deployment to fetch.:param sid: The SID that identifies the Deployment resource to fetch.
+
+        :returns: twilio.rest.serverless.v1.service.environment.deployment.DeploymentContext
+        :rtype: twilio.rest.serverless.v1.service.environment.deployment.DeploymentContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'service_sid': service_sid,
+            'environment_sid': environment_sid,
+            'sid': sid,
+        }
+        self._uri = '/Services/{service_sid}/Environments/{environment_sid}/Deployments/{sid}'.format(**self._solution)
+        
+    
+    def fetch(self):
+        """
+        Fetch the DeploymentInstance
+        
+
+        :returns: The fetched DeploymentInstance
+        :rtype: twilio.rest.serverless.v1.service.environment.deployment.DeploymentInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return DeploymentInstance(
+            self._version,
+            payload,
+            service_sid=self._solution['service_sid'],
+            environment_sid=self._solution['environment_sid'],
+            sid=self._solution['sid'],
+            
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Serverless.V1.DeploymentContext {}>'.format(context)
 
 

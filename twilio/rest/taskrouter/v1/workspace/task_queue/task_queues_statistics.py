@@ -213,7 +213,6 @@ class TaskQueuesStatisticsPage(Page):
 
 
 
-
 class TaskQueuesStatisticsInstance(InstanceResource):
 
     def __init__(self, version, payload, workspace_sid: str):
@@ -284,5 +283,6 @@ class TaskQueuesStatisticsInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Taskrouter.V1.TaskQueuesStatisticsInstance {}>'.format(context)
+
 
 

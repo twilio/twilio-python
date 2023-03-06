@@ -204,80 +204,6 @@ class InstalledAddOnExtensionPage(Page):
 
 
 
-class InstalledAddOnExtensionContext(InstanceContext):
-
-    def __init__(self, version: Version, installed_add_on_sid: str, sid: str):
-        """
-        Initialize the InstalledAddOnExtensionContext
-
-        :param Version version: Version that contains the resource
-        :param installed_add_on_sid: The SID of the InstalledAddOn resource with the extension to update.:param sid: The SID of the InstalledAddOn Extension resource to update.
-
-        :returns: twilio.rest.preview.marketplace.installed_add_on.installed_add_on_extension.InstalledAddOnExtensionContext
-        :rtype: twilio.rest.preview.marketplace.installed_add_on.installed_add_on_extension.InstalledAddOnExtensionContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'installed_add_on_sid': installed_add_on_sid,
-            'sid': sid,
-        }
-        self._uri = '/InstalledAddOns/{installed_add_on_sid}/Extensions/{sid}'.format(**self._solution)
-        
-    
-    def fetch(self):
-        """
-        Fetch the InstalledAddOnExtensionInstance
-        
-
-        :returns: The fetched InstalledAddOnExtensionInstance
-        :rtype: twilio.rest.preview.marketplace.installed_add_on.installed_add_on_extension.InstalledAddOnExtensionInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return InstalledAddOnExtensionInstance(
-            self._version,
-            payload,
-            installed_add_on_sid=self._solution['installed_add_on_sid'],
-            sid=self._solution['sid'],
-            
-        )
-        
-    def update(self, enabled):
-        """
-        Update the InstalledAddOnExtensionInstance
-        
-        :params bool enabled: Whether the Extension should be invoked.
-
-        :returns: The updated InstalledAddOnExtensionInstance
-        :rtype: twilio.rest.preview.marketplace.installed_add_on.installed_add_on_extension.InstalledAddOnExtensionInstance
-        """
-        data = values.of({ 
-            'Enabled': enabled,
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return InstalledAddOnExtensionInstance(
-            self._version,
-            payload,
-            installed_add_on_sid=self._solution['installed_add_on_sid'],
-            sid=self._solution['sid']
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Preview.Marketplace.InstalledAddOnExtensionContext {}>'.format(context)
-
 class InstalledAddOnExtensionInstance(InstanceResource):
 
     def __init__(self, version, payload, installed_add_on_sid: str, sid: str=None):
@@ -399,5 +325,79 @@ class InstalledAddOnExtensionInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Preview.Marketplace.InstalledAddOnExtensionInstance {}>'.format(context)
+
+class InstalledAddOnExtensionContext(InstanceContext):
+
+    def __init__(self, version: Version, installed_add_on_sid: str, sid: str):
+        """
+        Initialize the InstalledAddOnExtensionContext
+
+        :param Version version: Version that contains the resource
+        :param installed_add_on_sid: The SID of the InstalledAddOn resource with the extension to update.:param sid: The SID of the InstalledAddOn Extension resource to update.
+
+        :returns: twilio.rest.preview.marketplace.installed_add_on.installed_add_on_extension.InstalledAddOnExtensionContext
+        :rtype: twilio.rest.preview.marketplace.installed_add_on.installed_add_on_extension.InstalledAddOnExtensionContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'installed_add_on_sid': installed_add_on_sid,
+            'sid': sid,
+        }
+        self._uri = '/InstalledAddOns/{installed_add_on_sid}/Extensions/{sid}'.format(**self._solution)
+        
+    
+    def fetch(self):
+        """
+        Fetch the InstalledAddOnExtensionInstance
+        
+
+        :returns: The fetched InstalledAddOnExtensionInstance
+        :rtype: twilio.rest.preview.marketplace.installed_add_on.installed_add_on_extension.InstalledAddOnExtensionInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return InstalledAddOnExtensionInstance(
+            self._version,
+            payload,
+            installed_add_on_sid=self._solution['installed_add_on_sid'],
+            sid=self._solution['sid'],
+            
+        )
+        
+    def update(self, enabled):
+        """
+        Update the InstalledAddOnExtensionInstance
+        
+        :params bool enabled: Whether the Extension should be invoked.
+
+        :returns: The updated InstalledAddOnExtensionInstance
+        :rtype: twilio.rest.preview.marketplace.installed_add_on.installed_add_on_extension.InstalledAddOnExtensionInstance
+        """
+        data = values.of({ 
+            'Enabled': enabled,
+        })
+        
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return InstalledAddOnExtensionInstance(
+            self._version,
+            payload,
+            installed_add_on_sid=self._solution['installed_add_on_sid'],
+            sid=self._solution['sid']
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Preview.Marketplace.InstalledAddOnExtensionContext {}>'.format(context)
 
 

@@ -100,83 +100,6 @@ class ConfigurationList(ListResource):
         """
         return '<Twilio.Conversations.V1.ConfigurationList>'
 
-class ConfigurationContext(InstanceContext):
-
-    def __init__(self, version: Version, chat_service_sid: str):
-        """
-        Initialize the ConfigurationContext
-
-        :param Version version: Version that contains the resource
-        :param chat_service_sid: The SID of the Service configuration resource to update.
-
-        :returns: twilio.rest.conversations.v1.service.configuration.ConfigurationContext
-        :rtype: twilio.rest.conversations.v1.service.configuration.ConfigurationContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'chat_service_sid': chat_service_sid,
-        }
-        self._uri = '/Services/{chat_service_sid}/Configuration'.format(**self._solution)
-        
-    
-    def fetch(self):
-        """
-        Fetch the ConfigurationInstance
-        
-
-        :returns: The fetched ConfigurationInstance
-        :rtype: twilio.rest.conversations.v1.service.configuration.ConfigurationInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return ConfigurationInstance(
-            self._version,
-            payload,
-            chat_service_sid=self._solution['chat_service_sid'],
-            
-        )
-        
-    def update(self, default_conversation_creator_role_sid=values.unset, default_conversation_role_sid=values.unset, default_chat_service_role_sid=values.unset, reachability_enabled=values.unset):
-        """
-        Update the ConfigurationInstance
-        
-        :params str default_conversation_creator_role_sid: The conversation-level role assigned to a conversation creator when they join a new conversation. See the [Conversation Role](https://www.twilio.com/docs/conversations/api/role-resource) for more info about roles.
-        :params str default_conversation_role_sid: The conversation-level role assigned to users when they are added to a conversation. See the [Conversation Role](https://www.twilio.com/docs/conversations/api/role-resource) for more info about roles.
-        :params str default_chat_service_role_sid: The service-level role assigned to users when they are added to the service. See the [Conversation Role](https://www.twilio.com/docs/conversations/api/role-resource) for more info about roles.
-        :params bool reachability_enabled: Whether the [Reachability Indicator](https://www.twilio.com/docs/chat/reachability-indicator) is enabled for this Conversations Service. The default is `false`.
-
-        :returns: The updated ConfigurationInstance
-        :rtype: twilio.rest.conversations.v1.service.configuration.ConfigurationInstance
-        """
-        data = values.of({ 
-            'DefaultConversationCreatorRoleSid': default_conversation_creator_role_sid,
-            'DefaultConversationRoleSid': default_conversation_role_sid,
-            'DefaultChatServiceRoleSid': default_chat_service_role_sid,
-            'ReachabilityEnabled': reachability_enabled,
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return ConfigurationInstance(
-            self._version,
-            payload,
-            chat_service_sid=self._solution['chat_service_sid']
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Conversations.V1.ConfigurationContext {}>'.format(context)
-
 class ConfigurationInstance(InstanceResource):
 
     def __init__(self, version, payload, chat_service_sid: str):
@@ -301,5 +224,82 @@ class ConfigurationInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Conversations.V1.ConfigurationInstance {}>'.format(context)
+
+class ConfigurationContext(InstanceContext):
+
+    def __init__(self, version: Version, chat_service_sid: str):
+        """
+        Initialize the ConfigurationContext
+
+        :param Version version: Version that contains the resource
+        :param chat_service_sid: The SID of the Service configuration resource to update.
+
+        :returns: twilio.rest.conversations.v1.service.configuration.ConfigurationContext
+        :rtype: twilio.rest.conversations.v1.service.configuration.ConfigurationContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'chat_service_sid': chat_service_sid,
+        }
+        self._uri = '/Services/{chat_service_sid}/Configuration'.format(**self._solution)
+        
+    
+    def fetch(self):
+        """
+        Fetch the ConfigurationInstance
+        
+
+        :returns: The fetched ConfigurationInstance
+        :rtype: twilio.rest.conversations.v1.service.configuration.ConfigurationInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return ConfigurationInstance(
+            self._version,
+            payload,
+            chat_service_sid=self._solution['chat_service_sid'],
+            
+        )
+        
+    def update(self, default_conversation_creator_role_sid=values.unset, default_conversation_role_sid=values.unset, default_chat_service_role_sid=values.unset, reachability_enabled=values.unset):
+        """
+        Update the ConfigurationInstance
+        
+        :params str default_conversation_creator_role_sid: The conversation-level role assigned to a conversation creator when they join a new conversation. See the [Conversation Role](https://www.twilio.com/docs/conversations/api/role-resource) for more info about roles.
+        :params str default_conversation_role_sid: The conversation-level role assigned to users when they are added to a conversation. See the [Conversation Role](https://www.twilio.com/docs/conversations/api/role-resource) for more info about roles.
+        :params str default_chat_service_role_sid: The service-level role assigned to users when they are added to the service. See the [Conversation Role](https://www.twilio.com/docs/conversations/api/role-resource) for more info about roles.
+        :params bool reachability_enabled: Whether the [Reachability Indicator](https://www.twilio.com/docs/chat/reachability-indicator) is enabled for this Conversations Service. The default is `false`.
+
+        :returns: The updated ConfigurationInstance
+        :rtype: twilio.rest.conversations.v1.service.configuration.ConfigurationInstance
+        """
+        data = values.of({ 
+            'DefaultConversationCreatorRoleSid': default_conversation_creator_role_sid,
+            'DefaultConversationRoleSid': default_conversation_role_sid,
+            'DefaultChatServiceRoleSid': default_chat_service_role_sid,
+            'ReachabilityEnabled': reachability_enabled,
+        })
+        
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return ConfigurationInstance(
+            self._version,
+            payload,
+            chat_service_sid=self._solution['chat_service_sid']
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Conversations.V1.ConfigurationContext {}>'.format(context)
 
 

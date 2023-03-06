@@ -216,67 +216,6 @@ class BindingPage(Page):
 
 
 
-class BindingContext(InstanceContext):
-
-    def __init__(self, version: Version, service_sid: str, sid: str):
-        """
-        Initialize the BindingContext
-
-        :param Version version: Version that contains the resource
-        :param service_sid: The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to fetch the Binding resource from.:param sid: The SID of the Binding resource to fetch.
-
-        :returns: twilio.rest.chat.v2.service.binding.BindingContext
-        :rtype: twilio.rest.chat.v2.service.binding.BindingContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'service_sid': service_sid,
-            'sid': sid,
-        }
-        self._uri = '/Services/{service_sid}/Bindings/{sid}'.format(**self._solution)
-        
-    
-    def delete(self):
-        """
-        Deletes the BindingInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(method='DELETE', uri=self._uri,)
-        
-    def fetch(self):
-        """
-        Fetch the BindingInstance
-        
-
-        :returns: The fetched BindingInstance
-        :rtype: twilio.rest.chat.v2.service.binding.BindingInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return BindingInstance(
-            self._version,
-            payload,
-            service_sid=self._solution['service_sid'],
-            sid=self._solution['sid'],
-            
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Chat.V2.BindingContext {}>'.format(context)
-
 class BindingInstance(InstanceResource):
 
     class BindingType(object):
@@ -447,5 +386,66 @@ class BindingInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Chat.V2.BindingInstance {}>'.format(context)
+
+class BindingContext(InstanceContext):
+
+    def __init__(self, version: Version, service_sid: str, sid: str):
+        """
+        Initialize the BindingContext
+
+        :param Version version: Version that contains the resource
+        :param service_sid: The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to fetch the Binding resource from.:param sid: The SID of the Binding resource to fetch.
+
+        :returns: twilio.rest.chat.v2.service.binding.BindingContext
+        :rtype: twilio.rest.chat.v2.service.binding.BindingContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'service_sid': service_sid,
+            'sid': sid,
+        }
+        self._uri = '/Services/{service_sid}/Bindings/{sid}'.format(**self._solution)
+        
+    
+    def delete(self):
+        """
+        Deletes the BindingInstance
+
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(method='DELETE', uri=self._uri,)
+        
+    def fetch(self):
+        """
+        Fetch the BindingInstance
+        
+
+        :returns: The fetched BindingInstance
+        :rtype: twilio.rest.chat.v2.service.binding.BindingInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return BindingInstance(
+            self._version,
+            payload,
+            service_sid=self._solution['service_sid'],
+            sid=self._solution['sid'],
+            
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Chat.V2.BindingContext {}>'.format(context)
 
 

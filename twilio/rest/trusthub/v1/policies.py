@@ -200,55 +200,6 @@ class PoliciesPage(Page):
 
 
 
-class PoliciesContext(InstanceContext):
-
-    def __init__(self, version: Version, sid: str):
-        """
-        Initialize the PoliciesContext
-
-        :param Version version: Version that contains the resource
-        :param sid: The unique string that identifies the Policy resource.
-
-        :returns: twilio.rest.trusthub.v1.policies.PoliciesContext
-        :rtype: twilio.rest.trusthub.v1.policies.PoliciesContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'sid': sid,
-        }
-        self._uri = '/Policies/{sid}'.format(**self._solution)
-        
-    
-    def fetch(self):
-        """
-        Fetch the PoliciesInstance
-        
-
-        :returns: The fetched PoliciesInstance
-        :rtype: twilio.rest.trusthub.v1.policies.PoliciesInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return PoliciesInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid'],
-            
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Trusthub.V1.PoliciesContext {}>'.format(context)
-
 class PoliciesInstance(InstanceResource):
 
     def __init__(self, version, payload, sid: str=None):
@@ -332,5 +283,54 @@ class PoliciesInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Trusthub.V1.PoliciesInstance {}>'.format(context)
+
+class PoliciesContext(InstanceContext):
+
+    def __init__(self, version: Version, sid: str):
+        """
+        Initialize the PoliciesContext
+
+        :param Version version: Version that contains the resource
+        :param sid: The unique string that identifies the Policy resource.
+
+        :returns: twilio.rest.trusthub.v1.policies.PoliciesContext
+        :rtype: twilio.rest.trusthub.v1.policies.PoliciesContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'sid': sid,
+        }
+        self._uri = '/Policies/{sid}'.format(**self._solution)
+        
+    
+    def fetch(self):
+        """
+        Fetch the PoliciesInstance
+        
+
+        :returns: The fetched PoliciesInstance
+        :rtype: twilio.rest.trusthub.v1.policies.PoliciesInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return PoliciesInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid'],
+            
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Trusthub.V1.PoliciesContext {}>'.format(context)
 
 

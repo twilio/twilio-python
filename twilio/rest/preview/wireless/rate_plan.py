@@ -244,89 +244,6 @@ class RatePlanPage(Page):
 
 
 
-class RatePlanContext(InstanceContext):
-
-    def __init__(self, version: Version, sid: str):
-        """
-        Initialize the RatePlanContext
-
-        :param Version version: Version that contains the resource
-        :param sid: 
-
-        :returns: twilio.rest.preview.wireless.rate_plan.RatePlanContext
-        :rtype: twilio.rest.preview.wireless.rate_plan.RatePlanContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'sid': sid,
-        }
-        self._uri = '/RatePlans/{sid}'.format(**self._solution)
-        
-    
-    def delete(self):
-        """
-        Deletes the RatePlanInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(method='DELETE', uri=self._uri,)
-        
-    def fetch(self):
-        """
-        Fetch the RatePlanInstance
-        
-
-        :returns: The fetched RatePlanInstance
-        :rtype: twilio.rest.preview.wireless.rate_plan.RatePlanInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return RatePlanInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid'],
-            
-        )
-        
-    def update(self, unique_name=values.unset, friendly_name=values.unset):
-        """
-        Update the RatePlanInstance
-        
-        :params str unique_name: 
-        :params str friendly_name: 
-
-        :returns: The updated RatePlanInstance
-        :rtype: twilio.rest.preview.wireless.rate_plan.RatePlanInstance
-        """
-        data = values.of({ 
-            'UniqueName': unique_name,
-            'FriendlyName': friendly_name,
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return RatePlanInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid']
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Preview.Wireless.RatePlanContext {}>'.format(context)
-
 class RatePlanInstance(InstanceResource):
 
     def __init__(self, version, payload, sid: str=None):
@@ -522,5 +439,88 @@ class RatePlanInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Preview.Wireless.RatePlanInstance {}>'.format(context)
+
+class RatePlanContext(InstanceContext):
+
+    def __init__(self, version: Version, sid: str):
+        """
+        Initialize the RatePlanContext
+
+        :param Version version: Version that contains the resource
+        :param sid: 
+
+        :returns: twilio.rest.preview.wireless.rate_plan.RatePlanContext
+        :rtype: twilio.rest.preview.wireless.rate_plan.RatePlanContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'sid': sid,
+        }
+        self._uri = '/RatePlans/{sid}'.format(**self._solution)
+        
+    
+    def delete(self):
+        """
+        Deletes the RatePlanInstance
+
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(method='DELETE', uri=self._uri,)
+        
+    def fetch(self):
+        """
+        Fetch the RatePlanInstance
+        
+
+        :returns: The fetched RatePlanInstance
+        :rtype: twilio.rest.preview.wireless.rate_plan.RatePlanInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return RatePlanInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid'],
+            
+        )
+        
+    def update(self, unique_name=values.unset, friendly_name=values.unset):
+        """
+        Update the RatePlanInstance
+        
+        :params str unique_name: 
+        :params str friendly_name: 
+
+        :returns: The updated RatePlanInstance
+        :rtype: twilio.rest.preview.wireless.rate_plan.RatePlanInstance
+        """
+        data = values.of({ 
+            'UniqueName': unique_name,
+            'FriendlyName': friendly_name,
+        })
+        
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return RatePlanInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid']
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Preview.Wireless.RatePlanContext {}>'.format(context)
 
 

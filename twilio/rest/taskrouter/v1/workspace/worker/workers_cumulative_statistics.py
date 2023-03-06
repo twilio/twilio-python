@@ -71,66 +71,6 @@ class WorkersCumulativeStatisticsList(ListResource):
         """
         return '<Twilio.Taskrouter.V1.WorkersCumulativeStatisticsList>'
 
-class WorkersCumulativeStatisticsContext(InstanceContext):
-
-    def __init__(self, version: Version, workspace_sid: str):
-        """
-        Initialize the WorkersCumulativeStatisticsContext
-
-        :param Version version: Version that contains the resource
-        :param workspace_sid: The SID of the Workspace with the resource to fetch.
-
-        :returns: twilio.rest.taskrouter.v1.workspace.worker.workers_cumulative_statistics.WorkersCumulativeStatisticsContext
-        :rtype: twilio.rest.taskrouter.v1.workspace.worker.workers_cumulative_statistics.WorkersCumulativeStatisticsContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'workspace_sid': workspace_sid,
-        }
-        self._uri = '/Workspaces/{workspace_sid}/Workers/CumulativeStatistics'.format(**self._solution)
-        
-    
-    def fetch(self, end_date=values.unset, minutes=values.unset, start_date=values.unset, task_channel=values.unset):
-        """
-        Fetch the WorkersCumulativeStatisticsInstance
-        
-        :params datetime end_date: Only calculate statistics from this date and time and earlier, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :params int minutes: Only calculate statistics since this many minutes in the past. The default 15 minutes. This is helpful for displaying statistics for the last 15 minutes, 240 minutes (4 hours), and 480 minutes (8 hours) to see trends.
-        :params datetime start_date: Only calculate statistics from this date and time and later, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-        :params str task_channel: Only calculate cumulative statistics on this TaskChannel. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
-
-        :returns: The fetched WorkersCumulativeStatisticsInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.worker.workers_cumulative_statistics.WorkersCumulativeStatisticsInstance
-        """
-        
-        data = values.of({ 
-            'EndDate': serialize.iso8601_datetime(end_date),
-            'Minutes': minutes,
-            'StartDate': serialize.iso8601_datetime(start_date),
-            'TaskChannel': task_channel,
-        })
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, params=data)
-
-        return WorkersCumulativeStatisticsInstance(
-            self._version,
-            payload,
-            workspace_sid=self._solution['workspace_sid'],
-            
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Taskrouter.V1.WorkersCumulativeStatisticsContext {}>'.format(context)
-
 class WorkersCumulativeStatisticsInstance(InstanceResource):
 
     def __init__(self, version, payload, workspace_sid: str):
@@ -290,5 +230,65 @@ class WorkersCumulativeStatisticsInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Taskrouter.V1.WorkersCumulativeStatisticsInstance {}>'.format(context)
+
+class WorkersCumulativeStatisticsContext(InstanceContext):
+
+    def __init__(self, version: Version, workspace_sid: str):
+        """
+        Initialize the WorkersCumulativeStatisticsContext
+
+        :param Version version: Version that contains the resource
+        :param workspace_sid: The SID of the Workspace with the resource to fetch.
+
+        :returns: twilio.rest.taskrouter.v1.workspace.worker.workers_cumulative_statistics.WorkersCumulativeStatisticsContext
+        :rtype: twilio.rest.taskrouter.v1.workspace.worker.workers_cumulative_statistics.WorkersCumulativeStatisticsContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'workspace_sid': workspace_sid,
+        }
+        self._uri = '/Workspaces/{workspace_sid}/Workers/CumulativeStatistics'.format(**self._solution)
+        
+    
+    def fetch(self, end_date=values.unset, minutes=values.unset, start_date=values.unset, task_channel=values.unset):
+        """
+        Fetch the WorkersCumulativeStatisticsInstance
+        
+        :params datetime end_date: Only calculate statistics from this date and time and earlier, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+        :params int minutes: Only calculate statistics since this many minutes in the past. The default 15 minutes. This is helpful for displaying statistics for the last 15 minutes, 240 minutes (4 hours), and 480 minutes (8 hours) to see trends.
+        :params datetime start_date: Only calculate statistics from this date and time and later, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+        :params str task_channel: Only calculate cumulative statistics on this TaskChannel. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
+
+        :returns: The fetched WorkersCumulativeStatisticsInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.worker.workers_cumulative_statistics.WorkersCumulativeStatisticsInstance
+        """
+        
+        data = values.of({ 
+            'EndDate': serialize.iso8601_datetime(end_date),
+            'Minutes': minutes,
+            'StartDate': serialize.iso8601_datetime(start_date),
+            'TaskChannel': task_channel,
+        })
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, params=data)
+
+        return WorkersCumulativeStatisticsInstance(
+            self._version,
+            payload,
+            workspace_sid=self._solution['workspace_sid'],
+            
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Taskrouter.V1.WorkersCumulativeStatisticsContext {}>'.format(context)
 
 

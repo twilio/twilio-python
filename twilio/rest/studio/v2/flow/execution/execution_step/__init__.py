@@ -203,73 +203,6 @@ class ExecutionStepPage(Page):
 
 
 
-class ExecutionStepContext(InstanceContext):
-
-    def __init__(self, version: Version, flow_sid: str, execution_sid: str, sid: str):
-        """
-        Initialize the ExecutionStepContext
-
-        :param Version version: Version that contains the resource
-        :param flow_sid: The SID of the Flow with the Step to fetch.:param execution_sid: The SID of the Execution resource with the Step to fetch.:param sid: The SID of the ExecutionStep resource to fetch.
-
-        :returns: twilio.rest.studio.v2.flow.execution.execution_step.ExecutionStepContext
-        :rtype: twilio.rest.studio.v2.flow.execution.execution_step.ExecutionStepContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'flow_sid': flow_sid,
-            'execution_sid': execution_sid,
-            'sid': sid,
-        }
-        self._uri = '/Flows/{flow_sid}/Executions/{execution_sid}/Steps/{sid}'.format(**self._solution)
-        
-        self._step_context = None
-    
-    def fetch(self):
-        """
-        Fetch the ExecutionStepInstance
-        
-
-        :returns: The fetched ExecutionStepInstance
-        :rtype: twilio.rest.studio.v2.flow.execution.execution_step.ExecutionStepInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return ExecutionStepInstance(
-            self._version,
-            payload,
-            flow_sid=self._solution['flow_sid'],
-            execution_sid=self._solution['execution_sid'],
-            sid=self._solution['sid'],
-            
-        )
-        
-    
-    @property
-    def step_context(self):
-        """
-        Access the step_context
-
-        :returns: twilio.rest.studio.v2.flow.execution.execution_step.ExecutionStepContextList
-        :rtype: twilio.rest.studio.v2.flow.execution.execution_step.ExecutionStepContextList
-        """
-        if self._step_context is None:
-            self._step_context = ExecutionStepContextList(self._version, self._solution['flow_sid'], self._solution['execution_sid'], self._solution['sid'],
-            )
-        return self._step_context
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Studio.V2.ExecutionStepContext {}>'.format(context)
-
 class ExecutionStepInstance(InstanceResource):
 
     def __init__(self, version, payload, flow_sid: str, execution_sid: str, sid: str=None):
@@ -435,5 +368,72 @@ class ExecutionStepInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Studio.V2.ExecutionStepInstance {}>'.format(context)
+
+class ExecutionStepContext(InstanceContext):
+
+    def __init__(self, version: Version, flow_sid: str, execution_sid: str, sid: str):
+        """
+        Initialize the ExecutionStepContext
+
+        :param Version version: Version that contains the resource
+        :param flow_sid: The SID of the Flow with the Step to fetch.:param execution_sid: The SID of the Execution resource with the Step to fetch.:param sid: The SID of the ExecutionStep resource to fetch.
+
+        :returns: twilio.rest.studio.v2.flow.execution.execution_step.ExecutionStepContext
+        :rtype: twilio.rest.studio.v2.flow.execution.execution_step.ExecutionStepContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'flow_sid': flow_sid,
+            'execution_sid': execution_sid,
+            'sid': sid,
+        }
+        self._uri = '/Flows/{flow_sid}/Executions/{execution_sid}/Steps/{sid}'.format(**self._solution)
+        
+        self._step_context = None
+    
+    def fetch(self):
+        """
+        Fetch the ExecutionStepInstance
+        
+
+        :returns: The fetched ExecutionStepInstance
+        :rtype: twilio.rest.studio.v2.flow.execution.execution_step.ExecutionStepInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return ExecutionStepInstance(
+            self._version,
+            payload,
+            flow_sid=self._solution['flow_sid'],
+            execution_sid=self._solution['execution_sid'],
+            sid=self._solution['sid'],
+            
+        )
+        
+    
+    @property
+    def step_context(self):
+        """
+        Access the step_context
+
+        :returns: twilio.rest.studio.v2.flow.execution.execution_step.ExecutionStepContextList
+        :rtype: twilio.rest.studio.v2.flow.execution.execution_step.ExecutionStepContextList
+        """
+        if self._step_context is None:
+            self._step_context = ExecutionStepContextList(self._version, self._solution['flow_sid'], self._solution['execution_sid'], self._solution['sid'],
+            )
+        return self._step_context
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Studio.V2.ExecutionStepContext {}>'.format(context)
 
 

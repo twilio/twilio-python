@@ -254,112 +254,6 @@ class ConferencePage(Page):
 
 
 
-class ConferenceContext(InstanceContext):
-
-    def __init__(self, version: Version, account_sid: str, sid: str):
-        """
-        Initialize the ConferenceContext
-
-        :param Version version: Version that contains the resource
-        :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Conference resource(s) to update.:param sid: The Twilio-provided string that uniquely identifies the Conference resource to update
-
-        :returns: twilio.rest.api.v2010.account.conference.ConferenceContext
-        :rtype: twilio.rest.api.v2010.account.conference.ConferenceContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'account_sid': account_sid,
-            'sid': sid,
-        }
-        self._uri = '/Accounts/{account_sid}/Conferences/{sid}.json'.format(**self._solution)
-        
-        self._participants = None
-        self._recordings = None
-    
-    def fetch(self):
-        """
-        Fetch the ConferenceInstance
-        
-
-        :returns: The fetched ConferenceInstance
-        :rtype: twilio.rest.api.v2010.account.conference.ConferenceInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return ConferenceInstance(
-            self._version,
-            payload,
-            account_sid=self._solution['account_sid'],
-            sid=self._solution['sid'],
-            
-        )
-        
-    def update(self, status=values.unset, announce_url=values.unset, announce_method=values.unset):
-        """
-        Update the ConferenceInstance
-        
-        :params UpdateStatus status: 
-        :params str announce_url: The URL we should call to announce something into the conference. The URL may return an MP3 file, a WAV file, or a TwiML document that contains `<Play>`, `<Say>`, `<Pause>`, or `<Redirect>` verbs.
-        :params str announce_method: The HTTP method used to call `announce_url`. Can be: `GET` or `POST` and the default is `POST`
-
-        :returns: The updated ConferenceInstance
-        :rtype: twilio.rest.api.v2010.account.conference.ConferenceInstance
-        """
-        data = values.of({ 
-            'Status': status,
-            'AnnounceUrl': announce_url,
-            'AnnounceMethod': announce_method,
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return ConferenceInstance(
-            self._version,
-            payload,
-            account_sid=self._solution['account_sid'],
-            sid=self._solution['sid']
-        )
-        
-    
-    @property
-    def participants(self):
-        """
-        Access the participants
-
-        :returns: twilio.rest.api.v2010.account.conference.ParticipantList
-        :rtype: twilio.rest.api.v2010.account.conference.ParticipantList
-        """
-        if self._participants is None:
-            self._participants = ParticipantList(self._version, self._solution['account_sid'], self._solution['sid'],
-            )
-        return self._participants
-    
-    @property
-    def recordings(self):
-        """
-        Access the recordings
-
-        :returns: twilio.rest.api.v2010.account.conference.RecordingList
-        :rtype: twilio.rest.api.v2010.account.conference.RecordingList
-        """
-        if self._recordings is None:
-            self._recordings = RecordingList(self._version, self._solution['account_sid'], self._solution['sid'],
-            )
-        return self._recordings
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Api.V2010.ConferenceContext {}>'.format(context)
-
 class ConferenceInstance(InstanceResource):
 
     class ReasonConferenceEnded(object):
@@ -560,5 +454,111 @@ class ConferenceInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Api.V2010.ConferenceInstance {}>'.format(context)
+
+class ConferenceContext(InstanceContext):
+
+    def __init__(self, version: Version, account_sid: str, sid: str):
+        """
+        Initialize the ConferenceContext
+
+        :param Version version: Version that contains the resource
+        :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Conference resource(s) to update.:param sid: The Twilio-provided string that uniquely identifies the Conference resource to update
+
+        :returns: twilio.rest.api.v2010.account.conference.ConferenceContext
+        :rtype: twilio.rest.api.v2010.account.conference.ConferenceContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'account_sid': account_sid,
+            'sid': sid,
+        }
+        self._uri = '/Accounts/{account_sid}/Conferences/{sid}.json'.format(**self._solution)
+        
+        self._participants = None
+        self._recordings = None
+    
+    def fetch(self):
+        """
+        Fetch the ConferenceInstance
+        
+
+        :returns: The fetched ConferenceInstance
+        :rtype: twilio.rest.api.v2010.account.conference.ConferenceInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return ConferenceInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+            sid=self._solution['sid'],
+            
+        )
+        
+    def update(self, status=values.unset, announce_url=values.unset, announce_method=values.unset):
+        """
+        Update the ConferenceInstance
+        
+        :params UpdateStatus status: 
+        :params str announce_url: The URL we should call to announce something into the conference. The URL may return an MP3 file, a WAV file, or a TwiML document that contains `<Play>`, `<Say>`, `<Pause>`, or `<Redirect>` verbs.
+        :params str announce_method: The HTTP method used to call `announce_url`. Can be: `GET` or `POST` and the default is `POST`
+
+        :returns: The updated ConferenceInstance
+        :rtype: twilio.rest.api.v2010.account.conference.ConferenceInstance
+        """
+        data = values.of({ 
+            'Status': status,
+            'AnnounceUrl': announce_url,
+            'AnnounceMethod': announce_method,
+        })
+        
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return ConferenceInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+            sid=self._solution['sid']
+        )
+        
+    
+    @property
+    def participants(self):
+        """
+        Access the participants
+
+        :returns: twilio.rest.api.v2010.account.conference.ParticipantList
+        :rtype: twilio.rest.api.v2010.account.conference.ParticipantList
+        """
+        if self._participants is None:
+            self._participants = ParticipantList(self._version, self._solution['account_sid'], self._solution['sid'],
+            )
+        return self._participants
+    
+    @property
+    def recordings(self):
+        """
+        Access the recordings
+
+        :returns: twilio.rest.api.v2010.account.conference.RecordingList
+        :rtype: twilio.rest.api.v2010.account.conference.RecordingList
+        """
+        if self._recordings is None:
+            self._recordings = RecordingList(self._version, self._solution['account_sid'], self._solution['sid'],
+            )
+        return self._recordings
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Api.V2010.ConferenceContext {}>'.format(context)
 
 

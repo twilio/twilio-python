@@ -233,103 +233,6 @@ class InstalledAddOnPage(Page):
 
 
 
-class InstalledAddOnContext(InstanceContext):
-
-    def __init__(self, version: Version, sid: str):
-        """
-        Initialize the InstalledAddOnContext
-
-        :param Version version: Version that contains the resource
-        :param sid: The SID of the InstalledAddOn resource to update.
-
-        :returns: twilio.rest.preview.marketplace.installed_add_on.InstalledAddOnContext
-        :rtype: twilio.rest.preview.marketplace.installed_add_on.InstalledAddOnContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'sid': sid,
-        }
-        self._uri = '/InstalledAddOns/{sid}'.format(**self._solution)
-        
-        self._extensions = None
-    
-    def delete(self):
-        """
-        Deletes the InstalledAddOnInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(method='DELETE', uri=self._uri,)
-        
-    def fetch(self):
-        """
-        Fetch the InstalledAddOnInstance
-        
-
-        :returns: The fetched InstalledAddOnInstance
-        :rtype: twilio.rest.preview.marketplace.installed_add_on.InstalledAddOnInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return InstalledAddOnInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid'],
-            
-        )
-        
-    def update(self, configuration=values.unset, unique_name=values.unset):
-        """
-        Update the InstalledAddOnInstance
-        
-        :params object configuration: Valid JSON object that conform to the configuration schema exposed by the associated AvailableAddOn resource. This is only required by Add-ons that need to be configured
-        :params str unique_name: An application-defined string that uniquely identifies the resource. This value must be unique within the Account.
-
-        :returns: The updated InstalledAddOnInstance
-        :rtype: twilio.rest.preview.marketplace.installed_add_on.InstalledAddOnInstance
-        """
-        data = values.of({ 
-            'Configuration': serialize.object(configuration),
-            'UniqueName': unique_name,
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return InstalledAddOnInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid']
-        )
-        
-    
-    @property
-    def extensions(self):
-        """
-        Access the extensions
-
-        :returns: twilio.rest.preview.marketplace.installed_add_on.InstalledAddOnExtensionList
-        :rtype: twilio.rest.preview.marketplace.installed_add_on.InstalledAddOnExtensionList
-        """
-        if self._extensions is None:
-            self._extensions = InstalledAddOnExtensionList(self._version, self._solution['sid'],
-            )
-        return self._extensions
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Preview.Marketplace.InstalledAddOnContext {}>'.format(context)
-
 class InstalledAddOnInstance(InstanceResource):
 
     def __init__(self, version, payload, sid: str=None):
@@ -499,5 +402,102 @@ class InstalledAddOnInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Preview.Marketplace.InstalledAddOnInstance {}>'.format(context)
+
+class InstalledAddOnContext(InstanceContext):
+
+    def __init__(self, version: Version, sid: str):
+        """
+        Initialize the InstalledAddOnContext
+
+        :param Version version: Version that contains the resource
+        :param sid: The SID of the InstalledAddOn resource to update.
+
+        :returns: twilio.rest.preview.marketplace.installed_add_on.InstalledAddOnContext
+        :rtype: twilio.rest.preview.marketplace.installed_add_on.InstalledAddOnContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'sid': sid,
+        }
+        self._uri = '/InstalledAddOns/{sid}'.format(**self._solution)
+        
+        self._extensions = None
+    
+    def delete(self):
+        """
+        Deletes the InstalledAddOnInstance
+
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(method='DELETE', uri=self._uri,)
+        
+    def fetch(self):
+        """
+        Fetch the InstalledAddOnInstance
+        
+
+        :returns: The fetched InstalledAddOnInstance
+        :rtype: twilio.rest.preview.marketplace.installed_add_on.InstalledAddOnInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return InstalledAddOnInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid'],
+            
+        )
+        
+    def update(self, configuration=values.unset, unique_name=values.unset):
+        """
+        Update the InstalledAddOnInstance
+        
+        :params object configuration: Valid JSON object that conform to the configuration schema exposed by the associated AvailableAddOn resource. This is only required by Add-ons that need to be configured
+        :params str unique_name: An application-defined string that uniquely identifies the resource. This value must be unique within the Account.
+
+        :returns: The updated InstalledAddOnInstance
+        :rtype: twilio.rest.preview.marketplace.installed_add_on.InstalledAddOnInstance
+        """
+        data = values.of({ 
+            'Configuration': serialize.object(configuration),
+            'UniqueName': unique_name,
+        })
+        
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return InstalledAddOnInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid']
+        )
+        
+    
+    @property
+    def extensions(self):
+        """
+        Access the extensions
+
+        :returns: twilio.rest.preview.marketplace.installed_add_on.InstalledAddOnExtensionList
+        :rtype: twilio.rest.preview.marketplace.installed_add_on.InstalledAddOnExtensionList
+        """
+        if self._extensions is None:
+            self._extensions = InstalledAddOnExtensionList(self._version, self._solution['sid'],
+            )
+        return self._extensions
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Preview.Marketplace.InstalledAddOnContext {}>'.format(context)
 
 

@@ -229,92 +229,6 @@ class DeploymentPage(Page):
 
 
 
-class DeploymentContext(InstanceContext):
-
-    def __init__(self, version: Version, fleet_sid: str, sid: str):
-        """
-        Initialize the DeploymentContext
-
-        :param Version version: Version that contains the resource
-        :param fleet_sid: :param sid: Provides a 34 character string that uniquely identifies the requested Deployment resource.
-
-        :returns: twilio.rest.preview.deployed_devices.fleet.deployment.DeploymentContext
-        :rtype: twilio.rest.preview.deployed_devices.fleet.deployment.DeploymentContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'fleet_sid': fleet_sid,
-            'sid': sid,
-        }
-        self._uri = '/Fleets/{fleet_sid}/Deployments/{sid}'.format(**self._solution)
-        
-    
-    def delete(self):
-        """
-        Deletes the DeploymentInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(method='DELETE', uri=self._uri,)
-        
-    def fetch(self):
-        """
-        Fetch the DeploymentInstance
-        
-
-        :returns: The fetched DeploymentInstance
-        :rtype: twilio.rest.preview.deployed_devices.fleet.deployment.DeploymentInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return DeploymentInstance(
-            self._version,
-            payload,
-            fleet_sid=self._solution['fleet_sid'],
-            sid=self._solution['sid'],
-            
-        )
-        
-    def update(self, friendly_name=values.unset, sync_service_sid=values.unset):
-        """
-        Update the DeploymentInstance
-        
-        :params str friendly_name: Provides a human readable descriptive text for this Deployment, up to 64 characters long
-        :params str sync_service_sid: Provides the unique string identifier of the Twilio Sync service instance that will be linked to and accessible by this Deployment.
-
-        :returns: The updated DeploymentInstance
-        :rtype: twilio.rest.preview.deployed_devices.fleet.deployment.DeploymentInstance
-        """
-        data = values.of({ 
-            'FriendlyName': friendly_name,
-            'SyncServiceSid': sync_service_sid,
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return DeploymentInstance(
-            self._version,
-            payload,
-            fleet_sid=self._solution['fleet_sid'],
-            sid=self._solution['sid']
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Preview.DeployedDevices.DeploymentContext {}>'.format(context)
-
 class DeploymentInstance(InstanceResource):
 
     def __init__(self, version, payload, fleet_sid: str, sid: str=None):
@@ -456,5 +370,91 @@ class DeploymentInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Preview.DeployedDevices.DeploymentInstance {}>'.format(context)
+
+class DeploymentContext(InstanceContext):
+
+    def __init__(self, version: Version, fleet_sid: str, sid: str):
+        """
+        Initialize the DeploymentContext
+
+        :param Version version: Version that contains the resource
+        :param fleet_sid: :param sid: Provides a 34 character string that uniquely identifies the requested Deployment resource.
+
+        :returns: twilio.rest.preview.deployed_devices.fleet.deployment.DeploymentContext
+        :rtype: twilio.rest.preview.deployed_devices.fleet.deployment.DeploymentContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'fleet_sid': fleet_sid,
+            'sid': sid,
+        }
+        self._uri = '/Fleets/{fleet_sid}/Deployments/{sid}'.format(**self._solution)
+        
+    
+    def delete(self):
+        """
+        Deletes the DeploymentInstance
+
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(method='DELETE', uri=self._uri,)
+        
+    def fetch(self):
+        """
+        Fetch the DeploymentInstance
+        
+
+        :returns: The fetched DeploymentInstance
+        :rtype: twilio.rest.preview.deployed_devices.fleet.deployment.DeploymentInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return DeploymentInstance(
+            self._version,
+            payload,
+            fleet_sid=self._solution['fleet_sid'],
+            sid=self._solution['sid'],
+            
+        )
+        
+    def update(self, friendly_name=values.unset, sync_service_sid=values.unset):
+        """
+        Update the DeploymentInstance
+        
+        :params str friendly_name: Provides a human readable descriptive text for this Deployment, up to 64 characters long
+        :params str sync_service_sid: Provides the unique string identifier of the Twilio Sync service instance that will be linked to and accessible by this Deployment.
+
+        :returns: The updated DeploymentInstance
+        :rtype: twilio.rest.preview.deployed_devices.fleet.deployment.DeploymentInstance
+        """
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+            'SyncServiceSid': sync_service_sid,
+        })
+        
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return DeploymentInstance(
+            self._version,
+            payload,
+            fleet_sid=self._solution['fleet_sid'],
+            sid=self._solution['sid']
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Preview.DeployedDevices.DeploymentContext {}>'.format(context)
 
 

@@ -55,7 +55,6 @@ class RecordingRulesList(ListResource):
         """
         return '<Twilio.Video.V1.RecordingRulesList>'
 
-
 class RecordingRulesInstance(InstanceResource):
 
     def __init__(self, version, payload, room_sid: str):
@@ -117,5 +116,6 @@ class RecordingRulesInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Video.V1.RecordingRulesInstance {}>'.format(context)
+
 
 

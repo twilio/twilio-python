@@ -208,155 +208,6 @@ class AvailablePhoneNumberCountryPage(Page):
 
 
 
-class AvailablePhoneNumberCountryContext(InstanceContext):
-
-    def __init__(self, version: Version, account_sid: str, country_code: str):
-        """
-        Initialize the AvailablePhoneNumberCountryContext
-
-        :param Version version: Version that contains the resource
-        :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) requesting the available phone number Country resource.:param country_code: The [ISO-3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code of the country to fetch available phone number information about.
-
-        :returns: twilio.rest.api.v2010.account.available_phone_number_country.AvailablePhoneNumberCountryContext
-        :rtype: twilio.rest.api.v2010.account.available_phone_number_country.AvailablePhoneNumberCountryContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'account_sid': account_sid,
-            'country_code': country_code,
-        }
-        self._uri = '/Accounts/{account_sid}/AvailablePhoneNumbers/{country_code}.json'.format(**self._solution)
-        
-        self._local = None
-        self._machine_to_machine = None
-        self._mobile = None
-        self._national = None
-        self._shared_cost = None
-        self._toll_free = None
-        self._voip = None
-    
-    def fetch(self):
-        """
-        Fetch the AvailablePhoneNumberCountryInstance
-        
-
-        :returns: The fetched AvailablePhoneNumberCountryInstance
-        :rtype: twilio.rest.api.v2010.account.available_phone_number_country.AvailablePhoneNumberCountryInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return AvailablePhoneNumberCountryInstance(
-            self._version,
-            payload,
-            account_sid=self._solution['account_sid'],
-            country_code=self._solution['country_code'],
-            
-        )
-        
-    
-    @property
-    def local(self):
-        """
-        Access the local
-
-        :returns: twilio.rest.api.v2010.account.available_phone_number_country.LocalList
-        :rtype: twilio.rest.api.v2010.account.available_phone_number_country.LocalList
-        """
-        if self._local is None:
-            self._local = LocalList(self._version, self._solution['account_sid'], self._solution['country_code'],
-            )
-        return self._local
-    
-    @property
-    def machine_to_machine(self):
-        """
-        Access the machine_to_machine
-
-        :returns: twilio.rest.api.v2010.account.available_phone_number_country.MachineToMachineList
-        :rtype: twilio.rest.api.v2010.account.available_phone_number_country.MachineToMachineList
-        """
-        if self._machine_to_machine is None:
-            self._machine_to_machine = MachineToMachineList(self._version, self._solution['account_sid'], self._solution['country_code'],
-            )
-        return self._machine_to_machine
-    
-    @property
-    def mobile(self):
-        """
-        Access the mobile
-
-        :returns: twilio.rest.api.v2010.account.available_phone_number_country.MobileList
-        :rtype: twilio.rest.api.v2010.account.available_phone_number_country.MobileList
-        """
-        if self._mobile is None:
-            self._mobile = MobileList(self._version, self._solution['account_sid'], self._solution['country_code'],
-            )
-        return self._mobile
-    
-    @property
-    def national(self):
-        """
-        Access the national
-
-        :returns: twilio.rest.api.v2010.account.available_phone_number_country.NationalList
-        :rtype: twilio.rest.api.v2010.account.available_phone_number_country.NationalList
-        """
-        if self._national is None:
-            self._national = NationalList(self._version, self._solution['account_sid'], self._solution['country_code'],
-            )
-        return self._national
-    
-    @property
-    def shared_cost(self):
-        """
-        Access the shared_cost
-
-        :returns: twilio.rest.api.v2010.account.available_phone_number_country.SharedCostList
-        :rtype: twilio.rest.api.v2010.account.available_phone_number_country.SharedCostList
-        """
-        if self._shared_cost is None:
-            self._shared_cost = SharedCostList(self._version, self._solution['account_sid'], self._solution['country_code'],
-            )
-        return self._shared_cost
-    
-    @property
-    def toll_free(self):
-        """
-        Access the toll_free
-
-        :returns: twilio.rest.api.v2010.account.available_phone_number_country.TollFreeList
-        :rtype: twilio.rest.api.v2010.account.available_phone_number_country.TollFreeList
-        """
-        if self._toll_free is None:
-            self._toll_free = TollFreeList(self._version, self._solution['account_sid'], self._solution['country_code'],
-            )
-        return self._toll_free
-    
-    @property
-    def voip(self):
-        """
-        Access the voip
-
-        :returns: twilio.rest.api.v2010.account.available_phone_number_country.VoipList
-        :rtype: twilio.rest.api.v2010.account.available_phone_number_country.VoipList
-        """
-        if self._voip is None:
-            self._voip = VoipList(self._version, self._solution['account_sid'], self._solution['country_code'],
-            )
-        return self._voip
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Api.V2010.AvailablePhoneNumberCountryContext {}>'.format(context)
-
 class AvailablePhoneNumberCountryInstance(InstanceResource):
 
     def __init__(self, version, payload, account_sid: str, country_code: str=None):
@@ -519,5 +370,154 @@ class AvailablePhoneNumberCountryInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Api.V2010.AvailablePhoneNumberCountryInstance {}>'.format(context)
+
+class AvailablePhoneNumberCountryContext(InstanceContext):
+
+    def __init__(self, version: Version, account_sid: str, country_code: str):
+        """
+        Initialize the AvailablePhoneNumberCountryContext
+
+        :param Version version: Version that contains the resource
+        :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) requesting the available phone number Country resource.:param country_code: The [ISO-3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code of the country to fetch available phone number information about.
+
+        :returns: twilio.rest.api.v2010.account.available_phone_number_country.AvailablePhoneNumberCountryContext
+        :rtype: twilio.rest.api.v2010.account.available_phone_number_country.AvailablePhoneNumberCountryContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'account_sid': account_sid,
+            'country_code': country_code,
+        }
+        self._uri = '/Accounts/{account_sid}/AvailablePhoneNumbers/{country_code}.json'.format(**self._solution)
+        
+        self._local = None
+        self._machine_to_machine = None
+        self._mobile = None
+        self._national = None
+        self._shared_cost = None
+        self._toll_free = None
+        self._voip = None
+    
+    def fetch(self):
+        """
+        Fetch the AvailablePhoneNumberCountryInstance
+        
+
+        :returns: The fetched AvailablePhoneNumberCountryInstance
+        :rtype: twilio.rest.api.v2010.account.available_phone_number_country.AvailablePhoneNumberCountryInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return AvailablePhoneNumberCountryInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+            country_code=self._solution['country_code'],
+            
+        )
+        
+    
+    @property
+    def local(self):
+        """
+        Access the local
+
+        :returns: twilio.rest.api.v2010.account.available_phone_number_country.LocalList
+        :rtype: twilio.rest.api.v2010.account.available_phone_number_country.LocalList
+        """
+        if self._local is None:
+            self._local = LocalList(self._version, self._solution['account_sid'], self._solution['country_code'],
+            )
+        return self._local
+    
+    @property
+    def machine_to_machine(self):
+        """
+        Access the machine_to_machine
+
+        :returns: twilio.rest.api.v2010.account.available_phone_number_country.MachineToMachineList
+        :rtype: twilio.rest.api.v2010.account.available_phone_number_country.MachineToMachineList
+        """
+        if self._machine_to_machine is None:
+            self._machine_to_machine = MachineToMachineList(self._version, self._solution['account_sid'], self._solution['country_code'],
+            )
+        return self._machine_to_machine
+    
+    @property
+    def mobile(self):
+        """
+        Access the mobile
+
+        :returns: twilio.rest.api.v2010.account.available_phone_number_country.MobileList
+        :rtype: twilio.rest.api.v2010.account.available_phone_number_country.MobileList
+        """
+        if self._mobile is None:
+            self._mobile = MobileList(self._version, self._solution['account_sid'], self._solution['country_code'],
+            )
+        return self._mobile
+    
+    @property
+    def national(self):
+        """
+        Access the national
+
+        :returns: twilio.rest.api.v2010.account.available_phone_number_country.NationalList
+        :rtype: twilio.rest.api.v2010.account.available_phone_number_country.NationalList
+        """
+        if self._national is None:
+            self._national = NationalList(self._version, self._solution['account_sid'], self._solution['country_code'],
+            )
+        return self._national
+    
+    @property
+    def shared_cost(self):
+        """
+        Access the shared_cost
+
+        :returns: twilio.rest.api.v2010.account.available_phone_number_country.SharedCostList
+        :rtype: twilio.rest.api.v2010.account.available_phone_number_country.SharedCostList
+        """
+        if self._shared_cost is None:
+            self._shared_cost = SharedCostList(self._version, self._solution['account_sid'], self._solution['country_code'],
+            )
+        return self._shared_cost
+    
+    @property
+    def toll_free(self):
+        """
+        Access the toll_free
+
+        :returns: twilio.rest.api.v2010.account.available_phone_number_country.TollFreeList
+        :rtype: twilio.rest.api.v2010.account.available_phone_number_country.TollFreeList
+        """
+        if self._toll_free is None:
+            self._toll_free = TollFreeList(self._version, self._solution['account_sid'], self._solution['country_code'],
+            )
+        return self._toll_free
+    
+    @property
+    def voip(self):
+        """
+        Access the voip
+
+        :returns: twilio.rest.api.v2010.account.available_phone_number_country.VoipList
+        :rtype: twilio.rest.api.v2010.account.available_phone_number_country.VoipList
+        """
+        if self._voip is None:
+            self._voip = VoipList(self._version, self._solution['account_sid'], self._solution['country_code'],
+            )
+        return self._voip
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Api.V2010.AvailablePhoneNumberCountryContext {}>'.format(context)
 
 

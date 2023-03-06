@@ -228,104 +228,6 @@ class CredentialListPage(Page):
 
 
 
-class CredentialListContext(InstanceContext):
-
-    def __init__(self, version: Version, account_sid: str, sid: str):
-        """
-        Initialize the CredentialListContext
-
-        :param Version version: Version that contains the resource
-        :param account_sid: The unique id of the Account that is responsible for this resource.:param sid: The credential list Sid that uniquely identifies this resource
-
-        :returns: twilio.rest.api.v2010.account.sip.credential_list.CredentialListContext
-        :rtype: twilio.rest.api.v2010.account.sip.credential_list.CredentialListContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'account_sid': account_sid,
-            'sid': sid,
-        }
-        self._uri = '/Accounts/{account_sid}/SIP/CredentialLists/{sid}.json'.format(**self._solution)
-        
-        self._credentials = None
-    
-    def delete(self):
-        """
-        Deletes the CredentialListInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(method='DELETE', uri=self._uri,)
-        
-    def fetch(self):
-        """
-        Fetch the CredentialListInstance
-        
-
-        :returns: The fetched CredentialListInstance
-        :rtype: twilio.rest.api.v2010.account.sip.credential_list.CredentialListInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return CredentialListInstance(
-            self._version,
-            payload,
-            account_sid=self._solution['account_sid'],
-            sid=self._solution['sid'],
-            
-        )
-        
-    def update(self, friendly_name):
-        """
-        Update the CredentialListInstance
-        
-        :params str friendly_name: A human readable descriptive text for a CredentialList, up to 64 characters long.
-
-        :returns: The updated CredentialListInstance
-        :rtype: twilio.rest.api.v2010.account.sip.credential_list.CredentialListInstance
-        """
-        data = values.of({ 
-            'FriendlyName': friendly_name,
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return CredentialListInstance(
-            self._version,
-            payload,
-            account_sid=self._solution['account_sid'],
-            sid=self._solution['sid']
-        )
-        
-    
-    @property
-    def credentials(self):
-        """
-        Access the credentials
-
-        :returns: twilio.rest.api.v2010.account.sip.credential_list.CredentialList
-        :rtype: twilio.rest.api.v2010.account.sip.credential_list.CredentialList
-        """
-        if self._credentials is None:
-            self._credentials = CredentialList(self._version, self._solution['account_sid'], self._solution['sid'],
-            )
-        return self._credentials
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Api.V2010.CredentialListContext {}>'.format(context)
-
 class CredentialListInstance(InstanceResource):
 
     def __init__(self, version, payload, account_sid: str, sid: str=None):
@@ -467,5 +369,103 @@ class CredentialListInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Api.V2010.CredentialListInstance {}>'.format(context)
+
+class CredentialListContext(InstanceContext):
+
+    def __init__(self, version: Version, account_sid: str, sid: str):
+        """
+        Initialize the CredentialListContext
+
+        :param Version version: Version that contains the resource
+        :param account_sid: The unique id of the Account that is responsible for this resource.:param sid: The credential list Sid that uniquely identifies this resource
+
+        :returns: twilio.rest.api.v2010.account.sip.credential_list.CredentialListContext
+        :rtype: twilio.rest.api.v2010.account.sip.credential_list.CredentialListContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'account_sid': account_sid,
+            'sid': sid,
+        }
+        self._uri = '/Accounts/{account_sid}/SIP/CredentialLists/{sid}.json'.format(**self._solution)
+        
+        self._credentials = None
+    
+    def delete(self):
+        """
+        Deletes the CredentialListInstance
+
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(method='DELETE', uri=self._uri,)
+        
+    def fetch(self):
+        """
+        Fetch the CredentialListInstance
+        
+
+        :returns: The fetched CredentialListInstance
+        :rtype: twilio.rest.api.v2010.account.sip.credential_list.CredentialListInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return CredentialListInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+            sid=self._solution['sid'],
+            
+        )
+        
+    def update(self, friendly_name):
+        """
+        Update the CredentialListInstance
+        
+        :params str friendly_name: A human readable descriptive text for a CredentialList, up to 64 characters long.
+
+        :returns: The updated CredentialListInstance
+        :rtype: twilio.rest.api.v2010.account.sip.credential_list.CredentialListInstance
+        """
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+        })
+        
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return CredentialListInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+            sid=self._solution['sid']
+        )
+        
+    
+    @property
+    def credentials(self):
+        """
+        Access the credentials
+
+        :returns: twilio.rest.api.v2010.account.sip.credential_list.CredentialList
+        :rtype: twilio.rest.api.v2010.account.sip.credential_list.CredentialList
+        """
+        if self._credentials is None:
+            self._credentials = CredentialList(self._version, self._solution['account_sid'], self._solution['sid'],
+            )
+        return self._credentials
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Api.V2010.CredentialListContext {}>'.format(context)
 
 

@@ -224,67 +224,6 @@ class PhoneNumberPage(Page):
 
 
 
-class PhoneNumberContext(InstanceContext):
-
-    def __init__(self, version: Version, service_sid: str, sid: str):
-        """
-        Initialize the PhoneNumberContext
-
-        :param Version version: Version that contains the resource
-        :param service_sid: The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to fetch the resource from.:param sid: The SID of the PhoneNumber resource to fetch.
-
-        :returns: twilio.rest.messaging.v1.service.phone_number.PhoneNumberContext
-        :rtype: twilio.rest.messaging.v1.service.phone_number.PhoneNumberContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'service_sid': service_sid,
-            'sid': sid,
-        }
-        self._uri = '/Services/{service_sid}/PhoneNumbers/{sid}'.format(**self._solution)
-        
-    
-    def delete(self):
-        """
-        Deletes the PhoneNumberInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(method='DELETE', uri=self._uri,)
-        
-    def fetch(self):
-        """
-        Fetch the PhoneNumberInstance
-        
-
-        :returns: The fetched PhoneNumberInstance
-        :rtype: twilio.rest.messaging.v1.service.phone_number.PhoneNumberInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return PhoneNumberInstance(
-            self._version,
-            payload,
-            service_sid=self._solution['service_sid'],
-            sid=self._solution['sid'],
-            
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Messaging.V1.PhoneNumberContext {}>'.format(context)
-
 class PhoneNumberInstance(InstanceResource):
 
     def __init__(self, version, payload, service_sid: str, sid: str=None):
@@ -423,5 +362,66 @@ class PhoneNumberInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Messaging.V1.PhoneNumberInstance {}>'.format(context)
+
+class PhoneNumberContext(InstanceContext):
+
+    def __init__(self, version: Version, service_sid: str, sid: str):
+        """
+        Initialize the PhoneNumberContext
+
+        :param Version version: Version that contains the resource
+        :param service_sid: The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to fetch the resource from.:param sid: The SID of the PhoneNumber resource to fetch.
+
+        :returns: twilio.rest.messaging.v1.service.phone_number.PhoneNumberContext
+        :rtype: twilio.rest.messaging.v1.service.phone_number.PhoneNumberContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'service_sid': service_sid,
+            'sid': sid,
+        }
+        self._uri = '/Services/{service_sid}/PhoneNumbers/{sid}'.format(**self._solution)
+        
+    
+    def delete(self):
+        """
+        Deletes the PhoneNumberInstance
+
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(method='DELETE', uri=self._uri,)
+        
+    def fetch(self):
+        """
+        Fetch the PhoneNumberInstance
+        
+
+        :returns: The fetched PhoneNumberInstance
+        :rtype: twilio.rest.messaging.v1.service.phone_number.PhoneNumberInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return PhoneNumberInstance(
+            self._version,
+            payload,
+            service_sid=self._solution['service_sid'],
+            sid=self._solution['sid'],
+            
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Messaging.V1.PhoneNumberContext {}>'.format(context)
 
 

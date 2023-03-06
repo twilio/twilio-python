@@ -54,7 +54,6 @@ class UsAppToPersonUsecaseList(ListResource):
         """
         return '<Twilio.Messaging.V1.UsAppToPersonUsecaseList>'
 
-
 class UsAppToPersonUsecaseInstance(InstanceResource):
 
     def __init__(self, version, payload, messaging_service_sid: str):
@@ -89,5 +88,6 @@ class UsAppToPersonUsecaseInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Messaging.V1.UsAppToPersonUsecaseInstance {}>'.format(context)
+
 
 

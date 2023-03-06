@@ -201,57 +201,6 @@ class AuthorizedConnectAppPage(Page):
 
 
 
-class AuthorizedConnectAppContext(InstanceContext):
-
-    def __init__(self, version: Version, account_sid: str, connect_app_sid: str):
-        """
-        Initialize the AuthorizedConnectAppContext
-
-        :param Version version: Version that contains the resource
-        :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the AuthorizedConnectApp resource to fetch.:param connect_app_sid: The SID of the Connect App to fetch.
-
-        :returns: twilio.rest.api.v2010.account.authorized_connect_app.AuthorizedConnectAppContext
-        :rtype: twilio.rest.api.v2010.account.authorized_connect_app.AuthorizedConnectAppContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'account_sid': account_sid,
-            'connect_app_sid': connect_app_sid,
-        }
-        self._uri = '/Accounts/{account_sid}/AuthorizedConnectApps/{connect_app_sid}.json'.format(**self._solution)
-        
-    
-    def fetch(self):
-        """
-        Fetch the AuthorizedConnectAppInstance
-        
-
-        :returns: The fetched AuthorizedConnectAppInstance
-        :rtype: twilio.rest.api.v2010.account.authorized_connect_app.AuthorizedConnectAppInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return AuthorizedConnectAppInstance(
-            self._version,
-            payload,
-            account_sid=self._solution['account_sid'],
-            connect_app_sid=self._solution['connect_app_sid'],
-            
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Api.V2010.AuthorizedConnectAppContext {}>'.format(context)
-
 class AuthorizedConnectAppInstance(InstanceResource):
 
     class Permission(object):
@@ -393,5 +342,56 @@ class AuthorizedConnectAppInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Api.V2010.AuthorizedConnectAppInstance {}>'.format(context)
+
+class AuthorizedConnectAppContext(InstanceContext):
+
+    def __init__(self, version: Version, account_sid: str, connect_app_sid: str):
+        """
+        Initialize the AuthorizedConnectAppContext
+
+        :param Version version: Version that contains the resource
+        :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the AuthorizedConnectApp resource to fetch.:param connect_app_sid: The SID of the Connect App to fetch.
+
+        :returns: twilio.rest.api.v2010.account.authorized_connect_app.AuthorizedConnectAppContext
+        :rtype: twilio.rest.api.v2010.account.authorized_connect_app.AuthorizedConnectAppContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'account_sid': account_sid,
+            'connect_app_sid': connect_app_sid,
+        }
+        self._uri = '/Accounts/{account_sid}/AuthorizedConnectApps/{connect_app_sid}.json'.format(**self._solution)
+        
+    
+    def fetch(self):
+        """
+        Fetch the AuthorizedConnectAppInstance
+        
+
+        :returns: The fetched AuthorizedConnectAppInstance
+        :rtype: twilio.rest.api.v2010.account.authorized_connect_app.AuthorizedConnectAppInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return AuthorizedConnectAppInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+            connect_app_sid=self._solution['connect_app_sid'],
+            
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Api.V2010.AuthorizedConnectAppContext {}>'.format(context)
 
 

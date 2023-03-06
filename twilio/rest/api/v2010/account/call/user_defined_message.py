@@ -74,7 +74,6 @@ class UserDefinedMessageList(ListResource):
         """
         return '<Twilio.Api.V2010.UserDefinedMessageList>'
 
-
 class UserDefinedMessageInstance(InstanceResource):
 
     def __init__(self, version, payload, account_sid: str, call_sid: str):
@@ -136,5 +135,6 @@ class UserDefinedMessageInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Api.V2010.UserDefinedMessageInstance {}>'.format(context)
+
 
 

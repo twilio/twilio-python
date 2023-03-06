@@ -201,7 +201,6 @@ class YearlyPage(Page):
 
 
 
-
 class YearlyInstance(InstanceResource):
 
     class Category(object):
@@ -609,5 +608,6 @@ class YearlyInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Api.V2010.YearlyInstance {}>'.format(context)
+
 
 

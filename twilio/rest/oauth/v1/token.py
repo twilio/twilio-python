@@ -84,7 +84,6 @@ class TokenList(ListResource):
         """
         return '<Twilio.Oauth.V1.TokenList>'
 
-
 class TokenInstance(InstanceResource):
 
     def __init__(self, version, payload):
@@ -155,5 +154,6 @@ class TokenInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Oauth.V1.TokenInstance {}>'.format(context)
+
 
 

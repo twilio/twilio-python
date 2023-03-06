@@ -98,49 +98,6 @@ class UserDefinedMessageSubscriptionList(ListResource):
         """
         return '<Twilio.Api.V2010.UserDefinedMessageSubscriptionList>'
 
-class UserDefinedMessageSubscriptionContext(InstanceContext):
-
-    def __init__(self, version: Version, account_sid: str, call_sid: str, sid: str):
-        """
-        Initialize the UserDefinedMessageSubscriptionContext
-
-        :param Version version: Version that contains the resource
-        :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that subscribed to the User Defined Messages.:param call_sid: The SID of the [Call](https://www.twilio.com/docs/voice/api/call-resource) the User Defined Message Subscription is associated with. This refers to the Call SID that is producing the User Defined Messages.:param sid: The SID that uniquely identifies this User Defined Message Subscription.
-
-        :returns: twilio.rest.api.v2010.account.call.user_defined_message_subscription.UserDefinedMessageSubscriptionContext
-        :rtype: twilio.rest.api.v2010.account.call.user_defined_message_subscription.UserDefinedMessageSubscriptionContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'account_sid': account_sid,
-            'call_sid': call_sid,
-            'sid': sid,
-        }
-        self._uri = '/Accounts/{account_sid}/Calls/{call_sid}/UserDefinedMessageSubscriptions/{sid}.json'.format(**self._solution)
-        
-    
-    def delete(self):
-        """
-        Deletes the UserDefinedMessageSubscriptionInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(method='DELETE', uri=self._uri,)
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Api.V2010.UserDefinedMessageSubscriptionContext {}>'.format(context)
-
 class UserDefinedMessageSubscriptionInstance(InstanceResource):
 
     def __init__(self, version, payload, account_sid: str, call_sid: str, sid: str=None):
@@ -233,5 +190,48 @@ class UserDefinedMessageSubscriptionInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Api.V2010.UserDefinedMessageSubscriptionInstance {}>'.format(context)
+
+class UserDefinedMessageSubscriptionContext(InstanceContext):
+
+    def __init__(self, version: Version, account_sid: str, call_sid: str, sid: str):
+        """
+        Initialize the UserDefinedMessageSubscriptionContext
+
+        :param Version version: Version that contains the resource
+        :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that subscribed to the User Defined Messages.:param call_sid: The SID of the [Call](https://www.twilio.com/docs/voice/api/call-resource) the User Defined Message Subscription is associated with. This refers to the Call SID that is producing the User Defined Messages.:param sid: The SID that uniquely identifies this User Defined Message Subscription.
+
+        :returns: twilio.rest.api.v2010.account.call.user_defined_message_subscription.UserDefinedMessageSubscriptionContext
+        :rtype: twilio.rest.api.v2010.account.call.user_defined_message_subscription.UserDefinedMessageSubscriptionContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'account_sid': account_sid,
+            'call_sid': call_sid,
+            'sid': sid,
+        }
+        self._uri = '/Accounts/{account_sid}/Calls/{call_sid}/UserDefinedMessageSubscriptions/{sid}.json'.format(**self._solution)
+        
+    
+    def delete(self):
+        """
+        Deletes the UserDefinedMessageSubscriptionInstance
+
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(method='DELETE', uri=self._uri,)
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Api.V2010.UserDefinedMessageSubscriptionContext {}>'.format(context)
 
 

@@ -200,55 +200,6 @@ class CountryPage(Page):
 
 
 
-class CountryContext(InstanceContext):
-
-    def __init__(self, version: Version, iso_country: str):
-        """
-        Initialize the CountryContext
-
-        :param Version version: Version that contains the resource
-        :param iso_country: The [ISO country code](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the pricing information to fetch.
-
-        :returns: twilio.rest.pricing.v1.phone_number.country.CountryContext
-        :rtype: twilio.rest.pricing.v1.phone_number.country.CountryContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'iso_country': iso_country,
-        }
-        self._uri = '/PhoneNumbers/Countries/{iso_country}'.format(**self._solution)
-        
-    
-    def fetch(self):
-        """
-        Fetch the CountryInstance
-        
-
-        :returns: The fetched CountryInstance
-        :rtype: twilio.rest.pricing.v1.phone_number.country.CountryInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return CountryInstance(
-            self._version,
-            payload,
-            iso_country=self._solution['iso_country'],
-            
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Pricing.V1.CountryContext {}>'.format(context)
-
 class CountryInstance(InstanceResource):
 
     def __init__(self, version, payload, iso_country: str=None):
@@ -341,5 +292,54 @@ class CountryInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Pricing.V1.CountryInstance {}>'.format(context)
+
+class CountryContext(InstanceContext):
+
+    def __init__(self, version: Version, iso_country: str):
+        """
+        Initialize the CountryContext
+
+        :param Version version: Version that contains the resource
+        :param iso_country: The [ISO country code](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the pricing information to fetch.
+
+        :returns: twilio.rest.pricing.v1.phone_number.country.CountryContext
+        :rtype: twilio.rest.pricing.v1.phone_number.country.CountryContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'iso_country': iso_country,
+        }
+        self._uri = '/PhoneNumbers/Countries/{iso_country}'.format(**self._solution)
+        
+    
+    def fetch(self):
+        """
+        Fetch the CountryInstance
+        
+
+        :returns: The fetched CountryInstance
+        :rtype: twilio.rest.pricing.v1.phone_number.country.CountryInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return CountryInstance(
+            self._version,
+            payload,
+            iso_country=self._solution['iso_country'],
+            
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Pricing.V1.CountryContext {}>'.format(context)
 
 

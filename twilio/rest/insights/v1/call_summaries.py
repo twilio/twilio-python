@@ -284,7 +284,6 @@ class CallSummariesPage(Page):
 
 
 
-
 class CallSummariesInstance(InstanceResource):
 
     class AnsweredBy(object):
@@ -547,5 +546,6 @@ class CallSummariesInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Insights.V1.CallSummariesInstance {}>'.format(context)
+
 
 

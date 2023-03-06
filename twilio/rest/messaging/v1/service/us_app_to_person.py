@@ -248,67 +248,6 @@ class UsAppToPersonPage(Page):
 
 
 
-class UsAppToPersonContext(InstanceContext):
-
-    def __init__(self, version: Version, messaging_service_sid: str, sid: str):
-        """
-        Initialize the UsAppToPersonContext
-
-        :param Version version: Version that contains the resource
-        :param messaging_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/services/api) to fetch the resource from.:param sid: The SID of the US A2P Compliance resource to fetch `QE2c6890da8086d771620e9b13fadeba0b`.
-
-        :returns: twilio.rest.messaging.v1.service.us_app_to_person.UsAppToPersonContext
-        :rtype: twilio.rest.messaging.v1.service.us_app_to_person.UsAppToPersonContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'messaging_service_sid': messaging_service_sid,
-            'sid': sid,
-        }
-        self._uri = '/Services/{messaging_service_sid}/Compliance/Usa2p/{sid}'.format(**self._solution)
-        
-    
-    def delete(self):
-        """
-        Deletes the UsAppToPersonInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(method='DELETE', uri=self._uri,)
-        
-    def fetch(self):
-        """
-        Fetch the UsAppToPersonInstance
-        
-
-        :returns: The fetched UsAppToPersonInstance
-        :rtype: twilio.rest.messaging.v1.service.us_app_to_person.UsAppToPersonInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return UsAppToPersonInstance(
-            self._version,
-            payload,
-            messaging_service_sid=self._solution['messaging_service_sid'],
-            sid=self._solution['sid'],
-            
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Messaging.V1.UsAppToPersonContext {}>'.format(context)
-
 class UsAppToPersonInstance(InstanceResource):
 
     def __init__(self, version, payload, messaging_service_sid: str, sid: str=None):
@@ -582,5 +521,66 @@ class UsAppToPersonInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Messaging.V1.UsAppToPersonInstance {}>'.format(context)
+
+class UsAppToPersonContext(InstanceContext):
+
+    def __init__(self, version: Version, messaging_service_sid: str, sid: str):
+        """
+        Initialize the UsAppToPersonContext
+
+        :param Version version: Version that contains the resource
+        :param messaging_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/services/api) to fetch the resource from.:param sid: The SID of the US A2P Compliance resource to fetch `QE2c6890da8086d771620e9b13fadeba0b`.
+
+        :returns: twilio.rest.messaging.v1.service.us_app_to_person.UsAppToPersonContext
+        :rtype: twilio.rest.messaging.v1.service.us_app_to_person.UsAppToPersonContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'messaging_service_sid': messaging_service_sid,
+            'sid': sid,
+        }
+        self._uri = '/Services/{messaging_service_sid}/Compliance/Usa2p/{sid}'.format(**self._solution)
+        
+    
+    def delete(self):
+        """
+        Deletes the UsAppToPersonInstance
+
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(method='DELETE', uri=self._uri,)
+        
+    def fetch(self):
+        """
+        Fetch the UsAppToPersonInstance
+        
+
+        :returns: The fetched UsAppToPersonInstance
+        :rtype: twilio.rest.messaging.v1.service.us_app_to_person.UsAppToPersonInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return UsAppToPersonInstance(
+            self._version,
+            payload,
+            messaging_service_sid=self._solution['messaging_service_sid'],
+            sid=self._solution['sid'],
+            
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Messaging.V1.UsAppToPersonContext {}>'.format(context)
 
 

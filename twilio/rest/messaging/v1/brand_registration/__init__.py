@@ -232,89 +232,6 @@ class BrandRegistrationPage(Page):
 
 
 
-class BrandRegistrationContext(InstanceContext):
-
-    def __init__(self, version: Version, sid: str):
-        """
-        Initialize the BrandRegistrationContext
-
-        :param Version version: Version that contains the resource
-        :param sid: The SID of the Brand Registration resource to update.
-
-        :returns: twilio.rest.messaging.v1.brand_registration.BrandRegistrationContext
-        :rtype: twilio.rest.messaging.v1.brand_registration.BrandRegistrationContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'sid': sid,
-        }
-        self._uri = '/a2p/BrandRegistrations/{sid}'.format(**self._solution)
-        
-        self._brand_vettings = None
-    
-    def fetch(self):
-        """
-        Fetch the BrandRegistrationInstance
-        
-
-        :returns: The fetched BrandRegistrationInstance
-        :rtype: twilio.rest.messaging.v1.brand_registration.BrandRegistrationInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return BrandRegistrationInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid'],
-            
-        )
-        
-    def update(self):
-        """
-        Update the BrandRegistrationInstance
-        
-
-        :returns: The updated BrandRegistrationInstance
-        :rtype: twilio.rest.messaging.v1.brand_registration.BrandRegistrationInstance
-        """
-        data = values.of({ 
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return BrandRegistrationInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid']
-        )
-        
-    
-    @property
-    def brand_vettings(self):
-        """
-        Access the brand_vettings
-
-        :returns: twilio.rest.messaging.v1.brand_registration.BrandVettingList
-        :rtype: twilio.rest.messaging.v1.brand_registration.BrandVettingList
-        """
-        if self._brand_vettings is None:
-            self._brand_vettings = BrandVettingList(self._version, self._solution['sid'],
-            )
-        return self._brand_vettings
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Messaging.V1.BrandRegistrationContext {}>'.format(context)
-
 class BrandRegistrationInstance(InstanceResource):
 
     class BrandFeedback(object):
@@ -582,5 +499,88 @@ class BrandRegistrationInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Messaging.V1.BrandRegistrationInstance {}>'.format(context)
+
+class BrandRegistrationContext(InstanceContext):
+
+    def __init__(self, version: Version, sid: str):
+        """
+        Initialize the BrandRegistrationContext
+
+        :param Version version: Version that contains the resource
+        :param sid: The SID of the Brand Registration resource to update.
+
+        :returns: twilio.rest.messaging.v1.brand_registration.BrandRegistrationContext
+        :rtype: twilio.rest.messaging.v1.brand_registration.BrandRegistrationContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'sid': sid,
+        }
+        self._uri = '/a2p/BrandRegistrations/{sid}'.format(**self._solution)
+        
+        self._brand_vettings = None
+    
+    def fetch(self):
+        """
+        Fetch the BrandRegistrationInstance
+        
+
+        :returns: The fetched BrandRegistrationInstance
+        :rtype: twilio.rest.messaging.v1.brand_registration.BrandRegistrationInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return BrandRegistrationInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid'],
+            
+        )
+        
+    def update(self):
+        """
+        Update the BrandRegistrationInstance
+        
+
+        :returns: The updated BrandRegistrationInstance
+        :rtype: twilio.rest.messaging.v1.brand_registration.BrandRegistrationInstance
+        """
+        data = values.of({ 
+        })
+        
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return BrandRegistrationInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid']
+        )
+        
+    
+    @property
+    def brand_vettings(self):
+        """
+        Access the brand_vettings
+
+        :returns: twilio.rest.messaging.v1.brand_registration.BrandVettingList
+        :rtype: twilio.rest.messaging.v1.brand_registration.BrandVettingList
+        """
+        if self._brand_vettings is None:
+            self._brand_vettings = BrandVettingList(self._version, self._solution['sid'],
+            )
+        return self._brand_vettings
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Messaging.V1.BrandRegistrationContext {}>'.format(context)
 
 

@@ -72,62 +72,6 @@ class WorkflowRealTimeStatisticsList(ListResource):
         """
         return '<Twilio.Taskrouter.V1.WorkflowRealTimeStatisticsList>'
 
-class WorkflowRealTimeStatisticsContext(InstanceContext):
-
-    def __init__(self, version: Version, workspace_sid: str, workflow_sid: str):
-        """
-        Initialize the WorkflowRealTimeStatisticsContext
-
-        :param Version version: Version that contains the resource
-        :param workspace_sid: The SID of the Workspace with the Workflow to fetch.:param workflow_sid: Returns the list of Tasks that are being controlled by the Workflow with the specified SID value.
-
-        :returns: twilio.rest.taskrouter.v1.workspace.workflow.workflow_real_time_statistics.WorkflowRealTimeStatisticsContext
-        :rtype: twilio.rest.taskrouter.v1.workspace.workflow.workflow_real_time_statistics.WorkflowRealTimeStatisticsContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'workspace_sid': workspace_sid,
-            'workflow_sid': workflow_sid,
-        }
-        self._uri = '/Workspaces/{workspace_sid}/Workflows/{workflow_sid}/RealTimeStatistics'.format(**self._solution)
-        
-    
-    def fetch(self, task_channel=values.unset):
-        """
-        Fetch the WorkflowRealTimeStatisticsInstance
-        
-        :params str task_channel: Only calculate real-time statistics on this TaskChannel. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
-
-        :returns: The fetched WorkflowRealTimeStatisticsInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.workflow.workflow_real_time_statistics.WorkflowRealTimeStatisticsInstance
-        """
-        
-        data = values.of({ 
-            'TaskChannel': task_channel,
-        })
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, params=data)
-
-        return WorkflowRealTimeStatisticsInstance(
-            self._version,
-            payload,
-            workspace_sid=self._solution['workspace_sid'],
-            workflow_sid=self._solution['workflow_sid'],
-            
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Taskrouter.V1.WorkflowRealTimeStatisticsContext {}>'.format(context)
-
 class WorkflowRealTimeStatisticsInstance(InstanceResource):
 
     def __init__(self, version, payload, workspace_sid: str, workflow_sid: str):
@@ -257,5 +201,61 @@ class WorkflowRealTimeStatisticsInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Taskrouter.V1.WorkflowRealTimeStatisticsInstance {}>'.format(context)
+
+class WorkflowRealTimeStatisticsContext(InstanceContext):
+
+    def __init__(self, version: Version, workspace_sid: str, workflow_sid: str):
+        """
+        Initialize the WorkflowRealTimeStatisticsContext
+
+        :param Version version: Version that contains the resource
+        :param workspace_sid: The SID of the Workspace with the Workflow to fetch.:param workflow_sid: Returns the list of Tasks that are being controlled by the Workflow with the specified SID value.
+
+        :returns: twilio.rest.taskrouter.v1.workspace.workflow.workflow_real_time_statistics.WorkflowRealTimeStatisticsContext
+        :rtype: twilio.rest.taskrouter.v1.workspace.workflow.workflow_real_time_statistics.WorkflowRealTimeStatisticsContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'workspace_sid': workspace_sid,
+            'workflow_sid': workflow_sid,
+        }
+        self._uri = '/Workspaces/{workspace_sid}/Workflows/{workflow_sid}/RealTimeStatistics'.format(**self._solution)
+        
+    
+    def fetch(self, task_channel=values.unset):
+        """
+        Fetch the WorkflowRealTimeStatisticsInstance
+        
+        :params str task_channel: Only calculate real-time statistics on this TaskChannel. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
+
+        :returns: The fetched WorkflowRealTimeStatisticsInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.workflow.workflow_real_time_statistics.WorkflowRealTimeStatisticsInstance
+        """
+        
+        data = values.of({ 
+            'TaskChannel': task_channel,
+        })
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, params=data)
+
+        return WorkflowRealTimeStatisticsInstance(
+            self._version,
+            payload,
+            workspace_sid=self._solution['workspace_sid'],
+            workflow_sid=self._solution['workflow_sid'],
+            
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Taskrouter.V1.WorkflowRealTimeStatisticsContext {}>'.format(context)
 
 

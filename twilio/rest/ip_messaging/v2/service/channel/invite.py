@@ -233,69 +233,6 @@ class InvitePage(Page):
 
 
 
-class InviteContext(InstanceContext):
-
-    def __init__(self, version: Version, service_sid: str, channel_sid: str, sid: str):
-        """
-        Initialize the InviteContext
-
-        :param Version version: Version that contains the resource
-        :param service_sid: :param channel_sid: :param sid: 
-
-        :returns: twilio.rest.ip_messaging.v2.service.channel.invite.InviteContext
-        :rtype: twilio.rest.ip_messaging.v2.service.channel.invite.InviteContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'service_sid': service_sid,
-            'channel_sid': channel_sid,
-            'sid': sid,
-        }
-        self._uri = '/Services/{service_sid}/Channels/{channel_sid}/Invites/{sid}'.format(**self._solution)
-        
-    
-    def delete(self):
-        """
-        Deletes the InviteInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(method='DELETE', uri=self._uri,)
-        
-    def fetch(self):
-        """
-        Fetch the InviteInstance
-        
-
-        :returns: The fetched InviteInstance
-        :rtype: twilio.rest.ip_messaging.v2.service.channel.invite.InviteInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return InviteInstance(
-            self._version,
-            payload,
-            service_sid=self._solution['service_sid'],
-            channel_sid=self._solution['channel_sid'],
-            sid=self._solution['sid'],
-            
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.IpMessaging.V2.InviteContext {}>'.format(context)
-
 class InviteInstance(InstanceResource):
 
     def __init__(self, version, payload, service_sid: str, channel_sid: str, sid: str=None):
@@ -443,5 +380,68 @@ class InviteInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.IpMessaging.V2.InviteInstance {}>'.format(context)
+
+class InviteContext(InstanceContext):
+
+    def __init__(self, version: Version, service_sid: str, channel_sid: str, sid: str):
+        """
+        Initialize the InviteContext
+
+        :param Version version: Version that contains the resource
+        :param service_sid: :param channel_sid: :param sid: 
+
+        :returns: twilio.rest.ip_messaging.v2.service.channel.invite.InviteContext
+        :rtype: twilio.rest.ip_messaging.v2.service.channel.invite.InviteContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'service_sid': service_sid,
+            'channel_sid': channel_sid,
+            'sid': sid,
+        }
+        self._uri = '/Services/{service_sid}/Channels/{channel_sid}/Invites/{sid}'.format(**self._solution)
+        
+    
+    def delete(self):
+        """
+        Deletes the InviteInstance
+
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(method='DELETE', uri=self._uri,)
+        
+    def fetch(self):
+        """
+        Fetch the InviteInstance
+        
+
+        :returns: The fetched InviteInstance
+        :rtype: twilio.rest.ip_messaging.v2.service.channel.invite.InviteInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return InviteInstance(
+            self._version,
+            payload,
+            service_sid=self._solution['service_sid'],
+            channel_sid=self._solution['channel_sid'],
+            sid=self._solution['sid'],
+            
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.IpMessaging.V2.InviteContext {}>'.format(context)
 
 

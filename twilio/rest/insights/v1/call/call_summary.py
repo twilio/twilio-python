@@ -71,60 +71,6 @@ class CallSummaryList(ListResource):
         """
         return '<Twilio.Insights.V1.CallSummaryList>'
 
-class CallSummaryContext(InstanceContext):
-
-    def __init__(self, version: Version, call_sid: str):
-        """
-        Initialize the CallSummaryContext
-
-        :param Version version: Version that contains the resource
-        :param call_sid: 
-
-        :returns: twilio.rest.insights.v1.call.call_summary.CallSummaryContext
-        :rtype: twilio.rest.insights.v1.call.call_summary.CallSummaryContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'call_sid': call_sid,
-        }
-        self._uri = '/Voice/{call_sid}/Summary'.format(**self._solution)
-        
-    
-    def fetch(self, processing_state=values.unset):
-        """
-        Fetch the CallSummaryInstance
-        
-        :params ProcessingState processing_state: 
-
-        :returns: The fetched CallSummaryInstance
-        :rtype: twilio.rest.insights.v1.call.call_summary.CallSummaryInstance
-        """
-        
-        data = values.of({ 
-            'ProcessingState': processing_state,
-        })
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, params=data)
-
-        return CallSummaryInstance(
-            self._version,
-            payload,
-            call_sid=self._solution['call_sid'],
-            
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Insights.V1.CallSummaryContext {}>'.format(context)
-
 class CallSummaryInstance(InstanceResource):
 
     class AnsweredBy(object):
@@ -409,5 +355,59 @@ class CallSummaryInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Insights.V1.CallSummaryInstance {}>'.format(context)
+
+class CallSummaryContext(InstanceContext):
+
+    def __init__(self, version: Version, call_sid: str):
+        """
+        Initialize the CallSummaryContext
+
+        :param Version version: Version that contains the resource
+        :param call_sid: 
+
+        :returns: twilio.rest.insights.v1.call.call_summary.CallSummaryContext
+        :rtype: twilio.rest.insights.v1.call.call_summary.CallSummaryContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'call_sid': call_sid,
+        }
+        self._uri = '/Voice/{call_sid}/Summary'.format(**self._solution)
+        
+    
+    def fetch(self, processing_state=values.unset):
+        """
+        Fetch the CallSummaryInstance
+        
+        :params ProcessingState processing_state: 
+
+        :returns: The fetched CallSummaryInstance
+        :rtype: twilio.rest.insights.v1.call.call_summary.CallSummaryInstance
+        """
+        
+        data = values.of({ 
+            'ProcessingState': processing_state,
+        })
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, params=data)
+
+        return CallSummaryInstance(
+            self._version,
+            payload,
+            call_sid=self._solution['call_sid'],
+            
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Insights.V1.CallSummaryContext {}>'.format(context)
 
 

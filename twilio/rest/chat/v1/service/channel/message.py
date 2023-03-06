@@ -238,95 +238,6 @@ class MessagePage(Page):
 
 
 
-class MessageContext(InstanceContext):
-
-    def __init__(self, version: Version, service_sid: str, channel_sid: str, sid: str):
-        """
-        Initialize the MessageContext
-
-        :param Version version: Version that contains the resource
-        :param service_sid: The SID of the [Service](https://www.twilio.com/docs/api/chat/rest/services) to update the resource from.:param channel_sid: The unique ID of the [Channel](https://www.twilio.com/docs/api/chat/rest/channels) the message belongs to. Can be the Channel's `sid` or `unique_name`.:param sid: The Twilio-provided string that uniquely identifies the Message resource to update.
-
-        :returns: twilio.rest.chat.v1.service.channel.message.MessageContext
-        :rtype: twilio.rest.chat.v1.service.channel.message.MessageContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'service_sid': service_sid,
-            'channel_sid': channel_sid,
-            'sid': sid,
-        }
-        self._uri = '/Services/{service_sid}/Channels/{channel_sid}/Messages/{sid}'.format(**self._solution)
-        
-    
-    def delete(self):
-        """
-        Deletes the MessageInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(method='DELETE', uri=self._uri,)
-        
-    def fetch(self):
-        """
-        Fetch the MessageInstance
-        
-
-        :returns: The fetched MessageInstance
-        :rtype: twilio.rest.chat.v1.service.channel.message.MessageInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return MessageInstance(
-            self._version,
-            payload,
-            service_sid=self._solution['service_sid'],
-            channel_sid=self._solution['channel_sid'],
-            sid=self._solution['sid'],
-            
-        )
-        
-    def update(self, body=values.unset, attributes=values.unset):
-        """
-        Update the MessageInstance
-        
-        :params str body: The message to send to the channel. Can also be an empty string or `null`, which sets the value as an empty string. You can send structured data in the body by serializing it as a string.
-        :params str attributes: A valid JSON string that contains application-specific data.
-
-        :returns: The updated MessageInstance
-        :rtype: twilio.rest.chat.v1.service.channel.message.MessageInstance
-        """
-        data = values.of({ 
-            'Body': body,
-            'Attributes': attributes,
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return MessageInstance(
-            self._version,
-            payload,
-            service_sid=self._solution['service_sid'],
-            channel_sid=self._solution['channel_sid'],
-            sid=self._solution['sid']
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Chat.V1.MessageContext {}>'.format(context)
-
 class MessageInstance(InstanceResource):
 
     class OrderType(object):
@@ -517,5 +428,94 @@ class MessageInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Chat.V1.MessageInstance {}>'.format(context)
+
+class MessageContext(InstanceContext):
+
+    def __init__(self, version: Version, service_sid: str, channel_sid: str, sid: str):
+        """
+        Initialize the MessageContext
+
+        :param Version version: Version that contains the resource
+        :param service_sid: The SID of the [Service](https://www.twilio.com/docs/api/chat/rest/services) to update the resource from.:param channel_sid: The unique ID of the [Channel](https://www.twilio.com/docs/api/chat/rest/channels) the message belongs to. Can be the Channel's `sid` or `unique_name`.:param sid: The Twilio-provided string that uniquely identifies the Message resource to update.
+
+        :returns: twilio.rest.chat.v1.service.channel.message.MessageContext
+        :rtype: twilio.rest.chat.v1.service.channel.message.MessageContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'service_sid': service_sid,
+            'channel_sid': channel_sid,
+            'sid': sid,
+        }
+        self._uri = '/Services/{service_sid}/Channels/{channel_sid}/Messages/{sid}'.format(**self._solution)
+        
+    
+    def delete(self):
+        """
+        Deletes the MessageInstance
+
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(method='DELETE', uri=self._uri,)
+        
+    def fetch(self):
+        """
+        Fetch the MessageInstance
+        
+
+        :returns: The fetched MessageInstance
+        :rtype: twilio.rest.chat.v1.service.channel.message.MessageInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return MessageInstance(
+            self._version,
+            payload,
+            service_sid=self._solution['service_sid'],
+            channel_sid=self._solution['channel_sid'],
+            sid=self._solution['sid'],
+            
+        )
+        
+    def update(self, body=values.unset, attributes=values.unset):
+        """
+        Update the MessageInstance
+        
+        :params str body: The message to send to the channel. Can also be an empty string or `null`, which sets the value as an empty string. You can send structured data in the body by serializing it as a string.
+        :params str attributes: A valid JSON string that contains application-specific data.
+
+        :returns: The updated MessageInstance
+        :rtype: twilio.rest.chat.v1.service.channel.message.MessageInstance
+        """
+        data = values.of({ 
+            'Body': body,
+            'Attributes': attributes,
+        })
+        
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return MessageInstance(
+            self._version,
+            payload,
+            service_sid=self._solution['service_sid'],
+            channel_sid=self._solution['channel_sid'],
+            sid=self._solution['sid']
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Chat.V1.MessageContext {}>'.format(context)
 
 

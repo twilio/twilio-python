@@ -70,58 +70,6 @@ class DeactivationsList(ListResource):
         """
         return '<Twilio.Messaging.V1.DeactivationsList>'
 
-class DeactivationsContext(InstanceContext):
-
-    def __init__(self, version: Version):
-        """
-        Initialize the DeactivationsContext
-
-        :param Version version: Version that contains the resource
-        
-
-        :returns: twilio.rest.messaging.v1.deactivations.DeactivationsContext
-        :rtype: twilio.rest.messaging.v1.deactivations.DeactivationsContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-        }
-        self._uri = '/Deactivations'.format(**self._solution)
-        
-    
-    def fetch(self, date=values.unset):
-        """
-        Fetch the DeactivationsInstance
-        
-        :params date date: The request will return a list of all United States Phone Numbers that were deactivated on the day specified by this parameter. This date should be specified in YYYY-MM-DD format.
-
-        :returns: The fetched DeactivationsInstance
-        :rtype: twilio.rest.messaging.v1.deactivations.DeactivationsInstance
-        """
-        
-        data = values.of({ 
-            'Date': serialize.iso8601_date(date),
-        })
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, params=data)
-
-        return DeactivationsInstance(
-            self._version,
-            payload,
-            
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Messaging.V1.DeactivationsContext {}>'.format(context)
-
 class DeactivationsInstance(InstanceResource):
 
     def __init__(self, version, payload):
@@ -179,5 +127,57 @@ class DeactivationsInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Messaging.V1.DeactivationsInstance {}>'.format(context)
+
+class DeactivationsContext(InstanceContext):
+
+    def __init__(self, version: Version):
+        """
+        Initialize the DeactivationsContext
+
+        :param Version version: Version that contains the resource
+        
+
+        :returns: twilio.rest.messaging.v1.deactivations.DeactivationsContext
+        :rtype: twilio.rest.messaging.v1.deactivations.DeactivationsContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+        }
+        self._uri = '/Deactivations'.format(**self._solution)
+        
+    
+    def fetch(self, date=values.unset):
+        """
+        Fetch the DeactivationsInstance
+        
+        :params date date: The request will return a list of all United States Phone Numbers that were deactivated on the day specified by this parameter. This date should be specified in YYYY-MM-DD format.
+
+        :returns: The fetched DeactivationsInstance
+        :rtype: twilio.rest.messaging.v1.deactivations.DeactivationsInstance
+        """
+        
+        data = values.of({ 
+            'Date': serialize.iso8601_date(date),
+        })
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, params=data)
+
+        return DeactivationsInstance(
+            self._version,
+            payload,
+            
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Messaging.V1.DeactivationsContext {}>'.format(context)
 
 

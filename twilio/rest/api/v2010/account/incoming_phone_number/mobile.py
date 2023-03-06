@@ -265,7 +265,6 @@ class MobilePage(Page):
 
 
 
-
 class MobileInstance(InstanceResource):
 
     class AddressRequirement(object):
@@ -619,5 +618,6 @@ class MobileInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Api.V2010.MobileInstance {}>'.format(context)
+
 
 

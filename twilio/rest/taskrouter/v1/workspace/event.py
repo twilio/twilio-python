@@ -267,57 +267,6 @@ class EventPage(Page):
 
 
 
-class EventContext(InstanceContext):
-
-    def __init__(self, version: Version, workspace_sid: str, sid: str):
-        """
-        Initialize the EventContext
-
-        :param Version version: Version that contains the resource
-        :param workspace_sid: The SID of the Workspace with the Event to fetch.:param sid: The SID of the Event resource to fetch.
-
-        :returns: twilio.rest.taskrouter.v1.workspace.event.EventContext
-        :rtype: twilio.rest.taskrouter.v1.workspace.event.EventContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'workspace_sid': workspace_sid,
-            'sid': sid,
-        }
-        self._uri = '/Workspaces/{workspace_sid}/Events/{sid}'.format(**self._solution)
-        
-    
-    def fetch(self):
-        """
-        Fetch the EventInstance
-        
-
-        :returns: The fetched EventInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.event.EventInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return EventInstance(
-            self._version,
-            payload,
-            workspace_sid=self._solution['workspace_sid'],
-            sid=self._solution['sid'],
-            
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Taskrouter.V1.EventContext {}>'.format(context)
-
 class EventInstance(InstanceResource):
 
     def __init__(self, version, payload, workspace_sid: str, sid: str=None):
@@ -518,5 +467,56 @@ class EventInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Taskrouter.V1.EventInstance {}>'.format(context)
+
+class EventContext(InstanceContext):
+
+    def __init__(self, version: Version, workspace_sid: str, sid: str):
+        """
+        Initialize the EventContext
+
+        :param Version version: Version that contains the resource
+        :param workspace_sid: The SID of the Workspace with the Event to fetch.:param sid: The SID of the Event resource to fetch.
+
+        :returns: twilio.rest.taskrouter.v1.workspace.event.EventContext
+        :rtype: twilio.rest.taskrouter.v1.workspace.event.EventContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'workspace_sid': workspace_sid,
+            'sid': sid,
+        }
+        self._uri = '/Workspaces/{workspace_sid}/Events/{sid}'.format(**self._solution)
+        
+    
+    def fetch(self):
+        """
+        Fetch the EventInstance
+        
+
+        :returns: The fetched EventInstance
+        :rtype: twilio.rest.taskrouter.v1.workspace.event.EventInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return EventInstance(
+            self._version,
+            payload,
+            workspace_sid=self._solution['workspace_sid'],
+            sid=self._solution['sid'],
+            
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Taskrouter.V1.EventContext {}>'.format(context)
 
 

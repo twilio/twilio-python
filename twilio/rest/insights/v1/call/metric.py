@@ -189,7 +189,6 @@ class MetricPage(Page):
 
 
 
-
 class MetricInstance(InstanceResource):
 
     class StreamDirection(object):
@@ -309,5 +308,6 @@ class MetricInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Insights.V1.MetricInstance {}>'.format(context)
+
 
 

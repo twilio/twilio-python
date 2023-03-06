@@ -90,83 +90,6 @@ class ExportList(ListResource):
         """
         return '<Twilio.Bulkexports.V1.ExportList>'
 
-class ExportContext(InstanceContext):
-
-    def __init__(self, version: Version, resource_type: str):
-        """
-        Initialize the ExportContext
-
-        :param Version version: Version that contains the resource
-        :param resource_type: The type of communication – Messages, Calls, Conferences, and Participants
-
-        :returns: twilio.rest.bulkexports.v1.export.ExportContext
-        :rtype: twilio.rest.bulkexports.v1.export.ExportContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'resource_type': resource_type,
-        }
-        self._uri = '/Exports/{resource_type}'.format(**self._solution)
-        
-        self._days = None
-        self._export_custom_jobs = None
-    
-    def fetch(self):
-        """
-        Fetch the ExportInstance
-        
-
-        :returns: The fetched ExportInstance
-        :rtype: twilio.rest.bulkexports.v1.export.ExportInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return ExportInstance(
-            self._version,
-            payload,
-            resource_type=self._solution['resource_type'],
-            
-        )
-        
-    
-    @property
-    def days(self):
-        """
-        Access the days
-
-        :returns: twilio.rest.bulkexports.v1.export.DayList
-        :rtype: twilio.rest.bulkexports.v1.export.DayList
-        """
-        if self._days is None:
-            self._days = DayList(self._version, self._solution['resource_type'],
-            )
-        return self._days
-    
-    @property
-    def export_custom_jobs(self):
-        """
-        Access the export_custom_jobs
-
-        :returns: twilio.rest.bulkexports.v1.export.ExportCustomJobList
-        :rtype: twilio.rest.bulkexports.v1.export.ExportCustomJobList
-        """
-        if self._export_custom_jobs is None:
-            self._export_custom_jobs = ExportCustomJobList(self._version, self._solution['resource_type'],
-            )
-        return self._export_custom_jobs
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Bulkexports.V1.ExportContext {}>'.format(context)
-
 class ExportInstance(InstanceResource):
 
     def __init__(self, version, payload, resource_type: str=None):
@@ -261,5 +184,82 @@ class ExportInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Bulkexports.V1.ExportInstance {}>'.format(context)
+
+class ExportContext(InstanceContext):
+
+    def __init__(self, version: Version, resource_type: str):
+        """
+        Initialize the ExportContext
+
+        :param Version version: Version that contains the resource
+        :param resource_type: The type of communication – Messages, Calls, Conferences, and Participants
+
+        :returns: twilio.rest.bulkexports.v1.export.ExportContext
+        :rtype: twilio.rest.bulkexports.v1.export.ExportContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'resource_type': resource_type,
+        }
+        self._uri = '/Exports/{resource_type}'.format(**self._solution)
+        
+        self._days = None
+        self._export_custom_jobs = None
+    
+    def fetch(self):
+        """
+        Fetch the ExportInstance
+        
+
+        :returns: The fetched ExportInstance
+        :rtype: twilio.rest.bulkexports.v1.export.ExportInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return ExportInstance(
+            self._version,
+            payload,
+            resource_type=self._solution['resource_type'],
+            
+        )
+        
+    
+    @property
+    def days(self):
+        """
+        Access the days
+
+        :returns: twilio.rest.bulkexports.v1.export.DayList
+        :rtype: twilio.rest.bulkexports.v1.export.DayList
+        """
+        if self._days is None:
+            self._days = DayList(self._version, self._solution['resource_type'],
+            )
+        return self._days
+    
+    @property
+    def export_custom_jobs(self):
+        """
+        Access the export_custom_jobs
+
+        :returns: twilio.rest.bulkexports.v1.export.ExportCustomJobList
+        :rtype: twilio.rest.bulkexports.v1.export.ExportCustomJobList
+        """
+        if self._export_custom_jobs is None:
+            self._export_custom_jobs = ExportCustomJobList(self._version, self._solution['resource_type'],
+            )
+        return self._export_custom_jobs
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Bulkexports.V1.ExportContext {}>'.format(context)
 
 

@@ -252,103 +252,6 @@ class SyncListItemPage(Page):
 
 
 
-class SyncListItemContext(InstanceContext):
-
-    def __init__(self, version: Version, service_sid: str, list_sid: str, index: int):
-        """
-        Initialize the SyncListItemContext
-
-        :param Version version: Version that contains the resource
-        :param service_sid: The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Sync List Item resource to update.:param list_sid: The SID of the Sync List with the Sync List Item resource to update. Can be the Sync List resource's `sid` or its `unique_name`.:param index: The index of the Sync List Item resource to update.
-
-        :returns: twilio.rest.sync.v1.service.sync_list.sync_list_item.SyncListItemContext
-        :rtype: twilio.rest.sync.v1.service.sync_list.sync_list_item.SyncListItemContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'service_sid': service_sid,
-            'list_sid': list_sid,
-            'index': index,
-        }
-        self._uri = '/Services/{service_sid}/Lists/{list_sid}/Items/{index}'.format(**self._solution)
-        
-    
-    def delete(self, if_match=values.unset):
-        """
-        Deletes the SyncListItemInstance
-
-        :param str if_match: If provided, applies this mutation if (and only if) the “revision” field of this [map item] matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match).
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        headers = values.of({'If-Match': if_match, })
-        
-        return self._version.delete(method='DELETE', uri=self._uri, headers=headers)
-        
-    def fetch(self):
-        """
-        Fetch the SyncListItemInstance
-        
-
-        :returns: The fetched SyncListItemInstance
-        :rtype: twilio.rest.sync.v1.service.sync_list.sync_list_item.SyncListItemInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return SyncListItemInstance(
-            self._version,
-            payload,
-            service_sid=self._solution['service_sid'],
-            list_sid=self._solution['list_sid'],
-            index=self._solution['index'],
-            
-        )
-        
-    def update(self, if_match=values.unset, data=values.unset, ttl=values.unset, item_ttl=values.unset, collection_ttl=values.unset):
-        """
-        Update the SyncListItemInstance
-        
-        :params str if_match: If provided, applies this mutation if (and only if) the “revision” field of this [map item] matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match).
-        :params object data: A JSON string that represents an arbitrary, schema-less object that the List Item stores. Can be up to 16 KiB in length.
-        :params int ttl: An alias for `item_ttl`. If both parameters are provided, this value is ignored.
-        :params int item_ttl: How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the List Item expires (time-to-live) and is deleted.
-        :params int collection_ttl: How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the List Item's parent Sync List expires (time-to-live) and is deleted. This parameter can only be used when the List Item's `data` or `ttl` is updated in the same request.
-
-        :returns: The updated SyncListItemInstance
-        :rtype: twilio.rest.sync.v1.service.sync_list.sync_list_item.SyncListItemInstance
-        """
-        data = values.of({ 
-            'Data': serialize.object(data),
-            'Ttl': ttl,
-            'ItemTtl': item_ttl,
-            'CollectionTtl': collection_ttl,
-        })
-        headers = values.of({'If-Match': if_match, })
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data, headers=headers)
-
-        return SyncListItemInstance(
-            self._version,
-            payload,
-            service_sid=self._solution['service_sid'],
-            list_sid=self._solution['list_sid'],
-            index=self._solution['index']
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Sync.V1.SyncListItemContext {}>'.format(context)
-
 class SyncListItemInstance(InstanceResource):
 
     class QueryFromBoundType(object):
@@ -529,5 +432,102 @@ class SyncListItemInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Sync.V1.SyncListItemInstance {}>'.format(context)
+
+class SyncListItemContext(InstanceContext):
+
+    def __init__(self, version: Version, service_sid: str, list_sid: str, index: int):
+        """
+        Initialize the SyncListItemContext
+
+        :param Version version: Version that contains the resource
+        :param service_sid: The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Sync List Item resource to update.:param list_sid: The SID of the Sync List with the Sync List Item resource to update. Can be the Sync List resource's `sid` or its `unique_name`.:param index: The index of the Sync List Item resource to update.
+
+        :returns: twilio.rest.sync.v1.service.sync_list.sync_list_item.SyncListItemContext
+        :rtype: twilio.rest.sync.v1.service.sync_list.sync_list_item.SyncListItemContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'service_sid': service_sid,
+            'list_sid': list_sid,
+            'index': index,
+        }
+        self._uri = '/Services/{service_sid}/Lists/{list_sid}/Items/{index}'.format(**self._solution)
+        
+    
+    def delete(self, if_match=values.unset):
+        """
+        Deletes the SyncListItemInstance
+
+        :param str if_match: If provided, applies this mutation if (and only if) the “revision” field of this [map item] matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match).
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        headers = values.of({'If-Match': if_match, })
+        
+        return self._version.delete(method='DELETE', uri=self._uri, headers=headers)
+        
+    def fetch(self):
+        """
+        Fetch the SyncListItemInstance
+        
+
+        :returns: The fetched SyncListItemInstance
+        :rtype: twilio.rest.sync.v1.service.sync_list.sync_list_item.SyncListItemInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return SyncListItemInstance(
+            self._version,
+            payload,
+            service_sid=self._solution['service_sid'],
+            list_sid=self._solution['list_sid'],
+            index=self._solution['index'],
+            
+        )
+        
+    def update(self, if_match=values.unset, data=values.unset, ttl=values.unset, item_ttl=values.unset, collection_ttl=values.unset):
+        """
+        Update the SyncListItemInstance
+        
+        :params str if_match: If provided, applies this mutation if (and only if) the “revision” field of this [map item] matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match).
+        :params object data: A JSON string that represents an arbitrary, schema-less object that the List Item stores. Can be up to 16 KiB in length.
+        :params int ttl: An alias for `item_ttl`. If both parameters are provided, this value is ignored.
+        :params int item_ttl: How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the List Item expires (time-to-live) and is deleted.
+        :params int collection_ttl: How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the List Item's parent Sync List expires (time-to-live) and is deleted. This parameter can only be used when the List Item's `data` or `ttl` is updated in the same request.
+
+        :returns: The updated SyncListItemInstance
+        :rtype: twilio.rest.sync.v1.service.sync_list.sync_list_item.SyncListItemInstance
+        """
+        data = values.of({ 
+            'Data': serialize.object(data),
+            'Ttl': ttl,
+            'ItemTtl': item_ttl,
+            'CollectionTtl': collection_ttl,
+        })
+        headers = values.of({'If-Match': if_match, })
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data, headers=headers)
+
+        return SyncListItemInstance(
+            self._version,
+            payload,
+            service_sid=self._solution['service_sid'],
+            list_sid=self._solution['list_sid'],
+            index=self._solution['index']
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Sync.V1.SyncListItemContext {}>'.format(context)
 
 

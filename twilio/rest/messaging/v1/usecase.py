@@ -53,7 +53,6 @@ class UsecaseList(ListResource):
         """
         return '<Twilio.Messaging.V1.UsecaseList>'
 
-
 class UsecaseInstance(InstanceResource):
 
     def __init__(self, version, payload):
@@ -88,5 +87,6 @@ class UsecaseInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Messaging.V1.UsecaseInstance {}>'.format(context)
+
 
 

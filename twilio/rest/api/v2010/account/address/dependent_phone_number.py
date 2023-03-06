@@ -178,7 +178,6 @@ class DependentPhoneNumberPage(Page):
 
 
 
-
 class DependentPhoneNumberInstance(InstanceResource):
 
     class AddressRequirement(object):
@@ -448,5 +447,6 @@ class DependentPhoneNumberInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Api.V2010.DependentPhoneNumberInstance {}>'.format(context)
+
 
 

@@ -72,79 +72,6 @@ class RecordingList(ListResource):
         """
         return '<Twilio.Trunking.V1.RecordingList>'
 
-class RecordingContext(InstanceContext):
-
-    def __init__(self, version: Version, trunk_sid: str):
-        """
-        Initialize the RecordingContext
-
-        :param Version version: Version that contains the resource
-        :param trunk_sid: The SID of the Trunk that will have its recording settings updated.
-
-        :returns: twilio.rest.trunking.v1.trunk.recording.RecordingContext
-        :rtype: twilio.rest.trunking.v1.trunk.recording.RecordingContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'trunk_sid': trunk_sid,
-        }
-        self._uri = '/Trunks/{trunk_sid}/Recording'.format(**self._solution)
-        
-    
-    def fetch(self):
-        """
-        Fetch the RecordingInstance
-        
-
-        :returns: The fetched RecordingInstance
-        :rtype: twilio.rest.trunking.v1.trunk.recording.RecordingInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return RecordingInstance(
-            self._version,
-            payload,
-            trunk_sid=self._solution['trunk_sid'],
-            
-        )
-        
-    def update(self, mode=values.unset, trim=values.unset):
-        """
-        Update the RecordingInstance
-        
-        :params RecordingMode mode: 
-        :params RecordingTrim trim: 
-
-        :returns: The updated RecordingInstance
-        :rtype: twilio.rest.trunking.v1.trunk.recording.RecordingInstance
-        """
-        data = values.of({ 
-            'Mode': mode,
-            'Trim': trim,
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return RecordingInstance(
-            self._version,
-            payload,
-            trunk_sid=self._solution['trunk_sid']
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Trunking.V1.RecordingContext {}>'.format(context)
-
 class RecordingInstance(InstanceResource):
 
     class RecordingMode(object):
@@ -233,5 +160,78 @@ class RecordingInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Trunking.V1.RecordingInstance {}>'.format(context)
+
+class RecordingContext(InstanceContext):
+
+    def __init__(self, version: Version, trunk_sid: str):
+        """
+        Initialize the RecordingContext
+
+        :param Version version: Version that contains the resource
+        :param trunk_sid: The SID of the Trunk that will have its recording settings updated.
+
+        :returns: twilio.rest.trunking.v1.trunk.recording.RecordingContext
+        :rtype: twilio.rest.trunking.v1.trunk.recording.RecordingContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'trunk_sid': trunk_sid,
+        }
+        self._uri = '/Trunks/{trunk_sid}/Recording'.format(**self._solution)
+        
+    
+    def fetch(self):
+        """
+        Fetch the RecordingInstance
+        
+
+        :returns: The fetched RecordingInstance
+        :rtype: twilio.rest.trunking.v1.trunk.recording.RecordingInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return RecordingInstance(
+            self._version,
+            payload,
+            trunk_sid=self._solution['trunk_sid'],
+            
+        )
+        
+    def update(self, mode=values.unset, trim=values.unset):
+        """
+        Update the RecordingInstance
+        
+        :params RecordingMode mode: 
+        :params RecordingTrim trim: 
+
+        :returns: The updated RecordingInstance
+        :rtype: twilio.rest.trunking.v1.trunk.recording.RecordingInstance
+        """
+        data = values.of({ 
+            'Mode': mode,
+            'Trim': trim,
+        })
+        
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return RecordingInstance(
+            self._version,
+            payload,
+            trunk_sid=self._solution['trunk_sid']
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Trunking.V1.RecordingContext {}>'.format(context)
 
 

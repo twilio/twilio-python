@@ -206,110 +206,6 @@ class InteractionChannelPage(Page):
 
 
 
-class InteractionChannelContext(InstanceContext):
-
-    def __init__(self, version: Version, interaction_sid: str, sid: str):
-        """
-        Initialize the InteractionChannelContext
-
-        :param Version version: Version that contains the resource
-        :param interaction_sid: The unique string created by Twilio to identify an Interaction resource, prefixed with KD.:param sid: The unique string created by Twilio to identify an Interaction Channel resource, prefixed with UO.
-
-        :returns: twilio.rest.flex_api.v1.interaction.interaction_channel.InteractionChannelContext
-        :rtype: twilio.rest.flex_api.v1.interaction.interaction_channel.InteractionChannelContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'interaction_sid': interaction_sid,
-            'sid': sid,
-        }
-        self._uri = '/Interactions/{interaction_sid}/Channels/{sid}'.format(**self._solution)
-        
-        self._invites = None
-        self._participants = None
-    
-    def fetch(self):
-        """
-        Fetch the InteractionChannelInstance
-        
-
-        :returns: The fetched InteractionChannelInstance
-        :rtype: twilio.rest.flex_api.v1.interaction.interaction_channel.InteractionChannelInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return InteractionChannelInstance(
-            self._version,
-            payload,
-            interaction_sid=self._solution['interaction_sid'],
-            sid=self._solution['sid'],
-            
-        )
-        
-    def update(self, status, routing=values.unset):
-        """
-        Update the InteractionChannelInstance
-        
-        :params Status status: 
-        :params object routing: Optional. The state of associated tasks. If not specified, all tasks will be set to `wrapping`.
-
-        :returns: The updated InteractionChannelInstance
-        :rtype: twilio.rest.flex_api.v1.interaction.interaction_channel.InteractionChannelInstance
-        """
-        data = values.of({ 
-            'Status': status,
-            'Routing': serialize.object(routing),
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return InteractionChannelInstance(
-            self._version,
-            payload,
-            interaction_sid=self._solution['interaction_sid'],
-            sid=self._solution['sid']
-        )
-        
-    
-    @property
-    def invites(self):
-        """
-        Access the invites
-
-        :returns: twilio.rest.flex_api.v1.interaction.interaction_channel.InteractionChannelInviteList
-        :rtype: twilio.rest.flex_api.v1.interaction.interaction_channel.InteractionChannelInviteList
-        """
-        if self._invites is None:
-            self._invites = InteractionChannelInviteList(self._version, self._solution['interaction_sid'], self._solution['sid'],
-            )
-        return self._invites
-    
-    @property
-    def participants(self):
-        """
-        Access the participants
-
-        :returns: twilio.rest.flex_api.v1.interaction.interaction_channel.InteractionChannelParticipantList
-        :rtype: twilio.rest.flex_api.v1.interaction.interaction_channel.InteractionChannelParticipantList
-        """
-        if self._participants is None:
-            self._participants = InteractionChannelParticipantList(self._version, self._solution['interaction_sid'], self._solution['sid'],
-            )
-        return self._participants
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.FlexApi.V1.InteractionChannelContext {}>'.format(context)
-
 class InteractionChannelInstance(InstanceResource):
 
     class ChannelStatus(object):
@@ -477,5 +373,109 @@ class InteractionChannelInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.FlexApi.V1.InteractionChannelInstance {}>'.format(context)
+
+class InteractionChannelContext(InstanceContext):
+
+    def __init__(self, version: Version, interaction_sid: str, sid: str):
+        """
+        Initialize the InteractionChannelContext
+
+        :param Version version: Version that contains the resource
+        :param interaction_sid: The unique string created by Twilio to identify an Interaction resource, prefixed with KD.:param sid: The unique string created by Twilio to identify an Interaction Channel resource, prefixed with UO.
+
+        :returns: twilio.rest.flex_api.v1.interaction.interaction_channel.InteractionChannelContext
+        :rtype: twilio.rest.flex_api.v1.interaction.interaction_channel.InteractionChannelContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'interaction_sid': interaction_sid,
+            'sid': sid,
+        }
+        self._uri = '/Interactions/{interaction_sid}/Channels/{sid}'.format(**self._solution)
+        
+        self._invites = None
+        self._participants = None
+    
+    def fetch(self):
+        """
+        Fetch the InteractionChannelInstance
+        
+
+        :returns: The fetched InteractionChannelInstance
+        :rtype: twilio.rest.flex_api.v1.interaction.interaction_channel.InteractionChannelInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return InteractionChannelInstance(
+            self._version,
+            payload,
+            interaction_sid=self._solution['interaction_sid'],
+            sid=self._solution['sid'],
+            
+        )
+        
+    def update(self, status, routing=values.unset):
+        """
+        Update the InteractionChannelInstance
+        
+        :params Status status: 
+        :params object routing: Optional. The state of associated tasks. If not specified, all tasks will be set to `wrapping`.
+
+        :returns: The updated InteractionChannelInstance
+        :rtype: twilio.rest.flex_api.v1.interaction.interaction_channel.InteractionChannelInstance
+        """
+        data = values.of({ 
+            'Status': status,
+            'Routing': serialize.object(routing),
+        })
+        
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return InteractionChannelInstance(
+            self._version,
+            payload,
+            interaction_sid=self._solution['interaction_sid'],
+            sid=self._solution['sid']
+        )
+        
+    
+    @property
+    def invites(self):
+        """
+        Access the invites
+
+        :returns: twilio.rest.flex_api.v1.interaction.interaction_channel.InteractionChannelInviteList
+        :rtype: twilio.rest.flex_api.v1.interaction.interaction_channel.InteractionChannelInviteList
+        """
+        if self._invites is None:
+            self._invites = InteractionChannelInviteList(self._version, self._solution['interaction_sid'], self._solution['sid'],
+            )
+        return self._invites
+    
+    @property
+    def participants(self):
+        """
+        Access the participants
+
+        :returns: twilio.rest.flex_api.v1.interaction.interaction_channel.InteractionChannelParticipantList
+        :rtype: twilio.rest.flex_api.v1.interaction.interaction_channel.InteractionChannelParticipantList
+        """
+        if self._participants is None:
+            self._participants = InteractionChannelParticipantList(self._version, self._solution['interaction_sid'], self._solution['sid'],
+            )
+        return self._participants
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.FlexApi.V1.InteractionChannelContext {}>'.format(context)
 
 

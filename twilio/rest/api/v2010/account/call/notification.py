@@ -226,59 +226,6 @@ class NotificationPage(Page):
 
 
 
-class NotificationContext(InstanceContext):
-
-    def __init__(self, version: Version, account_sid: str, call_sid: str, sid: str):
-        """
-        Initialize the NotificationContext
-
-        :param Version version: Version that contains the resource
-        :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Call Notification resource to fetch.:param call_sid: The [Call](https://www.twilio.com/docs/voice/api/call-resource) SID of the Call Notification resource to fetch.:param sid: The Twilio-provided string that uniquely identifies the Call Notification resource to fetch.
-
-        :returns: twilio.rest.api.v2010.account.call.notification.NotificationContext
-        :rtype: twilio.rest.api.v2010.account.call.notification.NotificationContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'account_sid': account_sid,
-            'call_sid': call_sid,
-            'sid': sid,
-        }
-        self._uri = '/Accounts/{account_sid}/Calls/{call_sid}/Notifications/{sid}.json'.format(**self._solution)
-        
-    
-    def fetch(self):
-        """
-        Fetch the NotificationInstance
-        
-
-        :returns: The fetched NotificationInstance
-        :rtype: twilio.rest.api.v2010.account.call.notification.NotificationInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return NotificationInstance(
-            self._version,
-            payload,
-            account_sid=self._solution['account_sid'],
-            call_sid=self._solution['call_sid'],
-            sid=self._solution['sid'],
-            
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Api.V2010.NotificationContext {}>'.format(context)
-
 class NotificationInstance(InstanceResource):
 
     def __init__(self, version, payload, account_sid: str, call_sid: str, sid: str=None):
@@ -479,5 +426,58 @@ class NotificationInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Api.V2010.NotificationInstance {}>'.format(context)
+
+class NotificationContext(InstanceContext):
+
+    def __init__(self, version: Version, account_sid: str, call_sid: str, sid: str):
+        """
+        Initialize the NotificationContext
+
+        :param Version version: Version that contains the resource
+        :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Call Notification resource to fetch.:param call_sid: The [Call](https://www.twilio.com/docs/voice/api/call-resource) SID of the Call Notification resource to fetch.:param sid: The Twilio-provided string that uniquely identifies the Call Notification resource to fetch.
+
+        :returns: twilio.rest.api.v2010.account.call.notification.NotificationContext
+        :rtype: twilio.rest.api.v2010.account.call.notification.NotificationContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'account_sid': account_sid,
+            'call_sid': call_sid,
+            'sid': sid,
+        }
+        self._uri = '/Accounts/{account_sid}/Calls/{call_sid}/Notifications/{sid}.json'.format(**self._solution)
+        
+    
+    def fetch(self):
+        """
+        Fetch the NotificationInstance
+        
+
+        :returns: The fetched NotificationInstance
+        :rtype: twilio.rest.api.v2010.account.call.notification.NotificationInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return NotificationInstance(
+            self._version,
+            payload,
+            account_sid=self._solution['account_sid'],
+            call_sid=self._solution['call_sid'],
+            sid=self._solution['sid'],
+            
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Api.V2010.NotificationContext {}>'.format(context)
 
 

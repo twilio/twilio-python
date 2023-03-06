@@ -221,57 +221,6 @@ class CustomerProfilesEvaluationsPage(Page):
 
 
 
-class CustomerProfilesEvaluationsContext(InstanceContext):
-
-    def __init__(self, version: Version, customer_profile_sid: str, sid: str):
-        """
-        Initialize the CustomerProfilesEvaluationsContext
-
-        :param Version version: Version that contains the resource
-        :param customer_profile_sid: The unique string that we created to identify the customer_profile resource.:param sid: The unique string that identifies the Evaluation resource.
-
-        :returns: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_evaluations.CustomerProfilesEvaluationsContext
-        :rtype: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_evaluations.CustomerProfilesEvaluationsContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'customer_profile_sid': customer_profile_sid,
-            'sid': sid,
-        }
-        self._uri = '/CustomerProfiles/{customer_profile_sid}/Evaluations/{sid}'.format(**self._solution)
-        
-    
-    def fetch(self):
-        """
-        Fetch the CustomerProfilesEvaluationsInstance
-        
-
-        :returns: The fetched CustomerProfilesEvaluationsInstance
-        :rtype: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_evaluations.CustomerProfilesEvaluationsInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return CustomerProfilesEvaluationsInstance(
-            self._version,
-            payload,
-            customer_profile_sid=self._solution['customer_profile_sid'],
-            sid=self._solution['sid'],
-            
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Trusthub.V1.CustomerProfilesEvaluationsContext {}>'.format(context)
-
 class CustomerProfilesEvaluationsInstance(InstanceResource):
 
     class Status(object):
@@ -395,5 +344,56 @@ class CustomerProfilesEvaluationsInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Trusthub.V1.CustomerProfilesEvaluationsInstance {}>'.format(context)
+
+class CustomerProfilesEvaluationsContext(InstanceContext):
+
+    def __init__(self, version: Version, customer_profile_sid: str, sid: str):
+        """
+        Initialize the CustomerProfilesEvaluationsContext
+
+        :param Version version: Version that contains the resource
+        :param customer_profile_sid: The unique string that we created to identify the customer_profile resource.:param sid: The unique string that identifies the Evaluation resource.
+
+        :returns: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_evaluations.CustomerProfilesEvaluationsContext
+        :rtype: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_evaluations.CustomerProfilesEvaluationsContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'customer_profile_sid': customer_profile_sid,
+            'sid': sid,
+        }
+        self._uri = '/CustomerProfiles/{customer_profile_sid}/Evaluations/{sid}'.format(**self._solution)
+        
+    
+    def fetch(self):
+        """
+        Fetch the CustomerProfilesEvaluationsInstance
+        
+
+        :returns: The fetched CustomerProfilesEvaluationsInstance
+        :rtype: twilio.rest.trusthub.v1.customer_profiles.customer_profiles_evaluations.CustomerProfilesEvaluationsInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return CustomerProfilesEvaluationsInstance(
+            self._version,
+            payload,
+            customer_profile_sid=self._solution['customer_profile_sid'],
+            sid=self._solution['sid'],
+            
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Trusthub.V1.CustomerProfilesEvaluationsContext {}>'.format(context)
 
 

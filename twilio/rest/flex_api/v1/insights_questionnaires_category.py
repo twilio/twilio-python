@@ -230,73 +230,6 @@ class InsightsQuestionnairesCategoryPage(Page):
 
 
 
-class InsightsQuestionnairesCategoryContext(InstanceContext):
-
-    def __init__(self, version: Version, category_id: str):
-        """
-        Initialize the InsightsQuestionnairesCategoryContext
-
-        :param Version version: Version that contains the resource
-        :param category_id: The ID of the category to be update
-
-        :returns: twilio.rest.flex_api.v1.insights_questionnaires_category.InsightsQuestionnairesCategoryContext
-        :rtype: twilio.rest.flex_api.v1.insights_questionnaires_category.InsightsQuestionnairesCategoryContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'category_id': category_id,
-        }
-        self._uri = '/Insights/QM/Categories/{category_id}'.format(**self._solution)
-        
-    
-    def delete(self, token=values.unset):
-        """
-        Deletes the InsightsQuestionnairesCategoryInstance
-
-        :param str token: The Token HTTP request header
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        headers = values.of({'Token': token, })
-        
-        return self._version.delete(method='DELETE', uri=self._uri, headers=headers)
-        
-    def update(self, name, token=values.unset):
-        """
-        Update the InsightsQuestionnairesCategoryInstance
-        
-        :params str name: The name of this category.
-        :params str token: The Token HTTP request header
-
-        :returns: The updated InsightsQuestionnairesCategoryInstance
-        :rtype: twilio.rest.flex_api.v1.insights_questionnaires_category.InsightsQuestionnairesCategoryInstance
-        """
-        data = values.of({ 
-            'Name': name,
-        })
-        headers = values.of({'Token': token, })
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data, headers=headers)
-
-        return InsightsQuestionnairesCategoryInstance(
-            self._version,
-            payload,
-            category_id=self._solution['category_id']
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.FlexApi.V1.InsightsQuestionnairesCategoryContext {}>'.format(context)
-
 class InsightsQuestionnairesCategoryInstance(InstanceResource):
 
     def __init__(self, version, payload, category_id: str=None):
@@ -393,5 +326,72 @@ class InsightsQuestionnairesCategoryInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.FlexApi.V1.InsightsQuestionnairesCategoryInstance {}>'.format(context)
+
+class InsightsQuestionnairesCategoryContext(InstanceContext):
+
+    def __init__(self, version: Version, category_id: str):
+        """
+        Initialize the InsightsQuestionnairesCategoryContext
+
+        :param Version version: Version that contains the resource
+        :param category_id: The ID of the category to be update
+
+        :returns: twilio.rest.flex_api.v1.insights_questionnaires_category.InsightsQuestionnairesCategoryContext
+        :rtype: twilio.rest.flex_api.v1.insights_questionnaires_category.InsightsQuestionnairesCategoryContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'category_id': category_id,
+        }
+        self._uri = '/Insights/QM/Categories/{category_id}'.format(**self._solution)
+        
+    
+    def delete(self, token=values.unset):
+        """
+        Deletes the InsightsQuestionnairesCategoryInstance
+
+        :param str token: The Token HTTP request header
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        headers = values.of({'Token': token, })
+        
+        return self._version.delete(method='DELETE', uri=self._uri, headers=headers)
+        
+    def update(self, name, token=values.unset):
+        """
+        Update the InsightsQuestionnairesCategoryInstance
+        
+        :params str name: The name of this category.
+        :params str token: The Token HTTP request header
+
+        :returns: The updated InsightsQuestionnairesCategoryInstance
+        :rtype: twilio.rest.flex_api.v1.insights_questionnaires_category.InsightsQuestionnairesCategoryInstance
+        """
+        data = values.of({ 
+            'Name': name,
+        })
+        headers = values.of({'Token': token, })
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data, headers=headers)
+
+        return InsightsQuestionnairesCategoryInstance(
+            self._version,
+            payload,
+            category_id=self._solution['category_id']
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.FlexApi.V1.InsightsQuestionnairesCategoryContext {}>'.format(context)
 
 

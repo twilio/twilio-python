@@ -204,57 +204,6 @@ class EvaluationPage(Page):
 
 
 
-class EvaluationContext(InstanceContext):
-
-    def __init__(self, version: Version, bundle_sid: str, sid: str):
-        """
-        Initialize the EvaluationContext
-
-        :param Version version: Version that contains the resource
-        :param bundle_sid: The unique string that we created to identify the Bundle resource.:param sid: The unique string that identifies the Evaluation resource.
-
-        :returns: twilio.rest.numbers.v2.regulatory_compliance.bundle.evaluation.EvaluationContext
-        :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.evaluation.EvaluationContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'bundle_sid': bundle_sid,
-            'sid': sid,
-        }
-        self._uri = '/RegulatoryCompliance/Bundles/{bundle_sid}/Evaluations/{sid}'.format(**self._solution)
-        
-    
-    def fetch(self):
-        """
-        Fetch the EvaluationInstance
-        
-
-        :returns: The fetched EvaluationInstance
-        :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.evaluation.EvaluationInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return EvaluationInstance(
-            self._version,
-            payload,
-            bundle_sid=self._solution['bundle_sid'],
-            sid=self._solution['sid'],
-            
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Numbers.V2.EvaluationContext {}>'.format(context)
-
 class EvaluationInstance(InstanceResource):
 
     class Status(object):
@@ -378,5 +327,56 @@ class EvaluationInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Numbers.V2.EvaluationInstance {}>'.format(context)
+
+class EvaluationContext(InstanceContext):
+
+    def __init__(self, version: Version, bundle_sid: str, sid: str):
+        """
+        Initialize the EvaluationContext
+
+        :param Version version: Version that contains the resource
+        :param bundle_sid: The unique string that we created to identify the Bundle resource.:param sid: The unique string that identifies the Evaluation resource.
+
+        :returns: twilio.rest.numbers.v2.regulatory_compliance.bundle.evaluation.EvaluationContext
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.evaluation.EvaluationContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'bundle_sid': bundle_sid,
+            'sid': sid,
+        }
+        self._uri = '/RegulatoryCompliance/Bundles/{bundle_sid}/Evaluations/{sid}'.format(**self._solution)
+        
+    
+    def fetch(self):
+        """
+        Fetch the EvaluationInstance
+        
+
+        :returns: The fetched EvaluationInstance
+        :rtype: twilio.rest.numbers.v2.regulatory_compliance.bundle.evaluation.EvaluationInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return EvaluationInstance(
+            self._version,
+            payload,
+            bundle_sid=self._solution['bundle_sid'],
+            sid=self._solution['sid'],
+            
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Numbers.V2.EvaluationContext {}>'.format(context)
 
 

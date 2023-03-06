@@ -226,67 +226,6 @@ class DeviceSecretPage(Page):
 
 
 
-class DeviceSecretContext(InstanceContext):
-
-    def __init__(self, version: Version, device_sid: str, key: str):
-        """
-        Initialize the DeviceSecretContext
-
-        :param Version version: Version that contains the resource
-        :param device_sid: A 34-character string that uniquely identifies the Device.:param key: The secret key; up to 100 characters.
-
-        :returns: twilio.rest.microvisor.v1.device.device_secret.DeviceSecretContext
-        :rtype: twilio.rest.microvisor.v1.device.device_secret.DeviceSecretContext
-        """
-        super().__init__(version)
-
-        # Path Solution
-        self._solution = { 
-            'device_sid': device_sid,
-            'key': key,
-        }
-        self._uri = '/Devices/{device_sid}/Secrets/{key}'.format(**self._solution)
-        
-    
-    def delete(self):
-        """
-        Deletes the DeviceSecretInstance
-
-        
-        :returns: True if delete succeeds, False otherwise
-        :rtype: bool
-        """
-        return self._version.delete(method='DELETE', uri=self._uri,)
-        
-    def fetch(self):
-        """
-        Fetch the DeviceSecretInstance
-        
-
-        :returns: The fetched DeviceSecretInstance
-        :rtype: twilio.rest.microvisor.v1.device.device_secret.DeviceSecretInstance
-        """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
-
-        return DeviceSecretInstance(
-            self._version,
-            payload,
-            device_sid=self._solution['device_sid'],
-            key=self._solution['key'],
-            
-        )
-        
-    
-    def __repr__(self):
-        """
-        Provide a friendly representation
-        :returns: Machine friendly representation
-        :rtype: str
-        """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Microvisor.V1.DeviceSecretContext {}>'.format(context)
-
 class DeviceSecretInstance(InstanceResource):
 
     def __init__(self, version, payload, device_sid: str, key: str=None):
@@ -380,5 +319,66 @@ class DeviceSecretInstance(InstanceResource):
         """
         context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
         return '<Twilio.Microvisor.V1.DeviceSecretInstance {}>'.format(context)
+
+class DeviceSecretContext(InstanceContext):
+
+    def __init__(self, version: Version, device_sid: str, key: str):
+        """
+        Initialize the DeviceSecretContext
+
+        :param Version version: Version that contains the resource
+        :param device_sid: A 34-character string that uniquely identifies the Device.:param key: The secret key; up to 100 characters.
+
+        :returns: twilio.rest.microvisor.v1.device.device_secret.DeviceSecretContext
+        :rtype: twilio.rest.microvisor.v1.device.device_secret.DeviceSecretContext
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = { 
+            'device_sid': device_sid,
+            'key': key,
+        }
+        self._uri = '/Devices/{device_sid}/Secrets/{key}'.format(**self._solution)
+        
+    
+    def delete(self):
+        """
+        Deletes the DeviceSecretInstance
+
+        
+        :returns: True if delete succeeds, False otherwise
+        :rtype: bool
+        """
+        return self._version.delete(method='DELETE', uri=self._uri,)
+        
+    def fetch(self):
+        """
+        Fetch the DeviceSecretInstance
+        
+
+        :returns: The fetched DeviceSecretInstance
+        :rtype: twilio.rest.microvisor.v1.device.device_secret.DeviceSecretInstance
+        """
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        return DeviceSecretInstance(
+            self._version,
+            payload,
+            device_sid=self._solution['device_sid'],
+            key=self._solution['key'],
+            
+        )
+        
+    
+    def __repr__(self):
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        :rtype: str
+        """
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Microvisor.V1.DeviceSecretContext {}>'.format(context)
 
 
