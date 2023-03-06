@@ -43,17 +43,6 @@ class VerificationAttemptsSummaryList(ListResource):
         
         
     
-    def fetch(self):
-        """
-        Fetch the VerificationAttemptsSummaryInstance
-
-        :returns: The fetched VerificationAttemptsSummaryInstance
-        :rtype: twilio.rest.verify.v2.verification_attempts_summary.VerificationAttemptsSummaryInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return VerificationAttemptsSummaryInstance(self._version, payload)
-    
 
     def get(self):
         """

@@ -44,17 +44,6 @@ class CallSummaryList(ListResource):
         
         
     
-    def fetch(self):
-        """
-        Fetch the CallSummaryInstance
-
-        :returns: The fetched CallSummaryInstance
-        :rtype: twilio.rest.insights.v1.call.call_summary.CallSummaryInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return CallSummaryInstance(self._version, payload, call_sid=self._solution['call_sid'])
-    
 
     def get(self):
         """

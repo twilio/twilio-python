@@ -43,17 +43,6 @@ class FormList(ListResource):
         
         
     
-    def fetch(self):
-        """
-        Fetch the FormInstance
-
-        :returns: The fetched FormInstance
-        :rtype: twilio.rest.verify.v2.form.FormInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return FormInstance(self._version, payload)
-    
 
     def get(self, form_type):
         """

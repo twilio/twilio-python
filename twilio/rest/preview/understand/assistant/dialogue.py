@@ -44,17 +44,6 @@ class DialogueList(ListResource):
         
         
     
-    def fetch(self):
-        """
-        Fetch the DialogueInstance
-
-        :returns: The fetched DialogueInstance
-        :rtype: twilio.rest.preview.understand.assistant.dialogue.DialogueInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return DialogueInstance(self._version, payload, assistant_sid=self._solution['assistant_sid'])
-    
 
     def get(self, sid):
         """

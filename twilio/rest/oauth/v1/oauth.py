@@ -43,17 +43,6 @@ class OauthList(ListResource):
         
         
     
-    def fetch(self):
-        """
-        Fetch the OauthInstance
-
-        :returns: The fetched OauthInstance
-        :rtype: twilio.rest.oauth.v1.oauth.OauthInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return OauthInstance(self._version, payload)
-    
 
     def get(self):
         """

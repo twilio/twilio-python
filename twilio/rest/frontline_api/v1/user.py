@@ -43,40 +43,6 @@ class UserList(ListResource):
         
         
     
-    def fetch(self):
-        """
-        Fetch the UserInstance
-
-        :returns: The fetched UserInstance
-        :rtype: twilio.rest.frontline_api.v1.user.UserInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return UserInstance(self._version, payload)
-    
-    
-    def update(self, friendly_name=values.unset, avatar=values.unset, state=values.unset, is_available=values.unset):
-        """
-        Update the UserInstance
-
-        :param str friendly_name: The string that you assigned to describe the User.
-        :param str avatar: The avatar URL which will be shown in Frontline application.
-        :param StateType state: 
-        :param bool is_available: Whether the User is available for new conversations. Set to `false` to prevent User from receiving new inbound conversations if you are using [Pool Routing](https://www.twilio.com/docs/frontline/handle-incoming-conversations#3-pool-routing).
-        
-        :returns: The created UserInstance
-        :rtype: twilio.rest.frontline_api.v1.user.UserInstance
-        """
-        data = values.of({ 
-            'FriendlyName': friendly_name,
-            'Avatar': avatar,
-            'State': state,
-            'IsAvailable': is_available,
-        })
-        
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return UserInstance(self._version, payload)
     
 
     def get(self, sid):

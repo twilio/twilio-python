@@ -71,17 +71,6 @@ class RecordingSettingsList(ListResource):
         return RecordingSettingsInstance(self._version, payload)
     
     
-    def fetch(self):
-        """
-        Fetch the RecordingSettingsInstance
-
-        :returns: The fetched RecordingSettingsInstance
-        :rtype: twilio.rest.video.v1.recording_settings.RecordingSettingsInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return RecordingSettingsInstance(self._version, payload)
-    
 
     def get(self):
         """

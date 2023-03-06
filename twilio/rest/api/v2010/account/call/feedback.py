@@ -45,36 +45,6 @@ class FeedbackList(ListResource):
         
         
     
-    def fetch(self):
-        """
-        Fetch the FeedbackInstance
-
-        :returns: The fetched FeedbackInstance
-        :rtype: twilio.rest.api.v2010.account.call.feedback.FeedbackInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return FeedbackInstance(self._version, payload, account_sid=self._solution['account_sid'], call_sid=self._solution['call_sid'])
-    
-    
-    def update(self, quality_score=values.unset, issue=values.unset):
-        """
-        Update the FeedbackInstance
-
-        :param int quality_score: The call quality expressed as an integer from `1` to `5` where `1` represents very poor call quality and `5` represents a perfect call.
-        :param list[Issues] issue: One or more issues experienced during the call. The issues can be: `imperfect-audio`, `dropped-call`, `incorrect-caller-id`, `post-dial-delay`, `digits-not-captured`, `audio-latency`, `unsolicited-call`, or `one-way-audio`.
-        
-        :returns: The created FeedbackInstance
-        :rtype: twilio.rest.api.v2010.account.call.feedback.FeedbackInstance
-        """
-        data = values.of({ 
-            'QualityScore': quality_score,
-            'Issue': serialize.map(issue, lambda e: e),
-        })
-        
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return FeedbackInstance(self._version, payload, account_sid=self._solution['account_sid'], call_sid=self._solution['call_sid'])
     
 
     def get(self):

@@ -43,17 +43,6 @@ class ConfigurationList(ListResource):
         
         
     
-    def fetch(self):
-        """
-        Fetch the ConfigurationInstance
-
-        :returns: The fetched ConfigurationInstance
-        :rtype: twilio.rest.flex_api.v1.configuration.ConfigurationInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return ConfigurationInstance(self._version, payload)
-    
 
     def get(self):
         """

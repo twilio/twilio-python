@@ -43,26 +43,6 @@ class ChannelList(ListResource):
         
         
     
-    def update(self, x_twilio_webhook_enabled=values.unset, type=values.unset, messaging_service_sid=values.unset):
-        """
-        Update the ChannelInstance
-
-        :param WebhookEnabledType x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
-        :param ChannelType type: 
-        :param str messaging_service_sid: The unique ID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) this channel belongs to.
-        
-        :returns: The created ChannelInstance
-        :rtype: twilio.rest.chat.v3.channel.ChannelInstance
-        """
-        data = values.of({ 
-            'Type': type,
-            'MessagingServiceSid': messaging_service_sid,
-        })
-        headers = values.of({'X-Twilio-Webhook-Enabled': x_twilio_webhook_enabled, })
-        payload = self._version.update(method='POST', uri=self._uri, data=data, headers=headers)
-
-        return ChannelInstance(self._version, payload)
-    
 
     def get(self, service_sid, sid):
         """

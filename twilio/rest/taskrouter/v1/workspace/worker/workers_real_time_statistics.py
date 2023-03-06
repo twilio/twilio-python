@@ -44,17 +44,6 @@ class WorkersRealTimeStatisticsList(ListResource):
         
         
     
-    def fetch(self):
-        """
-        Fetch the WorkersRealTimeStatisticsInstance
-
-        :returns: The fetched WorkersRealTimeStatisticsInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.worker.workers_real_time_statistics.WorkersRealTimeStatisticsInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return WorkersRealTimeStatisticsInstance(self._version, payload, workspace_sid=self._solution['workspace_sid'])
-    
 
     def get(self):
         """

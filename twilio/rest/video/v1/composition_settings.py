@@ -71,17 +71,6 @@ class CompositionSettingsList(ListResource):
         return CompositionSettingsInstance(self._version, payload)
     
     
-    def fetch(self):
-        """
-        Fetch the CompositionSettingsInstance
-
-        :returns: The fetched CompositionSettingsInstance
-        :rtype: twilio.rest.video.v1.composition_settings.CompositionSettingsInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return CompositionSettingsInstance(self._version, payload)
-    
 
     def get(self):
         """

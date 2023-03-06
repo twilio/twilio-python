@@ -46,17 +46,6 @@ class StepContextList(ListResource):
         
         
     
-    def fetch(self):
-        """
-        Fetch the StepContextInstance
-
-        :returns: The fetched StepContextInstance
-        :rtype: twilio.rest.studio.v1.flow.engagement.step.step_context.StepContextInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return StepContextInstance(self._version, payload, flow_sid=self._solution['flow_sid'], engagement_sid=self._solution['engagement_sid'], step_sid=self._solution['step_sid'])
-    
 
     def get(self):
         """

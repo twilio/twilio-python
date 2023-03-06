@@ -45,17 +45,6 @@ class TaskQueueStatisticsList(ListResource):
         
         
     
-    def fetch(self):
-        """
-        Fetch the TaskQueueStatisticsInstance
-
-        :returns: The fetched TaskQueueStatisticsInstance
-        :rtype: twilio.rest.taskrouter.v1.workspace.task_queue.task_queue_statistics.TaskQueueStatisticsInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return TaskQueueStatisticsInstance(self._version, payload, workspace_sid=self._solution['workspace_sid'], task_queue_sid=self._solution['task_queue_sid'])
-    
 
     def get(self):
         """

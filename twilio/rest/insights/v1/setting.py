@@ -43,38 +43,6 @@ class SettingList(ListResource):
         
         
     
-    def fetch(self):
-        """
-        Fetch the SettingInstance
-
-        :returns: The fetched SettingInstance
-        :rtype: twilio.rest.insights.v1.setting.SettingInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return SettingInstance(self._version, payload)
-    
-    
-    def update(self, advanced_features=values.unset, voice_trace=values.unset, subaccount_sid=values.unset):
-        """
-        Update the SettingInstance
-
-        :param bool advanced_features: 
-        :param bool voice_trace: 
-        :param str subaccount_sid: 
-        
-        :returns: The created SettingInstance
-        :rtype: twilio.rest.insights.v1.setting.SettingInstance
-        """
-        data = values.of({ 
-            'AdvancedFeatures': advanced_features,
-            'VoiceTrace': voice_trace,
-            'SubaccountSid': subaccount_sid,
-        })
-        
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return SettingInstance(self._version, payload)
     
 
     def get(self):

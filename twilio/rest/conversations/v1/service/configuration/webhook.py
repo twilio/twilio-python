@@ -44,40 +44,6 @@ class WebhookList(ListResource):
         
         
     
-    def fetch(self):
-        """
-        Fetch the WebhookInstance
-
-        :returns: The fetched WebhookInstance
-        :rtype: twilio.rest.conversations.v1.service.configuration.webhook.WebhookInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return WebhookInstance(self._version, payload, chat_service_sid=self._solution['chat_service_sid'])
-    
-    
-    def update(self, pre_webhook_url=values.unset, post_webhook_url=values.unset, filters=values.unset, method=values.unset):
-        """
-        Update the WebhookInstance
-
-        :param str pre_webhook_url: The absolute url the pre-event webhook request should be sent to.
-        :param str post_webhook_url: The absolute url the post-event webhook request should be sent to.
-        :param list[str] filters: The list of events that your configured webhook targets will receive. Events not configured here will not fire. Possible values are `onParticipantAdd`, `onParticipantAdded`, `onDeliveryUpdated`, `onConversationUpdated`, `onConversationRemove`, `onParticipantRemove`, `onConversationUpdate`, `onMessageAdd`, `onMessageRemoved`, `onParticipantUpdated`, `onConversationAdded`, `onMessageAdded`, `onConversationAdd`, `onConversationRemoved`, `onParticipantUpdate`, `onMessageRemove`, `onMessageUpdated`, `onParticipantRemoved`, `onMessageUpdate` or `onConversationStateUpdated`.
-        :param str method: The HTTP method to be used when sending a webhook request. One of `GET` or `POST`.
-        
-        :returns: The created WebhookInstance
-        :rtype: twilio.rest.conversations.v1.service.configuration.webhook.WebhookInstance
-        """
-        data = values.of({ 
-            'PreWebhookUrl': pre_webhook_url,
-            'PostWebhookUrl': post_webhook_url,
-            'Filters': serialize.map(filters, lambda e: e),
-            'Method': method,
-        })
-        
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return WebhookInstance(self._version, payload, chat_service_sid=self._solution['chat_service_sid'])
     
 
     def get(self):

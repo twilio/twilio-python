@@ -44,46 +44,6 @@ class AnnotationList(ListResource):
         
         
     
-    def fetch(self):
-        """
-        Fetch the AnnotationInstance
-
-        :returns: The fetched AnnotationInstance
-        :rtype: twilio.rest.insights.v1.call.annotation.AnnotationInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return AnnotationInstance(self._version, payload, call_sid=self._solution['call_sid'])
-    
-    
-    def update(self, answered_by=values.unset, connectivity_issue=values.unset, quality_issues=values.unset, spam=values.unset, call_score=values.unset, comment=values.unset, incident=values.unset):
-        """
-        Update the AnnotationInstance
-
-        :param AnsweredBy answered_by: 
-        :param ConnectivityIssue connectivity_issue: 
-        :param str quality_issues: Specify if the call had any subjective quality issues. Possible values, one or more of:  no_quality_issue, low_volume, choppy_robotic, echo, dtmf, latency, owa, static_noise. Use comma separated values to indicate multiple quality issues for the same call
-        :param bool spam: Specify if the call was a spam call. Use this to provide feedback on whether calls placed from your account were marked as spam, or if inbound calls received by your account were unwanted spam. Is of type Boolean: true, false. Use true if the call was a spam call.
-        :param int call_score: Specify the call score. This is of type integer. Use a range of 1-5 to indicate the call experience score, with the following mapping as a reference for rating the call [5: Excellent, 4: Good, 3 : Fair, 2 : Poor, 1: Bad].
-        :param str comment: Specify any comments pertaining to the call. This of type string with a max limit of 100 characters. Twilio does not treat this field as PII, so don’t put any PII in here.
-        :param str incident: Associate this call with an incident or support ticket. This is of type string with a max limit of 100 characters. Twilio does not treat this field as PII, so don’t put any PII in here.
-        
-        :returns: The created AnnotationInstance
-        :rtype: twilio.rest.insights.v1.call.annotation.AnnotationInstance
-        """
-        data = values.of({ 
-            'AnsweredBy': answered_by,
-            'ConnectivityIssue': connectivity_issue,
-            'QualityIssues': quality_issues,
-            'Spam': spam,
-            'CallScore': call_score,
-            'Comment': comment,
-            'Incident': incident,
-        })
-        
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return AnnotationInstance(self._version, payload, call_sid=self._solution['call_sid'])
     
 
     def get(self):

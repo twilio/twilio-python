@@ -45,29 +45,6 @@ class PaymentList(ListResource):
         
         
     
-    def update(self, idempotency_key, status_callback, capture=values.unset, status=values.unset):
-        """
-        Update the PaymentInstance
-
-        :param str idempotency_key: A unique token that will be used to ensure that multiple API calls with the same information do not result in multiple transactions. This should be a unique string value per API call and can be a randomly generated.
-        :param str status_callback: Provide an absolute or relative URL to receive status updates regarding your Pay session. Read more about the [Update](https://www.twilio.com/docs/voice/api/payment-resource#statuscallback-update) and [Complete/Cancel](https://www.twilio.com/docs/voice/api/payment-resource#statuscallback-cancelcomplete) POST requests.
-        :param Capture capture: 
-        :param Status status: 
-        
-        :returns: The created PaymentInstance
-        :rtype: twilio.rest.api.v2010.account.call.payment.PaymentInstance
-        """
-        data = values.of({ 
-            'IdempotencyKey': idempotency_key,
-            'StatusCallback': status_callback,
-            'Capture': capture,
-            'Status': status,
-        })
-        
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return PaymentInstance(self._version, payload, account_sid=self._solution['account_sid'], call_sid=self._solution['call_sid'])
-    
     
     def create(self, idempotency_key, status_callback, bank_account_type=values.unset, charge_amount=values.unset, currency=values.unset, description=values.unset, input=values.unset, min_postal_code_length=values.unset, parameter=values.unset, payment_connector=values.unset, payment_method=values.unset, postal_code=values.unset, security_code=values.unset, timeout=values.unset, token_type=values.unset, valid_card_types=values.unset):
         """

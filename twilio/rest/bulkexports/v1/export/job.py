@@ -44,17 +44,6 @@ class JobList(ListResource):
         
     
     
-    def fetch(self):
-        """
-        Fetch the JobInstance
-
-        :returns: The fetched JobInstance
-        :rtype: twilio.rest.bulkexports.v1.export.job.JobInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return JobInstance(self._version, payload)
-    
 
     def get(self, job_sid):
         """

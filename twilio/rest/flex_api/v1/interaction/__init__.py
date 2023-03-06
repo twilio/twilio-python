@@ -44,17 +44,6 @@ class InteractionList(ListResource):
         
         
     
-    def fetch(self):
-        """
-        Fetch the InteractionInstance
-
-        :returns: The fetched InteractionInstance
-        :rtype: twilio.rest.flex_api.v1.interaction.InteractionInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return InteractionInstance(self._version, payload)
-    
     
     def create(self, channel, routing):
         """

@@ -44,34 +44,6 @@ class AssistantInitiationActionsList(ListResource):
         
         
     
-    def fetch(self):
-        """
-        Fetch the AssistantInitiationActionsInstance
-
-        :returns: The fetched AssistantInitiationActionsInstance
-        :rtype: twilio.rest.preview.understand.assistant.assistant_initiation_actions.AssistantInitiationActionsInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return AssistantInitiationActionsInstance(self._version, payload, assistant_sid=self._solution['assistant_sid'])
-    
-    
-    def update(self, initiation_actions=values.unset):
-        """
-        Update the AssistantInitiationActionsInstance
-
-        :param object initiation_actions: 
-        
-        :returns: The created AssistantInitiationActionsInstance
-        :rtype: twilio.rest.preview.understand.assistant.assistant_initiation_actions.AssistantInitiationActionsInstance
-        """
-        data = values.of({ 
-            'InitiationActions': serialize.object(initiation_actions),
-        })
-        
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return AssistantInitiationActionsInstance(self._version, payload, assistant_sid=self._solution['assistant_sid'])
     
 
     def get(self):

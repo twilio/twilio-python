@@ -44,17 +44,6 @@ class ApprovalFetchList(ListResource):
         
         
     
-    def fetch(self):
-        """
-        Fetch the ApprovalFetchInstance
-
-        :returns: The fetched ApprovalFetchInstance
-        :rtype: twilio.rest.content.v1.content.approval_fetch.ApprovalFetchInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return ApprovalFetchInstance(self._version, payload, sid=self._solution['sid'])
-    
 
     def get(self):
         """

@@ -45,17 +45,6 @@ class FeedbackSummaryList(ListResource):
         
     
     
-    def fetch(self):
-        """
-        Fetch the FeedbackSummaryInstance
-
-        :returns: The fetched FeedbackSummaryInstance
-        :rtype: twilio.rest.api.v2010.account.call.feedback_summary.FeedbackSummaryInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return FeedbackSummaryInstance(self._version, payload, account_sid=self._solution['account_sid'])
-    
     
     def create(self, start_date, end_date, include_subaccounts=values.unset, status_callback=values.unset, status_callback_method=values.unset):
         """

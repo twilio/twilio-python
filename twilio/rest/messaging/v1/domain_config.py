@@ -43,40 +43,6 @@ class DomainConfigList(ListResource):
         
         
     
-    def fetch(self):
-        """
-        Fetch the DomainConfigInstance
-
-        :returns: The fetched DomainConfigInstance
-        :rtype: twilio.rest.messaging.v1.domain_config.DomainConfigInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return DomainConfigInstance(self._version, payload)
-    
-    
-    def update(self, messaging_service_sids, fallback_url=values.unset, callback_url=values.unset, messaging_service_sids_action=values.unset):
-        """
-        Update the DomainConfigInstance
-
-        :param list[str] messaging_service_sids: A list of messagingServiceSids (with prefix MG)
-        :param str fallback_url: Any requests we receive to this domain that do not match an existing shortened message will be redirected to the fallback url. These will likely be either expired messages, random misdirected traffic, or intentional scraping.
-        :param str callback_url: URL to receive click events to your webhook whenever the recipients click on the shortened links
-        :param str messaging_service_sids_action: An action type for messaging_service_sids operation (ADD, DELETE, REPLACE)
-        
-        :returns: The created DomainConfigInstance
-        :rtype: twilio.rest.messaging.v1.domain_config.DomainConfigInstance
-        """
-        data = values.of({ 
-            'MessagingServiceSids': serialize.map(messaging_service_sids, lambda e: e),
-            'FallbackUrl': fallback_url,
-            'CallbackUrl': callback_url,
-            'MessagingServiceSidsAction': messaging_service_sids_action,
-        })
-        
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return DomainConfigInstance(self._version, payload)
     
 
     def get(self, domain_sid):

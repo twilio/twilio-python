@@ -44,17 +44,6 @@ class SafelistList(ListResource):
         
     
     
-    def fetch(self):
-        """
-        Fetch the SafelistInstance
-
-        :returns: The fetched SafelistInstance
-        :rtype: twilio.rest.verify.v2.safelist.SafelistInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return SafelistInstance(self._version, payload)
-    
     
     def create(self, phone_number):
         """

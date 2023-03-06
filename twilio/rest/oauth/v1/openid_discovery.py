@@ -43,17 +43,6 @@ class OpenidDiscoveryList(ListResource):
         
         
     
-    def fetch(self):
-        """
-        Fetch the OpenidDiscoveryInstance
-
-        :returns: The fetched OpenidDiscoveryInstance
-        :rtype: twilio.rest.oauth.v1.openid_discovery.OpenidDiscoveryInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return OpenidDiscoveryInstance(self._version, payload)
-    
 
     def get(self):
         """

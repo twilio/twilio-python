@@ -44,36 +44,6 @@ class RecordingList(ListResource):
         
         
     
-    def fetch(self):
-        """
-        Fetch the RecordingInstance
-
-        :returns: The fetched RecordingInstance
-        :rtype: twilio.rest.trunking.v1.trunk.recording.RecordingInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return RecordingInstance(self._version, payload, trunk_sid=self._solution['trunk_sid'])
-    
-    
-    def update(self, mode=values.unset, trim=values.unset):
-        """
-        Update the RecordingInstance
-
-        :param RecordingMode mode: 
-        :param RecordingTrim trim: 
-        
-        :returns: The created RecordingInstance
-        :rtype: twilio.rest.trunking.v1.trunk.recording.RecordingInstance
-        """
-        data = values.of({ 
-            'Mode': mode,
-            'Trim': trim,
-        })
-        
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return RecordingInstance(self._version, payload, trunk_sid=self._solution['trunk_sid'])
     
 
     def get(self):

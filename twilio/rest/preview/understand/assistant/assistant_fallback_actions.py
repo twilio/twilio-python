@@ -44,34 +44,6 @@ class AssistantFallbackActionsList(ListResource):
         
         
     
-    def fetch(self):
-        """
-        Fetch the AssistantFallbackActionsInstance
-
-        :returns: The fetched AssistantFallbackActionsInstance
-        :rtype: twilio.rest.preview.understand.assistant.assistant_fallback_actions.AssistantFallbackActionsInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return AssistantFallbackActionsInstance(self._version, payload, assistant_sid=self._solution['assistant_sid'])
-    
-    
-    def update(self, fallback_actions=values.unset):
-        """
-        Update the AssistantFallbackActionsInstance
-
-        :param object fallback_actions: 
-        
-        :returns: The created AssistantFallbackActionsInstance
-        :rtype: twilio.rest.preview.understand.assistant.assistant_fallback_actions.AssistantFallbackActionsInstance
-        """
-        data = values.of({ 
-            'FallbackActions': serialize.object(fallback_actions),
-        })
-        
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return AssistantFallbackActionsInstance(self._version, payload, assistant_sid=self._solution['assistant_sid'])
     
 
     def get(self):

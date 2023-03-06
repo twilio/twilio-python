@@ -44,34 +44,6 @@ class VerificationList(ListResource):
         
         
     
-    def fetch(self):
-        """
-        Fetch the VerificationInstance
-
-        :returns: The fetched VerificationInstance
-        :rtype: twilio.rest.verify.v2.service.verification.VerificationInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return VerificationInstance(self._version, payload, service_sid=self._solution['service_sid'])
-    
-    
-    def update(self, status):
-        """
-        Update the VerificationInstance
-
-        :param Status status: 
-        
-        :returns: The created VerificationInstance
-        :rtype: twilio.rest.verify.v2.service.verification.VerificationInstance
-        """
-        data = values.of({ 
-            'Status': status,
-        })
-        
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return VerificationInstance(self._version, payload, service_sid=self._solution['service_sid'])
     
     
     def create(self, to, channel, custom_friendly_name=values.unset, custom_message=values.unset, send_digits=values.unset, locale=values.unset, custom_code=values.unset, amount=values.unset, payee=values.unset, rate_limits=values.unset, channel_configuration=values.unset, app_hash=values.unset, template_sid=values.unset, template_custom_substitutions=values.unset, device_ip=values.unset):

@@ -44,58 +44,6 @@ class NotificationList(ListResource):
         
         
     
-    def fetch(self):
-        """
-        Fetch the NotificationInstance
-
-        :returns: The fetched NotificationInstance
-        :rtype: twilio.rest.conversations.v1.service.configuration.notification.NotificationInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return NotificationInstance(self._version, payload, chat_service_sid=self._solution['chat_service_sid'])
-    
-    
-    def update(self, log_enabled=values.unset, new_message_enabled=values.unset, new_message_template=values.unset, new_message_sound=values.unset, new_message_badge_count_enabled=values.unset, added_to_conversation_enabled=values.unset, added_to_conversation_template=values.unset, added_to_conversation_sound=values.unset, removed_from_conversation_enabled=values.unset, removed_from_conversation_template=values.unset, removed_from_conversation_sound=values.unset, new_message_with_media_enabled=values.unset, new_message_with_media_template=values.unset):
-        """
-        Update the NotificationInstance
-
-        :param bool log_enabled: Weather the notification logging is enabled.
-        :param bool new_message_enabled: Whether to send a notification when a new message is added to a conversation. The default is `false`.
-        :param str new_message_template: The template to use to create the notification text displayed when a new message is added to a conversation and `new_message.enabled` is `true`.
-        :param str new_message_sound: The name of the sound to play when a new message is added to a conversation and `new_message.enabled` is `true`.
-        :param bool new_message_badge_count_enabled: Whether the new message badge is enabled. The default is `false`.
-        :param bool added_to_conversation_enabled: Whether to send a notification when a participant is added to a conversation. The default is `false`.
-        :param str added_to_conversation_template: The template to use to create the notification text displayed when a participant is added to a conversation and `added_to_conversation.enabled` is `true`.
-        :param str added_to_conversation_sound: The name of the sound to play when a participant is added to a conversation and `added_to_conversation.enabled` is `true`.
-        :param bool removed_from_conversation_enabled: Whether to send a notification to a user when they are removed from a conversation. The default is `false`.
-        :param str removed_from_conversation_template: The template to use to create the notification text displayed to a user when they are removed from a conversation and `removed_from_conversation.enabled` is `true`.
-        :param str removed_from_conversation_sound: The name of the sound to play to a user when they are removed from a conversation and `removed_from_conversation.enabled` is `true`.
-        :param bool new_message_with_media_enabled: Whether to send a notification when a new message with media/file attachments is added to a conversation. The default is `false`.
-        :param str new_message_with_media_template: The template to use to create the notification text displayed when a new message with media/file attachments is added to a conversation and `new_message.attachments.enabled` is `true`.
-        
-        :returns: The created NotificationInstance
-        :rtype: twilio.rest.conversations.v1.service.configuration.notification.NotificationInstance
-        """
-        data = values.of({ 
-            'LogEnabled': log_enabled,
-            'NewMessage.Enabled': new_message_enabled,
-            'NewMessage.Template': new_message_template,
-            'NewMessage.Sound': new_message_sound,
-            'NewMessage.BadgeCountEnabled': new_message_badge_count_enabled,
-            'AddedToConversation.Enabled': added_to_conversation_enabled,
-            'AddedToConversation.Template': added_to_conversation_template,
-            'AddedToConversation.Sound': added_to_conversation_sound,
-            'RemovedFromConversation.Enabled': removed_from_conversation_enabled,
-            'RemovedFromConversation.Template': removed_from_conversation_template,
-            'RemovedFromConversation.Sound': removed_from_conversation_sound,
-            'NewMessage.WithMedia.Enabled': new_message_with_media_enabled,
-            'NewMessage.WithMedia.Template': new_message_with_media_template,
-        })
-        
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return NotificationInstance(self._version, payload, chat_service_sid=self._solution['chat_service_sid'])
     
 
     def get(self):

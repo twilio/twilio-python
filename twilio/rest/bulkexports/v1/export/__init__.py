@@ -47,17 +47,6 @@ class ExportList(ListResource):
         self._jobs = None
         
     
-    def fetch(self):
-        """
-        Fetch the ExportInstance
-
-        :returns: The fetched ExportInstance
-        :rtype: twilio.rest.bulkexports.v1.export.ExportInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return ExportInstance(self._version, payload)
-    
 
     @property
     def jobs(self):

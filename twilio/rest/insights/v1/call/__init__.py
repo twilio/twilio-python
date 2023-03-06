@@ -47,17 +47,6 @@ class CallList(ListResource):
         
         
     
-    def fetch(self):
-        """
-        Fetch the CallInstance
-
-        :returns: The fetched CallInstance
-        :rtype: twilio.rest.insights.v1.call.CallInstance
-        """
-        payload = self._version.create(method='GET', uri=self._uri)
-
-        return CallInstance(self._version, payload)
-    
 
     def get(self, sid):
         """
