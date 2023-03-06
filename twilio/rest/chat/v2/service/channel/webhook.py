@@ -51,9 +51,9 @@ class WebhookList(ListResource):
         """
         Create the WebhookInstance
 
-        :param Type type: 
+        :param WebhookInstance.Type type: 
         :param str configuration_url: The URL of the webhook to call using the `configuration.method`.
-        :param Method configuration_method: 
+        :param WebhookInstance.Method configuration_method: 
         :param list[str] configuration_filters: The events that cause us to call the Channel Webhook. Used when `type` is `webhook`. This parameter takes only one event. To specify more than one event, repeat this parameter for each event. For the list of possible events, see [Webhook Event Triggers](https://www.twilio.com/docs/chat/webhook-events#webhook-event-trigger).
         :param list[str] configuration_triggers: A string that will cause us to call the webhook when it is present in a message body. This parameter takes only one trigger string. To specify more than one, repeat this parameter for each trigger string up to a total of 5 trigger strings. Used only when `type` = `trigger`.
         :param str configuration_flow_sid: The SID of the Studio [Flow](https://www.twilio.com/docs/studio/rest-api/flow) to call when an event in `configuration.filters` occurs. Used only when `type` is `studio`.
@@ -297,7 +297,7 @@ class WebhookContext(InstanceContext):
         Update the WebhookInstance
         
         :params str configuration_url: The URL of the webhook to call using the `configuration.method`.
-        :params Method configuration_method: 
+        :params WebhookInstance.Method configuration_method: 
         :params list[str] configuration_filters: The events that cause us to call the Channel Webhook. Used when `type` is `webhook`. This parameter takes only one event. To specify more than one event, repeat this parameter for each event. For the list of possible events, see [Webhook Event Triggers](https://www.twilio.com/docs/chat/webhook-events#webhook-event-trigger).
         :params list[str] configuration_triggers: A string that will cause us to call the webhook when it is present in a message body. This parameter takes only one trigger string. To specify more than one, repeat this parameter for each trigger string up to a total of 5 trigger strings. Used only when `type` = `trigger`.
         :params str configuration_flow_sid: The SID of the Studio [Flow](https://www.twilio.com/docs/studio/rest-api/flow) to call when an event in `configuration.filters` occurs. Used only when `type` = `studio`.
@@ -471,7 +471,7 @@ class WebhookInstance(InstanceResource):
         Update the WebhookInstance
         
         :params str configuration_url: The URL of the webhook to call using the `configuration.method`.
-        :params Method configuration_method: 
+        :params WebhookInstance.Method configuration_method: 
         :params list[str] configuration_filters: The events that cause us to call the Channel Webhook. Used when `type` is `webhook`. This parameter takes only one event. To specify more than one event, repeat this parameter for each event. For the list of possible events, see [Webhook Event Triggers](https://www.twilio.com/docs/chat/webhook-events#webhook-event-trigger).
         :params list[str] configuration_triggers: A string that will cause us to call the webhook when it is present in a message body. This parameter takes only one trigger string. To specify more than one, repeat this parameter for each trigger string up to a total of 5 trigger strings. Used only when `type` = `trigger`.
         :params str configuration_flow_sid: The SID of the Studio [Flow](https://www.twilio.com/docs/studio/rest-api/flow) to call when an event in `configuration.filters` occurs. Used only when `type` = `studio`.

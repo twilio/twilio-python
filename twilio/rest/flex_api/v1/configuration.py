@@ -236,7 +236,7 @@ class ConfigurationInstance(InstanceResource):
     def status(self):
         """
         :returns: 
-        :rtype: Status
+        :rtype: ConfigurationInstance.Status
         """
         return self._properties['status']
     

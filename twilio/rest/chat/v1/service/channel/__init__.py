@@ -56,7 +56,7 @@ class ChannelList(ListResource):
         :param str friendly_name: A descriptive string that you create to describe the new resource. It can be up to 64 characters long.
         :param str unique_name: An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource's `sid` in the URL. This value must be 64 characters or less in length and be unique within the Service.
         :param str attributes: A valid JSON string that contains application-specific data.
-        :param ChannelType type: 
+        :param ChannelInstance.ChannelType type: 
         
         :returns: The created ChannelInstance
         :rtype: twilio.rest.chat.v1.service.channel.ChannelInstance
@@ -80,7 +80,7 @@ class ChannelList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
         
-        :param list[ChannelType] type: The visibility of the Channels to read. Can be: `public` or `private` and defaults to `public`.
+        :param list[ChannelInstance.ChannelType] type: The visibility of the Channels to read. Can be: `public` or `private` and defaults to `public`.
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -105,7 +105,7 @@ class ChannelList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
-        :param list[ChannelType] type: The visibility of the Channels to read. Can be: `public` or `private` and defaults to `public`.
+        :param list[ChannelInstance.ChannelType] type: The visibility of the Channels to read. Can be: `public` or `private` and defaults to `public`.
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -127,7 +127,7 @@ class ChannelList(ListResource):
         Retrieve a single page of ChannelInstance records from the API.
         Request is executed immediately
         
-        :param list[ChannelType] type: The visibility of the Channels to read. Can be: `public` or `private` and defaults to `public`.
+        :param list[ChannelInstance.ChannelType] type: The visibility of the Channels to read. Can be: `public` or `private` and defaults to `public`.
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -470,7 +470,7 @@ class ChannelInstance(InstanceResource):
     def type(self):
         """
         :returns: 
-        :rtype: ChannelType
+        :rtype: ChannelInstance.ChannelType
         """
         return self._properties['type']
     

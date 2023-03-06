@@ -56,7 +56,7 @@ class ParticipantList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
         
-        :param Status status: Read only the participants with this status. Can be: `connected` or `disconnected`. For `in-progress` Rooms the default Status is `connected`, for `completed` Rooms only `disconnected` Participants are returned.
+        :param ParticipantInstance.Status status: Read only the participants with this status. Can be: `connected` or `disconnected`. For `in-progress` Rooms the default Status is `connected`, for `completed` Rooms only `disconnected` Participants are returned.
         :param str identity: Read only the Participants with this [User](https://www.twilio.com/docs/chat/rest/user-resource) `identity` value.
         :param datetime date_created_after: Read only Participants that started after this date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#UTC) format.
         :param datetime date_created_before: Read only Participants that started before this date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#UTC) format.
@@ -87,7 +87,7 @@ class ParticipantList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
-        :param Status status: Read only the participants with this status. Can be: `connected` or `disconnected`. For `in-progress` Rooms the default Status is `connected`, for `completed` Rooms only `disconnected` Participants are returned.
+        :param ParticipantInstance.Status status: Read only the participants with this status. Can be: `connected` or `disconnected`. For `in-progress` Rooms the default Status is `connected`, for `completed` Rooms only `disconnected` Participants are returned.
         :param str identity: Read only the Participants with this [User](https://www.twilio.com/docs/chat/rest/user-resource) `identity` value.
         :param datetime date_created_after: Read only Participants that started after this date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#UTC) format.
         :param datetime date_created_before: Read only Participants that started before this date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#UTC) format.
@@ -115,7 +115,7 @@ class ParticipantList(ListResource):
         Retrieve a single page of ParticipantInstance records from the API.
         Request is executed immediately
         
-        :param Status status: Read only the participants with this status. Can be: `connected` or `disconnected`. For `in-progress` Rooms the default Status is `connected`, for `completed` Rooms only `disconnected` Participants are returned.
+        :param ParticipantInstance.Status status: Read only the participants with this status. Can be: `connected` or `disconnected`. For `in-progress` Rooms the default Status is `connected`, for `completed` Rooms only `disconnected` Participants are returned.
         :param str identity: Read only the Participants with this [User](https://www.twilio.com/docs/chat/rest/user-resource) `identity` value.
         :param datetime date_created_after: Read only Participants that started after this date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#UTC) format.
         :param datetime date_created_before: Read only Participants that started before this date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#UTC) format.
@@ -280,7 +280,7 @@ class ParticipantContext(InstanceContext):
         """
         Update the ParticipantInstance
         
-        :params Status status: 
+        :params ParticipantInstance.Status status: 
 
         :returns: The updated ParticipantInstance
         :rtype: twilio.rest.video.v1.room.participant.ParticipantInstance
@@ -434,7 +434,7 @@ class ParticipantInstance(InstanceResource):
     def status(self):
         """
         :returns: 
-        :rtype: Status
+        :rtype: ParticipantInstance.Status
         """
         return self._properties['status']
     
@@ -516,7 +516,7 @@ class ParticipantInstance(InstanceResource):
         """
         Update the ParticipantInstance
         
-        :params Status status: 
+        :params ParticipantInstance.Status status: 
 
         :returns: The updated ParticipantInstance
         :rtype: twilio.rest.video.v1.room.participant.ParticipantInstance

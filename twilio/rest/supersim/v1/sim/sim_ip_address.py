@@ -212,7 +212,7 @@ class SimIpAddressInstance(InstanceResource):
     def ip_address_version(self):
         """
         :returns: 
-        :rtype: IpAddressVersion
+        :rtype: SimIpAddressInstance.IpAddressVersion
         """
         return self._properties['ip_address_version']
     

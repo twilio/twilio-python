@@ -52,11 +52,11 @@ class TriggerList(ListResource):
 
         :param str callback_url: The URL we should call using `callback_method` when the trigger fires.
         :param str trigger_value: The usage value at which the trigger should fire.  For convenience, you can use an offset value such as `+30` to specify a trigger_value that is 30 units more than the current usage value. Be sure to urlencode a `+` as `%2B`.
-        :param UsageCategory usage_category: 
+        :param TriggerInstance.UsageCategory usage_category: 
         :param str callback_method: The HTTP method we should use to call `callback_url`. Can be: `GET` or `POST` and the default is `POST`.
         :param str friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
-        :param Recurring recurring: 
-        :param TriggerField trigger_by: 
+        :param TriggerInstance.Recurring recurring: 
+        :param TriggerInstance.TriggerField trigger_by: 
         
         :returns: The created TriggerInstance
         :rtype: twilio.rest.api.v2010.account.usage.trigger.TriggerInstance
@@ -83,9 +83,9 @@ class TriggerList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
         
-        :param Recurring recurring: The frequency of recurring UsageTriggers to read. Can be: `daily`, `monthly`, or `yearly` to read recurring UsageTriggers. An empty value or a value of `alltime` reads non-recurring UsageTriggers.
-        :param TriggerField trigger_by: The trigger field of the UsageTriggers to read.  Can be: `count`, `usage`, or `price` as described in the [UsageRecords documentation](https://www.twilio.com/docs/usage/api/usage-record#usage-count-price).
-        :param UsageCategory usage_category: The usage category of the UsageTriggers to read. Must be a supported [usage categories](https://www.twilio.com/docs/usage/api/usage-record#usage-categories).
+        :param TriggerInstance.Recurring recurring: The frequency of recurring UsageTriggers to read. Can be: `daily`, `monthly`, or `yearly` to read recurring UsageTriggers. An empty value or a value of `alltime` reads non-recurring UsageTriggers.
+        :param TriggerInstance.TriggerField trigger_by: The trigger field of the UsageTriggers to read.  Can be: `count`, `usage`, or `price` as described in the [UsageRecords documentation](https://www.twilio.com/docs/usage/api/usage-record#usage-count-price).
+        :param TriggerInstance.UsageCategory usage_category: The usage category of the UsageTriggers to read. Must be a supported [usage categories](https://www.twilio.com/docs/usage/api/usage-record#usage-categories).
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -112,9 +112,9 @@ class TriggerList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
-        :param Recurring recurring: The frequency of recurring UsageTriggers to read. Can be: `daily`, `monthly`, or `yearly` to read recurring UsageTriggers. An empty value or a value of `alltime` reads non-recurring UsageTriggers.
-        :param TriggerField trigger_by: The trigger field of the UsageTriggers to read.  Can be: `count`, `usage`, or `price` as described in the [UsageRecords documentation](https://www.twilio.com/docs/usage/api/usage-record#usage-count-price).
-        :param UsageCategory usage_category: The usage category of the UsageTriggers to read. Must be a supported [usage categories](https://www.twilio.com/docs/usage/api/usage-record#usage-categories).
+        :param TriggerInstance.Recurring recurring: The frequency of recurring UsageTriggers to read. Can be: `daily`, `monthly`, or `yearly` to read recurring UsageTriggers. An empty value or a value of `alltime` reads non-recurring UsageTriggers.
+        :param TriggerInstance.TriggerField trigger_by: The trigger field of the UsageTriggers to read.  Can be: `count`, `usage`, or `price` as described in the [UsageRecords documentation](https://www.twilio.com/docs/usage/api/usage-record#usage-count-price).
+        :param TriggerInstance.UsageCategory usage_category: The usage category of the UsageTriggers to read. Must be a supported [usage categories](https://www.twilio.com/docs/usage/api/usage-record#usage-categories).
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -138,9 +138,9 @@ class TriggerList(ListResource):
         Retrieve a single page of TriggerInstance records from the API.
         Request is executed immediately
         
-        :param Recurring recurring: The frequency of recurring UsageTriggers to read. Can be: `daily`, `monthly`, or `yearly` to read recurring UsageTriggers. An empty value or a value of `alltime` reads non-recurring UsageTriggers.
-        :param TriggerField trigger_by: The trigger field of the UsageTriggers to read.  Can be: `count`, `usage`, or `price` as described in the [UsageRecords documentation](https://www.twilio.com/docs/usage/api/usage-record#usage-count-price).
-        :param UsageCategory usage_category: The usage category of the UsageTriggers to read. Must be a supported [usage categories](https://www.twilio.com/docs/usage/api/usage-record#usage-categories).
+        :param TriggerInstance.Recurring recurring: The frequency of recurring UsageTriggers to read. Can be: `daily`, `monthly`, or `yearly` to read recurring UsageTriggers. An empty value or a value of `alltime` reads non-recurring UsageTriggers.
+        :param TriggerInstance.TriggerField trigger_by: The trigger field of the UsageTriggers to read.  Can be: `count`, `usage`, or `price` as described in the [UsageRecords documentation](https://www.twilio.com/docs/usage/api/usage-record#usage-count-price).
+        :param TriggerInstance.UsageCategory usage_category: The usage category of the UsageTriggers to read. Must be a supported [usage categories](https://www.twilio.com/docs/usage/api/usage-record#usage-categories).
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -723,7 +723,7 @@ class TriggerInstance(InstanceResource):
     def recurring(self):
         """
         :returns: 
-        :rtype: Recurring
+        :rtype: TriggerInstance.Recurring
         """
         return self._properties['recurring']
     
@@ -739,7 +739,7 @@ class TriggerInstance(InstanceResource):
     def trigger_by(self):
         """
         :returns: 
-        :rtype: TriggerField
+        :rtype: TriggerInstance.TriggerField
         """
         return self._properties['trigger_by']
     
@@ -763,7 +763,7 @@ class TriggerInstance(InstanceResource):
     def usage_category(self):
         """
         :returns: 
-        :rtype: UsageCategory
+        :rtype: TriggerInstance.UsageCategory
         """
         return self._properties['usage_category']
     

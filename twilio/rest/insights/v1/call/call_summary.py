@@ -95,7 +95,7 @@ class CallSummaryContext(InstanceContext):
         """
         Fetch the CallSummaryInstance
         
-        :params ProcessingState processing_state: 
+        :params CallSummaryInstance.ProcessingState processing_state: 
 
         :returns: The fetched CallSummaryInstance
         :rtype: twilio.rest.insights.v1.call.call_summary.CallSummaryInstance
@@ -225,7 +225,7 @@ class CallSummaryInstance(InstanceResource):
     def call_type(self):
         """
         :returns: 
-        :rtype: CallType
+        :rtype: CallSummaryInstance.CallType
         """
         return self._properties['call_type']
     
@@ -233,7 +233,7 @@ class CallSummaryInstance(InstanceResource):
     def call_state(self):
         """
         :returns: 
-        :rtype: CallState
+        :rtype: CallSummaryInstance.CallState
         """
         return self._properties['call_state']
     
@@ -241,7 +241,7 @@ class CallSummaryInstance(InstanceResource):
     def answered_by(self):
         """
         :returns: 
-        :rtype: AnsweredBy
+        :rtype: CallSummaryInstance.AnsweredBy
         """
         return self._properties['answered_by']
     
@@ -249,7 +249,7 @@ class CallSummaryInstance(InstanceResource):
     def processing_state(self):
         """
         :returns: 
-        :rtype: ProcessingState
+        :rtype: CallSummaryInstance.ProcessingState
         """
         return self._properties['processing_state']
     
@@ -393,7 +393,7 @@ class CallSummaryInstance(InstanceResource):
         """
         Fetch the CallSummaryInstance
         
-        :params ProcessingState processing_state: 
+        :params CallSummaryInstance.ProcessingState processing_state: 
 
         :returns: The fetched CallSummaryInstance
         :rtype: twilio.rest.insights.v1.call.call_summary.CallSummaryInstance

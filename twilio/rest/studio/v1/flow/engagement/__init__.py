@@ -414,7 +414,7 @@ class EngagementInstance(InstanceResource):
     def status(self):
         """
         :returns: 
-        :rtype: Status
+        :rtype: EngagementInstance.Status
         """
         return self._properties['status']
     

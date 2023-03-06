@@ -389,7 +389,7 @@ class ParticipantInstance(InstanceResource):
     def status(self):
         """
         :returns: 
-        :rtype: RoomStatus
+        :rtype: ParticipantInstance.RoomStatus
         """
         return self._properties['status']
     
@@ -397,7 +397,7 @@ class ParticipantInstance(InstanceResource):
     def codecs(self):
         """
         :returns: Codecs detected from the participant. Can be `VP8`, `H264`, or `VP9`.
-        :rtype: list[Codec]
+        :rtype: list[ParticipantInstance.Codec]
         """
         return self._properties['codecs']
     
@@ -429,7 +429,7 @@ class ParticipantInstance(InstanceResource):
     def media_region(self):
         """
         :returns: 
-        :rtype: TwilioRealm
+        :rtype: ParticipantInstance.TwilioRealm
         """
         return self._properties['media_region']
     
@@ -445,7 +445,7 @@ class ParticipantInstance(InstanceResource):
     def edge_location(self):
         """
         :returns: 
-        :rtype: EdgeLocation
+        :rtype: ParticipantInstance.EdgeLocation
         """
         return self._properties['edge_location']
     

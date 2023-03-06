@@ -54,7 +54,7 @@ class SimList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
         
-        :param Status status: Only return Sim resources with this status.
+        :param SimInstance.Status status: Only return Sim resources with this status.
         :param str iccid: Only return Sim resources with this ICCID. This will return a list with a maximum size of 1.
         :param str rate_plan: The SID or unique name of a [RatePlan resource](https://www.twilio.com/docs/wireless/api/rateplan-resource). Only return Sim resources assigned to this RatePlan resource.
         :param str eid: Deprecated.
@@ -87,7 +87,7 @@ class SimList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
         
-        :param Status status: Only return Sim resources with this status.
+        :param SimInstance.Status status: Only return Sim resources with this status.
         :param str iccid: Only return Sim resources with this ICCID. This will return a list with a maximum size of 1.
         :param str rate_plan: The SID or unique name of a [RatePlan resource](https://www.twilio.com/docs/wireless/api/rateplan-resource). Only return Sim resources assigned to this RatePlan resource.
         :param str eid: Deprecated.
@@ -117,7 +117,7 @@ class SimList(ListResource):
         Retrieve a single page of SimInstance records from the API.
         Request is executed immediately
         
-        :param Status status: Only return Sim resources with this status.
+        :param SimInstance.Status status: Only return Sim resources with this status.
         :param str iccid: Only return Sim resources with this ICCID. This will return a list with a maximum size of 1.
         :param str rate_plan: The SID or unique name of a [RatePlan resource](https://www.twilio.com/docs/wireless/api/rateplan-resource). Only return Sim resources assigned to this RatePlan resource.
         :param str eid: Deprecated.
@@ -297,7 +297,7 @@ class SimContext(InstanceContext):
         :params str callback_url: The URL we should call using the `callback_url` when the SIM has finished updating. When the SIM transitions from `new` to `ready` or from any status to `deactivated`, we call this URL when the status changes to an intermediate status (`ready` or `deactivated`) and again when the status changes to its final status (`active` or `canceled`).
         :params str friendly_name: A descriptive string that you create to describe the Sim resource. It does not need to be unique.
         :params str rate_plan: The SID or unique name of the [RatePlan resource](https://www.twilio.com/docs/wireless/api/rateplan-resource) to which the Sim resource should be assigned.
-        :params Status status: 
+        :params SimInstance.Status status: 
         :params str commands_callback_method: The HTTP method we should use to call `commands_callback_url`. Can be: `POST` or `GET`. The default is `POST`.
         :params str commands_callback_url: The URL we should call using the `commands_callback_method` when the SIM sends a [Command](https://www.twilio.com/docs/wireless/api/command-resource). Your server should respond with an HTTP status code in the 200 range; any response body is ignored.
         :params str sms_fallback_method: The HTTP method we should use to call `sms_fallback_url`. Can be: `GET` or `POST`. Default is `POST`.
@@ -308,7 +308,7 @@ class SimContext(InstanceContext):
         :params str voice_fallback_url: Deprecated.
         :params str voice_method: Deprecated.
         :params str voice_url: Deprecated.
-        :params ResetStatus reset_status: 
+        :params SimInstance.ResetStatus reset_status: 
         :params str account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) to which the Sim resource should belong. The Account SID can only be that of the requesting Account or that of a [Subaccount](https://www.twilio.com/docs/iam/api/subaccounts) of the requesting Account. Only valid when the Sim resource's status is `new`. For more information, see the [Move SIMs between Subaccounts documentation](https://www.twilio.com/docs/wireless/api/sim-resource#move-sims-between-subaccounts).
 
         :returns: The updated SimInstance
@@ -506,7 +506,7 @@ class SimInstance(InstanceResource):
     def status(self):
         """
         :returns: 
-        :rtype: Status
+        :rtype: SimInstance.Status
         """
         return self._properties['status']
     
@@ -514,7 +514,7 @@ class SimInstance(InstanceResource):
     def reset_status(self):
         """
         :returns: 
-        :rtype: ResetStatus
+        :rtype: SimInstance.ResetStatus
         """
         return self._properties['reset_status']
     
@@ -667,7 +667,7 @@ class SimInstance(InstanceResource):
         :params str callback_url: The URL we should call using the `callback_url` when the SIM has finished updating. When the SIM transitions from `new` to `ready` or from any status to `deactivated`, we call this URL when the status changes to an intermediate status (`ready` or `deactivated`) and again when the status changes to its final status (`active` or `canceled`).
         :params str friendly_name: A descriptive string that you create to describe the Sim resource. It does not need to be unique.
         :params str rate_plan: The SID or unique name of the [RatePlan resource](https://www.twilio.com/docs/wireless/api/rateplan-resource) to which the Sim resource should be assigned.
-        :params Status status: 
+        :params SimInstance.Status status: 
         :params str commands_callback_method: The HTTP method we should use to call `commands_callback_url`. Can be: `POST` or `GET`. The default is `POST`.
         :params str commands_callback_url: The URL we should call using the `commands_callback_method` when the SIM sends a [Command](https://www.twilio.com/docs/wireless/api/command-resource). Your server should respond with an HTTP status code in the 200 range; any response body is ignored.
         :params str sms_fallback_method: The HTTP method we should use to call `sms_fallback_url`. Can be: `GET` or `POST`. Default is `POST`.
@@ -678,7 +678,7 @@ class SimInstance(InstanceResource):
         :params str voice_fallback_url: Deprecated.
         :params str voice_method: Deprecated.
         :params str voice_url: Deprecated.
-        :params ResetStatus reset_status: 
+        :params SimInstance.ResetStatus reset_status: 
         :params str account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) to which the Sim resource should belong. The Account SID can only be that of the requesting Account or that of a [Subaccount](https://www.twilio.com/docs/iam/api/subaccounts) of the requesting Account. Only valid when the Sim resource's status is `new`. For more information, see the [Move SIMs between Subaccounts documentation](https://www.twilio.com/docs/wireless/api/sim-resource#move-sims-between-subaccounts).
 
         :returns: The updated SimInstance

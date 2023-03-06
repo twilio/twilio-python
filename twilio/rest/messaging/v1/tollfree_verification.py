@@ -55,7 +55,7 @@ class TollfreeVerificationList(ListResource):
         :param str use_case_summary: Use this to further explain how messaging is used by the business or organization.
         :param str production_message_sample: An example of message content, i.e. a sample message.
         :param list[str] opt_in_image_urls: Link to an image that shows the opt-in workflow. Multiple images allowed and must be a publicly hosted URL.
-        :param OptInType opt_in_type: 
+        :param TollfreeVerificationInstance.OptInType opt_in_type: 
         :param str message_volume: Estimate monthly volume of messages from the Tollfree Number.
         :param str tollfree_phone_number_sid: The SID of the Phone Number associated with the Tollfree Verification.
         :param str customer_profile_sid: Customer's Profile Bundle BundleSid.
@@ -114,7 +114,7 @@ class TollfreeVerificationList(ListResource):
         The results are returned as a generator, so this operation is memory efficient.
         
         :param str tollfree_phone_number_sid: The SID of the Phone Number associated with the Tollfree Verification.
-        :param Status status: The compliance status of the Tollfree Verification record.
+        :param TollfreeVerificationInstance.Status status: The compliance status of the Tollfree Verification record.
         :param int limit: Upper limit for the number of records to return. stream()
                           guarantees to never return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -141,7 +141,7 @@ class TollfreeVerificationList(ListResource):
         memory before returning.
         
         :param str tollfree_phone_number_sid: The SID of the Phone Number associated with the Tollfree Verification.
-        :param Status status: The compliance status of the Tollfree Verification record.
+        :param TollfreeVerificationInstance.Status status: The compliance status of the Tollfree Verification record.
         :param int limit: Upper limit for the number of records to return. list() guarantees
                           never to return more than limit.  Default is no limit
         :param int page_size: Number of records to fetch per request, when not set will use
@@ -165,7 +165,7 @@ class TollfreeVerificationList(ListResource):
         Request is executed immediately
         
         :param str tollfree_phone_number_sid: The SID of the Phone Number associated with the Tollfree Verification.
-        :param Status status: The compliance status of the Tollfree Verification record.
+        :param TollfreeVerificationInstance.Status status: The compliance status of the Tollfree Verification record.
         :param str page_token: PageToken provided by the API
         :param int page_number: Page Number, this value is simply for client state
         :param int page_size: Number of records to return, defaults to 50
@@ -328,7 +328,7 @@ class TollfreeVerificationContext(InstanceContext):
         :params str use_case_summary: Use this to further explain how messaging is used by the business or organization.
         :params str production_message_sample: An example of message content, i.e. a sample message.
         :params list[str] opt_in_image_urls: Link to an image that shows the opt-in workflow. Multiple images allowed and must be a publicly hosted URL.
-        :params OptInType opt_in_type: 
+        :params TollfreeVerificationInstance.OptInType opt_in_type: 
         :params str message_volume: Estimate monthly volume of messages from the Tollfree Number.
         :params str business_street_address: The address of the business or organization using the Tollfree number.
         :params str business_street_address2: The address of the business or organization using the Tollfree number.
@@ -657,7 +657,7 @@ class TollfreeVerificationInstance(InstanceResource):
     def opt_in_type(self):
         """
         :returns: 
-        :rtype: OptInType
+        :rtype: TollfreeVerificationInstance.OptInType
         """
         return self._properties['opt_in_type']
     
@@ -689,7 +689,7 @@ class TollfreeVerificationInstance(InstanceResource):
     def status(self):
         """
         :returns: 
-        :rtype: Status
+        :rtype: TollfreeVerificationInstance.Status
         """
         return self._properties['status']
     
@@ -738,7 +738,7 @@ class TollfreeVerificationInstance(InstanceResource):
         :params str use_case_summary: Use this to further explain how messaging is used by the business or organization.
         :params str production_message_sample: An example of message content, i.e. a sample message.
         :params list[str] opt_in_image_urls: Link to an image that shows the opt-in workflow. Multiple images allowed and must be a publicly hosted URL.
-        :params OptInType opt_in_type: 
+        :params TollfreeVerificationInstance.OptInType opt_in_type: 
         :params str message_volume: Estimate monthly volume of messages from the Tollfree Number.
         :params str business_street_address: The address of the business or organization using the Tollfree number.
         :params str business_street_address2: The address of the business or organization using the Tollfree number.

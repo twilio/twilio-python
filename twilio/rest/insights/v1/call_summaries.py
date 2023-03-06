@@ -63,8 +63,8 @@ class CallSummariesList(ListResource):
         :param str call_type: 
         :param str call_state: 
         :param str direction: 
-        :param ProcessingStateRequest processing_state: 
-        :param SortBy sort_by: 
+        :param CallSummariesInstance.ProcessingStateRequest processing_state: 
+        :param CallSummariesInstance.SortBy sort_by: 
         :param str subaccount: 
         :param bool abnormal_session: 
         :param int limit: Upper limit for the number of records to return. stream()
@@ -122,8 +122,8 @@ class CallSummariesList(ListResource):
         :param str call_type: 
         :param str call_state: 
         :param str direction: 
-        :param ProcessingStateRequest processing_state: 
-        :param SortBy sort_by: 
+        :param CallSummariesInstance.ProcessingStateRequest processing_state: 
+        :param CallSummariesInstance.SortBy sort_by: 
         :param str subaccount: 
         :param bool abnormal_session: 
         :param int limit: Upper limit for the number of records to return. list() guarantees
@@ -178,8 +178,8 @@ class CallSummariesList(ListResource):
         :param str call_type: 
         :param str call_state: 
         :param str direction: 
-        :param ProcessingStateRequest processing_state: 
-        :param SortBy sort_by: 
+        :param CallSummariesInstance.ProcessingStateRequest processing_state: 
+        :param CallSummariesInstance.SortBy sort_by: 
         :param str subaccount: 
         :param bool abnormal_session: 
         :param str page_token: PageToken provided by the API
@@ -382,7 +382,7 @@ class CallSummariesInstance(InstanceResource):
     def answered_by(self):
         """
         :returns: 
-        :rtype: AnsweredBy
+        :rtype: CallSummariesInstance.AnsweredBy
         """
         return self._properties['answered_by']
     
@@ -390,7 +390,7 @@ class CallSummariesInstance(InstanceResource):
     def call_type(self):
         """
         :returns: 
-        :rtype: CallType
+        :rtype: CallSummariesInstance.CallType
         """
         return self._properties['call_type']
     
@@ -398,7 +398,7 @@ class CallSummariesInstance(InstanceResource):
     def call_state(self):
         """
         :returns: 
-        :rtype: CallState
+        :rtype: CallSummariesInstance.CallState
         """
         return self._properties['call_state']
     
@@ -406,7 +406,7 @@ class CallSummariesInstance(InstanceResource):
     def processing_state(self):
         """
         :returns: 
-        :rtype: ProcessingState
+        :rtype: CallSummariesInstance.ProcessingState
         """
         return self._properties['processing_state']
     

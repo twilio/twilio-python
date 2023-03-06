@@ -232,7 +232,7 @@ class WebhookInstance(InstanceResource):
     def method(self):
         """
         :returns: 
-        :rtype: Method
+        :rtype: WebhookInstance.Method
         """
         return self._properties['method']
     

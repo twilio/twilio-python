@@ -264,7 +264,7 @@ class UserConversationContext(InstanceContext):
         """
         Update the UserConversationInstance
         
-        :params NotificationLevel notification_level: 
+        :params UserConversationInstance.NotificationLevel notification_level: 
         :params datetime last_read_timestamp: The date of the last message read in conversation by the user, given in ISO 8601 format.
         :params int last_read_message_index: The index of the last Message in the Conversation that the Participant has read.
 
@@ -422,7 +422,7 @@ class UserConversationInstance(InstanceResource):
     def conversation_state(self):
         """
         :returns: 
-        :rtype: State
+        :rtype: UserConversationInstance.State
         """
         return self._properties['conversation_state']
     
@@ -470,7 +470,7 @@ class UserConversationInstance(InstanceResource):
     def notification_level(self):
         """
         :returns: 
-        :rtype: NotificationLevel
+        :rtype: UserConversationInstance.NotificationLevel
         """
         return self._properties['notification_level']
     
@@ -522,7 +522,7 @@ class UserConversationInstance(InstanceResource):
         """
         Update the UserConversationInstance
         
-        :params NotificationLevel notification_level: 
+        :params UserConversationInstance.NotificationLevel notification_level: 
         :params datetime last_read_timestamp: The date of the last message read in conversation by the user, given in ISO 8601 format.
         :params int last_read_message_index: The index of the last Message in the Conversation that the Participant has read.
 

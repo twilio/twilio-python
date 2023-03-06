@@ -387,7 +387,7 @@ class InteractionInstance(InstanceResource):
     def type(self):
         """
         :returns: 
-        :rtype: Type
+        :rtype: InteractionInstance.Type
         """
         return self._properties['type']
     
@@ -411,7 +411,7 @@ class InteractionInstance(InstanceResource):
     def inbound_resource_status(self):
         """
         :returns: 
-        :rtype: ResourceStatus
+        :rtype: InteractionInstance.ResourceStatus
         """
         return self._properties['inbound_resource_status']
     
@@ -451,7 +451,7 @@ class InteractionInstance(InstanceResource):
     def outbound_resource_status(self):
         """
         :returns: 
-        :rtype: ResourceStatus
+        :rtype: InteractionInstance.ResourceStatus
         """
         return self._properties['outbound_resource_status']
     

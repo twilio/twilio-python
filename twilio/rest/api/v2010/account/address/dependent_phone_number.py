@@ -355,7 +355,7 @@ class DependentPhoneNumberInstance(InstanceResource):
     def address_requirements(self):
         """
         :returns: 
-        :rtype: AddressRequirement
+        :rtype: DependentPhoneNumberInstance.AddressRequirement
         """
         return self._properties['address_requirements']
     
@@ -419,7 +419,7 @@ class DependentPhoneNumberInstance(InstanceResource):
     def emergency_status(self):
         """
         :returns: 
-        :rtype: EmergencyStatus
+        :rtype: DependentPhoneNumberInstance.EmergencyStatus
         """
         return self._properties['emergency_status']
     
