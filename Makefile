@@ -27,7 +27,7 @@ test: analysis
 
 test-with-coverage:
 	. venv/bin/activate; \
-  	pytest --cov-config=setup.cfg --cov-report xml --cov=twilio tests
+  	pytest --cov-config=setup.cfg --cov-report xml --cov=twilio tests --ignore=tests/cluster
 
 cluster-test:
 	. venv/bin/activate; pytest tests/cluster
